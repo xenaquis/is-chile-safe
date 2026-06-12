@@ -77,10 +77,40 @@
 
 ## Traceability
 
-(Filled by roadmap)
-
-| REQ-ID | Phase |
-|--------|-------|
+| REQ-ID | Phase | Status |
+|--------|-------|--------|
+| DATA-01 | Phase 1 | Pending |
+| DATA-02 | Phase 1 | Pending |
+| DATA-03 | Phase 1 | Pending |
+| DATA-04 | Phase 1 | Pending |
+| PAGES-01 | Phase 2 | Pending |
+| PAGES-02 | Phase 2 | Pending |
+| PAGES-03 | Phase 2 | Pending |
+| PAGES-04 | Phase 2 | Pending |
+| SEO-01 | Phase 2 | Pending |
+| SEO-02 | Phase 2 | Pending |
+| SEO-03 | Phase 2 | Pending |
+| SEO-04 | Phase 2 | Pending |
+| MAP-01 | Phase 3 | Pending |
+| MAP-02 | Phase 3 | Pending |
+| MAP-03 | Phase 3 | Pending |
+| MAP-04 | Phase 3 | Pending |
+| MAP-05 | Phase 3 | Pending |
+| MAP-06 | Phase 3 | Pending |
+| EDIT-01 | Phase 4 | Pending |
+| EDIT-02 | Phase 4 | Pending |
+| EDIT-03 | Phase 4 | Pending |
+| EDIT-04 | Phase 4 | Pending |
+| EDIT-05 | Phase 4 | Pending |
+| MON-01 | Phase 4 | Pending |
+| NEWS-01 | Phase 5 | Pending |
+| NEWS-02 | Phase 5 | Pending |
+| NEWS-03 | Phase 5 | Pending |
+| NEWS-04 | Phase 5 | Pending |
+| NEWS-05 | Phase 5 | Pending |
+| INFRA-01 | Phase 6 | Pending |
+| INFRA-02 | Phase 6 | Pending |
+| INFRA-03 | Phase 6 | Pending |
 
 ---
-*Last updated: 2026-06-12 after initialization*
+*Last updated: 2026-06-12 after roadmap creation*
