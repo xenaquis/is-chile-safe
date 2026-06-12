@@ -72,6 +72,6 @@ _Last updated: 2026-06-12_
 
 ## Session Continuity
 
-**Last session**: 2026-06-12 — Project initialized; roadmap created
+**Last session**: 2026-06-12 — Phase 1 context gathered (`/gsd-discuss-phase 1`); 17 decisions captured in `01-CONTEXT.md`
 **Next action**: `/gsd:plan-phase 1` — Plan Phase 1: Data Foundation
-**Resume prompt**: Start Phase 1 planning. CEAD scraper (DATA-01..04). Run live endpoint validation before writing pipeline code — confirm POST parameters and response schema. See `.planning/research/STACK.md` and `.planning/research/ARCHITECTURE.md` for implementation patterns.
+**Resume prompt**: Start Phase 1 planning. Read `.planning/phases/01-data-foundation/01-CONTEXT.md` first (locked decisions: Excel bulk + fallback HTML, familias+grupos con homicidios/secuestros/propiedad destacados, tasas CEAD medida=2, CUT como ID canónico, validación todo-o-nada). Run live endpoint validation before writing pipeline code.
