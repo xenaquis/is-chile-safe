@@ -22,7 +22,11 @@ _Last updated: 2026-06-12_
   2. A schema validation step rejects commits when expected commune count, required keys, or plausible rate ranges are violated — the last good JSON file is preserved
   3. The pre-aggregated map payload (`map-payload.json`) is present and under 30 KB
   4. Crime rates are expressed as rate per 100,000 inhabitants; national rankings exclude communes with fewer than 10,000 residents
-**Plans**: TBD
+**Plans**: 4 plans
+- [ ] 01-01-PLAN.md — Pipeline scaffold, Pydantic v2 schema gate, atomic write, pytest infra
+- [ ] 01-02-PLAN.md — INE communal population asset + lookup module (10k ranking filter)
+- [ ] 01-03-PLAN.md — CEAD HTTP client, commune catalog, HTML/decimal parser + fixture
+- [ ] 01-04-PLAN.md — Normalizer (trend/rank/slug/featured) + orchestrator + full /data/cead output
 
 ### Phase 2: Astro Site + Programmatic Pages
 **Goal**: A pre-rendered bilingual static site is deployed on Cloudflare Pages with SEO-valid programmatic pages for all territorial entities
@@ -89,7 +93,7 @@ _Last updated: 2026-06-12_
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Foundation | 0/? | Not started | - |
+| 1. Data Foundation | 0/4 | Planned | - |
 | 2. Astro Site + Programmatic Pages | 0/? | Not started | - |
 | 3. Leaflet Map Island | 0/? | Not started | - |
 | 4. Editorial Pages + AdSense | 0/? | Not started | - |
