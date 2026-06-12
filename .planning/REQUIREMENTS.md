@@ -5,8 +5,8 @@
 ### Datos CEAD (DATA)
 
 - [ ] **DATA-01**: Scraper Python extrae frecuencias y casos policiales desde los endpoints CEAD (`get_estadisticas_delictuales*.php`) para las 346 comunas, 16 regiones y total país, todos los años disponibles (2005–presente) y las 7 familias de delito
-- [ ] **DATA-02**: Cada scrape se valida con esquema Pydantic (346 comunas presentes, claves esperadas, tasas dentro de rangos plausibles); ante fallo el pipeline termina con error sin commitear, preservando el último JSON bueno
-- [ ] **DATA-03**: Datos normalizados a JSON estático versionado en el repo: un archivo por comuna, por región, agregado nacional y un payload de mapa pre-agregado (~28 KB)
+- [x] **DATA-02**: Cada scrape se valida con esquema Pydantic (346 comunas presentes, claves esperadas, tasas dentro de rangos plausibles); ante fallo el pipeline termina con error sin commitear, preservando el último JSON bueno
+- [x] **DATA-03**: Datos normalizados a JSON estático versionado en el repo: un archivo por comuna, por región, agregado nacional y un payload de mapa pre-agregado (~28 KB)
 - [ ] **DATA-04**: La tasa por 100.000 habitantes es la métrica canónica del data contract; los rankings nacionales aplican filtro de población mínima (10.000 hab) y nunca ordenan por conteo absoluto
 
 ### Capa de noticias (NEWS)
@@ -80,8 +80,8 @@
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
 | DATA-01 | Phase 1 | Pending |
-| DATA-02 | Phase 1 | Pending |
-| DATA-03 | Phase 1 | Pending |
+| DATA-02 | Phase 1 | Complete |
+| DATA-03 | Phase 1 | Complete |
 | DATA-04 | Phase 1 | Pending |
 | PAGES-01 | Phase 2 | Pending |
 | PAGES-02 | Phase 2 | Pending |

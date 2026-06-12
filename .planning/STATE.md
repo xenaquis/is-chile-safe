@@ -3,18 +3,18 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-last_updated: "2026-06-12T23:44:28.575Z"
+last_updated: "2026-06-12T23:54:25.700Z"
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 4
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-12_
+_Last updated: 2026-06-12 (plan 01-01 complete)_
 
 ## Project Reference
 
@@ -24,10 +24,12 @@ _Last updated: 2026-06-12_
 
 ## Current Position
 
+Phase: 01 (data-foundation) — EXECUTING
+Plan: 2 of 4
 **Phase**: 1 — Data Foundation
-**Plan**: Not started
-**Status**: Not started
-**Progress**: ░░░░░░░░░░ 0% (0/6 phases complete)
+**Plan**: 01 — Complete; Plan 02 next
+**Status**: Plan 01-01 complete — 18 tests green
+**Progress**: [███░░░░░░░] 25% (1/4 plans complete in Phase 01)
 
 ## Performance Metrics
 
@@ -42,6 +44,8 @@ _Last updated: 2026-06-12_
 
 ### Key Decisions
 
+- Pydantic v2 syntax exclusively across pipeline — no v1 @validator or parse_obj
+- PLAUSIBILITY_MAX_RATE=20000 as named constant in schema.py — tighten after real CEAD data validates
 - Astro 6.4.x + React islands for pre-rendered static HTML (SEO indexability mandatory)
 - JSON in repo as data store — no backend/DB; GitHub Actions cron commits trigger Cloudflare Pages via Deploy Hook only (never Git auto-build)
 - DeepSeek v4-flash for RSS classification; `deepseek-chat` deprecated 2026-07-24 — never commit that model ID
@@ -72,6 +76,6 @@ _Last updated: 2026-06-12_
 
 ## Session Continuity
 
-**Last session**: 2026-06-12 — Phase 1 context gathered (`/gsd-discuss-phase 1`); 17 decisions captured in `01-CONTEXT.md`
-**Next action**: `/gsd:plan-phase 1` — Plan Phase 1: Data Foundation
-**Resume prompt**: Start Phase 1 planning. Read `.planning/phases/01-data-foundation/01-CONTEXT.md` first (locked decisions: Excel bulk + fallback HTML, familias+grupos con homicidios/secuestros/propiedad destacados, tasas CEAD medida=2, CUT como ID canónico, validación todo-o-nada). Run live endpoint validation before writing pipeline code.
+**Last session**: 2026-06-12 — Executed Plan 01-01; 18 tests green; schema + atomic write complete
+**Next action**: Execute Plan 01-02 (CEAD HTTP client)
+**Resume prompt**: Continue Phase 1 from Plan 02. Pipeline scaffold complete — schema.py, atomic_write.py, pytest all green. Next: CEAD HTTP client with session headers, tenacity retries, and cache layer.
