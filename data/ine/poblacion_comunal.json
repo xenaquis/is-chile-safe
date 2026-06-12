@@ -1,0 +1,1732 @@
+[
+  {
+    "cut": "1101",
+    "name": "Iquique",
+    "population_2024": 231962
+  },
+  {
+    "cut": "1107",
+    "name": "Alto Hospicio",
+    "population_2024": 143294
+  },
+  {
+    "cut": "1401",
+    "name": "Pozo Almonte",
+    "population_2024": 18713
+  },
+  {
+    "cut": "1402",
+    "name": "Camiña",
+    "population_2024": 1374
+  },
+  {
+    "cut": "1403",
+    "name": "Colchane",
+    "population_2024": 1558
+  },
+  {
+    "cut": "1404",
+    "name": "Huara",
+    "population_2024": 3095
+  },
+  {
+    "cut": "1405",
+    "name": "Pica",
+    "population_2024": 6291
+  },
+  {
+    "cut": "2101",
+    "name": "Antofagasta",
+    "population_2024": 444276
+  },
+  {
+    "cut": "2102",
+    "name": "Mejillones",
+    "population_2024": 15877
+  },
+  {
+    "cut": "2103",
+    "name": "Sierra Gorda",
+    "population_2024": 1800
+  },
+  {
+    "cut": "2104",
+    "name": "Taltal",
+    "population_2024": 13967
+  },
+  {
+    "cut": "2201",
+    "name": "Calama",
+    "population_2024": 196152
+  },
+  {
+    "cut": "2202",
+    "name": "Ollagüe",
+    "population_2024": 269
+  },
+  {
+    "cut": "2203",
+    "name": "San Pedro de Atacama",
+    "population_2024": 11030
+  },
+  {
+    "cut": "2301",
+    "name": "Tocopilla",
+    "population_2024": 28354
+  },
+  {
+    "cut": "2302",
+    "name": "María Elena",
+    "population_2024": 6507
+  },
+  {
+    "cut": "3101",
+    "name": "Copiapó",
+    "population_2024": 176100
+  },
+  {
+    "cut": "3102",
+    "name": "Caldera",
+    "population_2024": 19964
+  },
+  {
+    "cut": "3103",
+    "name": "Tierra Amarilla",
+    "population_2024": 14431
+  },
+  {
+    "cut": "3201",
+    "name": "Chañaral",
+    "population_2024": 13017
+  },
+  {
+    "cut": "3202",
+    "name": "Diego de Almagro",
+    "population_2024": 13909
+  },
+  {
+    "cut": "3301",
+    "name": "Vallenar",
+    "population_2024": 57360
+  },
+  {
+    "cut": "3302",
+    "name": "Alto del Carmen",
+    "population_2024": 5781
+  },
+  {
+    "cut": "3303",
+    "name": "Freirina",
+    "population_2024": 7840
+  },
+  {
+    "cut": "3304",
+    "name": "Huasco",
+    "population_2024": 11590
+  },
+  {
+    "cut": "4101",
+    "name": "La Serena",
+    "population_2024": 267400
+  },
+  {
+    "cut": "4102",
+    "name": "Coquimbo",
+    "population_2024": 275644
+  },
+  {
+    "cut": "4103",
+    "name": "Andacollo",
+    "population_2024": 11836
+  },
+  {
+    "cut": "4104",
+    "name": "La Higuera",
+    "population_2024": 4533
+  },
+  {
+    "cut": "4105",
+    "name": "Paiguano",
+    "population_2024": 4709
+  },
+  {
+    "cut": "4106",
+    "name": "Vicuña",
+    "population_2024": 30541
+  },
+  {
+    "cut": "4201",
+    "name": "Illapel",
+    "population_2024": 33021
+  },
+  {
+    "cut": "4202",
+    "name": "Canela",
+    "population_2024": 9509
+  },
+  {
+    "cut": "4203",
+    "name": "Los Vilos",
+    "population_2024": 24408
+  },
+  {
+    "cut": "4204",
+    "name": "Salamanca",
+    "population_2024": 29916
+  },
+  {
+    "cut": "4301",
+    "name": "Ovalle",
+    "population_2024": 124401
+  },
+  {
+    "cut": "4302",
+    "name": "Combarbalá",
+    "population_2024": 13855
+  },
+  {
+    "cut": "4303",
+    "name": "Monte Patria",
+    "population_2024": 32672
+  },
+  {
+    "cut": "4304",
+    "name": "Punitaqui",
+    "population_2024": 12514
+  },
+  {
+    "cut": "4305",
+    "name": "Río Hurtado",
+    "population_2024": 4308
+  },
+  {
+    "cut": "5101",
+    "name": "Valparaíso",
+    "population_2024": 320816
+  },
+  {
+    "cut": "5102",
+    "name": "Casablanca",
+    "population_2024": 30543
+  },
+  {
+    "cut": "5103",
+    "name": "Concón",
+    "population_2024": 48171
+  },
+  {
+    "cut": "5104",
+    "name": "Juan Fernández",
+    "population_2024": 1104
+  },
+  {
+    "cut": "5105",
+    "name": "Puchuncaví",
+    "population_2024": 21221
+  },
+  {
+    "cut": "5107",
+    "name": "Quintero",
+    "population_2024": 38613
+  },
+  {
+    "cut": "5109",
+    "name": "Viña del Mar",
+    "population_2024": 371490
+  },
+  {
+    "cut": "5201",
+    "name": "Isla de Pascua",
+    "population_2024": 8872
+  },
+  {
+    "cut": "5301",
+    "name": "Los Andes",
+    "population_2024": 68939
+  },
+  {
+    "cut": "5302",
+    "name": "Calle Larga",
+    "population_2024": 17673
+  },
+  {
+    "cut": "5303",
+    "name": "Rinconada",
+    "population_2024": 12030
+  },
+  {
+    "cut": "5304",
+    "name": "San Esteban",
+    "population_2024": 21756
+  },
+  {
+    "cut": "5401",
+    "name": "La Ligua",
+    "population_2024": 38387
+  },
+  {
+    "cut": "5402",
+    "name": "Cabildo",
+    "population_2024": 20757
+  },
+  {
+    "cut": "5403",
+    "name": "Papudo",
+    "population_2024": 6438
+  },
+  {
+    "cut": "5404",
+    "name": "Petorca",
+    "population_2024": 10633
+  },
+  {
+    "cut": "5405",
+    "name": "Zapallar",
+    "population_2024": 8368
+  },
+  {
+    "cut": "5501",
+    "name": "Quillota",
+    "population_2024": 100972
+  },
+  {
+    "cut": "5502",
+    "name": "Calera",
+    "population_2024": 53902
+  },
+  {
+    "cut": "5503",
+    "name": "Hijuelas",
+    "population_2024": 19464
+  },
+  {
+    "cut": "5504",
+    "name": "La Cruz",
+    "population_2024": 27898
+  },
+  {
+    "cut": "5506",
+    "name": "Nogales",
+    "population_2024": 23645
+  },
+  {
+    "cut": "5601",
+    "name": "San Antonio",
+    "population_2024": 98579
+  },
+  {
+    "cut": "5602",
+    "name": "Algarrobo",
+    "population_2024": 16095
+  },
+  {
+    "cut": "5603",
+    "name": "Cartagena",
+    "population_2024": 27065
+  },
+  {
+    "cut": "5604",
+    "name": "El Quisco",
+    "population_2024": 18840
+  },
+  {
+    "cut": "5605",
+    "name": "El Tabo",
+    "population_2024": 15196
+  },
+  {
+    "cut": "5606",
+    "name": "Santo Domingo",
+    "population_2024": 12609
+  },
+  {
+    "cut": "5701",
+    "name": "San Felipe",
+    "population_2024": 86838
+  },
+  {
+    "cut": "5702",
+    "name": "Catemu",
+    "population_2024": 15714
+  },
+  {
+    "cut": "5703",
+    "name": "Llaillay",
+    "population_2024": 27286
+  },
+  {
+    "cut": "5704",
+    "name": "Panquehue",
+    "population_2024": 7841
+  },
+  {
+    "cut": "5705",
+    "name": "Putaendo",
+    "population_2024": 18023
+  },
+  {
+    "cut": "5706",
+    "name": "Santa María",
+    "population_2024": 16962
+  },
+  {
+    "cut": "5801",
+    "name": "Quilpué",
+    "population_2024": 173591
+  },
+  {
+    "cut": "5802",
+    "name": "Limache",
+    "population_2024": 51697
+  },
+  {
+    "cut": "5803",
+    "name": "Olmué",
+    "population_2024": 20247
+  },
+  {
+    "cut": "5804",
+    "name": "Villa Alemana",
+    "population_2024": 147418
+  },
+  {
+    "cut": "6101",
+    "name": "Rancagua",
+    "population_2024": 274407
+  },
+  {
+    "cut": "6102",
+    "name": "Codegua",
+    "population_2024": 14627
+  },
+  {
+    "cut": "6103",
+    "name": "Coinco",
+    "population_2024": 8024
+  },
+  {
+    "cut": "6104",
+    "name": "Coltauco",
+    "population_2024": 22143
+  },
+  {
+    "cut": "6105",
+    "name": "Doñihue",
+    "population_2024": 23647
+  },
+  {
+    "cut": "6106",
+    "name": "Graneros",
+    "population_2024": 38185
+  },
+  {
+    "cut": "6107",
+    "name": "Las Cabras",
+    "population_2024": 27749
+  },
+  {
+    "cut": "6108",
+    "name": "Machalí",
+    "population_2024": 64751
+  },
+  {
+    "cut": "6109",
+    "name": "Malloa",
+    "population_2024": 14300
+  },
+  {
+    "cut": "6110",
+    "name": "Mostazal",
+    "population_2024": 28552
+  },
+  {
+    "cut": "6111",
+    "name": "Olivar",
+    "population_2024": 15007
+  },
+  {
+    "cut": "6112",
+    "name": "Peumo",
+    "population_2024": 15028
+  },
+  {
+    "cut": "6113",
+    "name": "Pichidegua",
+    "population_2024": 21074
+  },
+  {
+    "cut": "6114",
+    "name": "Quinta de Tilcoco",
+    "population_2024": 14288
+  },
+  {
+    "cut": "6115",
+    "name": "Rengo",
+    "population_2024": 65786
+  },
+  {
+    "cut": "6116",
+    "name": "Requínoa",
+    "population_2024": 31724
+  },
+  {
+    "cut": "6117",
+    "name": "San Vicente",
+    "population_2024": 52289
+  },
+  {
+    "cut": "6201",
+    "name": "Pichilemu",
+    "population_2024": 18804
+  },
+  {
+    "cut": "6202",
+    "name": "La Estrella",
+    "population_2024": 3098
+  },
+  {
+    "cut": "6203",
+    "name": "Litueche",
+    "population_2024": 6949
+  },
+  {
+    "cut": "6204",
+    "name": "Marchihue",
+    "population_2024": 7715
+  },
+  {
+    "cut": "6205",
+    "name": "Navidad",
+    "population_2024": 7135
+  },
+  {
+    "cut": "6206",
+    "name": "Paredones",
+    "population_2024": 6259
+  },
+  {
+    "cut": "6301",
+    "name": "San Fernando",
+    "population_2024": 81117
+  },
+  {
+    "cut": "6302",
+    "name": "Chépica",
+    "population_2024": 16148
+  },
+  {
+    "cut": "6303",
+    "name": "Chimbarongo",
+    "population_2024": 38451
+  },
+  {
+    "cut": "6304",
+    "name": "Lolol",
+    "population_2024": 7454
+  },
+  {
+    "cut": "6305",
+    "name": "Nancagua",
+    "population_2024": 19725
+  },
+  {
+    "cut": "6306",
+    "name": "Palmilla",
+    "population_2024": 13597
+  },
+  {
+    "cut": "6307",
+    "name": "Peralillo",
+    "population_2024": 12174
+  },
+  {
+    "cut": "6308",
+    "name": "Placilla",
+    "population_2024": 9281
+  },
+  {
+    "cut": "6309",
+    "name": "Pumanque",
+    "population_2024": 3516
+  },
+  {
+    "cut": "6310",
+    "name": "Santa Cruz",
+    "population_2024": 42582
+  },
+  {
+    "cut": "7101",
+    "name": "Talca",
+    "population_2024": 242344
+  },
+  {
+    "cut": "7102",
+    "name": "Constitución",
+    "population_2024": 50646
+  },
+  {
+    "cut": "7103",
+    "name": "Curepto",
+    "population_2024": 9136
+  },
+  {
+    "cut": "7104",
+    "name": "Empedrado",
+    "population_2024": 4176
+  },
+  {
+    "cut": "7105",
+    "name": "Maule",
+    "population_2024": 68975
+  },
+  {
+    "cut": "7106",
+    "name": "Pelarco",
+    "population_2024": 9407
+  },
+  {
+    "cut": "7107",
+    "name": "Pencahue",
+    "population_2024": 8626
+  },
+  {
+    "cut": "7108",
+    "name": "Río Claro",
+    "population_2024": 15129
+  },
+  {
+    "cut": "7109",
+    "name": "San Clemente",
+    "population_2024": 47999
+  },
+  {
+    "cut": "7110",
+    "name": "San Rafael",
+    "population_2024": 10399
+  },
+  {
+    "cut": "7201",
+    "name": "Cauquenes",
+    "population_2024": 44446
+  },
+  {
+    "cut": "7202",
+    "name": "Chanco",
+    "population_2024": 9256
+  },
+  {
+    "cut": "7203",
+    "name": "Pelluhue",
+    "population_2024": 8444
+  },
+  {
+    "cut": "7301",
+    "name": "Curicó",
+    "population_2024": 171589
+  },
+  {
+    "cut": "7302",
+    "name": "Hualañé",
+    "population_2024": 10225
+  },
+  {
+    "cut": "7303",
+    "name": "Licantén",
+    "population_2024": 6986
+  },
+  {
+    "cut": "7304",
+    "name": "Molina",
+    "population_2024": 52088
+  },
+  {
+    "cut": "7305",
+    "name": "Rauco",
+    "population_2024": 11753
+  },
+  {
+    "cut": "7306",
+    "name": "Romeral",
+    "population_2024": 16925
+  },
+  {
+    "cut": "7307",
+    "name": "Sagrada Familia",
+    "population_2024": 19754
+  },
+  {
+    "cut": "7308",
+    "name": "Teno",
+    "population_2024": 31885
+  },
+  {
+    "cut": "7309",
+    "name": "Vichuquén",
+    "population_2024": 4311
+  },
+  {
+    "cut": "7401",
+    "name": "Linares",
+    "population_2024": 103958
+  },
+  {
+    "cut": "7402",
+    "name": "Colbún",
+    "population_2024": 23479
+  },
+  {
+    "cut": "7403",
+    "name": "Longaví",
+    "population_2024": 33666
+  },
+  {
+    "cut": "7404",
+    "name": "Parral",
+    "population_2024": 45583
+  },
+  {
+    "cut": "7405",
+    "name": "Retiro",
+    "population_2024": 21492
+  },
+  {
+    "cut": "7406",
+    "name": "San Javier",
+    "population_2024": 51469
+  },
+  {
+    "cut": "7407",
+    "name": "Villa Alegre",
+    "population_2024": 18036
+  },
+  {
+    "cut": "7408",
+    "name": "Yerbas Buenas",
+    "population_2024": 19800
+  },
+  {
+    "cut": "8101",
+    "name": "Concepción",
+    "population_2024": 239776
+  },
+  {
+    "cut": "8102",
+    "name": "Coronel",
+    "population_2024": 128941
+  },
+  {
+    "cut": "8103",
+    "name": "Chiguayante",
+    "population_2024": 91963
+  },
+  {
+    "cut": "8104",
+    "name": "Florida",
+    "population_2024": 11873
+  },
+  {
+    "cut": "8105",
+    "name": "Hualqui",
+    "population_2024": 26746
+  },
+  {
+    "cut": "8106",
+    "name": "Lota",
+    "population_2024": 45407
+  },
+  {
+    "cut": "8107",
+    "name": "Penco",
+    "population_2024": 50189
+  },
+  {
+    "cut": "8108",
+    "name": "San Pedro de la Paz",
+    "population_2024": 153516
+  },
+  {
+    "cut": "8109",
+    "name": "Santa Juana",
+    "population_2024": 14890
+  },
+  {
+    "cut": "8110",
+    "name": "Talcahuano",
+    "population_2024": 158167
+  },
+  {
+    "cut": "8111",
+    "name": "Tomé",
+    "population_2024": 59150
+  },
+  {
+    "cut": "8112",
+    "name": "Hualpén",
+    "population_2024": 98055
+  },
+  {
+    "cut": "8201",
+    "name": "Lebu",
+    "population_2024": 27152
+  },
+  {
+    "cut": "8202",
+    "name": "Arauco",
+    "population_2024": 38941
+  },
+  {
+    "cut": "8203",
+    "name": "Cañete",
+    "population_2024": 37443
+  },
+  {
+    "cut": "8204",
+    "name": "Contulmo",
+    "population_2024": 6355
+  },
+  {
+    "cut": "8205",
+    "name": "Curanilahue",
+    "population_2024": 33942
+  },
+  {
+    "cut": "8206",
+    "name": "Los Álamos",
+    "population_2024": 22953
+  },
+  {
+    "cut": "8207",
+    "name": "Tirúa",
+    "population_2024": 11105
+  },
+  {
+    "cut": "8301",
+    "name": "Los Angeles",
+    "population_2024": 223751
+  },
+  {
+    "cut": "8302",
+    "name": "Antuco",
+    "population_2024": 4325
+  },
+  {
+    "cut": "8303",
+    "name": "Cabrero",
+    "population_2024": 31102
+  },
+  {
+    "cut": "8304",
+    "name": "Laja",
+    "population_2024": 23921
+  },
+  {
+    "cut": "8305",
+    "name": "Mulchén",
+    "population_2024": 31122
+  },
+  {
+    "cut": "8306",
+    "name": "Nacimiento",
+    "population_2024": 28028
+  },
+  {
+    "cut": "8307",
+    "name": "Negrete",
+    "population_2024": 10574
+  },
+  {
+    "cut": "8308",
+    "name": "Quilaco",
+    "population_2024": 4186
+  },
+  {
+    "cut": "8309",
+    "name": "Quilleco",
+    "population_2024": 9986
+  },
+  {
+    "cut": "8310",
+    "name": "San Rosendo",
+    "population_2024": 3553
+  },
+  {
+    "cut": "8311",
+    "name": "Santa Bárbara",
+    "population_2024": 14671
+  },
+  {
+    "cut": "8312",
+    "name": "Tucapel",
+    "population_2024": 15428
+  },
+  {
+    "cut": "8313",
+    "name": "Yumbel",
+    "population_2024": 22210
+  },
+  {
+    "cut": "8314",
+    "name": "Alto Biobío",
+    "population_2024": 6804
+  },
+  {
+    "cut": "9101",
+    "name": "Temuco",
+    "population_2024": 309696
+  },
+  {
+    "cut": "9102",
+    "name": "Carahue",
+    "population_2024": 25515
+  },
+  {
+    "cut": "9103",
+    "name": "Cunco",
+    "population_2024": 18068
+  },
+  {
+    "cut": "9104",
+    "name": "Curarrehue",
+    "population_2024": 7873
+  },
+  {
+    "cut": "9105",
+    "name": "Freire",
+    "population_2024": 25488
+  },
+  {
+    "cut": "9106",
+    "name": "Galvarino",
+    "population_2024": 12568
+  },
+  {
+    "cut": "9107",
+    "name": "Gorbea",
+    "population_2024": 15076
+  },
+  {
+    "cut": "9108",
+    "name": "Lautaro",
+    "population_2024": 41884
+  },
+  {
+    "cut": "9109",
+    "name": "Loncoche",
+    "population_2024": 24785
+  },
+  {
+    "cut": "9110",
+    "name": "Melipeuco",
+    "population_2024": 6319
+  },
+  {
+    "cut": "9111",
+    "name": "Nueva Imperial",
+    "population_2024": 34151
+  },
+  {
+    "cut": "9112",
+    "name": "Padre Las Casas",
+    "population_2024": 85373
+  },
+  {
+    "cut": "9113",
+    "name": "Perquenco",
+    "population_2024": 7269
+  },
+  {
+    "cut": "9114",
+    "name": "Pitrufquen",
+    "population_2024": 26617
+  },
+  {
+    "cut": "9115",
+    "name": "Pucón",
+    "population_2024": 30712
+  },
+  {
+    "cut": "9116",
+    "name": "Saavedra",
+    "population_2024": 12660
+  },
+  {
+    "cut": "9117",
+    "name": "Teodoro Schmidt",
+    "population_2024": 15744
+  },
+  {
+    "cut": "9118",
+    "name": "Toltén",
+    "population_2024": 9937
+  },
+  {
+    "cut": "9119",
+    "name": "Vilcún",
+    "population_2024": 32742
+  },
+  {
+    "cut": "9120",
+    "name": "Villarrica",
+    "population_2024": 60675
+  },
+  {
+    "cut": "9121",
+    "name": "Cholchol",
+    "population_2024": 12647
+  },
+  {
+    "cut": "9201",
+    "name": "Angol",
+    "population_2024": 56797
+  },
+  {
+    "cut": "9202",
+    "name": "Collipulli",
+    "population_2024": 26558
+  },
+  {
+    "cut": "9203",
+    "name": "Curacautín",
+    "population_2024": 18211
+  },
+  {
+    "cut": "9204",
+    "name": "Ercilla",
+    "population_2024": 8387
+  },
+  {
+    "cut": "9205",
+    "name": "Lonquimay",
+    "population_2024": 11109
+  },
+  {
+    "cut": "9206",
+    "name": "Los Sauces",
+    "population_2024": 7468
+  },
+  {
+    "cut": "9207",
+    "name": "Lumaco",
+    "population_2024": 9916
+  },
+  {
+    "cut": "9208",
+    "name": "Purén",
+    "population_2024": 12103
+  },
+  {
+    "cut": "9209",
+    "name": "Renaico",
+    "population_2024": 11002
+  },
+  {
+    "cut": "9210",
+    "name": "Traiguén",
+    "population_2024": 19260
+  },
+  {
+    "cut": "9211",
+    "name": "Victoria",
+    "population_2024": 35554
+  },
+  {
+    "cut": "10101",
+    "name": "Puerto Montt",
+    "population_2024": 280955
+  },
+  {
+    "cut": "10102",
+    "name": "Calbuco",
+    "population_2024": 37626
+  },
+  {
+    "cut": "10103",
+    "name": "Cochamó",
+    "population_2024": 3947
+  },
+  {
+    "cut": "10104",
+    "name": "Fresia",
+    "population_2024": 12571
+  },
+  {
+    "cut": "10105",
+    "name": "Frutillar",
+    "population_2024": 20817
+  },
+  {
+    "cut": "10106",
+    "name": "Los Muermos",
+    "population_2024": 17832
+  },
+  {
+    "cut": "10107",
+    "name": "Llanquihue",
+    "population_2024": 18863
+  },
+  {
+    "cut": "10108",
+    "name": "Maullín",
+    "population_2024": 14735
+  },
+  {
+    "cut": "10109",
+    "name": "Puerto Varas",
+    "population_2024": 51316
+  },
+  {
+    "cut": "10201",
+    "name": "Castro",
+    "population_2024": 48727
+  },
+  {
+    "cut": "10202",
+    "name": "Ancud",
+    "population_2024": 42524
+  },
+  {
+    "cut": "10203",
+    "name": "Chonchi",
+    "population_2024": 16267
+  },
+  {
+    "cut": "10204",
+    "name": "Curaco de Vélez",
+    "population_2024": 4135
+  },
+  {
+    "cut": "10205",
+    "name": "Dalcahue",
+    "population_2024": 15456
+  },
+  {
+    "cut": "10206",
+    "name": "Puqueldón",
+    "population_2024": 4188
+  },
+  {
+    "cut": "10207",
+    "name": "Queilén",
+    "population_2024": 5542
+  },
+  {
+    "cut": "10208",
+    "name": "Quellón",
+    "population_2024": 30136
+  },
+  {
+    "cut": "10209",
+    "name": "Quemchi",
+    "population_2024": 8754
+  },
+  {
+    "cut": "10210",
+    "name": "Quinchao",
+    "population_2024": 8186
+  },
+  {
+    "cut": "10301",
+    "name": "Osorno",
+    "population_2024": 176304
+  },
+  {
+    "cut": "10302",
+    "name": "Puerto Octay",
+    "population_2024": 9056
+  },
+  {
+    "cut": "10303",
+    "name": "Purranque",
+    "population_2024": 20968
+  },
+  {
+    "cut": "10304",
+    "name": "Puyehue",
+    "population_2024": 11818
+  },
+  {
+    "cut": "10305",
+    "name": "Río Negro",
+    "population_2024": 14085
+  },
+  {
+    "cut": "10306",
+    "name": "San Juan de la Costa",
+    "population_2024": 7424
+  },
+  {
+    "cut": "10307",
+    "name": "San Pablo",
+    "population_2024": 10537
+  },
+  {
+    "cut": "10401",
+    "name": "Chaitén",
+    "population_2024": 5078
+  },
+  {
+    "cut": "10402",
+    "name": "Futaleufú",
+    "population_2024": 2912
+  },
+  {
+    "cut": "10403",
+    "name": "Hualaihué",
+    "population_2024": 9586
+  },
+  {
+    "cut": "10404",
+    "name": "Palena",
+    "population_2024": 1826
+  },
+  {
+    "cut": "11101",
+    "name": "Coyhaique",
+    "population_2024": 62046
+  },
+  {
+    "cut": "11102",
+    "name": "Lago Verde",
+    "population_2024": 914
+  },
+  {
+    "cut": "11201",
+    "name": "Aysén",
+    "population_2024": 25218
+  },
+  {
+    "cut": "11202",
+    "name": "Cisnes",
+    "population_2024": 5872
+  },
+  {
+    "cut": "11203",
+    "name": "Guaitecas",
+    "population_2024": 1611
+  },
+  {
+    "cut": "11301",
+    "name": "Cochrane",
+    "population_2024": 3741
+  },
+  {
+    "cut": "11302",
+    "name": "O'Higgins",
+    "population_2024": 675
+  },
+  {
+    "cut": "11303",
+    "name": "Tortel",
+    "population_2024": 585
+  },
+  {
+    "cut": "11401",
+    "name": "Chile Chico",
+    "population_2024": 5163
+  },
+  {
+    "cut": "11402",
+    "name": "Río Ibáñez",
+    "population_2024": 2713
+  },
+  {
+    "cut": "12101",
+    "name": "Punta Arenas",
+    "population_2024": 145713
+  },
+  {
+    "cut": "12102",
+    "name": "Laguna Blanca",
+    "population_2024": 248
+  },
+  {
+    "cut": "12103",
+    "name": "Río Verde",
+    "population_2024": 205
+  },
+  {
+    "cut": "12104",
+    "name": "San Gregorio",
+    "population_2024": 651
+  },
+  {
+    "cut": "12201",
+    "name": "Cabo de Hornos",
+    "population_2024": 1968
+  },
+  {
+    "cut": "12202",
+    "name": "Antártica",
+    "population_2024": 151
+  },
+  {
+    "cut": "12301",
+    "name": "Porvenir",
+    "population_2024": 7637
+  },
+  {
+    "cut": "12302",
+    "name": "Primavera",
+    "population_2024": 674
+  },
+  {
+    "cut": "12303",
+    "name": "Timaukel",
+    "population_2024": 276
+  },
+  {
+    "cut": "12401",
+    "name": "Natales",
+    "population_2024": 24631
+  },
+  {
+    "cut": "12402",
+    "name": "Torres del Paine",
+    "population_2024": 1081
+  },
+  {
+    "cut": "13101",
+    "name": "Santiago",
+    "population_2024": 544388
+  },
+  {
+    "cut": "13102",
+    "name": "Cerrillos",
+    "population_2024": 90182
+  },
+  {
+    "cut": "13103",
+    "name": "Cerro Navia",
+    "population_2024": 139632
+  },
+  {
+    "cut": "13104",
+    "name": "Conchalí",
+    "population_2024": 136674
+  },
+  {
+    "cut": "13105",
+    "name": "El Bosque",
+    "population_2024": 169855
+  },
+  {
+    "cut": "13106",
+    "name": "Estación Central",
+    "population_2024": 221901
+  },
+  {
+    "cut": "13107",
+    "name": "Huechuraba",
+    "population_2024": 118327
+  },
+  {
+    "cut": "13108",
+    "name": "Independencia",
+    "population_2024": 153624
+  },
+  {
+    "cut": "13109",
+    "name": "La Cisterna",
+    "population_2024": 101401
+  },
+  {
+    "cut": "13110",
+    "name": "La Florida",
+    "population_2024": 407297
+  },
+  {
+    "cut": "13111",
+    "name": "La Granja",
+    "population_2024": 119321
+  },
+  {
+    "cut": "13112",
+    "name": "La Pintana",
+    "population_2024": 188980
+  },
+  {
+    "cut": "13113",
+    "name": "La Reina",
+    "population_2024": 99212
+  },
+  {
+    "cut": "13114",
+    "name": "Las Condes",
+    "population_2024": 343632
+  },
+  {
+    "cut": "13115",
+    "name": "Lo Barnechea",
+    "population_2024": 131053
+  },
+  {
+    "cut": "13116",
+    "name": "Lo Espejo",
+    "population_2024": 100694
+  },
+  {
+    "cut": "13117",
+    "name": "Lo Prado",
+    "population_2024": 102078
+  },
+  {
+    "cut": "13118",
+    "name": "Macul",
+    "population_2024": 138361
+  },
+  {
+    "cut": "13119",
+    "name": "Maipú",
+    "population_2024": 586812
+  },
+  {
+    "cut": "13120",
+    "name": "Ñuñoa",
+    "population_2024": 266906
+  },
+  {
+    "cut": "13121",
+    "name": "Pedro Aguirre Cerda",
+    "population_2024": 104462
+  },
+  {
+    "cut": "13122",
+    "name": "Peñalolén",
+    "population_2024": 272913
+  },
+  {
+    "cut": "13123",
+    "name": "Providencia",
+    "population_2024": 164009
+  },
+  {
+    "cut": "13124",
+    "name": "Pudahuel",
+    "population_2024": 261596
+  },
+  {
+    "cut": "13125",
+    "name": "Quilicura",
+    "population_2024": 275744
+  },
+  {
+    "cut": "13126",
+    "name": "Quinta Normal",
+    "population_2024": 141823
+  },
+  {
+    "cut": "13127",
+    "name": "Recoleta",
+    "population_2024": 196856
+  },
+  {
+    "cut": "13128",
+    "name": "Renca",
+    "population_2024": 163102
+  },
+  {
+    "cut": "13129",
+    "name": "San Joaquín",
+    "population_2024": 103118
+  },
+  {
+    "cut": "13130",
+    "name": "San Miguel",
+    "population_2024": 145424
+  },
+  {
+    "cut": "13131",
+    "name": "San Ramón",
+    "population_2024": 83695
+  },
+  {
+    "cut": "13132",
+    "name": "Vitacura",
+    "population_2024": 97049
+  },
+  {
+    "cut": "13201",
+    "name": "Puente Alto",
+    "population_2024": 667904
+  },
+  {
+    "cut": "13202",
+    "name": "Pirque",
+    "population_2024": 33021
+  },
+  {
+    "cut": "13203",
+    "name": "San José de Maipo",
+    "population_2024": 19519
+  },
+  {
+    "cut": "13301",
+    "name": "Colina",
+    "population_2024": 197370
+  },
+  {
+    "cut": "13302",
+    "name": "Lampa",
+    "population_2024": 143032
+  },
+  {
+    "cut": "13303",
+    "name": "Tiltil",
+    "population_2024": 22482
+  },
+  {
+    "cut": "13401",
+    "name": "San Bernardo",
+    "population_2024": 348640
+  },
+  {
+    "cut": "13402",
+    "name": "Buin",
+    "population_2024": 117982
+  },
+  {
+    "cut": "13403",
+    "name": "Calera de Tango",
+    "population_2024": 30283
+  },
+  {
+    "cut": "13404",
+    "name": "Paine",
+    "population_2024": 88317
+  },
+  {
+    "cut": "13501",
+    "name": "Melipilla",
+    "population_2024": 148899
+  },
+  {
+    "cut": "13502",
+    "name": "Alhué",
+    "population_2024": 7856
+  },
+  {
+    "cut": "13503",
+    "name": "Curacaví",
+    "population_2024": 38367
+  },
+  {
+    "cut": "13504",
+    "name": "María Pinto",
+    "population_2024": 15669
+  },
+  {
+    "cut": "13505",
+    "name": "San Pedro",
+    "population_2024": 12544
+  },
+  {
+    "cut": "13601",
+    "name": "Talagante",
+    "population_2024": 85514
+  },
+  {
+    "cut": "13602",
+    "name": "El Monte",
+    "population_2024": 42233
+  },
+  {
+    "cut": "13603",
+    "name": "Isla de Maipo",
+    "population_2024": 42393
+  },
+  {
+    "cut": "13604",
+    "name": "Padre Hurtado",
+    "population_2024": 81743
+  },
+  {
+    "cut": "13605",
+    "name": "Peñaflor",
+    "population_2024": 106840
+  },
+  {
+    "cut": "14101",
+    "name": "Valdivia",
+    "population_2024": 182086
+  },
+  {
+    "cut": "14102",
+    "name": "Corral",
+    "population_2024": 5424
+  },
+  {
+    "cut": "14103",
+    "name": "Lanco",
+    "population_2024": 18050
+  },
+  {
+    "cut": "14104",
+    "name": "Los Lagos",
+    "population_2024": 20520
+  },
+  {
+    "cut": "14105",
+    "name": "Máfil",
+    "population_2024": 7375
+  },
+  {
+    "cut": "14106",
+    "name": "Mariquina",
+    "population_2024": 24006
+  },
+  {
+    "cut": "14107",
+    "name": "Paillaco",
+    "population_2024": 20942
+  },
+  {
+    "cut": "14108",
+    "name": "Panguipulli",
+    "population_2024": 36220
+  },
+  {
+    "cut": "14201",
+    "name": "La Unión",
+    "population_2024": 39705
+  },
+  {
+    "cut": "14202",
+    "name": "Futrono",
+    "population_2024": 15188
+  },
+  {
+    "cut": "14203",
+    "name": "Lago Ranco",
+    "population_2024": 10272
+  },
+  {
+    "cut": "14204",
+    "name": "Río Bueno",
+    "population_2024": 32998
+  },
+  {
+    "cut": "15101",
+    "name": "Arica",
+    "population_2024": 257163
+  },
+  {
+    "cut": "15102",
+    "name": "Camarones",
+    "population_2024": 1246
+  },
+  {
+    "cut": "15201",
+    "name": "Putre",
+    "population_2024": 2569
+  },
+  {
+    "cut": "15202",
+    "name": "General Lagos",
+    "population_2024": 801
+  },
+  {
+    "cut": "16101",
+    "name": "Chillán",
+    "population_2024": 204091
+  },
+  {
+    "cut": "16102",
+    "name": "Bulnes",
+    "population_2024": 22754
+  },
+  {
+    "cut": "16103",
+    "name": "Chillán Viejo",
+    "population_2024": 35580
+  },
+  {
+    "cut": "16104",
+    "name": "El Carmen",
+    "population_2024": 12197
+  },
+  {
+    "cut": "16105",
+    "name": "Pemuco",
+    "population_2024": 8583
+  },
+  {
+    "cut": "16106",
+    "name": "Pinto",
+    "population_2024": 12179
+  },
+  {
+    "cut": "16107",
+    "name": "Quillón",
+    "population_2024": 19304
+  },
+  {
+    "cut": "16108",
+    "name": "San Ignacio",
+    "population_2024": 16600
+  },
+  {
+    "cut": "16109",
+    "name": "Yungay",
+    "population_2024": 18835
+  },
+  {
+    "cut": "16201",
+    "name": "Quirihue",
+    "population_2024": 12241
+  },
+  {
+    "cut": "16202",
+    "name": "Cobquecura",
+    "population_2024": 5224
+  },
+  {
+    "cut": "16203",
+    "name": "Coelemu",
+    "population_2024": 16901
+  },
+  {
+    "cut": "16204",
+    "name": "Ninhue",
+    "population_2024": 5353
+  },
+  {
+    "cut": "16205",
+    "name": "Portezuelo",
+    "population_2024": 4876
+  },
+  {
+    "cut": "16206",
+    "name": "Ránquil",
+    "population_2024": 6293
+  },
+  {
+    "cut": "16207",
+    "name": "Treguaco",
+    "population_2024": 5766
+  },
+  {
+    "cut": "16301",
+    "name": "San Carlos",
+    "population_2024": 57061
+  },
+  {
+    "cut": "16302",
+    "name": "Coihueco",
+    "population_2024": 29067
+  },
+  {
+    "cut": "16303",
+    "name": "Ñiquén",
+    "population_2024": 11526
+  },
+  {
+    "cut": "16304",
+    "name": "San Fabián",
+    "population_2024": 4793
+  },
+  {
+    "cut": "16305",
+    "name": "San Nicolás",
+    "population_2024": 12487
+  }
+]
