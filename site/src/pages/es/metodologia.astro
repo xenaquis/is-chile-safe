@@ -1,0 +1,176 @@
+---
+/**
+ * /es/metodologia/ — ES stub para reciprocidad hreflang con /methodology/.
+ *
+ * Stub methodology page in Spanish.
+ * Contenido ES completo será expandido en Plan 06.
+ * hreflang: /es/metodologia/ <-> /methodology/
+ */
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Metodología — Cómo Calculamos las Tasas de Delincuencia",
+  "description": "Explicación de las fuentes de datos, el cálculo de tasas por 100.000 habitantes, la cifra negra, la fórmula de tendencia y lo que este sitio no afirma.",
+  "url": "https://ischilesafe.com/es/metodologia/",
+};
+---
+
+<EditorialLayout
+  lang="es"
+  title="Metodología — Cómo Calculamos las Tasas de Delincuencia"
+  description="Explicación de las fuentes de datos CEAD, el cálculo de tasas por 100.000 habitantes, la cifra negra (subregistro), la fórmula de tendencia y lo que este sitio no afirma."
+  enPath="/methodology/"
+  esPath="/es/metodologia/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Metodología — Cómo Calculamos las Tasas de Delincuencia</h1>
+    <p>
+      Esta página explica cómo recopilamos, procesamos y presentamos las estadísticas de
+      delincuencia en este sitio: la fuente de los datos, el cálculo de la tasa, la advertencia
+      sobre la cifra negra (subregistro), cómo definimos las tendencias, los criterios de
+      comparación y, fundamentalmente, lo que estas cifras no pueden indicar.
+    </p>
+    <p>
+      Para la versión completa en inglés, visita <a href="/methodology/">Methodology</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Fuente de datos: CEAD</h2>
+    <p>
+      Todos los datos cuantitativos de delincuencia en este sitio provienen del
+      <strong>CEAD — Centro de Estudios y Análisis del Delito</strong>, organismo oficial de
+      estadísticas criminales del Ministerio del Interior y Seguridad Pública de Chile. El CEAD
+      compila los datos de incidentes registrados por la policía provenientes de Carabineros de
+      Chile y la Policía de Investigaciones (PDI).
+    </p>
+    <p>
+      El CEAD publica series anuales desde 2005 a nivel comunal, regional y nacional.
+      Accedemos a estos datos a través de los endpoints públicos oficiales del CEAD
+      (<code>cead.ministeriointerior.gob.cl</code>). Los datos son procesados por nuestro
+      pipeline de código abierto y almacenados como archivos JSON versionados en el repositorio
+      público del proyecto en GitHub.
+    </p>
+  </section>
+
+  <section>
+    <h2>Cómo se calcula la tasa</h2>
+    <p>
+      La métrica principal de este sitio es la <strong>tasa por 100.000 habitantes</strong>.
+      Utilizamos la tasa publicada directamente por el CEAD (<em>medida = tasa por 100.000
+      habitantes</em>), que aplica las proyecciones de población del INE (Instituto Nacional
+      de Estadísticas) como denominador para cada comuna, región y total nacional.
+    </p>
+    <p>
+      <strong>Nota importante sobre los promedios nacionales y regionales:</strong> los totales
+      nacionales y regionales publicados por el CEAD como tasa por 100.000 son
+      <em>sumas</em> de las tasas comunales, no promedios per cápita ponderados. Cuando
+      mostramos un promedio nacional para comparación, calculamos la <strong>media aritmética
+      simple de las tasas comunales de comunas con población ≥10.000 habitantes</strong>.
+      Esta es la cifra comparativa correcta.
+    </p>
+  </section>
+
+  <section>
+    <h2>Subregistro (cifra negra)</h2>
+    <p>
+      Todas las cifras de este sitio representan <strong>incidentes registrados por la
+      policía únicamente</strong>. La brecha entre la delincuencia real y la reportada se
+      denomina <em>cifra negra</em>. El subregistro no es uniforme entre tipos de delito ni
+      entre comunas. Los homicidios tienen la cifra negra más baja porque las muertes son
+      descubiertas independientemente de que la víctima haga una denuncia. La violencia
+      intrafamiliar está significativamente subregistrada. Una tasa baja reportada puede
+      reflejar menor prevalencia real, mayor subregistro, o ambos.
+    </p>
+  </section>
+
+  <section>
+    <h2>Fórmula de tendencia</h2>
+    <p>
+      El indicador de tendencia (<em>subiendo</em>, <em>bajando</em>, <em>estable</em>) se
+      calcula comparando la tasa del último año completo disponible con la tasa de tres años
+      atrás: <code>((tasa_N − tasa_N3) / tasa_N3) × 100</code>. Se aplica un
+      <strong>umbral del 5 %</strong>: cambios mayores a +5 % → subiendo; menores a −5 % →
+      bajando; dentro de ±5 % → estable. Se usa una ventana de tres años para reducir el
+      efecto de fluctuaciones puntuales atípicas.
+    </p>
+  </section>
+
+  <section>
+    <h2>Criterios de comparación</h2>
+    <p>
+      Las comparaciones usan la tasa por 100.000 del último año completo CEAD. Las comunas
+      con menos de 10.000 habitantes se excluyen de los rankings nacionales y regionales por
+      inestabilidad estadística (DATA-04). El promedio nacional usado en comparaciones es la
+      media simple de tasas de comunas con población ≥10.000 habitantes — no la suma CEAD.
+    </p>
+  </section>
+
+  <section>
+    <h2>Lo que este sitio NO afirma</h2>
+    <p>
+      Las siguientes afirmaciones <strong>no se hacen en ningún lugar de este sitio</strong>:
+    </p>
+    <ul>
+      <li>No clasificamos ninguna comuna, ciudad o región como "segura" o "peligrosa" en términos absolutos.</li>
+      <li>No publicamos cifras de probabilidad de victimización individual.</li>
+      <li>No hacemos afirmaciones predictivas o prospectivas sobre seguridad.</li>
+      <li>No comparamos barrios dentro de comunas (los datos CEAD son solo a nivel comunal).</li>
+      <li>No comparamos Chile con otros países (las definiciones y estándares de reporte no son comparables).</li>
+    </ul>
+    <p>
+      Nuestro objetivo es hacer accesibles los datos oficiales del CEAD, no emitir veredictos
+      de seguridad. Si tienes preguntas sobre los datos o la metodología, usa la
+      <a href="/es/contacto/">página de contacto</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
+  }
+
+  code {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.9em;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 1px 4px;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

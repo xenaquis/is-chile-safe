@@ -1,0 +1,322 @@
+---
+/**
+ * /methodology/ — EN methodology page (EDIT-03).
+ *
+ * Template 3: bottom AdSlot only (credibility page — via EditorialLayout default).
+ * Required H2 sections IN ORDER (04-UI-SPEC Template 3):
+ *   1. Data source: CEAD
+ *   2. How the rate is calculated
+ *   3. Underreporting (cifra negra)
+ *   4. Trend formula
+ *   5. Comparison criteria
+ *   6. What this site does NOT say
+ *
+ * D-13: trend formula = % change over last 3 years, threshold ~5%.
+ * D-15: explicit disclaimer — no absolute safe/dangerous verdicts, no victimisation probability.
+ * hreflang: /methodology/ <-> /es/metodologia/
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Methodology — How We Calculate Crime Rates",
+  "description": "How ischilesafe.com calculates crime rates, where the data comes from, what underreporting (cifra negra) means, how we define trends, and what this site explicitly does not claim.",
+  "url": "https://ischilesafe.com/methodology/",
+};
+---
+
+<EditorialLayout
+  lang="en"
+  title="Methodology — How We Calculate Crime Rates"
+  description="How ischilesafe.com calculates crime rates, where the data comes from, what underreporting (cifra negra) means, how we define trends, and what this site explicitly does not claim."
+  enPath="/methodology/"
+  esPath="/es/metodologia/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Methodology — How We Calculate Crime Rates</h1>
+    <p>
+      This page explains in full how we collect, process, and present the crime statistics on
+      this site: the source of the data, the rate calculation, the underreporting caveat,
+      how we define trend directions, the criteria we use for comparisons, and — critically —
+      what these figures cannot tell you. We use the first-person "we" to refer to the
+      ischilesafe.com editorial team throughout.
+    </p>
+  </section>
+
+  <section>
+    <h2>Data source: CEAD</h2>
+    <p>
+      All quantitative crime data on this site comes from <strong>CEAD — Centro de Estudios
+      y Análisis del Delito</strong>, the Chilean government's official crime statistics body,
+      which operates under the Ministerio del Interior y Seguridad Pública.
+    </p>
+    <p>
+      CEAD compiles police-recorded incident data from two law enforcement agencies:
+    </p>
+    <ul>
+      <li>
+        <strong>Carabineros de Chile</strong> — the uniformed national police force, which
+        handles the majority of recorded incidents.
+      </li>
+      <li>
+        <strong>Policía de Investigaciones (PDI)</strong> — the plainclothes investigative
+        police, which handles more complex criminal cases.
+      </li>
+    </ul>
+    <p>
+      CEAD publishes annual series from 2005 onward at the commune, regional, and national
+      level. We access this data via CEAD's official public endpoints
+      (<code>cead.ministeriointerior.gob.cl</code>). The raw data is processed by our open-source
+      pipeline, validated against a strict schema, and stored as versioned JSON files in the
+      project's public GitHub repository. The full scraper and validation code is available for
+      inspection.
+    </p>
+    <p>
+      We use only the annual series (<em>serie anual</em>) and only the total-case measure
+      (<em>casos policiales</em> — both formal complaints and arrests). We do not use quarterly
+      or monthly figures. We include data up to and including the latest complete year published
+      by CEAD; partial years (where CEAD has not yet closed the annual series) are excluded from
+      rates and rankings to avoid comparisons against incomplete periods.
+    </p>
+  </section>
+
+  <section>
+    <h2>How the rate is calculated</h2>
+    <p>
+      The primary metric on this site is the <strong>rate per 100,000 inhabitants</strong>.
+      We use the rate as published directly by CEAD (<em>medida = tasa por 100.000 habitantes</em>),
+      which applies INE (Instituto Nacional de Estadísticas) population projections as the
+      denominator for each commune, region, and national aggregate.
+    </p>
+    <p>
+      Using CEAD's own published rate — rather than computing our own from raw counts and INE
+      population figures — ensures consistency with the official source cited on every page.
+    </p>
+    <p>
+      <strong>Important note on national and regional figures:</strong> The national and regional
+      totals that CEAD publishes as <em>tasa por 100.000</em> are <em>sum</em> totals — that is,
+      the sum of all commune rates in the territory, not a weighted per-capita average. We do
+      not display these sum figures as averages. When we show a national average for comparison
+      purposes (e.g., on commune pages and the lowest-reported-incidence ranking), we compute the
+      <strong>unweighted mean of non-low-population commune rates</strong> using each commune's
+      individual rate at its latest complete year. This is the correct per-capita comparative
+      figure.
+    </p>
+    <p>
+      Communes with populations below 10,000 inhabitants are excluded from national and regional
+      averages and from the lowest-reported-incidence ranking. Small populations produce highly volatile
+      per-capita rates because a single incident can produce a large per-100k figure. Their
+      individual commune pages still display the rate with a volatility caveat.
+    </p>
+  </section>
+
+  <section>
+    <h2>Underreporting (cifra negra)</h2>
+    <p>
+      All figures on this site represent <strong>police-reported incidents only</strong>. They
+      do not represent the total number of crimes committed. The gap between actual crime
+      occurrence and reported crime is called the <em>cifra negra</em> (literally "dark figure")
+      or underreporting rate.
+    </p>
+    <p>
+      Underreporting is not uniform across crime types or localities. Key patterns documented
+      in Chilean crime surveys (<em>Encuesta Nacional Urbana de Seguridad Ciudadana — ENUSC</em>):
+    </p>
+    <ul>
+      <li>
+        <strong>Property crime</strong> (theft, robbery) has relatively high reporting rates when
+        insurance or bureaucratic requirements (e.g., police reports for insurance claims) incentivise
+        victims to file. But opportunistic petty theft is widely underreported.
+      </li>
+      <li>
+        <strong>Intra-family violence</strong> is significantly underreported across all socioeconomic
+        groups. Survey-based prevalence estimates are consistently higher than police-recorded figures.
+      </li>
+      <li>
+        <strong>Homicides</strong> have the lowest cifra negra of any crime category because deaths
+        are discovered and recorded regardless of victim reporting. Homicide rates are therefore the
+        most reliable indicator in CEAD data for inter-commune and inter-year comparisons.
+      </li>
+    </ul>
+    <p>
+      A commune showing a low reported rate may have low actual crime prevalence, high underreporting,
+      or both. We cannot determine the proportion from police data alone. Where appropriate,
+      individual commune pages note these caveats.
+    </p>
+  </section>
+
+  <section>
+    <h2>Trend formula</h2>
+    <p>
+      Each commune page and map pin displays a trend indicator: <em>rising</em>, <em>falling</em>,
+      or <em>stable</em>. We compute the trend as follows:
+    </p>
+    <ol>
+      <li>
+        Take the latest complete year rate (<em>year N</em>) and the rate three years prior
+        (<em>year N−3</em>), both from the CEAD annual series.
+      </li>
+      <li>
+        Compute the percentage change: <code>((rate_N − rate_N3) / rate_N3) × 100</code>.
+      </li>
+      <li>
+        Apply a <strong>5 % threshold</strong>: if the change is more than +5 %, the trend is
+        <em>rising</em>; if less than −5 %, it is <em>falling</em>; if within ±5 %, it is
+        <em>stable</em>.
+      </li>
+    </ol>
+    <p>
+      We use a three-year window rather than a single year-over-year comparison to reduce the
+      influence of anomalous single-year fluctuations (e.g., pandemic-era reporting disruptions).
+      If a commune has fewer than four complete years of data, the trend is not computed and is
+      omitted from display.
+    </p>
+    <p>
+      The 5 % threshold was chosen to avoid labelling statistically marginal changes as
+      meaningful trends in communes with small absolute case counts. For communes with large
+      populations and stable series, the threshold provides a conservative signal; for smaller
+      communes, year-to-year variation can exceed 5 % due to sample noise rather than genuine
+      change.
+    </p>
+  </section>
+
+  <section>
+    <h2>Comparison criteria</h2>
+    <p>
+      When we compare communes to each other or to a national average, we apply the following
+      criteria consistently:
+    </p>
+    <ul>
+      <li>
+        <strong>Metric:</strong> rate per 100,000 inhabitants (CEAD-published figure, as
+        described above).
+      </li>
+      <li>
+        <strong>Year:</strong> the latest complete year for which CEAD has published a closed
+        annual series for all communes. This is the same year for all communes in a given build.
+      </li>
+      <li>
+        <strong>Exclusion of low-population communes:</strong> communes with fewer than 10,000
+        inhabitants are excluded from national and regional rankings due to statistical volatility
+        (DATA-04 rule). Their pages remain accessible but note the exclusion.
+      </li>
+      <li>
+        <strong>Ranking basis:</strong> the <em>national rank</em> shown on commune pages is
+        computed across all non-low-population communes in Chile (currently 346 total communes,
+        of which a subset meet the population threshold). Rank 1 = lowest reported rate in Chile
+        for that year.
+      </li>
+      <li>
+        <strong>National average definition:</strong> the unweighted arithmetic mean of
+        non-low-population commune rates (see rate calculation section above). Not the CEAD
+        national sum.
+      </li>
+    </ul>
+    <p>
+      We compare communes only to the national mean or to regional peers — not to international
+      figures, because reporting standards, legal definitions, and demographic structures differ
+      substantially across countries, making cross-country rate comparisons unreliable.
+    </p>
+  </section>
+
+  <section>
+    <h2>What this site does NOT say</h2>
+    <p>
+      The following statements are <strong>not made anywhere on this site</strong>, and if you
+      see language that implies them, please report it as a bug:
+    </p>
+    <ul>
+      <li>
+        <strong>We do not classify any commune, city, or region as "safe" or "dangerous"
+        in absolute terms.</strong> The map and ranking pages present relative reported
+        incidence — lower or higher than other communes — not absolute risk levels. A commune
+        that ranks low for reported crime is not declared "safe"; a commune that ranks high is
+        not declared "dangerous".
+      </li>
+      <li>
+        <strong>We do not publish probability-of-victimisation figures.</strong> Reported
+        rates are not individual risk probabilities. A rate of 1,000 per 100,000 does not mean
+        a 1 % annual probability of becoming a crime victim — it means 1,000 police-recorded
+        incidents per 100,000 registered residents, with all the underreporting and denominator
+        caveats described above.
+      </li>
+      <li>
+        <strong>We do not make predictive or forward-looking safety claims.</strong> Trend
+        indicators describe what CEAD data shows for past years; they do not predict future
+        conditions. A "falling" trend does not mean a commune will continue to decrease.
+      </li>
+      <li>
+        <strong>We do not rank neighbourhoods within communes.</strong> CEAD data is available
+        at the commune level only. We cannot show which barrio or street within a commune has
+        higher or lower reported incidence.
+      </li>
+      <li>
+        <strong>We do not compare Chile to other countries.</strong> International crime rate
+        comparisons require harmonised definitions and reporting standards that do not currently
+        exist for the countries most relevant to our audience.
+      </li>
+    </ul>
+    <p>
+      Our goal is to make official CEAD data accessible and clearly presented — not to produce
+      safety verdicts. If you have questions about the data or methodology, use the
+      <a href="/contact/">Contact page</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul,
+  ol {
+    padding-left: var(--lg);
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  ul li + li,
+  ol li + li {
+    margin-top: var(--sm);
+  }
+
+  code {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.9em;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 1px 4px;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
