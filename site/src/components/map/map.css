@@ -155,14 +155,18 @@
   color: var(--muted);
 }
 
-/* Mobile: smaller legend font */
+/* Mobile: smaller legend font
+ * NAMED EXCEPTION: 12px font-size used here instead of the standard 14px Label.
+ * Rationale: legend is a map overlay with compact width; 12px improves legibility
+ * in the constrained overlay space on small screens. Approved in UI-SPEC Phase 3.
+ */
 @media (max-width: 640px) {
   .legend {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .legend-title {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
 
@@ -432,6 +436,268 @@
   background: var(--line);
   padding: 2px 6px;
   color: var(--ink);
+}
+
+/* ==========================================================================
+   Family bars (mirrors FamilyBreakdownBars.astro CSS exactly)
+   ========================================================================== */
+
+.family-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sm);
+}
+
+.family-bar-row {
+  display: grid;
+  grid-template-columns: 10rem 1fr 4rem;
+  align-items: center;
+  gap: var(--sm);
+}
+
+.family-bar-label {
+  font-size: var(--text-label, 14px);
+  font-weight: var(--weight-strong, 700);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: var(--xs, 4px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.accent-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+}
+
+.family-bar-track {
+  height: 10px;
+  background: var(--line);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.family-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.2s ease;
+}
+
+.family-bar-val {
+  font-size: var(--text-label, 14px);
+  font-weight: var(--weight-body, 400);
+  color: var(--muted);
+  text-align: right;
+}
+
+/* ==========================================================================
+   Result panel content
+   ========================================================================== */
+
+.panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.panel-head h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 2px;
+}
+
+.panel-region {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.panel-close {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background 0.1s;
+}
+
+.panel-close:hover {
+  background: var(--line);
+  color: var(--ink);
+}
+
+.panel-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.level-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 3px 10px;
+  background: var(--line);
+  color: var(--ink);
+}
+
+.cead-badge {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.stat-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+
+.stat-big {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.15;
+}
+
+.stat-unit {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.mini-stats-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.mini-stat {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.mini-stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.trend-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.trend-chip.up { color: #c96b5a; }
+.trend-chip.down { color: #0f766e; }
+.trend-chip.stable { color: var(--muted); }
+
+.panel-section {
+  margin-bottom: 16px;
+}
+
+.panel-section h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+
+.sparkline-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.panel-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: opacity 0.15s;
+}
+
+.panel-cta:hover {
+  opacity: 0.9;
+}
+
+.official-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.official-check {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Incidents list
+   ========================================================================== */
+
+.incidents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.event-title {
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.event-meta {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.event-source {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: underline;
 }
 
 /* ==========================================================================
