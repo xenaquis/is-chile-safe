@@ -94,7 +94,7 @@ _Last updated: 2026-06-13_
 **Plans**: 7 plans
 
 - [x] 04-01-PLAN.md — Wave 1: forbidden-language.mjs validator (EDIT-05) + all.mjs registration (#9) + structure.mjs Phase-4 page assertions
-- [ ] 04-02-PLAN.md — Wave 1: AdSlot + CookieConsent + gated AdSense loader in BaseLayout (MON-01) + i18n strings + footer legal links
+- [x] 04-02-PLAN.md — Wave 1: AdSlot + CookieConsent + gated AdSense loader in BaseLayout (MON-01) + i18n strings + footer legal links
 - [ ] 04-03-PLAN.md — Wave 2: EditorialLayout + LegalLayout (wrap BaseLayout) + DataCallout + FAQBlock + ContactForm
 - [ ] 04-04-PLAN.md — Wave 3: EN non-map editorial pages (home + is-chile-safe + is-santiago-safe + 3 city pages) (EDIT-01)
 - [ ] 04-05-PLAN.md — Wave 3: EN map-bearing pages + safest-cities ranking + methodology (EDIT-01, EDIT-03)
@@ -138,6 +138,6 @@ _Last updated: 2026-06-13_
 | 1. Data Foundation | 4/4 | Complete    | 2026-06-13 |
 | 2. Astro Site + Programmatic Pages | 6/6 | Complete    | 2026-06-13 |
 | 3. Leaflet Map Island | 4/4 | Complete    | 2026-06-13 |
-| 4. Editorial Pages + AdSense | 1/7 | In Progress|  |
+| 4. Editorial Pages + AdSense | 2/7 | In Progress|  |
 | 5. RSS News Pipeline | 0/? | Not started | - |
 | 6. CI/CD + Cloudflare Deployment | 0/? | Not started | - |
