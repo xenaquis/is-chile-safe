@@ -116,7 +116,9 @@ Source: prototype `--s1..--s5` variables. Shared by Phase 2 static pages and Pha
 
 ## Page Layouts
 
-### Page Type 1 — Commune Page (`/crime/{slug}/` and `/es/delito/{slug}/`)
+### Page Type 1 — Commune Page (`/commune/{slug}/` and `/es/comuna/{slug}/`)
+
+> URL corrected to match CONTEXT.md D-16 (authoritative): communes live at `/commune/{slug}/` (EN) and `/es/comuna/{slug}/` (ES). `/crime/{family}/` is reserved for crime-type pages.
 
 Section order (top to bottom):
 
@@ -271,7 +273,7 @@ Commune and region pages emit both `Dataset` and `Place`:
   "@type": ["Dataset", "Place"],
   "name": "{Commune name} — Reported Crime Incidence",
   "description": "Annual reported crime incidence rates per 100,000 inhabitants for {Commune}, sourced from CEAD (Centro de Estudios y Análisis del Delito), Chile.",
-  "url": "https://ischilesafe.com/crime/{slug}/",
+  "url": "https://ischilesafe.com/commune/{slug}/",
   "spatialCoverage": {
     "@type": "Place",
     "name": "{Commune name}",
