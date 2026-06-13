@@ -10,13 +10,15 @@ import os
 import pathlib
 
 
-def atomic_write_json(path: pathlib.Path, data: dict | list) -> None:
+def atomic_write_json(path: pathlib.Path, data: dict | list, compact: bool = False) -> None:
     """
     Write JSON atomically: write to a .tmp file, then os.replace() to final path.
 
     Args:
-        path: Destination file path (will be created or overwritten).
-        data: JSON-serialisable dict or list.
+        path:    Destination file path (will be created or overwritten).
+        data:    JSON-serialisable dict or list.
+        compact: If True, write minified JSON (no spaces/indent) for size-sensitive
+                 files such as map-payload.json (DATA-03).
 
     Side effects:
         Creates parent directories if missing.
@@ -25,8 +27,9 @@ def atomic_write_json(path: pathlib.Path, data: dict | list) -> None:
     """
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(".tmp")
-    tmp.write_text(
-        json.dumps(data, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
+    if compact:
+        text = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+    else:
+        text = json.dumps(data, ensure_ascii=False, indent=2)
+    tmp.write_text(text, encoding="utf-8")
     os.replace(tmp, path)  # atomic on same filesystem (POSIX + Windows)

@@ -95,11 +95,12 @@ def test_boundary_rate_20000_is_accepted(sample_commune_dict):
 
 
 def test_valid_map_payload_validates():
+    # by_family is a compact ordered list matching FAMILY_KEYS (7 entries) for <30KB D-09
     entry = {
         "id": "13101",
         "rate": 11181.0,
         "level": 3,
-        "by_family": {"vida": 100.0, "propiedad": None},
+        "by_family": [100.0, 50.0, None, 20.0, 5.0, 80.0, 15.0],  # 7 values per FAMILY_KEYS
     }
     payload = MapPayload.model_validate(
         {"generated": "2026-06-12T00:00:00Z", "year": 2024, "comunas": [entry]}
@@ -111,12 +112,12 @@ def test_valid_map_payload_validates():
 def test_map_payload_entry_level_out_of_range_rejected():
     with pytest.raises(ValidationError):
         MapPayloadEntry.model_validate(
-            {"id": "13101", "rate": 100.0, "level": 6, "by_family": {}}
+            {"id": "13101", "rate": 100.0, "level": 6, "by_family": []}
         )
 
 
 def test_map_payload_entry_level_zero_rejected():
     with pytest.raises(ValidationError):
         MapPayloadEntry.model_validate(
-            {"id": "13101", "rate": 100.0, "level": 0, "by_family": {}}
+            {"id": "13101", "rate": 100.0, "level": 0, "by_family": []}
         )

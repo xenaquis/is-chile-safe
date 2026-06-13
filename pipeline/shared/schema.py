@@ -97,7 +97,7 @@ class MapPayloadEntry(BaseModel):
     id: str  # CUT code
     rate: float  # total rate_per_100k for the reference year
     level: int  # 1–5 quintile (1=lowest, 5=highest) — matches prototype data.js field
-    by_family: dict[str, float | None]  # 7 family rates (D-09)
+    by_family: list[float | None]  # 7 family rates ordered per FAMILY_KEYS (compact list for <30KB, D-09)
 
     @field_validator("level")
     @classmethod
