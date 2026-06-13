@@ -79,9 +79,9 @@ The stack is fully locked in CLAUDE.md: Astro 6.4.6 (confirmed on npm registry),
 
 The two technically novel elements for this phase are (1) the bilingual localized-path routing with manual hreflang injection at scale, and (2) the combinatorial prose variation engine that prevents thin-content deindexing for 346 near-identical statistical pages. Both are solvable in pure Astro with build-time TypeScript helpers — no external libraries needed beyond the locked stack.
 
-Data access is straightforward: Astro's `getStaticPaths()` uses Node.js `fs` to read `data/cead/meta/index.json` at build time. Because the `/site/` directory is a child of the repo root and `/data/` is at the repo root, the clean approach is a symlink `site/public/data -> ../../data/` (already documented in ARCHITECTURE.md). Path traversal from `import.meta.url` inside page files reaches `/data/` via `../../../` relative to `src/pages/commune/`.
+Data access is straightforward: Astro's `getStaticPaths()` uses Node.js `fs` to read `data/cead/meta/index.json` at build time. Because the `/site/` directory is a child of the repo root and `/data/` is at the repo root, the chosen approach (Q3 RESOLVED) is direct parent-directory traversal from `import.meta.url` via `fileURLToPath` — NO symlink. A single `DATA_ROOT` constant in `src/lib/data.ts` resolves `../../..` to repo root and descends into `data/cead/`; this works cross-platform at build time and avoids Windows symlink fragility.
 
-**One critical data quality finding:** `national.json` series rates are aggregate sums across all communes — NOT per-capita national averages. The vs-national comparison computation must derive the national average from the mean of non-low-population commune rates at build time.
+**One critical data quality finding:** both `national.json` AND each `regions/{id}.json` series rate are aggregate SUMS across communes — NOT per-capita averages. The vs-national and vs-regional comparison computations must derive the average from the MEAN of non-low-population commune rates at build time (`loadNationalAverage()` / `loadRegionalAverage()` in plan 02-01).
 
 **Primary recommendation:** Scaffold the Astro project first (Wave 0), then implement the three page types in dependency order: commune pages (most complex, validates the variation engine) → region pages → crime-type pages. Build chroma-js level computation and the comparable-commune algorithm as pure TypeScript utilities called at build time.
 
@@ -225,13 +225,12 @@ All packages are well-established, long-lived npm packages from official maintai
     manifest.json
     icon-192.png
     icon-512.png
-    data -> ../../data/          (symlink — makes /data/ a static asset + fs-readable)
   src/
     config/
       rollout.json               (allowlist of enabled CUT codes)
       i18n.ts                    (EN/ES string map + crime-family slug map)
     lib/
-      data.ts                    (build-time JSON readers with import.meta.url paths)
+      data.ts                    (build-time JSON readers with import.meta.url parent traversal; loadNationalAverage / loadRegionalAverage)
       level.ts                   (chroma-js quintile computation)
       comparable.ts              (comparable-commune nearest-rate algorithm)
       variation.ts               (prose variation key builder)
@@ -271,6 +270,8 @@ All packages are well-established, long-lived npm packages from official maintai
     validate-build.mjs           (post-build validation: page counts, hreflang, word count, JSON-LD)
 ```
 
+**Note (Q3 RESOLVED):** the earlier `public/data -> ../../data/` symlink is NOT used. Build-time data access is via `fileURLToPath` parent traversal from `src/lib/data.ts` directly to repo-root `/data/cead/`. No symlink is created, committed, or relied on.
+
 ---
 
 ### Pattern 1: Astro i18n Config with Localized Path Segments
@@ -308,37 +309,23 @@ export default defineConfig({
 
 ### Pattern 2: getStaticPaths — Reading /data/ at Build Time
 
-**What:** Read meta/index.json once, filter by rollout.json, then read each commune's detail JSON per route. Use `import.meta.url` + `fileURLToPath` for cross-platform path resolution.
+**What:** Read meta/index.json once, filter by rollout.json, then read each commune's detail JSON per route. Use `import.meta.url` + `fileURLToPath` for cross-platform path resolution. NO symlink (Q3 RESOLVED).
 
-**Path resolution:** From `src/pages/commune/[slug].astro`, `import.meta.url` resolves to that file's location. Going up 4 levels (`../../../../`) reaches the repo root where `/data/` lives.
+**Path resolution:** From `src/lib/data.ts`, `import.meta.url` resolves to that file's location. Parent traversal reaches the repo root where `/data/` lives; descend into `data/cead/`. Define a single `DATA_ROOT` constant there and import it everywhere.
 
 ```typescript
-// In src/pages/commune/[slug].astro
+// In src/lib/data.ts
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
+import path from 'path';
 
-export async function getStaticPaths() {
-  const dataRoot = fileURLToPath(new URL('../../../../data/cead', import.meta.url));
+// site/src/lib/data.ts -> climb lib/ -> src/ -> site/ -> repo root, then data/cead
+const DATA_ROOT = path.resolve(fileURLToPath(import.meta.url), '../../..', 'data', 'cead');
 
-  const metaIndex = JSON.parse(readFileSync(`${dataRoot}/meta/index.json`, 'utf8'));
-  const rollout = JSON.parse(
-    readFileSync(fileURLToPath(new URL('../../config/rollout.json', import.meta.url)), 'utf8')
-  );
-
-  const allowedCuts = process.env.ROLLOUT_ALL === 'true'
-    ? metaIndex.map((c: any) => c.cut)
-    : rollout;
-
-  const enabled = metaIndex.filter((c: any) => allowedCuts.includes(c.cut));
-
-  return enabled.map((meta: any) => {
-    const data = JSON.parse(readFileSync(`${dataRoot}/comunas/${meta.cut}.json`, 'utf8'));
-    return { params: { slug: meta.slug }, props: { meta, data, locale: 'en' } };
-  });
+export function loadIndex() {
+  return JSON.parse(readFileSync(path.join(DATA_ROOT, 'meta', 'index.json'), 'utf8'));
 }
 ```
-
-**Note on path depth:** The path to repo root from `src/pages/commune/[slug].astro` is `../../../../` (4 levels: commune/ → pages/ → src/ → site/ → repo root). Adjust accordingly for `src/pages/es/comuna/[slug].astro` (5 levels: `../../../../../`).
 
 ---
 
@@ -508,7 +495,7 @@ export function findComparable(
 }
 ```
 
-**rateMap construction:** Read all enabled commune JSONs during `getStaticPaths()`, extract `series.find(s => !s.partial && s.year === latestYear).rate_per_100k`. This requires loading all non-low-population communes to build the map, even for the 12-commune initial batch — acceptable since the full 346 load is ~3.5MB total.
+**rateMap construction:** Read all enabled commune JSONs during `getStaticPaths()`, extract `series.find(s => !s.partial && s.year === latestYear).rate_per_100k`. This requires loading all non-low-population communes to build the map, even for the 12-commune initial batch — acceptable since the full 346 load is ~3.5MB total. The same per-commune latest-complete-year rates feed `loadNationalAverage()` / `loadRegionalAverage()` (the mean-based comparison helpers — see Pitfall 1).
 
 ---
 
@@ -556,6 +543,8 @@ interface VariationKey {
 }
 ```
 
+**Note:** `vsNationalBucket` and `vsRegionalSign` are derived from the commune rate vs the per-capita MEANS (`loadNationalAverage()` / `loadRegionalAverage()`), NOT vs the national.json / region.json SUM (Pitfall 1).
+
 **Prose block structure (per UI-SPEC D-07, targeting 500+ words):**
 
 1. Introduction sentence with commune name + latest year rate (30–50 words)
@@ -578,8 +567,9 @@ interface VariationKey {
 - **`client:*` directives on any component:** Zero React in Phase 2. No `client:load`, `client:visible`, `client:only`. All components are `.astro`.
 - **`prefixDefaultLocale: true`:** CLAUDE.md locked; forces `/en/` prefix, hurts SEO for English audience.
 - **`<GeoJSON>` react-leaflet component:** CLAUDE.md forbidden; deferred to Phase 3 anyway.
-- **Using `national.json.series[].rate_per_100k` as national average:** It is a sum of commune rates, not a per-capita average. See Pitfall 1.
-- **Loading all 346 commune JSONs into a single array in memory:** Load only the enabled (rollout-filtered) communes. Load all non-low-pop communes only for the comparable-commune rateMap computation.
+- **Using `national.json.series[].rate_per_100k` (or `regions/{id}.json` series rate) as an average:** Both are a SUM of commune rates, not a per-capita average. See Pitfall 1.
+- **Relying on a `public/data` symlink:** Q3 RESOLVED — use `fileURLToPath` parent traversal in `src/lib/data.ts`; no symlink.
+- **Loading all 346 commune JSONs into a single array in memory:** Load only the enabled (rollout-filtered) communes for page generation. Load all non-low-pop communes only for the comparable-commune rateMap + national/regional average computation.
 - **Hardcoding crime-family URL slugs in multiple places:** Define once in `i18n.ts`, reference everywhere. These become permanent indexed URLs.
 
 ---
@@ -610,7 +600,7 @@ Verified by reading actual Phase 1 JSON output during this research session:
 - `featured_subgroups.homicidios: 101`, `featured_subgroups.secuestros: null`
 - `families.vida.featured: true`, `families.propiedad.featured: true`; others false
 
-**`data/cead/regions/13.json`** — has `id`, `name`, `slug`, `series` with `rate_per_100k` and `by_family`. Does NOT have `commune_count` or `population` fields. Region pages must derive commune count from `meta/index.json`.
+**`data/cead/regions/13.json`** — has `id`, `name`, `slug`, `series` with `rate_per_100k` and `by_family`. Does NOT have `commune_count` or `population` fields. Region pages must derive commune count from `meta/index.json`. NOTE: `series[].rate_per_100k` is a SUM of that region's commune rates (same pipeline behaviour as national.json) — NOT a per-capita regional average (Pitfall 1).
 
 **`data/cead/national.json`** — `rate_per_100k` values are in the millions (e.g. 1,666,425 for 2005) — confirmed to be a sum of all commune rates, not a national per-capita rate. Do not use for vs-national comparison math.
 
@@ -618,12 +608,13 @@ Verified by reading actual Phase 1 JSON output during this research session:
 
 ## Common Pitfalls
 
-### Pitfall 1: national.json Rate Is a Sum, Not a National Average
+### Pitfall 1: national.json (and region.json) Rate Is a Sum, Not an Average
 
-**What goes wrong:** Using `national.json.series[n].rate_per_100k` directly as "national average" produces absurd vs-national comparisons (e.g. Santiago at ~9,870/100k would appear "99.4% below national").
-**Why it happens:** The pipeline sums raw rates across all 346 communes.
-**How to avoid:** Compute national average at build time: `mean(nonLowPopCommunes.map(c => latestYearRate(c)))`. Run this once in `getStaticPaths()`, store as a constant, pass to all commune pages.
-**Warning signs:** vs-national callout showing >95% below for all communes.
+**What goes wrong:** Using `national.json.series[n].rate_per_100k` (or `regions/{id}.json` series rate) directly as "national/regional average" produces absurd comparisons (e.g. Santiago at ~9,870/100k would appear "99.4% below national").
+**Why it happens:** The pipeline sums raw rates across all communes (nationally and per region).
+**How to avoid:** Compute averages at build time as MEANS of non-low-pop commune rates: `loadNationalAverage() = mean(nonLowPopCommunes.map(c => latestCompleteYearRate(c)))` and `loadRegionalAverage(regionId) = mean(region's nonLowPop communes' latestCompleteYearRate)`. Defined in plan 02-01 `src/lib/data.ts`, consumed by commune pages (02-03). Run once, store as constants.
+**Warning signs:** vs-national/vs-regional callout showing >95% below for all communes.
+**Status:** RESOLVED — averages implemented as build-time means in 02-01; commune pages (02-03) call them instead of the sum.
 
 ### Pitfall 2: Astro i18n Does NOT Translate URL Segments
 
@@ -635,12 +626,7 @@ Verified by reading actual Phase 1 JSON output during this research session:
 
 **What goes wrong:** Path to `/data/cead/` resolves incorrectly, causing ENOENT at build time.
 **Why it happens:** The number of `../` jumps depends on where the file is in the `src/` hierarchy.
-**Correct depths:**
-- `src/pages/commune/[slug].astro` → `../../../../data/cead` (4 up: commune/ → pages/ → src/ → site/ → data/)
-- `src/pages/es/comuna/[slug].astro` → `../../../../../data/cead` (5 up: + es/)
-- `src/lib/data.ts` → `../../../../data/cead` (4 up: lib/ → src/ → site/ → repo root → data/)
-
-**How to avoid:** Define a single `DATA_ROOT` constant in `src/lib/data.ts` using `import.meta.url` from that file, then import it everywhere. One canonical path definition eliminates the per-file miscalculation risk.
+**How to avoid:** Define a single `DATA_ROOT` constant in `src/lib/data.ts` using `import.meta.url` parent traversal from that file (`path.resolve(fileURLToPath(import.meta.url), '../../..', 'data', 'cead')`), then import it everywhere. One canonical path definition eliminates the per-file miscalculation risk. No symlink (Q3 RESOLVED). Plan 02-01 includes an acceptance criterion that `loadIndex()` parses 346 entries via this path.
 
 ### Pitfall 4: @astrojs/sitemap Excludes Pages with No Internal Links
 
@@ -731,7 +717,7 @@ Verified by reading actual Phase 1 JSON output during this research session:
 - [ ] `site/src/config/rollout.json` — must exist before first build
 - [ ] `site/public/icon-192.png`, `site/public/icon-512.png` — PWA icons (can be placeholder 1×1 PNGs initially)
 - [ ] `site/scripts/validate-build.mjs` — post-build validation covering all 8 requirements
-- [ ] `public/data` symlink → `../../data/` — required for data access
+- [ ] `src/lib/data.ts` DATA_ROOT — `fileURLToPath` parent traversal to repo-root `/data/cead/` (NO symlink — Q3 RESOLVED)
 
 ---
 
@@ -761,30 +747,27 @@ Verified by reading actual Phase 1 JSON output during this research session:
 
 | # | Claim | Section | Risk if Wrong |
 |---|-------|---------|---------------|
-| A1 | `import.meta.url` path traversal from `src/lib/data.ts` resolves to repo root correctly on Windows dev + Linux CI | Pattern 2, all data reading | Build fails with ENOENT; fix by testing path resolution in Wave 0 task |
-| A2 | EN crime-family URL slugs (proposed: `violent-crime`, `violent-robbery`, `domestic-violence`, `drugs`, `weapons`, `property`, `public-disorder`) are acceptable to the user as permanent indexed URLs | Pattern 3, slugPairMap | URL change post-indexing requires 301 redirects + re-indexing delay |
-| A3 | `national.json.rate_per_100k` is a sum of commune rates, not a true per-capita national rate | Data Contract section, Pitfall 1 | If wrong, vs-national comparison is correct as-is — but the spot-check in Wave 0 should verify |
+| A1 | `import.meta.url` path traversal from `src/lib/data.ts` resolves to repo root correctly on Windows dev + Linux CI | Pattern 2, all data reading | Build fails with ENOENT; mitigated by 02-01 acceptance criterion asserting loadIndex() parses 346 entries |
+| A2 | EN crime-family URL slugs (homicide, violent-robbery, domestic-violence, drug-crimes, weapons, property, disorder) are acceptable to the user as permanent indexed URLs | Pattern 3, slugPairMap | Locked in 02-01 `<family_slugs>`; URL change post-indexing requires 301 redirects |
+| A3 | `national.json.rate_per_100k` (and region.json series rate) is a sum of commune rates, not a true per-capita rate | Data Contract section, Pitfall 1 | Confirmed a sum; vs-national/vs-regional now use build-time means (loadNationalAverage/loadRegionalAverage) |
 | A4 | `featured_rates.secuestros` remains empty `{}` for all communes in Phase 2 | Data Contract section, Pitfall 7 | If CEAD data is re-scraped with secuestros resolved, templates must handle gracefully |
 | A5 | chroma-js 3.2.0 imports cleanly in Astro 6 / Node 22 ESM context without compatibility issues | Standard Stack | Build error on import; mitigation: chroma-js is a dual CJS/ESM package with no known Astro incompatibilities [ASSUMED — not tested in this session] |
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **EN crime-family URL slugs (A2)**
-   - What we know: D-17 delegates exact slug values to Claude's Discretion.
-   - What's unclear: User preference on exact EN slugs (e.g. `violent-crime` vs `crimes-against-persons`).
-   - Recommendation: Planner should include a task for user approval of the EN slug mapping table before implementing crime-type pages, since these become permanent indexed URLs.
+1. **EN crime-family URL slugs (A2)** — **RESOLVED**
+   - What we knew: D-17 delegates exact slug values to Claude's Discretion.
+   - Resolution: Locked in plan 02-01 `<family_slugs>` — vida→homicide, robos_violentos→violent-robbery, vif→domestic-violence, drogas→drug-crimes, armas→weapons, propiedad→property, incivilidades→disorder. These are the permanent indexed EN URL slugs (ES slugs mirror the Spanish family names).
 
-2. **national.json rate interpretation (A3)**
-   - What we know: The value is ~1.6M for 2005, far too large for a per-capita rate.
-   - What's unclear: Intentional pipeline design or a bug?
-   - Recommendation: Wave 0 task to spot-check: load 5 commune rates for 2024, compute their mean, compare to `national.json.series[-2].rate_per_100k`. If mean ≈ ~8,000–12,000 and national shows millions, confirmed as a sum.
+2. **national.json rate interpretation (A3)** — **RESOLVED**
+   - What we knew: The value is ~1.6M for 2005, far too large for a per-capita rate.
+   - Resolution: Confirmed a SUM (of all commune rates), not a per-capita average. The same holds for `regions/{id}.json` series rate. vs-national and vs-regional comparisons now use a build-time computed MEAN of non-low-pop commune rates (`loadNationalAverage()` / `loadRegionalAverage()` defined in 02-01 `src/lib/data.ts`, consumed by 02-03 commune pages). See Pitfall 1 / Blocker 1 fix.
 
-3. **/data/ access: symlink vs CI copy**
-   - What we know: ARCHITECTURE.md documents symlink `public/data -> ../../data/`.
-   - What's unclear: Symlinks in git on Windows may require `git config core.symlinks true` or may not work in all Windows configurations.
-   - Recommendation: Wave 0 task to verify symlink resolves in local Windows dev. Fallback: CI copy step (`cp -r ../../data public/data` before build) — less elegant but reliable.
+3. **/data/ access: symlink vs CI copy** — **RESOLVED**
+   - What we knew: ARCHITECTURE.md documented a symlink `public/data -> ../../data/`; Windows symlinks in git are fragile.
+   - Resolution: Do NOT rely on a symlink. The data loader in 02-01 (`src/lib/data.ts`) reads `data/cead/` directly via `node:fs` + `fileURLToPath(import.meta.url)` parent-directory traversal (`path.resolve(fileURLToPath(import.meta.url), '../../..', 'data', 'cead')`). Relative parent traversal works cross-platform at build time with no symlink and no CI copy step. 02-01 includes an acceptance criterion asserting `data/cead/meta/index.json` resolves and parses 346 entries.
 
 ---
 
@@ -794,11 +777,11 @@ Verified by reading actual Phase 1 JSON output during this research session:
 - `data/cead/meta/index.json` — 346 commune list; D-25 CUT codes confirmed [VERIFIED: read in session]
 - `data/cead/comunas/13101.json` — commune data contract; all fields verified [VERIFIED: read in session]
 - `data/cead/meta/catalog.json` — 7 family keys; secuestros null confirmed [VERIFIED: read in session]
-- `data/cead/regions/13.json` — region data shape; slug field present [VERIFIED: read in session]
+- `data/cead/regions/13.json` — region data shape; slug field present; series rate is a sum [VERIFIED: read in session]
 - `data/cead/national.json` — rate_per_100k confirmed as large sum values [VERIFIED: read in session]
 - `.planning/phases/02-astro-site-programmatic-pages/02-CONTEXT.md` — 26 locked decisions [VERIFIED: read in session]
 - `.planning/phases/02-astro-site-programmatic-pages/02-UI-SPEC.md` — approved visual contract [VERIFIED: read in session]
-- `.planning/research/ARCHITECTURE.md` — symlink approach, data flow [VERIFIED: read in session]
+- `.planning/research/ARCHITECTURE.md` — data flow [VERIFIED: read in session]
 - `CLAUDE.md` — locked stack, i18n approach, What NOT to Use [VERIFIED: read in session]
 - npm registry: astro 6.4.6, @astrojs/sitemap 3.7.3, chroma-js 3.2.0 [VERIFIED: npm view in session]
 
@@ -823,3 +806,4 @@ Verified by reading actual Phase 1 JSON output during this research session:
 
 **Research date:** 2026-06-13
 **Valid until:** 2026-09-13 (Astro SSG patterns and sitemap API are stable; data contract is locked by Phase 1)
+</content>
