@@ -1,0 +1,52 @@
+{
+  "families": {
+    "vida": {
+      "id": 1,
+      "key": "vida",
+      "featured": true
+    },
+    "robos_violentos": {
+      "id": 2,
+      "key": "robos_violentos",
+      "featured": false
+    },
+    "vif": {
+      "id": 3,
+      "key": "vif",
+      "featured": false
+    },
+    "drogas": {
+      "id": 4,
+      "key": "drogas",
+      "featured": false
+    },
+    "armas": {
+      "id": 5,
+      "key": "armas",
+      "featured": false
+    },
+    "propiedad": {
+      "id": 6,
+      "key": "propiedad",
+      "featured": true
+    },
+    "incivilidades": {
+      "id": 7,
+      "key": "incivilidades",
+      "featured": false
+    }
+  },
+  "featured_subgroups": {
+    "homicidios": 101,
+    "secuestros": null
+  },
+  "family_keys": [
+    "vida",
+    "robos_violentos",
+    "vif",
+    "drogas",
+    "armas",
+    "propiedad",
+    "incivilidades"
+  ]
+}

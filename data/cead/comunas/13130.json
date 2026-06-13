@@ -1,0 +1,350 @@
+{
+  "id": "13130",
+  "name": "San Miguel",
+  "slug": "san-miguel",
+  "region_id": "13",
+  "population": 145424,
+  "low_population": false,
+  "national_rank": 83,
+  "regional_rank": 9,
+  "trend": "up",
+  "featured_rates": {
+    "propiedad": {
+      "2005": 3766.6216886367,
+      "2006": 3847.628498613,
+      "2007": 4101.0542102245,
+      "2008": 4254.1037496901,
+      "2009": 4338.9366074722,
+      "2010": 4229.3300897818,
+      "2011": 4320.2724350901,
+      "2012": 4008.6652552804,
+      "2013": 4159.5941671167,
+      "2014": 4069.0156398954,
+      "2015": 3998.3390237151,
+      "2016": 3352.0005762236,
+      "2017": 3408.0302858489,
+      "2018": 2936.5752991496,
+      "2019": 2838.4937503966,
+      "2020": 1840.5369046814,
+      "2021": 1658.9322907151,
+      "2022": 2134.8467390449,
+      "2023": 1873.0401475984,
+      "2024": 2040.2409505996,
+      "2025": 2341.175439897,
+      "2026": 482.0104457606
+    },
+    "homicidios": {},
+    "secuestros": {}
+  },
+  "series": [
+    {
+      "year": 2005,
+      "rate_per_100k": 7685.4767094534,
+      "by_family": {
+        "vida": 886.8744882307,
+        "robos_violentos": 1091.0055472904,
+        "vif": 357.5176740592,
+        "drogas": 16.1459594736,
+        "armas": 59.9707066164,
+        "propiedad": 3766.6216886367,
+        "incivilidades": 1507.3406451464
+      },
+      "partial": false
+    },
+    {
+      "year": 2006,
+      "rate_per_100k": 7748.2577414917,
+      "by_family": {
+        "vida": 966.4178262929,
+        "robos_violentos": 1229.1661968019,
+        "vif": 328.1535442838,
+        "drogas": 23.6811836081,
+        "armas": 64.2774983649,
+        "propiedad": 3847.628498613,
+        "incivilidades": 1288.9329935271
+      },
+      "partial": false
+    },
+    {
+      "year": 2007,
+      "rate_per_100k": 8714.8780380221,
+      "by_family": {
+        "vida": 1269.2426447885,
+        "robos_violentos": 1622.1163601076,
+        "vif": 405.804772617,
+        "drogas": 31.9791804508,
+        "armas": 51.8283269375,
+        "propiedad": 4101.0542102245,
+        "incivilidades": 1232.8525428962
+      },
+      "partial": false
+    },
+    {
+      "year": 2008,
+      "rate_per_100k": 9803.7313674136,
+      "by_family": {
+        "vida": 1637.188648538,
+        "robos_violentos": 1286.9014130048,
+        "vif": 513.0360741962,
+        "drogas": 36.6454338712,
+        "armas": 62.5127989567,
+        "propiedad": 4254.1037496901,
+        "incivilidades": 2013.3432491566
+      },
+      "partial": false
+    },
+    {
+      "year": 2009,
+      "rate_per_100k": 9739.1579280181,
+      "by_family": {
+        "vida": 1567.1602466143,
+        "robos_violentos": 1135.0582283817,
+        "vif": 511.1450703483,
+        "drogas": 57.9649048849,
+        "armas": 76.9352373926,
+        "propiedad": 4338.9366074722,
+        "incivilidades": 2051.9576329241
+      },
+      "partial": false
+    },
+    {
+      "year": 2010,
+      "rate_per_100k": 8970.9626544896,
+      "by_family": {
+        "vida": 1444.1363528599,
+        "robos_violentos": 932.8646676219,
+        "vif": 503.0253677342,
+        "drogas": 60.8165915908,
+        "armas": 46.3855359591,
+        "propiedad": 4229.3300897818,
+        "incivilidades": 1754.4040489419
+      },
+      "partial": false
+    },
+    {
+      "year": 2011,
+      "rate_per_100k": 9393.16695717,
+      "by_family": {
+        "vida": 1425.6496025309,
+        "robos_violentos": 950.0972262803,
+        "vif": 544.0641592697,
+        "drogas": 47.3537323809,
+        "armas": 19.1429981965,
+        "propiedad": 4320.2724350901,
+        "incivilidades": 2086.5868034216
+      },
+      "partial": false
+    },
+    {
+      "year": 2012,
+      "rate_per_100k": 10153.1189995569,
+      "by_family": {
+        "vida": 1410.0733592635,
+        "robos_violentos": 825.1686278371,
+        "vif": 588.8434838265,
+        "drogas": 61.0506622027,
+        "armas": 33.4793954015,
+        "propiedad": 4008.6652552804,
+        "incivilidades": 3225.8382157452
+      },
+      "partial": false
+    },
+    {
+      "year": 2013,
+      "rate_per_100k": 10006.943908649,
+      "by_family": {
+        "vida": 1312.5916210169,
+        "robos_violentos": 981.7915284314,
+        "vif": 580.587917599,
+        "drogas": 64.6169277062,
+        "armas": 60.759200679,
+        "propiedad": 4159.5941671167,
+        "incivilidades": 2847.0025460998
+      },
+      "partial": false
+    },
+    {
+      "year": 2014,
+      "rate_per_100k": 9283.8872266321,
+      "by_family": {
+        "vida": 1193.9932230266,
+        "robos_violentos": 1251.5691808168,
+        "vif": 507.8010703465,
+        "drogas": 81.1726618026,
+        "armas": 118.9273882224,
+        "propiedad": 4069.0156398954,
+        "incivilidades": 2061.4080625218
+      },
+      "partial": false
+    },
+    {
+      "year": 2015,
+      "rate_per_100k": 8505.121343545301,
+      "by_family": {
+        "vida": 1047.3378241211,
+        "robos_violentos": 1204.2078065885,
+        "vif": 462.3050659777,
+        "drogas": 59.9796991787,
+        "armas": 93.1992248777,
+        "propiedad": 3998.3390237151,
+        "incivilidades": 1639.7526990865
+      },
+      "partial": false
+    },
+    {
+      "year": 2016,
+      "rate_per_100k": 7396.3697914792,
+      "by_family": {
+        "vida": 983.1814744121,
+        "robos_violentos": 1214.5712536464,
+        "vif": 475.3844491663,
+        "drogas": 39.6153707639,
+        "armas": 73.8286455145,
+        "propiedad": 3352.0005762236,
+        "incivilidades": 1257.7880217524
+      },
+      "partial": false
+    },
+    {
+      "year": 2017,
+      "rate_per_100k": 7615.076630525,
+      "by_family": {
+        "vida": 949.0496419257,
+        "robos_violentos": 1283.1360508021,
+        "vif": 452.7176141171,
+        "drogas": 52.3372964297,
+        "armas": 81.1228094661,
+        "propiedad": 3408.0302858489,
+        "incivilidades": 1388.6829319354
+      },
+      "partial": false
+    },
+    {
+      "year": 2018,
+      "rate_per_100k": 7484.1479854213,
+      "by_family": {
+        "vida": 980.2453109658,
+        "robos_violentos": 1354.7023482617,
+        "vif": 461.8303459983,
+        "drogas": 40.7742107278,
+        "armas": 73.2271539601,
+        "propiedad": 2936.5752991496,
+        "incivilidades": 1636.793316358
+      },
+      "partial": false
+    },
+    {
+      "year": 2019,
+      "rate_per_100k": 7229.8712010661,
+      "by_family": {
+        "vida": 1077.0255694436,
+        "robos_violentos": 1277.6790812766,
+        "vif": 527.4094283358,
+        "drogas": 36.4824566969,
+        "armas": 46.7927161982,
+        "propiedad": 2838.4937503966,
+        "incivilidades": 1425.9881987184
+      },
+      "partial": false
+    },
+    {
+      "year": 2020,
+      "rate_per_100k": 5311.177748217,
+      "by_family": {
+        "vida": 765.0741400431,
+        "robos_violentos": 1173.9153307931,
+        "vif": 429.1329410262,
+        "drogas": 46.5958710046,
+        "armas": 30.8133985676,
+        "propiedad": 1840.5369046814,
+        "incivilidades": 1025.109162101
+      },
+      "partial": false
+    },
+    {
+      "year": 2021,
+      "rate_per_100k": 4643.5487996492,
+      "by_family": {
+        "vida": 814.1191946505,
+        "robos_violentos": 760.0394635875,
+        "vif": 486.7175795666,
+        "drogas": 62.8494171813,
+        "armas": 33.6171301202,
+        "propiedad": 1658.9322907151,
+        "incivilidades": 827.273723828
+      },
+      "partial": false
+    },
+    {
+      "year": 2022,
+      "rate_per_100k": 5567.9207609016,
+      "by_family": {
+        "vida": 909.617903227,
+        "robos_violentos": 1313.9720458888,
+        "vif": 467.3331949703,
+        "drogas": 28.6268419584,
+        "armas": 44.3716050355,
+        "propiedad": 2134.8467390449,
+        "incivilidades": 669.1524307767
+      },
+      "partial": false
+    },
+    {
+      "year": 2023,
+      "rate_per_100k": 5620.5234691229,
+      "by_family": {
+        "vida": 979.3123767968,
+        "robos_violentos": 1610.6742243018,
+        "vif": 434.9381616146,
+        "drogas": 25.2544739002,
+        "armas": 35.0756581947,
+        "propiedad": 1873.0401475984,
+        "incivilidades": 662.2284267164
+      },
+      "partial": false
+    },
+    {
+      "year": 2024,
+      "rate_per_100k": 6224.557157003,
+      "by_family": {
+        "vida": 909.7535482451,
+        "robos_violentos": 1962.5371327979,
+        "vif": 455.9082407306,
+        "drogas": 20.6293321598,
+        "armas": 125.8389261745,
+        "propiedad": 2040.2409505996,
+        "incivilidades": 709.6490262955
+      },
+      "partial": false
+    },
+    {
+      "year": 2025,
+      "rate_per_100k": 6164.2866288826,
+      "by_family": {
+        "vida": 877.4353548491,
+        "robos_violentos": 1488.0009704354,
+        "vif": 460.2829088802,
+        "drogas": 30.3261067344,
+        "armas": 225.7610168007,
+        "propiedad": 2341.175439897,
+        "incivilidades": 741.3048312858
+      },
+      "partial": false
+    },
+    {
+      "year": 2026,
+      "rate_per_100k": 1364.1555903308,
+      "by_family": {
+        "vida": 252.230123672,
+        "robos_violentos": 264.7756010274,
+        "vif": 130.0767915272,
+        "drogas": 7.9234593824,
+        "armas": 52.8230625491,
+        "propiedad": 482.0104457606,
+        "incivilidades": 174.3161064121
+      },
+      "partial": true
+    }
+  ],
+  "last_updated": "2026-06-12"
+}
