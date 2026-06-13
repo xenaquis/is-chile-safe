@@ -1,0 +1,147 @@
+---
+/**
+ * /es/acerca-de/ — ES Acerca de (EDIT-04).
+ *
+ * Mirror de /about/ en español.
+ * LegalLayout garantiza cero marcado AdSlot (D-10).
+ * hreflang: /about/ <-> /es/acerca-de/
+ */
+import LegalLayout from '../../layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  lang="es"
+  title="Acerca de — Chile Safety Map"
+  description="Acerca de ischilesafe.com — un sitio bilingüe que presenta estadísticas oficiales de delincuencia del CEAD para Chile por comuna, región y tipo de delito."
+  enPath="/about/"
+  esPath="/es/acerca-de/"
+>
+  <section>
+    <h1>Acerca de Chile Safety Map</h1>
+    <p class="meta">Última actualización: junio de 2026</p>
+    <p>
+      ischilesafe.com es un recurso informativo bilingüe (inglés y español) que presenta
+      estadísticas oficiales de delincuencia para Chile. Nuestro objetivo es hacer accesibles
+      los datos públicos del gobierno y presentarlos con claridad, sin emitir veredictos
+      editoriales sobre qué lugares son "seguros" o "peligrosos".
+    </p>
+  </section>
+
+  <section>
+    <h2>Qué muestra este sitio</h2>
+    <p>
+      El sitio combina dos capas de información:
+    </p>
+    <ul>
+      <li>
+        <strong>Capa cuantitativa:</strong> Estadísticas oficiales de incidencia delictiva
+        del CEAD (Centro de Estudios y Análisis del Delito), el organismo gubernamental
+        chileno de estadísticas de delincuencia. Los datos cubren 346 comunas de Chile,
+        con series anuales desde 2005. Mostramos tasas por 100.000 habitantes, tendencias
+        a lo largo del tiempo y comparaciones entre comunas y regiones.
+      </li>
+      <li>
+        <strong>Capa cualitativa:</strong> Informes de incidentes recientes extraídos de
+        feeds RSS de medios de noticias chilenos, categorizados por tipo de delito y
+        ubicación. Aparecen como pines en el mapa y enlazan a los artículos de prensa
+        originales.
+      </li>
+    </ul>
+    <p>
+      Ambas capas se sirven como HTML estático pre-renderizado, indexado por los motores
+      de búsqueda en inglés y español.
+    </p>
+  </section>
+
+  <section>
+    <h2>La fuente de datos: CEAD</h2>
+    <p>
+      El <strong>CEAD — Centro de Estudios y Análisis del Delito</strong> es el organismo
+      oficial de estadísticas de delincuencia de Chile, dependiente del Ministerio del
+      Interior y Seguridad Pública. El CEAD compila datos de incidentes registrados por
+      la policía provenientes de Carabineros de Chile y la Policía de Investigaciones (PDI).
+    </p>
+    <p>
+      Accedemos a los datos del CEAD a través de sus endpoints públicos y los procesamos
+      mediante un pipeline de código abierto que valida la integridad de los datos, mapea
+      las comunas a códigos CUT estándar y calcula tasas per cápita. Los datos procesados
+      se almacenan como JSON versionado en el repositorio público de este proyecto en GitHub.
+      Esto proporciona total auditabilidad: puedes inspeccionar exactamente qué datos se
+      descargaron y cómo se transformaron.
+    </p>
+    <p>
+      Para más detalles sobre cómo calculamos las tasas, definimos las tendencias y
+      manejamos el subregistro, consulta la <a href="/es/metodologia/">página de Metodología</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Misión editorial: sobriedad</h2>
+    <p>
+      Los datos de delincuencia son política y socialmente sensibles. Nuestra regla editorial es:
+      <strong>presentar los números, atribuir la fuente y no emitir veredictos.</strong>
+    </p>
+    <p>
+      No clasificamos ninguna comuna, ciudad o región como "segura" o "peligrosa" en términos
+      absolutos. No publicamos cifras de probabilidad de victimización. No comparamos Chile con
+      otros países usando estándares de notificación incompatibles. Presentamos la incidencia
+      relativa reportada y te dejamos sacar tus propias conclusiones.
+    </p>
+    <p>
+      Cada estadística en este sitio cita su fuente. Cada pin de incidente de noticias enlaza
+      al artículo original de un medio identificado. No parafraseamos sin atribución.
+    </p>
+  </section>
+
+  <section>
+    <h2>Quiénes somos</h2>
+    <p>
+      ischilesafe.com es un proyecto independiente. No está afiliado al CEAD, al gobierno
+      chileno ni a ningún organismo de seguridad. Para preguntas o comentarios, usa la
+      <a href="/es/contacto/">página de contacto</a>.
+    </p>
+  </section>
+</LegalLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    padding-left: var(--lg);
+    list-style: disc;
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .meta {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--lg);
+  }
+</style>

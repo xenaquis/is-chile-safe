@@ -1,0 +1,163 @@
+---
+/**
+ * /es/terminos/ — ES Términos de Uso (EDIT-04).
+ *
+ * Mirror de /terms/ en español.
+ * LegalLayout garantiza cero marcado AdSlot (D-10).
+ * hreflang: /terms/ <-> /es/terminos/
+ */
+import LegalLayout from '../../layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  lang="es"
+  title="Términos de Uso — Chile Safety Map"
+  description="Términos de Uso de ischilesafe.com. Conoce las limitaciones de los datos estadísticos de delincuencia provenientes del CEAD y cómo puede utilizarse este sitio."
+  enPath="/terms/"
+  esPath="/es/terminos/"
+>
+  <section>
+    <h1>Términos de Uso</h1>
+    <p class="meta">Última actualización: junio de 2026</p>
+    <p>
+      Al acceder a ischilesafe.com aceptas estos Términos de Uso. Léelos con atención.
+      Si no estás de acuerdo, no uses este sitio.
+    </p>
+  </section>
+
+  <section>
+    <h2>Naturaleza del contenido</h2>
+    <p>
+      ischilesafe.com presenta datos estadísticos de delincuencia provenientes de
+      <strong>CEAD — Centro de Estudios y Análisis del Delito</strong>, organismo del
+      gobierno chileno dependiente del Ministerio del Interior y Seguridad Pública.
+      Los datos reflejan únicamente incidentes registrados por la policía; no representan
+      la prevalencia real del delito.
+    </p>
+    <p>
+      Todo el contenido de este sitio es <strong>exclusivamente informativo</strong>.
+      No constituye asesoramiento legal, asesoramiento en materia de seguridad, ni
+      sustituye una evaluación de riesgos profesional. El sitio no clasifica ninguna
+      comuna, ciudad o región como "segura" o "peligrosa" en términos absolutos.
+      Los usuarios no deben tomar decisiones sobre viajes, residencia o seguridad
+      personal basándose únicamente en el contenido de este sitio.
+    </p>
+  </section>
+
+  <section>
+    <h2>Exactitud y atribución de datos</h2>
+    <p>
+      Hacemos esfuerzos razonables para reproducir con exactitud los datos del CEAD.
+      No obstante:
+    </p>
+    <ul>
+      <li>
+        Los datos del CEAD pueden contener errores, revisiones u omisiones que no
+        controlamos.
+      </li>
+      <li>
+        Los endpoints públicos no oficiales del CEAD pueden cambiar sin previo aviso,
+        lo que puede hacer que los datos queden desactualizados antes de que podamos
+        actualizar nuestro proceso.
+      </li>
+      <li>
+        Los datos publicados en este sitio reflejan el estado de la fuente del CEAD
+        en el momento en que se ejecutó la ejecución más reciente de nuestro proceso
+        automatizado.
+      </li>
+    </ul>
+    <p>
+      Para datos autorizados, consulta directamente
+      <a href="https://cead.ministeriointerior.gob.cl" rel="noopener noreferrer" target="_blank">
+        cead.ministeriointerior.gob.cl
+      </a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Sin garantías ni responsabilidad</h2>
+    <p>
+      Este sitio se proporciona "tal cual" sin garantías de ningún tipo, expresas ni
+      implícitas. No garantizamos que los datos sean exactos, completos, actuales ni
+      adecuados para ningún fin particular. En la medida máxima permitida por la
+      legislación aplicable, rechazamos toda responsabilidad por daños derivados del
+      uso o la confianza en el contenido de este sitio.
+    </p>
+  </section>
+
+  <section>
+    <h2>Uso permitido</h2>
+    <p>
+      Puedes usar el contenido de este sitio para fines personales, informativos,
+      educativos e investigación no comercial, siempre que atribuyas la fuente de
+      datos (CEAD) cuando cites estadísticas de este sitio. La reproducción comercial
+      de datos raspados o el rastreo automatizado de este sitio más allá de la
+      indexación normal no está permitida sin el consentimiento previo por escrito.
+    </p>
+  </section>
+
+  <section>
+    <h2>Sitios de terceros</h2>
+    <p>
+      Este sitio contiene enlaces a sitios web externos (CEAD, fuentes de noticias,
+      herramientas de privacidad de Google). No somos responsables del contenido ni
+      de las prácticas de privacidad de esos sitios.
+    </p>
+  </section>
+
+  <section>
+    <h2>Cambios en estos términos</h2>
+    <p>
+      Podemos actualizar estos Términos de Uso en cualquier momento. El uso continuado
+      del sitio tras una actualización implica la aceptación de los términos revisados.
+      La fecha de "Última actualización" en la parte superior de esta página refleja
+      la revisión más reciente.
+    </p>
+    <p>
+      ¿Preguntas? Usa la <a href="/es/contacto/">página de contacto</a>.
+    </p>
+  </section>
+</LegalLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    padding-left: var(--lg);
+    list-style: disc;
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .meta {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--lg);
+  }
+</style>

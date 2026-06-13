@@ -1,0 +1,93 @@
+---
+/**
+ * /es/contacto/ — ES Contacto (EDIT-04, D-14).
+ *
+ * Incorpora el componente ContactForm estático con mailto.
+ * LegalLayout garantiza cero marcado AdSlot (D-10).
+ * hreflang: /contact/ <-> /es/contacto/
+ */
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import ContactForm from '../../components/ContactForm.astro';
+---
+
+<LegalLayout
+  lang="es"
+  title="Contacto — Chile Safety Map"
+  description="Contacta al equipo de ischilesafe.com con preguntas, correcciones o comentarios sobre nuestros datos estadísticos de delincuencia."
+  enPath="/contact/"
+  esPath="/es/contacto/"
+>
+  <section>
+    <h1>Contacto</h1>
+    <p>
+      Usa el formulario de abajo para comunicarte con el equipo de ischilesafe.com.
+      Recibimos con agrado preguntas sobre los datos, solicitudes de corrección
+      o comentarios generales.
+    </p>
+    <p>
+      Ten en cuenta que este es un proyecto independiente pequeño. Procuramos responder
+      en pocos días hábiles, pero no podemos garantizar los tiempos de respuesta.
+    </p>
+  </section>
+
+  <section>
+    <h2>Enviar un mensaje</h2>
+    <ContactForm locale="es" />
+  </section>
+
+  <section>
+    <h2>Qué incluir</h2>
+    <ul>
+      <li>
+        <strong>Correcciones de datos:</strong> Incluye el nombre de la comuna, la
+        estadística que crees que es incorrecta y un enlace a la fuente autorizada
+        (CEAD o INE).
+      </li>
+      <li>
+        <strong>Problemas con incidentes de noticias:</strong> Incluye la fecha del
+        incidente, la ubicación y la URL del artículo de prensa.
+      </li>
+      <li>
+        <strong>Comentarios generales:</strong> Leemos todos los mensajes, aunque no
+        siempre podamos responder individualmente.
+      </li>
+    </ul>
+  </section>
+</LegalLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    padding-left: var(--lg);
+    list-style: disc;
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
