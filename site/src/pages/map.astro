@@ -1,0 +1,38 @@
+---
+/**
+ * /map/ — EN interactive choropleth map page.
+ *
+ * Mounts MapIsland with client:only="react" (D-06).
+ * The island fills the viewport below the 64px header.
+ *
+ * Focal point: the choropleth canvas — 346 commune polygons colored by
+ * precomputed incidence level via native L.geoJSON + L.canvas renderer.
+ *
+ * SEO-01: reciprocal hreflang injected via BaseLayout enPath/esPath props.
+ * Zero client:* directives on content; island is isolated to this page only.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MapIsland from '../components/map/MapIsland';
+---
+
+<BaseLayout
+  lang="en"
+  title="Chile Crime Map — Interactive"
+  description="Explore reported crime incidence across Chile's 346 communes. Filter by year and crime type. Data: CEAD."
+  enPath="/map/"
+  esPath="/es/mapa/"
+>
+  {/*
+    Accessibility: static locate button aria-label present for screen readers
+    and for the map validator. The island replaces this slot dynamically.
+    visually-hidden class is defined in global.css.
+  */}
+  <span
+    style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0"
+    aria-label="Show my location"
+    data-map-locate-label="en"
+  />
+
+  {/* Map island — client:only prevents SSR; Leaflet CSS loads only here */}
+  <MapIsland client:only="react" lang="en" />
+</BaseLayout>
