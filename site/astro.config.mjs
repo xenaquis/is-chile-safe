@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import react from '@astrojs/react';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'node:fs';
@@ -63,6 +64,9 @@ function sitemapFilter(url) {
     return ENABLED_SLUGS.has(slug);
   }
 
+  // Map pages always included
+  if (/\/map\/$/.test(url) || /\/es\/mapa\/$/.test(url)) return true;
+
   // All other pages included by default (404, etc.)
   return true;
 }
@@ -77,6 +81,7 @@ export default defineConfig({
     },
   },
   integrations: [
+    react(),
     sitemap({
       i18n: {
         defaultLocale: 'en',
