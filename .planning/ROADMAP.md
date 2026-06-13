@@ -134,7 +134,11 @@ _Last updated: 2026-06-13_
   2. After a cron data commit, Cloudflare Pages does not trigger an automatic rebuild; a Deploy Hook is invoked only when `git diff` confirms data files changed — verified by checking the CF Pages build count after the first cron run
   3. The site is accessible at ischilesafe.com with HTTPS; all ~750 HTML pages are served from Cloudflare's CDN
 
-**Plans**: TBD
+**Plans**: 3 plans
+
+- [ ] 06-01-PLAN.md — news-pipeline.yml (6h cron) + cead-scraper.yml (quarterly): data-change-gated commit + conditional Deploy Hook (INFRA-01, INFRA-02) [Wave 1]
+- [ ] 06-02-PLAN.md — ci.yml (frontend build+9 validators, pipeline pytest, actionlint) + .nvmrc Node 20 (INFRA-01) [Wave 1]
+- [ ] 06-03-PLAN.md — DEPLOYMENT.md runbook + human go-live gate at ischilesafe.com (INFRA-02 dashboard, INFRA-03) [Wave 2]
 
 ## Progress Table
 
@@ -145,4 +149,4 @@ _Last updated: 2026-06-13_
 | 3. Leaflet Map Island | 4/4 | Complete    | 2026-06-13 |
 | 4. Editorial Pages + AdSense | 7/7 | Complete    | 2026-06-13 |
 | 5. RSS News Pipeline | 4/4 | Complete    | 2026-06-13 |
-| 6. CI/CD + Cloudflare Deployment | 0/? | Not started | - |
+| 6. CI/CD + Cloudflare Deployment | 0/3 | Planned     | - |
