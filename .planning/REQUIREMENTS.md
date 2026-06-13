@@ -30,7 +30,7 @@
 
 - [x] **PAGES-01**: 346 páginas de comuna en ES y EN generadas con datos reales, cada una con 500+ palabras y 5+ dimensiones únicas (tasa vs promedio nacional/regional, tendencia, delito dominante, contexto regional, comuna comparable)
 - [x] **PAGES-02**: 16 páginas de región en ES y EN con agregados y ranking de sus comunas
-- [ ] **PAGES-03**: Páginas por tipo de delito (ES/EN) con mapa y ranking filtrados
+- [x] **PAGES-03**: Páginas por tipo de delito (ES/EN) con mapa y ranking filtrados
 - [x] **PAGES-04**: Despliegue de páginas programáticas por lotes: 10–20 primero, verificar indexación en Google Search Console antes de generar las 346
 
 ### Páginas editoriales (EDIT)
@@ -85,7 +85,7 @@
 | DATA-04 | Phase 1 | Complete |
 | PAGES-01 | Phase 2 | Complete |
 | PAGES-02 | Phase 2 | Complete |
-| PAGES-03 | Phase 2 | Pending |
+| PAGES-03 | Phase 2 | Complete |
 | PAGES-04 | Phase 2 | Complete |
 | SEO-01 | Phase 2 | Complete |
 | SEO-02 | Phase 2 | Pending |
