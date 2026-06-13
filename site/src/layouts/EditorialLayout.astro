@@ -1,0 +1,64 @@
+---
+/**
+ * EditorialLayout — wraps BaseLayout with a 720px prose column (D-16).
+ * Injects AdSlot at content + bottom positions.
+ * Renders CookieConsent only when ADSENSE_ENABLED === 'true' (D-11).
+ *
+ * WRAP pattern (D-16): never declares its own <html>/<head> — always wraps BaseLayout.
+ * Pass jsonLd straight through so FAQ pages supply FAQPage JSON-LD via BaseLayout.
+ *
+ * Slot contract:
+ *   Default <slot /> — page body (all prose + DataCallout + FAQBlock etc.)
+ *   <slot name="ad-content" /> — optional: page may place a content AdSlot after
+ *     its first section; pages that omit it (e.g. methodology) get only the bottom slot.
+ */
+import BaseLayout from './BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+
+interface Props {
+  lang: 'en' | 'es';
+  title: string;
+  description: string;
+  enPath: string;
+  esPath: string;
+  jsonLd?: object | null;
+}
+
+const { lang, title, description, enPath, esPath, jsonLd = null } = Astro.props;
+
+// Pitfall 4: exact string compare — never !!env (empty string is truthy)
+const adsenseEnabled = import.meta.env.ADSENSE_ENABLED === 'true';
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={description}
+  enPath={enPath}
+  esPath={esPath}
+  jsonLd={jsonLd}
+>
+  <div class="editorial-prose">
+    <slot />
+    <!-- Optional content-position AdSlot (after first section); pages that want it
+         place <AdSlot slot="ad-content" slot="content" /> — or use this named slot. -->
+    <slot name="ad-content" />
+    <AdSlot slot="bottom" />
+  </div>
+  {adsenseEnabled && <CookieConsent locale={lang} />}
+</BaseLayout>
+
+<style>
+  .editorial-prose {
+    max-width: 720px; /* CLS-critical literal — prose reading width exception per UI-SPEC */
+    margin: 0 auto;
+  }
+
+  @media (max-width: 639px) {
+    .editorial-prose {
+      max-width: 100%;
+      padding: 0 var(--md);
+    }
+  }
+</style>

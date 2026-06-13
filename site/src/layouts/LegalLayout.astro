@@ -1,0 +1,49 @@
+---
+/**
+ * LegalLayout — wraps BaseLayout with a 720px prose column for legal pages (D-10, D-16).
+ * No ad slots — legal pages (Privacy, Terms, About, Contact) are an ad exclusion zone (D-10).
+ * No consent banner — shown only on editorial pages that inject ads.
+ *
+ * WRAP pattern (D-16): never declares its own <html>/<head> — always wraps BaseLayout.
+ * Pass jsonLd straight through for any structured data the page provides.
+ */
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  lang: 'en' | 'es';
+  title: string;
+  description: string;
+  enPath: string;
+  esPath: string;
+  jsonLd?: object | null;
+}
+
+const { lang, title, description, enPath, esPath, jsonLd = null } = Astro.props;
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={description}
+  enPath={enPath}
+  esPath={esPath}
+  jsonLd={jsonLd}
+>
+  <div class="editorial-prose">
+    <slot />
+  </div>
+</BaseLayout>
+
+<style>
+  .editorial-prose {
+    max-width: 720px; /* CLS-critical literal — prose reading width exception per UI-SPEC */
+    margin: 0 auto;
+  }
+
+  @media (max-width: 639px) {
+    .editorial-prose {
+      max-width: 100%;
+      padding: 0 var(--md);
+    }
+  }
+</style>
