@@ -73,7 +73,7 @@ _Last updated: 2026-06-13_
 
 - [x] 03-00-PLAN.md — Wave 0 infra: @astrojs/react + react/leaflet install (no react-leaflet), 346-commune CUT-keyed TopoJSON <100 KB, map.mjs validator + zero-React regression guard
 - [x] 03-01-PLAN.md — Wave 1: /map/ + /es/mapa/ pages + MapIsland (L.map, CARTO tiles, TopoJSON+payload fetch, native L.geoJSON + L.canvas choropleth), low-zoom dots, legend, zoom control
-- [ ] 03-02-PLAN.md — Wave 2: year + crime-type filters (setStyle in place), commune ResultPanel (tasa/trend/rank/sparkline/family breakdown), search
+- [x] 03-02-PLAN.md — Wave 2: year + crime-type filters (setStyle in place), commune ResultPanel (tasa/trend/rank/sparkline/family breakdown), search
 - [ ] 03-03-PLAN.md — Wave 3: geolocation (Geolocation API + point-in-polygon) + incident-pin NEWS layer (graceful empty state) + manual interaction/mobile UAT
 
 **UI hint**: yes
@@ -128,7 +128,7 @@ _Last updated: 2026-06-13_
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 4/4 | Complete    | 2026-06-13 |
 | 2. Astro Site + Programmatic Pages | 6/6 | Complete    | 2026-06-13 |
-| 3. Leaflet Map Island | 2/4 | In Progress|  |
+| 3. Leaflet Map Island | 3/4 | In Progress|  |
 | 4. Editorial Pages + AdSense | 0/? | Not started | - |
 | 5. RSS News Pipeline | 0/? | Not started | - |
 | 6. CI/CD + Cloudflare Deployment | 0/? | Not started | - |

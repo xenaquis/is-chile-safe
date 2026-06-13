@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to execute
-last_updated: "2026-06-13T16:23:48.078Z"
+status: Executing
+last_updated: "2026-06-13T17:00:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 14
-  completed_plans: 12
-  percent: 33
+  completed_plans: 13
+  percent: 93
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -25,7 +25,7 @@ _Last updated: 2026-06-13 (Phase 02 COMPLETE — plan 02-06 UAT approved; all 6 
 ## Current Position
 
 Phase: 3 (Leaflet Map Island) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 **Phase**: 3 — Leaflet Map Island (next)
 **Plan**: TBD — Phase 3 planning not yet started
 **Status**: Phase 2 fully complete. 740 pages pre-rendered, 7/7 validators pass, human UAT approved.
@@ -43,6 +43,7 @@ Plan: 3 of 4
 | Phase 02-astro-site-programmatic-pages P01 | 35m | 3 tasks | 17 files |
 | Phase 02-astro-site-programmatic-pages P03 | 45min | 3 tasks | 5 files |
 | Phase 03-leaflet-map-island P01 | 25 | 3 tasks | 9 files |
+| Phase 03-leaflet-map-island P02 | 45 | 3 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -62,6 +63,8 @@ Plan: 3 of 4
 - parse_cead_float maps all CEAD missing-value markers ('', '-', 'S/I', 'N/A') to None — uniform handling
 - CEAD live endpoint confirmed HTTP 200 on 2026-06-12 with 3 RM communes; inter-batch sleep belongs to orchestrator not client
 - Open Question 3 (homicides subgroup ID=101, kidnappings subgroup ID unknown) deferred to Plan 04 — do not hard-code featured-flag subgroup IDs until Plan 04 confirms them via live call
+- CHIP_DEFS carries display order + catalog by_family index — chip order != array index (0=vida, 1=robos_violentos, 2=vif, 3=drogas, 4=armas, 5=propiedad, 6=incivilidades)
+- ResultPanel converts series.by_family RECORD to catalog-indexed ARRAY for PanelFamilyBars (commune JSON uses record; map-payload uses array — never confuse them)
 
 ### Critical Pitfalls to Avoid
 
