@@ -7,17 +7,19 @@
  * Zero client:* directives.
  */
 interface Props {
-  slot: 'content' | 'bottom';
+  // NOTE: prop is `position`, NOT `slot` — `slot` is a reserved Astro attribute
+  // (named-slot projection) and would never reach Astro.props (CR/WR fix).
+  position: 'content' | 'bottom';
   publisherId?: string;
 }
 
-const { slot, publisherId = import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID ?? '' } = Astro.props;
+const { position, publisherId = import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID ?? '' } = Astro.props;
 // Pitfall 4: exact string compare — never !!env (empty string is truthy)
 const enabled = import.meta.env.ADSENSE_ENABLED === 'true';
-const adSlotId = slot === 'content' ? 'CONTENT_SLOT_ID' : 'BOTTOM_SLOT_ID';
+const adSlotId = position === 'content' ? 'CONTENT_SLOT_ID' : 'BOTTOM_SLOT_ID';
 ---
 
-<div class={`ad-slot ad-slot--${slot}`} aria-hidden={!enabled ? 'true' : undefined}>
+<div class={`ad-slot ad-slot--${position}`} aria-hidden={!enabled ? 'true' : undefined}>
   {enabled && publisherId ? (
     <ins class="adsbygoogle"
       data-ad-client={publisherId}

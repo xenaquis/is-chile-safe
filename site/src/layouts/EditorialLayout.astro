@@ -42,9 +42,9 @@ const adsenseEnabled = import.meta.env.ADSENSE_ENABLED === 'true';
   <div class="editorial-prose">
     <slot />
     <!-- Optional content-position AdSlot (after first section); pages that want it
-         place <AdSlot slot="ad-content" slot="content" /> — or use this named slot. -->
+         place <AdSlot position="content" /> into the named slot below. -->
     <slot name="ad-content" />
-    <AdSlot slot="bottom" />
+    <AdSlot position="bottom" />
   </div>
   {adsenseEnabled && <CookieConsent locale={lang} />}
 </BaseLayout>

@@ -68,9 +68,10 @@ const adsenseClient = import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID ?? '';
       <script is:inline async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`} crossorigin="anonymous"></script>
     )}
 
-    <!-- Schema.org JSON-LD (JSON.stringify for XSS safety) -->
+    <!-- Schema.org JSON-LD (JSON.stringify for XSS safety; escape </ to prevent
+         </script> breakout if any value contains the sequence — CR-01 fix) -->
     {jsonLd !== null && (
-      <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/<\//g, '<\\/')} />
     )}
   </head>
   <body>
