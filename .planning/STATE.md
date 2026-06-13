@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: Awaiting next milestone
-last_updated: "2026-06-13T22:51:59.584Z"
-last_activity: 2026-06-13 — Milestone v1.0 completed and archived
+milestone: v1.1
+milestone_name: Polish & QA
+status: planning
+last_updated: "2026-06-13T23:23:06.993Z"
+last_activity: 2026-06-13
 progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 28
-  completed_plans: 28
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -25,10 +25,10 @@ _Last updated: 2026-06-13 (Phase 02 COMPLETE — plan 02-06 UAT approved; all 6 
 
 ## Current Position
 
-Phase: Milestone v1.0 complete (archived)
+Phase: Not started (defining requirements)
 Plan: —
-Status: Code-complete; awaiting human go-live + next milestone
-Last activity: 2026-06-13 — Milestone v1.0 completed and archived (audit: tech_debt, code-complete)
+Status: Defining requirements
+Last activity: 2026-06-13 — Milestone v1.1 started
 
 ## Deferred Items
 
@@ -117,6 +117,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 **Open manual item**: Phase 3 visual/mobile UAT sigue diferido — se cierra dentro de la revisión E2E.
 **Next action**: Fase de **revisión end-to-end (v1.1 Polish & QA)** con MCP de navegador. **LEER PRIMERO** `.planning/REVIEW-E2E-BRIEF.md` (objetivo, método, inventario de páginas, checklist, prerrequisitos, kickoff). Prerrequisitos: conectar MCP `pbrowseros`/BrowserOS (no estaba conectado) + `cd site && npm run dev`. Handoff estructurado: `.planning/HANDOFF.json`.
 **Resume prompt**: v1.0 code-complete y archivado (no desplegado, push pendiente). Arrancar la revisión E2E para cazar bugs, reducir carga cognitiva y dejar la página agradable de leer — según `.planning/REVIEW-E2E-BRIEF.md`.
+**2026-06-13 (resume)**: Sesión reanudada. User eligió arrancar **milestone v1.1** (revisión E2E como primera fase) vía /gsd:new-milestone, usando REVIEW-E2E-BRIEF.md como insumo. HANDOFF.json consumido y borrado. Bloqueador abierto: MCP de navegador NO conectado (resolver antes de revisar render).
 
 ## Decisions
 

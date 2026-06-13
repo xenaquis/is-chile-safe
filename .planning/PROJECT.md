@@ -10,6 +10,19 @@ El sitio captura tráfico SEO mediante páginas programáticas bilingües (por c
 
 Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
+## Current Milestone: v1.1 Polish & QA
+
+**Goal:** Recorrer todo el sitio renderizado (ES/EN) con navegador, cazar bugs, reducir carga cognitiva y dejarlo agradable de leer — antes del go-live.
+
+**Target deliverables:**
+- Bug hunt E2E (consola, enlaces, datos, mapa dinámico, hreflang, responsive 375px, 404, estados vacíos)
+- Reducción de carga cognitiva (densidad, jerarquía, divulgación progresiva, legibilidad de gráficos/tablas)
+- Lectura agradable y paridad ES/EN (ritmo tipográfico, longitud de línea, escaneabilidad, tono sobrio)
+- Cierre del UAT visual/móvil de Phase 3 (diferido de v1.0)
+- (Oportunista) Deuda técnica registrada: orden `FAMILY_KEYS`, tipado `by_family`, `AVAILABLE_YEARS` dinámico, flip `nyquist_compliant`
+
+**Insumo:** `.planning/REVIEW-E2E-BRIEF.md` (inventario de páginas + checklist por dimensión). Excluye go-live (humano, `DEPLOYMENT.md`).
+
 ## Requirements
 
 ### Validated (v1.0 — code-complete 2026-06-13)
@@ -108,4 +121,4 @@ This document evolves at phase transitions and milestone boundaries.
 **Not yet live:** the site is not deployed — go-live requires a Cloudflare account, DNS for `ischilesafe.com`, and the `DEEPSEEK_API_KEY` / `CF_DEPLOY_HOOK_URL` secrets (all documented in `DEPLOYMENT.md`). That single human step also unblocks the news live-run + 50-incident audit and AdSense activation.
 
 ---
-*Last updated: 2026-06-13 after v1.0 milestone*
+*Last updated: 2026-06-13 — v1.1 Polish & QA milestone started*
