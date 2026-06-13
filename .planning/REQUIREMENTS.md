@@ -50,9 +50,9 @@
 
 ### Infraestructura (INFRA)
 
-- [ ] **INFRA-01**: GitHub Actions cron: pipeline de noticias cada 4–6 horas, scraper CEAD trimestral, con rate limiting cortés hacia CEAD
-- [ ] **INFRA-02**: Prevención de loop de rebuilds: commits de datos con GITHUB_TOKEN, auto-build de Cloudflare Pages deshabilitado, Deploy Hook invocado solo cuando los datos cambiaron
-- [ ] **INFRA-03**: Sitio desplegado en Cloudflare Pages bajo ischilesafe.com
+- [x] **INFRA-01**: GitHub Actions cron: pipeline de noticias cada 4–6 horas, scraper CEAD trimestral, con rate limiting cortés hacia CEAD
+- [x] **INFRA-02**: Prevención de loop de rebuilds: commits de datos con GITHUB_TOKEN, auto-build de Cloudflare Pages deshabilitado, Deploy Hook invocado solo cuando los datos cambiaron
+- [x] **INFRA-03**: Sitio desplegado en Cloudflare Pages bajo ischilesafe.com
 
 ### Monetización (MON)
 
@@ -108,9 +108,9 @@
 | NEWS-03 | Phase 5 | Complete |
 | NEWS-04 | Phase 5 | Complete |
 | NEWS-05 | Phase 5 | Complete |
-| INFRA-01 | Phase 6 | Pending |
-| INFRA-02 | Phase 6 | Pending |
-| INFRA-03 | Phase 6 | Pending |
+| INFRA-01 | Phase 6 | Complete |
+| INFRA-02 | Phase 6 | Complete |
+| INFRA-03 | Phase 6 | Complete |
 
 ---
 *Last updated: 2026-06-12 after roadmap creation*

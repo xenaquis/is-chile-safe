@@ -9,7 +9,7 @@ _Last updated: 2026-06-13_
 - [x] **Phase 3: Leaflet Map Island** - Interactive choropleth map with filters, commune popup panel, and geolocation — fully functional on mobile (completed 2026-06-13; visual/mobile UAT deferred)
 - [x] **Phase 4: Editorial Pages + AdSense** - High-priority editorial and legal pages live; editorial guardrails enforced at build time; AdSense integrated (completed 2026-06-13)
 - [x] **Phase 5: RSS News Pipeline** - Automated RSS ingestion, DeepSeek classification, and rolling incident feed powering map pins (completed 2026-06-13)
-- [ ] **Phase 6: CI/CD + Cloudflare Deployment** - Fully automated cron pipelines deployed without rebuild loops; site live on ischilesafe.com
+- [x] **Phase 6: CI/CD + Cloudflare Deployment** - Fully automated cron pipelines deployed without rebuild loops; site live on ischilesafe.com (completed 2026-06-13)
 
 ## Phase Details
 
@@ -138,7 +138,7 @@ _Last updated: 2026-06-13_
 
 - [x] 06-01-PLAN.md — news-pipeline.yml (6h cron) + cead-scraper.yml (quarterly): data-change-gated commit + conditional Deploy Hook (INFRA-01, INFRA-02) [Wave 1]
 - [x] 06-02-PLAN.md — ci.yml (frontend build+9 validators, pipeline pytest, actionlint) + .nvmrc Node 20 (INFRA-01) [Wave 1]
-- [ ] 06-03-PLAN.md — DEPLOYMENT.md runbook + human go-live gate at ischilesafe.com (INFRA-02 dashboard, INFRA-03) [Wave 2]
+- [x] 06-03-PLAN.md — DEPLOYMENT.md runbook + human go-live gate at ischilesafe.com (INFRA-02 dashboard, INFRA-03) [Wave 2]
 
 ## Progress Table
 
@@ -149,4 +149,4 @@ _Last updated: 2026-06-13_
 | 3. Leaflet Map Island | 4/4 | Complete    | 2026-06-13 |
 | 4. Editorial Pages + AdSense | 7/7 | Complete    | 2026-06-13 |
 | 5. RSS News Pipeline | 4/4 | Complete    | 2026-06-13 |
-| 6. CI/CD + Cloudflare Deployment | 2/3 | In Progress|  |
+| 6. CI/CD + Cloudflare Deployment | 3/3 | Complete   | 2026-06-13 |
