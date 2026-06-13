@@ -3,7 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "sync-data": "node scripts/sync-data.mjs",
+    "predev": "node scripts/sync-data.mjs",
     "dev": "astro dev",
+    "prebuild": "node scripts/sync-data.mjs",
     "build": "astro build",
     "check": "astro check",
     "validate": "node scripts/validate/all.mjs"

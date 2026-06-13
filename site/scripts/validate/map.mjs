@@ -216,6 +216,30 @@ if (!sample) {
 }
 
 // ---------------------------------------------------------------------------
+// Check 7: Runtime data is served from dist/data (the island fetches
+// /data/cead/* in the browser; if these are not published the map loads empty).
+// Regression guard for the prebuild sync-data step.
+// ---------------------------------------------------------------------------
+const RUNTIME_DATA_ASSETS = [
+  'data/cead/geo/communes.topo.json',
+  'data/cead/map-payload.json',
+  'data/cead/meta/index.json',
+  'data/cead/comunas/13101.json',
+];
+for (const rel of RUNTIME_DATA_ASSETS) {
+  const p = path.join(DIST_DIR, rel);
+  if (existsSync(p)) {
+    pass(`runtime data served — dist/${rel}`);
+  } else {
+    fail(
+      `runtime data served — dist/${rel}`,
+      `Map island fetches /${rel} at runtime but it is missing from dist/. ` +
+        `Ensure scripts/sync-data.mjs runs (predev/prebuild) so public/data is published.`
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 if (failures > 0) {
