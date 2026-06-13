@@ -1,0 +1,297 @@
+---
+/**
+ * ES commune page — /es/comuna/{slug}/
+ *
+ * IDENTICAL getStaticPaths rollout gate as EN route — guarantees hreflang
+ * reciprocity (Pitfall 2): both locales always build the same 12 communes.
+ *
+ * vs-national and vs-regional computed against per-capita MEANS:
+ *   loadNationalAverage() and loadRegionalAverage(region_id)
+ * NEVER against loadNational()/loadRegion() series rate (those are SUMs, Pitfall 1).
+ *
+ * Zero client:* directives (D-09). All components are static .astro.
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LevelChip from '../../../components/LevelChip.astro';
+import TrendChip from '../../../components/TrendChip.astro';
+import StatCard from '../../../components/StatCard.astro';
+import Sparkline from '../../../components/Sparkline.astro';
+import ComparisonCallout from '../../../components/ComparisonCallout.astro';
+import FamilyBreakdownBars from '../../../components/FamilyBreakdownBars.astro';
+import ComparableCommune from '../../../components/ComparableCommune.astro';
+import MapPlaceholderSlot from '../../../components/MapPlaceholderSlot.astro';
+import MethodologyCaveat from '../../../components/MethodologyCaveat.astro';
+import {
+  loadCommune,
+  loadRolloutCuts,
+  loadNationalAverage,
+  loadRegionalAverage,
+  nearestComparable,
+  latestCompleteYearRate,
+  loadIndex,
+} from '../../../lib/data.ts';
+import { buildCommuneProse } from '../../../lib/proseEngine.ts';
+import { levelForRate } from '../../../lib/colorScale.ts';
+import { ES_STRINGS } from '../../../config/i18n.ts';
+
+export async function getStaticPaths() {
+  // IDENTICAL rollout gate as EN route — guarantees hreflang parity (Pitfall 2)
+  const cuts = loadRolloutCuts();
+  return cuts.map((cut) => {
+    const meta = loadIndex().find((c) => c.cut === cut);
+    return {
+      params: { slug: meta?.slug ?? cut },
+      props: { cut },
+    };
+  });
+}
+
+// --- Page-level data ---
+const { cut } = Astro.props as { cut: string };
+const data = loadCommune(cut);
+const year = data.latestCompleteYear;
+const rate = latestCompleteYearRate(data);
+
+// Dimension 1: vs-national (MEAN, not SUM)
+const nationalAvg = loadNationalAverage();
+const vsNationalPct = nationalAvg > 0 ? ((rate - nationalAvg) / nationalAvg) * 100 : 0;
+const vsNationalDir: 'above' | 'below' = vsNationalPct >= 0 ? 'above' : 'below';
+
+// Dimension 2: vs-regional (MEAN, not SUM)
+const regionalAvg = loadRegionalAverage(data.region_id);
+const vsRegionalPct = regionalAvg > 0 ? ((rate - regionalAvg) / regionalAvg) * 100 : 0;
+const vsRegionalDir: 'above' | 'below' = vsRegionalPct >= 0 ? 'above' : 'below';
+
+// Dimension 4: dominant + secondary family
+const seriesEntry = data.series.find((s) => s.year === year && !s.partial);
+const byFamily = seriesEntry?.by_family ?? {};
+
+// Dimension 5: comparable commune
+const comparable = nearestComparable(cut);
+
+// Compute incidence level (1–5) for LevelChip
+const allRates = loadIndex()
+  .filter((c) => !c.low_population)
+  .map((c) => latestCompleteYearRate(loadCommune(c.cut)))
+  .sort((a, b) => a - b);
+const level = levelForRate(rate, allRates);
+
+// Prose (ES)
+const prose = buildCommuneProse(data, 'es');
+
+// URLs
+const enPath = `/commune/${data.slug}/`;
+const esPath = `/es/comuna/${data.slug}/`;
+
+// Meta
+const t = ES_STRINGS;
+const title = `Incidencia en ${data.name} — Chile Safety Map`;
+const description = `Estadísticas CEAD de incidencia delictiva en ${data.name}, ${data.regionName}: tasa reportada, posición nacional, evolución 2005–${year}.`;
+
+// JSON-LD: Dataset + Place (variante en español)
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': ['Dataset', 'Place'],
+  name: `${data.name} — Incidencia Delictiva Reportada`,
+  description: `Tasas anuales de incidencia delictiva reportada por 100.000 habitantes para ${data.name}, según datos del CEAD (Centro de Estudios y Análisis del Delito), Chile.`,
+  url: `https://ischilesafe.com/es/comuna/${data.slug}/`,
+  spatialCoverage: {
+    '@type': 'Place',
+    name: data.name,
+    containedInPlace: { '@type': 'AdministrativeArea', name: data.regionName },
+  },
+  temporalCoverage: `2005/${year}`,
+  measurementTechnique: 'Tasa por 100.000 habitantes, estadísticas policiales oficiales CEAD',
+  creator: { '@type': 'Organization', name: 'CEAD — Centro de Estudios y Análisis del Delito' },
+};
+---
+
+<BaseLayout
+  lang="es"
+  title={title}
+  description={description}
+  enPath={enPath}
+  esPath={esPath}
+  jsonLd={jsonLd}
+  mountType="commune-map"
+>
+  <!-- 2. CommuneHero -->
+  <section class="commune-hero">
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+      <a href="/es/">Inicio</a>
+      <span aria-hidden="true"> › </span>
+      <a href={`/es/region/${data.slug}/`}>{data.regionName}</a>
+    </nav>
+    <h1 class="commune-h1">{data.name}</h1>
+    <div class="hero-meta">
+      <LevelChip level={level} locale="es" />
+      <span class="population-note">Población: {data.population.toLocaleString('es-CL')}</span>
+    </div>
+    {data.low_population && (
+      <p class="low-pop-caveat">{t.low_population_caveat}</p>
+    )}
+  </section>
+
+  <!-- 3. KeyStatsRow -->
+  <section class="key-stats-row" aria-label="Estadísticas clave">
+    <StatCard
+      label={t.rate_label.replace('{year}', String(year))}
+      value={Math.round(rate).toLocaleString('es-CL')}
+    />
+    <StatCard
+      label={t.national_rank_label}
+      value={`#${data.national_rank} ${t.rank_of} 346`}
+    />
+    <StatCard
+      label={t.regional_rank_label}
+      value={`#${data.regional_rank}`}
+    />
+  </section>
+
+  <!-- 4. SparklineSection -->
+  <section class="sparkline-section" aria-label="Evolución anual">
+    <h2 class="section-heading">{t.sparkline_heading}</h2>
+    <Sparkline series={data.series} activeYear={year} />
+    <TrendChip trend={data.trend} locale="es" />
+  </section>
+
+  <!-- 5. ComparisonCallouts -->
+  <section class="comparison-callouts" aria-label="Comparaciones nacionales y regionales">
+    <ComparisonCallout
+      pct={vsNationalPct}
+      direction={vsNationalDir}
+      scope="national"
+      locale="es"
+    />
+    <ComparisonCallout
+      pct={vsRegionalPct}
+      direction={vsRegionalDir}
+      scope="regional"
+      locale="es"
+    />
+  </section>
+
+  <!-- 6. CrimeFamilyBreakdown -->
+  <section class="family-breakdown" aria-label="Desglose por familia delictiva">
+    <h2 class="section-heading">
+      {t.family_breakdown_heading.replace('{year}', String(year))}
+    </h2>
+    <FamilyBreakdownBars byFamily={byFamily} locale="es" level={level} />
+  </section>
+
+  <!-- 7. ComparableCommune -->
+  <ComparableCommune comparable={comparable} locale="es" />
+
+  <!-- 8. MapPlaceholderSlot -->
+  <MapPlaceholderSlot mountType="commune-map" locale="es" />
+
+  <!-- 9. ProseSummary -->
+  <section class="prose-summary" aria-label="Resumen">
+    {prose.split('\n\n').map((para) => (
+      <p set:html={para} />
+    ))}
+  </section>
+
+  <!-- 10. MethodologyCaveat -->
+  <MethodologyCaveat locale="es" />
+</BaseLayout>
+
+<style>
+  .commune-hero {
+    padding: var(--xl) 0 var(--lg);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--sm);
+  }
+
+  .breadcrumb a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--primary);
+  }
+
+  .commune-h1 {
+    font-size: var(--text-display);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin: var(--sm) 0;
+    line-height: 1.15;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--md);
+    flex-wrap: wrap;
+    margin-top: var(--sm);
+  }
+
+  .population-note {
+    font-size: var(--text-label);
+    color: var(--muted);
+  }
+
+  .low-pop-caveat {
+    margin-top: var(--md);
+    padding: var(--sm) var(--md);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-size: var(--text-label);
+    color: var(--muted);
+  }
+
+  .key-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--md);
+    margin: var(--xl) 0;
+  }
+
+  @media (max-width: 600px) {
+    .key-stats-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .sparkline-section {
+    margin: var(--xl) 0;
+  }
+
+  .section-heading {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin-bottom: var(--md);
+  }
+
+  .comparison-callouts {
+    display: flex;
+    gap: var(--md);
+    flex-wrap: wrap;
+    margin: var(--xl) 0;
+  }
+
+  .family-breakdown {
+    margin: var(--xl) 0;
+  }
+
+  .prose-summary {
+    margin: var(--2xl) 0;
+    max-width: 72ch;
+  }
+
+  .prose-summary p {
+    font-size: var(--text-body);
+    font-weight: var(--weight-body);
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: var(--md);
+  }
+</style>

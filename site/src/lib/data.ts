@@ -13,16 +13,11 @@
  */
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-// site/src/lib/data.ts -> lib/ -> src/ -> site/ -> repo-root
-// then descend into data/cead
-const DATA_ROOT = path.resolve(
-  fileURLToPath(import.meta.url),
-  '../../../..',
-  'data',
-  'cead'
-);
+// Use process.cwd() (stable = site/ root during astro build/prerender) rather than
+// import.meta.url which changes in bundled prerender chunks (dist/.prerender/).
+// site/ -> .. -> repo-root -> data/cead
+const DATA_ROOT = path.resolve(process.cwd(), '..', 'data', 'cead');
 
 // --- Types ---
 
@@ -218,10 +213,11 @@ export function loadRolloutCuts(): string[] {
   if (process.env.ROLLOUT_ALL === 'true') {
     return loadIndex().map((c) => c.cut);
   }
-  // Dynamic import to avoid top-level JSON import being bundled into client JS
+  // Use process.cwd() (stable = site/ root during astro build/prerender) to locate
+  // rollout.json. import.meta.url breaks in bundled prerender chunks (dist/.prerender/).
   const rollout = JSON.parse(
     readFileSync(
-      path.resolve(fileURLToPath(import.meta.url), '..', '..', 'config', 'rollout.json'),
+      path.resolve(process.cwd(), 'src', 'config', 'rollout.json'),
       'utf-8'
     )
   ) as RolloutConfig;
