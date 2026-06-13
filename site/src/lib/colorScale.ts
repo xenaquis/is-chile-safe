@@ -14,6 +14,16 @@ export const INCIDENCE_COLORS: string[] = chroma
 
 /**
  * Compute incidence level (1–5) for a given rate by quintile position.
+ *
+ * NOTE (WR-06): levels are VALUE-THRESHOLD quintiles, not equal-COUNT buckets.
+ * The breakpoints are the rate values at the 20/40/60/80th index positions of
+ * the sorted rate array, and assignment uses `rate <= q(p)`. When many communes
+ * share the same rate (rates are rounded to integers upstream), a single value
+ * can span several breakpoints, so adjacent levels may hold unequal counts.
+ * This is intentional: the choropleth colors by rate threshold, not by rank.
+ * If equal-count quintiles are ever required, assign by index rank (position / n)
+ * instead of by value comparison.
+ *
  * @param rate - The commune's rate_per_100k
  * @param sortedRates - All non-low-population commune rates, sorted ascending
  * @returns Level 1 (lowest) to 5 (highest)

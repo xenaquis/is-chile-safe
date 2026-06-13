@@ -23,6 +23,8 @@ import MapPlaceholderSlot from '../../components/MapPlaceholderSlot.astro';
 import MethodologyCaveat from '../../components/MethodologyCaveat.astro';
 import {
   loadCommune,
+  loadRegion,
+  regionFileId,
   loadRolloutCuts,
   loadNationalAverage,
   loadRegionalAverage,
@@ -67,6 +69,10 @@ const byFamily = seriesEntry?.by_family ?? {};
 
 // Dimension 5: comparable commune
 const comparable = nearestComparable(cut);
+
+// Region slug for breadcrumb — resolve via the region file, NOT data.slug
+// (data.slug is the commune slug; region pages are built at /region/{region.slug}/).
+const regionSlug = loadRegion(regionFileId(data.region_id)).slug;
 
 // Compute incidence level (1–5) for LevelChip
 const allRates = loadIndex()
@@ -119,7 +125,7 @@ const jsonLd = {
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true"> › </span>
-      <a href={`/region/${data.slug}/`}>{data.regionName}</a>
+      <a href={`/region/${regionSlug}/`}>{data.regionName}</a>
     </nav>
     <h1 class="commune-h1">{data.name}</h1>
     <div class="hero-meta">
@@ -186,9 +192,7 @@ const jsonLd = {
 
   <!-- 9. ProseSummary -->
   <section class="prose-summary" aria-label="Summary">
-    {prose.split('\n\n').map((para) => (
-      <p set:html={para} />
-    ))}
+    {prose.split('\n\n').map((para) => <p>{para}</p>)}
   </section>
 
   <!-- 10. MethodologyCaveat -->
