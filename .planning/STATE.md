@@ -2,7 +2,7 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 3 plan 03 automated tasks complete — human UAT checkpoint OPEN
+status: Phase 3 COMPLETE (UAT closed, visual render deferred) — ready to plan Phase 4
 last_updated: "2026-06-13T17:45:00.000Z"
 progress:
   total_phases: 6
@@ -20,7 +20,7 @@ _Last updated: 2026-06-13 (Phase 02 COMPLETE — plan 02-06 UAT approved; all 6 
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: Phase 3 — Leaflet Map Island (Phase 2 complete + post-UAT fix applied)
+**Current focus**: Phase 4 — Editorial Pages + AdSense (Phases 1-3 complete; Phase 3 had a runtime data-serving fix)
 
 ## Current Position
 
@@ -90,10 +90,13 @@ Plan: 4 of 4
 
 ## Session Continuity
 
-**Last session**: 2026-06-13 — Phase 03 plan 03 automated tasks complete (commits d6f1d62 + 90a4552). UserLocationMarker.ts (geolocation + ray-cast PiP, MAP-05) and IncidentPinLayer.ts (graceful NEWS layer, MAP-04) created and wired into MapIsland. Build green; 8/8 validators pass. Task 3 (manual UAT) is a checkpoint:human-verify — OPEN.
-**Known env issue (not code)**: building inside OneDrive desyncs `dist/` artifacts between separate processes — always chain build + validate in one command.
-**Next action**: Human UAT of Task 3. Run `cd site && npm run dev`, open http://localhost:4321/map/, verify MAP-01..06 + mobile 3G performance. Type "approved" to sign off Phase 3.
-**Resume prompt**: Phase 03 plan 03 automated tasks done. Awaiting human UAT approval for Task 3 checkpoint.
+**Last session**: 2026-06-13 — Phase 03 COMPLETE (Leaflet Map Island), UAT closed by user (visual/mobile render DEFERRED — needs real browser). Full autonomous cycle: smart-discuss→UI-SPEC→research→pattern→plan(4)→check(12/12 dims)→execute(waves 0-3). React19+Leaflet island (NO react-leaflet — v4 needs React18; pure L.map()); 346-commune GADM-L3 TopoJSON 87KB; choropleth+year/crime filters+commune panel+geolocation(ray-cast PiP)+incident-pins(empty-state). 8/8 validators; VERIFICATION.md status=passed.
+**Phase 03 BLOCKER found+fixed (commit 0c6659d)**: island fetched /data/cead/* at runtime but nothing served /data (Phase 2 read /data only at build time). Fix: scripts/sync-data.mjs (predev/prebuild) copies data/cead→public/data; gitignored; map.mjs regression guard added. Dev-server HTTP smoke confirmed all data endpoints 200, incidents 404 (expected).
+**Phase 02 prior fix (commit a439529)**: comparable-commune self-reference (cut/id mismatch in loadCommune).
+**Known env issue (not code)**: project is inside OneDrive — `dist/` artifacts desync between separate processes; ALWAYS chain build + validate in one command. (See memory: onedrive-build-artifacts-desync.)
+**Open manual item**: Phase 3 visual/mobile UAT (run `cd site && npm run dev`, open /map/; check render, jank, geolocation, 3G).
+**Next action**: Plan Phase 4 — Editorial Pages + AdSense (EDIT-01..05, MON-01). Autonomous run continuing.
+**Resume prompt**: Phases 1-3 complete (Phase 3 visual UAT deferred). Continue autonomous from Phase 4 (Editorial + AdSense).
 
 ## Decisions
 

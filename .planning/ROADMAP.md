@@ -6,7 +6,7 @@ _Last updated: 2026-06-13_
 
 - [x] **Phase 1: Data Foundation** - CEAD scraper extracts and validates all quantitative crime data into a stable JSON schema (completed 2026-06-13)
 - [x] **Phase 2: Astro Site + Programmatic Pages** - Static site framework deployed with bilingual programmatic pages for all 346 comunas, 16 regions, and crime types (completed 2026-06-13)
-- [ ] **Phase 3: Leaflet Map Island** - Interactive choropleth map with filters, commune popup panel, and geolocation — fully functional on mobile
+- [x] **Phase 3: Leaflet Map Island** - Interactive choropleth map with filters, commune popup panel, and geolocation — fully functional on mobile (completed 2026-06-13; visual/mobile UAT deferred)
 - [ ] **Phase 4: Editorial Pages + AdSense** - High-priority editorial and legal pages live; editorial guardrails enforced at build time; AdSense integrated
 - [ ] **Phase 5: RSS News Pipeline** - Automated RSS ingestion, DeepSeek classification, and rolling incident feed powering map pins
 - [ ] **Phase 6: CI/CD + Cloudflare Deployment** - Fully automated cron pipelines deployed without rebuild loops; site live on ischilesafe.com
@@ -128,7 +128,7 @@ _Last updated: 2026-06-13_
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 4/4 | Complete    | 2026-06-13 |
 | 2. Astro Site + Programmatic Pages | 6/6 | Complete    | 2026-06-13 |
-| 3. Leaflet Map Island | 3/4 | In Progress|  |
+| 3. Leaflet Map Island | 4/4 | Complete    | 2026-06-13 |
 | 4. Editorial Pages + AdSense | 0/? | Not started | - |
 | 5. RSS News Pipeline | 0/? | Not started | - |
 | 6. CI/CD + Cloudflare Deployment | 0/? | Not started | - |
