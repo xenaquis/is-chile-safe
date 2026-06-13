@@ -28,6 +28,7 @@ from __future__ import annotations
 import logging
 import os
 import pathlib
+import socket
 import sys
 
 logging.basicConfig(
@@ -65,6 +66,10 @@ def main() -> int:
     Returns:
         0 on success, 1 on any failure.
     """
+    # CR-01: bound every network read (feedparser has no native timeout) so a single
+    # stalled feed server cannot hang the whole cron run indefinitely.
+    socket.setdefaulttimeout(30)
+
     # Load dotenv early so env vars are available (no-op in CI where secrets are set directly)
     try:
         from dotenv import load_dotenv
@@ -179,6 +184,12 @@ def main() -> int:
         rejected = 0
 
         for item in candidates:
+            # CR-02: mark the URL seen as soon as we attempt classification — BEFORE any
+            # reject path. Otherwise rejected URLs (low confidence / bad CUT / no centroid)
+            # are never recorded and get re-classified on every run, defeating the D-17 cost
+            # guardrail and burning DeepSeek quota indefinitely.
+            seen[item["url"]] = item["date"]
+
             # RESEARCH Open Q1: log rejection reason where available
             result = classify(item["title"], item["description"])
             if result is None:
@@ -219,9 +230,7 @@ def main() -> int:
             )
             new_incidents.append(incident)
             classified += 1
-
-            # Mark URL as seen (D-03) — do this per-item so partial runs still update ledger
-            seen[item["url"]] = item["date"]
+            # (URL already marked seen at loop top — CR-02)
 
         logger.info(
             "Classification summary: classified=%d, rejected=%d",

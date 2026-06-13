@@ -20,7 +20,14 @@ from pipeline.shared.schema import FAMILY_KEYS
 VALID_FAMILIES: set[str] = set(FAMILY_KEYS)
 
 _CUT_FILE = pathlib.Path(__file__).parents[2] / "data" / "incidents" / "cut_list.json"
-VALID_CUTS: set[str] = set(json.loads(_CUT_FILE.read_text(encoding="utf-8")) if _CUT_FILE.exists() else [])
+if not _CUT_FILE.exists():
+    # CR-03: fail loud. An empty VALID_CUTS would silently reject EVERY incident
+    # (any code `not in set()` is True) — indistinguishable from "no crime news".
+    raise FileNotFoundError(
+        f"cut_list.json not found at {_CUT_FILE}. The 346-commune CUT list is required "
+        "for classification; refusing to run with an empty allow-list."
+    )
+VALID_CUTS: set[str] = set(json.loads(_CUT_FILE.read_text(encoding="utf-8")))
 
 
 # ---------------------------------------------------------------------------
