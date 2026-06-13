@@ -8,7 +8,7 @@
  */
 import L from 'leaflet';
 import type { MutableRefObject } from 'react';
-import { INCIDENCE_COLORS, DEFAULT_STYLE } from './colors';
+import { INCIDENCE_COLORS, DEFAULT_STYLE, computeQuantileBreaks, levelFromBreaks } from './colors';
 
 export interface CommunaPayload {
   id: string; // CUT code
@@ -77,6 +77,31 @@ export function mountChoroplethLayer(
   }).addTo(map);
 
   return layer;
+}
+
+/**
+ * Build a CUT → PathOptions style map from a specific crime family (by_family index).
+ * Called on crime-type chip change; computes quantile breaks client-side (D-11).
+ */
+export function buildStyleMapFromFamily(
+  comunas: CommunaPayload[],
+  familyIndex: number
+): Map<string, L.PathOptions> {
+  const rates = comunas.map((c) => c.by_family[familyIndex] ?? 0);
+  const positiveRates = rates.filter((r) => r > 0);
+  const breaks = computeQuantileBreaks(positiveRates, 5);
+  const m = new Map<string, L.PathOptions>();
+  for (const c of comunas) {
+    const rate = c.by_family[familyIndex] ?? 0;
+    const level = levelFromBreaks(rate, breaks);
+    m.set(c.id, {
+      fillColor: INCIDENCE_COLORS[level - 1]!,
+      fillOpacity: 0.55,
+      color: '#ffffff',
+      weight: 1.2,
+    });
+  }
+  return m;
 }
 
 /**
