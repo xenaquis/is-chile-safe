@@ -1,0 +1,23 @@
+{
+  "name": "ischilesafe",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "check": "astro check",
+    "validate": "node scripts/validate/all.mjs"
+  },
+  "dependencies": {
+    "astro": "6.4.6",
+    "@astrojs/sitemap": "3.7.3",
+    "chroma-js": "3.2.0",
+    "topojson-client": "3.1.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "@types/chroma-js": "^2.4.4",
+    "@types/topojson-client": "^3.1.4",
+    "typescript": "^5.0.0"
+  }
+}
