@@ -1,0 +1,277 @@
+---
+/**
+ * EN region page — /region/{slug}/
+ *
+ * Builds all 16 regions — NOT rollout-gated (D-26).
+ * getStaticPaths iterates region files 1..16 via loadRegion().
+ *
+ * vs-national computed against per-capita MEAN (loadNationalAverage).
+ * Region aggregate for headline: MEAN of non-low-pop communes in region (loadRegionalAverage).
+ * NEVER use loadRegion().series[].rate_per_100k for average comparisons — those are SUMs.
+ *
+ * Zero client:* directives (D-09). All components are static .astro.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StatCard from '../../components/StatCard.astro';
+import Sparkline from '../../components/Sparkline.astro';
+import CommuneRankingTable from '../../components/CommuneRankingTable.astro';
+import MapPlaceholderSlot from '../../components/MapPlaceholderSlot.astro';
+import MethodologyCaveat from '../../components/MethodologyCaveat.astro';
+import {
+  loadRegion,
+  loadIndex,
+  loadCommune,
+  loadNationalAverage,
+  latestCompleteYearRate,
+} from '../../lib/data.ts';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (let i = 1; i <= 16; i++) {
+    const region = loadRegion(String(i));
+    paths.push({
+      params: { slug: region.slug },
+      props: { regionFileId: String(i) },
+    });
+  }
+  return paths;
+}
+
+// --- Page-level data ---
+const { regionFileId } = Astro.props as { regionFileId: string };
+const region = loadRegion(regionFileId);
+
+// Latest complete year from regional series (last entry where partial !== true)
+const latestCompleteYear = region.series
+  .filter((s) => !s.partial)
+  .reduce((max, s) => Math.max(max, s.year), 0);
+
+// Aggregate population + commune count from index
+const index = loadIndex();
+// communes whose region_id, when mapped through regionFileId logic, resolves to this file
+const regionCommunes = index.filter((c) => {
+  const n = parseInt(c.region_id, 10);
+  let fileId: string;
+  if (n >= 1 && n <= 16) fileId = String(n);
+  else fileId = String(Math.floor(n / 10));
+  return fileId === regionFileId;
+});
+
+const aggregatePopulation = regionCommunes.reduce((sum, c) => sum + c.population, 0);
+const communeCount = regionCommunes.length;
+
+// Load commune data for ranking table (rate + trend + national_rank + low_population)
+const rankingRows = regionCommunes.map((c) => {
+  const data = loadCommune(c.cut);
+  const rate = latestCompleteYearRate(data);
+  return {
+    name: c.name,
+    slug: c.slug,
+    rate,
+    national_rank: data.national_rank,
+    trend: data.trend,
+    low_population: c.low_population,
+  };
+});
+
+// Sort by rate descending (low-pop communes at bottom within their rate order)
+rankingRows.sort((a, b) => b.rate - a.rate);
+
+// National position among 16 regions: compare this region's average to all 16
+// Use MEAN of non-low-pop communes per region (consistent with loadRegionalAverage approach)
+const allRegionRates: number[] = [];
+for (let i = 1; i <= 16; i++) {
+  const regCommunes = index.filter((c) => {
+    const n = parseInt(c.region_id, 10);
+    let fid: string;
+    if (n >= 1 && n <= 16) fid = String(n);
+    else fid = String(Math.floor(n / 10));
+    return fid === String(i);
+  });
+  const eligible = regCommunes.filter((c) => !c.low_population);
+  if (eligible.length === 0) {
+    allRegionRates.push(0);
+    continue;
+  }
+  const rates = eligible.map((c) => latestCompleteYearRate(loadCommune(c.cut)));
+  allRegionRates.push(rates.reduce((s, r) => s + r, 0) / rates.length);
+}
+
+// This region's mean rate
+const thisRegionEligible = regionCommunes.filter((c) => !c.low_population);
+const thisRegionRate =
+  thisRegionEligible.length > 0
+    ? thisRegionEligible
+        .map((c) => latestCompleteYearRate(loadCommune(c.cut)))
+        .reduce((s, r) => s + r, 0) / thisRegionEligible.length
+    : 0;
+
+// Position = count of regions with strictly higher rate + 1
+const nationalPosition = allRegionRates.filter((r) => r > thisRegionRate).length + 1;
+
+// National average for reference
+const nationalAvg = loadNationalAverage();
+
+// URLs
+const enPath = `/region/${region.slug}/`;
+const esPath = `/es/region/${region.slug}/`;
+
+// Meta
+const title = `${region.name} Region — Crime Incidence Data — Chile Safety Map`;
+const description = `Official CEAD crime incidence data for ${region.name} Region, Chile: reported rates, commune ranking, annual evolution 2005–${latestCompleteYear}.`;
+
+// JSON-LD: Dataset + Place (UI-SPEC lines 266-286)
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': ['Dataset', 'Place'],
+  name: `${region.name} Region — Reported Crime Incidence`,
+  description: `Annual reported crime incidence rates per 100,000 inhabitants for ${region.name} Region, sourced from CEAD (Centro de Estudios y Análisis del Delito), Chile.`,
+  url: `https://ischilesafe.com/region/${region.slug}/`,
+  spatialCoverage: {
+    '@type': 'AdministrativeArea',
+    name: `${region.name} Region`,
+    containedInPlace: { '@type': 'Country', name: 'Chile' },
+  },
+  temporalCoverage: `2005/${latestCompleteYear}`,
+  measurementTechnique: 'Rate per 100,000 inhabitants, official CEAD police statistics',
+  creator: {
+    '@type': 'Organization',
+    name: 'CEAD — Centro de Estudios y Análisis del Delito',
+  },
+};
+---
+
+<BaseLayout
+  lang="en"
+  title={title}
+  description={description}
+  enPath={enPath}
+  esPath={esPath}
+  jsonLd={jsonLd}
+  mountType="region-map"
+>
+  <!-- 2. RegionHero -->
+  <section class="region-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true"> › </span>
+      <span>Regions</span>
+    </nav>
+    <h1 class="region-h1">{region.name} — Regional Crime Incidence Overview</h1>
+    <div class="hero-meta">
+      <span class="hero-stat">Population: {aggregatePopulation.toLocaleString()}</span>
+      <span class="hero-sep" aria-hidden="true">·</span>
+      <span class="hero-stat">{communeCount} communes</span>
+    </div>
+  </section>
+
+  <!-- 3. RegionKeyStats -->
+  <section class="key-stats-row" aria-label="Key statistics">
+    <StatCard
+      label={`Average rate per 100,000 inhab. (${latestCompleteYear})`}
+      value={Math.round(thisRegionRate).toLocaleString()}
+    />
+    <StatCard
+      label="National position (among 16 regions)"
+      value={`#${nationalPosition} of 16`}
+    />
+    <StatCard
+      label="National average"
+      value={Math.round(nationalAvg).toLocaleString()}
+    />
+  </section>
+
+  <!-- 4. RegionSparkline -->
+  <section class="sparkline-section" aria-label="Annual evolution">
+    <h2 class="section-heading">Annual evolution (2005–{latestCompleteYear})</h2>
+    <Sparkline series={region.series} activeYear={latestCompleteYear} />
+  </section>
+
+  <!-- 5. CommuneRankingTable -->
+  <section class="ranking-section" aria-label="Commune ranking">
+    <h2 class="section-heading">
+      Communes in {region.name} — by reported incidence rate ({latestCompleteYear})
+    </h2>
+    <CommuneRankingTable rows={rankingRows} locale="en" />
+  </section>
+
+  <!-- 6. MapPlaceholderSlot -->
+  <MapPlaceholderSlot mountType="region-map" locale="en" />
+
+  <!-- 7. MethodologyCaveat -->
+  <MethodologyCaveat locale="en" />
+</BaseLayout>
+
+<style>
+  .region-hero {
+    padding: var(--xl) 0 var(--lg);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--sm);
+  }
+
+  .breadcrumb a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--primary);
+  }
+
+  .region-h1 {
+    font-size: var(--text-display);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin: var(--sm) 0;
+    line-height: 1.15;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--md);
+    flex-wrap: wrap;
+    margin-top: var(--sm);
+  }
+
+  .hero-stat {
+    font-size: var(--text-label);
+    color: var(--muted);
+  }
+
+  .hero-sep {
+    color: var(--line);
+  }
+
+  .key-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--md);
+    margin: var(--xl) 0;
+  }
+
+  @media (max-width: 600px) {
+    .key-stats-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .sparkline-section {
+    margin: var(--xl) 0;
+  }
+
+  .section-heading {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin-bottom: var(--md);
+  }
+
+  .ranking-section {
+    margin: var(--xl) 0;
+  }
+</style>
