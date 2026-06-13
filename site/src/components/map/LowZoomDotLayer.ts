@@ -65,7 +65,7 @@ export function computeCentroid(
  */
 export function buildDotComunas(
   features: GeoJSON.Feature[],
-  comunas: Array<{ id: string; level: 1 | 2 | 3 | 4 | 5; [k: string]: unknown }>
+  comunas: Array<{ id: string; level: 1 | 2 | 3 | 4 | 5; rate?: number; by_family?: number[] }>
 ): DotCommune[] {
   // Index features by CUT for O(1) lookup
   const featureIdx = new Map<string, GeoJSON.Feature>();
