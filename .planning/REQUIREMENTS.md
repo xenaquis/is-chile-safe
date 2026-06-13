@@ -19,7 +19,7 @@
 
 ### Mapa interactivo (MAP)
 
-- [ ] **MAP-01**: Usuario puede explorar un mapa coroplético nacional con comunas coloreadas según incidencia relativa
+- [x] **MAP-01**: Usuario puede explorar un mapa coroplético nacional con comunas coloreadas según incidencia relativa
 - [ ] **MAP-02**: Usuario puede filtrar el mapa por año y por tipo de delito
 - [ ] **MAP-03**: Usuario puede abrir un panel territorial por comuna con tasa, tendencia, ranking, evolución temporal (sparkline) y desglose por tipo de delito
 - [ ] **MAP-04**: Usuario puede ver pins de incidentes recientes de noticias con fuente y fecha en el mapa
@@ -91,7 +91,7 @@
 | SEO-02 | Phase 2 | Complete |
 | SEO-03 | Phase 2 | Complete |
 | SEO-04 | Phase 2 | Complete |
-| MAP-01 | Phase 3 | Pending |
+| MAP-01 | Phase 3 | Complete |
 | MAP-02 | Phase 3 | Pending |
 | MAP-03 | Phase 3 | Pending |
 | MAP-04 | Phase 3 | Pending |
