@@ -1,152 +1,41 @@
-# ROADMAP — Chile Safety Map (ischilesafe.com)
+# Roadmap — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-13_
+_Last updated: 2026-06-13 after v1.0 milestone_
+
+## Milestones
+
+- ✅ **v1.0 MVP** — Phases 1–6 (shipped 2026-06-13) — full detail: [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
 
 ## Phases
 
-- [x] **Phase 1: Data Foundation** - CEAD scraper extracts and validates all quantitative crime data into a stable JSON schema (completed 2026-06-13)
-- [x] **Phase 2: Astro Site + Programmatic Pages** - Static site framework deployed with bilingual programmatic pages for all 346 comunas, 16 regions, and crime types (completed 2026-06-13)
-- [x] **Phase 3: Leaflet Map Island** - Interactive choropleth map with filters, commune popup panel, and geolocation — fully functional on mobile (completed 2026-06-13; visual/mobile UAT deferred)
-- [x] **Phase 4: Editorial Pages + AdSense** - High-priority editorial and legal pages live; editorial guardrails enforced at build time; AdSense integrated (completed 2026-06-13)
-- [x] **Phase 5: RSS News Pipeline** - Automated RSS ingestion, DeepSeek classification, and rolling incident feed powering map pins (completed 2026-06-13)
-- [x] **Phase 6: CI/CD + Cloudflare Deployment** - Fully automated cron pipelines deployed without rebuild loops; site live on ischilesafe.com (completed 2026-06-13)
+<details>
+<summary>✅ v1.0 MVP (Phases 1–6) — SHIPPED 2026-06-13</summary>
 
-## Phase Details
+- [x] Phase 1: Data Foundation (4/4 plans) — CEAD scraper → validated per-comuna/region/national JSON schema
+- [x] Phase 2: Astro Site + Programmatic Pages (6/6 plans) — bilingual static site, 740 SEO pages, 7 validators
+- [x] Phase 3: Leaflet Map Island (4/4 plans) — choropleth + filters + commune panel + geolocation + incident-pin layer (visual UAT deferred)
+- [x] Phase 4: Editorial Pages + AdSense (7/7 plans) — 20 editorial + 8 legal pages, forbidden-language gate (validator #9), env-gated AdSlot
+- [x] Phase 5: RSS News Pipeline (4/4 plans) — RSS ingest + DeepSeek v4-flash closed-list classify + dedup + rolling incidents/current.json
+- [x] Phase 6: CI/CD + Cloudflare Deployment (3/3 plans) — cron workflows + data-change-gated Deploy Hook + CI guard + DEPLOYMENT.md runbook
 
-### Phase 1: Data Foundation
+Full phase details, success criteria, and per-plan breakdown: **[milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)**
+Audit: **[milestones/v1.0-MILESTONE-AUDIT.md](milestones/v1.0-MILESTONE-AUDIT.md)** (code-complete; live go-live = human gates in `DEPLOYMENT.md` + each phase's `*-HUMAN-UAT.md`)
 
-**Goal**: Real CEAD crime data for all 346 comunas is available as a validated, stable JSON schema that every downstream component can consume
-**Depends on**: Nothing (first phase)
-**Requirements**: DATA-01, DATA-02, DATA-03, DATA-04
-**Success Criteria** (what must be TRUE):
+</details>
 
-  1. Running the scraper produces per-comuna JSON files for all 346 comunas, 16 regions, and national aggregates covering 2005–present
-  2. A schema validation step rejects commits when expected commune count, required keys, or plausible rate ranges are violated — the last good JSON file is preserved
-  3. The pre-aggregated map payload (`map-payload.json`) is present and under 30 KB
-  4. Crime rates are expressed as rate per 100,000 inhabitants; national rankings exclude communes with fewer than 10,000 residents
+## Progress
 
-**Plans**: 4 plans
+| Phase | Milestone | Plans | Status | Completed |
+|-------|-----------|-------|--------|-----------|
+| 1. Data Foundation | v1.0 | 4/4 | Complete | 2026-06-13 |
+| 2. Astro Site + Programmatic Pages | v1.0 | 6/6 | Complete | 2026-06-13 |
+| 3. Leaflet Map Island | v1.0 | 4/4 | Complete | 2026-06-13 |
+| 4. Editorial Pages + AdSense | v1.0 | 7/7 | Complete | 2026-06-13 |
+| 5. RSS News Pipeline | v1.0 | 4/4 | Complete | 2026-06-13 |
+| 6. CI/CD + Cloudflare Deployment | v1.0 | 3/3 | Complete | 2026-06-13 |
 
-- [x] 01-01-PLAN.md — Pipeline scaffold, Pydantic v2 schema gate, atomic write, pytest infra
-- [x] 01-02-PLAN.md — INE communal population asset + lookup module (10k ranking filter)
-- [x] 01-03-PLAN.md — CEAD HTTP client, commune catalog, HTML/decimal parser + fixture
-- [x] 01-04-PLAN.md — Normalizer (trend/rank/slug/featured) + orchestrator + full /data/cead output
+## Open Human Go-Live Gates (launch checklist — not v1.1 scope)
 
-### Phase 2: Astro Site + Programmatic Pages
-
-**Goal**: A pre-rendered bilingual static site is deployed on Cloudflare Pages with SEO-valid programmatic pages for all territorial entities
-**Depends on**: Phase 1
-**Requirements**: PAGES-01, PAGES-02, PAGES-03, PAGES-04, SEO-01, SEO-02, SEO-03, SEO-04
-**Success Criteria** (what must be TRUE):
-
-  1. An initial batch of 10–20 commune pages is live and indexed in Google Search Console before full generation is triggered
-  2. Every commune page contains 500+ words with at least 5 unique data dimensions (rate vs. national average, rate vs. regional average, trend direction, dominant crime type, comparable commune)
-  3. Every page has correct, reciprocal hreflang tags (EN at root, ES under `/es/`), a canonical tag, and appears in the auto-generated sitemap.xml
-  4. Region pages (16 × 2 locales) and crime-type pages are accessible and contain structured Schema.org `Dataset`/`Place` data
-  5. The site ships with PWA manifest and theme color; no page depends on client-side rendering for SEO-critical content
-
-**Plans**: 6 plans
-
-- [x] 02-01-PLAN.md — Astro scaffold + node:fs data loader + i18n/family-slugs/rollout config + slug maps + color scale + validation stubs (Wave 1)
-- [x] 02-02-PLAN.md — global.css tokens + BaseLayout (hreflang/canonical/PWA meta) + 11 ported server-rendered components (Wave 2)
-- [x] 02-03-PLAN.md — Commune pages EN+ES: deterministic prose variation engine (500+ words, 5 dimensions) + rollout batch gate (Wave 3)
-- [x] 02-04-PLAN.md — Region pages EN+ES (16×2): aggregates + commune ranking table (Wave 3)
-- [x] 02-05-PLAN.md — Crime-type pages EN+ES (7×2): national family ranking + translated slugs + featured prominence (Wave 3)
-- [x] 02-06-PLAN.md — SEO finishing: rollout-gated sitemap + Schema.org + PWA manifest + hreflang/schema validators + full ROLLOUT_ALL build gate + UAT (Wave 4)
-
-**UI hint**: yes
-
-### Phase 3: Leaflet Map Island
-
-**Goal**: Users can explore Chilean crime data through an interactive map on any device, including mid-range mobile
-**Depends on**: Phase 1, Phase 2
-**Requirements**: MAP-01, MAP-02, MAP-03, MAP-04, MAP-05, MAP-06
-**Success Criteria** (what must be TRUE):
-
-  1. The choropleth map loads and renders all 346 communes with color coding by relative incidence; switching years or crime types updates the map without a page reload
-  2. Clicking a commune opens a panel showing tasa per 100k, trend direction, national ranking, sparkline (2005–present), and crime-family breakdown
-  3. The GeoJSON boundary file is under 100 KB; the map renders without jank on a mid-range Android at 3G (tested manually before phase sign-off)
-  4. Tapping "mostrar mi ubicación" identifies and highlights the user's commune
-  5. Incident pins (NEWS layer) appear on the map with source and date when `incidents/current.json` is present (may show empty state in this phase if Phase 5 is not yet done)
-
-**Plans**: 4 plans
-
-- [x] 03-00-PLAN.md — Wave 0 infra: @astrojs/react + react/leaflet install (no react-leaflet), 346-commune CUT-keyed TopoJSON <100 KB, map.mjs validator + zero-React regression guard
-- [x] 03-01-PLAN.md — Wave 1: /map/ + /es/mapa/ pages + MapIsland (L.map, CARTO tiles, TopoJSON+payload fetch, native L.geoJSON + L.canvas choropleth), low-zoom dots, legend, zoom control
-- [x] 03-02-PLAN.md — Wave 2: year + crime-type filters (setStyle in place), commune ResultPanel (tasa/trend/rank/sparkline/family breakdown), search
-- [ ] 03-03-PLAN.md — Wave 3: geolocation (Geolocation API + point-in-polygon) + incident-pin NEWS layer (graceful empty state) + manual interaction/mobile UAT
-
-**UI hint**: yes
-
-### Phase 4: Editorial Pages + AdSense
-
-**Goal**: Authoritative editorial and legal pages are live and indexed; the site qualifies for and has AdSense integrated
-**Depends on**: Phase 2
-**Requirements**: EDIT-01, EDIT-02, EDIT-03, EDIT-04, EDIT-05, MON-01
-**Success Criteria** (what must be TRUE):
-
-  1. All 10 priority EN editorial pages and all 10 priority ES editorial pages are accessible, contain substantive content, and are submitted to Google Search Console
-  2. The methodology page explains CEAD sources, rate calculation, subregistro caveat, and comparison criteria — it is indexed before AdSense application
-  3. Legal pages (Privacy Policy, Terms, About, Contact) are live and linked from the site footer
-  4. The Astro build fails with a clear error message if any page contains forbidden language ("zona peligrosa", "comunas peligrosas", "ranking definitivo", "zona segura garantizada")
-  5. AdSense code is integrated and serving ads after the first indexing wave is confirmed
-
-**Plans**: 7 plans
-
-- [x] 04-01-PLAN.md — Wave 1: forbidden-language.mjs validator (EDIT-05) + all.mjs registration (#9) + structure.mjs Phase-4 page assertions
-- [x] 04-02-PLAN.md — Wave 1: AdSlot + CookieConsent + gated AdSense loader in BaseLayout (MON-01) + i18n strings + footer legal links
-- [x] 04-03-PLAN.md — Wave 2: EditorialLayout + LegalLayout (wrap BaseLayout) + DataCallout + FAQBlock + ContactForm
-- [x] 04-04-PLAN.md — Wave 3: EN non-map editorial pages (home + is-chile-safe + is-santiago-safe + 3 city pages) (EDIT-01)
-- [x] 04-05-PLAN.md — Wave 3: EN map-bearing pages + safest-cities ranking + methodology (EDIT-01, EDIT-03)
-- [x] 04-06-PLAN.md — Wave 3: all 10 ES editorial pages incl. ES methodology + ES map-bearing (EDIT-02, EDIT-03)
-- [x] 04-07-PLAN.md — Wave 3: legal pages EN+ES (Privacy/Terms/About/Contact) (EDIT-04) + full-suite phase gate
-
-**UI hint**: yes
-
-### Phase 5: RSS News Pipeline
-
-**Goal**: Recent crime incidents from national press are automatically classified, geolocated, and surfaced as incident pins on the map
-**Depends on**: Phase 1, Phase 3
-**Requirements**: NEWS-01, NEWS-02, NEWS-03, NEWS-04, NEWS-05
-**Success Criteria** (what must be TRUE):
-
-  1. The pipeline ingests RSS from BioBíoChile, Cooperativa Policial, and La Tercera; a failed feed is skipped and logged without blocking the run
-  2. Each classified incident is matched against the canonical 346-commune list (temperature 0.0); incidents with no exact commune match are rejected and not committed
-  3. `incidents/current.json` contains only incidents from the last 30 days; older incidents roll to monthly archive files
-  4. Every published incident displays its source outlet name, source URL, and publication date on the map pin
-  5. After a full pipeline run, a manual audit of 50 extracted incidents confirms no commune-hallucination errors before the pipeline is declared production-ready
-
-**Plans**: 4 plans
-
-- [x] 05-01-PLAN.md — Wave 0: Incident Pydantic v2 schema (exact IncidentPinLayer.ts contract) + static cut_list.json (346) + build_centroids.py/centroids.json (Node decode + Shoelace) + audit_incidents.py + all 6 pytest modules + 4 fixtures (DeepSeek mocked) + feedparser/openai deps
-- [x] 05-02-PLAN.md — Wave 1: feeds.py (3 confirmed feeds, per-feed fallback, keyword pre-filter, seen-ledger) + classifier.py (deepseek-v4-flash JSON mode, closed-list CUT + confidence reject) + centroids.py lookup (NEWS-01, NEWS-02, NEWS-05); pkg-legitimacy checkpoint
-- [x] 05-03-PLAN.md — Wave 1: dedup.py (canonical-URL + difflib title-similarity) + store.py (idempotent sha256-id merge, 30-day window, monthly archive, validate-then-atomic-write) (NEWS-03, NEWS-04, NEWS-05)
-- [x] 05-04-PLAN.md — Wave 2: scrape_news.py orchestrator (mirrors scrape_cead.py, cost cap, key-graceful) + integration test + D-16 50-incident human-audit gate (NEWS-01..05)
-
-### Phase 6: CI/CD + Cloudflare Deployment
-
-**Goal**: The site is live on ischilesafe.com with automated pipelines that update data without developer intervention and without burning build quotas
-**Depends on**: Phase 2, Phase 5
-**Requirements**: INFRA-01, INFRA-02, INFRA-03
-**Success Criteria** (what must be TRUE):
-
-  1. The `news-pipeline.yml` GitHub Actions workflow runs every 4–6 hours and the `cead-scraper.yml` runs quarterly; both apply rate limiting to external endpoints
-  2. After a cron data commit, Cloudflare Pages does not trigger an automatic rebuild; a Deploy Hook is invoked only when `git diff` confirms data files changed — verified by checking the CF Pages build count after the first cron run
-  3. The site is accessible at ischilesafe.com with HTTPS; all ~750 HTML pages are served from Cloudflare's CDN
-
-**Plans**: 3 plans
-
-- [x] 06-01-PLAN.md — news-pipeline.yml (6h cron) + cead-scraper.yml (quarterly): data-change-gated commit + conditional Deploy Hook (INFRA-01, INFRA-02) [Wave 1]
-- [x] 06-02-PLAN.md — ci.yml (frontend build+9 validators, pipeline pytest, actionlint) + .nvmrc Node 20 (INFRA-01) [Wave 1]
-- [x] 06-03-PLAN.md — DEPLOYMENT.md runbook + human go-live gate at ischilesafe.com (INFRA-02 dashboard, INFRA-03) [Wave 2]
-
-## Progress Table
-
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Data Foundation | 4/4 | Complete    | 2026-06-13 |
-| 2. Astro Site + Programmatic Pages | 6/6 | Complete    | 2026-06-13 |
-| 3. Leaflet Map Island | 4/4 | Complete    | 2026-06-13 |
-| 4. Editorial Pages + AdSense | 7/7 | Complete    | 2026-06-13 |
-| 5. RSS News Pipeline | 4/4 | Complete    | 2026-06-13 |
-| 6. CI/CD + Cloudflare Deployment | 3/3 | Complete    | 2026-06-13 |
+- **INFRA-03** — live `ischilesafe.com` cutover via `DEPLOYMENT.md` (CF account + DNS + secrets). Unblocks everything below.
+- **NEWS live audit** — run `pipeline/scrape_news.py` with real `DEEPSEEK_API_KEY` + 50-incident commune-hallucination audit.
+- **EDIT/MON** — GSC submission of editorial pages; flip `ADSENSE_ENABLED` + wire AdSense Consent Mode after first indexing wave.

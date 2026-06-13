@@ -12,34 +12,35 @@ Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, s
 
 ## Requirements
 
-### Validated
-
-(None yet — ship to validate)
-
-### Active
+### Validated (v1.0 — code-complete 2026-06-13)
 
 **Datos cuantitativos (CEAD)**
-- [ ] Scraper Python de endpoints CEAD (get_estadisticas_delictuales*.php) → JSON estático versionado: frecuencias y tasas por comuna/región/país, por familia/grupo de delito, años 2005–presente
-- [ ] Mapa coroplético nacional interactivo (Leaflet) con vista región y comuna
-- [ ] Filtros por año y tipo de delito; colores según incidencia relativa
-- [ ] Popup/panel territorial: tasa, tendencia, ranking, evolución temporal, desglose por tipo de delito
-- [ ] Ranking nacional y regional de comunas por incidencia reportada
-- [ ] Geolocalización: botón "mostrar mi ubicación" e identificación de la comuna del usuario
+- ✓ Scraper Python CEAD → JSON estático versionado (frecuencias/tasas por comuna/región/país, familias, 2005–presente) — v1.0 (Phase 1, DATA-01..04)
+- ✓ Mapa coroplético nacional interactivo (Leaflet) región + comuna — v1.0 (Phase 3, MAP-01)
+- ✓ Filtros por año y tipo de delito; color por incidencia relativa — v1.0 (Phase 3, MAP-02/03)
+- ✓ Popup/panel territorial: tasa, tendencia, ranking, sparkline, desglose por familia — v1.0 (Phase 3, MAP-04)
+- ✓ Ranking nacional y regional por incidencia (tasa/100k, excluye <10k hab) — v1.0 (Phase 2/3)
+- ✓ Geolocalización "mostrar mi ubicación" + identificación de comuna (ray-cast PiP) — v1.0 (Phase 3, MAP-05)
 
 **Datos cualitativos (noticias)**
-- [ ] Pipeline RSS: scraper de medios nacionales (Emol, BioBío, Cooperativa, T13, 24Horas) y regionales — research decide lista final según disponibilidad de RSS
-- [ ] Procesamiento DeepSeek v4: clasificar tipo de delito, extraer comuna, geolocalizar aproximado, deduplicar, resumir
-- [ ] Pins de incidentes recientes en el mapa con fuente y fecha
-- [ ] Cron GitHub Actions: RSS cada pocas horas, CEAD trimestral → commit JSON → rebuild Cloudflare Pages
+- ✓ Pipeline RSS (BioBíoChile, Cooperativa Policial, La Tercera) con fallback por feed — v1.0 (Phase 5, NEWS-01)
+- ✓ DeepSeek v4-flash: clasificar/extraer comuna (lista cerrada 346, temp 0.0)/geolocalizar/deduplicar/resumir — v1.0 (Phase 5, NEWS-02/03)
+- ✓ Pins de incidentes con fuente + fecha; ventana 30 días + archivo mensual — v1.0 (Phase 5, NEWS-04/05; Phase 3, MAP-05/06)
+- ✓ Cron GitHub Actions (noticias ~6h, CEAD trimestral) → commit datos → Deploy Hook (sin rebuild loop) — v1.0 (Phase 6, INFRA-01/02)
 
 **Sitio y SEO**
-- [ ] Sitio Astro estático con islas React (mapa), desplegado en Cloudflare Pages
-- [ ] Páginas programáticas: 346 comunas + 16 regiones + tipos de delito, en ES y EN, generadas de plantilla con datos reales
-- [ ] Páginas editoriales prioritarias EN: /, /chile-crime-map/, /is-chile-safe/, /santiago-safety-map/, /is-santiago-safe/, /valparaiso-safety/, /vina-del-mar-safety/, /concepcion-safety/, /safest-cities-in-chile/, /methodology/
-- [ ] Páginas editoriales prioritarias ES: /es/, /es/mapa-delito-chile/, /es/delitos-por-comuna/, /es/delitos-por-region/, /es/comunas-mas-seguras-chile/, /es/mapa-seguridad-santiago/, /es/seguridad-valparaiso/, /es/seguridad-vina-del-mar/, /es/seguridad-concepcion/, /es/metodologia/
-- [ ] Página metodológica: fuentes, límites, tasas, subregistro, criterios de comparación
-- [ ] i18n ES/EN completo con hreflang, sitemap, metadatos SEO
-- [ ] Integración AdSense
+- ✓ Sitio Astro estático + islas React (mapa) — v1.0 (Phase 2/3)
+- ✓ Páginas programáticas 346 comunas + 16 regiones + tipos de delito, ES/EN — v1.0 (Phase 2, PAGES-01..04)
+- ✓ 10 páginas editoriales EN + 10 ES prioritarias — v1.0 (Phase 4, EDIT-01/02)
+- ✓ Página metodológica (fuentes, tasas, subregistro, criterios) — v1.0 (Phase 4, EDIT-03)
+- ✓ i18n ES/EN con hreflang, sitemap, Schema.org — v1.0 (Phase 2, SEO-01..04)
+- ✓ Integración AdSense (env-gated, gate de lenguaje prohibido) — v1.0 code-complete (Phase 4, EDIT-05/MON-01)
+
+### Active (next — launch + v1.1 candidates)
+
+- [ ] **Go-live `ischilesafe.com`** (human): ejecutar `DEPLOYMENT.md` — CF Pages + DNS + secrets; corre la pipeline en vivo + auditoría de 50 incidentes (DeepSeek key); GSC submission; flip `ADSENSE_ENABLED` + AdSense Consent Mode tras la primera ola de indexación.
+- [ ] Phase-3 visual/mobile UAT (render/jank/geoloc/3G) — verificación manual diferida.
+- [ ] Deuda técnica: aserción CI de orden FAMILY_KEYS; tipado `by_family`; `AVAILABLE_YEARS` dinámico; flip de `nyquist_compliant` en VALIDATION.md (fases 4–6).
 
 ### Out of Scope
 
@@ -72,14 +73,14 @@ Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, s
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Astro + islas React en vez de SPA del prototipo | El tráfico esperado es 100% búsqueda orgánica; hash-routing no indexa. Astro pre-renderiza miles de páginas programáticas y reutiliza los componentes React del prototipo como islas | — Pending |
-| Scrape → JSON estático versionado (sin backend/DB) | Costo cero, simplicidad, los datos CEAD cambian trimestralmente; GitHub Actions + rebuild cubre la frecuencia de noticias | — Pending |
-| Capa de noticias (RSS + DeepSeek v4) en MVP v1 | Es la diferenciación del producto: cuanti + cuali; CEAD solo da agregados, las noticias dan el "qué está pasando ahora" | — Pending |
-| Pipeline en GitHub Actions cron | RSS cada pocas horas → DeepSeek → commit JSON → rebuild; CEAD trimestral. Sin servidor que mantener | — Pending |
-| Hosting Cloudflare Pages | Gratis, CDN global, soporta miles de páginas estáticas, compatible AdSense | — Pending |
-| Páginas programáticas para las 346 comunas desde v1 | Máximo footprint SEO con datos reales de plantilla; editorial manual solo en ~10 prioritarias | — Pending |
-| Capa social diferida (reportes de usuarios) | Requiere backend y masa crítica; el MVP valida demanda SEO primero | — Pending |
-| DeepSeek v4 como LLM de procesamiento | Costo bajo por volumen de noticias diario; tareas acotadas (clasificar, extraer comuna, geolocalizar, deduplicar) | — Pending |
+| Astro + islas React en vez de SPA del prototipo | El tráfico esperado es 100% búsqueda orgánica; hash-routing no indexa. Astro pre-renderiza miles de páginas programáticas y reutiliza los componentes React del prototipo como islas | ✓ Good — v1.0 |
+| Scrape → JSON estático versionado (sin backend/DB) | Costo cero, simplicidad, los datos CEAD cambian trimestralmente; GitHub Actions + rebuild cubre la frecuencia de noticias | ✓ Good — v1.0 |
+| Capa de noticias (RSS + DeepSeek v4) en MVP v1 | Es la diferenciación del producto: cuanti + cuali; CEAD solo da agregados, las noticias dan el "qué está pasando ahora" | ✓ Good — v1.0 |
+| Pipeline en GitHub Actions cron | RSS cada pocas horas → DeepSeek → commit JSON → rebuild; CEAD trimestral. Sin servidor que mantener | ✓ Good — v1.0 |
+| Hosting Cloudflare Pages | Gratis, CDN global, soporta miles de páginas estáticas, compatible AdSense | ✓ Good — v1.0 |
+| Páginas programáticas para las 346 comunas desde v1 | Máximo footprint SEO con datos reales de plantilla; editorial manual solo en ~10 prioritarias | ✓ Good — v1.0 |
+| Capa social diferida (reportes de usuarios) | Requiere backend y masa crítica; el MVP valida demanda SEO primero | ✓ Good — v1.0 |
+| DeepSeek v4 como LLM de procesamiento | Costo bajo por volumen de noticias diario; tareas acotadas (clasificar, extraer comuna, geolocalizar, deduplicar) | ✓ Good — v1.0 |
 
 ## Evolution
 
@@ -98,5 +99,13 @@ This document evolves at phase transitions and milestone boundaries.
 3. Audit Out of Scope — reasons still valid?
 4. Update Context with current state
 
+## Current State
+
+**Shipped:** v1.0 MVP — code-complete 2026-06-13 (6 phases, 28 plans). All 32 requirements code-complete; all cross-phase contracts wired and E2E flows sound (milestone audit). Phases 1–3 verified `passed`; Phases 4–6 `human_needed` (deferred live go-live gates only — not code gaps).
+
+**Stack as built:** Astro 6.4 + React islands + Leaflet (frontend, `site/`); Python 3.12 pipeline (CEAD scraper + RSS/DeepSeek news, `pipeline/`, Pydantic v2, pytest); JSON-in-repo data store; GitHub Actions cron + Cloudflare Pages Deploy-Hook deploy (`.github/workflows/`, `DEPLOYMENT.md`). ~135 pipeline tests + 9 frontend validators green; ~100 site pages build clean.
+
+**Not yet live:** the site is not deployed — go-live requires a Cloudflare account, DNS for `ischilesafe.com`, and the `DEEPSEEK_API_KEY` / `CF_DEPLOY_HOOK_URL` secrets (all documented in `DEPLOYMENT.md`). That single human step also unblocks the news live-run + 50-incident audit and AdSense activation.
+
 ---
-*Last updated: 2026-06-12 after initialization*
+*Last updated: 2026-06-13 after v1.0 milestone*

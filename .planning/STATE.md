@@ -2,8 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Milestone complete
-last_updated: "2026-06-13T22:38:26.162Z"
+status: Awaiting next milestone
+last_updated: "2026-06-13T22:51:59.584Z"
+last_activity: 2026-06-13 — Milestone v1.0 completed and archived
 progress:
   total_phases: 6
   completed_phases: 6
@@ -20,16 +21,27 @@ _Last updated: 2026-06-13 (Phase 02 COMPLETE — plan 02-06 UAT approved; all 6 
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: Phase 4 — Editorial Pages + AdSense (Phases 1-3 complete; Phase 3 had a runtime data-serving fix)
+**Current focus**: v1.0 shipped (code-complete) — next is the human go-live (`DEPLOYMENT.md`), then `/gsd:new-milestone` for v1.1.
 
 ## Current Position
 
-Phase: 06
-Plan: Not started
-**Phase**: 3 — Leaflet Map Island (next)
-**Plan**: TBD — Phase 3 planning not yet started
-**Status**: Phase 2 fully complete. 740 pages pre-rendered, 7/7 validators pass, human UAT approved.
-**Progress**: [██████████] 100% Phase 2 complete (6/6 plans done)
+Phase: Milestone v1.0 complete (archived)
+Plan: —
+Status: Code-complete; awaiting human go-live + next milestone
+Last activity: 2026-06-13 — Milestone v1.0 completed and archived (audit: tech_debt, code-complete)
+
+## Deferred Items
+
+Items acknowledged and deferred at milestone close on 2026-06-13 (human/external go-live work — not code defects):
+
+| Category | Item | Status |
+|----------|------|--------|
+| uat | Phase 04 HUMAN-UAT — editorial prose spot-check, GSC submission, footer render, FAQ tone | partial (4 pending) |
+| uat | Phase 05 HUMAN-UAT — live pipeline run + 50-incident commune-hallucination audit (needs DEEPSEEK_API_KEY) | partial (2 pending) |
+| uat | Phase 06 HUMAN-UAT — live ischilesafe.com cutover (CF + DNS + secrets) + no-rebuild-loop verification | partial (2 pending) |
+| todo | adsense-consent-mode-phase6 — wire AdSense Consent Mode when flipping ADSENSE_ENABLED | pending (high) |
+
+All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPSEEK_API_KEY`/`CF_DEPLOY_HOOK_URL` secrets). See each phase's `*-HUMAN-UAT.md` and `.planning/milestones/v1.0-MILESTONE-AUDIT.md`.
 
 ## Performance Metrics
 
@@ -115,3 +127,7 @@ Plan: Not started
 - [Phase ?]: L.canvas renderer scoped to L.geoJSON layer only (Pitfall 6 compliance)
 - [Phase ?]: Static aria-label in Astro shell satisfies map validator without SSR
 - [Phase ?]: CUT list from comunas filenames; Node TopoJSON decode; 4 hardcoded centroid fallbacks for null-geometry communes
+
+## Operator Next Steps
+
+- Start the next milestone with /gsd:new-milestone
