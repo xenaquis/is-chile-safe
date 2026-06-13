@@ -22,6 +22,7 @@ import {
   loadIndex,
   loadCommune,
   loadNationalAverage,
+  loadNational,
   latestCompleteYearRate,
 } from '../../lib/data.ts';
 
@@ -41,10 +42,18 @@ export async function getStaticPaths() {
 const { regionFileId } = Astro.props as { regionFileId: string };
 const region = loadRegion(regionFileId);
 
-// Latest complete year from regional series (last entry where partial !== true)
-const latestCompleteYear = region.series
+// Latest complete year from regional series (last entry where partial !== true).
+// Region series may be empty (region JSON generated without series data) — fall back
+// to national data's latest complete year in that case (Rule 1 auto-fix: 02-06).
+const _regionSeriesYear = region.series
   .filter((s) => !s.partial)
   .reduce((max, s) => Math.max(max, s.year), 0);
+
+const _nationalFallbackYear = _regionSeriesYear === 0
+  ? loadNational().series.filter((s) => !s.partial).reduce((max, s) => Math.max(max, s.year), 0)
+  : 0;
+
+const latestCompleteYear = _regionSeriesYear > 0 ? _regionSeriesYear : _nationalFallbackYear;
 
 // Aggregate population + commune count from index
 const index = loadIndex();
