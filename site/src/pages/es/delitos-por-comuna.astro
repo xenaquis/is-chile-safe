@@ -1,0 +1,70 @@
+---
+/**
+ * /es/delitos-por-comuna/ — ES counterpart for /is-chile-safe/
+ *
+ * Stub page for hreflang reciprocity (Plan 04-04 Task 1).
+ * Full editorial content will be authored in Plan 06 (ES editorial pages).
+ *
+ * HREFLANG PAIR: enPath=/is-chile-safe/ <-> esPath=/es/delitos-por-comuna/
+ */
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import { loadNationalAverage, loadIndex, loadCommune } from '../../lib/data.ts';
+
+const nationalAvg = loadNationalAverage();
+const index = loadIndex();
+const sampleCut = index.find((c) => !c.low_population)?.cut ?? '13101';
+const sampleCommune = loadCommune(sampleCut);
+const year = sampleCommune.latestCompleteYear;
+---
+
+<EditorialLayout
+  lang="es"
+  title="¿Es seguro Chile? Estadísticas de delitos por comuna — Chile Safety Map"
+  description="Estadísticas oficiales CEAD de delitos para las 346 comunas de Chile. Tasas por 100.000 habitantes, tendencias y comparaciones regionales."
+  enPath="/is-chile-safe/"
+  esPath="/es/delitos-por-comuna/"
+>
+  <section>
+    <h1>Delitos en Chile por comuna: datos oficiales CEAD</h1>
+    <p>
+      Chile Safety Map presenta estadísticas oficiales de incidencia delictual del
+      Centro de Estudios y Análisis del Delito (CEAD) para las 346 comunas y las 16
+      regiones de Chile. Todos los datos provienen de ese organismo gubernamental,
+      sin ponderación editorial.
+    </p>
+    <p>
+      La tasa de delitos reportados por 100.000 habitantes para {year} es la métrica
+      canónica. Según los datos CEAD de {year}, la tasa promedio nacional entre las
+      comunas no de baja población es de {Math.round(nationalAvg).toLocaleString('es-CL')} por
+      100.000 habitantes.
+    </p>
+    <p>
+      El contenido editorial completo en español, incluyendo análisis por tipo de delito,
+      comparación regional y preguntas frecuentes, estará disponible próximamente en esta
+      página. Mientras tanto, explore los datos por comuna en el mapa interactivo o en las
+      páginas de cada territorio.
+    </p>
+    <p>
+      <a href="/es/">Volver al inicio</a> &middot; <a href="/is-chile-safe/">Ver versión en inglés</a>
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

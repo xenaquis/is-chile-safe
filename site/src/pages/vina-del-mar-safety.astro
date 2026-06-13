@@ -1,0 +1,200 @@
+---
+/**
+ * /vina-del-mar-safety/ — EN city editorial page (non-FAQ)
+ *
+ * Loads Viña del Mar (CUT 5109) via loadCommune. DataCallouts for rate vs national + trend.
+ * WebPage JSON-LD. esPath=/es/seguridad-vina-del-mar/ (EDIT-02 verbatim).
+ *
+ * CRITICAL: uses loadNationalAverage() (MEAN), latestCompleteYearRate() — never SUM.
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import DataCallout from '../components/DataCallout.astro';
+import { loadCommune, loadNationalAverage, latestCompleteYearRate } from '../lib/data.ts';
+
+const vina = loadCommune('5109');
+const year = vina.latestCompleteYear;
+const rate = latestCompleteYearRate(vina);
+const nationalAvg = loadNationalAverage();
+const vsNationalPct = nationalAvg > 0
+  ? Math.round(((rate - nationalAvg) / nationalAvg) * 100)
+  : 0;
+const trendLabel =
+  vina.trend === 'up' ? 'rising' :
+  vina.trend === 'down' ? 'falling' :
+  'stable';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Viña del Mar Safety — CEAD Crime Data",
+  "description": "Reported crime statistics for Viña del Mar commune from CEAD official data.",
+  "about": {
+    "@type": "Dataset",
+    "name": "CEAD Crime Statistics — Viña del Mar",
+    "publisher": {
+      "@type": "GovernmentOrganization",
+      "name": "Centro de Estudios y Análisis del Delito (CEAD)",
+    },
+  },
+};
+---
+
+<EditorialLayout
+  lang="en"
+  title="Viña del Mar Safety — Crime Statistics and Data Overview — Chile Safety Map"
+  description="Official CEAD crime statistics for Viña del Mar commune. Reported rates, trend direction, national comparison, and practical context for visitors and residents."
+  enPath="/vina-del-mar-safety/"
+  esPath="/es/seguridad-vina-del-mar/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Viña del Mar Safety: CEAD Crime Data for Chile's Garden City</h1>
+    <p>
+      Viña del Mar is Chile's principal seaside resort city, separated from Valparaíso by a
+      short stretch of coastline but forming a distinct commune with its own character. Its
+      beach areas, casino, and residential zones attract large numbers of visitors during
+      summer. This page reports what CEAD official data shows for the commune of Viña del Mar
+      for {year}.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(rate).toLocaleString('en-US')} per 100k`}
+      label={`Viña del Mar commune reported crime rate — CEAD ${year}`}
+      source="Source: CEAD (Centro de Estudios y Análisis del Delito)"
+      locale="en"
+    />
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('en-US')} per 100k`}
+      label={`National average reported crime rate — CEAD ${year}`}
+      source="Source: CEAD — unweighted mean of non-low-population communes"
+      locale="en"
+    />
+  </section>
+
+  <section>
+    <h2>How Viña del Mar Compares with the National Average</h2>
+    <p>
+      According to CEAD data for {year}, Viña del Mar's reported crime rate of
+      {Math.round(rate).toLocaleString('en-US')} per 100,000 inhabitants is approximately
+      {Math.abs(vsNationalPct)} % {vsNationalPct >= 0 ? 'above' : 'below'} the national
+      mean of {Math.round(nationalAvg).toLocaleString('en-US')} per 100,000. The current
+      trend is {trendLabel} according to the CEAD series for recent years.
+    </p>
+    <p>
+      The full year-by-year series for Viña del Mar — including breakdown by crime family —
+      is available on the <a href="/commune/vina-del-mar/">Viña del Mar commune detail page</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Seasonal Variation and Beach Areas</h2>
+    <p>
+      Viña del Mar's summer season (December through March) brings a substantial increase in
+      visitors to its beach areas and casino zone. As with any popular tourist destination,
+      opportunistic property crime — bag theft, phone snatching, theft from unattended
+      belongings on the beach — is reported more frequently during peak periods.
+    </p>
+    <p>
+      CEAD data is published as annual totals and does not break out seasonal variation
+      within a year. The annual rate therefore reflects a blend of peak-season and off-season
+      incident patterns.
+    </p>
+  </section>
+
+  <section>
+    <h2>Zones Within the Commune</h2>
+    <p>
+      Viña del Mar spans from the beach front along Avenida España north through the casino
+      and shopping district of Viña Centro, then into the residential eastern and southern
+      zones of Villa Alemana and the inland hills. Incident patterns within the commune are
+      not resolved to neighbourhood level by CEAD data, which reports at commune granularity.
+    </p>
+    <p>
+      The beach front and casino area represent the highest foot traffic and are the primary
+      zones for property crime reports. Residential inland zones generally experience lower
+      incident densities.
+    </p>
+  </section>
+
+  <section>
+    <h2>Crime Type Composition</h2>
+    <p>
+      Property crime (robbery and theft) represents the largest share of reported incidents
+      in Viña del Mar according to CEAD data, consistent with most urban communes and
+      particularly pronounced in coastal tourist zones. The crime-family breakdown for each
+      year is visible on the <a href="/commune/vina-del-mar/">commune detail page</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Viña del Mar and Nearby Communes</h2>
+    <p>
+      Viña del Mar is part of the greater Valparaíso conurbation. The neighbouring commune
+      of Valparaíso (the port city) has a distinct rate profile — see
+      <a href="/valparaiso-safety/">Valparaíso safety data</a> for comparison. Other communes
+      in the Valparaíso Province, including Quilpué and Villa Alemana further inland, show
+      yet different rate profiles. The <a href="/region/valparaiso/">Valparaíso region
+      ranking</a> lets you compare all communes in the region.
+    </p>
+  </section>
+
+  <section>
+    <h2>Practical Context for Visitors and Residents</h2>
+    <ul>
+      <li>
+        Beachfront areas during summer attract high foot traffic and the property crime
+        patterns associated with it. Secure valuables; do not leave bags or electronic
+        devices unattended on the beach.
+      </li>
+      <li>
+        The Casino Municipal area and Avenida Valparaíso shopping street are busy zones
+        where standard urban caution applies, particularly after dark.
+      </li>
+      <li>
+        Residential eastern zones are primarily suburban in character and show lower
+        incident densities, consistent with CEAD data for comparable residential communes.
+      </li>
+      <li>
+        For long-term residents evaluating specific neighbourhoods, local knowledge and
+        visits at different times supplement what commune-level CEAD data can show.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Data Source and Methodology</h2>
+    <p>
+      All statistics on this page come from CEAD (Centro de Estudios y Análisis del Delito),
+      the official Chilean government crime statistics body, covering police-reported incidents
+      for {year}. Rates are computed per 100,000 registered inhabitants. The national average
+      is the unweighted mean across non-low-population communes. Full methodology is documented
+      on the <a href="/methodology/">Methodology page</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

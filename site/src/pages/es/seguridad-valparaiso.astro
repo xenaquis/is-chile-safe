@@ -1,0 +1,77 @@
+---
+/**
+ * /es/seguridad-valparaiso/ — ES counterpart for /valparaiso-safety/
+ *
+ * Stub page for hreflang reciprocity (Plan 04-04 Task 2).
+ * Full editorial content will be authored in Plan 06 (ES editorial pages).
+ *
+ * HREFLANG PAIR: enPath=/valparaiso-safety/ <-> esPath=/es/seguridad-valparaiso/
+ */
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import DataCallout from '../../components/DataCallout.astro';
+import { loadCommune, loadNationalAverage, latestCompleteYearRate } from '../../lib/data.ts';
+
+const valpo = loadCommune('5101');
+const year = valpo.latestCompleteYear;
+const rate = latestCompleteYearRate(valpo);
+const nationalAvg = loadNationalAverage();
+---
+
+<EditorialLayout
+  lang="es"
+  title="Seguridad en Valparaíso — Datos CEAD — Chile Safety Map"
+  description="Estadísticas oficiales CEAD de delitos para la comuna de Valparaíso. Tasa de delitos reportados, tendencia y comparación nacional."
+  enPath="/valparaiso-safety/"
+  esPath="/es/seguridad-valparaiso/"
+>
+  <section>
+    <h1>Seguridad en Valparaíso: datos CEAD para la ciudad puerto</h1>
+    <p>
+      Valparaíso es el principal puerto de Chile y sede del Congreso Nacional. Esta página
+      reporta lo que muestran los datos oficiales del CEAD para la comuna de Valparaíso
+      en {year}.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(rate).toLocaleString('es-CL')} por 100k`}
+      label={`Tasa de delitos reportados en Valparaíso — CEAD ${year}`}
+      source="Fuente: CEAD (Centro de Estudios y Análisis del Delito)"
+      locale="es"
+    />
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('es-CL')} por 100k`}
+      label={`Promedio nacional de delitos reportados — CEAD ${year}`}
+      source="Fuente: CEAD — media simple de comunas no de baja población"
+      locale="es"
+    />
+
+    <p>
+      El contenido editorial completo en español para Valparaíso, incluyendo análisis por
+      tipo de delito, zonas de la ciudad y contexto regional, estará disponible próximamente.
+    </p>
+    <p>
+      <a href="/valparaiso-safety/">Ver versión en inglés</a> &middot;
+      <a href="/commune/valparaiso/">Ficha detallada de la comuna</a>
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

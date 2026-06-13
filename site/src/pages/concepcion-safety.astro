@@ -1,0 +1,213 @@
+---
+/**
+ * /concepcion-safety/ — EN city editorial page (non-FAQ)
+ *
+ * Loads Concepción (CUT 8101) via loadCommune. DataCallouts for rate vs national + trend.
+ * WebPage JSON-LD. esPath=/es/seguridad-concepcion/ (EDIT-02 verbatim).
+ *
+ * CRITICAL: uses loadNationalAverage() (MEAN), latestCompleteYearRate() — never SUM.
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import DataCallout from '../components/DataCallout.astro';
+import { loadCommune, loadNationalAverage, latestCompleteYearRate } from '../lib/data.ts';
+
+const concepcion = loadCommune('8101');
+const year = concepcion.latestCompleteYear;
+const rate = latestCompleteYearRate(concepcion);
+const nationalAvg = loadNationalAverage();
+const vsNationalPct = nationalAvg > 0
+  ? Math.round(((rate - nationalAvg) / nationalAvg) * 100)
+  : 0;
+const trendLabel =
+  concepcion.trend === 'up' ? 'rising' :
+  concepcion.trend === 'down' ? 'falling' :
+  'stable';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Concepción Safety — CEAD Crime Data",
+  "description": "Reported crime statistics for Concepción commune from CEAD official data.",
+  "about": {
+    "@type": "Dataset",
+    "name": "CEAD Crime Statistics — Concepción",
+    "publisher": {
+      "@type": "GovernmentOrganization",
+      "name": "Centro de Estudios y Análisis del Delito (CEAD)",
+    },
+  },
+};
+---
+
+<EditorialLayout
+  lang="en"
+  title="Concepción Safety — Crime Statistics and Data Overview — Chile Safety Map"
+  description="Official CEAD crime statistics for Concepción commune. Reported rates, trend direction, national comparison, and practical context for visitors and residents."
+  enPath="/concepcion-safety/"
+  esPath="/es/seguridad-concepcion/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Concepción Safety: CEAD Crime Data for Chile's Second City</h1>
+    <p>
+      Concepción is Chile's second largest urban area and the capital of the Biobío Region.
+      A major university city, industrial centre, and transport hub, it has a large student
+      population and a diverse economic base. This page reports what CEAD official data shows
+      for the commune of Concepción for {year}.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(rate).toLocaleString('en-US')} per 100k`}
+      label={`Concepción commune reported crime rate — CEAD ${year}`}
+      source="Source: CEAD (Centro de Estudios y Análisis del Delito)"
+      locale="en"
+    />
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('en-US')} per 100k`}
+      label={`National average reported crime rate — CEAD ${year}`}
+      source="Source: CEAD — unweighted mean of non-low-population communes"
+      locale="en"
+    />
+  </section>
+
+  <section>
+    <h2>How Concepción Compares with the National Average</h2>
+    <p>
+      According to CEAD data for {year}, Concepción's reported crime rate of
+      {Math.round(rate).toLocaleString('en-US')} per 100,000 inhabitants is approximately
+      {Math.abs(vsNationalPct)} % {vsNationalPct >= 0 ? 'above' : 'below'} the national
+      mean of {Math.round(nationalAvg).toLocaleString('en-US')} per 100,000. The current
+      trend is {trendLabel} according to the CEAD series for recent years.
+    </p>
+    <p>
+      The full year-by-year series for Concepción, including breakdown by crime family, is
+      available on the <a href="/commune/concepcion/">Concepción commune detail page</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Concepción in the Biobío Region</h2>
+    <p>
+      Concepción anchors the Gran Concepción metropolitan area, which extends across several
+      communes including Talcahuano (the port), San Pedro de la Paz (a southern residential
+      zone), Chiguayante, Coronel, and others. Each has its own reported rate. The
+      <a href="/region/biobio/">Biobío region page</a> provides a commune-by-commune ranking
+      within the region.
+    </p>
+    <p>
+      Concepción commune itself covers the commercial centre, the university district, and
+      several neighbourhoods that vary in character. CEAD data does not resolve to
+      neighbourhood level — all incidents are attributed to the commune as a whole.
+    </p>
+  </section>
+
+  <section>
+    <h2>University City Dynamics</h2>
+    <p>
+      Concepción hosts several major universities, including Universidad de Concepción and
+      Universidad del Bío-Bío, which together attract tens of thousands of students. A large
+      student population typically increases both the resident count and the social activity
+      level, affecting the types and patterns of incidents reported. Property crime — phone
+      theft, bag snatching — tends to be the most common category in university areas
+      according to CEAD data.
+    </p>
+  </section>
+
+  <section>
+    <h2>Crime Type Composition</h2>
+    <p>
+      Property crime (robbery and theft) represents the largest share of reported incidents
+      in Concepción according to CEAD data, as in most Chilean urban communes. Intra-family
+      violence is consistently the second most commonly reported category at national level.
+      The crime-family breakdown for Concepción by year appears on the
+      <a href="/commune/concepcion/">commune detail page</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Trends Over Time</h2>
+    <p>
+      Concepción's reported rate has been {trendLabel} in recent years according to CEAD data.
+      The multi-year series from 2005 onward on the commune detail page provides context for
+      interpreting the current rate — whether it represents a peak, a trough, or part of a
+      longer directional movement. According to CEAD data for {year}, the commune's national
+      rank was {concepcion.national_rank} out of all ranked communes.
+    </p>
+  </section>
+
+  <section>
+    <h2>Talcahuano and the Gran Concepción Area</h2>
+    <p>
+      Talcahuano, immediately northwest of Concepción, is Chile's principal naval base and a
+      major industrial port commune. Its rate profile differs from Concepción's residential
+      and commercial zones. Visitors arriving by sea or accessing the industrial area should
+      note that Talcahuano is a separate commune with its own CEAD statistics.
+    </p>
+    <p>
+      San Pedro de la Paz, connected to Concepción by the Bio-Bio bridge, is primarily a
+      residential commune and typically shows a rate below Concepción commune's level — again,
+      a separate commune with its own data page.
+    </p>
+  </section>
+
+  <section>
+    <h2>Practical Context for Visitors and Residents</h2>
+    <ul>
+      <li>
+        The city centre and main bus terminal area see the highest concentration of reported
+        property crime. Standard urban precautions apply.
+      </li>
+      <li>
+        The university district around Barrio Universitario is lively at night and generally
+        well-lit, though bag and phone theft are reported, as in any area with high
+        pedestrian density.
+      </li>
+      <li>
+        Residents evaluating neighbourhoods in the Gran Concepción area should compare
+        commune-level pages for Concepción, Talcahuano, San Pedro de la Paz, and Chiguayante
+        on this site for a data-grounded view.
+      </li>
+      <li>
+        Connections to Chilean cities to the south (Temuco, Valdivia) are well served by bus
+        and train from Concepción's terminal.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Data Source and Methodology</h2>
+    <p>
+      All statistics on this page come from CEAD (Centro de Estudios y Análisis del Delito),
+      the official Chilean government crime statistics body, covering police-reported incidents
+      for {year}. Rates are computed per 100,000 registered inhabitants. The national average
+      is the unweighted mean across non-low-population communes. Full methodology is documented
+      on the <a href="/methodology/">Methodology page</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
