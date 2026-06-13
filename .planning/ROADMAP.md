@@ -47,7 +47,7 @@ _Last updated: 2026-06-12_
 
 **Plans**: 6 plans
 
-- [ ] 02-01-PLAN.md — Astro scaffold + node:fs data loader + i18n/family-slugs/rollout config + slug maps + color scale + validation stubs (Wave 1)
+- [x] 02-01-PLAN.md — Astro scaffold + node:fs data loader + i18n/family-slugs/rollout config + slug maps + color scale + validation stubs (Wave 1)
 - [ ] 02-02-PLAN.md — global.css tokens + BaseLayout (hreflang/canonical/PWA meta) + 11 ported server-rendered components (Wave 2)
 - [ ] 02-03-PLAN.md — Commune pages EN+ES: deterministic prose variation engine (500+ words, 5 dimensions) + rollout batch gate (Wave 3)
 - [ ] 02-04-PLAN.md — Region pages EN+ES (16×2): aggregates + commune ranking table (Wave 3)
@@ -121,7 +121,7 @@ _Last updated: 2026-06-12_
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 4/4 | Complete    | 2026-06-13 |
-| 2. Astro Site + Programmatic Pages | 0/6 | Planned     | - |
+| 2. Astro Site + Programmatic Pages | 1/6 | In Progress|  |
 | 3. Leaflet Map Island | 0/? | Not started | - |
 | 4. Editorial Pages + AdSense | 0/? | Not started | - |
 | 5. RSS News Pipeline | 0/? | Not started | - |
