@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Polish & QA
 status: planning
-last_updated: "2026-06-13T23:23:06.993Z"
+last_updated: "2026-06-13"
 last_activity: 2026-06-13
 progress:
-  total_phases: 0
+  total_phases: 3
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -15,20 +15,22 @@ progress:
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-13 (Phase 02 COMPLETE — plan 02-06 UAT approved; all 6 plans done; 740 pages build green; 7/7 validators pass; ready for Phase 3 Leaflet Map Island)_
+_Last updated: 2026-06-13 — v1.1 roadmap created (Phases 7–9); ready to plan Phase 7_
 
 ## Project Reference
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: v1.0 shipped (code-complete) — next is the human go-live (`DEPLOYMENT.md`), then `/gsd:new-milestone` for v1.1.
+**Current focus**: v1.1 Polish & QA — roadmap defined, starting Phase 7 (E2E Review Pass).
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-06-13 — Milestone v1.1 started
+Phase: 7 — E2E Review Pass
+Plan: Not started
+Status: Planning
+Last activity: 2026-06-13 — v1.1 roadmap written; Phase 7 next
+
+Progress: ░░░░░░░░░░ 0% (0/3 phases complete)
 
 ## Deferred Items
 
@@ -47,22 +49,22 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 
 | Metric | Value |
 |--------|-------|
-| Phases complete | 0/6 |
-| Requirements mapped | 32/32 |
-| Plans created | 0 |
-| Plans complete | 0 |
-| Phase 01-data-foundation P04 | 45m | 3 tasks | 7 files |
-| Phase 02-astro-site-programmatic-pages P01 | 35m | 3 tasks | 17 files |
-| Phase 02-astro-site-programmatic-pages P03 | 45min | 3 tasks | 5 files |
-| Phase 03-leaflet-map-island P01 | 25 | 3 tasks | 9 files |
-| Phase 03-leaflet-map-island P02 | 45 | 3 tasks | 11 files |
-| Phase 03-leaflet-map-island P03 | 25 | 2 auto tasks + 1 UAT checkpoint (OPEN) | 3 files |
-| Phase 04-editorial-pages-adsense P02 | 18m | 3 tasks | 5 files |
-| Phase 04-editorial-pages-adsense P03 | 22m | 3 tasks | 5 files |
-| Phase 04 P06 | 25m | 3 tasks | 10 files |
-| Phase 04-editorial-pages-adsense P07 | 12m | 3 tasks | 8 files |
-| Phase 05-rss-news-pipeline P01 | 35 | 3 tasks | 18 files |
-| Phase 05-rss-news-pipeline P03 | 12m | 2 tasks | 2 files |
+| v1.1 Phases complete | 0/3 |
+| v1.1 Requirements mapped | 17/17 |
+| v1.1 Plans created | 0 |
+| v1.1 Plans complete | 0 |
+| Phase 01-data-foundation P04 | 45m \| 3 tasks \| 7 files |
+| Phase 02-astro-site-programmatic-pages P01 | 35m \| 3 tasks \| 17 files |
+| Phase 02-astro-site-programmatic-pages P03 | 45min \| 3 tasks \| 5 files |
+| Phase 03-leaflet-map-island P01 | 25 \| 3 tasks \| 9 files |
+| Phase 03-leaflet-map-island P02 | 45 \| 3 tasks \| 11 files |
+| Phase 03-leaflet-map-island P03 | 25 \| 2 auto tasks + 1 UAT checkpoint (OPEN) \| 3 files |
+| Phase 04-editorial-pages-adsense P02 | 18m \| 3 tasks \| 5 files |
+| Phase 04-editorial-pages-adsense P03 | 22m \| 3 tasks \| 5 files |
+| Phase 04 P06 | 25m \| 3 tasks \| 10 files |
+| Phase 04-editorial-pages-adsense P07 | 12m \| 3 tasks \| 8 files |
+| Phase 05-rss-news-pipeline P01 | 35 \| 3 tasks \| 18 files |
+| Phase 05-rss-news-pipeline P03 | 12m \| 2 tasks \| 2 files |
 
 ## Accumulated Context
 
@@ -95,8 +97,8 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 
 ### Research Flags for Planning
 
-- Phase 1: Live CEAD endpoint validation needed — confirm exact POST parameter names and current response field names before implementation
-- Phase 5: RSS feed URLs for T13, 24Horas, Meganoticias, SoyChile unconfirmed — design per-feed graceful fallback
+- Phase 7: BrowserOS MCP must be connected before review starts (port 9200; verify with tool search for `mcp__*browseros*__*` navigate/screenshot/console/resize tools)
+- Phase 7: dev server `cd site && npm run dev` must be running (predev runs sync-data.mjs; incidents layer will show empty state — expected)
 
 ### Todos
 
@@ -114,10 +116,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 **Known env issue (not code)**: project is inside OneDrive — `dist/` artifacts desync between separate processes; ALWAYS chain build + validate in one command. (See memory: onedrive-build-artifacts-desync.)
 **Last session (2026-06-13, autonomous)**: Phases 4→5→6 ejecutadas + revisadas (code review en cada una, bugs reales corregidos) + verificadas; milestone v1.0 auditado (code-complete, tech_debt), archivado y tagueado (v1.0). Detalle por fase en `.planning/milestones/v1.0-phases/`.
 **Push**: hecho ✅ → repo privado `github.com/xenaquis/is-chile-safe` (master + tag v1.0). Cloudflare Pages se conecta a este repo en el go-live.
-**Open manual item**: Phase 3 visual/mobile UAT sigue diferido — se cierra dentro de la revisión E2E.
-**Next action**: Fase de **revisión end-to-end (v1.1 Polish & QA)** con MCP de navegador. **LEER PRIMERO** `.planning/REVIEW-E2E-BRIEF.md` (objetivo, método, inventario de páginas, checklist, prerrequisitos, kickoff). Prerrequisitos: conectar MCP `pbrowseros`/BrowserOS (no estaba conectado) + `cd site && npm run dev`. Handoff estructurado: `.planning/HANDOFF.json`.
-**Resume prompt**: v1.0 code-complete y archivado (no desplegado, push pendiente). Arrancar la revisión E2E para cazar bugs, reducir carga cognitiva y dejar la página agradable de leer — según `.planning/REVIEW-E2E-BRIEF.md`.
-**2026-06-13 (resume)**: Sesión reanudada. User eligió arrancar **milestone v1.1** (revisión E2E como primera fase) vía /gsd:new-milestone, usando REVIEW-E2E-BRIEF.md como insumo. HANDOFF.json consumido y borrado. Bloqueador abierto: MCP de navegador NO conectado (resolver antes de revisar render).
+**2026-06-13 (v1.1 roadmap)**: Phases 7–9 defined. Phase 7 = investigative E2E review (produces FINDINGS doc); Phase 8 = bug/data fixes; Phase 9 = UX/readability/a11y polish. All 17 requirements mapped. Next: `/gsd:plan-phase 7`.
 
 ## Decisions
 
@@ -133,4 +132,5 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 
 ## Operator Next Steps
 
-- Start the next milestone with /gsd:new-milestone
+- Plan Phase 7 with `/gsd:plan-phase 7`
+- Prerequisites before executing Phase 7: BrowserOS MCP connected (port 9200) + `cd site && npm run dev` running

@@ -66,29 +66,29 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| REVIEW-01 | TBD | Pending |
-| REVIEW-02 | TBD | Pending |
-| REVIEW-03 | TBD | Pending |
-| REVIEW-04 | TBD | Pending |
-| REVIEW-05 | TBD | Pending |
-| BUGFIX-01 | TBD | Pending |
-| BUGFIX-02 | TBD | Pending |
-| BUGFIX-03 | TBD | Pending |
-| BUGFIX-04 | TBD | Pending |
-| BUGFIX-05 | TBD | Pending |
-| UX-01 | TBD | Pending |
-| UX-02 | TBD | Pending |
-| READ-01 | TBD | Pending |
-| READ-02 | TBD | Pending |
-| READ-03 | TBD | Pending |
-| A11Y-01 | TBD | Pending |
-| A11Y-02 | TBD | Pending |
+| REVIEW-01 | Phase 7 | Pending |
+| REVIEW-02 | Phase 7 | Pending |
+| REVIEW-03 | Phase 7 | Pending |
+| REVIEW-04 | Phase 7 | Pending |
+| REVIEW-05 | Phase 7 | Pending |
+| BUGFIX-01 | Phase 8 | Pending |
+| BUGFIX-02 | Phase 8 | Pending |
+| BUGFIX-03 | Phase 8 | Pending |
+| BUGFIX-04 | Phase 8 | Pending |
+| BUGFIX-05 | Phase 8 | Pending |
+| UX-01 | Phase 9 | Pending |
+| UX-02 | Phase 9 | Pending |
+| READ-01 | Phase 9 | Pending |
+| READ-02 | Phase 9 | Pending |
+| READ-03 | Phase 9 | Pending |
+| A11Y-01 | Phase 9 | Pending |
+| A11Y-02 | Phase 9 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 17 total
-- Mapped to phases: 0 (set by roadmapper)
-- Unmapped: 17 ⚠️ (resolved at roadmap step)
+- Mapped to phases: 17
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-06-13*
-*Last updated: 2026-06-13 after v1.1 milestone definition*
+*Last updated: 2026-06-13 — traceability filled after roadmap creation*
