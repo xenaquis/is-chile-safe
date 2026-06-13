@@ -7,7 +7,7 @@ _Last updated: 2026-06-13_
 - [x] **Phase 1: Data Foundation** - CEAD scraper extracts and validates all quantitative crime data into a stable JSON schema (completed 2026-06-13)
 - [x] **Phase 2: Astro Site + Programmatic Pages** - Static site framework deployed with bilingual programmatic pages for all 346 comunas, 16 regions, and crime types (completed 2026-06-13)
 - [x] **Phase 3: Leaflet Map Island** - Interactive choropleth map with filters, commune popup panel, and geolocation — fully functional on mobile (completed 2026-06-13; visual/mobile UAT deferred)
-- [ ] **Phase 4: Editorial Pages + AdSense** - High-priority editorial and legal pages live; editorial guardrails enforced at build time; AdSense integrated
+- [x] **Phase 4: Editorial Pages + AdSense** - High-priority editorial and legal pages live; editorial guardrails enforced at build time; AdSense integrated (completed 2026-06-13)
 - [ ] **Phase 5: RSS News Pipeline** - Automated RSS ingestion, DeepSeek classification, and rolling incident feed powering map pins
 - [ ] **Phase 6: CI/CD + Cloudflare Deployment** - Fully automated cron pipelines deployed without rebuild loops; site live on ischilesafe.com
 
@@ -99,7 +99,7 @@ _Last updated: 2026-06-13_
 - [x] 04-04-PLAN.md — Wave 3: EN non-map editorial pages (home + is-chile-safe + is-santiago-safe + 3 city pages) (EDIT-01)
 - [x] 04-05-PLAN.md — Wave 3: EN map-bearing pages + safest-cities ranking + methodology (EDIT-01, EDIT-03)
 - [x] 04-06-PLAN.md — Wave 3: all 10 ES editorial pages incl. ES methodology + ES map-bearing (EDIT-02, EDIT-03)
-- [ ] 04-07-PLAN.md — Wave 3: legal pages EN+ES (Privacy/Terms/About/Contact) (EDIT-04) + full-suite phase gate
+- [x] 04-07-PLAN.md — Wave 3: legal pages EN+ES (Privacy/Terms/About/Contact) (EDIT-04) + full-suite phase gate
 
 **UI hint**: yes
 
@@ -138,6 +138,6 @@ _Last updated: 2026-06-13_
 | 1. Data Foundation | 4/4 | Complete    | 2026-06-13 |
 | 2. Astro Site + Programmatic Pages | 6/6 | Complete    | 2026-06-13 |
 | 3. Leaflet Map Island | 4/4 | Complete    | 2026-06-13 |
-| 4. Editorial Pages + AdSense | 6/7 | In Progress|  |
+| 4. Editorial Pages + AdSense | 7/7 | Complete   | 2026-06-13 |
 | 5. RSS News Pipeline | 0/? | Not started | - |
 | 6. CI/CD + Cloudflare Deployment | 0/? | Not started | - |
