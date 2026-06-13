@@ -1,0 +1,70 @@
+---
+/**
+ * PageFooter — wordmark (small) + CEAD source attribution + locale switcher link.
+ * Zero client:* directives (D-09).
+ */
+interface Props {
+  locale: 'en' | 'es';
+  enPath: string;
+  esPath: string;
+}
+
+const { locale, enPath, esPath } = Astro.props;
+
+const attribution = locale === 'en'
+  ? 'Source: CEAD — Centro de Estudios y Análisis del Delito'
+  : 'Fuente: CEAD — Centro de Estudios y Análisis del Delito';
+
+const altLocaleLabel = locale === 'en' ? 'ES' : 'EN';
+const altHref = locale === 'en' ? esPath : enPath;
+---
+
+<footer class="csm-footer">
+  <div class="footer-inner page-content">
+    <span class="footer-wordmark">Chile Safety Map</span>
+    <span class="footer-attribution">{attribution}</span>
+    <a href={altHref} class="footer-lang" lang={locale === 'en' ? 'es' : 'en'}>
+      {altLocaleLabel}
+    </a>
+  </div>
+</footer>
+
+<style>
+  .csm-footer {
+    border-top: 1px solid var(--line);
+    background: var(--card);
+    padding: var(--lg) 0;
+    margin-top: var(--2xl);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--md);
+    flex-wrap: wrap;
+  }
+
+  .footer-wordmark {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+  }
+
+  .footer-attribution {
+    font-size: var(--text-label);
+    font-weight: var(--weight-body);
+    color: var(--muted);
+    flex: 1;
+  }
+
+  .footer-lang {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .footer-lang:hover {
+    text-decoration: underline;
+  }
+</style>

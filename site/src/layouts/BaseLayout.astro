@@ -1,0 +1,72 @@
+---
+/**
+ * BaseLayout — head meta + hreflang + canonical + PWA meta + JSON-LD slot.
+ * Wraps every page with PageHeader and PageFooter.
+ *
+ * SEO-01: Injects reciprocal hreflang (en / es / x-default) and self-canonical
+ * on every page from the central enPath/esPath props (never per-page frontmatter).
+ *
+ * JSON-LD: Use JSON.stringify() via set:html — never raw string interpolation
+ * (RESEARCH XSS note lines 794-798).
+ */
+import '../styles/global.css';
+import PageHeader from '../components/PageHeader.astro';
+import PageFooter from '../components/PageFooter.astro';
+
+interface Props {
+  lang: 'en' | 'es';
+  title: string;
+  description: string;
+  enPath: string;
+  esPath: string;
+  jsonLd?: object | null;
+  mountType?: string;
+}
+
+const {
+  lang,
+  title,
+  description,
+  enPath,
+  esPath,
+  jsonLd = null,
+} = Astro.props;
+
+const BASE_URL = 'https://ischilesafe.com';
+const canonicalPath = lang === 'en' ? enPath : esPath;
+
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- hreflang: en / es / x-default (SEO-01 reciprocal alternates) -->
+    <link rel="alternate" hreflang="en" href={`${BASE_URL}${enPath}`} />
+    <link rel="alternate" hreflang="es" href={`${BASE_URL}${esPath}`} />
+    <link rel="alternate" hreflang="x-default" href={`${BASE_URL}${enPath}`} />
+    <link rel="canonical" href={`${BASE_URL}${canonicalPath}`} />
+
+    <!-- PWA meta -->
+    <meta name="theme-color" content="#0f766e" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Schema.org JSON-LD (JSON.stringify for XSS safety) -->
+    {jsonLd !== null && (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+  </head>
+  <body>
+    <PageHeader locale={lang} enPath={enPath} esPath={esPath} />
+    <main class="page-content">
+      <slot />
+    </main>
+    <PageFooter locale={lang} enPath={enPath} esPath={esPath} />
+  </body>
+</html>

@@ -1,0 +1,161 @@
+/* ==========================================================================
+   Chile Safety Map — Global Design Tokens + Reset + Base Typography
+   UI-SPEC approved token set (no Tailwind; scoped CSS custom properties)
+   ========================================================================== */
+
+/* ---------- Google Fonts: Nunito Sans 400 + 700 ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap');
+
+/* ---------- Design Tokens ---------- */
+:root {
+  /* Brand palette */
+  --primary: #0f766e;
+  --bg:      #f5f8f8;
+  --ink:     #1c2a2b;
+  --muted:   #5d6c6d;
+  --line:    #e2e9e8;
+  --card:    #ffffff;
+
+  /* Incidence color scale (5-level chroma-js; mirrors colorScale.ts INCIDENCE_COLORS) */
+  --s1: #dbeef0;
+  --s2: #9fd0cd;
+  --s3: #f4d58d;
+  --s4: #e8a05c;
+  --s5: #c96b5a;
+
+  /* Semantic trend colors */
+  --trend-up:     #c96b5a;
+  --trend-down:   #0f766e;
+  --trend-stable: #5d6c6d;
+
+  /* Shape */
+  --radius: 14px;
+
+  /* Spacing scale (multiples of 4) */
+  --xs:  4px;
+  --sm:  8px;
+  --md:  16px;
+  --lg:  24px;
+  --xl:  32px;
+  --2xl: 48px;
+  --3xl: 64px;
+
+  /* Typography */
+  --font: 'Nunito Sans', 'Segoe UI', system-ui, sans-serif;
+
+  /* Font sizes (exactly 4: 14/16/20/28px) */
+  --text-label:   14px;
+  --text-body:    16px;
+  --text-heading: 20px;
+  --text-display: 28px;
+
+  /* Font weights (exactly 2: 400 body / 700 all non-body) */
+  --weight-body:   400;
+  --weight-strong: 700;
+}
+
+/* ---------- Minimal CSS Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%; /* 16px base */
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  font-size: var(--text-body);
+  font-weight: var(--weight-body);
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* ---------- Base Typography Scale ---------- */
+
+/* Display — h1 (28px/700) */
+h1 {
+  font-size: var(--text-display);
+  font-weight: var(--weight-strong);
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+/* Heading — h2, h3 (20px/700) */
+h2,
+h3 {
+  font-size: var(--text-heading);
+  font-weight: var(--weight-strong);
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+/* Label helpers (14px/700) */
+.label {
+  font-size: var(--text-label);
+  font-weight: var(--weight-strong);
+  line-height: 1.4;
+}
+
+/* Body (16px/400) — default */
+p {
+  font-size: var(--text-body);
+  font-weight: var(--weight-body);
+  line-height: 1.5;
+}
+
+/* ---------- Layout Utilities ---------- */
+
+.page-content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 var(--md);
+}
+
+/* ---------- Responsive Breakpoints (mobile-first) ---------- */
+
+/* Mobile (< 640px): single column, full-width */
+
+@media (min-width: 640px) {
+  /* Tablet: multi-column layouts for stat rows, comparison callouts */
+  .key-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--md);
+  }
+
+  .comparison-callouts {
+    display: flex;
+    gap: var(--md);
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Desktop: max content width 860px centred, side padding */
+  .page-content {
+    padding: 0 var(--lg);
+  }
+}

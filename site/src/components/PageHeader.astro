@@ -1,0 +1,158 @@
+---
+/**
+ * PageHeader — site wordmark + nav + lang toggle.
+ * Static server-rendered only — zero client:* directives (D-09).
+ * Ported from ischilesafe.com/components.jsx Header (lines 21-39).
+ *
+ * Uses getRelativeLocaleUrl() for all internal links per Astro i18n docs.
+ */
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+
+interface Props {
+  locale: 'en' | 'es';
+  enPath: string;
+  esPath: string;
+}
+
+const { locale, enPath, esPath } = Astro.props;
+const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
+
+const homeHref = getRelativeLocaleUrl(locale, '/');
+const mapHref  = getRelativeLocaleUrl(locale, '/map');
+const methodHref = locale === 'en' ? '/methodology/' : '/es/metodologia/';
+
+// Lang toggle: link to the alternate locale's equivalent path
+const altHref = locale === 'en' ? esPath : enPath;
+---
+
+<header class="csm-header">
+  <a href={homeHref} class="wordmark" aria-label="Chile Safety Map home">
+    <!-- PinGlyph SVG (ported from components.jsx lines 4-10) -->
+    <span class="wordmark-glyph" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="9" r="5" fill="var(--primary)" />
+        <ellipse cx="11" cy="9" rx="2" ry="2" fill="white" />
+        <path d="M11 14 Q7 18 11 22 Q15 18 11 14Z" fill="var(--primary)" />
+      </svg>
+    </span>
+    <span class="wordmark-text">Chile Safety Map</span>
+  </a>
+
+  <nav class="csm-nav" aria-label="Main navigation">
+    <a href={homeHref} class="nav-link">{t.nav_home}</a>
+    <a href={mapHref}  class="nav-link">{t.nav_map}</a>
+    <a href={methodHref} class="nav-link">{t.nav_methodology}</a>
+  </nav>
+
+  <div class="header-right">
+    <div class="lang-toggle" role="group" aria-label="Idioma / Language">
+      {locale === 'en' ? (
+        <>
+          <span class="lang-btn active" aria-current="true">EN</span>
+          <a href={altHref} class="lang-btn" lang="es">ES</a>
+        </>
+      ) : (
+        <>
+          <a href={altHref} class="lang-btn" lang="en">EN</a>
+          <span class="lang-btn active" aria-current="true">ES</span>
+        </>
+      )}
+    </div>
+  </div>
+</header>
+
+<style>
+  .csm-header {
+    display: flex;
+    align-items: center;
+    gap: var(--md);
+    height: var(--3xl); /* 64px */
+    padding: 0 var(--lg);
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .wordmark {
+    display: flex;
+    align-items: center;
+    gap: var(--xs);
+    text-decoration: none;
+    color: var(--ink);
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    flex-shrink: 0;
+  }
+
+  .wordmark-glyph {
+    display: flex;
+    align-items: center;
+  }
+
+  .csm-nav {
+    display: none;
+    align-items: center;
+    gap: var(--sm);
+    flex: 1;
+  }
+
+  @media (min-width: 640px) {
+    .csm-nav {
+      display: flex;
+    }
+  }
+
+  .nav-link {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--muted);
+    text-decoration: none;
+    padding: var(--sm) 14px;
+    border-radius: calc(var(--radius) / 2);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .nav-link:hover {
+    color: var(--primary);
+    background: var(--bg);
+  }
+
+  .header-right {
+    margin-left: auto;
+  }
+
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) / 2);
+    overflow: hidden;
+  }
+
+  .lang-btn {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    padding: 4px 10px;
+    color: var(--muted);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .lang-btn.active {
+    background: var(--primary);
+    color: var(--card);
+  }
+
+  .lang-btn:not(.active):hover {
+    background: var(--bg);
+    color: var(--primary);
+  }
+</style>
