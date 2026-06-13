@@ -35,6 +35,37 @@ def make_id(url: str) -> str:
     return hashlib.sha256(url.encode()).hexdigest()[:16]
 
 
+def build_incident(
+    *,
+    url: str,
+    cut: str,
+    lat: float,
+    lng: float,
+    title_es: str,
+    title_en: str,
+    date: str,
+    outlet: str,
+    family: str,
+) -> dict:
+    """Build a validated incident dict ready for merge_and_write.
+
+    All attribution fields are required (NEWS-05).
+    Returns a plain dict matching the IncidentRecord schema.
+    """
+    return {
+        "id": make_id(url),
+        "cut": cut,
+        "lat": lat,
+        "lng": lng,
+        "title_es": title_es,
+        "title_en": title_en,
+        "date": date,
+        "outlet": outlet,
+        "url": url,
+        "family": family,
+    }
+
+
 def _load_incidents_list(path: pathlib.Path) -> list[dict]:
     """Load incidents list from a current.json or archive/YYYY-MM.json, or return []."""
     if not path.exists():
