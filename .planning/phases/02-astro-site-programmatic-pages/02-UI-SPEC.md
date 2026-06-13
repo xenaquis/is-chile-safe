@@ -1,10 +1,11 @@
 ---
 phase: 2
 slug: astro-site-programmatic-pages
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-06-13
+reviewed_at: 2026-06-13
 ---
 
 # Phase 2 — UI Design Contract
@@ -21,7 +22,7 @@ created: 2026-06-13
 | Preset | not applicable |
 | Component library | none (native Astro components + inline SVG for data viz) |
 | Icon library | Inline SVG only — no icon library dependency; port the 3 prototype SVG icons (SearchIcon, LocateIcon, PinGlyph) as Astro partials |
-| Font | Nunito Sans (Google Fonts — `wght@400;600;700;800`); fallback: "Segoe UI", system-ui, sans-serif |
+| Font | Nunito Sans (Google Fonts — `wght@400;700`); fallback: "Segoe UI", system-ui, sans-serif |
 
 Source: prototype `Chile Safety Map.html` `--font` and `<link>` declarations.
 
@@ -54,15 +55,13 @@ Exceptions:
 | Role | Size | Weight | Line Height | Usage |
 |------|------|--------|-------------|-------|
 | Body | 16px | 400 | 1.5 | Prose paragraphs, page description text |
-| Label | 14px | 600 | 1.4 | Stat labels ("Tasa por 100k", rank captions), table headers, chip text |
-| Heading | 20px | 700 | 1.25 | Section headings (h2), card titles, stat value displays |
-| Display | 28px | 800 | 1.15 | Page h1 (commune name, region name), hero headline |
+| Label | 14px | 700 | 1.4 | Stat labels ("Tasa por 100k", rank captions), table headers, chip text, badge pills, lang-toggle buttons, methodology caveat footnotes |
+| Heading | 20px | 700 | 1.25 | Section headings (h2), card titles, stat value displays, nav links |
+| Display | 28px | 700 | 1.15 | Page h1 (commune name, region name), hero headline, stat card values |
 
-Additional declared sizes (within the 4-size limit, as sub-roles):
-- 13px / weight 700: lang-toggle buttons, badge pills, methodology caveat footnotes
-- 15px / weight 600: nav links (prototype `font-size: 15px; font-weight: 600`)
+Exactly 4 sizes declared: 14, 16, 20, 28px. Exactly 2 weights declared: 400 (body) and 700 (all non-body roles). Elements previously specified at 13px or 15px map to 14px (Label) and 16px (Body/Heading) respectively; weight differentiates roles within each size band.
 
-Source: prototype inline CSS `font-size` and `font-weight` declarations, extracted verbatim.
+Source: prototype inline CSS `font-size` and `font-weight` declarations, consolidated per checker contract.
 
 ---
 
@@ -123,7 +122,7 @@ Section order (top to bottom):
 
 1. **PageHeader** — site wordmark + nav (Home / Map / Methodology) + lang toggle (EN/ES)
 2. **CommuneHero** — h1: commune name + region name breadcrumb; level chip (1–5 color dot + label); population footnote
-3. **KeyStatsRow** — 3 inline stat cards: (a) latest complete year total rate per 100k, (b) national rank (N of 346, low-pop excluded), (c) regional rank (N of region communes); each card has a label (14px/600) and value (28px/800)
+3. **KeyStatsRow** — 3 inline stat cards: (a) latest complete year total rate per 100k, (b) national rank (N of 346, low-pop excluded), (c) regional rank (N of region communes); each card has a label (14px/700) and value (28px/700)
 4. **SparklineSection** — inline SVG bar sparkline (2005–2025 total rate per 100k); x-axis year labels at 5-year intervals; partial-year bar (2026) rendered at 50% opacity with amber caveat badge; active bar highlighted in `--primary`
 5. **ComparisonCallouts** — 2 horizontal pill callouts: "X% above/below national average" and "X% above/below regional average"; sign determines color (above → level-4 amber or level-5 red tint; below → level-1/2 teal tint)
 6. **CrimeFamilyBreakdown** — horizontal bar chart (pure CSS, no JS): 7 families ordered as: `vida` (featured first), `propiedad` (featured second), then `robos_violentos`, `incivilidades`, `vif`, `drogas`, `armas`; bars show latest complete year rate as % of total; featured families (`vida`, `propiedad`) have `--primary` accent dot on label; bar fill uses the commune's level color; bar width is CSS percentage of container
