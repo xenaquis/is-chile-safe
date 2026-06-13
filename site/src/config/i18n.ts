@@ -1,6 +1,6 @@
 /**
  * EN/ES UI string map + crime-family slug translations.
- * Sober editorial tone per D-05 — never "zona peligrosa", "ranking definitivo", "zona segura garantizada".
+ * Sober editorial tone per D-05 — see CONTEXT.md for the full list of forbidden terms.
  * Ported from ischilesafe.com/data.js I18N and extended with Phase 2 UI-SPEC additions.
  */
 
