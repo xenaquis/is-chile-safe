@@ -67,6 +67,20 @@ export interface I18nStrings {
   level_3: string;
   level_4: string;
   level_5: string;
+
+  // Footer legal links (EDIT-04, D-13)
+  footer_privacy: string;
+  footer_terms: string;
+  footer_about: string;
+  footer_contact: string;
+
+  // Cookie consent banner (D-11)
+  cookie_banner_text: string;
+  cookie_banner_accept: string;
+  cookie_banner_reject: string;
+
+  // Data callout source prefix
+  data_callout_source_prefix: string;
 }
 
 export const EN_STRINGS: I18nStrings = {
@@ -134,6 +148,20 @@ export const EN_STRINGS: I18nStrings = {
   level_3: 'Medium incidence',
   level_4: 'Medium-high incidence',
   level_5: 'High incidence',
+
+  // Footer legal links (EDIT-04, D-13)
+  footer_privacy: 'Privacy Policy',
+  footer_terms: 'Terms of Use',
+  footer_about: 'About',
+  footer_contact: 'Contact',
+
+  // Cookie consent banner (D-11)
+  cookie_banner_text: 'We use cookies to serve ads and analyze traffic. See our Privacy Policy.',
+  cookie_banner_accept: 'Accept',
+  cookie_banner_reject: 'Reject',
+
+  // Data callout source prefix
+  data_callout_source_prefix: 'Source: CEAD',
 };
 
 export const ES_STRINGS: I18nStrings = {
@@ -201,6 +229,20 @@ export const ES_STRINGS: I18nStrings = {
   level_3: 'Incidencia media',
   level_4: 'Incidencia media-alta',
   level_5: 'Incidencia alta',
+
+  // Enlaces legales del pie de página (EDIT-04, D-13)
+  footer_privacy: 'Política de Privacidad',
+  footer_terms: 'Términos de Uso',
+  footer_about: 'Acerca de',
+  footer_contact: 'Contacto',
+
+  // Banner de consentimiento de cookies (D-11)
+  cookie_banner_text: 'Usamos cookies para mostrar anuncios y analizar el tráfico. Ver nuestra Política de Privacidad.',
+  cookie_banner_accept: 'Aceptar',
+  cookie_banner_reject: 'Rechazar',
+
+  // Prefijo de fuente para callout de datos
+  data_callout_source_prefix: 'Fuente: CEAD',
 };
 
 // D-17: Crime-family URL slug translations
