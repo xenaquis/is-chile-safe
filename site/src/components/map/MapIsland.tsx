@@ -32,6 +32,8 @@ import {
   mountLowZoomDots,
   type DotCommune,
 } from './LowZoomDotLayer';
+import { locate } from './UserLocationMarker';
+import { fetchAndMountIncidents } from './IncidentPinLayer';
 import { Legend } from './Legend';
 import { ZoomControl } from './ZoomControl';
 import { MapTopbar } from './MapTopbar';
@@ -76,6 +78,8 @@ export default function MapIsland({ lang }: Props) {
   const tileRef = useRef<L.TileLayer | null>(null);
   const layerRef = useRef<L.GeoJSON | null>(null);
   const dotsRef = useRef<L.LayerGroup | null>(null);
+  const eventsRef = useRef<L.LayerGroup | null>(null);
+  const userRef = useRef<L.Marker | null>(null);
   const polyIdxRef = useRef<Map<string, L.Layer>>(new Map());
   const styleMapRef = useRef<Map<string, L.PathOptions>>(new Map());
 
@@ -301,6 +305,35 @@ export default function MapIsland({ lang }: Props) {
   }, [lowZoom]);
 
   // ---------------------------------------------------------------------------
+  // Events toggle effect: fetch + mount incident-pin layer (MAP-04)
+  // ---------------------------------------------------------------------------
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    if (showEvents) {
+      // Fetch and mount; graceful empty state handled inside fetchAndMountIncidents
+      void fetchAndMountIncidents(map, lang, setToast).then((layer) => {
+        eventsRef.current = layer;
+      });
+    } else {
+      // Remove layer when toggled off
+      if (eventsRef.current) {
+        eventsRef.current.remove();
+        eventsRef.current = null;
+      }
+    }
+
+    return () => {
+      if (eventsRef.current) {
+        eventsRef.current.remove();
+        eventsRef.current = null;
+      }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showEvents]);
+
+  // ---------------------------------------------------------------------------
   // selectCommune: fly to commune + highlight (D-13)
   // ---------------------------------------------------------------------------
   const selectCommune = useCallback((cut: string) => {
@@ -347,8 +380,9 @@ export default function MapIsland({ lang }: Props) {
         onEventsToggle={setShowEvents}
         onSelect={selectCommune}
         onLocate={() => {
-          // Wave 3 wires full geolocation
-          setToast(lang === 'es' ? 'Geolocalización próximamente' : 'Geolocation coming soon');
+          const map = mapRef.current;
+          if (!map) return;
+          locate(map, featuresRef.current, userRef, selectCommune, setToast, lang);
         }}
       />
 
