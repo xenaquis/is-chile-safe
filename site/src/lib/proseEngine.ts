@@ -181,9 +181,14 @@ function EN_FAMILY_PARA(dominant: string, secondary: string, year: number, _domi
 }
 
 /** Comparable commune paragraph */
-function EN_COMPARABLE_PARA(comp: ComparableResult, commune: string, rate: number, year: number): string {
+function EN_COMPARABLE_PARA(comp: ComparableResult, commune: string, rate: number, year: number, targetLowPop: boolean): string {
   const scope = comp.fallback ? 'nationally' : 'within the same region';
-  return `A useful reference point for contextualizing ${commune}'s data is ${comp.name} (${comp.regionName}), identified as the nearest comparable commune ${scope} based on reported incidence. In ${year}, ${comp.name} recorded approximately ${fmt(comp.rate)} incidents per 100,000 inhabitants, compared with ${fmt(rate)} for ${commune}. The two communes share a similar incidence tier, making the comparison informative for understanding ${commune}'s position relative to a concrete peer rather than an abstract national average. ${comp.name} holds national rank ${comp.national_rank} of 346.`;
+  // WR-04: do not assert "similar incidence tier" for low-population targets —
+  // their rate is statistically volatile, so the similarity claim may be false.
+  const similarity = targetLowPop
+    ? `Because ${commune} has a small resident population, its rate is statistically volatile, so this comparison is offered as the nearest available reference rather than a claim of shared incidence tier.`
+    : `The two communes share a similar incidence tier, making the comparison informative for understanding ${commune}'s position relative to a concrete peer rather than an abstract national average.`;
+  return `A useful reference point for contextualizing ${commune}'s data is ${comp.name} (${comp.regionName}), identified as the nearest comparable commune ${scope} based on reported incidence. In ${year}, ${comp.name} recorded approximately ${fmt(comp.rate)} incidents per 100,000 inhabitants, compared with ${fmt(rate)} for ${commune}. ${similarity} ${comp.name} holds national rank ${comp.national_rank} of 346.`;
 }
 
 /** Regional context paragraph */
@@ -275,9 +280,14 @@ function ES_FAMILY_PARA(dominant: string, secondary: string, year: number, _domi
   return `En ${year}, la categoría predominante en el perfil de incidencia reportada de ${commune} fue ${dom}, que representó la mayor proporción del total de incidentes reportados. La segunda categoría más prevalente fue ${sec}. Esta composición refleja las características urbanas y socioeconómicas particulares de ${commune}. El desglose del CEAD comprende siete familias delictivas: delitos contra las personas, delitos contra la propiedad, robos con violencia, incivilidades y orden público, violencia intrafamiliar, delitos relacionados con drogas y delitos de armas. El peso relativo de cada categoría en la tasa total es visible en el gráfico de incidencia por categoría que aparece más arriba.`;
 }
 
-function ES_COMPARABLE_PARA(comp: ComparableResult, commune: string, rate: number, year: number): string {
+function ES_COMPARABLE_PARA(comp: ComparableResult, commune: string, rate: number, year: number, targetLowPop: boolean): string {
   const scope = comp.fallback ? 'a nivel nacional' : 'dentro de la misma región';
-  return `Un punto de referencia útil para contextualizar los datos de ${commune} es ${comp.name} (${comp.regionName}), identificada como la comuna comparable más cercana ${scope} en función de la incidencia reportada. En ${year}, ${comp.name} registró aproximadamente ${fmt(comp.rate)} incidentes por 100.000 habitantes, frente a ${fmt(rate)} de ${commune}. Las dos comunas comparten un nivel de incidencia similar, lo que hace que la comparación sea informativa para entender la posición de ${commune} en relación con un par concreto, en lugar de un promedio nacional abstracto. ${comp.name} ocupa la posición nacional ${comp.national_rank} de 346.`;
+  // WR-04: no afirmar "nivel de incidencia similar" para comunas de baja población
+  // — su tasa es estadísticamente volátil, por lo que la afirmación puede ser falsa.
+  const similarity = targetLowPop
+    ? `Dado que ${commune} tiene una pequeña población residente, su tasa es estadísticamente volátil, por lo que esta comparación se ofrece como la referencia más cercana disponible y no como una afirmación de nivel de incidencia compartido.`
+    : `Las dos comunas comparten un nivel de incidencia similar, lo que hace que la comparación sea informativa para entender la posición de ${commune} en relación con un par concreto, en lugar de un promedio nacional abstracto.`;
+  return `Un punto de referencia útil para contextualizar los datos de ${commune} es ${comp.name} (${comp.regionName}), identificada como la comuna comparable más cercana ${scope} en función de la incidencia reportada. En ${year}, ${comp.name} registró aproximadamente ${fmt(comp.rate)} incidentes por 100.000 habitantes, frente a ${fmt(rate)} de ${commune}. ${similarity} ${comp.name} ocupa la posición nacional ${comp.national_rank} de 346.`;
 }
 
 function ES_REGIONAL_PARA(commune: string, region: string, regionalRank: number): string {
@@ -430,8 +440,8 @@ export function buildCommuneProse(commune: CommuneData, locale: Locale): string 
   // --- Comparable commune paragraph (dimension 5) ---
   paragraphs.push(
     locale === 'en'
-      ? EN_COMPARABLE_PARA(comp, commune.name, rate, year)
-      : ES_COMPARABLE_PARA(comp, commune.name, rate, year)
+      ? EN_COMPARABLE_PARA(comp, commune.name, rate, year, commune.low_population)
+      : ES_COMPARABLE_PARA(comp, commune.name, rate, year, commune.low_population)
   );
 
   // --- Low-population caveat (conditional) ---
