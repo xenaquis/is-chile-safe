@@ -1,0 +1,120 @@
+---
+/**
+ * /es/mapa-delito-chile/ — ES stub para reciprocidad hreflang con /chile-crime-map/.
+ *
+ * Stub editorial map page: mapas choroplético de delitos en Chile.
+ * Contenido ES completo será expandido en Plan 06.
+ * hreflang: /es/mapa-delito-chile/ <-> /chile-crime-map/ (EDIT-02 verbatim).
+ */
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import MapIsland from '../../components/map/MapIsland';
+import DataCallout from '../../components/DataCallout.astro';
+import { loadNationalAverage, loadIndex, loadCommune, latestCompleteYearRate } from '../../lib/data.ts';
+
+const nationalAvg = loadNationalAverage();
+const index = loadIndex();
+const sampleCommune = loadCommune(index[0].cut);
+const dataYear = sampleCommune.latestCompleteYear;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Mapa de Delitos en Chile — Coroplético por Comuna",
+  "description": `Explora la incidencia delictiva reportada en las 346 comunas de Chile. Datos CEAD ${dataYear}.`,
+  "url": "https://ischilesafe.com/es/mapa-delito-chile/",
+};
+---
+
+<EditorialLayout
+  lang="es"
+  title="Mapa de Delitos en Chile — Coroplético por Comuna"
+  description={`Explora la incidencia delictiva reportada en las 346 comunas de Chile. Filtra por tipo de delito y año. Fuente: CEAD ${dataYear}.`}
+  enPath="/chile-crime-map/"
+  esPath="/es/mapa-delito-chile/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Mapa de Delitos en Chile — Incidencia Reportada por Comuna</h1>
+    <p>
+      Este mapa interactivo muestra la incidencia delictiva reportada en las 346 comunas de
+      Chile, coloreadas según la tasa por 100.000 habitantes. Los datos provienen del CEAD
+      (Centro de Estudios y Análisis del Delito), organismo oficial de estadísticas criminales
+      del gobierno de Chile.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('es-CL')} por 100k`}
+      label={`Promedio nacional de incidencia reportada — CEAD ${dataYear}`}
+      source="Fuente: CEAD — promedio simple de comunas con población ≥10.000 hab."
+      locale="es"
+    />
+  </section>
+
+  <div class="map-island-block" aria-label="Mapa interactivo de delitos en Chile">
+    <span
+      style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0"
+      aria-label="Mostrar mi ubicación"
+      data-map-locate-label="es"
+    />
+    <MapIsland client:only="react" lang="es" />
+  </div>
+
+  <section>
+    <h2>Cómo interpretar el mapa</h2>
+    <p>
+      Cada polígono comunal se colorea en cinco niveles de incidencia según quintiles de la
+      distribución nacional de comunas con población suficiente. El color más claro (verde
+      agua) indica la tasa más baja relativa; el más oscuro (rojo-café) indica la más alta.
+      Esta visualización no clasifica ninguna comuna como "segura" o "peligrosa" en términos
+      absolutos — representa la incidencia relativa según datos oficiales del CEAD.
+    </p>
+    <p>
+      Para una explicación detallada de la metodología y fuentes, visita la
+      <a href="/es/metodologia/">página de metodología</a>.
+      Versión en inglés: <a href="/chile-crime-map/">Chile Crime Map</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  .map-island-block {
+    position: relative;
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    min-height: 480px;
+    margin-bottom: var(--2xl);
+    background: var(--bg);
+  }
+
+  @media (max-width: 639px) {
+    .map-island-block {
+      min-height: 320px;
+    }
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

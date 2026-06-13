@@ -1,0 +1,191 @@
+---
+/**
+ * /chile-crime-map/ — EN map-bearing editorial page (EDIT-01 D-03).
+ *
+ * Template 2: EditorialIntro → MapIslandBlock (full-width breakout) → EditorialBody.
+ * D-10: NO AdSlot inside or adjacent to the MapIslandBlock.
+ * D-06: client:only="react" — Leaflet JS loaded only on this page.
+ * hreflang: /chile-crime-map/ <-> /es/mapa-delito-chile/ (EDIT-02 verbatim).
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import MapIsland from '../components/map/MapIsland';
+import DataCallout from '../components/DataCallout.astro';
+import { loadNationalAverage, loadIndex } from '../lib/data.ts';
+
+const nationalAvg = loadNationalAverage();
+const index = loadIndex();
+const totalCommunes = index.filter((c) => !c.low_population).length;
+
+// Get a representative year from index data
+// (same year used by loadNationalAverage internally — latestCompleteYear from first commune)
+import { loadCommune, latestCompleteYearRate } from '../lib/data.ts';
+const sampleCommune = loadCommune(index[0].cut);
+const dataYear = sampleCommune.latestCompleteYear;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Chile Crime Map — Interactive Choropleth by Commune",
+  "description": "Explore Chile's reported crime incidence across 346 communes with an interactive choropleth map. Filter by crime type and year. Data: CEAD official statistics.",
+  "url": "https://ischilesafe.com/chile-crime-map/",
+  "about": {
+    "@type": "Dataset",
+    "name": "CEAD Chile Crime Statistics",
+    "provider": { "@type": "Organization", "name": "CEAD — Centro de Estudios y Análisis del Delito" },
+  },
+};
+---
+
+<EditorialLayout
+  lang="en"
+  title="Chile Crime Map — Interactive Choropleth by Commune"
+  description="Explore Chile's reported crime incidence across 346 communes with an interactive choropleth map. Filter by crime type and year. Data: CEAD official statistics."
+  enPath="/chile-crime-map/"
+  esPath="/es/mapa-delito-chile/"
+  jsonLd={jsonLd}
+>
+  <section class="editorial-intro">
+    <h1>Chile Crime Map — Reported Incidence by Commune</h1>
+    <p>
+      This interactive map shows reported crime incidence across Chile's 346 communes, coloured
+      by rate per 100,000 inhabitants. Data comes from CEAD (Centro de Estudios y Análisis del
+      Delito), the Chilean government's official crime statistics body. All figures represent
+      police-reported incidents — not actual crime prevalence, which is higher due to
+      underreporting.
+    </p>
+    <p>
+      Use the map to compare communes by crime family (property crime, intra-family violence,
+      homicides, and more) and by year. Clicking a commune opens its detail card with the latest
+      rate and national rank.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('en-US')} per 100k`}
+      label={`National average reported crime rate — CEAD ${dataYear}`}
+      source="Source: CEAD — unweighted mean of non-low-population communes"
+      locale="en"
+    />
+  </section>
+
+  <!-- MapIslandBlock: full-width breakout from the 720px prose column (D-03).
+       NO AdSlot inside or adjacent to this container (D-10). -->
+  <div class="map-island-block" aria-label="Interactive Chile crime map">
+    {/*
+      Accessibility: static locate button label present for screen readers and map.mjs validator.
+      Mirrors the visually-hidden pattern from map.astro exactly.
+    */}
+    <span
+      style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0"
+      aria-label="Show my location"
+      data-map-locate-label="en"
+    />
+    <MapIsland client:only="react" lang="en" />
+  </div>
+
+  <section class="editorial-body">
+    <h2>What the Map Shows</h2>
+    <p>
+      Each commune polygon is coloured across five incidence levels — from the lightest teal
+      (lowest reported rate) to the deepest red-brown (highest reported rate). The colour scale
+      is based on quintiles of the non-low-population commune distribution for the selected year,
+      so the mid-range always represents the median commune.
+    </p>
+    <p>
+      A commune's reported rate measures police-recorded incidents per 100,000 registered
+      inhabitants. According to CEAD data for {dataYear}, approximately {totalCommunes} communes
+      in Chile have populations large enough to be included in national rankings. Communes below
+      10,000 inhabitants are excluded from the colour scale due to statistical volatility — their
+      small populations mean a single incident can produce an outsized per-capita rate.
+    </p>
+
+    <h2>How to Use the Map</h2>
+    <p>
+      The layer panel (top-left) lets you switch between crime families: total, property crime,
+      intra-family violence, and homicides. The year selector (top-right) changes the data year
+      from 2005 onward. Hovering a commune shows its name and rate; clicking opens a detail card
+      with the national rank and a trend indicator.
+    </p>
+    <p>
+      For a full multi-year series and crime-type breakdown, click through to any commune's
+      detail page from the map card, or search by name using the search bar.
+    </p>
+
+    <h2>Interpreting the Data</h2>
+    <p>
+      Rates per 100,000 inhabitants depend on the population denominator, which comes from INE
+      (Instituto Nacional de Estadísticas) projections. Communes with large floating or commuter
+      populations — such as Santiago's historic centre — may appear to have higher rates because
+      their daytime population is much larger than their registered resident count. This is a
+      structural limitation of population-based crime rates, not a data error.
+    </p>
+    <p>
+      This site does not classify any commune as "safe" or "dangerous" in absolute terms.
+      The map visualises reported incidence relative to other Chilean communes, using official
+      data as-is. For a full discussion of methodology, data sources, and what these figures
+      cannot tell you, see the <a href="/methodology/">Methodology page</a>.
+    </p>
+
+    <h2>Data Source</h2>
+    <p>
+      All map data comes from CEAD — Centro de Estudios y Análisis del Delito — which aggregates
+      police-reported incident data from Carabineros de Chile and the Policía de Investigaciones.
+      CEAD publishes updated annual figures each year; the latest complete year reflected in this
+      map is {dataYear}. Regional and national totals on the CEAD website represent sums across
+      communes (not per-capita averages); this site computes per-capita means correctly for
+      comparative purposes.
+    </p>
+    <p>
+      For the underlying data files and scraper code used to generate this map, see the
+      <a href="/methodology/">Methodology page</a> and the project's public GitHub repository.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  .editorial-intro,
+  .editorial-body {
+    margin-bottom: var(--2xl);
+  }
+
+  /* MapIslandBlock: escape the 720px prose column, fill full page-content width */
+  .map-island-block {
+    position: relative;
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    min-height: 480px;
+    margin-bottom: var(--2xl);
+    background: var(--bg);
+  }
+
+  @media (max-width: 639px) {
+    .map-island-block {
+      min-height: 320px;
+    }
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

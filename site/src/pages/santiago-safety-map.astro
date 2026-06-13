@@ -1,0 +1,223 @@
+---
+/**
+ * /santiago-safety-map/ — EN map-bearing editorial page focused on Santiago/RM (EDIT-01 D-03).
+ *
+ * Template 2: EditorialIntro → MapIslandBlock (full-width breakout) → EditorialBody.
+ * D-10: NO AdSlot inside or adjacent to the MapIslandBlock.
+ * D-06: client:only="react" — Leaflet JS loaded only on this page.
+ * hreflang: /santiago-safety-map/ <-> /es/mapa-seguridad-santiago/ (EDIT-02 verbatim).
+ * Santiago CUT: 13101.
+ *
+ * CRITICAL: uses loadNationalAverage() (MEAN), latestCompleteYearRate() — never SUM.
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import MapIsland from '../components/map/MapIsland';
+import DataCallout from '../components/DataCallout.astro';
+import {
+  loadCommune,
+  loadNationalAverage,
+  latestCompleteYearRate,
+} from '../lib/data.ts';
+
+const santiago = loadCommune('13101');
+const year = santiago.latestCompleteYear;
+const rate = latestCompleteYearRate(santiago);
+const nationalAvg = loadNationalAverage();
+const vsNationalPct =
+  nationalAvg > 0
+    ? Math.round(((rate - nationalAvg) / nationalAvg) * 100)
+    : 0;
+const trendLabel =
+  santiago.trend === 'up'
+    ? 'rising'
+    : santiago.trend === 'down'
+    ? 'falling'
+    : 'stable';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Santiago Safety Map — Crime Incidence by Commune",
+  "description": `Santiago crime incidence map showing CEAD data for ${year}. Compare all 52 communes of the Región Metropolitana by reported rate per 100,000 inhabitants.`,
+  "url": "https://ischilesafe.com/santiago-safety-map/",
+  "about": {
+    "@type": "Dataset",
+    "name": "CEAD Chile Crime Statistics — Región Metropolitana",
+    "provider": { "@type": "Organization", "name": "CEAD — Centro de Estudios y Análisis del Delito" },
+  },
+};
+---
+
+<EditorialLayout
+  lang="en"
+  title="Santiago Safety Map — Crime Incidence by Commune"
+  description={`Santiago crime incidence map showing CEAD data for ${year}. Compare all 52 communes of the Región Metropolitana by reported rate per 100,000 inhabitants.`}
+  enPath="/santiago-safety-map/"
+  esPath="/es/mapa-seguridad-santiago/"
+  jsonLd={jsonLd}
+>
+  <section class="editorial-intro">
+    <h1>Santiago Safety Map — Reported Crime by Commune</h1>
+    <p>
+      The Región Metropolitana de Santiago contains 52 communes — from the historic centre to
+      suburban districts — with a wide range of reported crime rates according to CEAD (Centro
+      de Estudios y Análisis del Delito) data. This interactive map lets you compare each commune
+      by crime family and year.
+    </p>
+    <p>
+      According to CEAD data for {year}, the commune of Santiago (the historic centre) reported
+      {Math.round(rate).toLocaleString('en-US')} incidents per 100,000 inhabitants — approximately{' '}
+      {Math.abs(vsNationalPct)} % {vsNationalPct >= 0 ? 'above' : 'below'} the national mean for
+      non-low-population communes. Use the map to zoom into the Región Metropolitana and compare
+      communes side by side.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(rate).toLocaleString('en-US')} per 100k`}
+      label={`Santiago commune reported crime rate — CEAD ${year}`}
+      source="Source: CEAD (Centro de Estudios y Análisis del Delito)"
+      locale="en"
+    />
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('en-US')} per 100k`}
+      label={`National average reported crime rate — CEAD ${year}`}
+      source="Source: CEAD — unweighted mean of non-low-population communes"
+      locale="en"
+    />
+  </section>
+
+  <!-- MapIslandBlock: full-width breakout from the 720px prose column (D-03).
+       NO AdSlot inside or adjacent to this container (D-10). -->
+  <div class="map-island-block" aria-label="Interactive Santiago crime map">
+    {/*
+      Accessibility: static locate button label present for screen readers and map.mjs validator.
+      Mirrors the visually-hidden pattern from map.astro exactly.
+    */}
+    <span
+      style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0"
+      aria-label="Show my location"
+      data-map-locate-label="en"
+    />
+    <MapIsland client:only="react" lang="en" />
+  </div>
+
+  <section class="editorial-body">
+    <h2>Santiago Commune vs. Greater Santiago</h2>
+    <p>
+      It is important to distinguish between the <em>commune of Santiago</em> (the historic
+      centre, bounded roughly by Autopista Central, Avenida Matta, and the Mapocho River)
+      and <em>Greater Santiago</em>, which spans roughly 40 communes and millions of residents.
+      The commune of Santiago is a high-density commercial and transit hub with a large daily
+      floating population — its per-resident rate tends to be higher than surrounding residential
+      communes partly because many more people pass through it each day than are registered there.
+    </p>
+    <p>
+      According to CEAD data for {year}, Santiago commune's rate of{' '}
+      {Math.round(rate).toLocaleString('en-US')} per 100,000 is approximately{' '}
+      {Math.abs(vsNationalPct)} % {vsNationalPct >= 0 ? 'above' : 'below'} the national mean,
+      which stands at {Math.round(nationalAvg).toLocaleString('en-US')} per 100,000 inhabitants.
+      This gap is a structural feature of central-district population dynamics, not necessarily
+      a reflection of conditions in residential Santiago communes.
+    </p>
+
+    <h2>Commune Variation Across the Región Metropolitana</h2>
+    <p>
+      Eastern residential communes — Las Condes, Vitacura, Lo Barnechea, Providencia, and
+      Ñuñoa — consistently report lower rates relative to the national mean, according to CEAD
+      data. Communes with large commercial corridors, transit hubs, or industrial zones tend
+      to report higher rates. The map lets you filter by crime family to see whether property
+      crime, intra-family violence, or other categories drive a particular commune's total.
+    </p>
+    <p>
+      Santiago commune's reported rate has been trending {trendLabel} in recent years according
+      to CEAD data. Individual communes may diverge from this metropolitan trend — the year
+      slider on the map reveals year-by-year changes.
+    </p>
+
+    <h2>How to Use This Map for Santiago</h2>
+    <p>
+      To focus on the Región Metropolitana: zoom the map to central Chile, or use the search
+      bar to locate a specific commune by name. The colour scale reflects quintiles of the
+      national non-low-population commune distribution — a lighter teal indicates a lower
+      rate relative to the rest of Chile, not an absolute measure of risk.
+    </p>
+    <p>
+      Click any commune polygon to open its detail card with the current rate, national rank,
+      and trend indicator. For a full multi-year series and crime-family breakdown, follow the
+      link to the commune detail page.
+    </p>
+
+    <h2>Interpreting the Data</h2>
+    <p>
+      All rates use registered resident population as the denominator. Communes with large
+      floating populations (commuters, shoppers, tourists) show higher per-resident rates as
+      a structural effect. Property crime accounts for the largest share of reported incidents
+      in most Santiago communes; intra-family violence is the second most reported category.
+    </p>
+    <p>
+      This site does not classify any commune as "safe" or "dangerous" in absolute terms.
+      The map shows relative reported incidence based on official CEAD data. For a full
+      explanation of methodology, underreporting caveats, and what these figures cannot tell
+      you, see the <a href="/methodology/">Methodology page</a>.
+    </p>
+
+    <h2>Data Source</h2>
+    <p>
+      All data comes from CEAD — Centro de Estudios y Análisis del Delito — which compiles
+      police-reported incident data from Carabineros de Chile and the Policía de
+      Investigaciones. The latest complete year reflected in this map is {year}. CEAD data
+      represents reported incidents; actual crime prevalence is higher due to underreporting
+      across all crime categories.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  .editorial-intro,
+  .editorial-body {
+    margin-bottom: var(--2xl);
+  }
+
+  /* MapIslandBlock: escape the 720px prose column, fill full page-content width */
+  .map-island-block {
+    position: relative;
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    min-height: 480px;
+    margin-bottom: var(--2xl);
+    background: var(--bg);
+  }
+
+  @media (max-width: 639px) {
+    .map-island-block {
+      min-height: 320px;
+    }
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,144 @@
+---
+/**
+ * /es/mapa-seguridad-santiago/ — ES stub para reciprocidad hreflang con /santiago-safety-map/.
+ *
+ * Stub editorial map page: mapa de incidencia delictiva en Santiago.
+ * Contenido ES completo será expandido en Plan 06.
+ * hreflang: /es/mapa-seguridad-santiago/ <-> /santiago-safety-map/ (EDIT-02 verbatim).
+ * Santiago CUT: 13101.
+ *
+ * CRÍTICO: usa loadNationalAverage() (MEDIA), latestCompleteYearRate() — nunca SUMA.
+ */
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import MapIsland from '../../components/map/MapIsland';
+import DataCallout from '../../components/DataCallout.astro';
+import {
+  loadCommune,
+  loadNationalAverage,
+  latestCompleteYearRate,
+} from '../../lib/data.ts';
+
+const santiago = loadCommune('13101');
+const year = santiago.latestCompleteYear;
+const rate = latestCompleteYearRate(santiago);
+const nationalAvg = loadNationalAverage();
+const vsNationalPct =
+  nationalAvg > 0
+    ? Math.round(((rate - nationalAvg) / nationalAvg) * 100)
+    : 0;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Mapa de Seguridad en Santiago — Incidencia por Comuna",
+  "description": `Mapa interactivo de incidencia delictiva reportada por comuna en la Región Metropolitana de Santiago. Datos CEAD ${year}.`,
+  "url": "https://ischilesafe.com/es/mapa-seguridad-santiago/",
+};
+---
+
+<EditorialLayout
+  lang="es"
+  title="Mapa de Seguridad en Santiago — Incidencia por Comuna"
+  description={`Mapa interactivo de incidencia delictiva reportada por comuna en la Región Metropolitana de Santiago. Datos CEAD ${year}.`}
+  enPath="/santiago-safety-map/"
+  esPath="/es/mapa-seguridad-santiago/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Mapa de Seguridad en Santiago — Delitos Reportados por Comuna</h1>
+    <p>
+      La Región Metropolitana de Santiago comprende 52 comunas con una amplia variación en
+      tasas de incidencia delictiva reportada, según datos CEAD (Centro de Estudios y Análisis
+      del Delito). Este mapa interactivo permite comparar cada comuna por tipo de delito y año.
+    </p>
+    <p>
+      Según datos CEAD para {year}, la comuna de Santiago (centro histórico) registró{' '}
+      {Math.round(rate).toLocaleString('es-CL')} incidentes por 100.000 habitantes — aproximadamente{' '}
+      {Math.abs(vsNationalPct)} % {vsNationalPct >= 0 ? 'por sobre' : 'por debajo'} del promedio
+      nacional para comunas con población suficiente.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(rate).toLocaleString('es-CL')} por 100k`}
+      label={`Tasa reportada de la comuna de Santiago — CEAD ${year}`}
+      source="Fuente: CEAD (Centro de Estudios y Análisis del Delito)"
+      locale="es"
+    />
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('es-CL')} por 100k`}
+      label={`Promedio nacional de incidencia reportada — CEAD ${year}`}
+      source="Fuente: CEAD — promedio simple de comunas con población ≥10.000 hab."
+      locale="es"
+    />
+  </section>
+
+  <div class="map-island-block" aria-label="Mapa interactivo de seguridad en Santiago">
+    <span
+      style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0"
+      aria-label="Mostrar mi ubicación"
+      data-map-locate-label="es"
+    />
+    <MapIsland client:only="react" lang="es" />
+  </div>
+
+  <section>
+    <h2>Variación por Comunas en la Región Metropolitana</h2>
+    <p>
+      Las comunas residenciales del oriente —Las Condes, Vitacura, Lo Barnechea, Providencia
+      y Ñuñoa— reportan consistentemente tasas inferiores al promedio nacional según datos CEAD.
+      Las comunas con grandes corredores comerciales o zonas industriales tienden a reportar
+      tasas más altas. El selector de tipo de delito en el mapa permite ver qué categorías
+      (delitos contra la propiedad, violencia intrafamiliar, homicidios) impulsan la tasa total.
+    </p>
+    <p>
+      Este sitio no clasifica ninguna comuna como "segura" o "peligrosa" en términos absolutos.
+      Para una explicación completa de la metodología, visita la
+      <a href="/es/metodologia/">página de metodología</a>.
+      Versión en inglés: <a href="/santiago-safety-map/">Santiago Safety Map</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  .map-island-block {
+    position: relative;
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    min-height: 480px;
+    margin-bottom: var(--2xl);
+    background: var(--bg);
+  }
+
+  @media (max-width: 639px) {
+    .map-island-block {
+      min-height: 320px;
+    }
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
