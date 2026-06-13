@@ -43,7 +43,7 @@
 
 ### SEO e i18n (SEO)
 
-- [ ] **SEO-01**: Sitio bilingüe ES/EN con hreflang correcto y recíproco en todas las páginas (EN en raíz, ES bajo `/es/`)
+- [x] **SEO-01**: Sitio bilingüe ES/EN con hreflang correcto y recíproco en todas las páginas (EN en raíz, ES bajo `/es/`)
 - [ ] **SEO-02**: sitemap.xml automático y canonical tags en todas las páginas
 - [ ] **SEO-03**: Schema.org structured data (Dataset/Place) en páginas territoriales
 - [ ] **SEO-04**: PWA meta básico: manifest y theme color (sin service worker)
@@ -87,7 +87,7 @@
 | PAGES-02 | Phase 2 | Pending |
 | PAGES-03 | Phase 2 | Pending |
 | PAGES-04 | Phase 2 | Complete |
-| SEO-01 | Phase 2 | Pending |
+| SEO-01 | Phase 2 | Complete |
 | SEO-02 | Phase 2 | Pending |
 | SEO-03 | Phase 2 | Pending |
 | SEO-04 | Phase 2 | Pending |
