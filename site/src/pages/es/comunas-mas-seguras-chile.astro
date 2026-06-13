@@ -1,0 +1,145 @@
+---
+/**
+ * /es/comunas-mas-seguras-chile/ — ES stub para reciprocidad hreflang con /safest-cities-in-chile/.
+ *
+ * Stub editorial page: comunas con menor incidencia delictiva reportada.
+ * Contenido ES completo será expandido en Plan 06.
+ * hreflang: /es/comunas-mas-seguras-chile/ <-> /safest-cities-in-chile/
+ *
+ * CRÍTICO: usa loadNationalAverage() (MEDIA) — nunca SUMA.
+ * Lenguaje calificado obligatorio: ningún superlativo sin calificación CEAD-año.
+ */
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import DataCallout from '../../components/DataCallout.astro';
+import {
+  loadIndex,
+  loadRolloutCuts,
+  loadCommune,
+  loadNationalAverage,
+  latestCompleteYearRate,
+} from '../../lib/data.ts';
+
+const rolloutCuts = loadRolloutCuts();
+const index = loadIndex();
+const eligibleMeta = index.filter(
+  (c) => !c.low_population && rolloutCuts.includes(c.cut)
+);
+
+const communeRates = eligibleMeta.map((meta) => {
+  const data = loadCommune(meta.cut);
+  const rate = latestCompleteYearRate(data);
+  return { name: meta.name, slug: meta.slug, regionName: data.regionName, rate, year: data.latestCompleteYear };
+});
+communeRates.sort((a, b) => a.rate - b.rate);
+const top5 = communeRates.slice(0, 5);
+
+const nationalAvg = loadNationalAverage();
+const dataYear = top5[0]?.year ?? 0;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Comunas con Menor Incidencia Delictiva Reportada en Chile — CEAD",
+  "description": `Ranking de comunas de Chile con menor tasa de delitos reportados por 100.000 habitantes, según datos CEAD ${dataYear}.`,
+  "url": "https://ischilesafe.com/es/comunas-mas-seguras-chile/",
+};
+---
+
+<EditorialLayout
+  lang="es"
+  title="Comunas con Menor Incidencia Delictiva Reportada en Chile — CEAD"
+  description={`Ranking de comunas de Chile con menor tasa de delitos reportados por 100.000 habitantes, según datos CEAD ${dataYear}. Comparativos calificados, fuentes citadas.`}
+  enPath="/safest-cities-in-chile/"
+  esPath="/es/comunas-mas-seguras-chile/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Comunas con Menor Incidencia Delictiva Reportada en Chile</h1>
+    <p>
+      Esta página lista las comunas de Chile con menores tasas de incidencia delictiva
+      reportada por 100.000 habitantes, según datos CEAD (Centro de Estudios y Análisis del
+      Delito) para {dataYear}. Se excluyen comunas con menos de 10.000 habitantes por
+      inestabilidad estadística en poblaciones pequeñas (DATA-04).
+    </p>
+    <p>
+      <strong>Advertencia importante:</strong> Una tasa baja refleja menos incidentes registrados
+      por la policía, no una garantía de seguridad en términos absolutos. El subregistro
+      (cifra negra) varía por tipo de delito y localidad. Este ranking no pretende identificar
+      los lugares "más seguros" de forma definitiva — es una presentación transparente de los
+      datos oficiales para {dataYear}. Consulta la
+      <a href="/es/metodologia/">página de metodología</a> para una explicación completa.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('es-CL')} por 100k`}
+      label={`Promedio nacional de incidencia reportada — CEAD ${dataYear}`}
+      source="Fuente: CEAD — promedio simple de comunas con población ≥10.000 hab."
+      locale="es"
+    />
+  </section>
+
+  <section>
+    <h2>Comunas con Menor Tasa Reportada (muestra)</h2>
+    <p>
+      Según datos CEAD para {dataYear}, entre las comunas con menor incidencia reportada por
+      100.000 habitantes (entre las comunas publicadas con población ≥10.000) destacan:
+    </p>
+    <ul>
+      {top5.map((c) => (
+        <li>
+          <a href={`/es/comuna/${c.slug}/`}>{c.name}</a>
+          {' '}({c.regionName}) — {Math.round(c.rate).toLocaleString('es-CL')} por 100k según CEAD {c.year}
+        </li>
+      ))}
+    </ul>
+    <p>
+      El ranking completo en inglés se encuentra en{' '}
+      <a href="/safest-cities-in-chile/">Safest Cities in Chile</a>.
+      El ranking incluye solo comunas publicadas en este sitio con datos CEAD verificados.
+    </p>
+  </section>
+
+  <section>
+    <h2>Cómo interpretar esta información</h2>
+    <p>
+      Una tasa baja de incidencia reportada puede deberse a menor prevalencia real de delitos,
+      mayor subregistro, o efectos del denominador poblacional. Este sitio no clasifica ninguna
+      comuna como "segura" o "peligrosa" en términos absolutos. Para la metodología de cálculo,
+      la discusión sobre la cifra negra y lo que este sitio no afirma, visita la
+      <a href="/es/metodologia/">página de metodología</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

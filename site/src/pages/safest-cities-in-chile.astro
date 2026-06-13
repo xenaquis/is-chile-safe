@@ -1,0 +1,314 @@
+---
+/**
+ * /safest-cities-in-chile/ — EN ranking editorial page (EDIT-01).
+ *
+ * Builds a lowest-reported-incidence ranking at build time from CEAD data.
+ * DATA-04: excludes low_population communes (< 10,000 inhabitants).
+ * CRITICAL: every comparative qualified with CEAD-year phrase.
+ * T-04-11: forbidden-language gate must not catch bare "the safest" / "definitive ranking".
+ * CRITICAL: uses loadNationalAverage() (MEAN) — never SUM.
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import DataCallout from '../components/DataCallout.astro';
+import {
+  loadIndex,
+  loadRolloutCuts,
+  loadCommune,
+  loadNationalAverage,
+  latestCompleteYearRate,
+} from '../lib/data.ts';
+
+// Build ranking from published (rollout) non-low-population communes
+const rolloutCuts = loadRolloutCuts();
+const index = loadIndex();
+
+// Filter: published AND not low_population
+const eligibleMeta = index.filter(
+  (c) => !c.low_population && rolloutCuts.includes(c.cut)
+);
+
+// Load commune data and compute rate for each eligible commune
+const communeRates = eligibleMeta.map((meta) => {
+  const data = loadCommune(meta.cut);
+  const rate = latestCompleteYearRate(data);
+  return {
+    cut: meta.cut,
+    name: meta.name,
+    slug: meta.slug,
+    regionName: data.regionName,
+    rate,
+    nationalRank: data.national_rank,
+    trend: data.trend,
+    year: data.latestCompleteYear,
+  };
+});
+
+// Sort by rate ascending (lowest reported incidence first)
+communeRates.sort((a, b) => a.rate - b.rate);
+
+// Take top 15 lowest-reported-incidence communes
+const TOP_N = 15;
+const topCommunes = communeRates.slice(0, TOP_N);
+
+const nationalAvg = loadNationalAverage();
+
+// Use year from first commune (all should share same latest year)
+const dataYear = topCommunes[0]?.year ?? communeRates[0]?.year ?? 0;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Communes with Lowest Reported Crime in Chile — CEAD Data",
+  "description": `Which Chilean communes reported the lowest crime incidence per 100,000 inhabitants according to CEAD ${dataYear} data? This page presents a ranked list with qualified comparatives and methodology notes.`,
+  "url": "https://ischilesafe.com/safest-cities-in-chile/",
+  "about": {
+    "@type": "Dataset",
+    "name": "CEAD Chile Crime Statistics",
+    "provider": { "@type": "Organization", "name": "CEAD — Centro de Estudios y Análisis del Delito" },
+  },
+};
+---
+
+<EditorialLayout
+  lang="en"
+  title="Communes with Lowest Reported Crime in Chile — CEAD Data"
+  description={`Which Chilean communes reported the lowest crime incidence per 100,000 inhabitants according to CEAD ${dataYear} data? Ranked list with methodology notes.`}
+  enPath="/safest-cities-in-chile/"
+  esPath="/es/comunas-mas-seguras-chile/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Chilean Communes with Lowest Reported Crime Incidence</h1>
+    <p>
+      This page lists Chilean communes that reported the lowest crime incidence per 100,000
+      inhabitants according to CEAD (Centro de Estudios y Análisis del Delito) data for {dataYear}.
+      The ranking is derived from official police-reported incident data and covers only communes
+      with populations of 10,000 or more — smaller communes are excluded because a single incident
+      can produce an outsized per-capita rate at low population sizes, making comparisons
+      statistically unreliable (DATA-04).
+    </p>
+    <p>
+      <strong>Important caveat:</strong> A low reported rate reflects fewer police-recorded incidents
+      per resident, not an absolute guarantee of safety. Underreporting varies across crime categories
+      and localities. This ranking does not claim to identify the "objectively safest" places to live
+      — it represents a snapshot of official reported data for {dataYear}. See the
+      <a href="/methodology/">Methodology page</a> for a full explanation of what these figures do
+      and do not measure.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('en-US')} per 100k`}
+      label={`National average reported crime rate — CEAD ${dataYear}`}
+      source="Source: CEAD — unweighted mean of non-low-population communes"
+      locale="en"
+    />
+  </section>
+
+  <section>
+    <h2>Communes with Lowest Reported Incidence per 100,000 Inhabitants</h2>
+    <p>
+      The following table lists the {TOP_N} communes with the lowest reported crime rates among
+      published communes with populations of at least 10,000, according to CEAD data for {dataYear}.
+      All figures are rates per 100,000 registered inhabitants. Communes are sorted by rate in
+      ascending order — lowest reported first.
+    </p>
+
+    <div class="ranking-table-wrapper" role="region" aria-label="Crime incidence ranking table">
+      <table class="ranking-table">
+        <caption>
+          Communes with lowest reported crime incidence per 100,000 inhabitants —
+          CEAD data for {dataYear}. Excludes communes with population below 10,000.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Commune</th>
+            <th scope="col">Region</th>
+            <th scope="col">Rate per 100k ({dataYear})</th>
+            <th scope="col">National Rank</th>
+          </tr>
+        </thead>
+        <tbody>
+          {topCommunes.map((c, i) => (
+            <tr>
+              <td>{i + 1}</td>
+              <td>
+                <a href={`/commune/${c.slug}/`}>{c.name}</a>
+              </td>
+              <td>{c.regionName}</td>
+              <td>{Math.round(c.rate).toLocaleString('en-US')}</td>
+              <td>{c.nationalRank ?? '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="table-note">
+      Source: CEAD (Centro de Estudios y Análisis del Delito), data for {dataYear}.
+      Rate = police-reported incidents per 100,000 registered inhabitants.
+      National rank 1 = lowest reported rate among all non-low-population communes in Chile.
+    </p>
+  </section>
+
+  <section>
+    <h2>How to Interpret This Ranking</h2>
+    <p>
+      According to CEAD data for {dataYear}, the commune at the top of this list reported
+      approximately {Math.round(topCommunes[0]?.rate ?? 0).toLocaleString('en-US')} incidents
+      per 100,000 inhabitants — compared with the national mean of{' '}
+      {Math.round(nationalAvg).toLocaleString('en-US')} per 100,000. This difference reflects
+      lower reported police-recorded incidents, not necessarily lower actual crime prevalence.
+    </p>
+    <p>
+      Several factors can produce a low reported rate without reflecting objective safety:
+    </p>
+    <ul>
+      <li>
+        <strong>Underreporting:</strong> In smaller communities, victims may be less likely to
+        file police reports, particularly for property crime and intra-family violence. The gap
+        between actual incidence and reported incidence (the <em>cifra negra</em>) is not uniform
+        across communes.
+      </li>
+      <li>
+        <strong>Population denominator:</strong> Communes with large commuter or tourist
+        populations will show inflated per-resident rates; communes that export workers to
+        nearby cities will show lower per-resident rates. The ranking excludes communes below
+        10,000 inhabitants for this reason, but population dynamics affect all sizes.
+      </li>
+      <li>
+        <strong>Crime type composition:</strong> A commune with low property crime but elevated
+        intra-family violence may still rank low on the total rate. The commune detail pages
+        break down rates by crime family for each year.
+      </li>
+    </ul>
+    <p>
+      This ranking is not a definitive guide to where to live or travel. It is a transparent
+      presentation of official data for {dataYear}, intended to help you understand the
+      distribution of reported crime across Chilean communes.
+    </p>
+  </section>
+
+  <section>
+    <h2>Trend Context</h2>
+    <p>
+      A commune's position in this ranking can shift year to year. Some communes in the lowest-
+      reported-incidence tier have been trending downward in recent CEAD data; others have been
+      stable or rising. The interactive <a href="/chile-crime-map/">Chile Crime Map</a> lets you
+      explore year-by-year changes from 2005 to the most recent complete year. Individual commune
+      detail pages show the full series and a trend indicator derived from the last three years
+      of CEAD data.
+    </p>
+  </section>
+
+  <section>
+    <h2>Data Source and Methodology</h2>
+    <p>
+      All rates on this page come from CEAD — Centro de Estudios y Análisis del Delito —
+      which compiles police-reported incident data from Carabineros de Chile and the Policía
+      de Investigaciones. The rate per 100,000 is the measure published directly by CEAD and
+      uses INE (Instituto Nacional de Estadísticas) population projections as the denominator.
+    </p>
+    <p>
+      Communes with fewer than 10,000 inhabitants are excluded from this ranking. Their
+      individual detail pages are available but not included in national comparisons because
+      statistical volatility at small population sizes makes per-capita rates unreliable for
+      ranking purposes.
+    </p>
+    <p>
+      For the full rate calculation, underreporting discussion, trend formula, and explicit
+      statement of what this site does not claim, see the{' '}
+      <a href="/methodology/">Methodology page</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Ranking table */
+  .ranking-table-wrapper {
+    overflow-x: auto;
+    margin-top: var(--md);
+    margin-bottom: var(--md);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-body);
+  }
+
+  .ranking-table caption {
+    font-size: var(--text-label);
+    color: var(--muted);
+    text-align: left;
+    padding: var(--sm) var(--md);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ranking-table th {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--muted);
+    text-align: left;
+    padding: var(--sm) var(--md);
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ranking-table td {
+    padding: var(--sm) var(--md);
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+  }
+
+  .ranking-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .ranking-table tbody tr:hover {
+    background: var(--bg);
+  }
+
+  .table-note {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--sm);
+  }
+</style>
