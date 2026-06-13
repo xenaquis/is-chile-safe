@@ -35,6 +35,8 @@ import {
 import { Legend } from './Legend';
 import { ZoomControl } from './ZoomControl';
 import { MapTopbar } from './MapTopbar';
+import { ResultPanel } from './ResultPanel';
+import { Toast } from './Toast';
 import type { CommuneIndexEntry } from './SearchBox';
 
 // ---------------------------------------------------------------------------
@@ -376,25 +378,26 @@ export default function MapIsland({ lang }: Props) {
       {/* Zoom control (desktop only, hidden via CSS on mobile) */}
       <ZoomControl mapRef={mapRef} />
 
+      {/* ResultPanel: commune detail (opened on click/search) */}
+      {selected && (
+        <ResultPanel
+          cut={selected}
+          lang={lang}
+          year={year}
+          onClose={() => {
+            if (layerRef.current) {
+              const prev = polyIdxRef.current.get(selected);
+              if (prev) layerRef.current.resetStyle(prev as L.Path);
+            }
+            setSelected(null);
+          }}
+        />
+      )}
+
       {/* Toast notification */}
       {toast && (
-        <ToastComponent msg={toast} onDismiss={() => setToast(null)} />
+        <Toast msg={toast} onDismiss={() => setToast(null)} />
       )}
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Inline Toast (placeholder until Toast.tsx created in Task 2)
-// ---------------------------------------------------------------------------
-function ToastComponent({ msg, onDismiss }: { msg: string; onDismiss: () => void }) {
-  useEffect(() => {
-    const t = setTimeout(onDismiss, 3000);
-    return () => clearTimeout(t);
-  }, [msg, onDismiss]);
-  return (
-    <div className="toast" role="status" aria-live="polite">
-      {msg}
     </div>
   );
 }
