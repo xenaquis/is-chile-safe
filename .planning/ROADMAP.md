@@ -91,7 +91,16 @@ _Last updated: 2026-06-13_
   4. The Astro build fails with a clear error message if any page contains forbidden language ("zona peligrosa", "comunas peligrosas", "ranking definitivo", "zona segura garantizada")
   5. AdSense code is integrated and serving ads after the first indexing wave is confirmed
 
-**Plans**: TBD
+**Plans**: 7 plans
+
+- [ ] 04-01-PLAN.md — Wave 1: forbidden-language.mjs validator (EDIT-05) + all.mjs registration (#9) + structure.mjs Phase-4 page assertions
+- [ ] 04-02-PLAN.md — Wave 1: AdSlot + CookieConsent + gated AdSense loader in BaseLayout (MON-01) + i18n strings + footer legal links
+- [ ] 04-03-PLAN.md — Wave 2: EditorialLayout + LegalLayout (wrap BaseLayout) + DataCallout + FAQBlock + ContactForm
+- [ ] 04-04-PLAN.md — Wave 3: EN non-map editorial pages (home + is-chile-safe + is-santiago-safe + 3 city pages) (EDIT-01)
+- [ ] 04-05-PLAN.md — Wave 3: EN map-bearing pages + safest-cities ranking + methodology (EDIT-01, EDIT-03)
+- [ ] 04-06-PLAN.md — Wave 3: all 10 ES editorial pages incl. ES methodology + ES map-bearing (EDIT-02, EDIT-03)
+- [ ] 04-07-PLAN.md — Wave 3: legal pages EN+ES (Privacy/Terms/About/Contact) (EDIT-04) + full-suite phase gate
+
 **UI hint**: yes
 
 ### Phase 5: RSS News Pipeline
@@ -129,6 +138,6 @@ _Last updated: 2026-06-13_
 | 1. Data Foundation | 4/4 | Complete    | 2026-06-13 |
 | 2. Astro Site + Programmatic Pages | 6/6 | Complete    | 2026-06-13 |
 | 3. Leaflet Map Island | 4/4 | Complete    | 2026-06-13 |
-| 4. Editorial Pages + AdSense | 0/? | Not started | - |
+| 4. Editorial Pages + AdSense | 0/7 | Planned     | - |
 | 5. RSS News Pipeline | 0/? | Not started | - |
 | 6. CI/CD + Cloudflare Deployment | 0/? | Not started | - |
