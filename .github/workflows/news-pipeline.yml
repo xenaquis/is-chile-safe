@@ -15,6 +15,10 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: write
+    # CR-01: CF_HOOK MUST be job-level — a step-level env var is NOT in scope for
+    # that same step's `if:` condition, so the deploy gate would never fire.
+    env:
+      CF_HOOK: ${{ secrets.CF_DEPLOY_HOOK_URL }}
 
     steps:
       - uses: actions/checkout@v4
@@ -47,6 +51,4 @@ jobs:
 
       - name: Trigger Cloudflare Pages deploy
         if: steps.commit.outputs.changed == 'true' && env.CF_HOOK != ''
-        env:
-          CF_HOOK: ${{ secrets.CF_DEPLOY_HOOK_URL }}
-        run: curl -X POST "$CF_HOOK"
+        run: curl -X POST --fail --silent --show-error --retry 3 "$CF_HOOK"

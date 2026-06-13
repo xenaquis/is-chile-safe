@@ -91,7 +91,11 @@ is. Do not rely on `[skip ci]` alone.
 
 1. CF Pages project → **Settings** → **Builds** → **Deploy Hooks** → **Add**.
 2. Name: `data-update` (or any descriptive name).
-3. Branch: `master`.
+3. Branch: **must match the branch the scheduled workflows push to** — i.e. this repo's
+   *default* branch (scheduled GitHub Actions always run on, and `git push` to, the default
+   branch). This repo currently has both `master` and `main`; set the Deploy Hook branch to
+   whichever you set as the GitHub **default branch**, and confirm CF Pages' production branch
+   matches it too. A mismatch means the Hook silently builds stale content from the wrong branch.
 4. Click **Generate Deploy Hook**.
 5. **Copy the generated URL** — it looks like
    `https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/<uuid>`.

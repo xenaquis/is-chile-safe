@@ -4,6 +4,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+# WR-03: least privilege — CI only reads; it never commits or deploys.
+permissions:
+  contents: read
+
 jobs:
   frontend:
     name: Frontend build + validate
