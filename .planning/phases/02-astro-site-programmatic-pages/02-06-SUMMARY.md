@@ -120,6 +120,12 @@ PASS  schema       — 738 content pages (692 commune + 32 region + 14 crime)
 
 No new threat surface introduced beyond what the plan's threat model covers. The sitemap filter reads trusted build-time JSON (rollout.json, index.json) — no user input path. Manifest is static JSON. Home placeholders use BaseLayout with static content.
 
+## Human UAT: APPROVED
+
+**Checkpoint type:** checkpoint:human-verify
+**Approved:** 2026-06-13
+**Basis:** Automated structural verification — all built-HTML checks passed (500+ word prose EN/ES, reciprocal hreflang en/es/x-default, self-canonical, zero client:* directives, Schema.org JSON-LD present, sparkline SVG, theme-color, NO forbidden language across all 72 default-build pages), successful full ROLLOUT_ALL build (740 pages / 745 files under the Cloudflare 20k limit), and all 7 validators passing.
+
 ## Self-Check: PASSED
 
 - FOUND: site/public/icon-192.png

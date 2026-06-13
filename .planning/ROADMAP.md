@@ -5,7 +5,7 @@ _Last updated: 2026-06-12_
 ## Phases
 
 - [x] **Phase 1: Data Foundation** - CEAD scraper extracts and validates all quantitative crime data into a stable JSON schema (completed 2026-06-13)
-- [ ] **Phase 2: Astro Site + Programmatic Pages** - Static site framework deployed with bilingual programmatic pages for all 346 comunas, 16 regions, and crime types
+- [x] **Phase 2: Astro Site + Programmatic Pages** - Static site framework deployed with bilingual programmatic pages for all 346 comunas, 16 regions, and crime types (completed 2026-06-13)
 - [ ] **Phase 3: Leaflet Map Island** - Interactive choropleth map with filters, commune popup panel, and geolocation — fully functional on mobile
 - [ ] **Phase 4: Editorial Pages + AdSense** - High-priority editorial and legal pages live; editorial guardrails enforced at build time; AdSense integrated
 - [ ] **Phase 5: RSS News Pipeline** - Automated RSS ingestion, DeepSeek classification, and rolling incident feed powering map pins
@@ -52,7 +52,7 @@ _Last updated: 2026-06-12_
 - [x] 02-03-PLAN.md — Commune pages EN+ES: deterministic prose variation engine (500+ words, 5 dimensions) + rollout batch gate (Wave 3)
 - [x] 02-04-PLAN.md — Region pages EN+ES (16×2): aggregates + commune ranking table (Wave 3)
 - [x] 02-05-PLAN.md — Crime-type pages EN+ES (7×2): national family ranking + translated slugs + featured prominence (Wave 3)
-- [ ] 02-06-PLAN.md — SEO finishing: rollout-gated sitemap + Schema.org + PWA manifest + hreflang/schema validators + full ROLLOUT_ALL build gate + UAT (Wave 4)
+- [x] 02-06-PLAN.md — SEO finishing: rollout-gated sitemap + Schema.org + PWA manifest + hreflang/schema validators + full ROLLOUT_ALL build gate + UAT (Wave 4)
 
 **UI hint**: yes
 
@@ -121,7 +121,7 @@ _Last updated: 2026-06-12_
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 4/4 | Complete    | 2026-06-13 |
-| 2. Astro Site + Programmatic Pages | 5/6 | In Progress|  |
+| 2. Astro Site + Programmatic Pages | 6/6 | Complete    | 2026-06-13 |
 | 3. Leaflet Map Island | 0/? | Not started | - |
 | 4. Editorial Pages + AdSense | 0/? | Not started | - |
 | 5. RSS News Pipeline | 0/? | Not started | - |
