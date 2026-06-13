@@ -8,7 +8,7 @@ _Last updated: 2026-06-13_
 - [x] **Phase 2: Astro Site + Programmatic Pages** - Static site framework deployed with bilingual programmatic pages for all 346 comunas, 16 regions, and crime types (completed 2026-06-13)
 - [x] **Phase 3: Leaflet Map Island** - Interactive choropleth map with filters, commune popup panel, and geolocation — fully functional on mobile (completed 2026-06-13; visual/mobile UAT deferred)
 - [x] **Phase 4: Editorial Pages + AdSense** - High-priority editorial and legal pages live; editorial guardrails enforced at build time; AdSense integrated (completed 2026-06-13)
-- [ ] **Phase 5: RSS News Pipeline** - Automated RSS ingestion, DeepSeek classification, and rolling incident feed powering map pins
+- [x] **Phase 5: RSS News Pipeline** - Automated RSS ingestion, DeepSeek classification, and rolling incident feed powering map pins (completed 2026-06-13)
 - [ ] **Phase 6: CI/CD + Cloudflare Deployment** - Fully automated cron pipelines deployed without rebuild loops; site live on ischilesafe.com
 
 ## Phase Details
@@ -121,7 +121,7 @@ _Last updated: 2026-06-13_
 - [x] 05-01-PLAN.md — Wave 0: Incident Pydantic v2 schema (exact IncidentPinLayer.ts contract) + static cut_list.json (346) + build_centroids.py/centroids.json (Node decode + Shoelace) + audit_incidents.py + all 6 pytest modules + 4 fixtures (DeepSeek mocked) + feedparser/openai deps
 - [x] 05-02-PLAN.md — Wave 1: feeds.py (3 confirmed feeds, per-feed fallback, keyword pre-filter, seen-ledger) + classifier.py (deepseek-v4-flash JSON mode, closed-list CUT + confidence reject) + centroids.py lookup (NEWS-01, NEWS-02, NEWS-05); pkg-legitimacy checkpoint
 - [x] 05-03-PLAN.md — Wave 1: dedup.py (canonical-URL + difflib title-similarity) + store.py (idempotent sha256-id merge, 30-day window, monthly archive, validate-then-atomic-write) (NEWS-03, NEWS-04, NEWS-05)
-- [ ] 05-04-PLAN.md — Wave 2: scrape_news.py orchestrator (mirrors scrape_cead.py, cost cap, key-graceful) + integration test + D-16 50-incident human-audit gate (NEWS-01..05)
+- [x] 05-04-PLAN.md — Wave 2: scrape_news.py orchestrator (mirrors scrape_cead.py, cost cap, key-graceful) + integration test + D-16 50-incident human-audit gate (NEWS-01..05)
 
 ### Phase 6: CI/CD + Cloudflare Deployment
 
@@ -144,5 +144,5 @@ _Last updated: 2026-06-13_
 | 2. Astro Site + Programmatic Pages | 6/6 | Complete    | 2026-06-13 |
 | 3. Leaflet Map Island | 4/4 | Complete    | 2026-06-13 |
 | 4. Editorial Pages + AdSense | 7/7 | Complete    | 2026-06-13 |
-| 5. RSS News Pipeline | 3/4 | In Progress|  |
+| 5. RSS News Pipeline | 4/4 | Complete   | 2026-06-13 |
 | 6. CI/CD + Cloudflare Deployment | 0/? | Not started | - |
