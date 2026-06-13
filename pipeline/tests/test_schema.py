@@ -72,7 +72,8 @@ def test_negative_rate_is_rejected(sample_commune_dict):
 
 
 def test_implausible_rate_is_rejected(sample_commune_dict):
-    communes = _make_communes_with_rate(sample_commune_dict, 25000.0)
+    # Use a value well above the new 100k cap (decimal-parse corruption produces millions)
+    communes = _make_communes_with_rate(sample_commune_dict, 150000.0)
     with pytest.raises(ValueError, match="Implausible"):
         validate_all_communes(communes)
 
@@ -83,8 +84,9 @@ def test_zero_rate_is_accepted(sample_commune_dict):
     assert len(result) == 346
 
 
-def test_boundary_rate_20000_is_accepted(sample_commune_dict):
-    communes = _make_communes_with_rate(sample_commune_dict, 20000.0)
+def test_boundary_rate_100000_is_accepted(sample_commune_dict):
+    # Cap raised to 100k after first real run — micro-communes reach ~43k per-100k
+    communes = _make_communes_with_rate(sample_commune_dict, 100000.0)
     result = validate_all_communes(communes)
     assert len(result) == 346
 

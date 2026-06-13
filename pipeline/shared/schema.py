@@ -14,7 +14,10 @@ from pydantic import BaseModel, field_validator
 # Module-level constants
 # ---------------------------------------------------------------------------
 
-PLAUSIBILITY_MAX_RATE: float = 20000  # Open Question 4 — first-run absolute upper bound
+PLAUSIBILITY_MAX_RATE: float = 100000  # Raised from 20000 after first real run confirmed
+# micro-communes (Sierra Gorda pop ~2k, Juan Fernandez pop ~900) reach 43k per-100k due to
+# transient populations not reflected in INE estimates; 100k is >2x the observed max of 43,369
+# and still catches decimal-parse corruption which produces values in the millions.
 
 FAMILY_KEYS: list[str] = [
     "vida",
