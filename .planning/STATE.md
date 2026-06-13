@@ -113,7 +113,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 **Phase 02 prior fix (commit a439529)**: comparable-commune self-reference (cut/id mismatch in loadCommune).
 **Known env issue (not code)**: project is inside OneDrive — `dist/` artifacts desync between separate processes; ALWAYS chain build + validate in one command. (See memory: onedrive-build-artifacts-desync.)
 **Last session (2026-06-13, autonomous)**: Phases 4→5→6 ejecutadas + revisadas (code review en cada una, bugs reales corregidos) + verificadas; milestone v1.0 auditado (code-complete, tech_debt), archivado y tagueado (v1.0). Detalle por fase en `.planning/milestones/v1.0-phases/`.
-**PENDIENTE push**: no hay git remote configurado → v1.0 (commits + tag) NO está pusheado. `git remote add origin <URL> && git push -u origin master && git push origin v1.0`.
+**Push**: hecho ✅ → repo privado `github.com/xenaquis/is-chile-safe` (master + tag v1.0). Cloudflare Pages se conecta a este repo en el go-live.
 **Open manual item**: Phase 3 visual/mobile UAT sigue diferido — se cierra dentro de la revisión E2E.
 **Next action**: Fase de **revisión end-to-end (v1.1 Polish & QA)** con MCP de navegador. **LEER PRIMERO** `.planning/REVIEW-E2E-BRIEF.md` (objetivo, método, inventario de páginas, checklist, prerrequisitos, kickoff). Prerrequisitos: conectar MCP `pbrowseros`/BrowserOS (no estaba conectado) + `cd site && npm run dev`. Handoff estructurado: `.planning/HANDOFF.json`.
 **Resume prompt**: v1.0 code-complete y archivado (no desplegado, push pendiente). Arrancar la revisión E2E para cazar bugs, reducir carga cognitiva y dejar la página agradable de leer — según `.planning/REVIEW-E2E-BRIEF.md`.

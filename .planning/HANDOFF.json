@@ -9,9 +9,9 @@
     "MCP de navegador 'pbrowseros'/BrowserOS NO conectado en la sesión previa — verificar con ToolSearch 'browseros browser navigate screenshot'; si falta, conectarlo (o usar Playwright-MCP) ANTES de revisar.",
     "Dev server requerido: `cd site && npm run dev` (Astro :4321; predev corre sync-data para servir /data)."
   ],
+  "repo": "https://github.com/xenaquis/is-chile-safe (privado) — master pusheado, tag v1.0 pusheado. Cloudflare Pages se conecta a ESTE repo en el go-live.",
   "human_actions_pending": [
-    "git remote NO configurado — push de v1.0 (commits + tag v1.0) quedó PENDIENTE. Ejecutar: git remote add origin <URL_GITHUB> && git push -u origin master && git push origin v1.0",
-    "Go-live v1.0 (no bloquea la revisión): ejecutar DEPLOYMENT.md (Cloudflare + DNS + secrets DEEPSEEK_API_KEY/CF_DEPLOY_HOOK_URL).",
+    "Go-live v1.0 (no bloquea la revisión): ejecutar DEPLOYMENT.md (Cloudflare + DNS + secrets DEEPSEEK_API_KEY/CF_DEPLOY_HOOK_URL). El repo a conectar es github.com/xenaquis/is-chile-safe.",
     "Tras go-live: correr news pipeline en vivo + auditoría 50 incidentes; GSC submission; flip ADSENSE_ENABLED + AdSense Consent Mode (todo: adsense-consent-mode-phase6)."
   ],
   "completed_tasks": [
