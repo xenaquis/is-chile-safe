@@ -37,12 +37,18 @@ Audit: **[milestones/v1.0-MILESTONE-AUDIT.md](milestones/v1.0-MILESTONE-AUDIT.md
 **Depends on**: Nothing (first v1.1 phase); dev server running (`cd site && npm run dev`); BrowserOS MCP connected (port 9200).
 **Requirements**: REVIEW-01, REVIEW-02, REVIEW-03, REVIEW-04, REVIEW-05
 **Success Criteria** (what must be TRUE):
-  1. All 10 EN editorial pages, 10 ES editorial pages, /map/ + /es/mapa/, and 8 legal pages have been navigated, screenshotted, and console-checked.
+  1. All 12 EN editorial pages, 12 ES editorial pages, /map/ + /es/mapa/, and the legal pages (4 URLs: terms + privacy, each locale — verified count) have been navigated, screenshotted, and console-checked. (07-RESEARCH.md verified 12+12 editorial and 4 legal URLs, not the 10+10/8 anticipated in REQUIREMENTS.md; the missing-legal-pages gap is logged as a Polish finding, not a blocker.)
   2. A declared sample of programmatic pages (≥3 communes at high/mid/low population, ≥2 regions, ≥2 crime types, both locales) has been reviewed against the page template.
   3. Map dynamic interactions verified in browser: year filter, crime-type filter, commune panel (rate/trend/ranking/sparkline/families), search, geolocation, and incident layer in empty state — all without unhandled errors.
   4. Mobile viewport (~375px) checked on money pages and map: no horizontal overflow, map usable, touch targets visually adequate.
   5. `.planning/REVIEW-E2E-FINDINGS.md` exists with every finding tagged Critical / Warning / Polish, the affected page identified, a screenshot reference, and a concrete recommendation.
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 07-01-PLAN.md — Pre-flight (dev server port + BrowserOS tools) + editorial/map/legal inventory walk [REVIEW-01]
+- [ ] 07-02-PLAN.md — Programmatic page sampling vs template (communes/regions/crime, both locales) [REVIEW-02]
+- [ ] 07-03-PLAN.md — Map dynamic interactions on /map/ (filters/panel/search/geo/incident empty state) [REVIEW-03]
+- [ ] 07-04-PLAN.md — Mobile viewport (375×812) money pages + map, overflow + usability check [REVIEW-04]
+- [ ] 07-05-PLAN.md — Consolidate REVIEW-E2E-FINDINGS.md (severity/page/screenshot/recommendation) [REVIEW-05]
 
 ### Phase 8: Bug Fixes & Data Correctness
 **Goal**: All Critical findings from the review are corrected and re-verified; console is clean on money pages; data calculations are accurate; AdSlot does not cause layout shift.
@@ -79,7 +85,7 @@ Audit: **[milestones/v1.0-MILESTONE-AUDIT.md](milestones/v1.0-MILESTONE-AUDIT.md
 | 4. Editorial Pages + AdSense | v1.0 | 7/7 | Complete | 2026-06-13 |
 | 5. RSS News Pipeline | v1.0 | 4/4 | Complete | 2026-06-13 |
 | 6. CI/CD + Cloudflare Deployment | v1.0 | 3/3 | Complete | 2026-06-13 |
-| 7. E2E Review Pass | v1.1 | 0/TBD | Not started | - |
+| 7. E2E Review Pass | v1.1 | 0/5 | Not started | - |
 | 8. Bug Fixes & Data Correctness | v1.1 | 0/TBD | Not started | - |
 | 9. UX / Readability / A11Y Polish | v1.1 | 0/TBD | Not started | - |
 
