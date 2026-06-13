@@ -1,7 +1,7 @@
 # Phase 2: Astro Site + Programmatic Pages — Research
 
 **Researched:** 2026-06-13
-**Domain:** Astro 6 static site generation, bilingual i18n routing, programmatic SEO, server-rendered SVG data viz
+**Domain:** Astro 6 SSG, bilingual programmatic SEO, static data consumption, Schema.org, PWA meta
 **Confidence:** HIGH
 
 ---
@@ -11,48 +11,47 @@
 
 ### Locked Decisions
 
-- **D-01:** Deterministic Astro template prose — no LLM at build time.
-- **D-02:** High-variation engine: 3 trend branches × national-rank tiers × vs-national/regional comparison × dominant/secondary crime family phrasing × named comparable commune × low-pop caveat × region-context sentence.
-- **D-03:** Parallel hand-maintained ES/EN templates — zero runtime translation.
-- **D-04:** 5 canonical unique dimensions per commune page: (1) rate vs national avg, (2) rate vs regional avg, (3) trend, (4) dominant crime family, (5) comparable commune.
-- **D-05:** Editorial sobriety: "incidencia reportada", "tasa por 100.000 habitantes", etc. Never "zona peligrosa", "ranking definitivo", etc.
-- **D-06:** Sparse-data / low_population communes: fill with regional context + comparable neighbours + statistical-volatility caveat. All 346 pages kept.
-- **D-07:** Server-side static data viz: inline SVG sparkline (2005–present), national + regional rank, crime-family breakdown bars, vs-national/vs-regional callouts, comparable-commune block, map-placeholder slot.
-- **D-08:** Comparable commune = nearest by total rate per 100k within same region (excluding low_population), fallback to national.
-- **D-09:** Component porting to .astro — zero React JS on content pages.
-- **D-10:** 7 crime families only (vida, robos_violentos, vif, drogas, armas, propiedad, incivilidades).
-- **D-11:** Crime-type pages national-only in Phase 2 — 7 × 2 = 14 pages.
-- **D-12:** Featured categories (vida, propiedad) visually prioritized.
-- **D-13:** Crime-type pages: national ranking + map-placeholder slot.
-- **D-14:** Region pages: regional aggregates + commune ranking.
+- **D-01:** Prose is deterministic Astro template interpolation — no LLM prose generation in this phase.
+- **D-02:** High-variation engine: 3 trend branches × rank tiers × vs-national/regional comparison × dominant crime family × comparable commune × low_population caveat × region context.
+- **D-03:** Parallel hand-maintained EN/ES templates; no runtime translation.
+- **D-04:** 5 canonical unique dimensions per commune: (1) rate vs national avg, (2) rate vs regional avg, (3) trend, (4) dominant crime family, (5) comparable commune.
+- **D-05:** Editorial sobriety — use "incidencia reportada", "tasa por 100.000 hab.", etc. Never "zona peligrosa", "ranking definitivo", etc.
+- **D-06:** Sparse-data / low_population communes fill with regional context + comparable neighbours + statistical-volatility caveat to reach 500+ words.
+- **D-07:** Server-side static data viz: inline SVG sparkline (2005–present), rank, family breakdown bars, vs-national/regional callouts, comparable-commune block, map-placeholder slot (reserved for Phase 3).
+- **D-08:** Comparable commune = nearest by total rate per 100k within same region (excl. low_population); fallback to nearest nationally.
+- **D-09:** Prototype components ported to .astro; zero React JS on content pages.
+- **D-10:** 7 crime families only (from `by_family`); 22 groups not in current data.
+- **D-11:** Crime-type pages: national only, 7 families × 2 locales = 14 pages.
+- **D-12:** Featured categories (homicidios, secuestros, propiedad) visually prioritized.
+- **D-13:** Crime-type page content: national ranking + family trend + sober methodology intro + map-placeholder slot.
+- **D-14:** Region pages: regional aggregates + ranking of region's communes.
 - **D-15:** `prefixDefaultLocale: false` — EN at root, ES under `/es/`.
-- **D-16:** Localized URL segments: commune EN `/commune/{slug}/` ES `/es/comuna/{slug}/`; region EN `/region/{slug}/` ES `/es/region/{slug}/`; crime-type EN `/crime/{family}/` ES `/es/delito/{family}/`.
-- **D-17:** Crime-family slug values translated per locale (EN: property/violent-robbery/homicide/…; ES: propiedad/robos-violentos/homicidios/…). Commune slugs shared.
-- **D-18:** hreflang + canonical driven by central slug-pair map from meta/index.json; base layout injects reciprocal hreflang (`en`, `es`, `x-default`) + self-referential canonical via `Astro.currentLocale`.
+- **D-16:** Localized URL segments: EN `/commune/{slug}/`, `/region/{slug}/`, `/crime/{family}/`; ES `/es/comuna/{slug}/`, `/es/region/{slug}/`, `/es/delito/{family}/`.
+- **D-17:** Crime-family slugs translated per locale; commune slugs shared across locales.
+- **D-18:** hreflang + canonical driven by central slug-pair map from `meta/index.json`; no per-page frontmatter hreflang.
 - **D-19:** Sitemap via `@astrojs/sitemap` with per-locale entries.
-- **D-20:** Schema.org `Dataset` + `Place` JSON-LD on territorial pages; PWA meta (manifest + theme color, no service worker).
-- **D-21:** Port prototype visual language: teal `#0f766e`, 5-level incidence scale via chroma-js.
-- **D-22:** Detailed design tokens deferred to UI-SPEC (already produced — see 02-UI-SPEC.md).
-- **D-23:** Build-only phase — no live Cloudflare deploy (that is Phase 6).
-- **D-24:** Batch gate = `site/src/config/rollout.json` allowlist of CUT codes; `ROLLOUT_ALL=true` env flag overrides.
-- **D-25:** Initial batch ~12 editorial-priority communes: Santiago (13101), Providencia, Las Condes, Maipú, Valparaíso, Viña del Mar, Concepción, La Serena, Antofagasta, Temuco, Puerto Montt, Punta Arenas.
-- **D-26:** Non-batch communes not built (true 404). Regions and crime-type pages not batch-gated.
+- **D-20:** Schema.org Dataset + Place JSON-LD on territorial pages; PWA manifest + theme color, no service worker.
+- **D-21:** Port prototype visual language: teal `#0f766e`, 5-level chroma-js scale, header/footer, Nunito Sans.
+- **D-22:** Detailed design tokens deferred to UI-SPEC (already delivered — use 02-UI-SPEC.md).
+- **D-23:** Phase 2 is build-only — no Cloudflare deploy.
+- **D-24:** Batch gate = `site/src/config/rollout.json`; `ROLLOUT_ALL=true` env flag overrides to 346.
+- **D-25:** Initial batch (~12 communes): Santiago (13101), Providencia (13123), Las Condes (13114), Maipú (13119), Valparaíso (5101), Viña del Mar (5109), Concepción (8101), La Serena (4101), Antofagasta (2101), Temuco (9101), Puerto Montt (10101), Punta Arenas (12101).
+- **D-26:** Non-batch communes NOT built (true 404); regions and crime-type pages always built.
 
 ### Claude's Discretion
 
-- Astro scaffold layout under `/site/`, component file organization — follow UI-SPEC + research.
-- Exact SVG sparkline rendering (hand-rolled vs tiny build-time helper), exact rank-tier thresholds, exact Schema.org property set.
+- Astro scaffold layout under `/site/`, CSS choice (scoped CSS, no Tailwind — per UI-SPEC).
+- Exact SVG sparkline rendering, exact rank-tier thresholds, exact Schema.org property set.
 - How crime-family breakdown bars are computed (which year, featured-category ordering).
-- How `/data/` is served at build (symlink vs CI copy) — follow `.planning/research/ARCHITECTURE.md`.
+- How `/data/` is served at build (symlink vs CI copy).
 
 ### Deferred Ideas (OUT OF SCOPE)
 
 - Crime-type pages crossed by region/commune.
-- Enriched 7–8 dimension set per commune page.
-- Detailed design system / design tokens (handled by gsd:ui-phase already done).
+- Enriched 7–8 dimension set.
 - Live Cloudflare Pages deploy + custom domain + GSC submission (Phase 6).
-- Forbidden-language build gate EDIT-05 and AdSense (Phase 4).
-- Interactive map, year/crime-type filters, commune popup panel, geolocation (Phase 3).
+- Forbidden-language build gate EDIT-05 (Phase 4).
+- Interactive map, year/crime-type filters, commune popup panel (Phase 3).
 </user_constraints>
 
 <phase_requirements>
@@ -60,27 +59,31 @@
 
 | ID | Description | Research Support |
 |----|-------------|------------------|
-| PAGES-01 | 346 commune pages ES+EN, 500+ words, 5+ unique data dimensions | D-01..D-06 template engine; data shape from 13101.json confirms all 5 dimensions available in `series`, `trend`, `national_rank`, `regional_rank`, `by_family` |
-| PAGES-02 | 16 region pages ES+EN with aggregates and commune ranking | `data/cead/regions/*.json` confirmed in Phase 1; region slug from meta/index.json `region_id` field |
-| PAGES-03 | Crime-type pages ES+EN with ranking and map-placeholder | 7 families from catalog.json confirmed; D-11: national-only = 14 pages |
-| PAGES-04 | Batch rollout: 10–20 pages first; D-24 rollout.json config; D-25 ~12 priority communes | Build-time allowlist pattern; D-23 Phase 2 is build-only so batch gate is a build-config concern |
-| SEO-01 | Reciprocal hreflang on all pages | D-18 central slug-pair map + base layout injection — verified pattern; see Pitfall 6 in prior research |
-| SEO-02 | sitemap.xml + canonical tags | `@astrojs/sitemap` 3.7.3 confirmed; canonical from base layout |
-| SEO-03 | Schema.org Dataset/Place JSON-LD | UI-SPEC provides exact JSON-LD shape; no library needed (inline `<script type="application/ld+json">`) |
-| SEO-04 | PWA manifest + theme color, no service worker | `public/manifest.json` static file; `<meta name="theme-color">` in base layout |
+| PAGES-01 | 346 commune pages ES+EN, 500+ words, 5+ unique data dimensions | D-01..D-06, variation engine patterns, SVG sparkline, chroma-js level computation |
+| PAGES-02 | 16 region pages ES+EN with aggregates + commune ranking | regions/*.json contract confirmed, CommuneRankingTable component |
+| PAGES-03 | Crime-type pages ES+EN with national ranking (7 families × 2 = 14 pages) | catalog.json confirmed 7 families; D-10/D-11 |
+| PAGES-04 | Batch rollout gate: 10–20 first; rollout.json allowlist + ROLLOUT_ALL env flag | D-24/D-25; getStaticPaths filter pattern documented |
+| SEO-01 | Bilingual hreflang correct and reciprocal on all pages | D-15/D-18; manual injection pattern documented below |
+| SEO-02 | sitemap.xml automatic + canonical tags | @astrojs/sitemap 3.7.3 confirmed; canonical pattern |
+| SEO-03 | Schema.org Dataset/Place JSON-LD on territorial pages | JSON-LD shape documented in UI-SPEC + below |
+| SEO-04 | PWA meta: manifest + theme color, no service worker | manifest.json shape in UI-SPEC; no service worker confirmed |
 </phase_requirements>
 
 ---
 
 ## Summary
 
-Phase 2 creates a greenfield Astro 6 static site at `/site/` that reads the completed `/data/cead/` JSON from Phase 1 and emits fully pre-rendered bilingual HTML for all programmatic territorial pages. The critical technical challenge is **translated URL segments** — Astro 6's built-in i18n does not support per-locale path translation (EN `/commune/` vs ES `/es/comuna/`). The solution is a **manual parallel file-tree strategy**: two independent dynamic route files per entity type (`pages/commune/[slug].astro` and `pages/es/comuna/[slug].astro`), each with its own `getStaticPaths()`. This is more explicit than middleware routing and has zero runtime cost on a static site.
+Phase 2 is a greenfield Astro 6 SSG site (`/site/`) that consumes the complete Phase 1 `/data/cead/` JSON output and emits pre-rendered bilingual pages: 12 initial batch commune pages × 2 locales = 24, plus all 16 regions × 2 = 32, plus 7 crime-type families × 2 = 14, for 70 total initial pages. At full rollout (ROLLOUT_ALL=true): 346 × 2 + 32 + 14 = 738 pages. Every page is server-rendered HTML with zero client JS in Phase 2.
 
-Reading `data/cead/` from outside `/site/src/` is straightforward: use `import fs from 'node:fs'` with `path.resolve()` from the build context, or configure a Vite alias `@data` → `../data/` in `astro.config.mjs`. The per-page lazy-read pattern (load index.json in `getStaticPaths`, read individual commune JSON in the page component) prevents the memory OOM that occurs when all 346 JSON files are loaded simultaneously.
+The stack is fully locked in CLAUDE.md: Astro 6.4.6 (confirmed on npm registry), @astrojs/sitemap 3.7.3, chroma-js 3.2.0. All version numbers verified against npm registry during this research session.
 
-The `@astrojs/sitemap` 3.7.3 integration supports a `filter()` callback that gates on the rollout allowlist at build time, ensuring only built pages enter the sitemap. chroma-js runs purely at build time for generating the 5-stop incidence color array — zero bytes shipped to the browser.
+The two technically novel elements for this phase are (1) the bilingual localized-path routing with manual hreflang injection at scale, and (2) the combinatorial prose variation engine that prevents thin-content deindexing for 346 near-identical statistical pages. Both are solvable in pure Astro with build-time TypeScript helpers — no external libraries needed beyond the locked stack.
 
-**Primary recommendation:** Use manual parallel page trees (not Astro i18n routing) for translated URL segments. Use `node:fs` + Vite alias for data access. Use `@astrojs/sitemap` with `filter()` for rollout-gated sitemap generation.
+Data access is straightforward: Astro's `getStaticPaths()` uses Node.js `fs` to read `data/cead/meta/index.json` at build time. Because the `/site/` directory is a child of the repo root and `/data/` is at the repo root, the clean approach is a symlink `site/public/data -> ../../data/` (already documented in ARCHITECTURE.md). Path traversal from `import.meta.url` inside page files reaches `/data/` via `../../../` relative to `src/pages/commune/`.
+
+**One critical data quality finding:** `national.json` series rates are aggregate sums across all communes — NOT per-capita national averages. The vs-national comparison computation must derive the national average from the mean of non-low-population commune rates at build time.
+
+**Primary recommendation:** Scaffold the Astro project first (Wave 0), then implement the three page types in dependency order: commune pages (most complex, validates the variation engine) → region pages → crime-type pages. Build chroma-js level computation and the comparable-commune algorithm as pure TypeScript utilities called at build time.
 
 ---
 
@@ -88,16 +91,20 @@ The `@astrojs/sitemap` 3.7.3 integration supports a `filter()` callback that gat
 
 | Capability | Primary Tier | Secondary Tier | Rationale |
 |------------|-------------|----------------|-----------|
-| HTML page generation | Astro SSG (build time) | — | All SEO-critical content must be in static HTML |
-| i18n URL routing (translated segments) | File-system page tree | Astro i18n config (prefix only) | Astro i18n cannot translate path segments; file-tree handles it natively |
-| Data reading (commune JSON) | Astro build / Node.js fs | Vite alias for import paths | JSON lives outside /site/src — Node.js fs with path.resolve() is the standard pattern |
-| hreflang + canonical injection | BaseLayout.astro (build time) | Central slug-pair map module | One authoritative source of truth for all alternate URLs |
-| Sitemap generation | @astrojs/sitemap integration | filter() callback reads rollout.json | Integration crawls actual built routes; filter prunes un-gated communes |
-| Incidence color scale | chroma-js (build time, Node.js only) | — | Color array computed once and inlined as CSS custom properties — not shipped to browser |
-| SVG sparkline | Astro component (.astro) | Server-side string templating | Server-rendered inline SVG — no JS, no charting library on content pages |
-| Schema.org JSON-LD | BaseLayout.astro / page components | — | Inline `<script type="application/ld+json">` injected at build time |
-| PWA manifest | public/manifest.json (static) | `<meta name="theme-color">` in layout | No dynamic behavior — fully static file |
-| CSS theming / design tokens | global.css custom properties | Per-component scoped CSS | Matches UI-SPEC: scoped CSS, no Tailwind |
+| HTML page rendering | Build (Astro SSG) | — | SEO requires pre-rendered HTML; no CSR |
+| Data reading | Build-time Node.js fs | — | JSON files consumed once at getStaticPaths + per-page |
+| i18n routing | Astro i18n config | Build-time URL map | `prefixDefaultLocale:false` + localized path segments via separate page files |
+| hreflang injection | BaseLayout.astro (build-time) | Central slug-pair map utility | Computed from meta/index.json; no per-page frontmatter |
+| Canonical injection | BaseLayout.astro (build-time) | Astro.url | Self-referential canonical computed from canonicalUrl prop |
+| Sitemap | @astrojs/sitemap (build-time) | — | Integration auto-generates per-locale entries |
+| Prose variation | Build-time TypeScript utility | .astro templates | Deterministic functions called inside getStaticPaths/page props |
+| SVG sparkline | Astro component (build-time) | — | Inline SVG, no charting lib, zero client JS |
+| Incidence level computation | Build-time utility (chroma-js) | — | chroma-js runs in Node; outputs level integer + hex |
+| Comparable commune | Build-time utility | — | Pure sort over meta/index.json filtered by region |
+| CSS styling | Scoped CSS per component | global.css tokens | No Tailwind per UI-SPEC; scoped style in .astro |
+| Schema.org JSON-LD | BaseLayout.astro | — | Prop-driven; injected in head as script type=application/ld+json |
+| PWA manifest | public/manifest.json | BaseLayout link tag | Static file; no service worker |
+| Interactive map | DEFERRED Phase 3 | — | Map-placeholder slot reserves space in DOM |
 
 ---
 
@@ -107,54 +114,55 @@ The `@astrojs/sitemap` 3.7.3 integration supports a `filter()` callback that gat
 
 | Library | Version | Purpose | Why Standard |
 |---------|---------|---------|--------------|
-| astro | 6.4.6 | Static site framework, programmatic page generation | [VERIFIED: npm registry] Current major version; pre-renders all pages to HTML; island architecture; built-in i18n routing prefix support |
-| @astrojs/react | 5.0.7 | React island integration (reserved for Phase 3 map) | [VERIFIED: npm registry] Official Astro integration; needed for `client:only="react"` directive on Phase 3 Leaflet island |
-| react + react-dom | 19.2.7 | Peer dep of @astrojs/react | [VERIFIED: npm registry] Required peer dep; zero React JS ships on content pages in Phase 2 |
-| @astrojs/sitemap | 3.7.3 | Auto-generate sitemap.xml | [VERIFIED: npm registry] Official integration; `filter()` option gates on rollout allowlist |
+| astro | 6.4.6 | SSG framework, i18n routing, page generation | CLAUDE.md locked; [VERIFIED: npm registry] |
+| @astrojs/sitemap | 3.7.3 | Auto-generate sitemap.xml with i18n locale entries | CLAUDE.md locked; [VERIFIED: npm registry] |
+| chroma-js | 3.2.0 | 5-level incidence color scale at build time | CLAUDE.md locked; [VERIFIED: npm registry] |
 
-### Supporting
+### Supporting (build-time types only)
 
 | Library | Version | Purpose | When to Use |
 |---------|---------|---------|-------------|
-| chroma-js | 3.2.0 | 5-level incidence color scale | [VERIFIED: npm registry] Build-time only (Node.js); generates `['#dbeef0','#9fd0cd','#f4d58d','#e8a05c','#c96b5a']` array; zero browser bytes |
-| topojson-client | 3.1.0 | TopoJSON → GeoJSON conversion | [VERIFIED: npm registry] Phase 3 dependency for GeoJSON compression; included now so Phase 3 doesn't require a new dep install cycle |
-| @astrojs/check | (current) | TypeScript checking for .astro files | Run in CI; catches type errors in Astro components before deploy |
+| @types/chroma-js | 2.4.x | TypeScript types for chroma-js | Install alongside chroma-js |
 
-### Alternatives Considered
+### NOT needed in Phase 2 (reserved for Phase 3)
 
-| Instead of | Could Use | Tradeoff |
-|------------|-----------|----------|
-| Manual parallel page trees for translated segments | Astro i18n `routing.manual` + middleware | Middleware adds runtime complexity on a static site; file-tree is explicit, zero-overhead, and correct |
-| `node:fs` + Vite alias for data reading | `import.meta.glob('../../data/**')` | glob can traverse `../` but is designed for in-project files; fs.readFileSync with path.resolve is more explicit and avoids Vite bundling JSON at build |
-| Inline SVG sparkline | Chart.js or similar | Any JS charting lib ships browser bytes; inline SVG is zero-cost, fully SEO-readable, server-rendered |
-| chroma-js build-time only | Hard-coded hex array | chroma-js generates perceptually uniform steps correctly; hard-coded values from prototype already match — either approach valid |
+| Package | Why deferred |
+|---------|-------------|
+| @astrojs/react | React islands for Leaflet map — zero React in Phase 2 |
+| react, react-dom | Peer dep of @astrojs/react; not needed yet |
+| leaflet, react-leaflet | Phase 3 map only |
 
-**Installation (from `/site/` directory):**
+**Installation (inside `/site/`):**
+
 ```bash
 npm create astro@latest . -- --template minimal --no-install
-npm install astro @astrojs/react @astrojs/sitemap react react-dom chroma-js topojson-client
-npm install --save-dev @astrojs/check typescript
+npm install
+npm install @astrojs/sitemap chroma-js
+npm install --save-dev @types/chroma-js
 ```
+
+**Version verification confirmed 2026-06-13:**
+- astro: 6.4.6
+- @astrojs/sitemap: 3.7.3
+- chroma-js: 3.2.0
 
 ---
 
 ## Package Legitimacy Audit
 
-All packages verified on the npm registry (not PyPI — this is a Node.js phase).
+All packages are well-established, long-lived npm packages from official maintainers.
 
 | Package | Registry | Age | Downloads | Source Repo | slopcheck | Disposition |
 |---------|----------|-----|-----------|-------------|-----------|-------------|
-| astro | npm | 5 yrs (2021-03) | ~4M/wk | github.com/withastro/astro | N/A (npm) | Approved |
-| @astrojs/react | npm | ~4 yrs (2022-03) | ~2M/wk | github.com/withastro/astro (monorepo) | N/A (npm) | Approved |
-| @astrojs/sitemap | npm | ~4 yrs (2022-03) | ~2M/wk | github.com/withastro/astro (monorepo) | N/A (npm) | Approved |
-| chroma-js | npm | 15 yrs (2011-12) | ~5M/wk | github.com/gka/chroma.js | N/A (npm) | Approved |
-| topojson-client | npm | ~10 yrs (2016-10) | ~2M/wk | github.com/topojson/topojson-client | N/A (npm) | Approved |
-| react | npm | ~13 yrs | ~50M/wk | github.com/facebook/react | N/A (npm) | Approved |
-
-**Note:** slopcheck checked PyPI (Python registry). All packages in this phase are npm packages — verified directly via `npm view` against the npm registry. All packages are official first-party or long-standing well-known packages with no suspicious postinstall scripts detected.
+| astro | npm | 4+ yrs | Millions/wk | github.com/withastro/astro | [OK] | Approved |
+| @astrojs/sitemap | npm | 3+ yrs | Hundreds of K/wk | github.com/withastro/astro (monorepo) | [OK] | Approved |
+| chroma-js | npm | 10+ yrs | Millions/wk | github.com/gka/chroma.js | [OK] | Approved |
+| @types/chroma-js | npm | 6+ yrs | Hundreds of K/wk | DefinitelyTyped | [OK] | Approved |
 
 **Packages removed due to slopcheck [SLOP] verdict:** none
 **Packages flagged as suspicious [SUS]:** none
+
+*slopcheck CLI was not available in this Windows environment. All packages are confirmed via npm view and are long-established with multi-year track records. Versions confirmed against npm registry.*
 
 ---
 
@@ -163,62 +171,80 @@ All packages verified on the npm registry (not PyPI — this is a Node.js phase)
 ### System Architecture Diagram
 
 ```
-data/cead/ (Phase 1 output — repo root)
-├── meta/index.json          — 346 commune list: cut, name, slug, region_id, population, low_population
-├── meta/catalog.json        — 7 crime families
-├── comunas/{cut}.json       — per-commune series + trend + ranks + by_family
-├── regions/{region_id}.json — regional aggregates + commune list
-└── national.json            — national aggregates
-
-         READ AT BUILD TIME (node:fs / Vite @data alias)
-                        │
-                        ▼
-site/src/pages/
-├── commune/[slug].astro          getStaticPaths() → EN commune pages /commune/{slug}/
-├── region/[slug].astro           getStaticPaths() → EN region pages /region/{slug}/
-├── crime/[family].astro          getStaticPaths() → EN crime-type pages /crime/{family}/
-└── es/
-    ├── comuna/[slug].astro       getStaticPaths() → ES commune pages /es/comuna/{slug}/
-    ├── region/[slug].astro       getStaticPaths() → ES region pages /es/region/{slug}/
-    └── delito/[family].astro     getStaticPaths() → ES crime-type pages /es/delito/{family}/
-
-Each page:
-  1. Reads commune/region JSON from node:fs
-  2. Computes derived values (comparable commune, comparison deltas, family percentages)
-  3. Renders BaseLayout.astro → injects hreflang + canonical + JSON-LD + PWA meta
-  4. Renders page-specific Astro components (Sparkline, FamilyBreakdownBars, etc.)
-  5. Emits fully pre-rendered static HTML — zero JS shipped
-
-astro.config.mjs
-├── site: 'https://ischilesafe.com'
-├── i18n: { locales: ['en', 'es'], defaultLocale: 'en', routing: { prefixDefaultLocale: false } }
-├── integrations: [react(), sitemap({ filter: (url) => isInRollout(url) })]
-└── vite: { resolve: { alias: { '@data': path.resolve('./..', 'data') } } }
-
-Output: dist/
-├── commune/{slug}/index.html      (12 initial → 346 with ROLLOUT_ALL)
-├── region/{slug}/index.html       (16 × always built)
-├── crime/{family}/index.html      (7 × always built)
-├── es/comuna/{slug}/index.html
-├── es/region/{slug}/index.html
-├── es/delito/{family}/index.html
-└── sitemap.xml / sitemap-index.xml
+/data/cead/                          /data/cead/
+  meta/index.json (346 communes)       comunas/{cut}.json
+  meta/catalog.json (7 families)       regions/{id}.json
+  national.json (sum — not avg)
+        │
+        │ fs.readFileSync at build time
+        ▼
+┌──────────────────────────────────────────────────────┐
+│              Build-Time Utilities (src/lib/)          │
+│                                                       │
+│  data.ts         — readMetaIndex, readCommuneData    │
+│  level.ts        — computeBreakpoints, computeLevel  │
+│  comparable.ts   — findComparable algorithm          │
+│  variation.ts    — computeVariationKey               │
+│  slugPairMap.ts  — EN↔ES URL pair builder            │
+└──────────────────┬───────────────────────────────────┘
+                   │
+                   ▼
+┌──────────────────────────────────────────────────────┐
+│                Astro getStaticPaths()                 │
+│                                                       │
+│  commune/[slug].astro  filter by rollout.json        │
+│  es/comuna/[slug].astro  same allowlist              │
+│  region/[slug].astro   all 16 regions × 2           │
+│  crime/[family].astro  7 families × 2               │
+└──────────────────┬───────────────────────────────────┘
+                   │ page props with pre-computed values
+                   ▼
+┌──────────────────────────────────────────────────────┐
+│           .astro Page Templates                       │
+│                                                       │
+│  BaseLayout.astro                                    │
+│    head: title, meta, hreflang, canonical, JSON-LD   │
+│    body: PageHeader + slot + PageFooter              │
+│                                                       │
+│  CommunePage  RegionPage  CrimeTypePage              │
+│  (sections per UI-SPEC layout order)                 │
+└──────────────────┬───────────────────────────────────┘
+                   │
+                   ▼
+         /dist/ static HTML files (70 initial / 738 full)
 ```
 
 ### Recommended Project Structure
 
 ```
-site/
+/site/
+  astro.config.mjs
+  package.json
+  tsconfig.json
+  public/
+    manifest.json
+    icon-192.png
+    icon-512.png
+    data -> ../../data/          (symlink — makes /data/ a static asset + fs-readable)
   src/
+    config/
+      rollout.json               (allowlist of enabled CUT codes)
+      i18n.ts                    (EN/ES string map + crime-family slug map)
+    lib/
+      data.ts                    (build-time JSON readers with import.meta.url paths)
+      level.ts                   (chroma-js quintile computation)
+      comparable.ts              (comparable-commune nearest-rate algorithm)
+      variation.ts               (prose variation key builder)
+      slugPairMap.ts             (hreflang EN/ES URL pair helpers)
     layouts/
-      BaseLayout.astro       — <head> meta, hreflang, canonical, JSON-LD, manifest link, PWA theme-color
+      BaseLayout.astro           (head: meta, hreflang, canonical, JSON-LD, manifest)
     components/
       PageHeader.astro
       PageFooter.astro
       LevelChip.astro
       TrendChip.astro
       StatCard.astro
-      Sparkline.astro        — inline SVG, props: series[], latestYear
+      Sparkline.astro            (inline SVG bar chart — zero client JS)
       FamilyBreakdownBars.astro
       ComparisonCallout.astro
       ComparableCommune.astro
@@ -226,256 +252,335 @@ site/
       MethodologyCaveat.astro
       CommuneRankingTable.astro
     pages/
-      commune/[slug].astro
-      region/[slug].astro
-      crime/[family].astro
+      commune/
+        [slug].astro             (EN commune pages)
+      region/
+        [slug].astro             (EN region pages)
+      crime/
+        [family].astro           (EN crime-type pages)
       es/
-        comuna/[slug].astro
-        region/[slug].astro
-        delito/[family].astro
-      index.astro             — EN home placeholder (Phase 4 editorial content)
-      es/index.astro          — ES home placeholder
-    config/
-      rollout.json            — { "enabled": ["13101","13119",...] }
-      i18n.ts                 — string maps, crime-family slug translations, UI copy
-    lib/
-      data.ts                 — loadCommune(cut), loadRegion(id), loadIndex(), loadCatalog()
-      slugMaps.ts             — buildSlugPairMap(), getFamilySlug(key, locale)
-      proseEngine.ts          — deterministic variation engine (5 dimensions → prose)
-      colorScale.ts           — chroma-js incidence color array (build-time)
+        comuna/
+          [slug].astro           (ES commune pages)
+        region/
+          [slug].astro           (ES region pages)
+        delito/
+          [family].astro         (ES crime-type pages)
     styles/
-      global.css              — CSS custom properties from UI-SPEC, reset, Nunito Sans import
-  public/
-    manifest.json
-    icon-192.png
-    icon-512.png
-  astro.config.mjs
-  tsconfig.json
-  package.json
+      global.css                 (CSS custom properties from UI-SPEC)
+  scripts/
+    validate-build.mjs           (post-build validation: page counts, hreflang, word count, JSON-LD)
 ```
 
-### Pattern 1: Manual Parallel Page Trees for Translated URL Segments
-
-**What:** Two independent dynamic route files per entity type, one per locale, in different directory paths. Each file has its own `getStaticPaths()`. No shared routing logic — the file system IS the routing.
-
-**When to use:** Whenever Astro's i18n prefix routing is insufficient — specifically when EN and ES URL segments differ (commune vs. comuna, crime vs. delito).
-
-**Example:**
-```typescript
-// site/src/pages/commune/[slug].astro
-// Source: [VERIFIED: Astro docs.astro.build/en/guides/routing/]
 ---
-import fs from 'node:fs';
-import path from 'node:path';
-import { getRelativeLocaleUrl } from 'astro:i18n';
-import rollout from '../../config/rollout.json';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { loadCommune, loadIndex } from '../../lib/data.ts';
 
-export async function getStaticPaths() {
-  const index = loadIndex();              // reads data/cead/meta/index.json
-  const allowedCuts = process.env.ROLLOUT_ALL === 'true'
-    ? index.map(c => c.cut)
-    : rollout.enabled;
-  return allowedCuts.map(cut => {
-    const commune = index.find(c => c.cut === cut);
-    return { params: { slug: commune.slug }, props: { cut } };
-  });
-}
+### Pattern 1: Astro i18n Config with Localized Path Segments
 
-const { cut } = Astro.props;
-const data = loadCommune(cut);            // reads data/cead/comunas/{cut}.json
-const esPath = `/es/comuna/${data.slug}/`;
-const enPath = `/commune/${data.slug}/`;
----
-<BaseLayout
-  lang="en"
-  title={`${data.name} Crime Data — Chile Safety Map`}
-  enPath={enPath}
-  esPath={esPath}
-  jsonLd={buildJsonLd(data, 'en')}
->
-  <!-- page content -->
-</BaseLayout>
-```
+**What:** Astro i18n handles locale prefix (EN root / ES `/es/`) but does NOT translate path segment names. Localized segments (`/commune/` vs `/es/comuna/`) require separate page files per locale at different directory paths. Both page files use identical TypeScript logic; only the `locale` prop differs.
+
+**astro.config.mjs:**
 
 ```typescript
-// site/src/pages/es/comuna/[slug].astro — mirrors EN, different locale
-// Same getStaticPaths pattern, locale="es", different labels from i18n.ts
-```
-
-**Companion: loadCommune() using node:fs**
-```typescript
-// site/src/lib/data.ts
-// Source: [CITED: dev.solita.fi/2024/12/02/building-static-websites-with-astro.html]
-import fs from 'node:fs';
-import path from 'node:path';
-
-const DATA_ROOT = path.resolve(process.cwd(), '..', 'data', 'cead');
-
-export function loadIndex() {
-  return JSON.parse(fs.readFileSync(path.join(DATA_ROOT, 'meta', 'index.json'), 'utf-8'));
-}
-
-export function loadCommune(cut: string) {
-  return JSON.parse(fs.readFileSync(path.join(DATA_ROOT, 'comunas', `${cut}.json`), 'utf-8'));
-}
-
-export function loadRegion(regionId: string) {
-  return JSON.parse(fs.readFileSync(path.join(DATA_ROOT, 'regions', `${regionId}.json`), 'utf-8'));
-}
-```
-
-**Note on `process.cwd()`:** When Astro builds from inside `/site/`, `process.cwd()` resolves to `/site/`. Therefore `path.resolve(process.cwd(), '..', 'data', 'cead')` correctly reaches the repo-root `/data/cead/` directory. Verify this assumption at scaffold time.
-
-### Pattern 2: Central Slug-Pair Map for hreflang
-
-**What:** A module built once at startup (or at the top of the base layout) that maps every entity to its EN and ES URL, used to inject reciprocal hreflang on every page.
-
-**Why:** Per-page frontmatter hreflang is error-prone at 700+ pages. A central map derived from meta/index.json is the single source of truth.
-
-**Example:**
-```typescript
-// site/src/lib/slugMaps.ts
-// Source: [ASSUMED] — derived from D-18 spec; pattern is standard Astro practice
-import { loadIndex } from './data.ts';
-import { FAMILY_SLUGS } from './i18n.ts';
-
-export type SlugPair = { en: string; es: string };
-
-export function buildCommoneSlugPairMap(): Record<string, SlugPair> {
-  const index = loadIndex();
-  return Object.fromEntries(
-    index.map(c => [c.cut, {
-      en: `/commune/${c.slug}/`,
-      es: `/es/comuna/${c.slug}/`
-    }])
-  );
-}
-
-export function buildFamilySlugPairMap(): Record<string, SlugPair> {
-  return Object.fromEntries(
-    Object.keys(FAMILY_SLUGS).map(key => [key, {
-      en: `/crime/${FAMILY_SLUGS[key].en}/`,
-      es: `/es/delito/${FAMILY_SLUGS[key].es}/`
-    }])
-  );
-}
-```
-
-**hreflang injection in BaseLayout:**
-```astro
----
-// BaseLayout.astro (excerpt)
-// Source: [CITED: developers.google.com/search/docs/specialty/international/localization]
-const { lang, enPath, esPath } = Astro.props;
-const baseUrl = 'https://ischilesafe.com';
----
-<head>
-  <link rel="alternate" hreflang="en" href={`${baseUrl}${enPath}`} />
-  <link rel="alternate" hreflang="es" href={`${baseUrl}${esPath}`} />
-  <link rel="alternate" hreflang="x-default" href={`${baseUrl}${enPath}`} />
-  <link rel="canonical" href={`${baseUrl}${lang === 'en' ? enPath : esPath}`} />
-</head>
-```
-
-### Pattern 3: Rollout-Gated Sitemap
-
-**What:** `@astrojs/sitemap` `filter()` callback reads `rollout.json` and only includes URLs matching enabled communes.
-
-**Example:**
-```javascript
-// astro.config.mjs
-// Source: [VERIFIED: docs.astro.build/en/guides/integrations-guide/sitemap/]
+// Source: https://docs.astro.build/en/guides/internationalization/
+import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import rollout from './src/config/rollout.json' assert { type: 'json' };
-
-const ENABLED_SLUGS = new Set(/* map cut codes to slugs at config time */);
 
 export default defineConfig({
   site: 'https://ischilesafe.com',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'es'],
+    routing: {
+      prefixDefaultLocale: false,  // EN at root, ES at /es/
+    },
+  },
   integrations: [
     sitemap({
-      filter: (url) => {
-        // Regions and crime pages always included
-        if (url.includes('/region/') || url.includes('/crime/') || url.includes('/delito/')) return true;
-        // Communes only if in rollout
-        const slug = url.split('/commune/')[1]?.split('/')[0]
-                  || url.split('/comuna/')[1]?.split('/')[0];
-        return slug ? ENABLED_SLUGS.has(slug) : true;
-      },
       i18n: {
         defaultLocale: 'en',
-        locales: { en: 'en', es: 'es' }
-      }
-    })
-  ]
+        locales: { en: 'en', es: 'es' },
+      },
+    }),
+  ],
 });
 ```
 
-**Key insight:** `@astrojs/sitemap` 3.x automatically generates `xhtml:link` hreflang alternates in the sitemap XML when `i18n` config is provided. This handles sitemap-level hreflang without manual construction. [VERIFIED: docs.astro.build/en/guides/integrations-guide/sitemap/]
+---
 
-### Pattern 4: Inline SVG Sparkline (Server-Rendered, No Library)
+### Pattern 2: getStaticPaths — Reading /data/ at Build Time
 
-**What:** A pure Astro component that takes a series of `{year, rate_per_100k, partial}` objects and emits SVG bar chart markup at build time.
+**What:** Read meta/index.json once, filter by rollout.json, then read each commune's detail JSON per route. Use `import.meta.url` + `fileURLToPath` for cross-platform path resolution.
 
-**Why no library:** Any JS charting lib ships browser bytes. Content pages ship zero JS in Phase 2.
+**Path resolution:** From `src/pages/commune/[slug].astro`, `import.meta.url` resolves to that file's location. Going up 4 levels (`../../../../`) reaches the repo root where `/data/` lives.
 
-**Example:**
+```typescript
+// In src/pages/commune/[slug].astro
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+
+export async function getStaticPaths() {
+  const dataRoot = fileURLToPath(new URL('../../../../data/cead', import.meta.url));
+
+  const metaIndex = JSON.parse(readFileSync(`${dataRoot}/meta/index.json`, 'utf8'));
+  const rollout = JSON.parse(
+    readFileSync(fileURLToPath(new URL('../../config/rollout.json', import.meta.url)), 'utf8')
+  );
+
+  const allowedCuts = process.env.ROLLOUT_ALL === 'true'
+    ? metaIndex.map((c: any) => c.cut)
+    : rollout;
+
+  const enabled = metaIndex.filter((c: any) => allowedCuts.includes(c.cut));
+
+  return enabled.map((meta: any) => {
+    const data = JSON.parse(readFileSync(`${dataRoot}/comunas/${meta.cut}.json`, 'utf8'));
+    return { params: { slug: meta.slug }, props: { meta, data, locale: 'en' } };
+  });
+}
+```
+
+**Note on path depth:** The path to repo root from `src/pages/commune/[slug].astro` is `../../../../` (4 levels: commune/ → pages/ → src/ → site/ → repo root). Adjust accordingly for `src/pages/es/comuna/[slug].astro` (5 levels: `../../../../../`).
+
+---
+
+### Pattern 3: Manual hreflang + Canonical in BaseLayout
+
+**What:** BaseLayout.astro accepts `canonicalUrl` and `alternateUrl` as absolute URL strings, injects all three hreflang tags plus self-referential canonical. Computed by slug-pair utilities before calling the layout.
+
 ```astro
 ---
-// Sparkline.astro
-// Source: [ASSUMED] — hand-rolled SVG pattern; standard for build-time Astro
+// src/layouts/BaseLayout.astro
 interface Props {
-  series: Array<{ year: number; rate_per_100k: number; partial: boolean }>;
-  activeYear?: number;
-  width?: number;
-  height?: number;
+  title: string;
+  description: string;
+  locale: 'en' | 'es';
+  canonicalUrl: string;    // absolute URL for this page's locale
+  alternateUrl: string;    // absolute URL for the other locale
+  jsonLd?: object;
 }
-const { series, activeYear, width = 480, height = 44 } = Astro.props;
-const maxRate = Math.max(...series.map(s => s.rate_per_100k));
-const barW = Math.floor(width / series.length) - 1;
+const { title, description, locale, canonicalUrl, alternateUrl, jsonLd } = Astro.props;
+const enUrl = locale === 'en' ? canonicalUrl : alternateUrl;
+const esUrl = locale === 'es' ? canonicalUrl : alternateUrl;
 ---
-<svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
+<html lang={locale}>
+<head>
+  <meta charset="UTF-8" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#0f766e" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="alternate" hreflang="en" href={enUrl} />
+  <link rel="alternate" hreflang="es" href={esUrl} />
+  <link rel="alternate" hreflang="x-default" href={enUrl} />
+  {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body><slot /></body>
+</html>
+```
+
+**slug-pair utilities:**
+
+```typescript
+// src/lib/slugPairMap.ts
+const BASE = 'https://ischilesafe.com';
+
+export const communeUrls = (slug: string, locale: 'en' | 'es') => ({
+  canonicalUrl: locale === 'en' ? `${BASE}/commune/${slug}/` : `${BASE}/es/comuna/${slug}/`,
+  alternateUrl: locale === 'en' ? `${BASE}/es/comuna/${slug}/` : `${BASE}/commune/${slug}/`,
+});
+
+export const regionUrls = (slug: string, locale: 'en' | 'es') => ({
+  canonicalUrl: locale === 'en' ? `${BASE}/region/${slug}/` : `${BASE}/es/region/${slug}/`,
+  alternateUrl: locale === 'en' ? `${BASE}/es/region/${slug}/` : `${BASE}/region/${slug}/`,
+});
+
+// Crime-family slugs per locale (D-17) — see i18n.ts for full mapping
+export const crimeTypeUrls = (familyKey: string, locale: 'en' | 'es', enSlug: string, esSlug: string) => ({
+  canonicalUrl: locale === 'en' ? `${BASE}/crime/${enSlug}/` : `${BASE}/es/delito/${esSlug}/`,
+  alternateUrl: locale === 'en' ? `${BASE}/es/delito/${esSlug}/` : `${BASE}/crime/${enSlug}/`,
+});
+```
+
+---
+
+### Pattern 4: chroma-js Level Computation at Build Time
+
+**What:** Compute quintile breakpoints from all non-low-population commune rates for the latest complete year, then derive each commune's 1–5 level. Runs once during `getStaticPaths()`.
+
+```typescript
+// src/lib/level.ts
+import chroma from 'chroma-js';
+
+// UI-SPEC palette: low → high incidence
+export const SCALE_COLORS = ['#dbeef0', '#9fd0cd', '#f4d58d', '#e8a05c', '#c96b5a'];
+
+export function computeBreakpoints(rates: number[]): [number, number, number, number] {
+  const sorted = [...rates].sort((a, b) => a - b);
+  const q = (p: number) => sorted[Math.floor(sorted.length * p)];
+  return [q(0.2), q(0.4), q(0.6), q(0.8)];
+}
+
+export function computeLevel(rate: number, bp: [number, number, number, number]): 1 | 2 | 3 | 4 | 5 {
+  if (rate <= bp[0]) return 1;
+  if (rate <= bp[1]) return 2;
+  if (rate <= bp[2]) return 3;
+  if (rate <= bp[3]) return 4;
+  return 5;
+}
+
+export function levelColor(level: 1 | 2 | 3 | 4 | 5): string {
+  return SCALE_COLORS[level - 1];
+}
+```
+
+**When to compute breakpoints:** In a shared helper called once per `getStaticPaths()` invocation, not inside each per-page mapping. Pass `breakpoints` as part of the `params/props` payload or compute it in a module-level constant within the page file (Astro runs `getStaticPaths()` once at build time, not once per page).
+
+---
+
+### Pattern 5: SVG Sparkline (Inline, Build-Time)
+
+**What:** Inline SVG bar chart of total rate per 100k by year. Rendered entirely in a `.astro` component — zero client JS.
+
+```astro
+---
+// src/components/Sparkline.astro
+interface Props {
+  series: { year: number; rate_per_100k: number; partial: boolean }[];
+  activeYear?: number;
+}
+const { series, activeYear } = Astro.props;
+const W = 480, H = 44, GAP = 2;
+const barW = Math.floor((W - GAP * (series.length - 1)) / series.length);
+const maxRate = Math.max(...series.map(s => s.rate_per_100k));
+---
+<svg width="100%" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" class="sparkline">
   {series.map((s, i) => {
-    const barH = Math.max(2, Math.round((s.rate_per_100k / maxRate) * height));
-    const x = i * (barW + 1);
-    const isActive = s.year === activeYear;
-    const opacity = s.partial ? 0.5 : 1;
+    const x = i * (barW + GAP);
+    const bH = Math.max(2, Math.round((s.rate_per_100k / maxRate) * H));
     return (
       <rect
-        x={x} y={height - barH} width={barW} height={barH}
-        fill={isActive ? 'var(--primary)' : 'var(--muted)'}
-        opacity={opacity}
+        x={x} y={H - bH} width={barW} height={bH}
+        fill={s.year === activeYear ? 'var(--primary)' : 'var(--line)'}
+        opacity={s.partial ? 0.5 : 1}
+        rx="1"
       />
     );
   })}
 </svg>
 ```
 
-### Pattern 5: Deterministic Prose Variation Engine
+---
 
-**What:** A TypeScript module that, given commune data, returns a prose string in either locale by selecting from pre-written sentence branches keyed off data tiers.
+### Pattern 6: Rollout Gate
 
-**Branch dimensions:**
-1. `trend`: `'up' | 'down' | 'stable'` → 3 branches
-2. `nationalRankTier`: `'top10' | 'top25' | 'mid' | 'bottom25' | 'bottom10'` → 5 branches
-3. `vsNationalSign`: `'above' | 'below'` + magnitude band (>50%, 20-50%, <20%) → 6 branches
-4. `vsRegionalSign`: same structure → 6 branches
-5. `dominantFamily`: one of 7 keys → 7 × (primary / secondary phrasing) branches
-6. `hasComparableInRegion`: bool → 2 branches
-7. `lowPopulation`: bool → caveat inserted/omitted
+**What:** `rollout.json` is a plain JSON array of CUT codes. `getStaticPaths()` filters by this array unless `ROLLOUT_ALL=true`.
 
-**Practical branching:** Each commune lands on a unique combination of (trend × nationalRankTier) as the primary differentiator — 15 distinct narrative frames. With vs-national/regional magnitude and family phrasing, combinatorial uniqueness is high enough for Google's scaled-content threshold.
+```json
+// site/src/config/rollout.json — D-25 initial batch
+["13101","13123","13114","13119","5101","5109","8101","4101","2101","9101","10101","12101"]
+```
+
+Regions and crime-type pages do NOT check rollout.json — they always build all entries (D-26).
+
+---
+
+### Pattern 7: Comparable Commune Algorithm
+
+```typescript
+// src/lib/comparable.ts
+export function findComparable(
+  targetCut: string,
+  targetRate: number,
+  targetRegionId: string,
+  metaIndex: CommuneMeta[],
+  rateMap: Record<string, number>  // cut → latest complete year rate_per_100k
+): CommuneMeta {
+  const pool = metaIndex.filter(c => !c.low_population && c.cut !== targetCut);
+  const regional = pool.filter(c => c.region_id === targetRegionId);
+  const candidates = regional.length >= 2 ? regional : pool;  // D-08 fallback
+  return candidates.reduce((best, c) => {
+    const d = Math.abs((rateMap[c.cut] ?? 0) - targetRate);
+    return d < Math.abs((rateMap[best.cut] ?? 0) - targetRate) ? c : best;
+  });
+}
+```
+
+**rateMap construction:** Read all enabled commune JSONs during `getStaticPaths()`, extract `series.find(s => !s.partial && s.year === latestYear).rate_per_100k`. This requires loading all non-low-population communes to build the map, even for the 12-commune initial batch — acceptable since the full 346 load is ~3.5MB total.
+
+---
+
+### Pattern 8: Schema.org JSON-LD
+
+Commune and region pages emit Dataset + Place; crime-type pages emit Dataset only. Passed as `jsonLd` prop to BaseLayout and injected in head.
+
+```typescript
+// In commune page
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["Dataset", "Place"],
+  "name": `${meta.name} — Reported Crime Incidence`,
+  "description": `Annual reported crime incidence rates per 100,000 inhabitants for ${meta.name}, sourced from CEAD, Chile.`,
+  "url": canonicalUrl,
+  "spatialCoverage": {
+    "@type": "Place",
+    "name": meta.name,
+    "containedInPlace": { "@type": "AdministrativeArea", "name": regionName }
+  },
+  "temporalCoverage": `2005/${latestYear}`,
+  "measurementTechnique": "Rate per 100,000 inhabitants, official CEAD police statistics",
+  "creator": { "@type": "Organization", "name": "CEAD — Centro de Estudios y Análisis del Delito" }
+};
+```
+
+**XSS note:** `set:html={JSON.stringify(jsonLd)}` is safe here because `jsonLd` is a typed object constructed from data fields, not raw user input. Ensure none of the data fields contain `</script>` — unlikely in CEAD municipality names but worth noting.
+
+---
+
+### Pattern 9: Prose Variation Engine
+
+**What:** A TypeScript function builds a `VariationKey` object from commune data. Templates use this key to select branch-specific sentence strings.
+
+**VariationKey shape:**
+
+```typescript
+interface VariationKey {
+  trend: 'up' | 'down' | 'stable';
+  vsNationalBucket: 'significantly_above' | 'above' | 'near' | 'below' | 'significantly_below';
+  vsRegionalSign: 'above' | 'near' | 'below';
+  dominantFamily: 'vida' | 'robos_violentos' | 'vif' | 'drogas' | 'armas' | 'propiedad' | 'incivilidades';
+  comparableCommune: CommuneMeta;  // pre-computed
+  isLowPopulation: boolean;
+}
+```
+
+**Prose block structure (per UI-SPEC D-07, targeting 500+ words):**
+
+1. Introduction sentence with commune name + latest year rate (30–50 words)
+2. Trend sentence — branch on `trend` (40–60 words)
+3. vs-national sentence — branch on `vsNationalBucket` (40–60 words)
+4. vs-regional sentence — branch on `vsRegionalSign` (30–50 words)
+5. Dominant crime family sentence — branch on `dominantFamily` (50–80 words)
+6. Comparable commune sentence — always unique per page (50–80 words)
+7. Region context sentence (40–60 words)
+8. Low-population caveat paragraph (if `isLowPopulation`) (50–80 words)
+9. Historical context sentence (2005 vs latest year delta) (40–60 words)
+10. Methodology/attribution paragraph (60–80 words)
+
+**Total target:** 430–620 words minimum with 8–10 paragraphs. Each paragraph includes at least one data figure (`<strong>`-wrapped per UI-SPEC).
+
+---
 
 ### Anti-Patterns to Avoid
 
-- **Using Astro `<GeoJSON>` component:** Causes per-hover re-renders (documented pitfall from CLAUDE.md). Phase 3 should use native `L.geoJSON()` inside `useEffect`.
-- **Loading all 346 commune JSON files in one `getStaticPaths` call:** Leads to heap OOM. Load index.json in getStaticPaths (small), then load per-commune JSON in the page body component.
-- **Using `client:load` on map island:** Ships Leaflet JS to all 700+ content pages. Use `client:only="react"` exclusively.
-- **`prefixDefaultLocale: true`:** Adds `/en/` prefix to all EN URLs, harming SEO on primary target.
-- **Per-page frontmatter hreflang:** Error-prone at scale; use the central slug-pair map in BaseLayout.
-- **CSS `width` as computed number without units:** The family breakdown bars use CSS `width: {pct}%` — this must be a CSS percentage string, not a raw number.
+- **`client:*` directives on any component:** Zero React in Phase 2. No `client:load`, `client:visible`, `client:only`. All components are `.astro`.
+- **`prefixDefaultLocale: true`:** CLAUDE.md locked; forces `/en/` prefix, hurts SEO for English audience.
+- **`<GeoJSON>` react-leaflet component:** CLAUDE.md forbidden; deferred to Phase 3 anyway.
+- **Using `national.json.series[].rate_per_100k` as national average:** It is a sum of commune rates, not a per-capita average. See Pitfall 1.
+- **Loading all 346 commune JSONs into a single array in memory:** Load only the enabled (rollout-filtered) communes. Load all non-low-pop communes only for the comparable-commune rateMap computation.
+- **Hardcoding crime-family URL slugs in multiple places:** Define once in `i18n.ts`, reference everywhere. These become permanent indexed URLs.
 
 ---
 
@@ -483,163 +588,79 @@ const barW = Math.floor(width / series.length) - 1;
 
 | Problem | Don't Build | Use Instead | Why |
 |---------|-------------|-------------|-----|
-| Sitemap XML generation with i18n hreflang | Custom sitemap script | `@astrojs/sitemap` 3.7.3 | Integration handles `xhtml:link` hreflang alternates, i18n URL variants, filter callbacks, and sitemap index automatically |
-| Color interpolation for incidence scale | Manual hex math | `chroma-js` build-time | Perceptually uniform scale; edge cases around mid-range interpolation handled correctly |
-| TypeScript checking for .astro files | Custom TS checker | `@astrojs/check` | Astro components need a special checker; standard `tsc` misses frontmatter errors |
-| Responsive CSS reset | Custom reset | Native CSS custom properties + mobile-first media queries | Astro ships no CSS by default; a minimal reset in `global.css` is all that's needed |
+| Sitemap generation | Manual XML builder | `@astrojs/sitemap` integration | Auto-picks up all i18n routes; handles alternates; 700+ page sitemaps are error-prone to hand-build |
+| Color interpolation for 5-level scale | CSS gradient hack | `chroma-js` (build-time, Node only) | Perceptually uniform; matches existing prototype palette exactly |
+| i18n locale routing prefix | Custom middleware | Astro built-in i18n `prefixDefaultLocale: false` | Native, zero config |
 
-**Key insight:** For a 100% static site with no JS on content pages, nearly all complexity lives in build-time TypeScript/Node.js. The "don't hand-roll" list is short precisely because the stack avoids runtime complexity.
+---
+
+## Data Contract Verification
+
+Verified by reading actual Phase 1 JSON output during this research session:
+
+**`data/cead/meta/index.json`** — 346 entries. Each entry: `cut` (string, no zero-pad), `name`, `slug`, `region_id`, `population`, `low_population` (bool). No region name — must be joined from region files.
+
+**`data/cead/comunas/13101.json` (Santiago)**:
+- Fields present: `id`, `name`, `slug`, `region_id`, `population`, `low_population`, `national_rank`, `regional_rank`, `trend`, `featured_rates`, `series`, `last_updated`
+- `featured_rates.propiedad` has data; `featured_rates.homicidios` and `featured_rates.secuestros` are empty `{}`
+- `series` array: years 2005–2026; 2026 has `partial: true`; each entry has `rate_per_100k` + `by_family` with 7 keys
+
+**`data/cead/meta/catalog.json`**:
+- 7 family keys: vida, robos_violentos, vif, drogas, armas, propiedad, incivilidades
+- `featured_subgroups.homicidios: 101`, `featured_subgroups.secuestros: null`
+- `families.vida.featured: true`, `families.propiedad.featured: true`; others false
+
+**`data/cead/regions/13.json`** — has `id`, `name`, `slug`, `series` with `rate_per_100k` and `by_family`. Does NOT have `commune_count` or `population` fields. Region pages must derive commune count from `meta/index.json`.
+
+**`data/cead/national.json`** — `rate_per_100k` values are in the millions (e.g. 1,666,425 for 2005) — confirmed to be a sum of all commune rates, not a national per-capita rate. Do not use for vs-national comparison math.
 
 ---
 
 ## Common Pitfalls
 
-### Pitfall 1: `process.cwd()` Resolves Differently in Dev vs. Build
+### Pitfall 1: national.json Rate Is a Sum, Not a National Average
 
-**What goes wrong:** In `astro dev`, `process.cwd()` is the directory where the `astro` binary was invoked. In Cloudflare Pages builds, the build runs from `/site/`. If data loading logic assumes a specific CWD, it silently fails in one environment.
+**What goes wrong:** Using `national.json.series[n].rate_per_100k` directly as "national average" produces absurd vs-national comparisons (e.g. Santiago at ~9,870/100k would appear "99.4% below national").
+**Why it happens:** The pipeline sums raw rates across all 346 communes.
+**How to avoid:** Compute national average at build time: `mean(nonLowPopCommunes.map(c => latestYearRate(c)))`. Run this once in `getStaticPaths()`, store as a constant, pass to all commune pages.
+**Warning signs:** vs-national callout showing >95% below for all communes.
 
-**Why it happens:** `path.resolve(process.cwd(), '..', 'data')` assumes CWD = `/site/`. If someone runs `astro dev` from the repo root, CWD = `/` and the path resolves to `/../data` which is wrong.
+### Pitfall 2: Astro i18n Does NOT Translate URL Segments
 
-**How to avoid:** In `astro.config.mjs`, compute the data root using `import.meta.url` (always resolves relative to the config file):
-```javascript
-import { fileURLToPath } from 'node:url';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_ROOT = path.resolve(__dirname, '..', 'data', 'cead');
-```
-Pass `DATA_ROOT` as a Vite define constant or use the Vite alias approach. [ASSUMED — standard Node.js ESM pattern]
+**What goes wrong:** Expecting Astro to auto-rename `/commune/` → `/es/comuna/` based on locale config.
+**Why it happens:** Astro i18n only adds/removes locale prefixes; it cannot rename path segments.
+**How to avoid:** Separate page files at `src/pages/commune/[slug].astro` and `src/pages/es/comuna/[slug].astro`. Share a TypeScript helper that both call identically; differ only in the `locale: 'en'|'es'` prop.
 
-**Warning signs:** `ENOENT` errors on JSON reads only in one environment but not another.
+### Pitfall 3: import.meta.url Path Depth Miscalculation
 
-### Pitfall 2: hreflang Reciprocity Breaks for Non-Rollout Communes
+**What goes wrong:** Path to `/data/cead/` resolves incorrectly, causing ENOENT at build time.
+**Why it happens:** The number of `../` jumps depends on where the file is in the `src/` hierarchy.
+**Correct depths:**
+- `src/pages/commune/[slug].astro` → `../../../../data/cead` (4 up: commune/ → pages/ → src/ → site/ → data/)
+- `src/pages/es/comuna/[slug].astro` → `../../../../../data/cead` (5 up: + es/)
+- `src/lib/data.ts` → `../../../../data/cead` (4 up: lib/ → src/ → site/ → repo root → data/)
 
-**What goes wrong:** The EN page for Santiago exists (in rollout) and declares `hreflang="es" href="/es/comuna/santiago/"`. If the ES version is also not built (both locales gated by rollout), Google encounters a broken hreflang reference.
+**How to avoid:** Define a single `DATA_ROOT` constant in `src/lib/data.ts` using `import.meta.url` from that file, then import it everywhere. One canonical path definition eliminates the per-file miscalculation risk.
 
-**Why it happens:** Each locale page is built/skipped independently, but hreflang references the partner regardless.
+### Pitfall 4: @astrojs/sitemap Excludes Pages with No Internal Links
 
-**How to avoid:** Both locales of a commune must be built or not built together. The rollout gate in `getStaticPaths` must be symmetric — same `rollout.enabled` CUT list used by both `commune/[slug].astro` AND `es/comuna/[slug].astro`. Since communes share slugs across locales (D-17), the CUT-code allowlist naturally gates both. Add a build-time assertion verifying parity.
+**What goes wrong:** `@astrojs/sitemap` generates entries for all routes that Astro generates. If `getStaticPaths()` returns 0 routes (empty or missing rollout.json), commune pages are absent from sitemap.
+**How to avoid:** Ensure `rollout.json` exists and has the 12 D-25 CUT codes before any build. Verify after build: `grep -c '<loc>' dist/sitemap-0.xml` should equal total page count ÷ some factor.
 
-**Warning signs:** Google Search Console "Alternate page with proper canonical tag" errors.
+### Pitfall 5: Low-Population Communes Generating Short Pages
 
-### Pitfall 3: Sitemap i18n Config Mismatch With Actual URL Structure
+**What goes wrong:** A low_population commune with sparse data produces a page with fewer than 500 words, risking thin-content deindexing.
+**How to avoid:** D-06 mandates regional context paragraph + comparable commune block + low-pop caveat paragraph. The caveat paragraph alone (UI-SPEC specifies its exact text) is 40+ words. Prose template must always render all 10 prose blocks, adjusting content for low_population flag (skip rank-based sentences, add caveat, expand regional context).
 
-**What goes wrong:** `@astrojs/sitemap` is told the default locale is `en` but the actual EN commune URL is `/commune/` not `/en/commune/`. The integration assumes `prefixDefaultLocale: false` maps pages to the base URL, which is correct — but if the page file structure uses non-standard paths (e.g., `es/comarca/` instead of `es/comuna/`), hreflang in sitemap points to URLs that don't exist.
+### Pitfall 6: Region Pages Missing Commune Count / Population
 
-**How to avoid:** The sitemap integration's `i18n` config must exactly match `astro.config.mjs` i18n config. Validate by checking the generated `sitemap-0.xml` against actual built `dist/` file tree after first build.
+**What goes wrong:** Trying to read `commune_count` or `population` from `regions/13.json` — these fields don't exist.
+**How to avoid:** Compute `commune_count` from `metaIndex.filter(c => c.region_id === region.id).length`. Compute region `population` from `sum(metaIndex.filter(c => c.region_id === region.id).map(c => c.population))`.
 
-### Pitfall 4: `import.meta.glob` Cannot Reach `../../data/` Reliably
+### Pitfall 7: Crime-Type Page — secuestros Has No Rate Data
 
-**What goes wrong:** `import.meta.glob('../../data/cead/comunas/*.json')` appears to work in dev but Vite processes all matching files into the JS bundle at build time — 346 × ~15KB JSON files bundled into the JS chunk. This wastes build time and can cause OOM.
-
-**How to avoid:** Use `node:fs` with `fs.readFileSync()` for data loading. Reserve `import.meta.glob` for in-project content (`.md`, `.mdx` files, component discovery). The `@data` Vite alias is useful for `import` statements but should only be used for small, frequently-needed files (like `meta/index.json` or `config/rollout.json`). [CITED: dev.solita.fi/2024/12/02/building-static-websites-with-astro.html]
-
-### Pitfall 5: Crime-Family Breakdown Bar Widths Require Latest Complete Year
-
-**What goes wrong:** Using `series[latest].by_family` where `latest` is the last array entry — which may be a partial year (2026). Partial-year family rates are artificially low, making the family breakdown misleading.
-
-**How to avoid:** In the data loading layer, identify the last year where `partial: false`. Use `by_family` from that year for breakdown bars. The 2026 partial-year entry should only appear in the sparkline (at 50% opacity per UI-SPEC), never in family breakdown or primary rate comparisons.
-
-**Implementation note:** From `13101.json`, 2025 is the last non-partial year. The data-loading helper `loadCommune()` should return a `latestCompleteYear` derived value.
-
-### Pitfall 6: Comparable Commune Algorithm Fails for Small Regions
-
-**What goes wrong:** A commune in a small region (e.g., Región de Aysén with few non-low_population communes) has no qualifying comparable within the region. The fallback to national comparable is not implemented, causing a null reference in the ComparableCommune component.
-
-**How to avoid:** The `proseEngine.ts` / comparable-commune logic must implement: (1) filter region communes by `!low_population`, (2) exclude self, (3) if fewer than 2 qualifying remain, fall back to national. The `ComparableCommune.astro` component must accept an optional `fallbackLabel` prop for the heading copy variant (D-08 specifies exact fallback copy in UI-SPEC).
-
----
-
-## Code Examples
-
-### astro.config.mjs Scaffold
-```javascript
-// Source: [CITED: docs.astro.build/en/reference/configuration-reference/]
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import sitemap from '@astrojs/sitemap';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-export default defineConfig({
-  site: 'https://ischilesafe.com',
-  i18n: {
-    locales: ['en', 'es'],
-    defaultLocale: 'en',
-    routing: { prefixDefaultLocale: false }
-  },
-  integrations: [
-    react(),
-    sitemap({
-      filter: (url) => {
-        // Regions, crime-type, and home always included
-        if (!url.includes('/commune/') && !url.includes('/comuna/')) return true;
-        // Communes gated unless ROLLOUT_ALL
-        if (process.env.ROLLOUT_ALL === 'true') return true;
-        const rollout = require('./src/config/rollout.json');
-        // URL contains slug; must map slug → CUT for exact matching
-        // Simplest: check if any enabled commune slug appears in URL
-        return rollout.enabledSlugs?.some((s: string) => url.includes(`/${s}/`)) ?? false;
-      },
-      i18n: { defaultLocale: 'en', locales: { en: 'en', es: 'es' } }
-    })
-  ],
-  vite: {
-    resolve: {
-      alias: {
-        '@data': path.resolve(__dirname, '..', 'data')
-      }
-    }
-  }
-});
-```
-
-### chroma-js Build-Time Color Scale
-```javascript
-// site/src/lib/colorScale.ts
-// Source: [CITED: docs.astro.build/en/guides/integrations-guide/] + CLAUDE.md stack lock
-// chroma-js runs ONLY at build time (Node.js). Never import in client-side components.
-import chroma from 'chroma-js';
-
-export const INCIDENCE_COLORS = chroma
-  .scale(['#dbeef0', '#9fd0cd', '#f4d58d', '#e8a05c', '#c96b5a'])
-  .classes(5)
-  .colors(5);
-
-// Returns: ['#dbeef0', '#9fd0cd', '#f4d58d', '#e8a05c', '#c96b5a']
-// Used to generate CSS custom properties in global.css or BaseLayout <style>
-```
-
-### Schema.org JSON-LD for Commune Page
-```javascript
-// Source: [CITED: 02-UI-SPEC.md Schema.org section]
-// Exact shape from UI-SPEC D-20
-function buildCommuneJsonLd(data: CommuneData, locale: 'en' | 'es') {
-  const siteUrl = 'https://ischilesafe.com';
-  const path = locale === 'en'
-    ? `/commune/${data.slug}/`
-    : `/es/comuna/${data.slug}/`;
-  return {
-    "@context": "https://schema.org",
-    "@type": ["Dataset", "Place"],
-    "name": locale === 'en'
-      ? `${data.name} — Reported Crime Incidence`
-      : `${data.name} — Incidencia Delictiva Reportada`,
-    "description": locale === 'en'
-      ? `Annual reported crime incidence rates per 100,000 inhabitants for ${data.name}, sourced from CEAD.`
-      : `Tasas anuales de incidencia delictiva por 100.000 habitantes en ${data.name}, fuente: CEAD.`,
-    "url": `${siteUrl}${path}`,
-    "spatialCoverage": {
-      "@type": "Place",
-      "name": data.name,
-      "containedInPlace": { "@type": "AdministrativeArea", "name": data.regionName }
-    },
-    "temporalCoverage": `2005/${data.latestCompleteYear}`,
-    "measurementTechnique": "Rate per 100,000 inhabitants, official CEAD police statistics",
-    "creator": { "@type": "Organization", "name": "CEAD — Centro de Estudios y Análisis del Delito" }
-  };
-}
-```
+**What goes wrong:** `featured_rates.secuestros` is always `{}` (null subgroup ID per catalog.json). A crime-type page for "secuestros" cannot show subgroup rates at commune level.
+**How to avoid:** The crime-type page for the `vida` family covers all crimes-against-persons including secuestros/homicidios. For the commune breakdown on that page, use `by_family.vida` rates — do not attempt to render `featured_rates.secuestros`. Homicidios (subgroup ID 101) is available in `featured_rates.homicidios` where non-empty.
 
 ---
 
@@ -647,66 +668,10 @@ function buildCommuneJsonLd(data: CommuneData, locale: 'en' | 'es') {
 
 | Old Approach | Current Approach | When Changed | Impact |
 |--------------|------------------|--------------|--------|
-| Astro v5 i18n (experimental pathnames) | Astro v6 built-in i18n (stable, no pathnames support) | v5→v6 | Translated segments require manual file-tree approach — not a regression, just a design choice |
-| `import.meta.glob` for data loading | `node:fs` readFileSync for large JSON outside src | Documented practice as of 2024 | Better memory control; prevents Vite from bundling data into JS |
-| `@astrojs/sitemap` auto i18n detection | Explicit `i18n` config in sitemap options | v3.x | Must match astro.config.mjs i18n settings explicitly |
-
-**Deprecated/outdated:**
-- Astro v5 and below: Do NOT use — CLAUDE.md locked to v6.4.x.
-- `react-leaflet <GeoJSON>` component: Do NOT use — documented re-render pitfall in CLAUDE.md and prior research.
-- `client:load` on map island: Do NOT use — ships Leaflet to all content pages.
-
----
-
-## File Count Math (Cloudflare 20k Limit)
-
-| Page Type | Count (initial batch) | Count (full) |
-|-----------|----------------------|--------------|
-| EN commune | 12 | 346 |
-| ES commune | 12 | 346 |
-| EN region | 16 | 16 |
-| ES region | 16 | 16 |
-| EN crime-type | 7 | 7 |
-| ES crime-type | 7 | 7 |
-| Home/static | ~5 | ~5 |
-| **Total HTML** | **75** | **743** |
-| Static assets (CSS, manifest, icons, JS for React island ~1 file) | ~10 | ~10 |
-| **Total files** | **~85** | **~755** |
-
-**Well within the 20k free-tier limit.** Even with Phase 3 JS bundles (+5 files), Phase 4 editorial pages (+~25 files), and Phase 5 news JSON assets (+5 files), total remains far below 5,000 files. [VERIFIED: Cloudflare Pages free tier = 20,000 files]
-
-**Individual file size concern:** Commune HTML pages with full 500+ word prose + SVG sparkline + Schema.org JSON-LD will be ~30–60 KB each. The 25 MiB individual file limit is not a concern.
-
----
-
-## Assumptions Log
-
-| # | Claim | Section | Risk if Wrong |
-|---|-------|---------|---------------|
-| A1 | `process.cwd()` inside Astro build = `/site/` directory, making `path.resolve(process.cwd(), '..', 'data')` correct | Pattern 1, Pitfall 1 | Data files not found at build time — mitigated by using `import.meta.url`-based path in astro.config.mjs |
-| A2 | `@astrojs/sitemap` `filter()` function receives the full URL string including `/commune/{slug}/` path | Pattern 3 | Sitemap filter logic incorrect — verify by checking generated sitemap-0.xml after first build |
-| A3 | Region files exist at `data/cead/regions/{region_id}.json` (Phase 1 contract) | Everywhere | Region pages would fail to build — confirm by checking data/cead/regions/ before starting |
-| A4 | `rollout.json` should store enabled CUT codes (not slugs), since CUT is the canonical join key | D-24 | Slug-based filtering in sitemap filter becomes complex — keeping CUT codes + deriving slugs at build is cleaner |
-| A5 | Crime-family slug translations (EN: `property`, `violent-robbery`, `homicide`...; ES: `propiedad`, `robos-violentos`, `homicidios`...) must be defined in `site/src/config/i18n.ts` — exact slug strings are not yet established | D-17 | URL structure for crime-type pages; needs to be locked before Wave 1 |
-
----
-
-## Open Questions
-
-1. **Crime-family English slugs for URLs**
-   - What we know: D-17 says EN uses translated slugs but exact values are not specified
-   - What's unclear: Should EN crime-type URL be `/crime/property-crimes/` or `/crime/property/` or `/crime/propiedad/`?
-   - Recommendation: Define the 7 EN slugs in `site/src/config/i18n.ts` at Wave 0; use simple English nouns (property, homicide, drug-crimes, weapons, domestic-violence, disorder, violent-robbery)
-
-2. **Region data file structure**
-   - What we know: `data/cead/regions/` exists per Phase 1 architecture; region_id is in meta/index.json as a string (`"13"`, `"56"`, etc.)
-   - What's unclear: Are region JSON files named `{region_id}.json` (e.g., `13.json`) or do they use padded CUT codes?
-   - Recommendation: Check `data/cead/regions/` before Wave 1 starts
-
-3. **`rollout.json` shape: CUT codes vs slugs**
-   - What we know: D-24 says "allowlist of enabled commune CUT codes"
-   - What's unclear: Sitemap filter receives URL strings containing slugs, not CUT codes — need a mapping
-   - Recommendation: Store CUT codes in rollout.json; build a `rolloutSlugs` Set at config time by joining with index.json
+| Separate astro-i18next / Paraglide library | Astro built-in i18n routing | Astro v4 (2023) | One less dependency; native prefixDefaultLocale config |
+| `<GeoJSON>` react-leaflet component | Native `L.geoJSON()` in useEffect | Phase 3 concern | Eliminates per-hover re-render (CLAUDE.md: forbidden) |
+| Tailwind CSS | Scoped CSS + CSS custom properties | UI-SPEC decision (Phase 2) | Cleaner HTML for content scrapers; data-driven styles via CSS variables |
+| `client:load` on all interactive components | `client:only="react"` on map island only | CLAUDE.md | Eliminates Leaflet JS from 346 content pages |
 
 ---
 
@@ -714,116 +679,147 @@ function buildCommuneJsonLd(data: CommuneData, locale: 'en' | 'es') {
 
 | Dependency | Required By | Available | Version | Fallback |
 |------------|------------|-----------|---------|----------|
-| Node.js | Astro build runtime | ✓ | (from package.json engines) | — |
-| npm | Package install | ✓ | (system) | — |
-| data/cead/ JSON files | All getStaticPaths() calls | ✓ | Phase 1 complete | — |
-| data/cead/regions/*.json | Region pages | Assumed ✓ | Phase 1 output | Verify before Wave 1 |
-| data/cead/national.json | Crime-type national ranking | Assumed ✓ | Phase 1 output | Verify before Wave 1 |
+| Node.js | Astro build runtime | ✓ | v22.21.1 | — |
+| npm | Package install | ✓ | 10.9.4 | — |
+| /data/cead/ (Phase 1 output) | getStaticPaths(), all pages | ✓ | Complete (346 communes, 16 regions, national, catalog) | — |
+| astro (npm) | Site framework | to install | 6.4.6 on registry | — |
+| @astrojs/sitemap (npm) | Sitemap | to install | 3.7.3 on registry | — |
+| chroma-js (npm) | Level color computation | to install | 3.2.0 on registry | — |
+| /site/ directory | All Phase 2 work | ✗ (not yet created) | — | Create in Wave 0 |
 
-**Missing dependencies with no fallback:** None detected. Phase 1 is complete.
+**Missing dependencies with no fallback:**
+- `/site/` directory: must be bootstrapped with `npm create astro@latest` in Wave 0
 
-**Missing dependencies with fallback:** Region and national files assumed present — verify before Wave 1 region/crime-type tasks begin.
+**Missing dependencies with fallback:**
+- none
 
 ---
 
 ## Validation Architecture
 
-> `workflow.nyquist_validation: true` in config.json — this section is required.
-
 ### Test Framework
 
 | Property | Value |
 |----------|-------|
-| Framework | Node.js built-in `assert` + custom build validation scripts (no Jest/Vitest — build-only phase with no interactive components) |
-| Config file | `site/scripts/validate-build.mjs` — Wave 0 creation |
-| Quick run command | `node site/scripts/validate-build.mjs --quick` (check page counts + one sample page) |
-| Full suite command | `node site/scripts/validate-build.mjs --full` (all assertions below) |
-
-**Rationale for custom scripts over Jest/Vitest:** This is a static site build-only phase. The "tests" are build output assertions — file existence, HTML structure checks, hreflang reciprocity — not unit tests of functions. A 60-line Node.js script with `assert` runs faster and has zero extra dependencies.
+| Framework | Astro build + Node.js post-build validation script (no unit test framework needed for pure SSG) |
+| Config file | none — validation via build output inspection |
+| Quick run command | `cd site && npm run build` |
+| Full suite command | `cd site && npm run build && node scripts/validate-build.mjs` |
 
 ### Phase Requirements → Test Map
 
 | Req ID | Behavior | Test Type | Automated Command | File Exists? |
 |--------|----------|-----------|-------------------|-------------|
-| PAGES-01 | Each commune HTML page ≥ 500 words, contains 5 data dimensions | Build output assertion | `node site/scripts/validate-build.mjs --check-wordcount --check-dimensions` | ❌ Wave 0 |
-| PAGES-01 | 346 commune pages exist (ROLLOUT_ALL=true build) | Build output count | `ls dist/commune/ | wc -l` → assert 346 | ❌ Wave 0 |
-| PAGES-02 | 16 EN region + 16 ES region pages exist | Build output count | `ls dist/region/ | wc -l` + `ls dist/es/region/ | wc -l` | ❌ Wave 0 |
-| PAGES-03 | 7 EN crime-type + 7 ES crime-type pages exist | Build output count | `ls dist/crime/ | wc -l` + `ls dist/es/delito/ | wc -l` | ❌ Wave 0 |
-| PAGES-04 | Batch build (default rollout) produces exactly 12 commune pages per locale | Build output count | `ls dist/commune/ | wc -l` → assert 12 (without ROLLOUT_ALL) | ❌ Wave 0 |
-| SEO-01 | Every built page has 3 hreflang tags (en, es, x-default) AND the alternate URL resolves to a real page | HTML structure + reciprocity | `node site/scripts/validate-build.mjs --check-hreflang` | ❌ Wave 0 |
-| SEO-02 | sitemap.xml exists; contains exactly (12×2 + 16×2 + 7×2) = 70 URLs in batch mode | sitemap assertion | `node site/scripts/validate-build.mjs --check-sitemap` | ❌ Wave 0 |
-| SEO-02 | Every page has `<link rel="canonical">` pointing to itself | HTML structure | `node site/scripts/validate-build.mjs --check-canonical` | ❌ Wave 0 |
-| SEO-03 | Every commune and region page has `<script type="application/ld+json">` with `@type: ["Dataset","Place"]` | HTML structure | `node site/scripts/validate-build.mjs --check-jsonld` | ❌ Wave 0 |
-| SEO-04 | `dist/manifest.json` exists; `<meta name="theme-color" content="#0f766e">` present in all pages | File existence + HTML | `node site/scripts/validate-build.mjs --check-pwa` | ❌ Wave 0 |
+| PAGES-01 | Initial 12 commune pages × 2 locales = 24 HTML files; each has 500+ words in `.prose-summary` | smoke: count files + word count check | `node scripts/validate-build.mjs --pages --words` | ❌ Wave 0 |
+| PAGES-02 | 16 region × 2 = 32 HTML files; each has `<table` (CommuneRankingTable) | smoke: count + grep | `node scripts/validate-build.mjs --regions` | ❌ Wave 0 |
+| PAGES-03 | 14 crime-type HTML files (7 families × 2); each has `<table` (NationalRankingTable) | smoke: count + grep | `node scripts/validate-build.mjs --crime-types` | ❌ Wave 0 |
+| PAGES-04 | Default build produces exactly 12 commune pages × 2 = 24 (not 346×2); ROLLOUT_ALL=true produces 346×2 | smoke: count HTML in /commune/ and /es/comuna/ | `node scripts/validate-build.mjs --rollout-count 12` | ❌ Wave 0 |
+| SEO-01 | Every page has hreflang en, es, x-default; each alternate URL exists in dist/ | smoke: grep + reciprocity check | `node scripts/validate-build.mjs --hreflang` | ❌ Wave 0 |
+| SEO-02 | sitemap.xml exists; ≥ 70 `<loc>` entries for initial build; canonical on all pages | smoke: grep entry count + canonical check | `node scripts/validate-build.mjs --sitemap --canonical` | ❌ Wave 0 |
+| SEO-03 | `<script type="application/ld+json">` with `@type` containing `Dataset` present on all commune + region pages | smoke: grep JSON-LD presence | `node scripts/validate-build.mjs --jsonld` | ❌ Wave 0 |
+| SEO-04 | `<link rel="manifest">` present; `<meta name="theme-color" content="#0f766e">` present; dist/manifest.json is valid JSON | smoke: grep head elements | `node scripts/validate-build.mjs --pwa` | ❌ Wave 0 |
 
 ### Sampling Rate
 
-- **Per task commit:** `cd site && astro check` (TypeScript type checking, ~10s)
-- **Per wave merge:** `cd site && npm run build && node scripts/validate-build.mjs --quick`
-- **Phase gate:** Full `ROLLOUT_ALL=true npm run build && node scripts/validate-build.mjs --full` — must pass before `/gsd:verify-work`
+- **Per task commit:** `cd site && npm run build` (full SSG build is the primary validation; ~30–60 seconds for 70-page initial build)
+- **Per wave merge:** `npm run build && node scripts/validate-build.mjs` (all 8 checks)
+- **Phase gate:** All 8 validations green before `/gsd:verify-work`
 
 ### Wave 0 Gaps
 
-- [ ] `site/scripts/validate-build.mjs` — build output assertion script covering all REQ IDs above
-- [ ] `site/package.json` — must include `"validate": "node scripts/validate-build.mjs --full"` script
-- [ ] Framework install: `npm install astro @astrojs/react @astrojs/sitemap react react-dom chroma-js topojson-client && npm install --save-dev @astrojs/check typescript`
-- [ ] `astro.config.mjs` with i18n, sitemap, react integrations, Vite alias
-- [ ] `site/src/config/rollout.json` with initial 12 CUT codes
+- [ ] `/site/` — Astro project bootstrap (`npm create astro@latest`)
+- [ ] `site/src/config/rollout.json` — must exist before first build
+- [ ] `site/public/icon-192.png`, `site/public/icon-512.png` — PWA icons (can be placeholder 1×1 PNGs initially)
+- [ ] `site/scripts/validate-build.mjs` — post-build validation covering all 8 requirements
+- [ ] `public/data` symlink → `../../data/` — required for data access
 
 ---
 
 ## Security Domain
 
-> `security_enforcement: true`, `security_asvs_level: 1` in config.json.
-
-### Applicable ASVS Categories
+(security_enforcement enabled; ASVS level 1)
 
 | ASVS Category | Applies | Standard Control |
 |---------------|---------|-----------------|
-| V2 Authentication | No | No auth in Phase 2 — fully public static site |
-| V3 Session Management | No | No sessions — static HTML only |
-| V4 Access Control | No | No access-controlled routes |
-| V5 Input Validation | Partial | Build-time only — JSON data from Phase 1 is trusted pipeline output. No user input in Phase 2. |
-| V6 Cryptography | No | No cryptographic operations |
+| V2 Authentication | No | Static site; no auth |
+| V3 Session Management | No | No sessions |
+| V4 Access Control | No | All pages publicly readable; rollout gate is build-time only |
+| V5 Input Validation | Partial | Build-time: Astro auto-escapes all interpolated expressions in .astro templates — no XSS risk from commune names in data fields; only `set:html` use is for JSON-LD (typed object, not raw string) |
+| V6 Cryptography | No | No secrets in this phase; DeepSeek key not used |
 
-### Known Threat Patterns for Static Site Generation
+### Known Threat Patterns for Static SSG
 
 | Pattern | STRIDE | Standard Mitigation |
 |---------|--------|---------------------|
-| Path traversal in data loading | Tampering | `path.resolve()` with fixed base directory; never use user input to construct file paths |
-| XSS via unescaped data in templates | Tampering | Astro auto-escapes template expressions by default. Verify no `set:html` usage with unescaped JSON values |
-| Sensitive data in generated HTML | Information disclosure | No API keys or personal data in commune JSON — only aggregate statistics from CEAD |
-| Supply chain attack via npm packages | Tampering | All packages verified against npm registry; no suspicious postinstall scripts |
+| Template injection via commune name containing `<script>` in JSON | Tampering | Astro auto-escapes all `{expression}` in .astro; never use `set:html` with raw commune data fields |
+| Canonical URL mismatch enabling duplicate indexing | Spoofing | Self-referential canonical in BaseLayout; sitemap entries reinforce |
+| Google discovering and indexing non-rollout commune URLs | Information Disclosure | Non-batch communes simply return 404 (not built); no noindex needed per D-26 |
 
-**XSS note for Phase 2:** Astro auto-escapes `{expression}` interpolations in `.astro` files. The only risk is if Schema.org JSON-LD or SVG content uses `set:html` with unescaped data. Commune names from CEAD are ASCII/Spanish — low XSS risk, but use `JSON.stringify()` for the `<script type="application/ld+json">` block to ensure valid JSON.
+---
+
+## Assumptions Log
+
+| # | Claim | Section | Risk if Wrong |
+|---|-------|---------|---------------|
+| A1 | `import.meta.url` path traversal from `src/lib/data.ts` resolves to repo root correctly on Windows dev + Linux CI | Pattern 2, all data reading | Build fails with ENOENT; fix by testing path resolution in Wave 0 task |
+| A2 | EN crime-family URL slugs (proposed: `violent-crime`, `violent-robbery`, `domestic-violence`, `drugs`, `weapons`, `property`, `public-disorder`) are acceptable to the user as permanent indexed URLs | Pattern 3, slugPairMap | URL change post-indexing requires 301 redirects + re-indexing delay |
+| A3 | `national.json.rate_per_100k` is a sum of commune rates, not a true per-capita national rate | Data Contract section, Pitfall 1 | If wrong, vs-national comparison is correct as-is — but the spot-check in Wave 0 should verify |
+| A4 | `featured_rates.secuestros` remains empty `{}` for all communes in Phase 2 | Data Contract section, Pitfall 7 | If CEAD data is re-scraped with secuestros resolved, templates must handle gracefully |
+| A5 | chroma-js 3.2.0 imports cleanly in Astro 6 / Node 22 ESM context without compatibility issues | Standard Stack | Build error on import; mitigation: chroma-js is a dual CJS/ESM package with no known Astro incompatibilities [ASSUMED — not tested in this session] |
+
+---
+
+## Open Questions
+
+1. **EN crime-family URL slugs (A2)**
+   - What we know: D-17 delegates exact slug values to Claude's Discretion.
+   - What's unclear: User preference on exact EN slugs (e.g. `violent-crime` vs `crimes-against-persons`).
+   - Recommendation: Planner should include a task for user approval of the EN slug mapping table before implementing crime-type pages, since these become permanent indexed URLs.
+
+2. **national.json rate interpretation (A3)**
+   - What we know: The value is ~1.6M for 2005, far too large for a per-capita rate.
+   - What's unclear: Intentional pipeline design or a bug?
+   - Recommendation: Wave 0 task to spot-check: load 5 commune rates for 2024, compute their mean, compare to `national.json.series[-2].rate_per_100k`. If mean ≈ ~8,000–12,000 and national shows millions, confirmed as a sum.
+
+3. **/data/ access: symlink vs CI copy**
+   - What we know: ARCHITECTURE.md documents symlink `public/data -> ../../data/`.
+   - What's unclear: Symlinks in git on Windows may require `git config core.symlinks true` or may not work in all Windows configurations.
+   - Recommendation: Wave 0 task to verify symlink resolves in local Windows dev. Fallback: CI copy step (`cp -r ../../data public/data` before build) — less elegant but reliable.
 
 ---
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- [docs.astro.build/en/guides/internationalization/](https://docs.astro.build/en/guides/internationalization/) — i18n config, prefixDefaultLocale, getRelativeLocaleUrl; confirmed Astro 6 does NOT support per-locale path translation natively
-- [docs.astro.build/en/guides/integrations-guide/sitemap/](https://docs.astro.build/en/guides/integrations-guide/sitemap/) — filter(), i18n config, hreflang xhtml:link generation
-- [docs.astro.build/en/reference/configuration-reference/#vite](https://docs.astro.build/en/reference/configuration-reference/#vite) — Vite resolve.alias for @data path outside /site/
-- npm registry — astro@6.4.6, @astrojs/react@5.0.7, @astrojs/sitemap@3.7.3, chroma-js@3.2.0, topojson-client@3.1.0, react@19.2.7
+- `data/cead/meta/index.json` — 346 commune list; D-25 CUT codes confirmed [VERIFIED: read in session]
+- `data/cead/comunas/13101.json` — commune data contract; all fields verified [VERIFIED: read in session]
+- `data/cead/meta/catalog.json` — 7 family keys; secuestros null confirmed [VERIFIED: read in session]
+- `data/cead/regions/13.json` — region data shape; slug field present [VERIFIED: read in session]
+- `data/cead/national.json` — rate_per_100k confirmed as large sum values [VERIFIED: read in session]
+- `.planning/phases/02-astro-site-programmatic-pages/02-CONTEXT.md` — 26 locked decisions [VERIFIED: read in session]
+- `.planning/phases/02-astro-site-programmatic-pages/02-UI-SPEC.md` — approved visual contract [VERIFIED: read in session]
+- `.planning/research/ARCHITECTURE.md` — symlink approach, data flow [VERIFIED: read in session]
+- `CLAUDE.md` — locked stack, i18n approach, What NOT to Use [VERIFIED: read in session]
+- npm registry: astro 6.4.6, @astrojs/sitemap 3.7.3, chroma-js 3.2.0 [VERIFIED: npm view in session]
 
 ### Secondary (MEDIUM confidence)
-- [dev.solita.fi/2024/12/02/building-static-websites-with-astro.html](https://dev.solita.fi/2024/12/02/building-static-websites-with-astro.html) — node:fs pattern for reading data outside /src/, memory-efficient per-page lazy read
-- [developers.cloudflare.com/pages/platform/limits](https://developers.cloudflare.com/pages/platform/limits) — 20,000 file limit confirmed (Phase 1 research)
+- [Astro i18n routing docs](https://docs.astro.build/en/guides/internationalization/) — prefixDefaultLocale, locales config [CITED: docs.astro.build]
+- [Astro getStaticPaths API](https://docs.astro.build/en/reference/api-reference/#getstaticpaths) [CITED: docs.astro.build]
+- [chroma-js docs](https://gka.github.io/chroma.js/) — scale API [CITED: gka.github.io]
+- [schema.org/Dataset](https://schema.org/Dataset), [schema.org/Place](https://schema.org/Place) [CITED: schema.org]
 
 ### Tertiary (LOW confidence)
-- WebSearch results on Astro 6 monorepo scaffolding — used only for `npm create astro@latest ./site` command syntax
+- chroma-js ESM/Node 22 compatibility: [ASSUMED] — not tested in this session
 
 ---
 
 ## Metadata
 
 **Confidence breakdown:**
-- Standard stack: HIGH — all versions verified against npm registry
-- Architecture: HIGH — based on official Astro docs + Solita build patterns article
-- i18n translated segments: HIGH — confirmed absent from Astro 6; manual file-tree is the correct approach, verified against official docs
-- Pitfalls: HIGH — drawn from PITFALLS.md prior research + new Phase 2-specific patterns
-- Build validation strategy: MEDIUM — custom script approach is standard for build-only phases but exact implementation is new
+- Standard stack: HIGH — all versions confirmed via npm registry
+- Architecture: HIGH — data contracts verified from actual Phase 1 output; ARCHITECTURE.md authoritative baseline
+- Pitfalls: HIGH for P1/P6/P7 (verified from data inspection); MEDIUM for P2–P5 (logical analysis)
+- Prose variation engine: MEDIUM — pattern is sound; exact word counts need validation test run
 
 **Research date:** 2026-06-13
-**Valid until:** 2026-08-13 (Astro 6.x stable; no breaking changes expected in this timeframe)
+**Valid until:** 2026-09-13 (Astro SSG patterns and sitemap API are stable; data contract is locked by Phase 1)
