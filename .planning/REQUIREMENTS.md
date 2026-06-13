@@ -44,9 +44,9 @@
 ### SEO e i18n (SEO)
 
 - [x] **SEO-01**: Sitio bilingüe ES/EN con hreflang correcto y recíproco en todas las páginas (EN en raíz, ES bajo `/es/`)
-- [ ] **SEO-02**: sitemap.xml automático y canonical tags en todas las páginas
-- [ ] **SEO-03**: Schema.org structured data (Dataset/Place) en páginas territoriales
-- [ ] **SEO-04**: PWA meta básico: manifest y theme color (sin service worker)
+- [x] **SEO-02**: sitemap.xml automático y canonical tags en todas las páginas
+- [x] **SEO-03**: Schema.org structured data (Dataset/Place) en páginas territoriales
+- [x] **SEO-04**: PWA meta básico: manifest y theme color (sin service worker)
 
 ### Infraestructura (INFRA)
 
@@ -88,9 +88,9 @@
 | PAGES-03 | Phase 2 | Complete |
 | PAGES-04 | Phase 2 | Complete |
 | SEO-01 | Phase 2 | Complete |
-| SEO-02 | Phase 2 | Pending |
-| SEO-03 | Phase 2 | Pending |
-| SEO-04 | Phase 2 | Pending |
+| SEO-02 | Phase 2 | Complete |
+| SEO-03 | Phase 2 | Complete |
+| SEO-04 | Phase 2 | Complete |
 | MAP-01 | Phase 3 | Pending |
 | MAP-02 | Phase 3 | Pending |
 | MAP-03 | Phase 3 | Pending |
