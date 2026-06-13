@@ -52,6 +52,9 @@ Plan: 3 of 4
 - Commune canonical list (346 items) must be fixed in prompt at temperature 0.0 to prevent LLM geolocation hallucination
 - Rate per 100,000 inhabitants is the single canonical metric; raw counts must never appear in rankings
 - Programmatic pages deploy in batches of 10–20 first; GSC indexing confirmed before generating all 346
+- CUT codes stored as raw string digits without zero-padding (matches CEAD catalog)
+- is_low_population defaults to True for unknown CUT codes (safe exclusion from rankings)
+- INE 2024 population values spot-checked against official INE projections — Assumption A6 closed
 
 ### Critical Pitfalls to Avoid
 
@@ -76,6 +79,6 @@ Plan: 3 of 4
 
 ## Session Continuity
 
-**Last session**: 2026-06-12 — Executed Plan 01-01; 18 tests green; schema + atomic write complete
-**Next action**: Execute Plan 01-02 (CEAD HTTP client)
-**Resume prompt**: Continue Phase 1 from Plan 02. Pipeline scaffold complete — schema.py, atomic_write.py, pytest all green. Next: CEAD HTTP client with session headers, tenacity retries, and cache layer.
+**Last session**: 2026-06-12 — Executed Plan 01-02; INE population JSON (346 communes) committed, population lookup module + 10 tests green, human checkpoint approved (Assumption A6 closed)
+**Next action**: Execute Plan 01-03 (CEAD HTTP client, commune catalog, HTML/decimal parser + fixture)
+**Resume prompt**: Continue Phase 1 from Plan 03. INE population asset and lookup module complete. Next: CEAD HTTP client with session headers, tenacity retries, commune catalog, and HTML parser for crime statistics.

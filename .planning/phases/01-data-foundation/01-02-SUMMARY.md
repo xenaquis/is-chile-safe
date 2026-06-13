@@ -25,7 +25,7 @@ decisions:
 metrics:
   duration: "~20 min"
   completed_date: "2026-06-12"
-  tasks_completed: 2
+  tasks_completed: 3
   tasks_total: 3
   tests_added: 10
 ---
@@ -47,8 +47,8 @@ metrics:
 - `pipeline/tests/test_population.py` — 10 tests covering dict type/length, key/value types, high/low population assertions against real data, unknown CUT default, threshold constant
 - All 10 tests green
 
-### Task 3: Human Checkpoint (PENDING)
-Awaiting human verification of 5 sampled commune values against official INE.
+### Task 3: Human Checkpoint — APPROVED
+User confirmed all 5 sampled commune values match official INE 2024 projections.
 
 ## Sampled Values for Checkpoint Verification
 
@@ -98,3 +98,4 @@ No new network endpoints, auth paths, or schema changes at trust boundaries beyo
 - pipeline/scripts/fetch_ine_population.py: FOUND
 - pipeline/tests/test_population.py: FOUND (10 tests green)
 - Commits 4311283, a39995e, e64ef72: FOUND in git log
+- Human checkpoint (Task 3): APPROVED — user confirmed 5 sampled values match official INE 2024 projections; Assumption A6 closed
