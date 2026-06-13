@@ -35,6 +35,11 @@ const {
 const BASE_URL = 'https://ischilesafe.com';
 const canonicalPath = lang === 'en' ? enPath : esPath;
 
+// AdSense loader gate (D-12): inject async script only when flag is explicitly 'true'.
+// Default (ADSENSE_ENABLED unset) emits nothing — no Google request, no ad markup in Phase 4.
+const adsenseEnabled = import.meta.env.ADSENSE_ENABLED === 'true';
+const adsenseClient = import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID ?? '';
+
 ---
 
 <!doctype html>
@@ -56,6 +61,12 @@ const canonicalPath = lang === 'en' ? enPath : esPath;
     <!-- PWA meta -->
     <meta name="theme-color" content="#0f766e" />
     <link rel="manifest" href="/manifest.json" />
+
+    <!-- AdSense async loader (D-12): single load point, gated by ADSENSE_ENABLED build flag.
+         CookieConsent banner is injected by EditorialLayout (Plan 03), not here. -->
+    {adsenseEnabled && adsenseClient && (
+      <script is:inline async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`} crossorigin="anonymous"></script>
+    )}
 
     <!-- Schema.org JSON-LD (JSON.stringify for XSS safety) -->
     {jsonLd !== null && (

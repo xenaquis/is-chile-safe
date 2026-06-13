@@ -1,0 +1,113 @@
+---
+/**
+ * CookieConsent — sticky-bottom consent banner, localStorage gate (D-11).
+ * Injected by EditorialLayout only when ADSENSE_ENABLED === 'true' (Plan 03).
+ * Zero client:* directives — interaction uses vanilla <script> tags.
+ */
+interface Props {
+  locale: 'en' | 'es';
+}
+
+const { locale } = Astro.props;
+
+const bannerText = locale === 'en'
+  ? 'We use cookies to serve ads and analyze traffic. See our'
+  : 'Usamos cookies para mostrar anuncios y analizar el tráfico. Ver nuestra';
+
+const privacyLabel = locale === 'en' ? 'Privacy Policy' : 'Política de Privacidad';
+const privacyHref = locale === 'en' ? '/privacy-policy/' : '/es/politica-privacidad/';
+const acceptLabel = locale === 'en' ? 'Accept' : 'Aceptar';
+const rejectLabel = locale === 'en' ? 'Reject' : 'Rechazar';
+---
+
+<!-- Inline script: hide synchronously before first paint if already consented -->
+<script is:inline>
+  if (typeof localStorage !== 'undefined' && localStorage.getItem('csm_consent')) {
+    document.currentScript.parentElement.style.display = 'none';
+  }
+</script>
+
+<div id="csm-consent-banner" class="consent-banner" role="dialog" aria-label="Cookie consent">
+  <p class="consent-text">
+    {bannerText}
+    {' '}<a href={privacyHref} class="consent-link">{privacyLabel}</a>.
+  </p>
+  <div class="consent-actions">
+    <button id="csm-consent-accept" class="consent-btn consent-btn--accept" type="button">
+      {acceptLabel}
+    </button>
+    <button id="csm-consent-reject" class="consent-btn consent-btn--reject" type="button">
+      {rejectLabel}
+    </button>
+  </div>
+</div>
+
+<script>
+  document.getElementById('csm-consent-accept')?.addEventListener('click', () => {
+    localStorage.setItem('csm_consent', 'accepted');
+    const banner = document.getElementById('csm-consent-banner');
+    if (banner) banner.style.display = 'none';
+  });
+  document.getElementById('csm-consent-reject')?.addEventListener('click', () => {
+    localStorage.setItem('csm_consent', 'rejected');
+    const banner = document.getElementById('csm-consent-banner');
+    if (banner) banner.style.display = 'none';
+  });
+</script>
+
+<style>
+  .consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: var(--ink);
+    color: var(--card);
+    padding: var(--md) var(--lg);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--md);
+  }
+
+  .consent-text {
+    font-size: var(--text-label);
+    font-weight: var(--weight-body);
+    margin: 0;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .consent-link {
+    color: var(--card);
+    text-decoration: underline;
+  }
+
+  .consent-actions {
+    display: flex;
+    gap: var(--sm);
+    flex-shrink: 0;
+  }
+
+  .consent-btn {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    padding: 8px 16px;
+    border-radius: calc(var(--radius) / 2);
+    min-height: 44px;
+    cursor: pointer;
+    border: none;
+  }
+
+  .consent-btn--accept {
+    background: var(--primary);
+    color: var(--card);
+  }
+
+  .consent-btn--reject {
+    background: transparent;
+    color: var(--card);
+    border: 1px solid var(--card);
+  }
+</style>
