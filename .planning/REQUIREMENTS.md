@@ -39,7 +39,7 @@
 - [ ] **EDIT-02**: 10 páginas editoriales ES prioritarias: `/es/`, `/es/mapa-delito-chile/`, `/es/delitos-por-comuna/`, `/es/delitos-por-region/`, `/es/comunas-mas-seguras-chile/`, `/es/mapa-seguridad-santiago/`, `/es/seguridad-valparaiso/`, `/es/seguridad-vina-del-mar/`, `/es/seguridad-concepcion/`, `/es/metodologia/`
 - [ ] **EDIT-03**: Página metodológica documenta fuentes, límites, cálculo de tasas, subregistro y criterios de comparación
 - [ ] **EDIT-04**: Páginas legales: Privacy Policy, Terms, About y Contact (requisito AdSense)
-- [ ] **EDIT-05**: El build falla si una página usa lenguaje editorial prohibido ("zona peligrosa", "comunas peligrosas", "ranking definitivo", "zona segura garantizada")
+- [x] **EDIT-05**: El build falla si una página usa lenguaje editorial prohibido ("zona peligrosa", "comunas peligrosas", "ranking definitivo", "zona segura garantizada")
 
 ### SEO e i18n (SEO)
 
@@ -101,7 +101,7 @@
 | EDIT-02 | Phase 4 | Pending |
 | EDIT-03 | Phase 4 | Pending |
 | EDIT-04 | Phase 4 | Pending |
-| EDIT-05 | Phase 4 | Pending |
+| EDIT-05 | Phase 4 | Complete |
 | MON-01 | Phase 4 | Pending |
 | NEWS-01 | Phase 5 | Pending |
 | NEWS-02 | Phase 5 | Pending |
