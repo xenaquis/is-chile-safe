@@ -42,7 +42,7 @@ CEAD ingestion layer with verified HTTP session (Referer/Origin/latin-1), commun
 | 1 | CEAD HTTP client + catalog (GREEN impl) | da42dac | Done |
 | 2 | CEAD HTML parser + fixture (RED tests) | f5d0906 | Done |
 | 2 | CEAD HTML parser + fixture (GREEN impl) | 0920fe8 | Done |
-| 3 | checkpoint:human-verify (live endpoint confirmation) | — | PENDING |
+| 3 | checkpoint:human-verify (live endpoint confirmation) | — | APPROVED 2026-06-12 |
 
 ## What Was Built
 
@@ -84,7 +84,17 @@ A single live call was made during Task 2 to capture the fixture:
 - Result: **HTTP 200**, 5893 bytes of HTML
 - Parsed: 3 formato_4 commune rows (Santiago, Cerrillos, Puente Alto) with 2024 rate values
 
-The human checkpoint (Task 3) is required to confirm the full parameter set remains valid before Plan 04 depends on them.
+**Human checkpoint (Task 3) — APPROVED 2026-06-12:**
+The orchestrator independently re-ran live verification: `fetch_communes_batch(s, ['13101','13102','13201'], 2024, 6)` returned HTTP 200, 5893 chars, 3 formato_4 commune rows, table header "Tasa Cada 100.000 Habitantes / Casos Policiales". Endpoint confirmed operational. User response: "approved".
+
+## Open Question 3 — Deferred to Plan 04
+
+**Subgroup IDs for homicides/kidnappings (featured-flag logic):** Open Question 3 (confirming `grupo[]/subgrupo[]` parameter values for homicides subgroup ID=101 and the kidnappings subgroup ID) was NOT resolved at this checkpoint. The user chose to defer subgroup ID confirmation to Plan 04.
+
+**Plan 04 must confirm subgroup IDs before relying on featured-flag logic.** Specifically:
+- Homicides subgroup ID (assumed 101) — verify via a live call with `subgrupo[]=101`
+- Kidnappings subgroup ID — unknown; Plan 04 must enumerate or confirm via CEAD response
+- Do not hard-code these IDs in the normalizer/orchestrator until confirmed live
 
 ## Deviations from Plan
 

@@ -8,13 +8,13 @@ progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 4
-  completed_plans: 2
+  completed_plans: 3
   percent: 0
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-12 (plan 01-03 partial — awaiting human checkpoint Task 3)_
+_Last updated: 2026-06-12 (plan 01-03 complete — all tasks including human checkpoint approved)_
 
 ## Project Reference
 
@@ -25,11 +25,11 @@ _Last updated: 2026-06-12 (plan 01-03 partial — awaiting human checkpoint Task
 ## Current Position
 
 Phase: 01 (data-foundation) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 **Phase**: 1 — Data Foundation
-**Plan**: 01 — Complete; Plan 02 next
-**Status**: Plan 01-01 complete — 18 tests green
-**Progress**: [███░░░░░░░] 25% (1/4 plans complete in Phase 01)
+**Plan**: 03 — Complete; Plan 04 next
+**Status**: Plan 01-03 complete — 64 tests green, CEAD client/catalog/parser built, live endpoint confirmed
+**Progress**: [████████░░] 75% (3/4 plans complete in Phase 01)
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ Plan: 3 of 4
 - INE 2024 population values spot-checked against official INE projections — Assumption A6 closed
 - parse_cead_float maps all CEAD missing-value markers ('', '-', 'S/I', 'N/A') to None — uniform handling
 - CEAD live endpoint confirmed HTTP 200 on 2026-06-12 with 3 RM communes; inter-batch sleep belongs to orchestrator not client
+- Open Question 3 (homicides subgroup ID=101, kidnappings subgroup ID unknown) deferred to Plan 04 — do not hard-code featured-flag subgroup IDs until Plan 04 confirms them via live call
 
 ### Critical Pitfalls to Avoid
 
@@ -81,6 +82,6 @@ Plan: 3 of 4
 
 ## Session Continuity
 
-**Last session**: 2026-06-12 — Executed Plan 01-03 Tasks 1+2; CEAD client/catalog/parser built + 36 new tests green (64 total). Live fixture captured. Paused at Task 3 checkpoint:human-verify.
-**Next action**: Human verifies live CEAD call returned HTTP 200 with real commune rows; then resume Plan 01-03 Task 3 completion and proceed to Plan 01-04.
-**Resume prompt**: Plan 01-03 Tasks 1+2 complete (commits 49e8254, da42dac, f5d0906, 0920fe8). Stopped at checkpoint:human-verify (Task 3). After human approval, mark plan complete and proceed to Plan 01-04 (normalizer/orchestrator).
+**Last session**: 2026-06-12 — Plan 01-03 fully complete. Human checkpoint Task 3 approved; live CEAD endpoint confirmed HTTP 200 with real commune rows. Open Question 3 (homicides/kidnappings subgroup IDs) deferred to Plan 04.
+**Next action**: Execute Plan 01-04 — normalizer (trend/rank/slug/featured) + orchestrator + full /data/cead output.
+**Resume prompt**: Plan 01-03 complete (commits 49e8254, da42dac, f5d0906, 0920fe8 + docs). Proceed to Plan 01-04. Note: subgroup IDs for featured-flag logic must be confirmed live in Plan 04 before hard-coding.

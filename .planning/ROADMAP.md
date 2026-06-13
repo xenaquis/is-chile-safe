@@ -29,7 +29,7 @@ _Last updated: 2026-06-12_
 
 - [x] 01-01-PLAN.md — Pipeline scaffold, Pydantic v2 schema gate, atomic write, pytest infra
 - [x] 01-02-PLAN.md — INE communal population asset + lookup module (10k ranking filter)
-- [ ] 01-03-PLAN.md — CEAD HTTP client, commune catalog, HTML/decimal parser + fixture
+- [x] 01-03-PLAN.md — CEAD HTTP client, commune catalog, HTML/decimal parser + fixture
 - [ ] 01-04-PLAN.md — Normalizer (trend/rank/slug/featured) + orchestrator + full /data/cead output
 
 ### Phase 2: Astro Site + Programmatic Pages
@@ -112,7 +112,7 @@ _Last updated: 2026-06-12_
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Foundation | 2/4 | In Progress|  |
+| 1. Data Foundation | 3/4 | In Progress|  |
 | 2. Astro Site + Programmatic Pages | 0/? | Not started | - |
 | 3. Leaflet Map Island | 0/? | Not started | - |
 | 4. Editorial Pages + AdSense | 0/? | Not started | - |
