@@ -112,9 +112,11 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 **Phase 03 BLOCKER found+fixed (commit 0c6659d)**: island fetched /data/cead/* at runtime but nothing served /data (Phase 2 read /data only at build time). Fix: scripts/sync-data.mjs (predev/prebuild) copies data/cead→public/data; gitignored; map.mjs regression guard added. Dev-server HTTP smoke confirmed all data endpoints 200, incidents 404 (expected).
 **Phase 02 prior fix (commit a439529)**: comparable-commune self-reference (cut/id mismatch in loadCommune).
 **Known env issue (not code)**: project is inside OneDrive — `dist/` artifacts desync between separate processes; ALWAYS chain build + validate in one command. (See memory: onedrive-build-artifacts-desync.)
-**Open manual item**: Phase 3 visual/mobile UAT (run `cd site && npm run dev`, open /map/; check render, jank, geolocation, 3G).
-**Next action**: Plan Phase 4 — Editorial Pages + AdSense (EDIT-01..05, MON-01). Autonomous run continuing.
-**Resume prompt**: Phases 1-3 complete (Phase 3 visual UAT deferred). Continue autonomous from Phase 4 (Editorial + AdSense).
+**Last session (2026-06-13, autonomous)**: Phases 4→5→6 ejecutadas + revisadas (code review en cada una, bugs reales corregidos) + verificadas; milestone v1.0 auditado (code-complete, tech_debt), archivado y tagueado (v1.0). Detalle por fase en `.planning/milestones/v1.0-phases/`.
+**PENDIENTE push**: no hay git remote configurado → v1.0 (commits + tag) NO está pusheado. `git remote add origin <URL> && git push -u origin master && git push origin v1.0`.
+**Open manual item**: Phase 3 visual/mobile UAT sigue diferido — se cierra dentro de la revisión E2E.
+**Next action**: Fase de **revisión end-to-end (v1.1 Polish & QA)** con MCP de navegador. **LEER PRIMERO** `.planning/REVIEW-E2E-BRIEF.md` (objetivo, método, inventario de páginas, checklist, prerrequisitos, kickoff). Prerrequisitos: conectar MCP `pbrowseros`/BrowserOS (no estaba conectado) + `cd site && npm run dev`. Handoff estructurado: `.planning/HANDOFF.json`.
+**Resume prompt**: v1.0 code-complete y archivado (no desplegado, push pendiente). Arrancar la revisión E2E para cazar bugs, reducir carga cognitiva y dejar la página agradable de leer — según `.planning/REVIEW-E2E-BRIEF.md`.
 
 ## Decisions
 
