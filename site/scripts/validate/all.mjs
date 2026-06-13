@@ -1,15 +1,16 @@
 /**
- * all.mjs — Aggregate validator: run all 7 validation scripts in sequence.
+ * all.mjs — Aggregate validator: run all 9 validation scripts in sequence.
  *
  * Validators:
- *   1. structure.mjs  — required source files + sample page meta
- *   2. commune.mjs    — commune page HTML assertions
- *   3. rollout.mjs    — rollout gate: dist commune count matches rollout.json
- *   4. region.mjs     — region page HTML assertions
- *   5. crime.mjs      — crime-type page HTML assertions
- *   6. hreflang.mjs   — hreflang reciprocity + canonical + PWA meta per page
- *   7. schema.mjs     — Schema.org JSON-LD correctness per page type
- *   8. map.mjs        — TopoJSON budget + map pages + zero-React content-page regression guard
+ *   1. structure.mjs         — required source files + sample page meta
+ *   2. commune.mjs           — commune page HTML assertions
+ *   3. rollout.mjs           — rollout gate: dist commune count matches rollout.json
+ *   4. region.mjs            — region page HTML assertions
+ *   5. crime.mjs             — crime-type page HTML assertions
+ *   6. hreflang.mjs          — hreflang reciprocity + canonical + PWA meta per page
+ *   7. schema.mjs            — Schema.org JSON-LD correctness per page type
+ *   8. map.mjs               — TopoJSON budget + map pages + zero-React content-page regression guard
+ *   9. forbidden-language.mjs — EDIT-05 forbidden editorial term gate over dist/ visible text
  *
  * Any non-zero exit from a child script fails the suite.
  * Prints a per-check PASS/FAIL summary at the end.
@@ -34,6 +35,7 @@ const VALIDATORS = [
   'hreflang.mjs',
   'schema.mjs',
   'map.mjs',
+  'forbidden-language.mjs',
 ];
 
 const results = [];
