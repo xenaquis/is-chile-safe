@@ -14,7 +14,7 @@ progress:
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-13 (plan 01-04 complete — all tasks including live run deviations fixed, data committed)_
+_Last updated: 2026-06-13 (plan 02-06 complete — SEO+PWA layer done, all 7 validators green, full 346-commune ROLLOUT_ALL build verified; awaiting human UAT checkpoint)_
 
 ## Project Reference
 
@@ -24,12 +24,12 @@ _Last updated: 2026-06-13 (plan 01-04 complete — all tasks including live run 
 
 ## Current Position
 
-Phase: 2 (astro-site-programmatic-pages) — EXECUTING
-Plan: 6 of 6
-**Phase**: 1 — Data Foundation
-**Plan**: 04 — Complete; Phase 01 DONE
-**Status**: Plan 01-04 complete — 95 tests green, full /data/cead/ tree committed (346 communes, 16 regions, map-payload 27.5KB)
-**Progress**: [██████████] 100% (4/4 plans complete in Phase 01)
+Phase: 2 (astro-site-programmatic-pages) — AWAITING HUMAN UAT
+Plan: 6 of 6 — all autonomous tasks complete; checkpoint:human-verify pending
+**Phase**: 2 — Astro Site + Programmatic Pages
+**Plan**: 06 — Autonomous tasks complete; human UAT checkpoint open
+**Status**: All 72 rollout pages build; 7/7 validators pass; ROLLOUT_ALL=346-commune build verified; human visual/prose check pending
+**Progress**: [██████████] 100% autonomous (6/6 plans' code complete; UAT pending)
 
 ## Performance Metrics
 
@@ -85,12 +85,15 @@ Plan: 6 of 6
 
 ## Session Continuity
 
-**Last session**: 2026-06-13 — Session resumed. Phase 01 confirmed complete (4/4 plans, 95 tests green, full /data/cead/ tree committed). Proceeding to Phase 02 planning.
-**Next action**: Phase 02 — Astro Site + Programmatic Pages. No CONTEXT.md yet; UI hint = yes. Recommend discuss-phase 2 before plan-phase 2.
-**Resume prompt**: Phase 01 fully complete (4/4 plans). All data in data/cead/. Proceed to Phase 02 (discuss → plan).
+**Last session**: 2026-06-13 — Phase 02 plan 02-06 autonomous tasks complete. Rollout-gated sitemap, PWA manifest, home placeholders, hreflang+schema validators, 7-validator all.mjs, ROLLOUT_ALL build gate all green. Human UAT checkpoint open (visual/prose review).
+**Next action**: Human visual + prose UAT: run `cd site && npm run dev` and verify commune pages per checkpoint instructions in 02-06-SUMMARY.md.
+**Resume prompt**: Phase 02 plan 06 all autonomous tasks done (commits 41a69fc, 1035e5e). Human UAT checkpoint pending — type "approved" or describe issues to fix.
 
 ## Decisions
 
+- [Phase 02-06]: Region pages fall back to national latestCompleteYear when region series is empty
+- [Phase 02-06]: Crime page spatialCoverage Country is valid — only top-level Place/@type is prohibited
+- [Phase 02-06]: Sitemap filter CUT-to-slug join via index.json at astro config time
 - [Phase ?]: corrected path traversal depth
 - [Phase ?]: CEAD region_id mapping required for loadCommune regionName
 - [Phase ?]: component library
