@@ -194,9 +194,7 @@ const jsonLd = {
 
   <!-- 9. ProseSummary -->
   <section class="prose-summary" aria-label="Resumen">
-    {prose.split('\n\n').map((para) => (
-      <p set:html={para} />
-    ))}
+    {prose.split('\n\n').map((para) => <p>{para}</p>)}
   </section>
 
   <!-- 10. MethodologyCaveat -->
