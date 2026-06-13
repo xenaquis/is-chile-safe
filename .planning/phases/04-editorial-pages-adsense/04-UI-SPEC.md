@@ -1,10 +1,11 @@
 ---
 phase: 4
 slug: editorial-pages-adsense
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-06-13
+reviewed_at: 2026-06-13
 ---
 
 # Phase 4 — UI Design Contract
