@@ -149,4 +149,4 @@ _Last updated: 2026-06-13_
 | 3. Leaflet Map Island | 4/4 | Complete    | 2026-06-13 |
 | 4. Editorial Pages + AdSense | 7/7 | Complete    | 2026-06-13 |
 | 5. RSS News Pipeline | 4/4 | Complete    | 2026-06-13 |
-| 6. CI/CD + Cloudflare Deployment | 3/3 | Complete   | 2026-06-13 |
+| 6. CI/CD + Cloudflare Deployment | 3/3 | Complete    | 2026-06-13 |
