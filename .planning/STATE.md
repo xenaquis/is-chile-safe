@@ -14,7 +14,7 @@ progress:
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-12 (plan 01-01 complete)_
+_Last updated: 2026-06-12 (plan 01-03 partial — awaiting human checkpoint Task 3)_
 
 ## Project Reference
 
@@ -55,6 +55,8 @@ Plan: 3 of 4
 - CUT codes stored as raw string digits without zero-padding (matches CEAD catalog)
 - is_low_population defaults to True for unknown CUT codes (safe exclusion from rankings)
 - INE 2024 population values spot-checked against official INE projections — Assumption A6 closed
+- parse_cead_float maps all CEAD missing-value markers ('', '-', 'S/I', 'N/A') to None — uniform handling
+- CEAD live endpoint confirmed HTTP 200 on 2026-06-12 with 3 RM communes; inter-batch sleep belongs to orchestrator not client
 
 ### Critical Pitfalls to Avoid
 
@@ -79,6 +81,6 @@ Plan: 3 of 4
 
 ## Session Continuity
 
-**Last session**: 2026-06-12 — Executed Plan 01-02; INE population JSON (346 communes) committed, population lookup module + 10 tests green, human checkpoint approved (Assumption A6 closed)
-**Next action**: Execute Plan 01-03 (CEAD HTTP client, commune catalog, HTML/decimal parser + fixture)
-**Resume prompt**: Continue Phase 1 from Plan 03. INE population asset and lookup module complete. Next: CEAD HTTP client with session headers, tenacity retries, commune catalog, and HTML parser for crime statistics.
+**Last session**: 2026-06-12 — Executed Plan 01-03 Tasks 1+2; CEAD client/catalog/parser built + 36 new tests green (64 total). Live fixture captured. Paused at Task 3 checkpoint:human-verify.
+**Next action**: Human verifies live CEAD call returned HTTP 200 with real commune rows; then resume Plan 01-03 Task 3 completion and proceed to Plan 01-04.
+**Resume prompt**: Plan 01-03 Tasks 1+2 complete (commits 49e8254, da42dac, f5d0906, 0920fe8). Stopped at checkpoint:human-verify (Task 3). After human approval, mark plan complete and proceed to Plan 01-04 (normalizer/orchestrator).
