@@ -1,0 +1,80 @@
+---
+/**
+ * FAQBlock — static open FAQ list (D-02).
+ * Renders each item as <h2>/<p> pair; no JS accordion.
+ *
+ * JSON-LD OWNERSHIP: FAQBlock does NOT inject JSON-LD itself.
+ * Single injection point is BaseLayout via its `jsonLd` prop.
+ * The PAGE constructs the FAQPage JSON-LD object and passes it
+ * to the layout (EditorialLayout → BaseLayout).
+ *
+ * FAQPage JSON-LD shape the page must construct:
+ *
+ *   const jsonLd = {
+ *     "@context": "https://schema.org",
+ *     "@type": "FAQPage",
+ *     "mainEntity": items.map(item => ({
+ *       "@type": "Question",
+ *       "name": item.q,
+ *       "acceptedAnswer": { "@type": "Answer", "text": item.a }
+ *     }))
+ *   };
+ *   // Then pass: <EditorialLayout jsonLd={jsonLd} ...>
+ *
+ * PITFALL 8: answer text MUST be plain text — no HTML tags in the
+ * `text` field of acceptedAnswer (Google rejects HTML in FAQ answers).
+ *
+ * Props:
+ *   items  — array of { q: string; a: string } question/answer pairs
+ *   locale — 'en' | 'es' (reserved for future i18n; not used for logic here)
+ *
+ * No client:* directive. Zero JavaScript. Pure server-render.
+ */
+interface Props {
+  items: { q: string; a: string }[];
+  locale: 'en' | 'es';
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq-block">
+  {items.map((item) => (
+    <div class="faq-item">
+      <h2 class="faq-q">{item.q}</h2>
+      <p class="faq-a">{item.a}</p>
+    </div>
+  ))}
+</div>
+
+<style>
+  .faq-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .faq-item {
+    padding: var(--md) 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
+  .faq-q {
+    font-size: var(--text-heading); /* 20px/700 */
+    font-weight: var(--weight-strong);
+    line-height: 1.25;
+    color: var(--ink);
+    margin: 0 0 var(--sm) 0;
+  }
+
+  .faq-a {
+    font-size: var(--text-body); /* 16px/400 */
+    font-weight: var(--weight-body);
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+  }
+</style>

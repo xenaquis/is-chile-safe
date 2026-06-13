@@ -1,0 +1,61 @@
+---
+/**
+ * DataCallout — sourced data callout box (D-01).
+ * Renders a value/label/source box with a 4px left border accent.
+ * Analog: StatCard.astro (same CSS-token system, value/label pattern).
+ *
+ * Props:
+ *   value  — displayed statistic (e.g. "1,234")
+ *   label  — metric name (e.g. "Crimes per 100k inhabitants")
+ *   source — attribution line (e.g. "Source: CEAD 2023")
+ *   locale — for potential future i18n (reserved, not used for string logic here)
+ *
+ * No client:* directive. Zero JavaScript. Pure server-render.
+ */
+interface Props {
+  value: string;
+  label: string;
+  source: string;
+  locale: 'en' | 'es';
+}
+
+const { value, label, source } = Astro.props;
+---
+
+<div class="data-callout">
+  <div class="callout-value">{value}</div>
+  <div class="callout-label">{label}</div>
+  <div class="callout-source">{source}</div>
+</div>
+
+<style>
+  .data-callout {
+    background: var(--card);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius);
+    padding: var(--md);
+    margin: var(--lg) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--xs);
+  }
+
+  .callout-value {
+    font-size: var(--text-display); /* 28px/700 */
+    font-weight: var(--weight-strong);
+    line-height: 1.15;
+    color: var(--primary);
+  }
+
+  .callout-label {
+    font-size: var(--text-label); /* 14px/700 */
+    font-weight: var(--weight-strong);
+    color: var(--muted);
+  }
+
+  .callout-source {
+    font-size: var(--text-label); /* 14px/400 */
+    font-weight: var(--weight-body);
+    color: var(--muted);
+  }
+</style>
