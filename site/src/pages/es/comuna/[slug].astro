@@ -23,6 +23,8 @@ import MapPlaceholderSlot from '../../../components/MapPlaceholderSlot.astro';
 import MethodologyCaveat from '../../../components/MethodologyCaveat.astro';
 import {
   loadCommune,
+  loadRegion,
+  regionFileId,
   loadRolloutCuts,
   loadNationalAverage,
   loadRegionalAverage,
@@ -68,6 +70,11 @@ const byFamily = seriesEntry?.by_family ?? {};
 
 // Dimension 5: comparable commune
 const comparable = nearestComparable(cut);
+
+// Slug de región para la ruta de navegación — se resuelve vía el archivo de región,
+// NO data.slug (data.slug es el slug de comuna; las páginas de región se generan
+// en /es/region/{region.slug}/).
+const regionSlug = loadRegion(regionFileId(data.region_id)).slug;
 
 // Compute incidence level (1–5) for LevelChip
 const allRates = loadIndex()
@@ -120,7 +127,7 @@ const jsonLd = {
     <nav class="breadcrumb" aria-label="Ruta de navegación">
       <a href="/es/">Inicio</a>
       <span aria-hidden="true"> › </span>
-      <a href={`/es/region/${data.slug}/`}>{data.regionName}</a>
+      <a href={`/es/region/${regionSlug}/`}>{data.regionName}</a>
     </nav>
     <h1 class="commune-h1">{data.name}</h1>
     <div class="hero-meta">
