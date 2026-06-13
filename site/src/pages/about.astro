@@ -1,0 +1,145 @@
+---
+/**
+ * /about/ — EN About page (EDIT-04).
+ *
+ * Describes the project, CEAD data source, editorial-sobriety mission.
+ * LegalLayout guarantees zero AdSlot markup (D-10).
+ * hreflang: /about/ <-> /es/acerca-de/
+ */
+import LegalLayout from '../layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  lang="en"
+  title="About — Chile Safety Map"
+  description="About ischilesafe.com — a bilingual site presenting official CEAD crime statistics for Chile by commune, region, and crime type."
+  enPath="/about/"
+  esPath="/es/acerca-de/"
+>
+  <section>
+    <h1>About Chile Safety Map</h1>
+    <p class="meta">Last updated: June 2026</p>
+    <p>
+      ischilesafe.com is a bilingual (English and Spanish) information resource that presents
+      official crime statistics for Chile. Our goal is to make publicly available government
+      data accessible and clearly presented — without editorial verdicts about which places
+      are "safe" or "dangerous".
+    </p>
+  </section>
+
+  <section>
+    <h2>What this site shows</h2>
+    <p>
+      The site combines two layers of information:
+    </p>
+    <ul>
+      <li>
+        <strong>Quantitative layer:</strong> Official crime incidence statistics from
+        CEAD (Centro de Estudios y Análisis del Delito), the Chilean government's
+        crime statistics body. Data covers 346 communes across Chile, with annual
+        series from 2005 onward. We display rates per 100,000 inhabitants, trends
+        over time, and comparisons across communes and regions.
+      </li>
+      <li>
+        <strong>Qualitative layer:</strong> Recent incident reports extracted from
+        Chilean news RSS feeds and categorised by crime type and location. These appear
+        as map pins and link back to the original news sources.
+      </li>
+    </ul>
+    <p>
+      Both layers are served as pre-rendered static HTML, indexed by search engines
+      in both English and Spanish.
+    </p>
+  </section>
+
+  <section>
+    <h2>The data source: CEAD</h2>
+    <p>
+      <strong>CEAD — Centro de Estudios y Análisis del Delito</strong> is Chile's official
+      crime statistics body, operated under the Ministerio del Interior y Seguridad Pública.
+      CEAD compiles police-recorded incident data from Carabineros de Chile and the
+      Policía de Investigaciones (PDI).
+    </p>
+    <p>
+      We access CEAD data via their public endpoints and process it through an open-source
+      pipeline that validates data integrity, maps communes to standard CUT codes, and
+      computes per-capita rates. The processed data is stored as versioned JSON in this
+      project's public GitHub repository. This provides full auditability: you can inspect
+      exactly what data was downloaded and how it was transformed.
+    </p>
+    <p>
+      For more detail on how we calculate rates, define trends, and handle underreporting,
+      see the <a href="/methodology/">Methodology page</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Editorial mission: sobriety</h2>
+    <p>
+      Crime data is politically and socially charged. Our editorial rule is:
+      <strong>present the numbers, attribute the source, and do not make verdicts.</strong>
+    </p>
+    <p>
+      We do not classify any commune, city, or region as "safe" or "dangerous" in absolute
+      terms. We do not publish probability-of-victimisation figures. We do not compare Chile
+      to other countries using incompatible reporting standards. We present relative
+      reported incidence and let you draw your own conclusions.
+    </p>
+    <p>
+      Every statistic on this site cites its source. Every news incident pin links to the
+      original article from a named outlet. We do not paraphrase without attribution.
+    </p>
+  </section>
+
+  <section>
+    <h2>Who we are</h2>
+    <p>
+      ischilesafe.com is an independent project. It is not affiliated with CEAD, the
+      Chilean government, or any law enforcement agency. For questions or feedback,
+      use the <a href="/contact/">Contact page</a>.
+    </p>
+  </section>
+</LegalLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    padding-left: var(--lg);
+    list-style: disc;
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .meta {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--lg);
+  }
+</style>

@@ -1,0 +1,91 @@
+---
+/**
+ * /contact/ — EN Contact page (EDIT-04, D-14).
+ *
+ * Embeds the static mailto ContactForm component.
+ * LegalLayout guarantees zero AdSlot markup (D-10).
+ * hreflang: /contact/ <-> /es/contacto/
+ */
+import LegalLayout from '../layouts/LegalLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+---
+
+<LegalLayout
+  lang="en"
+  title="Contact — Chile Safety Map"
+  description="Contact the ischilesafe.com team with questions, corrections, or feedback about our crime statistics data."
+  enPath="/contact/"
+  esPath="/es/contacto/"
+>
+  <section>
+    <h1>Contact</h1>
+    <p>
+      Use the form below to reach the ischilesafe.com team. We welcome questions about
+      the data, correction requests, or general feedback.
+    </p>
+    <p>
+      Please note that this is a small independent project. We aim to respond within
+      a few business days, but cannot guarantee response times.
+    </p>
+  </section>
+
+  <section>
+    <h2>Send a message</h2>
+    <ContactForm locale="en" />
+  </section>
+
+  <section>
+    <h2>What to include</h2>
+    <ul>
+      <li>
+        <strong>Data corrections:</strong> Include the commune name, the statistic
+        you believe is incorrect, and a link to the authoritative source (CEAD or INE).
+      </li>
+      <li>
+        <strong>News incident issues:</strong> Include the incident date, location,
+        and the news article URL.
+      </li>
+      <li>
+        <strong>General feedback:</strong> We read all messages, even if we cannot
+        always reply individually.
+      </li>
+    </ul>
+  </section>
+</LegalLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    padding-left: var(--lg);
+    list-style: disc;
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

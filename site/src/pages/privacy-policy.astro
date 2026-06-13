@@ -1,0 +1,186 @@
+---
+/**
+ * /privacy-policy/ — EN Privacy Policy (EDIT-04, D-11).
+ *
+ * AdSense approval requirement: must disclose that Google AdSense may set cookies
+ * and collect data for ad personalisation. LegalLayout guarantees zero AdSlot markup (D-10).
+ * hreflang: /privacy-policy/ <-> /es/politica-privacidad/
+ *
+ * T-04-04 mitigation: discloses AdSense/cookie usage (V8 security domain).
+ */
+import LegalLayout from '../layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  lang="en"
+  title="Privacy Policy — Chile Safety Map"
+  description="Privacy Policy for ischilesafe.com. Learn how we handle your data, how Google AdSense may set cookies, and how to opt out."
+  enPath="/privacy-policy/"
+  esPath="/es/politica-privacidad/"
+>
+  <section>
+    <h1>Privacy Policy</h1>
+    <p class="meta">Last updated: June 2026</p>
+    <p>
+      This Privacy Policy explains what information ischilesafe.com collects (very little),
+      what third-party services we use that may collect information (Google AdSense), and
+      what rights you have regarding that information.
+    </p>
+  </section>
+
+  <section>
+    <h2>Information we collect</h2>
+    <p>
+      <strong>We do not collect any personally identifiable information (PII) on the server side.</strong>
+      ischilesafe.com is a fully static site: all pages are pre-rendered HTML files served
+      by Cloudflare Pages. There is no login, no registration, no user accounts, and no
+      server-side form processing. We do not store IP addresses, names, email addresses,
+      or any other personal data in any database operated by us.
+    </p>
+    <p>
+      The Contact page includes a mailto form. When you submit it, your email client sends
+      the message directly to our address. We receive the message in our email inbox; we
+      do not log or store it elsewhere.
+    </p>
+  </section>
+
+  <section>
+    <h2>Cookies and advertising — Google AdSense</h2>
+    <p>
+      This site uses <strong>Google AdSense</strong> to display advertisements. Google AdSense
+      is an advertising service provided by Google LLC. When advertisements are active, Google
+      AdSense may:
+    </p>
+    <ul>
+      <li>
+        Set <strong>cookies</strong> in your browser to identify you across websites and serve
+        personalised advertisements based on your browsing history and interests.
+      </li>
+      <li>
+        Collect data such as your IP address, browser type, and pages you visit, in accordance
+        with Google's own privacy practices.
+      </li>
+      <li>
+        Use the <strong>DoubleClick cookie</strong> (or equivalent) to measure ad performance
+        and manage ad frequency.
+      </li>
+    </ul>
+    <p>
+      Google's use of advertising cookies is governed by Google's Privacy Policy, available at
+      <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">
+        policies.google.com/privacy
+      </a>.
+    </p>
+    <p>
+      You can opt out of Google's personalised advertising by visiting
+      <a href="https://adssettings.google.com" rel="noopener noreferrer" target="_blank">
+        adssettings.google.com
+      </a>, or by installing the
+      <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener noreferrer" target="_blank">
+        Google Analytics Opt-out Browser Add-on
+      </a>.
+      You may also opt out of interest-based advertising through the
+      <a href="https://optout.aboutads.info/" rel="noopener noreferrer" target="_blank">
+        Digital Advertising Alliance
+      </a> or the
+      <a href="https://www.youronlinechoices.com/" rel="noopener noreferrer" target="_blank">
+        European Interactive Digital Advertising Alliance
+      </a>.
+    </p>
+    <p>
+      <strong>Cookie consent banner:</strong> When advertising is active, a cookie consent
+      banner is displayed before any advertising cookies are set. You may accept or reject
+      the use of advertising cookies. Rejecting cookies does not affect your access to the
+      content on this site; you will see placeholder spaces where advertisements would appear.
+    </p>
+  </section>
+
+  <section>
+    <h2>Third-party analytics</h2>
+    <p>
+      We do not currently use Google Analytics or any other third-party analytics service.
+      If we add analytics in the future, this Privacy Policy will be updated before that
+      service becomes active.
+    </p>
+  </section>
+
+  <section>
+    <h2>Cloudflare</h2>
+    <p>
+      This site is served by <strong>Cloudflare Pages</strong>, Cloudflare's static hosting
+      platform. Cloudflare may log basic request metadata (IP address, request path, HTTP
+      headers) for performance and security purposes, in accordance with
+      <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer" target="_blank">
+        Cloudflare's Privacy Policy
+      </a>.
+      We do not have access to Cloudflare's raw request logs.
+    </p>
+  </section>
+
+  <section>
+    <h2>Data retention and your rights</h2>
+    <p>
+      Because we do not collect personal data ourselves, we cannot provide access to, correct,
+      or delete data on your behalf from our systems — there is none. For data held by
+      Google AdSense or Cloudflare, please contact those services directly via the links
+      above.
+    </p>
+    <p>
+      If you have questions about this Privacy Policy, contact us via the
+      <a href="/contact/">Contact page</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Changes to this policy</h2>
+    <p>
+      We may update this Privacy Policy to reflect changes in our practices (for example,
+      if we add analytics) or to comply with legal requirements. The "Last updated" date
+      at the top of this page reflects the most recent revision. We encourage you to review
+      this page periodically.
+    </p>
+  </section>
+</LegalLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    padding-left: var(--lg);
+    list-style: disc;
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .meta {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--lg);
+  }
+</style>

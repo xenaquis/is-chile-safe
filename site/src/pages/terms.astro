@@ -1,0 +1,156 @@
+---
+/**
+ * /terms/ — EN Terms of Use (EDIT-04).
+ *
+ * LegalLayout guarantees zero AdSlot markup (D-10).
+ * Data attribution (D-15): no liability for CEAD data accuracy.
+ * hreflang: /terms/ <-> /es/terminos/
+ */
+import LegalLayout from '../layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  lang="en"
+  title="Terms of Use — Chile Safety Map"
+  description="Terms of Use for ischilesafe.com. Understand the limitations of crime statistics data sourced from CEAD and how this site may be used."
+  enPath="/terms/"
+  esPath="/es/terminos/"
+>
+  <section>
+    <h1>Terms of Use</h1>
+    <p class="meta">Last updated: June 2026</p>
+    <p>
+      By accessing ischilesafe.com you agree to these Terms of Use. Please read them carefully.
+      If you do not agree, do not use this site.
+    </p>
+  </section>
+
+  <section>
+    <h2>Nature of the content</h2>
+    <p>
+      ischilesafe.com presents crime statistics data sourced from
+      <strong>CEAD — Centro de Estudios y Análisis del Delito</strong>, operated by the
+      Chilean government's Ministerio del Interior y Seguridad Pública. The data reflects
+      police-recorded incidents only; it does not represent total crime prevalence.
+    </p>
+    <p>
+      All content on this site is <strong>informational only</strong>. It is not legal advice,
+      security advice, or a substitute for professional risk assessment. The site does not
+      classify any commune, city, or region as "safe" or "dangerous" in absolute terms.
+      Users should not make decisions about travel, residence, or personal safety based
+      solely on this site's content.
+    </p>
+  </section>
+
+  <section>
+    <h2>Data accuracy and attribution</h2>
+    <p>
+      We make reasonable efforts to reproduce CEAD data accurately. However:
+    </p>
+    <ul>
+      <li>
+        CEAD data may contain errors, revisions, or omissions that we do not control.
+      </li>
+      <li>
+        CEAD's unofficial public API endpoints may change without notice, potentially
+        causing data to become outdated before we can update our pipeline.
+      </li>
+      <li>
+        The data published on this site reflects the state of CEAD's source at the
+        time our most recent automated pipeline run was executed.
+      </li>
+    </ul>
+    <p>
+      For authoritative data, refer directly to
+      <a href="https://cead.ministeriointerior.gob.cl" rel="noopener noreferrer" target="_blank">
+        cead.ministeriointerior.gob.cl
+      </a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>No warranties or liability</h2>
+    <p>
+      This site is provided "as is" without warranties of any kind, express or implied.
+      We do not warrant that the data is accurate, complete, current, or suitable for
+      any particular purpose. To the fullest extent permitted by applicable law, we
+      disclaim all liability for damages arising from the use of, or reliance on, the
+      content of this site.
+    </p>
+  </section>
+
+  <section>
+    <h2>Permitted use</h2>
+    <p>
+      You may use the content on this site for personal, informational, educational,
+      and non-commercial research purposes, provided you attribute the data source
+      (CEAD) when citing statistics from this site. Commercial reproduction of scraped
+      data or automated crawling of this site beyond normal indexing is not permitted
+      without prior written consent.
+    </p>
+  </section>
+
+  <section>
+    <h2>Third-party links</h2>
+    <p>
+      This site contains links to external websites (CEAD, news sources, Google's
+      privacy tools). We are not responsible for the content or privacy practices of
+      those sites.
+    </p>
+  </section>
+
+  <section>
+    <h2>Changes to these terms</h2>
+    <p>
+      We may update these Terms of Use at any time. Continued use of the site after
+      an update constitutes acceptance of the revised terms. The "Last updated" date
+      at the top of this page reflects the most recent revision.
+    </p>
+    <p>
+      Questions? Use the <a href="/contact/">Contact page</a>.
+    </p>
+  </section>
+</LegalLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    padding-left: var(--lg);
+    list-style: disc;
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .meta {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--lg);
+  }
+</style>
