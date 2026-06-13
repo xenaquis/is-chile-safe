@@ -1,0 +1,152 @@
+---
+/**
+ * CommuneRankingTable — server-rendered <table> for region page commune listing.
+ * NEW component (no prototype analog).
+ *
+ * Low-population communes marked with * and excluded from rank numbering.
+ * Commune names link to locale-aware commune pages.
+ * Mobile: table scrolls horizontally via overflow-x: auto wrapper.
+ *
+ * Zero client:* directives, no JS sorting (D-09).
+ */
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+import TrendChip from './TrendChip.astro';
+
+interface RankingRow {
+  name: string;
+  slug: string;
+  rate: number;
+  national_rank: number;
+  trend: 'up' | 'down' | 'stable';
+  low_population: boolean;
+}
+
+interface Props {
+  rows: RankingRow[];
+  locale: 'en' | 'es';
+}
+
+const { rows, locale } = Astro.props;
+const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
+
+const communeColLabel = locale === 'en' ? 'Commune' : 'Comuna';
+const rateColLabel    = locale === 'en' ? 'Rate per 100k' : 'Tasa por 100k';
+const rankColLabel    = t.national_rank_label;
+const trendColLabel   = t.trend_label;
+
+// Locale-aware commune URL prefix
+const communePrefix = locale === 'en' ? '/commune/' : '/es/comuna/';
+---
+
+<div class="table-wrapper">
+  <table class="commune-ranking-table">
+    <thead>
+      <tr>
+        <th scope="col">{communeColLabel}</th>
+        <th scope="col" class="col-num">{rateColLabel}</th>
+        <th scope="col" class="col-num">{rankColLabel}</th>
+        <th scope="col">{trendColLabel}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr class={row.low_population ? 'low-pop' : ''}>
+          <td>
+            <a href={`${communePrefix}${row.slug}/`} class="commune-link">
+              {row.name}
+            </a>
+            {row.low_population && (
+              <sup class="low-pop-marker" title={t.low_population_caveat}>*</sup>
+            )}
+          </td>
+          <td class="col-num">{Math.round(row.rate).toLocaleString()}</td>
+          <td class="col-num">
+            {row.low_population ? '—' : `#${row.national_rank}`}
+          </td>
+          <td><TrendChip trend={row.trend} locale={locale} /></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+{rows.some((r) => r.low_population) && (
+  <p class="low-pop-footnote">* {t.low_population_caveat}</p>
+)}
+
+<style>
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .commune-ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-label);
+  }
+
+  .commune-ranking-table thead th {
+    background: var(--bg);
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--muted);
+    padding: var(--sm) var(--md);
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+
+  .commune-ranking-table tbody tr {
+    border-bottom: 1px solid var(--line);
+    background: var(--card);
+    transition: background 0.1s;
+  }
+
+  .commune-ranking-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .commune-ranking-table tbody tr:hover {
+    background: var(--bg);
+  }
+
+  .commune-ranking-table td {
+    padding: var(--sm) var(--md);
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .col-num {
+    text-align: right;
+  }
+
+  .commune-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: var(--weight-strong);
+  }
+
+  .commune-link:hover {
+    text-decoration: underline;
+  }
+
+  .low-pop {
+    opacity: 0.75;
+  }
+
+  .low-pop-marker {
+    color: var(--muted);
+    margin-left: 2px;
+    font-size: 0.85em;
+  }
+
+  .low-pop-footnote {
+    font-size: var(--text-label);
+    font-weight: var(--weight-body);
+    color: var(--muted);
+    margin-top: var(--sm);
+    padding: 0 var(--xs);
+  }
+</style>

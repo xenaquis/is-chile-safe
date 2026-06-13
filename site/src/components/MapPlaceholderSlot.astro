@@ -1,0 +1,94 @@
+---
+/**
+ * MapPlaceholderSlot — Phase 3 hydration mount point.
+ * NEW component per UI-SPEC lines 315-341 and CONTEXT.md D-07.
+ *
+ * The outer div with data-phase3-mount is the Phase 3 contract:
+ *   Phase 3 replaces inner content by mounting the React Leaflet island
+ *   into [data-phase3-mount]. Outer div dimensions must NOT change.
+ *
+ * Min-heights:
+ *   commune-map: 320px mobile / 480px desktop
+ *   region-map, crime-type-map: 280px mobile / 400px desktop
+ *
+ * Zero client:* directives (D-09).
+ */
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+
+interface Props {
+  mountType: 'commune-map' | 'region-map' | 'crime-type-map';
+  locale: 'en' | 'es';
+}
+
+const { mountType, locale } = Astro.props;
+const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
+
+// Variant-specific min-heights
+const isFull = mountType === 'commune-map';
+const mobileH = isFull ? '320px' : '280px';
+const desktopH = isFull ? '480px' : '400px';
+---
+
+<div
+  class="map-placeholder-slot"
+  data-phase3-mount={mountType}
+  role="img"
+  aria-label={locale === 'en' ? 'Interactive map — coming soon' : 'Mapa interactivo — próximamente'}
+  style={`--mobile-h:${mobileH};--desktop-h:${desktopH}`}
+>
+  <div class="map-placeholder-inner">
+    <!-- PinGlyph SVG at 40px (ported from components.jsx lines 4-10) -->
+    <svg
+      width="40"
+      height="40"
+      viewBox="0 0 22 22"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      class="map-pin-glyph"
+    >
+      <circle cx="11" cy="9" r="5" fill="var(--muted)" />
+      <ellipse cx="11" cy="9" rx="2" ry="2" fill="white" />
+      <path d="M11 14 Q7 18 11 22 Q15 18 11 14Z" fill="var(--muted)" />
+    </svg>
+    <p class="map-placeholder-label">{t.map_placeholder_text}</p>
+  </div>
+</div>
+
+<style>
+  .map-placeholder-slot {
+    min-height: var(--mobile-h, 320px);
+    border: 2px dashed var(--line);
+    border-radius: var(--radius);
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: var(--xl) 0;
+  }
+
+  @media (min-width: 1024px) {
+    .map-placeholder-slot {
+      min-height: var(--desktop-h, 480px);
+    }
+  }
+
+  .map-placeholder-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--md);
+    padding: var(--xl);
+  }
+
+  .map-pin-glyph {
+    opacity: 0.4;
+  }
+
+  .map-placeholder-label {
+    font-size: var(--text-label);
+    font-weight: var(--weight-body);
+    color: var(--muted);
+    text-align: center;
+  }
+</style>

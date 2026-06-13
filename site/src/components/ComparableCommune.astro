@@ -1,0 +1,125 @@
+---
+/**
+ * ComparableCommune — card showing the nearest comparable commune (D-08).
+ * Ported from ischilesafe.com/map-view.jsx .panel-similar (lines 79-86).
+ *
+ * Heading selected by fallback flag (UI-SPEC rows 227-228):
+ *   fallback === false → "Comparable commune (same region)"
+ *   fallback === true  → "Comparable commune (national)"
+ *
+ * Links to commune page via locale-aware href — NO onClick/button (D-09).
+ * Zero client:* directives.
+ */
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+import TrendChip from './TrendChip.astro';
+
+interface ComparableResult {
+  name: string;
+  slug: string;
+  rate: number;
+  national_rank: number;
+  trend: 'up' | 'down' | 'stable';
+  regionName: string;
+  fallback: boolean;
+}
+
+interface Props {
+  comparable: ComparableResult;
+  locale: 'en' | 'es';
+}
+
+const { comparable, locale } = Astro.props;
+const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
+
+const heading = comparable.fallback
+  ? t.comparable_national_fallback_heading
+  : t.comparable_same_region_heading;
+
+// Locale-aware commune page URL
+const communeHref = locale === 'en'
+  ? `/commune/${comparable.slug}/`
+  : `/es/comuna/${comparable.slug}/`;
+---
+
+<div class="comparable-commune">
+  <h2 class="comparable-heading">{heading}</h2>
+  <div class="comparable-card">
+    <a href={communeHref} class="comparable-name">{comparable.name}</a>
+    <span class="comparable-region">{comparable.regionName}</span>
+    <div class="comparable-stats">
+      <span class="comparable-rate">
+        {Math.round(comparable.rate).toLocaleString()}
+        <span class="comparable-rate-unit">{t.rate_unit}</span>
+      </span>
+      <span class="comparable-rank">
+        #{comparable.national_rank} {t.rank_of} 346
+      </span>
+      <TrendChip trend={comparable.trend} locale={locale} />
+    </div>
+  </div>
+</div>
+
+<style>
+  .comparable-commune {
+    margin-top: var(--lg);
+  }
+
+  .comparable-heading {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin-bottom: var(--sm);
+  }
+
+  .comparable-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--xs);
+  }
+
+  .comparable-name {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .comparable-name:hover {
+    text-decoration: underline;
+  }
+
+  .comparable-region {
+    font-size: var(--text-label);
+    font-weight: var(--weight-body);
+    color: var(--muted);
+  }
+
+  .comparable-stats {
+    display: flex;
+    align-items: center;
+    gap: var(--md);
+    flex-wrap: wrap;
+    margin-top: var(--xs);
+  }
+
+  .comparable-rate {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+  }
+
+  .comparable-rate-unit {
+    font-weight: var(--weight-body);
+    color: var(--muted);
+  }
+
+  .comparable-rank {
+    font-size: var(--text-label);
+    font-weight: var(--weight-body);
+    color: var(--muted);
+  }
+</style>

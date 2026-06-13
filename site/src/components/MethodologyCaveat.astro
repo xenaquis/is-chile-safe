@@ -1,0 +1,53 @@
+---
+/**
+ * MethodologyCaveat — grey box with CEAD attribution and rate-per-100k note.
+ * Partial analog from ischilesafe.com/home-view.jsx .method-inner (lines 114-130).
+ *
+ * Links to /methodology/ (EN) or /es/metodologia/ (ES).
+ * NOTE: methodology pages built in Phase 4 — link 404s until then (acceptable per phase boundary).
+ *
+ * Zero client:* directives (D-09).
+ */
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+
+interface Props {
+  locale: 'en' | 'es';
+}
+
+const { locale } = Astro.props;
+const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
+
+const methodHref = locale === 'en' ? '/methodology/' : '/es/metodologia/';
+
+// Replace {link} placeholder with the link element
+const caveatParts = t.methodology_caveat_text.split('{link}');
+---
+
+<aside class="methodology-caveat">
+  <p class="caveat-text">
+    {caveatParts[0]}
+    <a href={methodHref} class="caveat-link">{t.methodology_caveat_link}</a>
+    {caveatParts[1]}
+  </p>
+</aside>
+
+<style>
+  .methodology-caveat {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--md) var(--lg);
+    margin: var(--xl) 0;
+  }
+
+  .caveat-text {
+    font-size: var(--text-label); /* 14px/400 */
+    font-weight: var(--weight-body);
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .caveat-link {
+    color: var(--primary);
+  }
+</style>

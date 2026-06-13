@@ -1,0 +1,53 @@
+---
+/**
+ * ComparisonCallout — pill showing % above/below national or regional average.
+ * NEW component (no prototype analog).
+ *
+ * above → level-4/5 warm tint background (amber/red)
+ * below → level-1/2 teal tint background
+ *
+ * Zero client:* directives (D-09).
+ */
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+
+interface Props {
+  pct: number;                         // signed percentage (positive = above)
+  direction: 'above' | 'below';
+  scope: 'national' | 'regional';
+  locale: 'en' | 'es';
+}
+
+const { pct, direction, scope, locale } = Astro.props;
+const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
+
+const absPct = Math.abs(Math.round(pct));
+
+// Select copy key
+let copyKey: keyof typeof t;
+if (scope === 'national') {
+  copyKey = direction === 'above' ? 'vs_national_above' : 'vs_national_below';
+} else {
+  copyKey = direction === 'above' ? 'vs_regional_above' : 'vs_regional_below';
+}
+
+const copy = (t[copyKey] as string).replace('{pct}', String(absPct));
+
+// Background tint: above → warm (s4), below → teal (s1)
+const bgVar = direction === 'above' ? 'var(--s4)' : 'var(--s1)';
+const colorVar = direction === 'above' ? 'var(--ink)' : 'var(--ink)';
+---
+
+<div class="comparison-callout" style={`background:${bgVar};color:${colorVar}`}>
+  <span class="callout-text">{copy}</span>
+</div>
+
+<style>
+  .comparison-callout {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--xs) var(--md);
+    border-radius: 9999px; /* pill */
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+  }
+</style>
