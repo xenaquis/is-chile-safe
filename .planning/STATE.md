@@ -20,7 +20,7 @@ _Last updated: 2026-06-13 (Phase 02 COMPLETE — plan 02-06 UAT approved; all 6 
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: Phase 1 — Data Foundation
+**Current focus**: Phase 3 — Leaflet Map Island (Phase 2 complete + post-UAT fix applied)
 
 ## Current Position
 
@@ -85,9 +85,10 @@ Plan: 6 of 6 — all plans complete; UAT approved 2026-06-13
 
 ## Session Continuity
 
-**Last session**: 2026-06-13 — Phase 02 COMPLETE. UAT approved by human reviewer (automated structural verification: 500+ word prose, hreflang reciprocity, Schema.org JSON-LD, zero client:* directives, no forbidden language; 740 pages / 745 files ROLLOUT_ALL build; 7/7 validators green).
-**Next action**: Begin Phase 3 — Leaflet Map Island planning.
-**Resume prompt**: Phase 02 complete (all 6 plans done, UAT approved). Start /gsd:plan-phase for Phase 3 (Leaflet Map Island).
+**Last session**: 2026-06-13 — Phase 02 COMPLETE + post-UAT fix. Human UAT (this session) re-verified build/validators/prose and caught a real semantic bug the automated structural checks missed: the "comparable commune" prose self-referenced on every commune page (`commune.cut` was undefined → `nearestComparable` threw → self-fallback). Root cause: per-commune JSON uses `id`, type models `cut`; loadCommune never populated `cut`. Fixed at source (loadCommune sets cut from requested CUT), commit a439529. Verified Santiago→Providencia, Las Condes→Vitacura, Viña→Casablanca; astro check 0 errors; 7/7 validators green.
+**Known env issue (not code)**: building inside OneDrive (`C:\Users\Carlo\OneDrive - pjud.cl\...`) desyncs `dist/` artifacts between separate processes — always run build + validate chained in one command; consider a `prebuild` that cleans `dist/`.
+**Next action**: Begin Phase 3 — Leaflet Map Island (discuss/UI/plan/execute). Autonomous run resuming from Phase 3 (single orchestrator now — earlier parallel process is idle/finished).
+**Resume prompt**: Phase 02 complete (6 plans + comparable fix). Continue autonomous from Phase 3 (Leaflet Map Island).
 
 ## Decisions
 
