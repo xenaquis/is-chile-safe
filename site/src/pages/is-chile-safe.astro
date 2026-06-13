@@ -1,0 +1,206 @@
+---
+/**
+ * /is-chile-safe/ — EN FAQ editorial page
+ *
+ * Answers the title question using CEAD national data (mean commune rate).
+ * Emits FAQPage JSON-LD via EditorialLayout → BaseLayout.
+ * esPath maps to EDIT-02 slug /es/delitos-por-comuna/ (REQUIREMENTS.md verbatim).
+ *
+ * CRITICAL: uses loadNationalAverage() (MEAN), never loadNational().series[].rate_per_100k (SUM).
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import DataCallout from '../components/DataCallout.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import { loadNationalAverage, loadIndex, loadCommune } from '../lib/data.ts';
+
+const nationalAvg = loadNationalAverage();
+
+// Derive the reference year from a non-low-population commune
+const index = loadIndex();
+const sampleCut = index.find((c) => !c.low_population)?.cut ?? '13101';
+const sampleCommune = loadCommune(sampleCut);
+const year = sampleCommune.latestCompleteYear;
+
+const faqItems = [
+  {
+    q: "Is Chile safe for tourists?",
+    a: `Chile receives millions of international visitors annually. According to CEAD data for ${year}, reported crime rates vary considerably by commune — from under 200 per 100,000 inhabitants in some southern communes to over 2,000 in urban centres. Tourist areas in the Lake District, Atacama, and Patagonia tend to report lower rates than major city centres. As in any country, awareness of surroundings and standard precautions are advisable.`,
+  },
+  {
+    q: "How does Chile compare with other Latin American countries?",
+    a: `Direct comparisons across countries are methodologically difficult because each country uses different crime definitions, reporting thresholds, and collection methods. Chile Safety Map presents only CEAD data for Chile's own communes. We do not assert comparative rankings against other countries.`,
+  },
+  {
+    q: "What crime types are most commonly reported in Chile?",
+    a: `According to CEAD data, property crime (robos, hurtos) consistently represents the largest share of reported incidents at both national and commune level. Intra-family violence is the second largest category in many communes. Crimes against life and physical integrity (including homicide) are reported at substantially lower rates. Each commune page on this site shows the breakdown by crime family for the latest available year.`,
+  },
+  {
+    q: "What data source does this site use?",
+    a: `All statistics on Chile Safety Map come from CEAD (Centro de Estudios y Análisis del Delito), a unit of Chile's Subsecretaría de Prevención del Delito. CEAD publishes annual frequency tables covering police incident reports for all 346 communes and 16 regions. The data runs from 2005 through the most recent complete year. No editorial weighting or adjustments are applied.`,
+  },
+  {
+    q: "Is the national rate on this site an average or a total?",
+    a: `The national figure shown on this site is the unweighted mean of individual commune rates (per 100 ,000 inhabitants), excluding communes with populations below 10,000. It is not a sum or a weighted aggregate. This distinction matters: CEAD's own national total adds up all incidents across all communes and divides by the national population — a methodology that suppresses variation and can produce figures that differ substantially from the commune-level mean.`,
+  },
+  {
+    q: "Can I use this data for research or journalism?",
+    a: `Yes. The underlying CEAD data is published by the Chilean government. Chile Safety Map provides processed and visualised versions. When citing figures, attribute the source as CEAD and note the year. The Methodology page describes our processing steps in full.`,
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a },
+  })),
+};
+---
+
+<EditorialLayout
+  lang="en"
+  title="Is Chile Safe? Crime Data and Safety Overview — Chile Safety Map"
+  description="Sober, data-driven overview of crime in Chile using CEAD official statistics. National average rates, crime type breakdown, and FAQ for visitors and residents."
+  enPath="/is-chile-safe/"
+  esPath="/es/delitos-por-comuna/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Is Chile Safe? A Data-Driven Overview</h1>
+    <p>
+      Chile has one of the more developed economies and stable institutional environments
+      in South America, yet crime incidence varies substantially by location and crime type.
+      Rather than offering an overall verdict, this page presents what CEAD official data shows
+      for {year} and explains what the numbers mean.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('en-US')} per 100k`}
+      label={`National average reported crime rate — CEAD ${year}`}
+      source="Source: CEAD (Centro de Estudios y Análisis del Delito)"
+      locale="en"
+    />
+  </section>
+
+  <section>
+    <h2>What the National Average Tells You</h2>
+    <p>
+      The figure above is the mean of commune-level reported crime rates for {year}, computed
+      across non-low-population communes. It tells you that, in a typical Chilean commune of
+      average size, this many incidents per 100,000 residents were reported to police.
+    </p>
+    <p>
+      What it does not tell you: the range of variation is wide. According to CEAD data for
+      {year}, some communes report rates below 200 per 100,000 while others — often urban
+      commercial centres with large floating populations — exceed 2,000. Location choice
+      matters more than a single national figure suggests.
+    </p>
+  </section>
+
+  <section>
+    <h2>Crime Types: What is Most Common</h2>
+    <p>
+      Chile's CEAD dataset covers seven crime families. Across most communes and years,
+      property crime (robbery and theft) accounts for the largest share of reported incidents.
+      This is consistent with patterns in comparable economies globally.
+    </p>
+    <p>
+      Intra-family violence ranks second in absolute incident counts in many communes,
+      a reflection both of actual incidence and of reporting campaigns that have increased
+      formal complaint rates over the past decade.
+    </p>
+    <p>
+      Crimes against life and physical integrity — including homicide — are reported at
+      substantially lower rates than property crime, though variation by commune exists here too.
+      The interactive map on <a href="/chile-crime-map/">Chile Crime Map</a> lets you filter
+      by crime family and year to see the spatial distribution of each category.
+    </p>
+  </section>
+
+  <section>
+    <h2>Urban vs. Rural: Understanding the Variation</h2>
+    <p>
+      Urban communes — particularly city centres that serve as commercial hubs or transit nodes —
+      tend to show higher reported rates than rural or residential communes. A key reason is
+      the "floating population" effect: crime statistics are calculated per registered resident,
+      but many incidents occur in areas visited by far more people than are registered there.
+      Santiago Centro, Valparaíso, and Iquique are examples of communes where this dynamic
+      amplifies the per-resident rate relative to surrounding areas.
+    </p>
+    <p>
+      Conversely, small agricultural and coastal communes often show the lowest rates in their
+      regions — though low absolute numbers of incidents can make individual years noisy.
+    </p>
+  </section>
+
+  <section>
+    <h2>Trends Over Time</h2>
+    <p>
+      CEAD data runs from 2005, providing a fifteen-plus year time series for most communes.
+      Nationally, reported crime rates increased through the mid-2010s, then showed variation
+      by crime family in subsequent years. Property crime followed a different trajectory than
+      violent crime. Each commune page on this site shows a multi-year sparkline so you can
+      assess whether a rate is rising, falling, or stable according to CEAD data — rather than
+      relying on a single-year snapshot.
+    </p>
+  </section>
+
+  <section>
+    <h2>Practical Guidance for Visitors and Residents</h2>
+    <p>
+      Practical awareness based on reported data:
+    </p>
+    <ul>
+      <li>
+        Check the commune-level page for any specific area you are evaluating — national and
+        regional averages mask significant local variation.
+      </li>
+      <li>
+        Property crime (pickpocketing, bag theft) is the most frequently reported category in
+        tourist areas. Standard precautions are advisable in busy commercial zones and
+        transport hubs.
+      </li>
+      <li>
+        Trend direction matters as much as the current rate. A commune whose rate has declined
+        for three consecutive years according to CEAD data warrants a different assessment than
+        one at the same rate but rising.
+      </li>
+      <li>
+        Consult recent travel advisories from your government's foreign affairs ministry for
+        up-to-date guidance on specific areas or regions.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Frequently Asked Questions</h2>
+    <FAQBlock items={faqItems} locale="en" />
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -1,17 +1,25 @@
 ---
 /**
- * EN home page placeholder — /
+ * EN home page — /
  *
- * Provides a valid root URL with hreflang + canonical + manifest so the
- * sitemap home entry is valid and SEO-04 PWA meta is present.
- *
- * Real editorial home content (hero, featured communes, map teaser) lands in
- * Phase 4 — see CONTEXT.md D-04-editorial-home. Keep this minimal.
+ * Extended in Phase 4 with sober editorial prose, national-average DataCallout,
+ * and quick-links into the map and key editorial pages.
+ * Uses EditorialLayout (720px prose column + gated AdSlot).
  */
-import BaseLayout from '../layouts/BaseLayout.astro';
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import DataCallout from '../components/DataCallout.astro';
+import { loadNationalAverage, loadIndex, loadCommune, latestCompleteYearRate } from '../lib/data.ts';
+
+const nationalAvg = loadNationalAverage();
+
+// Derive the reference year from any non-low-population commune
+const index = loadIndex();
+const sampleCut = index.find((c) => !c.low_population)?.cut ?? '13101';
+const sampleCommune = loadCommune(sampleCut);
+const referenceYear = sampleCommune.latestCompleteYear;
 ---
 
-<BaseLayout
+<EditorialLayout
   lang="en"
   title="Is Chile Safe — Chile Safety Map"
   description="Official CEAD crime statistics for every commune and region of Chile. Explore incidence rates, rankings, and trends by commune, region, or crime type."
@@ -19,22 +27,182 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   esPath="/es/"
 >
   <section class="home-hero">
-    <h1>Is Chile Safe?</h1>
+    <h1>Is Chile Safe? Official CEAD Crime Data for All 346 Communes</h1>
     <p class="home-intro">
-      Chile Safety Map provides official CEAD crime incidence data for all
-      346 communes and 16 regions of Chile — in plain, data-driven language.
+      Chile Safety Map presents official crime-incidence data from Chile's Centro de Estudios
+      y Análisis del Delito (CEAD) for all 346 communes and 16 regions of the country.
+      Every figure you see on this site is sourced directly from that government dataset —
+      no editorial weighting, no aggregated national "scores."
+    </p>
+  </section>
+
+  <section>
+    <h2>What the Data Shows</h2>
+    <p>
+      The canonical metric on this site is the <strong>rate of reported offences per 100,000
+      inhabitants</strong>. Using a rate rather than a raw count allows fair comparison
+      between places of very different sizes: a commune with 10,000 residents and 50 reported
+      offences in a year has a rate of 500 per 100,000 — the same relative frequency as a
+      city of 500,000 with 2,500 reported offences.
+    </p>
+    <p>
+      All rates are computed from CEAD's annual frequency tables, which aggregate police
+      incident reports by commune, year, and crime family. According to CEAD data for
+      {referenceYear}, the unweighted mean rate across non-low-population communes in Chile is
+      shown below.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('en-US')} per 100k`}
+      label={`National average reported crime rate — CEAD ${referenceYear}`}
+      source="Source: CEAD (Centro de Estudios y Análisis del Delito)"
+      locale="en"
+    />
+
+    <p>
+      This figure represents the mean of individual commune rates, not a sum. Communes with
+      fewer than 10,000 inhabitants are excluded from the national average calculation because
+      small populations produce highly variable per-capita rates that would distort the
+      comparison. Individual commune pages display rates regardless of population, with a
+      clear note when population is below that threshold.
+    </p>
+  </section>
+
+  <section>
+    <h2>How to Read Crime Rates</h2>
+    <p>
+      A higher rate means more reported offences per 100,000 residents — not necessarily that
+      a place is objectively more or less liveable. Several factors affect the number:
+    </p>
+    <ul>
+      <li>
+        <strong>Under-reporting:</strong> Not all incidents are reported to police.
+        Under-reporting rates vary by crime type and are not uniform across communes or
+        socioeconomic groups.
+      </li>
+      <li>
+        <strong>Floating population:</strong> Tourist areas and city centres may have lower
+        resident populations relative to the number of people present on any given day,
+        inflating per-resident rates.
+      </li>
+      <li>
+        <strong>Crime family composition:</strong> A high overall rate can reflect a high
+        concentration of minor property offences rather than violent crime. Use the crime-family
+        breakdown on each commune page to understand the composition.
+      </li>
+      <li>
+        <strong>Trend direction:</strong> A commune with a rate that has fallen steadily over
+        several years may warrant a different reading than one at the same rate but trending
+        upward. Each commune page shows a multi-year series.
+      </li>
+    </ul>
+    <p>
+      This site never assigns absolute "safe" or "dangerous" labels. It presents CEAD
+      reported-incident data and lets you form your own informed view.
+    </p>
+  </section>
+
+  <section>
+    <h2>Explore the Data</h2>
+    <p>
+      Start with the interactive map to see all 346 communes coloured by incidence rate,
+      or go directly to a commune, region, or crime type:
     </p>
     <ul class="home-links">
-      <li><a href="/commune/santiago/">Santiago</a></li>
-      <li><a href="/commune/valparaiso/">Valparaíso</a></li>
-      <li><a href="/commune/antofagasta/">Antofagasta</a></li>
+      <li><a href="/chile-crime-map/">Chile Crime Map — interactive choropleth</a></li>
+      <li><a href="/is-chile-safe/">Is Chile Safe? — national overview FAQ</a></li>
+      <li><a href="/is-santiago-safe/">Is Santiago Safe? — capital city data</a></li>
+      <li><a href="/safest-cities-in-chile/">Communes with the lowest reported rates</a></li>
+      <li><a href="/commune/santiago/">Santiago commune detail</a></li>
+      <li><a href="/commune/valparaiso/">Valparaíso commune detail</a></li>
+      <li><a href="/commune/antofagasta/">Antofagasta commune detail</a></li>
       <li><a href="/region/metropolitana/">Región Metropolitana</a></li>
       <li><a href="/crime/property/">Property crime national ranking</a></li>
     </ul>
-    <p class="home-note">
-      <!-- Phase 4: replace this placeholder with full editorial content,
-           interactive map, and curated commune picks. -->
-      Full interactive map and editorial content coming soon.
+  </section>
+
+  <section>
+    <h2>About the CEAD Data Source</h2>
+    <p>
+      CEAD (Centro de Estudios y Análisis del Delito) is a unit of Chile's Subsecretaría de
+      Prevención del Delito, which falls under the Ministry of the Interior and Public Security.
+      It compiles police incident data from Carabineros de Chile and Policía de Investigaciones,
+      and publishes annual frequency tables covering seven crime families:
+    </p>
+    <ul>
+      <li>Crimes against life and physical integrity</li>
+      <li>Violent robbery and theft</li>
+      <li>Intra-family violence</li>
+      <li>Drug offences</li>
+      <li>Arms offences</li>
+      <li>Property crime</li>
+      <li>Disorder and incivilities</li>
+    </ul>
+    <p>
+      Data covers 2005 through the most recent complete year and is available at commune,
+      regional, and national levels. Chile Safety Map fetches this data via CEAD's published
+      endpoints, validates it against a strict schema (346 communes present, rates within
+      plausible ranges), and stores the result as versioned static JSON in this repository.
+      The <a href="/methodology/">Methodology page</a> documents the full pipeline, including
+      population sources, rate calculations, and known limitations.
     </p>
   </section>
-</BaseLayout>
+
+  <section>
+    <h2>Limitations and Responsible Use</h2>
+    <p>
+      Crime statistics reflect <em>reported incidents</em>, not actual crime. Studies
+      consistently show that property crime is under-reported at rates of 50–70 % in many
+      countries; violent crime is somewhat better captured but still incomplete. CEAD data
+      inherits these limitations and should be interpreted as an indicator of reporting
+      patterns, not a comprehensive measure of public safety.
+    </p>
+    <p>
+      Location decisions — whether to visit, live, or invest — involve factors beyond crime
+      rates: economic opportunity, housing, healthcare, social networks, and personal
+      circumstances. This site provides one data dimension to inform those decisions; it is
+      not a substitute for on-the-ground research or local expertise.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  .home-hero {
+    margin-bottom: var(--xl);
+  }
+
+  .home-intro {
+    font-size: var(--text-body);
+    color: var(--ink);
+    line-height: 1.6;
+    margin-top: var(--md);
+  }
+
+  .home-links {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 2;
+  }
+
+  .home-links a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .home-links a:hover {
+    text-decoration: underline;
+  }
+
+  ul {
+    line-height: 1.8;
+    padding-left: var(--lg);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  section {
+    margin-bottom: var(--2xl);
+  }
+</style>
