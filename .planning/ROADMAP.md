@@ -45,7 +45,15 @@ _Last updated: 2026-06-12_
   4. Region pages (16 × 2 locales) and crime-type pages are accessible and contain structured Schema.org `Dataset`/`Place` data
   5. The site ships with PWA manifest and theme color; no page depends on client-side rendering for SEO-critical content
 
-**Plans**: TBD
+**Plans**: 6 plans
+
+- [ ] 02-01-PLAN.md — Astro scaffold + node:fs data loader + i18n/family-slugs/rollout config + slug maps + color scale + validation stubs (Wave 1)
+- [ ] 02-02-PLAN.md — global.css tokens + BaseLayout (hreflang/canonical/PWA meta) + 11 ported server-rendered components (Wave 2)
+- [ ] 02-03-PLAN.md — Commune pages EN+ES: deterministic prose variation engine (500+ words, 5 dimensions) + rollout batch gate (Wave 3)
+- [ ] 02-04-PLAN.md — Region pages EN+ES (16×2): aggregates + commune ranking table (Wave 3)
+- [ ] 02-05-PLAN.md — Crime-type pages EN+ES (7×2): national family ranking + translated slugs + featured prominence (Wave 3)
+- [ ] 02-06-PLAN.md — SEO finishing: rollout-gated sitemap + Schema.org + PWA manifest + hreflang/schema validators + full ROLLOUT_ALL build gate + UAT (Wave 4)
+
 **UI hint**: yes
 
 ### Phase 3: Leaflet Map Island
@@ -113,7 +121,7 @@ _Last updated: 2026-06-12_
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 4/4 | Complete    | 2026-06-13 |
-| 2. Astro Site + Programmatic Pages | 0/? | Not started | - |
+| 2. Astro Site + Programmatic Pages | 0/6 | Planned     | - |
 | 3. Leaflet Map Island | 0/? | Not started | - |
 | 4. Editorial Pages + AdSense | 0/? | Not started | - |
 | 5. RSS News Pipeline | 0/? | Not started | - |
