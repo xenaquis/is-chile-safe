@@ -1,0 +1,57 @@
+---
+/**
+ * Sparkline — server-rendered inline SVG bar sparkline.
+ * Ported from ischilesafe.com/components.jsx Sparkline (lines 135-150).
+ *
+ * Partial-year bars rendered at 50% opacity (UI-SPEC).
+ * Active-year bar filled with var(--primary); others var(--muted).
+ * aria-hidden — decorative; screen readers use the stat cards for data.
+ *
+ * Zero client:* directives (D-09).
+ */
+
+interface Props {
+  series: Array<{ year: number; rate_per_100k: number; partial?: boolean }>;
+  activeYear?: number;
+  width?: number;
+  height?: number;
+}
+
+const { series, activeYear, width = 480, height = 44 } = Astro.props;
+
+const maxRate = series.length > 0 ? Math.max(...series.map((s) => s.rate_per_100k)) : 1;
+const barW = series.length > 0 ? Math.max(2, Math.floor(width / series.length) - 1) : 8;
+---
+
+<svg
+  width={width}
+  height={height}
+  viewBox={`0 0 ${width} ${height}`}
+  aria-hidden="true"
+  class="sparkline"
+  style="width:100%;height:auto;overflow:visible"
+>
+  {series.map((s, i) => {
+    const barH = Math.max(2, Math.round((s.rate_per_100k / maxRate) * height));
+    const x = i * (barW + 1);
+    const isActive = s.year === activeYear;
+    const opacity = s.partial ? 0.5 : 1;
+    return (
+      <rect
+        x={x}
+        y={height - barH}
+        width={barW}
+        height={barH}
+        rx="2"
+        fill={isActive ? 'var(--primary)' : 'var(--muted)'}
+        opacity={opacity}
+      />
+    );
+  })}
+</svg>
+
+<style>
+  .sparkline {
+    display: block;
+  }
+</style>

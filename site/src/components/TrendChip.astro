@@ -1,0 +1,48 @@
+---
+/**
+ * TrendChip — trend arrow + label.
+ * Ported from ischilesafe.com/components.jsx TrendLabel (lines 128-133).
+ *
+ * IMPORTANT: Phase 1 trend is a STRING ('up'/'down'/'stable'), NOT numeric.
+ * Branch on string values, not numeric comparison (PATTERNS line 149).
+ *
+ * Semantic colors per UI-SPEC:
+ *   up → #c96b5a (--trend-up)
+ *   down → #0f766e (--trend-down — positive signal)
+ *   stable → #5d6c6d (--trend-stable)
+ *
+ * Zero client:* directives (D-09).
+ */
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+
+interface Props {
+  trend: 'up' | 'down' | 'stable';
+  locale: 'en' | 'es';
+}
+
+const { trend, locale } = Astro.props;
+const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
+
+const arrow  = trend === 'up' ? '↑' : trend === 'down' ? '↓' : '→';
+const label  = trend === 'up' ? t.trend_up : trend === 'down' ? t.trend_down : t.trend_stable;
+const color  = trend === 'up' ? 'var(--trend-up)' : trend === 'down' ? 'var(--trend-down)' : 'var(--trend-stable)';
+---
+
+<span class="trend-chip" style={`color:${color}`}>
+  <span class="trend-arrow" aria-hidden="true">{arrow}</span>
+  <span class="trend-label">{label}</span>
+</span>
+
+<style>
+  .trend-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--xs);
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+  }
+
+  .trend-arrow {
+    font-size: 1em;
+  }
+</style>

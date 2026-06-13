@@ -1,0 +1,46 @@
+---
+/**
+ * LevelChip — color dot + incidence level label.
+ * Ported from ischilesafe.com/components.jsx LevelChip (lines 119-126).
+ *
+ * Dot color uses CSS custom property var(--s{level}) — never hardcoded hex.
+ * Zero client:* directives (D-09).
+ */
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+
+interface Props {
+  level: 1 | 2 | 3 | 4 | 5;
+  locale: 'en' | 'es';
+}
+
+const { level, locale } = Astro.props;
+const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
+const levelKey = `level_${level}` as keyof typeof t;
+const label = t[levelKey] as string;
+---
+
+<span class="level-chip">
+  <span class="level-dot" style={`background:var(--s${level})`} aria-hidden="true"></span>
+  <span class="level-label">{label}</span>
+</span>
+
+<style>
+  .level-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--xs);
+  }
+
+  .level-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .level-label {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+  }
+</style>

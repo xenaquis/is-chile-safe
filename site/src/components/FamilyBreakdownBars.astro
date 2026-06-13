@@ -1,0 +1,143 @@
+---
+/**
+ * FamilyBreakdownBars — CSS horizontal bar chart for 7 crime families.
+ * Ported from ischilesafe.com/map-view.jsx .type-bars block (lines 52-60).
+ *
+ * Family order per UI-SPEC CrimeFamilyBreakdown:
+ *   vida (featured), propiedad (featured), robos_violentos, incivilidades, vif, drogas, armas
+ *
+ * CRITICAL: bar width must be a CSS percentage STRING with unit ('%'),
+ * never a bare number (RESEARCH anti-pattern line 478).
+ *
+ * Uses the latest COMPLETE year by_family data (never partial: true — Pitfall 5).
+ * Zero client:* directives (D-09).
+ */
+interface ByFamily {
+  vida?: number;
+  propiedad?: number;
+  robos_violentos?: number;
+  incivilidades?: number;
+  vif?: number;
+  drogas?: number;
+  armas?: number;
+  [key: string]: number | undefined;
+}
+
+interface Props {
+  byFamily: ByFamily;
+  locale: 'en' | 'es';
+  level: 1 | 2 | 3 | 4 | 5;
+}
+
+const { byFamily, locale, level } = Astro.props;
+
+// Fixed family order per UI-SPEC: vida + propiedad featured first
+const FAMILY_ORDER = [
+  'vida',
+  'propiedad',
+  'robos_violentos',
+  'incivilidades',
+  'vif',
+  'drogas',
+  'armas',
+] as const;
+
+const FEATURED = new Set(['vida', 'propiedad']);
+
+// Family labels per locale
+const FAMILY_LABELS: Record<string, { en: string; es: string }> = {
+  vida:            { en: 'Life crimes',         es: 'Delitos contra la vida' },
+  propiedad:       { en: 'Property crimes',     es: 'Delitos contra la propiedad' },
+  robos_violentos: { en: 'Violent robbery',     es: 'Robos violentos' },
+  incivilidades:   { en: 'Disorder',            es: 'Incivilidades' },
+  vif:             { en: 'Domestic violence',   es: 'Violencia intrafamiliar' },
+  drogas:          { en: 'Drug crimes',         es: 'Drogas' },
+  armas:           { en: 'Weapons',             es: 'Armas' },
+};
+
+// Build rows
+const vals = FAMILY_ORDER.map((key) => byFamily[key] ?? 0);
+const max = Math.max(...vals, 1); // avoid divide-by-zero
+
+const rows = FAMILY_ORDER.map((key, i) => {
+  const val = vals[i];
+  const widthPct = Math.round((val / max) * 100) + '%';
+  const label = FAMILY_LABELS[key]?.[locale] ?? key;
+  const featured = FEATURED.has(key);
+  return { key, val, widthPct, label, featured };
+});
+---
+
+<div class="family-bars">
+  {rows.map(({ val, widthPct, label, featured }) => (
+    <div class="family-bar-row">
+      <span class={`family-bar-label${featured ? ' featured' : ''}`}>
+        {featured && <span class="accent-dot" aria-hidden="true"></span>}
+        {label}
+      </span>
+      <span class="family-bar-track" aria-hidden="true">
+        <span
+          class="family-bar-fill"
+          style={`width:${widthPct};background:var(--s${level})`}
+        ></span>
+      </span>
+      <span class="family-bar-val">{Math.round(val)}</span>
+    </div>
+  ))}
+</div>
+
+<style>
+  .family-bars {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sm);
+  }
+
+  .family-bar-row {
+    display: grid;
+    grid-template-columns: 10rem 1fr 4rem;
+    align-items: center;
+    gap: var(--sm);
+  }
+
+  .family-bar-label {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: var(--xs);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .accent-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary);
+    flex-shrink: 0;
+  }
+
+  .family-bar-track {
+    height: 10px;
+    background: var(--line);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .family-bar-fill {
+    display: block;
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.2s ease;
+  }
+
+  .family-bar-val {
+    font-size: var(--text-label);
+    font-weight: var(--weight-body);
+    color: var(--muted);
+    text-align: right;
+  }
+</style>
