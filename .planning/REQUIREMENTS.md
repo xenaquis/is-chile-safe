@@ -24,7 +24,7 @@
 - [ ] **MAP-03**: Usuario puede abrir un panel territorial por comuna con tasa, tendencia, ranking, evolución temporal (sparkline) y desglose por tipo de delito
 - [ ] **MAP-04**: Usuario puede ver pins de incidentes recientes de noticias con fuente y fecha en el mapa
 - [ ] **MAP-05**: Usuario puede pulsar "mostrar mi ubicación" y el sitio identifica y resalta su comuna
-- [ ] **MAP-06**: El mapa es usable en móvil de gama media: GeoJSON simplificado (<100 KB), estilos memoizados
+- [x] **MAP-06**: El mapa es usable en móvil de gama media: GeoJSON simplificado (<100 KB), estilos memoizados
 
 ### Páginas programáticas (PAGES)
 
@@ -96,7 +96,7 @@
 | MAP-03 | Phase 3 | Pending |
 | MAP-04 | Phase 3 | Pending |
 | MAP-05 | Phase 3 | Pending |
-| MAP-06 | Phase 3 | Pending |
+| MAP-06 | Phase 3 | Complete |
 | EDIT-01 | Phase 4 | Pending |
 | EDIT-02 | Phase 4 | Pending |
 | EDIT-03 | Phase 4 | Pending |
