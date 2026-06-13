@@ -1,6 +1,6 @@
 # ROADMAP — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-12_
+_Last updated: 2026-06-13_
 
 ## Phases
 
@@ -69,7 +69,13 @@ _Last updated: 2026-06-12_
   4. Tapping "mostrar mi ubicación" identifies and highlights the user's commune
   5. Incident pins (NEWS layer) appear on the map with source and date when `incidents/current.json` is present (may show empty state in this phase if Phase 5 is not yet done)
 
-**Plans**: TBD
+**Plans**: 4 plans
+
+- [ ] 03-00-PLAN.md — Wave 0 infra: @astrojs/react + react/leaflet install (no react-leaflet), 346-commune CUT-keyed TopoJSON <100 KB, map.mjs validator + zero-React regression guard
+- [ ] 03-01-PLAN.md — Wave 1: /map/ + /es/mapa/ pages + MapIsland (L.map, CARTO tiles, TopoJSON+payload fetch, native L.geoJSON + L.canvas choropleth), low-zoom dots, legend, zoom control
+- [ ] 03-02-PLAN.md — Wave 2: year + crime-type filters (setStyle in place), commune ResultPanel (tasa/trend/rank/sparkline/family breakdown), search
+- [ ] 03-03-PLAN.md — Wave 3: geolocation (Geolocation API + point-in-polygon) + incident-pin NEWS layer (graceful empty state) + manual interaction/mobile UAT
+
 **UI hint**: yes
 
 ### Phase 4: Editorial Pages + AdSense
@@ -122,7 +128,7 @@ _Last updated: 2026-06-12_
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 4/4 | Complete    | 2026-06-13 |
 | 2. Astro Site + Programmatic Pages | 6/6 | Complete    | 2026-06-13 |
-| 3. Leaflet Map Island | 0/? | Not started | - |
+| 3. Leaflet Map Island | 0/4 | Planned     | - |
 | 4. Editorial Pages + AdSense | 0/? | Not started | - |
 | 5. RSS News Pipeline | 0/? | Not started | - |
 | 6. CI/CD + Cloudflare Deployment | 0/? | Not started | - |
