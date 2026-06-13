@@ -1,0 +1,40 @@
+---
+/**
+ * ES home page placeholder — /es/
+ *
+ * Provides a valid ES root URL with hreflang + canonical + manifest so the
+ * sitemap ES home entry is valid and SEO-04 PWA meta is present.
+ *
+ * Real editorial home content (hero, featured communes, map teaser) lands in
+ * Phase 4 — see CONTEXT.md D-04-editorial-home. Keep this minimal.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  lang="es"
+  title="¿Es seguro Chile? — Chile Safety Map"
+  description="Estadísticas oficiales CEAD de incidencia delictiva para las 346 comunas y 16 regiones de Chile. Explora tasas, rankings y tendencias por comuna, región o tipo de delito."
+  enPath="/"
+  esPath="/es/"
+>
+  <section class="home-hero">
+    <h1>¿Es seguro Chile?</h1>
+    <p class="home-intro">
+      Chile Safety Map presenta datos oficiales CEAD de incidencia delictiva
+      para las 346 comunas y 16 regiones de Chile, en lenguaje claro y basado en datos.
+    </p>
+    <ul class="home-links">
+      <li><a href="/es/comuna/santiago/">Santiago</a></li>
+      <li><a href="/es/comuna/valparaiso/">Valparaíso</a></li>
+      <li><a href="/es/comuna/antofagasta/">Antofagasta</a></li>
+      <li><a href="/es/region/metropolitana/">Región Metropolitana</a></li>
+      <li><a href="/es/delito/propiedad/">Ranking nacional delitos propiedad</a></li>
+    </ul>
+    <p class="home-note">
+      <!-- Phase 4: replace this placeholder with full editorial content,
+           interactive map, and curated commune picks. -->
+      Mapa interactivo completo y contenido editorial próximamente.
+    </p>
+  </section>
+</BaseLayout>
