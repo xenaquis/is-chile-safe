@@ -137,6 +137,65 @@ if (existsSync(path.join(DIST_DIR, 'es', 'region'))) {
   if (!checkPage(regionEsPath, 'ES es/region/metropolitana')) failures++;
 }
 
+// ---------------------------------------------------------------------------
+// Phase-4 editorial and legal page assertions (EDIT-01 / EDIT-02 / EDIT-04)
+// Guard: only assert if the sentinel page (methodology/index.html) exists.
+// Before the editorial pages are built this block is a no-op.
+// Slug list is taken verbatim from REQUIREMENTS.md EDIT-01/EDIT-02/EDIT-04.
+// ---------------------------------------------------------------------------
+const PHASE4_DIST_PAGES = [
+  // EDIT-01 EN editorial (10 pages — root assertd as dist/index.html)
+  'index.html',               // /  (root)
+  'chile-crime-map/index.html',
+  'is-chile-safe/index.html',
+  'santiago-safety-map/index.html',
+  'is-santiago-safe/index.html',
+  'valparaiso-safety/index.html',
+  'vina-del-mar-safety/index.html',
+  'concepcion-safety/index.html',
+  'safest-cities-in-chile/index.html',
+  'methodology/index.html',
+  // EDIT-02 ES editorial (10 pages — /es/ root as dist/es/index.html)
+  'es/index.html',            // /es/
+  'es/mapa-delito-chile/index.html',
+  'es/delitos-por-comuna/index.html',
+  'es/delitos-por-region/index.html',
+  'es/comunas-mas-seguras-chile/index.html',
+  'es/mapa-seguridad-santiago/index.html',
+  'es/seguridad-valparaiso/index.html',
+  'es/seguridad-vina-del-mar/index.html',
+  'es/seguridad-concepcion/index.html',
+  'es/metodologia/index.html',
+  // EDIT-04 legal (EN + ES)
+  'privacy-policy/index.html',
+  'terms/index.html',
+  'about/index.html',
+  'contact/index.html',
+  'es/politica-privacidad/index.html',
+  'es/terminos/index.html',
+  'es/acerca-de/index.html',
+  'es/contacto/index.html',
+];
+
+const phase4Sentinel = path.join(DIST_DIR, 'methodology', 'index.html');
+if (!existsSync(phase4Sentinel)) {
+  console.log('structure: Phase-4 editorial pages not built yet — skipping');
+} else {
+  console.log('structure: Phase-4 sentinel found — asserting all EDIT-01/02/04 pages');
+  let phase4Failures = 0;
+  for (const rel of PHASE4_DIST_PAGES) {
+    const abs = path.join(DIST_DIR, rel);
+    if (!existsSync(abs)) {
+      console.error(`FAIL [phase4]: HTML not found at ${abs}`);
+      phase4Failures++;
+      failures++;
+    }
+  }
+  if (phase4Failures === 0) {
+    console.log(`structure: Phase-4 PASS — all ${PHASE4_DIST_PAGES.length} editorial/legal pages present`);
+  }
+}
+
 if (failures > 0) {
   console.error(`\nstructure.mjs: FAILED (${failures} failure(s))`);
   process.exit(1);
