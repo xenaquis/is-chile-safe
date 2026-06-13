@@ -137,6 +137,7 @@ const labels = locale === 'en'
   }
 
   .form-submit:hover {
-    background: #0d6460; /* darken var(--primary) 10% — UI-SPEC hover state */
+    /* darken var(--primary) ~10% — token-derived per UI-SPEC hover state */
+    background: color-mix(in srgb, var(--primary) 90%, black);
   }
 </style>
