@@ -9,6 +9,7 @@
  *   5. crime.mjs      — crime-type page HTML assertions
  *   6. hreflang.mjs   — hreflang reciprocity + canonical + PWA meta per page
  *   7. schema.mjs     — Schema.org JSON-LD correctness per page type
+ *   8. map.mjs        — TopoJSON budget + map pages + zero-React content-page regression guard
  *
  * Any non-zero exit from a child script fails the suite.
  * Prints a per-check PASS/FAIL summary at the end.
@@ -32,6 +33,7 @@ const VALIDATORS = [
   'crime.mjs',
   'hreflang.mjs',
   'schema.mjs',
+  'map.mjs',
 ];
 
 const results = [];
