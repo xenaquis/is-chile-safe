@@ -185,7 +185,7 @@ const jsonLd = {
     </h1>
     <p class="crime-def">{familyDef}</p>
     <div class="hero-meta">
-      <span class="hero-stat">Media nacional: {Math.round(familyNationalMean).toLocaleString()} por 100k ({latestYear})</span>
+      <span class="hero-stat">Media nacional: {Math.round(familyNationalMean).toLocaleString('es-CL')} por 100k ({latestYear})</span>
       <span class="hero-sep" aria-hidden="true">·</span>
       <span class="hero-stat">{eligibleRows.length} comunas en ranking</span>
     </div>
@@ -222,7 +222,7 @@ const jsonLd = {
                 )}
               </td>
               <td class="col-region">{row.regionName}</td>
-              <td class="col-num">{Math.round(row.rate).toLocaleString()}</td>
+              <td class="col-num">{Math.round(row.rate).toLocaleString('es-CL')}</td>
               <td><TrendChip trend={row.trend} locale="es" /></td>
             </tr>
           ))}
@@ -250,7 +250,7 @@ const jsonLd = {
             <span class="region-bar-track" aria-hidden="true">
               <span class="region-bar-fill" style={`width:${widthPct}`}></span>
             </span>
-            <span class="region-bar-val">{Math.round(r.rate).toLocaleString()}</span>
+            <span class="region-bar-val">{Math.round(r.rate).toLocaleString('es-CL')}</span>
           </div>
         );
       })}
