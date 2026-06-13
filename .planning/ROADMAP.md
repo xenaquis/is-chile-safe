@@ -112,7 +112,7 @@ _Last updated: 2026-06-12_
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Foundation | 4/4 | Complete   | 2026-06-13 |
+| 1. Data Foundation | 4/4 | Complete    | 2026-06-13 |
 | 2. Astro Site + Programmatic Pages | 0/? | Not started | - |
 | 3. Leaflet Map Island | 0/? | Not started | - |
 | 4. Editorial Pages + AdSense | 0/? | Not started | - |
