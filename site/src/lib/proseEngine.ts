@@ -50,6 +50,20 @@ type ComparisonBand = 'high_above' | 'mid_above' | 'near' | 'mid_below' | 'high_
 // Helper functions
 // ---------------------------------------------------------------------------
 
+/**
+ * Map a national rank to an incidence tier (WR-01).
+ *
+ * IMPORTANT: rank 1 = HIGHEST reported incidence (per EN_OPENING.up.top10
+ * "highest reported crime incidence"), rank `total` = LOWEST. The tier names
+ * therefore track incidence, not rank order: `top10` is the highest-incidence
+ * decile, `bottom10` the lowest.
+ *
+ * Bands are RANK-PERCENTILE cuts (not rate-percentile). For total = 346 the
+ * Math.round breakpoints are: top10 = 35, top25 = 87, bot25 = 260, bot10 = 311.
+ * Edge cases (pinned): rank 35 -> top10, rank 87 -> top25, rank 260 -> bottom25,
+ * rank 311 -> bottom10, ranks 88..259 -> mid. The `mid` band spans 88..259 by
+ * design — verify against UI-SPEC if the intended cuts ever change.
+ */
 function rankTier(nationalRank: number, total = 346): RankTier {
   const top10 = Math.round(total * 0.1);
   const top25 = Math.round(total * 0.25);
