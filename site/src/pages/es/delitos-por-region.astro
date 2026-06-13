@@ -1,0 +1,211 @@
+---
+/**
+ * /es/delitos-por-region/ — ES editorial page sobre delitos por región (EDIT-02).
+ *
+ * No tiene contrapartida EN en EDIT-01. Per slug_flag: enPath=self (/es/delitos-por-region/).
+ * CRÍTICO: usa loadNationalAverage() (MEDIA) — nunca SUMA.
+ */
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import DataCallout from '../../components/DataCallout.astro';
+import { loadNationalAverage, loadIndex, loadCommune } from '../../lib/data.ts';
+
+const nationalAvg = loadNationalAverage();
+const index = loadIndex();
+const sampleCut = index.find((c) => !c.low_population)?.cut ?? '13101';
+const sampleCommune = loadCommune(sampleCut);
+const year = sampleCommune.latestCompleteYear;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Delitos por Región en Chile — Datos CEAD",
+  "description": `Comparación de incidencia delictiva reportada entre las 16 regiones de Chile según datos CEAD ${year}. Tasas por 100.000 habitantes y variación comunal intraregional.`,
+  "url": "https://ischilesafe.com/es/delitos-por-region/",
+};
+---
+
+<EditorialLayout
+  lang="es"
+  title="Delitos por Región en Chile — Estadísticas CEAD — Chile Safety Map"
+  description={`Comparación de incidencia delictiva reportada entre las 16 regiones de Chile según datos CEAD ${year}. Tasas por 100.000 habitantes, variación comunal y contexto metodológico.`}
+  enPath="/es/delitos-por-region/"
+  esPath="/es/delitos-por-region/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Delitos por Región en Chile — Comparativa CEAD</h1>
+    <p>
+      Chile está organizado en 16 regiones administrativas, cada una con realidades geográficas,
+      económicas y demográficas distintas. Esta página presenta la incidencia delictiva reportada
+      a nivel regional según datos del CEAD (Centro de Estudios y Análisis del Delito) para
+      {year}, con orientación sobre cómo interpretar las diferencias entre regiones.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('es-CL')} por 100k`}
+      label={`Promedio nacional de incidencia reportada — CEAD ${year}`}
+      source="Fuente: CEAD — media simple de comunas con población ≥10.000 hab."
+      locale="es"
+    />
+  </section>
+
+  <section>
+    <h2>Por qué importa la perspectiva regional</h2>
+    <p>
+      La región de residencia o destino turístico determina el contexto en el que se interpretan
+      los datos comunales. Una commune con una tasa de 800 por 100.000 puede estar por debajo del
+      promedio regional en el norte minero, pero muy por sobre el promedio en una región agrícola
+      del sur. El referente regional aporta contexto que el promedio nacional no captura.
+    </p>
+    <p>
+      Al mismo tiempo, las diferencias entre comunas dentro de una misma región suelen ser mayores
+      que las diferencias entre regiones. Una región que promedia tasas moderadas puede incluir
+      tanto comunas muy por encima como muy por debajo de ese promedio. Por eso, los datos
+      comunales son siempre el nivel de análisis más informativo.
+    </p>
+  </section>
+
+  <section>
+    <h2>Patrones regionales según datos CEAD</h2>
+    <p>
+      Según datos CEAD para {year}, se observan algunos patrones generales entre las regiones de
+      Chile (sujetos a cambio con cada actualización anual del CEAD):
+    </p>
+    <ul>
+      <li>
+        <strong>Regiones del norte:</strong> Tarapacá, Antofagasta y Atacama combinan economías
+        mineras con alta rotación de población. Esta dinámica contribuye a tasas per cápita
+        reportadas que frecuentemente superan el promedio nacional. Las comunas portuarias e
+        industriales de estas regiones concentran la mayor parte de la incidencia regional.
+      </li>
+      <li>
+        <strong>Región Metropolitana:</strong> concentra el mayor volumen absoluto de incidentes
+        del país. Su tasa per cápita regional es comparable a otras regiones urbanas, pero la
+        variación interna es enorme: comunas residenciales del oriente versus comunas del centro
+        con alta actividad comercial y de tránsito.
+      </li>
+      <li>
+        <strong>Valparaíso:</strong> segunda región en volumen. El Gran Valparaíso (Valparaíso,
+        Viña del Mar, Quilpué, Villa Alemana y Concón) concentra la mayor parte de la incidencia
+        regional. El resto de la región —Petorca, Los Andes, San Antonio— tiene perfiles distintos.
+      </li>
+      <li>
+        <strong>Regiones del sur:</strong> Aysén y Magallanes tienen las poblaciones absolutas
+        más pequeñas del país. Sus tasas per cápita son estadísticamente más volátiles; un número
+        pequeño de incidentes puede producir variaciones importantes año a año.
+      </li>
+    </ul>
+    <p>
+      Estos son patrones orientativos extraídos de la lectura de datos CEAD. El análisis
+      definitivo siempre debe hacerse directamente sobre los datos del año de interés.
+    </p>
+  </section>
+
+  <section>
+    <h2>La tasa regional CEAD versus el promedio de comunas</h2>
+    <p>
+      El CEAD publica una tasa regional como la suma de incidentes de todas las comunas de la
+      región dividida por la población regional total. Este número es un total agregado, no un
+      promedio de tasas comunales. En regiones con pocas comunas grandes, el total regional puede
+      ser dominado por esas comunas y no reflejar la experiencia de las comunas medianas y pequeñas.
+    </p>
+    <p>
+      En este sitio, cuando mostramos un promedio para comparación, calculamos la media aritmética
+      simple de las tasas comunales de comunas con población suficiente —no la suma CEAD. Esta
+      distinción está documentada en la <a href="/es/metodologia/">página de metodología</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Cómo explorar los datos por región</h2>
+    <p>
+      Para cada una de las 16 regiones de Chile, este sitio ofrece:
+    </p>
+    <ul>
+      <li>
+        <strong>Página de región:</strong> muestra todas las comunas de la región ordenadas por
+        tasa, con la incidencia del último año y la tendencia de tres años según datos CEAD.
+        Accede por ejemplo a la{' '}
+        <a href="/es/region/metropolitana/">Región Metropolitana</a>,{' '}
+        <a href="/es/region/valparaiso/">Región de Valparaíso</a> o{' '}
+        <a href="/es/region/biobio/">Región del Biobío</a>.
+      </li>
+      <li>
+        <strong>Mapa coroplético:</strong> el{' '}
+        <a href="/es/mapa-delito-chile/">mapa de delitos</a> colorea todas las comunas según
+        su tasa, permitiendo ver de inmediato los patrones regionales y subregionales.
+      </li>
+      <li>
+        <strong>Páginas comunales:</strong> cada commune tiene su propia página con la serie
+        temporal desde 2005, el desglose por familia de delito y la comparación regional.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Limitaciones del análisis regional</h2>
+    <p>
+      Interpretar datos a nivel regional requiere tener en cuenta algunas limitaciones:
+    </p>
+    <ul>
+      <li>
+        <strong>Heterogeneidad interna:</strong> la variación dentro de una región puede ser
+        mayor que la variación entre regiones. El promedio regional enmascara diferencias
+        importantes entre las comunas que la componen.
+      </li>
+      <li>
+        <strong>Subregistro variable:</strong> la cifra negra no es uniforme entre regiones.
+        Comunas con menor confianza institucional o menor acceso a comisarías pueden tener mayor
+        subregistro, haciendo que su tasa reportada subestime la incidencia real más que
+        en otras regiones.
+      </li>
+      <li>
+        <strong>Cambios de límites y denominadores:</strong> algunas regiones han cambiado sus
+        límites o la asignación de comunas en los últimos años. Las series temporales de regiones
+        modificadas deben interpretarse con precaución.
+      </li>
+    </ul>
+    <p>
+      Este sitio no clasifica ninguna región como "segura" o "peligrosa" en términos absolutos.
+      Para una explicación completa de la metodología, visita la{' '}
+      <a href="/es/metodologia/">página de metodología</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

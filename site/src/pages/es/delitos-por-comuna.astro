@@ -1,52 +1,185 @@
 ---
 /**
- * /es/delitos-por-comuna/ — ES counterpart for /is-chile-safe/
+ * /es/delitos-por-comuna/ — ES FAQ editorial page (EDIT-02).
  *
- * Stub page for hreflang reciprocity (Plan 04-04 Task 1).
- * Full editorial content will be authored in Plan 06 (ES editorial pages).
- *
+ * Contrapartida ES de /is-chile-safe/. Plan 06 — contenido ES completo.
  * HREFLANG PAIR: enPath=/is-chile-safe/ <-> esPath=/es/delitos-por-comuna/
+ * CRÍTICO: usa loadNationalAverage() (MEDIA) — nunca SUMA.
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import DataCallout from '../../components/DataCallout.astro';
+import FAQBlock from '../../components/FAQBlock.astro';
 import { loadNationalAverage, loadIndex, loadCommune } from '../../lib/data.ts';
 
 const nationalAvg = loadNationalAverage();
+
+// Derivar el año de referencia desde cualquier comuna no de baja población
 const index = loadIndex();
 const sampleCut = index.find((c) => !c.low_population)?.cut ?? '13101';
 const sampleCommune = loadCommune(sampleCut);
 const year = sampleCommune.latestCompleteYear;
+
+const faqItems = [
+  {
+    q: "¿Chile es un destino turístico seguro?",
+    a: `Chile recibe millones de visitantes internacionales cada año. Según datos CEAD para ${year}, las tasas de incidencia delictiva reportada varían considerablemente por comuna — desde menos de 200 por 100.000 habitantes en algunas comunas del sur hasta más de 2.000 en centros urbanos. Las zonas turísticas de la Patagonia, el Atacama y los Lagos tienden a reportar tasas menores que los centros de las ciudades principales. Como en cualquier destino, se aconseja estar atento al entorno y adoptar precauciones habituales.`,
+  },
+  {
+    q: "¿Qué tipo de delitos se reportan con mayor frecuencia en Chile?",
+    a: `Según datos CEAD, los delitos contra la propiedad (robos y hurtos) representan consistentemente la mayor proporción de incidentes reportados a nivel nacional y comunal. La violencia intrafamiliar es la segunda categoría en volumen absoluto en muchas comunas. Los delitos contra la vida e integridad física —incluidos los homicidios— se reportan a tasas sustancialmente menores. Cada página comunal de este sitio muestra el desglose por familia de delito para el último año disponible.`,
+  },
+  {
+    q: "¿Qué fuente de datos usa este sitio?",
+    a: `Todas las estadísticas de Chile Safety Map provienen del CEAD (Centro de Estudios y Análisis del Delito), unidad de la Subsecretaría de Prevención del Delito del Ministerio del Interior. El CEAD publica tablas anuales de frecuencia que cubren los informes de incidentes policiales de las 346 comunas y las 16 regiones de Chile. Los datos abarcan desde 2005 hasta el último año completo disponible. No se aplica ninguna ponderación ni ajuste editorial.`,
+  },
+  {
+    q: "¿El promedio nacional de este sitio es una media o un total?",
+    a: `La cifra nacional que aparece en este sitio es la media aritmética simple de las tasas comunales individuales (por 100.000 habitantes), excluyendo comunas con poblaciones inferiores a 10.000. No es una suma ni un agregado ponderado. Esta distinción importa: el total nacional publicado por el CEAD suma todos los incidentes de todas las comunas y los divide por la población nacional — una metodología que comprime la variación y puede producir cifras muy distintas a la media comunal.`,
+  },
+  {
+    q: "¿Cómo se interpreta la tasa por 100.000 habitantes?",
+    a: `La tasa por 100.000 permite comparar comunas de tamaños muy distintos. Si una commune de 20.000 habitantes reporta 100 delitos al año, su tasa es 500 por 100.000. Una ciudad de 1.000.000 de habitantes con 5.000 delitos reportados tiene exactamente la misma tasa. Sin esta normalización, las ciudades grandes parecerían siempre más peligrosas solo por tener más incidentes en valor absoluto.`,
+  },
+  {
+    q: "¿Puedo usar estos datos para investigación o periodismo?",
+    a: `Sí. Los datos subyacentes del CEAD son publicados por el gobierno chileno. Chile Safety Map ofrece versiones procesadas y visualizadas. Al citar cifras, atribuye la fuente como CEAD e indica el año. La página de metodología describe los pasos de procesamiento en detalle.`,
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a },
+  })),
+};
 ---
 
 <EditorialLayout
   lang="es"
-  title="¿Es seguro Chile? Estadísticas de delitos por comuna — Chile Safety Map"
-  description="Estadísticas oficiales CEAD de delitos para las 346 comunas de Chile. Tasas por 100.000 habitantes, tendencias y comparaciones regionales."
+  title="Delitos en Chile por Comuna — Estadísticas CEAD — Chile Safety Map"
+  description="Visión general basada en datos de la incidencia delictiva en Chile, usando estadísticas oficiales CEAD. Tasa promedio nacional, desglose por tipo de delito y FAQ para visitantes y residentes."
   enPath="/is-chile-safe/"
   esPath="/es/delitos-por-comuna/"
+  jsonLd={jsonLd}
 >
   <section>
-    <h1>Delitos en Chile por comuna: datos oficiales CEAD</h1>
+    <h1>Delitos en Chile por Commune: una perspectiva basada en datos</h1>
     <p>
-      Chile Safety Map presenta estadísticas oficiales de incidencia delictual del
-      Centro de Estudios y Análisis del Delito (CEAD) para las 346 comunas y las 16
-      regiones de Chile. Todos los datos provienen de ese organismo gubernamental,
-      sin ponderación editorial.
+      Chile tiene una de las economías más desarrolladas y entornos institucionales más estables
+      de América del Sur, pero la incidencia delictiva varía sustancialmente por ubicación y tipo
+      de delito. En lugar de emitir un veredicto general, esta página presenta lo que muestran
+      los datos oficiales del CEAD para {year} y explica qué significan esas cifras.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('es-CL')} por 100k`}
+      label={`Promedio nacional de incidencia reportada — CEAD ${year}`}
+      source="Fuente: CEAD (Centro de Estudios y Análisis del Delito)"
+      locale="es"
+    />
+  </section>
+
+  <section>
+    <h2>Qué dice el promedio nacional</h2>
+    <p>
+      La cifra anterior es la media de las tasas de delitos reportados por commune para {year},
+      calculada entre comunas con población suficiente. Indica que en una commune chilena típica
+      de tamaño promedio, esta cantidad de incidentes por 100.000 residentes fue reportada a la
+      policía.
     </p>
     <p>
-      La tasa de delitos reportados por 100.000 habitantes para {year} es la métrica
-      canónica. Según los datos CEAD de {year}, la tasa promedio nacional entre las
-      comunas no de baja población es de {Math.round(nationalAvg).toLocaleString('es-CL')} por
-      100.000 habitantes.
+      Lo que no indica: el rango de variación es amplio. Según datos CEAD para {year}, algunas
+      comunas reportan tasas inferiores a 200 por 100.000, mientras que otras —frecuentemente
+      centros urbanos comerciales con grandes poblaciones flotantes— superan los 2.000.
+      La elección de la ubicación importa mucho más de lo que sugiere un único número nacional.
+    </p>
+  </section>
+
+  <section>
+    <h2>Tipos de delito: qué es más común</h2>
+    <p>
+      El conjunto de datos del CEAD abarca siete familias de delitos. En la mayoría de las
+      comunas y años, los delitos contra la propiedad (robos y hurtos) representan la mayor
+      proporción de incidentes reportados. Esto es consistente con los patrones en economías
+      comparables a nivel global.
     </p>
     <p>
-      El contenido editorial completo en español, incluyendo análisis por tipo de delito,
-      comparación regional y preguntas frecuentes, estará disponible próximamente en esta
-      página. Mientras tanto, explore los datos por comuna en el mapa interactivo o en las
-      páginas de cada territorio.
+      La violencia intrafamiliar ocupa el segundo lugar en conteos absolutos de incidentes en
+      muchas comunas, reflejo tanto de la incidencia real como de las campañas de denuncia que
+      han incrementado las denuncias formales durante la última década.
     </p>
     <p>
-      <a href="/es/">Volver al inicio</a> &middot; <a href="/is-chile-safe/">Ver versión en inglés</a>
+      Los delitos contra la vida e integridad física —incluidos los homicidios— se reportan a
+      tasas sustancialmente menores que los delitos contra la propiedad. El
+      <a href="/es/mapa-delito-chile/">mapa interactivo</a> permite filtrar por familia de delito
+      y año para ver la distribución espacial de cada categoría.
     </p>
+  </section>
+
+  <section>
+    <h2>Urbano vs. rural: entendiendo la variación</h2>
+    <p>
+      Las comunas urbanas —en particular los centros de ciudad que funcionan como núcleos
+      comerciales o nodos de tránsito— tienden a mostrar tasas reportadas más altas que las
+      comunas rurales o residenciales. Una razón clave es el efecto de la "población flotante":
+      las estadísticas de delincuencia se calculan por residente empadronado, pero muchos
+      incidentes ocurren en zonas visitadas por muchas más personas de las que están registradas
+      allí. Santiago Centro, Valparaíso e Iquique son ejemplos de comunas donde esta dinámica
+      amplifica la tasa per cápita respecto a las áreas circundantes.
+    </p>
+    <p>
+      A la inversa, las pequeñas comunas agrícolas y costeras suelen mostrar las tasas más bajas
+      de sus regiones, aunque los números absolutos pequeños pueden hacer que los años individuales
+      sean más ruidosos estadísticamente.
+    </p>
+  </section>
+
+  <section>
+    <h2>Tendencias en el tiempo</h2>
+    <p>
+      Los datos CEAD se remontan a 2005, proporcionando una serie temporal de más de quince años
+      para la mayoría de las comunas. A nivel nacional, las tasas de delincuencia reportada
+      aumentaron hasta mediados de los 2010, luego mostraron variación por familia de delito en
+      los años siguientes. Los delitos contra la propiedad siguieron una trayectoria diferente a
+      la de los delitos violentos. Cada página comunal de este sitio muestra una línea de tiempo
+      multianual para que puedas evaluar si una tasa está subiendo, bajando o estable según datos
+      CEAD, en lugar de depender de una instantánea de un solo año.
+    </p>
+  </section>
+
+  <section>
+    <h2>Orientación práctica para visitantes y residentes</h2>
+    <p>
+      Algunas observaciones prácticas basadas en los datos reportados:
+    </p>
+    <ul>
+      <li>
+        Consulta la página comunal para cualquier área específica que estés evaluando: los
+        promedios nacionales y regionales ocultan variaciones locales significativas.
+      </li>
+      <li>
+        Los delitos contra la propiedad (carterismo, robo de bolsos) son la categoría más
+        frecuentemente reportada en zonas turísticas. Se aconsejan precauciones estándar en
+        zonas comerciales concurridas y nodos de transporte.
+      </li>
+      <li>
+        La dirección de la tendencia importa tanto como la tasa actual. Una commune cuya tasa
+        ha bajado durante tres años consecutivos según datos CEAD merece una evaluación diferente
+        a una con la misma tasa pero en alza.
+      </li>
+      <li>
+        Consulta las recomendaciones de viaje recientes del ministerio de relaciones exteriores
+        de tu país para orientación actualizada sobre zonas o regiones específicas.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Preguntas frecuentes</h2>
+    <FAQBlock items={faqItems} locale="es" />
   </section>
 </EditorialLayout>
 
@@ -55,8 +188,26 @@ const year = sampleCommune.latestCompleteYear;
     margin-bottom: var(--2xl);
   }
 
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
   p + p {
     margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
   }
 
   a {
