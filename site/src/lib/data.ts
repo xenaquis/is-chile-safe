@@ -150,7 +150,12 @@ export function loadCommune(cut: string): CommuneData {
   const region = loadRegion(regionFileId(raw.region_id));
   const regionName = region.name;
 
-  return { ...raw, latestCompleteYear, regionName };
+  // The per-commune JSON identifies the commune via `id` (e.g. "13101"), but
+  // CommuneData/CommuneMeta model the CUT as `cut`. Populate `cut` from the
+  // requested CUT (which equals the file's id) so downstream consumers that
+  // read `commune.cut` (e.g. proseEngine's nearestComparable) work instead of
+  // silently throwing and falling back to a self-referential comparable.
+  return { ...raw, cut, latestCompleteYear, regionName };
 }
 
 // --- Build-time helpers ---
