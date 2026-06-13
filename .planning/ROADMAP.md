@@ -138,6 +138,6 @@ _Last updated: 2026-06-13_
 | 1. Data Foundation | 4/4 | Complete    | 2026-06-13 |
 | 2. Astro Site + Programmatic Pages | 6/6 | Complete    | 2026-06-13 |
 | 3. Leaflet Map Island | 4/4 | Complete    | 2026-06-13 |
-| 4. Editorial Pages + AdSense | 7/7 | Complete   | 2026-06-13 |
+| 4. Editorial Pages + AdSense | 7/7 | Complete    | 2026-06-13 |
 | 5. RSS News Pipeline | 0/? | Not started | - |
 | 6. CI/CD + Cloudflare Deployment | 0/? | Not started | - |
