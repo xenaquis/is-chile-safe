@@ -2,12 +2,12 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to plan
-last_updated: "2026-06-13T02:29:45.841Z"
+status: Ready to execute
+last_updated: "2026-06-13T10:03:05.429Z"
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 4
+  total_plans: 10
   completed_plans: 4
   percent: 17
 ---
@@ -83,6 +83,6 @@ Plan: Not started
 
 ## Session Continuity
 
-**Last session**: 2026-06-13 — Plan 01-04 fully complete. Live run deviations fixed (plausibility cap 20k→100k, map-payload rounded to int for 30KB), pipeline exits 0, all 346 communes + 16 regions + map-payload 27.5KB committed. 95 tests green.
-**Next action**: Phase 02 — GeoJSON + Leaflet map island (Astro + React + Leaflet choropleth).
-**Resume prompt**: Phase 01 fully complete (4/4 plans). All data in data/cead/. Proceed to Phase 02.
+**Last session**: 2026-06-13 — Session resumed. Phase 01 confirmed complete (4/4 plans, 95 tests green, full /data/cead/ tree committed). Proceeding to Phase 02 planning.
+**Next action**: Phase 02 — Astro Site + Programmatic Pages. No CONTEXT.md yet; UI hint = yes. Recommend discuss-phase 2 before plan-phase 2.
+**Resume prompt**: Phase 01 fully complete (4/4 plans). All data in data/cead/. Proceed to Phase 02 (discuss → plan).
