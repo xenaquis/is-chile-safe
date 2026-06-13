@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase complete — ready for verification
-last_updated: "2026-06-13T00:23:19.981Z"
+status: Phase 01 complete — all plans done, data committed
+last_updated: "2026-06-13T02:00:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 1
@@ -14,7 +14,7 @@ progress:
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-12 (plan 01-03 complete — all tasks including human checkpoint approved)_
+_Last updated: 2026-06-13 (plan 01-04 complete — all tasks including live run deviations fixed, data committed)_
 
 ## Project Reference
 
@@ -27,9 +27,9 @@ _Last updated: 2026-06-12 (plan 01-03 complete — all tasks including human che
 Phase: 01 (data-foundation) — EXECUTING
 Plan: 4 of 4
 **Phase**: 1 — Data Foundation
-**Plan**: 03 — Complete; Plan 04 next
-**Status**: Plan 01-03 complete — 64 tests green, CEAD client/catalog/parser built, live endpoint confirmed
-**Progress**: [████████░░] 75% (3/4 plans complete in Phase 01)
+**Plan**: 04 — Complete; Phase 01 DONE
+**Status**: Plan 01-04 complete — 95 tests green, full /data/cead/ tree committed (346 communes, 16 regions, map-payload 27.5KB)
+**Progress**: [██████████] 100% (4/4 plans complete in Phase 01)
 
 ## Performance Metrics
 
@@ -46,7 +46,7 @@ Plan: 4 of 4
 ### Key Decisions
 
 - Pydantic v2 syntax exclusively across pipeline — no v1 @validator or parse_obj
-- PLAUSIBILITY_MAX_RATE=20000 as named constant in schema.py — tighten after real CEAD data validates
+- PLAUSIBILITY_MAX_RATE raised to 100000 after real CEAD data confirmed micro-communes reach 43369 per-100k (Sierra Gorda, Juan Fernandez)
 - Astro 6.4.x + React islands for pre-rendered static HTML (SEO indexability mandatory)
 - JSON in repo as data store — no backend/DB; GitHub Actions cron commits trigger Cloudflare Pages via Deploy Hook only (never Git auto-build)
 - DeepSeek v4-flash for RSS classification; `deepseek-chat` deprecated 2026-07-24 — never commit that model ID
@@ -83,6 +83,6 @@ Plan: 4 of 4
 
 ## Session Continuity
 
-**Last session**: 2026-06-12 — Plan 01-03 fully complete. Human checkpoint Task 3 approved; live CEAD endpoint confirmed HTTP 200 with real commune rows. Open Question 3 (homicides/kidnappings subgroup IDs) deferred to Plan 04.
-**Next action**: Execute Plan 01-04 — normalizer (trend/rank/slug/featured) + orchestrator + full /data/cead output.
-**Resume prompt**: Plan 01-03 complete (commits 49e8254, da42dac, f5d0906, 0920fe8 + docs). Proceed to Plan 01-04. Note: subgroup IDs for featured-flag logic must be confirmed live in Plan 04 before hard-coding.
+**Last session**: 2026-06-13 — Plan 01-04 fully complete. Live run deviations fixed (plausibility cap 20k→100k, map-payload rounded to int for 30KB), pipeline exits 0, all 346 communes + 16 regions + map-payload 27.5KB committed. 95 tests green.
+**Next action**: Phase 02 — GeoJSON + Leaflet map island (Astro + React + Leaflet choropleth).
+**Resume prompt**: Phase 01 fully complete (4/4 plans). All data in data/cead/. Proceed to Phase 02.
