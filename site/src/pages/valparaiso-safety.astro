@@ -1,0 +1,204 @@
+---
+/**
+ * /valparaiso-safety/ — EN city editorial page (non-FAQ)
+ *
+ * Loads Valparaíso (CUT 5101) via loadCommune. DataCallouts for rate vs national + trend.
+ * WebPage JSON-LD (about: CEAD Dataset). esPath=/es/seguridad-valparaiso/ (EDIT-02).
+ *
+ * CRITICAL: uses loadNationalAverage() (MEAN), latestCompleteYearRate() — never SUM.
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import DataCallout from '../components/DataCallout.astro';
+import { loadCommune, loadNationalAverage, latestCompleteYearRate } from '../lib/data.ts';
+
+const valpo = loadCommune('5101');
+const year = valpo.latestCompleteYear;
+const rate = latestCompleteYearRate(valpo);
+const nationalAvg = loadNationalAverage();
+const vsNationalPct = nationalAvg > 0
+  ? Math.round(((rate - nationalAvg) / nationalAvg) * 100)
+  : 0;
+const trendLabel =
+  valpo.trend === 'up' ? 'rising' :
+  valpo.trend === 'down' ? 'falling' :
+  'stable';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Valparaíso Safety — CEAD Crime Data",
+  "description": "Reported crime statistics for Valparaíso commune from CEAD official data.",
+  "about": {
+    "@type": "Dataset",
+    "name": "CEAD Crime Statistics — Valparaíso",
+    "publisher": {
+      "@type": "GovernmentOrganization",
+      "name": "Centro de Estudios y Análisis del Delito (CEAD)",
+    },
+  },
+};
+---
+
+<EditorialLayout
+  lang="en"
+  title="Valparaíso Safety — Crime Statistics and Data Overview — Chile Safety Map"
+  description="Official CEAD crime statistics for Valparaíso commune. Reported rates, trend direction, national comparison, and practical context for visitors and residents."
+  enPath="/valparaiso-safety/"
+  esPath="/es/seguridad-valparaiso/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Valparaíso Safety: CEAD Crime Data for Chile's Port City</h1>
+    <p>
+      Valparaíso is Chile's principal port city and seat of the National Congress. Its
+      hillside neighbourhoods (cerros) and the flat port district (el plan) present markedly
+      different environments. This page reports what CEAD official data shows for the commune
+      of Valparaíso for {year}.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(rate).toLocaleString('en-US')} per 100k`}
+      label={`Valparaíso commune reported crime rate — CEAD ${year}`}
+      source="Source: CEAD (Centro de Estudios y Análisis del Delito)"
+      locale="en"
+    />
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('en-US')} per 100k`}
+      label={`National average reported crime rate — CEAD ${year}`}
+      source="Source: CEAD — unweighted mean of non-low-population communes"
+      locale="en"
+    />
+  </section>
+
+  <section>
+    <h2>How Valparaíso Compares with the National Average</h2>
+    <p>
+      According to CEAD data for {year}, Valparaíso's reported crime rate of
+      {Math.round(rate).toLocaleString('en-US')} per 100,000 inhabitants is approximately
+      {Math.abs(vsNationalPct)} % {vsNationalPct >= 0 ? 'above' : 'below'} the national
+      mean of {Math.round(nationalAvg).toLocaleString('en-US')} per 100,000. Like many
+      port and transit-hub communes, Valparaíso records incidents that reflect both resident
+      and visitor populations passing through the port district and Congress building area.
+    </p>
+    <p>
+      The trend is currently {trendLabel} according to the CEAD series for recent years.
+      The <a href="/commune/valparaiso/">Valparaíso commune detail page</a> shows the
+      year-by-year series from 2005 onward.
+    </p>
+  </section>
+
+  <section>
+    <h2>The Port District and the Cerros</h2>
+    <p>
+      Valparaíso's geography divides the city into the flat port district (el plan), which
+      concentrates commercial activity, transport infrastructure, and government buildings,
+      and the hillside neighbourhoods (more than 40 numbered cerros) that rise steeply above
+      it. Reported incidents are disproportionately concentrated in el plan — the area around
+      the port gates, the bus terminal, and the Congress — consistent with any high-density
+      urban transit node.
+    </p>
+    <p>
+      The hillside cerros range considerably in character. Cerro Alegre and Cerro Concepción,
+      popular with tourists for their painted staircases and café culture, sit adjacent to
+      quieter residential cerros. CEAD data does not break out incidents by cerro or
+      neighbourhood — only by commune and crime family.
+    </p>
+  </section>
+
+  <section>
+    <h2>Crime Type Composition</h2>
+    <p>
+      Property crime (robbery and theft) represents the largest share of reported incidents
+      in Valparaíso according to CEAD data, consistent with most urban communes. The port
+      district and bus terminal area see a higher concentration of opportunistic theft
+      incidents targeting bags, phones, and valuables left in vehicles.
+    </p>
+    <p>
+      The crime-family breakdown for Valparaíso — covering all seven CEAD categories by year —
+      appears on the <a href="/commune/valparaiso/">commune detail page</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Viña del Mar and Valparaíso Province</h2>
+    <p>
+      Valparaíso commune and the adjacent coastal city of Viña del Mar (a separate commune)
+      are often described together but have different reported rates. Viña del Mar's beach
+      resort character and residential eastern zones produce a different rate profile than
+      Valparaíso's port-centric economy. See <a href="/vina-del-mar-safety/">Viña del Mar
+      safety data</a> for a comparison.
+    </p>
+    <p>
+      The broader Región de Valparaíso encompasses communes from Petorca in the north to
+      San Antonio in the south, with rates that vary considerably by location. The
+      <a href="/region/valparaiso/">Valparaíso region page</a> presents the full commune
+      ranking within the region.
+    </p>
+  </section>
+
+  <section>
+    <h2>Practical Context for Visitors and Residents</h2>
+    <p>
+      A few notes based on what CEAD data shows and how the city is used:
+    </p>
+    <ul>
+      <li>
+        El plan and the port gate area are the highest-incident zones in the commune.
+        Standard urban precautions apply: keep bags in front, avoid displaying phones
+        openly in crowded streets.
+      </li>
+      <li>
+        Ascensor (funicular) rides and hillside walks are popular tourist activities.
+        Some cerros are primarily residential with limited foot traffic after dark;
+        locals' guidance on specific cerros is advisable.
+      </li>
+      <li>
+        Long-distance bus departures use the Terminal Rodoviario; allow time to
+        arrive safely and keep luggage secured.
+      </li>
+      <li>
+        For residents evaluating neighbourhoods, the commune-level data does not resolve
+        to cerro level; local knowledge and visits at different times of day supplement
+        what the CEAD figures can show.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Data Source and Methodology</h2>
+    <p>
+      All statistics on this page come from CEAD (Centro de Estudios y Análisis del Delito),
+      the official Chilean government crime statistics body, covering police-reported incidents
+      for {year}. Rates are computed per 100,000 registered inhabitants. The national average
+      shown above is the unweighted mean across non-low-population communes, not a sum.
+      Full methodology, including population sources and known limitations, is documented
+      on the <a href="/methodology/">Methodology page</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

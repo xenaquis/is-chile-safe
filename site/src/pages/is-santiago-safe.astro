@@ -1,0 +1,210 @@
+---
+/**
+ * /is-santiago-safe/ — EN FAQ editorial page with Santiago CEAD data
+ *
+ * Loads Santiago (CUT 13101) via loadCommune and surfaces real rate callouts.
+ * esPath self-references /is-santiago-safe/ (no ES pair in EDIT-02 — slug_flag).
+ * FAQPage JSON-LD emitted via EditorialLayout → BaseLayout.
+ *
+ * CRITICAL: uses loadNationalAverage() (MEAN), latestCompleteYearRate() — never SUM.
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import DataCallout from '../components/DataCallout.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import { loadCommune, loadNationalAverage, latestCompleteYearRate } from '../lib/data.ts';
+
+const santiago = loadCommune('13101');
+const year = santiago.latestCompleteYear;
+const rate = latestCompleteYearRate(santiago);
+const nationalAvg = loadNationalAverage();
+const vsNationalPct = nationalAvg > 0
+  ? Math.round(((rate - nationalAvg) / nationalAvg) * 100)
+  : 0;
+const trendLabel =
+  santiago.trend === 'up' ? 'rising' :
+  santiago.trend === 'down' ? 'falling' :
+  'stable';
+
+const faqItems = [
+  {
+    q: "Is Santiago safe to visit?",
+    a: `Santiago's reported crime rate varies significantly by commune. The municipality of Santiago (the historic centre) shows a higher per-resident rate than surrounding residential communes, partly because many more people pass through it each day than are registered there. According to CEAD data for ${year}, the commune of Santiago had a reported rate of ${Math.round(rate).toLocaleString('en-US')} incidents per 100,000 inhabitants. Areas such as Providencia, Las Condes, and Vitacura show lower rates. Standard urban precautions — awareness in crowded areas, securing valuables — are advisable in the city centre.`,
+  },
+  {
+    q: "Which parts of Santiago have lower reported crime rates?",
+    a: `According to CEAD data, eastern residential communes including Las Condes, Vitacura, Lo Barnechea, and Peñalolén consistently report rates below the national commune average. The national rank figures on individual commune pages indicate each commune's standing among all 346 communes in Chile. A lower national rank (closer to 1) indicates a lower reported rate.`,
+  },
+  {
+    q: "How does Santiago compare with the national average?",
+    a: `According to CEAD data for ${year}, the commune of Santiago (the municipality, not the metropolitan region) reported a rate of ${Math.round(rate).toLocaleString('en-US')} per 100,000 inhabitants — approximately ${Math.abs(vsNationalPct)} % ${vsNationalPct >= 0 ? 'above' : 'below'} the national mean for non-low-population communes. This comparison covers the municipality of Santiago only, not Greater Santiago or the Región Metropolitana.`,
+  },
+  {
+    q: "Is the metro/subway safe in Santiago?",
+    a: `The Santiago Metro connects the city's main communes and is widely used. Pickpocketing and opportunistic theft occur in crowded carriages during peak hours — consistent with major metro systems worldwide. CEAD data does not break out transit-specific incidents from the general commune totals.`,
+  },
+  {
+    q: "What is the trend for Santiago's crime rate?",
+    a: `According to CEAD data, Santiago's reported rate has been ${trendLabel} in recent years. Individual year-by-year figures appear on the Santiago commune page, which includes a multi-year series from 2005 onward.`,
+  },
+  {
+    q: "What data source is used for this page?",
+    a: `All figures come from CEAD (Centro de Estudios y Análisis del Delito), the official Chilean government crime statistics body. Data represents police-reported incidents. Under-reporting and floating-population effects are discussed on the Methodology page.`,
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a },
+  })),
+};
+---
+
+<EditorialLayout
+  lang="en"
+  title="Is Santiago Safe? Crime Data by Commune — Chile Safety Map"
+  description="Santiago crime statistics from CEAD official data. Rates by commune, comparison with national average, trend direction, and FAQ for visitors and residents."
+  enPath="/is-santiago-safe/"
+  esPath="/is-santiago-safe/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Is Santiago Safe? CEAD Crime Data for Chile's Capital</h1>
+    <p>
+      Santiago is home to more than seven million people across dozens of communes, each with
+      its own reported crime rate. This page focuses on the municipality of Santiago (the
+      historic centre) and compares it with the national average, using CEAD data for {year}.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(rate).toLocaleString('en-US')} per 100k`}
+      label={`Santiago commune reported crime rate — CEAD ${year}`}
+      source="Source: CEAD (Centro de Estudios y Análisis del Delito)"
+      locale="en"
+    />
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('en-US')} per 100k`}
+      label={`National average reported crime rate — CEAD ${year}`}
+      source="Source: CEAD — unweighted mean of non-low-population communes"
+      locale="en"
+    />
+  </section>
+
+  <section>
+    <h2>Santiago Commune vs. Greater Santiago</h2>
+    <p>
+      It is important to distinguish between the <em>commune of Santiago</em> (the historic
+      centre, bounded roughly by Autopista Central, Avenida Matta, and the Mapocho River)
+      and <em>Greater Santiago</em>, which includes around 40 communes. The commune of
+      Santiago is a high-density commercial and transit hub that records a larger share of
+      incidents than most surrounding residential communes — partly because its daytime and
+      visitor population far exceeds its registered resident population.
+    </p>
+    <p>
+      According to CEAD data for {year}, Santiago commune's rate of {Math.round(rate).toLocaleString('en-US')} per 100,000
+      is approximately {Math.abs(vsNationalPct)} % {vsNationalPct >= 0 ? 'above' : 'below'} the national mean,
+      which stands at {Math.round(nationalAvg).toLocaleString('en-US')} per 100,000. This reflects the
+      floating-population dynamic common to major city centres.
+    </p>
+  </section>
+
+  <section>
+    <h2>Variation Across Metropolitan Communes</h2>
+    <p>
+      The Región Metropolitana contains 52 communes with a wide range of reported rates.
+      Eastern residential communes — Las Condes, Vitacura, Lo Barnechea, Providencia —
+      consistently report rates below the national average according to CEAD data. Peripheral
+      communes and those with large commercial corridors tend to report higher rates.
+    </p>
+    <p>
+      The <a href="/chile-crime-map/">Chile Crime Map</a> lets you filter by the Región
+      Metropolitana and zoom in to compare individual communes by crime family and year.
+      Each commune page in the <a href="/commune/santiago/">Santiago</a> family shows a
+      multi-year series and national rank.
+    </p>
+  </section>
+
+  <section>
+    <h2>Trend Direction</h2>
+    <p>
+      According to CEAD data, Santiago commune's reported rate has been trending {trendLabel}
+      in recent years. The year-by-year series from 2005 onward appears on the
+      <a href="/commune/santiago/">Santiago commune detail page</a>, including a breakdown
+      by crime family so you can see whether property crime, intra-family violence, or other
+      categories are driving the trend.
+    </p>
+  </section>
+
+  <section>
+    <h2>Crime Type Composition</h2>
+    <p>
+      As in most urban communes, property crime (robbery and theft) accounts for the largest
+      share of reported incidents in Santiago according to CEAD data. Intra-family violence
+      is the second most commonly reported category. Crimes against life and physical integrity
+      — while a smaller share — receive the most media attention; their absolute numbers
+      remain a small fraction of total reported incidents.
+    </p>
+    <p>
+      Santiago's crime-family breakdown, year by year, is visible on the
+      <a href="/commune/santiago/">commune detail page</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Practical Considerations</h2>
+    <p>
+      For visitors and new residents, a few observations based on reported data:
+    </p>
+    <ul>
+      <li>
+        The Barrio Italia, Lastarria, and Bellavista neighbourhoods (within or adjacent to
+        Santiago commune) are popular with tourists and expats; they carry the base rate of
+        the surrounding commune.
+      </li>
+      <li>
+        Arrivals at Arturo Merino Benítez Airport (Pudahuel commune) and the bus terminal
+        areas are common locations for opportunistic property crime — the same caution
+        applies as at any major international gateway.
+      </li>
+      <li>
+        If you are evaluating where to live in Greater Santiago, the commune-level detail
+        pages allow side-by-side comparison of rates, trends, and crime type composition
+        across all 52 metropolitan communes.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Frequently Asked Questions</h2>
+    <FAQBlock items={faqItems} locale="en" />
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
