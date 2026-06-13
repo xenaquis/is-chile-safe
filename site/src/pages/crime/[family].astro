@@ -80,8 +80,14 @@ type RankRow = {
 };
 
 const allRows: RankRow[] = [];
+// Capture the latest complete year directly while iterating communes, rather
+// than re-deriving it via a slug lookup with a hardcoded fallback (CR-02).
+let latestYear = new Date().getFullYear() - 1;
 for (const meta of index) {
   const commune = loadCommune(meta.cut);
+  if (!meta.low_population) {
+    latestYear = Math.max(latestYear, commune.latestCompleteYear);
+  }
   const entry = commune.series.find(
     (s) => s.year === commune.latestCompleteYear && !s.partial
   );
@@ -134,11 +140,6 @@ regionBreakRows.sort((a, b) => b.rate - a.rate);
 
 // Bar widths for region breakdown
 const maxRegionRate = Math.max(...regionBreakRows.map((r) => r.rate), 1);
-
-// Latest year across eligible communes (most common)
-const latestYear = eligibleRows[0]
-  ? (loadCommune(index.find((c) => c.slug === eligibleRows[0]!.slug)?.cut ?? '13101' ).latestCompleteYear)
-  : new Date().getFullYear() - 1;
 
 // URL slugs
 const enSlug = FAMILY_SLUGS[familyKey]!.en;
