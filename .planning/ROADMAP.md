@@ -4,7 +4,7 @@ _Last updated: 2026-06-12_
 
 ## Phases
 
-- [ ] **Phase 1: Data Foundation** - CEAD scraper extracts and validates all quantitative crime data into a stable JSON schema
+- [x] **Phase 1: Data Foundation** - CEAD scraper extracts and validates all quantitative crime data into a stable JSON schema (completed 2026-06-13)
 - [ ] **Phase 2: Astro Site + Programmatic Pages** - Static site framework deployed with bilingual programmatic pages for all 346 comunas, 16 regions, and crime types
 - [ ] **Phase 3: Leaflet Map Island** - Interactive choropleth map with filters, commune popup panel, and geolocation — fully functional on mobile
 - [ ] **Phase 4: Editorial Pages + AdSense** - High-priority editorial and legal pages live; editorial guardrails enforced at build time; AdSense integrated
@@ -30,7 +30,7 @@ _Last updated: 2026-06-12_
 - [x] 01-01-PLAN.md — Pipeline scaffold, Pydantic v2 schema gate, atomic write, pytest infra
 - [x] 01-02-PLAN.md — INE communal population asset + lookup module (10k ranking filter)
 - [x] 01-03-PLAN.md — CEAD HTTP client, commune catalog, HTML/decimal parser + fixture
-- [ ] 01-04-PLAN.md — Normalizer (trend/rank/slug/featured) + orchestrator + full /data/cead output
+- [x] 01-04-PLAN.md — Normalizer (trend/rank/slug/featured) + orchestrator + full /data/cead output
 
 ### Phase 2: Astro Site + Programmatic Pages
 
@@ -112,7 +112,7 @@ _Last updated: 2026-06-12_
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Foundation | 3/4 | In Progress|  |
+| 1. Data Foundation | 4/4 | Complete   | 2026-06-13 |
 | 2. Astro Site + Programmatic Pages | 0/? | Not started | - |
 | 3. Leaflet Map Island | 0/? | Not started | - |
 | 4. Editorial Pages + AdSense | 0/? | Not started | - |
