@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Executing
-last_updated: "2026-06-13T17:00:00.000Z"
+status: Phase 3 plan 03 automated tasks complete — human UAT checkpoint OPEN
+last_updated: "2026-06-13T17:45:00.000Z"
 progress:
   total_phases: 6
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 14
-  completed_plans: 13
-  percent: 93
+  completed_plans: 14
+  percent: 50
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -44,6 +44,7 @@ Plan: 4 of 4
 | Phase 02-astro-site-programmatic-pages P03 | 45min | 3 tasks | 5 files |
 | Phase 03-leaflet-map-island P01 | 25 | 3 tasks | 9 files |
 | Phase 03-leaflet-map-island P02 | 45 | 3 tasks | 11 files |
+| Phase 03-leaflet-map-island P03 | 25 | 2 auto tasks + 1 UAT checkpoint (OPEN) | 3 files |
 
 ## Accumulated Context
 
@@ -89,10 +90,10 @@ Plan: 4 of 4
 
 ## Session Continuity
 
-**Last session**: 2026-06-13 — Phase 02 COMPLETE + post-UAT fix. Human UAT (this session) re-verified build/validators/prose and caught a real semantic bug the automated structural checks missed: the "comparable commune" prose self-referenced on every commune page (`commune.cut` was undefined → `nearestComparable` threw → self-fallback). Root cause: per-commune JSON uses `id`, type models `cut`; loadCommune never populated `cut`. Fixed at source (loadCommune sets cut from requested CUT), commit a439529. Verified Santiago→Providencia, Las Condes→Vitacura, Viña→Casablanca; astro check 0 errors; 7/7 validators green.
-**Known env issue (not code)**: building inside OneDrive (`C:\Users\Carlo\OneDrive - pjud.cl\...`) desyncs `dist/` artifacts between separate processes — always run build + validate chained in one command; consider a `prebuild` that cleans `dist/`.
-**Next action**: Begin Phase 3 — Leaflet Map Island (discuss/UI/plan/execute). Autonomous run resuming from Phase 3 (single orchestrator now — earlier parallel process is idle/finished).
-**Resume prompt**: Phase 02 complete (6 plans + comparable fix). Continue autonomous from Phase 3 (Leaflet Map Island).
+**Last session**: 2026-06-13 — Phase 03 plan 03 automated tasks complete (commits d6f1d62 + 90a4552). UserLocationMarker.ts (geolocation + ray-cast PiP, MAP-05) and IncidentPinLayer.ts (graceful NEWS layer, MAP-04) created and wired into MapIsland. Build green; 8/8 validators pass. Task 3 (manual UAT) is a checkpoint:human-verify — OPEN.
+**Known env issue (not code)**: building inside OneDrive desyncs `dist/` artifacts between separate processes — always chain build + validate in one command.
+**Next action**: Human UAT of Task 3. Run `cd site && npm run dev`, open http://localhost:4321/map/, verify MAP-01..06 + mobile 3G performance. Type "approved" to sign off Phase 3.
+**Resume prompt**: Phase 03 plan 03 automated tasks done. Awaiting human UAT approval for Task 3 checkpoint.
 
 ## Decisions
 
