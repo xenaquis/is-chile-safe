@@ -12,10 +12,10 @@
 ### Capa de noticias (NEWS)
 
 - [ ] **NEWS-01**: Pipeline ingesta RSS de fuentes confirmadas (BioBíoChile, Cooperativa Policial, La Tercera Nacional) con fallback por feed: un feed caído se salta y registra sin bloquear el pipeline
-- [ ] **NEWS-02**: DeepSeek v4-flash clasifica cada noticia policial: tipo de delito, comuna contra lista cerrada de 346 valores canónicos (temperatura 0.0), geolocalización aproximada y resumen; incidentes con comuna no-match se rechazan
+- [x] **NEWS-02**: DeepSeek v4-flash clasifica cada noticia policial: tipo de delito, comuna contra lista cerrada de 346 valores canónicos (temperatura 0.0), geolocalización aproximada y resumen; incidentes con comuna no-match se rechazan
 - [ ] **NEWS-03**: Incidentes duplicados entre fuentes se deduplican antes de publicar
 - [ ] **NEWS-04**: `incidents/current.json` mantiene ventana móvil de 30 días con archivo mensual (`archive/YYYY-MM.json`)
-- [ ] **NEWS-05**: Cada incidente publicado cita y enlaza su fuente de prensa con fecha
+- [x] **NEWS-05**: Cada incidente publicado cita y enlaza su fuente de prensa con fecha
 
 ### Mapa interactivo (MAP)
 
@@ -104,10 +104,10 @@
 | EDIT-05 | Phase 4 | Complete |
 | MON-01 | Phase 4 | Complete |
 | NEWS-01 | Phase 5 | Pending |
-| NEWS-02 | Phase 5 | Pending |
+| NEWS-02 | Phase 5 | Complete |
 | NEWS-03 | Phase 5 | Pending |
 | NEWS-04 | Phase 5 | Pending |
-| NEWS-05 | Phase 5 | Pending |
+| NEWS-05 | Phase 5 | Complete |
 | INFRA-01 | Phase 6 | Pending |
 | INFRA-02 | Phase 6 | Pending |
 | INFRA-03 | Phase 6 | Pending |

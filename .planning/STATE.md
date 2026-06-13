@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-last_updated: "2026-06-13T21:27:53.986Z"
+last_updated: "2026-06-13T21:38:01.391Z"
 progress:
   total_phases: 6
   completed_phases: 4
   total_plans: 25
-  completed_plans: 21
+  completed_plans: 22
   percent: 67
 ---
 
@@ -24,8 +24,8 @@ _Last updated: 2026-06-13 (Phase 02 COMPLETE — plan 02-06 UAT approved; all 6 
 
 ## Current Position
 
-Phase: 5
-Plan: Not started
+Phase: 05 (rss-news-pipeline) — EXECUTING
+Plan: 2 of 4
 **Phase**: 3 — Leaflet Map Island (next)
 **Plan**: TBD — Phase 3 planning not yet started
 **Status**: Phase 2 fully complete. 740 pages pre-rendered, 7/7 validators pass, human UAT approved.
@@ -49,6 +49,7 @@ Plan: Not started
 | Phase 04-editorial-pages-adsense P03 | 22m | 3 tasks | 5 files |
 | Phase 04 P06 | 25m | 3 tasks | 10 files |
 | Phase 04-editorial-pages-adsense P07 | 12m | 3 tasks | 8 files |
+| Phase 05-rss-news-pipeline P01 | 35 | 3 tasks | 18 files |
 
 ## Accumulated Context
 
@@ -112,3 +113,4 @@ Plan: Not started
 - [Phase ?]: component library
 - [Phase ?]: L.canvas renderer scoped to L.geoJSON layer only (Pitfall 6 compliance)
 - [Phase ?]: Static aria-label in Astro shell satisfies map validator without SSR
+- [Phase ?]: CUT list from comunas filenames; Node TopoJSON decode; 4 hardcoded centroid fallbacks for null-geometry communes
