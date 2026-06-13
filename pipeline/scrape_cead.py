@@ -128,10 +128,12 @@ def build_map_payload(
         level = compute_level(rate, all_rates)
         # by_family stored as ordered list matching FAMILY_KEYS for compactness (<30KB D-09)
         from pipeline.shared.schema import FAMILY_KEYS as _FK
-        by_family_list = [round(by_family[k], 1) if by_family[k] is not None else None for k in _FK]
+        # Round to integers (no decimal) to keep map-payload under 30 KB (D-09)
+        # Full precision is preserved in the per-commune JSON files.
+        by_family_list = [int(round(by_family[k])) if by_family[k] is not None else None for k in _FK]
         comunas.append({
             "id": r["id"],
-            "rate": round(rate, 1),
+            "rate": int(round(rate)),
             "level": level,
             "by_family": by_family_list,  # ordered per FAMILY_KEYS
         })
