@@ -1,11 +1,10 @@
 ---
 /**
- * /es/seguridad-vina-del-mar/ — ES counterpart for /vina-del-mar-safety/
+ * /es/seguridad-vina-del-mar/ — Seguridad en Viña del Mar, datos CEAD (EDIT-02).
  *
- * Stub page for hreflang reciprocity (Plan 04-04 Task 3).
- * Full editorial content will be authored in Plan 06 (ES editorial pages).
- *
+ * Contrapartida ES de /vina-del-mar-safety/. Plan 06 — contenido ES completo.
  * HREFLANG PAIR: enPath=/vina-del-mar-safety/ <-> esPath=/es/seguridad-vina-del-mar/
+ * CRÍTICO: usa loadNationalAverage() (MEDIA), latestCompleteYearRate() — nunca SUMA.
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
 import DataCallout from '../../components/DataCallout.astro';
@@ -15,44 +14,169 @@ const vina = loadCommune('5109');
 const year = vina.latestCompleteYear;
 const rate = latestCompleteYearRate(vina);
 const nationalAvg = loadNationalAverage();
+const vsNationalPct = nationalAvg > 0
+  ? Math.round(((rate - nationalAvg) / nationalAvg) * 100)
+  : 0;
+const trendLabel =
+  vina.trend === 'up' ? 'en alza' :
+  vina.trend === 'down' ? 'a la baja' :
+  'estable';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Seguridad en Viña del Mar — Datos CEAD",
+  "description": `Estadísticas oficiales CEAD de incidencia delictiva para la commune de Viña del Mar. Tasa reportada, tendencia y comparación nacional para ${year}.`,
+  "about": {
+    "@type": "Dataset",
+    "name": "Estadísticas CEAD — Viña del Mar",
+    "publisher": {
+      "@type": "GovernmentOrganization",
+      "name": "Centro de Estudios y Análisis del Delito (CEAD)",
+    },
+  },
+  "url": "https://ischilesafe.com/es/seguridad-vina-del-mar/",
+};
 ---
 
 <EditorialLayout
   lang="es"
-  title="Seguridad en Viña del Mar — Datos CEAD — Chile Safety Map"
-  description="Estadísticas oficiales CEAD de delitos para la comuna de Viña del Mar. Tasa de delitos reportados, tendencia y comparación nacional."
+  title="Seguridad en Viña del Mar — Estadísticas CEAD y Contexto — Chile Safety Map"
+  description={`Estadísticas oficiales CEAD de incidencia delictiva para la commune de Viña del Mar. Tasa reportada, tendencia, comparación nacional y contexto para visitantes. Datos CEAD ${year}.`}
   enPath="/vina-del-mar-safety/"
   esPath="/es/seguridad-vina-del-mar/"
+  jsonLd={jsonLd}
 >
   <section>
     <h1>Seguridad en Viña del Mar: datos CEAD para la Ciudad Jardín</h1>
     <p>
-      Viña del Mar es el principal balneario de Chile y atrae a millones de visitantes
-      durante la temporada estival. Esta página reporta lo que muestran los datos oficiales
-      del CEAD para la comuna de Viña del Mar en {year}.
+      Viña del Mar es el principal balneario y destino turístico de Chile, conocida por sus
+      playas, el Casino Municipal y el Festival Internacional de la Canción. Esta página reporta
+      lo que muestran los datos oficiales del CEAD para la commune de Viña del Mar para {year}.
     </p>
 
     <DataCallout
       value={`${Math.round(rate).toLocaleString('es-CL')} por 100k`}
-      label={`Tasa de delitos reportados en Viña del Mar — CEAD ${year}`}
+      label={`Tasa reportada de la commune de Viña del Mar — CEAD ${year}`}
       source="Fuente: CEAD (Centro de Estudios y Análisis del Delito)"
       locale="es"
     />
 
     <DataCallout
       value={`${Math.round(nationalAvg).toLocaleString('es-CL')} por 100k`}
-      label={`Promedio nacional de delitos reportados — CEAD ${year}`}
-      source="Fuente: CEAD — media simple de comunas no de baja población"
+      label={`Promedio nacional de incidencia reportada — CEAD ${year}`}
+      source="Fuente: CEAD — media simple de comunas con población ≥10.000 hab."
       locale="es"
     />
+  </section>
 
+  <section>
+    <h2>Comparación de Viña del Mar con el promedio nacional</h2>
     <p>
-      El contenido editorial completo en español para Viña del Mar, incluyendo análisis
-      estacional, zonas turísticas y contexto provincial, estará disponible próximamente.
+      Según datos CEAD para {year}, la tasa de incidencia reportada de Viña del Mar de{' '}
+      {Math.round(rate).toLocaleString('es-CL')} por 100.000 habitantes es aproximadamente{' '}
+      {Math.abs(vsNationalPct)} % {vsNationalPct >= 0 ? 'por sobre' : 'por debajo'} del
+      promedio nacional de {Math.round(nationalAvg).toLocaleString('es-CL')} por 100.000.
+      La tendencia reciente es {trendLabel} según la serie CEAD. La page de detalle de la{' '}
+      <a href="/es/comuna/vina-del-mar/">commune de Viña del Mar</a> muestra la serie completa
+      desde 2005.
+    </p>
+  </section>
+
+  <section>
+    <h2>Estacionalidad y turismo</h2>
+    <p>
+      Viña del Mar recibe un volumen de visitantes que varía significativamente según la temporada.
+      En verano (diciembre-marzo), la afluencia de turistas nacionales e internacionales puede
+      multiplicar la población efectiva presente en la ciudad, especialmente en la franja costera.
+      Esta dinámica puede influir en las cifras de incidentes reportados, ya que la tasa CEAD se
+      calcula sobre la población residente empadronada, no sobre el número total de personas
+      presentes en un momento dado.
     </p>
     <p>
-      <a href="/vina-del-mar-safety/">Ver versión en inglés</a> &middot;
-      <a href="/commune/vina-del-mar/">Ficha detallada de la comuna</a>
+      Los meses de alta temporada, en particular durante el Festival de Viña en febrero, concentran
+      un volumen inusualmente alto de visitantes en el área de la Quinta Vergara y el centro. Los
+      delitos contra la propiedad oportunistas —carterismo, robo de celulares— tienden a
+      concentrarse en estas zonas de alta densidad peatonal.
+    </p>
+  </section>
+
+  <section>
+    <h2>Zonas de la ciudad</h2>
+    <p>
+      Viña del Mar tiene una configuración urbana diversa que influye en la distribución de la
+      incidencia reportada:
+    </p>
+    <ul>
+      <li>
+        <strong>Franja costera y centro:</strong> la Avenida Perú, la Playa de Viña y el área
+        alrededor del Casino concentran tráfico de visitantes durante todo el año. La densidad
+        de personas y el uso nocturno del espacio urbano son factores relevantes.
+      </li>
+      <li>
+        <strong>Sector poniente y villas:</strong> las zonas más alejadas del centro y la costa
+        tienen un perfil más residencial y reportan tasas distintas al promedio comunal, aunque
+        el CEAD no desglosa datos a ese nivel.
+      </li>
+      <li>
+        <strong>Sector oriente:</strong> los barrios residenciales del sector oriente (hacia
+        Reñaca y Concón) tienen características diferentes a los sectores céntricos.
+      </li>
+    </ul>
+    <p>
+      El CEAD solo publica estadísticas a nivel comunal, no de barrio o sector, lo que limita
+      la resolución del análisis.
+    </p>
+  </section>
+
+  <section>
+    <h2>Viña del Mar y Valparaíso: dos comunas distintas</h2>
+    <p>
+      Viña del Mar y Valparaíso son communes administrativamente separadas y muestran perfiles
+      de incidencia delictiva distintos según datos CEAD. El carácter de balneario residencial
+      de Viña del Mar y el perfil portuario-comercial de Valparaíso generan composiciones de
+      delitos y tasas per cápita diferentes. Consulta{' '}
+      <a href="/es/seguridad-valparaiso/">los datos de seguridad de Valparaíso</a> para comparar.
+    </p>
+    <p>
+      Ambas communes forman parte del Gran Valparaíso, junto con Quilpué, Villa Alemana y Concón.
+      La <a href="/es/region/valparaiso/">página de la Región de Valparaíso</a> presenta el
+      ranking de todas las comunas de la región.
+    </p>
+  </section>
+
+  <section>
+    <h2>Contexto práctico para visitantes y residentes</h2>
+    <p>
+      Algunas observaciones prácticas basadas en los datos CEAD y el uso de la ciudad:
+    </p>
+    <ul>
+      <li>
+        El área del casino, la franja costera y el centro de Viña del Mar son las zonas de mayor
+        afluencia y también donde se concentran más incidentes de hurto oportunista. Mantén el
+        celular y la cartera fuera de la vista en zonas concurridas.
+      </li>
+      <li>
+        La temporada estival (enero-febrero) coincide con el período de mayor concentración de
+        visitantes. El Festival de Viña de febrero atrae a decenas de miles de personas al
+        anfiteatro de la Quinta Vergara.
+      </li>
+      <li>
+        Para residentes que evalúan barrios, el conocimiento local es esencial, dado que los
+        datos CEAD no se desglosan a nivel de sector o villa.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Fuente de datos y metodología</h2>
+    <p>
+      Todas las estadísticas de esta página provienen del CEAD (Centro de Estudios y Análisis
+      del Delito), cubriendo incidentes policiales reportados para {year}. Las tasas se calculan
+      por 100.000 habitantes registrados. El promedio nacional mostrado es la media no ponderada
+      de communes no de baja población, no una suma. La metodología completa está documentada
+      en la <a href="/es/metodologia/">página de metodología</a>.
+      Versión en inglés: <a href="/vina-del-mar-safety/">Viña del Mar Safety</a>.
     </p>
   </section>
 </EditorialLayout>
@@ -62,8 +186,26 @@ const nationalAvg = loadNationalAverage();
     margin-bottom: var(--2xl);
   }
 
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
   p + p {
     margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
   }
 
   a {

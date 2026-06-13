@@ -1,11 +1,10 @@
 ---
 /**
- * /es/seguridad-valparaiso/ — ES counterpart for /valparaiso-safety/
+ * /es/seguridad-valparaiso/ — Seguridad en Valparaíso, datos CEAD (EDIT-02).
  *
- * Stub page for hreflang reciprocity (Plan 04-04 Task 2).
- * Full editorial content will be authored in Plan 06 (ES editorial pages).
- *
+ * Contrapartida ES de /valparaiso-safety/. Plan 06 — contenido ES completo.
  * HREFLANG PAIR: enPath=/valparaiso-safety/ <-> esPath=/es/seguridad-valparaiso/
+ * CRÍTICO: usa loadNationalAverage() (MEDIA), latestCompleteYearRate() — nunca SUMA.
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
 import DataCallout from '../../components/DataCallout.astro';
@@ -15,44 +14,171 @@ const valpo = loadCommune('5101');
 const year = valpo.latestCompleteYear;
 const rate = latestCompleteYearRate(valpo);
 const nationalAvg = loadNationalAverage();
+const vsNationalPct = nationalAvg > 0
+  ? Math.round(((rate - nationalAvg) / nationalAvg) * 100)
+  : 0;
+const trendLabel =
+  valpo.trend === 'up' ? 'en alza' :
+  valpo.trend === 'down' ? 'a la baja' :
+  'estable';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Seguridad en Valparaíso — Datos CEAD",
+  "description": `Estadísticas oficiales CEAD de incidencia delictiva para la commune de Valparaíso. Tasa reportada, tendencia y comparación nacional para ${year}.`,
+  "about": {
+    "@type": "Dataset",
+    "name": "Estadísticas CEAD — Valparaíso",
+    "publisher": {
+      "@type": "GovernmentOrganization",
+      "name": "Centro de Estudios y Análisis del Delito (CEAD)",
+    },
+  },
+  "url": "https://ischilesafe.com/es/seguridad-valparaiso/",
+};
 ---
 
 <EditorialLayout
   lang="es"
-  title="Seguridad en Valparaíso — Datos CEAD — Chile Safety Map"
-  description="Estadísticas oficiales CEAD de delitos para la comuna de Valparaíso. Tasa de delitos reportados, tendencia y comparación nacional."
+  title="Seguridad en Valparaíso — Estadísticas CEAD y Contexto — Chile Safety Map"
+  description={`Estadísticas oficiales CEAD de incidencia delictiva para la commune de Valparaíso. Tasa reportada, tendencia, comparación nacional y contexto práctico. Datos CEAD ${year}.`}
   enPath="/valparaiso-safety/"
   esPath="/es/seguridad-valparaiso/"
+  jsonLd={jsonLd}
 >
   <section>
     <h1>Seguridad en Valparaíso: datos CEAD para la ciudad puerto</h1>
     <p>
-      Valparaíso es el principal puerto de Chile y sede del Congreso Nacional. Esta página
-      reporta lo que muestran los datos oficiales del CEAD para la comuna de Valparaíso
-      en {year}.
+      Valparaíso es el principal puerto de Chile y sede del Congreso Nacional. Sus cerros y el
+      plan portuario conforman entornos muy distintos entre sí. Esta página reporta lo que
+      muestran los datos oficiales del CEAD para la commune de Valparaíso para {year}.
     </p>
 
     <DataCallout
       value={`${Math.round(rate).toLocaleString('es-CL')} por 100k`}
-      label={`Tasa de delitos reportados en Valparaíso — CEAD ${year}`}
+      label={`Tasa reportada de la commune de Valparaíso — CEAD ${year}`}
       source="Fuente: CEAD (Centro de Estudios y Análisis del Delito)"
       locale="es"
     />
 
     <DataCallout
       value={`${Math.round(nationalAvg).toLocaleString('es-CL')} por 100k`}
-      label={`Promedio nacional de delitos reportados — CEAD ${year}`}
-      source="Fuente: CEAD — media simple de comunas no de baja población"
+      label={`Promedio nacional de incidencia reportada — CEAD ${year}`}
+      source="Fuente: CEAD — media simple de comunas con población ≥10.000 hab."
       locale="es"
     />
+  </section>
 
+  <section>
+    <h2>Comparación de Valparaíso con el promedio nacional</h2>
     <p>
-      El contenido editorial completo en español para Valparaíso, incluyendo análisis por
-      tipo de delito, zonas de la ciudad y contexto regional, estará disponible próximamente.
+      Según datos CEAD para {year}, la tasa de incidencia reportada de Valparaíso de{' '}
+      {Math.round(rate).toLocaleString('es-CL')} por 100.000 habitantes es aproximadamente{' '}
+      {Math.abs(vsNationalPct)} % {vsNationalPct >= 0 ? 'por sobre' : 'por debajo'} del
+      promedio nacional de {Math.round(nationalAvg).toLocaleString('es-CL')} por 100.000.
+      Como muchas comunas portuarias y nodos de tránsito, Valparaíso registra incidentes que
+      reflejan tanto la población residente como la flotante que transita por el puerto y el área
+      del edificio del Congreso. La tendencia reciente es {trendLabel} según la serie CEAD.
     </p>
     <p>
-      <a href="/valparaiso-safety/">Ver versión en inglés</a> &middot;
-      <a href="/commune/valparaiso/">Ficha detallada de la comuna</a>
+      La página de detalle de la{' '}
+      <a href="/es/comuna/valparaiso/">commune de Valparaíso</a> muestra la serie anual completa
+      desde 2005 y el desglose por familia de delito.
+    </p>
+  </section>
+
+  <section>
+    <h2>El plan y los cerros</h2>
+    <p>
+      La geografía de Valparaíso divide la ciudad en el plan portuario —que concentra la
+      actividad comercial, la infraestructura de transporte y los edificios de gobierno— y los
+      barrios en cerro (más de 40 cerros numerados) que ascienden escarpadamente sobre él.
+      Los incidentes reportados se concentran de forma desproporcionada en el plan, en el área
+      alrededor de las puertas del puerto, el terminal de buses y el Congreso, lo que es
+      consistente con cualquier nodo urbano de alta densidad y tránsito.
+    </p>
+    <p>
+      Los cerros varían considerablemente en carácter. El Cerro Alegre y el Cerro Concepción,
+      populares entre turistas por sus escaleras pintadas y cafeterías, están adyacentes a cerros
+      residenciales más tranquilos. Los datos del CEAD no desglosan los incidentes por cerro o
+      barrio, solo por commune y familia de delito.
+    </p>
+  </section>
+
+  <section>
+    <h2>Composición por tipo de delito</h2>
+    <p>
+      Los delitos contra la propiedad (robos y hurtos) representan la mayor proporción de
+      incidentes reportados en Valparaíso según datos CEAD, consistente con la mayoría de las
+      comunas urbanas. El área del plan y el terminal de buses concentran una mayor proporción
+      de hurtos oportunistas que afectan bolsos, celulares y objetos de valor dejados en vehículos.
+    </p>
+    <p>
+      El desglose por familia de delito para Valparaíso —cubriendo las siete categorías CEAD por
+      año— aparece en la <a href="/es/comuna/valparaiso/">página de la commune</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Viña del Mar y la Provincia de Valparaíso</h2>
+    <p>
+      La commune de Valparaíso y la adjacent ciudad costera de Viña del Mar (una commune
+      separada) frecuentemente se describen juntas pero tienen perfiles de tasas diferentes.
+      El carácter de balneario de Viña del Mar y sus zonas residenciales del oriente producen
+      un perfil de tasa distinto al de la economía portuaria de Valparaíso. Consulta{' '}
+      <a href="/es/seguridad-vina-del-mar/">los datos de seguridad de Viña del Mar</a> para una
+      comparación.
+    </p>
+    <p>
+      La Región de Valparaíso más amplia abarca communes desde Petorca en el norte hasta San
+      Antonio en el sur, con tasas que varían considerablemente por ubicación. La{' '}
+      <a href="/es/region/valparaiso/">página de la Región de Valparaíso</a> presenta el ranking
+      completo de comunas dentro de la región.
+    </p>
+  </section>
+
+  <section>
+    <h2>Contexto práctico para visitantes y residentes</h2>
+    <p>
+      Algunas observaciones basadas en lo que muestran los datos CEAD y el uso habitual de
+      la ciudad:
+    </p>
+    <ul>
+      <li>
+        El plan y el área de las puertas del puerto son las zonas con mayor incidencia reportada
+        en la commune. Se aplican las precauciones urbanas estándar: mantener las mochilas al
+        frente, evitar mostrar el celular abiertamente en calles concurridas.
+      </li>
+      <li>
+        Los recorridos en ascensor (funicular) y los paseos por los cerros son actividades
+        turísticas populares. Algunos cerros son principalmente residenciales con poco tráfico
+        peatonal después de oscurecer; se recomienda consultar a los lugareños sobre cerros
+        específicos.
+      </li>
+      <li>
+        Las salidas de buses de larga distancia utilizan el Terminal Rodoviario; permítete
+        tiempo suficiente para llegar con seguridad y mantén el equipaje asegurado.
+      </li>
+      <li>
+        Para residentes que evalúan barrios, los datos a nivel comunal no se resuelven a nivel
+        de cerro; el conocimiento local y las visitas en diferentes horarios del día complementan
+        lo que las cifras del CEAD pueden mostrar.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Fuente de datos y metodología</h2>
+    <p>
+      Todas las estadísticas de esta página provienen del CEAD (Centro de Estudios y Análisis
+      del Delito), el organismo oficial de estadísticas de delincuencia del gobierno chileno,
+      cubriendo incidentes policiales reportados para {year}. Las tasas se calculan por 100.000
+      habitantes registrados. El promedio nacional mostrado arriba es la media no ponderada
+      de communes no de baja población, no una suma. La metodología completa, incluidas las
+      fuentes de población y las limitaciones conocidas, está documentada en la{' '}
+      <a href="/es/metodologia/">página de metodología</a>.
+      Versión en inglés: <a href="/valparaiso-safety/">Valparaíso Safety</a>.
     </p>
   </section>
 </EditorialLayout>
@@ -62,8 +188,26 @@ const nationalAvg = loadNationalAverage();
     margin-bottom: var(--2xl);
   }
 
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
   p + p {
     margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
   }
 
   a {
