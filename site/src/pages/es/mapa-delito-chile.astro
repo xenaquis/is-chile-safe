@@ -1,19 +1,21 @@
 ---
 /**
- * /es/mapa-delito-chile/ — ES stub para reciprocidad hreflang con /chile-crime-map/.
+ * /es/mapa-delito-chile/ — Mapa interactivo de delitos en Chile (EDIT-02).
  *
- * Stub editorial map page: mapas choroplético de delitos en Chile.
- * Contenido ES completo será expandido en Plan 06.
- * hreflang: /es/mapa-delito-chile/ <-> /chile-crime-map/ (EDIT-02 verbatim).
+ * Página editorial con mapa embebido (Template-2). Plan 06 — contenido ES completo.
+ * hreflang: /es/mapa-delito-chile/ <-> /chile-crime-map/
+ * CRÍTICO: usa loadNationalAverage() (MEDIA) — nunca SUMA.
+ * D-10: sin AdSlot adyacente al bloque del mapa.
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
 import MapIsland from '../../components/map/MapIsland';
 import DataCallout from '../../components/DataCallout.astro';
-import { loadNationalAverage, loadIndex, loadCommune, latestCompleteYearRate } from '../../lib/data.ts';
+import { loadNationalAverage, loadIndex, loadCommune } from '../../lib/data.ts';
 
 const nationalAvg = loadNationalAverage();
 const index = loadIndex();
-const sampleCommune = loadCommune(index[0].cut);
+const sampleCut = index.find((c) => !c.low_population)?.cut ?? '13101';
+const sampleCommune = loadCommune(sampleCut);
 const dataYear = sampleCommune.latestCompleteYear;
 
 const jsonLd = {
@@ -27,8 +29,8 @@ const jsonLd = {
 
 <EditorialLayout
   lang="es"
-  title="Mapa de Delitos en Chile — Coroplético por Comuna"
-  description={`Explora la incidencia delictiva reportada en las 346 comunas de Chile. Filtra por tipo de delito y año. Fuente: CEAD ${dataYear}.`}
+  title="Mapa de Delitos en Chile — Coroplético por Comuna — Chile Safety Map"
+  description={`Mapa interactivo de incidencia delictiva reportada por CEAD para las 346 comunas de Chile. Filtra por tipo de delito y año. Datos CEAD ${dataYear}.`}
   enPath="/chile-crime-map/"
   esPath="/es/mapa-delito-chile/"
   jsonLd={jsonLd}
@@ -36,16 +38,21 @@ const jsonLd = {
   <section>
     <h1>Mapa de Delitos en Chile — Incidencia Reportada por Comuna</h1>
     <p>
-      Este mapa interactivo muestra la incidencia delictiva reportada en las 346 comunas de
-      Chile, coloreadas según la tasa por 100.000 habitantes. Los datos provienen del CEAD
+      Este mapa interactivo muestra la tasa de incidencia delictiva reportada en las 346 comunas
+      de Chile, coloreadas según la tasa por 100.000 habitantes. Los datos provienen del CEAD
       (Centro de Estudios y Análisis del Delito), organismo oficial de estadísticas criminales
-      del gobierno de Chile.
+      del Ministerio del Interior y Seguridad Pública de Chile.
+    </p>
+    <p>
+      Según datos CEAD para {dataYear}, la media nacional entre comunas con población suficiente
+      es la siguiente. Esta cifra es la media aritmética simple de las tasas comunales —
+      no la suma de incidentes publicada por el CEAD como total nacional.
     </p>
 
     <DataCallout
       value={`${Math.round(nationalAvg).toLocaleString('es-CL')} por 100k`}
       label={`Promedio nacional de incidencia reportada — CEAD ${dataYear}`}
-      source="Fuente: CEAD — promedio simple de comunas con población ≥10.000 hab."
+      source="Fuente: CEAD — media simple de comunas con población ≥10.000 hab."
       locale="es"
     />
   </section>
@@ -63,14 +70,96 @@ const jsonLd = {
     <h2>Cómo interpretar el mapa</h2>
     <p>
       Cada polígono comunal se colorea en cinco niveles de incidencia según quintiles de la
-      distribución nacional de comunas con población suficiente. El color más claro (verde
-      agua) indica la tasa más baja relativa; el más oscuro (rojo-café) indica la más alta.
-      Esta visualización no clasifica ninguna comuna como "segura" o "peligrosa" en términos
-      absolutos — representa la incidencia relativa según datos oficiales del CEAD.
+      distribución nacional de comunas con población suficiente (≥10.000 habitantes). El color
+      más claro (verde agua) indica la tasa por 100.000 más baja en términos relativos; el más
+      oscuro (rojo-café) indica la más alta. Esta clasificación por quintiles es relativa —
+      no absoluta — y cambia cada vez que se actualizan los datos del CEAD.
     </p>
     <p>
-      Para una explicación detallada de la metodología y fuentes, visita la
-      <a href="/es/metodologia/">página de metodología</a>.
+      Es importante recordar que este mapa visualiza incidentes <em>reportados</em> a la policía.
+      La cifra negra (subregistro) varía según el tipo de delito y la localidad. Una comuna
+      con un color claro tiene menos incidentes reportados por residente, no necesariamente
+      menor prevalencia real de delincuencia.
+    </p>
+  </section>
+
+  <section>
+    <h2>Filtros disponibles: tipo de delito y año</h2>
+    <p>
+      El mapa permite filtrar por dos dimensiones:
+    </p>
+    <ul>
+      <li>
+        <strong>Familia de delito:</strong> el CEAD organiza los incidentes en siete categorías —
+        delitos contra la vida e integridad física, robos violentos, violencia intrafamiliar,
+        drogas, armas, delitos contra la propiedad e incivilidades. Seleccionar una categoría
+        colorea el mapa según la tasa de esa familia específica en cada comuna.
+      </li>
+      <li>
+        <strong>Año:</strong> el CEAD publica series desde 2005. Comparar dos años distintos
+        permite ver si una comuna ha aumentado, disminuido o mantenido su tasa de incidencia
+        según datos oficiales.
+      </li>
+    </ul>
+    <p>
+      Al hacer clic en cualquier polígono comunal, se abre el panel lateral con la tasa detallada,
+      la tendencia de los últimos tres años y un enlace a la página completa de la comuna.
+    </p>
+  </section>
+
+  <section>
+    <h2>Variación regional en Chile</h2>
+    <p>
+      La distribución de la incidencia delictiva en Chile no es uniforme. Según datos CEAD para
+      {dataYear}, existen patrones regionales reconocibles:
+    </p>
+    <ul>
+      <li>
+        La Región Metropolitana concentra la mayor cantidad absoluta de incidentes, pero su tasa
+        por 100.000 varía enormemente entre comunas del oriente residencial y comunas del centro
+        con alta actividad comercial y de transporte.
+      </li>
+      <li>
+        Algunas regiones del norte (Antofagasta, Tarapacá) muestran tasas per cápita elevadas,
+        asociadas en parte a actividad minera y alta rotación de población.
+      </li>
+      <li>
+        Las regiones del sur —Los Lagos, Aysén, Magallanes— tienden a reportar tasas menores en
+        términos per cápita, especialmente en comunas con economías agrícolas o pesqueras.
+      </li>
+    </ul>
+    <p>
+      Estas tendencias son orientativas y deben verificarse directamente en los datos CEAD del
+      año que te interese, ya que las cifras cambian con cada actualización anual.
+    </p>
+  </section>
+
+  <section>
+    <h2>Limitaciones del mapa</h2>
+    <p>
+      Como toda visualización de estadísticas criminales, este mapa tiene limitaciones
+      importantes:
+    </p>
+    <ul>
+      <li>
+        <strong>Granularidad comunal:</strong> el CEAD publica datos a nivel comunal, no de
+        barrio o sector. Una commune de alta tasa promedio puede tener zonas residenciales
+        con incidencia muy distinta al centro comercial o puerto.
+      </li>
+      <li>
+        <strong>Población flotante:</strong> la tasa se calcula sobre población empadronada,
+        no sobre el total de personas presentes. Comunas con grandes flujos de trabajadores,
+        turistas o usuarios de servicios pueden mostrar tasas per cápita más altas que no
+        reflejan el riesgo real para un residente establecido.
+      </li>
+      <li>
+        <strong>Cifra negra variable:</strong> el subregistro no es uniforme. Los homicidios
+        tienen la tasa de subregistro más baja; la violencia intrafamiliar, la más alta.
+      </li>
+    </ul>
+    <p>
+      Para una explicación detallada de la metodología, el cálculo de tasas y lo que este sitio
+      no afirma, visita la <a href="/es/metodologia/">página de metodología</a>.
       Versión en inglés: <a href="/chile-crime-map/">Chile Crime Map</a>.
     </p>
   </section>
@@ -107,6 +196,17 @@ const jsonLd = {
 
   p + p {
     margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
   }
 
   a {

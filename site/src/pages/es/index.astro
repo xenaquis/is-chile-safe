@@ -1,40 +1,222 @@
 ---
 /**
- * ES home page placeholder — /es/
+ * ES home page — /es/
  *
- * Provides a valid ES root URL with hreflang + canonical + manifest so the
- * sitemap ES home entry is valid and SEO-04 PWA meta is present.
- *
- * Real editorial home content (hero, featured communes, map teaser) lands in
- * Phase 4 — see CONTEXT.md D-04-editorial-home. Keep this minimal.
+ * Extended in Phase 4 with sober editorial prose, national-average DataCallout,
+ * and quick-links into the map and key editorial pages.
+ * Uses EditorialLayout (720px prose column + gated AdSlot).
  */
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import DataCallout from '../../components/DataCallout.astro';
+import { loadNationalAverage, loadIndex, loadCommune } from '../../lib/data.ts';
+
+const nationalAvg = loadNationalAverage();
+
+// Derivar el año de referencia desde cualquier comuna no de baja población
+const index = loadIndex();
+const sampleCut = index.find((c) => !c.low_population)?.cut ?? '13101';
+const sampleCommune = loadCommune(sampleCut);
+const referenceYear = sampleCommune.latestCompleteYear;
 ---
 
-<BaseLayout
+<EditorialLayout
   lang="es"
-  title="¿Es seguro Chile? — Chile Safety Map"
+  title="¿Es seguro Chile? — Datos CEAD por Comuna — Chile Safety Map"
   description="Estadísticas oficiales CEAD de incidencia delictiva para las 346 comunas y 16 regiones de Chile. Explora tasas, rankings y tendencias por comuna, región o tipo de delito."
   enPath="/"
   esPath="/es/"
 >
   <section class="home-hero">
-    <h1>¿Es seguro Chile?</h1>
+    <h1>¿Es seguro Chile? Datos CEAD para las 346 comunas</h1>
     <p class="home-intro">
-      Chile Safety Map presenta datos oficiales CEAD de incidencia delictiva
-      para las 346 comunas y 16 regiones de Chile, en lenguaje claro y basado en datos.
-    </p>
-    <ul class="home-links">
-      <li><a href="/es/comuna/santiago/">Santiago</a></li>
-      <li><a href="/es/comuna/valparaiso/">Valparaíso</a></li>
-      <li><a href="/es/comuna/antofagasta/">Antofagasta</a></li>
-      <li><a href="/es/region/metropolitana/">Región Metropolitana</a></li>
-      <li><a href="/es/delito/propiedad/">Ranking nacional delitos propiedad</a></li>
-    </ul>
-    <p class="home-note">
-      <!-- Phase 4: replace this placeholder with full editorial content,
-           interactive map, and curated commune picks. -->
-      Mapa interactivo completo y contenido editorial próximamente.
+      Chile Safety Map presenta datos oficiales de incidencia delictiva del Centro de
+      Estudios y Análisis del Delito (CEAD) para las 346 comunas y 16 regiones del país.
+      Cada cifra que aparece en este sitio proviene directamente de ese organismo gubernamental,
+      sin ponderación editorial ni puntuaciones nacionales agregadas.
     </p>
   </section>
-</BaseLayout>
+
+  <section>
+    <h2>Qué muestran los datos</h2>
+    <p>
+      La métrica canónica de este sitio es la <strong>tasa de delitos reportados por 100.000
+      habitantes</strong>. Usar una tasa en lugar de un conteo bruto permite comparar de forma
+      equitativa comunas de tamaños muy distintos: una comuna de 10.000 habitantes con 50 delitos
+      reportados al año tiene una tasa de 500 por 100.000, la misma frecuencia relativa que una
+      ciudad de 500.000 habitantes con 2.500 delitos reportados.
+    </p>
+    <p>
+      Todas las tasas se calculan a partir de las tablas anuales de frecuencia del CEAD, que
+      agrupan los informes de incidentes policiales por comuna, año y familia de delito. Según
+      datos CEAD para {referenceYear}, la media aritmética simple de tasas entre comunas no de
+      baja población en Chile se muestra a continuación.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('es-CL')} por 100k`}
+      label={`Promedio nacional de incidencia reportada — CEAD ${referenceYear}`}
+      source="Fuente: CEAD (Centro de Estudios y Análisis del Delito)"
+      locale="es"
+    />
+  </section>
+
+  <section>
+    <h2>Variación por comunas: lo que el promedio no muestra</h2>
+    <p>
+      El promedio nacional es un punto de referencia, no un veredicto. Según datos CEAD para
+      {referenceYear}, la variación entre comunas es amplia: algunas comunas rurales del sur
+      reportan tasas inferiores a 200 por 100.000 habitantes, mientras que centros urbanos con
+      grandes poblaciones flotantes superan los 2.000. La elección de la ubicación importa mucho
+      más de lo que sugiere un único número nacional.
+    </p>
+    <p>
+      Las comunas que funcionan como nodos de tránsito, puertos o centros comerciales suelen
+      mostrar tasas más altas en términos per cápita, porque los delitos se producen entre una
+      población que circula por el lugar pero no está empadronada en él. El mapa interactivo
+      permite explorar esta variación por tipo de delito y año.
+    </p>
+  </section>
+
+  <section>
+    <h2>Tipos de delito según el CEAD</h2>
+    <p>
+      El CEAD organiza los incidentes en siete familias de delitos. En la mayoría de las comunas
+      y años, los delitos contra la propiedad (robos y hurtos) representan la mayor proporción de
+      los incidentes reportados. La violencia intrafamiliar ocupa el segundo lugar en muchas
+      comunas. Los delitos contra la vida e integridad física —incluidos los homicidios— se
+      reportan a tasas sustancialmente menores.
+    </p>
+    <p>
+      Cada página comunal de este sitio muestra el desglose por familia de delito para el último
+      año disponible, junto con una serie temporal desde 2005. El
+      <a href="/es/mapa-delito-chile/">mapa de delitos</a> permite filtrar por familia y año.
+    </p>
+  </section>
+
+  <section>
+    <h2>Cómo usar este sitio</h2>
+    <p>
+      Chile Safety Map está organizado en varios niveles de detalle:
+    </p>
+    <ul>
+      <li>
+        <strong>Mapa interactivo:</strong> el <a href="/es/mapa-delito-chile/">mapa de delitos</a>
+        muestra las 346 comunas coloreadas por quintil de incidencia. Filtra por tipo de delito y
+        año para ver patrones espaciales.
+      </li>
+      <li>
+        <strong>Páginas comunales:</strong> cada una de las 346 comunas tiene una página con
+        la serie temporal completa, la tasa del último año y la comparación regional.
+      </li>
+      <li>
+        <strong>Rankings:</strong> la página de
+        <a href="/es/comunas-mas-seguras-chile/">comunas con menor incidencia</a> ordena de menor
+        a mayor tasa las comunas publicadas con población suficiente.
+      </li>
+      <li>
+        <strong>Páginas de delito:</strong> los rankings nacionales por tipo de delito muestran
+        qué comunas reportan más o menos de cada categoría.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Lo que este sitio no hace</h2>
+    <p>
+      Este sitio no califica ninguna comuna, ciudad o región como "segura" o "peligrosa" en
+      términos absolutos. Los datos reflejan incidentes registrados por la policía —no la
+      delincuencia real, que siempre supera a la reportada en una proporción que varía según
+      el tipo de delito y la localidad (véase la
+      <a href="/es/metodologia/">página de metodología</a>).
+    </p>
+    <p>
+      No comparamos Chile con otros países: las definiciones de delito, los umbrales de registro
+      y los métodos de recopilación difieren entre países de forma que impide comparaciones
+      directas significativas.
+    </p>
+  </section>
+
+  <section>
+    <h2>Ciudades destacadas</h2>
+    <ul class="home-links">
+      <li><a href="/es/mapa-seguridad-santiago/">Santiago — mapa de seguridad</a></li>
+      <li><a href="/es/seguridad-valparaiso/">Valparaíso — datos CEAD</a></li>
+      <li><a href="/es/seguridad-vina-del-mar/">Viña del Mar — datos CEAD</a></li>
+      <li><a href="/es/seguridad-concepcion/">Concepción — datos CEAD</a></li>
+      <li><a href="/es/comunas-mas-seguras-chile/">Comunas con menor incidencia reportada</a></li>
+    </ul>
+    <p>
+      Para explorar datos de cualquier otra de las 346 comunas, usa el mapa o busca por
+      <a href="/es/delitos-por-comuna/">tipo de delito por comuna</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Fuente de datos y metodología</h2>
+    <p>
+      Todos los datos provienen del CEAD (Centro de Estudios y Análisis del Delito), organismo
+      oficial del Ministerio del Interior y Seguridad Pública de Chile. El CEAD publica series
+      anuales de incidentes registrados por Carabineros de Chile y la Policía de Investigaciones
+      (PDI) para todas las comunas y regiones del país, desde 2005 hasta el último año completo
+      disponible. La <a href="/es/metodologia/">página de metodología</a> documenta el proceso
+      de cálculo, la advertencia sobre la cifra negra y lo que estas cifras no permiten afirmar.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  .home-hero {
+    margin-bottom: var(--2xl);
+  }
+
+  .home-intro {
+    font-size: var(--text-body);
+    line-height: 1.7;
+    color: var(--ink);
+    margin-top: var(--md);
+  }
+
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
+  }
+
+  .home-links {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .home-links li + li {
+    margin-top: var(--sm);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

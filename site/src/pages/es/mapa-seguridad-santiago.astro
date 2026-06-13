@@ -1,13 +1,12 @@
 ---
 /**
- * /es/mapa-seguridad-santiago/ — ES stub para reciprocidad hreflang con /santiago-safety-map/.
+ * /es/mapa-seguridad-santiago/ — Mapa interactivo de seguridad en Santiago (EDIT-02).
  *
- * Stub editorial map page: mapa de incidencia delictiva en Santiago.
- * Contenido ES completo será expandido en Plan 06.
- * hreflang: /es/mapa-seguridad-santiago/ <-> /santiago-safety-map/ (EDIT-02 verbatim).
+ * Página editorial con mapa embebido (Template-2). Plan 06 — contenido ES completo.
+ * hreflang: /es/mapa-seguridad-santiago/ <-> /santiago-safety-map/
  * Santiago CUT: 13101.
- *
  * CRÍTICO: usa loadNationalAverage() (MEDIA), latestCompleteYearRate() — nunca SUMA.
+ * D-10: sin AdSlot adyacente al bloque del mapa.
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
 import MapIsland from '../../components/map/MapIsland';
@@ -26,6 +25,10 @@ const vsNationalPct =
   nationalAvg > 0
     ? Math.round(((rate - nationalAvg) / nationalAvg) * 100)
     : 0;
+const trendLabel =
+  santiago.trend === 'up' ? 'en alza' :
+  santiago.trend === 'down' ? 'a la baja' :
+  'estable';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -38,8 +41,8 @@ const jsonLd = {
 
 <EditorialLayout
   lang="es"
-  title="Mapa de Seguridad en Santiago — Incidencia por Comuna"
-  description={`Mapa interactivo de incidencia delictiva reportada por comuna en la Región Metropolitana de Santiago. Datos CEAD ${year}.`}
+  title="Mapa de Seguridad en Santiago — Incidencia por Comuna — Chile Safety Map"
+  description={`Mapa interactivo de incidencia delictiva reportada por comuna en la Región Metropolitana de Santiago. Datos CEAD ${year}. Compara comunas por tipo de delito y año.`}
   enPath="/santiago-safety-map/"
   esPath="/es/mapa-seguridad-santiago/"
   jsonLd={jsonLd}
@@ -49,13 +52,15 @@ const jsonLd = {
     <p>
       La Región Metropolitana de Santiago comprende 52 comunas con una amplia variación en
       tasas de incidencia delictiva reportada, según datos CEAD (Centro de Estudios y Análisis
-      del Delito). Este mapa interactivo permite comparar cada comuna por tipo de delito y año.
+      del Delito). Este mapa interactivo permite comparar cada comuna por tipo de delito y año,
+      usando la misma fuente oficial que el resto del sitio.
     </p>
     <p>
       Según datos CEAD para {year}, la comuna de Santiago (centro histórico) registró{' '}
-      {Math.round(rate).toLocaleString('es-CL')} incidentes por 100.000 habitantes — aproximadamente{' '}
-      {Math.abs(vsNationalPct)} % {vsNationalPct >= 0 ? 'por sobre' : 'por debajo'} del promedio
-      nacional para comunas con población suficiente.
+      {Math.round(rate).toLocaleString('es-CL')} incidentes por 100.000 habitantes —
+      aproximadamente {Math.abs(vsNationalPct)} %{' '}
+      {vsNationalPct >= 0 ? 'por sobre' : 'por debajo'} del promedio nacional para comunas
+      con población suficiente. La tendencia reciente es {trendLabel} según los datos CEAD.
     </p>
 
     <DataCallout
@@ -68,7 +73,7 @@ const jsonLd = {
     <DataCallout
       value={`${Math.round(nationalAvg).toLocaleString('es-CL')} por 100k`}
       label={`Promedio nacional de incidencia reportada — CEAD ${year}`}
-      source="Fuente: CEAD — promedio simple de comunas con población ≥10.000 hab."
+      source="Fuente: CEAD — media simple de comunas con población ≥10.000 hab."
       locale="es"
     />
   </section>
@@ -83,17 +88,79 @@ const jsonLd = {
   </div>
 
   <section>
-    <h2>Variación por Comunas en la Región Metropolitana</h2>
+    <h2>Variación por comunas en la Región Metropolitana</h2>
     <p>
-      Las comunas residenciales del oriente —Las Condes, Vitacura, Lo Barnechea, Providencia
-      y Ñuñoa— reportan consistentemente tasas inferiores al promedio nacional según datos CEAD.
-      Las comunas con grandes corredores comerciales o zonas industriales tienden a reportar
-      tasas más altas. El selector de tipo de delito en el mapa permite ver qué categorías
-      (delitos contra la propiedad, violencia intrafamiliar, homicidios) impulsan la tasa total.
+      Según datos CEAD para {year}, existe una brecha considerable entre las comunas de la
+      Región Metropolitana. Las comunas residenciales del oriente —Las Condes, Vitacura,
+      Lo Barnechea, Providencia y Ñuñoa— reportan consistentemente tasas inferiores al promedio
+      nacional. Las comunas con grandes corredores comerciales, terminales de transporte o zonas
+      industriales tienden a reportar tasas más altas.
     </p>
     <p>
-      Este sitio no clasifica ninguna comuna como "segura" o "peligrosa" en términos absolutos.
-      Para una explicación completa de la metodología, visita la
+      Un factor que amplifica las tasas per cápita en ciertas comunas es la población flotante:
+      los delitos ocurren entre personas que transitan por el lugar pero no están empadronadas
+      en él. La comuna de Santiago centro recibe a centenares de miles de trabajadores, turistas
+      y usuarios de servicios al día, lo que eleva la tasa reportada por residente registrado.
+    </p>
+  </section>
+
+  <section>
+    <h2>El selector de tipo de delito</h2>
+    <p>
+      El panel de filtros del mapa permite elegir una de las siete familias de delito que publica
+      el CEAD. Esto es especialmente útil en la Región Metropolitana, donde la composición de la
+      incidencia varía entre comunas:
+    </p>
+    <ul>
+      <li>
+        <strong>Delitos contra la propiedad</strong> (robos y hurtos): categoría con la mayor
+        proporción del total en la mayoría de las comunas urbanas.
+      </li>
+      <li>
+        <strong>Violencia intrafamiliar:</strong> segunda categoría en volumen absoluto en muchas
+        comunas. Las campañas de denuncia de los últimos años han incrementado los registros
+        formales, lo que refleja tanto mayor conciencia como mayor prevalencia real reportada.
+      </li>
+      <li>
+        <strong>Delitos contra la vida e integridad física:</strong> incluye homicidios, que tienen
+        la tasa de subregistro más baja porque las muertes se descubren independientemente de
+        que la víctima presente una denuncia.
+      </li>
+    </ul>
+    <p>
+      Cambiar el filtro de tipo de delito puede reordenar completamente el ranking visual de
+      comunas, mostrando que "incidencia alta" en total no implica necesariamente alta incidencia
+      en todas las categorías.
+    </p>
+  </section>
+
+  <section>
+    <h2>Limitaciones de los datos para Santiago</h2>
+    <p>
+      Los datos CEAD para la Región Metropolitana tienen algunas limitaciones importantes a tener
+      en cuenta:
+    </p>
+    <ul>
+      <li>
+        <strong>Resolución comunal, no de barrio:</strong> el CEAD no publica estadísticas a
+        nivel de barrio, sector o cuadrante policial. Dos barrios dentro de la misma commune
+        pueden tener realidades muy distintas que los datos no permiten distinguir.
+      </li>
+      <li>
+        <strong>Subregistro heterogéneo:</strong> la cifra negra varía entre tipos de delito.
+        Los robos con violencia tienen subregistro menor que los hurtos simples o la violencia
+        doméstica. Una tasa baja en una categoría puede reflejar menor denuncia, no menor
+        prevalencia.
+      </li>
+      <li>
+        <strong>Año de referencia:</strong> el último año completo disponible del CEAD es el que
+        se muestra por defecto. Los datos de años más recientes pueden estar incompletos o
+        pendientes de publicación oficial.
+      </li>
+    </ul>
+    <p>
+      Este sitio no clasifica ninguna commune como "segura" o "peligrosa" en términos absolutos.
+      Para la metodología completa de cálculo, visita la
       <a href="/es/metodologia/">página de metodología</a>.
       Versión en inglés: <a href="/santiago-safety-map/">Santiago Safety Map</a>.
     </p>
@@ -131,6 +198,17 @@ const jsonLd = {
 
   p + p {
     margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
   }
 
   a {
