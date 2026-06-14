@@ -11,6 +11,100 @@
 
 **Screenshot evidence:** `.planning/ui-reviews/` (gitignored binaries). Each finding/URL references its file by relative path.
 
+**Coverage:** REVIEW-01 (30 fixed URLs) · REVIEW-02 (14 programmatic-sample URLs) · REVIEW-03 (7 map interaction groups) · REVIEW-04 (9 mobile pages). Evidence: 61 desktop + 9 mobile + 1 preflight screenshots in `ui-reviews/`.
+
+---
+
+## Severity Summary
+
+| Severity | Count | Finding IDs |
+|----------|:-----:|-------------|
+| 🔴 Critical | **0** | — |
+| 🟠 Warning | **4** | F-001, F-005, F-007, F-009 |
+| 🟡 Polish | **5** | F-002, F-003, F-004, F-006, F-008 |
+| **Total** | **9** | |
+
+**Informational (PASS, not a defect):** the incident-layer `/data/incidents/current.json` **404 is the expected dev empty state** (no live pipeline) — it produces no app `console.error` and no uncaught exception, so it is **not** a finding (per research Pitfall 4).
+
+**Triage headline for Phase 8:** no Critical defects — the core map, CEAD data, rate methodology, and all reviewed pages render correctly in both locales. The two highest-value fixes are **F-005** (region/crime ranking pages link to thousands of non-rollout commune pages that 404 — biggest SEO/UX impact) and **F-009** (mobile header has no path to the Map). The remaining Warnings (F-001, F-007) are localized i18n leaks; Polish items are content/UX refinements.
+
+---
+
+## Consolidated Findings (by severity)
+
+### 🟠 Warning
+
+#### F-001 — H1 uses English "Commune" on a Spanish page
+- **Page:** `/es/delitos-por-comuna/`
+- **Locale:** ES
+- **Screenshot:** `ui-reviews/r01-es-delitos-por-comuna.png`
+- **Observation:** The visible `<h1>` reads "Delitos en Chile por **Commune**…" — English "Commune" on a Spanish money page. Title and slug are correctly "Comuna"; only the H1 is wrong.
+- **Recommendation:** Change the H1 to "Comuna". Primary on-page SEO heading; an English word in the ES H1 hurts ranking and credibility.
+
+#### F-005 — Region & crime ranking pages link to non-rollout communes that 404 (systematic)
+- **Page:** All `/region/*` + `/es/region/*` and all `/crime/*` + `/es/delito/*`
+- **Locale:** Both
+- **Screenshot:** `ui-reviews/r02-en-region-metropolitana.png`, `ui-reviews/r02-en-crime-homicide.png`
+- **Observation:** Region and crime ranking tables link to every commune in scope, but only the 12 rollout communes have built pages — all others return **404** (confirmed: `/commune/cerrillos/`, `/commune/recoleta/`, `/es/comuna/cerrillos/` → 404). RM region 48/52 links dead; Biobío 32/33; each crime page lists all 346 communes → ~334/346 dead. Repeats across 16 regions + 7 crime families × 2 locales → thousands of broken internal links.
+- **Recommendation:** Until rollout expands, render non-rollout communes as plain text (no `<a>`) in region/crime rankings, OR build lightweight pages for all communes, OR gate the linked set to rollout slugs. Highest SEO/UX impact of the phase.
+
+#### F-007 — Map panel close button labeled "Cerrar" (Spanish) on the EN map
+- **Page:** `/map/` — ResultPanel close control
+- **Locale:** EN
+- **Screenshot:** `ui-reviews/r03-04-panel.png`
+- **Observation:** Panel close button shows "×" but its accessible name is "Cerrar" (Spanish) on the English map — an i18n leak to assistive tech. All other panel strings are correctly English.
+- **Recommendation:** Localize the close button `aria-label`/text (EN → "Close", ES → "Cerrar").
+
+#### F-009 — Mobile header has no nav to Home/Map/Methodology (no hamburger)
+- **Page:** Global header at mobile width (all pages)
+- **Locale:** Both
+- **Screenshot:** `ui-reviews/r04-mobile-home.png`, `ui-reviews/r04-mobile-map.png`
+- **Observation:** At ≤ mobile width the header nav links Home/Map/Methodology are `display:none` with **no hamburger/menu toggle** (verified: `offsetParent === null`). Only the logo and EN/ES toggle remain; footer nav has no Map link. On a phone the core **Map** is unreachable from site chrome.
+- **Recommendation:** Add a mobile menu (hamburger) exposing Home/Map/Methodology, or a persistent mobile "Map" entry point. High impact — the map is the core product.
+
+### 🟡 Polish
+
+#### F-002 — Missing legal pages (cookie / accessibility)
+- **Page:** Legal section (site-wide)
+- **Locale:** Both
+- **Screenshot:** `ui-reviews/r01-en-terms.png`, `ui-reviews/r01-en-privacy.png`
+- **Observation:** Only 4 legal URLs exist (terms + privacy, each locale). REQUIREMENTS.md anticipated 8 — no cookie/consent policy and no accessibility statement.
+- **Recommendation:** Before AdSense go-live add a cookie/consent policy (AdSense sets cookies → consent likely required) and consider an accessibility statement. Not blocking for v1.1.
+
+#### F-003 — ES methodology is ~half the EN content
+- **Page:** `/es/metodologia/` vs `/methodology/`
+- **Locale:** ES
+- **Screenshot:** `ui-reviews/r01-es-metodologia.png`, `ui-reviews/r01-en-methodology.png`
+- **Observation:** ES methodology ~4.2KB body vs EN ~8.8KB — roughly half. Methodology is an E-E-A-T/trust page; a thinner ES version weakens the Spanish funnel.
+- **Recommendation:** Bring ES methodology to content parity with EN.
+
+#### F-004 — Thin contact pages
+- **Page:** `/contact/` (826 chars), `/es/contacto/` (975 chars)
+- **Locale:** Both
+- **Screenshot:** `ui-reviews/r01-en-contact.png`, `ui-reviews/r01-es-contacto.png`
+- **Observation:** Contact pages are very thin (<1KB text). Acceptable but minimal.
+- **Recommendation:** Optional — add a contact method + response expectation so the page has standalone value.
+
+#### F-006 — ES region name grammar ("Región de Metropolitana")
+- **Page:** `/es/region/metropolitana/` (and other ES region pages)
+- **Locale:** ES
+- **Screenshot:** `ui-reviews/r02-es-region-metropolitana.png`
+- **Observation:** ES region H1/title use a generic "Región de {name}" template → "Región de Metropolitana" (should be "Región Metropolitana"; "del Biobío" is conventional for Biobío).
+- **Recommendation:** Use the official per-region display name instead of a blanket "Región de {name}".
+
+#### F-008 — Incident empty-state shows no "coming soon" toast
+- **Page:** `/map/` — incident layer toggle
+- **Locale:** Both
+- **Screenshot:** `ui-reviews/r03-08-incidents-empty.png`
+- **Observation:** Toggling the incident layer on (404 empty state) shows no user-facing toast across multiple capture windows — only the panel "Recent incidents —". Graceful (no error) but no explicit feedback. The 404 itself is expected and is NOT a defect.
+- **Recommendation:** Confirm the empty-state Toast fires (may be mis-wired or auto-dismissing too fast); a brief "Incident data coming soon" toast would make the empty state self-explanatory.
+
+---
+
+## Evidence Appendix (per-review detail)
+
+The sections below are the full per-wave evidence (inventory tables, template checklists, rate-sanity, interaction logs, mobile overflow measurements) that the consolidated findings above are drawn from.
+
 ---
 
 ## REVIEW-01 — Editorial + Map + Legal Inventory

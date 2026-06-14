@@ -26,7 +26,7 @@ Audit: **[milestones/v1.0-MILESTONE-AUDIT.md](milestones/v1.0-MILESTONE-AUDIT.md
 
 ### v1.1 Polish & QA
 
-- [ ] **Phase 7: E2E Review Pass** — Walk every page in the inventory (ES/EN) with BrowserOS MCP, sample programmatic pages, exercise map interactions, check mobile, produce REVIEW-E2E-FINDINGS.md
+- [x] **Phase 7: E2E Review Pass** — Walk every page in the inventory (ES/EN) with BrowserOS MCP, sample programmatic pages, exercise map interactions, check mobile, produce REVIEW-E2E-FINDINGS.md (completed 2026-06-14)
 - [ ] **Phase 8: Bug Fixes & Data Correctness** — Resolve all Critical findings + fix console errors, broken links, data calculation bugs, and AdSlot CLS issues
 - [ ] **Phase 9: UX / Readability / Accessibility Polish** — Apply UX, readability, editorial-tone, and a11y corrections surfaced by the review
 
@@ -65,7 +65,7 @@ Plans:
 
 **Wave 5** *(blocked on Wave 4 completion)*
 
-- [ ] 07-05-PLAN.md — Consolidate REVIEW-E2E-FINDINGS.md (severity/page/screenshot/recommendation) [REVIEW-05]
+- [x] 07-05-PLAN.md — Consolidate REVIEW-E2E-FINDINGS.md (severity/page/screenshot/recommendation) [REVIEW-05]
 
 ### Phase 8: Bug Fixes & Data Correctness
 
@@ -108,7 +108,7 @@ Plans:
 | 4. Editorial Pages + AdSense | v1.0 | 7/7 | Complete | 2026-06-13 |
 | 5. RSS News Pipeline | v1.0 | 4/4 | Complete | 2026-06-13 |
 | 6. CI/CD + Cloudflare Deployment | v1.0 | 3/3 | Complete | 2026-06-13 |
-| 7. E2E Review Pass | v1.1 | 4/5 | In Progress|  |
+| 7. E2E Review Pass | v1.1 | 5/5 | Complete   | 2026-06-14 |
 | 8. Bug Fixes & Data Correctness | v1.1 | 0/TBD | Not started | - |
 | 9. UX / Readability / A11Y Polish | v1.1 | 0/TBD | Not started | - |
 
