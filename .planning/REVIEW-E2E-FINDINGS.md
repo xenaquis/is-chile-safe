@@ -204,3 +204,51 @@ Toggling the incident layer ON fetches `/data/incidents/current.json`, which ret
 - **Recommendation:** Confirm the Toast actually fires on the 404 empty state (it may be mis-wired or auto-dismissing too fast); a brief "Incident data coming soon" toast would make the empty state self-explanatory. Non-blocking.
 
 **REVIEW-03 status:** COMPLETE — all 7 interaction groups exercised live; year/chip filters recolour, panel shows rate/trend/ranking/sparkline/7-family bars, search zooms+opens panel, locate is graceful, incident empty state is graceful with no app console.error. 0 Critical, 1 Warning (F-007 i18n), 1 Polish (F-008).
+
+---
+
+## REVIEW-04 — Mobile Viewport (375px)
+
+**Tooling note (method transparency):** BrowserOS MCP exposes no device-emulation / `set-viewport` tool (the research-assumed tool does not exist; `window.resizeTo` did not change the render viewport). Mobile was emulated faithfully by rendering each page inside a **same-origin 375×812 `<iframe>`** — an iframe establishes its own CSS viewport, so `@media` breakpoints fire at 375px and overflow was measured via `iframe.contentDocument` (`innerWidth` confirmed = 375 on every page). This is accurate for responsive layout, overflow, and breakpoint behavior; it does not emulate a mobile user-agent string, device-pixel-ratio, or touch input. Screenshots show the 375px page in the left column on a gray host background.
+
+### Per-page overflow check (`scrollWidth > innerWidth` at innerWidth=375)
+
+| Page | Locale | innerW | scrollW | Horizontal overflow | Screenshot |
+|------|--------|:------:|:-------:|:-------------------:|-----------|
+| `/` | EN | 375 | 360 | **false** ✓ | r04-mobile-home.png |
+| `/is-chile-safe/` | EN | 375 | 360 | **false** ✓ | r04-mobile-is-chile-safe.png |
+| `/is-santiago-safe/` | EN | 375 | 360 | **false** ✓ | r04-mobile-is-santiago-safe.png |
+| `/chile-crime-map/` | EN | 375 | 368 | **false** ✓ | r04-mobile-chile-crime-map.png |
+| `/safest-cities-in-chile/` | EN | 375 | 360 | **false** ✓ | r04-mobile-safest-cities.png |
+| `/map/` | EN | 375 | 360 | **false** ✓ | r04-mobile-map.png |
+| `/es/` | ES | 375 | 360 | **false** ✓ | r04-mobile-es-home.png |
+| `/es/mapa-delito-chile/` | ES | 375 | 368 | **false** ✓ | r04-mobile-es-mapa-delito-chile.png |
+| `/es/mapa/` | ES | 375 | 360 | **false** ✓ | r04-mobile-es-mapa.png |
+
+**No horizontal overflow on any money page or map at 375px.**
+
+### Map usability at 375px (`/map/` and `/es/mapa/`)
+
+| Check | `/map/` (EN) | `/es/mapa/` (ES) |
+|-------|:---:|:---:|
+| Choropleth canvas visible | ✓ | ✓ |
+| Search reachable (in-viewport) | ✓ | ✓ (present) |
+| Locate control reachable | ✓ | — |
+| Filter chips reachable (horizontal-scroll row) | ✓ | ✓ |
+| Chip touch-target height | 44px ✓ | 44px ✓ |
+| Commune panel opens without breaking layout | ✓ (panel opened via search; scrollW stayed 360, no overflow) | — |
+
+Map is usable at mobile width in both locales: full-width search, year selector + scrollable crime-chip row, choropleth fills the column, legend visible, and opening the Santiago panel did not introduce horizontal overflow.
+
+### Findings
+
+#### F-009 — [Severity: Warning]
+- **Page:** Global header (all pages) at mobile width
+- **Locale:** Both
+- **Screenshot:** ui-reviews/r04-mobile-home.png, ui-reviews/r04-mobile-map.png
+- **Observation:** At ≤ mobile width the primary header nav links **Home / Map / Methodology are `display:none`** and there is **no hamburger / menu-toggle button** to reveal them (verified in DOM: the three links report `offsetParent === null`; the only interactive header controls remaining are the logo link and the EN/ES toggle). The footer nav (Privacy/Terms/About/Contact) stays visible, but it does **not** include a link to the Map. Net effect: on a phone, a user cannot reach the core **Map** (or Methodology) from the site chrome — only via in-page content links or the logo→home.
+- **Recommendation:** Add a mobile menu (hamburger) that exposes Home / Map / Methodology, or surface a persistent mobile "Map" entry point. The map is the product's core value, so a missing mobile nav path to it is high-impact. Borderline Critical for mobile UX; logged Warning because the pages themselves render correctly and an in-content path to the map exists from the homepage.
+
+**Touch-target note (Polish, no separate finding):** map filter chips measure 44px (adequate). The search `<input>`'s inner text box measures ~17px tall, but its padded container is larger and tappable; recommend confirming the search control's hit area is ≥44px on a real device.
+
+**REVIEW-04 status:** COMPLETE — 9 money/map pages checked at a true 375px viewport (via iframe emulation); zero horizontal overflow anywhere; map usable in both locales with 44px chips and a clean panel-open. 0 Critical, 1 Warning (F-009 mobile nav), 0 Polish. Closes the mobile UAT deferred from v1.0 Phase 3.
