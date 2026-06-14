@@ -49,7 +49,7 @@ Audit: **[milestones/v1.0-MILESTONE-AUDIT.md](milestones/v1.0-MILESTONE-AUDIT.md
 Plans:
 **Wave 1**
 
-- [ ] 07-01-PLAN.md — Pre-flight (dev server port + BrowserOS tools) + editorial/map/legal inventory walk [REVIEW-01]
+- [x] 07-01-PLAN.md — Pre-flight (dev server port + BrowserOS tools) + editorial/map/legal inventory walk [REVIEW-01]
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -108,7 +108,7 @@ Plans:
 | 4. Editorial Pages + AdSense | v1.0 | 7/7 | Complete | 2026-06-13 |
 | 5. RSS News Pipeline | v1.0 | 4/4 | Complete | 2026-06-13 |
 | 6. CI/CD + Cloudflare Deployment | v1.0 | 3/3 | Complete | 2026-06-13 |
-| 7. E2E Review Pass | v1.1 | 0/5 | Not started | - |
+| 7. E2E Review Pass | v1.1 | 1/5 | In Progress|  |
 | 8. Bug Fixes & Data Correctness | v1.1 | 0/TBD | Not started | - |
 | 9. UX / Readability / A11Y Polish | v1.1 | 0/TBD | Not started | - |
 
