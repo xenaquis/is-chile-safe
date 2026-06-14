@@ -11,11 +11,11 @@
 
 ### E2E Review (REVIEW)
 
-- [ ] **REVIEW-01**: Todas las páginas del inventario (10 editoriales EN + 10 ES + /map/ + /es/mapa/ + 8 legales) recorridas en navegador real, ES y EN, con screenshot y consola revisada.
-- [ ] **REVIEW-02**: Muestreo representativo de páginas programáticas verificado contra plantilla (≥3 comunas alta/media/baja población, ≥2 regiones, ≥2 tipos de delito, en ES y EN); muestra declarada explícitamente.
-- [ ] **REVIEW-03**: Comportamiento dinámico del mapa verificado en navegador: cambio de año, cambio de tipo de delito, panel de comuna (tasa/tendencia/ranking/sparkline/familias), búsqueda, geolocalización, capa de incidentes en estado vacío sin error.
-- [ ] **REVIEW-04**: Render responsive móvil (~375px) verificado en money pages y mapa: sin desbordes, mapa usable, targets táctiles ≥44px. Cierra el UAT visual/móvil de Phase 3 diferido de v1.0.
-- [ ] **REVIEW-05**: Hallazgos consolidados en `.planning/REVIEW-E2E-FINDINGS.md` con severidad (Critical / Warning / Polish), página afectada, referencia de screenshot y recomendación concreta.
+- [x] **REVIEW-01**: Todas las páginas del inventario (10 editoriales EN + 10 ES + /map/ + /es/mapa/ + 8 legales) recorridas en navegador real, ES y EN, con screenshot y consola revisada.
+- [x] **REVIEW-02**: Muestreo representativo de páginas programáticas verificado contra plantilla (≥3 comunas alta/media/baja población, ≥2 regiones, ≥2 tipos de delito, en ES y EN); muestra declarada explícitamente.
+- [x] **REVIEW-03**: Comportamiento dinámico del mapa verificado en navegador: cambio de año, cambio de tipo de delito, panel de comuna (tasa/tendencia/ranking/sparkline/familias), búsqueda, geolocalización, capa de incidentes en estado vacío sin error.
+- [x] **REVIEW-04**: Render responsive móvil (~375px) verificado en money pages y mapa: sin desbordes, mapa usable, targets táctiles ≥44px. Cierra el UAT visual/móvil de Phase 3 diferido de v1.0.
+- [x] **REVIEW-05**: Hallazgos consolidados en `.planning/REVIEW-E2E-FINDINGS.md` con severidad (Critical / Warning / Polish), página afectada, referencia de screenshot y recomendación concreta.
 
 ### Correctitud / Bugs (BUGFIX)
 
@@ -66,11 +66,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| REVIEW-01 | Phase 7 | Pending |
-| REVIEW-02 | Phase 7 | Pending |
-| REVIEW-03 | Phase 7 | Pending |
-| REVIEW-04 | Phase 7 | Pending |
-| REVIEW-05 | Phase 7 | Pending |
+| REVIEW-01 | Phase 7 | Complete |
+| REVIEW-02 | Phase 7 | Complete |
+| REVIEW-03 | Phase 7 | Complete |
+| REVIEW-04 | Phase 7 | Complete |
+| REVIEW-05 | Phase 7 | Complete |
 | BUGFIX-01 | Phase 8 | Pending |
 | BUGFIX-02 | Phase 8 | Pending |
 | BUGFIX-03 | Phase 8 | Pending |
@@ -85,6 +85,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | A11Y-02 | Phase 9 | Pending |
 
 **Coverage:**
+
 - v1.1 requirements: 17 total
 - Mapped to phases: 17
 - Unmapped: 0 ✓

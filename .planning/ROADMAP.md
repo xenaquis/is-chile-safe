@@ -108,7 +108,7 @@ Plans:
 | 4. Editorial Pages + AdSense | v1.0 | 7/7 | Complete | 2026-06-13 |
 | 5. RSS News Pipeline | v1.0 | 4/4 | Complete | 2026-06-13 |
 | 6. CI/CD + Cloudflare Deployment | v1.0 | 3/3 | Complete | 2026-06-13 |
-| 7. E2E Review Pass | v1.1 | 5/5 | Complete   | 2026-06-14 |
+| 7. E2E Review Pass | v1.1 | 5/5 | Complete    | 2026-06-14 |
 | 8. Bug Fixes & Data Correctness | v1.1 | 0/TBD | Not started | - |
 | 9. UX / Readability / A11Y Polish | v1.1 | 0/TBD | Not started | - |
 
