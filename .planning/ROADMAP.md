@@ -57,7 +57,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 07-03-PLAN.md — Map dynamic interactions on /map/ (filters/panel/search/geo/incident empty state) [REVIEW-03]
+- [x] 07-03-PLAN.md — Map dynamic interactions on /map/ (filters/panel/search/geo/incident empty state) [REVIEW-03]
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
@@ -108,7 +108,7 @@ Plans:
 | 4. Editorial Pages + AdSense | v1.0 | 7/7 | Complete | 2026-06-13 |
 | 5. RSS News Pipeline | v1.0 | 4/4 | Complete | 2026-06-13 |
 | 6. CI/CD + Cloudflare Deployment | v1.0 | 3/3 | Complete | 2026-06-13 |
-| 7. E2E Review Pass | v1.1 | 2/5 | In Progress|  |
+| 7. E2E Review Pass | v1.1 | 3/5 | In Progress|  |
 | 8. Bug Fixes & Data Correctness | v1.1 | 0/TBD | Not started | - |
 | 9. UX / Readability / A11Y Polish | v1.1 | 0/TBD | Not started | - |
 

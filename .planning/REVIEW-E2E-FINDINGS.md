@@ -163,3 +163,44 @@ Values are monotonic with tier and consistent with the stated vs-national percen
 - **Recommendation:** Use the official region display name per region (special-case Metropolitana → "Región Metropolitana"; consider "del" for masculine region names) rather than a blanket "Región de {name}".
 
 **REVIEW-02 status:** COMPLETE — 14 declared-sample URLs reviewed; 3 commune pages pass the full 10-component template + rate-vs-raw sanity in both locales; region/crime templates render correctly. 0 Critical, 1 Warning (F-005, high-volume), 1 Polish.
+
+---
+
+## REVIEW-03 — Map Dynamic Interactions
+
+**Target:** `/map/` (EN), desktop 1280×800, map island hydrated (canvas choropleth, year select, 8 crime chips + incidents toggle, search, locate). Interactions driven via BrowserOS `select_option` / `take_snapshot`+`click` / `fill`; choropleth recolour confirmed by screenshot (canvas backing store is not pixel-sampleable). Console cleared before the locate and incident steps to isolate their output.
+
+### Per-interaction evidence
+
+| # | Interaction | Method | Result | Console | Screenshot |
+|---|-------------|--------|--------|---------|-----------|
+| 1 | Year filter → 2010 | `select_option` on "Filter by year" | select value = 2010, choropleth recoloured | clean | r03-01-year-2010.png |
+| 2a | Crime chip → Property crimes | click chip | aria-pressed=true, choropleth recoloured (visually confirmed) | clean | r03-02-property.png |
+| 2b | Reset → All types | click chip | All types aria-pressed=true, Property=false | clean | r03-03-alltypes.png |
+| 3 | Commune panel (Santiago via search) | search→select | ResultPanel opened | clean | r03-04-panel.png |
+| 4 | Panel contents | DOM read | rate ~20,258/100k (2010), Trend → Stable, **#11 of 346**, sparkline (2 SVGs, 2005–2026), 7-family bars (Life 1956/Property 5999/Violent 2023/Disorder 9484/Domestic 552/Drug 164/Weapons 80), "View full profile"→/commune/santiago/ | clean | r03-05-panel-detail.png |
+| 5 | Search "Temuco" | fill→select | map zoomed to Temuco, panel opened (~9,345/100k, ↑ Increasing, **#52 of 346**), profile→/commune/temuco/ | clean | r03-06-search.png |
+| 6 | Geolocation locate | click "Show my location" | no crash; no marker/toast within 2.5s (permission pending/unavailable in automation context — acceptable per plan) | no error | r03-07-locate.png |
+| 7 | Incident layer toggle ON | click "Recent incidents" | toggle aria-pressed=true; `/data/incidents/current.json` → 404 (expected empty state); panel "Recent incidents —" | **see note** | r03-08-incidents-empty.png |
+
+### Incident-layer console result (REVIEW-03 explicit requirement)
+
+Toggling the incident layer ON fetches `/data/incidents/current.json`, which returns **404 — this is the expected dev empty state (Pitfall 4), not a defect.** The console entries for it are `source:"browser"` resource-load 404s (the browser auto-logs any failed fetch). There were **0 app-emitted `console.error` calls and 0 uncaught exceptions** — the layer degrades gracefully. **Pitfall-4 criterion (no console.error / no uncaught error): PASS.**
+
+### Findings
+
+#### F-007 — [Severity: Warning]
+- **Page:** `/map/` (EN) — ResultPanel close control
+- **Locale:** EN
+- **Screenshot:** ui-reviews/r03-04-panel.png
+- **Observation:** The panel's close button shows "×" visually but its accessible name (button label) is **"Cerrar"** (Spanish) on the English map. This is an i18n leak — a hardcoded Spanish string surfaced to screen-reader/assistive-tech users on EN. (All other panel strings are correctly English: "Metropolitan Region", "Rate per 100,000 inhab.", "National rank", "Annual evolution", "Incidence by category".)
+- **Recommendation:** Localize the close button's `aria-label`/text via the locale strings (EN → "Close", ES → "Cerrar").
+
+#### F-008 — [Severity: Polish]
+- **Page:** `/map/` — incident layer toggle
+- **Locale:** Both (component shared)
+- **Screenshot:** ui-reviews/r03-08-incidents-empty.png
+- **Observation:** Research/UI-spec anticipated a graceful "coming soon"/empty-state **Toast** when the incident layer is toggled on with no data. Across multiple toggles and capture windows (500ms–2.5s), no toast was observed — the only empty-state signal is the panel's "Recent incidents —" em-dash. Behavior is graceful (no error/crash) but gives no explicit user feedback that incidents are unavailable/coming-soon.
+- **Recommendation:** Confirm the Toast actually fires on the 404 empty state (it may be mis-wired or auto-dismissing too fast); a brief "Incident data coming soon" toast would make the empty state self-explanatory. Non-blocking.
+
+**REVIEW-03 status:** COMPLETE — all 7 interaction groups exercised live; year/chip filters recolour, panel shows rate/trend/ranking/sparkline/7-family bars, search zooms+opens panel, locate is graceful, incident empty state is graceful with no app console.error. 0 Critical, 1 Warning (F-007 i18n), 1 Polish (F-008).
