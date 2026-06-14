@@ -30,7 +30,9 @@
 
 ---
 
-## Consolidated Findings (by severity)
+## REVIEW-05 — Consolidated Findings (by severity)
+
+This is the REVIEW-05 deliverable: the single prioritized, schema-conformant findings list (the Severity Summary above is its headline counts). Each finding below carries Severity, Page, Locale, Screenshot (a real `ui-reviews/` path), Observation, and a concrete Recommendation, ordered Critical → Warning → Polish for direct Phase 8 triage. The incident-layer 404 is recorded in the Severity Summary as informational PASS (expected empty state), never Critical. The per-review evidence (REVIEW-01..04) is retained in the Evidence Appendix below.
 
 ### 🟠 Warning
 
