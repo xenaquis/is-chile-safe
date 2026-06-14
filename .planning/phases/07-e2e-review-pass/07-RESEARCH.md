@@ -449,22 +449,22 @@ This phase makes no code changes. No ASVS categories apply — Phase 7 is read-o
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Actual BrowserOS MCP tool names**
    - What we know: The server is at port 9200 and the `.mcp.json` entry is named `browseros`
    - What's unclear: Whether tools expose as `navigate`, `screenshot`, etc. or use different names (e.g. `open_url`, `take_screenshot`)
-   - Recommendation: Executor's first task: list available MCP tools; abort with checkpoint if BrowserOS tools are not found
+   - RESOLVED: at runtime by the Wave 0 pre-flight checkpoint (07-01) — executor lists available `mcp__browseros__*` tools and records real names; aborts with a checkpoint if BrowserOS tools are not found. Planning does not depend on the exact names.
 
 2. **Astro dev server actual port**
    - What we know: Default is 4321; may vary if port occupied
    - What's unclear: Whether port 4321 is free on the user's machine during review
-   - Recommendation: Pre-flight checkpoint task confirms the port from `npm run dev` stdout
+   - RESOLVED: at runtime by the Wave 0 pre-flight checkpoint (07-01) — port captured from `npm run dev` stdout and used for all subsequent navigation.
 
 3. **Legal page count (8 vs. 4)**
    - What we know: Repo has 2 EN legal pages and 2 ES legal pages (terms + privacy = 4 URLs total)
    - What's unclear: REQUIREMENTS.md says "8 legal pages" — this may anticipate pages not yet built (cookie policy, accessibility statement, etc.)
-   - Recommendation: REVIEW-01 reviews the 4 that exist; FINDINGS should note the missing 4 as a potential gap (Polish severity unless content is legally required)
+   - RESOLVED: Plan reviews the 4 URLs that exist and logs the missing legal pages as a Polish finding in REVIEW-E2E-FINDINGS.md (not a blocker). Success is not gated on 8.
 
 ---
 
