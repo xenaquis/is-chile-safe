@@ -135,7 +135,7 @@ export function ResultPanel({ cut, lang, year, onClose }: Props) {
             <div className="skeleton" style={{ height: 28, width: '60%' }} />
             <div className="skeleton" style={{ height: 14, width: '40%' }} />
           </div>
-          <button className="panel-close" onClick={onClose} aria-label="Cerrar">×</button>
+          <button className="panel-close" onClick={onClose} aria-label={lang === 'es' ? 'Cerrar' : 'Close'}>×</button>
         </div>
         <div className="skeleton" style={{ height: 44 }} />
         <div className="skeleton" style={{ height: 14, width: '70%' }} />
@@ -150,7 +150,7 @@ export function ResultPanel({ cut, lang, year, onClose }: Props) {
       <aside className="result-panel">
         <div className="panel-head">
           <h2>{lang === 'es' ? 'Error al cargar' : 'Load error'}</h2>
-          <button className="panel-close" onClick={onClose} aria-label="Cerrar">×</button>
+          <button className="panel-close" onClick={onClose} aria-label={lang === 'es' ? 'Cerrar' : 'Close'}>×</button>
         </div>
         <p style={{ color: 'var(--muted)' }}>
           {lang === 'es' ? 'No se pudo cargar la información.' : 'Could not load commune data.'}
@@ -212,7 +212,7 @@ export function ResultPanel({ cut, lang, year, onClose }: Props) {
           <h2>{data.name}</h2>
           <div className="panel-region">{regionName}</div>
         </div>
-        <button className="panel-close" onClick={onClose} aria-label="Cerrar">×</button>
+        <button className="panel-close" onClick={onClose} aria-label={lang === 'es' ? 'Cerrar' : 'Close'}>×</button>
       </div>
 
       {/* 2. Level chip + CEAD attribution */}
