@@ -1,0 +1,22 @@
+---
+/**
+ * RateTooltip.astro — Zero-JS accessible "?" tooltip using <details>/<summary>.
+ * Styled by .rate-tooltip / .tooltip-* rules in global.css (shared with RateTooltipReact.tsx).
+ * No client:* directive — pure static HTML, D-09 compliant.
+ */
+interface Props {
+  tip: string;
+  lang: 'en' | 'es';
+  label?: string;
+}
+
+const { tip, lang, label = lang === 'es' ? 'Más información' : 'More info' } = Astro.props;
+---
+<span class="rate-tooltip">
+  <details class="tooltip-details">
+    <summary class="tooltip-trigger" aria-label={label}>
+      <span aria-hidden="true">?</span>
+    </summary>
+    <div class="tooltip-body" role="tooltip">{tip}</div>
+  </details>
+</span>

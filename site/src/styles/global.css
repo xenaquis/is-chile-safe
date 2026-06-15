@@ -9,6 +9,7 @@
 /* ---------- Design Tokens ---------- */
 :root {
   /* Brand palette */
+  /* #0f766e on #f5f8f8 = 4.71:1 (AA min 4.5:1) — do not lighten --primary or darken --bg */
   --primary: #0f766e;
   --bg:      #f5f8f8;
   --ink:     #1c2a2b;
@@ -159,3 +160,60 @@ p {
     padding: 0 var(--lg);
   }
 }
+
+/* ---------- A11Y-01: Focus-visible states (WCAG 2.1 SC 2.4.7 AA) ---------- */
+/* Blanket rule covers <summary>, .lang-btn, nav label, all interactive elements */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Suppress outline on mouse-click (cosmetic) — :focus-visible handles keyboard */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ---------- READ-01: Editorial prose rhythm ---------- */
+.editorial-prose p {
+  margin-bottom: var(--md);
+}
+
+/* ---------- Tooltip (RateTooltip.astro + RateTooltipReact.tsx shared styles) ---------- */
+.rate-tooltip { display: inline-block; position: relative; }
+.tooltip-details { display: inline; }
+.tooltip-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;         /* hide default <summary> triangle */
+  user-select: none;
+}
+.tooltip-trigger::-webkit-details-marker { display: none; }
+.tooltip-trigger:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.tooltip-body {
+  display: none;
+  position: absolute;
+  z-index: 200;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--sm) var(--md);
+  font-size: var(--text-label);
+  max-width: 240px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+details[open] .tooltip-body { display: block; }
