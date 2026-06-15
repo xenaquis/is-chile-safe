@@ -27,7 +27,7 @@ _Last updated: 2026-06-13 — v1.1 roadmap created (Phases 7–9); ready to plan
 
 Phase: 10 (High-Resolution Commune Geometry) — EXECUTING
 Plan: 3 of 3
-Status: Ready to execute
+Status: Awaiting human-verify checkpoint (10-03 Task 3 — visual + mobile-perf UAT)
 Last activity: 2026-06-15
 
 Progress: ██████████ 100% (3/3 phases complete — v1.1)
@@ -73,6 +73,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 | Phase 09 P04 | 12m | 2 tasks | 2 files |
 | Phase 10-high-resolution-commune-geometry P01 | 18m | 2 tasks | 2 files |
 | Phase 10-high-resolution-commune-geometry P02 | 25 | 3 tasks | 4 files |
+| Phase 10-high-resolution-commune-geometry P03 | 10m | 2 tasks + 1 human-verify checkpoint | 3 files |
 
 ## Accumulated Context
 
@@ -140,6 +141,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 - [Phase ?]: Four-way CUT integrity assertion (missing/orphan/dup/Santiago vs index.json) in Step-5 and Step-8 of build-topojson.mjs
 - [Phase ?]: Dual budget gate: raw le 420 KB (430080 B) AND gzip le 140 KB (143360 B); single mapshaper 10%/q=10000 config replaces three-config retry loop
 - [Phase ?]: chilemapas GPL-3 boundary source adopted; srcCodeToCut normalizes zero-padded codigo_comuna to CEAD CUT
+- [Phase 10-03]: chilemapas attribution added to EN/ES methodology pages (GPL-3, INE/SUBDERE/BCN); geometry vs CEAD stats distinction explicit
 
 ## Operator Next Steps
 
