@@ -5,11 +5,14 @@
  * - dist/region has exactly 16 dirs
  * - dist/es/region has exactly 16 dirs
  * - Sample region pages (13 Metropolitana + 11 Aysen) have:
- *   - A populated <table> with at least as many rows as the region's commune count
+ *   - A ranking <table> whose row count == the region's ROLLOUT commune count
+ *     (F-005: tables display only rollout communes, not the full region;
+ *     respects ROLLOUT_ALL=true). Aysen has 0 rollout communes → 0 rows.
+ *   - A "more coming" rollout-note affordance whenever rows are gated
  *   - hreflang alternates (en/es/x-default)
  *   - self-canonical
  *   - Dataset/Place JSON-LD block
- *   - A * marker present if any commune in region is low_population
+ *   - A * marker present only if a DISPLAYED (rollout) commune is low_population
  *
  * Exit non-zero on any failure.
  */
@@ -57,6 +60,49 @@ function hasLowPopCommune(regionFileId) {
     else fid = String(Math.floor(n / 10));
     return fid === String(regionFileId) && c.low_population;
   });
+}
+
+// Rollout-gated contract (F-005): region ranking tables display only communes
+// whose cut is in the rollout set (or all communes when ROLLOUT_ALL=true).
+// Mirrors loadRolloutCuts() in src/lib/data.ts so the validator asserts the
+// same row set the page actually renders.
+function getRolloutCuts() {
+  const indexPath = path.join(REPO_ROOT, 'data', 'cead', 'meta', 'index.json');
+  const index = JSON.parse(readFileSync(indexPath, 'utf-8'));
+  if (process.env.ROLLOUT_ALL === 'true') {
+    return new Set(index.map((c) => String(c.cut)));
+  }
+  const rolloutPath = path.join(SITE_ROOT, 'src', 'config', 'rollout.json');
+  const rollout = JSON.parse(readFileSync(rolloutPath, 'utf-8'));
+  return new Set((rollout.enabled || []).map((cut) => String(cut)));
+}
+
+function regionCommunes(regionFileId) {
+  const indexPath = path.join(REPO_ROOT, 'data', 'cead', 'meta', 'index.json');
+  const index = JSON.parse(readFileSync(indexPath, 'utf-8'));
+  return index.filter((c) => {
+    const n = parseInt(c.region_id, 10);
+    let fid;
+    if (n >= 1 && n <= 16) fid = String(n);
+    else fid = String(Math.floor(n / 10));
+    return fid === String(regionFileId);
+  });
+}
+
+// Number of rows the gated table should display for a region = communes in the
+// region whose cut is in the rollout set.
+function getRegionRolloutCount(regionFileId) {
+  const rolloutCuts = getRolloutCuts();
+  return regionCommunes(regionFileId).filter((c) => rolloutCuts.has(String(c.cut))).length;
+}
+
+// Whether any DISPLAYED (rollout) commune in the region is low_population —
+// the * marker is keyed to displayed rows, not the full region.
+function hasRolloutLowPopCommune(regionFileId) {
+  const rolloutCuts = getRolloutCuts();
+  return regionCommunes(regionFileId).some(
+    (c) => rolloutCuts.has(String(c.cut)) && c.low_population
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -125,16 +171,31 @@ for (const sample of SAMPLES) {
   const lower = html.toLowerCase();
   const label = `${sample.locale.toUpperCase()} /region/${sample.slug}/`;
 
-  // 1. Ranking table row count >= commune count
+  // 1. Ranking table row count == rollout commune count (F-005 gating).
+  //    The region table displays only communes in the rollout set, never the
+  //    full region. Rank denominators stay national; only displayed rows gate.
   const communeCount = getRegionCommuneCount(sample.regionFileId);
+  const expectedRows = getRegionRolloutCount(sample.regionFileId);
   const tableRows = countTableRows(html);
-  if (tableRows < communeCount) {
+  if (tableRows !== expectedRows) {
     console.error(
-      `FAIL: ${label} table has ${tableRows} rows, expected >= ${communeCount} (commune count)`
+      `FAIL: ${label} table has ${tableRows} rows, expected ${expectedRows} (rollout communes in region; ${communeCount} total)`
     );
     failures++;
   } else {
-    console.log(`PASS: ${label} table rows (${tableRows}) >= commune count (${communeCount})`);
+    console.log(
+      `PASS: ${label} table rows (${tableRows}) == rollout communes (${expectedRows}) of ${communeCount} total`
+    );
+  }
+
+  // 1b. When rows are gated (rollout < total), the "more coming" affordance must be present.
+  if (expectedRows < communeCount) {
+    if (!lower.includes('rollout-note')) {
+      console.error(`FAIL: ${label} gated table missing rollout-note affordance`);
+      failures++;
+    } else {
+      console.log(`PASS: ${label} rollout-note affordance present (gated ${expectedRows}/${communeCount})`);
+    }
   }
 
   // 2. hreflang alternates
@@ -168,17 +229,19 @@ for (const sample of SAMPLES) {
     console.log(`PASS: ${label} JSON-LD Dataset+AdministrativeArea present`);
   }
 
-  // 5. low-pop marker (* ) present if region has low-pop communes
-  const hasLowPop = hasLowPopCommune(sample.regionFileId);
+  // 5. low-pop marker (* ) present only if a DISPLAYED (rollout) commune is low-pop.
+  //    Keyed to displayed rows, not the full region — a region whose low-pop
+  //    communes are all outside the rollout set must not assert a marker.
+  const hasLowPop = hasRolloutLowPopCommune(sample.regionFileId);
   if (hasLowPop) {
-    if (!html.includes('low-pop-marker') && !html.includes('*')) {
-      console.error(`FAIL: ${label} has low-pop communes but no * marker in HTML`);
+    if (!html.includes('low-pop-marker')) {
+      console.error(`FAIL: ${label} has displayed low-pop commune but no low-pop-marker in HTML`);
       failures++;
     } else {
       console.log(`PASS: ${label} low-pop * marker present`);
     }
   } else {
-    console.log(`INFO: ${label} no low-pop communes in this region`);
+    console.log(`INFO: ${label} no displayed (rollout) low-pop communes in this region`);
   }
 }
 
