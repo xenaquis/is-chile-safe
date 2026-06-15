@@ -80,7 +80,18 @@ Plans:
   4. AdSlot containers reserve explicit height so no CLS occurs; with `ADSENSE_ENABLED=false`, no `adsbygoogle` element is visible in the DOM.
   5. Every finding marked Critical in REVIEW-E2E-FINDINGS.md is either resolved (with re-verification note) or explicitly escalated with justification; Warning findings are resolved or carry a written deferral reason.
 
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+**Wave 1** *(disjoint files — run in parallel)*
+
+- [ ] 08-01-PLAN.md — F-005 rollout-row gating across the 4 ranking templates (region EN/ES, crime EN/ES) [BUGFIX-02]
+- [ ] 08-02-PLAN.md — i18n + a11y string fixes: F-001 ES H1 "Comuna" + F-007 ResultPanel close aria-label locale-aware [BUGFIX-05]
+- [ ] 08-03-PLAN.md — F-009 zero-JS mobile hamburger nav in PageHeader (+ nav_menu_open i18n string) [BUGFIX-05]
+- [ ] 08-04-PLAN.md — BUGFIX-04 AdSlot blank reserved-height placeholder (remove dashed border, keep gate + zero adsbygoogle) [BUGFIX-04]
+
+**Wave 2** *(blocked on Wave 1 — verifies its output)*
+
+- [ ] 08-05-PLAN.md — Verification + closeout: console re-check, rate spot-check vs data/cead/, BUGFIX-05 finding ledger [BUGFIX-01, BUGFIX-03, BUGFIX-05]
 
 ### Phase 9: UX / Readability / Accessibility Polish
 
@@ -109,7 +120,7 @@ Plans:
 | 5. RSS News Pipeline | v1.0 | 4/4 | Complete | 2026-06-13 |
 | 6. CI/CD + Cloudflare Deployment | v1.0 | 3/3 | Complete | 2026-06-13 |
 | 7. E2E Review Pass | v1.1 | 5/5 | Complete    | 2026-06-14 |
-| 8. Bug Fixes & Data Correctness | v1.1 | 0/TBD | Not started | - |
+| 8. Bug Fixes & Data Correctness | v1.1 | 0/5 | Not started | - |
 | 9. UX / Readability / A11Y Polish | v1.1 | 0/TBD | Not started | - |
 
 ## Open Human Go-Live Gates (launch checklist — not v1.1 scope)
