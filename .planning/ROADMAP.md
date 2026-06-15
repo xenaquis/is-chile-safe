@@ -106,7 +106,21 @@ Plans:
   4. Each EN editorial page has a Spanish counterpart with equivalent content, structure, and tone; no sections are missing in either locale; absolute "peligroso/seguro" phrasing is absent site-wide.
   5. In sampled pages: colour contrast meets WCAG AA for the teal `#0f766e` palette, focus states are visible, images/icons have alt text, map controls have aria labels, `<title>` / meta-description / canonical / hreflang / JSON-LD (FAQPage where applicable) are present and valid.
 
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+**Wave 1**
+
+- [ ] 09-01-PLAN.md — Foundation: hoist familyDefs, i18n strings, dual-surface RateTooltip, focus + prose CSS [UX-02, A11Y-01, READ-01]
+
+**Wave 2** *(disjoint files — run in parallel)*
+
+- [ ] 09-02-PLAN.md — Map comprehension: legend numeric bands (D-03), panel rate tooltip (D-01) + multiplier/bar (D-04), family glossary affordance (D-02) [UX-02, A11Y-01]
+- [ ] 09-03-PLAN.md — Bilingual glossary pages (/glossary/, /es/glosario/) + ranking-table tooltip & cross-links [READ-03, A11Y-02, UX-02]
+- [ ] 09-04-PLAN.md — Editorial readability: ES methodology parity + heading/callout/tone audit on top editorial pages [READ-02, READ-03, UX-01, UX-02, READ-01]
+
+**Wave 3** *(blocked on Wave 2 — verifies its output)*
+
+- [ ] 09-05-PLAN.md — Verification + closeout: build, route emission, tone/meta grep, human a11y/browser checkpoint [A11Y-01, A11Y-02, READ-03, UX-01]
 **UI hint**: yes
 
 ## Progress
@@ -121,7 +135,7 @@ Plans:
 | 6. CI/CD + Cloudflare Deployment | v1.0 | 3/3 | Complete | 2026-06-13 |
 | 7. E2E Review Pass | v1.1 | 5/5 | Complete    | 2026-06-14 |
 | 8. Bug Fixes & Data Correctness | v1.1 | 5/5 | Complete    | 2026-06-15 |
-| 9. UX / Readability / A11Y Polish | v1.1 | 0/TBD | Not started | - |
+| 9. UX / Readability / A11Y Polish | v1.1 | 0/5 | Planned | - |
 
 ## Open Human Go-Live Gates (launch checklist — not v1.1 scope)
 
