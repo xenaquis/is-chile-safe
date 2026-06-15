@@ -18,7 +18,7 @@ decisions:
 metrics:
   duration: "~25m"
   completed: "2026-06-15"
-  tasks: 2 auto + 1 checkpoint (pending human)
+  tasks: 2 auto + 1 checkpoint (approved 2026-06-15)
   files: 1
 ---
 
@@ -33,9 +33,19 @@ metrics:
 | 1 | Register coverage.mjs in validator suite | e64bf54 | site/scripts/validate/all.mjs |
 | 2 | Full build + coverage isolated run + full suite | 75875fc | site/scripts/validate/all.mjs |
 
-## Task 3 Status
+## Task 3 Status — APPROVED (2026-06-15)
 
-**Awaiting human checkpoint:** Task 3 (human reachability + no-dead-link verification) — `type="checkpoint:human-verify" gate="blocking"`. See checkpoint details below.
+**Human reachability checkpoint: PASSED.** Verified via BrowserOS against `astro dev` (ROLLOUT_ALL=true), both locales, then approved by human.
+
+| # | Check | Result |
+|---|-------|--------|
+| 1 | Directory renders + count + regions | EN "346 of 346" / ES "346 de 346"; 346 unique links each; 16 region sections (sum = 346); A-Z + By-region toggle + search box |
+| 2 | Search filter (accent-insensitive) | "vina" → only Viña del Mar; "nunoa" → only Ñuñoa |
+| 3 | Small/remote comunas reachable | Camiña, Camarones, Río Verde, Lago Verde, Antártica — all 200 + real `<h1>` |
+| 4 | No-JS full list | raw HTML (no JS) contains all 692 commune-link refs; no gating string |
+| 5 | Map + region/crime, no gating note | /map/ + /es/mapa/ 200; region 52 rows; crime pages 346 rows; no "Showing N of M / Mostrando N de M" anywhere |
+
+**Full dead-link sweep:** 346/346 EN comuna pages = 200, 346/346 ES comuna pages = 200 — **0 dead links**.
 
 ## Build Results (Task 2)
 
