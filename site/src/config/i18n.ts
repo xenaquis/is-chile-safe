@@ -82,6 +82,26 @@ export interface I18nStrings {
 
   // Data callout source prefix
   data_callout_source_prefix: string;
+
+  // Phase 9 — rate tooltip
+  rate_tooltip_title: string;
+  rate_tooltip_body: string;
+
+  // Phase 9 — glossary link
+  glossary_link: string;
+
+  // Phase 9 — comparison multiplier
+  comparison_national: string;
+
+  // Phase 9 — legend qualitative labels (5 levels)
+  legend_qual_1: string;
+  legend_qual_2: string;
+  legend_qual_3: string;
+  legend_qual_4: string;
+  legend_qual_5: string;
+
+  // Phase 9 — legend footnote
+  legend_per_100k_note: string;
 }
 
 export const EN_STRINGS: I18nStrings = {
@@ -164,6 +184,26 @@ export const EN_STRINGS: I18nStrings = {
 
   // Data callout source prefix
   data_callout_source_prefix: 'Source: CEAD',
+
+  // Phase 9 — rate tooltip
+  rate_tooltip_title: 'Rate per 100,000 inhabitants',
+  rate_tooltip_body: 'This figure counts police-reported incidents for every 100,000 people living in the area, allowing fair comparison between places of very different population sizes. Source: CEAD official police statistics.',
+
+  // Phase 9 — glossary link
+  glossary_link: 'Crime type glossary',
+
+  // Phase 9 — comparison multiplier
+  comparison_national: '{multiplier}× the national average',
+
+  // Phase 9 — legend qualitative labels
+  legend_qual_1: 'Very low',
+  legend_qual_2: 'Low',
+  legend_qual_3: 'Medium',
+  legend_qual_4: 'High',
+  legend_qual_5: 'Very high',
+
+  // Phase 9 — legend footnote
+  legend_per_100k_note: 'Reported rate per 100,000 inhabitants',
 };
 
 export const ES_STRINGS: I18nStrings = {
@@ -246,6 +286,26 @@ export const ES_STRINGS: I18nStrings = {
 
   // Prefijo de fuente para callout de datos
   data_callout_source_prefix: 'Fuente: CEAD',
+
+  // Fase 9 — tooltip de tasa
+  rate_tooltip_title: 'Tasa por 100.000 habitantes',
+  rate_tooltip_body: 'Esta cifra cuenta los incidentes reportados a la policía por cada 100.000 personas residentes en la zona, permitiendo comparar lugares de tamaños muy distintos en igualdad de condiciones. Fuente: estadísticas policiales oficiales CEAD.',
+
+  // Fase 9 — enlace al glosario
+  glossary_link: 'Glosario de tipos de delito',
+
+  // Fase 9 — multiplicador de comparación
+  comparison_national: '{multiplier}× el promedio nacional',
+
+  // Fase 9 — etiquetas cualitativas de la leyenda
+  legend_qual_1: 'Muy baja',
+  legend_qual_2: 'Baja',
+  legend_qual_3: 'Media',
+  legend_qual_4: 'Alta',
+  legend_qual_5: 'Muy alta',
+
+  // Fase 9 — nota al pie de leyenda
+  legend_per_100k_note: 'Tasa reportada por 100.000 habitantes',
 };
 
 // D-17: Crime-family URL slug translations
