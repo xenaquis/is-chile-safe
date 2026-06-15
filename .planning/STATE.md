@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Polish & QA
-status: executing
-last_updated: "2026-06-15T13:07:54.283Z"
+status: verifying
+last_updated: "2026-06-15T13:16:10.927Z"
 last_activity: 2026-06-15
 progress:
   total_phases: 3
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 10
-  completed_plans: 9
-  percent: 33
+  completed_plans: 10
+  percent: 67
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -27,7 +27,7 @@ _Last updated: 2026-06-13 — v1.1 roadmap created (Phases 7–9); ready to plan
 
 Phase: 08 (bug-fixes-data-correctness) — EXECUTING
 Plan: 5 of 5
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-06-15
 
 Progress: ░░░░░░░░░░ 0% (0/3 phases complete)
@@ -67,6 +67,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 | Phase 05-rss-news-pipeline P03 | 12m \| 2 tasks \| 2 files |
 | Phase 08-bug-fixes-data-correctness P01 | 8m | 2 tasks | 4 files |
 | Phase 08-bug-fixes-data-correctness P03 | 12m | 2 tasks | 2 files |
+| Phase 08 P05 | 15m | 3 tasks | 1 files |
 
 ## Accumulated Context
 
