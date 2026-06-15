@@ -9,7 +9,13 @@
  * Do NOT confuse chip display order with array index.
  *
  * Events toggle is rendered now (Wave 3 will wire full behavior).
+ *
+ * Each crime chip carries a `title` definition (READ-02/D-02 gap-closure) sourced
+ * from the shared familyDefs so opaque CEAD terms like "Incivilidades"/"Disorder"
+ * are self-explanatory on hover without renaming the official category.
  */
+
+import { FAMILY_DEFS_EN, FAMILY_DEFS_ES } from '../../lib/familyDefs';
 
 interface ChipDef {
   key: string | null; // null = "todos"
@@ -71,12 +77,14 @@ export function FiltersRow({
       {/* Crime-type chips */}
       {CHIP_DEFS.map(({ key, familyIndex, labelEs, labelEn, featured }) => {
         const isActive = crimeFamily === key;
+        const def = key ? (lang === 'es' ? FAMILY_DEFS_ES[key] : FAMILY_DEFS_EN[key]) : undefined;
         return (
           <button
             key={key ?? '__todos__'}
             className={`chip${isActive ? ' active' : ''}`}
             onClick={() => onFamilyChange(isActive ? null : key, isActive ? null : familyIndex)}
             aria-pressed={isActive}
+            title={def}
           >
             {featured && !isActive && (
               <span
