@@ -66,14 +66,16 @@ const index = loadIndex();
 type RankRow = {
   name: string;
   slug: string;
+  cut: string;
   regionName: string;
   regionFileIdStr: string;
   rate: number;
   trend: 'up' | 'down' | 'stable';
   low_population: boolean;
+  nationalRank: number | null;
 };
 
-const allRows: RankRow[] = [];
+const allRows: Omit<RankRow, 'nationalRank'>[] = [];
 // Capturamos el último año completo directamente al iterar las comunas, en lugar
 // de re-derivarlo mediante una búsqueda por slug con un fallback fijo (CR-02).
 let latestYear = new Date().getFullYear() - 1;
@@ -89,6 +91,7 @@ for (const meta of index) {
   allRows.push({
     name: meta.name,
     slug: meta.slug,
+    cut: meta.cut,
     regionName: commune.regionName,
     regionFileIdStr: regionFileId(meta.region_id),
     rate,
@@ -99,14 +102,18 @@ for (const meta of index) {
 
 const eligibleRows = allRows.filter((r) => !r.low_population).sort((a, b) => b.rate - a.rate);
 const lowPopRows = allRows.filter((r) => r.low_population).sort((a, b) => b.rate - a.rate);
-const rankingRows = [...eligibleRows, ...lowPopRows];
 
-// Gate displayed rows to rollout CUTs only (F-005)
+// Asignar rango nacional estable antes de cualquier filtro (CR-01)
+let rankCounter = 0;
+const rankingRows: RankRow[] = [
+  ...eligibleRows.map((row) => ({ ...row, nationalRank: ++rankCounter })),
+  ...lowPopRows.map((row) => ({ ...row, nationalRank: null })),
+];
+
+// Gate displayed rows to rollout CUTs only (F-005).
+// Filtrar directamente por row.cut — sin round-trip slug→índice (WR-04).
 const rolloutCuts = new Set(loadRolloutCuts());
-const displayedRows = rankingRows.filter((row) => {
-  const meta = index.find((c) => c.slug === row.slug);
-  return meta ? rolloutCuts.has(meta.cut) : false;
-});
+const displayedRows = rankingRows.filter((row) => rolloutCuts.has(row.cut));
 const hiddenCount = rankingRows.length - displayedRows.length;
 
 const familyNationalMean =
@@ -217,10 +224,10 @@ const jsonLd = {
           </tr>
         </thead>
         <tbody>
-          {displayedRows.map((row, i) => (
+          {displayedRows.map((row) => (
             <tr class={row.low_population ? 'low-pop' : ''}>
               <td class="col-num col-rank">
-                {row.low_population ? '—' : `#${i + 1}`}
+                {row.low_population ? '—' : `#${row.nationalRank}`}
               </td>
               <td>
                 <a href={`/es/comuna/${row.slug}/`} class="commune-link">
@@ -238,13 +245,13 @@ const jsonLd = {
         </tbody>
       </table>
     </div>
-    {rankingRows.some((r) => r.low_population) && (
+    {displayedRows.some((r) => r.low_population) && (
       <p class="low-pop-footnote">
         * Esta comuna tiene una pequeña población residente. Las tasas por 100.000 habitantes pueden presentar alta volatilidad estadística. Interprete con cautela.
       </p>
     )}
     {hiddenCount > 0 && (
-      <p class="rollout-note">Mostrando {displayedRows.length} de {rankingRows.length} comunas — más próximamente.</p>
+      <p class="rollout-note">Mostrando {displayedRows.length} de {eligibleRows.length} comunas — más próximamente.</p>
     )}
   </section>
 
