@@ -50,6 +50,40 @@ Milestone **v1.2 Map Fidelity & Crime-Type SEO** — surfaced by the Phase-9 liv
 - [x] **GEO-01**: El asset de geometría comunal (`data/cead/geo/communes.topo.json` + su espejo en `site/public/`) se regenera desde una fuente oficial de límites comunales chilenos (INE/BCN/IGM), cubre todas las comunas presentes en los datos CEAD, y conserva la misma clave de código comunal con la que el mapa hace join (ninguna comuna se pierde ni se mal-asocia). Los polígonos renderizados se reconocen como formas comunales reales (costa, bordes) frente a la simplificación blocky actual.
 - [x] **GEO-02**: El asset publicado respeta un presupuesto de tamaño/rendimiento (objetivo documentado en research; tradeoff fidelidad↔KB registrado); el mapa mantiene pan/zoom/hover fluido sin regresión perceptible y sin nuevos errores de consola, con un procedimiento de regeneración reproducible (script o pasos documentados).
 
+### Findability — Comunas (COMU) — Phase 11
+
+- [ ] **COMU-01**: Se publica página propia para las 346 comunas con datos CEAD (EN `/commune/[slug]`, ES `/es/comuna/[slug]`); clic en cualquier polígono del mapa o fila de ranking llega a una página real (0 dead-links/404); el sitemap incluye todas las URLs de comuna en ambos locales.
+- [ ] **COMU-02**: Existe un directorio de comunas buscable (búsqueda sin acentos + vistas A–Z y por región/16), enlazado desde nav y home; cualquier comuna alcanzable en ≤2 interacciones; incluye comunas de baja población (tienen página aunque no entren en rankings).
+- [ ] **COMU-03**: Las tablas de ranking de región y de delito enlazan TODAS las comunas (sin "Showing N of M — more coming soon"); thin-content mitigado (cada ficha con datos/prosa únicos + title/meta/canonical/hreflang propios); un validador asegura conteo de páginas ≈346×2 y cero enlaces internos a slugs de comuna no generados.
+
+### Arquitectura de Información (IA) — Phase 12
+
+- [ ] **IA-01**: Home reconstruido con el framing Hybrid C+B (editorial/SEO arriba + hero "busca tu comuna" + mapa como CTA de primera clase), bilingüe con paridad, un solo H1, estático/indexable.
+- [ ] **IA-02**: Cada ficha de comuna es un hub que enlaza a mapa (centrado), ranking regional, comunas similares, rankings por delito, y sus noticias; con breadcrumb Inicio › Comunas › Región › Comuna en ambos locales.
+- [ ] **IA-03**: Spine de navegación coherente mapa↔comuna↔ranking↔región↔noticias en ambos locales; nav principal incluye "Comunas" (directorio); enlaces internos recíprocos y sin 404.
+
+### SEO de Rankings (RSEO) — Phase 13
+
+- [ ] **RSEO-01**: OpenGraph + Twitter Card inyectados site-wide vía layout base (title/description/image/url/type), con valores correctos por locale; verificado en muestras de páginas de ranking, editoriales, comuna y región.
+- [ ] **RSEO-02**: `ItemList` JSON-LD envuelve las tablas de ranking y `BreadcrumbList` JSON-LD se emite donde hay breadcrumb visual; ambos validan contra schema.org y un check de build asegura su presencia en plantillas muestreadas.
+
+### Homicidio (HOM) — Phase 14
+
+- [ ] **HOM-01**: `homicidios` (subgrupo destacado 101) seleccionable como filtro/capa propia en el mapa con su propio coroplético, distinto de "vida"; el pipeline emite la tasa de homicidios por comuna al map-payload.
+- [ ] **HOM-02**: El panel de comuna muestra una cifra/desglose de homicidios separada (no solo la familia "vida" agregada), con fuente CEAD + año citados; sin regresión al render de familias existente.
+
+### SEO por Tipo de Delito (CSEO) — Phase 15
+
+- [ ] **CSEO-01**: Páginas programáticas bilingües "las N comunas con más {delito}" (homicidio primero) con internal linking a comuna/región, hreflang recíproco y entradas de sitemap.
+- [ ] **CSEO-02**: Cada página estática/indexable con un solo H1 con keyword, title/meta/canonical únicos, e `ItemList` JSON-LD; tono sobrio preservado (incidencia reportada, fuentes citadas).
+
+### Noticias (NEWS) — Phase 16
+
+- [ ] **NEWS-01**: Geolocalización rediseñada — el LLM emite el NOMBRE de la comuna (+ hint de región), resuelto por lookup determinista nombre→CUT (espejo del re-key de geometría) en vez de adivinar el CUT; precisión medida contra golden set y supera el enfoque actual (smoke test: ambos modelos erran ~60–70% del CUT con códigos pelados).
+- [ ] **NEWS-02**: Golden set etiquetado (30–50 incidentes reales con comuna+familia ground-truth) + script de scoring; proveedor LLM configurable por env; A/B DeepSeek vs MiniMax en precisión de comuna, familia, latencia, costo y fiabilidad; ganador documentado y cableado como default.
+- [ ] **NEWS-03**: El pipeline corre de verdad (gated por el paso humano de go-live con las API keys) produciendo `data/incidents/current.json`; la capa de pins y la sección "incidentes recientes" de la ficha renderizan incidentes reales correctamente geolocalizados, sin errores de consola.
+- [ ] **NEWS-04**: Cada incidente enlaza a su fuente ↗ Y de vuelta a la ficha de su comuna; existe página de noticias dedicada (bilingüe); indicador de frescura ("actualizado …"); todos los incidentes citan y enlazan la fuente de prensa.
+
 ## Future Requirements
 
 Deuda técnica registrada — oportunista en v1.1, difiérase a v1.2 si no cabe:
@@ -94,11 +128,27 @@ Which phases cover which requirements. Updated during roadmap creation.
 | A11Y-02 | Phase 9 | Complete |
 | GEO-01 | Phase 10 | Complete |
 | GEO-02 | Phase 10 | Complete |
+| COMU-01 | Phase 11 | Pending |
+| COMU-02 | Phase 11 | Pending |
+| COMU-03 | Phase 11 | Pending |
+| IA-01 | Phase 12 | Pending |
+| IA-02 | Phase 12 | Pending |
+| IA-03 | Phase 12 | Pending |
+| RSEO-01 | Phase 13 | Pending |
+| RSEO-02 | Phase 13 | Pending |
+| HOM-01 | Phase 14 | Pending |
+| HOM-02 | Phase 14 | Pending |
+| CSEO-01 | Phase 15 | Pending |
+| CSEO-02 | Phase 15 | Pending |
+| NEWS-01 | Phase 16 | Pending |
+| NEWS-02 | Phase 16 | Pending |
+| NEWS-03 | Phase 16 | Pending |
+| NEWS-04 | Phase 16 | Pending |
 
 **Coverage:**
 
 - v1.1 requirements: 17 total (mapped: 17, unmapped: 0 ✓)
-- v1.2 requirements: 2 defined so far (GEO-01, GEO-02 → Phase 10); HOM/SEO to be defined when Phases 11–12 are planned
+- v1.2 requirements: 19 total across Phases 10–16 — GEO (2, Complete), COMU (3), IA (3), RSEO (2), HOM (2), CSEO (2), NEWS (4). All mapped to a phase; unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-06-13*

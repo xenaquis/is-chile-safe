@@ -6,7 +6,7 @@ _Last updated: 2026-06-13 after v1.1 milestone roadmap_
 
 - ✅ **v1.0 MVP** — Phases 1–6 (shipped 2026-06-13) — full detail: [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
 - ✅ **v1.1 Polish & QA** — Phases 7–9 (completed 2026-06-15)
-- 🔄 **v1.2 Map Fidelity & Crime-Type SEO** — Phases 10–12 (planned; from Phase-9 review feedback)
+- 🔄 **v1.2 Map Fidelity, Findability & News** — Phases 10–16 (Phase 10 shipped 2026-06-15; re-scoped 2026-06-15 from live audit + IA spike)
 
 ## Phases
 
@@ -31,13 +31,17 @@ Audit: **[milestones/v1.0-MILESTONE-AUDIT.md](milestones/v1.0-MILESTONE-AUDIT.md
 - [x] **Phase 8: Bug Fixes & Data Correctness** — Resolve all Critical findings + fix console errors, broken links, data calculation bugs, and AdSlot CLS issues (completed 2026-06-15)
 - [x] **Phase 9: UX / Readability / Accessibility Polish** — Apply UX, readability, editorial-tone, and a11y corrections surfaced by the review (completed 2026-06-15; review-feedback gap-closure for term clarity + internal links, larger items routed to v1.2)
 
-### v1.2 Map Fidelity & Crime-Type SEO
+### v1.2 Map Fidelity, Findability & News
 
-_Surfaced by the Phase-9 live review (2026-06-15). Sequenced: geometry → homicide data exposure → crime-type SEO rankings (12 depends on 11)._
+_Surfaced by the Phase-9 live review and re-scoped 2026-06-15 after a live BrowserOS audit + IA spike (spikes 001–003) + a DeepSeek/MiniMax news smoke test. Sequenced: geometry (10, done) → findability/comuna publishing (11) → home/IA + ranking SEO (12, 13) → homicide + crime-type SEO (14, 15) → news activation (16). The audit's core finding: the site has rich material but it is "lost" — only 12/346 comunas reachable, rankings don't link comunas, the news layer is built but dark._
 
 - [x] **Phase 10: High-Resolution Commune Geometry** — Replace the 88KB heavily-simplified `communes.topo.json` with real commune boundaries so polygons read as actual comuna shapes for visual comparison; balance fidelity vs file size/Leaflet-canvas performance. (completed 2026-06-15; chilemapas GPL-3 source, 345KB raw / 85.6KB gzip, 346/0/0/0 join) [GEO-01, GEO-02]
-- [ ] **Phase 11: Homicide as a First-Class Category** — Expose the existing per-commune `homicidios` data as its own map filter/layer + commune-panel breakdown (currently folded inside "vida"/Life crimes). [HOM-01, HOM-02]
-- [ ] **Phase 12: Crime-Type SEO Ranking Pages** — Programmatic bilingual "las N comunas con más {delito}" ranking pages (homicide first), with correct internal linking, hreflang, and sitemap entries. Depends on Phase 11. [SEO-01, SEO-02]
+- [ ] **Phase 11: Publish All 346 Comunas + Comuna Finder** — Flip the rollout gate (12→346) so every comuna with CEAD data has a reachable page; build a searchable comuna directory (A–Z + by-region, accent-insensitive); wire region/crime ranking tables to link every comuna; sitemap covers all. Kills the "material perdido" orphan-page problem. [COMU-01, COMU-02, COMU-03]
+- [ ] **Phase 12: Home / IA Redesign + Comuna Page Hub-and-Spoke** — Redesign the home around the approved Hybrid C+B framing (editorial/SEO-led + "busca tu comuna" search hero + map as first-class CTA); make each comuna page a hub that cross-links map ↔ regional ranking ↔ similar comunas ↔ crime-type rankings ↔ its news. Depends on Phase 11. [IA-01, IA-02, IA-03]
+- [ ] **Phase 13: Ranking SEO Hardening** — Add OpenGraph + Twitter cards site-wide, `ItemList` JSON-LD on ranking tables and `BreadcrumbList` JSON-LD where breadcrumbs render, and tighten internal linking between rankings and comuna/region pages. Depends on Phase 11. [RSEO-01, RSEO-02]
+- [ ] **Phase 14: Homicide as a First-Class Category** — Expose the existing per-commune `homicidios` data as its own map filter/layer + commune-panel breakdown (currently folded inside "vida"/Life crimes). (was Phase 11) [HOM-01, HOM-02]
+- [ ] **Phase 15: Crime-Type SEO Ranking Pages** — Programmatic bilingual "las N comunas con más {delito}" ranking pages (homicide first), with correct internal linking, hreflang, sitemap, single H1, and `ItemList` JSON-LD. Depends on Phases 14 + 13. (was Phase 12) [CSEO-01, CSEO-02]
+- [ ] **Phase 16: News Activation + Geolocation Redesign + Model A/B** — Redesign news geolocation (LLM emits the comuna NAME → deterministic name→CUT lookup, not a raw CUT guess), build a labelled golden set + scoring to A/B DeepSeek vs MiniMax (env-configurable provider), run the pipeline for real, link incidents to source ↗ AND to their comuna page, and add a dedicated news page. Depends on Phase 11. [NEWS-01, NEWS-02, NEWS-03, NEWS-04]
 
 ## Phase Details
 
@@ -158,7 +162,71 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 — verifies the shipped asset)*
 
-- [ ] 10-03-PLAN.md — Attribution credit in methodology EN+ES + HUMAN-UAT gate doc (visual recognizability + throttled-mobile perf) [GEO-01, GEO-02]
+- [x] 10-03-PLAN.md — Attribution credit in methodology EN+ES + HUMAN-UAT gate doc (visual recognizability + throttled-mobile perf) [GEO-01, GEO-02]
+
+### Phase 11: Publish All 346 Comunas + Comuna Finder
+
+**Goal**: Every comuna with CEAD data has a reachable, indexable page (no dead map clicks, no orphan rankings), and users can find any of the 346 in ≤2 interactions via a searchable directory — eliminating the "material perdido" problem where 334/346 comunas exist in data and on the map but have no page or link.
+**Depends on**: Phase 10 (geometry). Touches `site/src/config/rollout.json` + `loadRolloutCuts()`, the comuna page templates, region/crime ranking tables, sitemap.
+**Requirements**: COMU-01, COMU-02, COMU-03
+**Success Criteria** (what must be TRUE):
+
+  1. The rollout gate is lifted to all 346 comunas (or `ROLLOUT_ALL` equivalent): `/commune/[slug]` (EN) and `/es/comuna/[slug]` (ES) generate for every comuna with CEAD data; clicking any map polygon or ranking row reaches a real page (0 dead-links / 404s); the sitemap includes all comuna URLs in both locales.
+  2. A searchable comuna directory exists (accent-insensitive search + A–Z and by-region views, 16 regions), linked from the nav and home; any comuna is reachable in ≤2 interactions; low-population comunas are included (they get a page even if excluded from rankings).
+  3. Region pages and crime-type pages link every comuna in their ranking tables (no "Showing N of M — more coming soon" gating); thin-content is mitigated (each comuna page has sufficient unique data/prose + unique title/meta/canonical/hreflang), and a build validator asserts page count ≈ 346×2 and zero internal links to ungenerated comuna slugs.
+
+### Phase 12: Home / IA Redesign + Comuna Page Hub-and-Spoke
+
+**Goal**: The site stops feeling scattered — the home presents the Hybrid C+B framing (validated in spike 001) and every comuna page is a hub that connects coherently to the rest of the site (spike 003).
+**Depends on**: Phase 11 (comuna pages + finder must exist to link to). Reuses spike artifacts `.planning/spikes/001-home-hub-framing/` and `003-comuna-page-spokes/`.
+**Requirements**: IA-01, IA-02, IA-03
+**Success Criteria** (what must be TRUE):
+
+  1. The home (EN `/` + ES `/es/`) is rebuilt on the Hybrid C+B framing: editorial/SEO-led above the fold (headline + lead "safest / highest incidence" rankings + guide cards), a prominent "busca tu comuna" search hero, and the national map as a first-class CTA; single H1, fully static/indexable, bilingual parity.
+  2. Each comuna page is a hub cross-linking to: the map (centered on it), its regional ranking, similar/neighboring comunas, the per-crime-type rankings, and its geolocated news; with a breadcrumb Inicio › Comunas › Región › Comuna in both locales.
+  3. A coherent navigation spine connects map ↔ comuna ↔ ranking ↔ region ↔ news in both locales; the primary nav includes "Comunas" (the directory); internal links are reciprocal and 404-free.
+
+### Phase 13: Ranking SEO Hardening
+
+**Goal**: The ranking/editorial pages gain the SEO signals the audit found missing, without changing their content — richer SERP/social presentation and machine-readable rankings.
+**Depends on**: Phase 11 (so internal links target real comuna pages). Touches `BaseLayout.astro` + ranking templates.
+**Requirements**: RSEO-01, RSEO-02
+**Success Criteria** (what must be TRUE):
+
+  1. OpenGraph (og:title/description/image/url/type) and Twitter Card meta are injected site-wide via the base layout; validated present on sampled ranking, editorial, comuna, and region pages, with locale-correct values.
+  2. `ItemList` JSON-LD wraps the ranking tables (rank position + comuna link + rate) and `BreadcrumbList` JSON-LD is emitted wherever a visual breadcrumb renders (region, crime-type, comuna pages); both validate against schema.org and a build check asserts their presence on sampled templates.
+
+### Phase 14: Homicide as a First-Class Category
+
+**Goal**: Homicide is exposed as its own map filter/layer and commune-panel breakdown, rather than being folded inside the "vida"/Life-crimes family.
+**Depends on**: Phase 10. Touches the map filters, choropleth payload, commune panel (`FiltersRow.tsx`, `ResultPanel.tsx`, map-payload build).
+**Requirements**: HOM-01, HOM-02
+**Success Criteria** (what must be TRUE):
+
+  1. `homicidios` (featured subgroup 101) is selectable as its own map filter/layer with its own choropleth, distinct from "vida"; the data pipeline emits the homicide rate per comuna into the map payload.
+  2. The commune detail panel shows a separate homicide figure/breakdown (not only the aggregated "vida" family), with the CEAD source + year cited; no regression to existing family rendering.
+
+### Phase 15: Crime-Type SEO Ranking Pages
+
+**Goal**: Programmatic bilingual "las N comunas con más {delito}" ranking pages (homicide first) capture long-tail SEO, correctly linked and indexable.
+**Depends on**: Phase 14 (homicide data) + Phase 13 (SEO schema patterns).
+**Requirements**: CSEO-01, CSEO-02
+**Success Criteria** (what must be TRUE):
+
+  1. Programmatic ranking pages exist for the priority crime types (homicide first) in both locales ("las N comunas con más {delito}" / "communes with the most {crime}"), with correct internal linking to comuna/region pages, reciprocal hreflang, and sitemap entries.
+  2. Each page is static/indexable with a single keyword-focused H1, unique title/meta/canonical, and `ItemList` JSON-LD for the ranking; sober tone preserved (reported-incidence framing, sources cited).
+
+### Phase 16: News Activation + Geolocation Redesign + Model A/B
+
+**Goal**: The built-but-dark news pipeline goes live with accurate comuna geolocation, the best-performing LLM provider chosen on evidence, and incidents surfaced and linked across the site.
+**Depends on**: Phase 11 (comuna pages exist to link incidents to). Touches `pipeline/news/`, `data/incidents/`, the map incident layer, comuna pages.
+**Requirements**: NEWS-01, NEWS-02, NEWS-03, NEWS-04
+**Success Criteria** (what must be TRUE):
+
+  1. Geolocation is redesigned so the LLM emits the comuna NAME (and region hint), resolved by a deterministic name→CUT lookup (mirroring the geometry re-key) instead of a raw-CUT guess; accuracy is measured against a labelled golden set and beats the current approach (the smoke test showed both DeepSeek and MiniMax pick the wrong CUT ~60–70% of the time when given bare codes).
+  2. A labelled golden set (30–50 real incidents with ground-truth comuna + family) and a scoring script exist; the LLM provider is env-configurable; DeepSeek vs MiniMax are A/B-compared on comuna accuracy, family accuracy, latency, cost, and output reliability, and the winner is documented and wired as default.
+  3. The pipeline runs for real (gated by the human go-live `DEEPSEEK_API_KEY`/`MINIMAX_API_KEY` step) producing `data/incidents/current.json`; the map incident layer and the comuna-page "recent incidents" section render real, correctly-geolocated incidents with no console errors.
+  4. Each incident links to its source article ↗ AND back to its comuna page; a dedicated news/incidents page exists (bilingual); a data-freshness indicator ("updated …") is shown; all incidents cite and link the press source per editorial policy.
 
 ## Progress
 
@@ -174,8 +242,12 @@ Plans:
 | 8. Bug Fixes & Data Correctness | v1.1 | 5/5 | Complete    | 2026-06-15 |
 | 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
 | 10. High-Resolution Commune Geometry | v1.2 | 3/3 | Complete   | 2026-06-15 |
-| 11. Homicide as a First-Class Category | v1.2 | 0/0 | Planned    |  |
-| 12. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Planned    |  |
+| 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 0/0 | Pending    |  |
+| 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 0/0 | Pending    |  |
+| 13. Ranking SEO Hardening | v1.2 | 0/0 | Pending    |  |
+| 14. Homicide as a First-Class Category | v1.2 | 0/0 | Pending    |  |
+| 15. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Pending    |  |
+| 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending    |  |
 
 ## Open Human Go-Live Gates (launch checklist — not v1.1 scope)
 
