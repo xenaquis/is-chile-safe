@@ -1,0 +1,228 @@
+---
+/**
+ * /glossary/ — EN Crime Type Glossary (Plan 09-03, D-02).
+ *
+ * Defines all 7 CEAD crime families with substantive, source-attributed prose.
+ * Each section has id={familyKey} so PanelFamilyBars anchors land correctly.
+ * Links only to /crime/* pages — never /commune/* (rollout 404 guard, Pitfall 5).
+ * hreflang: /glossary/ <-> /es/glosario/
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import {
+  FAMILY_ORDER,
+  FAMILY_LABELS_EN,
+  FAMILY_DEFS_EN,
+} from '../lib/familyDefs';
+import { FAMILY_SLUGS } from '../config/i18n';
+---
+
+<EditorialLayout
+  lang="en"
+  title="Crime Type Glossary — Chile Safety Map"
+  description="Definitions of the seven crime categories used in CEAD official Chilean police statistics: life crimes, property crime, violent robbery, disorder, domestic violence, drug crimes, and weapons offences."
+  enPath="/glossary/"
+  esPath="/es/glosario/"
+>
+  <h1>Crime Type Glossary</h1>
+  <p class="intro">
+    All crime statistics on this site are drawn from
+    <strong>CEAD — Centro de Estudios y Análisis del Delito</strong>, Chile's
+    official crime statistics body under the Ministerio del Interior y Seguridad
+    Pública. CEAD compiles police-recorded incident data from Carabineros de
+    Chile and the Policía de Investigaciones (PDI). The figures represent
+    <em>reported incidence</em> — crimes that were filed with police — and do
+    not capture unreported incidents. The seven crime families below correspond
+    directly to the categories used in CEAD's published datasets.
+  </p>
+
+  {FAMILY_ORDER.map((key) => (
+    <section id={key}>
+      <h2>{FAMILY_LABELS_EN[key]}</h2>
+      <p>{FAMILY_DEFS_EN[key]}</p>
+      {key === 'vida' && (
+        <p>
+          This category encompasses the most serious offences against persons
+          recorded by Chilean police, including homicide, femicide, and
+          grievous bodily harm. CEAD disaggregates homicide separately within
+          this family for trend analysis. Reported incidence in this category
+          is generally considered to have relatively lower under-reporting than
+          property crimes, because serious injuries typically require medical
+          attention and are more likely to generate a police record. Rates
+          remain low at the national level but show meaningful variation across
+          communes and regions. All figures reflect police-recorded events and
+          do not constitute a verdict about a territory's character.
+        </p>
+      )}
+      {key === 'propiedad' && (
+        <p>
+          Property crime is consistently the largest contributor to total crime
+          incidence in Chile by volume. It covers theft without violence or
+          intimidation (hurto), residential burglary (robo en lugar habitado),
+          commercial burglary (robo en lugar no habitado), vehicle theft, and
+          fraud. Under-reporting is significant in this family: many minor
+          thefts go unrecorded because victims expect low recovery rates or
+          find the process burdensome. CEAD figures therefore represent a lower
+          bound. Trends over time are meaningful even if absolute levels
+          undercount true incidence. Comparing communes by rate per 100,000
+          inhabitants controls for population size differences.
+        </p>
+      )}
+      {key === 'robos_violentos' && (
+        <p>
+          Violent robbery (robo con violencia o intimidación) is distinguished
+          from property crime by the use of force, threat, or intimidation
+          against the victim. It includes street muggings, carjackings, and
+          robbery of commercial premises. This category attracts substantial
+          public concern and media coverage, which can influence perception of
+          incidence independent of the statistical trend. Rates per 100,000
+          inhabitants allow comparisons across communes of very different
+          population sizes. Under-reporting is lower than for property crime
+          because the violent element typically leads victims to file a report
+          for documentation purposes.
+        </p>
+      )}
+      {key === 'incivilidades' && (
+        <p>
+          Disorder (incivilidades) covers offences that affect public order and
+          quality of life without necessarily involving direct violence or
+          significant property loss. Examples include public intoxication,
+          vandalism, threatening behaviour, and illegal occupations of public
+          space. This category is especially sensitive to policing strategy and
+          reporting culture: communes with more active community policing or
+          higher public trust in institutions tend to generate more records.
+          Trends should be interpreted in light of local enforcement context
+          rather than taken as a direct proxy for underlying behaviour. Source:
+          CEAD official police statistics.
+        </p>
+      )}
+      {key === 'vif' && (
+        <p>
+          Domestic and intra-family violence incidents are recorded under this
+          CEAD family. It includes physical, psychological, and economic
+          violence within family or household settings. Under-reporting is
+          well-documented internationally and in Chile: many victims do not
+          file reports due to fear, economic dependency, or distrust of
+          institutions. Reported figures therefore represent a fraction of true
+          incidence. Year-on-year increases may reflect either a real rise in
+          violence or improved reporting following awareness campaigns or legal
+          reforms — both interpretations are plausible without additional
+          context. Source: CEAD official police statistics.
+        </p>
+      )}
+      {key === 'drogas' && (
+        <p>
+          This family captures police-recorded drug offences under Chilean law,
+          principally Law 20.000 on drug trafficking and possession. It
+          includes possession for personal use, small-scale dealing, and
+          organised trafficking, as disaggregated by CEAD from police records.
+          Reported incidence in this category is heavily influenced by
+          enforcement activity: communes with targeted anti-drug operations
+          will record higher counts independent of any change in underlying
+          drug use. Rates per 100,000 inhabitants compare enforcement-recorded
+          activity relative to population size. Source: CEAD official police
+          statistics.
+        </p>
+      )}
+      {key === 'armas' && (
+        <p>
+          Weapons offences cover illegal possession, carrying, and trafficking
+          of firearms and other prohibited weapons under Chilean law (Law
+          17.798). CEAD records incidents reported by Carabineros and PDI
+          arising from stops, arrests, and operations. This category has grown
+          in prominence in policy debates about organised crime. Rates vary
+          significantly across communes and correlate with other violent crime
+          categories. Reported figures reflect police activity as much as
+          underlying prevalence; the true number of illegally held weapons in
+          circulation is unknown. Source: CEAD official police statistics.
+        </p>
+      )}
+      <p class="entry-link">
+        <a href={`/crime/${FAMILY_SLUGS[key].en}/`}>
+          View national data for {FAMILY_LABELS_EN[key]} →
+        </a>
+      </p>
+    </section>
+  ))}
+
+  <section id="notes">
+    <h2>Notes on interpreting these figures</h2>
+    <p>
+      All crime categories use <strong>rate per 100,000 inhabitants</strong> as
+      the primary metric. This controls for the large population differences
+      between Chilean communes (from a few hundred to over a million residents)
+      and allows fair comparison. Raw absolute counts are not displayed in
+      rankings because they systematically favour larger communes.
+    </p>
+    <p>
+      Under-reporting varies substantially by crime type. Contact crimes with a
+      victim who seeks medical attention (vida, robos_violentos) tend to have
+      higher reporting rates. Property crimes, drug offences, and domestic
+      violence are under-reported to varying degrees. No correction for
+      under-reporting is applied — figures represent exactly what CEAD publishes
+      from police records.
+    </p>
+    <p>
+      For full detail on data collection, rate calculation, trend methodology,
+      and data quality, see the <a href="/methodology/">Methodology page</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  h1 {
+    font-size: var(--text-title);
+    font-weight: var(--weight-strong);
+    margin-bottom: var(--lg);
+  }
+
+  .intro {
+    color: var(--muted);
+    margin-bottom: var(--2xl);
+    line-height: 1.7;
+  }
+
+  section {
+    margin-bottom: var(--2xl);
+    padding-top: var(--xl);
+    border-top: 1px solid var(--line);
+  }
+
+  section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  .entry-link {
+    margin-top: var(--lg);
+  }
+
+  .entry-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+  }
+
+  .entry-link a:hover {
+    text-decoration: underline;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

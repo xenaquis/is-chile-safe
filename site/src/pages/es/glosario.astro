@@ -1,0 +1,242 @@
+---
+/**
+ * /es/glosario/ — ES Glosario de Tipos de Delito (Plan 09-03, D-02).
+ *
+ * Define las 7 familias delictivas del CEAD con prosa sustantiva y atribución de fuente.
+ * Cada sección tiene id={familyKey} para que los anchors de PanelFamilyBars apunten bien.
+ * Solo enlaza a /es/delito/* — nunca a /es/comuna/* (riesgo 404 de rollout, Pitfall 5).
+ * hreflang: /glossary/ <-> /es/glosario/
+ */
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import {
+  FAMILY_ORDER,
+  FAMILY_LABELS_ES,
+  FAMILY_DEFS_ES,
+} from '../../lib/familyDefs';
+import { FAMILY_SLUGS } from '../../config/i18n';
+---
+
+<EditorialLayout
+  lang="es"
+  title="Glosario de Tipos de Delito — Chile Safety Map"
+  description="Definiciones de las siete categorías delictivas utilizadas en las estadísticas policiales oficiales CEAD: delitos contra la vida, propiedad, robos violentos, incivilidades, violencia intrafamiliar, drogas y armas."
+  enPath="/glossary/"
+  esPath="/es/glosario/"
+>
+  <h1>Glosario de Tipos de Delito</h1>
+  <p class="intro">
+    Todas las estadísticas delictivas de este sitio provienen del
+    <strong>CEAD — Centro de Estudios y Análisis del Delito</strong>, organismo
+    oficial de estadísticas delictuales del Ministerio del Interior y Seguridad
+    Pública de Chile. El CEAD recopila datos de incidentes registrados por la
+    policía a partir de Carabineros de Chile y la Policía de Investigaciones
+    (PDI). Las cifras representan <em>incidencia reportada</em> — delitos que
+    fueron denunciados ante la policía — y no capturan los incidentes no
+    denunciados. Las siete familias delictivas que se describen a continuación
+    corresponden directamente a las categorías utilizadas en los conjuntos de
+    datos publicados por el CEAD.
+  </p>
+
+  {FAMILY_ORDER.map((key) => (
+    <section id={key}>
+      <h2>{FAMILY_LABELS_ES[key]}</h2>
+      <p>{FAMILY_DEFS_ES[key]}</p>
+      {key === 'vida' && (
+        <p>
+          Esta categoría agrupa las infracciones más graves contra las personas
+          registradas por la policía chilena, incluyendo homicidio, femicidio
+          y lesiones graves. El CEAD desagrega el homicidio dentro de esta
+          familia para el análisis de tendencias. La incidencia reportada en
+          esta categoría presenta subregistro relativamente menor que los
+          delitos contra la propiedad, dado que las lesiones graves suelen
+          requerir atención médica y generan con mayor frecuencia un
+          antecedente policial. Las tasas son bajas a nivel nacional pero
+          muestran variación significativa entre comunas y regiones. Todas las
+          cifras reflejan eventos registrados por la policía y no constituyen
+          un juicio sobre el carácter de un territorio.
+        </p>
+      )}
+      {key === 'propiedad' && (
+        <p>
+          Los delitos contra la propiedad constituyen sistemáticamente la
+          categoría con mayor volumen de incidencia total en Chile. Incluyen
+          hurto, robo en lugar habitado, robo en lugar no habitado, robo de
+          vehículo y fraude. El subregistro es significativo en esta familia:
+          muchos hurtos menores no se denuncian porque las víctimas esperan
+          baja tasa de recuperación o encuentran el proceso engorroso. Las
+          cifras del CEAD representan un piso mínimo. Las tendencias a lo
+          largo del tiempo son significativas aunque los niveles absolutos
+          subregistren la incidencia real. Comparar comunas mediante la tasa
+          por 100.000 habitantes controla las diferencias de tamaño
+          poblacional.
+        </p>
+      )}
+      {key === 'robos_violentos' && (
+        <p>
+          El robo con violencia o intimidación se distingue de los delitos
+          contra la propiedad por el uso de fuerza, amenaza o intimidación
+          contra la víctima. Incluye asaltos en la vía pública, portonazos y
+          robos a locales comerciales. Esta categoría genera gran atención
+          pública y cobertura mediática, lo que puede influir en la percepción
+          de la incidencia independientemente de la tendencia estadística. Las
+          tasas por 100.000 habitantes permiten comparar comunas de tamaños
+          poblacionales muy distintos. El subregistro es menor que en los
+          delitos contra la propiedad porque el componente violento suele
+          llevar a las víctimas a denunciar para efectos de documentación.
+        </p>
+      )}
+      {key === 'incivilidades' && (
+        <p>
+          Las incivilidades comprenden infracciones que afectan el orden
+          público y la calidad de vida sin implicar necesariamente violencia
+          directa ni pérdida patrimonial significativa. Entre los ejemplos se
+          encuentran la ebriedad en la vía pública, el vandalismo, las
+          amenazas y las ocupaciones ilegales de espacios públicos. Esta
+          categoría es especialmente sensible a la estrategia policial y la
+          cultura de denuncia: las comunas con mayor policía comunitaria activa
+          o mayor confianza pública en las instituciones tienden a generar más
+          registros. Las tendencias deben interpretarse considerando el
+          contexto de fiscalización local, más que como indicador directo del
+          comportamiento subyacente. Fuente: estadísticas policiales oficiales
+          CEAD.
+        </p>
+      )}
+      {key === 'vif' && (
+        <p>
+          Esta familia del CEAD registra los incidentes de violencia doméstica
+          e intrafamiliar, incluyendo violencia física, psicológica y
+          económica en contextos familiares o de convivencia. El subregistro
+          está ampliamente documentado a nivel internacional y en Chile: muchas
+          víctimas no denuncian por temor, dependencia económica o desconfianza
+          institucional. Las cifras reportadas representan una fracción de la
+          incidencia real. Los aumentos interanuales pueden reflejar tanto un
+          alza real de la violencia como una mejora en la tasa de denuncia
+          tras campañas de concientización o reformas legales — ambas
+          interpretaciones son plausibles sin contexto adicional. Fuente:
+          estadísticas policiales oficiales CEAD.
+        </p>
+      )}
+      {key === 'drogas' && (
+        <p>
+          Esta familia recoge los delitos de drogas registrados por la policía
+          bajo la legislación chilena, principalmente la Ley 20.000 sobre
+          tráfico y consumo de estupefacientes. Incluye porte para consumo
+          personal, microtráfico y tráfico organizado, según la
+          desagregación del CEAD a partir de los registros policiales. La
+          incidencia reportada en esta categoría está fuertemente influida por
+          la actividad de fiscalización: las comunas con operativos antidrogas
+          focalizados registrarán mayor número de incidentes con independencia
+          de cambios en el consumo subyacente. Las tasas por 100.000
+          habitantes comparan la actividad registrada por la fiscalización
+          respecto del tamaño poblacional. Fuente: estadísticas policiales
+          oficiales CEAD.
+        </p>
+      )}
+      {key === 'armas' && (
+        <p>
+          Los delitos de armas comprenden el porte, tenencia y tráfico ilegales
+          de armas de fuego y otras armas prohibidas bajo la legislación
+          chilena (Ley 17.798). El CEAD registra los incidentes denunciados
+          por Carabineros y la PDI derivados de controles, detenciones y
+          operativos. Esta categoría ha cobrado mayor relevancia en los debates
+          de política pública sobre crimen organizado. Las tasas varían
+          significativamente entre comunas y se correlacionan con otras
+          categorías de delitos violentos. Las cifras reportadas reflejan la
+          actividad policial tanto como la prevalencia real; el número real de
+          armas ilegales en circulación es desconocido. Fuente: estadísticas
+          policiales oficiales CEAD.
+        </p>
+      )}
+      <p class="entry-link">
+        <a href={`/es/delito/${FAMILY_SLUGS[key].es}/`}>
+          Ver datos nacionales de {FAMILY_LABELS_ES[key]} →
+        </a>
+      </p>
+    </section>
+  ))}
+
+  <section id="notas">
+    <h2>Notas sobre la interpretación de las cifras</h2>
+    <p>
+      Todas las categorías delictivas utilizan la <strong>tasa por 100.000
+      habitantes</strong> como métrica principal. Esto controla las grandes
+      diferencias poblacionales entre las comunas chilenas (desde pocos
+      cientos hasta más de un millón de residentes) y permite comparaciones
+      en igualdad de condiciones. Los conteos absolutos no se muestran en los
+      rankings porque favorecen sistemáticamente a las comunas más grandes.
+    </p>
+    <p>
+      El subregistro varía considerablemente según el tipo de delito. Los
+      delitos con víctima que requiere atención médica (vida, robos_violentos)
+      tienden a tener mayor tasa de denuncia. Los delitos contra la propiedad,
+      los delitos de drogas y la violencia intrafamiliar están subregistrados
+      en distintos grados. No se aplica ninguna corrección por subregistro —
+      las cifras representan exactamente lo que el CEAD publica a partir de
+      los registros policiales.
+    </p>
+    <p>
+      Para detalles completos sobre recolección de datos, cálculo de tasas,
+      metodología de tendencias y calidad de datos, consulte la
+      <a href="/es/metodologia/">página de Metodología</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  h1 {
+    font-size: var(--text-title);
+    font-weight: var(--weight-strong);
+    margin-bottom: var(--lg);
+  }
+
+  .intro {
+    color: var(--muted);
+    margin-bottom: var(--2xl);
+    line-height: 1.7;
+  }
+
+  section {
+    margin-bottom: var(--2xl);
+    padding-top: var(--xl);
+    border-top: 1px solid var(--line);
+  }
+
+  section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  .entry-link {
+    margin-top: var(--lg);
+  }
+
+  .entry-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+  }
+
+  .entry-link a:hover {
+    text-decoration: underline;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
