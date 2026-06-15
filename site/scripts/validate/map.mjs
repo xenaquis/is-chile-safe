@@ -21,6 +21,7 @@
  */
 
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { gzipSync } from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -44,16 +45,25 @@ function fail(label, msg) {
 // Check 1: TopoJSON budget (runs without dist/)
 // ---------------------------------------------------------------------------
 const TOPO_PATH = path.join(REPO_ROOT, 'data', 'cead', 'geo', 'communes.topo.json');
-const TOPO_MAX_BYTES = 102400; // 100 KB
+const TOPO_MAX_BYTES  = 430080; // 420 KB raw ceiling (≤420 KB raw AND ≤140 KB gzip budget)
+const TOPO_GZIP_MAX   = 143360; // 140 KB gzip ceiling
 
 if (!existsSync(TOPO_PATH)) {
   fail('TopoJSON exists', `File not found: data/cead/geo/communes.topo.json`);
 } else {
-  const size = statSync(TOPO_PATH).size;
+  const topoBytes = readFileSync(TOPO_PATH);
+  const size = topoBytes.length;
   if (size >= TOPO_MAX_BYTES) {
-    fail('TopoJSON budget', `${size} bytes >= 100 KB (max ${TOPO_MAX_BYTES})`);
+    fail('TopoJSON raw budget', `${size} bytes >= 420 KB (max ${TOPO_MAX_BYTES})`);
   } else {
-    pass(`TopoJSON budget (${size} bytes < 100 KB)`);
+    pass(`TopoJSON raw budget (${size} bytes < 420 KB)`);
+  }
+
+  const gz = gzipSync(topoBytes).length;
+  if (gz > TOPO_GZIP_MAX) {
+    fail('TopoJSON gzip budget', `${gz} B > 140 KB gzip (max ${TOPO_GZIP_MAX})`);
+  } else {
+    pass(`TopoJSON gzip budget (${gz} B < 140 KB)`);
   }
 
   // Also validate it's a proper TopoJSON with 346 features and Santiago CUT

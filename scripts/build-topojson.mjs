@@ -16,8 +16,9 @@
  *      zero crime rates in CEAD data (population 151)
  *   6. Write re-keyed GeoJSON to OS temp directory
  *   7. Simplify + convert to TopoJSON via mapshaper CLI
- *      (visvalingam 0.05%, quantization=500 → ~89 KB)
- *   8. Assert: 346 features, CUT 13101 (Santiago) present, file < 100 KB
+ *      (visvalingam 10%, quantization=10000 → ~367 KB raw / ~107 KB gzip)
+ *   8. Assert: 346 features, 0 missing/orphan/dup, CUT 13101 (Santiago) present,
+ *      file ≤ 420 KB raw AND ≤ 140 KB gzip
  *   9. Copy to data/cead/geo/communes.topo.json
  *
  * Re-runnable: `node scripts/build-topojson.mjs`
@@ -38,6 +39,7 @@ import {
   mkdirSync,
   statSync,
 } from 'node:fs';
+import { gzipSync } from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
@@ -204,43 +206,37 @@ console.log(`\nRe-keyed GeoJSON: ${TMP_REKEYED}`);
 // ---------------------------------------------------------------------------
 // Step 7: Simplify + convert to TopoJSON
 // ---------------------------------------------------------------------------
-// 0.05% visvalingam + quantization=500 → ~89 KB (under 100 KB target)
-// Tune percentage downward if output grows above 100 KB
-const SIMPLIFY_CONFIGS = [
-  { pct: '0.05%', quant: 500 },
-  { pct: '0.03%', quant: 300 },
-  { pct: '0.02%', quant: 200 },
-];
+// Budget: ≤ 420 KB raw AND ≤ 140 KB gzip (Cloudflare serves gzip/brotli).
+// Config: visvalingam 10%, quantization=10000 → ~367 KB raw / ~107 KB gzip,
+//   ~0.4 km grid (sub-km, recognizable coastline). Measured 2026-06-15.
+// Do NOT add fallback configs — silent re-over-simplification is forbidden.
+// If budget is exceeded, fix the source or knobs explicitly.
+const RAW_MAX_BYTES  = 430080; // 420 KB raw ceiling
+const GZIP_MAX_BYTES = 143360; // 140 KB gzip ceiling
 
-let finalSize = Infinity;
+console.log(`\nMapshaper: visvalingam 10%, quantization=10000...`);
+const mapshaperResult = spawnSync('mapshaper', [
+  TMP_REKEYED,
+  '-clean',
+  '-simplify', 'visvalingam', 'percentage=10%', 'keep-shapes',
+  '-o', 'format=topojson', 'quantization=10000', TMP_TOPO,
+], { stdio: 'inherit', shell: true });
 
-for (const { pct, quant } of SIMPLIFY_CONFIGS) {
-  console.log(`\nMapshaper: visvalingam ${pct}, quantization=${quant}...`);
-  const result = spawnSync('mapshaper', [
-    TMP_REKEYED,
-    '-simplify', 'visvalingam', `percentage=${pct}`, 'keep-shapes',
-    '-o', `format=topojson`, `quantization=${quant}`, TMP_TOPO,
-  ], { stdio: 'inherit', shell: true });
-
-  if (result.status !== 0) {
-    console.error('mapshaper failed — is it installed globally? npm install -g mapshaper');
-    process.exit(1);
-  }
-
-  finalSize = statSync(TMP_TOPO).size;
-  console.log(`  Size: ${finalSize} bytes (${(finalSize / 1024).toFixed(1)} KB)`);
-
-  if (finalSize < 102400) {
-    console.log(`  Under 100 KB — proceeding`);
-    break;
-  }
-  console.log(`  Over 100 KB — trying more aggressive simplification`);
-}
-
-if (finalSize >= 102400) {
-  console.error(`FATAL: Could not reduce TopoJSON below 100 KB (got ${finalSize} bytes)`);
+if (mapshaperResult.status !== 0) {
+  console.error('mapshaper failed — is it installed globally? npm install -g mapshaper');
   process.exit(1);
 }
+
+const finalSize = statSync(TMP_TOPO).size;
+const gzipSize  = gzipSync(readFileSync(TMP_TOPO)).length;
+console.log(`  Raw:  ${finalSize} bytes (${(finalSize / 1024).toFixed(1)} KB)`);
+console.log(`  Gzip: ${gzipSize} bytes (${(gzipSize / 1024).toFixed(1)} KB)`);
+
+if (finalSize >= RAW_MAX_BYTES || gzipSize >= GZIP_MAX_BYTES) {
+  console.error(`FATAL: TopoJSON exceeds budget (raw: ${finalSize}/${RAW_MAX_BYTES}, gzip: ${gzipSize}/${GZIP_MAX_BYTES})`);
+  process.exit(1);
+}
+console.log(`  Budget OK: ≤ 420 KB raw AND ≤ 140 KB gzip`);
 
 // ---------------------------------------------------------------------------
 // Step 8: Validate TopoJSON output
