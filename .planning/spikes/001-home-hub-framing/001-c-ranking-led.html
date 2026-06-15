@@ -1,0 +1,60 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>001-c Ranking / editorial-led hub</title>
+<link rel="stylesheet" href="../_shared/spike.css">
+<style>
+.lead{display:grid;grid-template-columns:1.3fr .9fr;gap:var(--lg);margin-top:var(--lg);align-items:start}
+.lead h1{font-size:32px}
+.searchinline{position:relative;margin-top:14px;max-width:460px}
+.results{background:#fff;border-radius:10px;margin-top:6px;box-shadow:0 8px 24px rgba(0,0,0,.15);overflow:hidden;position:absolute;left:0;right:0;z-index:5}
+.results a{display:block;padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink)}
+.results a:hover{background:var(--s1);text-decoration:none}
+.miniмap{height:220px;border-radius:var(--radius);border:1px solid var(--line);background:linear-gradient(180deg,#9fd0cd,#f4d58d 60%,#c96b5a);display:flex;align-items:flex-end;padding:14px;color:#0b4f49;font-weight:700}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:var(--md);margin-top:var(--lg)}
+.editorial{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--md);margin-top:var(--md)}
+.ecard{display:block;color:var(--ink)}
+.ecard:hover{text-decoration:none}
+.ecard h3{color:var(--primary)}
+@media(max-width:760px){.lead,.two{grid-template-columns:1fr}}
+</style></head><body>
+<div id="hd"></div>
+<main class="wrap">
+  <div class="lead">
+    <div>
+      <p class="kicker">Variante C — Editorial / ranking primero</p>
+      <h1>¿Qué tan seguras son las comunas de Chile?</h1>
+      <p class="muted">Rankings y análisis de incidencia delictiva reportada (CEAD 2025) por comuna y región. Páginas pensadas para responder lo que la gente busca en Google — con el mapa y la ficha de cada comuna a un clic.</p>
+      <div class="searchinline">
+        <input class="search" id="q" placeholder="¿Tu comuna? Búscala…" autocomplete="off">
+        <div class="results" id="res" style="display:none"></div>
+      </div>
+    </div>
+    <div>
+      <a class="miniмap" href="#">🗺️ Mapa nacional interactivo →</a>
+      <div class="adslot" style="margin-top:var(--md)">AdSense</div>
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="card"><h2 style="margin-top:0">Comunas con menor incidencia reportada</h2><div id="safe"></div><a class="btn ghost" href="#" style="margin-top:10px">Las comunas más seguras de Chile →</a></div>
+    <div class="card"><h2 style="margin-top:0">Comunas con mayor incidencia reportada</h2><div id="high"></div><a class="btn ghost" href="#" style="margin-top:10px">Ranking nacional completo →</a></div>
+  </div>
+
+  <h2>Guías y análisis</h2>
+  <div class="editorial">
+    <a class="ecard card" href="#"><p class="kicker">Guía ciudad</p><h3>¿Es seguro Santiago?</h3><p class="muted" style="font-size:14px">Incidencia por comuna dentro del Gran Santiago.</p></a>
+    <a class="ecard card" href="#"><p class="kicker">Por delito</p><h3>Comunas con más homicidios</h3><p class="muted" style="font-size:14px">Ranking por tipo de delito (próximamente).</p></a>
+    <a class="ecard card" href="#"><p class="kicker">Metodología</p><h3>Cómo leemos los datos CEAD</h3><p class="muted" style="font-size:14px">Tasa por 100k, no totales. Qué significan.</p></a>
+    <a class="ecard card" href="../002-comuna-finder/finder.html"><p class="kicker">Directorio</p><h3>Las 346 comunas</h3><p class="muted" style="font-size:14px">Busca o explora por región.</p></a>
+  </div>
+  <footer class="note">Prototipo IA · Spike 001-c · no es el sitio real</footer>
+</main>
+<script src="../_shared/spike-data.js"></script>
+<script src="../_shared/spike-ui.js"></script>
+<script>
+const U=window.SPIKEUI;
+document.getElementById('hd').innerHTML=U.header('Rankings','Editorial / ranking-led');
+document.getElementById('safe').innerHTML=U.rankTable(U.safest(6));
+document.getElementById('high').innerHTML=U.rankTable(U.highest(6));
+const q=document.getElementById('q'),res=document.getElementById('res');
+q.addEventListener('input',()=>{const m=U.search(q.value);if(!m.length){res.style.display='none';return;}res.style.display='block';res.innerHTML=m.map(c=>`<a href="${U.comunaHref(c)}">${U.lvlDot(c.level)} <b>${c.name}</b> · <span class="muted">${c.region} · ${U.fmt(c.rate)}/100k</span></a>`).join('');});
+</script></body></html>

@@ -1,0 +1,36 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spike 001 — Home/Hub framing (A/B/C)</title>
+<link rel="stylesheet" href="../_shared/spike.css">
+<style>
+body{padding:0}
+.bar{background:#1c2a2b;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:30}
+.bar b{font-size:15px}
+.tabs{display:flex;gap:6px}
+.tab{background:#2c3e3f;color:#cdebe7;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px}
+.tab.on{background:var(--primary);color:#fff}
+.tab small{display:block;font-weight:400;font-size:11px;opacity:.8}
+.wtoggle{margin-left:auto;display:flex;gap:6px;align-items:center;font-size:13px}
+.wtoggle button{background:#2c3e3f;color:#cdebe7;border:none;border-radius:7px;padding:6px 10px;font-weight:700;cursor:pointer}
+.wtoggle button.on{background:var(--primary);color:#fff}
+.stage{display:flex;justify-content:center;padding:18px;background:#dfe8e7;min-height:90vh}
+.frame{background:#fff;border:1px solid #c4d2d0;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.12);width:100%;max-width:1200px;transition:max-width .2s}
+.frame.mobile{max-width:390px}
+iframe{width:100%;height:88vh;border:0;display:block}
+</style></head><body>
+<div class="bar">
+  <b>Spike 001 · Home/Hub framing</b>
+  <div class="tabs">
+    <button class="tab on" data-src="001-a-map-first.html">A · Map-first<small>el mapa es el home</small></button>
+    <button class="tab" data-src="001-b-finder-first.html">B · Finder-first<small>buscador / directorio</small></button>
+    <button class="tab" data-src="001-c-ranking-led.html">C · Ranking-led<small>editorial / SEO</small></button>
+  </div>
+  <div class="wtoggle">vista: <button id="d" class="on">🖥️ desktop</button><button id="m">📱 375px</button></div>
+</div>
+<div class="stage"><div class="frame" id="frame"><iframe id="f" src="001-a-map-first.html"></iframe></div></div>
+<script>
+const f=document.getElementById('f'),frame=document.getElementById('frame');
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');f.src=t.dataset.src;}));
+document.getElementById('d').onclick=e=>{frame.classList.remove('mobile');e.target.classList.add('on');document.getElementById('m').classList.remove('on');};
+document.getElementById('m').onclick=e=>{frame.classList.add('mobile');e.target.classList.add('on');document.getElementById('d').classList.remove('on');};
+</script></body></html>

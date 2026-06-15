@@ -1,0 +1,115 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spike 003 — Ficha de comuna (hub & spokes)</title>
+<link rel="stylesheet" href="../_shared/spike.css">
+<style>
+.hero{display:grid;grid-template-columns:1.3fr .9fr;gap:var(--lg);margin-top:var(--md);align-items:start}
+.statbig{font-size:42px;font-weight:700;color:var(--primary);line-height:1}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--md);margin-top:var(--md)}
+.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+.stat .k{font-size:12px;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:.03em}
+.stat .v{font-size:22px;font-weight:700}
+.minimap{height:200px;border-radius:var(--radius);border:1px solid var(--line);background:linear-gradient(180deg,#9fd0cd,#f4d58d 60%,#c96b5a);display:flex;align-items:flex-end;padding:14px;color:#0b4f49;font-weight:700}
+.spokes{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:var(--md);margin-top:var(--lg)}
+.spoke{display:block;color:var(--ink);border-left:3px solid var(--primary)}
+.spoke:hover{text-decoration:none;background:#f3faf9}
+.spoke .kicker{margin-bottom:4px}
+.spoke h3{margin-bottom:4px}
+.barrow{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:13px}
+.barrow .lab{width:120px;color:var(--muted)}
+.barrow .track{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.barrow .fill{height:100%;background:var(--primary)}
+.newsitem{padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.newsitem .src{color:var(--muted);font-size:12px}
+.picker{margin-left:auto;font-size:13px}
+.picker select{font-family:inherit;padding:6px 10px;border-radius:8px;border:1.5px solid var(--line)}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+</style></head><body>
+<div id="hd"></div>
+<main class="wrap">
+  <p class="crumb"><a href="../001-home-hub-framing/index.html">Inicio</a> › <a href="../002-comuna-finder/finder.html">Comunas</a> › <a id="cbRegion" href="#">Región</a> › <span id="cbName">Comuna</span>
+    <span class="picker">ver otra: <select id="pick"></select></span>
+  </p>
+
+  <div class="hero">
+    <div>
+      <p class="kicker" id="kick">Ficha de comuna · CEAD 2025</p>
+      <h1 id="title">Comuna</h1>
+      <p class="muted" id="lede"></p>
+      <div class="statgrid">
+        <div class="stat"><div class="k">Tasa reportada</div><div class="v"><span id="rate"></span> <span class="muted" style="font-size:13px">/100k</span></div></div>
+        <div class="stat"><div class="k">Ranking nacional</div><div class="v" id="rank"></div></div>
+        <div class="stat"><div class="k">Nivel de incidencia</div><div class="v" id="level"></div></div>
+        <div class="stat"><div class="k">Población</div><div class="v" id="pop"></div></div>
+      </div>
+    </div>
+    <div>
+      <a class="minimap" id="mapspoke" href="#">🗺️ Ver en el mapa nacional →</a>
+      <div class="adslot" style="margin-top:var(--md)">AdSense</div>
+    </div>
+  </div>
+
+  <h2>Incidencia por tipo de delito</h2>
+  <div class="card" id="families"></div>
+
+  <h2>Conecta con el resto del sitio</h2>
+  <div class="spokes">
+    <a class="spoke card" id="spRegion" href="#"><p class="kicker">Ranking regional</p><h3></h3><p class="muted" style="font-size:14px"></p></a>
+    <a class="spoke card" id="spNeighbors" href="../002-comuna-finder/finder.html"><p class="kicker">Comparar</p><h3>Comunas similares</h3><p class="muted" style="font-size:14px" id="neighborsTxt"></p></a>
+    <a class="spoke card" id="spCrime" href="#"><p class="kicker">Por delito</p><h3>Rankings nacionales</h3><p class="muted" style="font-size:14px">Dónde se ubica esta comuna en cada tipo de delito.</p></a>
+    <a class="spoke card" id="spNews" href="#"><p class="kicker">Noticias</p><h3>Incidentes recientes</h3><p class="muted" style="font-size:14px">Hechos reportados por la prensa, geolocalizados a esta comuna.</p></a>
+  </div>
+
+  <h2>Incidentes recientes <span class="muted" style="font-size:13px;font-weight:400">(capa de noticias — ejemplo)</span></h2>
+  <div class="card" id="news"></div>
+
+  <footer class="note">Prototipo IA · Spike 003 · datos CEAD 2025 reales · noticias de ejemplo</footer>
+</main>
+<script src="../_shared/spike-data.js"></script>
+<script src="../_shared/spike-ui.js"></script>
+<script>
+const U=window.SPIKEUI, SD=U.SD;
+const famLabel={vida:'Contra la vida',robos_violentos:'Robos violentos',vif:'Violencia intrafamiliar',drogas:'Drogas',armas:'Armas',propiedad:'Propiedad',incivilidades:'Incivilidades'};
+function bySlug(s){return SD.comunas.find(c=>c.slug===s);}
+function render(slug){
+  const c=bySlug(slug)||bySlug('santiago')||SD.comunas[0];
+  document.getElementById('title').textContent=c.name;
+  document.getElementById('cbName').textContent=c.name;
+  document.getElementById('cbRegion').textContent='Región '+c.region;
+  document.getElementById('kick').textContent=c.region+' · CEAD '+SD.year;
+  document.getElementById('rate').textContent=U.fmt(c.rate);
+  document.getElementById('rank').innerHTML=c.rank?`${c.rank} <span class="muted" style="font-size:13px">de ${c.rankTotal}</span>`:'—';
+  document.getElementById('level').innerHTML=U.lvlDot(c.level)+' '+(c.level?('nivel '+c.level):'—');
+  document.getElementById('pop').textContent=c.pop?U.fmt(c.pop):'—';
+  document.getElementById('lede').textContent=`En ${SD.year}, ${c.name} registró aproximadamente ${U.fmt(c.rate)} incidentes reportados por cada 100.000 habitantes (fuente CEAD). ${c.rank?`Ocupa el lugar ${c.rank} de ${c.rankTotal} comunas, de menor a mayor incidencia.`:''}`;
+  // families
+  if(c.families){
+    const max=Math.max(...Object.values(c.families));
+    document.getElementById('families').innerHTML=SD.families.map(f=>{const v=c.families[f]||0;return `<div class="barrow"><span class="lab">${famLabel[f]}</span><span class="track"><span class="fill" style="width:${max?Math.round(v/max*100):0}%"></span></span><span style="width:64px;text-align:right;font-variant-numeric:tabular-nums">${U.fmt(v)}</span></div>`;}).join('');
+  } else document.getElementById('families').innerHTML='<p class="muted">Sin desglose disponible.</p>';
+  // region spoke
+  const sameReg=SD.comunas.filter(x=>x.regionCode===c.regionCode && x.rate!=null).sort((a,b)=>a.rate-b.rate);
+  const posReg=sameReg.findIndex(x=>x.cut===c.cut)+1;
+  const sr=document.getElementById('spRegion');
+  sr.querySelector('h3').textContent='Comunas de '+c.region;
+  sr.querySelector('p').textContent=posReg?`${c.name} es la #${posReg} de ${sameReg.length} en su región. Ver el ranking regional completo.`:'Ver el ranking regional completo.';
+  sr.href='../001-home-hub-framing/001-c-ranking-led.html';
+  document.getElementById('cbRegion').href=sr.href;
+  // neighbors: nearest by rate within region
+  const idx=sameReg.findIndex(x=>x.cut===c.cut);
+  const nb=[sameReg[idx-1],sameReg[idx+1]].filter(Boolean).map(x=>x.name);
+  document.getElementById('neighborsTxt').textContent=nb.length?('Tasa similar a '+nb.join(' y ')+'.'):'Explora comunas de incidencia parecida.';
+  // map spoke
+  document.getElementById('mapspoke').href='../001-home-hub-framing/001-a-map-first.html';
+  // news (illustrative, family-flavored)
+  const samples=[['Robo con intimidación en sector céntrico de '+c.name,'BioBioChile','propiedad'],['Carabineros detiene a sujeto por porte de arma en '+c.name,'Cooperativa','armas'],['Operativo antidrogas deja dos detenidos en '+c.name,'La Tercera','drogas']];
+  document.getElementById('news').innerHTML=samples.map(([t,src,fam])=>`<div class="newsitem"><span class="pill" style="background:var(--s2)">${famLabel[fam]}</span> ${t} <div class="src">${src} · hace 2 días · <a href="#">fuente ↗</a> · <a href="#">${c.name}</a></div></div>`).join('');
+  // picker
+  history.replaceState(null,'','#'+c.slug);
+}
+document.getElementById('hd').innerHTML=U.header('Comunas','Ficha de comuna');
+const pick=document.getElementById('pick');
+pick.innerHTML=U.byName.map(c=>`<option value="${c.slug}">${c.name}</option>`).join('');
+pick.addEventListener('change',e=>render(e.target.value));
+const start=(location.hash||'#santiago').slice(1);
+pick.value=start; render(start);
+</script></body></html>

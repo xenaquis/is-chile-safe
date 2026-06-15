@@ -1,0 +1,57 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>001-b Finder-first hub</title>
+<link rel="stylesheet" href="../_shared/spike.css">
+<style>
+.finderhero{background:linear-gradient(160deg,#0f766e,#0b4f49);color:#eafbf8;border-radius:var(--radius);padding:48px 32px;text-align:center;margin-top:var(--md)}
+.finderhero h1{font-size:30px;color:#fff}
+.finderhero .sb{max-width:520px;margin:18px auto 0;position:relative}
+.finderhero input.search{font-size:17px;padding:15px 16px}
+.results{background:#fff;border-radius:10px;margin-top:6px;box-shadow:0 10px 30px rgba(0,0,0,.25);overflow:hidden;text-align:left;position:absolute;left:0;right:0;z-index:5}
+.results a{display:block;padding:10px 14px;border-bottom:1px solid var(--line);color:var(--ink)}
+.results a:hover{background:var(--s1);text-decoration:none}
+.quick{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.quick a{background:rgba(255,255,255,.15);color:#fff;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:700}
+.cols3{display:grid;grid-template-columns:1.4fr 1fr;gap:var(--md);margin-top:var(--lg)}
+.maplink{height:100%;min-height:220px;border-radius:var(--radius);border:1px solid var(--line);background:linear-gradient(180deg,#9fd0cd,#f4d58d 60%,#c96b5a);display:flex;align-items:flex-end;padding:18px;color:#0b4f49;font-weight:700}
+.regrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.regrid a{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--ink);font-weight:700;font-size:14px}
+.regrid a span{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+@media(max-width:760px){.cols3{grid-template-columns:1fr}}
+</style></head><body>
+<div id="hd"></div>
+<main class="wrap">
+  <div class="finderhero">
+    <p class="kicker" style="color:#9fd0cd">Variante B — Buscador / directorio primero</p>
+    <h1>Encuentra la seguridad de tu comuna</h1>
+    <p style="opacity:.9;max-width:560px;margin:8px auto 0">Datos oficiales CEAD de incidencia delictiva para las 346 comunas de Chile. Empieza por la tuya.</p>
+    <div class="sb">
+      <input class="search" id="q" placeholder="Busca tu comuna… (ej. Valparaíso, La Florida)" autocomplete="off">
+      <div class="results" id="res" style="display:none"></div>
+    </div>
+    <div class="quick"><a href="#">Santiago</a><a href="#">Valparaíso</a><a href="#">Concepción</a><a href="#">Las Condes</a><a href="../002-comuna-finder/finder.html">Ver las 346 →</a></div>
+  </div>
+
+  <div class="cols3">
+    <div class="card"><h2 style="margin-top:0">Comunas con menor incidencia</h2><div id="safe"></div><a class="btn ghost" href="#" style="margin-top:10px">Ranking completo →</a></div>
+    <div>
+      <a class="maplink" href="#">🗺️ Abre el mapa interactivo nacional →</a>
+      <div class="adslot" style="margin-top:var(--md)">AdSense (sidebar)</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:var(--md)"><h2 style="margin-top:0">Directorio por región</h2>
+    <div class="regrid" id="regs"></div>
+    <p class="muted" style="margin-top:10px;font-size:13px">Cada región abre el listado completo de sus comunas — ninguna queda sin página.</p>
+  </div>
+  <footer class="note">Prototipo IA · Spike 001-b · no es el sitio real</footer>
+</main>
+<script src="../_shared/spike-data.js"></script>
+<script src="../_shared/spike-ui.js"></script>
+<script>
+const U=window.SPIKEUI;
+document.getElementById('hd').innerHTML=U.header('Comunas','Finder-first');
+document.getElementById('safe').innerHTML=U.rankTable(U.safest(7));
+document.getElementById('regs').innerHTML=U.regions.map(r=>`<a href="../002-comuna-finder/finder.html#region-${r.code}">${r.name}<span>${r.count} comunas</span></a>`).join('');
+const q=document.getElementById('q'),res=document.getElementById('res');
+q.addEventListener('input',()=>{const m=U.search(q.value);if(!m.length){res.style.display='none';return;}res.style.display='block';res.innerHTML=m.map(c=>`<a href="${U.comunaHref(c)}">${U.lvlDot(c.level)} <b>${c.name}</b> · <span class="muted">${c.region} · ${U.fmt(c.rate)}/100k</span></a>`).join('');});
+</script></body></html>

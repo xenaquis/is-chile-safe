@@ -1,0 +1,75 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spike 002 — Directorio de comunas (las 346)</title>
+<link rel="stylesheet" href="../_shared/spike.css">
+<style>
+.toolbar{position:sticky;top:60px;background:var(--bg);padding:var(--md) 0;z-index:10;border-bottom:1px solid var(--line)}
+.toolbar .row{display:flex;gap:var(--md);align-items:center;flex-wrap:wrap}
+.viewtoggle button{background:#fff;border:1.5px solid var(--line);border-radius:9px;padding:9px 14px;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px;color:var(--ink)}
+.viewtoggle button.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.count{color:var(--muted);font-size:14px;font-weight:700;margin-left:auto}
+.azindex{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+.azindex a{font-weight:700;font-size:13px;padding:3px 7px;border-radius:6px;color:var(--primary)}
+.section{margin-top:var(--lg)}
+.section h2{display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--primary);padding-bottom:6px}
+.section h2 .cnt{font-size:13px;color:var(--muted);font-weight:400}
+.clist{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px;margin-top:10px}
+.citem{display:flex;align-items:center;gap:8px;padding:9px 11px;background:#fff;border:1px solid var(--line);border-radius:10px;color:var(--ink)}
+.citem:hover{text-decoration:none;border-color:var(--primary);background:#f3faf9}
+.citem .nm{font-weight:700}
+.citem .rt{margin-left:auto;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.citem .lowpop{font-size:10px;background:var(--line);color:var(--muted);border-radius:4px;padding:1px 5px}
+.empty{color:var(--muted);padding:var(--xl);text-align:center}
+mark{background:#ffe9a8;padding:0 1px}
+</style></head><body>
+<div id="hd"></div>
+<main class="wrap">
+  <p class="crumb"><a href="../001-home-hub-framing/index.html">Inicio</a> › Comunas</p>
+  <h1>Las 346 comunas de Chile</h1>
+  <p class="muted" style="max-width:680px">Toda comuna con datos CEAD tiene su página. Busca la tuya o explora por región — ninguna queda perdida.</p>
+
+  <div class="toolbar"><div class="row">
+    <input class="search" id="q" placeholder="Filtra por nombre… (ej. 'la ', 'puerto', 'viña')" autocomplete="off" style="max-width:380px">
+    <span class="viewtoggle"><button id="vAZ" class="on">A–Z</button> <button id="vReg">Por región</button></span>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="azindex" id="az"></div>
+  </div>
+
+  <div id="out"></div>
+  <footer class="note">Prototipo IA · Spike 002 · datos CEAD 2025 reales · enlaces a ficha ilustrativos</footer>
+</main>
+<script src="../_shared/spike-data.js"></script>
+<script src="../_shared/spike-ui.js"></script>
+<script>
+const U=window.SPIKEUI, SD=U.SD;
+let view='az', q='';
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+function hl(name){if(!q)return name;const i=norm(name).indexOf(norm(q));if(i<0)return name;return name.slice(0,i)+'<mark>'+name.slice(i,i+q.length)+'</mark>'+name.slice(i+q.length);}
+function item(c){return `<a class="citem" href="${U.comunaHref(c)}">${U.lvlDot(c.level)}<span class="nm">${hl(c.name)}</span>${c.lowPop?'<span class="lowpop">baja pob.</span>':''}<span class="rt">${c.rate?U.fmt(c.rate)+'/100k':'—'}</span></a>`;}
+function filtered(){return SD.comunas.filter(c=>!q||norm(c.name).includes(norm(q)));}
+function render(){
+  const list=filtered();
+  document.getElementById('count').textContent=list.length+' de 346 comunas';
+  const out=document.getElementById('out'),az=document.getElementById('az');
+  if(!list.length){out.innerHTML='<div class="empty">Sin resultados para "'+q+'".</div>';az.innerHTML='';return;}
+  if(view==='az'){
+    const byL={};list.slice().sort((a,b)=>a.name.localeCompare(b.name,'es')).forEach(c=>{const L=norm(c.name)[0].toUpperCase();(byL[L]=byL[L]||[]).push(c);});
+    const letters=Object.keys(byL).sort();
+    az.innerHTML=letters.map(L=>`<a href="#L-${L}">${L}</a>`).join('');
+    out.innerHTML=letters.map(L=>`<div class="section" id="L-${L}"><h2>${L} <span class="cnt">${byL[L].length}</span></h2><div class="clist">${byL[L].map(item).join('')}</div></div>`).join('');
+  } else {
+    az.innerHTML='';
+    const byR={};list.forEach(c=>{(byR[c.regionCode]=byR[c.regionCode]||[]).push(c);});
+    const regs=U.regions.slice().sort((a,b)=>a.code-b.code);
+    out.innerHTML=regs.filter(r=>byR[r.code]).map(r=>`<div class="section" id="region-${r.code}"><h2>${r.name} <span class="cnt">${byR[r.code].length} comunas</span></h2><div class="clist">${byR[r.code].slice().sort((a,b)=>a.name.localeCompare(b.name,'es')).map(item).join('')}</div></div>`).join('');
+  }
+}
+document.getElementById('hd').innerHTML=U.header('Comunas','Directorio 346');
+document.getElementById('q').addEventListener('input',e=>{q=e.target.value;render();});
+document.getElementById('vAZ').onclick=e=>{view='az';e.target.classList.add('on');document.getElementById('vReg').classList.remove('on');render();if(location.hash)location.hash='';};
+document.getElementById('vReg').onclick=e=>{view='reg';e.target.classList.add('on');document.getElementById('vAZ').classList.remove('on');render();};
+// deep-link: #region-N opens region view
+if(location.hash.startsWith('#region-')){view='reg';document.getElementById('vReg').classList.add('on');document.getElementById('vAZ').classList.remove('on');}
+render();
+if(location.hash){setTimeout(()=>{const t=document.querySelector(location.hash);if(t)t.scrollIntoView();},50);}
+</script></body></html>

@@ -1,0 +1,57 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>001-a Map-first hub</title>
+<link rel="stylesheet" href="../_shared/spike.css">
+<style>
+.hero-map{position:relative;height:460px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+  background:linear-gradient(180deg,#cfe7e4,#9fd0cd 30%,#f4d58d 60%,#e8a05c 80%,#c96b5a)}
+.hero-map .silhouette{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#0b4f49;font-weight:700;opacity:.25;font-size:80px}
+.hero-map .overlay{position:absolute;left:24px;top:24px;right:24px;max-width:420px}
+.hero-map .searchbox{background:#fff;border-radius:12px;padding:14px;box-shadow:0 6px 24px rgba(0,0,0,.15)}
+.results{background:#fff;border-radius:10px;margin-top:6px;box-shadow:0 6px 24px rgba(0,0,0,.12);overflow:hidden}
+.results a{display:block;padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink)}
+.results a:hover{background:var(--s1);text-decoration:none}
+.chips{position:absolute;left:24px;bottom:20px;display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.92);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;color:#0b4f49}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:var(--md);margin-top:var(--lg)}
+@media(max-width:760px){.cols{grid-template-columns:1fr}.hero-map{height:520px}}
+</style></head><body>
+<div id="hd"></div>
+<main class="wrap" style="padding-top:var(--lg)">
+  <p class="kicker">Variante A — Map-first</p>
+  <h1>El mapa es la puerta de entrada</h1>
+  <p class="muted" style="max-width:680px">La pantalla la domina el mapa nacional. El usuario busca o hace clic en su comuna y todo (ficha, ranking, noticias) cuelga desde ahí. Las listas viven debajo como apoyo.</p>
+
+  <div class="hero-map" style="margin-top:var(--md)">
+    <div class="silhouette">CHILE</div>
+    <div class="overlay">
+      <div class="searchbox">
+        <label style="font-weight:700;font-size:14px">¿Cuál es tu comuna?</label>
+        <input class="search" id="q" placeholder="Escribe tu comuna… (ej. Ñuñoa)" autocomplete="off" style="margin-top:6px">
+        <div class="results" id="res" style="display:none"></div>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip">346 comunas</span><span class="chip">Datos CEAD 2025</span><span class="chip">Tasa /100k hab.</span><span class="chip">+ capa de noticias</span>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="card"><h2 style="margin-top:0">Menor incidencia reportada</h2><div id="safe"></div><a href="#" class="btn ghost" style="margin-top:10px">Ver ranking completo →</a></div>
+    <div class="card"><h2 style="margin-top:0">Mayor incidencia reportada</h2><div id="high"></div><a href="#" class="btn ghost" style="margin-top:10px">Ver ranking completo →</a></div>
+  </div>
+
+  <div class="card" style="margin-top:var(--md)"><h2 style="margin-top:0">Explora por región</h2><div id="regs" class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))"></div></div>
+  <div class="adslot" style="margin-top:var(--md)">espacio AdSense (in-feed)</div>
+  <footer class="note">Prototipo IA · Spike 001-a · no es el sitio real</footer>
+</main>
+<script src="../_shared/spike-data.js"></script>
+<script src="../_shared/spike-ui.js"></script>
+<script>
+const U=window.SPIKEUI;
+document.getElementById('hd').innerHTML=U.header('Mapa','Map-first');
+document.getElementById('safe').innerHTML=U.rankTable(U.safest(6));
+document.getElementById('high').innerHTML=U.rankTable(U.highest(6));
+document.getElementById('regs').innerHTML=U.regions.map(r=>`<a href="#" class="pill" style="text-align:center;padding:10px;background:#fff;border:1px solid var(--line);color:var(--ink)">${r.name}<br><span class="muted" style="font-weight:400;font-size:12px">${r.count} comunas</span></a>`).join('');
+const q=document.getElementById('q'),res=document.getElementById('res');
+q.addEventListener('input',()=>{const m=U.search(q.value);if(!m.length){res.style.display='none';return;}res.style.display='block';res.innerHTML=m.map(c=>`<a href="${U.comunaHref(c)}">${U.lvlDot(c.level)} <b>${c.name}</b> · <span class="muted">${c.region} · ${U.fmt(c.rate)}/100k</span></a>`).join('');});
+</script></body></html>
