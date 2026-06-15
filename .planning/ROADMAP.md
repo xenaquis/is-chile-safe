@@ -120,6 +120,23 @@ Plans:
   2. Each comuna page is a hub cross-linking to: the map (centered on it), its regional ranking, similar/neighboring comunas, the per-crime-type rankings, and its geolocated news; with a breadcrumb Inicio › Comunas › Región › Comuna in both locales.
   3. A coherent navigation spine connects map ↔ comuna ↔ ranking ↔ region ↔ news in both locales; the primary nav includes "Comunas" (the directory); internal links are reciprocal and 404-free.
 
+**Plans**: 6 plans
+Plans:
+**Wave 1** *(foundations: data helper + i18n + map focus param + finder ?q=)*
+
+- [ ] 12-01-PLAN.md — nearestComparables(cut,n) data helper + nav_rankings/footer-spine i18n strings + comuna directory honors ?q= on load (EN+ES) [IA-02, IA-03]
+- [ ] 12-02-PLAN.md — MapIsland.tsx reads ?cut= focus param after layer mount (D-08) [IA-02]
+
+**Wave 2** *(pages — consume Wave 1; no file overlap, parallel-safe)*
+
+- [ ] 12-03-PLAN.md — Home rebuild on Hybrid C+B: new HomeLayout + index.astro EN/ES (search hero + two lead tables + map CTA + guide cards + condensed prose) [IA-01]
+- [ ] 12-04-PLAN.md — Comuna hub: upgraded breadcrumb + map/similar/crime-type spokes + regional-rank device, EN+ES (D-07/08/09/10) [IA-02]
+- [ ] 12-05-PLAN.md — Spine: Rankings nav + footer-spine row + new /rankings/ + /es/rankings/ index pages (D-12/13) [IA-03]
+
+**Wave 3** *(gate — verifies the whole phase)*
+
+- [ ] 12-06-PLAN.md — spine.mjs validator (cross-link reciprocity + single-H1 + sitemap) + register in all.mjs + full build/validate gate + human map-focus smoke [IA-01, IA-02, IA-03]
+
 ### Phase 13: Ranking SEO Hardening
 
 **Goal**: The ranking/editorial pages gain the SEO signals the audit found missing, without changing their content — richer SERP/social presentation and machine-readable rankings.
@@ -177,7 +194,7 @@ Plans:
 | 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
 | 10. High-Resolution Commune Geometry | v1.2 | 3/3 | Complete   | 2026-06-15 |
 | 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 4/4 | Complete   | 2026-06-15 |
-| 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 0/0 | Pending    |  |
+| 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 0/6 | Planned    |  |
 | 13. Ranking SEO Hardening | v1.2 | 0/0 | Pending    |  |
 | 14. Homicide as a First-Class Category | v1.2 | 0/0 | Pending    |  |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Pending    |  |
