@@ -107,12 +107,24 @@ export function regionFileId(regionId: string): string {
   return String(Math.floor(n / 10));
 }
 
+// --- Module-level memoization caches (build-time only — data is immutable within a build) ---
+// Safe because Astro builds are single-pass over static JSON (Assumption A2).
+// No cache invalidation or TTL needed — caches are valid for the lifetime of the process.
+
+let _indexCache: CommuneMeta[] | null = null;
+const _communeCache = new Map<string, CommuneData>();
+const _regionCache = new Map<string, RegionData>();
+let _natAvg: number | null = null;
+const _regAvg = new Map<string, number>();
+
 // --- Core loaders ---
 
 export function loadIndex(): CommuneMeta[] {
-  return JSON.parse(
+  if (_indexCache) return _indexCache;
+  _indexCache = JSON.parse(
     readFileSync(path.join(DATA_ROOT, 'meta', 'index.json'), 'utf-8')
   ) as CommuneMeta[];
+  return _indexCache;
 }
 
 export function loadCatalog(): CatalogData {
@@ -128,9 +140,13 @@ export function loadNational(): NationalData {
 }
 
 export function loadRegion(regionId: string): RegionData {
-  return JSON.parse(
+  const hit = _regionCache.get(regionId);
+  if (hit) return hit;
+  const data = JSON.parse(
     readFileSync(path.join(DATA_ROOT, 'regions', `${regionId}.json`), 'utf-8')
   ) as RegionData;
+  _regionCache.set(regionId, data);
+  return data;
 }
 
 /**
@@ -139,6 +155,9 @@ export function loadRegion(regionId: string): RegionData {
  * - regionName: resolved from region JSON (the `name` field, no "Región de" prefix)
  */
 export function loadCommune(cut: string): CommuneData {
+  const hit = _communeCache.get(cut);
+  if (hit) return hit;
+
   const raw = JSON.parse(
     readFileSync(path.join(DATA_ROOT, 'comunas', `${cut}.json`), 'utf-8')
   ) as Omit<CommuneData, 'latestCompleteYear' | 'regionName'>;
@@ -155,7 +174,9 @@ export function loadCommune(cut: string): CommuneData {
   // requested CUT (which equals the file's id) so downstream consumers that
   // read `commune.cut` (e.g. proseEngine's nearestComparable) work instead of
   // silently throwing and falling back to a self-referential comparable.
-  return { ...raw, cut, latestCompleteYear, regionName };
+  const enriched: CommuneData = { ...raw, cut, latestCompleteYear, regionName };
+  _communeCache.set(cut, enriched);
+  return enriched;
 }
 
 // --- Build-time helpers ---
@@ -180,6 +201,7 @@ export function latestCompleteYearRate(commune: CommuneData): number {
  * correct per-capita mean (hundreds-to-low-thousands range).
  */
 export function loadNationalAverage(): number {
+  if (_natAvg !== null) return _natAvg;
   const index = loadIndex();
   const eligible = index.filter((c) => !c.low_population);
   const rates = eligible.map((c) => {
@@ -187,7 +209,8 @@ export function loadNationalAverage(): number {
     return latestCompleteYearRate(commune);
   });
   const sum = rates.reduce((acc, r) => acc + r, 0);
-  return rates.length > 0 ? sum / rates.length : 0;
+  _natAvg = rates.length > 0 ? sum / rates.length : 0;
+  return _natAvg;
 }
 
 /**
@@ -198,6 +221,8 @@ export function loadNationalAverage(): number {
  * behaviour as national.json) — NOT a per-capita regional average.
  */
 export function loadRegionalAverage(regionId: string): number {
+  const hit = _regAvg.get(regionId);
+  if (hit !== undefined) return hit;
   const index = loadIndex();
   const eligible = index.filter(
     (c) => c.region_id === regionId && !c.low_population
@@ -207,7 +232,9 @@ export function loadRegionalAverage(regionId: string): number {
     return latestCompleteYearRate(commune);
   });
   const sum = rates.reduce((acc, r) => acc + r, 0);
-  return rates.length > 0 ? sum / rates.length : 0;
+  const avg = rates.length > 0 ? sum / rates.length : 0;
+  _regAvg.set(regionId, avg);
+  return avg;
 }
 
 /**
