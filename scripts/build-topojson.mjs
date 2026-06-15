@@ -1,35 +1,35 @@
 /**
  * build-topojson.mjs — Offline pipeline to produce data/cead/geo/communes.topo.json
  *
- * Source dataset: GADM 4.1 Chile Level-3 (commune boundaries)
- * URL: https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_CHL_3.json
- * Saved as: data/cead/geo/communes-raw.geojson (do not re-fetch without reason)
+ * Source dataset: chilemapas (GPL-3) — INE/SUBDERE/BCN-authoritative Chilean commune boundaries
+ * GitHub: https://github.com/pachadotdev/chilemapas  (branch: master, data_geojson/comunas/)
+ * Downloaded: 2026-06-15 — merged 16 regional GeoJSONs into communes-chilemapas.geojson
+ * License: GPL-3. Attribution required. See site methodology/colophon for visible credit.
+ * Saved as: data/cead/geo/communes-chilemapas.geojson (committed for offline reproducibility)
  *
  * Pipeline:
- *   1. Load GADM GeoJSON (345 features with known quality issues — see MANUAL_FIXES)
+ *   1. Load chilemapas GeoJSON (345 features, codigo_comuna = 5-char zero-padded CUT)
  *   2. Load data/cead/meta/index.json (346-commune CUT source of truth)
- *   3. Match GADM features → CUT via normalized name matching + manual fixes
- *   4. Re-key each feature: properties.id = CUT (string), properties.name = canonical name
- *      Drop all other properties to minimise file size
- *   5. Add placeholder polygon for Antártica (CUT 12202) — absent from GADM;
+ *   3. Re-key each chilemapas feature → CUT via srcCodeToCut(codigo_comuna) code-join
+ *      (strips leading zeros: "02101" → "2101"; no-op for regions 10+)
+ *      Drop all properties except id (CUT) and name (canonical from index.json)
+ *   4. Add placeholder polygon for Antártica (CUT 12202) — absent from chilemapas;
  *      Chilean Antarctic Territory is not in standard boundary datasets;
  *      zero crime rates in CEAD data (population 151)
+ *   5. Assert (pre-mapshaper): 346 features, 0 missing/orphan/dup, CUT 13101 present
  *   6. Write re-keyed GeoJSON to OS temp directory
  *   7. Simplify + convert to TopoJSON via mapshaper CLI
- *      (visvalingam 10%, quantization=10000 → ~367 KB raw / ~107 KB gzip)
- *   8. Assert: 346 features, 0 missing/orphan/dup, CUT 13101 (Santiago) present,
+ *      Config: visvalingam percentage=10% keep-shapes, quantization=10000
+ *      Measured (2026-06-15): ~367 KB raw / ~107 KB gzip, ~0.4 km grid, recognizable coastline
+ *   8. Assert: 346 features, 0 missing/orphan/dup, CUT 13101 present,
  *      file ≤ 420 KB raw AND ≤ 140 KB gzip
  *   9. Copy to data/cead/geo/communes.topo.json
  *
  * Re-runnable: `node scripts/build-topojson.mjs`
  * Requires: mapshaper installed globally (`npm install -g mapshaper`)
  *
- * Known deviations:
- *   - D-02 said use prototype geo-data.js — that file has only 56 slug-keyed features;
- *     provably unusable for 346-commune requirement. GADM sourced per D-02 escape hatch.
- *   - GADM has 4 naming/data issues fixed in MANUAL_FIXES below.
- *   - Antártica (12202) uses a small placeholder polygon near Drake Passage;
- *     CEAD data shows population 151, zero crime rates — renders at incidence level 1.
+ * Note: Antártica (12202) uses a small placeholder polygon near Drake Passage;
+ *   CEAD data shows population 151, zero crime rates — renders at incidence level 1.
  */
 
 import {
@@ -51,7 +51,7 @@ const REPO_ROOT = path.resolve(__dirname, '..');
 // ---------------------------------------------------------------------------
 // Paths
 // ---------------------------------------------------------------------------
-const RAW_GEOJSON = path.join(REPO_ROOT, 'data', 'cead', 'geo', 'communes-raw.geojson');
+const RAW_GEOJSON = path.join(REPO_ROOT, 'data', 'cead', 'geo', 'communes-chilemapas.geojson');
 const INDEX_JSON = path.join(REPO_ROOT, 'data', 'cead', 'meta', 'index.json');
 const OUTPUT_TOPO = path.join(REPO_ROOT, 'data', 'cead', 'geo', 'communes.topo.json');
 const TMP_DIR = os.tmpdir();
@@ -59,81 +59,62 @@ const TMP_REKEYED = path.join(TMP_DIR, 'communes-rekeyed.geojson');
 const TMP_TOPO = path.join(TMP_DIR, 'communes.topo.json');
 
 // ---------------------------------------------------------------------------
-// Manual name → CUT fixes for GADM data quality issues
+// CUT zero-pad normalization helper (chilemapas source)
 // ---------------------------------------------------------------------------
-// Key format: norm(NAME_3) + '_' + norm(NAME_2) + '_' + norm(NAME_1)
-const MANUAL_FIXES = {
-  // GADM uses "Calera" — CEAD is "La Calera" (CUT 5502, Quillota, Valparaíso)
-  'calera_quillota_valparaiso': '5502',
-  // GADM spells it "Paihuano" — CEAD index says "Paiguano" (CUT 4105, Elqui, Coquimbo)
-  'paihuano_elqui_coquimbo': '4105',
-  // GADM has duplicate "Tocopilla" in Tarapacá/Tamarugal — actually Pozo Almonte (CUT 1401)
-  'tocopilla_tamarugal_tarapaca': '1401',
-};
-
-// ---------------------------------------------------------------------------
-// Normalize names for matching
-// ---------------------------------------------------------------------------
-function norm(s) {
-  return s
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '') // strip diacritics
-    .replace(/[^a-z0-9]/g, '');      // strip non-alphanumeric
+// chilemapas codigo_comuna is 5-char zero-padded INE CUT string (e.g. "02101").
+// CEAD index.json stores CUT as unpadded raw digits (e.g. "2101").
+// This is a no-op for regions 10+ (no leading zero).
+function srcCodeToCut(code) {
+  return String(parseInt(code, 10));
 }
 
 // ---------------------------------------------------------------------------
 // Step 1: Load inputs
 // ---------------------------------------------------------------------------
 if (!existsSync(RAW_GEOJSON)) {
-  console.error('ERROR: communes-raw.geojson not found. Download from:');
-  console.error('  https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_CHL_3.json');
-  console.error('  Save as: data/cead/geo/communes-raw.geojson');
+  console.error('ERROR: communes-chilemapas.geojson not found.');
+  console.error('  This file is committed to the repo at data/cead/geo/communes-chilemapas.geojson.');
+  console.error('  If missing, re-download from: https://github.com/pachadotdev/chilemapas');
+  console.error('  Merge data_geojson/comunas/r01.geojson ... r16.geojson into one FeatureCollection.');
   process.exit(1);
 }
 
-console.log('Loading GADM GeoJSON...');
+console.log('Loading chilemapas GeoJSON...');
 const rawGeo = JSON.parse(readFileSync(RAW_GEOJSON, 'utf8'));
 const indexEntries = JSON.parse(readFileSync(INDEX_JSON, 'utf8'));
 
-console.log(`GADM features: ${rawGeo.features.length}`);
+console.log(`chilemapas features: ${rawGeo.features.length}`);
 console.log(`Index communes: ${indexEntries.length}`);
 
 // ---------------------------------------------------------------------------
-// Step 2: Build index lookup (normalized name → entry)
+// Step 2: Build index lookup by CUT (unpadded)
 // ---------------------------------------------------------------------------
-const indexByNorm = new Map();
+const indexByCut = new Map();
 indexEntries.forEach(c => {
-  indexByNorm.set(norm(c.name), c);
+  indexByCut.set(c.cut, c);
 });
 
 // ---------------------------------------------------------------------------
-// Step 3: Assign CUT to each GADM feature
+// Step 3: Re-key each chilemapas feature → CEAD CUT via code-join
 // ---------------------------------------------------------------------------
+// chilemapas ships a real INE codigo_comuna — prefer code-join over name-matching.
+// Retired: MANUAL_FIXES, norm(), indexByNorm name-match machinery (GADM-specific).
 const features = [];
 let skipped = 0;
 
 for (const f of rawGeo.features) {
-  const n3 = f.properties.NAME_3;
-  const n2 = f.properties.NAME_2;
-  const n1 = f.properties.NAME_1;
-  const manualKey = `${norm(n3)}_${norm(n2)}_${norm(n1)}`;
-
-  let cut = MANUAL_FIXES[manualKey] ?? null;
-  if (!cut) {
-    const match = indexByNorm.get(norm(n3));
-    if (match) cut = match.cut;
-  }
-
-  if (!cut) {
-    console.warn(`  SKIP: no CUT for "${n3}" (${n2}, ${n1})`);
+  const rawCode = f.properties.codigo_comuna;
+  if (!rawCode) {
+    console.warn(`  SKIP: feature missing codigo_comuna`);
     skipped++;
     continue;
   }
 
-  const ie = indexEntries.find(c => c.cut === cut);
+  const cut = srcCodeToCut(rawCode);
+  const ie = indexByCut.get(cut);
+
   if (!ie) {
-    console.warn(`  SKIP: CUT ${cut} not in index.json`);
+    console.warn(`  SKIP: no index.json entry for CUT ${cut} (codigo_comuna=${rawCode})`);
     skipped++;
     continue;
   }
@@ -145,7 +126,7 @@ for (const f of rawGeo.features) {
   });
 }
 
-console.log(`Matched: ${features.length}, Skipped: ${skipped}`);
+console.log(`Joined: ${features.length}, Skipped: ${skipped}`);
 
 // ---------------------------------------------------------------------------
 // Step 4: Add placeholder for Antártica Chilena (CUT 12202)
