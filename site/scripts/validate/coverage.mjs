@@ -269,6 +269,46 @@ if (!existsSync(ES_DIR_PAGE)) {
 }
 
 // ---------------------------------------------------------------------------
+// ASSERTION E: no-gating-string
+// Scan all dist/**/*.html for rollout gating UI text that was present when
+// comunas were hidden behind a "Showing N of M" gate (the COMU-03 orphan-gate
+// bug). Zero occurrences are required in the final build.
+//   EN: /Showing\s+\d+\s+of\s+\d+/i
+//   ES: /Mostrando\s+\d+\s+de\s+\d+/i
+// ---------------------------------------------------------------------------
+const GATING_EN_RE = /Showing\s+\d+\s+of\s+\d+/gi;
+const GATING_ES_RE = /Mostrando\s+\d+\s+de\s+\d+/gi;
+
+let gatingHits = 0;
+const gatingExamples = [];
+
+for (const htmlFile of allHtmlFiles) {
+  const content = readFileSync(htmlFile, 'utf-8');
+  const relPath = path.relative(DIST_DIR, htmlFile);
+
+  GATING_EN_RE.lastIndex = 0;
+  let m;
+  while ((m = GATING_EN_RE.exec(content)) !== null) {
+    gatingHits++;
+    if (gatingExamples.length < 3) gatingExamples.push(`${relPath}: "${m[0]}"`);
+  }
+
+  GATING_ES_RE.lastIndex = 0;
+  while ((m = GATING_ES_RE.exec(content)) !== null) {
+    gatingHits++;
+    if (gatingExamples.length < 3) gatingExamples.push(`${relPath}: "${m[0]}"`);
+  }
+}
+
+if (gatingHits === 0) {
+  console.log(`PASS [E] no-gating-string: 0 occurrences of "Showing N of M" / "Mostrando N de M" across ${allHtmlFiles.length} HTML files`);
+} else {
+  console.error(`FAIL [E] no-gating-string: ${gatingHits} occurrence(s) of rollout gating text found — orphan-gate has regressed`);
+  for (const ex of gatingExamples) console.error(`  → ${ex}`);
+  failures++;
+}
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 if (failures > 0) {
