@@ -19,7 +19,9 @@ const { locale, enPath, esPath } = Astro.props;
 const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
 
 const homeHref = getRelativeLocaleUrl(locale, '/');
-const mapHref  = getRelativeLocaleUrl(locale, '/map');
+// ES uses a localized slug (/es/mapa/), so getRelativeLocaleUrl('/map') would emit a
+// broken /es/map/. Map the slug per-locale, matching methodHref below.
+const mapHref  = locale === 'en' ? '/map/' : '/es/mapa/';
 const methodHref = locale === 'en' ? '/methodology/' : '/es/metodologia/';
 
 // Lang toggle: link to the alternate locale's equivalent path
