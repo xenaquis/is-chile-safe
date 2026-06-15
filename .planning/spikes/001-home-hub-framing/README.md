@@ -3,7 +3,8 @@ spike: 001
 name: home-hub-framing
 type: comparison
 validates: "Given a cold visitor, when they want to reach their comuna's data, then the path is ≤2 clicks and the site feels organized, not scattered"
-verdict: PENDING
+verdict: VALIDATED
+decision: "Hybrid C+B — editorial/SEO-led above the fold, prominent 'busca tu comuna' search hero, map as first-class CTA (approved 2026-06-15)"
 related: [002, 003]
 tags: [ia, navigation, home, product-framing, seo]
 ---
@@ -40,4 +41,4 @@ Open `index.html` — a comparator with tabs **A / B / C** and a desktop / 375px
 - Likely answer is a **hybrid**: C's SEO-led above-the-fold + B's prominent comuna search as the hero input + A's map as a strong secondary CTA. The variants exist to let the user feel which *emphasis* wins.
 
 ## Results
-**Verdict: PENDING — needs the user's eye.** This is a feel/judgment comparison, not a fact. All three are functional with real data. Recommendation to carry forward: **C-with-B's-search-hero** (SEO headline + lead rankings, but the single most prominent interactive element is "busca tu comuna", and the map is a first-class CTA). Final pick is the human checkpoint below.
+**Verdict: VALIDATED — decision: Hybrid C+B (approved 2026-06-15).** The chosen home framing is editorial/SEO-led above the fold (headline + lead "más seguras / mayor incidencia" rankings + guide cards) with the single most prominent interactive element being a **"busca tu comuna" search hero**, and the **national map as a first-class CTA**. This satisfies the SEO core value (C), kills the findability/"material perdido" feeling (B's search + the 002 directory), and keeps the signature map prominent (A) — without making any one of them the sole entry point. Carries into the v1.2 home/IA phase.

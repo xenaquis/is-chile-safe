@@ -2,7 +2,8 @@
  * map.mjs — Validator for map integration: TopoJSON budget + map pages + zero-React regression guard.
  *
  * Assertions:
- *   1. TopoJSON budget — data/cead/geo/communes.topo.json exists and size < 102400 bytes.
+ *   1. TopoJSON budget — data/cead/geo/communes.topo.json exists within the dual budget
+ *      (raw < 430080 bytes AND gzip <= 143360 bytes; Phase 10).
  *      (Runs even without dist/ — committed asset assertion.)
  *   2. [dist/ required] dist/map/index.html and dist/es/mapa/index.html exist.
  *   3. [dist/ required] Each map page contains an astro-island element or MapIsland reference.

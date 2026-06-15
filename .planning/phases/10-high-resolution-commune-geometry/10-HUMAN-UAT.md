@@ -1,7 +1,7 @@
 # Phase 10: High-Resolution Commune Geometry — Human UAT Gate
 
 **Plan:** 10-03 (Attribution + Visual/Perf Verification)
-**Status:** PENDING HUMAN SIGN-OFF
+**Status:** ✅ APPROVED (human sign-off 2026-06-15)
 **Gates:** 2 (visual recognizability + throttled-mobile perf)
 **Requirements closed:** GEO-01 Success Criterion 2 (visual) + GEO-02 Success Criterion 3–4 (perf + console)
 
@@ -139,9 +139,9 @@ After completing both gates, record the result here and resume the plan:
 
 | Gate | Status | Tester | Date | Notes |
 |------|--------|--------|------|-------|
-| Gate 1 — Visual Recognizability | [ ] PASS / [ ] FAIL | | | |
-| Gate 2 — Throttled-Mobile Perf | [ ] PASS / [ ] FAIL | | | |
-| Regression checks | [ ] PASS / [ ] FAIL | | | |
+| Gate 1 — Visual Recognizability | ✅ PASS | xenaquis | 2026-06-15 | Approved after local review on dev server (:4324) |
+| Gate 2 — Throttled-Mobile Perf | ✅ PASS | xenaquis | 2026-06-15 | Approved; no perf/console issues reported |
+| Regression checks | ✅ PASS | xenaquis | 2026-06-15 | Choropleth + attribution + nav confirmed |
 
 **Resume signal:** Reply "approved" if all gates pass, or describe any visual/perf/console
 issues found so they can be investigated and resolved before closing Phase 10.

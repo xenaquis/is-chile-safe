@@ -35,7 +35,7 @@ Audit: **[milestones/v1.0-MILESTONE-AUDIT.md](milestones/v1.0-MILESTONE-AUDIT.md
 
 _Surfaced by the Phase-9 live review (2026-06-15). Sequenced: geometry → homicide data exposure → crime-type SEO rankings (12 depends on 11)._
 
-- [ ] **Phase 10: High-Resolution Commune Geometry** — Replace the 88KB heavily-simplified `communes.topo.json` with real commune boundaries so polygons read as actual comuna shapes for visual comparison; balance fidelity vs file size/Leaflet-canvas performance. [GEO-01, GEO-02]
+- [x] **Phase 10: High-Resolution Commune Geometry** — Replace the 88KB heavily-simplified `communes.topo.json` with real commune boundaries so polygons read as actual comuna shapes for visual comparison; balance fidelity vs file size/Leaflet-canvas performance. (completed 2026-06-15; chilemapas GPL-3 source, 345KB raw / 85.6KB gzip, 346/0/0/0 join) [GEO-01, GEO-02]
 - [ ] **Phase 11: Homicide as a First-Class Category** — Expose the existing per-commune `homicidios` data as its own map filter/layer + commune-panel breakdown (currently folded inside "vida"/Life crimes). [HOM-01, HOM-02]
 - [ ] **Phase 12: Crime-Type SEO Ranking Pages** — Programmatic bilingual "las N comunas con más {delito}" ranking pages (homicide first), with correct internal linking, hreflang, and sitemap entries. Depends on Phase 11. [SEO-01, SEO-02]
 
@@ -173,7 +173,7 @@ Plans:
 | 7. E2E Review Pass | v1.1 | 5/5 | Complete    | 2026-06-14 |
 | 8. Bug Fixes & Data Correctness | v1.1 | 5/5 | Complete    | 2026-06-15 |
 | 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
-| 10. High-Resolution Commune Geometry | v1.2 | 2/3 | In Progress|  |
+| 10. High-Resolution Commune Geometry | v1.2 | 3/3 | Complete   | 2026-06-15 |
 | 11. Homicide as a First-Class Category | v1.2 | 0/0 | Planned    |  |
 | 12. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Planned    |  |
 

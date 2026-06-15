@@ -92,8 +92,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | READ-03 | Phase 9 | Complete |
 | A11Y-01 | Phase 9 | Complete |
 | A11Y-02 | Phase 9 | Complete |
-| GEO-01 | Phase 10 | Planned |
-| GEO-02 | Phase 10 | Planned |
+| GEO-01 | Phase 10 | Complete |
+| GEO-02 | Phase 10 | Complete |
 
 **Coverage:**
 

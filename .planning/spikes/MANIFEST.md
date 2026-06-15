@@ -10,13 +10,13 @@ Design decisions emerging from this spike session (non-negotiable for the real b
 - **A comuna directory/finder must exist** (Spike 002) — search-first, accent-insensitive, with A–Z and by-region views; includes low-population comunas (they get a page, just not a ranking slot).
 - **Comuna pages are hubs, not dead-ends** (Spike 003) — each cross-links to map / regional ranking / similar comunas / crime-type rankings / its geolocated news.
 - **News↔comuna linking** — incidents link both to the source article AND back to the comuna ficha; depends on geolocation accuracy (see news/model decision — fix name→CUT before shipping real incidents).
-- Home framing — PENDING user pick (Spike 001); leading candidate is editorial/SEO-led with a prominent comuna-search hero + map as a first-class CTA.
+- **Home framing = Hybrid C+B** (Spike 001, approved 2026-06-15): editorial/SEO-led above the fold, a prominent "busca tu comuna" search hero, and the national map as a first-class CTA — no single sole entry point.
 
 ## Spikes
 
 | # | Name | Type | Validates | Verdict | Tags |
 |---|------|------|-----------|---------|------|
-| 001 | home-hub-framing | comparison | Cold visitor reaches their comuna in ≤2 clicks; site feels organized | ⚠ PENDING (human pick A/B/C) | ia, navigation, home, seo |
+| 001 | home-hub-framing | comparison | Cold visitor reaches their comuna in ≤2 clicks; site feels organized | ✓ VALIDATED → **Hybrid C+B** | ia, navigation, home, seo |
 | 002 | comuna-finder | standard | Any of 346 comunas reachable in ≤2 interactions; none "lost" | ✓ VALIDATED | ia, directory, search, findability |
 | 003 | comuna-page-spokes | standard | Ficha cross-links coherently to map/ranking/similar/news | ✓ VALIDATED | ia, cross-linking, hub-and-spoke, news |
 
