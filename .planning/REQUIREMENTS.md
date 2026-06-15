@@ -53,7 +53,7 @@ Milestone **v1.2 Map Fidelity & Crime-Type SEO** — surfaced by the Phase-9 liv
 ### Findability — Comunas (COMU) — Phase 11
 
 - [x] **COMU-01**: Se publica página propia para las 346 comunas con datos CEAD (EN `/commune/[slug]`, ES `/es/comuna/[slug]`); clic en cualquier polígono del mapa o fila de ranking llega a una página real (0 dead-links/404); el sitemap incluye todas las URLs de comuna en ambos locales.
-- [ ] **COMU-02**: Existe un directorio de comunas buscable (búsqueda sin acentos + vistas A–Z y por región/16), enlazado desde nav y home; cualquier comuna alcanzable en ≤2 interacciones; incluye comunas de baja población (tienen página aunque no entren en rankings).
+- [x] **COMU-02**: Existe un directorio de comunas buscable (búsqueda sin acentos + vistas A–Z y por región/16), enlazado desde nav y home; cualquier comuna alcanzable en ≤2 interacciones; incluye comunas de baja población (tienen página aunque no entren en rankings).
 - [x] **COMU-03**: Las tablas de ranking de región y de delito enlazan TODAS las comunas (sin "Showing N of M — more coming soon"); thin-content mitigado (cada ficha con datos/prosa únicos + title/meta/canonical/hreflang propios); un validador asegura conteo de páginas ≈346×2 y cero enlaces internos a slugs de comuna no generados.
 
 ### Arquitectura de Información (IA) — Phase 12
@@ -129,7 +129,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GEO-01 | Phase 10 | Complete |
 | GEO-02 | Phase 10 | Complete |
 | COMU-01 | Phase 11 | Complete |
-| COMU-02 | Phase 11 | Pending |
+| COMU-02 | Phase 11 | Complete |
 | COMU-03 | Phase 11 | Complete |
 | IA-01 | Phase 12 | Pending |
 | IA-02 | Phase 12 | Pending |

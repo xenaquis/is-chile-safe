@@ -187,7 +187,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 — comuna pages must exist to link)*
 
-- [ ] 11-03-PLAN.md — Comuna directory (EN /communes/ + ES /es/comunas/): SSR full 346-link list (A–Z + by-region) + vanilla filter/toggle + nav + home links + i18n strings [COMU-02]
+- [x] 11-03-PLAN.md — Comuna directory (EN /communes/ + ES /es/comunas/): SSR full 346-link list (A–Z + by-region) + vanilla filter/toggle + nav + home links + i18n strings [COMU-02]
 
 **Wave 3** *(blocked on Waves 0–2 — verifies the full phase)*
 
@@ -260,7 +260,7 @@ Plans:
 | 8. Bug Fixes & Data Correctness | v1.1 | 5/5 | Complete    | 2026-06-15 |
 | 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
 | 10. High-Resolution Commune Geometry | v1.2 | 3/3 | Complete   | 2026-06-15 |
-| 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 2/4 | In Progress|  |
+| 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 3/4 | In Progress|  |
 | 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 0/0 | Pending    |  |
 | 13. Ranking SEO Hardening | v1.2 | 0/0 | Pending    |  |
 | 14. Homicide as a First-Class Category | v1.2 | 0/0 | Pending    |  |
