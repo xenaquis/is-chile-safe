@@ -12,7 +12,19 @@
  *
  * Bar fill = var(--s{level}); bar-width is a CSS % string (never a bare number).
  * Featured families (vida, propiedad) get --primary accent dot before label.
+ *
+ * Per-family tooltip (D-02): each row shows a RateTooltip with the family's
+ * self-contained definition from familyDefs.ts. No cross-plan glossary anchor.
  */
+
+import { RateTooltip } from './RateTooltipReact';
+import {
+  FAMILY_ORDER,
+  FAMILY_LABELS_EN,
+  FAMILY_LABELS_ES,
+  FAMILY_DEFS_EN,
+  FAMILY_DEFS_ES,
+} from '../../lib/familyDefs';
 
 // Catalog family_keys → index (catalog.json):
 // 0=vida, 1=robos_violentos, 2=vif, 3=drogas, 4=armas, 5=propiedad, 6=incivilidades
@@ -26,29 +38,7 @@ const CATALOG_INDEX_TO_KEY: string[] = [
   'incivilidades',  // 6
 ];
 
-// Display order per UI-SPEC (vida + propiedad featured first)
-const FAMILY_ORDER = [
-  'vida',
-  'propiedad',
-  'robos_violentos',
-  'incivilidades',
-  'vif',
-  'drogas',
-  'armas',
-] as const;
-
 const FEATURED = new Set(['vida', 'propiedad']);
-
-// Family labels per locale — mirrors FamilyBreakdownBars.astro
-const FAMILY_LABELS: Record<string, { en: string; es: string }> = {
-  vida:            { en: 'Life crimes',       es: 'Delitos contra la vida' },
-  propiedad:       { en: 'Property crimes',   es: 'Delitos contra la propiedad' },
-  robos_violentos: { en: 'Violent robbery',   es: 'Robos violentos' },
-  incivilidades:   { en: 'Disorder',          es: 'Incivilidades' },
-  vif:             { en: 'Domestic violence', es: 'Violencia intrafamiliar' },
-  drogas:          { en: 'Drug crimes',       es: 'Drogas' },
-  armas:           { en: 'Weapons',           es: 'Armas' },
-};
 
 interface Props {
   byFamily: number[]; // 7-element catalog-indexed array
@@ -70,20 +60,22 @@ export function PanelFamilyBars({ byFamily, locale, level }: Props) {
   const rows = FAMILY_ORDER.map((key, i) => {
     const val = vals[i] ?? 0;
     const widthPct = Math.round((val / max) * 100) + '%';
-    const label = FAMILY_LABELS[key]?.[locale] ?? key;
+    const label = (locale === 'es' ? FAMILY_LABELS_ES[key] : FAMILY_LABELS_EN[key]) ?? key;
+    const tip = (locale === 'es' ? FAMILY_DEFS_ES[key] : FAMILY_DEFS_EN[key]) ?? '';
     const featured = FEATURED.has(key);
-    return { key, val, widthPct, label, featured };
+    return { key, val, widthPct, label, tip, featured };
   });
 
   return (
     <div className="family-bars">
-      {rows.map(({ key, val, widthPct, label, featured }) => (
+      {rows.map(({ key, val, widthPct, label, tip, featured }) => (
         <div className="family-bar-row" key={key}>
           <span className={`family-bar-label${featured ? ' featured' : ''}`}>
             {featured && (
               <span className="accent-dot" aria-hidden="true" />
             )}
             {label}
+            <RateTooltip lang={locale} label={label} tip={tip} />
           </span>
           <span className="family-bar-track" aria-hidden="true">
             <span
