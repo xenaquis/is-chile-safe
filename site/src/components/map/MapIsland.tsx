@@ -35,6 +35,7 @@ import {
 import { locate } from './UserLocationMarker';
 import { fetchAndMountIncidents } from './IncidentPinLayer';
 import { Legend } from './Legend';
+import { computeQuantileBreaks } from './colors';
 import { ZoomControl } from './ZoomControl';
 import { MapTopbar } from './MapTopbar';
 import { ResultPanel } from './ResultPanel';
@@ -98,6 +99,7 @@ export default function MapIsland({ lang }: Props) {
   const [toast, setToast] = useState<string | null>(null);
   const [communeIndex, setCommuneIndex] = useState<CommuneIndexEntry[]>([]);
   const [mapReady, setMapReady] = useState(false);
+  const [breaks, setBreaks] = useState<number[] | undefined>(undefined);
 
   // ---------------------------------------------------------------------------
   // Map init effect (runs once on mount)
@@ -180,6 +182,11 @@ export default function MapIsland({ lang }: Props) {
       featuresRef.current = geoData.features;
       payloadRef.current = payload.comunas;
 
+      // Compute quantile breaks for the legend numeric bands (D-03)
+      setBreaks(computeQuantileBreaks(
+        payload.comunas.map((c) => c.rate).filter((r) => r > 0), 5
+      ));
+
       // Build memoized style map from precomputed levels (D-11)
       styleMapRef.current = buildStyleMapFromLevel(payload.comunas);
 
@@ -235,6 +242,11 @@ export default function MapIsland({ lang }: Props) {
 
       // Update stored payload for family recolor
       payloadRef.current = payload.comunas;
+
+      // Recompute legend breaks for the new year's rate distribution (D-03)
+      setBreaks(computeQuantileBreaks(
+        payload.comunas.map((c) => c.rate).filter((r) => r > 0), 5
+      ));
 
       // Rebuild style map based on current crime family filter
       if (crimeFamilyIndex !== null) {
@@ -407,7 +419,7 @@ export default function MapIsland({ lang }: Props) {
       />
 
       {/* Legend (bottom-left) */}
-      <Legend lang={lang} />
+      <Legend lang={lang} breaks={breaks} />
 
       {/* Zoom control (desktop only, hidden via CSS on mobile) */}
       <ZoomControl mapRef={mapRef} />
