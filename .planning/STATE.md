@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Polish & QA
-status: executing
-last_updated: "2026-06-15T17:07:24.099Z"
+status: complete
+last_updated: "2026-06-15T17:33:43.314Z"
 last_activity: 2026-06-15
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 15
-  completed_plans: 14
-  percent: 67
+  completed_plans: 15
+  percent: 100
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -21,16 +21,18 @@ _Last updated: 2026-06-13 — v1.1 roadmap created (Phases 7–9); ready to plan
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: v1.1 Polish & QA — roadmap defined, starting Phase 7 (E2E Review Pass).
+**Current focus**: v1.1 Polish & QA — COMPLETE (Phases 7–9). Next milestone v1.2 "Map Fidelity & Crime-Type SEO" (Phases 10–12) planned from Phase-9 review feedback; ready to plan Phase 10.
 
 ## Current Position
 
-Phase: 09 (ux-readability-accessibility-polish) — EXECUTING
-Plan: 5 of 5
-Status: Ready to execute
+Phase: 09 (ux-readability-accessibility-polish) — COMPLETE
+Plan: 5 of 5 (all complete)
+Status: Phase 9 verified + gap-closure applied (incivilidades chip tooltips, /es/mapa nav fix). v1.1 milestone complete.
 Last activity: 2026-06-15
 
-Progress: ░░░░░░░░░░ 0% (0/3 phases complete)
+Progress: ██████████ 100% (3/3 phases complete — v1.1)
+
+Next: v1.2 Phase 10 (High-Resolution Commune Geometry) → Phase 11 (Homicide category) → Phase 12 (Crime-Type SEO rankings).
 
 ## Deferred Items
 

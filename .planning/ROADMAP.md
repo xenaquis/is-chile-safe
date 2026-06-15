@@ -5,7 +5,8 @@ _Last updated: 2026-06-13 after v1.1 milestone roadmap_
 ## Milestones
 
 - ✅ **v1.0 MVP** — Phases 1–6 (shipped 2026-06-13) — full detail: [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
-- 🔄 **v1.1 Polish & QA** — Phases 7–9 (in progress)
+- ✅ **v1.1 Polish & QA** — Phases 7–9 (completed 2026-06-15)
+- 🔄 **v1.2 Map Fidelity & Crime-Type SEO** — Phases 10–12 (planned; from Phase-9 review feedback)
 
 ## Phases
 
@@ -28,7 +29,15 @@ Audit: **[milestones/v1.0-MILESTONE-AUDIT.md](milestones/v1.0-MILESTONE-AUDIT.md
 
 - [x] **Phase 7: E2E Review Pass** — Walk every page in the inventory (ES/EN) with BrowserOS MCP, sample programmatic pages, exercise map interactions, check mobile, produce REVIEW-E2E-FINDINGS.md (completed 2026-06-14)
 - [x] **Phase 8: Bug Fixes & Data Correctness** — Resolve all Critical findings + fix console errors, broken links, data calculation bugs, and AdSlot CLS issues (completed 2026-06-15)
-- [ ] **Phase 9: UX / Readability / Accessibility Polish** — Apply UX, readability, editorial-tone, and a11y corrections surfaced by the review
+- [x] **Phase 9: UX / Readability / Accessibility Polish** — Apply UX, readability, editorial-tone, and a11y corrections surfaced by the review (completed 2026-06-15; review-feedback gap-closure for term clarity + internal links, larger items routed to v1.2)
+
+### v1.2 Map Fidelity & Crime-Type SEO
+
+_Surfaced by the Phase-9 live review (2026-06-15). Sequenced: geometry → homicide data exposure → crime-type SEO rankings (12 depends on 11)._
+
+- [ ] **Phase 10: High-Resolution Commune Geometry** — Replace the 88KB heavily-simplified `communes.topo.json` with real commune boundaries so polygons read as actual comuna shapes for visual comparison; balance fidelity vs file size/Leaflet-canvas performance. [GEO-01, GEO-02]
+- [ ] **Phase 11: Homicide as a First-Class Category** — Expose the existing per-commune `homicidios` data as its own map filter/layer + commune-panel breakdown (currently folded inside "vida"/Life crimes). [HOM-01, HOM-02]
+- [ ] **Phase 12: Crime-Type SEO Ranking Pages** — Programmatic bilingual "las N comunas con más {delito}" ranking pages (homicide first), with correct internal linking, hreflang, and sitemap entries. Depends on Phase 11. [SEO-01, SEO-02]
 
 ## Phase Details
 
@@ -120,7 +129,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 — verifies its output)*
 
-- [ ] 09-05-PLAN.md — Verification + closeout: build, route emission, tone/meta grep, human a11y/browser checkpoint [A11Y-01, A11Y-02, READ-03, UX-01]
+- [x] 09-05-PLAN.md — Verification + closeout: build, route emission, tone/meta grep, human a11y/browser checkpoint [A11Y-01, A11Y-02, READ-03, UX-01]
 
 **UI hint**: yes
 
@@ -136,7 +145,10 @@ Plans:
 | 6. CI/CD + Cloudflare Deployment | v1.0 | 3/3 | Complete | 2026-06-13 |
 | 7. E2E Review Pass | v1.1 | 5/5 | Complete    | 2026-06-14 |
 | 8. Bug Fixes & Data Correctness | v1.1 | 5/5 | Complete    | 2026-06-15 |
-| 9. UX / Readability / A11Y Polish | v1.1 | 4/5 | In Progress|  |
+| 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
+| 10. High-Resolution Commune Geometry | v1.2 | 0/0 | Planned    |  |
+| 11. Homicide as a First-Class Category | v1.2 | 0/0 | Planned    |  |
+| 12. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Planned    |  |
 
 ## Open Human Go-Live Gates (launch checklist — not v1.1 scope)
 
