@@ -13,6 +13,9 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MapIsland from '../components/map/MapIsland';
+import { loadNationalAverage } from '../lib/data.ts';
+
+const nationalAvg = loadNationalAverage();
 ---
 
 <BaseLayout
@@ -34,5 +37,5 @@ import MapIsland from '../components/map/MapIsland';
   />
 
   {/* Map island — client:only prevents SSR; Leaflet CSS loads only here */}
-  <MapIsland client:only="react" lang="en" />
+  <MapIsland client:only="react" lang="en" nationalAvg={nationalAvg} />
 </BaseLayout>

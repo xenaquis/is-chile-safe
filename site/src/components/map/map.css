@@ -735,3 +735,82 @@
   white-space: nowrap;
   pointer-events: none;
 }
+
+/* ─── Comparison bar (D-04) ──────────────────────────────────────────────── */
+.comparison-block {
+  margin-top: 10px;
+}
+
+.comparison-bar-wrapper {
+  margin-bottom: 4px;
+}
+
+.comparison-bar-track {
+  position: relative;
+  height: 8px;
+  background: var(--card-border, #e5e7eb);
+  border-radius: 4px;
+  overflow: visible;
+}
+
+.comparison-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  min-width: 4px;
+}
+
+/* Average marker at 33.3% (= 1× national average position) */
+.comparison-bar-avg-marker {
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 14px;
+  background: var(--ink, #1a1a1a);
+  border-radius: 1px;
+  transform: translateX(-50%);
+}
+
+.comparison-bar-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ─── Legend band rows (D-03) ────────────────────────────────────────────── */
+.legend-bands {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 6px 0;
+}
+
+.legend-band-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-band-row .legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.legend-band-label {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.legend-qual-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.legend-range {
+  font-size: 10px;
+  color: var(--muted);
+}

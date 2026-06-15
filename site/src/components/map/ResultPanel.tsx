@@ -17,6 +17,8 @@ import { useEffect, useState } from 'react';
 import { PanelSparkline } from './PanelSparkline';
 import { PanelFamilyBars } from './PanelFamilyBars';
 import { IncidentsList, type Incident } from './IncidentsList';
+import { RateTooltip } from './RateTooltipReact';
+import { EN_STRINGS, ES_STRINGS } from '../../config/i18n';
 
 // Catalog family_keys order (catalog.json):
 // 0=vida, 1=robos_violentos, 2=vif, 3=drogas, 4=armas, 5=propiedad, 6=incivilidades
@@ -66,6 +68,7 @@ interface Props {
   cut: string;
   lang: 'en' | 'es';
   year: number;
+  nationalAvg: number;
   onClose: () => void;
 }
 
@@ -95,7 +98,7 @@ const REGION_NAMES: Record<string, { es: string; en: string }> = {
   '56': { es: 'Región de Valparaíso',         en: 'Valparaíso Region' },
 };
 
-export function ResultPanel({ cut, lang, year, onClose }: Props) {
+export function ResultPanel({ cut, lang, year, nationalAvg, onClose }: Props) {
   const [data, setData] = useState<CommuneData | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState(false);
@@ -230,13 +233,40 @@ export function ResultPanel({ cut, lang, year, onClose }: Props) {
       </div>
 
       {/* 3. Stat card: rate */}
-      <div className="stat-card">
+      <div className="stat-card" style={{ overflow: 'visible' }}>
         <div className="stat-big">~{displayRate}</div>
-        <div className="stat-unit">
+        <div className="stat-unit" style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap' }}>
           {lang === 'es'
             ? `Tasa por 100.000 hab. (${year})`
             : `Rate per 100,000 inhab. (${year})`}
+          <RateTooltip
+            lang={lang}
+            label={lang === 'es' ? ES_STRINGS.rate_tooltip_title : EN_STRINGS.rate_tooltip_title}
+            tip={lang === 'es' ? ES_STRINGS.rate_tooltip_body : EN_STRINGS.rate_tooltip_body}
+          />
         </div>
+        {/* Multiplier vs national average (D-04) */}
+        {rate !== null && nationalAvg > 0 && (() => {
+          const multiplierNum = rate / nationalAvg;
+          const multiplierStr = multiplierNum.toLocaleString(lang === 'es' ? 'es-CL' : 'en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+          const compTemplate = lang === 'es' ? ES_STRINGS.comparison_national : EN_STRINGS.comparison_national;
+          const compLabel = compTemplate.replace('{multiplier}', multiplierStr);
+          const barWidth = `${Math.min((rate / (nationalAvg * 3)), 1) * 100}%`;
+          return (
+            <div className="comparison-block">
+              <div className="comparison-bar-wrapper" aria-hidden="true">
+                <div className="comparison-bar-track">
+                  <div
+                    className="comparison-bar-fill"
+                    style={{ width: barWidth, background: `var(--s${level})` }}
+                  />
+                  <div className="comparison-bar-avg-marker" style={{ left: '33.3%' }} />
+                </div>
+              </div>
+              <div className="comparison-bar-label">{compLabel}</div>
+            </div>
+          );
+        })()}
       </div>
 
       {/* 4. Mini-stats row: trend + national rank */}

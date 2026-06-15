@@ -54,6 +54,7 @@ interface MapPayload {
 
 interface Props {
   lang: 'en' | 'es';
+  nationalAvg?: number;
 }
 
 // ---------------------------------------------------------------------------
@@ -72,7 +73,7 @@ async function safeFetch<T>(url: string): Promise<T | null> {
 // ---------------------------------------------------------------------------
 // MapIsland
 // ---------------------------------------------------------------------------
-export default function MapIsland({ lang }: Props) {
+export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
   // --- Refs ---
   const divRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
@@ -430,6 +431,7 @@ export default function MapIsland({ lang }: Props) {
           cut={selected}
           lang={lang}
           year={year}
+          nationalAvg={nationalAvg}
           onClose={() => {
             if (layerRef.current) {
               const prev = polyIdxRef.current.get(selected);
