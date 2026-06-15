@@ -23,6 +23,8 @@ const homeHref = getRelativeLocaleUrl(locale, '/');
 // broken /es/map/. Map the slug per-locale, matching methodHref below.
 const mapHref  = locale === 'en' ? '/map/' : '/es/mapa/';
 const methodHref = locale === 'en' ? '/methodology/' : '/es/metodologia/';
+// Hardcoded per-locale — getRelativeLocaleUrl does NOT translate ES slugs (Pitfall 3)
+const communesHref = locale === 'en' ? '/communes/' : '/es/comunas/';
 
 // Lang toggle: link to the alternate locale's equivalent path
 const altHref = locale === 'en' ? esPath : enPath;
@@ -51,6 +53,7 @@ const altHref = locale === 'en' ? esPath : enPath;
   <nav class="csm-nav" aria-label="Main navigation">
     <a href={homeHref} class="nav-link">{t.nav_home}</a>
     <a href={mapHref}  class="nav-link">{t.nav_map}</a>
+    <a href={communesHref} class="nav-link">{t.nav_communes}</a>
     <a href={methodHref} class="nav-link">{t.nav_methodology}</a>
   </nav>
 
