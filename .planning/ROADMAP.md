@@ -1,11 +1,11 @@
 # Roadmap — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-13 after v1.1 milestone roadmap_
+_Last updated: 2026-06-15 — v1.1 Polish & QA shipped (Phases 7–9 archived); v1.2 active_
 
 ## Milestones
 
 - ✅ **v1.0 MVP** — Phases 1–6 (shipped 2026-06-13) — full detail: [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
-- ✅ **v1.1 Polish & QA** — Phases 7–9 (completed 2026-06-15)
+- ✅ **v1.1 Polish & QA** — Phases 7–9 (shipped 2026-06-15) — full detail: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
 - 🔄 **v1.2 Map Fidelity, Findability & News** — Phases 10–16 (Phase 10 shipped 2026-06-15; re-scoped 2026-06-15 from live audit + IA spike)
 
 ## Phases
@@ -25,11 +25,19 @@ Audit: **[milestones/v1.0-MILESTONE-AUDIT.md](milestones/v1.0-MILESTONE-AUDIT.md
 
 </details>
 
-### v1.1 Polish & QA
+<details>
+<summary>✅ v1.1 Polish & QA (Phases 7–9) — SHIPPED 2026-06-15</summary>
 
-- [x] **Phase 7: E2E Review Pass** — Walk every page in the inventory (ES/EN) with BrowserOS MCP, sample programmatic pages, exercise map interactions, check mobile, produce REVIEW-E2E-FINDINGS.md (completed 2026-06-14)
-- [x] **Phase 8: Bug Fixes & Data Correctness** — Resolve all Critical findings + fix console errors, broken links, data calculation bugs, and AdSlot CLS issues (completed 2026-06-15)
-- [x] **Phase 9: UX / Readability / Accessibility Polish** — Apply UX, readability, editorial-tone, and a11y corrections surfaced by the review (completed 2026-06-15; review-feedback gap-closure for term clarity + internal links, larger items routed to v1.2)
+- [x] Phase 7: E2E Review Pass (5/5 plans) — completed 2026-06-14
+- [x] Phase 8: Bug Fixes & Data Correctness (5/5 plans) — completed 2026-06-15
+- [x] Phase 9: UX / Readability / Accessibility Polish (5/5 plans) — completed 2026-06-15
+
+Audit-flagged partials F-006 (ES region grammar) + WR-03 (hamburger keyboard) closed at milestone close (commit d9593a3); 09-VERIFICATION.md produced; 10/10 validators pass.
+
+Full phase details, success criteria, and per-plan breakdown: **[milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)**
+Audit: **[milestones/v1.1-MILESTONE-AUDIT.md](milestones/v1.1-MILESTONE-AUDIT.md)**
+
+</details>
 
 ### v1.2 Map Fidelity, Findability & News
 
@@ -44,98 +52,6 @@ _Surfaced by the Phase-9 live review and re-scoped 2026-06-15 after a live Brows
 - [ ] **Phase 16: News Activation + Geolocation Redesign + Model A/B** — Redesign news geolocation (LLM emits the comuna NAME → deterministic name→CUT lookup, not a raw CUT guess), build a labelled golden set + scoring to A/B DeepSeek vs MiniMax (env-configurable provider), run the pipeline for real, link incidents to source ↗ AND to their comuna page, and add a dedicated news page. Depends on Phase 11. [NEWS-01, NEWS-02, NEWS-03, NEWS-04]
 
 ## Phase Details
-
-### Phase 7: E2E Review Pass
-
-**Goal**: Every page category in the site has been seen in a real browser (ES and EN), representative programmatic pages sampled, map interactions exercised, mobile viewport checked, and all findings are recorded in a single prioritised document.
-**Depends on**: Nothing (first v1.1 phase); dev server running (`cd site && npm run dev`); BrowserOS MCP connected (port 9200).
-**Requirements**: REVIEW-01, REVIEW-02, REVIEW-03, REVIEW-04, REVIEW-05
-**Success Criteria** (what must be TRUE):
-
-  1. All 12 EN editorial pages, 12 ES editorial pages, /map/ + /es/mapa/, and the legal pages (4 URLs: terms + privacy, each locale — verified count) have been navigated, screenshotted, and console-checked. (07-RESEARCH.md verified 12+12 editorial and 4 legal URLs, not the 10+10/8 anticipated in REQUIREMENTS.md; the missing-legal-pages gap is logged as a Polish finding, not a blocker.)
-  2. A declared sample of programmatic pages (≥3 communes at high/mid/low population, ≥2 regions, ≥2 crime types, both locales) has been reviewed against the page template.
-  3. Map dynamic interactions verified in browser: year filter, crime-type filter, commune panel (rate/trend/ranking/sparkline/families), search, geolocation, and incident layer in empty state — all without unhandled errors.
-  4. Mobile viewport (~375px) checked on money pages and map: no horizontal overflow, map usable, touch targets visually adequate.
-  5. `.planning/REVIEW-E2E-FINDINGS.md` exists with every finding tagged Critical / Warning / Polish, the affected page identified, a screenshot reference, and a concrete recommendation.
-
-**Plans**: 5 plans
-Plans:
-**Wave 1**
-
-- [x] 07-01-PLAN.md — Pre-flight (dev server port + BrowserOS tools) + editorial/map/legal inventory walk [REVIEW-01]
-
-**Wave 2** *(blocked on Wave 1 completion)*
-
-- [x] 07-02-PLAN.md — Programmatic page sampling vs template (communes/regions/crime, both locales) [REVIEW-02]
-
-**Wave 3** *(blocked on Wave 2 completion)*
-
-- [x] 07-03-PLAN.md — Map dynamic interactions on /map/ (filters/panel/search/geo/incident empty state) [REVIEW-03]
-
-**Wave 4** *(blocked on Wave 3 completion)*
-
-- [x] 07-04-PLAN.md — Mobile viewport (375×812) money pages + map, overflow + usability check [REVIEW-04]
-
-**Wave 5** *(blocked on Wave 4 completion)*
-
-- [x] 07-05-PLAN.md — Consolidate REVIEW-E2E-FINDINGS.md (severity/page/screenshot/recommendation) [REVIEW-05]
-
-### Phase 8: Bug Fixes & Data Correctness
-
-**Goal**: All Critical findings from the review are corrected and re-verified; console is clean on money pages; data calculations are accurate; AdSlot does not cause layout shift.
-**Depends on**: Phase 7 (REVIEW-E2E-FINDINGS.md must exist)
-**Requirements**: BUGFIX-01, BUGFIX-02, BUGFIX-03, BUGFIX-04, BUGFIX-05
-**Success Criteria** (what must be TRUE):
-
-  1. Zero browser console errors on all money pages (10 EN editorial + /map/) after fixes; any remaining warnings are triaged with written justification.
-  2. All internal links (header, footer, cross-links, language switcher) resolve without 404; hreflang reciprocal pairs are correct (canonical self-references intentional and documented).
-  3. Rates on commune/region/country pages use `loadNationalAverage` (not a summation); ranking is by rate per 100k; spot-checked figures match `data/cead/` source JSON.
-  4. AdSlot containers reserve explicit height so no CLS occurs; with `ADSENSE_ENABLED=false`, no `adsbygoogle` element is visible in the DOM.
-  5. Every finding marked Critical in REVIEW-E2E-FINDINGS.md is either resolved (with re-verification note) or explicitly escalated with justification; Warning findings are resolved or carry a written deferral reason.
-
-**Plans**: 5 plans
-Plans:
-**Wave 1** *(disjoint files — run in parallel)*
-
-- [x] 08-01-PLAN.md — F-005 rollout-row gating across the 4 ranking templates (region EN/ES, crime EN/ES) [BUGFIX-02]
-- [x] 08-02-PLAN.md — i18n + a11y string fixes: F-001 ES H1 "Comuna" + F-007 ResultPanel close aria-label locale-aware [BUGFIX-05]
-- [x] 08-03-PLAN.md — F-009 zero-JS mobile hamburger nav in PageHeader (+ nav_menu_open i18n string) [BUGFIX-05]
-- [x] 08-04-PLAN.md — BUGFIX-04 AdSlot blank reserved-height placeholder (remove dashed border, keep gate + zero adsbygoogle) [BUGFIX-04]
-
-**Wave 2** *(blocked on Wave 1 — verifies its output)*
-
-- [x] 08-05-PLAN.md — Verification + closeout: console re-check, rate spot-check vs data/cead/, BUGFIX-05 finding ledger [BUGFIX-01, BUGFIX-03, BUGFIX-05]
-
-### Phase 9: UX / Readability / Accessibility Polish
-
-**Goal**: Money pages are easy to scan and pleasant to read in both languages; editorial tone is sober throughout; key a11y and SEO meta signals are present in sampled pages.
-**Depends on**: Phase 7 (findings available); can run in parallel with Phase 8 for non-overlapping files.
-**Requirements**: UX-01, UX-02, READ-01, READ-02, READ-03, A11Y-01, A11Y-02
-**Success Criteria** (what must be TRUE):
-
-  1. Every money page has exactly one H1; H2/H3 hierarchy is scannable; a new reader can understand the page purpose within ~5 seconds (verified by re-reading in browser after changes).
-  2. DataCallout/StatCard components each communicate one clear idea with its source (CEAD + year cited); callout-to-prose redundancy identified in the review has been removed or consolidated.
-  3. Editorial prose columns respect ~720px max width with paragraph rhythm; no wall-of-text sections remain on editorial pages.
-  4. Each EN editorial page has a Spanish counterpart with equivalent content, structure, and tone; no sections are missing in either locale; absolute "peligroso/seguro" phrasing is absent site-wide.
-  5. In sampled pages: colour contrast meets WCAG AA for the teal `#0f766e` palette, focus states are visible, images/icons have alt text, map controls have aria labels, `<title>` / meta-description / canonical / hreflang / JSON-LD (FAQPage where applicable) are present and valid.
-
-**Plans**: 5 plans
-Plans:
-**Wave 1**
-
-- [x] 09-01-PLAN.md — Foundation: hoist familyDefs, i18n strings, dual-surface RateTooltip, focus + prose CSS [UX-02, A11Y-01, READ-01]
-
-**Wave 2** *(disjoint files — run in parallel)*
-
-- [x] 09-02-PLAN.md — Map comprehension: legend numeric bands (D-03), panel rate tooltip (D-01) + multiplier/bar (D-04), family glossary affordance (D-02) [UX-02, A11Y-01]
-- [x] 09-03-PLAN.md — Bilingual glossary pages (/glossary/, /es/glosario/) + ranking-table tooltip & cross-links [READ-03, A11Y-02, UX-02]
-- [x] 09-04-PLAN.md — Editorial readability: ES methodology parity + heading/callout/tone audit on top editorial pages [READ-02, READ-03, UX-01, UX-02, READ-01]
-
-**Wave 3** *(blocked on Wave 2 — verifies its output)*
-
-- [x] 09-05-PLAN.md — Verification + closeout: build, route emission, tone/meta grep, human a11y/browser checkpoint [A11Y-01, A11Y-02, READ-03, UX-01]
-
-**UI hint**: yes
 
 ### Phase 10: High-Resolution Commune Geometry
 
@@ -266,6 +182,10 @@ Plans:
 | 14. Homicide as a First-Class Category | v1.2 | 0/0 | Pending    |  |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Pending    |  |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending    |  |
+
+## Backlog
+
+- **999.1 — BUGFIX: Tarapacá comunas mis-assigned to Aysén/Los Ríos** (found 2026-06-15 during v1.1 close; pre-existing Phase-1 data issue). `region_id` stores an ambiguous 2-digit province code: Tarapacá (region 1) comunas carry `11`/`14`, which collide with the direct region numbers for Aysén (11) and Los Ríos (14). The region resolver (`region/[slug].astro` + `es/region/[slug].astro` `floor(n/10)` logic; `data.ts` `loadCommune`) therefore groups Iquique, Alto Hospicio (→ Aysén) and Pozo Almonte, Pica, Huara, Camiña, Colchane (→ Los Ríos) under the wrong region. Symptoms: 7 Tarapacá comuna pages show the wrong region (prose + breadcrumb + JSON-LD); Aysén & Los Ríos region pages list Tarapacá comunas; the Tarapacá region page resolves 0 comunas (empty). **Fix:** disambiguate region from the CUT itself (4-digit CUT `1xxx` ⇒ region 1; 5-digit `11xxx` ⇒ region 11) rather than from the stored `region_id`, then rebuild + re-validate region grouping, rankings, sitemap. Scope: data-layer; target v1.2.
 
 ## Open Human Go-Live Gates (launch checklist — not v1.1 scope)
 

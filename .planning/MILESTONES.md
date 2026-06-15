@@ -1,5 +1,26 @@
 # Milestones
 
+## v1.1 Polish & QA (Shipped: 2026-06-15)
+
+**Phases completed:** 3 phases (7–9), 15 plans
+
+**Delivered:** A QA/polish pass over the whole rendered site (ES/EN) before go-live — bugs hunted in a real browser, data correctness verified, cognitive load reduced, accessibility and SEO signals tightened. No new features.
+
+**Key accomplishments:**
+
+- Phase 7 — Full E2E browser review (ES/EN) via BrowserOS MCP: editorial/map/legal inventory walk, programmatic-page sampling vs template, map dynamic interactions, mobile 375px viewport, all findings consolidated into REVIEW-E2E-FINDINGS.md (severity/page/screenshot/recommendation). Closed the deferred Phase-3 visual/mobile UAT.
+- Phase 8 — Data correctness + bug fixes: rates use the national MEAN (not sum) ranked by rate/100k (spot-checked vs `data/cead/`); 0 console errors on money pages; rollout-row gating fixes dead ranking links; AdSlot reserves height with 0 `adsbygoogle` in the disabled DOM.
+- Phase 9 — UX/readability/a11y: single-H1 scannable hierarchy, 720px prose rhythm, bilingual glossary pages, sober tone (forbidden-language validator clean), WCAG-AA contrast (axe PASS), map-control aria, valid meta/canonical/hreflang + FAQPage JSON-LD.
+- Milestone-close gap-closure (commit d9593a3): **F-006** ES region grammar fixed via `regionNameEs()` across region pages + the ES prose engine ("Región Metropolitana" / "Región del Biobío" / "Región de Tarapacá"); **WR-03** mobile hamburger made keyboard-operable (sr-only-but-focusable checkbox + focus ring). 09-VERIFICATION.md produced; build clean, 10/10 validators pass.
+
+**Accepted tech debt / known gaps:** F-002 (cookie/accessibility legal pages absent) and F-004 (thin contact pages) — pre-acknowledged Polish non-blockers. 08-VALIDATION.md absent (bug-fix phase; coverage evidenced by 08-VERIFICATION.md).
+
+**Newly found (logged to v1.2 backlog 999.1):** Tarapacá comunas mis-assigned to Aysén/Los Ríos via ambiguous 2-digit `region_id` province codes (collide with region numbers 11/14). Pre-existing Phase-1 data issue; fix deferred to v1.2.
+
+Full detail: `milestones/v1.1-ROADMAP.md` · `milestones/v1.1-REQUIREMENTS.md` · audit `milestones/v1.1-MILESTONE-AUDIT.md`.
+
+---
+
 ## v1.0 MVP (Shipped: 2026-06-13)
 
 **Phases completed:** 6 phases, 28 plans, 16 tasks

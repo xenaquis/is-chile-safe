@@ -1,38 +1,42 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: Polish & QA
-status: executing
-last_updated: "2026-06-15T20:58:37.173Z"
+milestone: v1.2
+milestone_name: Map Fidelity, Findability & News
+status: in_progress
+last_updated: "2026-06-15T18:40:00.000Z"
 last_activity: 2026-06-15
 progress:
-  total_phases: 5
-  completed_phases: 5
-  total_plans: 22
-  completed_plans: 22
-  percent: 100
+  total_phases: 7
+  completed_phases: 2
+  total_plans: 7
+  completed_plans: 7
+  percent: 29
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-13 — v1.1 roadmap created (Phases 7–9); ready to plan Phase 7_
+_Last updated: 2026-06-15 — v1.1 Polish & QA shipped + archived; milestone pointer advanced to v1.2; ready to plan Phase 12_
 
 ## Project Reference
 
+See: .planning/PROJECT.md (updated 2026-06-15)
+
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: v1.1 Polish & QA — COMPLETE (Phases 7–9). Next milestone v1.2 "Map Fidelity & Crime-Type SEO" (Phases 10–12) planned from Phase-9 review feedback; ready to plan Phase 10.
+**Current focus**: v1.2 Map Fidelity, Findability & News. Phases 10 (geometry) + 11 (publish 346 + finder) shipped 2026-06-15; next = Phase 12 (Home/IA redesign + comuna hub-and-spoke).
 
 ## Current Position
 
-Phase: 11 (publish-346-comunas-finder) — EXECUTING
-Plan: 4 of 4
-Status: Ready to execute
+Phase: 12 (home-ia-redesign-comuna-hub) — NOT STARTED
+Plan: —
+Status: Ready to plan
 Last activity: 2026-06-15
 
-Progress: ██████████ 100% (3/3 phases complete — v1.1)
+Progress: v1.2 ███░░░░ 29% (2/7 phases complete — Phases 10–11)
 
-Next: v1.2 Phase 10 (High-Resolution Commune Geometry) → Phase 11 (Homicide category) → Phase 12 (Crime-Type SEO rankings).
+Next: `/gsd:plan-phase 12`. Then 13 (Ranking SEO) → 14 (Homicide) → 15 (Crime-type SEO) → 16 (News activation).
+
+**Open backlog (v1.2):** BUGFIX-999.1 — Tarapacá comunas mis-assigned to Aysén/Los Ríos (region_id 11/14 collision); fix = derive region from CUT. See ROADMAP Backlog.
 
 ## Deferred Items
 
