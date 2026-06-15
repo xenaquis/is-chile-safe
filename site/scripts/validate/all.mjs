@@ -52,7 +52,11 @@ for (const script of VALIDATORS) {
 
   const result = spawnSync(process.execPath, [scriptPath], {
     stdio: 'inherit',
-    env: { ...process.env },
+    // The committed npm run build always sets ROLLOUT_ALL=true via cross-env.
+    // Propagate it so validators (e.g. region.mjs) assert the same row set
+    // that the build actually emitted. This is NOT EXPECT_ALL — ROLLOUT_ALL
+    // is the build-time flag that is permanently baked into npm run build.
+    env: { ...process.env, ROLLOUT_ALL: 'true' },
   });
 
   const passed = result.status === 0;
