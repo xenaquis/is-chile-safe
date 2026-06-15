@@ -150,7 +150,7 @@ Plans:
 Plans:
 **Wave 1**
 
-- [ ] 10-01-PLAN.md — Harden gates first: extend build integrity assertion (346/0 missing/0 orphan/0 dup vs index.json) + replace stale 100KB gate with dual ≤420KB raw / ≤140KB gzip budget in build script + validator [GEO-01, GEO-02]
+- [x] 10-01-PLAN.md — Harden gates first: extend build integrity assertion (346/0 missing/0 orphan/0 dup vs index.json) + replace stale 100KB gate with dual ≤420KB raw / ≤140KB gzip budget in build script + validator [GEO-01, GEO-02]
 
 **Wave 2** *(blocked on Wave 1 — shares build-topojson.mjs)*
 
@@ -173,7 +173,7 @@ Plans:
 | 7. E2E Review Pass | v1.1 | 5/5 | Complete    | 2026-06-14 |
 | 8. Bug Fixes & Data Correctness | v1.1 | 5/5 | Complete    | 2026-06-15 |
 | 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
-| 10. High-Resolution Commune Geometry | v1.2 | 0/3 | Planned    |  |
+| 10. High-Resolution Commune Geometry | v1.2 | 1/3 | In Progress|  |
 | 11. Homicide as a First-Class Category | v1.2 | 0/0 | Planned    |  |
 | 12. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Planned    |  |
 

@@ -41,6 +41,15 @@
 - [x] **A11Y-01**: En páginas muestreadas — contraste de color (paleta teal `--primary #0f766e`), focus states visibles, alt text presente, y aria en los controles del mapa.
 - [x] **A11Y-02**: En plantillas muestreadas — `<title>`, meta description, canonical, hreflang y JSON-LD (FAQPage en question-pages) presentes y válidos.
 
+## v1.2 Requirements
+
+Milestone **v1.2 Map Fidelity & Crime-Type SEO** — surfaced by the Phase-9 live review (2026-06-15). Defined incrementally as each phase is planned.
+
+### Map Geometry (GEO) — Phase 10
+
+- [x] **GEO-01**: El asset de geometría comunal (`data/cead/geo/communes.topo.json` + su espejo en `site/public/`) se regenera desde una fuente oficial de límites comunales chilenos (INE/BCN/IGM), cubre todas las comunas presentes en los datos CEAD, y conserva la misma clave de código comunal con la que el mapa hace join (ninguna comuna se pierde ni se mal-asocia). Los polígonos renderizados se reconocen como formas comunales reales (costa, bordes) frente a la simplificación blocky actual.
+- [x] **GEO-02**: El asset publicado respeta un presupuesto de tamaño/rendimiento (objetivo documentado en research; tradeoff fidelidad↔KB registrado); el mapa mantiene pan/zoom/hover fluido sin regresión perceptible y sin nuevos errores de consola, con un procedimiento de regeneración reproducible (script o pasos documentados).
+
 ## Future Requirements
 
 Deuda técnica registrada — oportunista en v1.1, difiérase a v1.2 si no cabe:
@@ -83,12 +92,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | READ-03 | Phase 9 | Complete |
 | A11Y-01 | Phase 9 | Complete |
 | A11Y-02 | Phase 9 | Complete |
+| GEO-01 | Phase 10 | Planned |
+| GEO-02 | Phase 10 | Planned |
 
 **Coverage:**
 
-- v1.1 requirements: 17 total
-- Mapped to phases: 17
-- Unmapped: 0 ✓
+- v1.1 requirements: 17 total (mapped: 17, unmapped: 0 ✓)
+- v1.2 requirements: 2 defined so far (GEO-01, GEO-02 → Phase 10); HOM/SEO to be defined when Phases 11–12 are planned
 
 ---
 *Requirements defined: 2026-06-13*

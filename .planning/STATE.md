@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Polish & QA
-status: complete
-last_updated: "2026-06-15T17:33:43.314Z"
+status: executing
+last_updated: "2026-06-15T18:07:21.474Z"
 last_activity: 2026-06-15
 progress:
-  total_phases: 3
+  total_phases: 4
   completed_phases: 3
-  total_plans: 15
-  completed_plans: 15
-  percent: 100
+  total_plans: 18
+  completed_plans: 16
+  percent: 75
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -25,9 +25,9 @@ _Last updated: 2026-06-13 — v1.1 roadmap created (Phases 7–9); ready to plan
 
 ## Current Position
 
-Phase: 09 (ux-readability-accessibility-polish) — COMPLETE
-Plan: 5 of 5 (all complete)
-Status: Phase 9 verified + gap-closure applied (incivilidades chip tooltips, /es/mapa nav fix). v1.1 milestone complete.
+Phase: 10 (High-Resolution Commune Geometry) — EXECUTING
+Plan: 2 of 3
+Status: Ready to execute
 Last activity: 2026-06-15
 
 Progress: ██████████ 100% (3/3 phases complete — v1.1)
@@ -71,6 +71,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 | Phase 08-bug-fixes-data-correctness P03 | 12m | 2 tasks | 2 files |
 | Phase 08 P05 | 15m | 3 tasks | 1 files |
 | Phase 09 P04 | 12m | 2 tasks | 2 files |
+| Phase 10-high-resolution-commune-geometry P01 | 18m | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -135,6 +136,8 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 - [Phase ?]: L.canvas renderer scoped to L.geoJSON layer only (Pitfall 6 compliance)
 - [Phase ?]: Static aria-label in Astro shell satisfies map validator without SSR
 - [Phase ?]: CUT list from comunas filenames; Node TopoJSON decode; 4 hardcoded centroid fallbacks for null-geometry communes
+- [Phase ?]: Four-way CUT integrity assertion (missing/orphan/dup/Santiago vs index.json) in Step-5 and Step-8 of build-topojson.mjs
+- [Phase ?]: Dual budget gate: raw le 420 KB (430080 B) AND gzip le 140 KB (143360 B); single mapshaper 10%/q=10000 config replaces three-config retry loop
 
 ## Operator Next Steps
 
