@@ -133,6 +133,33 @@ Plans:
 
 **UI hint**: yes
 
+### Phase 10: High-Resolution Commune Geometry
+
+**Goal**: Replace the heavily-simplified `communes.topo.json` (88KB) with real Chilean commune boundaries so polygons render as recognizable comuna shapes (coastline, real borders) for visual comparison on the map — while keeping the shipped asset within a file-size/performance budget that preserves smooth Leaflet-canvas rendering of all ~346 comuna polygons.
+**Depends on**: Nothing (first v1.2 phase). Consumes/replaces the existing geometry asset wired into the Phase 3 Leaflet map island; output mirrored to `site/public/data/cead/geo/` and emitted to `dist/`.
+**Requirements**: GEO-01, GEO-02
+**Success Criteria** (what must be TRUE):
+
+  1. `data/cead/geo/communes.topo.json` (and its `site/public/` mirror) is regenerated from an authoritative Chilean commune-boundary source (e.g. INE/BCN/IGM), covering every comuna present in the CEAD data, with each polygon keyed by the same commune code the map already joins on (no comuna dropped or mis-joined).
+  2. Rendered polygons are visually recognizable as actual comuna shapes (coastline and inter-commune borders visible) versus the current blocky simplification — verified in a real browser on `/map/` and `/es/mapa/`.
+  3. The shipped geometry asset stays within an agreed size/performance budget (target documented during research; tradeoff between fidelity and KB recorded), and the map retains smooth pan/zoom/hover with no perceptible interaction regression versus the current asset.
+  4. The choropleth still colours every comuna that has CEAD data, the commune panel still opens for clicked polygons, and there are zero new browser console errors on the map pages.
+  5. The regeneration is reproducible — a script or documented procedure produces the asset from the source data, so geometry can be refreshed rather than being a one-off manual artifact.
+
+**Plans**: 3 plans
+Plans:
+**Wave 1**
+
+- [ ] 10-01-PLAN.md — Harden gates first: extend build integrity assertion (346/0 missing/0 orphan/0 dup vs index.json) + replace stale 100KB gate with dual ≤420KB raw / ≤140KB gzip budget in build script + validator [GEO-01, GEO-02]
+
+**Wave 2** *(blocked on Wave 1 — shares build-topojson.mjs)*
+
+- [ ] 10-02-PLAN.md — Source swap + retune: commit chilemapas raw source (un-ignore), srcCodeToCut zero-pad code-join, visvalingam 10%/quantization 10000, regenerate+sync+validate chained [GEO-01, GEO-02]
+
+**Wave 3** *(blocked on Wave 2 — verifies the shipped asset)*
+
+- [ ] 10-03-PLAN.md — Attribution credit in methodology EN+ES + HUMAN-UAT gate doc (visual recognizability + throttled-mobile perf) [GEO-01, GEO-02]
+
 ## Progress
 
 | Phase | Milestone | Plans | Status | Completed |
@@ -146,7 +173,7 @@ Plans:
 | 7. E2E Review Pass | v1.1 | 5/5 | Complete    | 2026-06-14 |
 | 8. Bug Fixes & Data Correctness | v1.1 | 5/5 | Complete    | 2026-06-15 |
 | 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
-| 10. High-Resolution Commune Geometry | v1.2 | 0/0 | Planned    |  |
+| 10. High-Resolution Commune Geometry | v1.2 | 0/3 | Planned    |  |
 | 11. Homicide as a First-Class Category | v1.2 | 0/0 | Planned    |  |
 | 12. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Planned    |  |
 
