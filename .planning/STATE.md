@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Polish & QA
 status: executing
-last_updated: "2026-06-15T18:13:58.232Z"
+last_updated: "2026-06-15T20:39:08.537Z"
 last_activity: 2026-06-15
 progress:
-  total_phases: 4
-  completed_phases: 3
-  total_plans: 18
-  completed_plans: 17
-  percent: 75
+  total_phases: 5
+  completed_phases: 4
+  total_plans: 22
+  completed_plans: 19
+  percent: 80
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -25,9 +25,9 @@ _Last updated: 2026-06-13 — v1.1 roadmap created (Phases 7–9); ready to plan
 
 ## Current Position
 
-Phase: 10 (High-Resolution Commune Geometry) — EXECUTING
-Plan: 3 of 3
-Status: Awaiting human-verify checkpoint (10-03 Task 3 — visual + mobile-perf UAT)
+Phase: 11 (publish-346-comunas-finder) — EXECUTING
+Plan: 2 of 4
+Status: Ready to execute
 Last activity: 2026-06-15
 
 Progress: ██████████ 100% (3/3 phases complete — v1.1)

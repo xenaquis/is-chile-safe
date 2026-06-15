@@ -179,7 +179,7 @@ Plans:
 Plans:
 **Wave 0**
 
-- [ ] 11-01-PLAN.md — data.ts build-time memoization (build-timeout guard) + coverage.mjs scaffold + rollout.mjs 346/`=== 12` assertion update [COMU-01, COMU-03]
+- [x] 11-01-PLAN.md — data.ts build-time memoization (build-timeout guard) + coverage.mjs scaffold + rollout.mjs 346/`=== 12` assertion update [COMU-01, COMU-03]
 
 **Wave 1** *(blocked on Wave 0 — memoization must land before the rollout flip)*
 
@@ -260,7 +260,7 @@ Plans:
 | 8. Bug Fixes & Data Correctness | v1.1 | 5/5 | Complete    | 2026-06-15 |
 | 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
 | 10. High-Resolution Commune Geometry | v1.2 | 3/3 | Complete   | 2026-06-15 |
-| 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 0/4 | Pending    |  |
+| 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 1/4 | In Progress|  |
 | 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 0/0 | Pending    |  |
 | 13. Ranking SEO Hardening | v1.2 | 0/0 | Pending    |  |
 | 14. Homicide as a First-Class Category | v1.2 | 0/0 | Pending    |  |
