@@ -20,7 +20,7 @@
 ### Correctitud / Bugs (BUGFIX)
 
 - [ ] **BUGFIX-01**: Cero errores de consola del navegador en money pages y en el mapa; warnings revisados y triados.
-- [ ] **BUGFIX-02**: Enlaces internos (header, footer, cross-links, language switcher) resuelven sin rotos; hreflang recíproco correcto (respetando auto-referencias intencionales).
+- [x] **BUGFIX-02**: Enlaces internos (header, footer, cross-links, language switcher) resuelven sin rotos; hreflang recíproco correcto (respetando auto-referencias intencionales).
 - [ ] **BUGFIX-03**: Datos correctos verificados — tasas usan media nacional (`loadNationalAverage`, no la SUMA), ranking por tasa/100k, cifras coinciden con `data/cead/`.
 - [ ] **BUGFIX-04**: Sin CLS por anuncios — los AdSlot reservan altura; con AdSense OFF se muestra placeholder y ningún `adsbygoogle` queda visible.
 - [ ] **BUGFIX-05**: Todos los hallazgos de severidad Critical quedan corregidos y re-verificados en navegador; los Warning se corrigen o se difieren con justificación explícita.
@@ -72,7 +72,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | REVIEW-04 | Phase 7 | Complete |
 | REVIEW-05 | Phase 7 | Complete |
 | BUGFIX-01 | Phase 8 | Pending |
-| BUGFIX-02 | Phase 8 | Pending |
+| BUGFIX-02 | Phase 8 | Complete |
 | BUGFIX-03 | Phase 8 | Pending |
 | BUGFIX-04 | Phase 8 | Pending |
 | BUGFIX-05 | Phase 8 | Pending |
