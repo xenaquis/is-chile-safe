@@ -169,24 +169,31 @@ if (!coveredCuts.has('12202')) {
 }
 
 // ---------------------------------------------------------------------------
-// Step 5: Pre-commit assertions
+// Step 5: Pre-commit assertions — four-way integrity check against index.json
 // ---------------------------------------------------------------------------
 console.log(`\nTotal features after processing: ${features.length}`);
 
-if (features.length !== 346) {
-  console.error(`FATAL: Expected 346 features, got ${features.length}`);
-  const gotCuts = new Set(features.map(f => f.properties.id));
-  indexEntries.filter(c => !gotCuts.has(c.cut))
-    .forEach(c => console.error(`  Missing: ${c.cut} ${c.name}`));
-  process.exit(1);
-}
+{
+  const wantCuts = new Set(indexEntries.map(c => c.cut));
+  const gotCuts  = features.map(f => f.properties.id);
+  const missing  = [...wantCuts].filter(c => !gotCuts.includes(c));
+  const orphan   = gotCuts.filter(c => !wantCuts.has(c));
+  const dup      = gotCuts.filter((c, i) => gotCuts.indexOf(c) !== i);
 
-const santiagoPre = features.find(f => f.properties.id === '13101');
-if (!santiagoPre) {
-  console.error('FATAL: Santiago (CUT 13101) not found before simplification');
-  process.exit(1);
+  if (features.length !== 346 || missing.length || orphan.length || dup.length) {
+    console.error('FATAL: Step-5 integrity check failed');
+    console.error(JSON.stringify({ count: features.length, missing, orphan, dup }, null, 2));
+    process.exit(1);
+  }
+
+  const santiagoPre = features.find(f => f.properties.id === '13101');
+  if (!santiagoPre) {
+    console.error('FATAL: Santiago (CUT 13101) not found before simplification');
+    process.exit(1);
+  }
+  console.log(`Santiago (13101): "${santiagoPre.properties.name}" — present`);
+  console.log(`346 features, 0 missing, 0 orphan, 0 dup`);
 }
-console.log(`Santiago (13101): "${santiagoPre.properties.name}" — present`);
 
 // ---------------------------------------------------------------------------
 // Step 6: Write re-keyed GeoJSON to OS temp
@@ -245,18 +252,29 @@ if (topo.type !== 'Topology') {
 }
 
 const objKey = Object.keys(topo.objects)[0];
-const geomCount = topo.objects[objKey].geometries.length;
-if (geomCount !== 346) {
-  console.error(`FATAL: TopoJSON has ${geomCount} features, expected 346`);
-  process.exit(1);
-}
+const geometries = topo.objects[objKey].geometries;
+const geomCount = geometries.length;
 
-const sgoFeature = topo.objects[objKey].geometries.find(
-  g => g.properties && g.properties.id === '13101'
-);
-if (!sgoFeature) {
-  console.error('FATAL: CUT 13101 (Santiago) not found in TopoJSON output');
-  process.exit(1);
+{
+  const wantCuts = new Set(indexEntries.map(c => c.cut));
+  const gotCuts  = geometries.map(g => g.properties && g.properties.id);
+  const missing  = [...wantCuts].filter(c => !gotCuts.includes(c));
+  const orphan   = gotCuts.filter(c => !wantCuts.has(c));
+  const dup      = gotCuts.filter((c, i) => gotCuts.indexOf(c) !== i);
+
+  if (geomCount !== 346 || missing.length || orphan.length || dup.length) {
+    console.error('FATAL: Step-8 TopoJSON integrity check failed');
+    console.error(JSON.stringify({ count: geomCount, missing, orphan, dup }, null, 2));
+    process.exit(1);
+  }
+
+  const sgoFeature = geometries.find(g => g.properties && g.properties.id === '13101');
+  if (!sgoFeature) {
+    console.error('FATAL: CUT 13101 (Santiago) not found in TopoJSON output');
+    process.exit(1);
+  }
+  console.log(`Step-8: 346 geometries, 0 missing, 0 orphan, 0 dup — TopoJSON integrity OK`);
+  console.log(`Santiago (13101): "${sgoFeature.properties.name}" — join verified`);
 }
 
 // ---------------------------------------------------------------------------
@@ -268,4 +286,3 @@ if (!existsSync(outputDir)) mkdirSync(outputDir, { recursive: true });
 writeFileSync(OUTPUT_TOPO, readFileSync(TMP_TOPO));
 console.log(`\nSUCCESS: ${OUTPUT_TOPO}`);
 console.log(`  ${finalSize} bytes (${(finalSize / 1024).toFixed(1)} KB), ${geomCount} communes`);
-console.log(`  Santiago (13101): "${sgoFeature.properties.name}" — join verified`);
