@@ -110,7 +110,7 @@ Plans:
 Plans:
 **Wave 1**
 
-- [ ] 09-01-PLAN.md — Foundation: hoist familyDefs, i18n strings, dual-surface RateTooltip, focus + prose CSS [UX-02, A11Y-01, READ-01]
+- [x] 09-01-PLAN.md — Foundation: hoist familyDefs, i18n strings, dual-surface RateTooltip, focus + prose CSS [UX-02, A11Y-01, READ-01]
 
 **Wave 2** *(disjoint files — run in parallel)*
 
@@ -121,6 +121,7 @@ Plans:
 **Wave 3** *(blocked on Wave 2 — verifies its output)*
 
 - [ ] 09-05-PLAN.md — Verification + closeout: build, route emission, tone/meta grep, human a11y/browser checkpoint [A11Y-01, A11Y-02, READ-03, UX-01]
+
 **UI hint**: yes
 
 ## Progress
@@ -135,7 +136,7 @@ Plans:
 | 6. CI/CD + Cloudflare Deployment | v1.0 | 3/3 | Complete | 2026-06-13 |
 | 7. E2E Review Pass | v1.1 | 5/5 | Complete    | 2026-06-14 |
 | 8. Bug Fixes & Data Correctness | v1.1 | 5/5 | Complete    | 2026-06-15 |
-| 9. UX / Readability / A11Y Polish | v1.1 | 0/5 | Planned | - |
+| 9. UX / Readability / A11Y Polish | v1.1 | 1/5 | In Progress|  |
 
 ## Open Human Go-Live Gates (launch checklist — not v1.1 scope)
 

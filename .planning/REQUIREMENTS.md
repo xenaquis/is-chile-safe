@@ -28,17 +28,17 @@
 ### Carga cognitiva (UX)
 
 - [ ] **UX-01**: Jerarquía clara en money pages — un solo H1, H2/H3 escaneables; el lector entiende la página en ~5 segundos.
-- [ ] **UX-02**: Densidad de información reducida donde el review la marque — DataCallout/StatCard comunican una idea clara con su fuente (CEAD + año); redundancia callout↔prosa eliminada.
+- [x] **UX-02**: Densidad de información reducida donde el review la marque — DataCallout/StatCard comunican una idea clara con su fuente (CEAD + año); redundancia callout↔prosa eliminada.
 
 ### Lectura / Editorial (READ)
 
-- [ ] **READ-01**: Columna de prosa legible en editoriales (~720px, ritmo de párrafos, sin muros de texto).
+- [x] **READ-01**: Columna de prosa legible en editoriales (~720px, ritmo de párrafos, sin muros de texto).
 - [ ] **READ-02**: Paridad ES/EN — contenido, estructura y tono equivalentes entre cada par de páginas; sin secciones faltantes en un idioma.
 - [ ] **READ-03**: Tono editorial sobrio respetado en todo el sitio (sin "peligroso/seguro" absoluto; usa "incidencia reportada", "comparación relativa"); jerga explicada.
 
 ### Accesibilidad / SEO (A11Y)
 
-- [ ] **A11Y-01**: En páginas muestreadas — contraste de color (paleta teal `--primary #0f766e`), focus states visibles, alt text presente, y aria en los controles del mapa.
+- [x] **A11Y-01**: En páginas muestreadas — contraste de color (paleta teal `--primary #0f766e`), focus states visibles, alt text presente, y aria en los controles del mapa.
 - [ ] **A11Y-02**: En plantillas muestreadas — `<title>`, meta description, canonical, hreflang y JSON-LD (FAQPage en question-pages) presentes y válidos.
 
 ## Future Requirements
@@ -77,11 +77,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BUGFIX-04 | Phase 8 | Complete |
 | BUGFIX-05 | Phase 8 | Complete |
 | UX-01 | Phase 9 | Pending |
-| UX-02 | Phase 9 | Pending |
-| READ-01 | Phase 9 | Pending |
+| UX-02 | Phase 9 | Complete |
+| READ-01 | Phase 9 | Complete |
 | READ-02 | Phase 9 | Pending |
 | READ-03 | Phase 9 | Pending |
-| A11Y-01 | Phase 9 | Pending |
+| A11Y-01 | Phase 9 | Complete |
 | A11Y-02 | Phase 9 | Pending |
 
 **Coverage:**
