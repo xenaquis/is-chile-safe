@@ -175,6 +175,24 @@ Plans:
   2. A searchable comuna directory exists (accent-insensitive search + A–Z and by-region views, 16 regions), linked from the nav and home; any comuna is reachable in ≤2 interactions; low-population comunas are included (they get a page even if excluded from rankings).
   3. Region pages and crime-type pages link every comuna in their ranking tables (no "Showing N of M — more coming soon" gating); thin-content is mitigated (each comuna page has sufficient unique data/prose + unique title/meta/canonical/hreflang), and a build validator asserts page count ≈ 346×2 and zero internal links to ungenerated comuna slugs.
 
+**Plans**: 4 plans
+Plans:
+**Wave 0**
+
+- [ ] 11-01-PLAN.md — data.ts build-time memoization (build-timeout guard) + coverage.mjs scaffold + rollout.mjs 346/`=== 12` assertion update [COMU-01, COMU-03]
+
+**Wave 1** *(blocked on Wave 0 — memoization must land before the rollout flip)*
+
+- [ ] 11-02-PLAN.md — Rollout flip: ROLLOUT_ALL=true committed build default via cross-env + un-gate the 4 ranking tables (region EN/ES, crime EN/ES) [COMU-01, COMU-03]
+
+**Wave 2** *(blocked on Wave 1 — comuna pages must exist to link)*
+
+- [ ] 11-03-PLAN.md — Comuna directory (EN /communes/ + ES /es/comunas/): SSR full 346-link list (A–Z + by-region) + vanilla filter/toggle + nav + home links + i18n strings [COMU-02]
+
+**Wave 3** *(blocked on Waves 0–2 — verifies the full phase)*
+
+- [ ] 11-04-PLAN.md — Register coverage.mjs in suite + full ROLLOUT_ALL build & validators (346×2 + directory + sitemap + zero orphans, <20 min) + human reachability checkpoint [COMU-01, COMU-02, COMU-03]
+
 ### Phase 12: Home / IA Redesign + Comuna Page Hub-and-Spoke
 
 **Goal**: The site stops feeling scattered — the home presents the Hybrid C+B framing (validated in spike 001) and every comuna page is a hub that connects coherently to the rest of the site (spike 003).
@@ -242,7 +260,7 @@ Plans:
 | 8. Bug Fixes & Data Correctness | v1.1 | 5/5 | Complete    | 2026-06-15 |
 | 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
 | 10. High-Resolution Commune Geometry | v1.2 | 3/3 | Complete   | 2026-06-15 |
-| 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 0/0 | Pending    |  |
+| 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 0/4 | Pending    |  |
 | 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 0/0 | Pending    |  |
 | 13. Ranking SEO Hardening | v1.2 | 0/0 | Pending    |  |
 | 14. Homicide as a First-Class Category | v1.2 | 0/0 | Pending    |  |
