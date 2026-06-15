@@ -27,14 +27,14 @@
 
 ### Carga cognitiva (UX)
 
-- [ ] **UX-01**: Jerarquía clara en money pages — un solo H1, H2/H3 escaneables; el lector entiende la página en ~5 segundos.
+- [x] **UX-01**: Jerarquía clara en money pages — un solo H1, H2/H3 escaneables; el lector entiende la página en ~5 segundos.
 - [x] **UX-02**: Densidad de información reducida donde el review la marque — DataCallout/StatCard comunican una idea clara con su fuente (CEAD + año); redundancia callout↔prosa eliminada.
 
 ### Lectura / Editorial (READ)
 
 - [x] **READ-01**: Columna de prosa legible en editoriales (~720px, ritmo de párrafos, sin muros de texto).
-- [ ] **READ-02**: Paridad ES/EN — contenido, estructura y tono equivalentes entre cada par de páginas; sin secciones faltantes en un idioma.
-- [ ] **READ-03**: Tono editorial sobrio respetado en todo el sitio (sin "peligroso/seguro" absoluto; usa "incidencia reportada", "comparación relativa"); jerga explicada.
+- [x] **READ-02**: Paridad ES/EN — contenido, estructura y tono equivalentes entre cada par de páginas; sin secciones faltantes en un idioma.
+- [x] **READ-03**: Tono editorial sobrio respetado en todo el sitio (sin "peligroso/seguro" absoluto; usa "incidencia reportada", "comparación relativa"); jerga explicada.
 
 ### Accesibilidad / SEO (A11Y)
 
@@ -76,11 +76,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BUGFIX-03 | Phase 8 | Complete |
 | BUGFIX-04 | Phase 8 | Complete |
 | BUGFIX-05 | Phase 8 | Complete |
-| UX-01 | Phase 9 | Pending |
+| UX-01 | Phase 9 | Complete |
 | UX-02 | Phase 9 | Complete |
 | READ-01 | Phase 9 | Complete |
-| READ-02 | Phase 9 | Pending |
-| READ-03 | Phase 9 | Pending |
+| READ-02 | Phase 9 | Complete |
+| READ-03 | Phase 9 | Complete |
 | A11Y-01 | Phase 9 | Complete |
 | A11Y-02 | Phase 9 | Pending |
 
