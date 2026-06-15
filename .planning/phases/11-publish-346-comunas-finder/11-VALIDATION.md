@@ -1,10 +1,11 @@
 ---
 phase: 11
 slug: publish-346-comunas-finder
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: validated
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-06-15
+validated: 2026-06-15
 ---
 
 # Phase 11 — Validation Strategy
@@ -32,20 +33,20 @@ created: 2026-06-15
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 11-0x | 0x | 0 | COMU-01 | perf/build | `cd site && npm run build` completes < 20 min (memoization) | ❌ new (data.ts memo) | ⬜ pending |
-| 11-0x | 0x | 1 | COMU-01 | structural | build emits ~346 `/commune/*` + ~346 `/es/comuna/*` pages | ✅ extend rollout.mjs (`=== 12` → 346 / EXPECT_ALL) | ⬜ pending |
-| 11-0x | 0x | 1 | COMU-03 | structural | region + crime ranking tables link every comuna; no "Showing N of M" gating string in dist | ✅ new coverage.mjs | ⬜ pending |
-| 11-0x | 0x | 2 | COMU-02 | structural | `/communes/` + `/es/comunas/` emitted; full 346-link list in server HTML (crawlable); nav + home link present | ✅ new coverage.mjs | ⬜ pending |
-| 11-0x | 0x | 3 | COMU-01/03 | structural | sitemap includes 346×2 comuna URLs + directory; ZERO internal links to ungenerated comuna slugs | ✅ new coverage.mjs | ⬜ pending |
-| 11-0x | 0x | 2 | COMU-02 | a11y/no-JS | directory search/filter degrades gracefully (full list visible without JS) | ⚠ manual + grep | ⬜ pending |
+| 11-01 | 01 | 0 | COMU-01 | perf/build | `cd site && npm run build` completes < 20 min (memoization) — ~90s actual | ✅ data.ts caches (`_indexCache`/`_communeCache`/`_natAvg`/`_regAvg`) | ✅ COVERED |
+| 11-01 | 01 | 1 | COMU-01 | structural | build emits 346 `/commune/*` + 346 `/es/comuna/*` pages | ✅ rollout.mjs (expectedCount = index.json length; `=== 12` removed) | ✅ COVERED |
+| 11-01/04 | 01/04 | 1 | COMU-03 | structural | ranking tables link every comuna; ZERO "Showing N of M" / "Mostrando N de M" gating string in dist | ✅ coverage.mjs [B] no-orphan-link + [E] no-gating-string | ✅ COVERED |
+| 11-03/04 | 03/04 | 2 | COMU-02 | structural | `/communes/` + `/es/comunas/` emitted; full 346-link list in server HTML (crawlable); nav + home link present | ✅ coverage.mjs [D] directory-completeness | ✅ COVERED |
+| 11-04 | 04 | 3 | COMU-01/03 | structural | sitemap includes 346×2 comuna URLs + directory; ZERO internal links to ungenerated comuna slugs | ✅ coverage.mjs [A] route-count + [B] no-orphan-link + [C] sitemap-coverage | ✅ COVERED |
+| 11-03 | 03 | 2 | COMU-02 | a11y/no-JS | directory full list visible without JS (server-rendered links) | ✅ coverage.mjs [D] (346 SSR hrefs) + manual no-JS spot-check | ✅ COVERED |
 
-*Task IDs finalize when PLAN.md numbers are assigned.*
+*All assertions live in `site/scripts/validate/{rollout,coverage}.mjs`, wired into `all.mjs`; full suite 10/10 PASS (11-04-SUMMARY).*
 
 ## Wave 0 Requirements
 
-- [ ] `site/src/lib/data.ts` — add build-time memoization (index + per-comuna/region loads) so 692 comuna pages don't re-read ~700–1000 JSON files each. **Highest-leverage task; without it the build risks the 20-min CI timeout.**
-- [ ] `site/scripts/validate/coverage.mjs` (new) — assert comuna page count ≈ 346/locale, sitemap coverage, and zero internal links to ungenerated comuna slugs (inverse of today's orphan bug).
-- [ ] Update `rollout.mjs` `=== 12` assertion to the all-346 / EXPECT_ALL expectation.
+- [x] `site/src/lib/data.ts` — build-time memoization (`_indexCache`/`_communeCache`/`_natAvg`/`_regAvg`) landed; build ~90s, well under the 20-min CI timeout.
+- [x] `site/scripts/validate/coverage.mjs` — asserts comuna page count = 346/locale [A], sitemap coverage [C], zero orphan links [B], directory completeness [D], and zero gating strings [E]. Wired into all.mjs.
+- [x] `rollout.mjs` `=== 12` assertion removed — expectedCount now derived from index.json length (346).
 
 ## Manual-Only Verifications
 
@@ -56,10 +57,20 @@ created: 2026-06-15
 
 ## Validation Sign-Off
 
-- [ ] Build completes under the 20-min CI limit (memoization in place)
-- [ ] rollout/coverage validators assert 346/locale + sitemap + zero orphan links
-- [ ] Wave 0 (memoization + coverage validator) lands before the rollout flip
-- [ ] No watch-mode flags
-- [ ] `nyquist_compliant: true` set after Wave 0 assertions exist
+- [x] Build completes under the 20-min CI limit (memoization in place; ~90s actual)
+- [x] rollout/coverage validators assert 346/locale + sitemap + zero orphan links + zero gating strings
+- [x] Wave 0 (memoization + coverage validator) landed before the rollout flip
+- [x] No watch-mode flags
+- [x] `nyquist_compliant: true` set after Wave 0 assertions exist
 
-**Approval:** pending
+**Approval:** validated 2026-06-15
+
+## Validation Audit 2026-06-15
+
+| Metric | Count |
+|--------|-------|
+| Gaps found | 1 |
+| Resolved | 1 |
+| Escalated | 0 |
+
+Gap: COMU-03 sub-assertion "no `Showing N of M` / `Mostrando N de M` gating string in dist" was manual-only. Resolved by adding assertion `[E] no-gating-string` to `coverage.mjs` (scans all 772 dist HTML files; 0 occurrences; exits 1 on regression). Coverage validator now PASS [A]–[E]; full suite 10/10.
