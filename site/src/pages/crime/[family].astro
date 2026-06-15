@@ -27,6 +27,7 @@ import {
   loadCommune,
   loadCatalog,
   regionFileId,
+  loadRolloutCuts,
 } from '../../lib/data.ts';
 import { FAMILY_SLUGS } from '../../config/i18n.ts';
 
@@ -107,6 +108,14 @@ for (const meta of index) {
 const eligibleRows = allRows.filter((r) => !r.low_population).sort((a, b) => b.rate - a.rate);
 const lowPopRows = allRows.filter((r) => r.low_population).sort((a, b) => b.rate - a.rate);
 const rankingRows = [...eligibleRows, ...lowPopRows];
+
+// Gate displayed rows to rollout CUTs only (F-005)
+const rolloutCuts = new Set(loadRolloutCuts());
+const displayedRows = rankingRows.filter((row) => {
+  const meta = index.find((c) => c.slug === row.slug);
+  return meta ? rolloutCuts.has(meta.cut) : false;
+});
+const hiddenCount = rankingRows.length - displayedRows.length;
 
 // Compute national mean for this family (eligible communes only)
 const familyNationalMean =
@@ -218,7 +227,7 @@ const jsonLd = {
           </tr>
         </thead>
         <tbody>
-          {rankingRows.map((row, i) => (
+          {displayedRows.map((row, i) => (
             <tr class={row.low_population ? 'low-pop' : ''}>
               <td class="col-num col-rank">
                 {row.low_population ? '—' : `#${i + 1}`}
@@ -243,6 +252,9 @@ const jsonLd = {
       <p class="low-pop-footnote">
         * This commune has a small resident population. Rates per 100,000 inhabitants can show high statistical volatility. Interpret with caution.
       </p>
+    )}
+    {hiddenCount > 0 && (
+      <p class="rollout-note">Showing {displayedRows.length} of {rankingRows.length} communes — more coming soon.</p>
     )}
   </section>
 
@@ -431,6 +443,13 @@ const jsonLd = {
   }
 
   .low-pop-footnote {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--sm);
+    padding: 0 var(--xs);
+  }
+
+  .rollout-note {
     font-size: var(--text-label);
     color: var(--muted);
     margin-top: var(--sm);
