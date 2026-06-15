@@ -30,28 +30,7 @@ import {
   loadRolloutCuts,
 } from '../../lib/data.ts';
 import { FAMILY_SLUGS } from '../../config/i18n.ts';
-
-// Family display labels (EN)
-const FAMILY_LABELS_EN: Record<string, string> = {
-  vida:            'Life Crimes',
-  robos_violentos: 'Violent Robbery',
-  vif:             'Domestic Violence',
-  drogas:          'Drug Crimes',
-  armas:           'Weapons Offences',
-  propiedad:       'Property Crimes',
-  incivilidades:   'Disorder',
-};
-
-// Sober one-sentence definition per family (EN)
-const FAMILY_DEFS_EN: Record<string, string> = {
-  vida:            'Reported offences against life and physical integrity, including homicide and serious assault, sourced from official CEAD police statistics.',
-  robos_violentos: 'Reported violent robbery incidents — theft involving force or intimidation — disaggregated by commune from official CEAD police statistics.',
-  vif:             'Reported domestic and intra-family violence incidents disaggregated by commune, sourced from official CEAD police statistics.',
-  drogas:          'Reported drug-related offences including possession and trafficking, disaggregated by commune from official CEAD police statistics.',
-  armas:           'Reported weapons offences including illegal possession and trafficking, disaggregated by commune from official CEAD police statistics.',
-  propiedad:       'Reported property crime incidents — burglary, theft, and fraud — disaggregated by commune from official CEAD police statistics.',
-  incivilidades:   'Reported disorder and public nuisance incidents disaggregated by commune from official CEAD police statistics.',
-};
+import { FAMILY_LABELS_EN, FAMILY_DEFS_EN } from '../../lib/familyDefs';
 
 export async function getStaticPaths() {
   const catalog = loadCatalog();
