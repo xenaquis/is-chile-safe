@@ -85,7 +85,7 @@ Plans:
 **Wave 1** *(disjoint files — run in parallel)*
 
 - [x] 08-01-PLAN.md — F-005 rollout-row gating across the 4 ranking templates (region EN/ES, crime EN/ES) [BUGFIX-02]
-- [ ] 08-02-PLAN.md — i18n + a11y string fixes: F-001 ES H1 "Comuna" + F-007 ResultPanel close aria-label locale-aware [BUGFIX-05]
+- [x] 08-02-PLAN.md — i18n + a11y string fixes: F-001 ES H1 "Comuna" + F-007 ResultPanel close aria-label locale-aware [BUGFIX-05]
 - [ ] 08-03-PLAN.md — F-009 zero-JS mobile hamburger nav in PageHeader (+ nav_menu_open i18n string) [BUGFIX-05]
 - [ ] 08-04-PLAN.md — BUGFIX-04 AdSlot blank reserved-height placeholder (remove dashed border, keep gate + zero adsbygoogle) [BUGFIX-04]
 
@@ -120,7 +120,7 @@ Plans:
 | 5. RSS News Pipeline | v1.0 | 4/4 | Complete | 2026-06-13 |
 | 6. CI/CD + Cloudflare Deployment | v1.0 | 3/3 | Complete | 2026-06-13 |
 | 7. E2E Review Pass | v1.1 | 5/5 | Complete    | 2026-06-14 |
-| 8. Bug Fixes & Data Correctness | v1.1 | 1/5 | In Progress|  |
+| 8. Bug Fixes & Data Correctness | v1.1 | 2/5 | In Progress|  |
 | 9. UX / Readability / A11Y Polish | v1.1 | 0/TBD | Not started | - |
 
 ## Open Human Go-Live Gates (launch checklist — not v1.1 scope)
