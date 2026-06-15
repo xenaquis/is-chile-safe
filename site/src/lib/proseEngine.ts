@@ -31,6 +31,7 @@ import {
   type CommuneData,
   type ComparableResult,
 } from './data.ts';
+import { regionNameEs } from '../config/i18n.ts';
 
 // ---------------------------------------------------------------------------
 // Internal types
@@ -226,39 +227,39 @@ function EN_CLOSING(commune: string, year: number, rate: number): string {
 const ES_OPENING: Record<Trend, Record<RankTier, string>> = {
   up: {
     top10:
-      '{commune}, ubicada en la región de {region}, figura entre las comunas con mayor incidencia delictiva reportada en Chile. Los datos del CEAD muestran una tendencia al alza, situándola en la posición {nationalRank} de 346 comunas a nivel nacional, con una tasa oficial de {rate} incidentes reportados por 100.000 habitantes en {year}.',
+      '{commune}, ubicada en la {region}, figura entre las comunas con mayor incidencia delictiva reportada en Chile. Los datos del CEAD muestran una tendencia al alza, situándola en la posición {nationalRank} de 346 comunas a nivel nacional, con una tasa oficial de {rate} incidentes reportados por 100.000 habitantes en {year}.',
     top25:
-      '{commune} (región de {region}) registra una tasa de incidencia reportada que la ubica en el cuarto superior del universo de comunas chilenas. La serie del CEAD refleja una tendencia al alza, con {rate} incidentes por 100.000 habitantes en {year} — posición nacional {nationalRank} de 346.',
+      '{commune} ({region}) registra una tasa de incidencia reportada que la ubica en el cuarto superior del universo de comunas chilenas. La serie del CEAD refleja una tendencia al alza, con {rate} incidentes por 100.000 habitantes en {year} — posición nacional {nationalRank} de 346.',
     mid:
-      '{commune} (región de {region}) presenta una tendencia al alza en la incidencia delictiva reportada según los registros del CEAD. En {year}, la comuna registró {rate} incidentes por 100.000 habitantes, ubicándose en la posición {nationalRank} de 346 a nivel nacional.',
+      '{commune} ({region}) presenta una tendencia al alza en la incidencia delictiva reportada según los registros del CEAD. En {year}, la comuna registró {rate} incidentes por 100.000 habitantes, ubicándose en la posición {nationalRank} de 346 a nivel nacional.',
     bottom25:
-      '{commune} (región de {region}) se encuentra entre las comunas con incidencia reportada comparativamente más baja en Chile, aunque los datos del CEAD evidencian una tendencia al alza en años recientes. La cifra de {year} fue de {rate} incidentes por 100.000 habitantes — posición nacional {nationalRank} de 346.',
+      '{commune} ({region}) se encuentra entre las comunas con incidencia reportada comparativamente más baja en Chile, aunque los datos del CEAD evidencian una tendencia al alza en años recientes. La cifra de {year} fue de {rate} incidentes por 100.000 habitantes — posición nacional {nationalRank} de 346.',
     bottom10:
-      '{commune} (región de {region}) registra una de las tasas de incidencia reportada más bajas del país, aunque con una leve tendencia al alza en la serie CEAD. En {year}, la tasa oficial fue de {rate} incidentes por 100.000 habitantes, correspondiendo a la posición nacional {nationalRank} de 346.',
+      '{commune} ({region}) registra una de las tasas de incidencia reportada más bajas del país, aunque con una leve tendencia al alza en la serie CEAD. En {year}, la tasa oficial fue de {rate} incidentes por 100.000 habitantes, correspondiendo a la posición nacional {nationalRank} de 346.',
   },
   down: {
     top10:
-      '{commune} (región de {region}) mantiene un nivel elevado de incidencia reportada —posición {nationalRank} de 346 comunas—, pero los datos del CEAD muestran una tendencia a la baja que ha sido sostenida en períodos recientes. La cifra de {year} alcanzó {rate} incidentes por 100.000 habitantes.',
+      '{commune} ({region}) mantiene un nivel elevado de incidencia reportada —posición {nationalRank} de 346 comunas—, pero los datos del CEAD muestran una tendencia a la baja que ha sido sostenida en períodos recientes. La cifra de {year} alcanzó {rate} incidentes por 100.000 habitantes.',
     top25:
-      '{commune} (región de {region}) registró {rate} incidentes reportados por 100.000 habitantes en {year}, situándose en la posición nacional {nationalRank} de 346. Los registros del CEAD muestran una tendencia a la baja en períodos recientes, lo que sugiere una trayectoria hacia menores niveles de incidencia.',
+      '{commune} ({region}) registró {rate} incidentes reportados por 100.000 habitantes en {year}, situándose en la posición nacional {nationalRank} de 346. Los registros del CEAD muestran una tendencia a la baja en períodos recientes, lo que sugiere una trayectoria hacia menores niveles de incidencia.',
     mid:
-      'Según los registros del CEAD, {commune} (región de {region}) ha experimentado una tendencia a la baja en la incidencia delictiva reportada. La comuna se ubicó en la posición {nationalRank} de 346 a nivel nacional en {year}, con una tasa oficial de {rate} incidentes por 100.000 habitantes.',
+      'Según los registros del CEAD, {commune} ({region}) ha experimentado una tendencia a la baja en la incidencia delictiva reportada. La comuna se ubicó en la posición {nationalRank} de 346 a nivel nacional en {year}, con una tasa oficial de {rate} incidentes por 100.000 habitantes.',
     bottom25:
-      '{commune} (región de {region}) mantiene una incidencia reportada comparativamente baja —posición {nationalRank} de 346— y los datos del CEAD indican una tendencia a la baja adicional. En {year}, la tasa fue de {rate} incidentes por 100.000 habitantes.',
+      '{commune} ({region}) mantiene una incidencia reportada comparativamente baja —posición {nationalRank} de 346— y los datos del CEAD indican una tendencia a la baja adicional. En {year}, la tasa fue de {rate} incidentes por 100.000 habitantes.',
     bottom10:
-      '{commune} (región de {region}) registra algunas de las tasas de incidencia reportada más bajas del país. Los datos del CEAD también muestran una tendencia a la baja. La tasa oficial de {year} fue de {rate} incidentes por 100.000 habitantes — posición nacional {nationalRank} de 346.',
+      '{commune} ({region}) registra algunas de las tasas de incidencia reportada más bajas del país. Los datos del CEAD también muestran una tendencia a la baja. La tasa oficial de {year} fue de {rate} incidentes por 100.000 habitantes — posición nacional {nationalRank} de 346.',
   },
   stable: {
     top10:
-      '{commune} (región de {region}) figura de forma consistente entre las comunas con mayor incidencia delictiva reportada en Chile. Los datos del CEAD muestran una tendencia estable en la posición {nationalRank} de 346, con {rate} incidentes por 100.000 habitantes registrados en {year}.',
+      '{commune} ({region}) figura de forma consistente entre las comunas con mayor incidencia delictiva reportada en Chile. Los datos del CEAD muestran una tendencia estable en la posición {nationalRank} de 346, con {rate} incidentes por 100.000 habitantes registrados en {year}.',
     top25:
-      '{commune} (región de {region}) ha mantenido un nivel relativamente estable de incidencia reportada en años recientes. Las cifras del CEAD la sitúan en la posición nacional {nationalRank} de 346, con {rate} incidentes por 100.000 habitantes en {year}.',
+      '{commune} ({region}) ha mantenido un nivel relativamente estable de incidencia reportada en años recientes. Las cifras del CEAD la sitúan en la posición nacional {nationalRank} de 346, con {rate} incidentes por 100.000 habitantes en {year}.',
     mid:
-      'Los datos oficiales del CEAD para {commune} (región de {region}) muestran una tendencia estable en la incidencia delictiva reportada. La comuna se ubicó en la posición {nationalRank} de 346 a nivel nacional en {year}, registrando {rate} incidentes por 100.000 habitantes.',
+      'Los datos oficiales del CEAD para {commune} ({region}) muestran una tendencia estable en la incidencia delictiva reportada. La comuna se ubicó en la posición {nationalRank} de 346 a nivel nacional en {year}, registrando {rate} incidentes por 100.000 habitantes.',
     bottom25:
-      '{commune} (región de {region}) ha mantenido niveles de incidencia reportada comparativamente bajos en años recientes según el CEAD. La cifra de {year} fue de {rate} incidentes por 100.000 habitantes — posición nacional {nationalRank} de 346 — con una tendencia estable.',
+      '{commune} ({region}) ha mantenido niveles de incidencia reportada comparativamente bajos en años recientes según el CEAD. La cifra de {year} fue de {rate} incidentes por 100.000 habitantes — posición nacional {nationalRank} de 346 — con una tendencia estable.',
     bottom10:
-      '{commune} (región de {region}) registra de forma consistente una de las tasas de incidencia reportada más bajas en Chile. Los datos del CEAD muestran una tendencia estable, con {rate} incidentes por 100.000 habitantes en {year} — posición nacional {nationalRank} de 346.',
+      '{commune} ({region}) registra de forma consistente una de las tasas de incidencia reportada más bajas en Chile. Los datos del CEAD muestran una tendencia estable, con {rate} incidentes por 100.000 habitantes en {year} — posición nacional {nationalRank} de 346.',
   },
 };
 
@@ -277,15 +278,15 @@ const ES_VS_NATIONAL: Record<ComparisonBand, string> = {
 
 const ES_VS_REGIONAL: Record<ComparisonBand, string> = {
   high_above:
-    'Dentro de la región de {region}, {commune} se sitúa considerablemente por encima del promedio regional: su tasa de {year} supera la media per cápita regional en aproximadamente {pct}%. La comparación regional se basa en la media de las comunas sin baja población dentro de {region}, lo que proporciona un punto de referencia geográficamente relevante.',
+    'Dentro de la {region}, {commune} se sitúa considerablemente por encima del promedio regional: su tasa de {year} supera la media per cápita regional en aproximadamente {pct}%. La comparación regional se basa en la media de las comunas sin baja población dentro de la {region}, lo que proporciona un punto de referencia geográficamente relevante.',
   mid_above:
-    'Dentro de {region}, {commune} registra una incidencia reportada moderadamente superior a la media per cápita regional — aproximadamente {pct}% más alta en {year}. La posición de la comuna dentro de su región refleja tanto los niveles absolutos de incidencia como la distribución de la actividad reportada entre las demás comunas de {region}.',
+    'Dentro de la {region}, {commune} registra una incidencia reportada moderadamente superior a la media per cápita regional — aproximadamente {pct}% más alta en {year}. La posición de la comuna dentro de su región refleja tanto los niveles absolutos de incidencia como la distribución de la actividad reportada entre las demás comunas de la {region}.',
   near:
-    'Dentro de {region}, la tasa de {commune} en {year} es cercana a la media per cápita regional. La comuna se sitúa cerca del punto medio de su distribución regional, lo que indica que su incidencia reportada se alinea en términos generales con el nivel típico de la región.',
+    'Dentro de la {region}, la tasa de {commune} en {year} es cercana a la media per cápita regional. La comuna se sitúa cerca del punto medio de su distribución regional, lo que indica que su incidencia reportada se alinea en términos generales con el nivel típico de la región.',
   mid_below:
-    'La incidencia reportada de {commune} en {year} fue aproximadamente {pct}% inferior a la media per cápita de la región de {region}. Entre las comunas de {region}, esto sitúa a {commune} en la parte baja de la distribución regional.',
+    'La incidencia reportada de {commune} en {year} fue aproximadamente {pct}% inferior a la media per cápita de la {region}. Entre las comunas de la {region}, esto sitúa a {commune} en la parte baja de la distribución regional.',
   high_below:
-    'En comparación con otras comunas de {region}, la tasa de {commune} en {year} se sitúa sustancialmente por debajo de la media per cápita regional — en aproximadamente {pct}%. Esto la posiciona entre las comunas de menor incidencia en la región según los datos reportados del CEAD.',
+    'En comparación con otras comunas de la {region}, la tasa de {commune} en {year} se sitúa sustancialmente por debajo de la media per cápita regional — en aproximadamente {pct}%. Esto la posiciona entre las comunas de menor incidencia en la región según los datos reportados del CEAD.',
 };
 
 function ES_FAMILY_PARA(dominant: string, secondary: string, year: number, _dominantPct: number, commune: string): string {
@@ -301,11 +302,13 @@ function ES_COMPARABLE_PARA(comp: ComparableResult, commune: string, rate: numbe
   const similarity = targetLowPop
     ? `Dado que ${commune} tiene una pequeña población residente, su tasa es estadísticamente volátil, por lo que esta comparación se ofrece como la referencia más cercana disponible y no como una afirmación de nivel de incidencia compartido.`
     : `Las dos comunas comparten un nivel de incidencia similar, lo que hace que la comparación sea informativa para entender la posición de ${commune} en relación con un par concreto, en lugar de un promedio nacional abstracto.`;
-  return `Un punto de referencia útil para contextualizar los datos de ${commune} es ${comp.name} (${comp.regionName}), identificada como la comuna comparable más cercana ${scope} en función de la incidencia reportada. En ${year}, ${comp.name} registró aproximadamente ${fmt(comp.rate)} incidentes por 100.000 habitantes, frente a ${fmt(rate)} de ${commune}. ${similarity} ${comp.name} ocupa la posición nacional ${comp.national_rank} de 346.`;
+  return `Un punto de referencia útil para contextualizar los datos de ${commune} es ${comp.name} (${regionNameEs(comp.regionName)}), identificada como la comuna comparable más cercana ${scope} en función de la incidencia reportada. En ${year}, ${comp.name} registró aproximadamente ${fmt(comp.rate)} incidentes por 100.000 habitantes, frente a ${fmt(rate)} de ${commune}. ${similarity} ${comp.name} ocupa la posición nacional ${comp.national_rank} de 346.`;
 }
 
 function ES_REGIONAL_PARA(commune: string, region: string, regionalRank: number): string {
-  return `${commune} es una de las comunas que integran la región de ${region}. Dentro de la región, ocupa la posición regional ${regionalRank}, una situación que refleja su nivel de incidencia en relación con las demás comunas de la misma unidad administrativa. Las comparaciones regionales son especialmente relevantes porque tienen en cuenta las condiciones socioeconómicas compartidas, los patrones de densidad urbana y la infraestructura de registro local que pueden influir en la incidencia medida a lo largo de la región.`;
+  // `region` arrives pre-formatted (e.g. "Región Metropolitana", "Región del
+  // Biobío", "Región de Tarapacá") via regionNameEs() — do NOT prepend "región de".
+  return `${commune} es una de las comunas que integran la ${region}. Dentro de la región, ocupa la posición regional ${regionalRank}, una situación que refleja su nivel de incidencia en relación con las demás comunas de la misma unidad administrativa. Las comparaciones regionales son especialmente relevantes porque tienen en cuenta las condiciones socioeconómicas compartidas, los patrones de densidad urbana y la infraestructura de registro local que pueden influir en la incidencia medida a lo largo de la región.`;
 }
 
 const ES_LOW_POP_CAVEAT =
@@ -341,6 +344,14 @@ function interpolate(template: string, vars: Record<string, string | number>): s
  */
 export function buildCommuneProse(commune: CommuneData, locale: Locale): string {
   const year = commune.latestCompleteYear;
+
+  // commune.regionName is the bare region name ("Metropolitana", "Biobío"). The
+  // ES sentence banks reference the region as a full grammatical phrase
+  // ("Región Metropolitana", "Región del Biobío", "Región de Tarapacá") — never
+  // the ungrammatical "región de Metropolitana" (F-006). EN keeps the bare name
+  // ("the {region} region"). Comparable-commune regions are formatted inside
+  // ES_COMPARABLE_PARA.
+  const regionVar = locale === 'es' ? regionNameEs(commune.regionName) : commune.regionName;
 
   // Get latest complete year series entry
   const seriesEntry = commune.series.find((s) => s.year === year && !s.partial);
@@ -403,7 +414,7 @@ export function buildCommuneProse(commune: CommuneData, locale: Locale): string 
   paragraphs.push(
     interpolate(openTemplate, {
       commune: commune.name,
-      region: commune.regionName,
+      region: regionVar,
       nationalRank: commune.national_rank,
       rate: fmt(rate),
       year,
@@ -414,7 +425,7 @@ export function buildCommuneProse(commune: CommuneData, locale: Locale): string 
   paragraphs.push(
     locale === 'en'
       ? EN_REGIONAL_PARA(commune.name, commune.regionName, commune.regional_rank)
-      : ES_REGIONAL_PARA(commune.name, commune.regionName, commune.regional_rank)
+      : ES_REGIONAL_PARA(commune.name, regionVar, commune.regional_rank)
   );
 
   // --- vs-national paragraph ---
@@ -437,7 +448,7 @@ export function buildCommuneProse(commune: CommuneData, locale: Locale): string 
   paragraphs.push(
     interpolate(vsRegTemplate, {
       commune: commune.name,
-      region: commune.regionName,
+      region: regionVar,
       rate: fmt(rate),
       year,
       pct: Math.round(Math.abs(vsRegionalPct)),

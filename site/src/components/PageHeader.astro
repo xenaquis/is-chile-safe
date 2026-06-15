@@ -43,8 +43,14 @@ const altHref = locale === 'en' ? esPath : enPath;
     <span class="wordmark-text">Chile Safety Map</span>
   </a>
 
-  <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-hidden="true" tabindex="-1" />
-  <label for="nav-toggle" class="nav-toggle-btn" aria-label={t.nav_menu_open}>
+  <!--
+    Zero-JS hamburger (WR-03 fix): the checkbox is the keyboard-operable control
+    — sr-only but focusable, so Tab reaches it and Space toggles the nav. It
+    carries the accessible name; the <label> is the decorative burger surface
+    (aria-hidden) and still toggles the checkbox for pointer users.
+  -->
+  <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label={t.nav_menu_open} />
+  <label for="nav-toggle" class="nav-toggle-btn" aria-hidden="true">
     <span class="burger-bar"></span>
     <span class="burger-bar"></span>
     <span class="burger-bar"></span>
@@ -168,8 +174,34 @@ const altHref = locale === 'en' ? esPath : enPath;
     color: var(--primary);
   }
 
-  /* Zero-JS hamburger — hidden checkbox */
-  .nav-toggle-input { display: none; }
+  /* Zero-JS hamburger — checkbox is sr-only but FOCUSABLE (not display:none),
+     so keyboard users can Tab to it and toggle the nav with Space (WR-03). */
+  .nav-toggle-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* Desktop: nav always visible, so the toggle is irrelevant — remove it from
+     the tab order entirely. */
+  @media (min-width: 640px) {
+    .nav-toggle-input { display: none; }
+  }
+
+  /* Show a visible focus ring on the burger when the (hidden) checkbox is
+     keyboard-focused. */
+  .nav-toggle-input:focus-visible ~ .nav-toggle-btn {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
 
   /* Hamburger button: visible only below 640px */
   .nav-toggle-btn {

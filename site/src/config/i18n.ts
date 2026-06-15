@@ -237,6 +237,9 @@ export const ES_STRINGS: I18nStrings = {
 
   // Patrones de h1
   page_commune_h1: '{name} — Datos de Incidencia Delictiva Reportada',
+  // NOTE: do NOT wire this static template directly — "Región de {name}" is
+  // ungrammatical for Metropolitana/Maule/Biobío (F-006). Build the region
+  // phrase with regionNameEs() and append the suffix instead.
   page_region_h1: 'Región de {name} — Panorama de Incidencia Delictiva',
   page_crime_h1: '{name} — Incidencia Nacional',
 
@@ -376,3 +379,23 @@ export const NAV_STRINGS: Record<'en' | 'es', NavStrings> = {
     methodology: ES_STRINGS.nav_methodology,
   },
 };
+
+/**
+ * Grammatically correct Spanish region phrase from the bare region name as
+ * stored in data/cead/regions/*.json (e.g. "Metropolitana", "Biobío").
+ *
+ * Most regions take "Región de {name}", but a few don't:
+ *   - "Región Metropolitana"  (no preposition)
+ *   - "Región del Maule" / "Región del Biobío"  ("del")
+ *
+ * Use this instead of the literal `Región de {name}` template, which produced
+ * the ungrammatical "Región de Metropolitana" (F-006). The static
+ * `page_region_h1` string can't encode this rule — call this helper instead.
+ */
+export function regionNameEs(name: string): string {
+  const NO_PREPOSITION = new Set(['Metropolitana']);
+  const DEL = new Set(['Maule', 'Biobío']);
+  if (NO_PREPOSITION.has(name)) return `Región ${name}`;
+  if (DEL.has(name)) return `Región del ${name}`;
+  return `Región de ${name}`;
+}
