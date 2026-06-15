@@ -39,7 +39,7 @@
 ### Accesibilidad / SEO (A11Y)
 
 - [x] **A11Y-01**: En páginas muestreadas — contraste de color (paleta teal `--primary #0f766e`), focus states visibles, alt text presente, y aria en los controles del mapa.
-- [ ] **A11Y-02**: En plantillas muestreadas — `<title>`, meta description, canonical, hreflang y JSON-LD (FAQPage en question-pages) presentes y válidos.
+- [x] **A11Y-02**: En plantillas muestreadas — `<title>`, meta description, canonical, hreflang y JSON-LD (FAQPage en question-pages) presentes y válidos.
 
 ## Future Requirements
 
@@ -82,7 +82,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | READ-02 | Phase 9 | Complete |
 | READ-03 | Phase 9 | Complete |
 | A11Y-01 | Phase 9 | Complete |
-| A11Y-02 | Phase 9 | Pending |
+| A11Y-02 | Phase 9 | Complete |
 
 **Coverage:**
 
