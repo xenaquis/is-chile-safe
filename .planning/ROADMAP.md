@@ -114,7 +114,7 @@ Plans:
 
 **Wave 2** *(disjoint files — run in parallel)*
 
-- [ ] 09-02-PLAN.md — Map comprehension: legend numeric bands (D-03), panel rate tooltip (D-01) + multiplier/bar (D-04), family glossary affordance (D-02) [UX-02, A11Y-01]
+- [x] 09-02-PLAN.md — Map comprehension: legend numeric bands (D-03), panel rate tooltip (D-01) + multiplier/bar (D-04), family glossary affordance (D-02) [UX-02, A11Y-01]
 - [ ] 09-03-PLAN.md — Bilingual glossary pages (/glossary/, /es/glosario/) + ranking-table tooltip & cross-links [READ-03, A11Y-02, UX-02]
 - [x] 09-04-PLAN.md — Editorial readability: ES methodology parity + heading/callout/tone audit on top editorial pages [READ-02, READ-03, UX-01, UX-02, READ-01]
 
@@ -136,7 +136,7 @@ Plans:
 | 6. CI/CD + Cloudflare Deployment | v1.0 | 3/3 | Complete | 2026-06-13 |
 | 7. E2E Review Pass | v1.1 | 5/5 | Complete    | 2026-06-14 |
 | 8. Bug Fixes & Data Correctness | v1.1 | 5/5 | Complete    | 2026-06-15 |
-| 9. UX / Readability / A11Y Polish | v1.1 | 2/5 | In Progress|  |
+| 9. UX / Readability / A11Y Polish | v1.1 | 3/5 | In Progress|  |
 
 ## Open Human Go-Live Gates (launch checklist — not v1.1 scope)
 
