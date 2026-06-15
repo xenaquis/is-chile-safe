@@ -1,9 +1,8 @@
 ---
 /**
- * /es/metodologia/ — ES stub para reciprocidad hreflang con /methodology/.
+ * /es/metodologia/ — Metodología ES a paridad de contenido con /methodology/ (READ-02 / F-003).
  *
- * Stub methodology page in Spanish.
- * Contenido ES completo será expandido en Plan 06.
+ * Mismas 6 secciones H2 que el original EN, con profundidad equivalente.
  * hreflang: /es/metodologia/ <-> /methodology/
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
@@ -12,7 +11,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Metodología — Cómo Calculamos las Tasas de Delincuencia",
-  "description": "Explicación de las fuentes de datos, el cálculo de tasas por 100.000 habitantes, la cifra negra, la fórmula de tendencia y lo que este sitio no afirma.",
+  "description": "Explicación de las fuentes de datos CEAD, el cálculo de tasas por 100.000 habitantes, la cifra negra (subregistro), la fórmula de tendencia, los criterios de comparación y lo que este sitio no afirma.",
   "url": "https://ischilesafe.com/es/metodologia/",
 };
 ---
@@ -20,7 +19,7 @@ const jsonLd = {
 <EditorialLayout
   lang="es"
   title="Metodología — Cómo Calculamos las Tasas de Delincuencia"
-  description="Explicación de las fuentes de datos CEAD, el cálculo de tasas por 100.000 habitantes, la cifra negra (subregistro), la fórmula de tendencia y lo que este sitio no afirma."
+  description="Explicación de las fuentes de datos CEAD, el cálculo de tasas por 100.000 habitantes, la cifra negra (subregistro), la fórmula de tendencia, los criterios de comparación y lo que este sitio no afirma."
   enPath="/methodology/"
   esPath="/es/metodologia/"
   jsonLd={jsonLd}
@@ -28,13 +27,12 @@ const jsonLd = {
   <section>
     <h1>Metodología — Cómo Calculamos las Tasas de Delincuencia</h1>
     <p>
-      Esta página explica cómo recopilamos, procesamos y presentamos las estadísticas de
-      delincuencia en este sitio: la fuente de los datos, el cálculo de la tasa, la advertencia
-      sobre la cifra negra (subregistro), cómo definimos las tendencias, los criterios de
-      comparación y, fundamentalmente, lo que estas cifras no pueden indicar.
-    </p>
-    <p>
-      Para la versión completa en inglés, visita <a href="/methodology/">Methodology</a>.
+      Esta página explica en detalle cómo recopilamos, procesamos y presentamos las estadísticas
+      de delincuencia en este sitio: la fuente de los datos, el cálculo de la tasa, la advertencia
+      sobre el subregistro (cifra negra), cómo definimos las tendencias, los criterios que usamos
+      para las comparaciones y — de manera fundamental — lo que estas cifras no pueden indicar.
+      Usamos la primera persona del plural ("nosotros") para referirnos al equipo editorial de
+      ischilesafe.com a lo largo del texto.
     </p>
   </section>
 
@@ -42,17 +40,39 @@ const jsonLd = {
     <h2>Fuente de datos: CEAD</h2>
     <p>
       Todos los datos cuantitativos de delincuencia en este sitio provienen del
-      <strong>CEAD — Centro de Estudios y Análisis del Delito</strong>, organismo oficial de
-      estadísticas criminales del Ministerio del Interior y Seguridad Pública de Chile. El CEAD
-      compila los datos de incidentes registrados por la policía provenientes de Carabineros de
-      Chile y la Policía de Investigaciones (PDI).
+      <strong>CEAD — Centro de Estudios y Análisis del Delito</strong>, el organismo oficial
+      de estadísticas criminales del Gobierno de Chile, que opera bajo el Ministerio del
+      Interior y Seguridad Pública.
     </p>
+    <p>
+      El CEAD compila los datos de incidentes registrados por la policía provenientes de
+      dos instituciones de seguridad:
+    </p>
+    <ul>
+      <li>
+        <strong>Carabineros de Chile</strong> — la policía uniformada de orden y seguridad,
+        que gestiona la gran mayoría de los incidentes registrados.
+      </li>
+      <li>
+        <strong>Policía de Investigaciones (PDI)</strong> — la policía civil de investigación,
+        que interviene en casos de mayor complejidad.
+      </li>
+    </ul>
     <p>
       El CEAD publica series anuales desde 2005 a nivel comunal, regional y nacional.
       Accedemos a estos datos a través de los endpoints públicos oficiales del CEAD
-      (<code>cead.ministeriointerior.gob.cl</code>). Los datos son procesados por nuestro
-      pipeline de código abierto y almacenados como archivos JSON versionados en el repositorio
-      público del proyecto en GitHub.
+      (<code>cead.ministeriointerior.gob.cl</code>). Los datos brutos son procesados por
+      nuestro pipeline de código abierto, validados con un esquema estricto y almacenados
+      como archivos JSON versionados en el repositorio público del proyecto en GitHub.
+      El código completo del scraper y la validación está disponible para su inspección.
+    </p>
+    <p>
+      Usamos únicamente la serie anual (<em>serie anual</em>) y solo la medida de casos
+      totales (<em>casos policiales</em> — tanto denuncias formales como detenidos). No
+      utilizamos cifras trimestrales ni mensuales. Incluimos datos hasta el último año
+      completo publicado por el CEAD; los años parciales (en los que el CEAD aún no ha
+      cerrado la serie anual) quedan excluidos de las tasas y los rankings para evitar
+      comparaciones con períodos incompletos.
     </p>
   </section>
 
@@ -65,12 +85,26 @@ const jsonLd = {
       de Estadísticas) como denominador para cada comuna, región y total nacional.
     </p>
     <p>
+      Utilizar la tasa publicada por el propio CEAD — en lugar de calcular una propia a
+      partir de los casos brutos y las cifras del INE — garantiza la coherencia con la fuente
+      oficial citada en cada página.
+    </p>
+    <p>
       <strong>Nota importante sobre los promedios nacionales y regionales:</strong> los totales
-      nacionales y regionales publicados por el CEAD como tasa por 100.000 son
-      <em>sumas</em> de las tasas comunales, no promedios per cápita ponderados. Cuando
-      mostramos un promedio nacional para comparación, calculamos la <strong>media aritmética
-      simple de las tasas comunales de comunas con población ≥10.000 habitantes</strong>.
-      Esta es la cifra comparativa correcta.
+      nacionales y regionales que el CEAD publica como <em>tasa por 100.000</em> son totales
+      <em>sumatorios</em> — es decir, la suma de todas las tasas comunales del territorio, no
+      un promedio per cápita ponderado. No mostramos estas cifras sumatorias como promedios.
+      Cuando presentamos un promedio nacional para comparación (por ejemplo, en páginas comunales
+      y en el ranking de menor incidencia reportada), calculamos la <strong>media aritmética
+      simple de las tasas comunales de comunas con población ≥ 10.000 habitantes</strong>.
+      Esta es la cifra comparativa per cápita correcta.
+    </p>
+    <p>
+      Las comunas con poblaciones inferiores a 10.000 habitantes quedan excluidas de los
+      promedios nacionales y regionales y del ranking de menor incidencia reportada. Las
+      poblaciones pequeñas producen tasas per cápita muy volátiles porque un solo incidente
+      puede generar una cifra muy alta por cada 100.000 habitantes. Sus páginas comunales
+      individuales siguen mostrando la tasa con una advertencia sobre esta volatilidad.
     </p>
   </section>
 
@@ -78,53 +112,164 @@ const jsonLd = {
     <h2>Subregistro (cifra negra)</h2>
     <p>
       Todas las cifras de este sitio representan <strong>incidentes registrados por la
-      policía únicamente</strong>. La brecha entre la delincuencia real y la reportada se
-      denomina <em>cifra negra</em>. El subregistro no es uniforme entre tipos de delito ni
-      entre comunas. Los homicidios tienen la cifra negra más baja porque las muertes son
-      descubiertas independientemente de que la víctima haga una denuncia. La violencia
-      intrafamiliar está significativamente subregistrada. Una tasa baja reportada puede
-      reflejar menor prevalencia real, mayor subregistro, o ambos.
+      policía únicamente</strong>. No representan el número total de delitos cometidos.
+      La brecha entre la delincuencia real ocurrida y la delincuencia reportada se denomina
+      <em>cifra negra</em> o subregistro.
+    </p>
+    <p>
+      El subregistro no es uniforme entre tipos de delito ni entre comunas. Los patrones
+      clave documentados en las encuestas chilenas de seguridad ciudadana
+      (<em>Encuesta Nacional Urbana de Seguridad Ciudadana — ENUSC</em>):
+    </p>
+    <ul>
+      <li>
+        <strong>Delitos contra la propiedad</strong> (robos y hurtos) tienen tasas de
+        denuncia relativamente altas cuando requisitos de seguros u obligaciones burocráticas
+        (como los partes policiales para reclamar seguros) incentivan a las víctimas a
+        denunciar. Sin embargo, los hurtos oportunistas de menor cuantía tienen un subregistro
+        elevado.
+      </li>
+      <li>
+        <strong>La violencia intrafamiliar</strong> está significativamente subregistrada en
+        todos los niveles socioeconómicos. Las estimaciones de prevalencia basadas en encuestas
+        son consistentemente superiores a las cifras policiales registradas.
+      </li>
+      <li>
+        <strong>Los homicidios</strong> tienen la cifra negra más baja de cualquier categoría
+        delictiva, porque las muertes son descubiertas y registradas independientemente de si
+        hay una denuncia por parte de las víctimas. Las tasas de homicidio son, por tanto, el
+        indicador más confiable en los datos del CEAD para comparaciones entre comunas y entre
+        años.
+      </li>
+    </ul>
+    <p>
+      Una comuna con una tasa reportada baja puede tener baja prevalencia delictiva real, alto
+      subregistro, o ambas cosas. No podemos determinar la proporción a partir de los datos
+      policiales únicamente. Cuando corresponde, las páginas individuales de cada comuna
+      incluyen estas advertencias.
     </p>
   </section>
 
   <section>
     <h2>Fórmula de tendencia</h2>
     <p>
-      El indicador de tendencia (<em>subiendo</em>, <em>bajando</em>, <em>estable</em>) se
-      calcula comparando la tasa del último año completo disponible con la tasa de tres años
-      atrás: <code>((tasa_N − tasa_N3) / tasa_N3) × 100</code>. Se aplica un
-      <strong>umbral del 5 %</strong>: cambios mayores a +5 % → subiendo; menores a −5 % →
-      bajando; dentro de ±5 % → estable. Se usa una ventana de tres años para reducir el
-      efecto de fluctuaciones puntuales atípicas.
+      Cada página comunal y pin del mapa muestra un indicador de tendencia: <em>subiendo</em>,
+      <em>bajando</em> o <em>estable</em>. La tendencia se calcula de la siguiente manera:
+    </p>
+    <ol>
+      <li>
+        Se toma la tasa del último año completo disponible (<em>año N</em>) y la tasa de tres
+        años antes (<em>año N−3</em>), ambas de la serie anual del CEAD.
+      </li>
+      <li>
+        Se calcula el cambio porcentual: <code>((tasa_N − tasa_N3) / tasa_N3) × 100</code>.
+      </li>
+      <li>
+        Se aplica un <strong>umbral del 5 %</strong>: si el cambio es superior a +5 %, la
+        tendencia es <em>subiendo</em>; si es inferior a −5 %, es <em>bajando</em>; si está
+        dentro de ±5 %, es <em>estable</em>.
+      </li>
+    </ol>
+    <p>
+      Usamos una ventana de tres años en lugar de una comparación año a año para reducir la
+      influencia de fluctuaciones puntuales anómalas (por ejemplo, las disrupciones en el
+      registro durante la pandemia). Si una comuna tiene menos de cuatro años completos de datos,
+      la tendencia no se calcula y no se muestra.
+    </p>
+    <p>
+      El umbral del 5 % se eligió para evitar clasificar como tendencias significativas cambios
+      estadísticamente marginales en comunas con recuentos absolutos bajos. Para comunas con
+      grandes poblaciones y series estables, el umbral proporciona una señal conservadora; en
+      comunas más pequeñas, la variación interanual puede superar el 5 % por ruido muestral
+      y no por un cambio genuino.
     </p>
   </section>
 
   <section>
     <h2>Criterios de comparación</h2>
     <p>
-      Las comparaciones usan la tasa por 100.000 del último año completo CEAD. Las comunas
-      con menos de 10.000 habitantes se excluyen de los rankings nacionales y regionales por
-      inestabilidad estadística (DATA-04). El promedio nacional usado en comparaciones es la
-      media simple de tasas de comunas con población ≥10.000 habitantes — no la suma CEAD.
+      Cuando comparamos comunas entre sí o con un promedio nacional, aplicamos los
+      siguientes criterios de manera consistente:
+    </p>
+    <ul>
+      <li>
+        <strong>Métrica:</strong> tasa por 100.000 habitantes (cifra publicada por el CEAD,
+        tal como se describe más arriba).
+      </li>
+      <li>
+        <strong>Año:</strong> el último año completo para el que el CEAD ha publicado una
+        serie anual cerrada para todas las comunas. Es el mismo año para todas las comunas
+        en una misma versión del sitio.
+      </li>
+      <li>
+        <strong>Exclusión de comunas de baja población:</strong> las comunas con menos de
+        10.000 habitantes quedan excluidas de los rankings nacionales y regionales por
+        volatilidad estadística (regla DATA-04). Sus páginas individuales siguen siendo
+        accesibles, pero señalan la exclusión.
+      </li>
+      <li>
+        <strong>Base del ranking:</strong> el <em>ranking nacional</em> que aparece en las
+        páginas comunales se calcula entre todas las comunas de Chile con población
+        suficiente (actualmente 346 comunas en total, de las cuales un subconjunto cumple
+        el umbral poblacional). Ranking 1 = menor tasa reportada en Chile para ese año.
+      </li>
+      <li>
+        <strong>Definición de promedio nacional:</strong> la media aritmética simple de las
+        tasas comunales de comunas con población ≥ 10.000 habitantes (véase la sección de
+        cálculo de tasas más arriba). No es la suma nacional publicada por el CEAD.
+      </li>
+    </ul>
+    <p>
+      Comparamos las comunas únicamente con la media nacional o con pares regionales, no con
+      cifras internacionales, porque los estándares de registro, las definiciones legales y
+      las estructuras demográficas difieren sustancialmente entre países, lo que hace poco
+      fiables las comparaciones de tasas entre naciones.
     </p>
   </section>
 
   <section>
     <h2>Lo que este sitio NO dice</h2>
     <p>
-      Las siguientes afirmaciones <strong>no se hacen en ningún lugar de este sitio</strong>:
+      Las siguientes afirmaciones <strong>no se hacen en ningún lugar de este sitio</strong>,
+      y si encuentras un texto que las implique, por favor repórtalo como un error:
     </p>
     <ul>
-      <li>No clasificamos ninguna comuna, ciudad o región como "segura" o "peligrosa" en términos absolutos.</li>
-      <li>No publicamos cifras de probabilidad de victimización individual.</li>
-      <li>No hacemos afirmaciones predictivas o prospectivas sobre seguridad.</li>
-      <li>No comparamos barrios dentro de comunas (los datos CEAD son solo a nivel comunal).</li>
-      <li>No comparamos Chile con otros países (las definiciones y estándares de reporte no son comparables).</li>
+      <li>
+        <strong>No clasificamos ninguna comuna, ciudad o región como "segura" o "peligrosa"
+        en términos absolutos.</strong> El mapa y las páginas de rankings presentan incidencia
+        reportada relativa — menor o mayor que en otras comunas — no niveles de riesgo
+        absolutos. Una comuna con una tasa reportada baja no se declara "segura"; una con una
+        tasa alta no se declara "peligrosa".
+      </li>
+      <li>
+        <strong>No publicamos cifras de probabilidad de victimización individual.</strong>
+        Las tasas reportadas no son probabilidades de riesgo individual. Una tasa de 1.000
+        por 100.000 no significa que haya un 1 % de probabilidad anual de convertirse en
+        víctima de un delito — significa 1.000 incidentes registrados por la policía por
+        cada 100.000 residentes registrados, con todas las advertencias sobre subregistro y
+        denominador descritas anteriormente.
+      </li>
+      <li>
+        <strong>No hacemos afirmaciones predictivas ni prospectivas sobre seguridad.</strong>
+        Los indicadores de tendencia describen lo que muestran los datos del CEAD para años
+        pasados; no predicen condiciones futuras. Una tendencia "bajando" no significa que
+        una comuna vaya a continuar disminuyendo.
+      </li>
+      <li>
+        <strong>No clasificamos barrios dentro de comunas.</strong> Los datos del CEAD están
+        disponibles únicamente a nivel comunal. No podemos mostrar qué barrio o calle dentro
+        de una comuna tiene una incidencia reportada mayor o menor.
+      </li>
+      <li>
+        <strong>No comparamos Chile con otros países.</strong> Las comparaciones internacionales
+        de tasas de delincuencia requieren definiciones y estándares de registro armonizados que
+        actualmente no existen para los países más relevantes para nuestro público.
+      </li>
     </ul>
     <p>
-      Nuestro objetivo es hacer accesibles los datos oficiales del CEAD, no emitir veredictos
-      de seguridad. Si tienes preguntas sobre los datos o la metodología, usa la
-      <a href="/es/contacto/">página de contacto</a>.
+      Nuestro objetivo es hacer accesibles y presentar con claridad los datos oficiales del CEAD
+      — no emitir veredictos de seguridad. Si tienes preguntas sobre los datos o la metodología,
+      usa la <a href="/es/contacto/">página de contacto</a>.
     </p>
   </section>
 </EditorialLayout>
@@ -145,14 +290,23 @@ const jsonLd = {
     margin-top: var(--md);
   }
 
-  ul {
-    list-style: disc;
+  ul,
+  ol {
     padding-left: var(--lg);
     line-height: 1.8;
     margin-top: var(--md);
   }
 
-  ul li + li {
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  ul li + li,
+  ol li + li {
     margin-top: var(--sm);
   }
 
