@@ -18,6 +18,7 @@ import {
   loadNationalAverage,
   loadNational,
   latestCompleteYearRate,
+  loadRolloutCuts,
 } from '../../../lib/data.ts';
 
 export async function getStaticPaths() {
@@ -78,6 +79,14 @@ const rankingRows = regionCommunes.map((c) => {
 
 // Sort by rate descending
 rankingRows.sort((a, b) => b.rate - a.rate);
+
+// Gate displayed rows to rollout CUTs only (F-005)
+const rolloutCuts = new Set(loadRolloutCuts());
+const displayedRows = rankingRows.filter((row) => {
+  const meta = regionCommunes.find((c) => c.slug === row.slug);
+  return meta ? rolloutCuts.has(meta.cut) : false;
+});
+const hiddenCount = rankingRows.length - displayedRows.length;
 
 // National position among 16 regions
 const allRegionRates: number[] = [];
@@ -189,7 +198,10 @@ const jsonLd = {
     <h2 class="section-heading">
       Comunas de {region.name} — por tasa de incidencia reportada ({latestCompleteYear})
     </h2>
-    <CommuneRankingTable rows={rankingRows} locale="es" />
+    <CommuneRankingTable rows={displayedRows} locale="es" />
+    {hiddenCount > 0 && (
+      <p class="rollout-note">Mostrando {displayedRows.length} de {rankingRows.length} comunas — más próximamente.</p>
+    )}
   </section>
 
   <!-- 6. MapPlaceholderSlot -->
@@ -270,5 +282,12 @@ const jsonLd = {
 
   .ranking-section {
     margin: var(--xl) 0;
+  }
+
+  .rollout-note {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--sm);
+    padding: 0 var(--xs);
   }
 </style>
