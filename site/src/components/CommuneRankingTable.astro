@@ -11,6 +11,7 @@
  */
 import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
 import TrendChip from './TrendChip.astro';
+import RateTooltip from './RateTooltip.astro';
 
 interface RankingRow {
   name: string;
@@ -36,6 +37,10 @@ const trendColLabel   = t.trend_label;
 
 // Locale-aware commune URL prefix
 const communePrefix = locale === 'en' ? '/commune/' : '/es/comuna/';
+
+// Glossary cross-link
+const glossaryHref = locale === 'en' ? '/glossary/' : '/es/glosario/';
+const glossaryLabel = t.glossary_link;
 ---
 
 <div class="table-wrapper">
@@ -43,7 +48,7 @@ const communePrefix = locale === 'en' ? '/commune/' : '/es/comuna/';
     <thead>
       <tr>
         <th scope="col">{communeColLabel}</th>
-        <th scope="col" class="col-num">{rateColLabel}</th>
+        <th scope="col" class="col-num">{rateColLabel}<RateTooltip lang={locale} tip={t.rate_tooltip_body} /></th>
         <th scope="col" class="col-num">{rankColLabel}</th>
         <th scope="col">{trendColLabel}</th>
       </tr>
@@ -72,6 +77,9 @@ const communePrefix = locale === 'en' ? '/commune/' : '/es/comuna/';
 {rows.some((r) => r.low_population) && (
   <p class="low-pop-footnote">* {t.low_population_caveat}</p>
 )}
+<p class="glossary-footnote">
+  <a href={glossaryHref}>{glossaryLabel}</a>
+</p>
 
 <style>
   .table-wrapper {
@@ -148,5 +156,22 @@ const communePrefix = locale === 'en' ? '/commune/' : '/es/comuna/';
     color: var(--muted);
     margin-top: var(--sm);
     padding: 0 var(--xs);
+  }
+
+  .glossary-footnote {
+    font-size: var(--text-label);
+    font-weight: var(--weight-body);
+    color: var(--muted);
+    margin-top: var(--sm);
+    padding: 0 var(--xs);
+  }
+
+  .glossary-footnote a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .glossary-footnote a:hover {
+    text-decoration: underline;
   }
 </style>

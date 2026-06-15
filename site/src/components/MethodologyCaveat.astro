@@ -18,6 +18,7 @@ const { locale } = Astro.props;
 const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
 
 const methodHref = locale === 'en' ? '/methodology/' : '/es/metodologia/';
+const glossaryHref = locale === 'en' ? '/glossary/' : '/es/glosario/';
 
 // Replace {link} placeholder with the link element
 const caveatParts = t.methodology_caveat_text.split('{link}');
@@ -28,6 +29,8 @@ const caveatParts = t.methodology_caveat_text.split('{link}');
     {caveatParts[0]}
     <a href={methodHref} class="caveat-link">{t.methodology_caveat_link}</a>
     {caveatParts[1]}
+    {' '}
+    <a href={glossaryHref} class="caveat-link">{t.glossary_link}</a>.
   </p>
 </aside>
 
