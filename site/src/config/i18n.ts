@@ -102,6 +102,17 @@ export interface I18nStrings {
 
   // Phase 9 — legend footnote
   legend_per_100k_note: string;
+
+  // Phase 11 — directory nav + page strings
+  nav_communes: string;
+  dir_title: string;
+  dir_lead: string;
+  dir_search_placeholder: string;
+  dir_view_az: string;
+  dir_view_region: string;
+  dir_count: string;
+  dir_lowpop_tag: string;
+  dir_empty: string;
 }
 
 export const EN_STRINGS: I18nStrings = {
@@ -204,6 +215,17 @@ export const EN_STRINGS: I18nStrings = {
 
   // Phase 9 — legend footnote
   legend_per_100k_note: 'Reported rate per 100,000 inhabitants',
+
+  // Phase 11 — directory nav + page strings
+  nav_communes: 'Communes',
+  dir_title: 'All 346 communes of Chile',
+  dir_lead: 'Every commune with CEAD reported-incidence data has a page. Search by name or browse all 16 regions.',
+  dir_search_placeholder: "Filter by name… (e.g. 'la ', 'puerto', 'vina')",
+  dir_view_az: 'A–Z',
+  dir_view_region: 'By region',
+  dir_count: '{n} of 346 communes',
+  dir_lowpop_tag: 'low pop.',
+  dir_empty: 'No results for "{q}".',
 };
 
 export const ES_STRINGS: I18nStrings = {
@@ -306,6 +328,17 @@ export const ES_STRINGS: I18nStrings = {
 
   // Fase 9 — nota al pie de leyenda
   legend_per_100k_note: 'Tasa reportada por 100.000 habitantes',
+
+  // Fase 11 — directorio nav + strings de página
+  nav_communes: 'Comunas',
+  dir_title: 'Las 346 comunas de Chile',
+  dir_lead: 'Toda comuna con datos de incidencia reportada CEAD tiene su página. Busca por nombre o explora las 16 regiones.',
+  dir_search_placeholder: "Filtra por nombre… (ej. 'la ', 'puerto', 'viña')",
+  dir_view_az: 'A–Z',
+  dir_view_region: 'Por región',
+  dir_count: '{n} de 346 comunas',
+  dir_lowpop_tag: 'baja pob.',
+  dir_empty: 'Sin resultados para "{q}".',
 };
 
 // D-17: Crime-family URL slug translations
