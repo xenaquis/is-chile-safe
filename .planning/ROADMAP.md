@@ -154,7 +154,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 — shares build-topojson.mjs)*
 
-- [ ] 10-02-PLAN.md — Source swap + retune: commit chilemapas raw source (un-ignore), srcCodeToCut zero-pad code-join, visvalingam 10%/quantization 10000, regenerate+sync+validate chained [GEO-01, GEO-02]
+- [x] 10-02-PLAN.md — Source swap + retune: commit chilemapas raw source (un-ignore), srcCodeToCut zero-pad code-join, visvalingam 10%/quantization 10000, regenerate+sync+validate chained [GEO-01, GEO-02]
 
 **Wave 3** *(blocked on Wave 2 — verifies the shipped asset)*
 
@@ -173,7 +173,7 @@ Plans:
 | 7. E2E Review Pass | v1.1 | 5/5 | Complete    | 2026-06-14 |
 | 8. Bug Fixes & Data Correctness | v1.1 | 5/5 | Complete    | 2026-06-15 |
 | 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
-| 10. High-Resolution Commune Geometry | v1.2 | 1/3 | In Progress|  |
+| 10. High-Resolution Commune Geometry | v1.2 | 2/3 | In Progress|  |
 | 11. Homicide as a First-Class Category | v1.2 | 0/0 | Planned    |  |
 | 12. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Planned    |  |
 

@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Polish & QA
 status: executing
-last_updated: "2026-06-15T18:07:21.474Z"
+last_updated: "2026-06-15T18:13:58.232Z"
 last_activity: 2026-06-15
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 18
-  completed_plans: 16
+  completed_plans: 17
   percent: 75
 ---
 
@@ -26,7 +26,7 @@ _Last updated: 2026-06-13 — v1.1 roadmap created (Phases 7–9); ready to plan
 ## Current Position
 
 Phase: 10 (High-Resolution Commune Geometry) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-06-15
 
@@ -72,6 +72,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 | Phase 08 P05 | 15m | 3 tasks | 1 files |
 | Phase 09 P04 | 12m | 2 tasks | 2 files |
 | Phase 10-high-resolution-commune-geometry P01 | 18m | 2 tasks | 2 files |
+| Phase 10-high-resolution-commune-geometry P02 | 25 | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -138,6 +139,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 - [Phase ?]: CUT list from comunas filenames; Node TopoJSON decode; 4 hardcoded centroid fallbacks for null-geometry communes
 - [Phase ?]: Four-way CUT integrity assertion (missing/orphan/dup/Santiago vs index.json) in Step-5 and Step-8 of build-topojson.mjs
 - [Phase ?]: Dual budget gate: raw le 420 KB (430080 B) AND gzip le 140 KB (143360 B); single mapshaper 10%/q=10000 config replaces three-config retry loop
+- [Phase ?]: chilemapas GPL-3 boundary source adopted; srcCodeToCut normalizes zero-padded codigo_comuna to CEAD CUT
 
 ## Operator Next Steps
 
