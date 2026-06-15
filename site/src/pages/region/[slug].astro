@@ -24,7 +24,6 @@ import {
   loadNationalAverage,
   loadNational,
   latestCompleteYearRate,
-  loadRolloutCuts,
 } from '../../lib/data.ts';
 
 export async function getStaticPaths() {
@@ -86,14 +85,6 @@ const rankingRows = regionCommunes.map((c) => {
 
 // Sort by rate descending (low-pop communes at bottom within their rate order)
 rankingRows.sort((a, b) => b.rate - a.rate);
-
-// Gate displayed rows to rollout CUTs only (F-005)
-const rolloutCuts = new Set(loadRolloutCuts());
-const displayedRows = rankingRows.filter((row) => {
-  const meta = regionCommunes.find((c) => c.slug === row.slug);
-  return meta ? rolloutCuts.has(meta.cut) : false;
-});
-const hiddenCount = rankingRows.length - displayedRows.length;
 
 // National position among 16 regions: compare this region's average to all 16
 // Use MEAN of non-low-pop communes per region (consistent with loadRegionalAverage approach)
@@ -210,10 +201,7 @@ const jsonLd = {
     <h2 class="section-heading">
       Communes in {region.name} — by reported incidence rate ({latestCompleteYear})
     </h2>
-    <CommuneRankingTable rows={displayedRows} locale="en" />
-    {hiddenCount > 0 && (
-      <p class="rollout-note">Showing {displayedRows.length} of {rankingRows.length} communes — more coming soon.</p>
-    )}
+    <CommuneRankingTable rows={rankingRows} locale="en" />
   </section>
 
   <!-- 6. MapPlaceholderSlot -->
