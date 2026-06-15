@@ -9,6 +9,7 @@ export interface I18nStrings {
   nav_home: string;
   nav_map: string;
   nav_methodology: string;
+  nav_menu_open: string;
 
   // Page h1 patterns (use {name} placeholder)
   page_commune_h1: string;
@@ -88,6 +89,7 @@ export const EN_STRINGS: I18nStrings = {
   nav_home: 'Home',
   nav_map: 'Map',
   nav_methodology: 'Methodology',
+  nav_menu_open: 'Open navigation menu',
 
   // Page h1 patterns
   page_commune_h1: '{name} — Reported Crime Data',
@@ -169,6 +171,7 @@ export const ES_STRINGS: I18nStrings = {
   nav_home: 'Inicio',
   nav_map: 'Mapa',
   nav_methodology: 'Metodología',
+  nav_menu_open: 'Abrir menú de navegación',
 
   // Patrones de h1
   page_commune_h1: '{name} — Datos de Incidencia Delictiva Reportada',
