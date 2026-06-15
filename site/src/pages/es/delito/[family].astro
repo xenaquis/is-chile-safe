@@ -20,7 +20,6 @@ import {
   loadCommune,
   loadCatalog,
   regionFileId,
-  loadRolloutCuts,
 } from '../../../lib/data.ts';
 import { FAMILY_SLUGS } from '../../../config/i18n.ts';
 import { FAMILY_LABELS_ES, FAMILY_DEFS_ES } from '../../../lib/familyDefs';
@@ -88,12 +87,6 @@ const rankingRows: RankRow[] = [
   ...eligibleRows.map((row) => ({ ...row, nationalRank: ++rankCounter })),
   ...lowPopRows.map((row) => ({ ...row, nationalRank: null })),
 ];
-
-// Gate displayed rows to rollout CUTs only (F-005).
-// Filtrar directamente por row.cut — sin round-trip slug→índice (WR-04).
-const rolloutCuts = new Set(loadRolloutCuts());
-const displayedRows = rankingRows.filter((row) => rolloutCuts.has(row.cut));
-const hiddenCount = rankingRows.length - displayedRows.length;
 
 const familyNationalMean =
   eligibleRows.length > 0
@@ -203,7 +196,7 @@ const jsonLd = {
           </tr>
         </thead>
         <tbody>
-          {displayedRows.map((row) => (
+          {rankingRows.map((row) => (
             <tr class={row.low_population ? 'low-pop' : ''}>
               <td class="col-num col-rank">
                 {row.low_population ? '—' : `#${row.nationalRank}`}
@@ -224,13 +217,10 @@ const jsonLd = {
         </tbody>
       </table>
     </div>
-    {displayedRows.some((r) => r.low_population) && (
+    {rankingRows.some((r) => r.low_population) && (
       <p class="low-pop-footnote">
         * Esta comuna tiene una pequeña población residente. Las tasas por 100.000 habitantes pueden presentar alta volatilidad estadística. Interprete con cautela.
       </p>
-    )}
-    {hiddenCount > 0 && (
-      <p class="rollout-note">Mostrando {displayedRows.length} de {eligibleRows.length} comunas — más próximamente.</p>
     )}
   </section>
 
