@@ -12,6 +12,7 @@
 import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
 import TrendChip from './TrendChip.astro';
 import RateTooltip from './RateTooltip.astro';
+import RankingTableEnhancer from './RankingTableEnhancer.astro';
 
 interface RankingRow {
   name: string;
@@ -20,6 +21,7 @@ interface RankingRow {
   national_rank: number;
   trend: 'up' | 'down' | 'stable';
   low_population: boolean;
+  ratesByYear: Record<number, number>;
 }
 
 interface Props {
@@ -44,7 +46,7 @@ const glossaryLabel = t.glossary_link;
 ---
 
 <div class="table-wrapper">
-  <table class="commune-ranking-table">
+  <table class="commune-ranking-table" data-ranking-table data-rate-col="1" data-name-col="0" data-rate-format="round" data-locale={locale}>
     <thead>
       <tr>
         <th scope="col">{communeColLabel}</th>
@@ -55,7 +57,7 @@ const glossaryLabel = t.glossary_link;
     </thead>
     <tbody>
       {rows.map((row) => (
-        <tr class={row.low_population ? 'low-pop' : ''}>
+        <tr class={row.low_population ? 'low-pop' : ''} data-rates={JSON.stringify(row.ratesByYear)} data-low-pop={row.low_population ? '1' : undefined}>
           <td>
             <a href={`${communePrefix}${row.slug}/`} class="commune-link">
               {row.name}
@@ -80,6 +82,7 @@ const glossaryLabel = t.glossary_link;
 <p class="glossary-footnote">
   <a href={glossaryHref}>{glossaryLabel}</a>
 </p>
+<RankingTableEnhancer locale={locale} />
 
 <style>
   .table-wrapper {

@@ -67,6 +67,11 @@ const communeCount = regionCommunes.length;
 const rankingRows = regionCommunes.map((c) => {
   const data = loadCommune(c.cut);
   const rate = latestCompleteYearRate(data);
+  // Build ratesByYear: complete-year keys only (partial===true excluded — D-3)
+  const ratesByYear: Record<number, number> = {};
+  data.series.filter((s) => !s.partial).forEach((s) => {
+    ratesByYear[s.year] = s.rate_per_100k;
+  });
   return {
     name: c.name,
     slug: c.slug,
@@ -74,6 +79,7 @@ const rankingRows = regionCommunes.map((c) => {
     national_rank: data.national_rank,
     trend: data.trend,
     low_population: c.low_population,
+    ratesByYear,
   };
 });
 
