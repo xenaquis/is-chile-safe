@@ -1,0 +1,77 @@
+---
+/**
+ * /rankings/ — EN crime incidence rankings index page (IA-03, D-12).
+ * Lists and links existing ranking pages. No new ranking data.
+ * Editorial tone: reported CEAD incidence — never "safest/most dangerous" in absolute terms.
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import { FAMILY_SLUGS } from '../config/i18n.ts';
+
+const familyLabels: Record<string, string> = {
+  vida:             'Homicide',
+  robos_violentos:  'Violent Robbery',
+  vif:              'Domestic Violence',
+  drogas:           'Drug Crimes',
+  armas:            'Weapons Offences',
+  propiedad:        'Property Crime',
+  incivilidades:    'Disorder & Incivilities',
+};
+---
+
+<EditorialLayout
+  lang="en"
+  title="Crime Incidence Rankings — Chile | Chile Safety Map"
+  description="Explore reported crime incidence rankings by commune, crime type, and region across Chile. Data: CEAD official Chilean police statistics."
+  enPath="/rankings/"
+  esPath="/es/rankings/"
+>
+  <h1>Crime Incidence Rankings</h1>
+
+  <p>
+    The rankings below are based on <strong>reported incidence rates per 100,000 inhabitants</strong>
+    published by CEAD (Centro de Estudios y Análisis del Delito), the official Chilean police
+    statistics body. Rates allow fair comparison across communes of very different sizes.
+    Under-reporting varies by crime type; treat all figures as reported counts, not absolute measures of risk.
+  </p>
+
+  <h2>By commune</h2>
+  <ul>
+    <li>
+      <a href="/safest-cities-in-chile/">
+        Communes with the lowest reported crime incidence in Chile
+      </a>
+      — ranked by total reported rate (excludes low-population communes).
+    </li>
+    <li>
+      <a href="/communes/">
+        Browse all 346 communes
+      </a>
+      — search by name or browse by region.
+    </li>
+  </ul>
+
+  <h2>By crime type</h2>
+  <ul>
+    {Object.entries(FAMILY_SLUGS).map(([key, slugs]) => (
+      <li>
+        <a href={`/crime/${slugs.en}/`}>
+          {familyLabels[key] ?? key} — national incidence
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <h2>By region</h2>
+  <p>
+    Each region page shows reported incidence trends and the communes within it.
+    Use the <a href="/map/">interactive map</a> to explore the 16 regions visually,
+    or navigate directly to a region from any commune page.
+  </p>
+
+  <p class="methodology-note">
+    <small>
+      Source: CEAD — Centro de Estudios y Análisis del Delito.
+      See <a href="/methodology/">Methodology</a> for data definitions and caveats.
+    </small>
+  </p>
+</EditorialLayout>

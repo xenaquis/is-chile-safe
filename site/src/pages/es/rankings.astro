@@ -1,0 +1,78 @@
+---
+/**
+ * /es/rankings/ — ES crime incidence rankings index page (IA-03, D-12).
+ * Lista y enlaza páginas de ranking existentes. Sin datos nuevos de ranking.
+ * Tono editorial: incidencia reportada CEAD — nunca "más segura/peligrosa" en términos absolutos.
+ */
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import { FAMILY_SLUGS } from '../../config/i18n.ts';
+
+const familyLabels: Record<string, string> = {
+  vida:             'Homicidios',
+  robos_violentos:  'Robos violentos',
+  vif:              'Violencia intrafamiliar',
+  drogas:           'Delitos de drogas',
+  armas:            'Armas',
+  propiedad:        'Delitos contra la propiedad',
+  incivilidades:    'Incivilidades',
+};
+---
+
+<EditorialLayout
+  lang="es"
+  title="Rankings de Incidencia Delictiva — Chile | Chile Safety Map"
+  description="Explora rankings de incidencia delictiva reportada por comuna, tipo de delito y región en Chile. Datos: estadísticas policiales oficiales CEAD."
+  enPath="/rankings/"
+  esPath="/es/rankings/"
+>
+  <h1>Rankings de Incidencia Delictiva</h1>
+
+  <p>
+    Los rankings a continuación están basados en <strong>tasas de incidencia reportada por 100.000 habitantes</strong>
+    publicadas por el CEAD (Centro de Estudios y Análisis del Delito), el organismo oficial de
+    estadísticas policiales de Chile. Las tasas permiten comparar comunas de tamaños muy distintos
+    en igualdad de condiciones. La sub-notificación varía según el tipo de delito; los datos
+    reflejan denuncias registradas, no una medida absoluta de riesgo.
+  </p>
+
+  <h2>Por comuna</h2>
+  <ul>
+    <li>
+      <a href="/es/comunas-mas-seguras-chile/">
+        Comunas con menor incidencia delictiva reportada en Chile
+      </a>
+      — clasificadas por tasa total reportada (excluye comunas de baja población).
+    </li>
+    <li>
+      <a href="/es/comunas/">
+        Ver las 346 comunas
+      </a>
+      — busca por nombre o explora por región.
+    </li>
+  </ul>
+
+  <h2>Por tipo de delito</h2>
+  <ul>
+    {Object.entries(FAMILY_SLUGS).map(([key, slugs]) => (
+      <li>
+        <a href={`/es/delito/${slugs.es}/`}>
+          {familyLabels[key] ?? key} — incidencia nacional
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <h2>Por región</h2>
+  <p>
+    Cada página regional muestra las tendencias de incidencia y las comunas que la componen.
+    Usa el <a href="/es/mapa/">mapa interactivo</a> para explorar las 16 regiones visualmente,
+    o accede directamente a una región desde la página de cualquier comuna.
+  </p>
+
+  <p class="methodology-note">
+    <small>
+      Fuente: CEAD — Centro de Estudios y Análisis del Delito.
+      Ver <a href="/es/metodologia/">Metodología</a> para definiciones y advertencias sobre los datos.
+    </small>
+  </p>
+</EditorialLayout>
