@@ -55,8 +55,8 @@ const ES_CRIME_SLUGS: Record<string, string> = {
 };
 
 // --- Page-level data ---
-const { crime, familyKey, dataSource } = Astro.props as {
-  crime: string;
+const { crime } = Astro.params;
+const { familyKey, dataSource } = Astro.props as {
   familyKey: string;
   dataSource: 'featured_rates' | 'by_family';
 };

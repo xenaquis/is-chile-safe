@@ -62,8 +62,8 @@ export async function getStaticPaths() {
 }
 
 // --- Page-level data ---
-const { crime, familyKey, dataSource, enParam } = Astro.props as {
-  crime: string;
+const { crime } = Astro.params;
+const { familyKey, dataSource, enParam } = Astro.props as {
   familyKey: string;
   dataSource: 'featured_rates' | 'by_family';
   enParam: string;

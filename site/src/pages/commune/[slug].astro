@@ -237,6 +237,9 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
   <section class="crime-type-spoke" aria-label="Rankings by crime type">
     <h2 class="section-heading">Rankings by Crime Type</h2>
     <ul class="crime-type-list">
+      <li>
+        <a href="/crime-ranking/homicide/">homicide ranking</a>
+      </li>
       {Object.entries(byFamily).map(([key]) => (
         <li>
           <a href={`/crime/${FAMILY_SLUGS[key]?.en ?? key}/`}>
