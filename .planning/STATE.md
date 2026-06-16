@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
 status: executing
-last_updated: "2026-06-16T03:30:56.337Z"
+last_updated: "2026-06-16T03:36:59.404Z"
 last_activity: 2026-06-16
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 16
-  completed_plans: 14
+  completed_plans: 15
   percent: 43
 ---
 
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-06-15)
 ## Current Position
 
 Phase: 13 (ranking-seo-hardening) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-06-16
 
@@ -81,6 +81,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 | Phase 11-publish-346-comunas-finder P02 | 15m | 3 tasks | 5 files |
 | Phase 12-home-ia-redesign-comuna-page-hub-and-spoke P04 | 18m | 3 tasks | 2 files |
 | Phase 13-ranking-seo-hardening P01 | 25 | 3 tasks | 11 files |
+| Phase 13-ranking-seo-hardening P02 | 12m | 3 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -149,6 +150,9 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 - [Phase ?]: Dual budget gate: raw le 420 KB (430080 B) AND gzip le 140 KB (143360 B); single mapshaper 10%/q=10000 config replaces three-config retry loop
 - [Phase ?]: chilemapas GPL-3 boundary source adopted; srcCodeToCut normalizes zero-padded codigo_comuna to CEAD CUT
 - [Phase 10-03]: chilemapas attribution added to EN/ES methodology pages (GPL-3, INE/SUBDERE/BCN); geometry vs CEAD stats distinction explicit
+- [Phase ?]: pageType defaults to default in BaseLayout — safe fallback for pages not in enum
+- [Phase ?]: EditorialLayout defaults pageType=editorial; explicit prop overrides enabling rankings override
+- [Phase ?]: jsonLd Props type widened to object|object[]|null in all three layouts; emission unchanged until Plan 03
 
 ## Operator Next Steps
 
