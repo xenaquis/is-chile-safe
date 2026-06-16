@@ -35,6 +35,7 @@ import {
   loadIndex,
 } from '../../lib/data.ts';
 import { buildCommuneProse } from '../../lib/proseEngine.ts';
+import { buildBreadcrumb, buildItemList } from '../../lib/jsonld.ts';
 import { levelForRate } from '../../lib/colorScale.ts';
 import { EN_STRINGS } from '../../config/i18n.ts';
 
@@ -106,7 +107,7 @@ const title = `${data.name} Crime Data — Chile Safety Map`;
 const description = `Official CEAD crime statistics for ${data.name}, ${data.regionName}: reported incidence rate, national ranking, annual evolution 2005–${year}.`;
 
 // JSON-LD: Dataset + Place (UI-SPEC lines 270-286)
-const jsonLd = {
+const jsonLdDataset = {
   '@context': 'https://schema.org',
   '@type': ['Dataset', 'Place'],
   name: `${data.name} — Reported Crime Incidence`,
@@ -121,6 +122,19 @@ const jsonLd = {
   measurementTechnique: 'Rate per 100,000 inhabitants, official CEAD police statistics',
   creator: { '@type': 'Organization', name: 'CEAD — Centro de Estudios y Análisis del Delito' },
 };
+
+// BreadcrumbList: mirrors 4-level visual breadcrumb Home › Communes › {Region} › {Commune}
+const breadcrumb = buildBreadcrumb([
+  { name: 'Home',          url: 'https://ischilesafe.com/' },
+  { name: 'Communes',      url: 'https://ischilesafe.com/communes/' },
+  { name: data.regionName, url: `https://ischilesafe.com/region/${regionSlug}/` },
+  { name: data.name },  // current — omits item per spec
+]);
+
+// ItemList: "similar comunas" by proximity — NOT a safety rank (resolved A1 / T-13-05)
+const similarList = buildItemList(similarComunas, 'en', { order: 'Unordered' });
+
+const jsonLd = [jsonLdDataset, breadcrumb, similarList];
 ---
 
 <BaseLayout

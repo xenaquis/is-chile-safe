@@ -23,6 +23,7 @@ import {
 } from '../../../lib/data.ts';
 import { FAMILY_SLUGS } from '../../../config/i18n.ts';
 import { FAMILY_LABELS_ES, FAMILY_DEFS_ES } from '../../../lib/familyDefs';
+import { buildBreadcrumb, buildItemList } from '../../../lib/jsonld.ts';
 
 export async function getStaticPaths() {
   const catalog = loadCatalog();
@@ -132,7 +133,7 @@ const title = `${familyLabel} en Chile — Ranking Nacional por Comuna — Chile
 const description = `Compare la tasa de ${familyLabel.toLowerCase()} por 100.000 habitantes en todas las comunas de Chile. Datos oficiales CEAD, con ranking nacional.`;
 
 // Dataset-only JSON-LD (crime-type pages emit Dataset, NOT Place — UI-SPEC line 288)
-const jsonLd = {
+const jsonLdDataset = {
   '@context': 'https://schema.org',
   '@type': 'Dataset',
   name: `${familyLabel} — Ranking Nacional por Comuna (Chile)`,
@@ -149,6 +150,23 @@ const jsonLd = {
     name: 'CEAD — Centro de Estudios y Análisis del Delito',
   },
 };
+
+// BreadcrumbList: espeja la ruta visual 2 niveles Inicio › Tipos de Delito (A2 espejo estricto)
+// URLs ES hardcoded — nunca getRelativeLocaleUrl (i18n-localized-slug-pitfall)
+const breadcrumb = buildBreadcrumb([
+  { name: 'Inicio', url: 'https://ischilesafe.com/es/' },
+  { name: 'Tipos de Delito' },  // página actual — omite item
+]);
+
+// ItemList: comunas por incidencia de este tipo de delito descendente (D-06)
+// Construido desde los mismos rankingRows que mapea la tabla; solo comunas elegibles
+const eligibleRankingRows = rankingRows.filter((r) => !r.low_population);
+const ranking = buildItemList(eligibleRankingRows, 'es', {
+  name: `Comunas por incidencia reportada de ${familyLabel.toLowerCase()} (descendente)`,
+  order: 'Descending',
+});
+
+const jsonLd = [jsonLdDataset, breadcrumb, ranking];
 ---
 
 <BaseLayout

@@ -35,6 +35,7 @@ import {
   loadIndex,
 } from '../../../lib/data.ts';
 import { buildCommuneProse } from '../../../lib/proseEngine.ts';
+import { buildBreadcrumb, buildItemList } from '../../../lib/jsonld.ts';
 import { levelForRate } from '../../../lib/colorScale.ts';
 import { ES_STRINGS } from '../../../config/i18n.ts';
 
@@ -108,7 +109,7 @@ const title = `Incidencia en ${data.name} — Chile Safety Map`;
 const description = `Estadísticas CEAD de incidencia delictiva en ${data.name}, ${data.regionName}: tasa reportada, posición nacional, evolución 2005–${year}.`;
 
 // JSON-LD: Dataset + Place (variante en español)
-const jsonLd = {
+const jsonLdDataset = {
   '@context': 'https://schema.org',
   '@type': ['Dataset', 'Place'],
   name: `${data.name} — Incidencia Delictiva Reportada`,
@@ -123,6 +124,20 @@ const jsonLd = {
   measurementTechnique: 'Tasa por 100.000 habitantes, estadísticas policiales oficiales CEAD',
   creator: { '@type': 'Organization', name: 'CEAD — Centro de Estudios y Análisis del Delito' },
 };
+
+// BreadcrumbList: espeja la ruta visual 4 niveles Inicio › Comunas › {Región} › {Comuna}
+// ES URLs hardcoded — nunca getRelativeLocaleUrl (i18n-localized-slug-pitfall)
+const breadcrumb = buildBreadcrumb([
+  { name: 'Inicio',        url: 'https://ischilesafe.com/es/' },
+  { name: 'Comunas',       url: 'https://ischilesafe.com/es/comunas/' },
+  { name: data.regionName, url: `https://ischilesafe.com/es/region/${regionSlug}/` },
+  { name: data.name },  // página actual — omite item
+]);
+
+// ItemList: "comunas similares" por proximidad — NO es un ranking de seguridad (A1 / T-13-05)
+const similarList = buildItemList(similarComunas, 'es', { order: 'Unordered' });
+
+const jsonLd = [jsonLdDataset, breadcrumb, similarList];
 ---
 
 <BaseLayout

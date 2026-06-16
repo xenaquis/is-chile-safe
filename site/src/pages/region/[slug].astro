@@ -25,6 +25,7 @@ import {
   loadNational,
   latestCompleteYearRate,
 } from '../../lib/data.ts';
+import { buildBreadcrumb, buildItemList } from '../../lib/jsonld.ts';
 
 export async function getStaticPaths() {
   const paths = [];
@@ -130,7 +131,7 @@ const title = `${region.name} Region — Crime Incidence Data — Chile Safety M
 const description = `Official CEAD crime incidence data for ${region.name} Region, Chile: reported rates, commune ranking, annual evolution 2005–${latestCompleteYear}.`;
 
 // JSON-LD: Dataset + Place (UI-SPEC lines 266-286)
-const jsonLd = {
+const jsonLdDataset = {
   '@context': 'https://schema.org',
   '@type': ['Dataset', 'Place'],
   name: `${region.name} Region — Reported Crime Incidence`,
@@ -148,6 +149,20 @@ const jsonLd = {
     name: 'CEAD — Centro de Estudios y Análisis del Delito',
   },
 };
+
+// BreadcrumbList: mirrors 2-level visual breadcrumb Home › Regions (A2 strict mirror)
+const breadcrumb = buildBreadcrumb([
+  { name: 'Home', url: 'https://ischilesafe.com/' },
+  { name: 'Regions' },  // current — no item (plain <span> in visual breadcrumb)
+]);
+
+// ItemList: communes in region by reported incidence descending (D-06)
+const ranking = buildItemList(rankingRows, 'en', {
+  name: `Communes in ${region.name} by reported CEAD incidence (descending)`,
+  order: 'Descending',
+});
+
+const jsonLd = [jsonLdDataset, breadcrumb, ranking];
 ---
 
 <BaseLayout

@@ -30,6 +30,7 @@ import {
 } from '../../lib/data.ts';
 import { FAMILY_SLUGS } from '../../config/i18n.ts';
 import { FAMILY_LABELS_EN, FAMILY_DEFS_EN } from '../../lib/familyDefs';
+import { buildBreadcrumb, buildItemList } from '../../lib/jsonld.ts';
 
 export async function getStaticPaths() {
   const catalog = loadCatalog();
@@ -142,7 +143,7 @@ const title = `${familyLabel} in Chile — National Commune Ranking — Chile Sa
 const description = `Compare reported ${familyLabel.toLowerCase()} rates per 100,000 inhabitants across all Chilean communes. Official CEAD data, ranked nationally.`;
 
 // Dataset-only JSON-LD (UI-SPEC line 288: crime-type pages emit Dataset, NOT Place)
-const jsonLd = {
+const jsonLdDataset = {
   '@context': 'https://schema.org',
   '@type': 'Dataset',
   name: `${familyLabel} — National Commune Ranking (Chile)`,
@@ -159,6 +160,22 @@ const jsonLd = {
     name: 'CEAD — Centro de Estudios y Análisis del Delito',
   },
 };
+
+// BreadcrumbList: mirrors 2-level visual breadcrumb Home › Crime Types (A2 strict mirror)
+const breadcrumb = buildBreadcrumb([
+  { name: 'Home', url: 'https://ischilesafe.com/' },
+  { name: 'Crime Types' },  // current — no item (plain <span> in visual breadcrumb)
+]);
+
+// ItemList: communes ranked by this crime family incidence descending (D-06)
+// Built from same rankingRows the inline table maps over; eligible communes only
+const eligibleRankingRows = rankingRows.filter((r) => !r.low_population);
+const ranking = buildItemList(eligibleRankingRows, 'en', {
+  name: `Communes by reported ${familyLabel.toLowerCase()} incidence (descending)`,
+  order: 'Descending',
+});
+
+const jsonLd = [jsonLdDataset, breadcrumb, ranking];
 ---
 
 <BaseLayout
