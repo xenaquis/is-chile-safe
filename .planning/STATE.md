@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-06-15)
 Phase: 15 (crime-type-seo-ranking-pages) — EXECUTING
 Plan: 2 of 2
 Status: Phase complete — ready for verification
-Last activity: 2026-06-16 - Completed quick task 260616-huj: clarify crime-ranking rate labels
+Last activity: 2026-06-16 - Completed quick task 260616-klv: audit drug rates (faithful to CEAD) + drug-scope clarification + pop-weighted aggregation fix
 
 Progress: v1.2 [██████████] 100% (22/22 plans — 6/6 phases active)
 
@@ -133,6 +133,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260616-huj | Clarify crime-ranking rate labels (denuncias per 100k residents, 1 decimal, bilingual explainer — presentational only, no data change) | 2026-06-16 | 4be9045 | [260616-huj-clarify-rate-labels](./quick/260616-huj-clarify-rate-labels/) |
+| 260616-klv | Audit drug rates (verified 9688/9688 vs CEAD cache — data faithful); clarify CEAD drug-family scope (Ley 20.000 vs consumption); fix national/region aggregation to population-weighted mean | 2026-06-16 | 5b997e4 | [260616-klv-auditar-tasas-drogas-100k-anomalas-modo-](./quick/260616-klv-auditar-tasas-drogas-100k-anomalas-modo-/) |
 
 ## Session Continuity
 
