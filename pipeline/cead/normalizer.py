@@ -228,6 +228,7 @@ def attach_featured(commune_data: dict) -> dict:
     featured: dict[str, dict] = {
         "propiedad": dict(commune_data.get("propiedad_by_year", {})),
         "homicidios": dict(commune_data.get("homicidios_by_year", {})),
+        "homicidios_count": dict(commune_data.get("homicidios_count_by_year", {})),  # Option A: non-breaking
         "secuestros": dict(commune_data.get("secuestros_by_year", {})),
     }
     return featured

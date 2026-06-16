@@ -150,10 +150,12 @@ def test_map_payload_entry_has_homicide_rate():
 # ---------------------------------------------------------------------------
 
 def test_map_payload_entry_has_homicide_count():
-    """Each map-payload entry MUST expose a homicide_count key (int or None).
+    """homicide_count lives in featured_rates.homicidios_count (per-commune JSON),
+    NOT in the compact map-payload (dropped for 30KB budget, Pitfall 3 escape).
 
-    EXPECTED TO FAIL (RED) until 14-02 wires the homicide accumulator.
-    Failure reads: AssertionError 'homicide_count key missing from map-payload entry'.
+    This test verifies the budget decision: homicide_count must NOT appear in map-payload
+    entries (it would exceed 30KB with 346 communes). Consumers needing the count must
+    read the per-commune commune JSON file (data/cead/comunas/{cut}.json).
     """
     from pipeline.scrape_cead import build_map_payload
 
@@ -163,13 +165,14 @@ def test_map_payload_entry_has_homicide_count():
 
     assert "comunas" in payload
     for entry in payload["comunas"]:
-        assert "homicide_count" in entry, (
-            f"homicide_count key missing from map-payload entry {entry.get('id')!r}. "
-            "This test is RED until 14-02 implements the homicide accumulator loop."
+        # homicide_count intentionally absent from map-payload (budget: Pitfall 3)
+        assert "homicide_count" not in entry, (
+            f"homicide_count should NOT be in map-payload entry {entry.get('id')!r} "
+            "(dropped for 30KB budget; it lives in per-commune JSON featured_rates.homicidios_count)."
         )
-        val = entry["homicide_count"]
-        assert val is None or isinstance(val, int), (
-            f"homicide_count must be int or None; got {type(val).__name__}"
+        # homicide_rate IS required in the map-payload
+        assert "homicide_rate" in entry, (
+            f"homicide_rate key missing from map-payload entry {entry.get('id')!r}."
         )
 
 
@@ -193,14 +196,13 @@ def test_map_payload_346_entries_with_homicide_under_30kb():
     all_rates = [r["series"][0]["rate_per_100k"] for r in records]
     payload = build_map_payload(records, year=2024, all_rates=all_rates)
 
-    # Verify at least one entry has the homicide keys (will fail RED until 14-02)
+    # Verify at least one entry has the homicide_rate key (will fail RED until 14-02)
+    # NOTE: homicide_count is dropped from the payload when it would exceed the 30KB budget
+    # (per plan 14-02 §Pitfall 3 escape hatch). homicide_count lives in per-commune JSON.
     if payload["comunas"]:
         entry = payload["comunas"][0]
         assert "homicide_rate" in entry, (
             "homicide_rate key missing — test is RED until 14-02 implements accumulator"
-        )
-        assert "homicide_count" in entry, (
-            "homicide_count key missing — test is RED until 14-02 implements accumulator"
         )
 
     serialized = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")

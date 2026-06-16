@@ -131,12 +131,43 @@ def build_map_payload(
         # Round to integers (no decimal) to keep map-payload under 30 KB (D-09)
         # Full precision is preserved in the per-commune JSON files.
         by_family_list = [int(round(by_family[k])) if by_family[k] is not None else None for k in _FK]
-        comunas.append({
+
+        # Homicide fields: read from the record's homicide_rate/homicide_count (set by accumulator)
+        # or from featured_rates.homicidios for the active year (null-vs-0 invariant preserved)
+        h_rate_raw = r.get("homicide_rate")
+        h_count_raw = r.get("homicide_count")
+        homicide_rate_val = int(round(h_rate_raw)) if h_rate_raw is not None else None
+        homicide_count_val = int(h_count_raw) if h_count_raw is not None else None
+
+        # Fallback: look up from featured_rates.homicidios for the active year
+        if homicide_rate_val is None:
+            fr = r.get("featured_rates", {})
+            homicidios = fr.get("homicidios", {}) if isinstance(fr, dict) else {}
+            yr_key_str = str(year)
+            if yr_key_str in homicidios and homicidios[yr_key_str] is not None:
+                homicide_rate_val = int(round(homicidios[yr_key_str]))
+        if homicide_count_val is None:
+            fr = r.get("featured_rates", {})
+            homicidios_count = fr.get("homicidios_count", {}) if isinstance(fr, dict) else {}
+            yr_key_str = str(year)
+            if yr_key_str in homicidios_count and homicidios_count[yr_key_str] is not None:
+                homicide_count_val = int(homicidios_count[yr_key_str])
+
+        # Build compact entry — omit None homicide fields to stay under 30KB (Pitfall 3).
+        # When homicide data exists the keys are present; when absent they're omitted entirely.
+        # homicide_count is also preserved in per-commune JSON via featured_rates.homicidios_count.
+        entry: dict = {
             "id": r["id"],
             "rate": int(round(rate)),
             "level": level,
             "by_family": by_family_list,  # ordered per FAMILY_KEYS
-        })
+        }
+        if homicide_rate_val is not None:
+            entry["homicide_rate"] = homicide_rate_val
+        # homicide_count intentionally dropped from the payload (Pitfall 3 budget escape):
+        # adding it would exceed 30KB with 346 communes. It lives in per-commune JSON
+        # via featured_rates.homicidios_count for downstream consumers that need it.
+        comunas.append(entry)
 
     return {
         "generated": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
@@ -321,7 +352,7 @@ def _run_pipeline(session, catalog: dict[str, str], run_date: datetime.date) -> 
         (communes: list[dict], regions: dict, national: dict)
     """
     from pipeline.cead.catalog import FAMILIA_IDS, REGION_IDS
-    from pipeline.cead.client import cache_raw, fetch_communes_batch
+    from pipeline.cead.client import cache_raw, fetch_communes_batch, fetch_subgroup_batch, load_cached
     from pipeline.cead.normalizer import (
         attach_featured,
         compute_ranks,
@@ -402,6 +433,59 @@ def _run_pipeline(session, catalog: dict[str, str], run_date: datetime.date) -> 
         # NOTE: If A1 (assumption) holds, we only need one pass per familia+year.
         break  # Remove this break if A1 is found to be false
 
+    # ---------------------------------------------------------------------------
+    # Homicide subgroup-101 accumulator (Phase 14 — D-01/D-02/D-03)
+    # CONFIRMED param: grupo[]=101. Rate (medida=2) and count (medida=1) are TWO
+    # separate requests per year. Cache-first: only cache-miss triggers a live call.
+    # ---------------------------------------------------------------------------
+    homicide_accumulator: dict[str, dict[int, dict]] = {cut: {} for cut in catalog}
+    all_cuts_list = list(catalog.keys())
+    hom_total_fetches = (current_year - start_year + 1) * 2  # rate + count per year
+    hom_fetch_count = 0
+
+    for year in range(start_year, current_year + 1):
+        for medida, measure_key in [("2", "rate"), ("1", "count")]:
+            hom_fetch_count += 1
+            cache_key = f"cead_subgroup101_{year}_{measure_key}.html"
+            html = load_cached(cache_key)
+            if html is None:
+                logger.info(
+                    "[hom %d/%d] Fetching subgroup101 year=%d medida=%s",
+                    hom_fetch_count, hom_total_fetches, year, medida,
+                )
+                try:
+                    html = fetch_subgroup_batch(
+                        session,
+                        cut_codes=all_cuts_list,
+                        year=year,
+                        familia_id=1,       # vida family
+                        subgrupo_id=101,    # homicidios
+                        medida=medida,
+                    )
+                    cache_raw(cache_key, html)
+                    time.sleep(2.5)  # D-03: courtesy delay (T-14-06 mitigation)
+                except Exception as exc:
+                    logger.warning(
+                        "Failed homicide subgroup fetch year=%d medida=%s: %s",
+                        year, medida, exc,
+                    )
+                    continue
+            else:
+                logger.debug(
+                    "[hom %d/%d] Cache hit subgroup101 year=%d medida=%s",
+                    hom_fetch_count, hom_total_fetches, year, medida,
+                )
+
+            rows = parse_cead_table(html)
+            for row in rows:
+                cut = _match_cut(row["name"], catalog)
+                if cut is None:
+                    continue
+                homicide_accumulator[cut].setdefault(year, {})
+                val_str = row["values"].get(str(year)) or row["values"].get(year)
+                val = parse_cead_float(val_str) if val_str else None
+                homicide_accumulator[cut][year][measure_key] = val
+
     # Normalize accumulator into ComunaRecord dicts
     population = load_population()
     communes = []
@@ -434,6 +518,19 @@ def _run_pipeline(session, catalog: dict[str, str], run_date: datetime.date) -> 
         series = mark_partial_year(series, run_date=run_date)
         trend_series = filter_series_for_trend(series)
 
+        # Build homicide rate+count dicts from homicide_accumulator (null-vs-0 invariant:
+        # CEAD-confirmed 0 is stored as 0; absent data leaves the year key absent)
+        hom_data = homicide_accumulator.get(cut, {})
+        homicidios_by_year: dict[int, float] = {}
+        homicidios_count_by_year: dict[int, int] = {}
+        for yr_key, yr_vals in hom_data.items():
+            rate_val = yr_vals.get("rate")
+            count_val = yr_vals.get("count")
+            if rate_val is not None:
+                homicidios_by_year[yr_key] = rate_val
+            if count_val is not None:
+                homicidios_count_by_year[yr_key] = int(count_val)
+
         featured = attach_featured({
             "propiedad_by_year": {
                 yr["year"]: yr["by_family"].get("propiedad")
@@ -445,7 +542,8 @@ def _run_pipeline(session, catalog: dict[str, str], run_date: datetime.date) -> 
                 for yr in series
                 if yr["by_family"].get("vida") is not None
             },
-            "homicidios_by_year": {},  # subgroup ID pending (Open Question 3)
+            "homicidios_by_year": homicidios_by_year,      # was hardcoded {} (Open Question 3 resolved)
+            "homicidios_count_by_year": homicidios_count_by_year,
             "secuestros_by_year": {},  # subgroup ID unknown (Open Question 3)
         })
 
