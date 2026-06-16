@@ -121,11 +121,14 @@ def _make_minimal_records_346() -> list[dict]:
 # ---------------------------------------------------------------------------
 
 def test_map_payload_entry_has_homicide_rate():
-    """Each map-payload entry MUST expose a homicide_rate key (int or None).
+    """Each map-payload entry MUST expose an "hr" key (abbreviated homicide_rate, int).
+
+    The key is abbreviated to "hr" (vs "homicide_rate") to stay under the 30KB budget
+    (D-09 compact encoding, same pattern as by_family compact list). The full name
+    "homicide_rate" lives in per-commune JSON (featured_rates.homicidios).
 
     EXPECTED TO FAIL (RED) until 14-02 wires the homicide accumulator into
-    build_map_payload. Failure reads: KeyError / AssertionError 'homicide_rate
-    key missing from map-payload entry'.
+    build_map_payload. Failure reads: KeyError / AssertionError '"hr" key missing'.
     """
     from pipeline.scrape_cead import build_map_payload
 
@@ -135,13 +138,13 @@ def test_map_payload_entry_has_homicide_rate():
 
     assert "comunas" in payload
     for entry in payload["comunas"]:
-        assert "homicide_rate" in entry, (
-            f"homicide_rate key missing from map-payload entry {entry.get('id')!r}. "
+        assert "hr" in entry, (
+            f'"hr" (homicide_rate) key missing from map-payload entry {entry.get("id")!r}. '
             "This test is RED until 14-02 implements the homicide accumulator loop."
         )
-        val = entry["homicide_rate"]
+        val = entry["hr"]
         assert val is None or isinstance(val, (int, float)), (
-            f"homicide_rate must be int, float, or None; got {type(val).__name__}"
+            f'"hr" must be int, float, or None; got {type(val).__name__}'
         )
 
 
@@ -156,6 +159,7 @@ def test_map_payload_entry_has_homicide_count():
     This test verifies the budget decision: homicide_count must NOT appear in map-payload
     entries (it would exceed 30KB with 346 communes). Consumers needing the count must
     read the per-commune commune JSON file (data/cead/comunas/{cut}.json).
+    Also verifies that the abbreviated "hr" key IS present (homicide_rate).
     """
     from pipeline.scrape_cead import build_map_payload
 
@@ -170,9 +174,9 @@ def test_map_payload_entry_has_homicide_count():
             f"homicide_count should NOT be in map-payload entry {entry.get('id')!r} "
             "(dropped for 30KB budget; it lives in per-commune JSON featured_rates.homicidios_count)."
         )
-        # homicide_rate IS required in the map-payload
-        assert "homicide_rate" in entry, (
-            f"homicide_rate key missing from map-payload entry {entry.get('id')!r}."
+        # homicide_rate IS required in the map-payload (as abbreviated key "hr")
+        assert "hr" in entry, (
+            f'"hr" (homicide_rate) key missing from map-payload entry {entry.get("id")!r}.'
         )
 
 
@@ -196,13 +200,13 @@ def test_map_payload_346_entries_with_homicide_under_30kb():
     all_rates = [r["series"][0]["rate_per_100k"] for r in records]
     payload = build_map_payload(records, year=2024, all_rates=all_rates)
 
-    # Verify at least one entry has the homicide_rate key (will fail RED until 14-02)
-    # NOTE: homicide_count is dropped from the payload when it would exceed the 30KB budget
-    # (per plan 14-02 §Pitfall 3 escape hatch). homicide_count lives in per-commune JSON.
+    # Verify at least one entry has the abbreviated "hr" key (homicide_rate).
+    # NOTE: key abbreviated to "hr" (vs "homicide_rate") for D-09 compactness.
+    # homicide_count dropped from payload per Pitfall 3 budget escape; lives in per-commune JSON.
     if payload["comunas"]:
         entry = payload["comunas"][0]
-        assert "homicide_rate" in entry, (
-            "homicide_rate key missing — test is RED until 14-02 implements accumulator"
+        assert "hr" in entry, (
+            '"hr" (homicide_rate) key missing — test is RED until 14-02 implements accumulator'
         )
 
     serialized = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")

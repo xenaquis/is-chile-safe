@@ -139,19 +139,21 @@ def build_map_payload(
         homicide_rate_val = int(round(h_rate_raw)) if h_rate_raw is not None else None
         homicide_count_val = int(h_count_raw) if h_count_raw is not None else None
 
-        # Fallback: look up from featured_rates.homicidios for the active year
+        # Fallback: look up from featured_rates.homicidios for the active year.
+        # Keys may be int (in-memory pipeline dicts) or str (after JSON round-trip).
         if homicide_rate_val is None:
             fr = r.get("featured_rates", {})
             homicidios = fr.get("homicidios", {}) if isinstance(fr, dict) else {}
-            yr_key_str = str(year)
-            if yr_key_str in homicidios and homicidios[yr_key_str] is not None:
-                homicide_rate_val = int(round(homicidios[yr_key_str]))
+            # Try both int and str key (int from pipeline accumulator, str after JSON round-trip)
+            raw = homicidios.get(year) if homicidios.get(year) is not None else homicidios.get(str(year))
+            if raw is not None:
+                homicide_rate_val = int(round(raw))
         if homicide_count_val is None:
             fr = r.get("featured_rates", {})
             homicidios_count = fr.get("homicidios_count", {}) if isinstance(fr, dict) else {}
-            yr_key_str = str(year)
-            if yr_key_str in homicidios_count and homicidios_count[yr_key_str] is not None:
-                homicide_count_val = int(homicidios_count[yr_key_str])
+            raw_count = homicidios_count.get(year) if homicidios_count.get(year) is not None else homicidios_count.get(str(year))
+            if raw_count is not None:
+                homicide_count_val = int(raw_count)
 
         # Build compact entry — omit None homicide fields to stay under 30KB (Pitfall 3).
         # When homicide data exists the keys are present; when absent they're omitted entirely.
@@ -163,7 +165,10 @@ def build_map_payload(
             "by_family": by_family_list,  # ordered per FAMILY_KEYS
         }
         if homicide_rate_val is not None:
-            entry["homicide_rate"] = homicide_rate_val
+            # Use abbreviated key "hr" (vs "homicide_rate") to stay under 30KB — saves ~10B per entry
+            # (D-09 compact encoding: same pattern as by_family compact list).
+            # Downstream (Half B UI) reads "hr" from map-payload; full name in per-commune JSON.
+            entry["hr"] = homicide_rate_val
         # homicide_count intentionally dropped from the payload (Pitfall 3 budget escape):
         # adding it would exceed 30KB with 346 communes. It lives in per-commune JSON
         # via featured_rates.homicidios_count for downstream consumers that need it.
