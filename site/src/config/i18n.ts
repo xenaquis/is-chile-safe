@@ -120,6 +120,13 @@ export interface I18nStrings {
   dir_count: string;
   dir_lowpop_tag: string;
   dir_empty: string;
+
+  // Quick 260616-lu4 — ranking table controls
+  sort_label: string;
+  sort_ascending: string;
+  sort_descending: string;
+  year_select_label: string;
+  year_select_aria: string;
 }
 
 export const EN_STRINGS: I18nStrings = {
@@ -240,6 +247,13 @@ export const EN_STRINGS: I18nStrings = {
   dir_count: '{n} of 346 communes',
   dir_lowpop_tag: 'low pop.',
   dir_empty: 'No results for "{q}".',
+
+  // Quick 260616-lu4 — ranking table controls
+  sort_label: 'Sort by {column}',
+  sort_ascending: 'ascending',
+  sort_descending: 'descending',
+  year_select_label: 'Year',
+  year_select_aria: 'Select data year',
 };
 
 export const ES_STRINGS: I18nStrings = {
@@ -363,6 +377,13 @@ export const ES_STRINGS: I18nStrings = {
   dir_count: '{n} de 346 comunas',
   dir_lowpop_tag: 'baja pob.',
   dir_empty: 'Sin resultados para "{q}".',
+
+  // Quick 260616-lu4 — ranking table controls
+  sort_label: 'Ordenar por {column}',
+  sort_ascending: 'ascendente',
+  sort_descending: 'descendente',
+  year_select_label: 'Año',
+  year_select_aria: 'Seleccionar año de datos',
 };
 
 // D-17: Crime-family URL slug translations
