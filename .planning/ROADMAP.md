@@ -171,6 +171,32 @@ Plans:
   1. `homicidios` (featured subgroup 101) is selectable as its own map filter/layer with its own choropleth, distinct from "vida"; the data pipeline emits the homicide rate per comuna into the map payload.
   2. The commune detail panel shows a separate homicide figure/breakdown (not only the aggregated "vida" family), with the CEAD source + year cited; no regression to existing family rendering.
 
+**Plans**: 6 plans
+Plans:
+**Wave 0** *(BLOCKING — live CEAD subgroup-101 confirmation gates all pipeline work)*
+
+- [ ] 14-01-PLAN.md — Confirm subgrupo[]=101 POST param live + rate/count request count + capture offline fixtures + RED test scaffold [HOM-01]
+
+**Wave 1** *(blocked on 14-01 — implements against the confirmed param)*
+
+- [ ] 14-02-PLAN.md — fetch_subgroup_batch + schema + homicide accumulator loop (rate+count, 2005-2025) + map-payload homicide_rate; run scrape, populate data, re-verify 30KB budget [HOM-01]
+
+**Wave 2** *(blocked on 14-02 — gates the data half before UI consumes it)*
+
+- [ ] 14-03-PLAN.md — Build validator Check 8/9 (homicide_rate in payload + Santiago featured_rates.homicidios) + sync data to site/public [HOM-01]
+
+**Wave 3** *(blocked on 14-03 — Half B contract layer)*
+
+- [ ] 14-04-PLAN.md — buildStyleMapFromHomicide independent quantile scale + CommunaPayload type + bilingual homicidios label/def + data.ts type [HOM-01]
+
+**Wave 4** *(blocked on 14-04 — wires the chip + map)*
+
+- [ ] 14-05-PLAN.md — 8th featured homicide chip in FiltersRow + MapIsland crimeIsHomicide branch (chip effect + year effect) [HOM-01]
+
+**Wave 5** *(blocked on 14-05 — panel + human-verify)*
+
+- [ ] 14-06-PLAN.md — ResultPanel homicide figure (rate+count+CEAD year, non-alarmist zero-state) + chained build+validate + browser human-verify [HOM-02]
+
 ### Phase 15: Crime-Type SEO Ranking Pages
 
 **Goal**: Programmatic bilingual "las N comunas con más {delito}" ranking pages (homicide first) capture long-tail SEO, correctly linked and indexable.
@@ -210,7 +236,7 @@ Plans:
 | 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 4/4 | Complete   | 2026-06-15 |
 | 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 6/6 | Complete    | 2026-06-16 |
 | 13. Ranking SEO Hardening | v1.2 | 3/3 | Complete   | 2026-06-16 |
-| 14. Homicide as a First-Class Category | v1.2 | 0/0 | Pending    |  |
+| 14. Homicide as a First-Class Category | v1.2 | 0/6 | Planned    |  |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Pending    |  |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending    |  |
 
