@@ -19,7 +19,8 @@ import Sparkline from '../../components/Sparkline.astro';
 import ComparisonCallout from '../../components/ComparisonCallout.astro';
 import FamilyBreakdownBars from '../../components/FamilyBreakdownBars.astro';
 import ComparableCommune from '../../components/ComparableCommune.astro';
-import MapPlaceholderSlot from '../../components/MapPlaceholderSlot.astro';
+import CommuneRankingTable from '../../components/CommuneRankingTable.astro';
+import { FAMILY_SLUGS } from '../../config/i18n.ts';
 import MethodologyCaveat from '../../components/MethodologyCaveat.astro';
 import {
   loadCommune,
@@ -29,6 +30,7 @@ import {
   loadNationalAverage,
   loadRegionalAverage,
   nearestComparable,
+  nearestComparables,
   latestCompleteYearRate,
   loadIndex,
 } from '../../lib/data.ts';
@@ -81,6 +83,16 @@ const allRates = loadIndex()
   .sort((a, b) => a - b);
 const level = levelForRate(rate, allRates);
 
+// Region commune count for regional-rank device (#N of M)
+// NOTE: BUGFIX-999.1 — Tarapacá region_id may collide with Aysén/Los Ríos
+// provincial codes (11/14); count may be slightly off for those regions. Accept.
+const regionCommuneCount = loadIndex().filter(
+  (c) => c.region_id === data.region_id
+).length;
+
+// Similar comunas in same region (D-07)
+const similarComunas = nearestComparables(cut, 5);
+
 // Prose
 const prose = buildCommuneProse(data, 'en');
 
@@ -125,7 +137,11 @@ const jsonLd = {
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true"> › </span>
+      <a href="/communes/">Communes</a>
+      <span aria-hidden="true"> › </span>
       <a href={`/region/${regionSlug}/`}>{data.regionName}</a>
+      <span aria-hidden="true"> › </span>
+      <span aria-current="page">{data.name}</span>
     </nav>
     <h1 class="commune-h1">{data.name}</h1>
     <div class="hero-meta">
@@ -149,7 +165,7 @@ const jsonLd = {
     />
     <StatCard
       label={t.regional_rank_label}
-      value={`#${data.regional_rank}`}
+      value={`#${data.regional_rank} of ${regionCommuneCount}`}
     />
   </section>
 
@@ -187,8 +203,34 @@ const jsonLd = {
   <!-- 7. ComparableCommune -->
   <ComparableCommune comparable={comparable} locale="en" />
 
-  <!-- 8. MapPlaceholderSlot -->
-  <MapPlaceholderSlot mountType="commune-map" locale="en" />
+  <!-- 8. Map spoke (D-08) — static link only, zero client:* -->
+  <section class="map-spoke" aria-label="View on national map">
+    <h2 class="section-heading">View on Map</h2>
+    <a href={`/map/?cut=${data.cut}`} class="map-spoke-cta">
+      See {data.name} on the interactive Chile crime map →
+    </a>
+  </section>
+
+  <!-- 8b. Similar comunas in this region (D-07) -->
+  <section class="similar-comunas-spoke" aria-label="Similar communes in this region">
+    <h2 class="section-heading">Similar Communes in This Region</h2>
+    <p class="spoke-intro">Communes in {data.regionName} with similar reported CEAD incidence rates:</p>
+    <CommuneRankingTable rows={similarComunas} locale="en" />
+  </section>
+
+  <!-- 8c. Per-crime-type ranking spoke (D-10) -->
+  <section class="crime-type-spoke" aria-label="Rankings by crime type">
+    <h2 class="section-heading">Rankings by Crime Type</h2>
+    <ul class="crime-type-list">
+      {Object.entries(byFamily).map(([key]) => (
+        <li>
+          <a href={`/crime/${FAMILY_SLUGS[key]?.en ?? key}/`}>
+            {FAMILY_SLUGS[key]?.en ?? key} ranking
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
 
   <!-- 9. ProseSummary -->
   <section class="prose-summary" aria-label="Summary">
@@ -283,6 +325,61 @@ const jsonLd = {
 
   .family-breakdown {
     margin: var(--xl) 0;
+  }
+
+  .map-spoke {
+    margin: var(--xl) 0;
+  }
+
+  .map-spoke-cta {
+    display: inline-block;
+    padding: var(--sm) var(--md);
+    background: var(--primary);
+    color: #fff;
+    text-decoration: none;
+    border-radius: var(--radius);
+    font-size: var(--text-body);
+  }
+
+  .map-spoke-cta:hover {
+    opacity: 0.9;
+  }
+
+  .similar-comunas-spoke {
+    margin: var(--xl) 0;
+  }
+
+  .spoke-intro {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--md);
+  }
+
+  .crime-type-spoke {
+    margin: var(--xl) 0;
+  }
+
+  .crime-type-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sm);
+  }
+
+  .crime-type-list li a {
+    display: inline-block;
+    padding: var(--xs) var(--sm);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-size: var(--text-label);
+    color: var(--primary);
+    text-decoration: none;
+    text-transform: capitalize;
+  }
+
+  .crime-type-list li a:hover {
+    background: var(--bg);
   }
 
   .prose-summary {
