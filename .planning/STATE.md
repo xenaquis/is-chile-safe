@@ -2,7 +2,7 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
-status: verifying
+status: ready
 last_updated: "2026-06-16T14:16:54.530Z"
 last_activity: 2026-06-16
 progress:
