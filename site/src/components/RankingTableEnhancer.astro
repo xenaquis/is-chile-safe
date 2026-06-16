@@ -38,7 +38,7 @@ const strings = {
 };
 ---
 
-<script type="application/json" id="rte-strings" data-locale={locale}>{JSON.stringify(strings)}</script>
+<script type="application/json" id="rte-strings" data-locale={locale} set:html={JSON.stringify(strings)}></script>
 
 <script>
 (function () {
