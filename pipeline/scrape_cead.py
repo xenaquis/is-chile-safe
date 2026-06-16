@@ -593,11 +593,58 @@ def _match_cut(name: str, catalog: dict[str, str]) -> str | None:
     return None
 
 
+def _population_weighted_series(communes_subset: list[dict]) -> list[dict]:
+    """Aggregate a set of communes into a population-weighted-mean series.
+
+    A per-100k rate is a population-normalized quantity, so the correct way to
+    combine communes of different sizes into a region/national figure is the
+    population-weighted mean — NOT the sum (summing per-100k rates produces a
+    meaningless multi-million "rate"; see quick-260616-klv audit). For each year:
+
+        rate = Σ(commune_rate × commune_pop) / Σ(commune_pop)
+
+    Only communes that report a value for that year (and have population > 0)
+    contribute to that year's weights. A year is marked partial if any
+    contributing commune marks it partial.
+    """
+    from pipeline.shared.schema import FAMILY_KEYS
+
+    acc: dict[int, dict] = {}
+    for c in communes_subset:
+        pop = c.get("population") or 0
+        if pop <= 0:
+            continue
+        for yr_rec in c["series"]:
+            yr = yr_rec["year"]
+            slot = acc.setdefault(
+                yr,
+                {"w_rate": 0.0, "w_fam": {k: 0.0 for k in FAMILY_KEYS}, "pop": 0, "partial": False},
+            )
+            slot["pop"] += pop
+            slot["w_rate"] += (yr_rec.get("rate_per_100k") or 0.0) * pop
+            for k in FAMILY_KEYS:
+                slot["w_fam"][k] += (yr_rec["by_family"].get(k) or 0.0) * pop
+            if yr_rec.get("partial"):
+                slot["partial"] = True
+
+    series = []
+    for yr, slot in sorted(acc.items()):
+        p = slot["pop"]
+        if p <= 0:
+            continue
+        series.append({
+            "year": yr,
+            "rate_per_100k": slot["w_rate"] / p,
+            "by_family": {k: slot["w_fam"][k] / p for k in FAMILY_KEYS},
+            "partial": slot["partial"],
+        })
+    return series
+
+
 def _build_region_aggregates(communes: list[dict], run_date: datetime.date) -> dict:
     """Build per-region aggregate records keyed by region_id."""
     from pipeline.cead.catalog import REGION_IDS
     from pipeline.cead.normalizer import make_slug
-    from pipeline.shared.schema import FAMILY_KEYS
 
     # Group communes by region
     by_region: dict[str, list[dict]] = {}
@@ -610,22 +657,9 @@ def _build_region_aggregates(communes: list[dict], run_date: datetime.date) -> d
         rid = str(region_id_int)
         region_communes = by_region.get(rid, [])
 
-        # Aggregate: sum rates per year across communes in region
-        year_totals: dict[int, dict] = {}
-        for c in region_communes:
-            for yr_rec in c["series"]:
-                yr = yr_rec["year"]
-                if yr not in year_totals:
-                    year_totals[yr] = {"rate_per_100k": 0.0, "by_family": {k: 0.0 for k in FAMILY_KEYS}, "partial": yr_rec.get("partial", False)}
-                year_totals[yr]["rate_per_100k"] += yr_rec["rate_per_100k"]
-                for k in FAMILY_KEYS:
-                    fv = yr_rec["by_family"].get(k) or 0.0
-                    year_totals[yr]["by_family"][k] = (year_totals[yr]["by_family"].get(k) or 0.0) + fv
-
-        series = [
-            {"year": yr, "rate_per_100k": data["rate_per_100k"], "by_family": data["by_family"], "partial": data["partial"]}
-            for yr, data in sorted(year_totals.items())
-        ]
+        # Population-weighted mean rate per year across communes in region
+        # (per-100k rates must be pop-weighted, never summed — quick-260616-klv)
+        series = _population_weighted_series(region_communes)
 
         # Ranking within region by latest year
         region_ranking = sorted(
@@ -646,24 +680,9 @@ def _build_region_aggregates(communes: list[dict], run_date: datetime.date) -> d
 
 
 def _build_national_aggregate(communes: list[dict], run_date: datetime.date) -> dict:
-    """Build the national aggregate record."""
-    from pipeline.shared.schema import FAMILY_KEYS
-
-    year_totals: dict[int, dict] = {}
-    for c in communes:
-        for yr_rec in c["series"]:
-            yr = yr_rec["year"]
-            if yr not in year_totals:
-                year_totals[yr] = {"rate_per_100k": 0.0, "by_family": {k: 0.0 for k in FAMILY_KEYS}, "partial": yr_rec.get("partial", False)}
-            year_totals[yr]["rate_per_100k"] += yr_rec["rate_per_100k"]
-            for k in FAMILY_KEYS:
-                fv = yr_rec["by_family"].get(k) or 0.0
-                year_totals[yr]["by_family"][k] = (year_totals[yr]["by_family"].get(k) or 0.0) + fv
-
-    series = [
-        {"year": yr, "rate_per_100k": data["rate_per_100k"], "by_family": data["by_family"], "partial": data["partial"]}
-        for yr, data in sorted(year_totals.items())
-    ]
+    """Build the national aggregate record (population-weighted mean rate)."""
+    # per-100k rates must be pop-weighted, never summed — quick-260616-klv
+    series = _population_weighted_series(communes)
 
     return {
         "name": "Chile",

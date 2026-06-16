@@ -7,7 +7,8 @@
  *
  * vs-national computed against per-capita MEAN (loadNationalAverage).
  * Region aggregate for headline: MEAN of non-low-pop communes in region (loadRegionalAverage).
- * NEVER use loadRegion().series[].rate_per_100k for average comparisons — those are SUMs.
+ * For headline averages use loadRegionalAverage() (unweighted commune-mean), NOT
+ * loadRegion().series[].rate_per_100k (pop-weighted incidence — a different stat).
  *
  * Zero client:* directives (D-09). All components are static .astro.
  */

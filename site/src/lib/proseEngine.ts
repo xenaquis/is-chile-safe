@@ -11,7 +11,8 @@
  * CRITICAL — Pitfall 1 guard:
  *   vs-national and vs-regional MUST be computed against the per-capita MEANS
  *   (loadNationalAverage / loadRegionalAverage), NOT against loadNational() or
- *   loadRegion() series rate_per_100k (those are aggregate SUMs in the millions).
+ *   loadRegion() series rate_per_100k (pop-weighted regional incidence — a
+ *   different statistic than the unweighted commune-mean these comparisons need).
  *
  * D-05 Sober language: never "zona peligrosa", "ranking definitivo",
  *   "zona segura garantizada", unqualified "the safest" / "la más segura".

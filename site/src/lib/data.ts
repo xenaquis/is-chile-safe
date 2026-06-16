@@ -7,9 +7,14 @@
  * NEVER use process.cwd() or import.meta.glob — both are CWD-dependent or
  * bundler-dependent and break cross-platform at build time.
  *
- * PITFALL: national.json and regions/{id}.json rate_per_100k are SUM totals
- * across communes, NOT per-capita averages. Use loadNationalAverage() and
- * loadRegionalAverage() which compute MEAN of non-low-population commune rates.
+ * national.json and regions/{id}.json series[].rate_per_100k are POPULATION-
+ * WEIGHTED MEAN rates (true per-capita incidence) as of quick-260616-klv — they
+ * are valid rates, no longer the meaningless cross-commune SUMs they once were.
+ * For the site's headline figures we still use loadNationalAverage() /
+ * loadRegionalAverage(), which compute the UNWEIGHTED mean of non-low-population
+ * commune rates (a "typical commune" statistic, distinct from the pop-weighted
+ * incidence in the series). Pick deliberately: pop-weighted = true incidence;
+ * unweighted = typical commune.
  */
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -198,9 +203,9 @@ export function latestCompleteYearRate(commune: CommuneData): number {
  * Compute the TRUE national average: MEAN of non-low-population commune rates
  * at their latest complete year.
  *
- * WARNING: loadNational().series[].rate_per_100k is a SUM of all commune rates
- * (in the millions) — NOT a per-capita average. This function returns the
- * correct per-capita mean (hundreds-to-low-thousands range).
+ * NOTE: loadNational().series[].rate_per_100k is now the population-weighted
+ * national rate (true incidence). This function returns a DIFFERENT statistic:
+ * the unweighted mean of non-low-population commune rates ("typical commune").
  */
 export function loadNationalAverage(): number {
   if (_natAvg !== null) return _natAvg;
@@ -219,8 +224,9 @@ export function loadNationalAverage(): number {
  * Compute the TRUE regional average: MEAN of non-low-population commune rates
  * within a region at their latest complete year.
  *
- * WARNING: loadRegion(regionId).series[].rate_per_100k is a SUM (same pipeline
- * behaviour as national.json) — NOT a per-capita regional average.
+ * NOTE: loadRegion(regionId).series[].rate_per_100k is now the population-
+ * weighted regional rate (true incidence). This function returns a DIFFERENT
+ * statistic: the unweighted mean of non-low-population commune rates.
  */
 export function loadRegionalAverage(regionId: string): number {
   const hit = _regAvg.get(regionId);

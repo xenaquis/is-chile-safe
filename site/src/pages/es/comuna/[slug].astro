@@ -7,7 +7,8 @@
  *
  * vs-national and vs-regional computed against per-capita MEANS:
  *   loadNationalAverage() and loadRegionalAverage(region_id)
- * NEVER against loadNational()/loadRegion() series rate (those are SUMs, Pitfall 1).
+ * NEVER against loadNational()/loadRegion() series rate (pop-weighted incidence,
+ * not the unweighted commune-mean these comparisons need — Pitfall 1).
  *
  * Zero client:* directives (D-09). All components are static .astro.
  */
