@@ -29,8 +29,8 @@
 
 ### SEO de Rankings (RSEO) — Phase 13
 
-- [ ] **RSEO-01**: OpenGraph + Twitter Card site-wide vía layout base (title/description/image/url/type), valores correctos por locale; verificado en ranking/editorial/comuna/región.
-- [ ] **RSEO-02**: `ItemList` JSON-LD en tablas de ranking y `BreadcrumbList` JSON-LD donde hay breadcrumb visual; validan contra schema.org; check de build asegura presencia en plantillas muestreadas.
+- [x] **RSEO-01**: OpenGraph + Twitter Card site-wide vía layout base (title/description/image/url/type), valores correctos por locale; verificado en ranking/editorial/comuna/región.
+- [x] **RSEO-02**: `ItemList` JSON-LD en tablas de ranking y `BreadcrumbList` JSON-LD donde hay breadcrumb visual; validan contra schema.org; check de build asegura presencia en plantillas muestreadas.
 
 ### Homicidio (HOM) — Phase 14
 

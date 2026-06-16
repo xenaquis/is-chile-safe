@@ -147,11 +147,11 @@ Plans:
   1. OpenGraph (og:title/description/image/url/type) and Twitter Card meta are injected site-wide via the base layout; validated present on sampled ranking, editorial, comuna, and region pages, with locale-correct values.
   2. `ItemList` JSON-LD wraps the ranking tables (rank position + comuna link + rate) and `BreadcrumbList` JSON-LD is emitted wherever a visual breadcrumb renders (region, crime-type, comuna pages); both validate against schema.org and a build check asserts their presence on sampled templates.
 
-**Plans:** 3 plans in 3 waves.
+**Plans:** 1/3 plans executed
 
 **Wave 1** *(foundation: validator + OG assets + JSON-LD lib — built before the behaviors they assert)*
 
-- [ ] 13-01-PLAN.md — Offline OG-PNG generator + 7 placeholder images, src/lib/jsonld.ts (buildItemList/buildBreadcrumb, rate OUT), new seo.mjs offline validator + register in all.mjs [RSEO-01, RSEO-02]
+- [x] 13-01-PLAN.md — Offline OG-PNG generator + 7 placeholder images, src/lib/jsonld.ts (buildItemList/buildBreadcrumb, rate OUT), new seo.mjs offline validator + register in all.mjs [RSEO-01, RSEO-02]
 
 **Wave 2** *(RSEO-01: head meta — touches BaseLayout, must precede the JSON-LD array widen)*
 
@@ -209,7 +209,7 @@ Plans:
 | 10. High-Resolution Commune Geometry | v1.2 | 3/3 | Complete   | 2026-06-15 |
 | 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 4/4 | Complete   | 2026-06-15 |
 | 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 6/6 | Complete    | 2026-06-16 |
-| 13. Ranking SEO Hardening | v1.2 | 0/0 | Pending    |  |
+| 13. Ranking SEO Hardening | v1.2 | 1/3 | In Progress|  |
 | 14. Homicide as a First-Class Category | v1.2 | 0/0 | Pending    |  |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Pending    |  |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending    |  |

@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
-status: verifying
-last_updated: "2026-06-16T02:47:10.419Z"
+status: executing
+last_updated: "2026-06-16T03:30:56.337Z"
 last_activity: 2026-06-16
 progress:
   total_phases: 7
   completed_phases: 3
-  total_plans: 13
-  completed_plans: 13
+  total_plans: 16
+  completed_plans: 14
   percent: 43
 ---
 
@@ -27,9 +27,9 @@ See: .planning/PROJECT.md (updated 2026-06-15)
 
 ## Current Position
 
-Phase: 13
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 13 (ranking-seo-hardening) — EXECUTING
+Plan: 2 of 3
+Status: Ready to execute
 Last activity: 2026-06-16
 
 Progress: v1.2 ███░░░░ 29% (2/7 phases complete — Phases 10–11)
@@ -80,6 +80,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 | Phase 10-high-resolution-commune-geometry P03 | 10m | 2 tasks + 1 human-verify checkpoint | 3 files |
 | Phase 11-publish-346-comunas-finder P02 | 15m | 3 tasks | 5 files |
 | Phase 12-home-ia-redesign-comuna-page-hub-and-spoke P04 | 18m | 3 tasks | 2 files |
+| Phase 13-ranking-seo-hardening P01 | 25 | 3 tasks | 11 files |
 
 ## Accumulated Context
 
