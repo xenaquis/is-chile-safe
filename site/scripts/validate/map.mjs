@@ -251,6 +251,50 @@ for (const rel of RUNTIME_DATA_ASSETS) {
 }
 
 // ---------------------------------------------------------------------------
+// Check 8: homicide rate field ('hr') present in map-payload
+// (14-02 ships abbreviated key 'hr' instead of 'homicide_rate' — budget escape D-09)
+// Runs without dist/ — committed data asset assertion.
+// ---------------------------------------------------------------------------
+const MAP_PAYLOAD_PATH = path.join(REPO_ROOT, 'data', 'cead', 'map-payload.json');
+if (!existsSync(MAP_PAYLOAD_PATH)) {
+  fail('homicide in payload', 'data/cead/map-payload.json not found — run scrape_cead.py');
+} else {
+  try {
+    const payload = JSON.parse(readFileSync(MAP_PAYLOAD_PATH, 'utf8'));
+    const sample = payload.comunas?.slice(0, 10) ?? [];
+    const hasHomicide = sample.some(c => 'hr' in c);
+    if (!hasHomicide) {
+      fail('homicide in payload', 'map-payload.json comunas missing hr (homicide rate) — subgroup-101 scrape not run');
+    } else {
+      pass('homicide_rate in map-payload');
+    }
+  } catch (e) {
+    fail('homicide in payload', `JSON parse error: ${e.message}`);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Check 9: Santiago (13101) has non-empty homicidios in featured_rates
+// Runs without dist/ — committed data asset assertion.
+// ---------------------------------------------------------------------------
+const SANTIAGO_PATH = path.join(REPO_ROOT, 'data', 'cead', 'comunas', '13101.json');
+if (!existsSync(SANTIAGO_PATH)) {
+  fail('homicide in 13101.json', 'data/cead/comunas/13101.json not found — run scrape_cead.py');
+} else {
+  try {
+    const com = JSON.parse(readFileSync(SANTIAGO_PATH, 'utf8'));
+    const hom = com.featured_rates?.homicidios ?? {};
+    if (Object.keys(hom).length === 0) {
+      fail('homicide in 13101.json', 'Santiago featured_rates.homicidios is empty — subgroup-101 scrape needed');
+    } else {
+      pass(`homicide in 13101.json (${Object.keys(hom).length} years)`);
+    }
+  } catch (e) {
+    fail('homicide in 13101.json', `JSON parse error: ${e.message}`);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 if (failures > 0) {
