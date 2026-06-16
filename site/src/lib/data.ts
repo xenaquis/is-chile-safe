@@ -300,3 +300,71 @@ export function nearestComparable(targetCut: string): ComparableResult {
     fallback,
   };
 }
+
+/**
+ * Find the N nearest comparable communes in the same region (D-07).
+ * Used by the "similar comunas" spoke on the ficha hub page.
+ *
+ * Algorithm:
+ * 1. Filter same-region communes: !low_population, cut !== targetCut
+ * 2. Sort by ascending absolute rate distance to target's latest-complete-year rate
+ * 3. Slice to n results
+ *
+ * NOTE (BUGFIX-999.1): Tarapacá region_id province codes 11/14 collide with
+ * Aysén/Los Ríos — same-region grouping may be skewed for Tarapacá comunas.
+ * Accept this known issue here; fix is to derive region from CUT (v1.2 backlog).
+ *
+ * Unlike nearestComparable (singular), there is NO national fallback —
+ * same-region only per D-07.
+ */
+export interface RankingRow {
+  name: string;
+  slug: string;
+  rate: number;
+  national_rank: number;
+  trend: 'up' | 'down' | 'stable';
+  low_population: boolean;
+}
+
+export function nearestComparables(targetCut: string, n: number): RankingRow[] {
+  const index = loadIndex();
+  const target = index.find((c) => c.cut === targetCut);
+  if (!target) throw new Error(`CUT ${targetCut} not found in index`);
+
+  const targetCommune = loadCommune(targetCut);
+  const targetRate = latestCompleteYearRate(targetCommune);
+
+  // Same-region pool: exclude target itself and low_population communes
+  const pool = index.filter(
+    (c) => c.region_id === target.region_id && !c.low_population && c.cut !== targetCut
+  );
+
+  // Build rate map for pool
+  const rateMap = new Map<string, number>();
+  for (const c of pool) {
+    const comm = loadCommune(c.cut);
+    rateMap.set(c.cut, latestCompleteYearRate(comm));
+  }
+
+  // Sort by ascending absolute rate distance
+  const sorted = pool
+    .slice()
+    .sort(
+      (a, b) =>
+        Math.abs((rateMap.get(a.cut) ?? 0) - targetRate) -
+        Math.abs((rateMap.get(b.cut) ?? 0) - targetRate)
+    )
+    .slice(0, n);
+
+  return sorted.map((c) => {
+    const comm = loadCommune(c.cut);
+    return {
+      name: c.name,
+      slug: c.slug,
+      rate: rateMap.get(c.cut) ?? 0,
+      national_rank: comm.national_rank,
+      trend: comm.trend,
+      low_population: c.low_population,
+    };
+  });
+}
