@@ -17,18 +17,18 @@ created: 2026-06-16
 
 | Property | Value |
 |----------|-------|
-| **Framework** | node validators (build + seo.mjs + forbidden-language.mjs + map validators) + astro build |
-| **Config file** | site/package.json scripts; pipeline/tests for data |
-| **Quick run command** | `cd site && npm run build` (chained — see OneDrive desync note) |
-| **Full suite command** | `cd site && npm run build && node scripts/seo.mjs && node scripts/forbidden-language.mjs` |
+| **Framework** | astro build + node validators under `site/scripts/validate/` (run via `npm run validate` → `all.mjs`, 13 validators incl. seo + forbidden-language + map) |
+| **Config file** | site/package.json scripts |
+| **Quick run command** | `cd site && npm run build` (= `cross-env ROLLOUT_ALL=true astro build`; chained — see OneDrive desync note) |
+| **Full suite command** | `cd site && npm run build && npm run validate` |
 | **Estimated runtime** | ~60-120 seconds |
 
 ---
 
 ## Sampling Rate
 
-- **After every task commit:** Run `npm run build` (chained build+validate in one command — repo lives in OneDrive, dist/ desyncs across separate processes)
-- **After every plan wave:** Run full suite (build + seo + forbidden-language)
+- **After every task commit:** Run `npm run build` (repo lives in OneDrive — keep build+validate chained so dist/ doesn't desync across separate processes)
+- **After every plan wave:** Run full suite (`npm run build && npm run validate`)
 - **Before `/gsd:verify-work`:** Full suite must be green
 - **Max feedback latency:** 120 seconds
 
@@ -39,7 +39,7 @@ created: 2026-06-16
 | Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
 | 15-01-01 | 01 | 1 | CSEO-01 | — | N/A | build | `cd site && npm run build` | ❌ W0 | ⬜ pending |
-| 15-01-02 | 01 | 1 | CSEO-02 | — | N/A | seo | `cd site && node scripts/seo.mjs` | ❌ W0 | ⬜ pending |
+| 15-01-02 | 01 | 1 | CSEO-02 | — | N/A | validate | `cd site && npm run validate` | ❌ W0 | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -47,8 +47,8 @@ created: 2026-06-16
 
 ## Wave 0 Requirements
 
-- [ ] Extend `site/scripts/seo.mjs` SAMPLES with a first-subdir heuristic for the `/crime-ranking/` path prefix so ItemList + canonical + OG assertions fire on the new pages
-- [ ] Confirm `forbidden-language.mjs` covers the new page bodies (methodology copy)
+- [ ] Extend `site/scripts/validate/seo.mjs` SAMPLES with a first-subdir heuristic for the `/crime-ranking/` path prefix so ItemList + canonical + OG assertions fire on the new pages
+- [ ] Confirm `site/scripts/validate/forbidden-language.mjs` covers the new page bodies (methodology copy)
 
 *Detailed per-task automated commands are finalized by the planner per plan.*
 
