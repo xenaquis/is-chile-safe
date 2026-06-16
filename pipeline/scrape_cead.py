@@ -46,6 +46,20 @@ def _get_data_dir() -> pathlib.Path:
     return pathlib.Path(override) if override else _DEFAULT_DATA_DIR
 
 
+def region_id_from_cut(cut: str) -> str:
+    """Derive the 1–16 administrative region from a CEAD CUT code.
+
+    CEAD CUT codes carry no leading zero, so regions 1–9 are 4 digits (R-PP-CC)
+    and regions 10–16 are 5 digits (RR-PP-CC). Taking the first two digits
+    unconditionally (the old behaviour) yielded a *province* code for regions
+    1–9 (e.g. "5101" → "51", "1101" → "11"), which mis-grouped those communes
+    and collided across regions ("11" served both Tarapacá-province-11 and
+    region 11 Aysén; "14" both Tarapacá and Los Ríos). Deriving by length
+    yields the true region and removes the collision (backlog 999.1).
+    """
+    return cut[:2] if len(cut) == 5 else cut[:1]
+
+
 # ---------------------------------------------------------------------------
 # Partial-year helpers (Open Question 2)
 # ---------------------------------------------------------------------------
@@ -500,7 +514,7 @@ def _run_pipeline(session, catalog: dict[str, str], run_date: datetime.date) -> 
         name = catalog[cut]
         pop = population.get(cut, 0)
         low_pop = is_low_population(cut)
-        region_id = cut[:2]
+        region_id = region_id_from_cut(cut)  # 1–16, length-aware (backlog 999.1)
 
         year_data = accumulator.get(cut, {})
         series = []

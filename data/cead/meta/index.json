@@ -1,162 +1,10 @@
 [
   {
-    "cut": "5602",
-    "name": "Algarrobo",
-    "slug": "algarrobo",
-    "region_id": "56",
-    "population": 16095,
-    "low_population": false
-  },
-  {
-    "cut": "13502",
-    "name": "Alhué",
-    "slug": "alhue",
-    "region_id": "13",
-    "population": 7856,
-    "low_population": true
-  },
-  {
-    "cut": "8314",
-    "name": "Alto Biobío",
-    "slug": "alto-biobio",
-    "region_id": "83",
-    "population": 6804,
-    "low_population": true
-  },
-  {
-    "cut": "3302",
-    "name": "Alto del Carmen",
-    "slug": "alto-del-carmen",
-    "region_id": "33",
-    "population": 5781,
-    "low_population": true
-  },
-  {
-    "cut": "1107",
-    "name": "Alto Hospicio",
-    "slug": "alto-hospicio",
-    "region_id": "11",
-    "population": 143294,
-    "low_population": false
-  },
-  {
-    "cut": "10202",
-    "name": "Ancud",
-    "slug": "ancud",
+    "cut": "10101",
+    "name": "Puerto Montt",
+    "slug": "puerto-montt",
     "region_id": "10",
-    "population": 42524,
-    "low_population": false
-  },
-  {
-    "cut": "4103",
-    "name": "Andacollo",
-    "slug": "andacollo",
-    "region_id": "41",
-    "population": 11836,
-    "low_population": false
-  },
-  {
-    "cut": "9201",
-    "name": "Angol",
-    "slug": "angol",
-    "region_id": "92",
-    "population": 56797,
-    "low_population": false
-  },
-  {
-    "cut": "12202",
-    "name": "Antártica",
-    "slug": "antartica",
-    "region_id": "12",
-    "population": 151,
-    "low_population": true
-  },
-  {
-    "cut": "2101",
-    "name": "Antofagasta",
-    "slug": "antofagasta",
-    "region_id": "21",
-    "population": 444276,
-    "low_population": false
-  },
-  {
-    "cut": "8302",
-    "name": "Antuco",
-    "slug": "antuco",
-    "region_id": "83",
-    "population": 4325,
-    "low_population": true
-  },
-  {
-    "cut": "8202",
-    "name": "Arauco",
-    "slug": "arauco",
-    "region_id": "82",
-    "population": 38941,
-    "low_population": false
-  },
-  {
-    "cut": "15101",
-    "name": "Arica",
-    "slug": "arica",
-    "region_id": "15",
-    "population": 257163,
-    "low_population": false
-  },
-  {
-    "cut": "11201",
-    "name": "Aysén",
-    "slug": "aysen",
-    "region_id": "11",
-    "population": 25218,
-    "low_population": false
-  },
-  {
-    "cut": "13402",
-    "name": "Buin",
-    "slug": "buin",
-    "region_id": "13",
-    "population": 117982,
-    "low_population": false
-  },
-  {
-    "cut": "16102",
-    "name": "Bulnes",
-    "slug": "bulnes",
-    "region_id": "16",
-    "population": 22754,
-    "low_population": false
-  },
-  {
-    "cut": "5402",
-    "name": "Cabildo",
-    "slug": "cabildo",
-    "region_id": "54",
-    "population": 20757,
-    "low_population": false
-  },
-  {
-    "cut": "12201",
-    "name": "Cabo de Hornos",
-    "slug": "cabo-de-hornos",
-    "region_id": "12",
-    "population": 1968,
-    "low_population": true
-  },
-  {
-    "cut": "8303",
-    "name": "Cabrero",
-    "slug": "cabrero",
-    "region_id": "83",
-    "population": 31102,
-    "low_population": false
-  },
-  {
-    "cut": "2201",
-    "name": "Calama",
-    "slug": "calama",
-    "region_id": "22",
-    "population": 196152,
+    "population": 280955,
     "low_population": false
   },
   {
@@ -168,579 +16,11 @@
     "low_population": false
   },
   {
-    "cut": "3102",
-    "name": "Caldera",
-    "slug": "caldera",
-    "region_id": "31",
-    "population": 19964,
-    "low_population": false
-  },
-  {
-    "cut": "13403",
-    "name": "Calera de Tango",
-    "slug": "calera-de-tango",
-    "region_id": "13",
-    "population": 30283,
-    "low_population": false
-  },
-  {
-    "cut": "5302",
-    "name": "Calle Larga",
-    "slug": "calle-larga",
-    "region_id": "53",
-    "population": 17673,
-    "low_population": false
-  },
-  {
-    "cut": "15102",
-    "name": "Camarones",
-    "slug": "camarones",
-    "region_id": "15",
-    "population": 1246,
-    "low_population": true
-  },
-  {
-    "cut": "1402",
-    "name": "Camiña",
-    "slug": "camina",
-    "region_id": "14",
-    "population": 1374,
-    "low_population": true
-  },
-  {
-    "cut": "4202",
-    "name": "Canela",
-    "slug": "canela",
-    "region_id": "42",
-    "population": 9509,
-    "low_population": true
-  },
-  {
-    "cut": "8203",
-    "name": "Cañete",
-    "slug": "canete",
-    "region_id": "82",
-    "population": 37443,
-    "low_population": false
-  },
-  {
-    "cut": "9102",
-    "name": "Carahue",
-    "slug": "carahue",
-    "region_id": "91",
-    "population": 25515,
-    "low_population": false
-  },
-  {
-    "cut": "5603",
-    "name": "Cartagena",
-    "slug": "cartagena",
-    "region_id": "56",
-    "population": 27065,
-    "low_population": false
-  },
-  {
-    "cut": "5102",
-    "name": "Casablanca",
-    "slug": "casablanca",
-    "region_id": "51",
-    "population": 30543,
-    "low_population": false
-  },
-  {
-    "cut": "10201",
-    "name": "Castro",
-    "slug": "castro",
-    "region_id": "10",
-    "population": 48727,
-    "low_population": false
-  },
-  {
-    "cut": "5702",
-    "name": "Catemu",
-    "slug": "catemu",
-    "region_id": "57",
-    "population": 15714,
-    "low_population": false
-  },
-  {
-    "cut": "7201",
-    "name": "Cauquenes",
-    "slug": "cauquenes",
-    "region_id": "72",
-    "population": 44446,
-    "low_population": false
-  },
-  {
-    "cut": "13102",
-    "name": "Cerrillos",
-    "slug": "cerrillos",
-    "region_id": "13",
-    "population": 90182,
-    "low_population": false
-  },
-  {
-    "cut": "13103",
-    "name": "Cerro Navia",
-    "slug": "cerro-navia",
-    "region_id": "13",
-    "population": 139632,
-    "low_population": false
-  },
-  {
-    "cut": "10401",
-    "name": "Chaitén",
-    "slug": "chaiten",
-    "region_id": "10",
-    "population": 5078,
-    "low_population": true
-  },
-  {
-    "cut": "7202",
-    "name": "Chanco",
-    "slug": "chanco",
-    "region_id": "72",
-    "population": 9256,
-    "low_population": true
-  },
-  {
-    "cut": "3201",
-    "name": "Chañaral",
-    "slug": "chanaral",
-    "region_id": "32",
-    "population": 13017,
-    "low_population": false
-  },
-  {
-    "cut": "6302",
-    "name": "Chépica",
-    "slug": "chepica",
-    "region_id": "63",
-    "population": 16148,
-    "low_population": false
-  },
-  {
-    "cut": "8103",
-    "name": "Chiguayante",
-    "slug": "chiguayante",
-    "region_id": "81",
-    "population": 91963,
-    "low_population": false
-  },
-  {
-    "cut": "11401",
-    "name": "Chile Chico",
-    "slug": "chile-chico",
-    "region_id": "11",
-    "population": 5163,
-    "low_population": true
-  },
-  {
-    "cut": "16101",
-    "name": "Chillán",
-    "slug": "chillan",
-    "region_id": "16",
-    "population": 204091,
-    "low_population": false
-  },
-  {
-    "cut": "16103",
-    "name": "Chillán Viejo",
-    "slug": "chillan-viejo",
-    "region_id": "16",
-    "population": 35580,
-    "low_population": false
-  },
-  {
-    "cut": "6303",
-    "name": "Chimbarongo",
-    "slug": "chimbarongo",
-    "region_id": "63",
-    "population": 38451,
-    "low_population": false
-  },
-  {
-    "cut": "9121",
-    "name": "Cholchol",
-    "slug": "cholchol",
-    "region_id": "91",
-    "population": 12647,
-    "low_population": false
-  },
-  {
-    "cut": "10203",
-    "name": "Chonchi",
-    "slug": "chonchi",
-    "region_id": "10",
-    "population": 16267,
-    "low_population": false
-  },
-  {
-    "cut": "11202",
-    "name": "Cisnes",
-    "slug": "cisnes",
-    "region_id": "11",
-    "population": 5872,
-    "low_population": true
-  },
-  {
-    "cut": "16202",
-    "name": "Cobquecura",
-    "slug": "cobquecura",
-    "region_id": "16",
-    "population": 5224,
-    "low_population": true
-  },
-  {
     "cut": "10103",
     "name": "Cochamó",
     "slug": "cochamo",
     "region_id": "10",
     "population": 3947,
-    "low_population": true
-  },
-  {
-    "cut": "11301",
-    "name": "Cochrane",
-    "slug": "cochrane",
-    "region_id": "11",
-    "population": 3741,
-    "low_population": true
-  },
-  {
-    "cut": "6102",
-    "name": "Codegua",
-    "slug": "codegua",
-    "region_id": "61",
-    "population": 14627,
-    "low_population": false
-  },
-  {
-    "cut": "16203",
-    "name": "Coelemu",
-    "slug": "coelemu",
-    "region_id": "16",
-    "population": 16901,
-    "low_population": false
-  },
-  {
-    "cut": "16302",
-    "name": "Coihueco",
-    "slug": "coihueco",
-    "region_id": "16",
-    "population": 29067,
-    "low_population": false
-  },
-  {
-    "cut": "6103",
-    "name": "Coinco",
-    "slug": "coinco",
-    "region_id": "61",
-    "population": 8024,
-    "low_population": true
-  },
-  {
-    "cut": "7402",
-    "name": "Colbún",
-    "slug": "colbun",
-    "region_id": "74",
-    "population": 23479,
-    "low_population": false
-  },
-  {
-    "cut": "1403",
-    "name": "Colchane",
-    "slug": "colchane",
-    "region_id": "14",
-    "population": 1558,
-    "low_population": true
-  },
-  {
-    "cut": "13301",
-    "name": "Colina",
-    "slug": "colina",
-    "region_id": "13",
-    "population": 197370,
-    "low_population": false
-  },
-  {
-    "cut": "9202",
-    "name": "Collipulli",
-    "slug": "collipulli",
-    "region_id": "92",
-    "population": 26558,
-    "low_population": false
-  },
-  {
-    "cut": "6104",
-    "name": "Coltauco",
-    "slug": "coltauco",
-    "region_id": "61",
-    "population": 22143,
-    "low_population": false
-  },
-  {
-    "cut": "4302",
-    "name": "Combarbalá",
-    "slug": "combarbala",
-    "region_id": "43",
-    "population": 13855,
-    "low_population": false
-  },
-  {
-    "cut": "8101",
-    "name": "Concepción",
-    "slug": "concepcion",
-    "region_id": "81",
-    "population": 239776,
-    "low_population": false
-  },
-  {
-    "cut": "13104",
-    "name": "Conchalí",
-    "slug": "conchali",
-    "region_id": "13",
-    "population": 136674,
-    "low_population": false
-  },
-  {
-    "cut": "5103",
-    "name": "Concón",
-    "slug": "concon",
-    "region_id": "51",
-    "population": 48171,
-    "low_population": false
-  },
-  {
-    "cut": "7102",
-    "name": "Constitución",
-    "slug": "constitucion",
-    "region_id": "71",
-    "population": 50646,
-    "low_population": false
-  },
-  {
-    "cut": "8204",
-    "name": "Contulmo",
-    "slug": "contulmo",
-    "region_id": "82",
-    "population": 6355,
-    "low_population": true
-  },
-  {
-    "cut": "3101",
-    "name": "Copiapó",
-    "slug": "copiapo",
-    "region_id": "31",
-    "population": 176100,
-    "low_population": false
-  },
-  {
-    "cut": "4102",
-    "name": "Coquimbo",
-    "slug": "coquimbo",
-    "region_id": "41",
-    "population": 275644,
-    "low_population": false
-  },
-  {
-    "cut": "8102",
-    "name": "Coronel",
-    "slug": "coronel",
-    "region_id": "81",
-    "population": 128941,
-    "low_population": false
-  },
-  {
-    "cut": "14102",
-    "name": "Corral",
-    "slug": "corral",
-    "region_id": "14",
-    "population": 5424,
-    "low_population": true
-  },
-  {
-    "cut": "11101",
-    "name": "Coyhaique",
-    "slug": "coyhaique",
-    "region_id": "11",
-    "population": 62046,
-    "low_population": false
-  },
-  {
-    "cut": "9103",
-    "name": "Cunco",
-    "slug": "cunco",
-    "region_id": "91",
-    "population": 18068,
-    "low_population": false
-  },
-  {
-    "cut": "9203",
-    "name": "Curacautín",
-    "slug": "curacautin",
-    "region_id": "92",
-    "population": 18211,
-    "low_population": false
-  },
-  {
-    "cut": "13503",
-    "name": "Curacaví",
-    "slug": "curacavi",
-    "region_id": "13",
-    "population": 38367,
-    "low_population": false
-  },
-  {
-    "cut": "10204",
-    "name": "Curaco de Vélez",
-    "slug": "curaco-de-velez",
-    "region_id": "10",
-    "population": 4135,
-    "low_population": true
-  },
-  {
-    "cut": "8205",
-    "name": "Curanilahue",
-    "slug": "curanilahue",
-    "region_id": "82",
-    "population": 33942,
-    "low_population": false
-  },
-  {
-    "cut": "9104",
-    "name": "Curarrehue",
-    "slug": "curarrehue",
-    "region_id": "91",
-    "population": 7873,
-    "low_population": true
-  },
-  {
-    "cut": "7103",
-    "name": "Curepto",
-    "slug": "curepto",
-    "region_id": "71",
-    "population": 9136,
-    "low_population": true
-  },
-  {
-    "cut": "7301",
-    "name": "Curicó",
-    "slug": "curico",
-    "region_id": "73",
-    "population": 171589,
-    "low_population": false
-  },
-  {
-    "cut": "10205",
-    "name": "Dalcahue",
-    "slug": "dalcahue",
-    "region_id": "10",
-    "population": 15456,
-    "low_population": false
-  },
-  {
-    "cut": "3202",
-    "name": "Diego de Almagro",
-    "slug": "diego-de-almagro",
-    "region_id": "32",
-    "population": 13909,
-    "low_population": false
-  },
-  {
-    "cut": "6105",
-    "name": "Doñihue",
-    "slug": "donihue",
-    "region_id": "61",
-    "population": 23647,
-    "low_population": false
-  },
-  {
-    "cut": "13105",
-    "name": "El Bosque",
-    "slug": "el-bosque",
-    "region_id": "13",
-    "population": 169855,
-    "low_population": false
-  },
-  {
-    "cut": "16104",
-    "name": "El Carmen",
-    "slug": "el-carmen",
-    "region_id": "16",
-    "population": 12197,
-    "low_population": false
-  },
-  {
-    "cut": "13602",
-    "name": "El Monte",
-    "slug": "el-monte",
-    "region_id": "13",
-    "population": 42233,
-    "low_population": false
-  },
-  {
-    "cut": "5604",
-    "name": "El Quisco",
-    "slug": "el-quisco",
-    "region_id": "56",
-    "population": 18840,
-    "low_population": false
-  },
-  {
-    "cut": "5605",
-    "name": "El Tabo",
-    "slug": "el-tabo",
-    "region_id": "56",
-    "population": 15196,
-    "low_population": false
-  },
-  {
-    "cut": "7104",
-    "name": "Empedrado",
-    "slug": "empedrado",
-    "region_id": "71",
-    "population": 4176,
-    "low_population": true
-  },
-  {
-    "cut": "9204",
-    "name": "Ercilla",
-    "slug": "ercilla",
-    "region_id": "92",
-    "population": 8387,
-    "low_population": true
-  },
-  {
-    "cut": "13106",
-    "name": "Estación Central",
-    "slug": "estacion-central",
-    "region_id": "13",
-    "population": 221901,
-    "low_population": false
-  },
-  {
-    "cut": "8104",
-    "name": "Florida",
-    "slug": "florida",
-    "region_id": "81",
-    "population": 11873,
-    "low_population": false
-  },
-  {
-    "cut": "9105",
-    "name": "Freire",
-    "slug": "freire",
-    "region_id": "91",
-    "population": 25488,
-    "low_population": false
-  },
-  {
-    "cut": "3303",
-    "name": "Freirina",
-    "slug": "freirina",
-    "region_id": "33",
-    "population": 7840,
     "low_population": true
   },
   {
@@ -760,68 +40,188 @@
     "low_population": false
   },
   {
+    "cut": "10106",
+    "name": "Los Muermos",
+    "slug": "los-muermos",
+    "region_id": "10",
+    "population": 17832,
+    "low_population": false
+  },
+  {
+    "cut": "10107",
+    "name": "Llanquihue",
+    "slug": "llanquihue",
+    "region_id": "10",
+    "population": 18863,
+    "low_population": false
+  },
+  {
+    "cut": "10108",
+    "name": "Maullín",
+    "slug": "maullin",
+    "region_id": "10",
+    "population": 14735,
+    "low_population": false
+  },
+  {
+    "cut": "10109",
+    "name": "Puerto Varas",
+    "slug": "puerto-varas",
+    "region_id": "10",
+    "population": 51316,
+    "low_population": false
+  },
+  {
+    "cut": "10201",
+    "name": "Castro",
+    "slug": "castro",
+    "region_id": "10",
+    "population": 48727,
+    "low_population": false
+  },
+  {
+    "cut": "10202",
+    "name": "Ancud",
+    "slug": "ancud",
+    "region_id": "10",
+    "population": 42524,
+    "low_population": false
+  },
+  {
+    "cut": "10203",
+    "name": "Chonchi",
+    "slug": "chonchi",
+    "region_id": "10",
+    "population": 16267,
+    "low_population": false
+  },
+  {
+    "cut": "10204",
+    "name": "Curaco de Vélez",
+    "slug": "curaco-de-velez",
+    "region_id": "10",
+    "population": 4135,
+    "low_population": true
+  },
+  {
+    "cut": "10205",
+    "name": "Dalcahue",
+    "slug": "dalcahue",
+    "region_id": "10",
+    "population": 15456,
+    "low_population": false
+  },
+  {
+    "cut": "10206",
+    "name": "Puqueldón",
+    "slug": "puqueldon",
+    "region_id": "10",
+    "population": 4188,
+    "low_population": true
+  },
+  {
+    "cut": "10207",
+    "name": "Queilén",
+    "slug": "queilen",
+    "region_id": "10",
+    "population": 5542,
+    "low_population": true
+  },
+  {
+    "cut": "10208",
+    "name": "Quellón",
+    "slug": "quellon",
+    "region_id": "10",
+    "population": 30136,
+    "low_population": false
+  },
+  {
+    "cut": "10209",
+    "name": "Quemchi",
+    "slug": "quemchi",
+    "region_id": "10",
+    "population": 8754,
+    "low_population": true
+  },
+  {
+    "cut": "10210",
+    "name": "Quinchao",
+    "slug": "quinchao",
+    "region_id": "10",
+    "population": 8186,
+    "low_population": true
+  },
+  {
+    "cut": "10301",
+    "name": "Osorno",
+    "slug": "osorno",
+    "region_id": "10",
+    "population": 176304,
+    "low_population": false
+  },
+  {
+    "cut": "10302",
+    "name": "Puerto Octay",
+    "slug": "puerto-octay",
+    "region_id": "10",
+    "population": 9056,
+    "low_population": true
+  },
+  {
+    "cut": "10303",
+    "name": "Purranque",
+    "slug": "purranque",
+    "region_id": "10",
+    "population": 20968,
+    "low_population": false
+  },
+  {
+    "cut": "10304",
+    "name": "Puyehue",
+    "slug": "puyehue",
+    "region_id": "10",
+    "population": 11818,
+    "low_population": false
+  },
+  {
+    "cut": "10305",
+    "name": "Río Negro",
+    "slug": "rio-negro",
+    "region_id": "10",
+    "population": 14085,
+    "low_population": false
+  },
+  {
+    "cut": "10306",
+    "name": "San Juan de la Costa",
+    "slug": "san-juan-de-la-costa",
+    "region_id": "10",
+    "population": 7424,
+    "low_population": true
+  },
+  {
+    "cut": "10307",
+    "name": "San Pablo",
+    "slug": "san-pablo",
+    "region_id": "10",
+    "population": 10537,
+    "low_population": false
+  },
+  {
+    "cut": "10401",
+    "name": "Chaitén",
+    "slug": "chaiten",
+    "region_id": "10",
+    "population": 5078,
+    "low_population": true
+  },
+  {
     "cut": "10402",
     "name": "Futaleufú",
     "slug": "futaleufu",
     "region_id": "10",
     "population": 2912,
     "low_population": true
-  },
-  {
-    "cut": "14202",
-    "name": "Futrono",
-    "slug": "futrono",
-    "region_id": "14",
-    "population": 15188,
-    "low_population": false
-  },
-  {
-    "cut": "9106",
-    "name": "Galvarino",
-    "slug": "galvarino",
-    "region_id": "91",
-    "population": 12568,
-    "low_population": false
-  },
-  {
-    "cut": "15202",
-    "name": "General Lagos",
-    "slug": "general-lagos",
-    "region_id": "15",
-    "population": 801,
-    "low_population": true
-  },
-  {
-    "cut": "9107",
-    "name": "Gorbea",
-    "slug": "gorbea",
-    "region_id": "91",
-    "population": 15076,
-    "low_population": false
-  },
-  {
-    "cut": "6106",
-    "name": "Graneros",
-    "slug": "graneros",
-    "region_id": "61",
-    "population": 38185,
-    "low_population": false
-  },
-  {
-    "cut": "11203",
-    "name": "Guaitecas",
-    "slug": "guaitecas",
-    "region_id": "11",
-    "population": 1611,
-    "low_population": true
-  },
-  {
-    "cut": "5503",
-    "name": "Hijuelas",
-    "slug": "hijuelas",
-    "region_id": "55",
-    "population": 19464,
-    "low_population": false
   },
   {
     "cut": "10403",
@@ -832,43 +232,243 @@
     "low_population": true
   },
   {
-    "cut": "7302",
-    "name": "Hualañé",
-    "slug": "hualane",
-    "region_id": "73",
-    "population": 10225,
-    "low_population": false
-  },
-  {
-    "cut": "8112",
-    "name": "Hualpén",
-    "slug": "hualpen",
-    "region_id": "81",
-    "population": 98055,
-    "low_population": false
-  },
-  {
-    "cut": "8105",
-    "name": "Hualqui",
-    "slug": "hualqui",
-    "region_id": "81",
-    "population": 26746,
-    "low_population": false
-  },
-  {
-    "cut": "1404",
-    "name": "Huara",
-    "slug": "huara",
-    "region_id": "14",
-    "population": 3095,
+    "cut": "10404",
+    "name": "Palena",
+    "slug": "palena",
+    "region_id": "10",
+    "population": 1826,
     "low_population": true
   },
   {
-    "cut": "3304",
-    "name": "Huasco",
-    "slug": "huasco",
-    "region_id": "33",
-    "population": 11590,
+    "cut": "1101",
+    "name": "Iquique",
+    "slug": "iquique",
+    "region_id": "1",
+    "population": 231962,
+    "low_population": false
+  },
+  {
+    "cut": "1107",
+    "name": "Alto Hospicio",
+    "slug": "alto-hospicio",
+    "region_id": "1",
+    "population": 143294,
+    "low_population": false
+  },
+  {
+    "cut": "11101",
+    "name": "Coyhaique",
+    "slug": "coyhaique",
+    "region_id": "11",
+    "population": 62046,
+    "low_population": false
+  },
+  {
+    "cut": "11102",
+    "name": "Lago Verde",
+    "slug": "lago-verde",
+    "region_id": "11",
+    "population": 914,
+    "low_population": true
+  },
+  {
+    "cut": "11201",
+    "name": "Aysén",
+    "slug": "aysen",
+    "region_id": "11",
+    "population": 25218,
+    "low_population": false
+  },
+  {
+    "cut": "11202",
+    "name": "Cisnes",
+    "slug": "cisnes",
+    "region_id": "11",
+    "population": 5872,
+    "low_population": true
+  },
+  {
+    "cut": "11203",
+    "name": "Guaitecas",
+    "slug": "guaitecas",
+    "region_id": "11",
+    "population": 1611,
+    "low_population": true
+  },
+  {
+    "cut": "11301",
+    "name": "Cochrane",
+    "slug": "cochrane",
+    "region_id": "11",
+    "population": 3741,
+    "low_population": true
+  },
+  {
+    "cut": "11302",
+    "name": "OHiggins",
+    "slug": "ohiggins",
+    "region_id": "11",
+    "population": 675,
+    "low_population": true
+  },
+  {
+    "cut": "11303",
+    "name": "Tortel",
+    "slug": "tortel",
+    "region_id": "11",
+    "population": 585,
+    "low_population": true
+  },
+  {
+    "cut": "11401",
+    "name": "Chile Chico",
+    "slug": "chile-chico",
+    "region_id": "11",
+    "population": 5163,
+    "low_population": true
+  },
+  {
+    "cut": "11402",
+    "name": "Río Ibáñez",
+    "slug": "rio-ibanez",
+    "region_id": "11",
+    "population": 2713,
+    "low_population": true
+  },
+  {
+    "cut": "12101",
+    "name": "Punta Arenas",
+    "slug": "punta-arenas",
+    "region_id": "12",
+    "population": 145713,
+    "low_population": false
+  },
+  {
+    "cut": "12102",
+    "name": "Laguna Blanca",
+    "slug": "laguna-blanca",
+    "region_id": "12",
+    "population": 248,
+    "low_population": true
+  },
+  {
+    "cut": "12103",
+    "name": "Río Verde",
+    "slug": "rio-verde",
+    "region_id": "12",
+    "population": 205,
+    "low_population": true
+  },
+  {
+    "cut": "12104",
+    "name": "San Gregorio",
+    "slug": "san-gregorio",
+    "region_id": "12",
+    "population": 651,
+    "low_population": true
+  },
+  {
+    "cut": "12201",
+    "name": "Cabo de Hornos",
+    "slug": "cabo-de-hornos",
+    "region_id": "12",
+    "population": 1968,
+    "low_population": true
+  },
+  {
+    "cut": "12202",
+    "name": "Antártica",
+    "slug": "antartica",
+    "region_id": "12",
+    "population": 151,
+    "low_population": true
+  },
+  {
+    "cut": "12301",
+    "name": "Porvenir",
+    "slug": "porvenir",
+    "region_id": "12",
+    "population": 7637,
+    "low_population": true
+  },
+  {
+    "cut": "12302",
+    "name": "Primavera",
+    "slug": "primavera",
+    "region_id": "12",
+    "population": 674,
+    "low_population": true
+  },
+  {
+    "cut": "12303",
+    "name": "Timaukel",
+    "slug": "timaukel",
+    "region_id": "12",
+    "population": 276,
+    "low_population": true
+  },
+  {
+    "cut": "12401",
+    "name": "Natales",
+    "slug": "natales",
+    "region_id": "12",
+    "population": 24631,
+    "low_population": false
+  },
+  {
+    "cut": "12402",
+    "name": "Torres del Paine",
+    "slug": "torres-del-paine",
+    "region_id": "12",
+    "population": 1081,
+    "low_population": true
+  },
+  {
+    "cut": "13101",
+    "name": "Santiago",
+    "slug": "santiago",
+    "region_id": "13",
+    "population": 544388,
+    "low_population": false
+  },
+  {
+    "cut": "13102",
+    "name": "Cerrillos",
+    "slug": "cerrillos",
+    "region_id": "13",
+    "population": 90182,
+    "low_population": false
+  },
+  {
+    "cut": "13103",
+    "name": "Cerro Navia",
+    "slug": "cerro-navia",
+    "region_id": "13",
+    "population": 139632,
+    "low_population": false
+  },
+  {
+    "cut": "13104",
+    "name": "Conchalí",
+    "slug": "conchali",
+    "region_id": "13",
+    "population": 136674,
+    "low_population": false
+  },
+  {
+    "cut": "13105",
+    "name": "El Bosque",
+    "slug": "el-bosque",
+    "region_id": "13",
+    "population": 169855,
+    "low_population": false
+  },
+  {
+    "cut": "13106",
+    "name": "Estación Central",
+    "slug": "estacion-central",
+    "region_id": "13",
+    "population": 221901,
     "low_population": false
   },
   {
@@ -880,59 +480,11 @@
     "low_population": false
   },
   {
-    "cut": "4201",
-    "name": "Illapel",
-    "slug": "illapel",
-    "region_id": "42",
-    "population": 33021,
-    "low_population": false
-  },
-  {
     "cut": "13108",
     "name": "Independencia",
     "slug": "independencia",
     "region_id": "13",
     "population": 153624,
-    "low_population": false
-  },
-  {
-    "cut": "1101",
-    "name": "Iquique",
-    "slug": "iquique",
-    "region_id": "11",
-    "population": 231962,
-    "low_population": false
-  },
-  {
-    "cut": "13603",
-    "name": "Isla de Maipo",
-    "slug": "isla-de-maipo",
-    "region_id": "13",
-    "population": 42393,
-    "low_population": false
-  },
-  {
-    "cut": "5201",
-    "name": "Isla de Pascua",
-    "slug": "isla-de-pascua",
-    "region_id": "52",
-    "population": 8872,
-    "low_population": true
-  },
-  {
-    "cut": "5104",
-    "name": "Juan Fernández",
-    "slug": "juan-fernandez",
-    "region_id": "51",
-    "population": 1104,
-    "low_population": true
-  },
-  {
-    "cut": "5502",
-    "name": "La Calera",
-    "slug": "la-calera",
-    "region_id": "55",
-    "population": 53902,
     "low_population": false
   },
   {
@@ -942,22 +494,6 @@
     "region_id": "13",
     "population": 101401,
     "low_population": false
-  },
-  {
-    "cut": "5504",
-    "name": "La Cruz",
-    "slug": "la-cruz",
-    "region_id": "55",
-    "population": 27898,
-    "low_population": false
-  },
-  {
-    "cut": "6202",
-    "name": "La Estrella",
-    "slug": "la-estrella",
-    "region_id": "62",
-    "population": 3098,
-    "low_population": true
   },
   {
     "cut": "13110",
@@ -973,22 +509,6 @@
     "slug": "la-granja",
     "region_id": "13",
     "population": 119321,
-    "low_population": false
-  },
-  {
-    "cut": "4104",
-    "name": "La Higuera",
-    "slug": "la-higuera",
-    "region_id": "41",
-    "population": 4533,
-    "low_population": true
-  },
-  {
-    "cut": "5401",
-    "name": "La Ligua",
-    "slug": "la-ligua",
-    "region_id": "54",
-    "population": 38387,
     "low_population": false
   },
   {
@@ -1008,147 +528,11 @@
     "low_population": false
   },
   {
-    "cut": "4101",
-    "name": "La Serena",
-    "slug": "la-serena",
-    "region_id": "41",
-    "population": 267400,
-    "low_population": false
-  },
-  {
-    "cut": "14201",
-    "name": "La Unión",
-    "slug": "la-union",
-    "region_id": "14",
-    "population": 39705,
-    "low_population": false
-  },
-  {
-    "cut": "14203",
-    "name": "Lago Ranco",
-    "slug": "lago-ranco",
-    "region_id": "14",
-    "population": 10272,
-    "low_population": false
-  },
-  {
-    "cut": "11102",
-    "name": "Lago Verde",
-    "slug": "lago-verde",
-    "region_id": "11",
-    "population": 914,
-    "low_population": true
-  },
-  {
-    "cut": "12102",
-    "name": "Laguna Blanca",
-    "slug": "laguna-blanca",
-    "region_id": "12",
-    "population": 248,
-    "low_population": true
-  },
-  {
-    "cut": "8304",
-    "name": "Laja",
-    "slug": "laja",
-    "region_id": "83",
-    "population": 23921,
-    "low_population": false
-  },
-  {
-    "cut": "13302",
-    "name": "Lampa",
-    "slug": "lampa",
-    "region_id": "13",
-    "population": 143032,
-    "low_population": false
-  },
-  {
-    "cut": "14103",
-    "name": "Lanco",
-    "slug": "lanco",
-    "region_id": "14",
-    "population": 18050,
-    "low_population": false
-  },
-  {
-    "cut": "6107",
-    "name": "Las Cabras",
-    "slug": "las-cabras",
-    "region_id": "61",
-    "population": 27749,
-    "low_population": false
-  },
-  {
     "cut": "13114",
     "name": "Las Condes",
     "slug": "las-condes",
     "region_id": "13",
     "population": 343632,
-    "low_population": false
-  },
-  {
-    "cut": "9108",
-    "name": "Lautaro",
-    "slug": "lautaro",
-    "region_id": "91",
-    "population": 41884,
-    "low_population": false
-  },
-  {
-    "cut": "8201",
-    "name": "Lebu",
-    "slug": "lebu",
-    "region_id": "82",
-    "population": 27152,
-    "low_population": false
-  },
-  {
-    "cut": "7303",
-    "name": "Licantén",
-    "slug": "licanten",
-    "region_id": "73",
-    "population": 6986,
-    "low_population": true
-  },
-  {
-    "cut": "5802",
-    "name": "Limache",
-    "slug": "limache",
-    "region_id": "58",
-    "population": 51697,
-    "low_population": false
-  },
-  {
-    "cut": "7401",
-    "name": "Linares",
-    "slug": "linares",
-    "region_id": "74",
-    "population": 103958,
-    "low_population": false
-  },
-  {
-    "cut": "6203",
-    "name": "Litueche",
-    "slug": "litueche",
-    "region_id": "62",
-    "population": 6949,
-    "low_population": true
-  },
-  {
-    "cut": "5703",
-    "name": "Llaillay",
-    "slug": "llaillay",
-    "region_id": "57",
-    "population": 27286,
-    "low_population": false
-  },
-  {
-    "cut": "10107",
-    "name": "Llanquihue",
-    "slug": "llanquihue",
-    "region_id": "10",
-    "population": 18863,
     "low_population": false
   },
   {
@@ -1176,118 +560,6 @@
     "low_population": false
   },
   {
-    "cut": "6304",
-    "name": "Lolol",
-    "slug": "lolol",
-    "region_id": "63",
-    "population": 7454,
-    "low_population": true
-  },
-  {
-    "cut": "9109",
-    "name": "Loncoche",
-    "slug": "loncoche",
-    "region_id": "91",
-    "population": 24785,
-    "low_population": false
-  },
-  {
-    "cut": "7403",
-    "name": "Longaví",
-    "slug": "longavi",
-    "region_id": "74",
-    "population": 33666,
-    "low_population": false
-  },
-  {
-    "cut": "9205",
-    "name": "Lonquimay",
-    "slug": "lonquimay",
-    "region_id": "92",
-    "population": 11109,
-    "low_population": false
-  },
-  {
-    "cut": "8206",
-    "name": "Los Álamos",
-    "slug": "los-alamos",
-    "region_id": "82",
-    "population": 22953,
-    "low_population": false
-  },
-  {
-    "cut": "5301",
-    "name": "Los Andes",
-    "slug": "los-andes",
-    "region_id": "53",
-    "population": 68939,
-    "low_population": false
-  },
-  {
-    "cut": "8301",
-    "name": "Los Ángeles",
-    "slug": "los-angeles",
-    "region_id": "83",
-    "population": 223751,
-    "low_population": false
-  },
-  {
-    "cut": "14104",
-    "name": "Los Lagos",
-    "slug": "los-lagos",
-    "region_id": "14",
-    "population": 20520,
-    "low_population": false
-  },
-  {
-    "cut": "10106",
-    "name": "Los Muermos",
-    "slug": "los-muermos",
-    "region_id": "10",
-    "population": 17832,
-    "low_population": false
-  },
-  {
-    "cut": "9206",
-    "name": "Los Sauces",
-    "slug": "los-sauces",
-    "region_id": "92",
-    "population": 7468,
-    "low_population": true
-  },
-  {
-    "cut": "4203",
-    "name": "Los Vilos",
-    "slug": "los-vilos",
-    "region_id": "42",
-    "population": 24408,
-    "low_population": false
-  },
-  {
-    "cut": "8106",
-    "name": "Lota",
-    "slug": "lota",
-    "region_id": "81",
-    "population": 45407,
-    "low_population": false
-  },
-  {
-    "cut": "9207",
-    "name": "Lumaco",
-    "slug": "lumaco",
-    "region_id": "92",
-    "population": 9916,
-    "low_population": true
-  },
-  {
-    "cut": "6108",
-    "name": "Machalí",
-    "slug": "machali",
-    "region_id": "61",
-    "population": 64751,
-    "low_population": false
-  },
-  {
     "cut": "13118",
     "name": "Macul",
     "slug": "macul",
@@ -1296,203 +568,11 @@
     "low_population": false
   },
   {
-    "cut": "14105",
-    "name": "Máfil",
-    "slug": "mafil",
-    "region_id": "14",
-    "population": 7375,
-    "low_population": true
-  },
-  {
     "cut": "13119",
     "name": "Maipú",
     "slug": "maipu",
     "region_id": "13",
     "population": 586812,
-    "low_population": false
-  },
-  {
-    "cut": "6109",
-    "name": "Malloa",
-    "slug": "malloa",
-    "region_id": "61",
-    "population": 14300,
-    "low_population": false
-  },
-  {
-    "cut": "6204",
-    "name": "Marchigüe",
-    "slug": "marchigue",
-    "region_id": "62",
-    "population": 7715,
-    "low_population": true
-  },
-  {
-    "cut": "2302",
-    "name": "María Elena",
-    "slug": "maria-elena",
-    "region_id": "23",
-    "population": 6507,
-    "low_population": true
-  },
-  {
-    "cut": "13504",
-    "name": "María Pinto",
-    "slug": "maria-pinto",
-    "region_id": "13",
-    "population": 15669,
-    "low_population": false
-  },
-  {
-    "cut": "14106",
-    "name": "Mariquina",
-    "slug": "mariquina",
-    "region_id": "14",
-    "population": 24006,
-    "low_population": false
-  },
-  {
-    "cut": "7105",
-    "name": "Maule",
-    "slug": "maule",
-    "region_id": "71",
-    "population": 68975,
-    "low_population": false
-  },
-  {
-    "cut": "10108",
-    "name": "Maullín",
-    "slug": "maullin",
-    "region_id": "10",
-    "population": 14735,
-    "low_population": false
-  },
-  {
-    "cut": "2102",
-    "name": "Mejillones",
-    "slug": "mejillones",
-    "region_id": "21",
-    "population": 15877,
-    "low_population": false
-  },
-  {
-    "cut": "9110",
-    "name": "Melipeuco",
-    "slug": "melipeuco",
-    "region_id": "91",
-    "population": 6319,
-    "low_population": true
-  },
-  {
-    "cut": "13501",
-    "name": "Melipilla",
-    "slug": "melipilla",
-    "region_id": "13",
-    "population": 148899,
-    "low_population": false
-  },
-  {
-    "cut": "7304",
-    "name": "Molina",
-    "slug": "molina",
-    "region_id": "73",
-    "population": 52088,
-    "low_population": false
-  },
-  {
-    "cut": "4303",
-    "name": "Monte Patria",
-    "slug": "monte-patria",
-    "region_id": "43",
-    "population": 32672,
-    "low_population": false
-  },
-  {
-    "cut": "6110",
-    "name": "Mostazal",
-    "slug": "mostazal",
-    "region_id": "61",
-    "population": 28552,
-    "low_population": false
-  },
-  {
-    "cut": "8305",
-    "name": "Mulchén",
-    "slug": "mulchen",
-    "region_id": "83",
-    "population": 31122,
-    "low_population": false
-  },
-  {
-    "cut": "8306",
-    "name": "Nacimiento",
-    "slug": "nacimiento",
-    "region_id": "83",
-    "population": 28028,
-    "low_population": false
-  },
-  {
-    "cut": "6305",
-    "name": "Nancagua",
-    "slug": "nancagua",
-    "region_id": "63",
-    "population": 19725,
-    "low_population": false
-  },
-  {
-    "cut": "12401",
-    "name": "Natales",
-    "slug": "natales",
-    "region_id": "12",
-    "population": 24631,
-    "low_population": false
-  },
-  {
-    "cut": "6205",
-    "name": "Navidad",
-    "slug": "navidad",
-    "region_id": "62",
-    "population": 7135,
-    "low_population": true
-  },
-  {
-    "cut": "8307",
-    "name": "Negrete",
-    "slug": "negrete",
-    "region_id": "83",
-    "population": 10574,
-    "low_population": false
-  },
-  {
-    "cut": "16204",
-    "name": "Ninhue",
-    "slug": "ninhue",
-    "region_id": "16",
-    "population": 5353,
-    "low_population": true
-  },
-  {
-    "cut": "5506",
-    "name": "Nogales",
-    "slug": "nogales",
-    "region_id": "55",
-    "population": 23645,
-    "low_population": false
-  },
-  {
-    "cut": "9111",
-    "name": "Nueva Imperial",
-    "slug": "nueva-imperial",
-    "region_id": "91",
-    "population": 34151,
-    "low_population": false
-  },
-  {
-    "cut": "16303",
-    "name": "Ñiquén",
-    "slug": "niquen",
-    "region_id": "16",
-    "population": 11526,
     "low_population": false
   },
   {
@@ -1504,203 +584,11 @@
     "low_population": false
   },
   {
-    "cut": "11302",
-    "name": "OHiggins",
-    "slug": "ohiggins",
-    "region_id": "11",
-    "population": 675,
-    "low_population": true
-  },
-  {
-    "cut": "6111",
-    "name": "Olivar",
-    "slug": "olivar",
-    "region_id": "61",
-    "population": 15007,
-    "low_population": false
-  },
-  {
-    "cut": "2202",
-    "name": "Ollagüe",
-    "slug": "ollague",
-    "region_id": "22",
-    "population": 269,
-    "low_population": true
-  },
-  {
-    "cut": "5803",
-    "name": "Olmué",
-    "slug": "olmue",
-    "region_id": "58",
-    "population": 20247,
-    "low_population": false
-  },
-  {
-    "cut": "10301",
-    "name": "Osorno",
-    "slug": "osorno",
-    "region_id": "10",
-    "population": 176304,
-    "low_population": false
-  },
-  {
-    "cut": "4301",
-    "name": "Ovalle",
-    "slug": "ovalle",
-    "region_id": "43",
-    "population": 124401,
-    "low_population": false
-  },
-  {
-    "cut": "13604",
-    "name": "Padre Hurtado",
-    "slug": "padre-hurtado",
-    "region_id": "13",
-    "population": 81743,
-    "low_population": false
-  },
-  {
-    "cut": "9112",
-    "name": "Padre Las Casas",
-    "slug": "padre-las-casas",
-    "region_id": "91",
-    "population": 85373,
-    "low_population": false
-  },
-  {
-    "cut": "4105",
-    "name": "Paiguano",
-    "slug": "paiguano",
-    "region_id": "41",
-    "population": 4709,
-    "low_population": true
-  },
-  {
-    "cut": "14107",
-    "name": "Paillaco",
-    "slug": "paillaco",
-    "region_id": "14",
-    "population": 20942,
-    "low_population": false
-  },
-  {
-    "cut": "13404",
-    "name": "Paine",
-    "slug": "paine",
-    "region_id": "13",
-    "population": 88317,
-    "low_population": false
-  },
-  {
-    "cut": "10404",
-    "name": "Palena",
-    "slug": "palena",
-    "region_id": "10",
-    "population": 1826,
-    "low_population": true
-  },
-  {
-    "cut": "6306",
-    "name": "Palmilla",
-    "slug": "palmilla",
-    "region_id": "63",
-    "population": 13597,
-    "low_population": false
-  },
-  {
-    "cut": "14108",
-    "name": "Panguipulli",
-    "slug": "panguipulli",
-    "region_id": "14",
-    "population": 36220,
-    "low_population": false
-  },
-  {
-    "cut": "5704",
-    "name": "Panquehue",
-    "slug": "panquehue",
-    "region_id": "57",
-    "population": 7841,
-    "low_population": true
-  },
-  {
-    "cut": "5403",
-    "name": "Papudo",
-    "slug": "papudo",
-    "region_id": "54",
-    "population": 6438,
-    "low_population": true
-  },
-  {
-    "cut": "6206",
-    "name": "Paredones",
-    "slug": "paredones",
-    "region_id": "62",
-    "population": 6259,
-    "low_population": true
-  },
-  {
-    "cut": "7404",
-    "name": "Parral",
-    "slug": "parral",
-    "region_id": "74",
-    "population": 45583,
-    "low_population": false
-  },
-  {
     "cut": "13121",
     "name": "Pedro Aguirre Cerda",
     "slug": "pedro-aguirre-cerda",
     "region_id": "13",
     "population": 104462,
-    "low_population": false
-  },
-  {
-    "cut": "7106",
-    "name": "Pelarco",
-    "slug": "pelarco",
-    "region_id": "71",
-    "population": 9407,
-    "low_population": true
-  },
-  {
-    "cut": "7203",
-    "name": "Pelluhue",
-    "slug": "pelluhue",
-    "region_id": "72",
-    "population": 8444,
-    "low_population": true
-  },
-  {
-    "cut": "16105",
-    "name": "Pemuco",
-    "slug": "pemuco",
-    "region_id": "16",
-    "population": 8583,
-    "low_population": true
-  },
-  {
-    "cut": "7107",
-    "name": "Pencahue",
-    "slug": "pencahue",
-    "region_id": "71",
-    "population": 8626,
-    "low_population": true
-  },
-  {
-    "cut": "8107",
-    "name": "Penco",
-    "slug": "penco",
-    "region_id": "81",
-    "population": 50189,
-    "low_population": false
-  },
-  {
-    "cut": "13605",
-    "name": "Peñaflor",
-    "slug": "penaflor",
-    "region_id": "13",
-    "population": 106840,
     "low_population": false
   },
   {
@@ -1712,147 +600,11 @@
     "low_population": false
   },
   {
-    "cut": "6307",
-    "name": "Peralillo",
-    "slug": "peralillo",
-    "region_id": "63",
-    "population": 12174,
-    "low_population": false
-  },
-  {
-    "cut": "9113",
-    "name": "Perquenco",
-    "slug": "perquenco",
-    "region_id": "91",
-    "population": 7269,
-    "low_population": true
-  },
-  {
-    "cut": "5404",
-    "name": "Petorca",
-    "slug": "petorca",
-    "region_id": "54",
-    "population": 10633,
-    "low_population": false
-  },
-  {
-    "cut": "6112",
-    "name": "Peumo",
-    "slug": "peumo",
-    "region_id": "61",
-    "population": 15028,
-    "low_population": false
-  },
-  {
-    "cut": "1405",
-    "name": "Pica",
-    "slug": "pica",
-    "region_id": "14",
-    "population": 6291,
-    "low_population": true
-  },
-  {
-    "cut": "6113",
-    "name": "Pichidegua",
-    "slug": "pichidegua",
-    "region_id": "61",
-    "population": 21074,
-    "low_population": false
-  },
-  {
-    "cut": "6201",
-    "name": "Pichilemu",
-    "slug": "pichilemu",
-    "region_id": "62",
-    "population": 18804,
-    "low_population": false
-  },
-  {
-    "cut": "16106",
-    "name": "Pinto",
-    "slug": "pinto",
-    "region_id": "16",
-    "population": 12179,
-    "low_population": false
-  },
-  {
-    "cut": "13202",
-    "name": "Pirque",
-    "slug": "pirque",
-    "region_id": "13",
-    "population": 33021,
-    "low_population": false
-  },
-  {
-    "cut": "9114",
-    "name": "Pitrufquén",
-    "slug": "pitrufquen",
-    "region_id": "91",
-    "population": 26617,
-    "low_population": false
-  },
-  {
-    "cut": "6308",
-    "name": "Placilla",
-    "slug": "placilla",
-    "region_id": "63",
-    "population": 9281,
-    "low_population": true
-  },
-  {
-    "cut": "16205",
-    "name": "Portezuelo",
-    "slug": "portezuelo",
-    "region_id": "16",
-    "population": 4876,
-    "low_population": true
-  },
-  {
-    "cut": "12301",
-    "name": "Porvenir",
-    "slug": "porvenir",
-    "region_id": "12",
-    "population": 7637,
-    "low_population": true
-  },
-  {
-    "cut": "1401",
-    "name": "Pozo Almonte",
-    "slug": "pozo-almonte",
-    "region_id": "14",
-    "population": 18713,
-    "low_population": false
-  },
-  {
-    "cut": "12302",
-    "name": "Primavera",
-    "slug": "primavera",
-    "region_id": "12",
-    "population": 674,
-    "low_population": true
-  },
-  {
     "cut": "13123",
     "name": "Providencia",
     "slug": "providencia",
     "region_id": "13",
     "population": 164009,
-    "low_population": false
-  },
-  {
-    "cut": "5105",
-    "name": "Puchuncaví",
-    "slug": "puchuncavi",
-    "region_id": "51",
-    "population": 21221,
-    "low_population": false
-  },
-  {
-    "cut": "9115",
-    "name": "Pucón",
-    "slug": "pucon",
-    "region_id": "91",
-    "population": 30712,
     "low_population": false
   },
   {
@@ -1864,195 +616,11 @@
     "low_population": false
   },
   {
-    "cut": "13201",
-    "name": "Puente Alto",
-    "slug": "puente-alto",
-    "region_id": "13",
-    "population": 667904,
-    "low_population": false
-  },
-  {
-    "cut": "10101",
-    "name": "Puerto Montt",
-    "slug": "puerto-montt",
-    "region_id": "10",
-    "population": 280955,
-    "low_population": false
-  },
-  {
-    "cut": "10302",
-    "name": "Puerto Octay",
-    "slug": "puerto-octay",
-    "region_id": "10",
-    "population": 9056,
-    "low_population": true
-  },
-  {
-    "cut": "10109",
-    "name": "Puerto Varas",
-    "slug": "puerto-varas",
-    "region_id": "10",
-    "population": 51316,
-    "low_population": false
-  },
-  {
-    "cut": "6309",
-    "name": "Pumanque",
-    "slug": "pumanque",
-    "region_id": "63",
-    "population": 3516,
-    "low_population": true
-  },
-  {
-    "cut": "4304",
-    "name": "Punitaqui",
-    "slug": "punitaqui",
-    "region_id": "43",
-    "population": 12514,
-    "low_population": false
-  },
-  {
-    "cut": "12101",
-    "name": "Punta Arenas",
-    "slug": "punta-arenas",
-    "region_id": "12",
-    "population": 145713,
-    "low_population": false
-  },
-  {
-    "cut": "10206",
-    "name": "Puqueldón",
-    "slug": "puqueldon",
-    "region_id": "10",
-    "population": 4188,
-    "low_population": true
-  },
-  {
-    "cut": "9208",
-    "name": "Purén",
-    "slug": "puren",
-    "region_id": "92",
-    "population": 12103,
-    "low_population": false
-  },
-  {
-    "cut": "10303",
-    "name": "Purranque",
-    "slug": "purranque",
-    "region_id": "10",
-    "population": 20968,
-    "low_population": false
-  },
-  {
-    "cut": "5705",
-    "name": "Putaendo",
-    "slug": "putaendo",
-    "region_id": "57",
-    "population": 18023,
-    "low_population": false
-  },
-  {
-    "cut": "15201",
-    "name": "Putre",
-    "slug": "putre",
-    "region_id": "15",
-    "population": 2569,
-    "low_population": true
-  },
-  {
-    "cut": "10304",
-    "name": "Puyehue",
-    "slug": "puyehue",
-    "region_id": "10",
-    "population": 11818,
-    "low_population": false
-  },
-  {
-    "cut": "10207",
-    "name": "Queilén",
-    "slug": "queilen",
-    "region_id": "10",
-    "population": 5542,
-    "low_population": true
-  },
-  {
-    "cut": "10208",
-    "name": "Quellón",
-    "slug": "quellon",
-    "region_id": "10",
-    "population": 30136,
-    "low_population": false
-  },
-  {
-    "cut": "10209",
-    "name": "Quemchi",
-    "slug": "quemchi",
-    "region_id": "10",
-    "population": 8754,
-    "low_population": true
-  },
-  {
-    "cut": "8308",
-    "name": "Quilaco",
-    "slug": "quilaco",
-    "region_id": "83",
-    "population": 4186,
-    "low_population": true
-  },
-  {
     "cut": "13125",
     "name": "Quilicura",
     "slug": "quilicura",
     "region_id": "13",
     "population": 275744,
-    "low_population": false
-  },
-  {
-    "cut": "8309",
-    "name": "Quilleco",
-    "slug": "quilleco",
-    "region_id": "83",
-    "population": 9986,
-    "low_population": true
-  },
-  {
-    "cut": "16107",
-    "name": "Quillón",
-    "slug": "quillon",
-    "region_id": "16",
-    "population": 19304,
-    "low_population": false
-  },
-  {
-    "cut": "5501",
-    "name": "Quillota",
-    "slug": "quillota",
-    "region_id": "55",
-    "population": 100972,
-    "low_population": false
-  },
-  {
-    "cut": "5801",
-    "name": "Quilpué",
-    "slug": "quilpue",
-    "region_id": "58",
-    "population": 173591,
-    "low_population": false
-  },
-  {
-    "cut": "10210",
-    "name": "Quinchao",
-    "slug": "quinchao",
-    "region_id": "10",
-    "population": 8186,
-    "low_population": true
-  },
-  {
-    "cut": "6114",
-    "name": "Quinta de Tilcoco",
-    "slug": "quinta-de-tilcoco",
-    "region_id": "61",
-    "population": 14288,
     "low_population": false
   },
   {
@@ -2064,59 +632,11 @@
     "low_population": false
   },
   {
-    "cut": "5107",
-    "name": "Quintero",
-    "slug": "quintero",
-    "region_id": "51",
-    "population": 38613,
-    "low_population": false
-  },
-  {
-    "cut": "16201",
-    "name": "Quirihue",
-    "slug": "quirihue",
-    "region_id": "16",
-    "population": 12241,
-    "low_population": false
-  },
-  {
-    "cut": "6101",
-    "name": "Rancagua",
-    "slug": "rancagua",
-    "region_id": "61",
-    "population": 274407,
-    "low_population": false
-  },
-  {
-    "cut": "16206",
-    "name": "Ránquil",
-    "slug": "ranquil",
-    "region_id": "16",
-    "population": 6293,
-    "low_population": true
-  },
-  {
-    "cut": "7305",
-    "name": "Rauco",
-    "slug": "rauco",
-    "region_id": "73",
-    "population": 11753,
-    "low_population": false
-  },
-  {
     "cut": "13127",
     "name": "Recoleta",
     "slug": "recoleta",
     "region_id": "13",
     "population": 196856,
-    "low_population": false
-  },
-  {
-    "cut": "9209",
-    "name": "Renaico",
-    "slug": "renaico",
-    "region_id": "92",
-    "population": 11002,
     "low_population": false
   },
   {
@@ -2128,206 +648,6 @@
     "low_population": false
   },
   {
-    "cut": "6115",
-    "name": "Rengo",
-    "slug": "rengo",
-    "region_id": "61",
-    "population": 65786,
-    "low_population": false
-  },
-  {
-    "cut": "6116",
-    "name": "Requínoa",
-    "slug": "requinoa",
-    "region_id": "61",
-    "population": 31724,
-    "low_population": false
-  },
-  {
-    "cut": "7405",
-    "name": "Retiro",
-    "slug": "retiro",
-    "region_id": "74",
-    "population": 21492,
-    "low_population": false
-  },
-  {
-    "cut": "5303",
-    "name": "Rinconada",
-    "slug": "rinconada",
-    "region_id": "53",
-    "population": 12030,
-    "low_population": false
-  },
-  {
-    "cut": "14204",
-    "name": "Río Bueno",
-    "slug": "rio-bueno",
-    "region_id": "14",
-    "population": 32998,
-    "low_population": false
-  },
-  {
-    "cut": "7108",
-    "name": "Río Claro",
-    "slug": "rio-claro",
-    "region_id": "71",
-    "population": 15129,
-    "low_population": false
-  },
-  {
-    "cut": "4305",
-    "name": "Río Hurtado",
-    "slug": "rio-hurtado",
-    "region_id": "43",
-    "population": 4308,
-    "low_population": true
-  },
-  {
-    "cut": "11402",
-    "name": "Río Ibáñez",
-    "slug": "rio-ibanez",
-    "region_id": "11",
-    "population": 2713,
-    "low_population": true
-  },
-  {
-    "cut": "10305",
-    "name": "Río Negro",
-    "slug": "rio-negro",
-    "region_id": "10",
-    "population": 14085,
-    "low_population": false
-  },
-  {
-    "cut": "12103",
-    "name": "Río Verde",
-    "slug": "rio-verde",
-    "region_id": "12",
-    "population": 205,
-    "low_population": true
-  },
-  {
-    "cut": "7306",
-    "name": "Romeral",
-    "slug": "romeral",
-    "region_id": "73",
-    "population": 16925,
-    "low_population": false
-  },
-  {
-    "cut": "9116",
-    "name": "Saavedra",
-    "slug": "saavedra",
-    "region_id": "91",
-    "population": 12660,
-    "low_population": false
-  },
-  {
-    "cut": "7307",
-    "name": "Sagrada Familia",
-    "slug": "sagrada-familia",
-    "region_id": "73",
-    "population": 19754,
-    "low_population": false
-  },
-  {
-    "cut": "4204",
-    "name": "Salamanca",
-    "slug": "salamanca",
-    "region_id": "42",
-    "population": 29916,
-    "low_population": false
-  },
-  {
-    "cut": "5601",
-    "name": "San Antonio",
-    "slug": "san-antonio",
-    "region_id": "56",
-    "population": 98579,
-    "low_population": false
-  },
-  {
-    "cut": "13401",
-    "name": "San Bernardo",
-    "slug": "san-bernardo",
-    "region_id": "13",
-    "population": 348640,
-    "low_population": false
-  },
-  {
-    "cut": "16301",
-    "name": "San Carlos",
-    "slug": "san-carlos",
-    "region_id": "16",
-    "population": 57061,
-    "low_population": false
-  },
-  {
-    "cut": "7109",
-    "name": "San Clemente",
-    "slug": "san-clemente",
-    "region_id": "71",
-    "population": 47999,
-    "low_population": false
-  },
-  {
-    "cut": "5304",
-    "name": "San Esteban",
-    "slug": "san-esteban",
-    "region_id": "53",
-    "population": 21756,
-    "low_population": false
-  },
-  {
-    "cut": "16304",
-    "name": "San Fabián",
-    "slug": "san-fabian",
-    "region_id": "16",
-    "population": 4793,
-    "low_population": true
-  },
-  {
-    "cut": "5701",
-    "name": "San Felipe",
-    "slug": "san-felipe",
-    "region_id": "57",
-    "population": 86838,
-    "low_population": false
-  },
-  {
-    "cut": "6301",
-    "name": "San Fernando",
-    "slug": "san-fernando",
-    "region_id": "63",
-    "population": 81117,
-    "low_population": false
-  },
-  {
-    "cut": "12104",
-    "name": "San Gregorio",
-    "slug": "san-gregorio",
-    "region_id": "12",
-    "population": 651,
-    "low_population": true
-  },
-  {
-    "cut": "16108",
-    "name": "San Ignacio",
-    "slug": "san-ignacio",
-    "region_id": "16",
-    "population": 16600,
-    "low_population": false
-  },
-  {
-    "cut": "7406",
-    "name": "San Javier",
-    "slug": "san-javier",
-    "region_id": "74",
-    "population": 51469,
-    "low_population": false
-  },
-  {
     "cut": "13129",
     "name": "San Joaquín",
     "slug": "san-joaquin",
@@ -2336,75 +656,11 @@
     "low_population": false
   },
   {
-    "cut": "13203",
-    "name": "San José de Maipo",
-    "slug": "san-jose-de-maipo",
-    "region_id": "13",
-    "population": 19519,
-    "low_population": false
-  },
-  {
-    "cut": "10306",
-    "name": "San Juan de la Costa",
-    "slug": "san-juan-de-la-costa",
-    "region_id": "10",
-    "population": 7424,
-    "low_population": true
-  },
-  {
     "cut": "13130",
     "name": "San Miguel",
     "slug": "san-miguel",
     "region_id": "13",
     "population": 145424,
-    "low_population": false
-  },
-  {
-    "cut": "16305",
-    "name": "San Nicolás",
-    "slug": "san-nicolas",
-    "region_id": "16",
-    "population": 12487,
-    "low_population": false
-  },
-  {
-    "cut": "10307",
-    "name": "San Pablo",
-    "slug": "san-pablo",
-    "region_id": "10",
-    "population": 10537,
-    "low_population": false
-  },
-  {
-    "cut": "13505",
-    "name": "San Pedro",
-    "slug": "san-pedro",
-    "region_id": "13",
-    "population": 12544,
-    "low_population": false
-  },
-  {
-    "cut": "2203",
-    "name": "San Pedro de Atacama",
-    "slug": "san-pedro-de-atacama",
-    "region_id": "22",
-    "population": 11030,
-    "low_population": false
-  },
-  {
-    "cut": "8108",
-    "name": "San Pedro de la Paz",
-    "slug": "san-pedro-de-la-paz",
-    "region_id": "81",
-    "population": 153516,
-    "low_population": false
-  },
-  {
-    "cut": "7110",
-    "name": "San Rafael",
-    "slug": "san-rafael",
-    "region_id": "71",
-    "population": 10399,
     "low_population": false
   },
   {
@@ -2416,139 +672,51 @@
     "low_population": false
   },
   {
-    "cut": "8310",
-    "name": "San Rosendo",
-    "slug": "san-rosendo",
-    "region_id": "83",
-    "population": 3553,
-    "low_population": true
-  },
-  {
-    "cut": "6117",
-    "name": "San Vicente",
-    "slug": "san-vicente",
-    "region_id": "61",
-    "population": 52289,
-    "low_population": false
-  },
-  {
-    "cut": "8311",
-    "name": "Santa Bárbara",
-    "slug": "santa-barbara",
-    "region_id": "83",
-    "population": 14671,
-    "low_population": false
-  },
-  {
-    "cut": "6310",
-    "name": "Santa Cruz",
-    "slug": "santa-cruz",
-    "region_id": "63",
-    "population": 42582,
-    "low_population": false
-  },
-  {
-    "cut": "8109",
-    "name": "Santa Juana",
-    "slug": "santa-juana",
-    "region_id": "81",
-    "population": 14890,
-    "low_population": false
-  },
-  {
-    "cut": "5706",
-    "name": "Santa María",
-    "slug": "santa-maria",
-    "region_id": "57",
-    "population": 16962,
-    "low_population": false
-  },
-  {
-    "cut": "13101",
-    "name": "Santiago",
-    "slug": "santiago",
+    "cut": "13132",
+    "name": "Vitacura",
+    "slug": "vitacura",
     "region_id": "13",
-    "population": 544388,
+    "population": 97049,
     "low_population": false
   },
   {
-    "cut": "5606",
-    "name": "Santo Domingo",
-    "slug": "santo-domingo",
-    "region_id": "56",
-    "population": 12609,
-    "low_population": false
-  },
-  {
-    "cut": "2103",
-    "name": "Sierra Gorda",
-    "slug": "sierra-gorda",
-    "region_id": "21",
-    "population": 1800,
-    "low_population": true
-  },
-  {
-    "cut": "13601",
-    "name": "Talagante",
-    "slug": "talagante",
+    "cut": "13201",
+    "name": "Puente Alto",
+    "slug": "puente-alto",
     "region_id": "13",
-    "population": 85514,
+    "population": 667904,
     "low_population": false
   },
   {
-    "cut": "7101",
-    "name": "Talca",
-    "slug": "talca",
-    "region_id": "71",
-    "population": 242344,
+    "cut": "13202",
+    "name": "Pirque",
+    "slug": "pirque",
+    "region_id": "13",
+    "population": 33021,
     "low_population": false
   },
   {
-    "cut": "8110",
-    "name": "Talcahuano",
-    "slug": "talcahuano",
-    "region_id": "81",
-    "population": 158167,
+    "cut": "13203",
+    "name": "San José de Maipo",
+    "slug": "san-jose-de-maipo",
+    "region_id": "13",
+    "population": 19519,
     "low_population": false
   },
   {
-    "cut": "2104",
-    "name": "Taltal",
-    "slug": "taltal",
-    "region_id": "21",
-    "population": 13967,
+    "cut": "13301",
+    "name": "Colina",
+    "slug": "colina",
+    "region_id": "13",
+    "population": 197370,
     "low_population": false
   },
   {
-    "cut": "9101",
-    "name": "Temuco",
-    "slug": "temuco",
-    "region_id": "91",
-    "population": 309696,
-    "low_population": false
-  },
-  {
-    "cut": "7308",
-    "name": "Teno",
-    "slug": "teno",
-    "region_id": "73",
-    "population": 31885,
-    "low_population": false
-  },
-  {
-    "cut": "9117",
-    "name": "Teodoro Schmidt",
-    "slug": "teodoro-schmidt",
-    "region_id": "91",
-    "population": 15744,
-    "low_population": false
-  },
-  {
-    "cut": "3103",
-    "name": "Tierra Amarilla",
-    "slug": "tierra-amarilla",
-    "region_id": "31",
-    "population": 14431,
+    "cut": "13302",
+    "name": "Lampa",
+    "slug": "lampa",
+    "region_id": "13",
+    "population": 143032,
     "low_population": false
   },
   {
@@ -2560,84 +728,156 @@
     "low_population": false
   },
   {
-    "cut": "12303",
-    "name": "Timaukel",
-    "slug": "timaukel",
-    "region_id": "12",
-    "population": 276,
-    "low_population": true
-  },
-  {
-    "cut": "8207",
-    "name": "Tirúa",
-    "slug": "tirua",
-    "region_id": "82",
-    "population": 11105,
+    "cut": "13401",
+    "name": "San Bernardo",
+    "slug": "san-bernardo",
+    "region_id": "13",
+    "population": 348640,
     "low_population": false
   },
   {
-    "cut": "2301",
-    "name": "Tocopilla",
-    "slug": "tocopilla",
-    "region_id": "23",
-    "population": 28354,
+    "cut": "13402",
+    "name": "Buin",
+    "slug": "buin",
+    "region_id": "13",
+    "population": 117982,
     "low_population": false
   },
   {
-    "cut": "9118",
-    "name": "Toltén",
-    "slug": "tolten",
-    "region_id": "91",
-    "population": 9937,
-    "low_population": true
-  },
-  {
-    "cut": "8111",
-    "name": "Tomé",
-    "slug": "tome",
-    "region_id": "81",
-    "population": 59150,
+    "cut": "13403",
+    "name": "Calera de Tango",
+    "slug": "calera-de-tango",
+    "region_id": "13",
+    "population": 30283,
     "low_population": false
   },
   {
-    "cut": "12402",
-    "name": "Torres del Paine",
-    "slug": "torres-del-paine",
-    "region_id": "12",
-    "population": 1081,
-    "low_population": true
-  },
-  {
-    "cut": "11303",
-    "name": "Tortel",
-    "slug": "tortel",
-    "region_id": "11",
-    "population": 585,
-    "low_population": true
-  },
-  {
-    "cut": "9210",
-    "name": "Traiguén",
-    "slug": "traiguen",
-    "region_id": "92",
-    "population": 19260,
+    "cut": "13404",
+    "name": "Paine",
+    "slug": "paine",
+    "region_id": "13",
+    "population": 88317,
     "low_population": false
   },
   {
-    "cut": "16207",
-    "name": "Treguaco",
-    "slug": "treguaco",
-    "region_id": "16",
-    "population": 5766,
+    "cut": "13501",
+    "name": "Melipilla",
+    "slug": "melipilla",
+    "region_id": "13",
+    "population": 148899,
+    "low_population": false
+  },
+  {
+    "cut": "13502",
+    "name": "Alhué",
+    "slug": "alhue",
+    "region_id": "13",
+    "population": 7856,
     "low_population": true
   },
   {
-    "cut": "8312",
-    "name": "Tucapel",
-    "slug": "tucapel",
-    "region_id": "83",
-    "population": 15428,
+    "cut": "13503",
+    "name": "Curacaví",
+    "slug": "curacavi",
+    "region_id": "13",
+    "population": 38367,
     "low_population": false
+  },
+  {
+    "cut": "13504",
+    "name": "María Pinto",
+    "slug": "maria-pinto",
+    "region_id": "13",
+    "population": 15669,
+    "low_population": false
+  },
+  {
+    "cut": "13505",
+    "name": "San Pedro",
+    "slug": "san-pedro",
+    "region_id": "13",
+    "population": 12544,
+    "low_population": false
+  },
+  {
+    "cut": "13601",
+    "name": "Talagante",
+    "slug": "talagante",
+    "region_id": "13",
+    "population": 85514,
+    "low_population": false
+  },
+  {
+    "cut": "13602",
+    "name": "El Monte",
+    "slug": "el-monte",
+    "region_id": "13",
+    "population": 42233,
+    "low_population": false
+  },
+  {
+    "cut": "13603",
+    "name": "Isla de Maipo",
+    "slug": "isla-de-maipo",
+    "region_id": "13",
+    "population": 42393,
+    "low_population": false
+  },
+  {
+    "cut": "13604",
+    "name": "Padre Hurtado",
+    "slug": "padre-hurtado",
+    "region_id": "13",
+    "population": 81743,
+    "low_population": false
+  },
+  {
+    "cut": "13605",
+    "name": "Peñaflor",
+    "slug": "penaflor",
+    "region_id": "13",
+    "population": 106840,
+    "low_population": false
+  },
+  {
+    "cut": "1401",
+    "name": "Pozo Almonte",
+    "slug": "pozo-almonte",
+    "region_id": "1",
+    "population": 18713,
+    "low_population": false
+  },
+  {
+    "cut": "1402",
+    "name": "Camiña",
+    "slug": "camina",
+    "region_id": "1",
+    "population": 1374,
+    "low_population": true
+  },
+  {
+    "cut": "1403",
+    "name": "Colchane",
+    "slug": "colchane",
+    "region_id": "1",
+    "population": 1558,
+    "low_population": true
+  },
+  {
+    "cut": "1404",
+    "name": "Huara",
+    "slug": "huara",
+    "region_id": "1",
+    "population": 3095,
+    "low_population": true
+  },
+  {
+    "cut": "1405",
+    "name": "Pica",
+    "slug": "pica",
+    "region_id": "1",
+    "population": 6291,
+    "low_population": true
   },
   {
     "cut": "14101",
@@ -2648,107 +888,187 @@
     "low_population": false
   },
   {
-    "cut": "3301",
-    "name": "Vallenar",
-    "slug": "vallenar",
-    "region_id": "33",
-    "population": 57360,
-    "low_population": false
-  },
-  {
-    "cut": "5101",
-    "name": "Valparaíso",
-    "slug": "valparaiso",
-    "region_id": "51",
-    "population": 320816,
-    "low_population": false
-  },
-  {
-    "cut": "7309",
-    "name": "Vichuquén",
-    "slug": "vichuquen",
-    "region_id": "73",
-    "population": 4311,
+    "cut": "14102",
+    "name": "Corral",
+    "slug": "corral",
+    "region_id": "14",
+    "population": 5424,
     "low_population": true
   },
   {
-    "cut": "9211",
-    "name": "Victoria",
-    "slug": "victoria",
-    "region_id": "92",
-    "population": 35554,
+    "cut": "14103",
+    "name": "Lanco",
+    "slug": "lanco",
+    "region_id": "14",
+    "population": 18050,
     "low_population": false
   },
   {
-    "cut": "4106",
-    "name": "Vicuña",
-    "slug": "vicuna",
-    "region_id": "41",
-    "population": 30541,
+    "cut": "14104",
+    "name": "Los Lagos",
+    "slug": "los-lagos",
+    "region_id": "14",
+    "population": 20520,
     "low_population": false
   },
   {
-    "cut": "9119",
-    "name": "Vilcún",
-    "slug": "vilcun",
-    "region_id": "91",
-    "population": 32742,
+    "cut": "14105",
+    "name": "Máfil",
+    "slug": "mafil",
+    "region_id": "14",
+    "population": 7375,
+    "low_population": true
+  },
+  {
+    "cut": "14106",
+    "name": "Mariquina",
+    "slug": "mariquina",
+    "region_id": "14",
+    "population": 24006,
     "low_population": false
   },
   {
-    "cut": "7407",
-    "name": "Villa Alegre",
-    "slug": "villa-alegre",
-    "region_id": "74",
-    "population": 18036,
+    "cut": "14107",
+    "name": "Paillaco",
+    "slug": "paillaco",
+    "region_id": "14",
+    "population": 20942,
     "low_population": false
   },
   {
-    "cut": "5804",
-    "name": "Villa Alemana",
-    "slug": "villa-alemana",
-    "region_id": "58",
-    "population": 147418,
+    "cut": "14108",
+    "name": "Panguipulli",
+    "slug": "panguipulli",
+    "region_id": "14",
+    "population": 36220,
     "low_population": false
   },
   {
-    "cut": "9120",
-    "name": "Villarrica",
-    "slug": "villarrica",
-    "region_id": "91",
-    "population": 60675,
+    "cut": "14201",
+    "name": "La Unión",
+    "slug": "la-union",
+    "region_id": "14",
+    "population": 39705,
     "low_population": false
   },
   {
-    "cut": "5109",
-    "name": "Viña del Mar",
-    "slug": "vina-del-mar",
-    "region_id": "51",
-    "population": 371490,
+    "cut": "14202",
+    "name": "Futrono",
+    "slug": "futrono",
+    "region_id": "14",
+    "population": 15188,
     "low_population": false
   },
   {
-    "cut": "13132",
-    "name": "Vitacura",
-    "slug": "vitacura",
-    "region_id": "13",
-    "population": 97049,
+    "cut": "14203",
+    "name": "Lago Ranco",
+    "slug": "lago-ranco",
+    "region_id": "14",
+    "population": 10272,
     "low_population": false
   },
   {
-    "cut": "7408",
-    "name": "Yerbas Buenas",
-    "slug": "yerbas-buenas",
-    "region_id": "74",
-    "population": 19800,
+    "cut": "14204",
+    "name": "Río Bueno",
+    "slug": "rio-bueno",
+    "region_id": "14",
+    "population": 32998,
     "low_population": false
   },
   {
-    "cut": "8313",
-    "name": "Yumbel",
-    "slug": "yumbel",
-    "region_id": "83",
-    "population": 22210,
+    "cut": "15101",
+    "name": "Arica",
+    "slug": "arica",
+    "region_id": "15",
+    "population": 257163,
+    "low_population": false
+  },
+  {
+    "cut": "15102",
+    "name": "Camarones",
+    "slug": "camarones",
+    "region_id": "15",
+    "population": 1246,
+    "low_population": true
+  },
+  {
+    "cut": "15201",
+    "name": "Putre",
+    "slug": "putre",
+    "region_id": "15",
+    "population": 2569,
+    "low_population": true
+  },
+  {
+    "cut": "15202",
+    "name": "General Lagos",
+    "slug": "general-lagos",
+    "region_id": "15",
+    "population": 801,
+    "low_population": true
+  },
+  {
+    "cut": "16101",
+    "name": "Chillán",
+    "slug": "chillan",
+    "region_id": "16",
+    "population": 204091,
+    "low_population": false
+  },
+  {
+    "cut": "16102",
+    "name": "Bulnes",
+    "slug": "bulnes",
+    "region_id": "16",
+    "population": 22754,
+    "low_population": false
+  },
+  {
+    "cut": "16103",
+    "name": "Chillán Viejo",
+    "slug": "chillan-viejo",
+    "region_id": "16",
+    "population": 35580,
+    "low_population": false
+  },
+  {
+    "cut": "16104",
+    "name": "El Carmen",
+    "slug": "el-carmen",
+    "region_id": "16",
+    "population": 12197,
+    "low_population": false
+  },
+  {
+    "cut": "16105",
+    "name": "Pemuco",
+    "slug": "pemuco",
+    "region_id": "16",
+    "population": 8583,
+    "low_population": true
+  },
+  {
+    "cut": "16106",
+    "name": "Pinto",
+    "slug": "pinto",
+    "region_id": "16",
+    "population": 12179,
+    "low_population": false
+  },
+  {
+    "cut": "16107",
+    "name": "Quillón",
+    "slug": "quillon",
+    "region_id": "16",
+    "population": 19304,
+    "low_population": false
+  },
+  {
+    "cut": "16108",
+    "name": "San Ignacio",
+    "slug": "san-ignacio",
+    "region_id": "16",
+    "population": 16600,
     "low_population": false
   },
   {
@@ -2760,11 +1080,1691 @@
     "low_population": false
   },
   {
+    "cut": "16201",
+    "name": "Quirihue",
+    "slug": "quirihue",
+    "region_id": "16",
+    "population": 12241,
+    "low_population": false
+  },
+  {
+    "cut": "16202",
+    "name": "Cobquecura",
+    "slug": "cobquecura",
+    "region_id": "16",
+    "population": 5224,
+    "low_population": true
+  },
+  {
+    "cut": "16203",
+    "name": "Coelemu",
+    "slug": "coelemu",
+    "region_id": "16",
+    "population": 16901,
+    "low_population": false
+  },
+  {
+    "cut": "16204",
+    "name": "Ninhue",
+    "slug": "ninhue",
+    "region_id": "16",
+    "population": 5353,
+    "low_population": true
+  },
+  {
+    "cut": "16205",
+    "name": "Portezuelo",
+    "slug": "portezuelo",
+    "region_id": "16",
+    "population": 4876,
+    "low_population": true
+  },
+  {
+    "cut": "16206",
+    "name": "Ránquil",
+    "slug": "ranquil",
+    "region_id": "16",
+    "population": 6293,
+    "low_population": true
+  },
+  {
+    "cut": "16207",
+    "name": "Treguaco",
+    "slug": "treguaco",
+    "region_id": "16",
+    "population": 5766,
+    "low_population": true
+  },
+  {
+    "cut": "16301",
+    "name": "San Carlos",
+    "slug": "san-carlos",
+    "region_id": "16",
+    "population": 57061,
+    "low_population": false
+  },
+  {
+    "cut": "16302",
+    "name": "Coihueco",
+    "slug": "coihueco",
+    "region_id": "16",
+    "population": 29067,
+    "low_population": false
+  },
+  {
+    "cut": "16303",
+    "name": "Ñiquén",
+    "slug": "niquen",
+    "region_id": "16",
+    "population": 11526,
+    "low_population": false
+  },
+  {
+    "cut": "16304",
+    "name": "San Fabián",
+    "slug": "san-fabian",
+    "region_id": "16",
+    "population": 4793,
+    "low_population": true
+  },
+  {
+    "cut": "16305",
+    "name": "San Nicolás",
+    "slug": "san-nicolas",
+    "region_id": "16",
+    "population": 12487,
+    "low_population": false
+  },
+  {
+    "cut": "2101",
+    "name": "Antofagasta",
+    "slug": "antofagasta",
+    "region_id": "2",
+    "population": 444276,
+    "low_population": false
+  },
+  {
+    "cut": "2102",
+    "name": "Mejillones",
+    "slug": "mejillones",
+    "region_id": "2",
+    "population": 15877,
+    "low_population": false
+  },
+  {
+    "cut": "2103",
+    "name": "Sierra Gorda",
+    "slug": "sierra-gorda",
+    "region_id": "2",
+    "population": 1800,
+    "low_population": true
+  },
+  {
+    "cut": "2104",
+    "name": "Taltal",
+    "slug": "taltal",
+    "region_id": "2",
+    "population": 13967,
+    "low_population": false
+  },
+  {
+    "cut": "2201",
+    "name": "Calama",
+    "slug": "calama",
+    "region_id": "2",
+    "population": 196152,
+    "low_population": false
+  },
+  {
+    "cut": "2202",
+    "name": "Ollagüe",
+    "slug": "ollague",
+    "region_id": "2",
+    "population": 269,
+    "low_population": true
+  },
+  {
+    "cut": "2203",
+    "name": "San Pedro de Atacama",
+    "slug": "san-pedro-de-atacama",
+    "region_id": "2",
+    "population": 11030,
+    "low_population": false
+  },
+  {
+    "cut": "2301",
+    "name": "Tocopilla",
+    "slug": "tocopilla",
+    "region_id": "2",
+    "population": 28354,
+    "low_population": false
+  },
+  {
+    "cut": "2302",
+    "name": "María Elena",
+    "slug": "maria-elena",
+    "region_id": "2",
+    "population": 6507,
+    "low_population": true
+  },
+  {
+    "cut": "3101",
+    "name": "Copiapó",
+    "slug": "copiapo",
+    "region_id": "3",
+    "population": 176100,
+    "low_population": false
+  },
+  {
+    "cut": "3102",
+    "name": "Caldera",
+    "slug": "caldera",
+    "region_id": "3",
+    "population": 19964,
+    "low_population": false
+  },
+  {
+    "cut": "3103",
+    "name": "Tierra Amarilla",
+    "slug": "tierra-amarilla",
+    "region_id": "3",
+    "population": 14431,
+    "low_population": false
+  },
+  {
+    "cut": "3201",
+    "name": "Chañaral",
+    "slug": "chanaral",
+    "region_id": "3",
+    "population": 13017,
+    "low_population": false
+  },
+  {
+    "cut": "3202",
+    "name": "Diego de Almagro",
+    "slug": "diego-de-almagro",
+    "region_id": "3",
+    "population": 13909,
+    "low_population": false
+  },
+  {
+    "cut": "3301",
+    "name": "Vallenar",
+    "slug": "vallenar",
+    "region_id": "3",
+    "population": 57360,
+    "low_population": false
+  },
+  {
+    "cut": "3302",
+    "name": "Alto del Carmen",
+    "slug": "alto-del-carmen",
+    "region_id": "3",
+    "population": 5781,
+    "low_population": true
+  },
+  {
+    "cut": "3303",
+    "name": "Freirina",
+    "slug": "freirina",
+    "region_id": "3",
+    "population": 7840,
+    "low_population": true
+  },
+  {
+    "cut": "3304",
+    "name": "Huasco",
+    "slug": "huasco",
+    "region_id": "3",
+    "population": 11590,
+    "low_population": false
+  },
+  {
+    "cut": "4101",
+    "name": "La Serena",
+    "slug": "la-serena",
+    "region_id": "4",
+    "population": 267400,
+    "low_population": false
+  },
+  {
+    "cut": "4102",
+    "name": "Coquimbo",
+    "slug": "coquimbo",
+    "region_id": "4",
+    "population": 275644,
+    "low_population": false
+  },
+  {
+    "cut": "4103",
+    "name": "Andacollo",
+    "slug": "andacollo",
+    "region_id": "4",
+    "population": 11836,
+    "low_population": false
+  },
+  {
+    "cut": "4104",
+    "name": "La Higuera",
+    "slug": "la-higuera",
+    "region_id": "4",
+    "population": 4533,
+    "low_population": true
+  },
+  {
+    "cut": "4105",
+    "name": "Paiguano",
+    "slug": "paiguano",
+    "region_id": "4",
+    "population": 4709,
+    "low_population": true
+  },
+  {
+    "cut": "4106",
+    "name": "Vicuña",
+    "slug": "vicuna",
+    "region_id": "4",
+    "population": 30541,
+    "low_population": false
+  },
+  {
+    "cut": "4201",
+    "name": "Illapel",
+    "slug": "illapel",
+    "region_id": "4",
+    "population": 33021,
+    "low_population": false
+  },
+  {
+    "cut": "4202",
+    "name": "Canela",
+    "slug": "canela",
+    "region_id": "4",
+    "population": 9509,
+    "low_population": true
+  },
+  {
+    "cut": "4203",
+    "name": "Los Vilos",
+    "slug": "los-vilos",
+    "region_id": "4",
+    "population": 24408,
+    "low_population": false
+  },
+  {
+    "cut": "4204",
+    "name": "Salamanca",
+    "slug": "salamanca",
+    "region_id": "4",
+    "population": 29916,
+    "low_population": false
+  },
+  {
+    "cut": "4301",
+    "name": "Ovalle",
+    "slug": "ovalle",
+    "region_id": "4",
+    "population": 124401,
+    "low_population": false
+  },
+  {
+    "cut": "4302",
+    "name": "Combarbalá",
+    "slug": "combarbala",
+    "region_id": "4",
+    "population": 13855,
+    "low_population": false
+  },
+  {
+    "cut": "4303",
+    "name": "Monte Patria",
+    "slug": "monte-patria",
+    "region_id": "4",
+    "population": 32672,
+    "low_population": false
+  },
+  {
+    "cut": "4304",
+    "name": "Punitaqui",
+    "slug": "punitaqui",
+    "region_id": "4",
+    "population": 12514,
+    "low_population": false
+  },
+  {
+    "cut": "4305",
+    "name": "Río Hurtado",
+    "slug": "rio-hurtado",
+    "region_id": "4",
+    "population": 4308,
+    "low_population": true
+  },
+  {
+    "cut": "5101",
+    "name": "Valparaíso",
+    "slug": "valparaiso",
+    "region_id": "5",
+    "population": 320816,
+    "low_population": false
+  },
+  {
+    "cut": "5102",
+    "name": "Casablanca",
+    "slug": "casablanca",
+    "region_id": "5",
+    "population": 30543,
+    "low_population": false
+  },
+  {
+    "cut": "5103",
+    "name": "Concón",
+    "slug": "concon",
+    "region_id": "5",
+    "population": 48171,
+    "low_population": false
+  },
+  {
+    "cut": "5104",
+    "name": "Juan Fernández",
+    "slug": "juan-fernandez",
+    "region_id": "5",
+    "population": 1104,
+    "low_population": true
+  },
+  {
+    "cut": "5105",
+    "name": "Puchuncaví",
+    "slug": "puchuncavi",
+    "region_id": "5",
+    "population": 21221,
+    "low_population": false
+  },
+  {
+    "cut": "5107",
+    "name": "Quintero",
+    "slug": "quintero",
+    "region_id": "5",
+    "population": 38613,
+    "low_population": false
+  },
+  {
+    "cut": "5109",
+    "name": "Viña del Mar",
+    "slug": "vina-del-mar",
+    "region_id": "5",
+    "population": 371490,
+    "low_population": false
+  },
+  {
+    "cut": "5201",
+    "name": "Isla de Pascua",
+    "slug": "isla-de-pascua",
+    "region_id": "5",
+    "population": 8872,
+    "low_population": true
+  },
+  {
+    "cut": "5301",
+    "name": "Los Andes",
+    "slug": "los-andes",
+    "region_id": "5",
+    "population": 68939,
+    "low_population": false
+  },
+  {
+    "cut": "5302",
+    "name": "Calle Larga",
+    "slug": "calle-larga",
+    "region_id": "5",
+    "population": 17673,
+    "low_population": false
+  },
+  {
+    "cut": "5303",
+    "name": "Rinconada",
+    "slug": "rinconada",
+    "region_id": "5",
+    "population": 12030,
+    "low_population": false
+  },
+  {
+    "cut": "5304",
+    "name": "San Esteban",
+    "slug": "san-esteban",
+    "region_id": "5",
+    "population": 21756,
+    "low_population": false
+  },
+  {
+    "cut": "5401",
+    "name": "La Ligua",
+    "slug": "la-ligua",
+    "region_id": "5",
+    "population": 38387,
+    "low_population": false
+  },
+  {
+    "cut": "5402",
+    "name": "Cabildo",
+    "slug": "cabildo",
+    "region_id": "5",
+    "population": 20757,
+    "low_population": false
+  },
+  {
+    "cut": "5403",
+    "name": "Papudo",
+    "slug": "papudo",
+    "region_id": "5",
+    "population": 6438,
+    "low_population": true
+  },
+  {
+    "cut": "5404",
+    "name": "Petorca",
+    "slug": "petorca",
+    "region_id": "5",
+    "population": 10633,
+    "low_population": false
+  },
+  {
     "cut": "5405",
     "name": "Zapallar",
     "slug": "zapallar",
-    "region_id": "54",
+    "region_id": "5",
     "population": 8368,
     "low_population": true
+  },
+  {
+    "cut": "5501",
+    "name": "Quillota",
+    "slug": "quillota",
+    "region_id": "5",
+    "population": 100972,
+    "low_population": false
+  },
+  {
+    "cut": "5502",
+    "name": "La Calera",
+    "slug": "la-calera",
+    "region_id": "5",
+    "population": 53902,
+    "low_population": false
+  },
+  {
+    "cut": "5503",
+    "name": "Hijuelas",
+    "slug": "hijuelas",
+    "region_id": "5",
+    "population": 19464,
+    "low_population": false
+  },
+  {
+    "cut": "5504",
+    "name": "La Cruz",
+    "slug": "la-cruz",
+    "region_id": "5",
+    "population": 27898,
+    "low_population": false
+  },
+  {
+    "cut": "5506",
+    "name": "Nogales",
+    "slug": "nogales",
+    "region_id": "5",
+    "population": 23645,
+    "low_population": false
+  },
+  {
+    "cut": "5601",
+    "name": "San Antonio",
+    "slug": "san-antonio",
+    "region_id": "5",
+    "population": 98579,
+    "low_population": false
+  },
+  {
+    "cut": "5602",
+    "name": "Algarrobo",
+    "slug": "algarrobo",
+    "region_id": "5",
+    "population": 16095,
+    "low_population": false
+  },
+  {
+    "cut": "5603",
+    "name": "Cartagena",
+    "slug": "cartagena",
+    "region_id": "5",
+    "population": 27065,
+    "low_population": false
+  },
+  {
+    "cut": "5604",
+    "name": "El Quisco",
+    "slug": "el-quisco",
+    "region_id": "5",
+    "population": 18840,
+    "low_population": false
+  },
+  {
+    "cut": "5605",
+    "name": "El Tabo",
+    "slug": "el-tabo",
+    "region_id": "5",
+    "population": 15196,
+    "low_population": false
+  },
+  {
+    "cut": "5606",
+    "name": "Santo Domingo",
+    "slug": "santo-domingo",
+    "region_id": "5",
+    "population": 12609,
+    "low_population": false
+  },
+  {
+    "cut": "5701",
+    "name": "San Felipe",
+    "slug": "san-felipe",
+    "region_id": "5",
+    "population": 86838,
+    "low_population": false
+  },
+  {
+    "cut": "5702",
+    "name": "Catemu",
+    "slug": "catemu",
+    "region_id": "5",
+    "population": 15714,
+    "low_population": false
+  },
+  {
+    "cut": "5703",
+    "name": "Llaillay",
+    "slug": "llaillay",
+    "region_id": "5",
+    "population": 27286,
+    "low_population": false
+  },
+  {
+    "cut": "5704",
+    "name": "Panquehue",
+    "slug": "panquehue",
+    "region_id": "5",
+    "population": 7841,
+    "low_population": true
+  },
+  {
+    "cut": "5705",
+    "name": "Putaendo",
+    "slug": "putaendo",
+    "region_id": "5",
+    "population": 18023,
+    "low_population": false
+  },
+  {
+    "cut": "5706",
+    "name": "Santa María",
+    "slug": "santa-maria",
+    "region_id": "5",
+    "population": 16962,
+    "low_population": false
+  },
+  {
+    "cut": "5801",
+    "name": "Quilpué",
+    "slug": "quilpue",
+    "region_id": "5",
+    "population": 173591,
+    "low_population": false
+  },
+  {
+    "cut": "5802",
+    "name": "Limache",
+    "slug": "limache",
+    "region_id": "5",
+    "population": 51697,
+    "low_population": false
+  },
+  {
+    "cut": "5803",
+    "name": "Olmué",
+    "slug": "olmue",
+    "region_id": "5",
+    "population": 20247,
+    "low_population": false
+  },
+  {
+    "cut": "5804",
+    "name": "Villa Alemana",
+    "slug": "villa-alemana",
+    "region_id": "5",
+    "population": 147418,
+    "low_population": false
+  },
+  {
+    "cut": "6101",
+    "name": "Rancagua",
+    "slug": "rancagua",
+    "region_id": "6",
+    "population": 274407,
+    "low_population": false
+  },
+  {
+    "cut": "6102",
+    "name": "Codegua",
+    "slug": "codegua",
+    "region_id": "6",
+    "population": 14627,
+    "low_population": false
+  },
+  {
+    "cut": "6103",
+    "name": "Coinco",
+    "slug": "coinco",
+    "region_id": "6",
+    "population": 8024,
+    "low_population": true
+  },
+  {
+    "cut": "6104",
+    "name": "Coltauco",
+    "slug": "coltauco",
+    "region_id": "6",
+    "population": 22143,
+    "low_population": false
+  },
+  {
+    "cut": "6105",
+    "name": "Doñihue",
+    "slug": "donihue",
+    "region_id": "6",
+    "population": 23647,
+    "low_population": false
+  },
+  {
+    "cut": "6106",
+    "name": "Graneros",
+    "slug": "graneros",
+    "region_id": "6",
+    "population": 38185,
+    "low_population": false
+  },
+  {
+    "cut": "6107",
+    "name": "Las Cabras",
+    "slug": "las-cabras",
+    "region_id": "6",
+    "population": 27749,
+    "low_population": false
+  },
+  {
+    "cut": "6108",
+    "name": "Machalí",
+    "slug": "machali",
+    "region_id": "6",
+    "population": 64751,
+    "low_population": false
+  },
+  {
+    "cut": "6109",
+    "name": "Malloa",
+    "slug": "malloa",
+    "region_id": "6",
+    "population": 14300,
+    "low_population": false
+  },
+  {
+    "cut": "6110",
+    "name": "Mostazal",
+    "slug": "mostazal",
+    "region_id": "6",
+    "population": 28552,
+    "low_population": false
+  },
+  {
+    "cut": "6111",
+    "name": "Olivar",
+    "slug": "olivar",
+    "region_id": "6",
+    "population": 15007,
+    "low_population": false
+  },
+  {
+    "cut": "6112",
+    "name": "Peumo",
+    "slug": "peumo",
+    "region_id": "6",
+    "population": 15028,
+    "low_population": false
+  },
+  {
+    "cut": "6113",
+    "name": "Pichidegua",
+    "slug": "pichidegua",
+    "region_id": "6",
+    "population": 21074,
+    "low_population": false
+  },
+  {
+    "cut": "6114",
+    "name": "Quinta de Tilcoco",
+    "slug": "quinta-de-tilcoco",
+    "region_id": "6",
+    "population": 14288,
+    "low_population": false
+  },
+  {
+    "cut": "6115",
+    "name": "Rengo",
+    "slug": "rengo",
+    "region_id": "6",
+    "population": 65786,
+    "low_population": false
+  },
+  {
+    "cut": "6116",
+    "name": "Requínoa",
+    "slug": "requinoa",
+    "region_id": "6",
+    "population": 31724,
+    "low_population": false
+  },
+  {
+    "cut": "6117",
+    "name": "San Vicente",
+    "slug": "san-vicente",
+    "region_id": "6",
+    "population": 52289,
+    "low_population": false
+  },
+  {
+    "cut": "6201",
+    "name": "Pichilemu",
+    "slug": "pichilemu",
+    "region_id": "6",
+    "population": 18804,
+    "low_population": false
+  },
+  {
+    "cut": "6202",
+    "name": "La Estrella",
+    "slug": "la-estrella",
+    "region_id": "6",
+    "population": 3098,
+    "low_population": true
+  },
+  {
+    "cut": "6203",
+    "name": "Litueche",
+    "slug": "litueche",
+    "region_id": "6",
+    "population": 6949,
+    "low_population": true
+  },
+  {
+    "cut": "6204",
+    "name": "Marchigüe",
+    "slug": "marchigue",
+    "region_id": "6",
+    "population": 7715,
+    "low_population": true
+  },
+  {
+    "cut": "6205",
+    "name": "Navidad",
+    "slug": "navidad",
+    "region_id": "6",
+    "population": 7135,
+    "low_population": true
+  },
+  {
+    "cut": "6206",
+    "name": "Paredones",
+    "slug": "paredones",
+    "region_id": "6",
+    "population": 6259,
+    "low_population": true
+  },
+  {
+    "cut": "6301",
+    "name": "San Fernando",
+    "slug": "san-fernando",
+    "region_id": "6",
+    "population": 81117,
+    "low_population": false
+  },
+  {
+    "cut": "6302",
+    "name": "Chépica",
+    "slug": "chepica",
+    "region_id": "6",
+    "population": 16148,
+    "low_population": false
+  },
+  {
+    "cut": "6303",
+    "name": "Chimbarongo",
+    "slug": "chimbarongo",
+    "region_id": "6",
+    "population": 38451,
+    "low_population": false
+  },
+  {
+    "cut": "6304",
+    "name": "Lolol",
+    "slug": "lolol",
+    "region_id": "6",
+    "population": 7454,
+    "low_population": true
+  },
+  {
+    "cut": "6305",
+    "name": "Nancagua",
+    "slug": "nancagua",
+    "region_id": "6",
+    "population": 19725,
+    "low_population": false
+  },
+  {
+    "cut": "6306",
+    "name": "Palmilla",
+    "slug": "palmilla",
+    "region_id": "6",
+    "population": 13597,
+    "low_population": false
+  },
+  {
+    "cut": "6307",
+    "name": "Peralillo",
+    "slug": "peralillo",
+    "region_id": "6",
+    "population": 12174,
+    "low_population": false
+  },
+  {
+    "cut": "6308",
+    "name": "Placilla",
+    "slug": "placilla",
+    "region_id": "6",
+    "population": 9281,
+    "low_population": true
+  },
+  {
+    "cut": "6309",
+    "name": "Pumanque",
+    "slug": "pumanque",
+    "region_id": "6",
+    "population": 3516,
+    "low_population": true
+  },
+  {
+    "cut": "6310",
+    "name": "Santa Cruz",
+    "slug": "santa-cruz",
+    "region_id": "6",
+    "population": 42582,
+    "low_population": false
+  },
+  {
+    "cut": "7101",
+    "name": "Talca",
+    "slug": "talca",
+    "region_id": "7",
+    "population": 242344,
+    "low_population": false
+  },
+  {
+    "cut": "7102",
+    "name": "Constitución",
+    "slug": "constitucion",
+    "region_id": "7",
+    "population": 50646,
+    "low_population": false
+  },
+  {
+    "cut": "7103",
+    "name": "Curepto",
+    "slug": "curepto",
+    "region_id": "7",
+    "population": 9136,
+    "low_population": true
+  },
+  {
+    "cut": "7104",
+    "name": "Empedrado",
+    "slug": "empedrado",
+    "region_id": "7",
+    "population": 4176,
+    "low_population": true
+  },
+  {
+    "cut": "7105",
+    "name": "Maule",
+    "slug": "maule",
+    "region_id": "7",
+    "population": 68975,
+    "low_population": false
+  },
+  {
+    "cut": "7106",
+    "name": "Pelarco",
+    "slug": "pelarco",
+    "region_id": "7",
+    "population": 9407,
+    "low_population": true
+  },
+  {
+    "cut": "7107",
+    "name": "Pencahue",
+    "slug": "pencahue",
+    "region_id": "7",
+    "population": 8626,
+    "low_population": true
+  },
+  {
+    "cut": "7108",
+    "name": "Río Claro",
+    "slug": "rio-claro",
+    "region_id": "7",
+    "population": 15129,
+    "low_population": false
+  },
+  {
+    "cut": "7109",
+    "name": "San Clemente",
+    "slug": "san-clemente",
+    "region_id": "7",
+    "population": 47999,
+    "low_population": false
+  },
+  {
+    "cut": "7110",
+    "name": "San Rafael",
+    "slug": "san-rafael",
+    "region_id": "7",
+    "population": 10399,
+    "low_population": false
+  },
+  {
+    "cut": "7201",
+    "name": "Cauquenes",
+    "slug": "cauquenes",
+    "region_id": "7",
+    "population": 44446,
+    "low_population": false
+  },
+  {
+    "cut": "7202",
+    "name": "Chanco",
+    "slug": "chanco",
+    "region_id": "7",
+    "population": 9256,
+    "low_population": true
+  },
+  {
+    "cut": "7203",
+    "name": "Pelluhue",
+    "slug": "pelluhue",
+    "region_id": "7",
+    "population": 8444,
+    "low_population": true
+  },
+  {
+    "cut": "7301",
+    "name": "Curicó",
+    "slug": "curico",
+    "region_id": "7",
+    "population": 171589,
+    "low_population": false
+  },
+  {
+    "cut": "7302",
+    "name": "Hualañé",
+    "slug": "hualane",
+    "region_id": "7",
+    "population": 10225,
+    "low_population": false
+  },
+  {
+    "cut": "7303",
+    "name": "Licantén",
+    "slug": "licanten",
+    "region_id": "7",
+    "population": 6986,
+    "low_population": true
+  },
+  {
+    "cut": "7304",
+    "name": "Molina",
+    "slug": "molina",
+    "region_id": "7",
+    "population": 52088,
+    "low_population": false
+  },
+  {
+    "cut": "7305",
+    "name": "Rauco",
+    "slug": "rauco",
+    "region_id": "7",
+    "population": 11753,
+    "low_population": false
+  },
+  {
+    "cut": "7306",
+    "name": "Romeral",
+    "slug": "romeral",
+    "region_id": "7",
+    "population": 16925,
+    "low_population": false
+  },
+  {
+    "cut": "7307",
+    "name": "Sagrada Familia",
+    "slug": "sagrada-familia",
+    "region_id": "7",
+    "population": 19754,
+    "low_population": false
+  },
+  {
+    "cut": "7308",
+    "name": "Teno",
+    "slug": "teno",
+    "region_id": "7",
+    "population": 31885,
+    "low_population": false
+  },
+  {
+    "cut": "7309",
+    "name": "Vichuquén",
+    "slug": "vichuquen",
+    "region_id": "7",
+    "population": 4311,
+    "low_population": true
+  },
+  {
+    "cut": "7401",
+    "name": "Linares",
+    "slug": "linares",
+    "region_id": "7",
+    "population": 103958,
+    "low_population": false
+  },
+  {
+    "cut": "7402",
+    "name": "Colbún",
+    "slug": "colbun",
+    "region_id": "7",
+    "population": 23479,
+    "low_population": false
+  },
+  {
+    "cut": "7403",
+    "name": "Longaví",
+    "slug": "longavi",
+    "region_id": "7",
+    "population": 33666,
+    "low_population": false
+  },
+  {
+    "cut": "7404",
+    "name": "Parral",
+    "slug": "parral",
+    "region_id": "7",
+    "population": 45583,
+    "low_population": false
+  },
+  {
+    "cut": "7405",
+    "name": "Retiro",
+    "slug": "retiro",
+    "region_id": "7",
+    "population": 21492,
+    "low_population": false
+  },
+  {
+    "cut": "7406",
+    "name": "San Javier",
+    "slug": "san-javier",
+    "region_id": "7",
+    "population": 51469,
+    "low_population": false
+  },
+  {
+    "cut": "7407",
+    "name": "Villa Alegre",
+    "slug": "villa-alegre",
+    "region_id": "7",
+    "population": 18036,
+    "low_population": false
+  },
+  {
+    "cut": "7408",
+    "name": "Yerbas Buenas",
+    "slug": "yerbas-buenas",
+    "region_id": "7",
+    "population": 19800,
+    "low_population": false
+  },
+  {
+    "cut": "8101",
+    "name": "Concepción",
+    "slug": "concepcion",
+    "region_id": "8",
+    "population": 239776,
+    "low_population": false
+  },
+  {
+    "cut": "8102",
+    "name": "Coronel",
+    "slug": "coronel",
+    "region_id": "8",
+    "population": 128941,
+    "low_population": false
+  },
+  {
+    "cut": "8103",
+    "name": "Chiguayante",
+    "slug": "chiguayante",
+    "region_id": "8",
+    "population": 91963,
+    "low_population": false
+  },
+  {
+    "cut": "8104",
+    "name": "Florida",
+    "slug": "florida",
+    "region_id": "8",
+    "population": 11873,
+    "low_population": false
+  },
+  {
+    "cut": "8105",
+    "name": "Hualqui",
+    "slug": "hualqui",
+    "region_id": "8",
+    "population": 26746,
+    "low_population": false
+  },
+  {
+    "cut": "8106",
+    "name": "Lota",
+    "slug": "lota",
+    "region_id": "8",
+    "population": 45407,
+    "low_population": false
+  },
+  {
+    "cut": "8107",
+    "name": "Penco",
+    "slug": "penco",
+    "region_id": "8",
+    "population": 50189,
+    "low_population": false
+  },
+  {
+    "cut": "8108",
+    "name": "San Pedro de la Paz",
+    "slug": "san-pedro-de-la-paz",
+    "region_id": "8",
+    "population": 153516,
+    "low_population": false
+  },
+  {
+    "cut": "8109",
+    "name": "Santa Juana",
+    "slug": "santa-juana",
+    "region_id": "8",
+    "population": 14890,
+    "low_population": false
+  },
+  {
+    "cut": "8110",
+    "name": "Talcahuano",
+    "slug": "talcahuano",
+    "region_id": "8",
+    "population": 158167,
+    "low_population": false
+  },
+  {
+    "cut": "8111",
+    "name": "Tomé",
+    "slug": "tome",
+    "region_id": "8",
+    "population": 59150,
+    "low_population": false
+  },
+  {
+    "cut": "8112",
+    "name": "Hualpén",
+    "slug": "hualpen",
+    "region_id": "8",
+    "population": 98055,
+    "low_population": false
+  },
+  {
+    "cut": "8201",
+    "name": "Lebu",
+    "slug": "lebu",
+    "region_id": "8",
+    "population": 27152,
+    "low_population": false
+  },
+  {
+    "cut": "8202",
+    "name": "Arauco",
+    "slug": "arauco",
+    "region_id": "8",
+    "population": 38941,
+    "low_population": false
+  },
+  {
+    "cut": "8203",
+    "name": "Cañete",
+    "slug": "canete",
+    "region_id": "8",
+    "population": 37443,
+    "low_population": false
+  },
+  {
+    "cut": "8204",
+    "name": "Contulmo",
+    "slug": "contulmo",
+    "region_id": "8",
+    "population": 6355,
+    "low_population": true
+  },
+  {
+    "cut": "8205",
+    "name": "Curanilahue",
+    "slug": "curanilahue",
+    "region_id": "8",
+    "population": 33942,
+    "low_population": false
+  },
+  {
+    "cut": "8206",
+    "name": "Los Álamos",
+    "slug": "los-alamos",
+    "region_id": "8",
+    "population": 22953,
+    "low_population": false
+  },
+  {
+    "cut": "8207",
+    "name": "Tirúa",
+    "slug": "tirua",
+    "region_id": "8",
+    "population": 11105,
+    "low_population": false
+  },
+  {
+    "cut": "8301",
+    "name": "Los Ángeles",
+    "slug": "los-angeles",
+    "region_id": "8",
+    "population": 223751,
+    "low_population": false
+  },
+  {
+    "cut": "8302",
+    "name": "Antuco",
+    "slug": "antuco",
+    "region_id": "8",
+    "population": 4325,
+    "low_population": true
+  },
+  {
+    "cut": "8303",
+    "name": "Cabrero",
+    "slug": "cabrero",
+    "region_id": "8",
+    "population": 31102,
+    "low_population": false
+  },
+  {
+    "cut": "8304",
+    "name": "Laja",
+    "slug": "laja",
+    "region_id": "8",
+    "population": 23921,
+    "low_population": false
+  },
+  {
+    "cut": "8305",
+    "name": "Mulchén",
+    "slug": "mulchen",
+    "region_id": "8",
+    "population": 31122,
+    "low_population": false
+  },
+  {
+    "cut": "8306",
+    "name": "Nacimiento",
+    "slug": "nacimiento",
+    "region_id": "8",
+    "population": 28028,
+    "low_population": false
+  },
+  {
+    "cut": "8307",
+    "name": "Negrete",
+    "slug": "negrete",
+    "region_id": "8",
+    "population": 10574,
+    "low_population": false
+  },
+  {
+    "cut": "8308",
+    "name": "Quilaco",
+    "slug": "quilaco",
+    "region_id": "8",
+    "population": 4186,
+    "low_population": true
+  },
+  {
+    "cut": "8309",
+    "name": "Quilleco",
+    "slug": "quilleco",
+    "region_id": "8",
+    "population": 9986,
+    "low_population": true
+  },
+  {
+    "cut": "8310",
+    "name": "San Rosendo",
+    "slug": "san-rosendo",
+    "region_id": "8",
+    "population": 3553,
+    "low_population": true
+  },
+  {
+    "cut": "8311",
+    "name": "Santa Bárbara",
+    "slug": "santa-barbara",
+    "region_id": "8",
+    "population": 14671,
+    "low_population": false
+  },
+  {
+    "cut": "8312",
+    "name": "Tucapel",
+    "slug": "tucapel",
+    "region_id": "8",
+    "population": 15428,
+    "low_population": false
+  },
+  {
+    "cut": "8313",
+    "name": "Yumbel",
+    "slug": "yumbel",
+    "region_id": "8",
+    "population": 22210,
+    "low_population": false
+  },
+  {
+    "cut": "8314",
+    "name": "Alto Biobío",
+    "slug": "alto-biobio",
+    "region_id": "8",
+    "population": 6804,
+    "low_population": true
+  },
+  {
+    "cut": "9101",
+    "name": "Temuco",
+    "slug": "temuco",
+    "region_id": "9",
+    "population": 309696,
+    "low_population": false
+  },
+  {
+    "cut": "9102",
+    "name": "Carahue",
+    "slug": "carahue",
+    "region_id": "9",
+    "population": 25515,
+    "low_population": false
+  },
+  {
+    "cut": "9103",
+    "name": "Cunco",
+    "slug": "cunco",
+    "region_id": "9",
+    "population": 18068,
+    "low_population": false
+  },
+  {
+    "cut": "9104",
+    "name": "Curarrehue",
+    "slug": "curarrehue",
+    "region_id": "9",
+    "population": 7873,
+    "low_population": true
+  },
+  {
+    "cut": "9105",
+    "name": "Freire",
+    "slug": "freire",
+    "region_id": "9",
+    "population": 25488,
+    "low_population": false
+  },
+  {
+    "cut": "9106",
+    "name": "Galvarino",
+    "slug": "galvarino",
+    "region_id": "9",
+    "population": 12568,
+    "low_population": false
+  },
+  {
+    "cut": "9107",
+    "name": "Gorbea",
+    "slug": "gorbea",
+    "region_id": "9",
+    "population": 15076,
+    "low_population": false
+  },
+  {
+    "cut": "9108",
+    "name": "Lautaro",
+    "slug": "lautaro",
+    "region_id": "9",
+    "population": 41884,
+    "low_population": false
+  },
+  {
+    "cut": "9109",
+    "name": "Loncoche",
+    "slug": "loncoche",
+    "region_id": "9",
+    "population": 24785,
+    "low_population": false
+  },
+  {
+    "cut": "9110",
+    "name": "Melipeuco",
+    "slug": "melipeuco",
+    "region_id": "9",
+    "population": 6319,
+    "low_population": true
+  },
+  {
+    "cut": "9111",
+    "name": "Nueva Imperial",
+    "slug": "nueva-imperial",
+    "region_id": "9",
+    "population": 34151,
+    "low_population": false
+  },
+  {
+    "cut": "9112",
+    "name": "Padre Las Casas",
+    "slug": "padre-las-casas",
+    "region_id": "9",
+    "population": 85373,
+    "low_population": false
+  },
+  {
+    "cut": "9113",
+    "name": "Perquenco",
+    "slug": "perquenco",
+    "region_id": "9",
+    "population": 7269,
+    "low_population": true
+  },
+  {
+    "cut": "9114",
+    "name": "Pitrufquén",
+    "slug": "pitrufquen",
+    "region_id": "9",
+    "population": 26617,
+    "low_population": false
+  },
+  {
+    "cut": "9115",
+    "name": "Pucón",
+    "slug": "pucon",
+    "region_id": "9",
+    "population": 30712,
+    "low_population": false
+  },
+  {
+    "cut": "9116",
+    "name": "Saavedra",
+    "slug": "saavedra",
+    "region_id": "9",
+    "population": 12660,
+    "low_population": false
+  },
+  {
+    "cut": "9117",
+    "name": "Teodoro Schmidt",
+    "slug": "teodoro-schmidt",
+    "region_id": "9",
+    "population": 15744,
+    "low_population": false
+  },
+  {
+    "cut": "9118",
+    "name": "Toltén",
+    "slug": "tolten",
+    "region_id": "9",
+    "population": 9937,
+    "low_population": true
+  },
+  {
+    "cut": "9119",
+    "name": "Vilcún",
+    "slug": "vilcun",
+    "region_id": "9",
+    "population": 32742,
+    "low_population": false
+  },
+  {
+    "cut": "9120",
+    "name": "Villarrica",
+    "slug": "villarrica",
+    "region_id": "9",
+    "population": 60675,
+    "low_population": false
+  },
+  {
+    "cut": "9121",
+    "name": "Cholchol",
+    "slug": "cholchol",
+    "region_id": "9",
+    "population": 12647,
+    "low_population": false
+  },
+  {
+    "cut": "9201",
+    "name": "Angol",
+    "slug": "angol",
+    "region_id": "9",
+    "population": 56797,
+    "low_population": false
+  },
+  {
+    "cut": "9202",
+    "name": "Collipulli",
+    "slug": "collipulli",
+    "region_id": "9",
+    "population": 26558,
+    "low_population": false
+  },
+  {
+    "cut": "9203",
+    "name": "Curacautín",
+    "slug": "curacautin",
+    "region_id": "9",
+    "population": 18211,
+    "low_population": false
+  },
+  {
+    "cut": "9204",
+    "name": "Ercilla",
+    "slug": "ercilla",
+    "region_id": "9",
+    "population": 8387,
+    "low_population": true
+  },
+  {
+    "cut": "9205",
+    "name": "Lonquimay",
+    "slug": "lonquimay",
+    "region_id": "9",
+    "population": 11109,
+    "low_population": false
+  },
+  {
+    "cut": "9206",
+    "name": "Los Sauces",
+    "slug": "los-sauces",
+    "region_id": "9",
+    "population": 7468,
+    "low_population": true
+  },
+  {
+    "cut": "9207",
+    "name": "Lumaco",
+    "slug": "lumaco",
+    "region_id": "9",
+    "population": 9916,
+    "low_population": true
+  },
+  {
+    "cut": "9208",
+    "name": "Purén",
+    "slug": "puren",
+    "region_id": "9",
+    "population": 12103,
+    "low_population": false
+  },
+  {
+    "cut": "9209",
+    "name": "Renaico",
+    "slug": "renaico",
+    "region_id": "9",
+    "population": 11002,
+    "low_population": false
+  },
+  {
+    "cut": "9210",
+    "name": "Traiguén",
+    "slug": "traiguen",
+    "region_id": "9",
+    "population": 19260,
+    "low_population": false
+  },
+  {
+    "cut": "9211",
+    "name": "Victoria",
+    "slug": "victoria",
+    "region_id": "9",
+    "population": 35554,
+    "low_population": false
   }
 ]
