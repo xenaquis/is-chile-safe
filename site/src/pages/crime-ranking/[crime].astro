@@ -21,7 +21,7 @@ import {
   loadCommune,
   regionFileId,
 } from '../../lib/data.ts';
-import { FAMILY_LABELS_EN, RANKING_METHODOLOGY_EN } from '../../lib/familyDefs';
+import { FAMILY_LABELS_EN, RANKING_METHODOLOGY_EN, RANKING_RATE_EXPLAINER_EN } from '../../lib/familyDefs';
 import { buildBreadcrumb, buildItemList } from '../../lib/jsonld.ts';
 
 export async function getStaticPaths() {
@@ -217,7 +217,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     </h1>
     <p class="crime-def">{familyDef}</p>
     <div class="hero-meta">
-      <span class="hero-stat">National mean: {Math.round(familyNationalMean).toLocaleString('en-US')} per 100k ({latestYear})</span>
+      <span class="hero-stat">National mean: {familyNationalMean.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} per 100k ({latestYear})</span>
       <span class="hero-sep" aria-hidden="true">·</span>
       <span class="hero-stat">{eligibleRows.length} communes ranked</span>
     </div>
@@ -228,6 +228,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     <h2 class="section-heading">
       Communes ranked by {familyLabel.toLowerCase()} rate per 100,000 inhabitants ({latestYear})
     </h2>
+    <p class="rate-explainer">{RANKING_RATE_EXPLAINER_EN}</p>
     <div class="table-wrapper">
       <table class="ranking-table">
         <thead>
@@ -235,7 +236,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
             <th scope="col">Rank</th>
             <th scope="col">Commune</th>
             <th scope="col">Region</th>
-            <th scope="col" class="col-num">Rate per 100k</th>
+            <th scope="col" class="col-num">Reported complaints per 100k residents ({latestYear})</th>
             <th scope="col">Trend</th>
           </tr>
         </thead>
@@ -254,7 +255,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
                 )}
               </td>
               <td class="col-region">{row.regionName}</td>
-              <td class="col-num">{Math.round(row.rate).toLocaleString('en-US')}</td>
+              <td class="col-num">{row.rate.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
               <td><TrendChip trend={row.trend} locale="en" /></td>
             </tr>
           ))}
@@ -457,6 +458,13 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     color: var(--muted);
     margin-top: var(--sm);
     padding: 0 var(--xs);
+  }
+
+  .rate-explainer {
+    font-size: 0.85em;
+    color: var(--muted);
+    margin-bottom: var(--sm);
+    max-width: 72ch;
   }
 
   .rollout-note {

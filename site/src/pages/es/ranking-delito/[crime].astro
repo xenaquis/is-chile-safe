@@ -17,7 +17,7 @@ import {
   loadCommune,
   regionFileId,
 } from '../../../lib/data.ts';
-import { FAMILY_LABELS_ES, RANKING_METHODOLOGY_ES } from '../../../lib/familyDefs';
+import { FAMILY_LABELS_ES, RANKING_METHODOLOGY_ES, RANKING_RATE_EXPLAINER_ES } from '../../../lib/familyDefs';
 import { buildBreadcrumb, buildItemList } from '../../../lib/jsonld.ts';
 
 // ES slug map — hardcoded (never getRelativeLocaleUrl — i18n-localized-slug-pitfall)
@@ -223,7 +223,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     </h1>
     <p class="crime-def">{familyDef}</p>
     <div class="hero-meta">
-      <span class="hero-stat">Media nacional: {Math.round(familyNationalMean).toLocaleString('es-CL')} por 100k ({latestYear})</span>
+      <span class="hero-stat">Media nacional: {familyNationalMean.toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} por 100k ({latestYear})</span>
       <span class="hero-sep" aria-hidden="true">·</span>
       <span class="hero-stat">{eligibleRows.length} comunas en ranking</span>
     </div>
@@ -234,6 +234,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     <h2 class="section-heading">
       Comunas ordenadas por tasa de {familyLabel.toLowerCase()} por 100.000 habitantes ({latestYear})
     </h2>
+    <p class="rate-explainer">{RANKING_RATE_EXPLAINER_ES}</p>
     <div class="table-wrapper">
       <table class="ranking-table">
         <thead>
@@ -241,7 +242,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
             <th scope="col">Posición</th>
             <th scope="col">Comuna</th>
             <th scope="col">Región</th>
-            <th scope="col" class="col-num">Tasa por 100k</th>
+            <th scope="col" class="col-num">Denuncias por 100.000 hab. ({latestYear})</th>
             <th scope="col">Tendencia</th>
           </tr>
         </thead>
@@ -260,7 +261,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
                 )}
               </td>
               <td class="col-region">{row.regionName}</td>
-              <td class="col-num">{Math.round(row.rate).toLocaleString('es-CL')}</td>
+              <td class="col-num">{row.rate.toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
               <td><TrendChip trend={row.trend} locale="es" /></td>
             </tr>
           ))}
@@ -463,6 +464,13 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     color: var(--muted);
     margin-top: var(--sm);
     padding: 0 var(--xs);
+  }
+
+  .rate-explainer {
+    font-size: 0.85em;
+    color: var(--muted);
+    margin-bottom: var(--sm);
+    max-width: 72ch;
   }
 
   .rollout-note {
