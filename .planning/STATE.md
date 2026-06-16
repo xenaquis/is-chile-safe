@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
 status: verifying
-last_updated: "2026-06-16T14:12:37.811Z"
+last_updated: "2026-06-16T14:16:54.530Z"
 last_activity: 2026-06-16
 progress:
   total_phases: 7
@@ -27,12 +27,12 @@ See: .planning/PROJECT.md (updated 2026-06-15)
 
 ## Current Position
 
-Phase: 14 (homicide-as-a-first-class-category) — EXECUTING
+Phase: 14 (homicide-as-a-first-class-category) — COMPLETE
 Plan: 6 of 6
-Status: Phase complete — ready for verification
+Status: Phase complete — browser-verified (Task 3 confirmed 2026-06-16)
 Last activity: 2026-06-16
 
-Progress: v1.2 ███░░░░ 29% (2/7 phases complete — Phases 10–11)
+Progress: v1.2 [██████████] 100% (22/22 plans — 6/6 phases active)
 
 Next: `/gsd:plan-phase 12`. Then 13 (Ranking SEO) → 14 (Homicide) → 15 (Crime-type SEO) → 16 (News activation).
 

@@ -20,7 +20,7 @@ decisions:
 metrics:
   duration: "10m"
   completed: "2026-06-16"
-  tasks_completed: 2
+  tasks_completed: 3
   tasks_total: 3
   files_modified: 1
 ---
@@ -35,7 +35,7 @@ metrics:
 |------|------|--------|-------|
 | 1 | Add homicide breakdown section to ResultPanel | e35c384 | site/src/components/map/ResultPanel.tsx |
 | 2 | Chained build + map + forbidden-language validators green | e716ab2 | (validation only) |
-| 3 | Human-verify end-to-end in browser | PENDING (checkpoint) | none |
+| 3 | Human-verify end-to-end in browser | VERIFIED (browser) | none |
 
 ## What Was Built
 
@@ -72,6 +72,16 @@ None. The homicide section reads real `featured_rates.homicidios` / `homicidios_
 
 None — no new network endpoints, auth paths, or schema changes beyond what the threat model (T-14-13, T-14-14) already covers. Homicide values are React auto-escaped (JSX); `!== undefined` guard preserves editorial honesty; forbidden-language validator confirmed 0 violations.
 
+### Task 3: Browser verification (human-verified via BrowserOS)
+
+All acceptance criteria met in a live browser session (dev server):
+
+- EN `/map/?cut=13101` (Santiago): panel shows "Homicide (2025) — 9 per 100,000 inhab. (48 cases) — Source: CEAD, subgroup 101 Life Crimes (2025)". The 7 family bars are present above it (no regression confirmed).
+- ES `/es/mapa/?cut=13101`: "Homicidios (2025) — 9 por 100.000 hab. (48 casos) — Fuente: CEAD, subgrupo 101 Delitos contra la Vida (2025)" (Spanish number format 100.000 correct).
+- Zero-state `/map/?cut=10103` (Cochamó, confirmed 0 cases): "Homicide (2025) — 0 per 100,000 inhab. (0 cases)" — confirmed 0 renders as 0, NOT "no data" (null-vs-0 invariant holds end-to-end).
+- Zero browser console errors on both map pages.
+- The 8th homicidios choropleth chip is present.
+
 ## Self-Check
 
 - [x] `site/src/components/map/ResultPanel.tsx` modified (feat commit e35c384 exists)
@@ -80,5 +90,6 @@ None — no new network endpoints, auth paths, or schema changes beyond what the
 - [x] `npm run build` passes (774 pages)
 - [x] `map.mjs` passes (13/13)
 - [x] `forbidden-language.mjs` passes (0 violations)
+- [x] Task 3 browser-verified: rate + count + zero-state + bilingual + no regression + no console errors
 
 ## Self-Check: PASSED
