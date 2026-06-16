@@ -6,6 +6,7 @@
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
 import { FAMILY_SLUGS } from '../../config/i18n.ts';
+import { buildItemList } from '../../lib/jsonld.ts';
 
 const familyLabels: Record<string, string> = {
   vida:             'Homicidios',
@@ -16,6 +17,18 @@ const familyLabels: Record<string, string> = {
   propiedad:        'Delitos contra la propiedad',
   incivilidades:    'Incivilidades',
 };
+
+// ItemList: enlaces de páginas de ranking — urls completas, sin prefijo /es/comuna/ (D-07 sin breadcrumb)
+// URLs ES hardcoded — nunca getRelativeLocaleUrl (i18n-localized-slug-pitfall)
+const rankingLinks = [
+  { name: 'Comunas con menor incidencia delictiva reportada en Chile', url: 'https://ischilesafe.com/es/comunas-mas-seguras-chile/' },
+  { name: 'Ver las 346 comunas', url: 'https://ischilesafe.com/es/comunas/' },
+  ...Object.entries(FAMILY_SLUGS).map(([key, slugs]) => ({
+    name: `${familyLabels[key] ?? key} — incidencia nacional`,
+    url: `https://ischilesafe.com/es/delito/${slugs.es}/`,
+  })),
+];
+const rankingItemList = buildItemList(rankingLinks, 'es', { order: 'Unordered', urlMode: 'full' });
 ---
 
 <EditorialLayout
@@ -25,6 +38,7 @@ const familyLabels: Record<string, string> = {
   enPath="/rankings/"
   esPath="/es/rankings/"
   pageType="ranking"
+  jsonLd={[rankingItemList]}
 >
   <h1>Rankings de Incidencia Delictiva</h1>
 

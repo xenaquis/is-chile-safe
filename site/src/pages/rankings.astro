@@ -6,6 +6,7 @@
  */
 import EditorialLayout from '../layouts/EditorialLayout.astro';
 import { FAMILY_SLUGS } from '../config/i18n.ts';
+import { buildItemList } from '../lib/jsonld.ts';
 
 const familyLabels: Record<string, string> = {
   vida:             'Homicide',
@@ -16,6 +17,17 @@ const familyLabels: Record<string, string> = {
   propiedad:        'Property Crime',
   incivilidades:    'Disorder & Incivilities',
 };
+
+// ItemList: ranking-page links — full urls, no /commune/ prefix (D-07 no breadcrumb, D-06 weaker-semantic)
+const rankingLinks = [
+  { name: 'Communes with the lowest reported crime incidence in Chile', url: 'https://ischilesafe.com/safest-cities-in-chile/' },
+  { name: 'Browse all 346 communes', url: 'https://ischilesafe.com/communes/' },
+  ...Object.entries(FAMILY_SLUGS).map(([key, slugs]) => ({
+    name: `${familyLabels[key] ?? key} — national incidence`,
+    url: `https://ischilesafe.com/crime/${slugs.en}/`,
+  })),
+];
+const rankingItemList = buildItemList(rankingLinks, 'en', { order: 'Unordered', urlMode: 'full' });
 ---
 
 <EditorialLayout
@@ -25,6 +37,7 @@ const familyLabels: Record<string, string> = {
   enPath="/rankings/"
   esPath="/es/rankings/"
   pageType="ranking"
+  jsonLd={[rankingItemList]}
 >
   <h1>Crime Incidence Rankings</h1>
 

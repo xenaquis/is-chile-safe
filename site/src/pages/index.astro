@@ -16,6 +16,7 @@
 import HomeLayout from '../layouts/HomeLayout.astro';
 import CommuneRankingTable from '../components/CommuneRankingTable.astro';
 import { loadIndex, loadCommune, latestCompleteYearRate, loadNationalAverage } from '../lib/data.ts';
+import { buildItemList } from '../lib/jsonld.ts';
 
 const nationalAvg = loadNationalAverage();
 
@@ -46,6 +47,16 @@ const lowestRows = allRanked.slice(0, 6);
 
 // Highest reported rate (descending) — last 6
 const highestRows = allRanked.slice(-6).reverse();
+
+// ItemList JSON-LD: two lead tables (NO breadcrumb on home — D-07)
+const lowestList = buildItemList(lowestRows, 'en', {
+  name: 'Communes by reported CEAD incidence (ascending)',
+  order: 'Ascending',
+});
+const highestList = buildItemList(highestRows, 'en', {
+  name: 'Communes by reported CEAD incidence (descending)',
+  order: 'Descending',
+});
 ---
 
 <HomeLayout
@@ -55,6 +66,7 @@ const highestRows = allRanked.slice(-6).reverse();
   enPath="/"
   esPath="/es/"
   pageType="home"
+  jsonLd={[lowestList, highestList]}
 >
   <!-- ========================================================
        ABOVE THE FOLD
