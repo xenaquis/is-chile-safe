@@ -77,15 +77,20 @@ def main() -> int:
     except ImportError:
         pass  # python-dotenv not installed — env vars must be set by caller
 
-    # T-05-04-02: Key check — log clear message, never print the key value
+    # T-05-04-02: Key check — log clear message, never print the key value.
+    # Degrade gracefully (CLAUDE.md: "pipeline debe fallar con gracia y alertar"):
+    # without a key the pipeline cannot classify, so skip this run cleanly (exit 0)
+    # instead of failing the scheduled CI job every 6h. No key -> no data change ->
+    # no commit/deploy. Set DEEPSEEK_API_KEY (pipeline/.env in dev, repo secret in CI)
+    # to enable classification; once present, the run proceeds normally below.
     api_key = os.environ.get("DEEPSEEK_API_KEY", "").strip()
     if not api_key:
-        logger.error(
-            "DEEPSEEK_API_KEY is not set. "
-            "Set it in pipeline/.env (dev) or as a repo secret (CI). "
-            "Pipeline cannot classify without a key."
+        logger.warning(
+            "DEEPSEEK_API_KEY is not set — skipping news classification this run. "
+            "Set it in pipeline/.env (dev) or as a repo secret (CI) to enable the pipeline. "
+            "Exiting cleanly with no data change."
         )
-        return 1
+        return 0
 
     data_dir = _get_data_dir()
     current_path = data_dir / "current.json"
