@@ -131,7 +131,7 @@ Plans:
 
 - [x] 12-03-PLAN.md — Home rebuild on Hybrid C+B: new HomeLayout + index.astro EN/ES (search hero + two lead tables + map CTA + guide cards + condensed prose) [IA-01]
 - [x] 12-04-PLAN.md — Comuna hub: upgraded breadcrumb + map/similar/crime-type spokes + regional-rank device, EN+ES (D-07/08/09/10) [IA-02]
-- [ ] 12-05-PLAN.md — Spine: Rankings nav + footer-spine row + new /rankings/ + /es/rankings/ index pages (D-12/13) [IA-03]
+- [x] 12-05-PLAN.md — Spine: Rankings nav + footer-spine row + new /rankings/ + /es/rankings/ index pages (D-12/13) [IA-03]
 
 **Wave 3** *(gate — verifies the whole phase)*
 
@@ -194,7 +194,7 @@ Plans:
 | 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
 | 10. High-Resolution Commune Geometry | v1.2 | 3/3 | Complete   | 2026-06-15 |
 | 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 4/4 | Complete   | 2026-06-15 |
-| 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 4/6 | In Progress|  |
+| 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 5/6 | In Progress|  |
 | 13. Ranking SEO Hardening | v1.2 | 0/0 | Pending    |  |
 | 14. Homicide as a First-Class Category | v1.2 | 0/0 | Pending    |  |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Pending    |  |
