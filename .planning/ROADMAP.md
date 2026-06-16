@@ -147,6 +147,20 @@ Plans:
   1. OpenGraph (og:title/description/image/url/type) and Twitter Card meta are injected site-wide via the base layout; validated present on sampled ranking, editorial, comuna, and region pages, with locale-correct values.
   2. `ItemList` JSON-LD wraps the ranking tables (rank position + comuna link + rate) and `BreadcrumbList` JSON-LD is emitted wherever a visual breadcrumb renders (region, crime-type, comuna pages); both validate against schema.org and a build check asserts their presence on sampled templates.
 
+**Plans:** 3 plans in 3 waves.
+
+**Wave 1** *(foundation: validator + OG assets + JSON-LD lib — built before the behaviors they assert)*
+
+- [ ] 13-01-PLAN.md — Offline OG-PNG generator + 7 placeholder images, src/lib/jsonld.ts (buildItemList/buildBreadcrumb, rate OUT), new seo.mjs offline validator + register in all.mjs [RSEO-01, RSEO-02]
+
+**Wave 2** *(RSEO-01: head meta — touches BaseLayout, must precede the JSON-LD array widen)*
+
+- [ ] 13-02-PLAN.md — OG/Twitter meta site-wide in BaseLayout + pageType prop, HomeLayout/EditorialLayout forwarding, per-type og:image, og:locale en_US/es_CL, og:type website/article [RSEO-01]
+
+**Wave 3** *(RSEO-02: structured data — widens BaseLayout jsonLd emission, so sequential after Wave 2)*
+
+- [ ] 13-03-PLAN.md — Widen jsonLd to array-of-scripts (XSS escape preserved); ItemList (position+url+name, no rate) on home/region/crime/rankings/similar; BreadcrumbList on commune/region/crime EN+ES [RSEO-02]
+
 ### Phase 14: Homicide as a First-Class Category
 
 **Goal**: Homicide is exposed as its own map filter/layer and commune-panel breakdown, rather than being folded inside the "vida"/Life-crimes family.
