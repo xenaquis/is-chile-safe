@@ -125,7 +125,7 @@ Plans:
 **Wave 1** *(foundations: data helper + i18n + map focus param + finder ?q=)*
 
 - [x] 12-01-PLAN.md — nearestComparables(cut,n) data helper + nav_rankings/footer-spine i18n strings + comuna directory honors ?q= on load (EN+ES) [IA-02, IA-03]
-- [ ] 12-02-PLAN.md — MapIsland.tsx reads ?cut= focus param after layer mount (D-08) [IA-02]
+- [x] 12-02-PLAN.md — MapIsland.tsx reads ?cut= focus param after layer mount (D-08) [IA-02]
 
 **Wave 2** *(pages — consume Wave 1; no file overlap, parallel-safe)*
 
@@ -194,7 +194,7 @@ Plans:
 | 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
 | 10. High-Resolution Commune Geometry | v1.2 | 3/3 | Complete   | 2026-06-15 |
 | 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 4/4 | Complete   | 2026-06-15 |
-| 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 1/6 | In Progress|  |
+| 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 2/6 | In Progress|  |
 | 13. Ranking SEO Hardening | v1.2 | 0/0 | Pending    |  |
 | 14. Homicide as a First-Class Category | v1.2 | 0/0 | Pending    |  |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Pending    |  |
