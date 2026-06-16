@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
-status: executing
-last_updated: "2026-06-16T01:09:42.154Z"
+status: verifying
+last_updated: "2026-06-16T01:14:36.981Z"
 last_activity: 2026-06-16
 progress:
   total_phases: 7
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 13
-  completed_plans: 12
-  percent: 29
+  completed_plans: 13
+  percent: 43
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-06-15)
 
 Phase: 12 (home-ia-redesign-comuna-page-hub-and-spoke) — EXECUTING
 Plan: 6 of 6
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-06-16
 
 Progress: v1.2 ███░░░░ 29% (2/7 phases complete — Phases 10–11)

@@ -45,7 +45,7 @@ _Surfaced by the Phase-9 live review and re-scoped 2026-06-15 after a live Brows
 
 - [x] **Phase 10: High-Resolution Commune Geometry** — Replace the 88KB heavily-simplified `communes.topo.json` with real commune boundaries so polygons read as actual comuna shapes for visual comparison; balance fidelity vs file size/Leaflet-canvas performance. (completed 2026-06-15; chilemapas GPL-3 source, 345KB raw / 85.6KB gzip, 346/0/0/0 join) [GEO-01, GEO-02]
 - [x] **Phase 11: Publish All 346 Comunas + Comuna Finder** — Flip the rollout gate (12→346) so every comuna with CEAD data has a reachable page; build a searchable comuna directory (A–Z + by-region, accent-insensitive); wire region/crime ranking tables to link every comuna; sitemap covers all. Kills the "material perdido" orphan-page problem. [COMU-01, COMU-02, COMU-03] (completed 2026-06-15)
-- [ ] **Phase 12: Home / IA Redesign + Comuna Page Hub-and-Spoke** — Redesign the home around the approved Hybrid C+B framing (editorial/SEO-led + "busca tu comuna" search hero + map as first-class CTA); make each comuna page a hub that cross-links map ↔ regional ranking ↔ similar comunas ↔ crime-type rankings ↔ its news. Depends on Phase 11. [IA-01, IA-02, IA-03]
+- [x] **Phase 12: Home / IA Redesign + Comuna Page Hub-and-Spoke** — Redesign the home around the approved Hybrid C+B framing (editorial/SEO-led + "busca tu comuna" search hero + map as first-class CTA); make each comuna page a hub that cross-links map ↔ regional ranking ↔ similar comunas ↔ crime-type rankings ↔ its news. Depends on Phase 11. [IA-01, IA-02, IA-03] (completed 2026-06-16)
 - [ ] **Phase 13: Ranking SEO Hardening** — Add OpenGraph + Twitter cards site-wide, `ItemList` JSON-LD on ranking tables and `BreadcrumbList` JSON-LD where breadcrumbs render, and tighten internal linking between rankings and comuna/region pages. Depends on Phase 11. [RSEO-01, RSEO-02]
 - [ ] **Phase 14: Homicide as a First-Class Category** — Expose the existing per-commune `homicidios` data as its own map filter/layer + commune-panel breakdown (currently folded inside "vida"/Life crimes). (was Phase 11) [HOM-01, HOM-02]
 - [ ] **Phase 15: Crime-Type SEO Ranking Pages** — Programmatic bilingual "las N comunas con más {delito}" ranking pages (homicide first), with correct internal linking, hreflang, sitemap, single H1, and `ItemList` JSON-LD. Depends on Phases 14 + 13. (was Phase 12) [CSEO-01, CSEO-02]
@@ -135,7 +135,7 @@ Plans:
 
 **Wave 3** *(gate — verifies the whole phase)*
 
-- [ ] 12-06-PLAN.md — spine.mjs validator (cross-link reciprocity + single-H1 + sitemap) + register in all.mjs + full build/validate gate + human map-focus smoke [IA-01, IA-02, IA-03]
+- [x] 12-06-PLAN.md — spine.mjs validator (cross-link reciprocity + single-H1 + sitemap) + register in all.mjs + full build/validate gate + human map-focus smoke [IA-01, IA-02, IA-03]
 
 ### Phase 13: Ranking SEO Hardening
 
@@ -194,7 +194,7 @@ Plans:
 | 9. UX / Readability / A11Y Polish | v1.1 | 5/5 | Complete   | 2026-06-15 |
 | 10. High-Resolution Commune Geometry | v1.2 | 3/3 | Complete   | 2026-06-15 |
 | 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 4/4 | Complete   | 2026-06-15 |
-| 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 5/6 | In Progress|  |
+| 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 6/6 | Complete   | 2026-06-16 |
 | 13. Ranking SEO Hardening | v1.2 | 0/0 | Pending    |  |
 | 14. Homicide as a First-Class Category | v1.2 | 0/0 | Pending    |  |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Pending    |  |
