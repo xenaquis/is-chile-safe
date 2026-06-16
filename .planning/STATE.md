@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
 status: executing
-last_updated: "2026-06-16T14:04:20.235Z"
+last_updated: "2026-06-16T14:08:49.625Z"
 last_activity: 2026-06-16
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 22
-  completed_plans: 20
+  completed_plans: 21
   percent: 57
 ---
 
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-06-15)
 ## Current Position
 
 Phase: 14 (homicide-as-a-first-class-category) — EXECUTING
-Plan: 5 of 6
+Plan: 6 of 6
 Status: Ready to execute
 Last activity: 2026-06-16
 
@@ -83,6 +83,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 | Phase 13-ranking-seo-hardening P01 | 25 | 3 tasks | 11 files |
 | Phase 13-ranking-seo-hardening P02 | 12m | 3 tasks | 13 files |
 | Phase 14 P01 | 25m | 3 tasks | 4 files |
+| Phase 14-homicide-as-a-first-class-category P05 | 8m | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -157,6 +158,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 - [Phase ?]: CONFIRMED CEAD param for homicide subgroup 101 is grupo[]=101 (NOT subgrupo[] — silently ignored, returns all-zero rows)
 - [Phase ?]: Rate (medida=2) and count (medida=1) for homicide require two separate CEAD POST requests per year
 - [Phase ?]: CEAD zero-marker is '0,0000000000' (full-decimal) — parse_cead_float returns 0.0 not None
+- [Phase ?]: crimeIsHomicide set in onFamilyChange handler; exclusive with family via familyIndex null
 
 ## Operator Next Steps
 
