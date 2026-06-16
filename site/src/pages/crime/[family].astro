@@ -29,7 +29,7 @@ import {
   regionFileId,
 } from '../../lib/data.ts';
 import { FAMILY_SLUGS } from '../../config/i18n.ts';
-import { FAMILY_LABELS_EN, FAMILY_DEFS_EN } from '../../lib/familyDefs';
+import { FAMILY_LABELS_EN, FAMILY_DEFS_EN, FAMILY_SCOPE_NOTE_EN } from '../../lib/familyDefs';
 import { buildBreadcrumb, buildItemList } from '../../lib/jsonld.ts';
 
 export async function getStaticPaths() {
@@ -138,6 +138,7 @@ const esPath = `/es/delito/${esSlug}/`;
 
 const familyLabel = FAMILY_LABELS_EN[familyKey] ?? familyKey;
 const familyDef = FAMILY_DEFS_EN[familyKey] ?? '';
+const familyScopeNote = FAMILY_SCOPE_NOTE_EN[familyKey] ?? '';
 
 const title = `${familyLabel} in Chile — National Commune Ranking — Chile Safety Map`;
 const description = `Compare reported ${familyLabel.toLowerCase()} rates per 100,000 inhabitants across all Chilean communes. Official CEAD data, ranked nationally.`;
@@ -200,6 +201,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
       {featured && <span class="featured-badge">Featured</span>}
     </h1>
     <p class="crime-def">{familyDef}</p>
+    {familyScopeNote && <p class="crime-scope-note">{familyScopeNote}</p>}
     <div class="hero-meta">
       <span class="hero-stat">National mean: {Math.round(familyNationalMean).toLocaleString('en-US')} per 100k ({latestYear})</span>
       <span class="hero-sep" aria-hidden="true">·</span>
@@ -328,6 +330,17 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     color: var(--muted);
     margin: var(--sm) 0;
     max-width: 68ch;
+  }
+
+  .crime-scope-note {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin: var(--sm) 0;
+    max-width: 68ch;
+    padding: var(--sm) var(--md);
+    border-left: 3px solid var(--line);
+    background: var(--bg);
+    border-radius: var(--radius);
   }
 
   .hero-meta {
