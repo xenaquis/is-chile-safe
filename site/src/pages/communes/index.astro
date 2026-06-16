@@ -276,6 +276,13 @@ const levelColors = INCIDENCE_COLORS;
     }
   }
 
+  // Pre-populate search from ?q= URL parameter (T-12-01: assign to input.value only, never innerHTML)
+  const initialQ = new URLSearchParams(window.location.search).get('q');
+  if (initialQ) {
+    q = initialQ;
+    input.value = initialQ;
+  }
+
   input.addEventListener('input', e => {
     q = (e.target as HTMLInputElement).value;
     render();
