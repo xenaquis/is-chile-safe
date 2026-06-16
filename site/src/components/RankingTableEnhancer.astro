@@ -1,0 +1,325 @@
+---
+/**
+ * RankingTableEnhancer — progressive-enhancement script for sortable ranking tables.
+ *
+ * Vanilla JS only. Zero client:* directives. Zero new dependencies.
+ * Injects year <select> and clickable sort headers on top of server-rendered HTML.
+ * With JS disabled, the table renders as static HTML — identical to today.
+ *
+ * Usage: import and render <RankingTableEnhancer locale={locale} /> once per page
+ * that contains a table[data-ranking-table].
+ *
+ * Table-level data-* attributes (must be set on the <table> element):
+ *   data-ranking-table    — presence flag; enhancer ignores tables without this
+ *   data-rate-col         — 0-based <td> index of the rate cell to read/write
+ *   data-name-col         — 0-based <td> index of the commune name cell (for name sort)
+ *   data-rate-format      — "round" | "1dp" — matches the server-side format exactly
+ *   data-locale           — "en" | "es" — drives toLocaleString formatting
+ *
+ * Row-level data-* attributes (must be set on each <tr> in <tbody>):
+ *   data-rates            — JSON map of completeYear (number) -> rate (number)
+ *   data-low-pop          — "1" if low-population commune; absent otherwise
+ */
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+
+interface Props {
+  locale: 'en' | 'es';
+}
+
+const { locale } = Astro.props;
+const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
+
+const strings = {
+  sort_label:        t.sort_label,
+  sort_ascending:    t.sort_ascending,
+  sort_descending:   t.sort_descending,
+  year_select_label: t.year_select_label,
+  year_select_aria:  t.year_select_aria,
+};
+---
+
+<script type="application/json" id="rte-strings" data-locale={locale}>{JSON.stringify(strings)}</script>
+
+<script>
+(function () {
+  'use strict';
+
+  // Read localized strings from the JSON blob injected by the server
+  const blob = document.getElementById('rte-strings');
+  if (!blob) return;
+  const S: {
+    sort_label: string;
+    sort_ascending: string;
+    sort_descending: string;
+    year_select_label: string;
+    year_select_aria: string;
+  } = JSON.parse(blob.textContent || '{}');
+  const blobLocale = (blob as HTMLElement).dataset.locale || 'en';
+
+  // Format a rate number according to the table's data-rate-format attribute
+  function formatRate(val: number, fmt: string, loc: string): string {
+    const locTag = loc === 'es' ? 'es-CL' : 'en-US';
+    if (fmt === '1dp') {
+      return val.toLocaleString(locTag, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    }
+    // "round" — integer, no decimals
+    return Math.round(val).toLocaleString(locTag);
+  }
+
+  // Wire each table[data-ranking-table] found on the page
+  const tables = document.querySelectorAll<HTMLTableElement>('table[data-ranking-table]');
+
+  tables.forEach(function (table) {
+    // --- Read table config ---
+    const rateCol  = parseInt(table.dataset.rateCol  ?? '1', 10);
+    const nameCol  = parseInt(table.dataset.nameCol  ?? '0', 10);
+    const rateFmt  = table.dataset.rateFormat ?? 'round';
+    const loc      = table.dataset.locale ?? blobLocale;
+
+    // --- Collect rows + embedded data ---
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+
+    const allTrList = Array.from(tbody.querySelectorAll<HTMLTableRowElement>('tr'));
+
+    // Guard: if no row has data-rates, skip this table silently (graceful degradation)
+    const hasRatesData = allTrList.some((tr) => tr.dataset.rates);
+    if (!hasRatesData) return;
+
+    // Build year set from union of all row data-rates keys (complete years only — guaranteed by server)
+    const yearSet = new Set<number>();
+    allTrList.forEach(function (tr) {
+      if (!tr.dataset.rates) return;
+      try {
+        const map: Record<string, number> = JSON.parse(tr.dataset.rates);
+        Object.keys(map).forEach((k) => yearSet.add(Number(k)));
+      } catch (_) { /* ignore malformed rows */ }
+    });
+
+    if (yearSet.size === 0) return;
+
+    const years = Array.from(yearSet).sort((a, b) => b - a); // descending
+    let selectedYear = years[0]; // default = most recent complete year
+
+    // Track active sort state: null = unsorted (server order), 'rate'|'name' with 'asc'|'desc'
+    let sortKey: 'rate' | 'name' | null = null;
+    let sortDir: 'asc' | 'desc' = 'desc';
+
+    // --- Build controls strip (year selector + sort info) ---
+    const controlsStrip = document.createElement('div');
+    controlsStrip.className = 'rte-controls';
+
+    const labelEl = document.createElement('label');
+    labelEl.textContent = S.year_select_label;
+    const selectId = 'rte-year-' + Math.random().toString(36).slice(2, 8);
+    labelEl.setAttribute('for', selectId);
+    labelEl.className = 'rte-year-label';
+
+    const selectEl = document.createElement('select');
+    selectEl.id = selectId;
+    selectEl.setAttribute('aria-label', S.year_select_aria);
+    selectEl.className = 'rte-year-select';
+    years.forEach(function (y) {
+      const opt = document.createElement('option');
+      opt.value = String(y);
+      opt.textContent = String(y);
+      if (y === selectedYear) opt.selected = true;
+      selectEl.appendChild(opt);
+    });
+
+    controlsStrip.appendChild(labelEl);
+    controlsStrip.appendChild(selectEl);
+
+    // Insert the controls strip ABOVE the table (before the table's parent wrapper or the table itself)
+    const tableParent = table.parentElement;
+    if (tableParent) {
+      tableParent.insertBefore(controlsStrip, table);
+    }
+
+    // --- Make rate and name headers sortable ---
+    const headerRow = table.querySelector('thead tr');
+    if (!headerRow) return;
+    const ths = Array.from(headerRow.querySelectorAll('th'));
+
+    function makeSortButton(th: HTMLElement, key: 'rate' | 'name') {
+      // Wrap existing text content in a button
+      const existingContent = th.innerHTML;
+      th.innerHTML = '';
+      const btn = document.createElement('button');
+      btn.innerHTML = existingContent;
+      btn.className = 'rte-sort-btn';
+      btn.setAttribute('aria-label', S.sort_label.replace('{column}', th.textContent?.trim() ?? ''));
+      th.setAttribute('aria-sort', 'none');
+      th.appendChild(btn);
+
+      btn.addEventListener('click', function () {
+        if (sortKey === key) {
+          sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+        } else {
+          sortKey = key;
+          sortDir = key === 'rate' ? 'desc' : 'asc'; // rate default: desc; name default: asc
+        }
+        updateAriaSort();
+        renderSort();
+      });
+    }
+
+    // Wire rate header (rateCol) and name header (nameCol)
+    if (ths[rateCol]) makeSortButton(ths[rateCol], 'rate');
+    if (ths[nameCol]) makeSortButton(ths[nameCol], 'name');
+
+    function updateAriaSort() {
+      ths.forEach(function (th, idx) {
+        th.removeAttribute('aria-sort');
+        const btn = th.querySelector('.rte-sort-btn');
+        const arrow = btn?.querySelector('.rte-sort-arrow');
+        if (arrow) arrow.remove();
+      });
+      if (sortKey === null) return;
+      const activeIdx = sortKey === 'rate' ? rateCol : nameCol;
+      const activeTh = ths[activeIdx];
+      if (!activeTh) return;
+      activeTh.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending');
+      const activeBtn = activeTh.querySelector('.rte-sort-btn');
+      if (activeBtn) {
+        const arrowSpan = document.createElement('span');
+        arrowSpan.className = 'rte-sort-arrow';
+        arrowSpan.setAttribute('aria-hidden', 'true');
+        arrowSpan.textContent = sortDir === 'asc' ? ' ▲' : ' ▼';
+        activeBtn.appendChild(arrowSpan);
+      }
+    }
+
+    // --- Core: rewrite rate cells and reorder rows ---
+    function renderSort() {
+      // Partition rows
+      const eligible: HTMLTableRowElement[] = [];
+      const lowPop: HTMLTableRowElement[] = [];
+
+      allTrList.forEach(function (tr) {
+        if (tr.dataset.lowPop === '1') {
+          lowPop.push(tr);
+        } else {
+          eligible.push(tr);
+        }
+      });
+
+      // Rewrite rate cells for the selected year on EVERY row
+      allTrList.forEach(function (tr) {
+        let rates: Record<string, number> = {};
+        try { rates = JSON.parse(tr.dataset.rates || '{}'); } catch (_) { return; }
+        const yearRate = rates[String(selectedYear)];
+        const rateCell = tr.querySelectorAll('td')[rateCol];
+        if (rateCell && yearRate !== undefined) {
+          rateCell.textContent = formatRate(yearRate, rateFmt, loc);
+          // Store current numeric value for sorting (avoid re-parsing text)
+          (rateCell as HTMLElement).dataset.numericRate = String(yearRate);
+        }
+      });
+
+      // Sort eligible rows
+      function sortRows(rows: HTMLTableRowElement[]): HTMLTableRowElement[] {
+        return rows.slice().sort(function (a, b) {
+          if (sortKey === 'name') {
+            const na = a.querySelectorAll('td')[nameCol]?.textContent?.trim() ?? '';
+            const nb = b.querySelectorAll('td')[nameCol]?.textContent?.trim() ?? '';
+            const cmp = na.localeCompare(nb, loc === 'es' ? 'es' : 'en');
+            return sortDir === 'asc' ? cmp : -cmp;
+          }
+          // rate sort
+          const rateA = parseFloat((a.querySelectorAll('td')[rateCol] as HTMLElement)?.dataset.numericRate ?? '0');
+          const rateB = parseFloat((b.querySelectorAll('td')[rateCol] as HTMLElement)?.dataset.numericRate ?? '0');
+          return sortDir === 'asc' ? rateA - rateB : rateB - rateA;
+        });
+      }
+
+      const sortedEligible = sortKey !== null ? sortRows(eligible) : eligible;
+      const sortedLowPop   = sortKey !== null ? sortRows(lowPop)   : lowPop;
+
+      // Reorder DOM: eligible first, then low-pop (D-2)
+      const ordered = [...sortedEligible, ...sortedLowPop];
+      ordered.forEach(function (tr) { tbody.appendChild(tr); });
+    }
+
+    // Wire year selector
+    selectEl.addEventListener('change', function () {
+      selectedYear = Number(selectEl.value);
+      renderSort();
+    });
+
+    // Apply initial rendering (year already correct from server; just init rate data attrs for sorting)
+    allTrList.forEach(function (tr) {
+      let rates: Record<string, number> = {};
+      try { rates = JSON.parse(tr.dataset.rates || '{}'); } catch (_) { return; }
+      const yearRate = rates[String(selectedYear)];
+      const rateCell = tr.querySelectorAll('td')[rateCol] as HTMLElement | undefined;
+      if (rateCell && yearRate !== undefined) {
+        rateCell.dataset.numericRate = String(yearRate);
+      }
+    });
+  });
+})();
+</script>
+
+<style>
+  .rte-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--sm, 0.5rem);
+    padding: var(--sm, 0.5rem) 0;
+    flex-wrap: wrap;
+  }
+
+  .rte-year-label {
+    font-size: var(--text-label, 0.8rem);
+    color: var(--muted, #666);
+    font-weight: var(--weight-strong, 600);
+    white-space: nowrap;
+  }
+
+  .rte-year-select {
+    font-size: var(--text-label, 0.8rem);
+    color: var(--ink, #111);
+    background: var(--card, #fff);
+    border: 1px solid var(--line, #ddd);
+    border-radius: 4px;
+    padding: 2px 6px;
+    cursor: pointer;
+  }
+
+  .rte-year-select:focus-visible {
+    outline: 2px solid var(--primary, #0077cc);
+    outline-offset: 1px;
+  }
+
+  /* Sortable <th> button — transparent, inherits th font */
+  :global(.rte-sort-btn) {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    text-align: inherit;
+    white-space: nowrap;
+  }
+
+  :global(.rte-sort-btn:focus-visible) {
+    outline: 2px solid var(--primary, #0077cc);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  :global(.rte-sort-btn:hover) {
+    opacity: 0.8;
+  }
+
+  :global(.rte-sort-arrow) {
+    font-size: 0.75em;
+    color: var(--primary, #0077cc);
+  }
+</style>
