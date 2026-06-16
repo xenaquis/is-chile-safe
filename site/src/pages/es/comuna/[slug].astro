@@ -243,7 +243,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
       <li>
         <a href="/es/ranking-delito/homicidios/">ranking de homicidios</a>
       </li>
-      {Object.entries(byFamily).map(([key]) => (
+      {Object.entries(byFamily).filter(([key]) => key !== 'vida').map(([key]) => (
         <li>
           <a href={`/es/delito/${FAMILY_SLUGS[key]?.es ?? key}/`}>
             ranking {FAMILY_SLUGS[key]?.es ?? key}

@@ -240,7 +240,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
       <li>
         <a href="/crime-ranking/homicide/">homicide ranking</a>
       </li>
-      {Object.entries(byFamily).map(([key]) => (
+      {Object.entries(byFamily).filter(([key]) => key !== 'vida').map(([key]) => (
         <li>
           <a href={`/crime/${FAMILY_SLUGS[key]?.en ?? key}/`}>
             {FAMILY_SLUGS[key]?.en ?? key} ranking
