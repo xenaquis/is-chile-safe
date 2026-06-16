@@ -86,8 +86,8 @@ const allRates = loadIndex()
 const level = levelForRate(rate, allRates);
 
 // Region commune count for regional-rank device (#N of M)
-// NOTE: BUGFIX-999.1 — Tarapacá region_id may collide with Aysén/Los Ríos
-// provincial codes (11/14); count may be slightly off for those regions. Accept.
+// region_id is the clean 1–16 region (999.1 resolved, quick-260616-ldi) so this
+// count is exact — no more Tarapacá 11/14 collision with Aysén/Los Ríos.
 const regionCommuneCount = loadIndex().filter(
   (c) => c.region_id === data.region_id
 ).length;

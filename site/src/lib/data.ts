@@ -100,18 +100,21 @@ export interface RolloutConfig {
 // --- Region ID mapping ---
 
 /**
- * Maps CEAD sub-regional grouping IDs (as stored in commune region_id) to
- * the Chilean administrative region file IDs (1–16).
+ * Returns the Chilean administrative region file ID (1–16) for a commune's
+ * region_id.
  *
- * The index stores CEAD provincial codes (e.g. 56 for a Valparaíso sub-group)
- * but the region files use the standard Chilean region numbers (1–16).
- * Regions 10–16 are stored as-is; sub-regional codes ≥20 map to their
- * parent region by integer division: floor(56 / 10) = 5.
+ * As of backlog 999.1 (quick-260616-ldi) the pipeline derives region_id from
+ * the CUT by length, so region_id is ALREADY the clean 1–16 region number —
+ * this function is now an identity pass-through. It previously had to map
+ * stored CEAD province codes (e.g. "56" → 5) back to regions, a lossy step
+ * that collided "11"/"14" across Tarapacá and Aysén/Los Ríos. Kept as a named
+ * indirection so call sites stay explicit; the legacy floor() fallback guards
+ * against any not-yet-migrated data.
  */
 export function regionFileId(regionId: string): string {
   const n = parseInt(regionId, 10);
   if (n >= 1 && n <= 16) return String(n);
-  return String(Math.floor(n / 10));
+  return String(Math.floor(n / 10)); // legacy guard — unreached for migrated data
 }
 
 // --- Module-level memoization caches (build-time only — data is immutable within a build) ---
@@ -318,9 +321,9 @@ export function nearestComparable(targetCut: string): ComparableResult {
  * 2. Sort by ascending absolute rate distance to target's latest-complete-year rate
  * 3. Slice to n results
  *
- * NOTE (BUGFIX-999.1): Tarapacá region_id province codes 11/14 collide with
- * Aysén/Los Ríos — same-region grouping may be skewed for Tarapacá comunas.
- * Accept this known issue here; fix is to derive region from CUT (v1.2 backlog).
+ * RESOLVED (999.1, quick-260616-ldi): region_id is now derived from the CUT by
+ * length, so it is the clean 1–16 region — the old Tarapacá 11/14 collision with
+ * Aysén/Los Ríos is gone and same-region grouping is exact.
  *
  * Unlike nearestComparable (singular), there is NO national fallback —
  * same-region only per D-07.

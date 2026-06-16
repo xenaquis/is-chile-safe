@@ -88,8 +88,8 @@ const allRates = loadIndex()
 const level = levelForRate(rate, allRates);
 
 // Region commune count for regional-rank device (#N de M)
-// NOTE: BUGFIX-999.1 — Tarapacá region_id puede colisionar con Aysén/Los Ríos
-// (códigos provinciales 11/14); el conteo puede ser inexacto para esas regiones. Aceptado.
+// region_id es ahora la región limpia 1–16 (999.1 resuelto, quick-260616-ldi),
+// así que el conteo es exacto — sin colisión Tarapacá 11/14 con Aysén/Los Ríos.
 const regionCommuneCount = loadIndex().filter(
   (c) => c.region_id === data.region_id
 ).length;

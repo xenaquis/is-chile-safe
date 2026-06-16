@@ -83,7 +83,8 @@ function recordToArray(byFamilyRecord: Record<string, number>): number[] {
   return CATALOG_KEY_ORDER.map((key) => byFamilyRecord[key] ?? 0);
 }
 
-/** Get region display name from region_id (fallback to region_id if unknown) */
+/** Region display name from region_id (clean 1–16 since 999.1 / quick-260616-ldi).
+ *  Fallback to `Región {id}` only if an unknown id ever appears. */
 const REGION_NAMES: Record<string, { es: string; en: string }> = {
   '1':  { es: 'Región de Tarapacá',          en: 'Tarapacá Region' },
   '2':  { es: 'Región de Antofagasta',        en: 'Antofagasta Region' },
@@ -101,7 +102,6 @@ const REGION_NAMES: Record<string, { es: string; en: string }> = {
   '14': { es: 'Región de Los Ríos',           en: 'Los Ríos Region' },
   '15': { es: 'Región de Arica y Parinacota', en: 'Arica y Parinacota Region' },
   '16': { es: 'Región de Ñuble',              en: 'Ñuble Region' },
-  '56': { es: 'Región de Valparaíso',         en: 'Valparaíso Region' },
 };
 
 export function ResultPanel({ cut, lang, year, nationalAvg, onClose }: Props) {
