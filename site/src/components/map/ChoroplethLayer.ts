@@ -15,6 +15,10 @@ export interface CommunaPayload {
   rate: number;
   level: 1 | 2 | 3 | 4 | 5;
   by_family: number[];
+  /** Homicide rate per 100k (abbreviated key 'hr' from map-payload — D-09 compact encoding). null when no data. */
+  hr: number | null;
+  /** Homicide count (dropped from map-payload per budget; read from per-commune JSON featured_rates.homicidios_count). null in map-payload context. */
+  homicide_count: number | null;
 }
 
 /**
@@ -97,6 +101,35 @@ export function buildStyleMapFromFamily(
     m.set(c.id, {
       fillColor: INCIDENCE_COLORS[level - 1]!,
       fillOpacity: 0.55,
+      color: '#ffffff',
+      weight: 1.2,
+    });
+  }
+  return m;
+}
+
+/**
+ * Build a CUT → PathOptions style map for the homicide layer (D-05 independent scale).
+ *
+ * Reads `c.hr` (abbreviated 'hr' key from map-payload, D-09) for the homicide rate.
+ * Quantile breaks are computed on positive rates ONLY so the scale is not compressed
+ * by zero-homicide comunas (D-05 mandate: independent scale, not shared family scale).
+ * Zero/null rate comunas map to the lightest bucket with reduced fillOpacity (0.25)
+ * to visually distinguish them from comunas with actual homicide data.
+ */
+export function buildStyleMapFromHomicide(
+  comunas: CommunaPayload[]
+): Map<string, L.PathOptions> {
+  const rates = comunas.map((c) => c.hr ?? 0);
+  const positiveRates = rates.filter((r) => r > 0);
+  const breaks = computeQuantileBreaks(positiveRates, 5);
+  const m = new Map<string, L.PathOptions>();
+  for (const c of comunas) {
+    const rate = c.hr ?? 0;
+    const level = levelFromBreaks(rate, breaks);
+    m.set(c.id, {
+      fillColor: INCIDENCE_COLORS[level - 1]!,
+      fillOpacity: rate === 0 ? 0.25 : 0.55,
       color: '#ffffff',
       weight: 1.2,
     });
