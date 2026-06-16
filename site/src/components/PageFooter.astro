@@ -31,7 +31,25 @@ const altHref = locale === 'en' ? esPath : enPath;
       {altLocaleLabel}
     </a>
   </div>
-  <!-- Legal links row (D-13) — second nav below the existing footer-inner row -->
+  <!-- Spine nav row — global interconnection: map / communes / rankings / editorial (IA-03) -->
+  <nav class="footer-spine page-content" aria-label={locale === 'en' ? 'Site navigation' : 'Navegación del sitio'}>
+    {locale === 'en' ? (
+      <>
+        <a href="/map/">{t.footer_spine_map}</a>
+        <a href="/communes/">{t.footer_spine_communes}</a>
+        <a href="/rankings/">{t.footer_spine_rankings}</a>
+        <a href="/safest-cities-in-chile/">{t.footer_spine_guide}</a>
+      </>
+    ) : (
+      <>
+        <a href="/es/mapa/">{t.footer_spine_map}</a>
+        <a href="/es/comunas/">{t.footer_spine_communes}</a>
+        <a href="/es/rankings/">{t.footer_spine_rankings}</a>
+        <a href="/es/comunas-mas-seguras-chile/">{t.footer_spine_guide}</a>
+      </>
+    )}
+  </nav>
+  <!-- Legal links row (D-13) — third nav below spine row -->
   <nav class="footer-legal page-content" aria-label="Legal pages">
     {locale === 'en' ? (
       <>
@@ -87,6 +105,25 @@ const altHref = locale === 'en' ? esPath : enPath;
   }
 
   .footer-lang:hover {
+    text-decoration: underline;
+  }
+
+  .footer-spine {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--md);
+    margin-top: var(--sm);
+    padding-bottom: var(--sm);
+  }
+
+  .footer-spine a {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .footer-spine a:hover {
     text-decoration: underline;
   }
 
