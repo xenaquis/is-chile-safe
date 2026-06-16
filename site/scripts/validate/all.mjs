@@ -12,6 +12,7 @@
  *   8.  map.mjs               — TopoJSON budget + map pages + zero-React content-page regression guard
  *   9.  forbidden-language.mjs — EDIT-05 forbidden editorial term gate over dist/ visible text
  *  10.  coverage.mjs          — route-count + no-orphan-link + sitemap-coverage + directory-completeness
+ *  11.  spine.mjs             — IA spine cross-link reciprocity (Phase 12: rankings, breadcrumb, map-spoke, home H1)
  *
  * Any non-zero exit from a child script fails the suite.
  * Prints a per-check PASS/FAIL summary at the end.
@@ -38,6 +39,7 @@ const VALIDATORS = [
   'map.mjs',
   'forbidden-language.mjs',
   'coverage.mjs',
+  'spine.mjs',
 ];
 
 const results = [];
