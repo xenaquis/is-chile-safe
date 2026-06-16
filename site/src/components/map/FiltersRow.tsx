@@ -36,6 +36,10 @@ const CHIP_DEFS: ChipDef[] = [
   { key: 'vif',             familyIndex: 2,    labelEs: 'VIF',                         labelEn: 'Domestic violence', featured: false },
   { key: 'drogas',          familyIndex: 3,    labelEs: 'Drogas',                      labelEn: 'Drug crimes',       featured: false },
   { key: 'armas',           familyIndex: 4,    labelEs: 'Armas',                       labelEn: 'Weapons',           featured: false },
+  // 8th chip: homicide as a first-class layer (D-04/HOM-01). familyIndex: null signals
+  // MapIsland to use the independent homicide scale (buildStyleMapFromHomicide), NOT by_family.
+  // featured: true renders the accent-dot consistent with vida/propiedad.
+  { key: 'homicidios',     familyIndex: null, labelEs: 'Homicidios',                  labelEn: 'Homicide',          featured: true  },
 ];
 
 // Available years: 2025 → 2005, newest first
