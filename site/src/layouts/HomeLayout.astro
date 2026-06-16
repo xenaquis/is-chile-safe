@@ -1,0 +1,65 @@
+---
+/**
+ * HomeLayout — wraps BaseLayout with a full-width home container (D-16).
+ * Mirrors EditorialLayout props and slot contract; replaces the 720px
+ * editorial-prose column with an unconstrained home-wide div so the
+ * hub page can run full viewport width.
+ *
+ * WRAP pattern (D-16): never declares its own <html>/<head> — always wraps BaseLayout.
+ * BaseLayout already renders PageHeader + PageFooter — do NOT add them here.
+ *
+ * Slot contract:
+ *   Default <slot /> — page body
+ *   <slot name="ad-content" /> — optional content-position AdSlot
+ *   Bottom AdSlot is injected automatically.
+ */
+import BaseLayout from './BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+
+interface Props {
+  lang: 'en' | 'es';
+  title: string;
+  description: string;
+  enPath: string;
+  esPath: string;
+  jsonLd?: object | null;
+}
+
+const { lang, title, description, enPath, esPath, jsonLd = null } = Astro.props;
+
+// Pitfall 4: exact string compare — never !!env (empty string is truthy)
+const adsenseEnabled = import.meta.env.ADSENSE_ENABLED === 'true';
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={description}
+  enPath={enPath}
+  esPath={esPath}
+  jsonLd={jsonLd}
+>
+  <div class="home-wide">
+    <slot />
+    <!-- Optional content-position AdSlot -->
+    <slot name="ad-content" />
+    <AdSlot position="bottom" />
+  </div>
+  {adsenseEnabled && <CookieConsent locale={lang} />}
+</BaseLayout>
+
+<style>
+  .home-wide {
+    /* Full viewport width — no max-width constraint (unlike editorial-prose 720px) */
+    width: 100%;
+    padding: 0 var(--lg);
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 639px) {
+    .home-wide {
+      padding: 0 var(--md);
+    }
+  }
+</style>
