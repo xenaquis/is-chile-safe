@@ -23,10 +23,11 @@ interface Props {
   description: string;
   enPath: string;
   esPath: string;
-  jsonLd?: object | null;
+  jsonLd?: object | object[] | null;
+  pageType?: 'home' | 'commune' | 'region' | 'crime' | 'ranking' | 'editorial';
 }
 
-const { lang, title, description, enPath, esPath, jsonLd = null } = Astro.props;
+const { lang, title, description, enPath, esPath, jsonLd = null, pageType } = Astro.props;
 
 // Pitfall 4: exact string compare — never !!env (empty string is truthy)
 const adsenseEnabled = import.meta.env.ADSENSE_ENABLED === 'true';
@@ -39,6 +40,7 @@ const adsenseEnabled = import.meta.env.ADSENSE_ENABLED === 'true';
   enPath={enPath}
   esPath={esPath}
   jsonLd={jsonLd}
+  pageType={pageType}
 >
   <div class="home-wide">
     <slot />
