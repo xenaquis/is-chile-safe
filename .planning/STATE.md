@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
 status: executing
-last_updated: "2026-06-15T23:55:30.494Z"
-last_activity: 2026-06-15 -- Phase 12 planning complete
+last_updated: "2026-06-16T00:45:37.291Z"
+last_activity: 2026-06-16
 progress:
   total_phases: 7
   completed_phases: 2
   total_plans: 13
-  completed_plans: 7
+  completed_plans: 8
   percent: 29
 ---
 
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-06-15)
 
 ## Current Position
 
-Phase: 12 (home-ia-redesign-comuna-hub) — NOT STARTED
-Plan: —
+Phase: 12 (home-ia-redesign-comuna-page-hub-and-spoke) — EXECUTING
+Plan: 2 of 6
 Status: Ready to execute
-Last activity: 2026-06-15 -- Phase 12 planning complete
+Last activity: 2026-06-16
 
 Progress: v1.2 ███░░░░ 29% (2/7 phases complete — Phases 10–11)
 
