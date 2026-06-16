@@ -187,7 +187,7 @@ Plans:
 
 **Wave 3** *(blocked on 14-03 — Half B contract layer)*
 
-- [ ] 14-04-PLAN.md — buildStyleMapFromHomicide independent quantile scale + CommunaPayload type + bilingual homicidios label/def + data.ts type [HOM-01]
+- [x] 14-04-PLAN.md — buildStyleMapFromHomicide independent quantile scale + CommunaPayload type + bilingual homicidios label/def + data.ts type [HOM-01]
 
 **Wave 4** *(blocked on 14-04 — wires the chip + map)*
 
@@ -236,7 +236,7 @@ Plans:
 | 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 4/4 | Complete   | 2026-06-15 |
 | 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 6/6 | Complete    | 2026-06-16 |
 | 13. Ranking SEO Hardening | v1.2 | 3/3 | Complete   | 2026-06-16 |
-| 14. Homicide as a First-Class Category | v1.2 | 3/6 | In Progress|  |
+| 14. Homicide as a First-Class Category | v1.2 | 4/6 | In Progress|  |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Pending    |  |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending    |  |
 
