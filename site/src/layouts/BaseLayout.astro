@@ -101,10 +101,15 @@ const adsenseClient = import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID ?? '';
     )}
 
     <!-- Schema.org JSON-LD (JSON.stringify for XSS safety; escape </ to prevent
-         </script> breakout if any value contains the sequence — CR-01 fix) -->
-    {jsonLd !== null && (
-      <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/<\//g, '<\\/')} />
-    )}
+         </script> breakout if any value contains the sequence — CR-01 fix).
+         Emits one <script> per block when jsonLd is an array (D-08 array-of-scripts, NOT @graph).
+         The .replace escape is applied PER BLOCK inside the map — T-13-01 mitigation. -->
+    {jsonLd !== null && (Array.isArray(jsonLd) ? jsonLd : [jsonLd])
+      .filter(Boolean)
+      .map((block) => (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(block).replace(/<\//g, '<\\/')} />
+      ))
+    }
   </head>
   <body>
     <PageHeader locale={lang} enPath={enPath} esPath={esPath} />
