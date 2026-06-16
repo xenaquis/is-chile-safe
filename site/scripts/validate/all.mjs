@@ -1,5 +1,5 @@
 /**
- * all.mjs — Aggregate validator: run all 9 validation scripts in sequence.
+ * all.mjs — Aggregate validator: run all 12 validation scripts in sequence.
  *
  * Validators:
  *   1.  structure.mjs         — required source files + sample page meta
@@ -13,6 +13,7 @@
  *   9.  forbidden-language.mjs — EDIT-05 forbidden editorial term gate over dist/ visible text
  *  10.  coverage.mjs          — route-count + no-orphan-link + sitemap-coverage + directory-completeness
  *  11.  spine.mjs             — IA spine cross-link reciprocity (Phase 12: rankings, breadcrumb, map-spoke, home H1)
+ *  12.  seo.mjs               — OG/Twitter meta + JSON-LD shape validator (Phase 13 SEO hardening)
  *
  * Any non-zero exit from a child script fails the suite.
  * Prints a per-check PASS/FAIL summary at the end.
@@ -40,6 +41,7 @@ const VALIDATORS = [
   'forbidden-language.mjs',
   'coverage.mjs',
   'spine.mjs',
+  'seo.mjs',
 ];
 
 const results = [];
