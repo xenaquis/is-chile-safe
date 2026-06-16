@@ -101,6 +101,8 @@ class MapPayloadEntry(BaseModel):
     rate: float  # total rate_per_100k for the reference year
     level: int  # 1–5 quintile (1=lowest, 5=highest) — matches prototype data.js field
     by_family: list[float | None]  # 7 family rates ordered per FAMILY_KEYS (compact list for <30KB, D-09)
+    homicide_rate: int | None = None  # homicide rate per 100k (subgroup 101, rounded int) — Phase 14
+    homicide_count: int | None = None  # absolute homicide count (subgroup 101) — Phase 14
 
     @field_validator("level")
     @classmethod

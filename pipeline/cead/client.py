@@ -130,6 +130,58 @@ def fetch_communes_batch(
 
 
 # ---------------------------------------------------------------------------
+# Subgroup batch fetch (Phase 14 — homicide subgroup 101)
+# ---------------------------------------------------------------------------
+def fetch_subgroup_batch(
+    session: requests.Session,
+    cut_codes: list[str],
+    year: int,
+    familia_id: int,
+    subgrupo_id: int,
+    medida: str = "2",
+) -> str:
+    """Fetch CEAD data for a specific crime subgroup for a batch of communes.
+
+    CONFIRMED in Phase 14-01: the correct POST param is ``grupo[]=101``,
+    NOT ``subgrupo[]=101`` (subgrupo[] is silently ignored, returns all-zero rows).
+    Rate (medida="2") and count (medida="1") require two separate requests.
+
+    Parameters
+    ----------
+    session:     Active requests.Session from make_cead_session().
+    cut_codes:   List of CUT code strings (e.g. ['13101', '13102']).
+    year:        Reference year (e.g. 2024).
+    familia_id:  Crime family ID (1 = vida).
+    subgrupo_id: Subgroup ID (101 = homicidios).
+    medida:      "2" for rate per 100k (default), "1" for absolute count.
+
+    Returns
+    -------
+    Raw HTML string decoded with latin-1 (Pitfall 3).
+    """
+    payload: dict = {
+        "medida": medida,
+        "tipoVal": "1,2",
+        "anio[]": str(year),
+        "familia[]": str(familia_id),
+        "grupo[]": str(subgrupo_id),  # CONFIRMED: grupo[], NOT subgrupo[]
+        "seleccion": "1",
+        "descarga": "true",
+    }
+
+    # Build the comuna[] list — MUST be strings (Pitfall 7)
+    payload["comuna[]"] = [str(cut) for cut in cut_codes]
+
+    # region[] = first 2 digits of first CUT code
+    payload["region[]"] = str(cut_codes[0])[:2]
+
+    response = _post_with_retry(session, _DATA_ENDPOINT, payload)
+
+    # MUST use latin-1 — .text uses requests' charset detection which guesses wrong (Pitfall 3)
+    return response.content.decode("latin-1")
+
+
+# ---------------------------------------------------------------------------
 # Raw response cache (D-04)
 # ---------------------------------------------------------------------------
 def cache_raw(filename: str, content: str) -> None:
