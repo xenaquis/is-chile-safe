@@ -34,7 +34,7 @@
 
 ### Homicidio (HOM) — Phase 14
 
-- [ ] **HOM-01**: `homicidios` (subgrupo destacado 101) seleccionable como filtro/capa propia con su coroplético, distinto de "vida"; pipeline emite la tasa de homicidios por comuna al map-payload.
+- [x] **HOM-01**: `homicidios` (subgrupo destacado 101) seleccionable como filtro/capa propia con su coroplético, distinto de "vida"; pipeline emite la tasa de homicidios por comuna al map-payload.
 - [ ] **HOM-02**: El panel de comuna muestra cifra/desglose de homicidios separado (no solo "vida" agregada), con fuente CEAD + año; sin regresión al render de familias.
 
 ### SEO por Tipo de Delito (CSEO) — Phase 15

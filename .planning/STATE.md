@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
 status: executing
-last_updated: "2026-06-16T13:01:49.911Z"
-last_activity: 2026-06-16 -- Phase 14 planning complete
+last_updated: "2026-06-16T13:39:10.089Z"
+last_activity: 2026-06-16
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 22
-  completed_plans: 16
+  completed_plans: 17
   percent: 57
 ---
 
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-06-15)
 
 ## Current Position
 
-Phase: 13 (ranking-seo-hardening) — EXECUTING
-Plan: 3 of 3
+Phase: 14 (homicide-as-a-first-class-category) — EXECUTING
+Plan: 2 of 6
 Status: Ready to execute
-Last activity: 2026-06-16 -- Phase 14 planning complete
+Last activity: 2026-06-16
 
 Progress: v1.2 ███░░░░ 29% (2/7 phases complete — Phases 10–11)
 
@@ -82,6 +82,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 | Phase 12-home-ia-redesign-comuna-page-hub-and-spoke P04 | 18m | 3 tasks | 2 files |
 | Phase 13-ranking-seo-hardening P01 | 25 | 3 tasks | 11 files |
 | Phase 13-ranking-seo-hardening P02 | 12m | 3 tasks | 13 files |
+| Phase 14 P01 | 25m | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -153,6 +154,9 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 - [Phase ?]: pageType defaults to default in BaseLayout — safe fallback for pages not in enum
 - [Phase ?]: EditorialLayout defaults pageType=editorial; explicit prop overrides enabling rankings override
 - [Phase ?]: jsonLd Props type widened to object|object[]|null in all three layouts; emission unchanged until Plan 03
+- [Phase ?]: CONFIRMED CEAD param for homicide subgroup 101 is grupo[]=101 (NOT subgrupo[] — silently ignored, returns all-zero rows)
+- [Phase ?]: Rate (medida=2) and count (medida=1) for homicide require two separate CEAD POST requests per year
+- [Phase ?]: CEAD zero-marker is '0,0000000000' (full-decimal) — parse_cead_float returns 0.0 not None
 
 ## Operator Next Steps
 

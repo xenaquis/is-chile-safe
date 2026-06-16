@@ -175,7 +175,7 @@ Plans:
 Plans:
 **Wave 0** *(BLOCKING — live CEAD subgroup-101 confirmation gates all pipeline work)*
 
-- [ ] 14-01-PLAN.md — Confirm subgrupo[]=101 POST param live + rate/count request count + capture offline fixtures + RED test scaffold [HOM-01]
+- [x] 14-01-PLAN.md — Confirm subgrupo[]=101 POST param live + rate/count request count + capture offline fixtures + RED test scaffold [HOM-01]
 
 **Wave 1** *(blocked on 14-01 — implements against the confirmed param)*
 
@@ -236,7 +236,7 @@ Plans:
 | 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 4/4 | Complete   | 2026-06-15 |
 | 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 6/6 | Complete    | 2026-06-16 |
 | 13. Ranking SEO Hardening | v1.2 | 3/3 | Complete   | 2026-06-16 |
-| 14. Homicide as a First-Class Category | v1.2 | 0/6 | Planned    |  |
+| 14. Homicide as a First-Class Category | v1.2 | 1/6 | In Progress|  |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Pending    |  |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending    |  |
 
