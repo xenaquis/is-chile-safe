@@ -211,7 +211,7 @@ Plans:
 Plans:
 **Wave 1** *(foundation: seo.mjs SAMPLES + familyDefs methodology — built before the pages they assert/feed)*
 
-- [ ] 15-01-PLAN.md — Extend seo.mjs SAMPLES with crime-ranking first-subdir heuristic + add bilingual RANKING_METHODOLOGY_EN/ES (8 crime types, CEAD-cited, reported-incidence) [CSEO-01, CSEO-02]
+- [x] 15-01-PLAN.md — Extend seo.mjs SAMPLES with crime-ranking first-subdir heuristic + add bilingual RANKING_METHODOLOGY_EN/ES (8 crime types, CEAD-cited, reported-incidence) [CSEO-01, CSEO-02]
 
 **Wave 2** *(blocked on 15-01 — pages consume the methodology + are sampled by seo.mjs)*
 
@@ -247,7 +247,7 @@ Plans:
 | 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 6/6 | Complete    | 2026-06-16 |
 | 13. Ranking SEO Hardening | v1.2 | 3/3 | Complete   | 2026-06-16 |
 | 14. Homicide as a First-Class Category | v1.2 | 6/6 | Complete   | 2026-06-16 |
-| 15. Crime-Type SEO Ranking Pages | v1.2 | 0/2 | Planned    |  |
+| 15. Crime-Type SEO Ranking Pages | v1.2 | 1/2 | In Progress|  |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending    |  |
 
 ## Backlog

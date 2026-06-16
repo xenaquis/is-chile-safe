@@ -39,8 +39,8 @@
 
 ### SEO por Tipo de Delito (CSEO) — Phase 15
 
-- [ ] **CSEO-01**: Páginas programáticas bilingües "las N comunas con más {delito}" (homicidio primero) con internal linking a comuna/región, hreflang recíproco y sitemap.
-- [ ] **CSEO-02**: Cada página estática/indexable con un solo H1 con keyword, title/meta/canonical únicos, e `ItemList` JSON-LD; tono sobrio preservado.
+- [x] **CSEO-01**: Páginas programáticas bilingües "las N comunas con más {delito}" (homicidio primero) con internal linking a comuna/región, hreflang recíproco y sitemap.
+- [x] **CSEO-02**: Cada página estática/indexable con un solo H1 con keyword, title/meta/canonical únicos, e `ItemList` JSON-LD; tono sobrio preservado.
 
 ### Noticias (NEWS) — Phase 16
 
