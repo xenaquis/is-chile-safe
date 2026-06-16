@@ -62,6 +62,12 @@ interface CommuneData {
   series: SeriesEntry[];
   last_updated?: string;
   incidents?: Incident[];
+  featured_rates?: {
+    homicidios?: Record<string, number>;
+    homicidios_count?: Record<string, number>;
+    propiedad?: Record<string, number>;
+    secuestros?: Record<string, number>;
+  };
 }
 
 interface Props {
@@ -309,18 +315,53 @@ export function ResultPanel({ cut, lang, year, nationalAvg, onClose }: Props) {
         <PanelFamilyBars byFamily={byFamilyArray} locale={lang} level={level} />
       </div>
 
-      {/* 7. Incidents section */}
+      {/* 7. Homicide breakdown (D-06/D-07) — separate from vida family bar (HOM-02) */}
+      {(() => {
+        const hom = data.featured_rates?.homicidios;
+        const homCount = data.featured_rates?.homicidios_count;
+        // Use !== undefined (not truthiness) — confirmed 0 must NOT read as "no data" (Pitfall 5)
+        const homRate = hom !== undefined ? (hom[String(year)] !== undefined ? hom[String(year)] : null) : null;
+        const count = homCount !== undefined ? (homCount[String(year)] !== undefined ? homCount[String(year)] : null) : null;
+        const hasData = homRate !== null;
+        return (
+          <div className="panel-section">
+            <h4>{lang === 'es' ? `Homicidios (${year})` : `Homicide (${year})`}</h4>
+            {hasData ? (
+              <div>
+                <span className="stat-mid">{Math.round(homRate!).toLocaleString('es-CL')}</span>
+                {lang === 'es' ? ' por 100.000 hab.' : ' per 100,000 inhab.'}
+                {count !== null && (
+                  <span className="stat-sub">
+                    {' '}({count} {lang === 'es' ? (count === 1 ? 'caso' : 'casos') : (count === 1 ? 'case' : 'cases')})
+                  </span>
+                )}
+              </div>
+            ) : (
+              <p style={{ color: 'var(--muted)' }}>
+                {lang === 'es' ? `Sin casos reportados — CEAD ${year}` : `No reported cases — CEAD ${year}`}
+              </p>
+            )}
+            <div className="official-row" style={{ fontSize: '0.78rem', marginTop: 4 }}>
+              {lang === 'es'
+                ? `Fuente: CEAD, subgrupo 101 Delitos contra la Vida (${year})`
+                : `Source: CEAD, subgroup 101 Life Crimes (${year})`}
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* 8. Incidents section */}
       <div className="panel-section">
         <h4>{lang === 'es' ? 'Incidentes recientes' : 'Recent incidents'}</h4>
         <IncidentsList incidents={data.incidents} lang={lang} />
       </div>
 
-      {/* 8. CTA button */}
+      {/* 9. CTA button */}
       <a href={ctaHref} className="panel-cta">
         {lang === 'es' ? 'Ver ficha completa' : 'View full profile'}
       </a>
 
-      {/* 9. Official source row */}
+      {/* 10. Official source row */}
       <div className="official-row">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="official-check">
           <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
