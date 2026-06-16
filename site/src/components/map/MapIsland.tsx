@@ -207,6 +207,12 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
             });
           }
         );
+        // D-08: focus commune from ?cut= URL param (opaque string — Map lookup only, no DOM injection)
+        const focusCut = new URLSearchParams(window.location.search).get('cut');
+        if (focusCut) {
+          // Small timeout to allow Leaflet to finish rendering polygons before getBounds is valid
+          setTimeout(() => selectCommune(focusCut), 100);
+        }
       }
     }
 
