@@ -55,15 +55,17 @@ def run_experiment():
     print("\n[+] Session warmed up (wpdm_client cookie set)\n")
 
     # -------------------------------------------------------------------------
-    # Test A: Rate (medida=2) with subgrupo[]=101
+    # Test A: Rate (medida=2) with grupo[]=101
+    # CONFIRMED: subgrupo[]=101 is silently ignored by CEAD (returns all-zero
+    # rows). The correct param is grupo[]=101. See 14-01-SUMMARY.md.
     # -------------------------------------------------------------------------
-    print("--- Test A: subgrupo[]=101, medida=2 (rate per 100k) ---")
+    print("--- Test A: grupo[]=101, medida=2 (rate per 100k) ---")
     payload_a = {
         "medida": "2",
         "tipoVal": "1,2",
         "anio[]": TEST_YEAR,
         "familia[]": FAMILIA_VIDA,
-        "subgrupo[]": SUBGROUP,
+        "grupo[]": SUBGROUP,   # CONFIRMED: grupo[], NOT subgrupo[]
         "seleccion": "1",
         "descarga": "true",
         "comuna[]": TEST_COMMUNES,
@@ -90,15 +92,15 @@ def run_experiment():
     time.sleep(2)
 
     # -------------------------------------------------------------------------
-    # Test B: Count (medida=1) with subgrupo[]=101
+    # Test B: Count (medida=1) with grupo[]=101
     # -------------------------------------------------------------------------
-    print("\n--- Test B: subgrupo[]=101, medida=1 (absolute count) ---")
+    print("\n--- Test B: grupo[]=101, medida=1 (absolute count) ---")
     payload_b = {
         "medida": "1",
         "tipoVal": "1,2",
         "anio[]": TEST_YEAR,
         "familia[]": FAMILIA_VIDA,
-        "subgrupo[]": SUBGROUP,
+        "grupo[]": SUBGROUP,   # CONFIRMED: grupo[], NOT subgrupo[]
         "seleccion": "1",
         "descarga": "true",
         "comuna[]": TEST_COMMUNES,
@@ -120,27 +122,42 @@ def run_experiment():
         print(f"     {row.get('name', '?'):30s}  {TEST_YEAR}: {val}")
 
     # -------------------------------------------------------------------------
-    # Fallback: if subgrupo[] returned 0 rows, try grupo[]
+    # Fallback: if grupo[] returned 0 rows OR all-zero values, try subgrupo[]
+    # NOTE: "all-zero" failure mode — subgrupo[]=101 returns 5 rows of
+    # "0,0000000000" for every row including TOTAL PAÍS, so len(rows) != 0
+    # but the data is garbage. We must check for the all-zero pattern.
     # -------------------------------------------------------------------------
-    confirmed_param = "subgrupo[]"
-    if len(rows_a) == 0:
-        print("\n[!] subgrupo[]='101' returned 0 rows — trying fallback: grupo[]='101'")
+    def _is_all_zero(rows: list) -> bool:
+        """Return True if every value in every row is a zero or zero-like string."""
+        from pipeline.cead.parser import parse_cead_float
+        vals = []
+        for row in rows:
+            vals.extend(row.get("values", {}).values())
+        if not vals:
+            return True
+        parsed = [parse_cead_float(v) for v in vals]
+        non_none = [v for v in parsed if v is not None]
+        return len(non_none) > 0 and all(v == 0.0 for v in non_none)
+
+    confirmed_param = "grupo[]"
+    if len(rows_a) == 0 or _is_all_zero(rows_a):
+        reason = "0 rows" if len(rows_a) == 0 else "all-zero values (param silently ignored)"
+        print(f"\n[!] grupo[]='101' returned {reason} — trying fallback: subgrupo[]='101'")
         payload_fallback = dict(payload_a)
-        del payload_fallback["subgrupo[]"]
-        payload_fallback["grupo[]"] = SUBGROUP
+        del payload_fallback["grupo[]"]
+        payload_fallback["subgrupo[]"] = SUBGROUP
         r_fb = session.post(_DATA_ENDPOINT, data=payload_fallback, timeout=30)
         print(f"STATUS FALLBACK: {r_fb.status_code}   SIZE: {len(r_fb.content)} bytes")
         html_fb = r_fb.content.decode("latin-1")
         rows_fb = parse_cead_table(html_fb)
-        print(f"  -> Parsed rows with grupo[]: {len(rows_fb)}")
-        if len(rows_fb) > 0:
-            confirmed_param = "grupo[]"
-            # Overwrite the rate cache with the working response
+        print(f"  -> Parsed rows with subgrupo[]: {len(rows_fb)}")
+        if len(rows_fb) > 0 and not _is_all_zero(rows_fb):
+            confirmed_param = "subgrupo[]"
             rate_path.write_bytes(r_fb.content)
             rows_a = rows_fb
-            print("  -> grupo[] WORKS — rate cache updated")
+            print("  -> subgrupo[] WORKS — rate cache updated")
         else:
-            confirmed_param = "UNKNOWN — both params returned 0 rows"
+            confirmed_param = "UNKNOWN — both params returned 0 or all-zero rows"
             print("  -> BOTH params failed — check endpoint manually")
 
     # -------------------------------------------------------------------------
