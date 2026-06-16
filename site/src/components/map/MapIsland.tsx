@@ -23,6 +23,7 @@ import {
   mountChoroplethLayer,
   buildStyleMapFromLevel,
   buildStyleMapFromFamily,
+  buildStyleMapFromHomicide,
   applyStyleMap,
   highlightSelected,
   type CommunaPayload,
@@ -93,6 +94,10 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
   const [year, setYear] = useState(2025);
   const [crimeFamily, setCrimeFamily] = useState<string | null>(null);
   const [crimeFamilyIndex, setCrimeFamilyIndex] = useState<number | null>(null);
+  // crimeIsHomicide: true when the homicide chip is selected (D-04/HOM-01).
+  // Exclusive with family selection — selecting homicide passes familyIndex null,
+  // which keeps existing family chips inactive.
+  const [crimeIsHomicide, setCrimeIsHomicide] = useState(false);
   const [showEvents, setShowEvents] = useState(false);
   const [lowZoom, setLowZoom] = useState(true);
   const [selected, setSelected] = useState<string | null>(null);
@@ -255,8 +260,11 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
         payload.comunas.map((c) => c.rate).filter((r) => r > 0), 5
       ));
 
-      // Rebuild style map based on current crime family filter
-      if (crimeFamilyIndex !== null) {
+      // Rebuild style map based on current crime filter (three-way branch D-05/HOM-01):
+      // homicide chip → independent homicide scale; family chip → family rate; else → level
+      if (crimeIsHomicide) {
+        styleMapRef.current = buildStyleMapFromHomicide(payload.comunas);
+      } else if (crimeFamilyIndex !== null) {
         styleMapRef.current = buildStyleMapFromFamily(payload.comunas, crimeFamilyIndex);
       } else {
         styleMapRef.current = buildStyleMapFromLevel(payload.comunas);
@@ -269,7 +277,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
     void loadYear();
     return () => { cancelled = true; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [year, mapReady]);
+  }, [year, mapReady, crimeIsHomicide]);
 
   // ---------------------------------------------------------------------------
   // Crime-type chip effect: recolor from by_family[] — no extra fetch (D-10)
@@ -280,14 +288,17 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const geoLayer = layerRef.current!;
 
-    if (crimeFamilyIndex !== null) {
+    // Three-way branch (D-05/HOM-01): homicide → family → level
+    if (crimeIsHomicide) {
+      styleMapRef.current = buildStyleMapFromHomicide(communas);
+    } else if (crimeFamilyIndex !== null) {
       styleMapRef.current = buildStyleMapFromFamily(communas, crimeFamilyIndex);
     } else {
       styleMapRef.current = buildStyleMapFromLevel(communas);
     }
 
     applyStyleMap(geoLayer, styleMapRef);
-  }, [crimeFamilyIndex]);
+  }, [crimeFamilyIndex, crimeIsHomicide]);
 
   // ---------------------------------------------------------------------------
   // Low-zoom dot layer effect
@@ -394,6 +405,9 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
         onFamilyChange={(key, idx) => {
           setCrimeFamily(key);
           setCrimeFamilyIndex(idx);
+          // Signal homicide-specific branch; exclusive with family selection
+          // (homicide chip passes familyIndex null, so no family chip stays active)
+          setCrimeIsHomicide(key === 'homicidios');
         }}
         showEvents={showEvents}
         onEventsToggle={setShowEvents}
