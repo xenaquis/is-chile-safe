@@ -183,7 +183,7 @@ Plans:
 
 **Wave 2** *(blocked on 14-02 — gates the data half before UI consumes it)*
 
-- [ ] 14-03-PLAN.md — Build validator Check 8/9 (homicide_rate in payload + Santiago featured_rates.homicidios) + sync data to site/public [HOM-01]
+- [x] 14-03-PLAN.md — Build validator Check 8/9 (homicide_rate in payload + Santiago featured_rates.homicidios) + sync data to site/public [HOM-01]
 
 **Wave 3** *(blocked on 14-03 — Half B contract layer)*
 
@@ -236,7 +236,7 @@ Plans:
 | 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 4/4 | Complete   | 2026-06-15 |
 | 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 6/6 | Complete    | 2026-06-16 |
 | 13. Ranking SEO Hardening | v1.2 | 3/3 | Complete   | 2026-06-16 |
-| 14. Homicide as a First-Class Category | v1.2 | 2/6 | In Progress|  |
+| 14. Homicide as a First-Class Category | v1.2 | 3/6 | In Progress|  |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Pending    |  |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending    |  |
 

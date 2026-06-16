@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
 status: executing
-last_updated: "2026-06-16T13:58:06.173Z"
+last_updated: "2026-06-16T14:00:59.088Z"
 last_activity: 2026-06-16
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 22
-  completed_plans: 18
+  completed_plans: 19
   percent: 57
 ---
 
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-06-15)
 ## Current Position
 
 Phase: 14 (homicide-as-a-first-class-category) — EXECUTING
-Plan: 3 of 6
+Plan: 4 of 6
 Status: Ready to execute
 Last activity: 2026-06-16
 
