@@ -84,3 +84,10 @@ export const RANKING_METHODOLOGY_ES: Record<string, string> = {
   incivilidades:   'Incidencia reportada de incivilidades por 100.000 habitantes por comuna. Incluye el total de la familia CEAD "Incivilidades". Las cifras corresponden a denuncias policiales, no a condenas. Fuente: CEAD — Ministerio del Interior y Seguridad Pública, estadísticas policiales oficiales.',
   vida:            'Incidencia reportada de delitos contra la vida por 100.000 habitantes por comuna. Incluye todos los delitos contra la vida e integridad física de la familia CEAD "Delitos contra la Vida". Las cifras corresponden a denuncias policiales, no a condenas. Fuente: CEAD — Ministerio del Interior y Seguridad Pública, estadísticas policiales oficiales.',
 };
+
+// Shared rate-explainer strings for crime-ranking pages (EN/ES)
+export const RANKING_RATE_EXPLAINER_EN: string =
+  'Rates are reported complaints (denuncias) per 100,000 residents per year, sourced from CEAD official police statistics. Communes with small or seasonal/touristic resident populations can show very high rates because the figure is divided by a small resident base.';
+
+export const RANKING_RATE_EXPLAINER_ES: string =
+  'Las tasas corresponden a denuncias por 100.000 residentes al año, según estadísticas policiales oficiales del CEAD. Las comunas con población residente pequeña o estacional/turística pueden presentar tasas muy altas porque la cifra se divide por una base residente reducida.';
