@@ -179,7 +179,7 @@ Plans:
 
 **Wave 1** *(blocked on 14-01 — implements against the confirmed param)*
 
-- [ ] 14-02-PLAN.md — fetch_subgroup_batch + schema + homicide accumulator loop (rate+count, 2005-2025) + map-payload homicide_rate; run scrape, populate data, re-verify 30KB budget [HOM-01]
+- [x] 14-02-PLAN.md — fetch_subgroup_batch + schema + homicide accumulator loop (rate+count, 2005-2025) + map-payload homicide_rate; run scrape, populate data, re-verify 30KB budget [HOM-01]
 
 **Wave 2** *(blocked on 14-02 — gates the data half before UI consumes it)*
 
@@ -236,7 +236,7 @@ Plans:
 | 11. Publish All 346 Comunas + Comuna Finder | v1.2 | 4/4 | Complete   | 2026-06-15 |
 | 12. Home / IA Redesign + Comuna Hub-and-Spoke | v1.2 | 6/6 | Complete    | 2026-06-16 |
 | 13. Ranking SEO Hardening | v1.2 | 3/3 | Complete   | 2026-06-16 |
-| 14. Homicide as a First-Class Category | v1.2 | 1/6 | In Progress|  |
+| 14. Homicide as a First-Class Category | v1.2 | 2/6 | In Progress|  |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 0/0 | Pending    |  |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending    |  |
 
