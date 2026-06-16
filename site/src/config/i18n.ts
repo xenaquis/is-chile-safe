@@ -105,6 +105,13 @@ export interface I18nStrings {
 
   // Phase 11 — directory nav + page strings
   nav_communes: string;
+
+  // Phase 12 — rankings nav + footer spine labels
+  nav_rankings: string;
+  footer_spine_map: string;
+  footer_spine_communes: string;
+  footer_spine_rankings: string;
+  footer_spine_guide: string;
   dir_title: string;
   dir_lead: string;
   dir_search_placeholder: string;
@@ -218,6 +225,13 @@ export const EN_STRINGS: I18nStrings = {
 
   // Phase 11 — directory nav + page strings
   nav_communes: 'Communes',
+
+  // Phase 12 — rankings nav + footer spine labels
+  nav_rankings: 'Rankings',
+  footer_spine_map: 'Map',
+  footer_spine_communes: 'Communes',
+  footer_spine_rankings: 'Rankings',
+  footer_spine_guide: 'Is Chile Safe?',
   dir_title: 'All 346 communes of Chile',
   dir_lead: 'Every commune with CEAD reported-incidence data has a page. Search by name or browse all 16 regions.',
   dir_search_placeholder: "Filter by name… (e.g. 'la ', 'puerto', 'vina')",
@@ -334,6 +348,13 @@ export const ES_STRINGS: I18nStrings = {
 
   // Fase 11 — directorio nav + strings de página
   nav_communes: 'Comunas',
+
+  // Fase 12 — rankings nav + etiquetas del footer spine
+  nav_rankings: 'Rankings',
+  footer_spine_map: 'Mapa',
+  footer_spine_communes: 'Comunas',
+  footer_spine_rankings: 'Rankings',
+  footer_spine_guide: '¿Es seguro Chile?',
   dir_title: 'Las 346 comunas de Chile',
   dir_lead: 'Toda comuna con datos de incidencia reportada CEAD tiene su página. Busca por nombre o explora las 16 regiones.',
   dir_search_placeholder: "Filtra por nombre… (ej. 'la ', 'puerto', 'viña')",
