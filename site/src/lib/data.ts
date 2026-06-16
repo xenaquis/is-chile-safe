@@ -44,6 +44,8 @@ export interface CommuneData extends CommuneMeta {
   featured_rates: {
     propiedad: Record<string, number>;
     homicidios: Record<string, number>;
+    /** Homicide case count per year (subgroup 101). Dropped from map-payload per budget (D-09); lives here in per-commune JSON. */
+    homicidios_count: Record<string, number>;
     secuestros: Record<string, number>;
   };
   series: SeriesEntry[];

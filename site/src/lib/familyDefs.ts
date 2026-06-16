@@ -23,6 +23,7 @@ export const FAMILY_LABELS_EN: Record<string, string> = {
   armas:           'Weapons Offences',
   propiedad:       'Property Crimes',
   incivilidades:   'Disorder',
+  homicidios:      'Homicide',
 };
 
 // Sober one-sentence definition per family (EN)
@@ -34,6 +35,7 @@ export const FAMILY_DEFS_EN: Record<string, string> = {
   armas:           'Reported weapons offences including illegal possession and trafficking, disaggregated by commune from official CEAD police statistics.',
   propiedad:       'Reported property crime incidents — burglary, theft, and fraud — disaggregated by commune from official CEAD police statistics.',
   incivilidades:   'Reported disorder and public nuisance incidents disaggregated by commune from official CEAD police statistics.',
+  homicidios:      'Reported homicide cases disaggregated by commune, sourced from CEAD official police statistics (subgroup 101 within the Life Crimes family).',
 };
 
 // Family display labels (ES)
@@ -45,6 +47,7 @@ export const FAMILY_LABELS_ES: Record<string, string> = {
   armas:           'Armas',
   propiedad:       'Delitos contra la Propiedad',
   incivilidades:   'Incivilidades',
+  homicidios:      'Homicidios',
 };
 
 // Sober one-sentence definition per family (ES)
@@ -56,4 +59,5 @@ export const FAMILY_DEFS_ES: Record<string, string> = {
   armas:           'Delitos de armas reportados, incluyendo porte ilegal, desagregados por comuna, según estadísticas policiales oficiales del CEAD.',
   propiedad:       'Delitos contra la propiedad reportados — robos, hurtos y fraudes — desagregados por comuna, según estadísticas policiales oficiales del CEAD.',
   incivilidades:   'Incivilidades y alteraciones al orden público reportadas, desagregadas por comuna, según estadísticas policiales oficiales del CEAD.',
+  homicidios:      'Casos de homicidio reportados desagregados por comuna, según estadísticas policiales oficiales del CEAD (subgrupo 101 dentro de Delitos contra la Vida).',
 };
