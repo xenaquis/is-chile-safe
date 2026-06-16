@@ -16,6 +16,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import MapPlaceholderSlot from '../../components/MapPlaceholderSlot.astro';
 import MethodologyCaveat from '../../components/MethodologyCaveat.astro';
 import TrendChip from '../../components/TrendChip.astro';
+import RankingTableEnhancer from '../../components/RankingTableEnhancer.astro';
 import {
   loadIndex,
   loadCommune,
@@ -74,6 +75,7 @@ type RankRow = {
   trend: 'up' | 'down' | 'stable';
   low_population: boolean;
   nationalRank: number | null;
+  ratesByYear: Record<number, number>;
 };
 
 const allRows: Omit<RankRow, 'nationalRank'>[] = [];
@@ -94,6 +96,20 @@ for (const meta of index) {
     );
     rate = entry?.by_family?.[familyKey] ?? 0;
   }
+  // Build ratesByYear: complete years only (D-3)
+  const ratesByYear: Record<number, number> = {};
+  const completeYears = new Set(commune.series.filter((s) => !s.partial).map((s) => s.year));
+  if (dataSource === 'featured_rates') {
+    const hom = commune.featured_rates?.homicidios ?? {};
+    for (const [y, v] of Object.entries(hom)) {
+      const yr = Number(y);
+      if (completeYears.has(yr)) ratesByYear[yr] = v as number;
+    }
+  } else {
+    commune.series.filter((s) => !s.partial).forEach((s) => {
+      ratesByYear[s.year] = s.by_family?.[familyKey] ?? 0;
+    });
+  }
   allRows.push({
     name: meta.name,
     slug: meta.slug,
@@ -103,6 +119,7 @@ for (const meta of index) {
     rate,
     trend: commune.trend,
     low_population: meta.low_population,
+    ratesByYear,
   });
 }
 
@@ -230,7 +247,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     </h2>
     <p class="rate-explainer">{RANKING_RATE_EXPLAINER_EN}</p>
     <div class="table-wrapper">
-      <table class="ranking-table">
+      <table class="ranking-table" data-ranking-table data-rate-col="3" data-name-col="1" data-rate-format="1dp" data-locale="en">
         <thead>
           <tr>
             <th scope="col">Rank</th>
@@ -242,7 +259,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
         </thead>
         <tbody>
           {rankingRows.map((row) => (
-            <tr class={row.low_population ? 'low-pop' : ''}>
+            <tr class={row.low_population ? 'low-pop' : ''} data-rates={JSON.stringify(row.ratesByYear)} data-low-pop={row.low_population ? '1' : undefined}>
               <td class="col-num col-rank">
                 {row.low_population ? '—' : `#${row.nationalRank}`}
               </td>
@@ -267,6 +284,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
         * This commune has a small resident population. Rates per 100,000 inhabitants can show high statistical volatility. Interpret with caution.
       </p>
     )}
+    <RankingTableEnhancer locale="en" />
   </section>
 
   <!-- RegionBreakdownBars -->
