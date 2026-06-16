@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
-status: executing
-last_updated: "2026-06-16T15:32:27.935Z"
+status: verifying
+last_updated: "2026-06-16T15:41:38.790Z"
 last_activity: 2026-06-16
 progress:
   total_phases: 7
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 24
-  completed_plans: 23
-  percent: 71
+  completed_plans: 24
+  percent: 86
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-06-15)
 
 Phase: 15 (crime-type-seo-ranking-pages) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-06-16
 
 Progress: v1.2 [██████████] 100% (22/22 plans — 6/6 phases active)
@@ -84,6 +84,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 | Phase 13-ranking-seo-hardening P02 | 12m | 3 tasks | 13 files |
 | Phase 14 P01 | 25m | 3 tasks | 4 files |
 | Phase 14-homicide-as-a-first-class-category P05 | 8m | 2 tasks | 2 files |
+| Phase 15 P02 | 25 | 3 tasks | 4 files |
 
 ## Accumulated Context
 
