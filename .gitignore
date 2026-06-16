@@ -24,3 +24,11 @@ dist/
 Thumbs.db
 data/cead/geo/communes-raw.geojson
 data/cead/geo/communes-fcorrea.geojson
+
+# Local-only: MCP config, scratch notes, original prototype, transient artifacts
+.mcp.json
+idea.txt
+como scrap.txt
+/ischilesafe.com/
+site/__prose_selftest_tmp.mts
+.planning/phases/**/*-DISCUSS-CHECKPOINT.json
