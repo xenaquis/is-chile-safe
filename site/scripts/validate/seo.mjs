@@ -168,6 +168,8 @@ const enRegionDir = path.join(DIST_DIR, 'region');
 const esRegionDir = path.join(DIST_DIR, 'es', 'region');
 const enCrimeDir = path.join(DIST_DIR, 'crime');
 const esCrimeDir = path.join(DIST_DIR, 'es', 'delito');
+const enCrimeRankingDir = path.join(DIST_DIR, 'crime-ranking');
+const esCrimeRankingDir = path.join(DIST_DIR, 'es', 'ranking-delito');
 
 const firstCommuneEn = firstSubdir(enCommuneDir);
 const firstCommuneEs = firstSubdir(esComunaDir);
@@ -175,6 +177,8 @@ const firstRegionEn = firstSubdir(enRegionDir);
 const firstRegionEs = firstSubdir(esRegionDir);
 const firstCrimeEn = firstSubdir(enCrimeDir);
 const firstCrimeEs = firstSubdir(esCrimeDir);
+const firstCrimeRankingEn = firstSubdir(enCrimeRankingDir);
+const firstCrimeRankingEs = firstSubdir(esCrimeRankingDir);
 
 const SAMPLES = [
   // [htmlPath, label, expectEsUrl]
@@ -186,6 +190,8 @@ const SAMPLES = [
   ...(firstRegionEs  ? [[path.join(esRegionDir,  firstRegionEs,  'index.html'), `region/${firstRegionEs} (ES)`,   true]] : []),
   ...(firstCrimeEn   ? [[path.join(enCrimeDir,   firstCrimeEn,   'index.html'), `crime/${firstCrimeEn} (EN)`,    false]] : []),
   ...(firstCrimeEs   ? [[path.join(esCrimeDir,   firstCrimeEs,   'index.html'), `crime/${firstCrimeEs} (ES)`,    true]] : []),
+  ...(firstCrimeRankingEn ? [[path.join(enCrimeRankingDir, firstCrimeRankingEn, 'index.html'), `crime-ranking/${firstCrimeRankingEn} (EN)`, false]] : []),
+  ...(firstCrimeRankingEs ? [[path.join(esCrimeRankingDir, firstCrimeRankingEs, 'index.html'), `ranking-delito/${firstCrimeRankingEs} (ES)`,  true]] : []),
   [path.join(DIST_DIR, 'rankings', 'index.html'),              'rankings (EN)',    false],
   [path.join(DIST_DIR, 'es', 'rankings', 'index.html'),        'rankings (ES)',     true],
   [path.join(DIST_DIR, 'is-chile-safe', 'index.html'),         'editorial (EN)',   false],
