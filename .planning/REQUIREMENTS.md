@@ -23,7 +23,7 @@
 
 ### Arquitectura de Información (IA) — Phase 12
 
-- [ ] **IA-01**: Home reconstruido con framing Hybrid C+B (editorial/SEO arriba + hero "busca tu comuna" + mapa como CTA de primera clase), bilingüe con paridad, un solo H1, estático/indexable.
+- [x] **IA-01**: Home reconstruido con framing Hybrid C+B (editorial/SEO arriba + hero "busca tu comuna" + mapa como CTA de primera clase), bilingüe con paridad, un solo H1, estático/indexable.
 - [x] **IA-02**: Cada ficha de comuna es un hub que enlaza a mapa (centrado), ranking regional, comunas similares, rankings por delito, y sus noticias; breadcrumb Inicio › Comunas › Región › Comuna en ambos locales.
 - [x] **IA-03**: Spine de navegación coherente mapa↔comuna↔ranking↔región↔noticias en ambos locales; nav incluye "Comunas"; enlaces recíprocos y sin 404.
 
