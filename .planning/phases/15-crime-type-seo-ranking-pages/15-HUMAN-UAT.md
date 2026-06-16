@@ -1,19 +1,24 @@
 ---
-status: partial
+status: complete
 phase: 15-crime-type-seo-ranking-pages
 source: [15-VERIFICATION.md]
 started: 2026-06-16T16:11:59Z
-updated: 2026-06-16T16:11:59Z
+updated: 2026-06-16T16:40:00Z
 ---
 
 ## Current Test
 
-[awaiting human testing]
+[testing complete]
 
 ## Tests
 
 ### UAT-15-01 — Locale switcher cross-navigation
-- **status:** pending
+- **status:** pass
+- **result:** PASS — verified live via BrowserOS (Astro dev :4321). All 3 switcher cases resolve to the reciprocal localized page, no 404:
+  - EN `/crime-ranking/homicide/` → `/es/ranking-delito/homicidios/` ✓
+  - ES `/es/ranking-delito/homicidios/` → `/crime-ranking/homicide/` ✓
+  - EN `/crime-ranking/drug-crimes/` → `/es/ranking-delito/drogas/` ✓ (hardcoded ES slug correct)
+- **was pending:**
 - **What to check:** On a crime-ranking page, click the language switcher and confirm it lands on the *reciprocal* localized page, not a 404.
   - EN `/crime-ranking/homicide/` → switcher → `/es/ranking-delito/homicidios/`
   - ES `/es/ranking-delito/homicidios/` → switcher → `/crime-ranking/homicide/`
@@ -21,7 +26,9 @@ updated: 2026-06-16T16:11:59Z
 - **Why human:** hreflang/canonical tags are verified present in the built HTML programmatically, but actual in-browser click behavior of the switcher needs a real browser. (Watch for the i18n localized-slug pitfall — ES slugs must be hardcoded, not derived.)
 
 ### UAT-15-02 — Editorial accuracy of methodology notes
-- **status:** pending
+- **status:** pass
+- **result:** PASS — user confirmed editorial accuracy (2026-06-16). All 8 family methodology notes (EN+ES) verified: CEAD cited, denuncias-not-convictions framing, homicidios references subgroup 101 / Life Crimes, propiedad states full aggregate (robos+hurtos+fraudes). No forbidden-language terms.
+- **was pending:**
 - **What to check:** Read the per-page methodology note on each of the 8 crime-ranking pages (EN + ES) and confirm the prose is factually correct: the CEAD delitos named in each family aggregate are accurate, the "denuncias not convictions" framing is honest, and the homicide page correctly references CEAD subgroup 101.
 - **Why human:** CEAD attribution and "denuncias" framing are confirmed present programmatically; factual correctness of the editorial wording requires human judgment.
 
