@@ -1,0 +1,681 @@
+{
+  "1": {
+    "name": "vida",
+    "grupos": {
+      "101": {
+        "name": "Homicidios y femicidios",
+        "subgrupos": {}
+      },
+      "102": {
+        "name": "Violaciones y otros delitos sexuales",
+        "subgrupos": {}
+      },
+      "103": {
+        "name": "Lesiones graves o gravísimas",
+        "subgrupos": {}
+      },
+      "104": {
+        "name": "Lesiones menos graves",
+        "subgrupos": {}
+      },
+      "105": {
+        "name": "Lesiones leves",
+        "subgrupos": {}
+      },
+      "106": {
+        "name": "Amenazas",
+        "subgrupos": {}
+      },
+      "201": {
+        "name": "Robos con violencia o intimidación",
+        "subgrupos": {}
+      },
+      "202": {
+        "name": "Robo por sorpresa",
+        "subgrupos": {}
+      },
+      "301": {
+        "name": "Violencia intrafamiliar",
+        "subgrupos": {}
+      },
+      "401": {
+        "name": "Crímenes y simples delitos ley de drogas",
+        "subgrupos": {}
+      },
+      "501": {
+        "name": "Crímenes y simples delitos ley de armas",
+        "subgrupos": {}
+      },
+      "502": {
+        "name": "Porte de arma cortante o punzante",
+        "subgrupos": {}
+      },
+      "601": {
+        "name": "Robos en lugar habitado y no habitado",
+        "subgrupos": {}
+      },
+      "602": {
+        "name": "Robos de vehículo motorizado o de sus accesorios",
+        "subgrupos": {}
+      },
+      "603": {
+        "name": "Otros robos con fuerza en las cosas",
+        "subgrupos": {}
+      },
+      "604": {
+        "name": "Hurtos",
+        "subgrupos": {}
+      },
+      "605": {
+        "name": "Receptación",
+        "subgrupos": {}
+      },
+      "701": {
+        "name": "Amenaza falta o riña",
+        "subgrupos": {}
+      },
+      "702": {
+        "name": "Consumo de alcohol y drogas en la vía pública",
+        "subgrupos": {}
+      },
+      "703": {
+        "name": "Daños",
+        "subgrupos": {}
+      },
+      "704": {
+        "name": "Desórdenes públicos",
+        "subgrupos": {}
+      },
+      "705": {
+        "name": "Otras incivilidades",
+        "subgrupos": {}
+      },
+      "999": {
+        "name": "Otros delitos o faltas",
+        "subgrupos": {}
+      }
+    }
+  },
+  "2": {
+    "name": "robos_violentos",
+    "grupos": {
+      "101": {
+        "name": "Homicidios y femicidios",
+        "subgrupos": {}
+      },
+      "102": {
+        "name": "Violaciones y otros delitos sexuales",
+        "subgrupos": {}
+      },
+      "103": {
+        "name": "Lesiones graves o gravísimas",
+        "subgrupos": {}
+      },
+      "104": {
+        "name": "Lesiones menos graves",
+        "subgrupos": {}
+      },
+      "105": {
+        "name": "Lesiones leves",
+        "subgrupos": {}
+      },
+      "106": {
+        "name": "Amenazas",
+        "subgrupos": {}
+      },
+      "201": {
+        "name": "Robos con violencia o intimidación",
+        "subgrupos": {}
+      },
+      "202": {
+        "name": "Robo por sorpresa",
+        "subgrupos": {}
+      },
+      "301": {
+        "name": "Violencia intrafamiliar",
+        "subgrupos": {}
+      },
+      "401": {
+        "name": "Crímenes y simples delitos ley de drogas",
+        "subgrupos": {}
+      },
+      "501": {
+        "name": "Crímenes y simples delitos ley de armas",
+        "subgrupos": {}
+      },
+      "502": {
+        "name": "Porte de arma cortante o punzante",
+        "subgrupos": {}
+      },
+      "601": {
+        "name": "Robos en lugar habitado y no habitado",
+        "subgrupos": {}
+      },
+      "602": {
+        "name": "Robos de vehículo motorizado o de sus accesorios",
+        "subgrupos": {}
+      },
+      "603": {
+        "name": "Otros robos con fuerza en las cosas",
+        "subgrupos": {}
+      },
+      "604": {
+        "name": "Hurtos",
+        "subgrupos": {}
+      },
+      "605": {
+        "name": "Receptación",
+        "subgrupos": {}
+      },
+      "701": {
+        "name": "Amenaza falta o riña",
+        "subgrupos": {}
+      },
+      "702": {
+        "name": "Consumo de alcohol y drogas en la vía pública",
+        "subgrupos": {}
+      },
+      "703": {
+        "name": "Daños",
+        "subgrupos": {}
+      },
+      "704": {
+        "name": "Desórdenes públicos",
+        "subgrupos": {}
+      },
+      "705": {
+        "name": "Otras incivilidades",
+        "subgrupos": {}
+      },
+      "999": {
+        "name": "Otros delitos o faltas",
+        "subgrupos": {}
+      }
+    }
+  },
+  "3": {
+    "name": "vif",
+    "grupos": {
+      "101": {
+        "name": "Homicidios y femicidios",
+        "subgrupos": {}
+      },
+      "102": {
+        "name": "Violaciones y otros delitos sexuales",
+        "subgrupos": {}
+      },
+      "103": {
+        "name": "Lesiones graves o gravísimas",
+        "subgrupos": {}
+      },
+      "104": {
+        "name": "Lesiones menos graves",
+        "subgrupos": {}
+      },
+      "105": {
+        "name": "Lesiones leves",
+        "subgrupos": {}
+      },
+      "106": {
+        "name": "Amenazas",
+        "subgrupos": {}
+      },
+      "201": {
+        "name": "Robos con violencia o intimidación",
+        "subgrupos": {}
+      },
+      "202": {
+        "name": "Robo por sorpresa",
+        "subgrupos": {}
+      },
+      "301": {
+        "name": "Violencia intrafamiliar",
+        "subgrupos": {}
+      },
+      "401": {
+        "name": "Crímenes y simples delitos ley de drogas",
+        "subgrupos": {}
+      },
+      "501": {
+        "name": "Crímenes y simples delitos ley de armas",
+        "subgrupos": {}
+      },
+      "502": {
+        "name": "Porte de arma cortante o punzante",
+        "subgrupos": {}
+      },
+      "601": {
+        "name": "Robos en lugar habitado y no habitado",
+        "subgrupos": {}
+      },
+      "602": {
+        "name": "Robos de vehículo motorizado o de sus accesorios",
+        "subgrupos": {}
+      },
+      "603": {
+        "name": "Otros robos con fuerza en las cosas",
+        "subgrupos": {}
+      },
+      "604": {
+        "name": "Hurtos",
+        "subgrupos": {}
+      },
+      "605": {
+        "name": "Receptación",
+        "subgrupos": {}
+      },
+      "701": {
+        "name": "Amenaza falta o riña",
+        "subgrupos": {}
+      },
+      "702": {
+        "name": "Consumo de alcohol y drogas en la vía pública",
+        "subgrupos": {}
+      },
+      "703": {
+        "name": "Daños",
+        "subgrupos": {}
+      },
+      "704": {
+        "name": "Desórdenes públicos",
+        "subgrupos": {}
+      },
+      "705": {
+        "name": "Otras incivilidades",
+        "subgrupos": {}
+      },
+      "999": {
+        "name": "Otros delitos o faltas",
+        "subgrupos": {}
+      }
+    }
+  },
+  "4": {
+    "name": "drogas",
+    "grupos": {
+      "101": {
+        "name": "Homicidios y femicidios",
+        "subgrupos": {}
+      },
+      "102": {
+        "name": "Violaciones y otros delitos sexuales",
+        "subgrupos": {}
+      },
+      "103": {
+        "name": "Lesiones graves o gravísimas",
+        "subgrupos": {}
+      },
+      "104": {
+        "name": "Lesiones menos graves",
+        "subgrupos": {}
+      },
+      "105": {
+        "name": "Lesiones leves",
+        "subgrupos": {}
+      },
+      "106": {
+        "name": "Amenazas",
+        "subgrupos": {}
+      },
+      "201": {
+        "name": "Robos con violencia o intimidación",
+        "subgrupos": {}
+      },
+      "202": {
+        "name": "Robo por sorpresa",
+        "subgrupos": {}
+      },
+      "301": {
+        "name": "Violencia intrafamiliar",
+        "subgrupos": {}
+      },
+      "401": {
+        "name": "Crímenes y simples delitos ley de drogas",
+        "subgrupos": {}
+      },
+      "501": {
+        "name": "Crímenes y simples delitos ley de armas",
+        "subgrupos": {}
+      },
+      "502": {
+        "name": "Porte de arma cortante o punzante",
+        "subgrupos": {}
+      },
+      "601": {
+        "name": "Robos en lugar habitado y no habitado",
+        "subgrupos": {}
+      },
+      "602": {
+        "name": "Robos de vehículo motorizado o de sus accesorios",
+        "subgrupos": {}
+      },
+      "603": {
+        "name": "Otros robos con fuerza en las cosas",
+        "subgrupos": {}
+      },
+      "604": {
+        "name": "Hurtos",
+        "subgrupos": {}
+      },
+      "605": {
+        "name": "Receptación",
+        "subgrupos": {}
+      },
+      "701": {
+        "name": "Amenaza falta o riña",
+        "subgrupos": {}
+      },
+      "702": {
+        "name": "Consumo de alcohol y drogas en la vía pública",
+        "subgrupos": {}
+      },
+      "703": {
+        "name": "Daños",
+        "subgrupos": {}
+      },
+      "704": {
+        "name": "Desórdenes públicos",
+        "subgrupos": {}
+      },
+      "705": {
+        "name": "Otras incivilidades",
+        "subgrupos": {}
+      },
+      "999": {
+        "name": "Otros delitos o faltas",
+        "subgrupos": {}
+      }
+    }
+  },
+  "5": {
+    "name": "armas",
+    "grupos": {
+      "101": {
+        "name": "Homicidios y femicidios",
+        "subgrupos": {}
+      },
+      "102": {
+        "name": "Violaciones y otros delitos sexuales",
+        "subgrupos": {}
+      },
+      "103": {
+        "name": "Lesiones graves o gravísimas",
+        "subgrupos": {}
+      },
+      "104": {
+        "name": "Lesiones menos graves",
+        "subgrupos": {}
+      },
+      "105": {
+        "name": "Lesiones leves",
+        "subgrupos": {}
+      },
+      "106": {
+        "name": "Amenazas",
+        "subgrupos": {}
+      },
+      "201": {
+        "name": "Robos con violencia o intimidación",
+        "subgrupos": {}
+      },
+      "202": {
+        "name": "Robo por sorpresa",
+        "subgrupos": {}
+      },
+      "301": {
+        "name": "Violencia intrafamiliar",
+        "subgrupos": {}
+      },
+      "401": {
+        "name": "Crímenes y simples delitos ley de drogas",
+        "subgrupos": {}
+      },
+      "501": {
+        "name": "Crímenes y simples delitos ley de armas",
+        "subgrupos": {}
+      },
+      "502": {
+        "name": "Porte de arma cortante o punzante",
+        "subgrupos": {}
+      },
+      "601": {
+        "name": "Robos en lugar habitado y no habitado",
+        "subgrupos": {}
+      },
+      "602": {
+        "name": "Robos de vehículo motorizado o de sus accesorios",
+        "subgrupos": {}
+      },
+      "603": {
+        "name": "Otros robos con fuerza en las cosas",
+        "subgrupos": {}
+      },
+      "604": {
+        "name": "Hurtos",
+        "subgrupos": {}
+      },
+      "605": {
+        "name": "Receptación",
+        "subgrupos": {}
+      },
+      "701": {
+        "name": "Amenaza falta o riña",
+        "subgrupos": {}
+      },
+      "702": {
+        "name": "Consumo de alcohol y drogas en la vía pública",
+        "subgrupos": {}
+      },
+      "703": {
+        "name": "Daños",
+        "subgrupos": {}
+      },
+      "704": {
+        "name": "Desórdenes públicos",
+        "subgrupos": {}
+      },
+      "705": {
+        "name": "Otras incivilidades",
+        "subgrupos": {}
+      },
+      "999": {
+        "name": "Otros delitos o faltas",
+        "subgrupos": {}
+      }
+    }
+  },
+  "6": {
+    "name": "propiedad",
+    "grupos": {
+      "101": {
+        "name": "Homicidios y femicidios",
+        "subgrupos": {}
+      },
+      "102": {
+        "name": "Violaciones y otros delitos sexuales",
+        "subgrupos": {}
+      },
+      "103": {
+        "name": "Lesiones graves o gravísimas",
+        "subgrupos": {}
+      },
+      "104": {
+        "name": "Lesiones menos graves",
+        "subgrupos": {}
+      },
+      "105": {
+        "name": "Lesiones leves",
+        "subgrupos": {}
+      },
+      "106": {
+        "name": "Amenazas",
+        "subgrupos": {}
+      },
+      "201": {
+        "name": "Robos con violencia o intimidación",
+        "subgrupos": {}
+      },
+      "202": {
+        "name": "Robo por sorpresa",
+        "subgrupos": {}
+      },
+      "301": {
+        "name": "Violencia intrafamiliar",
+        "subgrupos": {}
+      },
+      "401": {
+        "name": "Crímenes y simples delitos ley de drogas",
+        "subgrupos": {}
+      },
+      "501": {
+        "name": "Crímenes y simples delitos ley de armas",
+        "subgrupos": {}
+      },
+      "502": {
+        "name": "Porte de arma cortante o punzante",
+        "subgrupos": {}
+      },
+      "601": {
+        "name": "Robos en lugar habitado y no habitado",
+        "subgrupos": {}
+      },
+      "602": {
+        "name": "Robos de vehículo motorizado o de sus accesorios",
+        "subgrupos": {}
+      },
+      "603": {
+        "name": "Otros robos con fuerza en las cosas",
+        "subgrupos": {}
+      },
+      "604": {
+        "name": "Hurtos",
+        "subgrupos": {}
+      },
+      "605": {
+        "name": "Receptación",
+        "subgrupos": {}
+      },
+      "701": {
+        "name": "Amenaza falta o riña",
+        "subgrupos": {}
+      },
+      "702": {
+        "name": "Consumo de alcohol y drogas en la vía pública",
+        "subgrupos": {}
+      },
+      "703": {
+        "name": "Daños",
+        "subgrupos": {}
+      },
+      "704": {
+        "name": "Desórdenes públicos",
+        "subgrupos": {}
+      },
+      "705": {
+        "name": "Otras incivilidades",
+        "subgrupos": {}
+      },
+      "999": {
+        "name": "Otros delitos o faltas",
+        "subgrupos": {}
+      }
+    }
+  },
+  "7": {
+    "name": "incivilidades",
+    "grupos": {
+      "101": {
+        "name": "Homicidios y femicidios",
+        "subgrupos": {}
+      },
+      "102": {
+        "name": "Violaciones y otros delitos sexuales",
+        "subgrupos": {}
+      },
+      "103": {
+        "name": "Lesiones graves o gravísimas",
+        "subgrupos": {}
+      },
+      "104": {
+        "name": "Lesiones menos graves",
+        "subgrupos": {}
+      },
+      "105": {
+        "name": "Lesiones leves",
+        "subgrupos": {}
+      },
+      "106": {
+        "name": "Amenazas",
+        "subgrupos": {}
+      },
+      "201": {
+        "name": "Robos con violencia o intimidación",
+        "subgrupos": {}
+      },
+      "202": {
+        "name": "Robo por sorpresa",
+        "subgrupos": {}
+      },
+      "301": {
+        "name": "Violencia intrafamiliar",
+        "subgrupos": {}
+      },
+      "401": {
+        "name": "Crímenes y simples delitos ley de drogas",
+        "subgrupos": {}
+      },
+      "501": {
+        "name": "Crímenes y simples delitos ley de armas",
+        "subgrupos": {}
+      },
+      "502": {
+        "name": "Porte de arma cortante o punzante",
+        "subgrupos": {}
+      },
+      "601": {
+        "name": "Robos en lugar habitado y no habitado",
+        "subgrupos": {}
+      },
+      "602": {
+        "name": "Robos de vehículo motorizado o de sus accesorios",
+        "subgrupos": {}
+      },
+      "603": {
+        "name": "Otros robos con fuerza en las cosas",
+        "subgrupos": {}
+      },
+      "604": {
+        "name": "Hurtos",
+        "subgrupos": {}
+      },
+      "605": {
+        "name": "Receptación",
+        "subgrupos": {}
+      },
+      "701": {
+        "name": "Amenaza falta o riña",
+        "subgrupos": {}
+      },
+      "702": {
+        "name": "Consumo de alcohol y drogas en la vía pública",
+        "subgrupos": {}
+      },
+      "703": {
+        "name": "Daños",
+        "subgrupos": {}
+      },
+      "704": {
+        "name": "Desórdenes públicos",
+        "subgrupos": {}
+      },
+      "705": {
+        "name": "Otras incivilidades",
+        "subgrupos": {}
+      },
+      "999": {
+        "name": "Otros delitos o faltas",
+        "subgrupos": {}
+      }
+    }
+  }
+}
