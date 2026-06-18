@@ -116,9 +116,10 @@ folding it into incidence.
 | S1 lesiones | ✅ DONE — grupos 103/104/105 |
 | S1 secuestros | ⛔ BLOCKED — not in CEAD; needs alternate source (new S5) |
 | S4 tipoVal | ✅ DONE — additive; 1=denuncias 2=detenciones 3=aprehendidos |
-| S2 SPD homicide | ⏳ pending (can now run locally — egress works) |
-| S3 exposure proxy (SII) | ⏳ pending |
-| **S5 secuestro source (NEW)** | ⏳ pending — Fiscalía / legacy DMCS |
+| S2 SPD homicide | ✅ DONE — see 17-02-SUMMARY.md (comuna-level VHC xlsx) |
+| S3 exposure proxy (SII) | ✅ DONE — see 17-02-SUMMARY.md (PUB_COMU.xlsb 2024) |
+| **S5 secuestro source (NEW)** | ⚠️ PARTIAL — see 17-02-SUMMARY.md (Fiscalía, regional only) |
 
-**Next:** run S2 (SPD) + S3 (SII) from this same local egress, and open S5 to
-find a commune-level secuestro source (or demote the metric).
+**Next:** S2/S3/S5 resolved in `17-02-SUMMARY.md`. Wave 0 complete enough to
+plan Wave 1 (pipeline). Only open item: secuestro comuna granularity (S5b),
+non-blocking if v1 ships secuestro at region level.
