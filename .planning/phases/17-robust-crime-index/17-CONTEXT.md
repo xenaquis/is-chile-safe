@@ -1,7 +1,8 @@
 # Phase 17: Robust Crime Index & Metric Redesign - Context
 
 **Gathered:** 2026-06-18
-**Status:** Scaffolded — Wave 0 research pending (blocked on egress, see Network note)
+**Status:** Wave 0 research COMPLETE (ran 2026-06-18 from local CL egress) —
+see 17-01-SUMMARY.md (S1/S4) + 17-02-SUMMARY.md (S2/S3/S5). Ready to plan Wave 1.
 **Milestone:** proposed v1.3 (v1.2 ends at Phase 16 / News Activation)
 
 <domain>
