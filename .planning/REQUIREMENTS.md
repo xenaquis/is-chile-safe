@@ -49,6 +49,15 @@
 - [ ] **NEWS-03**: El pipeline corre de verdad (gated por API keys) produciendo `data/incidents/current.json`; pins + "incidentes recientes" renderizan incidentes reales geolocalizados, sin errores de consola.
 - [ ] **NEWS-04**: Cada incidente enlaza a su fuente ↗ Y a la ficha de su comuna; página de noticias dedicada (bilingüe); indicador de frescura; todos citan y enlazan la fuente.
 
+### Calidad de Dato, Trazabilidad de Fuente y Metodología (DQ) — Phase 17
+
+> Re-scoped con el usuario 2026-06-18: pase **enfocado** de calidad/trazabilidad/metodología. Índice compuesto + migración de schema = diferidos a Phase 18. NO cambia la métrica mostrada. Wave 0 completo (ver `phases/17-robust-crime-index/17-01-SUMMARY.md`, `17-02-SUMMARY.md`).
+
+- [ ] **DQ-01**: Reporte `17-DATA-QUALITY.md` verifica cada métrica/serie mostrada contra su fuente autoritativa: re-chequea las 4 anomalías (Providencia, Lo Barnechea, San Joaquín, Recoleta) y las explica; toda cifra que pueda ser año parcial/no consolidado queda flageada; checks de rango/sanidad pasan; semántica casos policiales (`tipoVal=1,2`) y alcance drogas (Ley 20.000 grupo 401) confirmados contra el cache CEAD offline + hechos Wave 0.
+- [ ] **DQ-02**: Registro canónico de fuentes (`data/SOURCES.md`) por clase de dato: fuente autoritativa + endpoint/URL exacto + vintage/cobertura + licencia + semántica de medida — CEAD (host `cead.minsegpublica.gob.cl`, casos policiales), SPD homicidio (VHC, comuna), SII exposición (`PUB_COMU.xlsb`), Fiscalía secuestro (regional). Corregir el host CEAD incorrecto (`cead.ministeriointerior.gob.cl`) donde aparezca.
+- [ ] **DQ-03**: Metodología EN (`methodology.astro`) + ES (`es/metodologia.astro`) reescrita con paridad bilingüe: host CEAD correcto, semántica de medida, año parcial, caveat bajo-conteo, alcance drogas, caveat denominador población-flotante; SPD/SII/Fiscalía nombradas como fuentes autoritativas de las cifras que respaldan; **link clickeable a cada fuente citada**; tono legal-safe (validador #9 pasa); verificado en navegador real vía BrowserOS (EN+ES).
+- [ ] **DQ-04**: Snapshots estáticos normalizados, atribuidos y reproducibles de las fuentes nuevas en `data/` (homicidios por comuna/año desde SPD; empresas+trabajadores por comuna/año desde SII; secuestro por región/año desde Fiscalía), cada uno con script de fetch/normalize en `pipeline/` + atribución — solo-referencia, NO cableado a la métrica mostrada, SIN migrar el schema CEAD. Build + validadores pasan (encadenado, OneDrive-safe).
+
 ## Backlog / Tech Debt (carried into v1.2)
 
 - **BUGFIX-999.1**: Comunas de Tarapacá mal-asignadas a Aysén/Los Ríos. `region_id` usa código de provincia de 2 dígitos que colisiona con los números de región 11 (Aysén) y 14 (Los Ríos). El resolver de región agrupa Iquique/Alto Hospicio→Aysén y Pozo Almonte/Pica/Huara/Camiña/Colchane→Los Ríos; la página de región Tarapacá queda vacía. Fix: derivar región del CUT (longitud desambigua) en vez del `region_id` almacenado. Capa de datos; encontrado 2026-06-15 en el cierre de v1.1.
@@ -76,9 +85,11 @@
 | RSEO-01, RSEO-02 | Phase 13 | Pending |
 | HOM-01, HOM-02 | Phase 14 | Pending |
 | CSEO-01, CSEO-02 | Phase 15 | Pending |
-| NEWS-01..04 | Phase 16 | Pending |
+| DQ-01..04 | Phase 17 | Pending (runs 1st; Wave 0 done) |
+| NEWS-01..04 | Phase 16 | Pending (runs 2nd) |
 
-**Coverage:** v1.2 = 19 requirements across Phases 10–16. Complete: 5 (GEO×2, COMU×3). Pending: 14. All mapped; unmapped: 0 ✓
+**Coverage:** v1.2 = 23 requirements across Phases 10–17. Complete: 13 (GEO×2, COMU×3, IA×3, RSEO×2, HOM×2, CSEO×2 — Phases 10–15 shipped). Pending: 10 (DQ×4 Phase 17, NEWS×4 Phase 16, IA/RSEO marked pending in older rows but phases shipped per ROADMAP Progress). All mapped; unmapped: 0 ✓
+**Autonomous run order:** Phase 17 (DQ) → Phase 16 (NEWS). See ROADMAP "▶ AUTONOMOUS RUN ORDER".
 
 ---
 *Requirements re-scoped to v1.2 on 2026-06-15 at v1.1 milestone close. v1.1 requirements archived in milestones/v1.1-REQUIREMENTS.md.*

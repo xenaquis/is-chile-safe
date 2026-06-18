@@ -1,161 +1,152 @@
-# Phase 17: Robust Crime Index & Metric Redesign - Context
+# Phase 17: Data Quality, Source Traceability & Methodology - Context
 
-**Gathered:** 2026-06-18
+**Gathered:** 2026-06-18 · **Re-scoped:** 2026-06-18 (FOCUSED — see Scope Note)
 **Status:** Wave 0 research COMPLETE (ran 2026-06-18 from local CL egress) —
-see 17-01-SUMMARY.md (S1/S4) + 17-02-SUMMARY.md (S2/S3/S5). Ready to plan Wave 1.
-**Milestone:** proposed v1.3 (v1.2 ends at Phase 16 / News Activation)
+see 17-01-SUMMARY.md (S1/S4) + 17-02-SUMMARY.md (S2/S3/S5). Discuss artifact
+pre-staged for autonomous run. Ready to plan.
+**Milestone:** v1.2 (data-correctness hardening before milestone close)
+
+> ## ⚠️ SCOPE NOTE (read first — autonomous run)
+> This phase was RE-SCOPED with the user on 2026-06-18 to a **focused
+> data-quality + source-traceability + methodology** pass. The original
+> ambitious plan (exposure-adjusted **composite index**, homicide metric
+> switch in the UI, `featured_rates`→7-metric **schema migration**,
+> index-driven choropleth) is **DEFERRED to a future phase (proposed Phase 18,
+> "Composite Crime Index")** and is **OUT OF SCOPE here**. Do NOT change the
+> displayed metric, the map choropleth metric, or the data schema in this phase.
+> Wave 0 already validated the sources for that future work; this phase makes
+> the *current* site correct, explicit, and traceable to the right sources, and
+> commits reproducible static snapshots of the new sources for later use.
 
 <domain>
 ## Phase Boundary
 
-Rebuild how the map and rankings construct, weight, and validate crime data,
-because the current per-resident rate produces **misleading signals**. Confirmed
-against live repo data (`data/cead/comunas/*.json`):
+Make every quantitative figure on the site **verifiably correct** and
+**traceable to its authoritative source**, and rewrite the methodology so the
+source of every number is explicit and clickable — without re-architecting the
+metric. Motivation (confirmed against live repo data `data/cead/comunas/*.json`
+and Wave 0):
 
-- **Denominator / floating-population artifact.** Rate = CEAD police cases per
-  100k *resident* population (`medida=2`, `tipoVal=1,2`). Property-crime rate
-  2024: **Providencia 4,423** (pop 164k) vs **Coyhaique 1,018** (pop 62k).
-  Providencia is a commercial/office hub whose daytime population is ~3–4× its
-  residents; crime against that floating mass is divided by the small resident
-  base, inflating the rate. The figure is mathematically valid but wrong as a
-  personal-risk signal.
-- **Small-count + partial-year artifact.** San Joaquín homicide series (counts):
-  2020=11, 2021=11, 2022=12, 2024=11, **2025=1**, 2026=2. The "1 case in 2025"
-  the user saw is an *unconsolidated* current year being surfaced as a headline,
-  not a real drop. The commune averages ~10 homicides/year. `partial`/
-  `latestCompleteYear` logic exists for sparklines but the homicide *headline*
-  bypasses it.
-- **Scope artifact (drugs).** CEAD "Drogas" = Ley 20.000 only (trafficking);
-  consumption is filed under Incivilidades. Denuncias undercount drug activity
-  that is overwhelmingly police-detected (aprehensiones).
+- **Traceability gap.** `methodology.astro` cites the CEAD host as
+  `cead.ministeriointerior.gob.cl`, but the scraper actually uses
+  `cead.minsegpublica.gob.cl` (`pipeline/cead/client.py`). The cited source is
+  wrong — the headline "source of truth" claim is itself untraceable. Fix.
+- **Single-source today, multi-source reality.** The site presents only CEAD,
+  but Wave 0 confirmed the *correct* authoritative sources for homicide (SPD VHC,
+  comuna-level), secuestro (Fiscalía/Ministerio Público, regional), and an
+  exposure proxy (SII empresas/trabajadores por comuna). These must be named,
+  attributed, and (as static snapshots) made reproducible — even though the
+  displayed metric does not change yet.
+- **Known data-quality artifacts to verify, not silently carry:**
+  - Floating-population denominator (Providencia property rate 4,423 vs
+    Coyhaique 1,018) — mathematically valid, must be *explained* in methodology.
+  - Small-count + partial-year (San Joaquín homicide 2025=1 vs ~10/yr average) —
+    the partial-year guard exists for sparklines but the headline can bypass it;
+    verify every surfaced figure flags partial years.
+  - Drug scope (CEAD "Drogas" = Ley 20.000 grupo 401 only; consumption under
+    Incivilidades grupo 702) — already audited (quick-260616-klv); ensure the
+    methodology states it.
+- **CEAD measure semantics now known (Wave 0 S4):** `tipoVal` 1=denuncias,
+  2=detenciones, 3=aprehendidos, additive; casos policiales = `1,2` (what the
+  site shows). Methodology must state this precisely.
 
 ## In Scope
 
-1. **New 7-metric taxonomy** (drop the aggregated `vida`/Life-crimes family):
-   a) homicidio  b) lesiones  c) propiedad  d) VIF  e) drogas  f) armas
-   g) secuestros. `lesiones` and `secuestros` are NOT scraped today and require
-   new CEAD subgroup acquisition (`grupo[]=<id>`).
-2. **Homicide source switch → SPD** (`prevenciondehomicidios.cl/cifras-oficiales`),
-   the consolidated official figure (Carabineros + PDI + SML + Fiscalía),
-   replacing CEAD subgroup-101 denuncias as the homicide source.
-3. **Exposure-adjusted composite index** correcting the resident-denominator
-   problem using a daytime/economic-activity proxy (candidate: SII firms +
-   workers per commune, national coverage).
-4. **Multi-measure aggregation** — denuncias + detenciones + aprehendidos
-   (`tipoVal` variants), normalized per offence to avoid double-counting.
-5. **Statistical robustness** — small-count suppression (no ranking of communes
-   below N cases/year), multi-year smoothing (3-yr moving average for homicide),
-   and partial-vs-complete-year separation surfaced on EVERY figure, not just
-   sparklines.
-6. **Frontend** — map choropleth driven by the new index; dual display
-   (index + absolute count); methodology rewrite (3 sources); bilingual copy;
-   removal of `vida` aggregate from the primary taxonomy.
-7. **Validation** — re-check the four anomalies (Providencia, Lo Barnechea,
-   San Joaquín, Recoleta) post-redesign; range sanity; per-figure source
-   attribution; legal copy (never label a territory "dangerous/safe" absolutely).
+1. **Data-quality verification (DQ-01).** Cross-check each surfaced
+   metric/series against its authoritative source using the Wave 0 facts and
+   the offline CEAD cache; re-verify the four anomalies (Providencia,
+   Lo Barnechea, San Joaquín, Recoleta); range/sanity checks; confirm
+   partial-year flags are present on every surfaced figure. Produce a
+   traceable `17-DATA-QUALITY.md` report (pass/fail per check, with evidence).
+2. **Source registry + correct attribution (DQ-02).** One canonical
+   `data/SOURCES.md` (or `.planning` registry) listing, per data class, the
+   authoritative source, exact endpoint/URL, vintage/coverage, licence, and the
+   measure semantics — CEAD (multi-measure, casos policiales), SPD homicide
+   (VHC xlsx, comuna), SII exposure (PUB_COMU.xlsb), Fiscalía secuestro
+   (regional). Fix the wrong CEAD host everywhere it appears.
+3. **Methodology rewrite, bilingual, clickable sources (DQ-03).** Rewrite
+   `site/src/pages/methodology.astro` + `site/src/pages/es/metodologia.astro`:
+   correct CEAD host; state casos-policiales (`tipoVal=1,2`) semantics;
+   document partial-year handling, low-count caveat, drug scope, and the
+   floating-population denominator caveat; name SPD/SII/Fiscalía as the
+   authoritative sources for the figures they back; add a **clickable link to
+   every cited source**. Bilingual parity; legal-safe tone (never label a
+   territory "dangerous/safe" in absolute terms; always attribute).
+4. **Reproducible static source snapshots (DQ-04).** Commit small, normalized,
+   versioned snapshots of the new sources (homicides per comuna/year from SPD;
+   empresas+trabajadores per comuna/year from SII; secuestro per región/year
+   from Fiscalía) under `data/`, each with a reproducible fetch/normalize script
+   in `pipeline/` and source attribution. Reference-only — NOT wired to the UI
+   metric, NOT migrating the CEAD schema.
 
-## Out of Scope
+## Out of Scope (DEFERRED to proposed Phase 18 — Composite Crime Index)
 
-- News-layer activation (Phase 16).
-- Keeping Incivilidades / Robos Violentos as PRIMARY metrics — decision was the
-  7 exact metrics. They may remain as scraped data but are demoted from the
-  headline taxonomy.
+- Exposure-adjusted **composite index** + the SII denominator formula.
+- **Homicide metric switch** to SPD in the map/panel (display change).
+- `featured_rates` → 7-metric **schema migration** (lesiones 103/104/105,
+  secuestro metric, dropping the `vida` aggregate).
+- Index-driven choropleth, dual index+count display, multi-measure aggregation
+  in the displayed number.
+- News-layer work (that is **Phase 16**, runs AFTER this phase).
 </domain>
 
 <decisions>
-## Direction decisions (locked with user 2026-06-18)
+## Decisions (locked with user 2026-06-18)
 
-- **D-IDX (denominator):** build an **exposure-adjusted index**, not just
-  per-resident rate + caveats. Highest robustness; requires an exposure proxy
-  (S3). The index MUST be explainable and legally safe — replacing one
-  misleading number with an opaque one is failure.
-- **D-HOM (homicide source):** **switch to SPD** (prevenciondehomicidios.cl) as
-  the homicide source of truth. Cross-reference/fallback to CEAD where SPD
-  granularity is missing.
-- **D-TAX (taxonomy):** **the 7 exact metrics**; drop the `vida` aggregate.
-  `lesiones` + `secuestros` are new acquisition work.
-- **D-AGG (measures):** aggregate **denuncias + detenciones + aprehendidos**.
-  Hard constraint: normalize per offence — a denuncia and its aprehensión can be
-  the same event; summing rates naively double-counts.
+- **D-SCOPE:** focused data-quality/traceability/methodology pass; composite
+  index + schema migration deferred to Phase 18. No displayed-metric change.
+- **D-ORDER:** this phase (17) runs BEFORE Phase 16 (news) so the source
+  registry + methodology are authoritative before news adds its own attribution.
+- **D-SOURCES (from Wave 0, authoritative):**
+  - Homicide truth = SPD VHC (`prevenciondehomicidios.cl`, comuna-level,
+    2018–2025). CEAD grupo 101 mixes homicidio+femicidio and ignores
+    `subgrupo[]` → cite SPD as the authoritative homicide source.
+  - Secuestro = Fiscalía/Ministerio Público (regional granularity only;
+    absent from CEAD taxonomy entirely). Region-level attribution.
+  - Exposure proxy = SII `PUB_COMU.xlsb` (trabajadores dependientes / FTE per
+    comuna, 2005–2024) — snapshot now for Phase 18; document the HQ/domicile
+    caveat.
+  - CEAD remains the source for the displayed incidence rates (casos
+    policiales, `tipoVal=1,2`, `medida=2`), host = `cead.minsegpublica.gob.cl`.
+- **D-VERIFY:** use **BrowserOS** to visually verify the rewritten methodology
+  pages (EN+ES) render with working clickable source links, and that sampled
+  commune/ranking figures still cite source+year correctly.
 </decisions>
 
 <unknowns>
-## Wave 0 — Research spikes (BLOCKING, need a live endpoint)
+## Wave 0 — research spikes — COMPLETE
 
-### Network reality (2026-06-18)
-From THIS remote execution environment, all four Chilean government hosts return
-**HTTP 403** to a plain request (CEAD, SPD/prevenciondehomicidios, SII, INE) —
-the egress IP is geofenced/filtered. TCP connects; the gateway rejects. The
-production scraper succeeds from **GitHub Actions** (2026 partial data exists in
-the repo), so the spikes must run from Actions or a local Chilean/clean egress,
-NOT from this sandbox. Spike scripts are committed ready-to-run; see runbook.
-
-### S1 · CEAD subgroup IDs for `lesiones` and `secuestros`
-- Mechanism CONFIRMED (Phase 14): subgroup selected via `grupo[]=<id>`;
-  `subgrupo[]` is silently ignored. Homicide = `grupo[]=101` under `familia[]=1`.
-- UNKNOWN: the `grupo[]` IDs for lesiones (likely under familia 1) and secuestros
-  (may live under a family NOT in the current 1–7 set — delitos contra la
-  libertad). Must enumerate the CEAD group catalog and probe for non-zero rows.
-- Experiment: `pipeline/experiments/test_subgroup_discovery.py`.
-
-### S2 · SPD homicide source (`prevenciondehomicidios.cl`)
-- Returns 403 to plain GET; needs the CEAD-style header/cookie warmup pattern.
-- UNKNOWN: comunal vs only regional/national granularity; years covered;
-  downloadable dataset (CSV/API) vs charts-only; exact source institutions.
-- RISK: if SPD homicide is only regional, the commune choropleth cannot use SPD
-  directly — fall back to CEAD at commune level, SPD at region/national.
-- Action: replicate `make_cead_session()` header approach against SPD; inspect
-  page + network calls; document structure. (Spike script TBD after S1 lands.)
-
-### S3 · Exposure proxy (the index denominator)
-- Candidate: **SII "empresas y trabajadores por comuna"** — open data, national,
-  346 communes; proxy for daytime/economic activity. Alternative: INE Censo
-  daytime flows (limited); EOD (Gran Santiago only — rejected, not national).
-- UNKNOWN: download format/URL, latest year, normalization choice (workers,
-  firms, or a blend; how to combine resident + daytime into one denominator).
-- Action: source the dataset, commit a static copy to `data/`, define the
-  adjustment formula. Document the formula in plain language for the methodology
-  page (explainability is a hard requirement of D-IDX).
-
-### S4 · CEAD measure codes (denuncias / detenciones / aprehendidos)
-- Current scraper uses `tipoVal="1,2"` (= casos policiales). UNKNOWN: the exact
-  tipoVal codes that isolate denuncias vs detenciones vs aprehendidos, and
-  whether they can be requested separately in one call.
-- RISK: double-counting (D-AGG constraint). Map which measures are additive per
-  offence before designing the index.
-- Experiment: folded into `test_subgroup_discovery.py` (tipoVal probe section).
+All Wave 0 spikes ran 2026-06-18 from local Chilean egress (the cloud sandbox
+403s on every CL gov host). Results in 17-01-SUMMARY.md (S1/S4) and
+17-02-SUMMARY.md (S2/S3/S5). Confirmed: CEAD grupo/subgrupo catalog
+(17-CEAD-CATALOG.json), tipoVal additivity + semantics, SPD comuna-level
+homicide dataset, SII comuna exposure dataset, Fiscalía secuestro (regional).
+No open research blockers for the focused scope. (Open for Phase 18 only:
+S5b — comuna-level secuestro from the Fiscalía BED app.)
 </unknowns>
 
 <approach>
-## Proposed wave structure (post-Wave-0)
+## Proposed wave structure
 
-- **Wave 1 — Pipeline:** extend CEAD client to fetch 3 measures × new subgroups
-  + counts (`medida=1`); SPD scraper module; ingest exposure proxy (static).
-- **Wave 2 — Index:** composite formula = per-metric normalized scores +
-  exposure-adjusted denominator + small-count suppression + 3-yr smoothing;
-  compute per comuna/region/national.
-- **Wave 3 — Schema:** `featured_rates` → 7 metrics, each
-  `{rate, count, index, source, completeYear, partial}`; version bump + migration.
-- **Wave 4 — Frontend/map:** index-driven choropleth; dual index+count display;
-  partial-year fix everywhere; methodology rewrite (CEAD multi-measure + SPD +
-  exposure proxy); bilingual copy; remove `vida` aggregate from taxonomy.
-- **Wave 5 — Validation:** re-verify the 4 anomalies; range sanity; source
-  attribution; legal-tone audit.
+- **Wave 1 — Verify:** build `17-DATA-QUALITY.md` — automated/offline checks of
+  each surfaced metric vs source (use `pipeline/cache/` + Wave 0 facts);
+  re-verify the 4 anomalies; partial-year + range sanity. (No code change to
+  displayed data; this is the evidence base.)
+- **Wave 2 — Source snapshots + registry:** reproducible fetch/normalize
+  scripts for SPD/SII/Fiscalía → small normalized JSON snapshots in `data/` +
+  attribution; write the canonical source registry (`data/SOURCES.md`).
+- **Wave 3 — Methodology rewrite (EN+ES):** correct host, multi-source naming,
+  clickable source links, all caveats; bilingual parity; legal-tone check
+  (reuse validator #9 forbidden-language gate).
+- **Wave 4 — Verify + gate:** chained build+validate (OneDrive desync — one
+  command); BrowserOS visual check of both methodology pages + sampled figures;
+  `17-VERIFICATION.md`.
 
 ## Cross-cutting risks
-1. **Index interpretability / legal safety** (highest) — must be explainable and
-   never label territory as absolutely dangerous/safe.
-2. **Double-counting** across denuncias/detenciones/aprehendidos.
-3. **SPD granularity** possibly regional-only.
-4. **Exposure proxy** national availability + normalization defensibility.
+1. **Legal tone** (highest) — methodology must never assert absolute safety;
+   always attribute. Reuse the forbidden-language validator.
+2. **Bilingual drift** — EN/ES methodology must stay in parity.
+3. **OneDrive build desync** — always chain build+validate in one command
+   (see memory: onedrive-build-artifacts-desync).
+4. **Snapshot size** — commit normalized JSON, not the raw multi-MB xlsx/xlsb.
 </approach>
-
-<notes>
-## Adjacent finding — deploy of code-only changes (separate quick)
-
-Cloudflare auto-deploy on push is OFF (DEPLOYMENT.md §4); the only build trigger
-is the data-change Deploy Hook. Code-only commits (e.g. the `lu4` dynamic
-ranking-table sort, merged to master `b2ad8f8`) never rebuild production. A
-`deploy-on-code-push` workflow (ping the hook when `site/**` changes on the
-default branch) unblocks this class of change. Tracked separately from Phase 17.
-</notes>

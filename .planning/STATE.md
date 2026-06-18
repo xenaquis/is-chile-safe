@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
-status: verifying
-last_updated: "2026-06-16T15:41:38.790Z"
-last_activity: 2026-06-16
+status: planning
+last_updated: "2026-06-18T00:00:00.000Z"
+last_activity: 2026-06-18
 progress:
-  total_phases: 7
+  total_phases: 8
   completed_phases: 6
   total_plans: 24
   completed_plans: 24
-  percent: 86
+  percent: 75
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -27,16 +27,32 @@ See: .planning/PROJECT.md (updated 2026-06-15)
 
 ## Current Position
 
-Phase: 15 (crime-type-seo-ranking-pages) — EXECUTING
-Plan: 2 of 2
-Status: Phase complete — ready for verification
-Last activity: 2026-06-16 - Completed quick task 260616-ldi: fix region_id grouping (backlog 999.1) — Tarapacá 11/14 collision resolved, all 16 regions populate
+Phases 10–15 COMPLETE (shipped 2026-06-16). Two phases remain in v1.2.
 
-Progress: v1.2 [██████████] 100% (22/22 plans — 6/6 phases active)
+**▶ NEXT ACTION: `/gsd-autonomous`** — runs the two remaining phases in this
+order (set with user 2026-06-18, see ROADMAP "▶ AUTONOMOUS RUN ORDER"):
 
-Next: `/gsd:plan-phase 12`. Then 13 (Ranking SEO) → 14 (Homicide) → 15 (Crime-type SEO) → 16 (News activation).
+1. **Phase 17 — Data Quality, Source Traceability & Methodology** (runs FIRST).
+   FOCUSED scope: verify data vs source, fix the wrong CEAD host, source
+   registry (`data/SOURCES.md`), reproducible normalized snapshots of SPD/SII/
+   Fiscalía, rewrite methodology EN+ES with clickable sources. NO composite
+   index / NO schema migration / NO displayed-metric change (deferred to
+   proposed Phase 18). **Wave 0 research COMPLETE** — see
+   `phases/17-robust-crime-index/17-01-SUMMARY.md` + `17-02-SUMMARY.md` +
+   `17-CEAD-CATALOG.json`. Discuss artifact pre-staged: `17-CONTEXT.md`.
+2. **Phase 16 — News Activation + Geolocation Redesign + Model A/B** (runs
+   SECOND). **API keys WILL be available** (`DEEPSEEK_API_KEY` + `MINIMAX_API_KEY`
+   in gitignored `.env`) → full scope incl. live pipeline run + DeepSeek/MiniMax
+   A/B. Discuss artifact pre-staged: `phases/16-news-activation-geolocation-ab/16-CONTEXT.md`.
 
-**Open backlog (v1.2):** BUGFIX-999.1 — Tarapacá comunas mis-assigned to Aysén/Los Ríos (region_id 11/14 collision); fix = derive region from CUT. See ROADMAP Backlog.
+Both CONTEXTs are pre-written so discuss does not block the unattended run.
+Use **BrowserOS** for each phase's end-of-phase visual verification
+(methodology EN+ES; news page + incident→source + incident→comuna links).
+
+**Open backlog (v1.2):** BUGFIX-999.1 (Tarapacá region_id collision) — RESOLVED
+2026-06-16 (quick 260616-ldi). Deferred to Phase 18: composite crime index,
+homicide metric switch to SPD in UI, `featured_rates`→7-metric schema migration,
+secuestro comuna-level (S5b).
 
 ## Deferred Items
 
@@ -106,6 +122,11 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 - Open Question 3 (homicides subgroup ID=101, kidnappings subgroup ID unknown) deferred to Plan 04 — do not hard-code featured-flag subgroup IDs until Plan 04 confirms them via live call
 - CHIP_DEFS carries display order + catalog by_family index — chip order != array index (0=vida, 1=robos_violentos, 2=vif, 3=drogas, 4=armas, 5=propiedad, 6=incivilidades)
 - ResultPanel converts series.by_family RECORD to catalog-indexed ARRAY for PanelFamilyBars (commune JSON uses record; map-payload uses array — never confuse them)
+- [Phase 17 Wave 0, 2026-06-18] CEAD host is `cead.minsegpublica.gob.cl` (methodology wrongly says `ministeriointerior` — fix in DQ). CEAD grupo/subgrupo catalog enumerated via `ajax_2.php seleccion=9`; familia = first digit of grupo id; full catalog in `phases/17-robust-crime-index/17-CEAD-CATALOG.json`.
+- [Phase 17 Wave 0] CEAD `tipoVal` is additive: 1=denuncias, 2=detenciones, 3=aprehendidos; casos policiales (what the site shows) = `1,2`. Never naive-sum across measures (double-counts per offence).
+- [Phase 17 Wave 0] lesiones = CEAD grupos 103+104+105 (graves/gravísimas, menos graves, leves); secuestro is ABSENT from CEAD entirely (Fiscalía/Ministerio Público, regional only, 868/2024).
+- [Phase 17 Wave 0] Homicide truth = SPD VHC xlsx (`prevenciondehomicidios.cl`, comuna-level, 2018–2025; count = row count per comuna/year). Exposure proxy = SII `PUB_COMU.xlsb` (empresas + trabajadores dependientes per comuna, 2005–2024; needs `pyxlsb`; comuna = firm domicile/HQ caveat).
+- [Phase 16] News geolocation bottleneck = design not vendor: both LLMs pick wrong CUT ~60-70% from bare codes. Fix = LLM emits comuna NAME → deterministic name→CUT. MiniMax that works: `MiniMax-Text-01` @ `https://api.minimaxi.chat/v1` (no json_object response_format). Keep centroid-from-CUT for coords.
 
 ### Critical Pitfalls to Avoid
 

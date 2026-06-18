@@ -6,7 +6,18 @@ _Last updated: 2026-06-15 — v1.1 Polish & QA shipped (Phases 7–9 archived); 
 
 - ✅ **v1.0 MVP** — Phases 1–6 (shipped 2026-06-13) — full detail: [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
 - ✅ **v1.1 Polish & QA** — Phases 7–9 (shipped 2026-06-15) — full detail: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
-- 🔄 **v1.2 Map Fidelity, Findability & News** — Phases 10–16 (Phase 10 shipped 2026-06-15; re-scoped 2026-06-15 from live audit + IA spike)
+- 🔄 **v1.2 Map Fidelity, Findability & News** — Phases 10–17 (Phase 10 shipped 2026-06-15; re-scoped 2026-06-15 from live audit + IA spike; Phase 17 data-quality/traceability added 2026-06-18)
+
+> ## ▶ AUTONOMOUS RUN ORDER (set 2026-06-18)
+> Two phases remain. `/gsd-autonomous` must run them in this order:
+> **1) Phase 17 — Data Quality, Source Traceability & Methodology** (focused;
+> NO composite index / NO schema migration — see `17-CONTEXT.md` Scope Note),
+> then **2) Phase 16 — News Activation** (API keys available → full scope incl.
+> live run + DeepSeek/MiniMax A/B). Discuss artifacts are pre-staged
+> (`17-CONTEXT.md`, `16-CONTEXT.md`) so discuss does not block. Use **BrowserOS**
+> for the end-of-phase visual verification of both. The original ambitious
+> composite-index work is deferred to **proposed Phase 18 — Composite Crime
+> Index** (not in this run).
 
 ## Phases
 
@@ -49,7 +60,8 @@ _Surfaced by the Phase-9 live review and re-scoped 2026-06-15 after a live Brows
 - [x] **Phase 13: Ranking SEO Hardening** — Add OpenGraph + Twitter cards site-wide, `ItemList` JSON-LD on ranking tables and `BreadcrumbList` JSON-LD where breadcrumbs render, and tighten internal linking between rankings and comuna/region pages. Depends on Phase 11. [RSEO-01, RSEO-02] (completed 2026-06-16)
 - [x] **Phase 14: Homicide as a First-Class Category** — Expose the existing per-commune `homicidios` data as its own map filter/layer + commune-panel breakdown (currently folded inside "vida"/Life crimes). (was Phase 11) [HOM-01, HOM-02] (completed 2026-06-16)
 - [x] **Phase 15: Crime-Type SEO Ranking Pages** — Programmatic bilingual "las N comunas con más {delito}" ranking pages (homicide first), with correct internal linking, hreflang, sitemap, single H1, and `ItemList` JSON-LD. Depends on Phases 14 + 13. (was Phase 12) [CSEO-01, CSEO-02] (completed 2026-06-16)
-- [ ] **Phase 16: News Activation + Geolocation Redesign + Model A/B** — Redesign news geolocation (LLM emits the comuna NAME → deterministic name→CUT lookup, not a raw CUT guess), build a labelled golden set + scoring to A/B DeepSeek vs MiniMax (env-configurable provider), run the pipeline for real, link incidents to source ↗ AND to their comuna page, and add a dedicated news page. Depends on Phase 11. [NEWS-01, NEWS-02, NEWS-03, NEWS-04]
+- [ ] **Phase 17: Data Quality, Source Traceability & Methodology** — _(runs FIRST — see Autonomous Run Order)_ Verify every surfaced figure against its authoritative source (re-check the 4 anomalies, partial-year flags, range sanity → `17-DATA-QUALITY.md`); fix the wrong CEAD host (`ministeriointerior`→`minsegpublica`); build a canonical source registry (`data/SOURCES.md`) naming CEAD (casos policiales `tipoVal=1,2`), SPD homicide, SII exposure, Fiscalía secuestro; commit reproducible normalized source snapshots; rewrite methodology EN+ES with a **clickable link to every source**. FOCUSED — no composite index, no schema migration, no displayed-metric change (deferred to Phase 18). Wave 0 research complete. Depends on Phase 11. [DQ-01, DQ-02, DQ-03, DQ-04]
+- [ ] **Phase 16: News Activation + Geolocation Redesign + Model A/B** — _(runs SECOND)_ Redesign news geolocation (LLM emits the comuna NAME → deterministic name→CUT lookup, not a raw CUT guess), build a labelled golden set + scoring to A/B DeepSeek vs MiniMax (env-configurable provider), run the pipeline for real (API keys available), link incidents to source ↗ AND to their comuna page, and add a dedicated news page. Depends on Phase 11 + Phase 17 (source registry/methodology authoritative first). [NEWS-01, NEWS-02, NEWS-03, NEWS-04]
 
 ## Phase Details
 
@@ -229,6 +241,18 @@ Plans:
   3. The pipeline runs for real (gated by the human go-live `DEEPSEEK_API_KEY`/`MINIMAX_API_KEY` step) producing `data/incidents/current.json`; the map incident layer and the comuna-page "recent incidents" section render real, correctly-geolocated incidents with no console errors.
   4. Each incident links to its source article ↗ AND back to its comuna page; a dedicated news/incidents page exists (bilingual); a data-freshness indicator ("updated …") is shown; all incidents cite and link the press source per editorial policy.
 
+### Phase 17: Data Quality, Source Traceability & Methodology
+
+**Goal**: Every quantitative figure on the site is verifiably correct and traceable to its *authoritative* source, and the methodology explicitly names and **links** each source — without re-architecting the metric. FOCUSED scope (re-scoped with user 2026-06-18); the composite index / schema migration is deferred to proposed Phase 18.
+**Depends on**: Phase 11 (comuna pages). Wave 0 research COMPLETE (`17-01-SUMMARY.md`, `17-02-SUMMARY.md`, `17-CEAD-CATALOG.json`). Touches `site/src/pages/methodology.astro` + `es/metodologia.astro`, `pipeline/` (read-only verification + new fetch/normalize scripts), `data/` (new normalized source snapshots + `SOURCES.md`).
+**Requirements**: DQ-01, DQ-02, DQ-03, DQ-04
+**Success Criteria** (what must be TRUE):
+
+  1. A `17-DATA-QUALITY.md` report verifies each surfaced metric/series against its authoritative source: the four anomalies (Providencia, Lo Barnechea, San Joaquín, Recoleta) are re-checked and explained (not silently carried); every surfaced figure that can be a partial/unconsolidated year is flagged; range/sanity checks pass; drug-scope (Ley 20.000 grupo 401) and casos-policiales (`tipoVal=1,2`) semantics are confirmed against the offline CEAD cache + Wave 0 facts. [DQ-01]
+  2. A canonical source registry (`data/SOURCES.md`) lists, per data class, the authoritative source + exact endpoint/URL + vintage/coverage + licence + measure semantics: CEAD (host `cead.minsegpublica.gob.cl`, casos policiales), SPD homicide (VHC, comuna), SII exposure (`PUB_COMU.xlsb`), Fiscalía secuestro (regional). The wrong CEAD host (`cead.ministeriointerior.gob.cl`) is fixed everywhere it appears. [DQ-02]
+  3. Methodology pages (EN `methodology.astro` + ES `es/metodologia.astro`) are rewritten with bilingual parity: correct CEAD host, casos-policiales/measure semantics, partial-year handling, low-count caveat, drug scope, and the floating-population denominator caveat; SPD/SII/Fiscalía are named as the authoritative sources for the figures they back; **every cited source has a working clickable link**; legal-safe tone preserved (forbidden-language validator #9 passes); verified in a real browser via BrowserOS (EN+ES). [DQ-03]
+  4. Reproducible, attributed, normalized static snapshots of the new sources are committed under `data/` (homicides per comuna/year from SPD; empresas+trabajadores per comuna/year from SII; secuestro per región/year from Fiscalía), each with a fetch/normalize script in `pipeline/` and source attribution — reference-only, NOT wired to the displayed metric and NOT migrating the CEAD schema. Build + all validators pass (chained, OneDrive-safe). [DQ-04]
+
 ## Progress
 
 | Phase | Milestone | Plans | Status | Completed |
@@ -248,10 +272,12 @@ Plans:
 | 13. Ranking SEO Hardening | v1.2 | 3/3 | Complete   | 2026-06-16 |
 | 14. Homicide as a First-Class Category | v1.2 | 6/6 | Complete   | 2026-06-16 |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 2/2 | Complete   | 2026-06-16 |
-| 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending    |  |
+| 17. Data Quality, Source Traceability & Methodology | v1.2 | 0/0 | Pending (runs 1st; Wave 0 done) |  |
+| 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending (runs 2nd) |  |
 
 ## Backlog
 
+- **Phase 18 (proposed) — Composite Crime Index & Metric Redesign** (deferred from Phase 17 on 2026-06-18). The ambitious half of the original Phase 17: exposure-adjusted composite index using the SII denominator; switch the displayed homicide metric to SPD VHC (comuna-level); `featured_rates` → 7-metric schema migration (lesiones = CEAD grupos 103+104+105; add secuestro [region-level, Fiscalía]; drop the `vida` aggregate); multi-measure aggregation (denuncias/detenciones/aprehendidos, normalized per offence — D-AGG); index-driven choropleth + dual index+count display; re-validate the 4 anomalies post-redesign. **All sources already validated in Phase 17 Wave 0** (`phases/17-robust-crime-index/17-01-SUMMARY.md` + `17-02-SUMMARY.md`); snapshots committed in Phase 17 (DQ-04). Open research: S5b (comuna-level secuestro from the Fiscalía BED app). High-risk/large — do NOT run unattended; plan interactively.
 - **999.1 — BUGFIX: Tarapacá comunas mis-assigned to Aysén/Los Ríos** (found 2026-06-15 during v1.1 close; pre-existing Phase-1 data issue). `region_id` stores an ambiguous 2-digit province code: Tarapacá (region 1) comunas carry `11`/`14`, which collide with the direct region numbers for Aysén (11) and Los Ríos (14). The region resolver (`region/[slug].astro` + `es/region/[slug].astro` `floor(n/10)` logic; `data.ts` `loadCommune`) therefore groups Iquique, Alto Hospicio (→ Aysén) and Pozo Almonte, Pica, Huara, Camiña, Colchane (→ Los Ríos) under the wrong region. Symptoms: 7 Tarapacá comuna pages show the wrong region (prose + breadcrumb + JSON-LD); Aysén & Los Ríos region pages list Tarapacá comunas; the Tarapacá region page resolves 0 comunas (empty). **Fix:** disambiguate region from the CUT itself (4-digit CUT `1xxx` ⇒ region 1; 5-digit `11xxx` ⇒ region 11) rather than from the stored `region_id`, then rebuild + re-validate region grouping, rankings, sitemap. Scope: data-layer; target v1.2.
 
 ## Open Human Go-Live Gates (launch checklist — not v1.1 scope)
