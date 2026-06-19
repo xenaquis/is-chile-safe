@@ -54,6 +54,22 @@ if (generated) {
   }
 }
 
+// Sort newest-first (TD-03)
+incidents.sort((a, b) => b.date.localeCompare(a.date));
+
+// Safe URL helper — mirrors IncidentPinLayer.ts safeUrl() (TD-05, T-19-03)
+function safeUrl(url: string): string {
+  try {
+    const u = new URL(url);
+    if (u.protocol === 'http:' || u.protocol === 'https:') {
+      return url;
+    }
+  } catch {
+    // malformed URL
+  }
+  return '#';
+}
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -102,7 +118,7 @@ const jsonLd = {
             </div>
             <div class="incident-links">
               <a
-                href={incident.url.startsWith('http://') || incident.url.startsWith('https://') ? incident.url : '#'}
+                href={safeUrl(incident.url)}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="incident-source"
