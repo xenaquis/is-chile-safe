@@ -219,6 +219,30 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     <FamilyBreakdownBars byFamily={byFamily} locale="es" level={level} />
   </section>
 
+  <!-- 6b. Índice Compuesto de Delincuencia (CI-05/CI-06) — superficie estática, sin toggle de mapa -->
+  {(() => {
+    const COMPOSITE_YEAR = 2024;
+    const ci = data.composite_index?.[String(COMPOSITE_YEAR)];
+    if (!ci) return null;
+    const BAND_ES_PAGE = ['Muy Bajo', 'Bajo', 'Moderado', 'Alto', 'Muy Alto'];
+    const bandLabel = BAND_ES_PAGE[ci.level - 1] ?? '';
+    return (
+      <section class="panel-section composite-index-section" aria-label="Índice Compuesto de Delincuencia">
+        <h2 class="section-heading">{t.ci_section_heading}</h2>
+        <div>
+          <span class="ci-score-big">{Math.round(ci.score)}</span>
+          <span class="ci-band-label">{bandLabel}</span>
+        </div>
+        <div class="ci-rank">
+          {t.ci_rank_national.replace('#{rank}', `#${ci.rank}`).replace('{total}', '346')}
+          {' · '}
+          {t.ci_rank_regional.replace('#{rank}', `#${ci.regional_rank}`).replace('{region}', data.regionName)}
+        </div>
+        <div class="ci-caveat">{t.ci_caveat_text}</div>
+      </section>
+    );
+  })()}
+
   <!-- 7. ComparableCommune -->
   <ComparableCommune comparable={comparable} locale="es" />
 
@@ -415,5 +439,46 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     line-height: 1.5;
     color: var(--ink);
     margin-bottom: var(--md);
+  }
+
+  /* Phase 18-04: composite index section */
+  .composite-index-section {
+    margin: var(--xl) 0;
+    padding: var(--md);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .ci-score-big {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-right: 8px;
+  }
+
+  .ci-band-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  .ci-rank {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .ci-caveat {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--primary);
+    padding: 8px 16px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--muted);
+    border-radius: 3px;
   }
 </style>

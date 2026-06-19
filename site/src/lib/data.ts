@@ -42,6 +42,14 @@ export interface SeriesEntry {
   partial?: boolean;
 }
 
+export interface CompositeIndexEntry {
+  score: number;
+  rank: number;
+  regional_rank: number;
+  level: 1 | 2 | 3 | 4 | 5;
+  available_metrics: number;
+}
+
 export interface CommuneData extends CommuneMeta {
   national_rank: number;
   regional_rank: number;
@@ -55,6 +63,8 @@ export interface CommuneData extends CommuneMeta {
   };
   series: SeriesEntry[];
   last_updated?: string;
+  // Phase 18-04 additive field (D-12) — rides along in per-commune JSON
+  composite_index?: Record<string, CompositeIndexEntry>;
   // Enriched by loadCommune()
   latestCompleteYear: number;
   regionName: string;
