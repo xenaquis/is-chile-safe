@@ -123,25 +123,27 @@ def test_whitespace_only_url_raises_validation_error():
 
 
 # ---------------------------------------------------------------------------
-# ClassifierOutput — commune_cut nullable
+# ClassifierOutput — commune_name + region_hint (NEWS-01 redesign)
 # ---------------------------------------------------------------------------
 
-def test_classifier_output_null_cut_accepted():
+def test_classifier_output_null_commune_name_accepted():
+    """commune_name=null is valid (location unknown path)."""
     obj = ClassifierOutput.model_validate({
-        "commune_cut": None,
+        "commune_name": None,
+        "region_hint": None,
         "family": "propiedad",
         "title_es": "Título",
         "title_en": "Title",
         "summary": "Summary text",
         "confidence": 0.87,
     })
-    assert obj.commune_cut is None
+    assert obj.commune_name is None
 
 
 def test_classifier_output_invalid_family_rejected():
     with pytest.raises(ValidationError, match="family"):
         ClassifierOutput.model_validate({
-            "commune_cut": "13101",
+            "commune_name": "Santiago",
             "family": "banditry",
             "title_es": "Título",
             "title_en": "Title",
@@ -150,14 +152,17 @@ def test_classifier_output_invalid_family_rejected():
         })
 
 
-def test_classifier_output_valid_cut_accepted():
+def test_classifier_output_commune_name_accepted():
+    """commune_name is stored as-is; CUT resolution happens in resolver.py."""
     obj = ClassifierOutput.model_validate({
-        "commune_cut": "13101",
+        "commune_name": "Providencia",
+        "region_hint": "Metropolitana",
         "family": "vida",
         "title_es": "Homicidio en Providencia",
         "title_en": "Homicide in Providencia",
         "summary": "A person was killed.",
         "confidence": 0.91,
     })
-    assert obj.commune_cut == "13101"
+    assert obj.commune_name == "Providencia"
+    assert obj.region_hint == "Metropolitana"
     assert obj.confidence == 0.91

@@ -26,55 +26,71 @@ pytestmark = pytest.mark.skipif(
     reason="pipeline.news.classifier not yet implemented (Wave 1)",
 )
 
-FIXTURES_DIR = Path(__file__).parent / "fixtures"
-
-
-def _load_sample() -> dict:
-    p = FIXTURES_DIR / "deepseek_response_sample.json"
-    if not p.exists():
-        pytest.skip("deepseek_response_sample.json not present")
-    return json.loads(p.read_text(encoding="utf-8"))
-
-
 def _make_mock_response(data: dict) -> MagicMock:
     mock_resp = MagicMock()
     mock_resp.choices[0].message.content = json.dumps(data)
     return mock_resp
 
 
+# Base valid response using commune_name + region_hint (NEWS-01 redesign)
+_VALID_RESPONSE = {
+    "commune_name": "Las Condes",
+    "region_hint": "Metropolitana",
+    "family": "propiedad",
+    "title_es": "Robo en Las Condes",
+    "title_en": "Robbery in Las Condes",
+    "summary": "A robbery occurred in Las Condes.",
+    "confidence": 0.9,
+}
+
+
 # ---------------------------------------------------------------------------
-# Test functions (exact names per 05-VALIDATION.md)
+# Test functions (NEWS-01 redesign behaviors)
 # ---------------------------------------------------------------------------
 
 
-def test_invalid_cut_rejected():
-    """Classifier must return None when the LLM responds with a CUT not in 346 set."""
-    sample = _load_sample()
-    bad = dict(sample, commune_cut="99999")  # not a valid CUT
+def test_name_emit_passes_through():
+    """Classifier returns ClassifierOutput with commune_name when LLM emits name+region_hint."""
+    data = dict(_VALID_RESPONSE)
 
     with patch("pipeline.news.classifier.client") as mock_client:
-        mock_client.chat.completions.create.return_value = _make_mock_response(bad)
-        result = classify("Robo en Santiago", "Descripción del robo")
-    assert result is None, "Expected None for CUT not in 346-commune set"
+        mock_client.chat.completions.create.return_value = _make_mock_response(data)
+        result = classify("Robo en Las Condes", "Descripción del robo")
+
+    assert result is not None, "Expected ClassifierOutput for valid response"
+    assert result.commune_name == "Las Condes"
+    assert result.region_hint == "Metropolitana"
 
 
-def test_low_confidence_rejected():
+def test_null_commune_name_allowed():
+    """Classifier accepts null commune_name without crashing (location unknown path)."""
+    data = dict(_VALID_RESPONSE, commune_name=None, region_hint=None, confidence=0.9)
+
+    with patch("pipeline.news.classifier.client") as mock_client:
+        mock_client.chat.completions.create.return_value = _make_mock_response(data)
+        result = classify("Noticia sin ubicación", "Sin lugar específico")
+
+    # Must not raise; confidence 0.9 means it passes the gate
+    # The result may be a ClassifierOutput with commune_name=None
+    assert result is not None
+    assert result.commune_name is None
+
+
+def test_low_confidence_still_rejected():
     """Classifier must return None when confidence < threshold (0.6)."""
-    sample = _load_sample()
-    low_conf = dict(sample, confidence=0.3)
+    data = dict(_VALID_RESPONSE, confidence=0.3)
 
     with patch("pipeline.news.classifier.client") as mock_client:
-        mock_client.chat.completions.create.return_value = _make_mock_response(low_conf)
+        mock_client.chat.completions.create.return_value = _make_mock_response(data)
         result = classify("Robo en Santiago", "Descripción del robo")
     assert result is None, "Expected None for low-confidence classifier response"
 
 
-def test_invalid_family():
+def test_invalid_family_rejected():
     """Classifier must return None when the LLM responds with an unknown family key."""
-    sample = _load_sample()
-    bad_family = dict(sample, family="banditry")
+    data = dict(_VALID_RESPONSE, family="banana")
 
     with patch("pipeline.news.classifier.client") as mock_client:
-        mock_client.chat.completions.create.return_value = _make_mock_response(bad_family)
+        mock_client.chat.completions.create.return_value = _make_mock_response(data)
         result = classify("Robo en Santiago", "Descripción del robo")
     assert result is None, "Expected None for invalid family key"

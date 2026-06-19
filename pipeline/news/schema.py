@@ -79,9 +79,15 @@ class IncidentRecord(BaseModel):
 
 
 class ClassifierOutput(BaseModel):
-    """Raw response shape from DeepSeek classifier (D-06)."""
+    """Raw response shape from DeepSeek classifier (D-06).
 
-    commune_cut: str | None
+    commune_cut has been replaced by commune_name + region_hint (NEWS-01 redesign).
+    The LLM emits a Spanish commune name; deterministic resolution to CUT happens in
+    pipeline/news/resolver.py. This prevents hallucinated CUT codes from reaching the store.
+    """
+
+    commune_name: str | None
+    region_hint: str | None = None
     family: str
     title_es: str    # plain text
     title_en: str    # plain text

@@ -3,10 +3,11 @@ pipeline/news/classifier.py
 
 DeepSeek v4-flash closed-list classifier for Chilean crime news (NEWS-02).
 
-Anti-hallucination guards:
+Anti-hallucination guards (NEWS-01 redesign):
 - model = deepseek-v4-flash, temperature = 0.0
 - response_format = {"type": "json_object"} (only supported type in DeepSeek)
-- commune_cut must be in 346-CUT set or item is rejected
+- LLM emits commune_name (Spanish name) + region_hint — NOT a bare CUT code
+- CUT resolution happens in pipeline/news/resolver.py (deterministic, closed-set)
 - confidence must be >= CONFIDENCE_THRESHOLD or item is rejected
 - LLM never emits coordinates — use centroids.py for pin lat/lng (D-08)
 """
@@ -15,11 +16,12 @@ from __future__ import annotations
 import json
 import logging
 import os
+import pathlib
 
 from openai import OpenAI
 from pydantic import ValidationError
 
-from pipeline.news.schema import VALID_CUTS, VALID_FAMILIES, ClassifierOutput
+from pipeline.news.schema import VALID_FAMILIES, ClassifierOutput
 from pipeline.shared.schema import FAMILY_KEYS
 
 logger = logging.getLogger(__name__)
@@ -30,8 +32,14 @@ logger = logging.getLogger(__name__)
 
 CONFIDENCE_THRESHOLD: float = 0.6  # D-07 / RESEARCH A3
 
-# Build the CUT list string once at module load (comma-joined, codes only — no names)
-_CUT_LIST_STR: str = ",".join(sorted(VALID_CUTS))
+# Build the commune list string once at module load — one entry per line:
+# "<name> (region_id:<region_id>)"
+# This gives the LLM correct Spanish spellings to choose from.
+_INDEX_FILE = pathlib.Path(__file__).parents[2] / "data" / "cead" / "meta" / "index.json"
+_INDEX: list[dict] = json.loads(_INDEX_FILE.read_text(encoding="utf-8"))
+_COMMUNE_LIST_STR: str = "\n".join(
+    f"{entry['name']} (region_id:{entry['region_id']})" for entry in _INDEX
+)
 
 # FAMILY_KEYS as comma-joined enum string for the prompt
 _FAMILY_ENUM_STR: str = ", ".join(FAMILY_KEYS)
@@ -53,7 +61,8 @@ SYSTEM_PROMPT: str = f"""You are a Chilean crime news classifier. You respond in
 
 Given a news headline and summary, output exactly this JSON structure:
 {{
-  "commune_cut": "<5-digit CUT code from VALID_CUTS below, or null if location unknown>",
+  "commune_name": "<exact Spanish commune name from CHILEAN COMMUNES below, or null if location unknown>",
+  "region_hint": "<region name or number hint to disambiguate, or null>",
   "family": "<one of: {_FAMILY_ENUM_STR}>",
   "title_es": "<concise Spanish headline, max 120 chars, plain text>",
   "title_en": "<English translation of title_es, max 120 chars, plain text>",
@@ -61,14 +70,15 @@ Given a news headline and summary, output exactly this JSON structure:
   "confidence": <float 0.0-1.0 indicating location identification confidence>
 }}
 
-VALID_CUTS (346 Chilean commune CUT codes — commune_cut MUST be from this list or null):
-{_CUT_LIST_STR}
+CHILEAN COMMUNES (346 entries — commune_name MUST be spelled exactly as below or null):
+{_COMMUNE_LIST_STR}
 
 Rules:
-- commune_cut MUST be from VALID_CUTS exactly, or null if location unknown or not a crime item.
+- commune_name MUST be exactly a commune name from the list above, spelled in Spanish, or null.
+- NEVER invent or approximate a commune name. Copy it character-for-character from the list.
+- region_hint helps disambiguate; set to the region number or name from the list entry if known.
+- If the article is not about a crime incident, set commune_name to null and confidence to 0.0.
 - family MUST be exactly one of: {_FAMILY_ENUM_STR}
-- If the article is not about a crime incident, set commune_cut to null and confidence to 0.0.
-- NEVER invent CUT codes. Only use codes from VALID_CUTS.
 - Output plain text only for title_es, title_en, and summary — no HTML, no markdown.
 """
 
@@ -84,9 +94,11 @@ def classify(title: str, description: str) -> ClassifierOutput | None:
     Returns None if:
     - API call fails
     - Response JSON is malformed or empty
-    - commune_cut is not in the 346-CUT set
     - confidence < CONFIDENCE_THRESHOLD
     - family is not a valid FAMILY_KEY (Pydantic rejects)
+
+    commune_name→CUT resolution is handled downstream by pipeline/news/resolver.py.
+    This function no longer rejects on CUT membership — the LLM emits a name, not a CUT.
 
     DeepSeek is NEVER called in unit tests — mock `pipeline.news.classifier.client`.
     """
@@ -115,16 +127,8 @@ def classify(title: str, description: str) -> ClassifierOutput | None:
         logger.warning("ClassifierOutput validation failed for %r: %s", title[:60], exc)
         return None
 
-    # Reject if commune_cut not in 346-CUT set (T-05-02-01 anti-hallucination)
-    if result.commune_cut is not None and result.commune_cut not in VALID_CUTS:
-        logger.warning(
-            "Rejected: commune_cut=%r not in 346-CUT set (title=%r)",
-            result.commune_cut,
-            title[:60],
-        )
-        return None
-
     # Reject if confidence below threshold (D-07)
+    # NOTE: commune_name→CUT resolution (anti-hallucination) happens downstream in resolver.py
     if result.confidence < CONFIDENCE_THRESHOLD:
         logger.warning(
             "Rejected: confidence=%.2f < %.2f for %r",
