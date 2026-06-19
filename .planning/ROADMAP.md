@@ -96,7 +96,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
   - [x] 18-01-PLAN.md — Composite index compute core: scipy + config + normalize/SII-cap/year-align + build_composite_index.py + comparator_table.json + tests
   - [x] 18-02-PLAN.md — Extract build_map_payload.py (ci field, 30 KB assertion); strip scrape_cead.py; three-step GitHub Actions order
-  - [ ] 18-03-PLAN.md — Choropleth index-mode toggle (default): ci on CommunaPayload + buildStyleMapFromCompositeIndex + MapIsland toggle + legend
+  - [x] 18-03-PLAN.md — Choropleth index-mode toggle (default): ci on CommunaPayload + buildStyleMapFromCompositeIndex + MapIsland toggle + legend
   - [ ] 18-04-PLAN.md — Index display surfaces: ResultPanel + EN/ES commune pages, integer score + bands + national/regional rank + always-visible caveat
   - [ ] 18-05-PLAN.md — Editorial + docs gate: forbidden-language extension, F13/F14 figure-registry, SOURCES.md + methodology pages, full non-breaking validator suite
 
@@ -139,6 +139,6 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 18. Composite Crime Index | 2/5 | In Progress|  |
+| 18. Composite Crime Index | 3/5 | In Progress|  |
 | 21. Commune Comparator + A-vs-B SEO | 0/TBD | Not started | - |
 | 22. Go-Live / Launch Ops | 0/TBD | Not started | - |
