@@ -340,7 +340,20 @@ Plans:
   4. A CI check (grep-based forbidden-language validator) fails the build if an absolute unqualified "safe/dangerous/seguro/peligroso" verdict appears outside the known-allowlist (titles, negations, disclaimed quotes, code comments); an INE population spot-check script compares ≥5 commune populations against official INE and is registered in CI.
   5. The figure registry (from `v1.3-METHODOLOGY-SPEC.md` Part 1) shows zero orphaned figures: every quantitative number rendered on the site (F1–F12, F15) maps to a `data/SOURCES.md` entry or a documented editorial-parameter note.
 
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+**Wave 1** *(no file overlap — parallel)*
+
+- [ ] 20-01-PLAN.md — Expand data/SOURCES.md: INE + ENUSC + SPD-parent first-class classes + CEAD taxonomy provenance + editorial-parameters note [SRC-01, SRC-02, SRC-03, SRC-04]
+- [ ] 20-04-PLAN.md — CI guards: INE population spot-check pytest + figure-registry zero-orphan validator (13th) + forbidden-language validator verify/harden [SRC-01, SRC-05, MTH-04]
+
+**Wave 2** *(blocked on 20-01 — cites SOURCES.md entries; touches methodology pages)*
+
+- [ ] 20-02-PLAN.md — Methodology figure explanations (per-family/per-region means, LevelChip tiers, F2/F5 distinction, #trend-formula anchor) + inline ranking caveats + commune FamilyBreakdownBars drogas note [MTH-01, MTH-02, MTH-03]
+
+**Wave 3** *(blocked on 20-02 — shares methodology.astro)*
+
+- [ ] 20-03-PLAN.md — Inline ENUSC + per-figure source citation links + trend #trend-formula deep-link + EN/ES structural parity assertion [MTH-04, SRC-02]
 
 ---
 
@@ -366,7 +379,7 @@ Plans:
 | 17. Data Quality, Source Traceability & Methodology | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 19. Tech-Debt Sweep | v1.3 | 6/6 | Complete   | 2026-06-19 |
-| 20. Methodology & Sources Hardening | v1.3 | 0/TBD | Not started | - |
+| 20. Methodology & Sources Hardening | v1.3 | 0/4 | Not started | - |
 
 ## Backlog
 
