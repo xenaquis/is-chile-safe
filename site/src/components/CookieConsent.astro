@@ -8,16 +8,12 @@ interface Props {
   locale: 'en' | 'es';
 }
 
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+
 const { locale } = Astro.props;
 
-const bannerText = locale === 'en'
-  ? 'We use cookies to serve ads and analyze traffic. See our'
-  : 'Usamos cookies para mostrar anuncios y analizar el tráfico. Ver nuestra';
-
-const privacyLabel = locale === 'en' ? 'Privacy Policy' : 'Política de Privacidad';
+const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
 const privacyHref = locale === 'en' ? '/privacy-policy/' : '/es/politica-privacidad/';
-const acceptLabel = locale === 'en' ? 'Accept' : 'Aceptar';
-const rejectLabel = locale === 'en' ? 'Reject' : 'Rechazar';
 ---
 
 <!-- Inline script: hide synchronously before first paint if already consented -->
@@ -29,15 +25,15 @@ const rejectLabel = locale === 'en' ? 'Reject' : 'Rechazar';
 
 <div id="csm-consent-banner" class="consent-banner" role="dialog" aria-label="Cookie consent">
   <p class="consent-text">
-    {bannerText}
-    {' '}<a href={privacyHref} class="consent-link">{privacyLabel}</a>.
+    {t.cookie_banner_text}
+    {' '}<a href={privacyHref} class="consent-link">{t.footer_privacy}</a>.
   </p>
   <div class="consent-actions">
     <button id="csm-consent-accept" class="consent-btn consent-btn--accept" type="button">
-      {acceptLabel}
+      {t.cookie_banner_accept}
     </button>
     <button id="csm-consent-reject" class="consent-btn consent-btn--reject" type="button">
-      {rejectLabel}
+      {t.cookie_banner_reject}
     </button>
   </div>
 </div>
