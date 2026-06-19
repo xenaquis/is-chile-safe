@@ -1,5 +1,22 @@
 # Milestones
 
+## v1.3 v1.3 (Shipped: 2026-06-19)
+
+**Phases completed:** 2 phases, 10 plans, 7 tasks
+
+**Key accomplishments:**
+
+- Fixed unweighted/weighted contradiction in EN+ES methodology prose (two locations each) and added partial_year boolean to build_map_payload output.
+- `cd site && npm run build && npm run validate` — 12/12 validators passed.
+- Replaced 25+ user-visible "commune" occurrences with "comuna" across 7 ES files, fixed "adjacent"→"vecina" in Valparaíso prose, and created the reciprocal EN /crimes-by-region/ page with correct bidirectional hreflang — eliminating the /es/delitos-por-region/ orphan.
+- 1. [Rule 2 - Missing critical functionality] Updated validators to skip static redirect pages
+- Retired stale map placeholder with neutral live-map CTA; added FAMILY_KEYS CI assertion + ByFamily TypedDict; cleaned Wave-1 skipif cruft; reconciled nyquist flags.
+- Extracted commune section headings, crime/ranking table headers, footnotes, and cookie-consent strings from per-locale inline literals to i18n.ts as single source of truth.
+- Adds per-family mean (F3), per-region mean (F4), LevelChip relative tier (F6), F2/F5 weighting distinction, #trend-formula anchor (F7), and Ley 20.000 drogas scope note (F10) across methodology pages, ranking pages, and FamilyBreakdownBars — EN/ES parity maintained, 12/12 validators pass.
+- INE population spot-check pytest (9 tests, 7 communes) + figure-registry zero-orphan validator registered as 13th — full suite 13/13 PASS, pipeline 179/179 PASS.
+
+---
+
 ## v1.2 Map Fidelity, Findability & News (Shipped: 2026-06-19)
 
 **Phases completed:** 8 phases, 34 plans, 29 tasks
