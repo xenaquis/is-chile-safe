@@ -1,17 +1,11 @@
 ---
 /**
- * MapPlaceholderSlot — Phase 3 hydration mount point.
- * NEW component per UI-SPEC lines 315-341 and CONTEXT.md D-07.
+ * MapPlaceholderSlot — Live-map call-to-action card.
+ * Replaces the former "coming soon" placeholder (TD-02).
  *
- * The outer div with data-phase3-mount is the Phase 3 contract:
- *   Phase 3 replaces inner content by mounting the React Leaflet island
- *   into [data-phase3-mount]. Outer div dimensions must NOT change.
- *
- * Min-heights:
- *   commune-map: 320px mobile / 480px desktop
- *   region-map, crime-type-map: 280px mobile / 400px desktop
- *
- * Zero client:* directives (D-09).
+ * Renders a static link to /map/ (EN) or /es/mapa/ (ES) so the six
+ * editorial templates (region, crime, crime-ranking × EN/ES) point users
+ * to the live interactive map. Zero client:* directives — stays static HTML.
  */
 import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
 
@@ -23,21 +17,20 @@ interface Props {
 const { mountType, locale } = Astro.props;
 const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
 
-// Variant-specific min-heights
+const mapUrl = locale === 'en' ? '/map/' : '/es/mapa/';
+
+// Variant-specific min-heights (kept for layout compatibility)
 const isFull = mountType === 'commune-map';
 const mobileH = isFull ? '320px' : '280px';
 const desktopH = isFull ? '480px' : '400px';
 ---
 
 <div
-  class="map-placeholder-slot"
-  data-phase3-mount={mountType}
-  role="img"
-  aria-label={locale === 'en' ? 'Interactive map — coming soon' : 'Mapa interactivo — próximamente'}
+  class="map-cta-slot"
   style={`--mobile-h:${mobileH};--desktop-h:${desktopH}`}
 >
-  <div class="map-placeholder-inner">
-    <!-- PinGlyph SVG at 40px (ported from components.jsx lines 4-10) -->
+  <div class="map-cta-inner">
+    <!-- Map pin glyph -->
     <svg
       width="40"
       height="40"
@@ -51,14 +44,14 @@ const desktopH = isFull ? '480px' : '400px';
       <ellipse cx="11" cy="9" rx="2" ry="2" fill="white" />
       <path d="M11 14 Q7 18 11 22 Q15 18 11 14Z" fill="var(--muted)" />
     </svg>
-    <p class="map-placeholder-label">{t.map_placeholder_text}</p>
+    <a href={mapUrl} class="map-cta-link">{t.map_cta_label}</a>
   </div>
 </div>
 
 <style>
-  .map-placeholder-slot {
+  .map-cta-slot {
     min-height: var(--mobile-h, 320px);
-    border: 2px dashed var(--line);
+    border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--bg);
     display: flex;
@@ -68,12 +61,12 @@ const desktopH = isFull ? '480px' : '400px';
   }
 
   @media (min-width: 1024px) {
-    .map-placeholder-slot {
+    .map-cta-slot {
       min-height: var(--desktop-h, 480px);
     }
   }
 
-  .map-placeholder-inner {
+  .map-cta-inner {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -85,10 +78,15 @@ const desktopH = isFull ? '480px' : '400px';
     opacity: 0.4;
   }
 
-  .map-placeholder-label {
+  .map-cta-link {
     font-size: var(--text-label);
     font-weight: var(--weight-body);
-    color: var(--muted);
+    color: var(--accent);
+    text-decoration: underline;
     text-align: center;
+  }
+
+  .map-cta-link:hover {
+    text-decoration: none;
   }
 </style>

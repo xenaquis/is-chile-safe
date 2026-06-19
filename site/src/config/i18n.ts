@@ -52,8 +52,8 @@ export interface I18nStrings {
   comparable_same_region_heading: string;
   comparable_national_fallback_heading: string;
 
-  // Map placeholder text
-  map_placeholder_text: string;
+  // Map CTA label (TD-02 — replaced stale "coming soon" placeholder)
+  map_cta_label: string;
 
   // Methodology caveat
   methodology_caveat_link: string;
@@ -197,8 +197,8 @@ export const EN_STRINGS: I18nStrings = {
   comparable_same_region_heading: 'Comparable commune (same region)',
   comparable_national_fallback_heading: 'Comparable commune (national)',
 
-  // Map placeholder text
-  map_placeholder_text: 'Interactive map — coming in next update',
+  // Map CTA label (TD-02 — replaced stale "coming soon" placeholder)
+  map_cta_label: 'View the interactive map',
 
   // Methodology caveat
   methodology_caveat_link: 'Methodology',
@@ -347,8 +347,8 @@ export const ES_STRINGS: I18nStrings = {
   comparable_same_region_heading: 'Comuna comparable (misma región)',
   comparable_national_fallback_heading: 'Comuna comparable (a nivel nacional)',
 
-  // Texto de marcador de mapa
-  map_placeholder_text: 'Mapa interactivo — disponible próximamente',
+  // Etiqueta CTA del mapa (TD-02 — reemplaza marcador obsoleto "próximamente")
+  map_cta_label: 'Ver el mapa interactivo',
 
   // Nota metodológica
   methodology_caveat_link: 'Metodología',
