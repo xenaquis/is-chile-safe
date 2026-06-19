@@ -28,9 +28,11 @@ decisions:
 metrics:
   duration: "~20m"
   completed: "2026-06-18"
-  tasks_completed: 2
-  tasks_pending: 1
+  tasks_completed: 3
+  tasks_pending: 0
   files_changed: 4
+  ab_winner: "deepseek (deepseek-v4-flash)"
+  ab_commune_accuracy: "0.9545"
 ---
 
 # Phase 16 Plan 02: A/B Golden Set + Harness Summary
@@ -57,9 +59,19 @@ Provider-configurable classifier (NEWS_PROVIDER env), 47-item labelled golden se
 - Writes JSON to `results/ab_{provider}.json`; prints markdown table to stdout.
 - **Deviation (Rule 1 — Bug):** `ClassifierOutput.region_hint: str | None` was failing when LLM emitted integer region IDs (e.g., `6`, `12`). Fixed by adding a `mode="before"` Pydantic validator that coerces to `str`. All 15 tests still pass.
 
-## Task 3 — Pending Checkpoint
+## Task 3 — Completed (inline by orchestrator, keys present)
 
-Task 3 (live A/B run, DeepSeek vs MiniMax) is a `checkpoint:human-verify` with `gate="blocking-human"`. This task requires `DEEPSEEK_API_KEY` + `MINIMAX_API_KEY` and was NOT executed by this agent. The orchestrator will run it inline with the keys and document the winner in `16-VERIFICATION.md`.
+Live A/B run executed against the 47-item golden set with both `.env` keys. **Winner: DeepSeek (`deepseek-v4-flash`)** — documented in `16-AB-RESULTS.md` (kept separate from the Wave-5 `16-VERIFICATION.md` to avoid filename collision).
+
+| Metric | DeepSeek | MiniMax |
+|--------|----------|---------|
+| commune_accuracy | 0.9545 | 0.9545 (tie) |
+| family_accuracy | 0.6591 | 0.5227 |
+| null_rate | 1.0000 | 0.3333 |
+| mean_latency_ms | 3695 | 4157 |
+| estimated_cost_usd | 0.0329 | 0.0880 |
+
+Both providers hit **95.45% comuna accuracy** with the name→CUT resolver — beating the ~30-40% bare-CUT baseline and the >70% target, empirically validating the NEWS-01 redesign. DeepSeek wins every non-tied axis (family accuracy, non-crime rejection, latency, cost ~2.7× cheaper) and is already the classifier default (`NEWS_PROVIDER` default = `deepseek`). Raw: `pipeline/results/ab_deepseek.json`, `ab_minimax.json`.
 
 ## Deviations from Plan
 
