@@ -9,10 +9,46 @@ import pytest
 from pydantic import ValidationError
 
 from pipeline.shared.schema import (
+    FAMILY_KEYS,
+    FAMILY_KEYS_CANONICAL,
+    ByFamily,
     MapPayload,
     MapPayloadEntry,
     validate_all_communes,
 )
+
+
+# ---------------------------------------------------------------------------
+# FAMILY_KEYS order CI assertion (TD-07 / T-19-10)
+# ---------------------------------------------------------------------------
+
+
+def test_family_keys_order_matches_canonical():
+    """CI gate: FAMILY_KEYS must equal FAMILY_KEYS_CANONICAL exactly.
+    Reordering FAMILY_KEYS breaks the compact by_family list in map-payload.json
+    and in FiltersRow chip indices. This test fails the build if order changes."""
+    assert FAMILY_KEYS == list(FAMILY_KEYS_CANONICAL), (
+        f"FAMILY_KEYS order changed!\n"
+        f"  current:   {FAMILY_KEYS}\n"
+        f"  canonical: {list(FAMILY_KEYS_CANONICAL)}"
+    )
+
+
+def test_family_keys_has_expected_members():
+    """All seven crime-family keys must be present in FAMILY_KEYS."""
+    expected = {"vida", "robos_violentos", "vif", "drogas", "armas", "propiedad", "incivilidades"}
+    assert set(FAMILY_KEYS) == expected, (
+        f"FAMILY_KEYS members changed: {set(FAMILY_KEYS)} != {expected}"
+    )
+
+
+def test_by_family_typed_dict_has_all_keys():
+    """ByFamily TypedDict must declare all seven family keys."""
+    import typing
+    hints = typing.get_type_hints(ByFamily)
+    assert set(hints.keys()) == set(FAMILY_KEYS), (
+        f"ByFamily key mismatch: {set(hints.keys())} != {set(FAMILY_KEYS)}"
+    )
 
 
 # ---------------------------------------------------------------------------
