@@ -65,7 +65,7 @@ def _make_minimal_records(n=346):
 
 def test_map_payload_346_entries_under_30kb():
     """A 346-entry map-payload of realistic magnitude must serialize to under 30720 bytes."""
-    from pipeline.scrape_cead import build_map_payload
+    from pipeline.build_map_payload import build_map_payload
     records = _make_minimal_records(346)
     all_rates = [r["series"][0]["rate_per_100k"] for r in records]
 
@@ -144,7 +144,7 @@ def test_main_returns_0_on_success(tmp_path, monkeypatch):
 
 def test_map_payload_entry_has_required_keys():
     """Each map-payload entry must have id, rate, level, by_family with 7 family keys."""
-    from pipeline.scrape_cead import build_map_payload
+    from pipeline.build_map_payload import build_map_payload
     from pipeline.shared.schema import FAMILY_KEYS
 
     records = _make_minimal_records(5)
