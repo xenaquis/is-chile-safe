@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Composite Index, Comparators & Launch
 status: planning
-last_updated: "2026-06-19T12:34:30.658Z"
+last_updated: "2026-06-19T00:00:00.000Z"
 last_activity: 2026-06-19
 progress:
-  total_phases: 0
+  total_phases: 3
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -15,7 +15,7 @@ progress:
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-19 — v1.3 roadmap written (P19 Tech-Debt Sweep + P20 Methodology & Sources Hardening); Phase 18 Composite Index reserved for after v1.3_
+_Last updated: 2026-06-19 — v2.0 roadmap written (Phase 18 Composite Crime Index + Phase 21 Comparator + A-vs-B SEO + Phase 22 Go-Live). 21/21 requirements mapped. Next = plan Phase 18 (interactively — high risk)._
 
 ## Project Reference
 
@@ -23,65 +23,49 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: v1.3 Data Quality Hardening & Methodology. Roadmap written; next = plan Phase 19.
+**Current focus**: v2.0 Composite Index, Comparators & Launch. Roadmap written; next = plan Phase 18.
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: Not started (roadmap written, planning Phase 18)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-06-19 — Milestone v2.0 started
+Status: Ready to plan
+Last activity: 2026-06-19 — Roadmap written, 21/21 requirements mapped across 3 phases
+
+## Progress Bar
+
+```
+Phase 18 [                    ] 0%
+Phase 21 [                    ] 0%
+Phase 22 [                    ] 0%
+```
 
 ## Deferred Items
 
-Items acknowledged and deferred at milestone close on 2026-06-13 (human/external go-live work — not code defects):
+Items acknowledged and deferred at v1.x milestone closes:
 
 | Category | Item | Status |
 |----------|------|--------|
-| uat | Phase 04 HUMAN-UAT — editorial prose spot-check, GSC submission, footer render, FAQ tone | partial (4 pending) |
-| uat | Phase 05 HUMAN-UAT — live pipeline run + 50-incident commune-hallucination audit (needs DEEPSEEK_API_KEY) | partial (2 pending) |
-| uat | Phase 06 HUMAN-UAT — live ischilesafe.com cutover (CF + DNS + secrets) + no-rebuild-loop verification | partial (2 pending) |
-| todo | adsense-consent-mode-phase6 — wire AdSense Consent Mode when flipping ADSENSE_ENABLED | pending (high) |
-
-All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPSEEK_API_KEY`/`CF_DEPLOY_HOOK_URL` secrets). See each phase's `*-HUMAN-UAT.md` and `.planning/milestones/v1.0-MILESTONE-AUDIT.md`.
+| uat | Phase 04 HUMAN-UAT — editorial prose spot-check, GSC submission, footer render, FAQ tone | partial (4 pending) — resolved at Phase 22 |
+| uat | Phase 05 HUMAN-UAT — live pipeline run + 50-incident commune-hallucination audit | partial (2 pending) — resolved at GL-03 |
+| uat | Phase 06 HUMAN-UAT — live ischilesafe.com cutover + no-rebuild-loop verification | partial (2 pending) — resolved at GL-01/GL-02 |
+| todo | adsense-consent-mode — wire AdSense Consent Mode + flip ADSENSE_ENABLED | DEFERRED out of v2.0; monetization is a future cycle |
 
 ## Performance Metrics
 
 | Metric | Value |
 |--------|-------|
-| v1.3 Phases defined | 2 (19 + 20) |
-| v1.3 Phases complete | 0/2 |
-| v1.3 Requirements mapped | 24/24 |
-| v1.3 Plans created | 0 |
-| v1.3 Plans complete | 0 |
-| v1.1 Phases complete | 3/3 |
-| v1.2 Phases complete | 8/8 |
-| Phase 01-data-foundation P04 | 45m \| 3 tasks \| 7 files |
-| Phase 02-astro-site-programmatic-pages P01 | 35m \| 3 tasks \| 17 files |
-| Phase 02-astro-site-programmatic-pages P03 | 45min \| 3 tasks \| 5 files |
-| Phase 03-leaflet-map-island P01 | 25 \| 3 tasks \| 9 files |
-| Phase 03-leaflet-map-island P02 | 45 \| 3 tasks \| 11 files |
-| Phase 03-leaflet-map-island P03 | 25 \| 2 auto tasks + 1 UAT checkpoint (OPEN) \| 3 files |
-| Phase 04-editorial-pages-adsense P02 | 18m \| 3 tasks \| 5 files |
-| Phase 04-editorial-pages-adsense P03 | 22m \| 3 tasks \| 5 files |
-| Phase 04 P06 | 25m \| 3 tasks \| 10 files |
-| Phase 04-editorial-pages-adsense P07 | 12m \| 3 tasks \| 8 files |
-| Phase 05-rss-news-pipeline P01 | 35 \| 3 tasks \| 18 files |
-| Phase 05-rss-news-pipeline P03 | 12m \| 2 tasks \| 2 files |
-| Phase 08-bug-fixes-data-correctness P01 | 8m | 2 tasks | 4 files |
-| Phase 08-bug-fixes-data-correctness P03 | 12m | 2 tasks | 2 files |
-| Phase 08 P05 | 15m | 3 tasks | 1 files |
-| Phase 09 P04 | 12m | 2 tasks | 2 files |
-| Phase 10-high-resolution-commune-geometry P01 | 18m | 2 tasks | 2 files |
-| Phase 10-high-resolution-commune-geometry P02 | 25 | 3 tasks | 4 files |
-| Phase 10-high-resolution-commune-geometry P03 | 10m | 2 tasks + 1 human-verify checkpoint | 3 files |
-| Phase 11-publish-346-comunas-finder P02 | 15m | 3 tasks | 5 files |
-| Phase 12-home-ia-redesign-comuna-page-hub-and-spoke P04 | 18m | 3 tasks | 2 files |
-| Phase 13-ranking-seo-hardening P01 | 25 | 3 tasks | 11 files |
-| Phase 13-ranking-seo-hardening P02 | 12m | 3 tasks | 13 files |
-| Phase 14 P01 | 25m | 3 tasks | 4 files |
-| Phase 14-homicide-as-a-first-class-category P05 | 8m | 2 tasks | 2 files |
-| Phase 15 P02 | 25 | 3 tasks | 4 files |
+| v2.0 Phases defined | 3 (18, 21, 22) |
+| v2.0 Phases complete | 0/3 |
+| v2.0 Requirements mapped | 21/21 |
+| v2.0 Plans created | 0 |
+| v2.0 Plans complete | 0 |
+| v1.3 Phases complete | 2/2 (shipped 2026-06-19) |
+| v1.2 Phases complete | 8/8 (shipped 2026-06-18) |
+| v1.1 Phases complete | 3/3 (shipped 2026-06-15) |
+| v1.0 Phases complete | 6/6 (shipped 2026-06-13) |
+| Build pages (v1.3 close) | 791 pages |
+| Validators passing | 13/13 frontend + 179/179 pytest |
 
 ## Accumulated Context
 
@@ -94,43 +78,37 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 - DeepSeek v4-flash for RSS classification; `deepseek-chat` deprecated 2026-07-24 — never commit that model ID
 - Commune canonical list (346 items) must be fixed in prompt at temperature 0.0 to prevent LLM geolocation hallucination
 - Rate per 100,000 inhabitants is the single canonical metric; raw counts must never appear in rankings
-- Programmatic pages deploy in batches of 10–20 first; GSC indexing confirmed before generating all 346
 - CUT codes stored as raw string digits without zero-padding (matches CEAD catalog)
 - is_low_population defaults to True for unknown CUT codes (safe exclusion from rankings)
-- INE 2024 population values spot-checked against official INE projections — Assumption A6 closed
-- parse_cead_float maps all CEAD missing-value markers ('', '-', 'S/I', 'N/A') to None — uniform handling
-- CEAD live endpoint confirmed HTTP 200 on 2026-06-12 with 3 RM communes; inter-batch sleep belongs to orchestrator not client
-- Open Question 3 (homicides subgroup ID=101, kidnappings subgroup ID unknown) deferred to Plan 04 — do not hard-code featured-flag subgroup IDs until Plan 04 confirms them via live call
-- CHIP_DEFS carries display order + catalog by_family index — chip order != array index (0=vida, 1=robos_violentos, 2=vif, 3=drogas, 4=armas, 5=propiedad, 6=incivilidades)
-- ResultPanel converts series.by_family RECORD to catalog-indexed ARRAY for PanelFamilyBars (commune JSON uses record; map-payload uses array — never confuse them)
-- [Phase 17 Wave 0, 2026-06-18] CEAD host is `cead.minsegpublica.gob.cl` (methodology wrongly says `ministeriointerior` — fix in DQ). CEAD grupo/subgrupo catalog enumerated via `ajax_2.php seleccion=9`; familia = first digit of grupo id; full catalog in `phases/17-robust-crime-index/17-CEAD-CATALOG.json`.
-- [Phase 17 Wave 0] CEAD `tipoVal` is additive: 1=denuncias, 2=detenciones, 3=aprehendidos; casos policiales (what the site shows) = `1,2`. Never naive-sum across measures (double-counts per offence).
-- [Phase 17 Wave 0] lesiones = CEAD grupos 103+104+105 (graves/gravísimas, menos graves, leves); secuestro is ABSENT from CEAD entirely (Fiscalía/Ministerio Público, regional only, 868/2024).
-- [Phase 17 Wave 0] Homicide truth = SPD VHC xlsx (`prevenciondehomicidios.cl`, comuna-level, 2018–2025; count = row count per comuna/year). Exposure proxy = SII `PUB_COMU.xlsb` (empresas + trabajadores dependientes per comuna, 2005–2024; needs `pyxlsb`; comuna = firm domicile/HQ caveat).
-- [Phase 16] News geolocation bottleneck = design not vendor: both LLMs pick wrong CUT ~60-70% from bare codes. Fix = LLM emits comuna NAME → deterministic name→CUT. MiniMax that works: `MiniMax-Text-01` @ `https://api.minimaxi.chat/v1` (no json_object response_format). Keep centroid-from-CUT for coords.
-- [v1.3 Decisions] Phase 18 number is RESERVED for Composite Crime Index; v1.3 uses phases 19 + 20 (intentional gap at 18). COMU-03 `/crime/homicide/` = redirect (not a scope note). SII/Fiscalía/SPD-VHC snapshots stay stubs in v1.3 — promoted to first-class at Phase 18 when wired to displayed figures.
+- [Phase 17 Wave 0, 2026-06-18] CEAD host is `cead.minsegpublica.gob.cl`. CEAD `tipoVal` is additive: 1=denuncias, 2=detenciones, 3=aprehendidos; casos policiales = `1,2`. Never naive-sum across measures.
+- [Phase 17 Wave 0] Homicide truth = SPD VHC xlsx (`prevenciondehomicidios.cl`, 2018–2025; 2025 is partial/unconsolidated — reference year capped at 2024). Exposure proxy = SII `PUB_COMU.xlsb` (firms + dependent workers per commune; firma domicile/HQ caveat applies).
+- [Phase 16] LLM emits commune NAME → deterministic name→CUT resolver (95.45% accuracy). Keep centroid-from-CUT for coords.
+- [v1.3 Decisions] Phase 18 number is RESERVED for Composite Crime Index; v1.3 uses phases 19 + 20. COMU-03 `/crime/homicide/` = redirect (not scope note).
+- [v2.0 Roadmap, 2026-06-19] Normalization method (winsorized min-max vs percentile rank) is the highest-risk planning decision for Phase 18 — must be locked before any index-driven template is written. Run distribution check on actual featured_rates data first.
+- [v2.0 Roadmap, 2026-06-19] A-vs-B priority-pair allowlist exact count must be computed from actual commune data before getStaticPaths is written in Phase 21. Estimate ~3,400 pairs × 2 locales = ~6,800 pages; assert < 18,000 total files.
+- [v2.0 Roadmap, 2026-06-19] AdSense activation + Consent Mode v2 DEFERRED out of v2.0 — monetization is a future cycle.
+- [v2.0 Roadmap, 2026-06-19] Phase 22 (Go-Live) has no code dependency on Phase 21 — can run in parallel; starts once CF_DEPLOY_HOOK_URL secret is set.
 
 ### Critical Pitfalls to Avoid
 
-- Thin programmatic content → Google deindexing (recovery 4–8 weeks)
-- GitHub Actions → Cloudflare Pages infinite rebuild loop (burns 500 free builds/month)
-- LLM assigning incidents to wrong communes (use closed-list classification)
-- Frequency vs. rate ranking error (bake `rate_per_100k` into schema from day 1)
-- CEAD endpoint silently returning wrong data (validate 346-commune count + key presence after every scrape)
-- OneDrive build desync: repo lives inside OneDrive; always chain build+validate in ONE command (`cd site && npm run build && npm run validate`) — never separate processes
-- Methodology text drift: never say "population-weighted" for the national aggregate (code is unweighted; that claim was the MC-01/MC-07 bug P19 must fix)
-- Forbidden language: never an unqualified absolute "safe/dangerous/seguro/peligroso" verdict about any territory — CI validator enforces this after P20
+- **[Phase 18] Normalization without winsorization collapses the choropleth** — Sierra Gorda 43,369 per-100k pushes 95% of communes to the bottom of a raw min-max scale. Use scipy.stats.mstats.winsorize(limits=[0.01,0.01]) then min-max, OR percentile-rank. Add pytest distribution assertion.
+- **[Phase 18] Composite index implies absolute safety verdict through IA alone** — a red-to-green choropleth or "A is safer than B" in a comparator communicates a verdict without forbidden words. Extend CI validator to catch "safest / mas segura / most dangerous / mas peligrosa" without "reported" qualifier.
+- **[Phase 18] Schema migration breaks 5+ consumers of featured_rates** — commune panel, choropleth, Astro template, figure-registry validator, pytest all read featured_rates. Enumerate all consumers, add TypeScript types, run @astrojs/check, keep old fields present until all consumers verified.
+- **[Phase 21] A-vs-B page count explosion blows 20K Cloudflare free-tier limit** — 59,685 pairs × 2 locales = 119,370 pages. Use curated priority-pair allowlist (~3,400 pairs). Assert total_pages < 18,000 at build time.
+- **[Phase 21] Thin A-vs-B content triggers Google SpamBrain deindexing** — 95% identical symmetric pages = deindex risk. Minimum 5 uniqueness blocks + 300 non-swappable words per pair; acceptance-check ≥ 10 random pairs before deploy.
+- **[Phase 22] CF_DEPLOY_HOOK_URL unset keeps production stale** — set the secret FIRST before any v2.0 code merge depends on a live deploy.
+- **OneDrive build desync** — repo is inside OneDrive; always chain build+validate in ONE command (`cd site && npm run build && npm run validate`).
+- **Forbidden language** — never an unqualified absolute "safe/dangerous/seguro/peligroso" verdict about any territory; CI validator enforces this.
 
 ### Research Flags for Planning
 
-- Phase 7: BrowserOS MCP must be connected before review starts (port 9200; verify with tool search for `mcp__*browseros*__*` navigate/screenshot/console/resize tools)
-- Phase 7: dev server `cd site && npm run dev` must be running (predev runs sync-data.mjs; incidents layer will show empty state — expected)
-- Phase 19: COMU-03 canonical redirect target must be determined during plan (exact URL — likely the crime-ranking homicide page `/crime-ranking/homicide/` / `/es/ranking-delito/homicidios/`)
-- Phase 20: ENUSC official URL requires verification before publishing (`[verify URL]` note in METHODOLOGY-SPEC); confirm canonical between ine.gob.cl/enusc and seguridadpublica.gov.cl
+- **Phase 18 — plan interactively (NOT autonomous):** Normalization method final decision; SII cap threshold (recommended: sii_workers / ine_population > 5.0 → INE fallback); schema migration consumer enumeration; SPD VHC reference year confirmation (cap at 2024 until SPD confirms 2025 as final); composite_config.py metric weights (homicide 0.30 recommended, then violent families, then property, then incivilidades).
+- **Phase 21 — scope prose engine before committing:** buildComparisonProse() must generate substantively different text per pair from real trend data; priority-pair allowlist exact count must be computed from actual commune data before getStaticPaths is written. Scope these two sub-problems in planning before committing to page count.
+- **Phase 22 — standard patterns, no research needed:** All steps are documented human actions; see DEPLOYMENT.md and memory `prod-deploy-hook-secret-gap`.
 
 ### Todos
 
-- (none yet — populated during planning)
+- (populated during planning)
 
 ### Blockers
 
@@ -140,16 +118,16 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
-| 260616-huj | Clarify crime-ranking rate labels (denuncias per 100k residents, 1 decimal, bilingual explainer — presentational only, no data change) | 2026-06-16 | 4be9045 | [260616-huj-clarify-rate-labels](./quick/260616-huj-clarify-rate-labels/) |
-| 260616-klv | Audit drug rates (verified 9688/9688 vs CEAD cache — data faithful); clarify CEAD drug-family scope (Ley 20.000 vs consumption); fix national/region aggregation to population-weighted mean | 2026-06-16 | 5b997e4 | [260616-klv-auditar-tasas-drogas-100k-anomalas-modo-](./quick/260616-klv-auditar-tasas-drogas-100k-anomalas-modo-/) |
-| 260616-ldi | Fix region_id grouping (backlog 999.1): derive region from CUT length, ending Tarapacá 11/14 collision; migrate 217 commune files + recompute regional_rank; all 16 regions now populate; simplify frontend. Verified (build 790pp, 12/12 validators) | 2026-06-16 | cad6a20 | [260616-ldi-fix-region-id-grouping-backlog-999-1-der](./quick/260616-ldi-fix-region-id-grouping-backlog-999-1-der/) |
-| 260616-lu4 | Make ranking tables dynamic via progressive enhancement: shared vanilla-JS RankingTableEnhancer adds clickable asc/desc sort headers (rate + name) and a complete-years-only year selector to both region commune tables and national crime-ranking tables (EN+ES). national_rank stays fixed canonical; low-pop stays grouped at bottom; JS-off static HTML byte-identical (SEO intact); zero new deps. Build green, all 48 ranking pages carry data-* hooks | 2026-06-16 | 2a550bd | [260616-lu4-hacer-dinamicas-las-tablas-rankings-de-c](./quick/260616-lu4-hacer-dinamicas-las-tablas-rankings-de-c/) |
-| 260618-x95 | Fix prod-deploy gap: CF Pages auto-build is disabled (anti rebuild-loop), so code pushes never redeployed prod (stale build = user saw no news/data). New `.github/workflows/deploy-on-code.yml` curls the CF Deploy Hook on push to master touching `site/**` (not `data/**` — no loop); empty-secret → exit 0 (dry-run safe). Requires CF_DEPLOY_HOOK_URL secret + user push to take effect | 2026-06-19 | 18b558b | [260618-x95-deploy-on-code](./quick/260618-x95-deploy-on-code/) |
+| 260616-huj | Clarify crime-ranking rate labels (denuncias per 100k residents, 1 decimal, bilingual explainer) | 2026-06-16 | 4be9045 | [260616-huj-clarify-rate-labels](./quick/260616-huj-clarify-rate-labels/) |
+| 260616-klv | Audit drug rates; fix national/region aggregation to population-weighted mean | 2026-06-16 | 5b997e4 | [260616-klv-auditar-tasas-drogas-100k-anomalas-modo-](./quick/260616-klv-auditar-tasas-drogas-100k-anomalas-modo-/) |
+| 260616-ldi | Fix region_id grouping (BUGFIX-999.1): derive region from CUT length; all 16 regions now populate | 2026-06-16 | cad6a20 | [260616-ldi-fix-region-id-grouping-backlog-999-1-der](./quick/260616-ldi-fix-region-id-grouping-backlog-999-1-der/) |
+| 260616-lu4 | Make ranking tables dynamic via progressive enhancement | 2026-06-16 | 2a550bd | [260616-lu4-hacer-dinamicas-las-tablas-rankings-de-c](./quick/260616-lu4-hacer-dinamicas-las-tablas-rankings-de-c/) |
+| 260618-x95 | Fix prod-deploy gap: new deploy-on-code.yml curls CF Deploy Hook on push to master touching site/** | 2026-06-19 | 18b558b | [260618-x95-deploy-on-code](./quick/260618-x95-deploy-on-code/) |
 
 ## Session Continuity
 
-**Last session**: 2026-06-19 — v1.3 milestone started. ROADMAP.md written with Phases 19 (Tech-Debt Sweep) and 20 (Methodology & Sources Hardening). Phase 18 number reserved for Composite Crime Index (post-v1.3). All 24 v1.3 requirements mapped (TD-01..07 → P19, BIL-01..04 → P19, SEO-01..03 → P19, MTH-01..04 → P20, SRC-01..05 → P20). Next: `/gsd:plan-phase 19`.
-**Prior session (2026-06-18, v1.2 close)**: v1.2 shipped — Phase 17 (data quality) then Phase 16 (news) completed via /gsd-autonomous; tech_debt audit 0 blockers, 22/22 reqs; all 16 regions populate after BUGFIX-999.1 (quick-260616-ldi).
+**Last session**: 2026-06-19 — v2.0 milestone roadmap written. 21/21 requirements mapped: CI-01..CI-10 → Phase 18, CMP-01..CMP-07 → Phase 21, GL-01..GL-04 → Phase 22. Phase 18 is the reserved number (intentional gap from v1.3). Hard dependency: Phase 21 depends on Phase 18. Phase 22 parallel with Phase 21. AdSense/Consent Mode deferred. Next: `/gsd:plan-phase 18` — interactively (high risk, not autonomous).
+**Prior session (2026-06-19, v1.3 close)**: v1.3 shipped — Phases 19 (Tech-Debt Sweep) + 20 (Methodology & Sources Hardening). 13/13 validators, 179 pytest green. Milestone archived.
 **Known env issue (not code)**: project is inside OneDrive — `dist/` artifacts desync between separate processes; ALWAYS chain build + validate in one command: `cd site && npm run build && npm run validate`.
 
 ## Decisions
@@ -164,17 +142,18 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 - [Phase ?]: Static aria-label in Astro shell satisfies map validator without SSR
 - [Phase ?]: CUT list from comunas filenames; Node TopoJSON decode; 4 hardcoded centroid fallbacks for null-geometry communes
 - [Phase ?]: Four-way CUT integrity assertion (missing/orphan/dup/Santiago vs index.json) in Step-5 and Step-8 of build-topojson.mjs
-- [Phase ?]: Dual budget gate: raw le 420 KB (430080 B) AND gzip le 140 KB (143360 B); single mapshaper 10%/q=10000 config replaces three-config retry loop
+- [Phase ?]: Dual budget gate: raw le 420 KB AND gzip le 140 KB; single mapshaper 10%/q=10000 config
 - [Phase ?]: chilemapas GPL-3 boundary source adopted; srcCodeToCut normalizes zero-padded codigo_comuna to CEAD CUT
-- [Phase 10-03]: chilemapas attribution added to EN/ES methodology pages (GPL-3, INE/SUBDERE/BCN); geometry vs CEAD stats distinction explicit
-- [Phase ?]: pageType defaults to default in BaseLayout — safe fallback for pages not in enum
+- [Phase 10-03]: chilemapas attribution added to EN/ES methodology pages (GPL-3, INE/SUBDERE/BCN)
+- [Phase ?]: pageType defaults to default in BaseLayout — safe fallback
 - [Phase ?]: EditorialLayout defaults pageType=editorial; explicit prop overrides enabling rankings override
-- [Phase ?]: jsonLd Props type widened to object|object[]|null in all three layouts; emission unchanged until Plan 03
-- [Phase ?]: CONFIRMED CEAD param for homicide subgroup 101 is grupo[]=101 (NOT subgrupo[] — silently ignored, returns all-zero rows)
+- [Phase ?]: jsonLd Props type widened to object|object[]|null in all three layouts
+- [Phase ?]: CONFIRMED CEAD param for homicide subgroup 101 is grupo[]=101
 - [Phase ?]: Rate (medida=2) and count (medida=1) for homicide require two separate CEAD POST requests per year
-- [Phase ?]: CEAD zero-marker is '0,0000000000' (full-decimal) — parse_cead_float returns 0.0 not None
+- [Phase ?]: CEAD zero-marker is '0,0000000000' — parse_cead_float returns 0.0 not None
 - [Phase ?]: crimeIsHomicide set in onFamilyChange handler; exclusive with family via familyIndex null
 
 ## Operator Next Steps
 
-- Start the next milestone with /gsd:new-milestone
+- Plan Phase 18 interactively: `/gsd:plan-phase 18` (high-risk; normalization method decision must be locked before implementation begins)
+- Phase 22 can be started in parallel: set CF_DEPLOY_HOOK_URL secret in GitHub repo settings first

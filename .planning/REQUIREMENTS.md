@@ -60,11 +60,31 @@
 
 ## Traceability
 
-| REQ-ID | Phase | Notes |
-|--------|-------|-------|
-| CI-01..CI-10 | Phase 18 | (filled by roadmap) |
-| CMP-01..CMP-07 | Phase 21 | depends on Phase 18 |
-| GL-01..GL-04 | Phase 22 | parallel with Phase 21 |
+| REQ-ID | Phase | Status | Notes |
+|--------|-------|--------|-------|
+| CI-01 | Phase 18 | Pending | Isolated build_composite_index.py step |
+| CI-02 | Phase 18 | Pending | Winsorization / percentile-rank normalization + pytest assertion |
+| CI-03 | Phase 18 | Pending | SPD VHC as M5; CEAD featured_rates.homicidios preserved |
+| CI-04 | Phase 18 | Pending | SII exposure denominator with documented cap |
+| CI-05 | Phase 18 | Pending | 0–100 integer + 5 bands + national/regional rank in UI |
+| CI-06 | Phase 18 | Pending | Mandatory bilingual caveat block on all index-displaying pages |
+| CI-07 | Phase 18 | Pending | Choropleth toggle: index mode vs per-family rate mode |
+| CI-08 | Phase 18 | Pending | Methodology pages updated; figure-registry zero-orphan |
+| CI-09 | Phase 18 | Pending | Forbidden-language validator extended; npm run validate green |
+| CI-10 | Phase 18 | Pending | Schema migration non-breaking; TypeScript types; comparator_table.json emitted |
+| CMP-01 | Phase 21 | Pending | 2–3 commune comparator island; depends on Phase 18 |
+| CMP-02 | Phase 21 | Pending | Accent-insensitive autocomplete; pre-rendered static shell |
+| CMP-03 | Phase 21 | Pending | A-vs-B pages from curated allowlist; CUT-code slugs; alphabetical ordering |
+| CMP-04 | Phase 21 | Pending | ≥5 uniqueness blocks + ≥300 non-swappable words; build-time assertion |
+| CMP-05 | Phase 21 | Pending | Total page count < 18,000 asserted at build time |
+| CMP-06 | Phase 21 | Pending | hreflang + spine validators extended; commune pages link to 3–5 pairs |
+| CMP-07 | Phase 21 | Pending | Sample acceptance check ≥10 pairs; staged batches ~20 pairs |
+| GL-01 | Phase 22 | Pending | CF_DEPLOY_HOOK_URL secret set + verified; parallel with Phase 21 |
+| GL-02 | Phase 22 | Pending | Production rebuilt from master; rebuild-loop guard confirmed |
+| GL-03 | Phase 22 | Pending | Live news pipeline run + 50-incident commune audit |
+| GL-04 | Phase 22 | Pending | Sitemap submitted to GSC; URL Inspection on 5–10 pages |
+
+**Coverage:** 21/21 requirements mapped — CI-01..CI-10 → Phase 18, CMP-01..CMP-07 → Phase 21, GL-01..GL-04 → Phase 22. No orphans.
 
 ---
 *Defined 2026-06-19 for milestone v2.0. 21 requirements across 3 tracks.*
