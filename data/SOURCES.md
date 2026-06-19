@@ -101,7 +101,7 @@ on commune pages (additive schema migration — no existing consumers broken).
 `Numero de trabajadores dependientes informados` per commune (reference year 2024). The commune
 is the firm's registered domicile / HQ, not the physical establishment. Multi-site firms
 attribute all workers to HQ, concentrating counts in business-hub communes. Cap applied:
-`sii_workers / ine_population > 5.0` → value clamped to `cap 5.0` before normalization.
+`sii_workers / ine_population > 5.0` → the metric falls back to the INE resident population as the denominator (5.0 is a fallback trigger threshold, not a multiplier).
 Communes without SII data have `available_metrics` decremented by 1.
 
 **Reference year:** 2024 (latest complete year for all 7 input metrics).
