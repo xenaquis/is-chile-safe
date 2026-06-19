@@ -311,7 +311,7 @@ Plans:
 
 - [x] 19-01-PLAN.md — Methodology unweighted-mean fix (EN+ES) + map-payload partial_year flag [TD-01, TD-06]
 - [x] 19-02-PLAN.md — News date-desc sort + new URL() scheme guard (news pages + pipeline store) [TD-03, TD-05]
-- [ ] 19-03-PLAN.md — ES commune->comuna + reciprocal EN /crimes-by-region/ + adjacent->vecina [BIL-01, BIL-02, BIL-03]
+- [x] 19-03-PLAN.md — ES commune->comuna + reciprocal EN /crimes-by-region/ + adjacent->vecina [BIL-01, BIL-02, BIL-03]
 
 **Wave 2** *(blocked on 19-03 — shares ES crime/ranking pages)*
 
@@ -365,7 +365,7 @@ Plans:
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 2/2 | Complete   | 2026-06-16 |
 | 17. Data Quality, Source Traceability & Methodology | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 5/5 | Complete   | 2026-06-19 |
-| 19. Tech-Debt Sweep | v1.3 | 2/6 | In Progress|  |
+| 19. Tech-Debt Sweep | v1.3 | 3/6 | In Progress|  |
 | 20. Methodology & Sources Hardening | v1.3 | 0/TBD | Not started | - |
 
 ## Backlog

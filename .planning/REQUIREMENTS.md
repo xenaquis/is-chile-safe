@@ -22,9 +22,9 @@ Each requirement traces to one or more review finding IDs. Severity from the rev
 
 ### Bilingual Parity (→ Phase 19)
 
-- [ ] **BIL-01**: All user-visible Spanish strings use "comuna" (not the English/French "commune") — including meta descriptions, JSON-LD, and RateTooltip labels; JS identifiers (`communeCount`, `loadCommune`) untouched. *(BP-02 — high)*
-- [ ] **BIL-02**: `/es/delitos-por-region/` is no longer an orphan: it has a reciprocal EN counterpart with correct bidirectional hreflang, and the language toggle does not self-loop. *(BP-01 — high)*
-- [ ] **BIL-03**: No stray English words remain in Spanish prose (e.g. "la adjacent ciudad" → "la ciudad vecina"). *(BP-03)*
+- [x] **BIL-01**: All user-visible Spanish strings use "comuna" (not the English/French "commune") — including meta descriptions, JSON-LD, and RateTooltip labels; JS identifiers (`communeCount`, `loadCommune`) untouched. *(BP-02 — high)*
+- [x] **BIL-02**: `/es/delitos-por-region/` is no longer an orphan: it has a reciprocal EN counterpart with correct bidirectional hreflang, and the language toggle does not self-loop. *(BP-01 — high)*
+- [x] **BIL-03**: No stray English words remain in Spanish prose (e.g. "la adjacent ciudad" → "la ciudad vecina"). *(BP-03)*
 - [ ] **BIL-04**: Hardcoded section headings, table headers, and the cookie-consent strings are sourced from `i18n.ts` (single source of truth), not duplicated literals per locale. *(BP-04, BP-05, BP-06, BP-08)*
 
 ### SEO & Spine (→ Phase 19)
@@ -74,9 +74,9 @@ Each requirement traces to one or more review finding IDs. Severity from the rev
 | TD-05 | 19 | Complete |
 | TD-06 | 19 | Complete |
 | TD-07 | 19 | Pending |
-| BIL-01 | 19 | Pending |
-| BIL-02 | 19 | Pending |
-| BIL-03 | 19 | Pending |
+| BIL-01 | 19 | Complete |
+| BIL-02 | 19 | Complete |
+| BIL-03 | 19 | Complete |
 | BIL-04 | 19 | Pending |
 | SEO-01 | 19 | Pending |
 | SEO-02 | 19 | Pending |
