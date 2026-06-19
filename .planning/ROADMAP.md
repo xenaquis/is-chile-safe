@@ -142,6 +142,6 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 18. Composite Crime Index | 8/8 | Complete   | 2026-06-19 |
+| 18. Composite Crime Index | 8/8 | Complete    | 2026-06-19 |
 | 21. Commune Comparator + A-vs-B SEO | 0/TBD | Not started | - |
 | 22. Go-Live / Launch Ops | 0/TBD | Not started | - |
