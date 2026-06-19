@@ -106,9 +106,14 @@ def resolve_cut(
             if hint_norm in _norm(str(entry.get("region_id", ""))):
                 return (entry["cut"], entry["slug"])
 
-    # Fall back to first entry if disambiguation fails
-    entry = entries[0]
-    return (entry["cut"], entry["slug"])
+    # Disambiguation failed — returning a guess would assign the wrong commune.
+    # Return None so the orchestrator drops the incident (anti-hallucination contract).
+    import logging as _logging
+    _logging.getLogger(__name__).debug(
+        "Ambiguous commune name %r matched %d entries; region_hint=%r did not resolve — dropping",
+        name, len(entries), region_hint,
+    )
+    return None
 
 
 def slug_for_cut(cut: str) -> str | None:

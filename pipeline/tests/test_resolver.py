@@ -103,3 +103,40 @@ def test_region_hint_unused_when_unique():
     cut, slug = result
     assert cut == e["cut"]
     assert slug == e["slug"]
+
+
+def test_ambiguous_name_without_hint_returns_none():
+    """CR-02: when a normalized name maps to multiple entries and region_hint does
+    not resolve the collision, resolve_cut must return None (not the first entry).
+    We simulate a collision by injecting a duplicate into the lookup table."""
+    import pipeline.news.resolver as resolver_mod
+
+    e = _entry("Las Condes")
+    fake_entry = {"cut": "99001", "slug": "fake-las-condes", "region_id": "99", "name": "Las Condes"}
+    original = resolver_mod._NAME_TO_ENTRIES.copy()
+    try:
+        resolver_mod._NAME_TO_ENTRIES["las condes"] = [e, fake_entry]
+        # No region_hint — disambiguation fails
+        result = resolve_cut("Las Condes")
+        assert result is None, "Expected None when disambiguation fails (CR-02)"
+    finally:
+        resolver_mod._NAME_TO_ENTRIES.clear()
+        resolver_mod._NAME_TO_ENTRIES.update(original)
+
+
+def test_ambiguous_name_with_correct_hint_resolves():
+    """CR-02: when region_hint matches one of the colliding entries, that entry is returned."""
+    import pipeline.news.resolver as resolver_mod
+
+    e = _entry("Las Condes")
+    fake_entry = {"cut": "99001", "slug": "fake-las-condes", "region_id": "99", "name": "Las Condes"}
+    original = resolver_mod._NAME_TO_ENTRIES.copy()
+    try:
+        resolver_mod._NAME_TO_ENTRIES["las condes"] = [e, fake_entry]
+        # region_hint matches real entry's region_id
+        result = resolve_cut("Las Condes", region_hint=str(e["region_id"]))
+        assert result is not None
+        assert result[0] == e["cut"]
+    finally:
+        resolver_mod._NAME_TO_ENTRIES.clear()
+        resolver_mod._NAME_TO_ENTRIES.update(original)
