@@ -33,6 +33,16 @@ jobs:
       - name: Run CEAD scraper
         run: python pipeline/scrape_cead.py
 
+      - name: Build ENUSC victimization snapshot
+        continue-on-error: true
+        env:
+          CACHE_ONLY: '1'
+        run: python pipeline/snapshots/fetch_enusc_vhdv.py
+
+      - name: Enrich commune JSONs with ENUSC VHDV
+        continue-on-error: true
+        run: python pipeline/build_enusc_enrichment.py
+
       - name: Build composite index
         continue-on-error: true
         run: python pipeline/build_composite_index.py
