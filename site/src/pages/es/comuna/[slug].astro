@@ -224,22 +224,22 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
 
   <!-- 8. Spoke mapa (D-08) — enlace estático, sin client:* -->
   <section class="map-spoke" aria-label="Ver en el mapa nacional">
-    <h2 class="section-heading">Ver en el Mapa</h2>
+    <h2 class="section-heading">{t.map_spoke_heading}</h2>
     <a href={`/es/mapa/?cut=${data.cut}`} class="map-spoke-cta">
-      Ver {data.name} en el mapa interactivo de Chile →
+      {t.map_spoke_cta.replace('{name}', data.name)}
     </a>
   </section>
 
   <!-- 8b. Comunas similares en esta región (D-07) -->
   <section class="similar-comunas-spoke" aria-label="Comunas similares en esta región">
-    <h2 class="section-heading">Comunas Similares en Esta Región</h2>
-    <p class="spoke-intro">Comunas de {data.regionName} con tasas de incidencia CEAD similares:</p>
+    <h2 class="section-heading">{t.similar_communes_heading}</h2>
+    <p class="spoke-intro">{t.similar_communes_intro.replace('{region}', data.regionName)}</p>
     <CommuneRankingTable rows={similarComunas} locale="es" />
   </section>
 
   <!-- 8c. Spoke por tipo de delito (D-10) -->
   <section class="crime-type-spoke" aria-label="Rankings por tipo de delito">
-    <h2 class="section-heading">Rankings por Tipo de Delito</h2>
+    <h2 class="section-heading">{t.crime_type_heading}</h2>
     <ul class="crime-type-list">
       <li>
         <a href="/es/ranking-delito/homicidios/">ranking de homicidios</a>

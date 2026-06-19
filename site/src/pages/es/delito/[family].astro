@@ -21,7 +21,8 @@ import {
   loadCatalog,
   regionFileId,
 } from '../../../lib/data.ts';
-import { FAMILY_SLUGS } from '../../../config/i18n.ts';
+import { FAMILY_SLUGS, ES_STRINGS } from '../../../config/i18n.ts';
+const t = ES_STRINGS;
 import { FAMILY_LABELS_ES, FAMILY_DEFS_ES, FAMILY_SCOPE_NOTE_ES } from '../../../lib/familyDefs';
 import { buildBreadcrumb, buildItemList } from '../../../lib/jsonld.ts';
 
@@ -209,11 +210,11 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
       <table class="ranking-table">
         <thead>
           <tr>
-            <th scope="col">Posición</th>
-            <th scope="col">Comuna</th>
-            <th scope="col">Región</th>
-            <th scope="col" class="col-num">Tasa por 100k</th>
-            <th scope="col">Tendencia</th>
+            <th scope="col">{t.th_rank}</th>
+            <th scope="col">{t.th_commune}</th>
+            <th scope="col">{t.th_region}</th>
+            <th scope="col" class="col-num">{t.th_rate_per_100k}</th>
+            <th scope="col">{t.th_trend}</th>
           </tr>
         </thead>
         <tbody>
@@ -239,9 +240,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
       </table>
     </div>
     {rankingRows.some((r) => r.low_population) && (
-      <p class="low-pop-footnote">
-        * Esta comuna tiene una pequeña población residente. Las tasas por 100.000 habitantes pueden presentar alta volatilidad estadística. Interprete con cautela.
-      </p>
+      <p class="low-pop-footnote">{t.low_pop_footnote}</p>
     )}
   </section>
 

@@ -130,6 +130,23 @@ export interface I18nStrings {
 
   // Phase 16-04 — news nav
   nav_news: string;
+
+  // Phase 19-06 — BIL-04 commune section headings
+  map_spoke_heading: string;
+  map_spoke_cta: string;
+  similar_communes_heading: string;
+  similar_communes_intro: string;
+  crime_type_heading: string;
+
+  // Phase 19-06 — BIL-04 table headers
+  th_rank: string;
+  th_commune: string;
+  th_region: string;
+  th_rate_per_100k: string;
+  th_trend: string;
+
+  // Phase 19-06 — BIL-04 low-pop footnote
+  low_pop_footnote: string;
 }
 
 export const EN_STRINGS: I18nStrings = {
@@ -206,7 +223,7 @@ export const EN_STRINGS: I18nStrings = {
   footer_contact: 'Contact',
 
   // Cookie consent banner (D-11)
-  cookie_banner_text: 'We use cookies to serve ads and analyze traffic. See our Privacy Policy.',
+  cookie_banner_text: 'We use cookies to serve ads and analyze traffic. See our',
   cookie_banner_accept: 'Accept',
   cookie_banner_reject: 'Reject',
 
@@ -260,6 +277,23 @@ export const EN_STRINGS: I18nStrings = {
 
   // Phase 16-04 — news nav
   nav_news: 'News',
+
+  // Phase 19-06 — BIL-04 commune section headings
+  map_spoke_heading: 'View on Map',
+  map_spoke_cta: 'See {name} on the interactive Chile crime map →',
+  similar_communes_heading: 'Similar Communes in This Region',
+  similar_communes_intro: 'Communes in {region} with similar reported CEAD incidence rates:',
+  crime_type_heading: 'Rankings by Crime Type',
+
+  // Phase 19-06 — BIL-04 table headers
+  th_rank: 'Rank',
+  th_commune: 'Commune',
+  th_region: 'Region',
+  th_rate_per_100k: 'Rate per 100k',
+  th_trend: 'Trend',
+
+  // Phase 19-06 — BIL-04 low-pop footnote
+  low_pop_footnote: '* This commune has a small resident population. Rates per 100,000 inhabitants can show high statistical volatility. Interpret with caution.',
 };
 
 export const ES_STRINGS: I18nStrings = {
@@ -339,7 +373,7 @@ export const ES_STRINGS: I18nStrings = {
   footer_contact: 'Contacto',
 
   // Banner de consentimiento de cookies (D-11)
-  cookie_banner_text: 'Usamos cookies para mostrar anuncios y analizar el tráfico. Ver nuestra Política de Privacidad.',
+  cookie_banner_text: 'Usamos cookies para mostrar anuncios y analizar el tráfico. Ver nuestra',
   cookie_banner_accept: 'Aceptar',
   cookie_banner_reject: 'Rechazar',
 
@@ -393,6 +427,23 @@ export const ES_STRINGS: I18nStrings = {
 
   // Phase 16-04 — news nav
   nav_news: 'Noticias',
+
+  // Phase 19-06 — BIL-04 commune section headings
+  map_spoke_heading: 'Ver en el Mapa',
+  map_spoke_cta: 'Ver {name} en el mapa interactivo de Chile →',
+  similar_communes_heading: 'Comunas Similares en Esta Región',
+  similar_communes_intro: 'Comunas de {region} con tasas de incidencia CEAD similares:',
+  crime_type_heading: 'Rankings por Tipo de Delito',
+
+  // Phase 19-06 — BIL-04 table headers
+  th_rank: 'Posición',
+  th_commune: 'Comuna',
+  th_region: 'Región',
+  th_rate_per_100k: 'Tasa por 100k',
+  th_trend: 'Tendencia',
+
+  // Phase 19-06 — BIL-04 low-pop footnote
+  low_pop_footnote: '* Esta comuna tiene una pequeña población residente. Las tasas por 100.000 habitantes pueden presentar alta volatilidad estadística. Interprete con cautela.',
 };
 
 // D-17: Crime-family URL slug translations

@@ -23,6 +23,8 @@ import {
   regionFileId,
 } from '../../lib/data.ts';
 import { FAMILY_LABELS_EN, RANKING_METHODOLOGY_EN, RANKING_RATE_EXPLAINER_EN } from '../../lib/familyDefs';
+import { EN_STRINGS } from '../../config/i18n.ts';
+const t = EN_STRINGS;
 import { buildBreadcrumb, buildItemList } from '../../lib/jsonld.ts';
 
 export async function getStaticPaths() {
@@ -250,11 +252,11 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
       <table class="ranking-table" data-ranking-table data-rate-col="3" data-name-col="1" data-rate-format="1dp" data-locale="en">
         <thead>
           <tr>
-            <th scope="col">Rank</th>
-            <th scope="col">Commune</th>
-            <th scope="col">Region</th>
-            <th scope="col" class="col-num">Reported complaints per 100k residents ({latestYear})</th>
-            <th scope="col">Trend</th>
+            <th scope="col">{t.th_rank}</th>
+            <th scope="col">{t.th_commune}</th>
+            <th scope="col">{t.th_region}</th>
+            <th scope="col" class="col-num">{t.th_rate_per_100k} ({latestYear})</th>
+            <th scope="col">{t.th_trend}</th>
           </tr>
         </thead>
         <tbody>
@@ -280,9 +282,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
       </table>
     </div>
     {rankingRows.some((r) => r.low_population) && (
-      <p class="low-pop-footnote">
-        * This commune has a small resident population. Rates per 100,000 inhabitants can show high statistical volatility. Interpret with caution.
-      </p>
+      <p class="low-pop-footnote">{t.low_pop_footnote}</p>
     )}
     <RankingTableEnhancer locale="en" />
   </section>
