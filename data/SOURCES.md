@@ -207,7 +207,6 @@ statistics overlaid on the map are sourced from CEAD (see above), not from chile
 
 **Official landing:**
 `https://www.ine.gob.cl/estadisticas/sociales/demografia-y-vitales/proyecciones-de-poblacion`
-[verify URL]
 
 **Measure semantics:**
 Resident-population projection by commune, year 2024. Used as:
@@ -244,8 +243,7 @@ readable URL is confirmed.
 Seguridad Pública / INE (co-executed).
 
 **Official landing:**
-`https://www.ine.gob.cl/enusc` [verify URL — also published via
-`https://www.seguridadpublica.gov.cl` — confirm canonical before publish]
+`https://www.ine.gob.cl/estadisticas/sociales/seguridad-publica-y-justicia`
 
 **Measure semantics:**
 Household victimization survey. Among other indicators, reports the proportion of
