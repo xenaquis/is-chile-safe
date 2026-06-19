@@ -42,8 +42,14 @@ const CHIP_DEFS: ChipDef[] = [
   { key: 'homicidios',     familyIndex: null, labelEs: 'Homicidios',                  labelEn: 'Homicide',          featured: true  },
 ];
 
-// Available years: 2025 → 2005, newest first
-const AVAILABLE_YEARS: number[] = Array.from({ length: 21 }, (_, i) => 2025 - i);
+// Available years: current year → 2005, newest first.
+// Upper bound derived from current year so the dropdown stays correct as new
+// CEAD data years land. Lower bound fixed at 2005 (earliest CEAD data).
+const CEAD_EARLIEST_YEAR = 2005;
+const AVAILABLE_YEARS: number[] = Array.from(
+  { length: new Date().getFullYear() - CEAD_EARLIEST_YEAR + 1 },
+  (_, i) => new Date().getFullYear() - i
+);
 
 interface Props {
   lang: 'en' | 'es';

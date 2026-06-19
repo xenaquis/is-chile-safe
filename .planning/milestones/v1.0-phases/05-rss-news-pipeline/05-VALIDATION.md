@@ -2,7 +2,8 @@
 phase: 5
 slug: rss-news-pipeline
 status: draft
-nyquist_compliant: false
+nyquist_compliant: true
+nyquist_reconciled: "v1.3 P19 TD-07 — milestone shipped; superseded by v1.2 audit (0 blockers)"
 wave_0_complete: false
 created: 2026-06-13
 ---
