@@ -30,9 +30,10 @@ decisions:
 metrics:
   duration: "20m"
   completed: "2026-06-18"
-  tasks_completed: 2
+  tasks_completed: 3
   tasks_total: 3
-  files_changed: 6
+  files_changed: 7
+  live_run_incidents: 19
 ---
 
 # Phase 16 Plan 03: Schema Slug + Orchestrator Resolver Wiring Summary
@@ -79,17 +80,17 @@ IncidentRecord gains optional `slug` field (back-compat), orchestrator rewired t
 - **Files modified:** pipeline/tests/test_schema_incidents.py
 - **Commit:** 7ce2188
 
-## Checkpoint: Task 3 (Live Pipeline Run)
+## Task 3 — Live Pipeline Run (COMPLETED inline by orchestrator)
 
-**Status:** PENDING — returned as checkpoint for human execution.
+**Status:** DONE. Keys + RSS both available — no fallback needed.
 
-Task 3 requires a live API key (DEEPSEEK_API_KEY or MINIMAX_API_KEY per NEWS_PROVIDER) and live RSS network access. The plan instructs the executor to stop here and return a checkpoint signal.
+Ran `python -m pipeline.scrape_news` from repo root (the `python pipeline/scrape_news.py` form fails with `No module named 'pipeline'` because the `from pipeline.news…` imports need repo root on `sys.path` — use `-m`). Result:
+- RSS feeds reachable (BioBioChile, Cooperativa, etc.); DeepSeek classified real headlines.
+- `classified=19, rejected=16`, dedup 19→19 → **`data/incidents/current.json` with 19 real incidents**. Exit 0.
+- Validation: **all 19 incidents have non-null `cut` AND `slug`; all 19 carry a source `url`.** Geolocation is correct on spot-check — Estación Central (13106), Colchane (1403), Ovalle (4301), Lo Espejo (13116), Ercilla (9204) all match their headlines.
+- A few items hit empty/malformed LLM JSON and were gracefully rejected (the 0.6 confidence gate + retry handled them) — no crash.
 
-**Key-absent fallback:** write empty-valid `data/incidents/current.json`:
-```json
-{"generated": "<ISO timestamp>", "window_days": 30, "incidents": []}
-```
-and record "live run pending keys" in 16-VERIFICATION.md so NEWS-04 build proceeds.
+NEWS-03 satisfied with live, correctly-geolocated data.
 
 ## Known Stubs
 
