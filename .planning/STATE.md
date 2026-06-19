@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Composite Index, Comparators & Launch
-status: planning
-last_updated: "2026-06-19T14:38:09.729Z"
-last_activity: 2026-06-19 — Roadmap written, 21/21 requirements mapped across 3 phases
+status: executing
+last_updated: "2026-06-19T17:40:04.236Z"
+last_activity: 2026-06-19
 progress:
   total_phases: 3
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 5
+  completed_plans: 1
   percent: 0
 ---
 
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 
 ## Current Position
 
-Phase: Not started (roadmap written, planning Phase 18)
-Plan: —
-Status: Ready to plan
-Last activity: 2026-06-19 — Roadmap written, 21/21 requirements mapped across 3 phases
+Phase: 18 (composite-crime-index) — EXECUTING
+Plan: 2 of 5
+Status: Ready to execute
+Last activity: 2026-06-19 — Completed 18-01 composite index pipeline core
 
 ## Progress Bar
 
@@ -88,6 +88,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 - [v2.0 Roadmap, 2026-06-19] A-vs-B priority-pair allowlist exact count must be computed from actual commune data before getStaticPaths is written in Phase 21. Estimate ~3,400 pairs × 2 locales = ~6,800 pages; assert < 18,000 total files.
 - [v2.0 Roadmap, 2026-06-19] AdSense activation + Consent Mode v2 DEFERRED out of v2.0 — monetization is a future cycle.
 - [v2.0 Roadmap, 2026-06-19] Phase 22 (Go-Live) has no code dependency on Phase 21 — can run in parallel; starts once CF_DEPLOY_HOOK_URL secret is set.
+- [Phase 18-01, 2026-06-19] scipy winsorized min-max (D-01) implemented; SII cap=5.0 confirmed; Providencia CUT 13123 (ratio 5.186) is only capped commune; 141 SPD-absent communes get 0.0; SII-absent available_metrics decremented by 1.
 
 ### Critical Pitfalls to Avoid
 
