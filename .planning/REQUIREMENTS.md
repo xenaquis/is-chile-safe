@@ -42,11 +42,11 @@ Each requirement traces to one or more review finding IDs. Severity from the rev
 
 ### Sources Expansion (→ Phase 20)
 
-- [ ] **SRC-01**: `data/SOURCES.md` has a first-class **INE** section (official URL, measure semantics, vintage, fetch script, third-party-mirror caveat), and a CI spot-check compares ≥5 commune populations against official INE. *(SC-01, SC-02)*
+- [x] **SRC-01**: `data/SOURCES.md` has a first-class **INE** section (official URL, measure semantics, vintage, fetch script, third-party-mirror caveat), and a CI spot-check compares ≥5 commune populations against official INE. *(SC-01, SC-02)*
 - [x] **SRC-02**: `data/SOURCES.md` has an **ENUSC** section (URL, publisher, measure semantics, vintage, licence), and the methodology's underreporting/cifra-negra claims carry an inline citation link to it. *(SC-03 — high)*
 - [ ] **SRC-03**: `data/SOURCES.md` documents the **Subsecretaría de Prevención del Delito** (parent of CEAD) and the CEAD grupo/subgrupo **taxonomy provenance** (ajax_2.php seleccion=9), clarifying the chain of authority. *(SC-04, SC-07)*
 - [ ] **SRC-04**: The editorial methodology parameters (5% trend threshold, 3-year window, 10,000-inhabitant low-pop exclusion) are documented in `data/SOURCES.md`/methodology as editorial with rationale. *(SC-05, SC-06)*
-- [ ] **SRC-05**: Every quantitative figure displayed on the site maps to a `data/SOURCES.md` registry entry (the figure registry from `v1.3-METHODOLOGY-SPEC.md`) — zero orphan numbers. *(METHODOLOGY-SPEC goal; milestone definition of done)*
+- [x] **SRC-05**: Every quantitative figure displayed on the site maps to a `data/SOURCES.md` registry entry (the figure registry from `v1.3-METHODOLOGY-SPEC.md`) — zero orphan numbers. *(METHODOLOGY-SPEC goal; milestone definition of done)*
 
 ---
 
@@ -85,10 +85,10 @@ Each requirement traces to one or more review finding IDs. Severity from the rev
 | MTH-02 | 20 | Complete |
 | MTH-03 | 20 | Complete |
 | MTH-04 | 20 | Complete |
-| SRC-01 | 20 | Pending |
+| SRC-01 | 20 | Complete |
 | SRC-02 | 20 | Complete |
 | SRC-03 | 20 | Pending |
 | SRC-04 | 20 | Pending |
-| SRC-05 | 20 | Pending |
+| SRC-05 | 20 | Complete |
 
 *Confirmed by roadmapper 2026-06-19. Coverage: 23/23 individual requirements mapped (TD-01..07 = 7, BIL-01..04 = 4, SEO-01..03 = 3, MTH-01..04 = 4, SRC-01..05 = 5 — total 23). Zero orphans.*

@@ -65,7 +65,7 @@ Full phase details, success criteria, and per-plan breakdown: **[milestones/v1.2
 > Phase 18 is intentionally skipped here — it is reserved for the post-v1.3 Composite Crime Index milestone (see Backlog).
 
 - [x] **Phase 19: Tech-Debt Sweep** — Fix the methodology weighted/unweighted math contradiction, repair bilingual integrity (ES "comuna" terminology, orphan `/es/delitos-por-region/` + hreflang), remove stale placeholders, sort news newest-first, redirect COMU-03 `/crime/homicide/`, harden incident URL validation, extract hardcoded strings to `i18n.ts`, and tighten SEO spine (robots.txt, glossary nav, hreflang reciprocity). [TD-01..07, BIL-01..04, SEO-01..03] (completed 2026-06-19)
-- [ ] **Phase 20: Methodology & Sources Hardening** — Add INE, ENUSC, and SPD-parent as first-class `data/SOURCES.md` entries; document editorial parameters (5% trend threshold, 3-year window, <10k rule); add methodology explanations for per-family means, per-region breakdowns, and LevelChip tiers; surface the drogas scope note on FamilyBreakdownBars; implement CI forbidden-language validator + INE population spot-check; close the figure registry so zero displayed numbers are orphaned. [MTH-01..04, SRC-01..05]
+- [x] **Phase 20: Methodology & Sources Hardening** — Add INE, ENUSC, and SPD-parent as first-class `data/SOURCES.md` entries; document editorial parameters (5% trend threshold, 3-year window, <10k rule); add methodology explanations for per-family means, per-region breakdowns, and LevelChip tiers; surface the drogas scope note on FamilyBreakdownBars; implement CI forbidden-language validator + INE population spot-check; close the figure registry so zero displayed numbers are orphaned. [MTH-01..04, SRC-01..05] (completed 2026-06-19)
 
 ## Phase Details (archived — see milestones/v1.2-ROADMAP.md)
 
@@ -345,7 +345,7 @@ Plans:
 **Wave 1** *(no file overlap — parallel)*
 
 - [x] 20-01-PLAN.md — Expand data/SOURCES.md: INE + ENUSC + SPD-parent first-class classes + CEAD taxonomy provenance + editorial-parameters note [SRC-01, SRC-02, SRC-03, SRC-04]
-- [ ] 20-04-PLAN.md — CI guards: INE population spot-check pytest + figure-registry zero-orphan validator (13th) + forbidden-language validator verify/harden [SRC-01, SRC-05, MTH-04]
+- [x] 20-04-PLAN.md — CI guards: INE population spot-check pytest + figure-registry zero-orphan validator (13th) + forbidden-language validator verify/harden [SRC-01, SRC-05, MTH-04]
 
 **Wave 2** *(blocked on 20-01 — cites SOURCES.md entries; touches methodology pages)*
 
@@ -379,7 +379,7 @@ Plans:
 | 17. Data Quality, Source Traceability & Methodology | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 19. Tech-Debt Sweep | v1.3 | 6/6 | Complete   | 2026-06-19 |
-| 20. Methodology & Sources Hardening | v1.3 | 3/4 | In Progress|  |
+| 20. Methodology & Sources Hardening | v1.3 | 4/4 | Complete   | 2026-06-19 |
 
 ## Backlog
 
