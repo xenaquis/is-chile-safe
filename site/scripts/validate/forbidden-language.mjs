@@ -44,6 +44,9 @@ const FORBIDDEN_TERMS = [
   '100% seguro',
   'seguridad garantizada',
   'la mas segura',
+  'mas peligrosa',
+  'mas peligroso',
+  'el mas seguro',
   // English
   'dangerous zone',
   'dangerous area',
@@ -54,6 +57,7 @@ const FORBIDDEN_TERMS = [
   '100% safe',
   'guaranteed safety',
   'the safest',
+  'most dangerous',
 ];
 
 // ---------------------------------------------------------------------------
@@ -63,6 +67,8 @@ const FORBIDDEN_TERMS = [
 const ALLOW_LIST = [
   /en este per[io]+do seg[u]+n datos cead/i,
   /according to cead data for \d{4}/i,
+  /according to reported (crime|incidents)/i,
+  /segun (delitos|incidentes) reportados/i,
 ];
 
 // ---------------------------------------------------------------------------
