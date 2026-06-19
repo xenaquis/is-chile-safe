@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Composite Index, Comparators & Launch
 status: executing
-last_updated: "2026-06-19T21:00:47.725Z"
-last_activity: 2026-06-19 -- Phase 23 planning complete
+last_updated: "2026-06-19T21:14:09.000Z"
+last_activity: 2026-06-19
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 12
-  completed_plans: 8
+  completed_plans: 9
   percent: 25
 ---
 
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 
 ## Current Position
 
-Phase: 21
-Plan: Not started
+Phase: 23 (enusc-communal-victimization-layer) — EXECUTING
+Plan: 2 of 4
 Status: Ready to execute
-Last activity: 2026-06-19 -- Phase 23 planning complete
+Last activity: 2026-06-19
 
 ## Progress Bar
 
@@ -66,6 +66,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | v1.0 Phases complete | 6/6 (shipped 2026-06-13) |
 | Build pages (v1.3 close) | 791 pages |
 | Validators passing | 13/13 frontend + 179/179 pytest |
+| Phase 23 P01 | 20m | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -157,6 +158,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 - [Phase ?]: Rate (medida=2) and count (medida=1) for homicide require two separate CEAD POST requests per year
 - [Phase ?]: CEAD zero-marker is '0,0000000000' — parse_cead_float returns 0.0 not None
 - [Phase ?]: crimeIsHomicide set in onFamilyChange handler; exclusive with family via familyIndex null
+- [Phase ?]: Column header matching in fetch_enusc_vhdv.py uses accent-normalized NFD comparison — real XLSX omits accents on 'victimas'/'logaritmico'
 
 ## Operator Next Steps
 
