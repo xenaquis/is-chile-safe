@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Composite Index, Comparators & Launch
-status: executing
-last_updated: "2026-06-19T21:26:01.102Z"
+status: verifying
+last_updated: "2026-06-19T21:30:45.446Z"
 last_activity: 2026-06-19
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 12
-  completed_plans: 11
-  percent: 25
+  completed_plans: 12
+  percent: 50
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 
 Phase: 23 (enusc-communal-victimization-layer) — EXECUTING
 Plan: 4 of 4
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-06-19
 
 ## Progress Bar
@@ -67,6 +67,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | Build pages (v1.3 close) | 791 pages |
 | Validators passing | 13/13 frontend + 179/179 pytest |
 | Phase 23 P01 | 20m | 3 tasks | 5 files |
+| Phase 23 P04 | 8m | 3 tasks | 4 files |
 
 ## Accumulated Context
 

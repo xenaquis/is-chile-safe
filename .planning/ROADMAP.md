@@ -72,7 +72,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 - [~] **Phase 18: Composite Crime Index** — exposure-adjusted 0–100 index, SPD VHC homicide switch, schema migration, index-driven choropleth _(RESERVED number; highest-risk phase — plan interactively)_ (executed 2026-06-19; verified gaps_found — 3 gap-closure plans 18-06..18-08 pending execution)
 - [x] **Phase 21: Commune Comparator + A-vs-B SEO** — interactive comparator island + ~6,800 bilingual A-vs-B programmatic pages built on Phase 18 outputs _(depends on Phase 18)_ (completed 2026-06-19)
-- [ ] **Phase 23: ENUSC Communal Victimization Layer** — additive INE ENUSC 2024 SAE household-victimization (VHDV) figure on the 136 covered comuna pages, graceful "no estimate" for the other 210; anti-infra-representation, additive-only vs Phase 18 _(depends on Phase 18 + 17; **runs BEFORE Phase 22**)_ — origin SEED-002
+- [x] **Phase 23: ENUSC Communal Victimization Layer** — additive INE ENUSC 2024 SAE household-victimization (VHDV) figure on the 136 covered comuna pages, graceful "no estimate" for the other 210; anti-infra-representation, additive-only vs Phase 18 _(depends on Phase 18 + 17; **runs BEFORE Phase 22**)_ — origin SEED-002 (completed 2026-06-19)
 - [ ] **Phase 22: Go-Live / Launch Ops** — CF deploy hook, production deploy, live news audit, GSC submission _(parallel with Phase 21; no code dependency; **gated after Phase 23** per SEED-002)_
 
 ---
@@ -160,7 +160,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 - [x] 23-01-PLAN.md — ENUSC VHDV fetcher (sha256-guarded ingest) + committed snapshot + ATTRIBUTION (VL-01, VL-02)
 - [x] 23-02-PLAN.md — Additive enrichment of comuna JSONs + byte-unchanged guard + GitHub Actions wiring (VL-01, VL-02, VL-05)
 - [x] 23-03-PLAN.md — EN/ES commune-page VHDV module + no-estimate fallback + i18n + type + commune validator (VL-03, VL-04)
-- [ ] 23-04-PLAN.md — F16 registry + SOURCES.md + EN/ES methodology + full-suite byte-unchanged gate (VL-05)
+- [x] 23-04-PLAN.md — F16 registry + SOURCES.md + EN/ES methodology + full-suite byte-unchanged gate (VL-05)
 
 **UI hint**: yes
 
@@ -172,5 +172,5 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 |-------|----------------|--------|-----------|
 | 18. Composite Crime Index | 8/8 | Complete    | 2026-06-19 |
 | 21. Commune Comparator + A-vs-B SEO | 0/TBD | Not started | - |
-| 23. ENUSC Communal Victimization Layer | 3/4 | In Progress|  |
+| 23. ENUSC Communal Victimization Layer | 4/4 | Complete   | 2026-06-19 |
 | 22. Go-Live / Launch Ops | 0/TBD | Not started (gated after 23) | - |
