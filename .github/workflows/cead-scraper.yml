@@ -33,6 +33,14 @@ jobs:
       - name: Run CEAD scraper
         run: python pipeline/scrape_cead.py
 
+      - name: Build composite index
+        continue-on-error: true
+        run: python pipeline/build_composite_index.py
+
+      - name: Build map payload
+        continue-on-error: true
+        run: python pipeline/build_map_payload.py
+
       - name: Commit data if changed
         id: commit
         run: |
