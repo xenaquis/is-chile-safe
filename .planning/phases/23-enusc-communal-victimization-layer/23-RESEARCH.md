@@ -662,17 +662,17 @@ This phase adds no authentication, user input, API keys, or dynamic routes. ASVS
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Should the enrichment step also emit `enusc_vhdv` into `data/cead/comparator_table.json`** (the Phase 21 handoff)?
    - What we know: `comparator_table.json` is consumed by Phase 21 comparator pages; it currently holds composite index data.
    - What's unclear: Whether the comparator UI benefits from showing VHDV side-by-side.
-   - Recommendation: Defer — Phase 21 is about the composite index; VHDV on comparator pages is a Phase 24 idea. Keep Phase 23 additive-only on the commune page.
+   - **RESOLVED:** Defer — Phase 21 is about the composite index; VHDV on comparator pages is a Phase 24 idea. Keep Phase 23 additive-only on the commune page. (Plans leave `comparator_table.json` untouched.)
 
 2. **Do methodology pages need a new H2 section for ENUSC SAE communal estimates?**
    - What we know: VL-05 requires methodology page documentation. The existing `methodology.astro` and `es/metodologia.astro` have an ENUSC section (for cifra-negra claims, F11).
    - What's unclear: Whether to add a separate H2 or expand the existing ENUSC section.
-   - Recommendation: Add a separate `## Household Victimization Indicator (ENUSC 2024 SAE)` section, to keep F11 and F16 registrations distinct and traceable.
+   - **RESOLVED:** Add a separate `## Household Victimization Indicator (ENUSC 2024 SAE)` section, to keep F11 and F16 registrations distinct and traceable. (Implemented in plan 23-04 Task 2.)
 
 ---
 

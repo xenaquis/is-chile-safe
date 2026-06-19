@@ -42,14 +42,14 @@ created: 2026-06-19
 
 | Plan area | Wave | Requirement | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |-----------|------|-------------|-----------------|-----------|-------------------|-------------|--------|
-| Fetcher | 1 | VL-01 | sha256-guarded CACHE_ONLY parse; non-zero exit if cache absent | pytest | `pytest tests/test_fetch_enusc_vhdv.py -x` | ❌ W0 | ⬜ pending |
-| Enrichment | 1 | VL-01 | exits 0 if snapshot absent (graceful degrade, CEAD unaffected) | pytest | `pytest tests/test_build_enusc_enrichment.py::test_missing_snapshot_graceful -x` | ❌ W0 | ⬜ pending |
-| Enrichment | 1 | VL-02 | all 136 CUTs resolve to valid index CUT; count == 136; unresolved fails build | pytest | `pytest tests/test_build_enusc_enrichment.py::test_coverage_assertion -x` | ❌ W0 | ⬜ pending |
-| Commune page | 2 | VL-03 | EN+ES covered pages contain VHDV section + experimental/SAE caveat | validator | `node site/scripts/validate/commune.mjs` (extend) | ⚠️ extend | ⬜ pending |
+| Fetcher | 1 | VL-01 | sha256-guarded CACHE_ONLY parse; non-zero exit if cache absent | pytest | `pytest tests/test_fetch_enusc_vhdv.py -x` | ✅ plan 23-01 T1 (RED) | ⬜ pending |
+| Enrichment | 1 | VL-01 | exits 0 if snapshot absent (graceful degrade, CEAD unaffected) | pytest | `pytest tests/test_build_enusc_enrichment.py::test_missing_snapshot_graceful -x` | ✅ plan 23-02 T1 (RED) | ⬜ pending |
+| Enrichment | 1 | VL-02 | all 136 CUTs resolve to valid index CUT; count == 136; unresolved fails build | pytest | `pytest tests/test_build_enusc_enrichment.py::test_coverage_assertion -x` | ✅ plan 23-02 T1 (RED) | ⬜ pending |
+| Commune page | 2 | VL-03 | EN+ES covered pages contain VHDV section + experimental/SAE caveat | validator | `node site/scripts/validate/commune.mjs` (extend) | ✅ plan 23-03 T3 | ⬜ pending |
 | Editorial | 2 | VL-03 | forbidden-language exits 0 (no absolute verdict) | validator | `node site/scripts/validate/forbidden-language.mjs` | ✅ exists | ⬜ pending |
-| Commune page | 2 | VL-04 | uncovered pages contain explicit bilingual "no estimate" note, no broken layout | validator | `node site/scripts/validate/commune.mjs` (extend) | ⚠️ extend | ⬜ pending |
+| Commune page | 2 | VL-04 | uncovered pages contain explicit bilingual "no estimate" note, no broken layout | validator | `node site/scripts/validate/commune.mjs` (extend) | ✅ plan 23-03 T3 | ⬜ pending |
 | Figure registry | 2 | VL-05 | F16 registered + SOURCES.md token present; zero-orphan passes | validator | `node site/scripts/validate/figure-registry.mjs` | ✅ exists | ⬜ pending |
-| Additive guard | 1 | VL-05 | Phase-18 composite_index fields byte-unchanged after enrichment | pytest | `pytest tests/test_build_enusc_enrichment.py::test_phase18_byte_unchanged -x` | ❌ W0 | ⬜ pending |
+| Additive guard | 1 | VL-05 | Phase-18 composite_index fields byte-unchanged after enrichment | pytest | `pytest tests/test_build_enusc_enrichment.py::test_phase18_byte_unchanged -x` | ✅ plan 23-02 T1 (RED) | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -57,9 +57,11 @@ created: 2026-06-19
 
 ## Wave 0 Requirements
 
-- [ ] `pipeline/tests/test_fetch_enusc_vhdv.py` — VL-01 (CACHE_ONLY parse, sha256 guard, column detection)
-- [ ] `pipeline/tests/test_build_enusc_enrichment.py` — VL-01 (graceful degrade), VL-02 (coverage assertion), VL-05 (byte-unchanged)
-- [ ] Extend `site/scripts/validate/commune.mjs` — assert VHDV module (covered) / no-estimate note (uncovered) on built commune pages
+> Folded into the plans as RED-first / extension tasks (no separate Wave 0 pass needed):
+
+- [x] `pipeline/tests/test_fetch_enusc_vhdv.py` — VL-01 (CACHE_ONLY parse, sha256 guard, column detection) → **plan 23-01 Task 1 (RED-first)**
+- [x] `pipeline/tests/test_build_enusc_enrichment.py` — VL-01 (graceful degrade), VL-02 (coverage assertion), VL-05 (byte-unchanged) → **plan 23-02 Task 1 (RED-first)**
+- [x] Extend `site/scripts/validate/commune.mjs` — assert VHDV module (covered) / no-estimate note (uncovered) on built commune pages → **plan 23-03 Task 3**
 
 *Existing infrastructure (pytest, 13-validator Node suite, forbidden-language, figure-registry) covers the rest.*
 
@@ -76,11 +78,11 @@ created: 2026-06-19
 
 ## Validation Sign-Off
 
-- [ ] All tasks have `<automated>` verify or Wave 0 dependencies
-- [ ] Sampling continuity: no 3 consecutive tasks without automated verify
-- [ ] Wave 0 covers all MISSING references
-- [ ] No watch-mode flags
-- [ ] Feedback latency < 60s
-- [ ] `nyquist_compliant: true` set in frontmatter
+- [x] All tasks have `<automated>` verify or Wave 0 dependencies
+- [x] Sampling continuity: no 3 consecutive tasks without automated verify
+- [x] Wave 0 covers all MISSING references
+- [x] No watch-mode flags
+- [x] Feedback latency < 60s
+- [x] `nyquist_compliant: true` set in frontmatter
 
 **Approval:** approved (Wave 0 test stubs folded into 23-01 Task1 + 23-02 Task1 as RED-first tasks; commune.mjs extension in 23-03 Task3)
