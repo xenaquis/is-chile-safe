@@ -127,6 +127,9 @@ export interface I18nStrings {
   sort_descending: string;
   year_select_label: string;
   year_select_aria: string;
+
+  // Phase 16-04 — news nav
+  nav_news: string;
 }
 
 export const EN_STRINGS: I18nStrings = {
@@ -254,6 +257,9 @@ export const EN_STRINGS: I18nStrings = {
   sort_descending: 'descending',
   year_select_label: 'Year',
   year_select_aria: 'Select data year',
+
+  // Phase 16-04 — news nav
+  nav_news: 'News',
 };
 
 export const ES_STRINGS: I18nStrings = {
@@ -384,6 +390,9 @@ export const ES_STRINGS: I18nStrings = {
   sort_descending: 'descendente',
   year_select_label: 'Año',
   year_select_aria: 'Seleccionar año de datos',
+
+  // Phase 16-04 — news nav
+  nav_news: 'Noticias',
 };
 
 // D-17: Crime-family URL slug translations

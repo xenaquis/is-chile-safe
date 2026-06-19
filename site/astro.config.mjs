@@ -46,6 +46,9 @@ const ROLLOUT_ALL = process.env.ROLLOUT_ALL === 'true';
 function sitemapFilter(url) {
   if (ROLLOUT_ALL) return true;
 
+  // News pages — explicit early rule (NEWS-04)
+  if (/\/news\/$/.test(url) || /\/es\/noticias\/$/.test(url)) return true;
+
   // Home pages
   if (url === 'https://ischilesafe.com/' || url === 'https://ischilesafe.com/es/') {
     return true;
