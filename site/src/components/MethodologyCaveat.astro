@@ -18,6 +18,7 @@ const { locale } = Astro.props;
 const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
 
 const methodHref = locale === 'en' ? '/methodology/' : '/es/metodologia/';
+const trendHref = locale === 'en' ? '/methodology/#trend-formula' : '/es/metodologia/#trend-formula';
 const glossaryHref = locale === 'en' ? '/glossary/' : '/es/glosario/';
 
 // Replace {link} placeholder with the link element
@@ -31,6 +32,11 @@ const caveatParts = t.methodology_caveat_text.split('{link}');
     {caveatParts[1]}
     {' '}
     <a href={glossaryHref} class="caveat-link">{t.glossary_link}</a>.
+    {' '}
+    {locale === 'en'
+      ? <span>Trend indicators use a 3-year window — see <a href={trendHref} class="caveat-link">trend formula</a>.</span>
+      : <span>Los indicadores de tendencia usan ventana de 3 años — ver <a href={trendHref} class="caveat-link">fórmula de tendencia</a>.</span>
+    }
   </p>
 </aside>
 
