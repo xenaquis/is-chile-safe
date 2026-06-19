@@ -10,11 +10,17 @@ El sitio captura tráfico SEO mediante páginas programáticas bilingües (por c
 
 Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-## Current Milestone: (between milestones — v1.2 shipped 2026-06-18)
+## Current Milestone: v1.3 Data Quality Hardening & Methodology
 
-**v1.2 Map Fidelity, Findability & News — SHIPPED.** The site's rich-but-"lost" material is now connected and the news layer is live: real commune geometry, all 346 comunas reachable + finder, home/IA hub-and-spoke, ranking + crime-type SEO, homicide as a first-class category, verified figures + traceable bilingual methodology, and live geolocated news (`/news/` + `/es/noticias/`). Audit: tech_debt, 0 blockers (`milestones/v1.2-MILESTONE-AUDIT.md`).
+**Goal:** Eliminate accumulated tech debt and make every quantitative figure on the site explained, sourced+linked, caveated, and EN/ES-parity — zero displayed number without a registry entry.
 
-**Next (proposed):** Phase 18 — Composite Crime Index & Metric Redesign (deferred from Phase 17). Exposure-adjusted composite index, SPD homicide-metric switch, `featured_rates`→7-metric schema migration, index-driven choropleth. High-risk/large — plan interactively. Sources validated + snapshots committed in Phase 17 (DQ-04). Also pending: go-live (`DEPLOYMENT.md`, human). Run `/gsd:new-milestone` to scope the next cycle.
+**Target features:**
+- **P19 — Tech-Debt Sweep:** fix methodology weighted-vs-unweighted contradiction (MC-01/07), ES "comuna" terminology (BP-02), `/es/delitos-por-region/` orphan + hreflang (BP-01), stale `map_placeholder_text` removal, news sort-by-date-desc (IN-03), URL/scheme hardening, i18n string extraction, SEO robots/hreflang reciprocity, skipif/test cleanup, COMU-03 `/crime/homicide/` redirect.
+- **P20 — Methodology & Sources Hardening:** INE + ENUSC + SPD-parent first-class `SOURCES.md` entries (SC-01/03), editorial-parameters note (5% trend threshold, 3-year window, <10k rule, pop-weighted-mean), explanations for per-family/per-region means + LevelChip tiers, CI forbidden-language validator + INE spot-check.
+
+**Key context:** Seeded by the v1.3 swarm review (7 Sonnet validators + adversarial verify + Opus synthesis): `v1.3-REVIEW-FINDINGS.md`, `v1.3-METHODOLOGY-SPEC.md`, `v1.3-DECISIONS.md`. 0 blockers, 4 high. Decisions (a–d) resolved: prior-milestone P08/P10 closed; SII/Fiscalía-secuestro snapshots stay stubs until Phase 18; COMU-03 = redirect; v1.3 is its own milestone. Phase numbering uses **19 & 20**, reserving Phase 18 for the post-v1.3 Composite Crime Index milestone.
+
+**Next (after v1.3):** Phase 18 — Composite Crime Index & Metric Redesign (high-risk/large — plan interactively; inputs hardened by v1.3). Also pending: go-live (`DEPLOYMENT.md`, human — note: prod is stale because `CF_DEPLOY_HOOK_URL` secret is unset; set it + redeploy).
 
 ## Requirements
 
@@ -141,4 +147,4 @@ This document evolves at phase transitions and milestone boundaries.
 **Not yet live:** the site is not deployed — go-live requires a Cloudflare account, DNS for `ischilesafe.com`, and the `DEEPSEEK_API_KEY` / `CF_DEPLOY_HOOK_URL` secrets (all in `DEPLOYMENT.md`). That single human step also unblocks the news live-run + 50-incident audit and AdSense activation.
 
 ---
-*Last updated: 2026-06-18 — after v1.2 Map Fidelity, Findability & News milestone (next: proposed Phase 18 + go-live)*
+*Last updated: 2026-06-19 — started v1.3 Data Quality Hardening & Methodology milestone (P19 tech-debt + P20 methodology/sources; Phase 18 Composite Index reserved for after)*
