@@ -149,21 +149,46 @@ def main() -> None:
     # Strip whitespace from headers (ENUSC XLSX has trailing spaces/newlines)
     df.columns = [str(c).strip() for c in df.columns]
 
-    required_cols = {
-        "Código comuna",
-        "Nombre comuna",
-        "Porcentaje de hogares víctimas de delitos violentos 2024",
-        "Límite inferior",
-        "Límite superior",
-        "Tipo de estimación",
-        "Coeficiente de variación logarítmico",
+    # Column name normalization: strip accents from column names for matching.
+    # The real XLSX uses slightly different accents than the SEED-002 profile described
+    # ("victimas" without accent, "logaritmico" without accent). We match by normalized
+    # form to be robust against minor INE encoding variations.
+    import unicodedata
+
+    def _norm(s: str) -> str:
+        """Normalize accents: NFD decompose, drop combining marks, lowercase."""
+        return "".join(
+            c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn"
+        ).lower().strip()
+
+    col_norm = {_norm(c): c for c in df.columns}
+
+    # Normalized expected column names
+    _EXPECTED_NORM = {
+        "codigo comuna": "cut_col",
+        "nombre comuna": "name_col",
+        "porcentaje de hogares victimas de delitos violentos 2024": "vhdv_col",
+        "limite inferior": "ci_lower_col",
+        "limite superior": "ci_upper_col",
+        "tipo de estimacion": "tipo_col",
+        "coeficiente de variacion logaritmico": "cv_col",
     }
-    missing = required_cols - set(df.columns)
-    if missing:
+
+    missing_norm = [k for k in _EXPECTED_NORM if k not in col_norm]
+    if missing_norm:
         raise RuntimeError(
-            f"Expected columns not found in sheet '{ENUSC_SHEET}': {missing}. "
+            f"Expected columns not found in sheet '{ENUSC_SHEET}' (normalized match): {missing_norm}. "
             f"Found columns: {list(df.columns)}"
         )
+
+    # Map normalized keys to actual column names in the file
+    cut_col = col_norm["codigo comuna"]
+    name_col = col_norm["nombre comuna"]
+    vhdv_col = col_norm["porcentaje de hogares victimas de delitos violentos 2024"]
+    ci_lower_col = col_norm["limite inferior"]
+    ci_upper_col = col_norm["limite superior"]
+    tipo_col = col_norm["tipo de estimacion"]
+    cv_col = col_norm["coeficiente de variacion logaritmico"]
 
     # Build slug->CUT map for redundant cross-check (never fail on mismatch)
     cut_map = _build_cut_map()
@@ -171,18 +196,18 @@ def main() -> None:
     records = []
     for _, row in df.iterrows():
         # Primary join: col A is CUT as raw string digits (strip float suffix if any)
-        cut = str(row["Código comuna"]).strip().split(".")[0]
-        name = str(row["Nombre comuna"]).strip()
+        cut = str(row[cut_col]).strip().split(".")[0]
+        name = str(row[name_col]).strip()
 
         # Skip NaN / empty rows (blank rows at end of sheet)
         if cut in ("nan", "", "None"):
             continue
 
-        vhdv_rate = float(row["Porcentaje de hogares víctimas de delitos violentos 2024"])
-        ci_lower = float(row["Límite inferior"])
-        ci_upper = float(row["Límite superior"])
-        tipo = str(row["Tipo de estimación"]).strip()
-        cv = float(row["Coeficiente de variación logarítmico"])
+        vhdv_rate = float(row[vhdv_col])
+        ci_lower = float(row[ci_lower_col])
+        ci_upper = float(row[ci_upper_col])
+        tipo = str(row[tipo_col]).strip()
+        cv = float(row[cv_col])
 
         # Redundant cross-check: name→slug should resolve to the same CUT
         slug = make_slug(name)

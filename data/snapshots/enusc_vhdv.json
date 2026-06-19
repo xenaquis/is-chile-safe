@@ -1,0 +1,1234 @@
+{
+  "source": "INE — Estadisticas Experimentales: Seguridad Ciudadana (ENUSC 2024 SAE)",
+  "source_url": "https://www.ine.gob.cl/docs/default-source/estadisticas-experimentales-seguridad-ciudadana/cuadros-estadisticos/2024/tabulados-sae--enusc-2024-vhdv.xlsx?sfvrsn=671c099f_4",
+  "landing_page": "https://www.ine.gob.cl/estadisticas/estadisticas-experimentales/seguridad-ciudadana",
+  "vintage": "2024",
+  "fetched": "2026-06-19T21:12:42Z",
+  "caveat": "Estadistica experimental (SAE). INE labels this 'etapa inicial de madurez'. Proportion of households reporting at least one violent crime (VHDV). 136 of 346 comunas covered. NOT per-100k — proportion 0-1. Do not merge with CEAD per-100k composite.",
+  "records": [
+    {
+      "cut": "10101",
+      "name": "Puerto Montt",
+      "vhdv_rate": 0.0478009677681031,
+      "ci_lower": 0.0349613323828847,
+      "ci_upper": 0.0650382001410099,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.052117684146265005
+    },
+    {
+      "cut": "10102",
+      "name": "Calbuco",
+      "vhdv_rate": 0.04836722797429,
+      "ci_lower": 0.0339284507404918,
+      "ci_upper": 0.0685148652496669,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0592509927431514
+    },
+    {
+      "cut": "10109",
+      "name": "Puerto Varas",
+      "vhdv_rate": 0.0309813435431823,
+      "ci_lower": 0.0190742444054914,
+      "ci_upper": 0.0499430052955859,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0707604770345784
+    },
+    {
+      "cut": "10201",
+      "name": "Castro",
+      "vhdv_rate": 0.0380994918467447,
+      "ci_lower": 0.0259242518303769,
+      "ci_upper": 0.055666020402002,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0597180650154053
+    },
+    {
+      "cut": "10202",
+      "name": "Ancud",
+      "vhdv_rate": 0.048527607187446,
+      "ci_lower": 0.0340121241340585,
+      "ci_upper": 0.0687967282527192,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.05945490726656
+    },
+    {
+      "cut": "10208",
+      "name": "Quellón",
+      "vhdv_rate": 0.0404220070731493,
+      "ci_lower": 0.0282779020393821,
+      "ci_upper": 0.0574730019037055,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.056441083063464396
+    },
+    {
+      "cut": "10301",
+      "name": "Osorno",
+      "vhdv_rate": 0.0418884063951218,
+      "ci_lower": 0.0291653667567132,
+      "ci_upper": 0.0598197286205811,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0578119408672244
+    },
+    {
+      "cut": "1101",
+      "name": "Iquique",
+      "vhdv_rate": 0.103674272785358,
+      "ci_lower": 0.0777679718046666,
+      "ci_upper": 0.136929214132176,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0637635723817215
+    },
+    {
+      "cut": "1107",
+      "name": "Alto Hospicio",
+      "vhdv_rate": 0.0760285334331032,
+      "ci_lower": 0.0546872468311266,
+      "ci_upper": 0.104775020736405,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.06445907286281441
+    },
+    {
+      "cut": "11101",
+      "name": "Coyhaique",
+      "vhdv_rate": 0.035251374444593,
+      "ci_lower": 0.0220601720938583,
+      "ci_upper": 0.055879733997724,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0709683668268209
+    },
+    {
+      "cut": "11201",
+      "name": "Aysén",
+      "vhdv_rate": 0.0428138173421312,
+      "ci_lower": 0.0276363760823826,
+      "ci_upper": 0.0657627337940665,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0702835012929346
+    },
+    {
+      "cut": "12101",
+      "name": "Punta Arenas",
+      "vhdv_rate": 0.0329705630542026,
+      "ci_lower": 0.0229293276562547,
+      "ci_upper": 0.0471966601423222,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0540117664365021
+    },
+    {
+      "cut": "12401",
+      "name": "Natales",
+      "vhdv_rate": 0.0348521227659507,
+      "ci_lower": 0.0232218289601289,
+      "ci_upper": 0.0519971927752142,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.061322049312372895
+    },
+    {
+      "cut": "13101",
+      "name": "Santiago",
+      "vhdv_rate": 0.125761299606952,
+      "ci_lower": 0.108694377485872,
+      "ci_upper": 0.145071853522885,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0355354169201123
+    },
+    {
+      "cut": "13102",
+      "name": "Cerrillos",
+      "vhdv_rate": 0.137111319768383,
+      "ci_lower": 0.114496113465172,
+      "ci_upper": 0.163369348551118,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0456714122973642
+    },
+    {
+      "cut": "13103",
+      "name": "Cerro Navia",
+      "vhdv_rate": 0.141787637138015,
+      "ci_lower": 0.118477707583808,
+      "ci_upper": 0.168805475006345,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0462667231741598
+    },
+    {
+      "cut": "13104",
+      "name": "Conchalí",
+      "vhdv_rate": 0.12689466307537,
+      "ci_lower": 0.110858722021269,
+      "ci_upper": 0.1448722864993,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0330802724974511
+    },
+    {
+      "cut": "13105",
+      "name": "El Bosque",
+      "vhdv_rate": 0.110595619208971,
+      "ci_lower": 0.0925290930648654,
+      "ci_upper": 0.131677818008636,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.040902190578287596
+    },
+    {
+      "cut": "13106",
+      "name": "Estación Central",
+      "vhdv_rate": 0.135116574203861,
+      "ci_lower": 0.114973213253582,
+      "ci_upper": 0.158158390219278,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0406663474494259
+    },
+    {
+      "cut": "13107",
+      "name": "Huechuraba",
+      "vhdv_rate": 0.0958331402616144,
+      "ci_lower": 0.0803779935442065,
+      "ci_upper": 0.113891977118038,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0379293709449396
+    },
+    {
+      "cut": "13108",
+      "name": "Independencia",
+      "vhdv_rate": 0.119028959666928,
+      "ci_lower": 0.1016518508717,
+      "ci_upper": 0.138917280118077,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0374527801095027
+    },
+    {
+      "cut": "13109",
+      "name": "La Cisterna",
+      "vhdv_rate": 0.164964346938797,
+      "ci_lower": 0.130838454287848,
+      "ci_upper": 0.205882718001232,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0642655473523481
+    },
+    {
+      "cut": "13110",
+      "name": "La Florida",
+      "vhdv_rate": 0.113448724467773,
+      "ci_lower": 0.0994724418142258,
+      "ci_upper": 0.129107195630205,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.030574874285754897
+    },
+    {
+      "cut": "13111",
+      "name": "La Granja",
+      "vhdv_rate": 0.132156546974779,
+      "ci_lower": 0.11257102158727,
+      "ci_upper": 0.154556167970205,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0399777782446209
+    },
+    {
+      "cut": "13112",
+      "name": "La Pintana",
+      "vhdv_rate": 0.137464296543951,
+      "ci_lower": 0.118858524081813,
+      "ci_upper": 0.158458799084313,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.036984927677025
+    },
+    {
+      "cut": "13113",
+      "name": "La Reina",
+      "vhdv_rate": 0.0674557203220539,
+      "ci_lower": 0.0520066716598866,
+      "ci_upper": 0.0870725255350791,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.048797585109300406
+    },
+    {
+      "cut": "13114",
+      "name": "Las Condes",
+      "vhdv_rate": 0.0569904573310741,
+      "ci_lower": 0.0414836113431809,
+      "ci_upper": 0.0778232334957347,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0560755609118326
+    },
+    {
+      "cut": "13115",
+      "name": "Lo Barnechea",
+      "vhdv_rate": 0.0512091006936124,
+      "ci_lower": 0.0355615237661772,
+      "ci_upper": 0.0732191207110329,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0620632272192009
+    },
+    {
+      "cut": "13116",
+      "name": "Lo Espejo",
+      "vhdv_rate": 0.123804186273882,
+      "ci_lower": 0.108556702571822,
+      "ci_upper": 0.140854886354083,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0318169239621197
+    },
+    {
+      "cut": "13117",
+      "name": "Lo Prado",
+      "vhdv_rate": 0.116585415437675,
+      "ci_lower": 0.0994903367567867,
+      "ci_upper": 0.136173694742449,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0372747023119785
+    },
+    {
+      "cut": "13118",
+      "name": "Macul",
+      "vhdv_rate": 0.0998894264879945,
+      "ci_lower": 0.086278305645966,
+      "ci_upper": 0.115376677012115,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0321943790516048
+    },
+    {
+      "cut": "13119",
+      "name": "Maipú",
+      "vhdv_rate": 0.11657773557589,
+      "ci_lower": 0.100329878437099,
+      "ci_upper": 0.135061828557287,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0353003325959221
+    },
+    {
+      "cut": "13120",
+      "name": "Ñuñoa",
+      "vhdv_rate": 0.0806085070717742,
+      "ci_lower": 0.0641366429490772,
+      "ci_upper": 0.100854856435295,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0458897555684839
+    },
+    {
+      "cut": "13121",
+      "name": "Pedro Aguirre cerda",
+      "vhdv_rate": 0.114493957318919,
+      "ci_lower": 0.0988699393843492,
+      "ci_upper": 0.132224694215317,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0342318030769485
+    },
+    {
+      "cut": "13122",
+      "name": "Peñalolén",
+      "vhdv_rate": 0.0921822054139788,
+      "ci_lower": 0.0754945303911979,
+      "ci_upper": 0.112111286941956,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.042339715709545596
+    },
+    {
+      "cut": "13123",
+      "name": "Providencia",
+      "vhdv_rate": 0.0703356159334335,
+      "ci_lower": 0.0534502752472867,
+      "ci_upper": 0.09203649740357,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0522714038346772
+    },
+    {
+      "cut": "13124",
+      "name": "Pudahuel",
+      "vhdv_rate": 0.104557631993806,
+      "ci_lower": 0.0891493890028266,
+      "ci_upper": 0.122271485738059,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.035708577733883196
+    },
+    {
+      "cut": "13125",
+      "name": "Quilicura",
+      "vhdv_rate": 0.11607670839802,
+      "ci_lower": 0.101174842701864,
+      "ci_upper": 0.132849035553278,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0322758730097601
+    },
+    {
+      "cut": "13126",
+      "name": "Quinta normal",
+      "vhdv_rate": 0.176356823805608,
+      "ci_lower": 0.142982023709513,
+      "ci_upper": 0.215562482426311,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0604256458293816
+    },
+    {
+      "cut": "13127",
+      "name": "Recoleta",
+      "vhdv_rate": 0.122057050493825,
+      "ci_lower": 0.106053442274457,
+      "ci_upper": 0.14009715719182,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0337795518090679
+    },
+    {
+      "cut": "13128",
+      "name": "Renca",
+      "vhdv_rate": 0.133014020011878,
+      "ci_lower": 0.115428447214751,
+      "ci_upper": 0.152815917023149,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.035497525233063196
+    },
+    {
+      "cut": "13129",
+      "name": "San Joaquín",
+      "vhdv_rate": 0.122210874754409,
+      "ci_lower": 0.106953510481057,
+      "ci_upper": 0.139305251883181,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0320843001547735
+    },
+    {
+      "cut": "13130",
+      "name": "San Miguel",
+      "vhdv_rate": 0.123467531093339,
+      "ci_lower": 0.101788909769712,
+      "ci_upper": 0.148997300383017,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0465029593845296
+    },
+    {
+      "cut": "13131",
+      "name": "San Ramón",
+      "vhdv_rate": 0.11042576834012,
+      "ci_lower": 0.0916187293836811,
+      "ci_upper": 0.132530170543586,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.042768745907518106
+    },
+    {
+      "cut": "13132",
+      "name": "Vitacura",
+      "vhdv_rate": 0.0539107606919436,
+      "ci_lower": 0.0361426080064931,
+      "ci_upper": 0.0796917432696174,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0691665540354158
+    },
+    {
+      "cut": "13201",
+      "name": "Puente Alto",
+      "vhdv_rate": 0.11651592910791,
+      "ci_lower": 0.0984482956499096,
+      "ci_upper": 0.13739408237911,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0395760706754078
+    },
+    {
+      "cut": "13301",
+      "name": "Colina",
+      "vhdv_rate": 0.0817475051534697,
+      "ci_lower": 0.068091932544697,
+      "ci_upper": 0.0978540887511423,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.036958151632988503
+    },
+    {
+      "cut": "13302",
+      "name": "Lampa",
+      "vhdv_rate": 0.0944886556175292,
+      "ci_lower": 0.0782327569499622,
+      "ci_upper": 0.113705677721139,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.040454273123945395
+    },
+    {
+      "cut": "13401",
+      "name": "San Bernardo",
+      "vhdv_rate": 0.11268192886882,
+      "ci_lower": 0.0983923994378215,
+      "ci_upper": 0.128750376626992,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0314330354751333
+    },
+    {
+      "cut": "13402",
+      "name": "Buin",
+      "vhdv_rate": 0.0863953224768571,
+      "ci_lower": 0.07231668104646,
+      "ci_upper": 0.102910750354826,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0367701482038551
+    },
+    {
+      "cut": "13404",
+      "name": "Paine",
+      "vhdv_rate": 0.096173553690325,
+      "ci_lower": 0.0773253677178744,
+      "ci_upper": 0.119023362724229,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.047022620170182
+    },
+    {
+      "cut": "13501",
+      "name": "Melipilla",
+      "vhdv_rate": 0.0825502637022068,
+      "ci_lower": 0.062941666202222,
+      "ci_upper": 0.107566408958331,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.054862477775765604
+    },
+    {
+      "cut": "13601",
+      "name": "Talagante",
+      "vhdv_rate": 0.0829026320941194,
+      "ci_lower": 0.0640289487104527,
+      "ci_upper": 0.106705422049698,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.052371293370365904
+    },
+    {
+      "cut": "13604",
+      "name": "Padre Hurtado",
+      "vhdv_rate": 0.103217355558523,
+      "ci_lower": 0.0893201044823039,
+      "ci_upper": 0.118994337008334,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0322348738902265
+    },
+    {
+      "cut": "13605",
+      "name": "Peñaflor",
+      "vhdv_rate": 0.0812199705692093,
+      "ci_lower": 0.0641788407841913,
+      "ci_upper": 0.102291361327794,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.047401293071862104
+    },
+    {
+      "cut": "1401",
+      "name": "Pozo Almonte",
+      "vhdv_rate": 0.064611846634995,
+      "ci_lower": 0.0445098825495864,
+      "ci_upper": 0.0929096597947341,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0686333940176439
+    },
+    {
+      "cut": "14101",
+      "name": "Valdivia",
+      "vhdv_rate": 0.0447265165002432,
+      "ci_lower": 0.0325961728669827,
+      "ci_upper": 0.061086002602513,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.051605345704294
+    },
+    {
+      "cut": "14107",
+      "name": "Paillaco",
+      "vhdv_rate": 0.049637523557995,
+      "ci_lower": 0.0342524390804926,
+      "ci_upper": 0.0714220231145738,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0624956572843481
+    },
+    {
+      "cut": "14108",
+      "name": "Panguipulli",
+      "vhdv_rate": 0.0471593159102171,
+      "ci_lower": 0.0332713327861293,
+      "ci_upper": 0.0664459157401149,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.057828697550372794
+    },
+    {
+      "cut": "14201",
+      "name": "La Unión",
+      "vhdv_rate": 0.0409413932392321,
+      "ci_lower": 0.0279585297409614,
+      "ci_upper": 0.059583452930936,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0604633276213173
+    },
+    {
+      "cut": "14204",
+      "name": "Río Bueno",
+      "vhdv_rate": 0.0442748130041109,
+      "ci_lower": 0.0314552035292735,
+      "ci_upper": 0.0619847052890615,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.055557706051169296
+    },
+    {
+      "cut": "15101",
+      "name": "Arica",
+      "vhdv_rate": 0.0910844274838391,
+      "ci_lower": 0.0731355224109879,
+      "ci_upper": 0.112901772171886,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0462639589232971
+    },
+    {
+      "cut": "16101",
+      "name": "Chillán",
+      "vhdv_rate": 0.0562675670821296,
+      "ci_lower": 0.0401918962361993,
+      "ci_upper": 0.0782488755929018,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.059123754403054896
+    },
+    {
+      "cut": "16102",
+      "name": "Bulnes",
+      "vhdv_rate": 0.0402412785164369,
+      "ci_lower": 0.0247569609121715,
+      "ci_upper": 0.0647671361075889,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0764795125042782
+    },
+    {
+      "cut": "16103",
+      "name": "Chillán Viejo",
+      "vhdv_rate": 0.0482797483186131,
+      "ci_lower": 0.0324325379999889,
+      "ci_upper": 0.0712996353962693,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0663886947783786
+    },
+    {
+      "cut": "16107",
+      "name": "Quillón",
+      "vhdv_rate": 0.0453355075410171,
+      "ci_lower": 0.0290825249529332,
+      "ci_upper": 0.0700165717986119,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0725561960977687
+    },
+    {
+      "cut": "16109",
+      "name": "Yungay",
+      "vhdv_rate": 0.0415504436153202,
+      "ci_lower": 0.0264365852575694,
+      "ci_upper": 0.0647304311483395,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0719189906322282
+    },
+    {
+      "cut": "16201",
+      "name": "Quirihue",
+      "vhdv_rate": 0.0356146884751851,
+      "ci_lower": 0.0200019122758972,
+      "ci_upper": 0.0626353362739667,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.08748918706350879
+    },
+    {
+      "cut": "16301",
+      "name": "San Carlos",
+      "vhdv_rate": 0.0470202415097598,
+      "ci_lower": 0.0306648494981112,
+      "ci_upper": 0.0714558883544796,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0706911698414979
+    },
+    {
+      "cut": "16302",
+      "name": "Coihueco",
+      "vhdv_rate": 0.0554861315326379,
+      "ci_lower": 0.0362318889711315,
+      "ci_upper": 0.084079757196657,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0743904883065158
+    },
+    {
+      "cut": "2101",
+      "name": "Antofagasta",
+      "vhdv_rate": 0.0460197373310581,
+      "ci_lower": 0.0307003307890075,
+      "ci_upper": 0.0684437190641405,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0665161725055698
+    },
+    {
+      "cut": "2201",
+      "name": "Calama",
+      "vhdv_rate": 0.0501608948930852,
+      "ci_lower": 0.0348076142967202,
+      "ci_upper": 0.0717826936560679,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0617710279619324
+    },
+    {
+      "cut": "2301",
+      "name": "Tocopilla",
+      "vhdv_rate": 0.0401185492135752,
+      "ci_lower": 0.0248872003243082,
+      "ci_upper": 0.0640593274274289,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0751126262528397
+    },
+    {
+      "cut": "3101",
+      "name": "Copiapó",
+      "vhdv_rate": 0.0524725835858349,
+      "ci_lower": 0.036306537651972,
+      "ci_upper": 0.0752745574529923,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.063181959992147
+    },
+    {
+      "cut": "3201",
+      "name": "Chañaral",
+      "vhdv_rate": 0.0550316074258275,
+      "ci_lower": 0.0361123646243574,
+      "ci_upper": 0.0830090360274377,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.073337613960503
+    },
+    {
+      "cut": "3301",
+      "name": "Vallenar",
+      "vhdv_rate": 0.0503428051896729,
+      "ci_lower": 0.0326938493816572,
+      "ci_upper": 0.0767630409446662,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0729625134453414
+    },
+    {
+      "cut": "4101",
+      "name": "La Serena",
+      "vhdv_rate": 0.0675480362164155,
+      "ci_lower": 0.0513888955254988,
+      "ci_upper": 0.0883153292334675,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0513010161518065
+    },
+    {
+      "cut": "4102",
+      "name": "Coquimbo",
+      "vhdv_rate": 0.0722556484658554,
+      "ci_lower": 0.0555601828432692,
+      "ci_upper": 0.0934714688858391,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0505459030311311
+    },
+    {
+      "cut": "4201",
+      "name": "Illapel",
+      "vhdv_rate": 0.0459582460713229,
+      "ci_lower": 0.0305177116717179,
+      "ci_upper": 0.0686577175704492,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.06724275125943781
+    },
+    {
+      "cut": "4203",
+      "name": "Los Vilos",
+      "vhdv_rate": 0.0587092586134478,
+      "ci_lower": 0.0420765675573542,
+      "ci_upper": 0.0813583689924635,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.059393361682982704
+    },
+    {
+      "cut": "4301",
+      "name": "Ovalle",
+      "vhdv_rate": 0.0521597468518497,
+      "ci_lower": 0.0357891892470712,
+      "ci_upper": 0.0754326463017328,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0644795579214034
+    },
+    {
+      "cut": "5101",
+      "name": "Valparaíso",
+      "vhdv_rate": 0.081744768426387,
+      "ci_lower": 0.0676837704003368,
+      "ci_upper": 0.0984185130519756,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0381577265190843
+    },
+    {
+      "cut": "5103",
+      "name": "Concón",
+      "vhdv_rate": 0.0789847615383233,
+      "ci_lower": 0.0638064026078673,
+      "ci_upper": 0.0973981316405224,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0425296253916946
+    },
+    {
+      "cut": "5109",
+      "name": "Viña del Mar",
+      "vhdv_rate": 0.0835407607799904,
+      "ci_lower": 0.069786825377243,
+      "ci_upper": 0.0997148156798593,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0366899030237846
+    },
+    {
+      "cut": "5301",
+      "name": "Los Andes",
+      "vhdv_rate": 0.0631409887446341,
+      "ci_lower": 0.0467834853727807,
+      "ci_upper": 0.0847095179580161,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.05487890859760489
+    },
+    {
+      "cut": "5401",
+      "name": "La Ligua",
+      "vhdv_rate": 0.0676795961823621,
+      "ci_lower": 0.0487358015611233,
+      "ci_upper": 0.0932649734841395,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.061556087722838104
+    },
+    {
+      "cut": "5501",
+      "name": "Quillota",
+      "vhdv_rate": 0.0651486029667546,
+      "ci_lower": 0.0476958540831403,
+      "ci_upper": 0.0883948321024537,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0576897327717836
+    },
+    {
+      "cut": "5502",
+      "name": "Calera",
+      "vhdv_rate": 0.0732019371127452,
+      "ci_lower": 0.0581049951288265,
+      "ci_upper": 0.0918389306317517,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.044695665860735694
+    },
+    {
+      "cut": "5601",
+      "name": "San Antonio",
+      "vhdv_rate": 0.0799908334902354,
+      "ci_lower": 0.0658605190758513,
+      "ci_upper": 0.0968385153365976,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0389547182773883
+    },
+    {
+      "cut": "5701",
+      "name": "San Felipe",
+      "vhdv_rate": 0.0590304301419745,
+      "ci_lower": 0.0433382896845099,
+      "ci_upper": 0.079929732257647,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0552346874491768
+    },
+    {
+      "cut": "5801",
+      "name": "Quilpué",
+      "vhdv_rate": 0.0605789789238985,
+      "ci_lower": 0.0474712494647242,
+      "ci_upper": 0.0770133801871605,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0440499204487
+    },
+    {
+      "cut": "5802",
+      "name": "Limache",
+      "vhdv_rate": 0.0765898593212549,
+      "ci_lower": 0.0607505106967327,
+      "ci_upper": 0.0961362681091793,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0456040689886418
+    },
+    {
+      "cut": "5804",
+      "name": "Villa Alemana",
+      "vhdv_rate": 0.0835813374099546,
+      "ci_lower": 0.0679634549766307,
+      "ci_upper": 0.10239389701002,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0421518080937008
+    },
+    {
+      "cut": "6101",
+      "name": "Rancagua",
+      "vhdv_rate": 0.0735692649760616,
+      "ci_lower": 0.0553603496183759,
+      "ci_upper": 0.0971514276573827,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0550339467167926
+    },
+    {
+      "cut": "6105",
+      "name": "Doñihue",
+      "vhdv_rate": 0.0548606574355569,
+      "ci_lower": 0.03779742062748,
+      "ci_upper": 0.0789945091480514,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0648590158501906
+    },
+    {
+      "cut": "6106",
+      "name": "Graneros",
+      "vhdv_rate": 0.0880545608567899,
+      "ci_lower": 0.0673293238617097,
+      "ci_upper": 0.114377059369556,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0556921295978981
+    },
+    {
+      "cut": "6108",
+      "name": "Machalí",
+      "vhdv_rate": 0.0454677523617289,
+      "ci_lower": 0.0302960324717366,
+      "ci_upper": 0.0677067135057218,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0664568289233464
+    },
+    {
+      "cut": "6110",
+      "name": "Mostazal",
+      "vhdv_rate": 0.0651993904656167,
+      "ci_lower": 0.0475891817110998,
+      "ci_upper": 0.0887191596311327,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.058259372697858
+    },
+    {
+      "cut": "6115",
+      "name": "Rengo",
+      "vhdv_rate": 0.0600203813855725,
+      "ci_lower": 0.0430953032670281,
+      "ci_upper": 0.0830158819766758,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0595194794254652
+    },
+    {
+      "cut": "6117",
+      "name": "San Vicente",
+      "vhdv_rate": 0.055211654490585,
+      "ci_lower": 0.0386325156606856,
+      "ci_upper": 0.078326049260044,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.062319536971606304
+    },
+    {
+      "cut": "6201",
+      "name": "Pichilemu",
+      "vhdv_rate": 0.0649182121646029,
+      "ci_lower": 0.0454182547892055,
+      "ci_upper": 0.0919835763963958,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0659214424817003
+    },
+    {
+      "cut": "6301",
+      "name": "San Fernando",
+      "vhdv_rate": 0.0620980044744905,
+      "ci_lower": 0.0450892469494599,
+      "ci_upper": 0.0849520785723278,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.058208396407182
+    },
+    {
+      "cut": "6303",
+      "name": "Chimbarongo",
+      "vhdv_rate": 0.0613213044671979,
+      "ci_lower": 0.0427776418481435,
+      "ci_upper": 0.0871714108259494,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.06513620303709561
+    },
+    {
+      "cut": "6310",
+      "name": "Santa cruz",
+      "vhdv_rate": 0.0618983982597778,
+      "ci_lower": 0.0429632122323228,
+      "ci_upper": 0.0884079802340829,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0662545017186905
+    },
+    {
+      "cut": "7101",
+      "name": "Talca",
+      "vhdv_rate": 0.0572236150692703,
+      "ci_lower": 0.042584496639502,
+      "ci_upper": 0.0764931017192455,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0522726188240485
+    },
+    {
+      "cut": "7102",
+      "name": "Constitución",
+      "vhdv_rate": 0.047309224565569,
+      "ci_lower": 0.0340889813993263,
+      "ci_upper": 0.0653098239570289,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0544077876803295
+    },
+    {
+      "cut": "7105",
+      "name": "Maule",
+      "vhdv_rate": 0.0469805712773726,
+      "ci_lower": 0.0341050902075903,
+      "ci_upper": 0.0643927997258942,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.053061413110796
+    },
+    {
+      "cut": "7201",
+      "name": "Cauquenes",
+      "vhdv_rate": 0.0343209962330142,
+      "ci_lower": 0.0215662366764575,
+      "ci_upper": 0.0542013314917865,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0698068480353591
+    },
+    {
+      "cut": "7301",
+      "name": "Curicó",
+      "vhdv_rate": 0.0584658281200715,
+      "ci_lower": 0.044388512009287,
+      "ci_upper": 0.0766495122104161,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0491162945976421
+    },
+    {
+      "cut": "7304",
+      "name": "Molina",
+      "vhdv_rate": 0.05287337948148,
+      "ci_lower": 0.0390040808289003,
+      "ci_upper": 0.0713084570605006,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.052397783543735
+    },
+    {
+      "cut": "7401",
+      "name": "Linares",
+      "vhdv_rate": 0.0435105236248864,
+      "ci_lower": 0.0306984013217013,
+      "ci_upper": 0.0613315072322292,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0563709446336349
+    },
+    {
+      "cut": "7404",
+      "name": "Parral",
+      "vhdv_rate": 0.0467138932837168,
+      "ci_lower": 0.0327689082191235,
+      "ci_upper": 0.0661871560967792,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0585938501673703
+    },
+    {
+      "cut": "7406",
+      "name": "San Javier",
+      "vhdv_rate": 0.0503913933778336,
+      "ci_lower": 0.0359612697539524,
+      "ci_upper": 0.0701902832257005,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.057152412529447395
+    },
+    {
+      "cut": "8101",
+      "name": "Concepción",
+      "vhdv_rate": 0.0675249157873483,
+      "ci_lower": 0.0516110250009067,
+      "ci_upper": 0.0878909958608357,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0504282697750435
+    },
+    {
+      "cut": "8102",
+      "name": "Coronel",
+      "vhdv_rate": 0.0631574569826694,
+      "ci_lower": 0.04733068360974,
+      "ci_upper": 0.0838109138129718,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.052819593464997
+    },
+    {
+      "cut": "8103",
+      "name": "Chiguayante",
+      "vhdv_rate": 0.0532838530550942,
+      "ci_lower": 0.0377453807809581,
+      "ci_upper": 0.0747222574680489,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0594780934332541
+    },
+    {
+      "cut": "8106",
+      "name": "Lota",
+      "vhdv_rate": 0.0735922004365874,
+      "ci_lower": 0.0520522764812398,
+      "ci_upper": 0.103076408745862,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.066895107563825
+    },
+    {
+      "cut": "8107",
+      "name": "Penco",
+      "vhdv_rate": 0.0518418461311701,
+      "ci_lower": 0.036310895414075,
+      "ci_upper": 0.0735090046296497,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.060859825462945605
+    },
+    {
+      "cut": "8108",
+      "name": "San Pedro de la Paz",
+      "vhdv_rate": 0.0599044064930727,
+      "ci_lower": 0.045059425718399,
+      "ci_upper": 0.0792343179253469,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0511912649145627
+    },
+    {
+      "cut": "8110",
+      "name": "Talcahuano",
+      "vhdv_rate": 0.063748479364839,
+      "ci_lower": 0.0475913424476466,
+      "ci_upper": 0.0849019376873883,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0536901800276933
+    },
+    {
+      "cut": "8111",
+      "name": "Tomé",
+      "vhdv_rate": 0.0525664936434445,
+      "ci_lower": 0.0368425662229244,
+      "ci_upper": 0.074482235990505,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0610273454211963
+    },
+    {
+      "cut": "8112",
+      "name": "Hualpén",
+      "vhdv_rate": 0.0678689361187988,
+      "ci_lower": 0.0502201826418367,
+      "ci_upper": 0.0911248827814728,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.056557083751627
+    },
+    {
+      "cut": "8201",
+      "name": "Lebu",
+      "vhdv_rate": 0.0596831124715186,
+      "ci_lower": 0.0389504931406229,
+      "ci_upper": 0.0904131173725323,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0763489967023053
+    },
+    {
+      "cut": "8301",
+      "name": "Los Ángeles",
+      "vhdv_rate": 0.0588054431508959,
+      "ci_lower": 0.0435077591502273,
+      "ci_upper": 0.079037454429931,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0537943121140524
+    },
+    {
+      "cut": "9101",
+      "name": "Temuco",
+      "vhdv_rate": 0.0662375655796673,
+      "ci_lower": 0.0494484035844289,
+      "ci_upper": 0.0881982134136812,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.054431808544956696
+    },
+    {
+      "cut": "9108",
+      "name": "Lautaro",
+      "vhdv_rate": 0.0677904548922194,
+      "ci_lower": 0.0488281418976195,
+      "ci_upper": 0.0933936904996547,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.061544767804552605
+    },
+    {
+      "cut": "9109",
+      "name": "Loncoche",
+      "vhdv_rate": 0.0666027215289772,
+      "ci_lower": 0.0465099110105682,
+      "ci_upper": 0.0945154112957678,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.06686877827934361
+    },
+    {
+      "cut": "9111",
+      "name": "Nueva Imperial",
+      "vhdv_rate": 0.0627050399997531,
+      "ci_lower": 0.0441917073379053,
+      "ci_upper": 0.0882580422292056,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0638011071586282
+    },
+    {
+      "cut": "9112",
+      "name": "Padre las casas",
+      "vhdv_rate": 0.0714597724940226,
+      "ci_lower": 0.0514397255915409,
+      "ci_upper": 0.0984627122193884,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0628510667714805
+    },
+    {
+      "cut": "9114",
+      "name": "Pitrufquén",
+      "vhdv_rate": 0.0707322606197844,
+      "ci_lower": 0.0507604658327384,
+      "ci_upper": 0.0977527820544133,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.06319298392954549
+    },
+    {
+      "cut": "9115",
+      "name": "Pucón",
+      "vhdv_rate": 0.0712111265689913,
+      "ci_lower": 0.0511300954025634,
+      "ci_upper": 0.0983613118641066,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0632531709858699
+    },
+    {
+      "cut": "9119",
+      "name": "Vilcún",
+      "vhdv_rate": 0.0672375559113601,
+      "ci_lower": 0.0480379598387102,
+      "ci_upper": 0.0933582152151635,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0628688519499182
+    },
+    {
+      "cut": "9120",
+      "name": "Villarrica",
+      "vhdv_rate": 0.0657219380020869,
+      "ci_lower": 0.0476429688037694,
+      "ci_upper": 0.0900128771284397,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.059685540641796694
+    },
+    {
+      "cut": "9201",
+      "name": "Angol",
+      "vhdv_rate": 0.0550511224960257,
+      "ci_lower": 0.0380076692903876,
+      "ci_upper": 0.0791087375549945,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0645745513403519
+    },
+    {
+      "cut": "9202",
+      "name": "Collipulli",
+      "vhdv_rate": 0.0677814491792449,
+      "ci_lower": 0.0487986531604191,
+      "ci_upper": 0.0934233366365363,
+      "tipo_estimacion": "Sintética",
+      "cv": 0.0616293752715118
+    },
+    {
+      "cut": "9211",
+      "name": "Victoria",
+      "vhdv_rate": 0.0698244377783343,
+      "ci_lower": 0.0500644244400637,
+      "ci_upper": 0.0965905417618675,
+      "tipo_estimacion": "Directa y sintética",
+      "cv": 0.0630629189753461
+    }
+  ]
+}

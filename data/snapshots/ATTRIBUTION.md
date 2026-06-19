@@ -36,6 +36,22 @@
 
 ---
 
+## enusc_vhdv.json
+
+| Field        | Value |
+|--------------|-------|
+| Source       | INE — Estadisticas Experimentales: Seguridad Ciudadana |
+| Full URL     | https://www.ine.gob.cl/docs/default-source/estadisticas-experimentales-seguridad-ciudadana/cuadros-estadisticos/2024/tabulados-sae--enusc-2024-vhdv.xlsx?sfvrsn=671c099f_4 |
+| Dataset name | ENUSC 2024 — VHDV (Victimizacion en Hogares por Delitos Violentos), modelo SAE |
+| Licence      | Datos publicos del Estado de Chile (INE terms) |
+| Vintage      | 2024 (SAE first published 2026-01-21) |
+| Granularity  | 136 comunas (SAE communal model); 210 comunas have no estimate |
+| Script       | pipeline/snapshots/fetch_enusc_vhdv.py |
+| sha256       | ad9503826fd21590eca7cf37629872df09f3115ad0c6d80dfe5cedcb63c3d4ba |
+| Note         | **WIRED to commune pages (section 6c)** — distinct from other snapshots in this directory which are REFERENCE-ONLY. The vhdv_rate is a proportion 0-1 (NOT per-100k). INE labels this "estadistica experimental, etapa inicial de madurez." The sfvrsn URL parameter may rotate on INE republish; acquisition is manual via INE JS widget. |
+
+---
+
 ## fiscalia_secuestro.json
 
 | Field        | Value |
