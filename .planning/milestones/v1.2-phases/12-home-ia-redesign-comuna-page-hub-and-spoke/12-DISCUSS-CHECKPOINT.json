@@ -1,0 +1,51 @@
+{
+  "phase": "12",
+  "phase_name": "home-ia-redesign-comuna-page-hub-and-spoke",
+  "timestamp": "2026-06-15",
+  "areas_completed": ["Layout del home", "Hero busca-comuna", "Spokes de la ficha", "Spine de navegación"],
+  "areas_remaining": [],
+  "decisions": {
+    "Layout del home": [
+      {"question": "Contenedor del home", "answer": "Layout home nuevo (ancho); EditorialLayout queda para páginas de texto"},
+      {"question": "Prosa editorial larga", "answer": "Recortar y bajar — versión condensada debajo del fold para SEO"},
+      {"question": "Lead rankings arriba", "answer": "Más seguras + mayor incidencia (dos tablas cortas)"},
+      {"question": "Guide cards", "answer": "Solo páginas editoriales existentes (cero contenido nuevo)"}
+    ],
+    "Hero busca-comuna": [
+      {"question": "Mecánica del hero", "answer": "Caja/form estática que enruta a /communes/ (/es/comunas/); cero JS, indexable"},
+      {"question": "Match exacto", "answer": "Siempre aterriza en el directorio filtrado (≤2 interacciones)"}
+    ],
+    "Spokes de la ficha": [
+      {"question": "Definición de 'comunas similares'", "answer": "Misma región, ordenadas por tasa/100k cercana"},
+      {"question": "Sección noticias (dep. Phase 16)", "answer": "Diferir entera a Phase 16; Phase 12 entrega los otros spokes + breadcrumb"},
+      {"question": "Spoke mapa centrado", "answer": "Link a /map/ (/es/mapa/) con parámetro de foco; sin Leaflet en la ficha"},
+      {"question": "Breadcrumb", "answer": "Insertar nivel Comunas → Inicio › Comunas › Región › Comuna en ambos locales"}
+    ],
+    "Spine de navegación": [
+      {"question": "Agregar al nav", "answer": "Agregar 'Rankings' → nueva página hub /rankings/ (+/es/rankings/) que indexa rankings existentes"},
+      {"question": "Reciprocidad del spine", "answer": "Footer spine común + extender validador no-orphan-link para chequear reciprocidad/404"}
+    ]
+  },
+  "deferred_ideas": [
+    "Sección de noticias geolocalizadas en la ficha → Phase 16 (geolocalización name→CUT debe funcionar primero)",
+    "Nodo 'Noticias' en el nav/spine → Phase 16",
+    "OpenGraph/Twitter + ItemList/BreadcrumbList JSON-LD en home/rankings → Phase 13"
+  ],
+  "canonical_refs": [
+    ".planning/spikes/001-home-hub-framing/README.md",
+    ".planning/spikes/001-home-hub-framing/001-c-ranking-led.html",
+    ".planning/spikes/003-comuna-page-spokes/README.md",
+    ".planning/spikes/003-comuna-page-spokes/comuna-page.html",
+    ".planning/phases/11-publish-346-comunas-finder/11-CONTEXT.md",
+    "site/src/pages/index.astro",
+    "site/src/pages/es/index.astro",
+    "site/src/components/PageHeader.astro",
+    "site/src/pages/commune/[slug].astro",
+    "site/src/pages/es/comuna/[slug].astro",
+    "site/src/components/ComparableCommune.astro",
+    "site/src/components/MapPlaceholderSlot.astro",
+    "site/src/layouts/EditorialLayout.astro",
+    "site/src/layouts/BaseLayout.astro",
+    "site/src/config/i18n.ts"
+  ]
+}
