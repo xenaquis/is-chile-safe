@@ -164,21 +164,19 @@ def main() -> None:
         slug = make_slug(comun_name)
         if slug in cut_map:
             cut, canonical = cut_map[slug]
+            try:
+                emp = int(row[col_empresas]) if pd.notna(row[col_empresas]) else None
+                trab = int(row[col_trabajadores]) if pd.notna(row[col_trabajadores]) else None
+            except (ValueError, OverflowError) as exc:
+                log.warning("SII: skipping row with bad numeric value in %s: %s", comun_name, exc)
+                continue
             records.append(
                 {
                     "cut": cut,
                     "name": canonical,
                     "year": int(row[col_year]),
-                    "empresas": (
-                        int(row[col_empresas])
-                        if pd.notna(row[col_empresas])
-                        else None
-                    ),
-                    "trabajadores": (
-                        int(row[col_trabajadores])
-                        if pd.notna(row[col_trabajadores])
-                        else None
-                    ),
+                    "empresas": emp,
+                    "trabajadores": trab,
                 }
             )
         else:
