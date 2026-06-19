@@ -60,7 +60,7 @@ _Surfaced by the Phase-9 live review and re-scoped 2026-06-15 after a live Brows
 - [x] **Phase 13: Ranking SEO Hardening** — Add OpenGraph + Twitter cards site-wide, `ItemList` JSON-LD on ranking tables and `BreadcrumbList` JSON-LD where breadcrumbs render, and tighten internal linking between rankings and comuna/region pages. Depends on Phase 11. [RSEO-01, RSEO-02] (completed 2026-06-16)
 - [x] **Phase 14: Homicide as a First-Class Category** — Expose the existing per-commune `homicidios` data as its own map filter/layer + commune-panel breakdown (currently folded inside "vida"/Life crimes). (was Phase 11) [HOM-01, HOM-02] (completed 2026-06-16)
 - [x] **Phase 15: Crime-Type SEO Ranking Pages** — Programmatic bilingual "las N comunas con más {delito}" ranking pages (homicide first), with correct internal linking, hreflang, sitemap, single H1, and `ItemList` JSON-LD. Depends on Phases 14 + 13. (was Phase 12) [CSEO-01, CSEO-02] (completed 2026-06-16)
-- [ ] **Phase 17: Data Quality, Source Traceability & Methodology** — _(runs FIRST — see Autonomous Run Order)_ Verify every surfaced figure against its authoritative source (re-check the 4 anomalies, partial-year flags, range sanity → `17-DATA-QUALITY.md`); fix the wrong CEAD host (`ministeriointerior`→`minsegpublica`); build a canonical source registry (`data/SOURCES.md`) naming CEAD (casos policiales `tipoVal=1,2`), SPD homicide, SII exposure, Fiscalía secuestro; commit reproducible normalized source snapshots; rewrite methodology EN+ES with a **clickable link to every source**. FOCUSED — no composite index, no schema migration, no displayed-metric change (deferred to Phase 18). Wave 0 research complete. Depends on Phase 11. [DQ-01, DQ-02, DQ-03, DQ-04]
+- [x] **Phase 17: Data Quality, Source Traceability & Methodology** — _(runs FIRST — see Autonomous Run Order)_ Verify every surfaced figure against its authoritative source (re-check the 4 anomalies, partial-year flags, range sanity → `17-DATA-QUALITY.md`); fix the wrong CEAD host (`ministeriointerior`→`minsegpublica`); build a canonical source registry (`data/SOURCES.md`) naming CEAD (casos policiales `tipoVal=1,2`), SPD homicide, SII exposure, Fiscalía secuestro; commit reproducible normalized source snapshots; rewrite methodology EN+ES with a **clickable link to every source**. FOCUSED — no composite index, no schema migration, no displayed-metric change (deferred to Phase 18). Wave 0 research complete. Depends on Phase 11. [DQ-01, DQ-02, DQ-03, DQ-04] (completed 2026-06-19)
 - [ ] **Phase 16: News Activation + Geolocation Redesign + Model A/B** — _(runs SECOND)_ Redesign news geolocation (LLM emits the comuna NAME → deterministic name→CUT lookup, not a raw CUT guess), build a labelled golden set + scoring to A/B DeepSeek vs MiniMax (env-configurable provider), run the pipeline for real (API keys available), link incidents to source ↗ AND to their comuna page, and add a dedicated news page. Depends on Phase 11 + Phase 17 (source registry/methodology authoritative first). [NEWS-01, NEWS-02, NEWS-03, NEWS-04]
 
 ## Phase Details
@@ -253,13 +253,13 @@ Plans:
   3. Methodology pages (EN `methodology.astro` + ES `es/metodologia.astro`) are rewritten with bilingual parity: correct CEAD host, casos-policiales/measure semantics, partial-year handling, low-count caveat, drug scope, and the floating-population denominator caveat; SPD/SII/Fiscalía are named as the authoritative sources for the figures they back; **every cited source has a working clickable link**; legal-safe tone preserved (forbidden-language validator #9 passes); verified in a real browser via BrowserOS (EN+ES). [DQ-03]
   4. Reproducible, attributed, normalized static snapshots of the new sources are committed under `data/` (homicides per comuna/year from SPD; empresas+trabajadores per comuna/year from SII; secuestro per región/year from Fiscalía), each with a fetch/normalize script in `pipeline/` and source attribution — reference-only, NOT wired to the displayed metric and NOT migrating the CEAD schema. Build + all validators pass (chained, OneDrive-safe). [DQ-04]
 
-**Plans:** 4/5 plans executed
+**Plans:** 5/5 plans complete
 
 - [x] 17-01-PLAN.md — DQ-01 offline data-quality verification harness + `17-DATA-QUALITY.md` (wave 1)
 - [x] 17-02-PLAN.md — DQ-04 reproducible SPD/SII/Fiscalía snapshot scripts + `data/snapshots/` (wave 1)
 - [x] 17-03-PLAN.md — DQ-02 canonical `data/SOURCES.md` registry + terms-page host fix (wave 1)
 - [x] 17-04-PLAN.md — DQ-03 atomic bilingual methodology rewrite EN+ES, clickable sources (wave 2)
-- [ ] 17-05-PLAN.md — verify gate: chained build+validate, dist host gate, BrowserOS, `17-VERIFICATION.md` (wave 3)
+- [x] 17-05-PLAN.md — verify gate: chained build+validate, dist host gate, BrowserOS, `17-VERIFICATION.md` (wave 3)
 
 ## Progress
 
@@ -280,7 +280,7 @@ Plans:
 | 13. Ranking SEO Hardening | v1.2 | 3/3 | Complete   | 2026-06-16 |
 | 14. Homicide as a First-Class Category | v1.2 | 6/6 | Complete   | 2026-06-16 |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 2/2 | Complete   | 2026-06-16 |
-| 17. Data Quality, Source Traceability & Methodology | v1.2 | 4/5 | In Progress|  |
+| 17. Data Quality, Source Traceability & Methodology | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending (runs 2nd) |  |
 
 ## Backlog
