@@ -244,10 +244,24 @@ Plans:
 **Plans:** 5 plans (5 waves)
 
 Plans:
+**Wave 1**
+
 - [ ] 16-01-PLAN.md — Geolocation redesign: resolver.py (name→CUT, accent-insensitive) + classifier emits commune_name (NEWS-01)
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 16-02-PLAN.md — Golden set + env-configurable provider + ab_score.py + A/B run, winner wired (NEWS-02)
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
 - [ ] 16-03-PLAN.md — Schema slug + orchestrator resolve name→(cut,slug) + live pipeline run → current.json (NEWS-03)
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
 - [ ] 16-04-PLAN.md — Surfacing: incident→source + incident→comuna links, bilingual /news/ + /es/noticias/, nav/i18n/sitemap (NEWS-04)
+
+**Wave 5** *(blocked on Wave 4 completion)*
+
 - [ ] 16-05-PLAN.md — Verify + gate: full pytest + chained build+validate + BrowserOS (EN+ES) + 16-VERIFICATION.md (NEWS-01..04)
 
 ### Phase 17: Data Quality, Source Traceability & Methodology
