@@ -1,0 +1,213 @@
+---
+/**
+ * /crimes-by-region/ — EN editorial page on crimes by region (BIL-02 reciprocal).
+ *
+ * Counterpart of /es/delitos-por-region/.
+ * CRITICAL: uses loadNationalAverage() (MEAN) — never SUM.
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import DataCallout from '../components/DataCallout.astro';
+import { loadNationalAverage, loadIndex, loadCommune } from '../lib/data.ts';
+
+const nationalAvg = loadNationalAverage();
+const index = loadIndex();
+const sampleCut = index.find((c) => !c.low_population)?.cut ?? '13101';
+const sampleCommune = loadCommune(sampleCut);
+const year = sampleCommune.latestCompleteYear;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Crimes by Region in Chile — CEAD Data",
+  "description": `Comparison of reported crime incidence across Chile's 16 regions based on CEAD ${year} data. Rates per 100,000 inhabitants and intra-regional commune variation.`,
+  "url": "https://ischilesafe.com/crimes-by-region/",
+};
+---
+
+<EditorialLayout
+  lang="en"
+  title="Crimes by Region in Chile — CEAD Statistics — Chile Safety Map"
+  description={`Comparison of reported crime incidence across Chile's 16 regions based on CEAD ${year} data. Rates per 100,000 inhabitants, commune variation, and methodological context.`}
+  enPath="/crimes-by-region/"
+  esPath="/es/delitos-por-region/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Crimes by Region in Chile — CEAD Comparative Data</h1>
+    <p>
+      Chile is organised into 16 administrative regions, each with distinct geographic,
+      economic, and demographic characteristics. This page presents reported crime incidence
+      at the regional level based on data from the CEAD (Centro de Estudios y Análisis del
+      Delito — Chile's official crime-statistics body) for {year}, with guidance on how to
+      interpret differences between regions.
+    </p>
+
+    <DataCallout
+      value={`${Math.round(nationalAvg).toLocaleString('en')} per 100k`}
+      label={`National average reported incidence — CEAD ${year}`}
+      source="Source: CEAD — unweighted mean of communes with population ≥10,000"
+      locale="en"
+    />
+  </section>
+
+  <section>
+    <h2>Why regional context matters</h2>
+    <p>
+      The region where someone lives or travels shapes how commune-level data should be
+      interpreted. A commune with a rate of 800 per 100,000 may be below the regional
+      average in a mining-intensive northern region, but well above average in an agricultural
+      southern region. The regional reference provides context that the national average alone
+      cannot capture.
+    </p>
+    <p>
+      At the same time, differences between communes within the same region often exceed
+      differences between regions. A region with moderate average rates may include communes
+      both far above and far below that average. For this reason, commune-level data is always
+      the most informative level of analysis.
+    </p>
+  </section>
+
+  <section>
+    <h2>Regional patterns in CEAD data</h2>
+    <p>
+      Based on CEAD data for {year}, some general patterns are observed across Chile's regions
+      (subject to change with each annual CEAD update):
+    </p>
+    <ul>
+      <li>
+        <strong>Northern regions:</strong> Tarapacá, Antofagasta, and Atacama combine mining
+        economies with high population turnover. This dynamic contributes to reported per-capita
+        rates that frequently exceed the national average. Port and industrial communes in these
+        regions account for most of the regional incidence.
+      </li>
+      <li>
+        <strong>Metropolitan Region:</strong> concentrates the highest absolute volume of
+        incidents in the country. Its regional per-capita rate is comparable to other urban
+        regions, but internal variation is large: residential communes in the east versus
+        central communes with high commercial and transit activity.
+      </li>
+      <li>
+        <strong>Valparaíso:</strong> second region by volume. Greater Valparaíso (Valparaíso,
+        Viña del Mar, Quilpué, Villa Alemana, and Concón) concentrates most of the regional
+        incidence. The rest of the region — Petorca, Los Andes, San Antonio — shows different
+        profiles.
+      </li>
+      <li>
+        <strong>Southern regions:</strong> Aysén and Magallanes have the smallest absolute
+        populations in the country. Their per-capita rates are statistically more volatile; a
+        small number of incidents can produce significant year-on-year variation.
+      </li>
+    </ul>
+    <p>
+      These are indicative patterns derived from reading CEAD data. Any definitive analysis
+      should be done directly against the data for the year of interest.
+    </p>
+  </section>
+
+  <section>
+    <h2>CEAD regional rate versus commune mean</h2>
+    <p>
+      CEAD publishes a regional rate as the sum of incidents across all communes in the region
+      divided by the total regional population. This figure is an aggregated total, not an
+      average of commune rates. In regions with a few large communes, the regional total can be
+      dominated by those communes and may not reflect the experience of medium and small communes.
+    </p>
+    <p>
+      On this site, when we display an average for comparison, we calculate the simple arithmetic
+      mean of commune rates for communes with sufficient population — not the CEAD sum. This
+      distinction is documented on the <a href="/methodology/">methodology page</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>How to explore data by region</h2>
+    <p>
+      For each of Chile's 16 regions, this site provides:
+    </p>
+    <ul>
+      <li>
+        <strong>Region page:</strong> shows all communes in the region ranked by rate, with
+        last-year incidence and a three-year CEAD trend. For example:{' '}
+        <a href="/region/metropolitana/">Metropolitan Region</a>,{' '}
+        <a href="/region/valparaiso/">Valparaíso Region</a>, or{' '}
+        <a href="/region/biobio/">Biobío Region</a>.
+      </li>
+      <li>
+        <strong>Choropleth map:</strong> the{' '}
+        <a href="/map-crime-chile/">crime map</a> colours all communes by their rate,
+        making regional and sub-regional patterns immediately visible.
+      </li>
+      <li>
+        <strong>Commune pages:</strong> each commune has its own page with the time series
+        from 2005, the breakdown by crime family, and the regional comparison.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Limitations of regional analysis</h2>
+    <p>
+      Interpreting data at the regional level requires keeping several limitations in mind:
+    </p>
+    <ul>
+      <li>
+        <strong>Internal heterogeneity:</strong> variation within a region can exceed variation
+        between regions. The regional average masks important differences between the communes
+        that make it up.
+      </li>
+      <li>
+        <strong>Variable under-reporting:</strong> the dark figure (unreported crimes) is not
+        uniform across regions. Communes with lower institutional trust or less access to police
+        stations may have higher under-reporting, meaning their reported rate understates actual
+        incidence more than in other regions.
+      </li>
+      <li>
+        <strong>Boundary changes and denominators:</strong> some regions have changed their
+        boundaries or commune assignments in recent years. Time series for modified regions
+        should be interpreted with caution.
+      </li>
+    </ul>
+    <p>
+      This site does not classify any region as "safe" or "dangerous" in absolute terms.
+      For a full explanation of the methodology, visit the{' '}
+      <a href="/methodology/">methodology page</a>.
+    </p>
+  </section>
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-top: var(--xl);
+    margin-bottom: var(--md);
+  }
+
+  p + p {
+    margin-top: var(--md);
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: var(--lg);
+    line-height: 1.8;
+    margin-top: var(--md);
+  }
+
+  ul li + li {
+    margin-top: var(--sm);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
