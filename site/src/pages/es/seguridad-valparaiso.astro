@@ -26,7 +26,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Seguridad en Valparaíso — Datos CEAD",
-  "description": `Estadísticas oficiales CEAD de incidencia delictiva para la commune de Valparaíso. Tasa reportada, tendencia y comparación nacional para ${year}.`,
+  "description": `Estadísticas oficiales CEAD de incidencia delictiva para la comuna de Valparaíso. Tasa reportada, tendencia y comparación nacional para ${year}.`,
   "about": {
     "@type": "Dataset",
     "name": "Estadísticas CEAD — Valparaíso",
@@ -42,7 +42,7 @@ const jsonLd = {
 <EditorialLayout
   lang="es"
   title="Seguridad en Valparaíso — Estadísticas CEAD y Contexto — Chile Safety Map"
-  description={`Estadísticas oficiales CEAD de incidencia delictiva para la commune de Valparaíso. Tasa reportada, tendencia, comparación nacional y contexto práctico. Datos CEAD ${year}.`}
+  description={`Estadísticas oficiales CEAD de incidencia delictiva para la comuna de Valparaíso. Tasa reportada, tendencia, comparación nacional y contexto práctico. Datos CEAD ${year}.`}
   enPath="/valparaiso-safety/"
   esPath="/es/seguridad-valparaiso/"
   jsonLd={jsonLd}
@@ -52,12 +52,12 @@ const jsonLd = {
     <p>
       Valparaíso es el principal puerto de Chile y sede del Congreso Nacional. Sus cerros y el
       plan portuario conforman entornos muy distintos entre sí. Esta página reporta lo que
-      muestran los datos oficiales del CEAD para la commune de Valparaíso para {year}.
+      muestran los datos oficiales del CEAD para la comuna de Valparaíso para {year}.
     </p>
 
     <DataCallout
       value={`${Math.round(rate).toLocaleString('es-CL')} por 100k`}
-      label={`Tasa reportada de la commune de Valparaíso — CEAD ${year}`}
+      label={`Tasa reportada de la comuna de Valparaíso — CEAD ${year}`}
       source="Fuente: CEAD (Centro de Estudios y Análisis del Delito)"
       locale="es"
     />
@@ -83,7 +83,7 @@ const jsonLd = {
     </p>
     <p>
       La página de detalle de la{' '}
-      <a href="/es/comuna/valparaiso/">commune de Valparaíso</a> muestra la serie anual completa
+      <a href="/es/comuna/valparaiso/">comuna de Valparaíso</a> muestra la serie anual completa
       desde 2005 y el desglose por familia de delito.
     </p>
   </section>
@@ -102,7 +102,7 @@ const jsonLd = {
       Los cerros varían considerablemente en carácter. El Cerro Alegre y el Cerro Concepción,
       populares entre turistas por sus escaleras pintadas y cafeterías, están adyacentes a cerros
       residenciales más tranquilos. Los datos del CEAD no desglosan los incidentes por cerro o
-      barrio, solo por commune y familia de delito.
+      barrio, solo por comuna y familia de delito.
     </p>
   </section>
 
@@ -116,14 +116,14 @@ const jsonLd = {
     </p>
     <p>
       El desglose por familia de delito para Valparaíso —cubriendo las siete categorías CEAD por
-      año— aparece en la <a href="/es/comuna/valparaiso/">página de la commune</a>.
+      año— aparece en la <a href="/es/comuna/valparaiso/">página de la comuna</a>.
     </p>
   </section>
 
   <section>
     <h2>Viña del Mar y la Provincia de Valparaíso</h2>
     <p>
-      La commune de Valparaíso y la adjacent ciudad costera de Viña del Mar (una commune
+      La comuna de Valparaíso y la ciudad costera vecina de Viña del Mar (una comuna
       separada) frecuentemente se describen juntas pero tienen perfiles de tasas diferentes.
       El carácter de balneario de Viña del Mar y sus zonas residenciales del oriente producen
       un perfil de tasa distinto al de la economía portuaria de Valparaíso. Consulta{' '}
@@ -131,7 +131,7 @@ const jsonLd = {
       comparación.
     </p>
     <p>
-      La Región de Valparaíso más amplia abarca communes desde Petorca en el norte hasta San
+      La Región de Valparaíso más amplia abarca comunas desde Petorca en el norte hasta San
       Antonio en el sur, con tasas que varían considerablemente por ubicación. La{' '}
       <a href="/es/region/valparaiso/">página de la Región de Valparaíso</a> presenta el ranking
       completo de comunas dentro de la región.
@@ -147,7 +147,7 @@ const jsonLd = {
     <ul>
       <li>
         El plan y el área de las puertas del puerto son las zonas con mayor incidencia reportada
-        en la commune. Se aplican las precauciones urbanas estándar: mantener las mochilas al
+        en la comuna. Se aplican las precauciones urbanas estándar: mantener las mochilas al
         frente, evitar mostrar el celular abiertamente en calles concurridas.
       </li>
       <li>
@@ -175,7 +175,7 @@ const jsonLd = {
       del Delito), el organismo oficial de estadísticas de delincuencia del gobierno chileno,
       cubriendo incidentes policiales reportados para {year}. Las tasas se calculan por 100.000
       habitantes registrados. El promedio nacional mostrado arriba es la media no ponderada
-      de communes no de baja población, no una suma. La metodología completa, incluidas las
+      de comunas no de baja población, no una suma. La metodología completa, incluidas las
       fuentes de población y las limitaciones conocidas, está documentada en la{' '}
       <a href="/es/metodologia/">página de metodología</a>.
       Versión en inglés: <a href="/valparaiso-safety/">Valparaíso Safety</a>.

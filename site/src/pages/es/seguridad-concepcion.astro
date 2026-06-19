@@ -26,7 +26,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Seguridad en Concepción — Datos CEAD",
-  "description": `Estadísticas oficiales CEAD de incidencia delictiva para la commune de Concepción. Tasa reportada, tendencia y comparación nacional para ${year}.`,
+  "description": `Estadísticas oficiales CEAD de incidencia delictiva para la comuna de Concepción. Tasa reportada, tendencia y comparación nacional para ${year}.`,
   "about": {
     "@type": "Dataset",
     "name": "Estadísticas CEAD — Concepción",
@@ -42,7 +42,7 @@ const jsonLd = {
 <EditorialLayout
   lang="es"
   title="Seguridad en Concepción — Estadísticas CEAD y Contexto — Chile Safety Map"
-  description={`Estadísticas oficiales CEAD de incidencia delictiva para la commune de Concepción. Tasa reportada, tendencia, comparación nacional y contexto para visitantes y residentes. Datos CEAD ${year}.`}
+  description={`Estadísticas oficiales CEAD de incidencia delictiva para la comuna de Concepción. Tasa reportada, tendencia, comparación nacional y contexto para visitantes y residentes. Datos CEAD ${year}.`}
   enPath="/concepcion-safety/"
   esPath="/es/seguridad-concepcion/"
   jsonLd={jsonLd}
@@ -53,12 +53,12 @@ const jsonLd = {
       Concepción es la segunda área metropolitana de Chile y capital de la Región del Biobío.
       Es un importante centro universitario, industrial y de transporte, con más de ocho
       universidades y una economía diversificada. Esta página reporta lo que muestran los datos
-      oficiales del CEAD para la commune de Concepción para {year}.
+      oficiales del CEAD para la comuna de Concepción para {year}.
     </p>
 
     <DataCallout
       value={`${Math.round(rate).toLocaleString('es-CL')} por 100k`}
-      label={`Tasa reportada de la commune de Concepción — CEAD ${year}`}
+      label={`Tasa reportada de la comuna de Concepción — CEAD ${year}`}
       source="Fuente: CEAD (Centro de Estudios y Análisis del Delito)"
       locale="es"
     />
@@ -80,7 +80,7 @@ const jsonLd = {
       promedio nacional de {Math.round(nationalAvg).toLocaleString('es-CL')} por 100.000.
       La tendencia reciente es {trendLabel} según la serie CEAD de los últimos tres años. La
       página de detalle de la{' '}
-      <a href="/es/comuna/concepcion/">commune de Concepción</a> muestra la serie anual desde 2005.
+      <a href="/es/comuna/concepcion/">comuna de Concepción</a> muestra la serie anual desde 2005.
     </p>
   </section>
 
@@ -90,12 +90,12 @@ const jsonLd = {
       La presencia de ocho o más universidades hace de Concepción una de las ciudades con mayor
       proporción de estudiantes universitarios de Chile. Esta dinámica genera una población
       flotante importante —especialmente durante el período académico— que no está necesariamente
-      empadronada en la commune. Los barrios aledaños a las universidades y las zonas de
+      empadronada en la comuna. Los barrios aledaños a las universidades y las zonas de
       entretención nocturna concentran un uso intensivo del espacio urbano que puede influir
       en el perfil de incidentes reportados.
     </p>
     <p>
-      El CEAD no desglosa la incidencia por barrio o sector dentro de la commune, por lo que
+      El CEAD no desglosa la incidencia por barrio o sector dentro de la comuna, por lo que
       no es posible distinguir estadísticamente entre el sector universitario, el centro
       comercial y las zonas residenciales a partir de los datos publicados.
     </p>
@@ -104,26 +104,26 @@ const jsonLd = {
   <section>
     <h2>El Gran Concepción</h2>
     <p>
-      La commune de Concepción es el núcleo del Gran Concepción, conurbación que incluye
-      Talcahuano, Hualpén, San Pedro de la Paz, Chiguayante, Coronel y otras communes.
+      La comuna de Concepción es el núcleo del Gran Concepción, conurbación que incluye
+      Talcahuano, Hualpén, San Pedro de la Paz, Chiguayante, Coronel y otras comunas.
       Cada una tiene su propio perfil de incidencia según datos CEAD:
     </p>
     <ul>
       <li>
-        <strong>Talcahuano:</strong> commune portuaria e industrial, con dinámica de tránsito
-        similar a otras communes portuarias del país.
+        <strong>Talcahuano:</strong> comuna portuaria e industrial, con dinámica de tránsito
+        similar a otras comunas portuarias del país.
       </li>
       <li>
-        <strong>San Pedro de la Paz:</strong> commune residencial al sur del río Biobío, con
+        <strong>San Pedro de la Paz:</strong> comuna residencial al sur del río Biobío, con
         características distintas al centro de Concepción.
       </li>
       <li>
-        <strong>Hualpén:</strong> commune industrial y residencial, separada de Talcahuano en
+        <strong>Hualpén:</strong> comuna industrial y residencial, separada de Talcahuano en
         2004.
       </li>
     </ul>
     <p>
-      Las páginas de cada commune del Gran Concepción están disponibles en este sitio con sus
+      Las páginas de cada comuna del Gran Concepción están disponibles en este sitio con sus
       propias series temporales y datos CEAD. La{' '}
       <a href="/es/region/biobio/">página de la Región del Biobío</a> presenta el ranking
       regional completo.
@@ -141,7 +141,7 @@ const jsonLd = {
     <p>
       El desglose completo por familia de delito —las siete categorías CEAD— para Concepción
       está disponible en la{' '}
-      <a href="/es/comuna/concepcion/">página de detalle de la commune</a>.
+      <a href="/es/comuna/concepcion/">página de detalle de la comuna</a>.
     </p>
   </section>
 
@@ -162,7 +162,7 @@ const jsonLd = {
         nuevos en la ciudad.
       </li>
       <li>
-        Para residentes evaluando barrios, el CEAD solo ofrece datos a nivel de commune; el
+        Para residentes evaluando barrios, el CEAD solo ofrece datos a nivel de comuna; el
         conocimiento local y las visitas presenciales a distintas horas complementan la información
         estadística disponible.
       </li>
@@ -175,7 +175,7 @@ const jsonLd = {
       Todas las estadísticas de esta página provienen del CEAD (Centro de Estudios y Análisis
       del Delito), organismo oficial del gobierno chileno, cubriendo incidentes policiales
       reportados para {year}. Las tasas se calculan por 100.000 habitantes registrados. El
-      promedio nacional mostrado es la media no ponderada de communes no de baja población,
+      promedio nacional mostrado es la media no ponderada de comunas no de baja población,
       no una suma. La metodología completa está documentada en la{' '}
       <a href="/es/metodologia/">página de metodología</a>.
       Versión en inglés: <a href="/concepcion-safety/">Concepción Safety</a>.

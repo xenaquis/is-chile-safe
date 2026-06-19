@@ -26,7 +26,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Seguridad en Viña del Mar — Datos CEAD",
-  "description": `Estadísticas oficiales CEAD de incidencia delictiva para la commune de Viña del Mar. Tasa reportada, tendencia y comparación nacional para ${year}.`,
+  "description": `Estadísticas oficiales CEAD de incidencia delictiva para la comuna de Viña del Mar. Tasa reportada, tendencia y comparación nacional para ${year}.`,
   "about": {
     "@type": "Dataset",
     "name": "Estadísticas CEAD — Viña del Mar",
@@ -42,7 +42,7 @@ const jsonLd = {
 <EditorialLayout
   lang="es"
   title="Seguridad en Viña del Mar — Estadísticas CEAD y Contexto — Chile Safety Map"
-  description={`Estadísticas oficiales CEAD de incidencia delictiva para la commune de Viña del Mar. Tasa reportada, tendencia, comparación nacional y contexto para visitantes. Datos CEAD ${year}.`}
+  description={`Estadísticas oficiales CEAD de incidencia delictiva para la comuna de Viña del Mar. Tasa reportada, tendencia, comparación nacional y contexto para visitantes. Datos CEAD ${year}.`}
   enPath="/vina-del-mar-safety/"
   esPath="/es/seguridad-vina-del-mar/"
   jsonLd={jsonLd}
@@ -52,12 +52,12 @@ const jsonLd = {
     <p>
       Viña del Mar es el principal balneario y destino turístico de Chile, conocida por sus
       playas, el Casino Municipal y el Festival Internacional de la Canción. Esta página reporta
-      lo que muestran los datos oficiales del CEAD para la commune de Viña del Mar para {year}.
+      lo que muestran los datos oficiales del CEAD para la comuna de Viña del Mar para {year}.
     </p>
 
     <DataCallout
       value={`${Math.round(rate).toLocaleString('es-CL')} por 100k`}
-      label={`Tasa reportada de la commune de Viña del Mar — CEAD ${year}`}
+      label={`Tasa reportada de la comuna de Viña del Mar — CEAD ${year}`}
       source="Fuente: CEAD (Centro de Estudios y Análisis del Delito)"
       locale="es"
     />
@@ -78,7 +78,7 @@ const jsonLd = {
       {Math.abs(vsNationalPct)} % {vsNationalPct >= 0 ? 'por sobre' : 'por debajo'} del
       promedio nacional de {Math.round(nationalAvg).toLocaleString('es-CL')} por 100.000.
       La tendencia reciente es {trendLabel} según la serie CEAD. La page de detalle de la{' '}
-      <a href="/es/comuna/vina-del-mar/">commune de Viña del Mar</a> muestra la serie completa
+      <a href="/es/comuna/vina-del-mar/">comuna de Viña del Mar</a> muestra la serie completa
       desde 2005.
     </p>
   </section>
@@ -132,14 +132,14 @@ const jsonLd = {
   <section>
     <h2>Viña del Mar y Valparaíso: dos comunas distintas</h2>
     <p>
-      Viña del Mar y Valparaíso son communes administrativamente separadas y muestran perfiles
+      Viña del Mar y Valparaíso son comunas administrativamente separadas y muestran perfiles
       de incidencia delictiva distintos según datos CEAD. El carácter de balneario residencial
       de Viña del Mar y el perfil portuario-comercial de Valparaíso generan composiciones de
       delitos y tasas per cápita diferentes. Consulta{' '}
       <a href="/es/seguridad-valparaiso/">los datos de seguridad de Valparaíso</a> para comparar.
     </p>
     <p>
-      Ambas communes forman parte del Gran Valparaíso, junto con Quilpué, Villa Alemana y Concón.
+      Ambas comunas forman parte del Gran Valparaíso, junto con Quilpué, Villa Alemana y Concón.
       La <a href="/es/region/valparaiso/">página de la Región de Valparaíso</a> presenta el
       ranking de todas las comunas de la región.
     </p>
@@ -174,7 +174,7 @@ const jsonLd = {
       Todas las estadísticas de esta página provienen del CEAD (Centro de Estudios y Análisis
       del Delito), cubriendo incidentes policiales reportados para {year}. Las tasas se calculan
       por 100.000 habitantes registrados. El promedio nacional mostrado es la media no ponderada
-      de communes no de baja población, no una suma. La metodología completa está documentada
+      de comunas no de baja población, no una suma. La metodología completa está documentada
       en la <a href="/es/metodologia/">página de metodología</a>.
       Versión en inglés: <a href="/vina-del-mar-safety/">Viña del Mar Safety</a>.
     </p>

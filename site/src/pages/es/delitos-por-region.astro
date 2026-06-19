@@ -2,7 +2,7 @@
 /**
  * /es/delitos-por-region/ — ES editorial page sobre delitos por región (EDIT-02).
  *
- * No tiene contrapartida EN en EDIT-01. Per slug_flag: enPath=self (/es/delitos-por-region/).
+ * Contrapartida EN: /crimes-by-region/ (BIL-02).
  * CRÍTICO: usa loadNationalAverage() (MEDIA) — nunca SUMA.
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
@@ -28,7 +28,7 @@ const jsonLd = {
   lang="es"
   title="Delitos por Región en Chile — Estadísticas CEAD — Chile Safety Map"
   description={`Comparación de incidencia delictiva reportada entre las 16 regiones de Chile según datos CEAD ${year}. Tasas por 100.000 habitantes, variación comunal y contexto metodológico.`}
-  enPath="/es/delitos-por-region/"
+  enPath="/crimes-by-region/"
   esPath="/es/delitos-por-region/"
   jsonLd={jsonLd}
 >
@@ -53,7 +53,7 @@ const jsonLd = {
     <h2>Por qué importa la perspectiva regional</h2>
     <p>
       La región de residencia o destino turístico determina el contexto en el que se interpretan
-      los datos comunales. Una commune con una tasa de 800 por 100.000 puede estar por debajo del
+      los datos comunales. Una comuna con una tasa de 800 por 100.000 puede estar por debajo del
       promedio regional en el norte minero, pero muy por sobre el promedio en una región agrícola
       del sur. El referente regional aporta contexto que el promedio nacional no captura.
     </p>
@@ -136,7 +136,7 @@ const jsonLd = {
         su tasa, permitiendo ver de inmediato los patrones regionales y subregionales.
       </li>
       <li>
-        <strong>Páginas comunales:</strong> cada commune tiene su propia página con la serie
+        <strong>Páginas comunales:</strong> cada comuna tiene su propia página con la serie
         temporal desde 2005, el desglose por familia de delito y la comparación regional.
       </li>
     </ul>
