@@ -35,6 +35,11 @@ const CATALOG_KEY_ORDER = [
 // Total communes for national rank display
 const TOTAL_COMMUNES = 346;
 
+// Composite index data year — commune JSON stores composite_index only under "2024".
+// This constant mirrors commune/[slug].astro:COMPOSITE_YEAR and must be updated
+// together when new index vintages are published.
+const COMPOSITE_YEAR = 2024;
+
 // Trend arrow symbols and CSS classes
 const TREND_ARROW: Record<string, string> = {
   up: '↑',
@@ -259,7 +264,7 @@ export function ResultPanel({ cut, lang, year, nationalAvg, onClose, mode = 'fam
 
       {/* 2b. Composite index section (D-06 — rendered ONLY when mode === 'composite') */}
       {mode === 'composite' && (() => {
-        const ci = data.composite_index?.[String(year)];
+        const ci = data.composite_index?.[String(COMPOSITE_YEAR)];
         if (!ci) return null;
         const bandLabel = lang === 'es' ? BAND_ES[ci.level - 1] : BAND_EN[ci.level - 1];
         const regionName2 = REGION_NAMES[data.region_id]?.[lang] ?? `Región ${data.region_id}`;
