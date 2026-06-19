@@ -2,14 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
-status: planning
-last_updated: "2026-06-18T00:00:00.000Z"
-last_activity: 2026-06-18
+status: Ready to execute
+last_updated: "2026-06-19T00:28:16.716Z"
 progress:
   total_phases: 8
   completed_phases: 6
-  total_plans: 24
-  completed_plans: 24
+  total_plans: 29
+  completed_plans: 26
   percent: 75
 ---
 
@@ -40,6 +39,7 @@ order (set with user 2026-06-18, see ROADMAP "▶ AUTONOMOUS RUN ORDER"):
    proposed Phase 18). **Wave 0 research COMPLETE** — see
    `phases/17-robust-crime-index/17-01-SUMMARY.md` + `17-02-SUMMARY.md` +
    `17-CEAD-CATALOG.json`. Discuss artifact pre-staged: `17-CONTEXT.md`.
+
 2. **Phase 16 — News Activation + Geolocation Redesign + Model A/B** (runs
    SECOND). **API keys WILL be available** (`DEEPSEEK_API_KEY` + `MINIMAX_API_KEY`
    in gitignored `.env`) → full scope incl. live pipeline run + DeepSeek/MiniMax
@@ -50,7 +50,9 @@ Use **BrowserOS** for each phase's end-of-phase visual verification
 (methodology EN+ES; news page + incident→source + incident→comuna links).
 
 **Quality gates left ON by user choice (2026-06-18):** `ai_integration_phase`
+
 + `ui_phase` are intentionally enabled (quality > zero-questions). The pre-staged
+
 CONTEXTs pre-answer the essentials, but a sub-agent (e.g. AI eval/framework or
 UI-spec) MAY surface ONE scoping question — that is EXPECTED, not an error;
 answer it and let the run continue. Operator may want to check in periodically
