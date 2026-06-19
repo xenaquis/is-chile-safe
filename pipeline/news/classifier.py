@@ -25,7 +25,8 @@ import os
 import pathlib
 import re
 
-from openai import OpenAI
+from openai import AuthenticationError, OpenAI, RateLimitError
+from openai import APIStatusError as _APIStatusError
 from pydantic import ValidationError
 
 from pipeline.news.schema import VALID_FAMILIES, ClassifierOutput
@@ -191,6 +192,20 @@ def _call_api(user_content: str) -> str | None:
         resp = client.chat.completions.create(**kwargs)
         content = resp.choices[0].message.content
         return content if content else None
+    except AuthenticationError:
+        logger.error(
+            "%s API call: authentication failed — check %s_API_KEY",
+            _PROVIDER, _PROVIDER.upper(),
+        )
+        return None
+    except RateLimitError:
+        logger.warning("%s API call: rate limited — will retry next run", _PROVIDER)
+        return None
+    except _APIStatusError as exc:
+        logger.warning(
+            "%s API call failed HTTP %s: %s", _PROVIDER, exc.status_code, exc.message
+        )
+        return None
     except Exception as exc:
-        logger.warning("%s API call failed: %s", _PROVIDER, exc)
+        logger.warning("%s API call failed (unexpected): %s: %s", _PROVIDER, type(exc).__name__, exc)
         return None
