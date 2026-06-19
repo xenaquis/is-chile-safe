@@ -82,9 +82,8 @@ def _rederive_rate(familia_id: int, year: int, commune_name: str) -> Optional[fl
             # rows: {"name": str, "values": {year_str: "NNN,0000000000"}}
             val = row["values"].get(str(year))
             if val is None:
-                # Try other year key formats
-                for k, v in row["values"].items():
-                    return parse_cead_float(v)
+                # Year key absent in cache — do not fall back to another year's value,
+                # as that would silently compare against the wrong year in checks 5/6.
                 return None
             return parse_cead_float(val)
     return None
@@ -484,15 +483,17 @@ def check_7_san_joaquin_homicidios() -> CheckResult:
             evidence=f"FAIL: rate/count arithmetic mismatch. Errors: {errors}",
         )
 
+    derived_2024_str = f"{count_2024 * 100000 / pop:.4f}" if pop else "N/A (pop=0)"
+    derived_2025_str = f"{count_2025 * 100000 / pop:.4f}" if pop else "N/A (pop=0)"
     return CheckResult(
         n=7,
         name=f"Anomaly: {commune_name} homicidios 2024/2025",
         status="PASS",
         evidence=(
             f"2024: rate={rate_2024:.4f}/100k, count={count_2024} "
-            f"(derived: {count_2024 * 100000 / pop:.4f} — matches). "
+            f"(derived: {derived_2024_str} — matches). "
             f"2025: rate={rate_2025:.4f}/100k, count={count_2025} "
-            f"(derived: {count_2025 * 100000 / pop:.4f} — matches). "
+            f"(derived: {derived_2025_str} — matches). "
             f"partial_2025={partial_2025}. "
             "The count=1 in 2025 is a partial-year artifact: CEAD 2025 homicide data was "
             "still accumulating when scraped (Jan–early 2026 only). The series entry for 2025 "
@@ -538,13 +539,14 @@ def check_8_recoleta_homicidios_2024() -> CheckResult:
             evidence=f"FAIL: rate/count arithmetic mismatch. Errors: {errors}",
         )
 
+    derived_str = f"{count_2024 * 100000 / pop:.4f}" if pop else "N/A (pop=0)"
     return CheckResult(
         n=8,
         name=f"Anomaly: {commune_name} homicidios 2024",
         status="PASS",
         evidence=(
             f"Committed: rate={rate_2024:.4f}/100k, count={count_2024}. "
-            f"Derived: {count_2024 * 100000 / pop:.4f}/100k (pop={pop}). Match OK. "
+            f"Derived: {derived_str}/100k (pop={pop}). Match OK. "
             "Recoleta had 34 homicides in 2024 (CEAD); with population 196,856 that yields "
             f"~17.3/100k — substantially above the national average but arithmetically correct. "
             "This reflects a genuine public-safety pattern in this dense northern RM commune."
