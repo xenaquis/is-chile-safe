@@ -19,15 +19,23 @@ from pipeline.shared.schema import FAMILY_KEYS
 
 VALID_FAMILIES: set[str] = set(FAMILY_KEYS)
 
-_CUT_FILE = pathlib.Path(__file__).parents[2] / "data" / "incidents" / "cut_list.json"
-if not _CUT_FILE.exists():
-    # CR-03: fail loud. An empty VALID_CUTS would silently reject EVERY incident
+# WR-02: derive VALID_CUTS from the same index.json that resolver.py uses so the
+# validator and resolver are always aligned.  Using a separate cut_list.json created
+# a dual source of truth: a CUT resolved by resolver.py could fail schema validation
+# if cut_list.json was stale.  index.json is the single authoritative source.
+_INDEX_FILE = pathlib.Path(__file__).parents[2] / "data" / "cead" / "meta" / "index.json"
+if not _INDEX_FILE.exists():
+    # Fail loud: an empty VALID_CUTS would silently reject EVERY incident
     # (any code `not in set()` is True) — indistinguishable from "no crime news".
     raise FileNotFoundError(
-        f"cut_list.json not found at {_CUT_FILE}. The 346-commune CUT list is required "
-        "for classification; refusing to run with an empty allow-list."
+        f"index.json not found at {_INDEX_FILE}. "
+        "data/cead/meta/index.json is required for CUT validation; "
+        "refusing to run with an empty allow-list."
     )
-VALID_CUTS: set[str] = set(json.loads(_CUT_FILE.read_text(encoding="utf-8")))
+VALID_CUTS: set[str] = {
+    entry["cut"]
+    for entry in json.loads(_INDEX_FILE.read_text(encoding="utf-8"))
+}
 
 
 # ---------------------------------------------------------------------------
