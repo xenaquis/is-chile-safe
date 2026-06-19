@@ -188,9 +188,18 @@ def build_map_payload(
         # via featured_rates.homicidios_count for downstream consumers that need it.
         comunas.append(entry)
 
+    # Determine partial_year: True if any commune's series entry for this year is partial
+    partial_year = any(
+        yr_rec.get("partial", False)
+        for r in records
+        for yr_rec in r.get("series", [])
+        if yr_rec["year"] == year
+    )
+
     return {
         "generated": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
         "year": year,
+        "partial_year": partial_year,
         "comunas": comunas,
     }
 
