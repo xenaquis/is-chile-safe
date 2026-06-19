@@ -207,7 +207,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     <p class="crime-def">{familyDef}</p>
     {familyScopeNote && <p class="crime-scope-note">{familyScopeNote}</p>}
     <div class="hero-meta">
-      <span class="hero-stat">National mean: {Math.round(familyNationalMean).toLocaleString('en-US')} per 100k ({latestYear})</span>
+      <span class="hero-stat">National mean: {Math.round(familyNationalMean).toLocaleString('en-US')} per 100k ({latestYear}) <span class="hero-stat-note">(unweighted commune mean — <a href="/methodology/#national-mean" class="caveat-link">see methodology</a>)</span></span>
       <span class="hero-sep" aria-hidden="true">·</span>
       <span class="hero-stat">{eligibleRows.length} communes ranked</span>
     </div>
