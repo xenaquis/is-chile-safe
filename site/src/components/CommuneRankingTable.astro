@@ -32,8 +32,8 @@ interface Props {
 const { rows, locale } = Astro.props;
 const t = locale === 'en' ? EN_STRINGS : ES_STRINGS;
 
-const communeColLabel = locale === 'en' ? 'Commune' : 'Comuna';
-const rateColLabel    = locale === 'en' ? 'Rate per 100k' : 'Tasa por 100k';
+const communeColLabel = t.th_commune;
+const rateColLabel    = t.th_rate_per_100k;
 const rankColLabel    = t.national_rank_label;
 const trendColLabel   = t.trend_label;
 
