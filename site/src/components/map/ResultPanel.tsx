@@ -49,6 +49,14 @@ interface SeriesEntry {
   by_family: Record<string, number>;
 }
 
+interface CompositeIndexEntry {
+  score: number;
+  rank: number;
+  regional_rank: number;
+  level: 1 | 2 | 3 | 4 | 5;
+  available_metrics: number;
+}
+
 interface CommuneData {
   id: string;
   name: string;
@@ -68,6 +76,10 @@ interface CommuneData {
     propiedad?: Record<string, number>;
     secuestros?: Record<string, number>;
   };
+  // Phase 18-04 additive fields (D-12)
+  composite_index?: Record<string, CompositeIndexEntry>;
+  spd_homicide_rate?: Record<string, number>;
+  sii_exposure_index?: Record<string, number | null>;
 }
 
 interface Props {
@@ -107,7 +119,11 @@ const REGION_NAMES: Record<string, { es: string; en: string }> = {
   '16': { es: 'Región de Ñuble',              en: 'Ñuble Region' },
 };
 
-export function ResultPanel({ cut, lang, year, nationalAvg, onClose }: Props) {
+// Band label arrays (D-08) — index 0 = level 1 (Very Low), index 4 = level 5 (Very High)
+const BAND_EN = ['Very Low', 'Low', 'Moderate', 'High', 'Very High'] as const;
+const BAND_ES = ['Muy Bajo', 'Bajo', 'Moderado', 'Alto', 'Muy Alto'] as const;
+
+export function ResultPanel({ cut, lang, year, nationalAvg, onClose, mode = 'family' }: Props) {
   const [data, setData] = useState<CommuneData | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState(false);
@@ -240,6 +256,44 @@ export function ResultPanel({ cut, lang, year, nationalAvg, onClose }: Props) {
           {lang === 'es' ? 'Datos CEAD' : 'CEAD data'}
         </span>
       </div>
+
+      {/* 2b. Composite index section (D-06 — rendered ONLY when mode === 'composite') */}
+      {mode === 'composite' && (() => {
+        const ci = data.composite_index?.[String(year)];
+        if (!ci) return null;
+        const bandLabel = lang === 'es' ? BAND_ES[ci.level - 1] : BAND_EN[ci.level - 1];
+        const regionName2 = REGION_NAMES[data.region_id]?.[lang] ?? `Región ${data.region_id}`;
+        const rankRegional = lang === 'es'
+          ? ES_STRINGS.ci_rank_regional
+              .replace('#{rank}', `#${ci.regional_rank}`)
+              .replace('{region}', regionName2)
+          : EN_STRINGS.ci_rank_regional
+              .replace('#{rank}', `#${ci.regional_rank}`)
+              .replace('{region}', regionName2);
+        const nationalRankStr = lang === 'es'
+          ? ES_STRINGS.ci_rank_national
+              .replace('#{rank}', `#${ci.rank}`)
+              .replace('{total}', String(TOTAL_COMMUNES))
+          : EN_STRINGS.ci_rank_national
+              .replace('#{rank}', `#${ci.rank}`)
+              .replace('{total}', String(TOTAL_COMMUNES));
+        const caveatText = lang === 'es' ? ES_STRINGS.ci_caveat_text : EN_STRINGS.ci_caveat_text;
+        const sectionHeading = lang === 'es' ? ES_STRINGS.ci_section_heading : EN_STRINGS.ci_section_heading;
+        return (
+          <div className="panel-section composite-index-section">
+            <h4>{sectionHeading}</h4>
+            <div>
+              <span className="stat-big">{Math.round(ci.score)}</span>
+              <span className="stat-unit">{bandLabel}</span>
+            </div>
+            <div className="ci-rank">
+              {nationalRankStr} · {rankRegional}
+            </div>
+            {/* D-07: always-visible caveat — never behind <details> */}
+            <div className="ci-caveat">{caveatText}</div>
+          </div>
+        );
+      })()}
 
       {/* 3. Stat card: rate */}
       <div className="stat-card" style={{ overflow: 'visible' }}>

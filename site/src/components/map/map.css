@@ -846,3 +846,44 @@
   white-space: nowrap;
   pointer-events: none;
 }
+
+/* ==========================================================================
+   Phase 18-04 — Composite Index section (CI-05/CI-06)
+   ========================================================================== */
+
+.composite-index-section {
+  margin: 8px 0;
+}
+
+.composite-index-section .stat-big {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-right: 8px;
+}
+
+.composite-index-section .stat-unit {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.ci-rank {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* D-07: always-visible caveat — never inside <details> */
+.ci-caveat {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--primary);
+  padding: 8px 16px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted);
+  border-radius: 3px;
+}

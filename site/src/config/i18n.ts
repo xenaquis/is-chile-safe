@@ -147,6 +147,17 @@ export interface I18nStrings {
 
   // Phase 19-06 — BIL-04 low-pop footnote
   low_pop_footnote: string;
+
+  // Phase 18-04 — composite index bands + rank + caveat
+  ci_band_1: string;
+  ci_band_2: string;
+  ci_band_3: string;
+  ci_band_4: string;
+  ci_band_5: string;
+  ci_rank_national: string;
+  ci_rank_regional: string;
+  ci_caveat_text: string;
+  ci_section_heading: string;
 }
 
 export const EN_STRINGS: I18nStrings = {
@@ -294,6 +305,17 @@ export const EN_STRINGS: I18nStrings = {
 
   // Phase 19-06 — BIL-04 low-pop footnote
   low_pop_footnote: '* This commune has a small resident population. Rates per 100,000 inhabitants can show high statistical volatility. Interpret with caution.',
+
+  // Phase 18-04 — composite index bands + rank + caveat
+  ci_band_1: 'Very Low',
+  ci_band_2: 'Low',
+  ci_band_3: 'Moderate',
+  ci_band_4: 'High',
+  ci_band_5: 'Very High',
+  ci_rank_national: '#{rank} of {total} nationally',
+  ci_rank_regional: '#{rank} in {region}',
+  ci_caveat_text: 'Composite of reported crimes (CEAD/SPD), adjusted for SII economic activity. Does not reflect unreported crime. Reference year: 2024.',
+  ci_section_heading: 'Composite Crime Index (2024)',
 };
 
 export const ES_STRINGS: I18nStrings = {
@@ -444,6 +466,17 @@ export const ES_STRINGS: I18nStrings = {
 
   // Phase 19-06 — BIL-04 low-pop footnote
   low_pop_footnote: '* Esta comuna tiene una pequeña población residente. Las tasas por 100.000 habitantes pueden presentar alta volatilidad estadística. Interprete con cautela.',
+
+  // Phase 18-04 — composite index bands + rank + caveat
+  ci_band_1: 'Muy Bajo',
+  ci_band_2: 'Bajo',
+  ci_band_3: 'Moderado',
+  ci_band_4: 'Alto',
+  ci_band_5: 'Muy Alto',
+  ci_rank_national: '#{rank} de {total} a nivel nacional',
+  ci_rank_regional: '#{rank} en {region}',
+  ci_caveat_text: 'Compuesto de delitos reportados al sistema policial (CEAD/SPD), ajustado por actividad económica SII. No refleja delitos no denunciados. Datos de referencia: 2024.',
+  ci_section_heading: 'Índice Compuesto de Delincuencia (2024)',
 };
 
 // D-17: Crime-family URL slug translations
