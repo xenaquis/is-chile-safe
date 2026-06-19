@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Data Quality Hardening & Methodology
 status: planning
-last_updated: "2026-06-19T04:09:56.840Z"
+last_updated: "2026-06-19T00:00:00.000Z"
 last_activity: 2026-06-19
 progress:
-  total_phases: 0
+  total_phases: 2
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -15,22 +15,22 @@ progress:
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-15 — v1.1 Polish & QA shipped + archived; milestone pointer advanced to v1.2; ready to plan Phase 12_
+_Last updated: 2026-06-19 — v1.3 roadmap written (P19 Tech-Debt Sweep + P20 Methodology & Sources Hardening); Phase 18 Composite Index reserved for after v1.3_
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-06-15)
+See: .planning/PROJECT.md (updated 2026-06-19)
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: v1.2 Map Fidelity, Findability & News. Phases 10 (geometry) + 11 (publish 346 + finder) shipped 2026-06-15; next = Phase 12 (Home/IA redesign + comuna hub-and-spoke).
+**Current focus**: v1.3 Data Quality Hardening & Methodology. Roadmap written; next = plan Phase 19.
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 19 — Tech-Debt Sweep (not started — awaiting plan)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-06-19 — Milestone v1.3 started
+Status: Roadmap written; ready to plan Phase 19
+Last activity: 2026-06-19 — ROADMAP.md written; v1.3 phases 19 + 20 defined
 
 ## Deferred Items
 
@@ -49,10 +49,13 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 
 | Metric | Value |
 |--------|-------|
-| v1.1 Phases complete | 0/3 |
-| v1.1 Requirements mapped | 17/17 |
-| v1.1 Plans created | 0 |
-| v1.1 Plans complete | 0 |
+| v1.3 Phases defined | 2 (19 + 20) |
+| v1.3 Phases complete | 0/2 |
+| v1.3 Requirements mapped | 24/24 |
+| v1.3 Plans created | 0 |
+| v1.3 Plans complete | 0 |
+| v1.1 Phases complete | 3/3 |
+| v1.2 Phases complete | 8/8 |
 | Phase 01-data-foundation P04 | 45m \| 3 tasks \| 7 files |
 | Phase 02-astro-site-programmatic-pages P01 | 35m \| 3 tasks \| 17 files |
 | Phase 02-astro-site-programmatic-pages P03 | 45min \| 3 tasks \| 5 files |
@@ -105,6 +108,7 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 - [Phase 17 Wave 0] lesiones = CEAD grupos 103+104+105 (graves/gravísimas, menos graves, leves); secuestro is ABSENT from CEAD entirely (Fiscalía/Ministerio Público, regional only, 868/2024).
 - [Phase 17 Wave 0] Homicide truth = SPD VHC xlsx (`prevenciondehomicidios.cl`, comuna-level, 2018–2025; count = row count per comuna/year). Exposure proxy = SII `PUB_COMU.xlsb` (empresas + trabajadores dependientes per comuna, 2005–2024; needs `pyxlsb`; comuna = firm domicile/HQ caveat).
 - [Phase 16] News geolocation bottleneck = design not vendor: both LLMs pick wrong CUT ~60-70% from bare codes. Fix = LLM emits comuna NAME → deterministic name→CUT. MiniMax that works: `MiniMax-Text-01` @ `https://api.minimaxi.chat/v1` (no json_object response_format). Keep centroid-from-CUT for coords.
+- [v1.3 Decisions] Phase 18 number is RESERVED for Composite Crime Index; v1.3 uses phases 19 + 20 (intentional gap at 18). COMU-03 `/crime/homicide/` = redirect (not a scope note). SII/Fiscalía/SPD-VHC snapshots stay stubs in v1.3 — promoted to first-class at Phase 18 when wired to displayed figures.
 
 ### Critical Pitfalls to Avoid
 
@@ -113,11 +117,16 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 - LLM assigning incidents to wrong communes (use closed-list classification)
 - Frequency vs. rate ranking error (bake `rate_per_100k` into schema from day 1)
 - CEAD endpoint silently returning wrong data (validate 346-commune count + key presence after every scrape)
+- OneDrive build desync: repo lives inside OneDrive; always chain build+validate in ONE command (`cd site && npm run build && npm run validate`) — never separate processes
+- Methodology text drift: never say "population-weighted" for the national aggregate (code is unweighted; that claim was the MC-01/MC-07 bug P19 must fix)
+- Forbidden language: never an unqualified absolute "safe/dangerous/seguro/peligroso" verdict about any territory — CI validator enforces this after P20
 
 ### Research Flags for Planning
 
 - Phase 7: BrowserOS MCP must be connected before review starts (port 9200; verify with tool search for `mcp__*browseros*__*` navigate/screenshot/console/resize tools)
 - Phase 7: dev server `cd site && npm run dev` must be running (predev runs sync-data.mjs; incidents layer will show empty state — expected)
+- Phase 19: COMU-03 canonical redirect target must be determined during plan (exact URL — likely the crime-ranking homicide page `/crime-ranking/homicide/` / `/es/ranking-delito/homicidios/`)
+- Phase 20: ENUSC official URL requires verification before publishing (`[verify URL]` note in METHODOLOGY-SPEC); confirm canonical between ine.gob.cl/enusc and seguridadpublica.gov.cl
 
 ### Todos
 
@@ -139,13 +148,9 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 
 ## Session Continuity
 
-**Last session**: 2026-06-13 — Phase 03 COMPLETE (Leaflet Map Island), UAT closed by user (visual/mobile render DEFERRED — needs real browser). Full autonomous cycle: smart-discuss→UI-SPEC→research→pattern→plan(4)→check(12/12 dims)→execute(waves 0-3). React19+Leaflet island (NO react-leaflet — v4 needs React18; pure L.map()); 346-commune GADM-L3 TopoJSON 87KB; choropleth+year/crime filters+commune panel+geolocation(ray-cast PiP)+incident-pins(empty-state). 8/8 validators; VERIFICATION.md status=passed.
-**Phase 03 BLOCKER found+fixed (commit 0c6659d)**: island fetched /data/cead/* at runtime but nothing served /data (Phase 2 read /data only at build time). Fix: scripts/sync-data.mjs (predev/prebuild) copies data/cead→public/data; gitignored; map.mjs regression guard added. Dev-server HTTP smoke confirmed all data endpoints 200, incidents 404 (expected).
-**Phase 02 prior fix (commit a439529)**: comparable-commune self-reference (cut/id mismatch in loadCommune).
-**Known env issue (not code)**: project is inside OneDrive — `dist/` artifacts desync between separate processes; ALWAYS chain build + validate in one command. (See memory: onedrive-build-artifacts-desync.)
-**Last session (2026-06-13, autonomous)**: Phases 4→5→6 ejecutadas + revisadas (code review en cada una, bugs reales corregidos) + verificadas; milestone v1.0 auditado (code-complete, tech_debt), archivado y tagueado (v1.0). Detalle por fase en `.planning/milestones/v1.0-phases/`.
-**Push**: hecho ✅ → repo privado `github.com/xenaquis/is-chile-safe` (master + tag v1.0). Cloudflare Pages se conecta a este repo en el go-live.
-**2026-06-13 (v1.1 roadmap)**: Phases 7–9 defined. Phase 7 = investigative E2E review (produces FINDINGS doc); Phase 8 = bug/data fixes; Phase 9 = UX/readability/a11y polish. All 17 requirements mapped. Next: `/gsd:plan-phase 7`.
+**Last session**: 2026-06-19 — v1.3 milestone started. ROADMAP.md written with Phases 19 (Tech-Debt Sweep) and 20 (Methodology & Sources Hardening). Phase 18 number reserved for Composite Crime Index (post-v1.3). All 24 v1.3 requirements mapped (TD-01..07 → P19, BIL-01..04 → P19, SEO-01..03 → P19, MTH-01..04 → P20, SRC-01..05 → P20). Next: `/gsd:plan-phase 19`.
+**Prior session (2026-06-18, v1.2 close)**: v1.2 shipped — Phase 17 (data quality) then Phase 16 (news) completed via /gsd-autonomous; tech_debt audit 0 blockers, 22/22 reqs; all 16 regions populate after BUGFIX-999.1 (quick-260616-ldi).
+**Known env issue (not code)**: project is inside OneDrive — `dist/` artifacts desync between separate processes; ALWAYS chain build + validate in one command: `cd site && npm run build && npm run validate`.
 
 ## Decisions
 
@@ -172,4 +177,4 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 
 ## Operator Next Steps
 
-- Start the next milestone with /gsd:new-milestone
+- Run `/gsd:plan-phase 19` to plan the Tech-Debt Sweep phase

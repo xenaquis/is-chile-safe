@@ -67,10 +67,28 @@ Each requirement traces to one or more review finding IDs. Severity from the rev
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| TD-01..07 | 19 | Pending |
-| BIL-01..04 | 19 | Pending |
-| SEO-01..03 | 19 | Pending |
-| MTH-01..04 | 20 | Pending |
-| SRC-01..05 | 20 | Pending |
+| TD-01 | 19 | Pending |
+| TD-02 | 19 | Pending |
+| TD-03 | 19 | Pending |
+| TD-04 | 19 | Pending |
+| TD-05 | 19 | Pending |
+| TD-06 | 19 | Pending |
+| TD-07 | 19 | Pending |
+| BIL-01 | 19 | Pending |
+| BIL-02 | 19 | Pending |
+| BIL-03 | 19 | Pending |
+| BIL-04 | 19 | Pending |
+| SEO-01 | 19 | Pending |
+| SEO-02 | 19 | Pending |
+| SEO-03 | 19 | Pending |
+| MTH-01 | 20 | Pending |
+| MTH-02 | 20 | Pending |
+| MTH-03 | 20 | Pending |
+| MTH-04 | 20 | Pending |
+| SRC-01 | 20 | Pending |
+| SRC-02 | 20 | Pending |
+| SRC-03 | 20 | Pending |
+| SRC-04 | 20 | Pending |
+| SRC-05 | 20 | Pending |
 
-*(Filled/confirmed by the roadmapper.)*
+*Confirmed by roadmapper 2026-06-19. Coverage: 23/23 individual requirements mapped (TD-01..07 = 7, BIL-01..04 = 4, SEO-01..03 = 3, MTH-01..04 = 4, SRC-01..05 = 5 — total 23). Zero orphans.*

@@ -1,14 +1,15 @@
 # Roadmap — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-18 — v1.2 Map Fidelity, Findability & News shipped (Phases 10–17); next: proposed Phase 18 (Composite Crime Index)_
+_Last updated: 2026-06-19 — v1.3 Data Quality Hardening & Methodology started (Phases 19–20); Phase 18 Composite Crime Index reserved for after v1.3_
 
 ## Milestones
 
 - ✅ **v1.0 MVP** — Phases 1–6 (shipped 2026-06-13) — full detail: [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
 - ✅ **v1.1 Polish & QA** — Phases 7–9 (shipped 2026-06-15) — full detail: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
 - ✅ **v1.2 Map Fidelity, Findability & News** — Phases 10–17 (shipped 2026-06-18) — full detail: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
+- 🔄 **v1.3 Data Quality Hardening & Methodology** — Phases 19–20 (in progress) — _(Phase 18 deliberately reserved for Composite Crime Index, the post-v1.3 milestone)_
 
-> **Proposed next:** Phase 18 — Composite Crime Index & Metric Redesign (deferred from Phase 17: exposure-adjusted composite index, SPD homicide-metric switch, `featured_rates`→7-metric schema migration, index-driven choropleth). High-risk/large — plan interactively, do NOT run unattended. All sources already validated in Phase 17 Wave 0 + snapshots committed (DQ-04).
+> **After v1.3:** Phase 18 — Composite Crime Index & Metric Redesign (exposure-adjusted composite index, SPD homicide-metric switch, `featured_rates`→7-metric schema migration, index-driven choropleth). High-risk/large — plan interactively; v1.3 SOURCES.md hardening is an upstream deliverable. Do NOT run unattended.
 
 ## Phases
 
@@ -58,6 +59,13 @@ _Re-scoped 2026-06-15 after a live BrowserOS audit + IA spike (spikes 001–003)
 Full phase details, success criteria, and per-plan breakdown: **[milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)**
 
 </details>
+
+### v1.3 Data Quality Hardening & Methodology (Phases 19–20) — IN PROGRESS
+
+> Phase 18 is intentionally skipped here — it is reserved for the post-v1.3 Composite Crime Index milestone (see Backlog).
+
+- [ ] **Phase 19: Tech-Debt Sweep** — Fix the methodology weighted/unweighted math contradiction, repair bilingual integrity (ES "comuna" terminology, orphan `/es/delitos-por-region/` + hreflang), remove stale placeholders, sort news newest-first, redirect COMU-03 `/crime/homicide/`, harden incident URL validation, extract hardcoded strings to `i18n.ts`, and tighten SEO spine (robots.txt, glossary nav, hreflang reciprocity). [TD-01..07, BIL-01..04, SEO-01..03]
+- [ ] **Phase 20: Methodology & Sources Hardening** — Add INE, ENUSC, and SPD-parent as first-class `data/SOURCES.md` entries; document editorial parameters (5% trend threshold, 3-year window, <10k rule); add methodology explanations for per-family means, per-region breakdowns, and LevelChip tiers; surface the drogas scope note on FamilyBreakdownBars; implement CI forbidden-language validator + INE population spot-check; close the figure registry so zero displayed numbers are orphaned. [MTH-01..04, SRC-01..05]
 
 ## Phase Details (archived — see milestones/v1.2-ROADMAP.md)
 
@@ -280,6 +288,41 @@ Plans:
 - [x] 17-04-PLAN.md — DQ-03 atomic bilingual methodology rewrite EN+ES, clickable sources (wave 2)
 - [x] 17-05-PLAN.md — verify gate: chained build+validate, dist host gate, BrowserOS, `17-VERIFICATION.md` (wave 3)
 
+---
+
+## Phase Details — v1.3 Data Quality Hardening & Methodology
+
+### Phase 19: Tech-Debt Sweep
+
+**Goal**: Users and auditors encounter a bilingual site with no internal contradictions — the methodology math is correct, Spanish prose uses Spanish terminology, all pages have reachable counterparts, stale placeholder text is gone, news is sorted newest-first, and structural SEO signals (robots.txt, hreflang pairs, glossary) are in place.
+**Depends on**: Phase 17 (SOURCES.md and methodology baseline exist). No dependency on Phase 20.
+**Requirements**: TD-01, TD-02, TD-03, TD-04, TD-05, TD-06, TD-07, BIL-01, BIL-02, BIL-03, BIL-04, SEO-01, SEO-02, SEO-03
+**Success Criteria** (what must be TRUE):
+  1. The methodology pages (EN + ES) state the national aggregate is an **unweighted** mean of non-low-population commune rates; the word "population-weighted" does not describe the national aggregate anywhere user-facing; `data.ts`, the methodology, and the FAQ are internally consistent on this point.
+  2. Every user-visible Spanish string reads "comuna" (not "commune"); meta descriptions, JSON-LD, and tooltip labels are updated; a grep for `\bcommune\b` in ES prose/meta/JSON-LD returns zero matches.
+  3. `/es/delitos-por-region/` has a reciprocal EN counterpart with correct bidirectional hreflang; the language toggle navigates between them without self-looping; `/crime/homicide/` redirects to its canonical target.
+  4. News incidents on `/news/` and `/es/noticias/` are sorted newest-first; no stale "coming soon" placeholder text renders anywhere on the site; non-http(s) incident source URLs are rejected before render.
+  5. `site/public/robots.txt` exists with an `Allow` rule and a `Sitemap:` pointer; the glossary is reachable from nav and/or footer (both locales); `/is-santiago-safe/` ↔ `/es/mapa-seguridad-santiago/` form a correct reciprocal hreflang pair.
+
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 20: Methodology & Sources Hardening
+
+**Goal**: Every quantitative figure displayed on the site maps to a named entry in `data/SOURCES.md` and to an explanation in the methodology (EN + ES at structural parity) — zero orphaned numbers, zero unattributed claims, and a CI check to keep it that way.
+**Depends on**: Phase 19 (methodology wording corrected before expanding it). Consumes `data/SOURCES.md` from Phase 17; expands it.
+**Requirements**: MTH-01, MTH-02, MTH-03, MTH-04, SRC-01, SRC-02, SRC-03, SRC-04, SRC-05
+**Success Criteria** (what must be TRUE):
+  1. `data/SOURCES.md` contains first-class entries for INE (population denominator, including the third-party-mirror supply-chain caveat), ENUSC (underreporting/cifra negra), and SPD-parent (institutional authority of CEAD + taxonomy provenance); the methodology pages carry inline citation links to each.
+  2. The methodology explains, in both EN and ES, how per-family national means and per-region breakdown means are computed (unweighted commune means), and explains the 1–5 LevelChip tier classification as a relative distribution-derived scale — all as sub-sections that preserve the 7-H2 parity rule.
+  3. The drogas scope note (Ley 20.000 grupo 401 only) appears inline on the FamilyBreakdownBars component where the drogas figure is displayed; the `#trend-formula` anchor exists and is deep-linked from trend/sparkline references.
+  4. A CI check (grep-based forbidden-language validator) fails the build if an absolute unqualified "safe/dangerous/seguro/peligroso" verdict appears outside the known-allowlist (titles, negations, disclaimed quotes, code comments); an INE population spot-check script compares ≥5 commune populations against official INE and is registered in CI.
+  5. The figure registry (from `v1.3-METHODOLOGY-SPEC.md` Part 1) shows zero orphaned figures: every quantitative number rendered on the site (F1–F12, F15) maps to a `data/SOURCES.md` entry or a documented editorial-parameter note.
+
+**Plans**: TBD
+
+---
+
 ## Progress
 
 | Phase | Milestone | Plans | Status | Completed |
@@ -301,13 +344,15 @@ Plans:
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 2/2 | Complete   | 2026-06-16 |
 | 17. Data Quality, Source Traceability & Methodology | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 5/5 | Complete   | 2026-06-19 |
+| 19. Tech-Debt Sweep | v1.3 | 0/TBD | Not started | - |
+| 20. Methodology & Sources Hardening | v1.3 | 0/TBD | Not started | - |
 
 ## Backlog
 
-- **Phase 18 (proposed) — Composite Crime Index & Metric Redesign** (deferred from Phase 17 on 2026-06-18). The ambitious half of the original Phase 17: exposure-adjusted composite index using the SII denominator; switch the displayed homicide metric to SPD VHC (comuna-level); `featured_rates` → 7-metric schema migration (lesiones = CEAD grupos 103+104+105; add secuestro [region-level, Fiscalía]; drop the `vida` aggregate); multi-measure aggregation (denuncias/detenciones/aprehendidos, normalized per offence — D-AGG); index-driven choropleth + dual index+count display; re-validate the 4 anomalies post-redesign. **All sources already validated in Phase 17 Wave 0** (`phases/17-robust-crime-index/17-WAVE0-RESEARCH-A.md` + `17-WAVE0-RESEARCH-B.md`); snapshots committed in Phase 17 (DQ-04). Open research: S5b (comuna-level secuestro from the Fiscalía BED app). High-risk/large — do NOT run unattended; plan interactively.
-- **999.1 — BUGFIX: Tarapacá comunas mis-assigned to Aysén/Los Ríos** (found 2026-06-15 during v1.1 close; pre-existing Phase-1 data issue). `region_id` stores an ambiguous 2-digit province code: Tarapacá (region 1) comunas carry `11`/`14`, which collide with the direct region numbers for Aysén (11) and Los Ríos (14). The region resolver (`region/[slug].astro` + `es/region/[slug].astro` `floor(n/10)` logic; `data.ts` `loadCommune`) therefore groups Iquique, Alto Hospicio (→ Aysén) and Pozo Almonte, Pica, Huara, Camiña, Colchane (→ Los Ríos) under the wrong region. Symptoms: 7 Tarapacá comuna pages show the wrong region (prose + breadcrumb + JSON-LD); Aysén & Los Ríos region pages list Tarapacá comunas; the Tarapacá region page resolves 0 comunas (empty). **Fix:** disambiguate region from the CUT itself (4-digit CUT `1xxx` ⇒ region 1; 5-digit `11xxx` ⇒ region 11) rather than from the stored `region_id`, then rebuild + re-validate region grouping, rankings, sitemap. Scope: data-layer; target v1.2.
+- **Phase 18 (reserved) — Composite Crime Index & Metric Redesign** (deferred from Phase 17 on 2026-06-18; reserved number — executes AFTER v1.3 ships). The ambitious half of the original Phase 17: exposure-adjusted composite index using the SII denominator; switch the displayed homicide metric to SPD VHC (comuna-level); `featured_rates` → 7-metric schema migration (lesiones = CEAD grupos 103+104+105; add secuestro [region-level, Fiscalía]; drop the `vida` aggregate); multi-measure aggregation (denuncias/detenciones/aprehendidos, normalized per offence — D-AGG); index-driven choropleth + dual index+count display; re-validate the 4 anomalies post-redesign. **All sources already validated in Phase 17 Wave 0** (`phases/17-robust-crime-index/17-WAVE0-RESEARCH-A.md` + `17-WAVE0-RESEARCH-B.md`); snapshots committed in Phase 17 (DQ-04). SII/Fiscalía-secuestro/SPD-VHC snapshots promoted to first-class SOURCES.md entries at Phase 18 (when wired into displayed figures). Open research: S5b (comuna-level secuestro from the Fiscalía BED app). High-risk/large — do NOT run unattended; plan interactively.
+- **999.1 — BUGFIX: Tarapacá comunas mis-assigned to Aysén/Los Ríos** — RESOLVED 2026-06-16 (quick-260616-ldi): region_id now derived from CUT length; all 16 regions populate.
 
-## Open Human Go-Live Gates (launch checklist — not v1.1 scope)
+## Open Human Go-Live Gates (launch checklist — not v1.3 scope)
 
 - **INFRA-03** — live `ischilesafe.com` cutover via `DEPLOYMENT.md` (CF account + DNS + secrets). Unblocks everything below.
 - **NEWS live audit** — run `pipeline/scrape_news.py` with real `DEEPSEEK_API_KEY` + 50-incident commune-hallucination audit.
