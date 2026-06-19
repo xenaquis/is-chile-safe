@@ -2,7 +2,7 @@
 
 **Gathered:** 2026-06-18 · **Re-scoped:** 2026-06-18 (FOCUSED — see Scope Note)
 **Status:** Wave 0 research COMPLETE (ran 2026-06-18 from local CL egress) —
-see 17-01-SUMMARY.md (S1/S4) + 17-02-SUMMARY.md (S2/S3/S5). Discuss artifact
+see 17-WAVE0-RESEARCH-A.md (S1/S4) + 17-WAVE0-RESEARCH-B.md (S2/S3/S5). Discuss artifact
 pre-staged for autonomous run. Ready to plan.
 **Milestone:** v1.2 (data-correctness hardening before milestone close)
 
@@ -117,8 +117,8 @@ and Wave 0):
 ## Wave 0 — research spikes — COMPLETE
 
 All Wave 0 spikes ran 2026-06-18 from local Chilean egress (the cloud sandbox
-403s on every CL gov host). Results in 17-01-SUMMARY.md (S1/S4) and
-17-02-SUMMARY.md (S2/S3/S5). Confirmed: CEAD grupo/subgrupo catalog
+403s on every CL gov host). Results in 17-WAVE0-RESEARCH-A.md (S1/S4) and
+17-WAVE0-RESEARCH-B.md (S2/S3/S5). Confirmed: CEAD grupo/subgrupo catalog
 (17-CEAD-CATALOG.json), tipoVal additivity + semantics, SPD comuna-level
 homicide dataset, SII comuna exposure dataset, Fiscalía secuestro (regional).
 No open research blockers for the focused scope. (Open for Phase 18 only:

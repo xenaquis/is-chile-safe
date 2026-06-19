@@ -31,7 +31,7 @@ Captured HTML/text fixtures land in `pipeline/cache/` (git-ignored).
 
 ## After running
 
-Record the confirmed values in `17-01-SUMMARY.md` (template stub below), then
+Record the confirmed values in `17-WAVE0-RESEARCH-A.md` (template stub below), then
 ping me with the output and we close S1/S4 and move to S2 (SPD) + S3 (SII proxy).
 
 Fill in:

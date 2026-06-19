@@ -37,7 +37,7 @@ order (set with user 2026-06-18, see ROADMAP "▶ AUTONOMOUS RUN ORDER"):
    Fiscalía, rewrite methodology EN+ES with clickable sources. NO composite
    index / NO schema migration / NO displayed-metric change (deferred to
    proposed Phase 18). **Wave 0 research COMPLETE** — see
-   `phases/17-robust-crime-index/17-01-SUMMARY.md` + `17-02-SUMMARY.md` +
+   `phases/17-robust-crime-index/17-WAVE0-RESEARCH-A.md` + `17-WAVE0-RESEARCH-B.md` +
    `17-CEAD-CATALOG.json`. Discuss artifact pre-staged: `17-CONTEXT.md`.
 
 2. **Phase 16 — News Activation + Geolocation Redesign + Model A/B** (runs

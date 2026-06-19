@@ -51,7 +51,7 @@
 
 ### Calidad de Dato, Trazabilidad de Fuente y Metodología (DQ) — Phase 17
 
-> Re-scoped con el usuario 2026-06-18: pase **enfocado** de calidad/trazabilidad/metodología. Índice compuesto + migración de schema = diferidos a Phase 18. NO cambia la métrica mostrada. Wave 0 completo (ver `phases/17-robust-crime-index/17-01-SUMMARY.md`, `17-02-SUMMARY.md`).
+> Re-scoped con el usuario 2026-06-18: pase **enfocado** de calidad/trazabilidad/metodología. Índice compuesto + migración de schema = diferidos a Phase 18. NO cambia la métrica mostrada. Wave 0 completo (ver `phases/17-robust-crime-index/17-WAVE0-RESEARCH-A.md`, `17-WAVE0-RESEARCH-B.md`).
 
 - [ ] **DQ-01**: Reporte `17-DATA-QUALITY.md` verifica cada métrica/serie mostrada contra su fuente autoritativa: re-chequea las 4 anomalías (Providencia, Lo Barnechea, San Joaquín, Recoleta) y las explica; toda cifra que pueda ser año parcial/no consolidado queda flageada; checks de rango/sanidad pasan; semántica casos policiales (`tipoVal=1,2`) y alcance drogas (Ley 20.000 grupo 401) confirmados contra el cache CEAD offline + hechos Wave 0.
 - [ ] **DQ-02**: Registro canónico de fuentes (`data/SOURCES.md`) por clase de dato: fuente autoritativa + endpoint/URL exacto + vintage/cobertura + licencia + semántica de medida — CEAD (host `cead.minsegpublica.gob.cl`, casos policiales), SPD homicidio (VHC, comuna), SII exposición (`PUB_COMU.xlsb`), Fiscalía secuestro (regional). Corregir el host CEAD incorrecto (`cead.ministeriointerior.gob.cl`) donde aparezca.

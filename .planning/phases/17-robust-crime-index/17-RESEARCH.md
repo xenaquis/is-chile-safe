@@ -649,7 +649,7 @@ All findings in this document are `[VERIFIED]` by direct file reads in this sess
 - `site/scripts/validate/all.mjs` + `forbidden-language.mjs` — validator #9 invocation
 - `pipeline/requirements.txt` — available packages
 - `pipeline/cache/` listing — cache file naming and coverage
-- `.planning/phases/17-robust-crime-index/17-01-SUMMARY.md` + `17-02-SUMMARY.md` — Wave 0 domain facts
+- `.planning/phases/17-robust-crime-index/17-WAVE0-RESEARCH-A.md` + `17-WAVE0-RESEARCH-B.md` — Wave 0 domain facts
 
 ---
 

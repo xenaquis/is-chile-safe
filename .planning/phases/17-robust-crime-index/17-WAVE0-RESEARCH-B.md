@@ -5,7 +5,7 @@ cloud sandbox would 403). Scripts: `pipeline/experiments/probe_spd_homicide.py`,
 `probe_xlsx_sources.py`, `probe_coverage.py`, `probe_sii_links.py`,
 `probe_sii_comu.py`. Raw output in `pipeline/cache/*.txt`.
 
-Continuation of `17-01-SUMMARY.md` (S1 + S4).
+Continuation of `17-WAVE0-RESEARCH-A.md` (S1 + S4).
 
 ---
 
