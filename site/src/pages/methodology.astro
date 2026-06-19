@@ -189,9 +189,9 @@ const jsonLd = {
       the sum of all commune rates in the territory, not a weighted per-capita average. We do
       not display these sum figures as averages. When we show a national average for comparison
       purposes (e.g., on commune pages and the lowest-reported-incidence ranking), we compute the
-      <strong>population-weighted mean of non-low-population commune rates</strong> using each
-      commune's individual rate at its latest complete year. This is the correct per-capita
-      comparative figure.
+      <strong>unweighted mean of non-low-population commune rates</strong> using each
+      commune's individual rate at its latest complete year. This is a typical-commune
+      figure — it is not a true population-weighted per-capita average.
     </p>
     <p>
       Communes with populations below 10,000 inhabitants are excluded from national and regional
@@ -299,7 +299,7 @@ const jsonLd = {
         for that year.
       </li>
       <li>
-        <strong>National average definition:</strong> the population-weighted mean of
+        <strong>National average definition:</strong> the unweighted mean of
         non-low-population commune rates (see rate calculation section above). Not the CEAD
         national sum.
       </li>
