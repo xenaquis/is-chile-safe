@@ -253,12 +253,12 @@ Plans:
   3. Methodology pages (EN `methodology.astro` + ES `es/metodologia.astro`) are rewritten with bilingual parity: correct CEAD host, casos-policiales/measure semantics, partial-year handling, low-count caveat, drug scope, and the floating-population denominator caveat; SPD/SII/Fiscalía are named as the authoritative sources for the figures they back; **every cited source has a working clickable link**; legal-safe tone preserved (forbidden-language validator #9 passes); verified in a real browser via BrowserOS (EN+ES). [DQ-03]
   4. Reproducible, attributed, normalized static snapshots of the new sources are committed under `data/` (homicides per comuna/year from SPD; empresas+trabajadores per comuna/year from SII; secuestro per región/year from Fiscalía), each with a fetch/normalize script in `pipeline/` and source attribution — reference-only, NOT wired to the displayed metric and NOT migrating the CEAD schema. Build + all validators pass (chained, OneDrive-safe). [DQ-04]
 
-**Plans:** 3/5 plans executed
+**Plans:** 4/5 plans executed
 
 - [x] 17-01-PLAN.md — DQ-01 offline data-quality verification harness + `17-DATA-QUALITY.md` (wave 1)
 - [x] 17-02-PLAN.md — DQ-04 reproducible SPD/SII/Fiscalía snapshot scripts + `data/snapshots/` (wave 1)
 - [x] 17-03-PLAN.md — DQ-02 canonical `data/SOURCES.md` registry + terms-page host fix (wave 1)
-- [ ] 17-04-PLAN.md — DQ-03 atomic bilingual methodology rewrite EN+ES, clickable sources (wave 2)
+- [x] 17-04-PLAN.md — DQ-03 atomic bilingual methodology rewrite EN+ES, clickable sources (wave 2)
 - [ ] 17-05-PLAN.md — verify gate: chained build+validate, dist host gate, BrowserOS, `17-VERIFICATION.md` (wave 3)
 
 ## Progress
@@ -280,7 +280,7 @@ Plans:
 | 13. Ranking SEO Hardening | v1.2 | 3/3 | Complete   | 2026-06-16 |
 | 14. Homicide as a First-Class Category | v1.2 | 6/6 | Complete   | 2026-06-16 |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 2/2 | Complete   | 2026-06-16 |
-| 17. Data Quality, Source Traceability & Methodology | v1.2 | 3/5 | In Progress|  |
+| 17. Data Quality, Source Traceability & Methodology | v1.2 | 4/5 | In Progress|  |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 0/0 | Pending (runs 2nd) |  |
 
 ## Backlog
