@@ -1,0 +1,378 @@
+[
+  {
+    "id": "gs-001",
+    "headline": "Portonazo en Las Condes: delincuentes roban camioneta a punta de pistola",
+    "description": "Un hombre fue víctima de un portonazo en la comuna de Las Condes la tarde del martes. Los delincuentes, armados con pistolas, lo obligaron a salir de su vehículo y huyeron con la camioneta en dirección oriente.",
+    "ground_truth": { "commune_name": "Las Condes", "cut": "13114", "family": "vida" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2024/03/15/portonazo-las-condes.shtml"
+  },
+  {
+    "id": "gs-002",
+    "headline": "Asalto a sucursal bancaria en Providencia deja dos empleados heridos",
+    "description": "Dos delincuentes armados asaltaron una sucursal bancaria en Providencia, hiriendo a dos empleados durante el forcejeo. Los autores huyeron a pie por calle Los Leones. Carabineros detuvo a uno de los sospechosos a tres cuadras del lugar.",
+    "ground_truth": { "commune_name": "Providencia", "cut": "13123", "family": "vida" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/04/02/asalto-banco-providencia.html"
+  },
+  {
+    "id": "gs-003",
+    "headline": "Robo con violencia en el centro de Santiago: víctima hospitalizada",
+    "description": "Una persona fue atacada y despojada de su teléfono celular y billetera en plena Plaza de Armas de Santiago. La víctima debió ser trasladada al Hospital San Borja Arriarán con lesiones en la cabeza.",
+    "ground_truth": { "commune_name": "Santiago", "cut": "13101", "family": "vida" },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/robo-violencia-plaza-armas-santiago/2024/"
+  },
+  {
+    "id": "gs-004",
+    "headline": "Incendio intencional destruye empresa en Antofagasta; investigan ataque",
+    "description": "Un incendio de carácter intencional consumió una empresa de transporte en la zona industrial de Antofagasta durante la madrugada. Bomberos tardó dos horas en controlar las llamas. La PDI investiga si el hecho corresponde a un ataque con fines extorsivos.",
+    "ground_truth": { "commune_name": "Antofagasta", "cut": "2101", "family": "propiedad" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-antofagasta/2024/05/10/incendio-intencional-antofagasta.shtml"
+  },
+  {
+    "id": "gs-005",
+    "headline": "Decomisan 80 kilos de cocaína en Iquique en operación policial",
+    "description": "PDI de Iquique incautó 80 kilogramos de clorhidrato de cocaína camuflados en cajas de frutas procedentes del norte. La droga tenía un valor estimado en el mercado de 500 millones de pesos. Dos personas fueron detenidas.",
+    "ground_truth": { "commune_name": "Iquique", "cut": "1101", "family": "drogas" },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/decomisan-80-kilos-cocaina-iquique/2024-06-01/120000.html"
+  },
+  {
+    "id": "gs-006",
+    "headline": "VIF: hombre golpeó a su pareja frente a sus hijos en Maipú",
+    "description": "Una mujer fue víctima de violencia intrafamiliar en Maipú; su pareja la agredió físicamente en el interior del domicilio mientras sus hijos presenciaban la escena. Carabineros llegó al lugar tras llamado de vecinos y detuvo al agresor.",
+    "ground_truth": { "commune_name": "Maipú", "cut": "13119", "family": "vif" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/04/15/vif-maipu.html"
+  },
+  {
+    "id": "gs-007",
+    "headline": "Encuentran cocaína y armas en allanamiento en La Florida",
+    "description": "Personal de la PDI allanó una vivienda en La Florida y encontró 3 kilos de cocaína base, un revólver calibre 38 y 200 municiones. El morador fue detenido y quedó a disposición del Ministerio Público.",
+    "ground_truth": { "commune_name": "La Florida", "cut": "13110", "family": "drogas" },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/allanamiento-la-florida-drogas/2024/"
+  },
+  {
+    "id": "gs-008",
+    "headline": "Banda portaba rifles de asalto en Quilicura: cuatro detenidos",
+    "description": "Cuatro personas fueron detenidas en Quilicura tras ser sorprendidas con dos fusiles de asalto y una pistola sin número de serie. El hallazgo se realizó en el marco de un control de identidad rutinario en la autopista.",
+    "ground_truth": { "commune_name": "Quilicura", "cut": "13125", "family": "armas" },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/armas/banda-rifles-asalto-quilicura/2024/"
+  },
+  {
+    "id": "gs-009",
+    "headline": "Robo de cobre deja sin luz a vecinos de Puente Alto",
+    "description": "Desconocidos robaron cables de cobre de la red eléctrica en la población El Pinar de Puente Alto, dejando sin suministro eléctrico a más de 200 familias por varias horas. La empresa distribuidora repuso el servicio pasada la medianoche.",
+    "ground_truth": { "commune_name": "Puente Alto", "cut": "13201", "family": "propiedad" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2024/03/20/robo-cobre-puente-alto.shtml"
+  },
+  {
+    "id": "gs-010",
+    "headline": "Riña en discoteca de Valparaíso deja un muerto y tres heridos",
+    "description": "Un enfrentamiento entre dos grupos rivales en el interior de una discoteca en el sector El Almendral de Valparaíso dejó un fallecido y tres lesionados, uno de gravedad. Carabineros detuvo a cuatro personas.",
+    "ground_truth": { "commune_name": "Valparaíso", "cut": "5101", "family": "vida" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/05/05/rina-discoteca-valparaiso.html"
+  },
+  {
+    "id": "gs-011",
+    "headline": "Violencia en escuela de Concepción: alumno apuñaló a compañero",
+    "description": "Un estudiante secundario apuñaló a otro al interior de un colegio en Concepción durante el recreo. La víctima fue trasladada al Hospital Guillermo Grant Benavente con una herida en el abdomen. El agresor fue detenido.",
+    "ground_truth": { "commune_name": "Concepción", "cut": "8101", "family": "vida" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2024/05/21/alumno-apunalo-concepcion.shtml"
+  },
+  {
+    "id": "gs-012",
+    "headline": "Roban camión con mercadería valuada en 50 millones en Temuco",
+    "description": "Delincuentes robaron un camión cargado con electrodomésticos en el sector de la Feria Pinto de Temuco. La mercadería robada fue valuada en más de 50 millones de pesos. El conductor fue reducido a golpes y abandonado en el lugar.",
+    "ground_truth": { "commune_name": "Temuco", "cut": "9101", "family": "propiedad" },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/roban-camion-mercaderia-temuco/2024/"
+  },
+  {
+    "id": "gs-013",
+    "headline": "Asalto a turistas en el puerto de Valparaíso durante el carnaval",
+    "description": "Tres turistas argentinos fueron asaltados en las inmediaciones del puerto de Valparaíso durante las celebraciones del carnaval. Les robaron efectivo, teléfonos y documentos de identidad. Carabineros tomó las respectivas denuncias.",
+    "ground_truth": { "commune_name": "Valparaíso", "cut": "5101", "family": "propiedad" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/02/15/asalto-turistas-valparaiso.html"
+  },
+  {
+    "id": "gs-014",
+    "headline": "Tráfico de drogas en balneario de Viña del Mar: cuatro detenidos en operativo",
+    "description": "PDI desarticuló una banda de microtráfico que operaba en el balneario de Reñaca en Viña del Mar. Cuatro personas fueron detenidas y se incautó cocaína, pasta base y marihuana, además de efectivo en pesos y dólares.",
+    "ground_truth": { "commune_name": "Viña del Mar", "cut": "5109", "family": "drogas" },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/trafico-drogas-vina-del-mar/2024/"
+  },
+  {
+    "id": "gs-015",
+    "headline": "Incivilidad: vecinos de Rancagua reportan ranchadas y tomas de sitios eriazos",
+    "description": "Moradores del sector sur de Rancagua denunciaron el establecimiento de campamentos informales y ranchadas en terrenos eriazos, con consumo de drogas y enfrentamientos nocturnos que perturban la tranquilidad. El municipio informó que se realizarán desalojos.",
+    "ground_truth": { "commune_name": "Rancagua", "cut": "6101", "family": "incivilidades" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-ohiggins/2024/06/01/incivilidades-rancagua.shtml"
+  },
+  {
+    "id": "gs-016",
+    "headline": "Balacera en Quintero deja un herido en estado crítico",
+    "description": "Un hombre de 28 años quedó herido de gravedad tras ser baleado en plena vía pública en Quintero. El ataque ocurrió a metros de una escuela básica, sembrando el pánico entre los vecinos del sector. La PDI investiga el móvil del ataque.",
+    "ground_truth": { "commune_name": "Quintero", "cut": "5107", "family": "vida" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/07/03/balacera-quintero.html"
+  },
+  {
+    "id": "gs-017",
+    "headline": "Roban lanchas y equipos de buceo en caleta de Tomé durante la noche",
+    "description": "Pescadores de Tomé denunciaron el robo de dos lanchas y equipos de buceo valuados en más de 15 millones de pesos desde la caleta local. Los hechos ocurrieron en la madrugada y no hay testigos directos. Carabineros toma la denuncia.",
+    "ground_truth": { "commune_name": "Tomé", "cut": "8111", "family": "propiedad" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2024/08/01/robo-lanchas-tome.shtml"
+  },
+  {
+    "id": "gs-018",
+    "headline": "Hallazgo en Cochamó: decomisan marihuana en fundo rural",
+    "description": "Personal de Carabineros decomisó 15 kilos de marihuana en un fundo rural de Cochamó durante un procedimiento de control en la ruta que conecta con Argentina. El conductor del vehículo, un hombre de 35 años, fue detenido.",
+    "ground_truth": { "commune_name": "Cochamó", "cut": "10103", "family": "drogas" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-lagos/2024/09/10/decomisan-marihuana-cochamo.shtml"
+  },
+  {
+    "id": "gs-019",
+    "headline": "VIF: mujer denuncia meses de maltrato en San Miguel; marido detenido",
+    "description": "Una mujer de 34 años denunció ante Carabineros haber sufrido meses de violencia física y psicológica por parte de su cónyuge en San Miguel. El agresor fue detenido y formalizado por el delito de violencia intrafamiliar grave.",
+    "ground_truth": { "commune_name": "San Miguel", "cut": "13130", "family": "vif" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/09/15/vif-san-miguel.html"
+  },
+  {
+    "id": "gs-020",
+    "headline": "Decomisan armas de guerra en allanamiento en La Serena",
+    "description": "Una operación de la PDI en La Serena resultó en la incautación de dos pistolas modificadas para automático, granadas de mano y cargadores de alta capacidad. Tres personas vinculadas al crimen organizado fueron detenidas.",
+    "ground_truth": { "commune_name": "La Serena", "cut": "4101", "family": "armas" },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/armas/decomisan-armas-guerra-la-serena/2024/"
+  },
+  {
+    "id": "gs-021",
+    "headline": "Asaltan farmacia en Coquimbo y huyen en motocicleta",
+    "description": "Dos individuos con el rostro cubierto asaltaron una farmacia de cadena en Coquimbo y se dieron a la fuga en motocicleta con el dinero de la caja registradora. Los funcionarios no resultaron heridos. Carabineros busca a los responsables.",
+    "ground_truth": { "commune_name": "Coquimbo", "cut": "4102", "family": "propiedad" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-coquimbo/2024/10/05/asaltan-farmacia-coquimbo.shtml"
+  },
+  {
+    "id": "gs-022",
+    "headline": "Megaoperativo antidroga en Puente Alto: 12 detenidos y 10 kilos de droga incautados",
+    "description": "Un megaoperativo policial en el sector La Pintana de Puente Alto terminó con 12 personas detenidas y la incautación de 10 kilos de cocaína base y pasta base, además de más de 500 dosis de marihuana. El operativo duró toda la madrugada.",
+    "ground_truth": { "commune_name": "Puente Alto", "cut": "13201", "family": "drogas" },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/megaoperativo-antidroga-puente-alto/2024/"
+  },
+  {
+    "id": "gs-023",
+    "headline": "Anciana fue estafada por falso funcionario del Banco Estado en Santiago",
+    "description": "Una mujer de 78 años fue víctima de una estafa en el barrio República de Santiago: un hombre que se hizo pasar por funcionario bancario la convenció de entregar su clave y tarjeta, retirando 4 millones de pesos de sus ahorros.",
+    "ground_truth": { "commune_name": "Santiago", "cut": "13101", "family": "propiedad" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/10/20/estafa-anciana-santiago.html"
+  },
+  {
+    "id": "gs-024",
+    "headline": "Baleo en Concepción: dos pandilleros muertos en sector de Lorenzo Arenas",
+    "description": "Un enfrentamiento a balazos entre pandillas rivales en el sector Lorenzo Arenas de Concepción dejó dos muertos y un herido grave. Los cuerpos presentaban múltiples impactos de bala. La PDI indaga el vínculo con el tráfico de drogas.",
+    "ground_truth": { "commune_name": "Concepción", "cut": "8101", "family": "vida" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2024/11/01/baleo-lorenzo-arenas-concepcion.shtml"
+  },
+  {
+    "id": "gs-025",
+    "headline": "Incivilidades: rayados de pandillas invaden edificios del casco histórico de Valparaíso",
+    "description": "Organizaciones vecinales del barrio Puerto de Valparaíso reportaron un aumento en la cantidad de rayados y grafitis asociados a pandillas en fachadas de inmuebles patrimoniales. Las autoridades municipales prometieron retirarlos.",
+    "ground_truth": { "commune_name": "Valparaíso", "cut": "5101", "family": "incivilidades" },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/incivilidades/rayados-pandillas-valparaiso/2024/"
+  },
+  {
+    "id": "gs-026",
+    "headline": "Portonazo en Providencia: matrimonio perdió camioneta frente a su casa",
+    "description": "Un matrimonio fue víctima de un portonazo en la calle El Bosque de Providencia cuando intentaba ingresar al estacionamiento de su edificio. Los delincuentes, que llegaron en un vehículo robado, los amenazaron con armas de fuego.",
+    "ground_truth": { "commune_name": "Providencia", "cut": "13123", "family": "vida" },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/portonazo-providencia-matrimonio/2024/"
+  },
+  {
+    "id": "gs-027",
+    "headline": "Carabineros incauta armas y municiones en domicilio en Antofagasta tras denuncia vecinal",
+    "description": "En un allanamiento en la población Croacia de Antofagasta, Carabineros encontró tres pistolas, un rifle y más de mil municiones en poder de un hombre de 45 años, quien quedó detenido por tenencia ilegal de armas.",
+    "ground_truth": { "commune_name": "Antofagasta", "cut": "2101", "family": "armas" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-antofagasta/2024/11/20/armas-allanamiento-antofagasta.shtml"
+  },
+  {
+    "id": "gs-028",
+    "headline": "VIF: hombre amenazó a su ex pareja con cuchillo en Temuco; hay orden de alejamiento",
+    "description": "Una mujer que tenía una medida cautelar vigente en su favor denunció que su ex conviviente la amenazó con un cuchillo en el ingreso de su trabajo en Temuco. El hombre, que había quebrantado la orden de alejamiento, fue detenido.",
+    "ground_truth": { "commune_name": "Temuco", "cut": "9101", "family": "vif" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/12/05/vif-amenaza-cuchillo-temuco.html"
+  },
+  {
+    "id": "gs-029",
+    "headline": "Robo a mano armada en local comercial de La Florida durante horario nocturno",
+    "description": "Un local de computación fue asaltado a mano armada en La Florida a las 22 horas. Los delincuentes redujeron a dos empleados con pistolas, robaron equipos y dinero, y se dieron a la fuga en automóvil. Las cámaras captaron las matrículas del vehículo.",
+    "ground_truth": { "commune_name": "La Florida", "cut": "13110", "family": "propiedad" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2024/12/10/robo-armado-la-florida.shtml"
+  },
+  {
+    "id": "gs-030",
+    "headline": "Incivilidades en Iquique: vecinos de Zofri denuncian presencia de personas en situación de calle",
+    "description": "Locatarios y vecinos del sector de Zofri en Iquique alertaron sobre el aumento de personas en situación de calle en las inmediaciones de los galpones, con incidentes de consumo de drogas y pequeños robos. Las autoridades anunciaron un plan de intervención social.",
+    "ground_truth": { "commune_name": "Iquique", "cut": "1101", "family": "incivilidades" },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/incivilidades/personas-calle-zofri-iquique/2024/"
+  },
+  {
+    "id": "gs-031",
+    "headline": "Tráfico de armas en Quintero: detienen a sujeto con fusil de asalto y granadas",
+    "description": "Un hombre fue detenido en el borde costero de Quintero al intentar trasladar un fusil de asalto AK-47 y dos granadas de fragmentación en el maletero de su automóvil. La Armada y PDI realizaron el procedimiento conjunto.",
+    "ground_truth": { "commune_name": "Quintero", "cut": "5107", "family": "armas" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/12/18/armas-quintero-armada.html"
+  },
+  {
+    "id": "gs-032",
+    "headline": "Vendaval patrimonial en Valparaíso: UNESCO preocupada por alza de incendios",
+    "description": "La UNESCO expresó su preocupación por el aumento de incendios en el casco histórico de Valparaíso, que han destruido decenas de inmuebles declarados Patrimonio de la Humanidad. Las autoridades analizan medidas de prevención de incendios intencionales.",
+    "ground_truth": { "commune_name": "Valparaíso", "cut": "5101", "family": "propiedad" },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/incendios-patrimonio-valparaiso-unesco/2024/"
+  },
+  {
+    "id": "gs-033",
+    "headline": "Portonazo en Las Condes termina en persecución y volcamiento del vehículo robado",
+    "description": "Un portonazo en Las Condes terminó en persecución policial por la Costanera Norte y volcamiento del vehículo robado en el sector de Vitacura. Dos de los cuatro delincuentes resultaron heridos. El dueño de la camioneta ileso.",
+    "ground_truth": { "commune_name": "Las Condes", "cut": "13114", "family": "vida" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2024/12/20/portonazo-las-condes-volcamiento.shtml"
+  },
+  {
+    "id": "gs-034",
+    "headline": "Hallazgo de laboratorio de droga en Maipú: procesan a cinco personas",
+    "description": "PDI desmanteló un laboratorio clandestino de producción de pasta base en una vivienda de Maipú. Cinco personas fueron detenidas y se incautaron insumos químicos, prensas y más de 20 kilos de droga procesada.",
+    "ground_truth": { "commune_name": "Maipú", "cut": "13119", "family": "drogas" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/01/10/laboratorio-droga-maipu.html"
+  },
+  {
+    "id": "gs-035",
+    "headline": "Microtráfico en Tomé: banda controlaba tres sectores del puerto, 6 detenidos",
+    "description": "Un operativo conjunto de Carabineros y PDI desarticuló una banda de microtráfico que controlaba el abastecimiento de cocaína y marihuana en tres barrios portuarios de Tomé. Seis personas fueron detenidas y se incautó droga y dinero en efectivo.",
+    "ground_truth": { "commune_name": "Tomé", "cut": "8111", "family": "drogas" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2024/01/25/microtrafico-tome-detenidos.shtml"
+  },
+  {
+    "id": "gs-036",
+    "headline": "San Miguel: mujer robada a plena luz del día en mercado municipal",
+    "description": "Una mujer fue víctima de robo con violencia en el mercado municipal de San Miguel mientras realizaba sus compras. Los delincuentes le arrebataron la cartera con dinero, tarjetas bancarias y documentos de identidad. Las cámaras municipales captaron el hecho.",
+    "ground_truth": { "commune_name": "San Miguel", "cut": "13130", "family": "propiedad" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/02/05/robo-violencia-mercado-san-miguel.html"
+  },
+  {
+    "id": "gs-037",
+    "headline": "Quilicura: pelea masiva entre barras bravas deja 8 heridos",
+    "description": "Ocho personas resultaron heridas tras una pelea masiva entre barras bravas rivales en las afueras del estadio de fútbol de Quilicura. Se usaron cadenas, piedras y palos. Carabineros detuvo a 15 personas y decomisó elementos contundentes.",
+    "ground_truth": { "commune_name": "Quilicura", "cut": "13125", "family": "vida" },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/pelea-barras-bravas-quilicura/2024/"
+  },
+  {
+    "id": "gs-038",
+    "headline": "Viña del Mar registra aumento de robos durante Festival de la Canción",
+    "description": "La PDI reportó un aumento significativo de robos de celulares y carteras en el sector del casino y la costanera de Viña del Mar durante el Festival de la Canción. Se desplegaron más de 200 policías adicionales para contener la situación.",
+    "ground_truth": { "commune_name": "Viña del Mar", "cut": "5109", "family": "propiedad" },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/robos/robos-festival-vina-del-mar/2024/"
+  },
+  {
+    "id": "gs-039",
+    "headline": "Coquimbo: hombre apuñala a vecino en riña por estacionamiento",
+    "description": "Un hombre resultó con heridas de arma blanca en Coquimbo tras ser atacado por su vecino en una discusión por el uso de un estacionamiento común del edificio. El agresor huyó pero fue identificado por cámaras; se emitió una orden de detención.",
+    "ground_truth": { "commune_name": "Coquimbo", "cut": "4102", "family": "vida" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-coquimbo/2024/02/20/apunalamiento-vecino-coquimbo.shtml"
+  },
+  {
+    "id": "gs-040",
+    "headline": "Rancagua: VIF masiva en convivencia de fin de año terminó con cinco detenidos",
+    "description": "Una convivencia familiar en Rancagua terminó en violencia intrafamiliar múltiple cuando varios parientes se agredieron físicamente. Las llamadas de emergencia al 133 se multiplicaron. Carabineros detuvo a cinco personas, entre ellas dos mujeres.",
+    "ground_truth": { "commune_name": "Rancagua", "cut": "6101", "family": "vif" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/01/01/vif-masiva-rancagua.html"
+  },
+  {
+    "id": "gs-041",
+    "headline": "La Serena: grafitis y quema de basura perturban vecindario del sector La Pampa",
+    "description": "Vecinos del sector La Pampa en La Serena denuncian actos de incivilidad como quema de basura en espacios públicos, rayados obscenos en muros y consumo de drogas en la vía pública. El municipio prometió mayor fiscalización.",
+    "ground_truth": { "commune_name": "La Serena", "cut": "4101", "family": "incivilidades" },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-coquimbo/2024/03/10/incivilidades-la-serena.shtml"
+  },
+  {
+    "id": "gs-042",
+    "headline": "Punta Arenas: hallazgo fortuito revela red de tráfico en extremo sur",
+    "description": "En el marco de un control vehicular rutinario en Punta Arenas, Carabineros halló más de 5 kilos de cocaína ocultos bajo el asiento trasero de un automóvil. La detención derivó en el desmantelamiento de una red de distribución regional.",
+    "ground_truth": { "commune_name": "Punta Arenas", "cut": "12101", "family": "drogas" },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/trafico-punta-arenas/2024/"
+  },
+  {
+    "id": "gs-043",
+    "headline": "Nuevo récord de temperaturas en Chile central: ola de calor sin precedentes",
+    "description": "El servicio meteorológico confirmó que varias comunas de Chile central alcanzaron temperaturas récord esta semana, superando los 40 grados Celsius. Los expertos advierten sobre los riesgos para la salud pública y el aumento de la demanda eléctrica.",
+    "ground_truth": { "commune_name": null, "cut": null, "family": null },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/record-temperaturas-chile-ola-calor/2024/"
+  },
+  {
+    "id": "gs-044",
+    "headline": "Campaña de reciclaje en Santiago convoca a miles de familias",
+    "description": "La Municipalidad de Santiago junto a organizaciones ambientales realizó una masiva campaña de reciclaje en el Parque O'Higgins, convocando a más de 5.000 familias. Se recogieron toneladas de plástico, papel y vidrio para su reciclaje.",
+    "ground_truth": { "commune_name": null, "cut": null, "family": null },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/04/20/campana-reciclaje-santiago.html"
+  },
+  {
+    "id": "gs-045",
+    "headline": "Inauguran nuevo hospital en Calama con modernas unidades de emergencia",
+    "description": "El Presidente de la República inauguró el nuevo Hospital Dr. Carlos Cisternas de Calama, con capacidad para 300 camas y equipado con modernas unidades de urgencia y cirugía. La inversión superó los 80 mil millones de pesos.",
+    "ground_truth": { "commune_name": null, "cut": null, "family": null },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-antofagasta/2024/05/15/nuevo-hospital-calama-inauguracion.shtml"
+  },
+  {
+    "id": "gs-046",
+    "headline": "Atacan con explosivo la sede de empresa de transporte en Maipú",
+    "description": "Desconocidos lanzaron un artefacto explosivo improvisado contra la fachada de una empresa de transportes en Maipú durante la madrugada. No hubo heridos, pero la fachada quedó destruida. La PDI investiga si corresponde a un acto extorsivo de crimen organizado.",
+    "ground_truth": { "commune_name": "Maipú", "cut": "13119", "family": "propiedad" },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/explosivo-empresa-transportes-maipu/2024/"
+  },
+  {
+    "id": "gs-047",
+    "headline": "Quilicura: balacera entre bandas rivales deja una persona muerta",
+    "description": "Una persona perdió la vida en una balacera entre bandas que se disputaban el control de una calle de comercio informal en Quilicura. El tiroteo ocurrió en plena tarde y varios transeúntes resultaron rozados por los proyectiles. PDI investiga.",
+    "ground_truth": { "commune_name": "Quilicura", "cut": "13125", "family": "vida" },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/06/15/balacera-quilicura-muerto.html"
+  }
+]

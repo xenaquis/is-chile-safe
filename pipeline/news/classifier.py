@@ -1,11 +1,17 @@
 """
 pipeline/news/classifier.py
 
-DeepSeek v4-flash closed-list classifier for Chilean crime news (NEWS-02).
+Provider-configurable closed-list classifier for Chilean crime news (NEWS-02).
+
+Provider selection:
+  - Set NEWS_PROVIDER=deepseek (default) or NEWS_PROVIDER=minimax in environment.
+  - DeepSeek: OpenAI client → api.deepseek.com; model deepseek-v4-flash; response_format json_object.
+  - MiniMax:  OpenAI client → api.minimaxi.chat/v1; model MiniMax-Text-01; NO response_format
+              (json_object returns HTTP 400 on MiniMax); JSON is parsed from content string
+              after stripping optional markdown fences.
 
 Anti-hallucination guards (NEWS-01 redesign):
-- model = deepseek-v4-flash, temperature = 0.0
-- response_format = {"type": "json_object"} (only supported type in DeepSeek)
+- temperature = 0.0 for both providers
 - LLM emits commune_name (Spanish name) + region_hint — NOT a bare CUT code
 - CUT resolution happens in pipeline/news/resolver.py (deterministic, closed-set)
 - confidence must be >= CONFIDENCE_THRESHOLD or item is rejected
@@ -17,6 +23,7 @@ import json
 import logging
 import os
 import pathlib
+import re
 
 from openai import OpenAI
 from pydantic import ValidationError
@@ -32,9 +39,32 @@ logger = logging.getLogger(__name__)
 
 CONFIDENCE_THRESHOLD: float = 0.6  # D-07 / RESEARCH A3
 
-# Build the commune list string once at module load — one entry per line:
+# ---------------------------------------------------------------------------
+# Provider selection (NEWS_PROVIDER env var)
+# ---------------------------------------------------------------------------
+
+_PROVIDER: str = os.environ.get("NEWS_PROVIDER", "deepseek").lower()
+
+if _PROVIDER == "minimax":
+    client = OpenAI(
+        api_key=os.environ.get("MINIMAX_API_KEY", ""),
+        base_url="https://api.minimaxi.chat/v1",
+    )
+    _MODEL: str = "MiniMax-Text-01"
+else:
+    # Default: deepseek
+    _PROVIDER = "deepseek"
+    client = OpenAI(
+        api_key=os.environ.get("DEEPSEEK_API_KEY", ""),
+        base_url="https://api.deepseek.com",
+    )
+    _MODEL = "deepseek-v4-flash"
+
+# ---------------------------------------------------------------------------
+# Build commune list once at module load — one entry per line:
 # "<name> (region_id:<region_id>)"
-# This gives the LLM correct Spanish spellings to choose from.
+# ---------------------------------------------------------------------------
+
 _INDEX_FILE = pathlib.Path(__file__).parents[2] / "data" / "cead" / "meta" / "index.json"
 _INDEX: list[dict] = json.loads(_INDEX_FILE.read_text(encoding="utf-8"))
 _COMMUNE_LIST_STR: str = "\n".join(
@@ -43,15 +73,6 @@ _COMMUNE_LIST_STR: str = "\n".join(
 
 # FAMILY_KEYS as comma-joined enum string for the prompt
 _FAMILY_ENUM_STR: str = ", ".join(FAMILY_KEYS)
-
-# ---------------------------------------------------------------------------
-# OpenAI client wired to DeepSeek API (V2 — key from env only, never hardcoded)
-# ---------------------------------------------------------------------------
-
-client = OpenAI(
-    api_key=os.environ.get("DEEPSEEK_API_KEY", ""),
-    base_url="https://api.deepseek.com",
-)
 
 # ---------------------------------------------------------------------------
 # System prompt (MUST contain the word "json" per DeepSeek JSON mode docs)
@@ -82,13 +103,16 @@ Rules:
 - Output plain text only for title_es, title_en, and summary — no HTML, no markdown.
 """
 
+# Regex to strip markdown JSON fences (used for MiniMax which omits response_format)
+_JSON_FENCE_RE = re.compile(r"^\s*```(?:json)?\s*(.*?)\s*```\s*$", re.DOTALL)
+
 
 # ---------------------------------------------------------------------------
 # Classifier function
 # ---------------------------------------------------------------------------
 
 def classify(title: str, description: str) -> ClassifierOutput | None:
-    """Classify a news item using DeepSeek v4-flash.
+    """Classify a news item using the configured LLM provider (NEWS_PROVIDER).
 
     Returns a validated ClassifierOutput on success.
     Returns None if:
@@ -100,7 +124,7 @@ def classify(title: str, description: str) -> ClassifierOutput | None:
     commune_name→CUT resolution is handled downstream by pipeline/news/resolver.py.
     This function no longer rejects on CUT membership — the LLM emits a name, not a CUT.
 
-    DeepSeek is NEVER called in unit tests — mock `pipeline.news.classifier.client`.
+    The LLM client is NEVER called in unit tests — mock `pipeline.news.classifier.client`.
     """
     user_content = f"HEADLINE: {title}\nSUMMARY: {description[:500]}"
 
@@ -108,16 +132,17 @@ def classify(title: str, description: str) -> ClassifierOutput | None:
     raw = _call_api(user_content)
     if raw is None:
         # Empty-content retry (Pitfall 4)
-        logger.warning("Empty DeepSeek response for %r — retrying once", title[:60])
+        logger.warning("Empty %s response for %r — retrying once", _PROVIDER, title[:60])
         raw = _call_api(user_content)
     if raw is None:
         return None
 
-    # Parse JSON
+    # Parse JSON (strip markdown fences for MiniMax)
+    raw_stripped = _strip_json_fence(raw)
     try:
-        data = json.loads(raw)
+        data = json.loads(raw_stripped)
     except json.JSONDecodeError as exc:
-        logger.warning("JSONDecodeError from DeepSeek for %r: %s", title[:60], exc)
+        logger.warning("JSONDecodeError from %s for %r: %s", _PROVIDER, title[:60], exc)
         return None
 
     # Validate with Pydantic (rejects invalid family, missing fields, etc.)
@@ -141,21 +166,31 @@ def classify(title: str, description: str) -> ClassifierOutput | None:
     return result
 
 
+def _strip_json_fence(raw: str) -> str:
+    """Remove optional ```json ... ``` fences from LLM output (MiniMax may emit these)."""
+    m = _JSON_FENCE_RE.match(raw)
+    return m.group(1) if m else raw
+
+
 def _call_api(user_content: str) -> str | None:
-    """Make one API call. Returns the content string or None on any failure."""
+    """Make one API call to the configured provider. Returns the content string or None."""
     try:
-        resp = client.chat.completions.create(
-            model="deepseek-v4-flash",
+        kwargs: dict = dict(
+            model=_MODEL,
             temperature=0.0,
             max_tokens=512,
-            response_format={"type": "json_object"},
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_content},
             ],
         )
+        # DeepSeek supports response_format=json_object; MiniMax returns HTTP 400 on it
+        if _PROVIDER == "deepseek":
+            kwargs["response_format"] = {"type": "json_object"}
+
+        resp = client.chat.completions.create(**kwargs)
         content = resp.choices[0].message.content
         return content if content else None
     except Exception as exc:
-        logger.warning("DeepSeek API call failed: %s", exc)
+        logger.warning("%s API call failed: %s", _PROVIDER, exc)
         return None
