@@ -175,8 +175,6 @@ def main() -> None:
         len(records),
         OUTPUT_FILE,
     )
-    if unmatched:
-        log.warning("Unmatched SPD commune names (investigate join): %s", sorted(unmatched))
 
 
 if __name__ == "__main__":

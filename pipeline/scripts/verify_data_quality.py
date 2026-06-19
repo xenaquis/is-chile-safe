@@ -89,19 +89,6 @@ def _rederive_rate(familia_id: int, year: int, commune_name: str) -> Optional[fl
     return None
 
 
-def _rederive_count(familia_id: int, year: int, commune_name: str) -> Optional[int]:
-    """Return integer count from cache for a commune.
-
-    The cache files for medida=1 (count) are stored separately from medida=2 (rate).
-    For homicidios specifically, count files may be named differently.
-    This helper tries the rate cache and reads the raw (non-rate) values if medida=1.
-    Since the pipeline caches rate files as cead_15_{familia}_{year}.html, we check
-    the homicidio subgroup cache files for counts.
-    """
-    # Try standard familia cache (medida=2, rate) — not useful for counts
-    # For homicidios, the count data is in featured_rates.homicidios_count in commune JSON
-    return None  # counts are read directly from commune JSON
-
 
 # ---------------------------------------------------------------------------
 # Check implementations
