@@ -35,9 +35,9 @@ Each requirement traces to one or more review finding IDs. Severity from the rev
 
 ### Methodology Completeness (→ Phase 20)
 
-- [ ] **MTH-01**: Every displayed aggregate figure that is an unweighted commune mean (per-family `familyNationalMean`, per-region breakdowns) carries an inline caveat AND is explained in the methodology (EN+ES). *(MC-02, MC-04)*
-- [ ] **MTH-02**: The 1–5 LevelChip incidence classification shown on every commune hero is explained in the methodology as a relative tier scale derived from the non-low-pop rate distribution (EN+ES). *(MC-05)*
-- [ ] **MTH-03**: The drogas scope note (Ley 20.000 only) renders inline where the drogas figure appears (FamilyBreakdownBars), and trend/sparkline links deep-link to `#trend-formula`. *(MC-09, MC-06)*
+- [x] **MTH-01**: Every displayed aggregate figure that is an unweighted commune mean (per-family `familyNationalMean`, per-region breakdowns) carries an inline caveat AND is explained in the methodology (EN+ES). *(MC-02, MC-04)*
+- [x] **MTH-02**: The 1–5 LevelChip incidence classification shown on every commune hero is explained in the methodology as a relative tier scale derived from the non-low-pop rate distribution (EN+ES). *(MC-05)*
+- [x] **MTH-03**: The drogas scope note (Ley 20.000 only) renders inline where the drogas figure appears (FamilyBreakdownBars), and trend/sparkline links deep-link to `#trend-formula`. *(MC-09, MC-06)*
 - [ ] **MTH-04**: `methodology.astro` and `es/metodologia.astro` are at structural parity (matching H2 sections + attribution/table-note blocks), and a CI validator asserts forbidden-language (no non-attributed absolute "safe/dangerous" / "seguro/peligroso"). *(MC-10; charter validator #9)*
 
 ### Sources Expansion (→ Phase 20)
@@ -81,9 +81,9 @@ Each requirement traces to one or more review finding IDs. Severity from the rev
 | SEO-01 | 19 | Pending |
 | SEO-02 | 19 | Pending |
 | SEO-03 | 19 | Pending |
-| MTH-01 | 20 | Pending |
-| MTH-02 | 20 | Pending |
-| MTH-03 | 20 | Pending |
+| MTH-01 | 20 | Complete |
+| MTH-02 | 20 | Complete |
+| MTH-03 | 20 | Complete |
 | MTH-04 | 20 | Pending |
 | SRC-01 | 20 | Pending |
 | SRC-02 | 20 | Pending |
