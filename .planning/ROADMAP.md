@@ -168,6 +168,18 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 **UI hint**: yes
 
+### Phase 24: Rankings UX: dynamic sortable tables and visual polish
+
+**Goal:** Make the ranking pages — the project's most important SEO products — feel like first-class, sortable data tables. Wire dynamic high→low sorting (the existing `RankingTableEnhancer` island) into every ranking surface that currently lacks it (landing/home `index.astro` EN+ES, `/crime/[family]/` family pages EN+ES, `/communes/` directory, `/safest-cities-in-chile/` + ES), default sort to descending, make sortability visually obvious, and apply visual/UX polish using existing brand tokens (teal #0f766e, 5-level incidence scale). Includes a BrowserOS in-detail E2E visual review (EN+ES, desktop + mobile).
+**Requirements**: TBD (define in UI-SPEC / plan-phase)
+**Depends on:** Phase 18 (composite-index data, already shipped). Independent of Phase 22 launch ops.
+**UI hint**: yes
+**Plans:** 0 plans
+
+Plans:
+
+- [ ] TBD (run /gsd:ui-phase 24 then /gsd:plan-phase 24 to break down)
+
 ---
 
 ## Progress Table
