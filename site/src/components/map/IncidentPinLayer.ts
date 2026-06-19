@@ -50,6 +50,7 @@ export interface Incident {
   outlet: string;
   url: string;
   family: string;
+  slug?: string;
 }
 
 export interface IncidentsFile {
@@ -118,6 +119,9 @@ export async function fetchAndMountIncidents(
   // Build layer group of .ev-dot divIcon markers
   const layer = L.layerGroup();
 
+  // Locale-aware commune URL prefix (Pitfall 5)
+  const communeBase = lang === 'es' ? '/es/comuna/' : '/commune/';
+
   for (const incident of data.incidents) {
     const title = escHtml(lang === 'es' ? incident.title_es : incident.title_en);
     const outlet = escHtml(incident.outlet);
@@ -126,6 +130,12 @@ export async function fetchAndMountIncidents(
 
     const sourceLabel = lang === 'es' ? 'Fuente' : 'Source';
     const approxLabel = lang === 'es' ? 'Ubicación aproximada' : 'Approx. location';
+    const communeLabel = lang === 'es' ? 'Ver comuna' : 'View commune';
+
+    // T-16-10: escHtml applied to slug for defense-in-depth
+    const communeLink = incident.slug
+      ? `<a href="${communeBase}${escHtml(incident.slug)}/">${communeLabel}</a>`
+      : '';
 
     // Popup HTML — all strings escaped above (T-03-03-02)
     const popupHtml = `<div class="ev-pop">
@@ -137,7 +147,7 @@ export async function fetchAndMountIncidents(
   <div class="ev-meta">${date} · ${outlet}</div>
   <div class="ev-meta">
     <a href="${url}" target="_blank" rel="noopener noreferrer">${sourceLabel}: ${outlet}</a>
-  </div>
+  </div>${communeLink ? `\n  <div class="ev-meta">${communeLink}</div>` : ''}
 </div>`;
 
     // D-16: DOM-based L.marker; Pitfall 7: L.divIcon (.ev-dot)

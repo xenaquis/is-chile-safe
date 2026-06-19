@@ -12,6 +12,8 @@ export interface Incident {
   date: string;
   outlet: string;
   url: string;
+  slug?: string;
+  cut?: string;
 }
 
 interface Props {
@@ -43,6 +45,15 @@ export function IncidentsList({ incidents, lang }: Props) {
           >
             {lang === 'es' ? 'Fuente' : 'Source'}: {e.outlet}
           </a>
+          {/* T-16-11: React JSX auto-escapes slug; only render when slug is present */}
+          {e.slug && (
+            <a
+              href={lang === 'es' ? '/es/comuna/' + e.slug + '/' : '/commune/' + e.slug + '/'}
+              className="event-commune-link"
+            >
+              {lang === 'es' ? 'Ver comuna' : 'View commune'}
+            </a>
+          )}
         </div>
       ))}
     </div>
