@@ -1,181 +1,220 @@
 # Project Research Summary
 
-**Project:** Is Chile Safe (ischilesafe.com)
-**Domain:** Bilingual crime-data visualization + programmatic SEO static site (Chile)
-**Researched:** 2026-06-12
-**Confidence:** HIGH (stack, architecture, pitfalls) / MEDIUM (RSS feed viability)
+**Project:** Chile Safety Map - v2.0 Composite Index, Comparators and Launch
+**Domain:** Bilingual crime-data visualization + programmatic SEO platform (Chile)
+**Researched:** 2026-06-19
+**Confidence:** HIGH
 
 ## Executive Summary
 
-This project is a static data-publishing platform combining a government crime-statistics scraper, an AI-powered news incident pipeline, and programmatic bilingual SEO page generation for all 346 Chilean comunas. Experts in this domain build it as a fully pre-rendered static site (Astro SSG) hosted on a global CDN (Cloudflare Pages), with all dynamic behavior isolated to client-side React islands for the interactive map. Data ingestion runs on GitHub Actions cron jobs that commit JSON files to the repo, triggering rebuilds only when new data is confirmed — keeping infrastructure cost at zero.
+v2.0 builds three interdependent tracks on top of a fully shipped v1.3 codebase: (1) an exposure-adjusted composite crime index per commune (0-100 scale, 7 metrics, SPD VHC homicide as truth source, SII economic activity as exposure denominator); (2) an interactive commune comparator island plus a curated set of bilingual A-vs-B programmatic SEO pages built directly on that index; and (3) go-live / launch ops blocked by a single missing secret (CF_DEPLOY_HOOK_URL). The hard dependency is absolute: Track 2 cannot begin until the Track 1 index schema is locked and populated, because the comparator headline number and the A-vs-B opening prose both require a computed composite_index value per commune.
 
-The recommended approach is: (1) build and validate the CEAD scraper first, since every quantitative feature depends on it; (2) define the shared JSON data schema before either the pipeline or the Astro site consumes it; (3) generate programmatic pages with rich, contextually unique content per comuna — not thin name-swapped templates — to pass Google's scaled content abuse threshold; (4) wire up the RSS + DeepSeek news pipeline in parallel once the schema is stable. The entire stack is open-source, requires no paid backend, and is deployable within Cloudflare's free tier for the projected page count (~750 HTML pages).
+The recommended approach requires only one new Python dependency (scipy for winsorization) on top of the already-pinned stack. All index math runs in pandas + numpy + scipy in a new pipeline/build_composite_index.py script that is deliberately isolated from the stable CEAD scraper so if the index step fails, existing CEAD data still refreshes. The composite index must use percentile-rank or winsorized min-max normalization (never raw min-max) because confirmed micro-commune outliers (Sierra Gorda: 43,369 per-100k) would compress all other communes to the bottom of a raw min-max scale, producing a useless choropleth. The SII exposure adjustment is a genuine differentiator (no other Chilean crime site does this) but must be capped when sii_workers > ine_population * 10 to prevent HQ-domicile artifacts from distorting scores for Las Condes and similar business-district communes.
 
-The two highest-consequence risks are: thin programmatic content triggering Google deindexing (recovery takes 4-8 weeks and kills SEO before it starts), and a GitHub Actions → Cloudflare Pages infinite rebuild loop burning through the 500 free builds/month in days. Both are design decisions made once, early, and difficult to fix retroactively. A third systemic risk is LLM geolocation hallucination in the news pipeline: DeepSeek must classify against a closed 346-item canonical commune list, not open-ended extraction, or incident pins will silently accumulate geographic errors that damage credibility.
+The highest editorial risk is that any composite score can function as an absolute safety verdict through ranking position and color alone, regardless of vocabulary. The P20 forbidden-language CI validator must be extended to catch "safest," "mas segura," "most dangerous," and "mas peligrosa" without a qualifying "reported," and every page displaying the index must render a mandatory caveat block in both languages. A-vs-B programmatic pages must be bounded to a curated priority-pair allowlist (~3,400 pairs x 2 locales = ~6,800 pages) to stay well under Cloudflare Pages 20,000-file free-tier limit and to avoid Google SpamBrain deindexing thin-content symmetric templates. The go-live sequence is gated: CF deploy hook first, Consent Mode implemented and verified before the ADSENSE_ENABLED flip, GSC sitemap submission immediately after first deploy.
+
+---
 
 ## Key Findings
 
 ### Recommended Stack
 
-Astro 6.4.x is the unambiguous choice: it pre-renders all pages to static HTML (mandatory for SEO indexability), has native i18n routing for the two-locale requirement, and its islands architecture lets Leaflet/React run only on pages that need the map — the other ~740 pages ship zero React JS. The Python scraper stack (requests + BeautifulSoup4/lxml + feedparser + openai SDK pointed at DeepSeek) is standard and well-validated. DeepSeek's API is OpenAI-compatible, so no custom SDK is needed.
+The existing stack is sufficient for all three tracks. Only scipy>=1.13,<2 is added to pipeline/requirements.txt for scipy.stats.mstats.winsorize. numpy (already a transitive dep of pandas 2.3.3) provides all other index math. The frontend adds no new deps: the index-driven choropleth reuses the existing L.geoJSON() + chroma-js pattern; the comparator island uses React useState only; A-vs-B programmatic pages use the existing Astro getStaticPaths pattern. pyxlsb (SII .xlsb) and openpyxl (SPD VHC .xlsx) are already pinned and available.
 
-**Core technologies:**
-- Astro 6.4.x: Static site framework, programmatic pages, i18n routing — pre-renders HTML; islands model minimizes JS payload
-- @astrojs/react 5.x + React 19.x: Interactive islands only (map, charts) — hydrated client-side, SSR by default
-- Leaflet 1.9.x: Choropleth map + incident pins — use native `L.geoJSON()` not react-leaflet's `<GeoJSON>` component to avoid per-hover re-render jank
-- Python (requests, bs4/lxml, feedparser): CEAD scraper + RSS ingestion — standard for POST-form government endpoints
-- openai SDK v1.x (DeepSeek backend): LLM classification/geolocation — use `deepseek-v4-flash`; `deepseek-chat` is deprecated 2026-07-24
-- Cloudflare Pages: Static hosting and CDN — truly free at this file count (~1,500 files vs 20,000-file free limit)
-- GitHub Actions: Cron-based data ingestion + conditional deploys — GITHUB_TOKEN commits do NOT trigger push workflows (loop-safe)
+**Core technologies (v2.0 roles):**
+- scipy (new, pipeline only): winsorize per-metric distributions before min-max normalization
+- pandas + numpy (existing): all index math, DataFrame groupby/merge, percentile/rank
+- pydantic 2.x (existing): schema validation for composite index output; additive non-breaking field extension
+- astro 6.4.6 + getStaticPaths (existing): generates ~6,800 A-vs-B pages at build time
+- chroma-js 3.x + L.geoJSON() (existing): index-driven choropleth color scale, same pattern as current
+- React useState (existing): comparator island, 2-3 selected communes, no state manager needed
 
-**Critical version notes:** Node.js 20+ required by Astro 6. `deepseek-chat` model ID stops working 2026-07-24 — never commit it to code.
+Hard anti-additions confirmed by research: no scikit-learn, no D3.js, no react-leaflet GeoJSON component, no zustand/jotai, no react-query, no backend/database.
 
 ### Expected Features
 
-The product competes against CrimeGrade, Numbeo, and SpotCrime, none of which have real official data at commune granularity for Chile. The key competitive moat is CEAD-sourced per-100k rates at the 346-comuna level combined with a bilingual programmatic SEO footprint no competitor has attempted.
+**Must have (Track 1 - Composite Crime Index):**
+- 0-100 Crime Exposure Index per commune, integer display in headline contexts
+- Five labeled bands (Very Low / Low / Moderate / High / Very High) mapped to existing 5-level choropleth palette
+- Per-family breakdown (7 families) showing each metric contribution to the index
+- SPD VHC homicide as index input (M5), disclosed inline; CEAD grupo 101 preserved as featured_rates.homicidios for backward compatibility
+- SII exposure adjustment with HQ-domicile caveat inline and on /methodology
+- Mandatory caveat block on every page displaying the index (EN + ES)
+- Index in map popup and ResultPanel; national + regional rank on composite index
+- Index-driven choropleth with toggle (index mode vs rate/100k per family)
+- Methodology page updated with composite formula, SPD switch, SII caveat
 
-**Must have (table stakes):**
-- Interactive choropleth map with year and crime-type filters — absence signals "broken" to users
-- Crime rate per 100,000 residents as the primary metric — raw counts are statistically meaningless
-- Programmatic territorial pages for all 346 comunas + 16 regions (ES + EN) — core SEO vehicle
-- Year-over-year trend indicator + sparkline — "is it getting better?" is the primary user question
-- Safest/most dangerous rankings (rate-normalized, minimum population filter)
-- Methodology page with subregistro caveat — required for user trust and AdSense approval
-- Bilingual content (ES + EN) with correct hreflang
-- Mobile-responsive layout — >60% LatAm traffic is mobile
+**Must have (Track 2 - Comparator + A-vs-B):**
+- 2-column interactive comparator island (3 columns as low-cost enhancement)
+- Composite index as headline row (hard dep on Track 1)
+- Commune search with autocomplete (346 communes, vanilla JS)
+- Pre-rendered static HTML shell on comparator landing page (island layered on top)
+- A-vs-B programmatic pages: ~3,400 priority pairs x 2 locales = ~6,800 pages
+- Minimum 5 uniqueness blocks per A-vs-B page (index diff statement, per-family table, trend narrative, national rank, regional context)
+- Alphabetical slug ordering (A < B) to prevent duplicate-signal split; single canonical per pair
+- Bilingual A-vs-B (EN + ES) with CUT-code URL slugs to avoid transliteration/accent issues
+- hreflang reciprocity validator extended to cover A-vs-B pages
+- Staged publication: 20-pair batches, verify GSC indexing before expanding
 
-**Should have (competitive differentiators):**
-- RSS news pipeline + DeepSeek incident pins on map — qualitative recency layer no competitor offers for Chile
-- 346-comuna granularity (competitors show Chile at city or country level only)
-- Geolocation "identify my comuna" button
-- Crime-family breakdown panel within each territorial page
-- Sober editorial framing (no "danger zone" labels) — required for AdSense
+**Must have (Track 3 - Go-Live):**
+- CF_DEPLOY_HOOK_URL secret set and verified with test push (step 1, not cleanup)
+- Live news pipeline run + 50-incident commune assignment audit
+- GSC sitemap submission immediately after first deploy
+- Consent Mode v2 implemented (ad_storage: denied default) before AdSense flip
 
-**Defer to v2+:**
-- User-submitted incident reports (requires backend, moderation, user base)
-- Email crime alerts (requires email infrastructure + unsubscribe compliance)
-- Data download / API licensing
-- Native mobile app (responsive web + PWA meta is sufficient)
+**Defer (v3+):**
+- User-configurable weight sliders (static pre-rendering incompatible; false precision risk)
+- Confidence intervals / error bars (confuses lay users; CEAD error is systematic not random)
+- Real-time index updates (CEAD is quarterly; SPD VHC is annual)
+- Star ratings (editorial judgment framing, not measurement)
+- A-vs-B expansion beyond priority pairs (post-GSC validation of initial batch)
 
 ### Architecture Approach
 
-The system is a four-layer pipeline: (1) Ingestion — Python cron jobs on GitHub Actions that POST to CEAD PHP endpoints and fetch RSS feeds, classify via DeepSeek, and commit normalized JSON to the repo; (2) Data store — version-controlled JSON files in `/data/`, split into per-entity detail files (one per comuna) and a pre-aggregated map payload; (3) Build — Astro SSG reads JSON at build time, embeds structured data in HTML for SEO, bundles Leaflet React island for client-side interactivity; (4) Delivery — Cloudflare Pages CDN. CF Pages auto-build via Git integration must be DISABLED; the pipeline explicitly POSTs a Deploy Hook only when data actually changed.
+The index pipeline is isolated as a new pipeline/build_composite_index.py script running after the CEAD scraper and before build_map_payload.py (extracted from scrape_cead.py). The three-step pipeline order (scrape -> index -> payload) is the GitHub Actions step sequence. Isolation ensures CEAD data refreshes even if index computation fails. All outputs are static JSON in data/; no runtime server is introduced.
 
 **Major components:**
-1. CEAD Scraper (Python) — POST to government PHP endpoints, parse HTML tables, validate with Pydantic, write per-comuna JSON
-2. RSS News Pipeline (Python + DeepSeek) — fetch RSS feeds, classify incidents against closed 346-commune list, dedup, write rolling 30-day `incidents/current.json`
-3. GitHub Actions Workflows — two separate cron jobs (quarterly CEAD, every 4-6h news); commit with GITHUB_TOKEN; conditionally POST to CF Deploy Hook
-4. Astro SSG Site — generates ~750 HTML pages; embeds SEO-critical data in HTML; bundles Leaflet island for client-only hydration
-5. Leaflet React Island — choropleth + incident pins; loads `map-payload.json` (~6-8 KB gzipped) and `current.json` client-side
-6. Cloudflare Pages CDN — serves all static assets; Cache-Control: map-payload 1h, incidents 30min
+1. pipeline/build_composite_index.py (new) - reads comunas/*.json + snapshots + INE populations; winsorizes and normalizes 7 metrics; writes enriched comunas/*.json and data/cead/comparator_table.json (~86 KB raw / ~28 KB gzip)
+2. pipeline/build_map_payload.py (extracted from scrape_cead.py) - reads enriched comunas/*.json; writes map-payload*.json with new ci field (composite index level 1-5; omitted for pre-2018 years)
+3. site/src/components/ComparatorIsland.tsx (new) - React island; loads comparator_table.json as prop; lazy-fetches comunas/{CUT}.json for sparklines on demand; client:load on comparator pages only
+4. site/src/pages/compare/[pair].astro + es/comparar/[par].astro (new) - getStaticPaths reads comparator_table.json; generates ~3,400 priority pairs each locale; proseEngine.buildComparisonProse() generates differentiated content
+5. site/src/components/map/ChoroplethLayer.ts (modified) - adds ci to CommunaPayload; adds buildStyleMapFromCompositeIndex() for composite view toggle
+
+Schema migration is additive and non-breaking: existing featured_rates fields remain intact; new fields (composite_index, spd_homicide_rate, sii_exposure_index) are added alongside with optional TypeScript types.
 
 ### Critical Pitfalls
 
-1. **Thin programmatic content deindexed by Google** — Every commune page must have 500+ words with 5+ unique data dimensions (rate vs. national/regional average, trend direction, dominant crime types, regional context, comparable commune). Deploy in batches of 10-20 first; verify GSC indexing before generating all 346.
+1. **Normalization without winsorization collapses the choropleth (CI-2, CI-8)** - Sierra Gorda reaches 43,369 per-100k; raw min-max puts 95% of communes in bottom 20% of scale. Use scipy.stats.mstats.winsorize(limits=[0.01, 0.01]) then min-max, OR percentile-rank normalization. Add pytest assertion: index_scores.describe()["25%"] > index_scores.max() * 0.10.
 
-2. **CEAD endpoint silently returns wrong data** — Validate after every scrape: expected keys present, commune count equals 346, rates within plausible bounds. Exit non-zero on failure; never commit bad data; keep previous good JSON intact.
+2. **Composite index implies absolute safety verdict through information architecture alone (CI-1)** - a choropleth colored green-to-red, a ranking table sorted safest-to-most-dangerous, or a comparator saying "A is safer than B" all communicate a verdict without forbidden words. Frame as "composite reported-crime burden." Extend P20 CI validator to flag "safest," "mas segura," "most dangerous," "mas peligrosa" without qualifying "reported."
 
-3. **GitHub Actions → Cloudflare Pages infinite rebuild loop** — Disable CF Pages Git auto-build. Use GITHUB_TOKEN for all data commits. POST to Deploy Hook only when `git diff --staged --quiet` confirms data changed.
+3. **A-vs-B page count explosion blows 20K Cloudflare free-tier limit (SEO-1)** - 59,685 pairs x 2 locales = 119,370 pages; 6x over limit. Use curated priority-pair allowlist (~3,400 pairs). Assert total_pages < 18,000 in Astro build. Existing build is ~792 pages; ~6,800 A-vs-B pages brings total to ~7,600.
 
-4. **LLM assigns incidents to wrong communes** — Supply the full 346-commune list in the DeepSeek prompt as closed valid values. Temperature 0.0. Reject incidents whose extracted commune name does not exactly match the canonical list.
+4. **Schema migration breaks 5+ consumers of featured_rates (CI-6)** - commune panel, choropleth, Astro template, figure-registry validator, and pytest assertions all read featured_rates. Migration must enumerate all consumers, add TypeScript types, run @astrojs/check in CI, keep old fields present until all consumers are verified.
 
-5. **Frequency vs. rate ranking error** — Encode `rate_per_100k` as the canonical metric in the pipeline data contract; never sort by absolute counts. Apply a minimum population filter (10,000 residents) for national rankings.
+5. **CF_DEPLOY_HOOK_URL unset keeps production stale (GL-1) and AdSense Consent Mode missing risks ad suspension (GL-3)** - deploy hook must be set and tested before any v2.0 code is merged. Consent Mode v2 must be verified via Tag Assistant before ADSENSE_ENABLED is flipped. These are ordered prerequisites, not cleanup.
+
+---
 
 ## Implications for Roadmap
 
-### Phase 1: Data Foundation — CEAD Scraper + Schema
-**Rationale:** Everything quantitative depends on real CEAD data. The JSON schema must be defined before both pipeline and site consume it; changing it after both sides are built is expensive. This is the critical path.
-**Delivers:** Per-comuna JSON files (346), per-region files (16), national aggregates, pre-aggregated map payload, Pydantic schema models, pipeline validation.
-**Avoids:** Silent CEAD schema drift (Pitfall 2), frequency-vs-rate error (Pitfall 5) — bake validation in from day one.
-**Research flag:** Live endpoint validation of exact POST parameters and response schema before pipeline implementation.
+The hard dependency chain is Phase 18 -> Phase 21 -> Phase 22. Go-live (Phase 22) can run in parallel with Phase 21 since it has no code dependency on the comparator.
 
-### Phase 2: Astro Site Shell + Programmatic Page Generator
-**Rationale:** Once a single real `{id}.json` file exists, the full page generation machinery and bilingual routing can be built and validated. Content template must be defined before generating all 346 pages — fixing thin content after generation is costly.
-**Delivers:** Astro project with i18n routing, `getStaticPaths()` for all 346×2 commune + 16×2 region pages, templates with 5+ unique data dimensions per page, hreflang, sitemap.xml, canonical tags.
-**Uses:** Astro 6.4.x built-in i18n, `prefixDefaultLocale: false` (EN at root paths), @astrojs/sitemap.
-**Avoids:** Thin content Google deindexing (Pitfall 1), hreflang misconfiguration — run hreflang validator on 5 sample pages before generating all 700+.
+### Phase 18: Composite Crime Index
 
-### Phase 3: Leaflet Map Island
-**Rationale:** Depends on `map-payload.json` (Phase 1) and the GeoJSON boundary file. Geometry simplification must happen before building the island, not as a later optimization.
-**Delivers:** Interactive choropleth with year and crime-type filters, commune popup panel, geolocation button.
-**Uses:** Leaflet 1.9.x with native `L.geoJSON()`, quantile/log color scale, `client:only="react"` on the map island.
-**Avoids:** Mobile map unusability — simplify GeoJSON to <100 KB with mapshaper; memoize style functions; test on real mid-range Android at 3G before declaring done.
+**Rationale:** Hard prerequisite for all of Track 2. Cannot begin comparator or A-vs-B pages until the index schema is locked and comparator_table.json is written. All 8 composite-index pitfalls (CI-1 through CI-8) must be resolved here.
 
-### Phase 4: Editorial Pages + AdSense Setup
-**Rationale:** Top editorial pages provide the content depth needed for Google indexing and AdSense approval. Methodology page must be live and indexed before AdSense application.
-**Delivers:** 20 high-priority editorial pages (EN + ES), methodology page with subregistro caveat, legal pages (Privacy Policy, Terms, About, Contact), AdSense integration after first indexing wave.
-**Avoids:** AdSense rejection, territorial stigmatization risk — define editorial style guide (no absolute superlatives) with automated build checks before template writing.
+**Delivers:** pipeline/build_composite_index.py; enriched data/cead/comunas/*.json with composite_index, spd_homicide_rate, sii_exposure_index fields; data/cead/comparator_table.json; extracted pipeline/build_map_payload.py; updated map-payload*.json with ci field; choropleth composite view toggle; composite score in ResultPanel and commune pages; updated methodology page.
 
-### Phase 5: RSS News Pipeline + Incident Pins
-**Rationale:** Can only be built after the shared schema is stable (Phase 1) and the site can display incident pins (Phase 3). The news layer shares the commune taxonomy, so the canonical commune list must be finalized before the LLM prompt is written.
-**Delivers:** RSS ingestion from BioBioChile, Cooperativa Policial, La Tercera Nacional; DeepSeek v4-flash classification and geolocation; two-pass deduplication; rolling 30-day `incidents/current.json`; incident pins on map with source links.
-**Uses:** feedparser 6.x, openai SDK v1.x → `deepseek-v4-flash`, tenacity for retries.
-**Avoids:** LLM commune hallucination, deduplication failure — closed-list classification, temperature 0.0, validate commune name before commit, manual audit of 50 extracted incidents before launch.
-**Research flag:** RSS feed URLs for T13, 24Horas, Meganoticias, SoyChile are unconfirmed — validate at runtime; design per-feed graceful fallback.
+**Key decisions to lock in Phase 18 planning:**
+- Normalization method: winsorized min-max (scipy) vs percentile rank; both acceptable; must be documented in SOURCES.md and /methodology
+- Metric weights in composite_config.py: homicide highest (0.30 recommended), then violent families, then property, then incivilidades
+- SII exposure cap threshold: sii_workers / ine_population > 5.0 triggers INE population fallback
+- Reference year alignment: latest year where ALL three sources (SPD VHC, CEAD, SII) are available; pipeline assertion enforces this
+- Display precision: integer in all headline contexts; one decimal only in comparator per-family rows
 
-### Phase 6: CI/CD Wiring + Cloudflare Pages Configuration
-**Rationale:** Final step after both pipelines and site work locally. Must be configured before any cron jobs are enabled.
-**Delivers:** `cead-scraper.yml` (quarterly cron), `news-pipeline.yml` (every 4-6h cron), conditional commit + deploy hook logic, Cloudflare Pages with Git auto-build DISABLED, Deploy Hook called explicitly only when data changed.
-**Avoids:** Infinite rebuild loop — verify by checking CF Pages build count after first cron run.
+**Avoids:** CI-1, CI-2, CI-3, CI-4, CI-5, CI-6, CI-7, CI-8, GL-5
+
+**Research flag:** Needs deeper research during planning. Normalization method decision, SII cap logic, and schema migration consumer enumeration are all high-risk with no existing project precedent. Recommend --research-phase 18.
+
+### Phase 21: Commune Comparator + A-vs-B SEO Pages
+
+**Rationale:** Requires Phase 18 complete (comparator_table.json as input). Track 2 is primarily a presentation layer over already-hardened data. The risk is SEO architecture (thin content, hreflang, page count) not data pipeline.
+
+**Delivers:** ComparatorIsland.tsx; /compare/ and /es/comparar/ landing pages; ~6,800 A-vs-B programmatic pages for ~3,400 priority pairs; proseEngine.ts extended with buildComparisonProse(); internal links from commune pages to comparator; hreflang validator extended.
+
+**Key decisions to lock in Phase 21 planning:**
+- URL slug convention: CUT-code slugs (e.g., /compare/13110-vs-13119/) recommended to avoid transliteration and accent issues
+- Priority-pair allowlist: Tier 1 (10 editorial communes x ~280 non-low-pop communes) + Tier 2 (top-50 x top-50); encoded in data/comparator-pairs.json before getStaticPaths is written
+- Prose uniqueness minimum: 5 uniqueness blocks + 300+ words of non-swappable content; build-time assertion enforces this
+- Staged publication: 20-pair batches; verify GSC indexing before expanding
+- Internal linking: every commune page must link to 3-5 A-vs-B pairs involving that commune (SEO-4 prevention)
+
+**Avoids:** SEO-1, SEO-2, SEO-3, SEO-4, CI-1, GL-5
+
+**Research flag:** Standard Astro patterns are established on this project. The prose uniqueness engine (buildComparisonProse) and pair-selection allowlist logic are the main unknowns. Scope these two sub-problems in planning before committing to a page count.
+
+### Phase 22: Go-Live / Launch Ops
+
+**Rationale:** No code dependency on Phase 21. Can run in parallel. The CF deploy hook is the single human action unblocking all downstream production steps. Consent Mode must precede AdSense. GSC submission immediately after first deploy maximizes crawl speed.
+
+**Delivers:** Production site live with v2.0 content; live news pipeline running; AdSense active with Consent Mode.
+
+**Ordered steps (sequence matters):**
+1. Set CF_DEPLOY_HOOK_URL secret in GitHub repo settings; verify with test push; confirm CF dashboard shows triggered build
+2. Trigger manual CF deploy (or let deploy-on-code.yml fire)
+3. Implement Consent Mode v2 (gtag consent default with ad_storage denied) + cookie banner
+4. Verify with Google Tag Assistant: ad_storage denied fires on page load before consent
+5. Live news pipeline run (DEEPSEEK_API_KEY as repo secret; trigger scrape-news.yml) + 50-incident commune audit
+6. GSC submission: updated sitemap + URL Inspection for 5-10 representative A-vs-B pairs
+7. Flip ADSENSE_ENABLED only after steps 1-6 confirmed
+8. Monitor: verify rebuild loop not reintroduced (CF build count must not increment on data-only commits)
+
+**Avoids:** GL-1, GL-2, GL-3, GL-4
+
+**Research flag:** Standard patterns; no research phase needed. All steps documented in memory and PITFALLS.md.
 
 ### Phase Ordering Rationale
 
-- CEAD Scraper before everything — the entire quantitative product has no content without it.
-- Schema definition is part of Phase 1, not a separate phase — must be stable before Phases 2 and 5 consume it.
-- Astro site (Phase 2) before the map island (Phase 3) — page generation must work before adding client-side interactivity; allows SEO crawling to begin on static pages.
-- Editorial pages (Phase 4) before RSS pipeline (Phase 5) — AdSense approval needs indexed content; news pipeline adds LLM error risk that is easier to isolate once the core site is stable.
-- CI/CD (Phase 6) last — avoids infinite loop risk during development.
-- RSS pipeline (Phase 5) and CI/CD (Phase 6) can be partially parallelized: pipeline scripts can be built and tested locally during Phase 4.
+- Phase 18 before Phase 21 (hard): comparator_table.json and composite_index in commune JSON are Phase 18 outputs required as Phase 21 inputs. Building comparator templates before the index schema is locked guarantees a schema migration rework.
+- Phase 22 parallel with Phase 21 (recommended): go-live ops have no code dependency. Setting the deploy hook and wiring Consent Mode can proceed while Phase 21 development is in progress so the first v2.0 deploy fires as soon as Phase 21 merges.
+- A-vs-B staged publication after Phase 22 verification: generate the full priority-pair set in Phase 21 but publish in 20-pair batches, monitoring GSC coverage between each batch.
 
 ### Research Flags
 
-Phases needing deeper research during planning:
-- **Phase 1 (CEAD Scraper):** Live endpoint validation of exact POST parameters and response schema before pipeline implementation.
-- **Phase 5 (RSS Pipeline):** RSS feed URLs for T13, 24Horas, Meganoticias, SoyChile are unconfirmed — validate at pipeline-build time; design fallback paths.
+Needs research:
+- **Phase 18:** Normalization method (winsorized min-max vs percentile rank); SII cap logic; schema migration consumer enumeration; year-alignment assertion design
+- **Phase 21:** Prose uniqueness engine design (buildComparisonProse must generate substantively different text per pair from real trend data); priority-pair allowlist generation logic
 
-Phases with standard patterns (skip research-phase):
-- **Phase 2 (Astro Site):** Well-documented; follow STACK.md configuration exactly.
-- **Phase 3 (Leaflet Map):** Standard patterns; STACK.md and PITFALLS.md cover all edge cases.
-- **Phase 6 (CI/CD):** GITHUB_TOKEN loop-prevention is confirmed behavior; ARCHITECTURE.md workflow snippets are production-ready.
+Standard patterns (skip research-phase):
+- **Phase 22:** All steps are documented human actions; no new code patterns
+
+---
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | All major versions verified against npm registry and official docs June 2026; DeepSeek deprecation timeline confirmed |
-| Features | HIGH (table stakes) / MEDIUM (RSS feeds) | Competitor analysis via direct site inspection; 4 of 8 RSS feed URLs need runtime validation |
-| Architecture | HIGH | Loop-prevention confirmed via GitHub community discussion; CF Pages limits from official docs; schema design verified against Astro build-time memory constraints |
-| Pitfalls | HIGH | Each pitfall sourced from documented incidents: Google thin-content policy, react-leaflet perf analysis, LLM geolocation research literature |
+| Stack | HIGH | requirements.txt and package.json read directly from repo; scipy winsorize API is stable; Cloudflare 20K limit confirmed |
+| Features | HIGH | Competitive analysis covers Numbeo, BestPlaces, AreaVibes; OECD handbook on composite indicators; programmatic SEO thin-content research from multiple case studies |
+| Architecture | HIGH | All file schemas read directly from repo; integration points derived from actual codebase; build order follows confirmed pipeline structure |
+| Pitfalls | HIGH | All critical pitfalls derived from existing codebase state, STATE.md decisions, and prior v1.x lessons; not hypothetical |
 
 **Overall confidence:** HIGH
 
 ### Gaps to Address
 
-- **CEAD live endpoint validation:** Confirm exact field names in current responses with a live test scrape before pipeline is built.
-- **RSS feed URL confirmation:** Four outlets have unconfirmed RSS URLs; design graceful per-feed fallback (skip + log) so a broken feed does not block the whole pipeline.
-- **AdSense approval timeline:** Research indicates data journalism sites pass manual review with a methodology page, but automated classifier behavior is not guaranteed; budget for one rejection + 30-day wait.
-- **GeoJSON boundary file accuracy:** Prototype's `geo-data.js` (~222 KB) accuracy for all 346 comunas post-2020 boundary changes has not been validated; validate against CEAD's commune ID list during Phase 1.
+- **Normalization method final decision (Phase 18 planning):** Winsorized min-max and percentile-rank are both valid. Choice affects choropleth interpretation and must be locked before any index-driven template is written. Validate by running distribution check on actual featured_rates data.
+- **Priority-pair allowlist exact count (Phase 21 planning):** The ~3,400-pair estimate must be computed from actual commune data (low_population flags, national_rank values) before getStaticPaths is written. Encode result in data/comparator-pairs.json as a planning artifact before Phase 21 execution begins.
+- **SPD VHC 2025 reliability (Phase 18 execution):** Snapshot caveat flags 2025 data as partial and unconsolidated. Reference year must be 2024 at most until SPD confirms 2025 as final.
+- **A-vs-B prose engine quality (Phase 21 execution):** buildComparisonProse() must produce genuinely different text per pair. Sampling check (10 random pairs) must be part of Phase 21 acceptance criteria before any A-vs-B pages are deployed.
+
+---
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- Astro npm registry / official docs — v6.4.6 confirmed June 2026; i18n routing configuration
-- Cloudflare Pages official limits docs — 20K file free limit, 500 builds/month, 25 MiB file max
-- DeepSeek API docs — model IDs, base URL, deprecation timeline
-- GitHub community discussion #74772 — GITHUB_TOKEN commit loop-prevention confirmed
-- react-leaflet performance analysis (tmsvr.com) — GeoJSON re-render issue documented
+- pipeline/requirements.txt (direct read) - pandas 2.3.3, pyxlsb 1.0.10, openpyxl 3.1.5, pydantic 2.13.4 confirmed
+- site/package.json (direct read) - astro 6.4.6, react 19.2.7, leaflet 1.9.4, chroma-js 3.2.0 confirmed
+- data/cead/comunas/13101.json - confirmed featured_rates schema and series structure
+- data/cead/map-payload.json - confirmed compact payload schema
+- data/snapshots/spd_homicide.json - confirmed record schema + 2025 partial data caveat
+- data/snapshots/sii_exposure.json - confirmed record schema + HQ-domicile caveat
+- pipeline/cead/normalizer.py - confirmed CHIP_DEFS ordering (0=vida..6=incivilidades)
+- .planning/STATE.md - Phase 17 Wave-0 decisions; tipoVal=1,2 rule; SII xlsb readable; SPD VHC column structure
+- .planning/PROJECT.md - Phase 18 scope, SEED-001 hybrid rollout constraints, editorial communes
+- CLAUDE.md - Cloudflare Pages 20K file limit, What NOT to Use, forbidden-language constraint
+- OECD Handbook on Constructing Composite Indicators - normalization, weighting, transparency requirements
+- PMC: The problem with composite indicators - confidence interval pitfalls; 30% of entities change band due to noise
+- PNAS/PMC: Activity-adjusted crime rates - exposure denominator methodology
 
 ### Secondary (MEDIUM confidence)
-- Competitor direct inspection (CrimeGrade, SpotCrime, Numbeo, AreaVibes) — feature landscape
-- BioBioChile and Cooperativa live RSS feed inspection — confirmed working feeds
-- AirOps / Passionfruit / SEOmatic — programmatic SEO thin-content penalty documentation
-- arXiv 2502.14660 — LLM implicit location extraction failure modes
-
-### Tertiary (LOW confidence / needs runtime validation)
-- FeedSpot Chile News RSS list — individual feed URLs need live validation
-- La Tercera RSS — `?format=rss` pattern needs runtime test
-- Emol RSS — appears deprecated; HTML scraping fallback documented
+- Numbeo Crime Indices Explained - 0-100 scale, 5 bands, methodology
+- Seomatic: Programmatic SEO Mistakes - thin content triggers, canonical configuration
+- UltraSEO: How Programmatic SEO Led to Deindexing - 95% identical pages = deindex risk
+- BlogSEO: Programmatic SEO Quality Rules - 3-uniqueness-block minimum
+- Memory entries: prod-deploy-hook-secret-gap, onedrive-build-artifacts-desync, i18n-localized-slug-pitfall, astro-script-no-expr-interpolation
 
 ---
-*Research completed: 2026-06-12*
+*Research completed: 2026-06-19*
 *Ready for roadmap: yes*

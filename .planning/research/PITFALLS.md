@@ -1,220 +1,427 @@
-# Pitfalls Research
+# Pitfalls Research — v2.0 Composite Index, Comparators & Launch
 
 **Domain:** Bilingual crime-data visualization + programmatic SEO platform (Chile Safety Map)
-**Researched:** 2026-06-12
-**Confidence:** HIGH
+**Milestone:** v2.0 — Composite Crime Index, Commune Comparator, A-vs-B SEO Pages, Go-live
+**Researched:** 2026-06-19
+**Confidence:** HIGH (project-specific; derived from existing codebase state, PROJECT.md, STATE.md, and prior v1.x lessons)
+**Scope:** NEW features only. v1.0 pitfalls are in the archived 2026-06-12 PITFALLS.md.
 
 ---
 
 ## Critical Pitfalls
 
-### Pitfall 1: Programmatic Thin Content — Google Deindexes Template Pages
+### Pitfall CI-1: Composite Index Implies an Absolute Safety Verdict
 
 **What goes wrong:**
-346 commune pages + 16 region pages get generated, each swapping only the place name into an identical template. Google classifies the entire program as "scaled content abuse" and deindexes 80-98% of pages within 3 months. Organic traffic never materializes despite correct technical SEO.
+The index is designed to replace the raw `featured_rates` headline figure with something more informative. However, any composite that outputs a single number per commune will be rendered by users — and by Google snippets, social shares, and screen readers — as "Santiago scores 42 / La Pintana scores 78, therefore La Pintana is dangerous." The CI forbidden-language validator added in P20 checks rendered HTML for vocabulary like "seguro/peligroso/safe/dangerous." A composite index page will pass that check if the word "index" is used but still communicate an absolute verdict through ranking position, color, and relative superlatives ("bottom 10 communes").
 
 **Why it happens:**
-Developers assume that having real data (CEAD crime rates) is sufficient differentiation. It is not. Google's scaled content abuse policy (hardened in March 2024) targets pages where "template content exceeds unique content" — even if the injected data is factually accurate. The threshold that triggers penalties is less than 30% unique elements per page and under 300 words of substantive content.
+Any single-number output that can be sorted becomes a de-facto ranking, and rankings invite superlatives. The problem is not the word "dangerous" — it is the information architecture. A choropleth colored from green to red, a ranking table sorted from best to worst, and a comparator that says "Commune A is safer than Commune B" all communicate an absolute verdict without using the forbidden words.
 
 **How to avoid:**
-Each commune page must have multiple data dimensions that are unique to that commune — not just swapped values but genuinely different narrative context. Minimum per page: (1) actual crime rate vs. national/regional average with qualitative framing, (2) trend direction (rising/falling/stable with year span), (3) which crime types dominate relative to peers, (4) regional context sentence, (5) nearest comparable commune for calibration. Aim for 500+ words with 30-40% content that is impossible to replicate by name-swapping. Deploy in staged batches of 10-20 pages first, verify Google Search Console indexing before launching all 346.
+- Frame the index as "composite reported-crime burden" or "índice de carga delictiva reportada" — never "safety score" or "seguridad relativa".
+- Every page that displays the index must include a mandatory caveat block (EN/ES) stating: underreporting rates vary; the index reflects denuncias not actual crime; small-denominator communes have high volatility.
+- The choropleth color scale legend must be labeled "reported crime burden (relative)" not "danger level" or "safety".
+- The ranking derived from the index must be titled "Communes by reported crime burden" not "safest/most dangerous communes."
+- Extend the forbidden-language CI validator to also flag: "safest," "most dangerous," "crime-free," "sin delitos," "más segura," "más peligrosa" when they appear without a qualifying "reported" or "según registros."
+- Add the index methodology to the existing `/methodology/` page (EN/ES) before deploying any index-driven page.
 
 **Warning signs:**
-- Google Search Console shows hundreds of pages in "Discovered — currently not indexed" state weeks after launch
-- Pages getting crawled but not indexed despite correct sitemaps
-- Zero impressions in GSC for commune-level pages after 60 days
+- Any og:description or `<title>` that reads like "[Commune] ranks #1 safest in Chile"
+- The choropleth legend uses green/red without explicit "relative to national reported rate" labeling
+- The comparator page says "A is safer than B" without "according to reported denuncias"
 
 **Phase to address:**
-Template design phase (before generating any pages). Define content schema with 5+ unique data dimensions per commune before writing the Astro template.
+Phase 18 (Composite Index) — editorial framing must be locked in the schema design step, before any template is written. Extend the P20 CI validator in the same phase.
 
 ---
 
-### Pitfall 2: CEAD Endpoint Silently Changes — Scraper Fails Quietly
+### Pitfall CI-2: Normalization Choice Silently Misleads — Min-Max vs. Z-Score vs. Percentile
 
 **What goes wrong:**
-The CEAD PHP endpoints (`get_estadisticas_delictuales.php`, `get_estadisticas_delictuales_mapa.php`) are undocumented, unofficial, and subject to change without notice. An endpoint parameter is renamed, a response key changes, or the HTML table structure is reorganized. The GitHub Actions cron job runs, produces no error (HTTP 200), commits stale/empty JSON, and the site silently serves months-old data or zeros — with no alert.
+The composite index must normalize across 7 metrics with different units and ranges (per-100k rates, raw homicide counts, SII exposure ratios). Choosing min-max normalization causes a single extreme outlier commune (Sierra Gorda, Juan Fernández — known to reach 43,369 per-100k) to compress all other communes into a narrow band near zero. The choropleth looks uniform; all but the most extreme commune appear equally "safe." Choosing z-score without winsorization causes the same outlier to distort the mean and standard deviation, inflating z-scores for mid-range communes. Neither failure is obvious from looking at the output without comparing to known ground truth.
 
 **Why it happens:**
-PHP endpoints that drive a government dashboard are maintained for the dashboard, not for external consumers. There is no SLA, no versioning, and no changelog. "Silent 200" failures are the norm — the server returns a page but the data shape is wrong. Without schema validation after extraction, the pipeline passes.
+Min-max is the most commonly documented normalization method and is easiest to implement. Developers apply it without checking whether the input distribution is approximately uniform or heavily skewed. CEAD per-100k rates are right-skewed (known from prior PLAUSIBILITY_MAX_RATE work — micro-communes can reach 43,369). Applying min-max to a right-skewed distribution compresses 95% of communes into the bottom 20% of the output range.
 
 **How to avoid:**
-After every CEAD scrape, run schema validation before committing: assert expected keys exist, row count is within historical range (e.g., not zero, not 10x previous), numeric values fall within plausible bounds (rates between 0 and 5000 per 100k). Commit only if validation passes; otherwise fail the GitHub Actions job loudly (non-zero exit), post a GitHub issue or send an email alert via Actions, and keep the previous good JSON intact. Store raw responses alongside processed JSON so you can re-parse after a schema fix without re-scraping. Version your scraper selectors separately from business logic.
+- Use percentile rank normalization (rank each commune 0–100 within the distribution) as the primary approach — it is outlier-resistant by construction and maps naturally to choropleth quintiles.
+- Or use z-score with winsorization: cap input values at the 95th percentile before computing mean/std. Document the winsorization threshold in `data/SOURCES.md` and the methodology page.
+- Run a distribution check after normalization: if more than 70% of communes have a normalized score below 0.25 (for min-max) or below -0.5 z, the normalization is distorted by outliers.
+- Add a pytest assertion: `assert index_scores.describe()['25%'] > index_scores.mean() * 0.3` (i.e., the 25th percentile is not near zero).
+- Display the raw underlying metrics alongside the index in the commune panel — do not hide the inputs that produced the score.
 
 **Warning signs:**
-- Any scraper run that produces a JSON file significantly smaller than the previous run
-- National totals that drop to zero or spike 10x
-- Commune count in output differs from the known 346
+- Choropleth shows nearly all communes in the lowest color band with one or two extreme outliers
+- The 25th percentile of the index is less than 5% of the maximum value
+- Santiago (a high-crime large city) and a micro-commune have the same index score
 
 **Phase to address:**
-CEAD scraper phase. Bake validation in from the first working version; retrofitting it later is dangerous.
+Phase 18 (Composite Index) — normalization function must be validated with distribution checks before any visual is built on top of it.
 
 ---
 
-### Pitfall 3: GitHub Actions Cron Creates Infinite Rebuild Loop
+### Pitfall CI-3: SII Exposure Proxy Distorts Small-Commune and Tourist-Commune Scores
 
 **What goes wrong:**
-The workflow runs on schedule, fetches new news data, commits JSON to the repo, and Cloudflare Pages (configured with Git integration) triggers a full rebuild on every commit. Every few hours the pipeline commits, which triggers a rebuild, which consumes Cloudflare Pages free-tier build credits (500 builds/month cap, 20-minute timeout per build). The site burns through its monthly builds in days. Worse: if a secondary workflow triggers on push events, an infinite loop is possible.
+The SII exposure proxy (empresas + trabajadores dependientes per commune) was chosen because it approximates the daytime/functional population better than INE residential population for crime-rate adjustment. However, SII records firms by their fiscal domicile (HQ), not by the location where workers or customers are actually present. A large forestry company headquartered in Los Ángeles employs workers in remote logging communes — those worker counts do not appear in those communes' SII data. Conversely, a commune like Las Condes has a disproportionately high SII count because many national companies register their legal address there. The exposure-adjusted index will rank Las Condes as lower-crime-burden than its raw rate suggests (the denominator is inflated by HQ registrations), and will rank forestry communes higher than they should be.
 
 **Why it happens:**
-The default Cloudflare Pages + GitHub integration is "rebuild on any push to main." Developers set up data-commit workflows without disabling this default, not realizing that data commits are indistinguishable from code commits to the Pages integration.
+This is a known caveat documented in Phase 17 Wave-0 decisions: "SII `PUB_COMU.xlsb` (empresas + trabajadores dependientes per commune; needs `pyxlsb`; comuna = firm domicile/HQ caveat)." It is easy to wire the data correctly and still produce misleading outputs because the caveat is methodological, not computational.
 
 **How to avoid:**
-Disable Cloudflare Pages Git integration for automatic rebuilds. Instead, use Wrangler CLI (`wrangler pages deploy ./dist`) called explicitly from within the GitHub Actions workflow, only after data has been fetched and validated. This gives full control over when a build fires. For the CEAD scraper (quarterly), trigger a rebuild. For news RSS (every few hours), consider whether a rebuild is necessary every run or only when new unique incidents are found. Use a `[skip ci]` commit message convention for data-only commits if the Git integration must remain enabled. Set `paths-ignore` in workflow triggers to prevent push-triggered workflows from re-running when the workflow itself commits data.
+- The methodology page must explain the SII HQ-domicile limitation explicitly, in both languages, with an example (e.g., "companies with offices in multiple communes are registered at their fiscal address, which may differ from their operational location").
+- Cap the SII adjustment factor: if `sii_workers / ine_population > N` (e.g., 5.0), flag the commune and use the INE population as denominator instead. Document the cap threshold.
+- Display a "high-denominator adjustment" warning badge on commune pages where the SII figure deviates more than 3x from INE population.
+- Do not present the SII-adjusted index as more accurate than the INE-based rate — frame it as "adjusted for estimated economic activity" and show both the adjusted and unadjusted rates.
+- Add a pytest: assert no commune's `sii_workers` exceeds `ine_population * 10` (catches obviously wrong joins or data errors).
 
 **Warning signs:**
-- Cloudflare Pages dashboard shows builds firing every few hours
-- Build count approaching 400+ in the first week of the month
-- GitHub Actions run history shows push-triggered runs immediately after cron runs
+- Las Condes or Providencia show dramatically lower index scores than their raw crime rates suggest
+- A forestry or mining commune shows a very high index score that contradicts local knowledge
+- The exposure ratio for any commune exceeds 10x its residential population
 
 **Phase to address:**
-CI/CD setup phase. Configure the deployment strategy before enabling any cron jobs.
+Phase 18 (Composite Index) — the SII join and cap logic must be implemented and validated in the pipeline before the index is computed.
 
 ---
 
-### Pitfall 4: LLM Hallucinates Commune Names in News Extraction
+### Pitfall CI-4: CEAD tipoVal Double-Count Inflates the Composite Metric
 
 **What goes wrong:**
-DeepSeek v4 extracts a crime incident from a news article and assigns it to a commune that is mentioned in the article tangentially (e.g., a criminal was from Maipú but the incident happened in Pudahuel) or invents a plausible-sounding commune that does not exist. The incident pin appears on the map at the wrong location. At scale, over weeks, a significant fraction of incident pins are geographically wrong. If a pin is placed in a specific commune for a serious crime that did not occur there, it constitutes factual inaccuracy that could harm that location's reputation.
+The CEAD `tipoVal` parameter is additive: `1=denuncias, 2=detenciones, 3=aprehendidos`. If the index pipeline requests `tipoVal=1,2` (cases policiales, as documented in Phase 17 Wave-0), it gets denuncias + detenciones summed. If a new scraper pass for the composite index accidentally requests all three values or fails to specify the filter, it gets triple-counted figures. This inflates every input metric, which inflates the index, which produces a misleading choropleth. The error is invisible unless the developer compares against the previously validated `featured_rates` values.
 
 **Why it happens:**
-News articles about crime routinely mention multiple places (where the suspect lives, where they were arrested, where the crime occurred, where the victim is from). LLMs, including strong models, conflate these roles at a measurable error rate. The research literature documents "county-state confusion," toponym ambiguity (same name in multiple regions), and entity-role confusion as leading causes of location extraction errors. At temperature > 0.1, format drift also introduces inconsistent commune name spellings that fail to match your canonical commune list.
+The CEAD API does not document the `tipoVal` parameter. The correct value (`1,2`) was established in Phase 17 Wave-0 and stored as a key decision. A new pipeline pass written by someone who did not read STATE.md will default to the API's behavior, which may return all measures summed.
 
 **How to avoid:**
-(1) Require DeepSeek to output the commune from a closed canonical list — include the full 346-commune list in the prompt as valid values, making it a classification task rather than open-ended extraction. (2) Set temperature to 0.0 for all structured extraction calls. (3) Use a two-step pipeline: first extract the event description in free text, then classify commune from that description against the closed list. (4) Add a confidence score field; discard or flag as "location uncertain" if confidence is below threshold. (5) Validate that the extracted commune name exactly matches your canonical list before committing — reject incidents that fail validation rather than guessing. (6) On the front-end, display incidents as "reported in [commune] area" with a link to the source article, making the original source verifiable.
+- Centralize the `tipoVal` constant in a single configuration file (`pipeline/config.py` or similar) — never embed it in multiple scraper call sites.
+- Add a validation assertion after every CEAD fetch for the index: compare the fetched national total against the `featured_rates` national total already in `data/` — they must agree within 5%. If they diverge, fail loudly.
+- Add a comment in the CEAD client module: `# tipoVal=1,2 = denuncias+detenciones (casos policiales). DO NOT use tipoVal=3 (aprehendidos) or omit tipoVal — both double-count.`
 
 **Warning signs:**
-- Incidents appearing in communes with no plausible news coverage
-- Same incident appearing with different commune assignments across two sources
-- Commune names in output JSON that are not in your 346-commune canonical list
+- Index input values are approximately 3x the corresponding `featured_rates` values
+- National totals from the new scrape differ from Phase 17-validated totals by more than 10%
 
 **Phase to address:**
-News pipeline design phase. The closed-list constraint and canonical validation must be designed in before the first LLM call, not added after discovering wrong pins.
+Phase 18 (Composite Index) — pipeline plan step must include a cross-check assertion against existing validated data.
 
 ---
 
-### Pitfall 5: Frequency vs. Rate — Ranking Communes by Absolute Crime Count
+### Pitfall CI-5: Spurious Precision — Index Score Displayed to Two Decimal Places
 
 **What goes wrong:**
-The ranking displays communes sorted by total crime incidents. Santiago (commune), San Bernardo, Maipú, and Puente Alto appear at the top of every ranking because they have the largest populations. Small coastal tourist communes with high per-capita rates appear safe. The ranking is statistically meaningless but looks authoritative. Users make decisions based on it. Media coverage cites it. The project's credibility is damaged when a criminologist or journalist points out the methodological error.
+The index is computed from 7 metrics, each with its own uncertainty (CEAD underreporting, SII HQ-domicile caveat, SPD VHC annual lag, INE population projections). Displaying the result as "63.47" implies a precision that does not exist. Users anchor on the second decimal place when comparing communes ("A is 63.47, B is 63.51, so B is slightly more dangerous"). The comparator page's A-vs-B display amplifies this — a difference of 0.04 index points is presented as meaningful when it is well within the measurement uncertainty.
 
 **Why it happens:**
-Absolute counts are easier to sort and more intuitive to display. Developers use `ORDER BY frecuencia DESC` without thinking through the population normalization step. CEAD provides both frequency and rate columns — it is easy to accidentally use the wrong one.
+Floating-point arithmetic naturally produces many decimal places. Developers display them because "more precision looks more scientific."
 
 **How to avoid:**
-The canonical metric for all rankings, choropleth coloring, and comparisons must be the rate per 100,000 inhabitants, not the absolute frequency. This is CEAD's own standard and the FBI/international standard. Add a data contract test: if the top-10 communes in any ranking include more than 3 of the 10 most-populous communes in Chile and no adjustment has been made, fail the data pipeline. On the front-end, always display the rate prominently and include a tooltip or footnote explaining what it means. For very small communes (population < 5,000), flag that rates are volatile (one extra incident can shift the rate dramatically) and avoid presenting them in national top-10 rankings without a minimum population filter.
+- Round the index to one significant digit or display it as a percentile rank (integer 1–100) on all public-facing pages.
+- If a raw score must be shown, display it as an integer or to one decimal place maximum.
+- The comparator must include a "margin of uncertainty" statement: "Index scores within 5 points should be considered equivalent given data limitations."
+- Never display the index to more than one decimal place in any generated page template, og:description, or JSON-LD property.
 
 **Warning signs:**
-- Santiago, Maipú, Pudahuel consistently in positions 1-5 of the "most dangerous" ranking
-- Any commune with population under 2,000 appearing in a national ranking
-- The choropleth coloring high-density urban cores uniformly darker than rural areas regardless of year
+- Any rendered page showing index values like "47.823" or "12.67"
+- The comparator page highlighting a difference of less than 2 index points as meaningful
 
 **Phase to address:**
-Data processing and display phase. Encode the per-100k requirement as a constant in the data pipeline, not a display-layer decision.
+Phase 18 (Composite Index) — lock the display precision in the data schema (store as rounded integer in the output JSON) so templates cannot over-display it.
 
 ---
 
-### Pitfall 6: Hreflang Misconfiguration Silently Kills Bilingual Indexing
+### Pitfall CI-6: Schema Migration Breaks Existing Validators and Map Payload
 
 **What goes wrong:**
-hreflang tags are missing the reciprocal return link (page A references page B but B does not reference A), or the language codes are wrong (`es-CL` used for all Spanish pages when the target audience is primarily Chile, but the English pages use `en` instead of `en-US` or `en`), or the canonical tag on Spanish pages points to the English equivalent. Google ignores all hreflang tags on the affected pages. Spanish and English versions of the same page compete against each other, split link equity, and neither ranks well. A study found 67% of multilingual sites have broken hreflang.
+`featured_rates` currently holds 6 fields consumed by: (1) the commune panel React component, (2) the choropleth color logic, (3) the commune page Astro template, (4) the figure-registry validator, and (5) the pytest pipeline assertions. Migrating to a 7-metric schema renames, reorders, or adds fields. Any consumer that accesses `featured_rates` by index position (array) rather than by key (object) will silently read the wrong metric. The choropleth may color by the wrong dimension. The figure-registry validator may accept orphan figures from the old schema. The commune panel may display zeros or undefined.
 
 **Why it happens:**
-Astro's i18n support generates pages, but hreflang requires each page to declare its own language and all its alternates — including itself. When templates are written quickly, the self-referential tag is often omitted, or the alternate URL patterns are wrong (e.g., `/en/commune/santiago` vs `/commune/santiago` depending on the routing strategy chosen).
+The existing STATE.md notes: "ResultPanel converts series.by_family RECORD to catalog-indexed ARRAY for PanelFamilyBars (commune JSON uses record; map-payload uses array — never confuse them)." The dual record/array representation is a known source of confusion. Adding new fields to `featured_rates` while it is still array-indexed in the map payload is the specific risk.
 
 **How to avoid:**
-(1) Use `es` and `en` language codes (not `es-CL` and `en-US` unless you are specifically targeting those regions exclusively — for a Chile-focused site with English for international tourists, `es` and `en` are correct). (2) Every page must have: a self-referential hreflang, hreflang pointing to the alternate language, and a canonical pointing to itself (not the alternate). (3) Include hreflang in both the `<head>` and the XML sitemap — they must be in sync. (4) Write a build-time test that crawls the generated output and verifies: every hreflang has a reciprocal, all URLs in hreflang tags resolve to actual pages, canonical does not conflict with hreflang. (5) Run an hreflang checker after every significant template change.
+- Make `featured_rates` a named-key object (not an array) in the new 7-metric schema. If the map payload currently uses array indexing, migrate the map payload to named-key access in the same phase.
+- Add a TypeScript type definition for the new schema and run `@astrojs/check` in CI — type errors will catch consumers that break.
+- Write a migration validator: before the Phase 18 build goes live, run the existing 12 frontend validators + all pytest against the new schema. All must pass before proceeding.
+- Add a backward-compatibility shim: during the transition, keep the old `featured_rates` fields present alongside the new ones (deprecated but present), removing them only after all consumers are verified.
+- The figure-registry validator must be updated to know about the 7 new metric keys — do not deploy new figures until the registry is updated.
 
 **Warning signs:**
-- Google Search Console showing the English version indexed in Spanish search results
-- Both language versions appearing for the same query (splitting impressions)
-- Sitemap hreflang count not matching `<head>` hreflang count in a page audit
+- Choropleth coloring does not change when switching between metric types after the migration
+- Any commune panel field shows "undefined" or "NaN" after the schema change
+- Pytest assertions that check specific `featured_rates` values by index pass but are testing the wrong field
 
 **Phase to address:**
-Astro i18n setup phase. Validate hreflang correctness on 5 sample pages before generating all 700+ bilingual pages.
+Phase 18 (Composite Index) — migration plan must enumerate all 5+ consumers of `featured_rates` and verify each one explicitly.
 
 ---
 
-### Pitfall 7: Leaflet GeoJSON Rendering Causes Mobile Map Unusability
+### Pitfall CI-7: SPD VHC Homicide Count Creates Annual-Lag Inconsistency with CEAD Data
 
 **What goes wrong:**
-The full commune GeoJSON (the project's existing `geo-data.js` is ~222 KB) is loaded and rendered as a choropleth. On desktop this works. On mid-range Android phones (the primary device of Chilean domestic users), initial render takes 8-15 seconds and hover/click interactions freeze the UI. The map — the core product — is unusable for a significant portion of the target audience.
+The composite index switches homicide input from CEAD grupo 101 (denuncias) to SPD VHC xlsx (actual homicide counts, 2018–2025). SPD VHC data has an annual lag — the 2025 file may not be complete or published until mid-2026. CEAD data is available quarterly. If the index combines SPD VHC 2024 homicide counts with CEAD 2025 Q1 rates for other crime types, it produces a temporally inconsistent index. Users (and the methodology page) will see "2025 data" but the homicide component is actually 2024.
 
 **Why it happens:**
-Leaflet renders SVG paths for every polygon. With 346 communes, each potentially having complex coastline/border geometries, the SVG node count is high. React-Leaflet adds re-render overhead: if the style function or `onEachFeature` callback is not memoized, every hover event re-renders the entire GeoJSON layer. The 222 KB file size also means a noticeable network delay on mobile connections.
+Data sources update on different schedules. Developers wire the latest available file from each source without checking temporal alignment.
 
 **How to avoid:**
-(1) Simplify GeoJSON geometry: use `mapshaper` or `toposjon` to reduce precision — the existing 222 KB file can typically be reduced to 80-100 KB with no perceptible visual difference at choropleth zoom levels. (2) Wrap the Leaflet GeoJSON style function and `onEachFeature` in `useCallback()` and memoize the GeoJSON component with `useMemo()` to prevent re-renders on hover. (3) Implement two-level loading: load region polygons (16 shapes) first for immediate render, then load commune polygons lazily when the user zooms in or selects a region. (4) Serve GeoJSON from Cloudflare's CDN with appropriate cache headers, not from the same bundle as the application. (5) Test on a mid-range Android device at 3G speeds before declaring the map feature complete.
+- The index must use the same reference year for all components. The reference year is the latest year where ALL components are available.
+- Add a pipeline assertion: `assert spd_year == cead_year == sii_year`, fail if any source is from a different year than the others.
+- The methodology page must display the reference year for each component separately (e.g., "homicide: SPD VHC 2024; other crime: CEAD 2025 Q1; exposure: SII 2024").
+- If a more recent CEAD year is available than SPD VHC, offer both: the index for the aligned year, and a separate "CEAD current" display that does not include homicide from SPD.
 
 **Warning signs:**
-- Chrome DevTools performance profile shows GeoJSON layer repaint on every mouse move
-- First contentful paint of the map exceeds 5 seconds on throttled 3G
-- GeoJSON file > 150 KB in the production bundle
+- The index JSON metadata shows different `data_year` values for different components
+- The methodology page says "2025 data" but the SPD VHC file in `data/snapshots/` is dated 2024
 
 **Phase to address:**
-Map component phase. Geometry simplification must happen before the Astro island is built, not as a performance optimization later.
+Phase 18 (Composite Index) — the pipeline plan must include explicit year-alignment logic and assertions.
 
 ---
 
-### Pitfall 8: News Deduplication Failure — Same Incident Appears Multiple Times
+### Pitfall CI-8: Micro-Commune Outlier Dominates Choropleth Color Scale
 
 **What goes wrong:**
-Emol, BioBío, Cooperativa, T13, and 24Horas all cover the same robbery. The RSS pipeline creates five separate incident records. The map shows five pins clustered at the same location for one event. Over time, high-profile incidents accumulate dozens of duplicate pins. The "recent incidents" layer becomes noise rather than signal, and the cluster counts on the map mislead users about incident frequency.
+Sierra Gorda (pop. ~2,000, mining commune) has a confirmed per-100k rate reaching 43,369 — more than 10x the next-highest commune. When the choropleth color scale is computed from this distribution, Sierra Gorda gets the darkest color and every other commune clusters in the lower three quintiles. The map communicates almost no information about the other 345 communes. This was noted in existing STATE.md but applies equally to the composite index — any weighted combination that includes a high-weight metric from a skewed distribution will exhibit the same behavior.
 
 **Why it happens:**
-Simple deduplication by URL catches only identical links. News agencies publish the same story under different URLs, often with slight headline variations. Cross-source deduplication requires semantic similarity — which adds latency and cost if done naively.
+The color scale is typically computed as a linear or quantile split across all values. When one value is 10x the next, even quantile splits may place the extreme outlier alone in the top quintile, making the map look like a single dark dot on an otherwise uniform background.
 
 **How to avoid:**
-Implement a two-pass deduplication strategy. Pass 1 (cheap, synchronous): normalize and hash the title after stripping dates, crime keywords, and comune names — reject if the hash was seen in the last 72 hours. Pass 2 (LLM-assisted, for near-duplicates that pass hash check): include a deduplication step in the same DeepSeek prompt that classifies a new incident, asking the model to assess whether the event matches any of the last 10 incidents for the same commune on the same day. Maintain a rolling incident store (JSON file) with canonical incident IDs, source URLs, and a "covered by" array for cross-source duplicates. Display only one pin per canonical incident, linking all sources in the popup.
+- Use a percentile-rank color scale (already partially addressed in CI-2): map the index percentile to color, not the raw index value.
+- Or winsorize: cap the top 1% of values at the 99th percentile for display purposes (display the actual value in the tooltip, use the winsorized value for color).
+- Add a choropleth preview step in the pipeline: generate a histogram of index values and flag if any single bin contains > 5% of all communes AND is more than 3 standard deviations from the mean.
+- The existing `PLAUSIBILITY_MAX_RATE = 100000` constant should be mirrored as a choropleth winsorization cap constant — keep them in sync.
 
 **Warning signs:**
-- More than 2 pins in the same commune on the same day for a high-profile event
-- The incident JSON file growing faster than the average daily crime news volume would suggest
-- Users reporting "I see the same story multiple times"
+- The choropleth preview shows one commune in the darkest color and all others in the lightest two colors
+- The 90th percentile of index scores is less than 20% of the maximum value
 
 **Phase to address:**
-News pipeline phase, specifically in the DeepSeek prompt design and the incident store schema.
+Phase 18 (Composite Index) — choropleth scale logic must be tested with the actual index distribution before the map island is updated.
 
 ---
 
-### Pitfall 9: AdSense Rejection for Sensitive Crime Content
+## Comparator / A-vs-B SEO Pitfalls
+
+### Pitfall SEO-1: Combinatorial Page Explosion Exceeds the 20,000 Cloudflare File Limit
 
 **What goes wrong:**
-The site is built, indexed, and traffic begins to arrive. The AdSense application is rejected under the "Sensitive Events" or "Inappropriate content" policy — specifically the clause covering content that depicts "violence" or "shocking accounts." Crime statistics sites occupy a gray zone: the data itself is government statistics, but the topic is crime, and the framing matters enormously for AdSense reviewers.
+346 communes × 345 pairings = 119,370 possible A-vs-B pairs. Even if only one direction is generated (A < B alphabetically), that is ~59,000 pages. The current build produces 792 pages and sits safely under the 20,000-file free-tier limit. Adding 59,000 A-vs-B pages blows the limit by 3x and also blows any realistic Astro build time (20-minute CI timeout).
 
 **Why it happens:**
-AdSense policy distinguishes between news/statistics journalism (generally acceptable) and sensationalistic crime content (rejected). Sites that use emotionally charged language, show crime incident pins prominently on the homepage without context, or lack clear editorial framing risk automated or manual rejection. A domain like "ischilesafe.com" with pins labeled "assault," "robbery," "homicide" without a methodology page or clear data-journalism framing can trigger the Sensitive Events policy.
+"Programmatic SEO" naturally suggests generating every possible combination. The Cloudflare limit is a hard wall, not a soft guideline.
 
 **How to avoid:**
-(1) Apply for AdSense only after the methodology page is live, explaining that all data comes from official Chilean government sources (CEAD / Ministerio de Seguridad Pública). (2) Frame the site explicitly as a "data journalism and public safety research tool," not a crime tracker. (3) Avoid graphic crime incident descriptions — the news pin popup should show "incidente de [tipo de delito] reportado" with a link to the source, not a detailed description. (4) Ensure all required legal pages exist before applying: Privacy Policy, Terms of Use, About, Methodology, Contact. (5) Make sure the homepage prominently features the statistical/choropleth map with official data framing rather than the incident pins — lead with data, not events. (6) If rejected, request manual review with the methodology page URL; AdSense allows reconsideration, and data/statistics sites typically pass manual review when they have clear editorial framing.
+- Limit A-vs-B pages to high-intent pairs only: the ~50 most-searched commune pairs (determined by GSC data once the site is live, or seeded from population × tourism priority in the short term), plus cross-region pairs for the 16 regional capitals, plus any pair explicitly linked from an editorial page. This gives ~200–500 pages, well within limits.
+- Use a curated `data/comparator-pairs.json` file that explicitly lists which pairs to generate. Do not generate all permutations.
+- Add a build-time assertion: `assert total_pages < 18000` (leaving headroom for future pages). Fail the build if exceeded.
+- The sitemap must only include generated pairs — do not auto-generate sitemap entries for all possible pairs.
 
 **Warning signs:**
-- Homepage copy uses words like "danger," "violence," "crime hotspot" without statistical framing
-- Incident pins are the most visually prominent element on the homepage
-- Missing About/Methodology pages at time of AdSense application
+- `getStaticPaths` for A-vs-B returns more than 2,000 entries
+- Astro build time exceeds 15 minutes
+- Cloudflare Pages deploy fails with "too many files" error
 
 **Phase to address:**
-Content and editorial design phase (pre-launch). Write the methodology page and editorial framing guidelines before applying for AdSense.
+Comparator/A-vs-B phase (Phase 21 or equivalent) — the pair-selection strategy must be defined before any `getStaticPaths` is written.
 
 ---
 
-### Pitfall 10: Territorial Stigmatization — Legal and Reputational Risk
+### Pitfall SEO-2: A-vs-B Pages Are Thin Content — Symmetric Template With Swapped Names
 
 **What goes wrong:**
-A commune (e.g., La Pintana or El Bosque) appears prominently labeled as "most dangerous" in a headline, social media share, or Google snippet. Residents, community organizations, or local governments object publicly or legally. Under Chilean law, defamation can be committed via internet publication. Even if the data is accurate, presenting it in a reductive or absolutist way that damages a community's reputation creates both reputational risk for the project and potential legal exposure.
+"Santiago vs Providencia" and "Providencia vs Santiago" are the same page with names swapped. "Santiago vs Providencia" and "Santiago vs Ñuñoa" are the same template with only one name changed. If the template generates a page that says "Santiago has a crime burden of X; Providencia has Y; Santiago is higher/lower" without any additional context, Google classifies the page as thin content and deindexes it. At 500 pairs, even a 10% deindex rate creates 50 orphan URLs that waste crawl budget.
 
 **Why it happens:**
-Developers treat this as a data accuracy problem ("the data is correct, we're fine") rather than an editorial responsibility problem. The academic literature on crime maps documents how spatial stigmatization causes real harm to communities — property values, business investment, tourism — and generates backlash against the platforms that publish the maps.
+A-vs-B pages are inherently comparative templates. The challenge is making each pair unique enough to justify a separate URL.
 
 **How to avoid:**
-(1) Never use absolute superlatives — no "most dangerous," "most unsafe," "crime-ridden." Use "highest reported incidence rate" with a timeframe. (2) Every ranking or comparative page must include a caveat about underreporting, the distinction between reported and actual crime, and the limitations of comparisons (this is also what differentiates the site from thin content). (3) Disable social media og:title and og:description on commune pages from auto-generating "Is [X] dangerous?" framings — write them manually. (4) The PROJECT.md already lists the required editorial vocabulary — enforce it at the template level so it cannot be bypassed accidentally. (5) Consult Chilean data protection law (Ley 19.628 and its 2022/2024 updates) regarding publication of data that identifies or impacts communities.
+Each A-vs-B page must include at minimum:
+1. The index comparison with the underlying metric breakdown (not just the headline score).
+2. A narrative sentence for each commune that is generated from its data (e.g., "Santiago's rate is driven primarily by property crime (X%), while homicide rates are below the national average").
+3. Regional context: which region each commune is in, and how each compares to its regional average.
+4. A "who should care" framing: tourist, resident, or investor — and what each metric means for that use case.
+5. A link to each commune's dedicated page (hub-and-spoke cross-linking from Phase 12 is the model).
+
+Minimum target: 400 words of substantive, non-swappable content per page.
 
 **Warning signs:**
-- Any generated og:title containing "dangerous," "safe," "peligrosa," or "segura" as an absolute
-- Social media previews of commune pages that look like crime sensationalism
-- Ranking page titles that read like tabloid headlines
+- A-vs-B template generates fewer than 300 words of unique content per pair
+- The only unique element on the page is the commune names and numbers
+- Google Search Console shows "Discovered — not indexed" for >20% of A-vs-B pages within 60 days of launch
 
 **Phase to address:**
-Editorial guidelines phase (before template writing). Define a content style guide that all programmatic templates must follow, with automated checks in the build pipeline.
+Comparator/A-vs-B phase — content schema must be defined before the template is written. Define the 5+ data dimensions per pair that make each page unique.
+
+---
+
+### Pitfall SEO-3: A-vs-B hreflang Reciprocity Breaks at Scale
+
+**What goes wrong:**
+For each A-vs-B pair, there must be: `/compare/santiago-vs-providencia/` (EN) and `/es/comparar/santiago-vs-providencia/` (ES), each with hreflang tags pointing to the other, and each pointing to itself as the canonical. At 500 pairs × 2 languages = 1,000 pages, a single template error in the hreflang logic silently breaks all 1,000 pages. The existing hreflang pitfall (from v1.0 PITFALLS.md) is amplified by the volume.
+
+**Why it happens:**
+Astro's `getRelativeLocaleUrl` does not translate slugs (documented in memory `i18n-localized-slug-pitfall`). The A-vs-B slug must be constructed consistently in both the EN and ES templates and must exactly match the URL that the other language version generates.
+
+**How to avoid:**
+- The A-vs-B slug must use commune CUT codes (e.g., `/compare/13110-vs-13119/`), not commune names. This avoids transliteration and accent issues across languages. The page title displays the commune names; the URL uses stable CUTs.
+- Or: use the canonical commune slug as established in the existing site (the same slug used in commune pages) and hardcode the ES equivalent rather than deriving it via `getRelativeLocaleUrl`.
+- Write a build-time validator: for every A-vs-B page generated, assert that the corresponding ES/EN counterpart also exists in the output, and that their hreflang tags are reciprocal.
+- Run this validator as part of the existing `npm run validate` suite.
+
+**Warning signs:**
+- Google Search Console shows EN A-vs-B pages appearing in ES search results (or vice versa)
+- The hreflang checker finds non-reciprocal tags in A-vs-B pages
+- ES comparator pages have different URL patterns than what EN pages reference in their hreflang
+
+**Phase to address:**
+Comparator/A-vs-B phase — slug strategy must be decided before template generation. The hreflang validator must be extended to cover A-vs-B pages.
+
+---
+
+### Pitfall SEO-4: Comparator Pages Are Orphaned — No Internal Links Pointing to Them
+
+**What goes wrong:**
+A-vs-B pages are generated and indexed but receive no PageRank from the rest of the site because no other page links to them. Google treats them as orphan pages (no incoming internal links) and either deindexes them or assigns very low crawl priority. The sitemap alone is insufficient to drive indexing for hundreds of new programmatic pages.
+
+**Why it happens:**
+Developers generate pages and add them to the sitemap without thinking through the internal linking structure. The commune pages (from Phase 11/12 hub-and-spoke) are the natural source of internal links, but they need to be updated to link to "Compare [X] with..." pages.
+
+**How to avoid:**
+- Each commune page must include a "Compare with nearby communes" section linking to the 3–5 most-searched A-vs-B pairs involving that commune.
+- The home page or a dedicated `/compare/` index page must link to the 10–20 most popular A-vs-B pairs (bootstrapped from population + tourism priority, updated from GSC data once live).
+- Editorial priority pages ("Is Santiago safe?") must link to the "Santiago vs Providencia" or "Santiago vs Vitacura" comparator pages where relevant.
+- Add a build-time assertion: every generated A-vs-B page must be linked from at least one other page in the build output.
+
+**Warning signs:**
+- GSC shows A-vs-B pages in "Discovered — not indexed" state despite sitemap inclusion
+- The A-vs-B pages have zero internal links in a site crawl (Screaming Frog or equivalent)
+- Organic traffic to A-vs-B pages is zero 60 days after launch
+
+**Phase to address:**
+Comparator/A-vs-B phase — internal linking strategy must be designed as part of the page schema, not added after.
+
+---
+
+## Go-Live Pitfalls
+
+### Pitfall GL-1: CF_DEPLOY_HOOK_URL Secret Unset — Site Remains Stale Indefinitely
+
+**What goes wrong:**
+This is the known blocker documented in STATE.md and memory `prod-deploy-hook-secret-gap`. The `CF_DEPLOY_HOOK_URL` GitHub Actions secret is unset. The `deploy-on-code.yml` workflow (added in quick-260618-x95) has `exit 0` when the secret is empty — a safe dry-run guard. But if the secret is never set, every code push to `site/**` silently succeeds in CI while the live site remains stale. The v2.0 composite index, A-vs-B pages, and go-live work will never appear in production.
+
+**Why it happens:**
+The secret requires a manual step in the Cloudflare dashboard (CF → Pages project → Settings → Deploy Hooks → Create hook → copy URL). It cannot be automated. It is easy to defer and forget.
+
+**How to avoid:**
+- Make setting the `CF_DEPLOY_HOOK_URL` secret step 1 of the go-live phase, before any code is merged to master.
+- After setting the secret, do a test push of a trivial change and verify the Cloudflare Pages dashboard shows a new build triggered.
+- Add a workflow that posts a GitHub issue or comment if `CF_DEPLOY_HOOK_URL` is empty — this surfaces the missing secret rather than silently passing.
+- The go-live phase checklist must include: `[ ] CF deploy hook URL set in repo secrets`, `[ ] test push triggered a Cloudflare build`, `[ ] build completed and live URL updated`.
+
+**Warning signs:**
+- `deploy-on-code.yml` runs show "Deploy skipped: CF_DEPLOY_HOOK_URL not set" in the logs
+- The Cloudflare Pages dashboard shows no new builds after a code push to `site/**`
+- The live site URL still shows v1.2 content after v2.0 is merged to master
+
+**Phase to address:**
+Go-live track (Phase 21 or equivalent) — this is step 1, not a cleanup task.
+
+---
+
+### Pitfall GL-2: GitHub Actions Rebuild Loop After CF_DEPLOY_HOOK_URL Is Set
+
+**What goes wrong:**
+Once `CF_DEPLOY_HOOK_URL` is set and `deploy-on-code.yml` fires on push to `site/**`, there is a risk of a feedback loop: (1) news cron runs, commits to `data/**`, (2) if a second workflow is triggered by the push to `data/**` and that workflow touches `site/**`, it triggers a deploy, (3) the deploy does not itself push to the repo, so no loop there — BUT if `scrape-news.yml` runs on `push` to master (not just on `schedule`), any commit from it could cascade. The architecture is designed to avoid this (data commits do not trigger deploys), but adding new workflows for the composite index pipeline could accidentally reintroduce the loop.
+
+**Why it happens:**
+The anti-rebuild-loop architecture is documented but not enforced by code. A new pipeline workflow written for Phase 18 (index computation) might use `on: push` instead of `on: schedule` or `on: workflow_dispatch`.
+
+**How to avoid:**
+- All data-pipeline workflows (CEAD scraper, news scraper, index computation) must use `on: schedule` or `on: workflow_dispatch` only — never `on: push`.
+- The `deploy-on-code.yml` workflow must only trigger on `paths: ['site/**']` — data changes in `data/**` must not trigger it.
+- After the first news cron run post-go-live, manually inspect the Cloudflare Pages build count. If builds are incrementing on every data commit, the loop has been reintroduced.
+- Add a pipeline test: the news scraper CI run must not produce a push to any path that matches `deploy-on-code.yml`'s path filter.
+
+**Warning signs:**
+- Cloudflare Pages dashboard shows builds firing every 2-6 hours (news cron frequency)
+- Build count exceeds 100 in the first week after go-live
+- `deploy-on-code.yml` run history shows runs triggered by the news scraper commit
+
+**Phase to address:**
+Go-live track — verify anti-loop architecture before enabling the deploy hook.
+
+---
+
+### Pitfall GL-3: AdSense Consent Mode Not Wired Before ADSENSE_ENABLED Flip
+
+**What goes wrong:**
+`ADSENSE_ENABLED` is currently gated (false). Flipping it to true without wiring AdSense Consent Mode violates the EU/GDPR consent requirements that Google enforces since 2024 for AdSense publishers. Google may: (a) disable ad serving on the site, (b) flag the account for policy violation, or (c) require remediation before re-enabling. The site's Spanish-language audience is primarily Chilean (not EU), but the English-language audience includes EU tourists researching Chile travel. The site uses Cloudflare CDN which serves globally — EU users will land on the site.
+
+**Why it happens:**
+Consent Mode is a separate implementation from the AdSense ad tag. Developers enable AdSense and assume consent mode is handled automatically. It is not — it requires explicit implementation of the Google Consent Mode v2 API (gtag consent commands) or a CMP (Consent Management Platform).
+
+**How to avoid:**
+- Before flipping `ADSENSE_ENABLED`, implement the minimum Consent Mode v2: add `gtag('consent', 'default', {...})` calls with `ad_storage: 'denied'` as the default, and a minimal cookie banner that sets consent to 'granted' on user acceptance.
+- The cookie banner must appear for all users (not just EU-detected users) to avoid geolocation detection complexity.
+- Use Google's free Consent Mode integration without a third-party CMP for this budget level — it is sufficient for the traffic volume expected at launch.
+- Add a pre-AdSense checklist item: `[ ] Consent Mode v2 implemented and tested`, `[ ] cookie banner visible on desktop + mobile`, `[ ] ad-storage denied by default until consent granted`.
+- Test with the Google Tag Assistant: verify that `ad_storage: denied` fires on page load before consent, and `granted` fires after.
+
+**Warning signs:**
+- AdSense account shows a "Consent Mode not implemented" warning in the AdSense dashboard
+- No cookie consent banner appears when accessing the site from an incognito window
+- `gtag('consent', ...)` calls are absent from the page source
+
+**Phase to address:**
+Go-live track — Consent Mode must be implemented before `ADSENSE_ENABLED` is set to true in any environment. This was flagged as `adsense-consent-mode-phase6` in STATE.md deferred items.
+
+---
+
+### Pitfall GL-4: Google Search Console Not Submitted for New Index/Comparator Pages
+
+**What goes wrong:**
+The v2.0 index and A-vs-B pages are added to the sitemap, built, and deployed. But GSC is not notified of the new sitemap version. Google's crawler discovers the new pages only when it next recrawls the site (which may take 4–8 weeks for new URL patterns). The A-vs-B pages in particular may be slow to be discovered because they are not yet linked from well-crawled pages (see Pitfall SEO-4).
+
+**Why it happens:**
+Sitemap submission to GSC is a manual step that developers skip because "it's in the sitemap, Google will find it." That is true — eventually. For a site still building its crawl budget and PageRank, manual submission accelerates indexing by weeks.
+
+**How to avoid:**
+- After deploying v2.0, submit the updated sitemap to GSC using the "Sitemaps" tool (both the root sitemap and the ES sitemap if separate).
+- Use the "URL Inspection" tool to request indexing for 5–10 representative A-vs-B pairs within the first week of launch.
+- Monitor GSC "Coverage" for the new A-vs-B URL pattern weekly for the first 4 weeks.
+
+**Warning signs:**
+- GSC shows 0 indexed A-vs-B pages 30 days after launch
+- The sitemap in GSC still shows the old (pre-v2.0) page count
+- "URL Inspection" shows A-vs-B pages as "not indexed" with reason "Discovered — currently not indexed"
+
+**Phase to address:**
+Go-live track, immediately after first v2.0 deploy to production.
+
+---
+
+### Pitfall GL-5: OneDrive Build Desync Corrupts the v2.0 Validation Run
+
+**What goes wrong:**
+This is the documented `OneDrive build artifacts desync` pitfall (memory `onedrive-build-artifacts-desync`). The repo lives inside OneDrive. When `npm run build` and `npm run validate` are run as separate commands, OneDrive syncs `dist/` between the two commands and the validate step reads a partially synced or empty `dist/`. This causes false validator failures, which may cause the developer to skip validation or mark it as "flaky." A new v2.0 schema bug (e.g., broken `featured_rates` migration) is then deployed to production without being caught.
+
+**Why it happens:**
+The build produces many files quickly. OneDrive's real-time sync tries to upload them simultaneously. On slower connections, the sync may interfere with the validate process reading from `dist/`.
+
+**How to avoid:**
+- Always chain build + validate in ONE command: `cd site && npm run build && npm run validate`. This is in STATE.md under Critical Pitfalls but must be re-documented in any v2.0 plan that adds new validators.
+- Any new validator added in Phase 18 (figure-registry update, schema migration check) must be added to the same `npm run validate` chain — not as a separate script to be run independently.
+- In CI (GitHub Actions), the build and validate are not affected by OneDrive (Actions runs in a Linux container) — but local development and local testing are affected.
+
+**Warning signs:**
+- Validator reports "file not found" for files that were just built
+- Running `npm run validate` after `npm run build` in a separate terminal window shows different results than running them together
+- The composite index validation fails locally but passes in CI
+
+**Phase to address:**
+Phase 18 (Composite Index) and Comparator phase — all new validators must be integrated into the chain from the start. Never document a new validator as a standalone command.
 
 ---
 
@@ -222,12 +429,13 @@ Editorial guidelines phase (before template writing). Define a content style gui
 
 | Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
 |----------|-------------------|----------------|-----------------|
-| Commit raw CEAD HTML alongside processed JSON | Skip building a re-parse mechanism | Storage bloat in git repo (hundreds of MB over years) | Acceptable in MVP if you store only the final trimester per year |
-| Single monolithic GeoJSON with all communes | Simpler initial map code | Unmaintainable performance on mobile, hard to do region-level lazy loading | Never for production — simplify geometry before shipping |
-| Hardcode DeepSeek prompt in the scraper script | Faster to write | Cannot A/B test prompts, cannot version or audit prompt changes without code deploys | MVP only, with a TODO to externalize |
-| No incident expiration / TTL in the news JSON | Simpler pipeline | Incident store grows unbounded; old incidents stay on map forever | Never — set a 30-day rolling window from day one |
-| Generate all 700+ pages in one Astro build pass | Simpler build config | Out-of-memory errors if data JSON is loaded all at once into build context | Never — use per-page lazy reads from disk |
-| Apply AdSense before methodology page is ready | Slightly faster to market | High rejection risk, 30-day waiting period between reapplications | Never |
+| Storing index as a float in the commune JSON | Simple to compute | Template accidentally displays spurious precision (e.g., 47.8234) | Never — store as rounded integer from day 1 |
+| Generating all 346×346 A-vs-B pairs | No pair-selection logic to maintain | Exceeds 20K Cloudflare file limit; thin content penalty; build timeout | Never |
+| Using the index without a mandatory caveat block | Cleaner UI | Violates editorial/legal constraint; violates v1.3 figure-attribution requirement | Never |
+| Skipping temporal alignment check for SPD/CEAD/SII | Faster pipeline | Index uses data from different years, silently misleading | Never — one-line assertion is trivial to add |
+| Not updating figure-registry when adding 7 new metrics | Saves time during Phase 18 | figure-registry validator allows orphan figures; next PR adds unattributed figures | Never — update registry in the same commit that adds the metrics |
+| Deploying AdSense before Consent Mode | Faster monetization | Policy violation, ad serving suspended | Never |
+| Min-max normalization without distribution check | Simplest math | Outlier communes compress all others; misleading choropleth | Never for this data — use percentile rank or z-score + winsorization |
 
 ---
 
@@ -235,60 +443,32 @@ Editorial guidelines phase (before template writing). Define a content style gui
 
 | Integration | Common Mistake | Correct Approach |
 |-------------|----------------|------------------|
-| CEAD PHP endpoints | Sending requests without delays, triggering rate limiting or IP blocks on a government server | Use `time.sleep(2-5)` between requests, randomize user-agent, avoid hammering during Chilean business hours |
-| CEAD `descarga=true` Excel endpoint | Assuming the Excel format matches the JSON endpoint structure | Parse and validate both independently; they have different column naming conventions |
-| DeepSeek API | Using the same prompt for both classification and deduplication in a single call | Separate concerns: one prompt for extraction/classification, one for deduplication — easier to debug and iterate |
-| Cloudflare Pages + GitHub Actions | Using GitHub's push event to trigger Pages builds when the workflow commits data | Disable Pages Git integration; deploy explicitly via Wrangler CLI in the workflow |
-| Astro i18n + hreflang | Letting Astro generate hreflang automatically without verifying reciprocal links | Write a build-time validation script that checks every generated page's hreflang consistency |
-| Leaflet + React islands | Importing Leaflet in a non-`client:only` Astro island (Leaflet requires `window`) | Always use `client:only="react"` for Leaflet islands; Leaflet cannot run during SSR |
-
----
-
-## Performance Traps
-
-| Trap | Symptoms | Prevention | When It Breaks |
-|------|----------|------------|----------------|
-| Loading full commune GeoJSON (~222 KB) on mobile | Map takes 8-15s to render; interactions freeze | Simplify geometry to <100 KB; lazy-load communes on zoom | Any mid-range Android phone on 3G |
-| React-Leaflet re-renders GeoJSON on every hover | CPU spike, janky hover highlighting | Memoize style function with `useCallback`; wrap GeoJSON in `useMemo` | With 50+ polygon choropleth, any device |
-| Astro loading all 346 commune JSON files into memory at build time | `JavaScript heap out of memory` during `astro build` | Use `getStaticPaths` with per-route lazy file reads, not a single global import | Sites > 100 programmatic pages |
-| Committing cumulative incident JSON that grows unbounded | Git repo grows to GB over months; clone time degrades CI | Enforce 30-day TTL on incidents; trim before committing | After ~6 months of daily commits |
-| GitHub Actions cron running every 2 hours for RSS even when no new articles | 500 free build minutes/month consumed; no value added | Check for new articles before triggering a rebuild; only rebuild when new unique incidents are found | Immediately on high-frequency cron setup |
-
----
-
-## Security Mistakes
-
-| Mistake | Risk | Prevention |
-|---------|------|------------|
-| Storing DeepSeek API key in the workflow YAML directly | Key exposed in public repo; unauthorized API usage and billing | Store in GitHub Actions Secrets; access via `${{ secrets.DEEPSEEK_API_KEY }}` |
-| No input validation on the commune query parameter if any server-side logic is added later | Injection risk if the project ever adds a server component | Validate all commune identifiers against the canonical list before use |
-| Publishing LLM-extracted incident data without source attribution | Defamation liability if an incident is incorrectly assigned to a location | Every incident pin must link to the original source article; never publish LLM-generated summaries without a source link |
-| Scraping CEAD without rate limiting | Server overload, IP ban, or being seen as a DoS attack on government infrastructure | Minimum 2-second delay between requests; only run full scrapes during off-peak hours (midnight CL time) |
-
----
-
-## UX Pitfalls
-
-| Pitfall | User Impact | Better Approach |
-|---------|-------------|-----------------|
-| Showing absolute crime counts in the commune panel without per-100k rates | Users incorrectly conclude large cities are dramatically more dangerous than small communes | Always display rate per 100k as the primary metric; show absolute count as secondary with a tooltip explaining the difference |
-| Incident pins visible at country zoom level | Map looks covered in dots; the choropleth (the main value) is obscured | Hide individual incident pins below zoom level 10; show cluster counts only; reveal individual pins at commune zoom |
-| English-only error states on a bilingual site | Spanish-first users see error messages in English, breaking trust | All UI states (loading, error, no data, empty) must be translated in both languages from day one |
-| Ranking page with no "minimum population" filter | A commune of 3,000 people with one murder rates as the most dangerous in Chile at 33 per 100k | Apply a minimum population threshold (e.g., 10,000 residents) for national rankings; explain the filter |
-| Choropleth with a linear color scale on skewed data | One outlier commune makes all others look identical (white/pale) | Use quantile or logarithmic color scale; CEAD data is heavily right-skewed |
+| SII PUB_COMU.xlsb (exposure proxy) | Using raw `trabajadores` count as population substitute without the HQ-domicile caveat | Cap at 10x INE population; display both adjusted and unadjusted rates; add HQ caveat to methodology |
+| SPD VHC xlsx (homicide truth) | Joining on commune name string instead of CUT code | Use CUT as join key; the SPD file has commune names with accent/capitalization variations |
+| Cloudflare Pages (CF_DEPLOY_HOOK_URL) | Setting the secret but not testing the first deploy | After setting, push a trivial change and verify CF dashboard shows a new triggered build before merging real work |
+| Google AdSense + Consent Mode v2 | Enabling AdSense ad tag without defaulting `ad_storage: denied` | Implement `gtag('consent', 'default', {ad_storage: 'denied'})` before the AdSense tag; add a consent banner |
+| Astro getStaticPaths (A-vs-B) | Returning all 346×345 pairs without filtering | Use a curated `comparator-pairs.json` allowlist; assert `paths.length < 2000` in the function |
+| Astro i18n + A-vs-B slugs | Using commune name strings in URLs (causes accent/encoding issues and untranslatable ES slugs) | Use CUT codes in URL slugs (e.g., `/compare/13110-vs-13119/`); display names in page content |
+| figure-registry validator | Adding new index metrics to pages without registering them in figure-registry | Update figure-registry.mjs in the same PR that adds the new metric to any template |
 
 ---
 
 ## "Looks Done But Isn't" Checklist
 
-- [ ] **hreflang:** Verify every page has a self-referential tag AND a reciprocal tag on the alternate language version — run the hreflang checker, not just visual inspection
-- [ ] **CEAD scraper validation:** Confirm the scraper fails loudly (non-zero exit, no commit) when the data shape is wrong — test by intentionally breaking a parser assertion
-- [ ] **Choropleth color scale:** Verify the scale uses quantile/log distribution, not linear — inspect whether rural communes with low absolute counts appear meaningfully differentiated
-- [ ] **Cloudflare Pages rebuild loop:** Confirm data-commit actions do NOT trigger automatic Pages rebuilds — check the Pages dashboard build history after the first cron run
-- [ ] **Incident deduplication:** Manually verify that the same incident from two different RSS sources appears as one pin, not two
-- [ ] **Mobile map performance:** Test the choropleth on a real mid-range Android device (not Chrome DevTools emulation) before launch
-- [ ] **Methodology page live before AdSense:** Confirm `/methodology/` (EN) and `/es/metodologia/` (ES) are indexed before submitting the AdSense application
-- [ ] **Rate metric used in rankings:** Run a query against the ranking data — if the top-5 includes Santiago, Maipú, and Puente Alto in every category, you are ranking by frequency not rate
+- [ ] **Composite index editorial framing:** Every page displaying the index has a mandatory caveat block (underreporting, SII HQ-domicile, small-denominator volatility) — verify it renders in both EN and ES
+- [ ] **Forbidden-language CI validator extended:** Validator also catches "safest," "más segura," "most dangerous," "más peligrosa" as absolute (not just "safe/dangerous") — run on generated composite index pages
+- [ ] **Normalization distribution check:** Assert that the 25th percentile of index scores is >10% of the maximum — if not, outlier distortion is present
+- [ ] **SII exposure cap:** Assert no commune has `sii_workers > ine_population * 10` — catches wrong joins or missing HQ-domicile filter
+- [ ] **tipoVal assertion:** Cross-check new CEAD fetches against existing `featured_rates` national totals — agree within 5%
+- [ ] **Schema migration complete:** All 5+ consumers of `featured_rates` (commune panel, choropleth, Astro template, figure-registry, pytest) updated and verified with the new 7-metric schema
+- [ ] **A-vs-B page count:** `getStaticPaths` returns fewer than 2,000 entries; build produces fewer than 18,000 total files
+- [ ] **A-vs-B hreflang reciprocity:** Every EN A-vs-B page has a corresponding ES page, and both hreflang to each other — run hreflang validator on a 10% sample
+- [ ] **A-vs-B internal links:** Every generated A-vs-B page is linked from at least one other page in the build output
+- [ ] **CF_DEPLOY_HOOK_URL verified:** After setting the secret, a test push triggered a Cloudflare build — confirm in CF dashboard before merging v2.0
+- [ ] **Rebuild loop check:** After first news cron run post-go-live, confirm CF build count did NOT increment from the data commit
+- [ ] **AdSense Consent Mode:** `gtag('consent', 'default', {ad_storage: 'denied'})` fires before AdSense tag on first page load — verify in Network tab and Tag Assistant
+- [ ] **SPD/CEAD/SII year alignment:** Pipeline assertion confirms all three sources use the same reference year before index is computed
+- [ ] **Index precision:** No rendered page shows the index to more than 1 decimal place — grep the built HTML for patterns like `\d+\.\d{2,}`
 
 ---
 
@@ -296,12 +476,15 @@ Editorial guidelines phase (before template writing). Define a content style gui
 
 | Pitfall | Recovery Cost | Recovery Steps |
 |---------|---------------|----------------|
-| Google deindexes programmatic pages for thin content | HIGH (weeks of recovery time) | Add content depth to template, request removal of affected URLs from GSC, resubmit sitemap, wait 4-8 weeks for re-evaluation |
-| CEAD scraper serves stale data silently | MEDIUM | Re-run scraper with validation, restore previous good JSON from git history, audit all scraped fields against current CEAD UI |
-| Cloudflare Pages build credit exhausted | LOW | Upgrade to paid plan ($20/mo) or pause rebuilds until next billing cycle; switch to Wrangler CLI deploy immediately |
-| LLM assigns incidents to wrong communes at scale | HIGH (trust/reputation damage) | Add confidence filtering, mark all existing incidents as "unverified," re-process with corrected prompt, display "source" links prominently |
-| AdSense rejected | MEDIUM | Revise editorial framing, ensure methodology page is live, wait 30 days, reapply with manual review request |
-| CEAD endpoint permanently changes or disappears | HIGH | Contact CEAD directly (spd-cead@minsegpublica.gob.cl); check datos.gob.cl for official dataset exports; fall back to Excel download endpoint; document that data is frozen at last successful scrape |
+| Index implies absolute safety verdict — editorial blowback | HIGH (reputational; requires methodology rewrite + re-crawl) | Add mandatory caveat blocks; rename index to "reported crime burden"; request GSC re-crawl; update og:descriptions |
+| Min-max normalization outlier distortion — choropleth useless | MEDIUM (data pipeline fix + rebuild) | Switch to percentile rank; recompute index; rebuild; redeploy; takes 1-2 days |
+| SII HQ-domicile distortion discovered after launch | MEDIUM (methodology update + partial recompute) | Add cap + caveat; recompute affected communes; update methodology page; publish correction note |
+| Schema migration breaks commune panel — live site shows undefined | HIGH (user-facing; immediate rollback needed) | Revert `featured_rates` to previous schema in git; redeploy; fix migration; re-deploy |
+| A-vs-B pages deindexed for thin content | HIGH (4-8 week recovery) | Add content depth to template; remove thin pages from sitemap; request removal in GSC; wait for re-evaluation |
+| A-vs-B page count exceeds Cloudflare limit | MEDIUM (build fails; no user impact yet) | Reduce pair allowlist to <18,000 total files; rebuild; redeploy |
+| CF_DEPLOY_HOOK_URL never set — site stale post-merge | LOW (ops task) | Set secret in GitHub repo settings; trigger manual CF deploy from dashboard; takes <1 hour |
+| AdSense disabled for missing Consent Mode | MEDIUM (monetization loss during remediation) | Implement Consent Mode v2; submit for policy review; 1-2 week remediation cycle |
+| Rebuild loop burns Cloudflare build quota | LOW (ops; no user impact) | Identify triggering workflow; change trigger to `schedule` or `workflow_dispatch`; remaining quota resets at month boundary |
 
 ---
 
@@ -309,40 +492,38 @@ Editorial guidelines phase (before template writing). Define a content style gui
 
 | Pitfall | Prevention Phase | Verification |
 |---------|------------------|--------------|
-| Thin content penalty on programmatic pages | Template design (pre-generation) | Deploy 10 sample pages, verify GSC indexes them within 4 weeks |
-| CEAD endpoint schema drift / silent failure | Scraper implementation | Intentionally break a field, confirm pipeline fails loudly and does not commit |
-| GitHub Actions infinite rebuild loop | CI/CD setup | Check Cloudflare Pages dashboard after first cron run — build count should not increment |
-| LLM commune hallucination | News pipeline design | Manual audit of 50 extracted incidents against source articles |
-| Frequency vs. rate ranking error | Data processing layer | Query the ranking output — top-5 must not be dominated by largest-population communes |
-| hreflang misconfiguration | Astro i18n setup | Run hreflang checker tool on all generated pages before full deployment |
-| Leaflet GeoJSON mobile performance | Map component implementation | Test on real mid-range Android at 3G before declaring done |
-| News incident deduplication failure | RSS pipeline design | Publish a breaking national story, verify it appears as one pin from 5 sources |
-| AdSense rejection for sensitive content | Editorial guidelines + methodology page | Methodology page live and indexed; homepage framing review before applying |
-| Territorial stigmatization / legal risk | Editorial guidelines | Automated build check for forbidden superlative language in og:title and meta descriptions |
+| CI-1: Index implies absolute verdict | Phase 18 (Composite Index) — editorial framing step | Forbidden-language CI validator run on all index pages |
+| CI-2: Normalization outlier distortion | Phase 18 — normalization validation step | pytest: 25th percentile > 10% of max; choropleth preview |
+| CI-3: SII HQ-domicile distortion | Phase 18 — SII join + cap logic | pytest: no commune `sii_workers > ine_population * 10`; methodology caveat present |
+| CI-4: CEAD tipoVal double-count | Phase 18 — pipeline plan | Cross-check assertion vs existing `featured_rates` national total |
+| CI-5: Spurious precision | Phase 18 — schema design | grep built HTML for `\d+\.\d{2,}` in index display contexts |
+| CI-6: Schema migration breaks consumers | Phase 18 — migration checklist | All 5 consumers verified; TypeScript types pass `@astrojs/check`; all 12 validators green |
+| CI-7: SPD/CEAD/SII temporal misalignment | Phase 18 — pipeline assertions | pytest: `spd_year == cead_year == sii_year` assertion passes |
+| CI-8: Micro-commune choropleth distortion | Phase 18 — color scale logic | Choropleth preview: distribution check; >3 color bands visible for >80% of communes |
+| SEO-1: A-vs-B page count explosion | Comparator phase — pair selection design | `getStaticPaths.length < 2000`; total build files < 18,000 |
+| SEO-2: A-vs-B thin content | Comparator phase — content schema design | 400+ words of non-swappable content per pair; 10-page GSC indexing test |
+| SEO-3: A-vs-B hreflang reciprocity | Comparator phase — slug strategy + validator extension | Hreflang validator run on 10% sample of generated A-vs-B pages |
+| SEO-4: A-vs-B orphan pages | Comparator phase — internal linking design | Site crawl: every A-vs-B page has ≥1 incoming internal link |
+| GL-1: CF_DEPLOY_HOOK_URL unset | Go-live track — step 1 | CF dashboard shows triggered build after test push |
+| GL-2: Rebuild loop reintroduced | Go-live track — workflow audit | CF build count does not increment on data-only commits |
+| GL-3: AdSense Consent Mode missing | Go-live track — pre-AdSense checklist | Tag Assistant: `ad_storage: denied` on page load before consent |
+| GL-4: GSC not submitted for new pages | Go-live track — post-deploy | GSC sitemap shows updated page count; representative A-vs-B URLs requested for indexing |
+| GL-5: OneDrive build desync | Phase 18 + Comparator phase — validator integration | All validators run inside single chained command; no standalone validator scripts documented |
 
 ---
 
 ## Sources
 
-- [The Hidden Dangers of Programmatic SEO — AirOps](https://www.airops.com/blog/hidden-dangers-of-programmatic-seo)
-- [Programmatic SEO Traffic Cliff Guide — Passionfruit](https://www.getpassionfruit.com/blog/programmatic-seo-traffic-cliff-guide)
-- [Programmatic SEO Mistakes: 9 Reasons Your Pages Aren't Ranking — SEOmatic](https://seomatic.ai/blog/programmatic-seo-mistakes)
-- [Common Hreflang Mistakes — Search Engine Journal](https://www.searchenginejournal.com/ask-an-seo-what-are-the-most-common-hreflang-mistakes/556455/)
-- [Beyond the Surface: Uncovering Implicit Locations with LLMs — arXiv](https://arxiv.org/pdf/2502.14660)
-- [Missing the Community for the Dots: Newspaper Crime Maps and Territorial Stigma — Springer](https://link.springer.com/article/10.1007/s10612-023-09720-w)
-- [How to Render Huge GeoJSON Datasets on a Map — Medium](https://danw1ld.medium.com/how-to-render-huge-geojson-datasets-on-a-map-part-2-be1edf555034)
-- [React Leaflet Map Performance Issues — tmsvr.com](https://tmsvr.com/react-leaflet-map-performance-issues/)
-- [Scheduled Builds for Cloudflare Deployments with GitHub Actions — Medium](https://medium.com/medialesson/scheduled-builds-for-cloudflare-deployments-with-github-actions-93341a112432)
-- [Cloudflare Pages Limits — Official Docs](https://developers.cloudflare.com/pages/platform/limits)
-- [AdSense Program Policies — Google](https://support.google.com/adsense/answer/48182?hl=en)
-- [Understanding Crime Rates — PlainCrime](https://plaincrime.com/guides/understanding-crime-rates)
-- [More crime in cities? On the scaling laws of crime — arXiv](https://arxiv.org/pdf/2012.15368)
-- [Get Reliable JSON from LLMs — GenAI Unplugged](https://genaiunplugged.substack.com/p/structured-outputs-json-prompts-guide)
-- [Criminal Defamation Laws in South America — CPJ](https://cpj.org/reports/2016/03/south-america/)
-- [Tutorial R datos delincuencia Chile (CEAD) — GitHub](https://github.com/bastianolea/tutorial_r_datos_delincuencia)
-- [Articles deduplication — Newscatcher API](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/articles-deduplication)
-- [Scaling Astro to 10,000+ Pages — Astro Blog](https://astro.build/blog/experimental-static-build/)
+- `.planning/PROJECT.md` — v2.0 milestone context, editorial constraints, key decisions, SEED-001 locked constraints
+- `.planning/STATE.md` — Phase 17 Wave-0 decisions (tipoVal, SII HQ caveat, SPD VHC source), Critical Pitfalls to Avoid, deploy-hook gap, OneDrive desync, localized-slug pitfall
+- `CLAUDE.md` — Cloudflare Pages 20K file limit, What NOT to Use, forbidden-language constraint
+- Memory `prod-deploy-hook-secret-gap` — CF_DEPLOY_HOOK_URL gap history
+- Memory `onedrive-build-artifacts-desync` — build+validate chaining requirement
+- Memory `i18n-localized-slug-pitfall` — getRelativeLocaleUrl does not translate ES slugs
+- Memory `astro-script-no-expr-interpolation` — Astro template data-passing constraints
+- Prior v1.0 PITFALLS.md (2026-06-12) — thin content, hreflang, rebuild loop, editorial stigmatization (foundational; apply to v2.0 by extension)
+- Google AdSense Consent Mode v2 requirements (2024 enforcement) — ad_storage default denied requirement
 
 ---
-*Pitfalls research for: bilingual crime-data visualization + programmatic SEO platform (Chile Safety Map / ischilesafe.com)*
-*Researched: 2026-06-12*
+*Pitfalls research for: v2.0 Composite Index, Commune Comparator, A-vs-B SEO, Go-live — Chile Safety Map*
+*Researched: 2026-06-19*
