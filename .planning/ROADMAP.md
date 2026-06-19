@@ -241,7 +241,7 @@ Plans:
   3. The pipeline runs for real (gated by the human go-live `DEEPSEEK_API_KEY`/`MINIMAX_API_KEY` step) producing `data/incidents/current.json`; the map incident layer and the comuna-page "recent incidents" section render real, correctly-geolocated incidents with no console errors.
   4. Each incident links to its source article ↗ AND back to its comuna page; a dedicated news/incidents page exists (bilingual); a data-freshness indicator ("updated …") is shown; all incidents cite and link the press source per editorial policy.
 
-**Plans:** 3/5 plans executed
+**Plans:** 4/5 plans executed
 
 Plans:
 **Wave 1**
@@ -258,7 +258,7 @@ Plans:
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
-- [ ] 16-04-PLAN.md — Surfacing: incident→source + incident→comuna links, bilingual /news/ + /es/noticias/, nav/i18n/sitemap (NEWS-04)
+- [x] 16-04-PLAN.md — Surfacing: incident→source + incident→comuna links, bilingual /news/ + /es/noticias/, nav/i18n/sitemap (NEWS-04)
 
 **Wave 5** *(blocked on Wave 4 completion)*
 
@@ -304,7 +304,7 @@ Plans:
 | 14. Homicide as a First-Class Category | v1.2 | 6/6 | Complete   | 2026-06-16 |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 2/2 | Complete   | 2026-06-16 |
 | 17. Data Quality, Source Traceability & Methodology | v1.2 | 5/5 | Complete   | 2026-06-19 |
-| 16. News Activation + Geolocation + Model A/B | v1.2 | 3/5 | In Progress|  |
+| 16. News Activation + Geolocation + Model A/B | v1.2 | 4/5 | In Progress|  |
 
 ## Backlog
 
