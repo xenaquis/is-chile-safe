@@ -144,7 +144,7 @@ This document evolves at phase transitions and milestone boundaries.
 
 ## Current State
 
-**Shipped:** v1.0 MVP (2026-06-13, 6 phases) → v1.1 Polish & QA (2026-06-15, Phases 7–9) → **v1.2 Map Fidelity, Findability & News (2026-06-18, Phases 10–17)**. v1.2 closed via `/gsd-autonomous` (Phase 17 then 16); audit tech_debt / 0 blockers. Next: proposed Phase 18 (Composite Crime Index) + go-live.
+**Shipped:** v1.0 MVP (2026-06-13, 6 phases) → v1.1 Polish & QA (2026-06-15, Phases 7–9) → **v1.2 Map Fidelity, Findability & News (2026-06-18, Phases 10–17)**. v1.2 closed via `/gsd-autonomous` (Phase 17 then 16); audit tech_debt / 0 blockers. **v2.0 in progress: Phase 18 (Composite Crime Index) complete + verified 2026-06-19** (8/8 plans incl. 3 gap-closure; verification passed 5/5; CI-01..CI-10 met) and Phase 21 (comparator) complete; next: Phase 22 go-live.
 
 **Stack as built:** Astro 6.4 + React islands + Leaflet (frontend, `site/`); Python 3.12 pipeline (CEAD scraper + RSS/DeepSeek news + name→CUT resolver + A/B harness, `pipeline/`, Pydantic v2, pytest 158 green); JSON-in-repo data store (incl. `data/SOURCES.md`, `data/snapshots/`, `data/incidents/current.json`); GitHub Actions cron + Cloudflare Pages Deploy-Hook deploy. 792 pages build clean under the 20K Cloudflare limit; 12 frontend validators + pipeline tests green.
 
@@ -153,4 +153,4 @@ This document evolves at phase transitions and milestone boundaries.
 **Not yet live:** the site is not deployed — go-live requires a Cloudflare account, DNS for `ischilesafe.com`, and the `DEEPSEEK_API_KEY` / `CF_DEPLOY_HOOK_URL` secrets (all in `DEPLOYMENT.md`). That single human step also unblocks the news live-run + 50-incident audit and AdSense activation.
 
 ---
-*Last updated: 2026-06-19 — v2.0 Composite Index, Comparators & Launch milestone started (3 tracks: composite index / comparator+A-vs-B SEO / go-live)*
+*Last updated: 2026-06-19 — Phase 18 (Composite Crime Index) complete + verified (5/5); v2.0 remaining: Phase 22 go-live*
