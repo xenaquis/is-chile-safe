@@ -2,8 +2,8 @@
 phase: 23
 slug: enusc-communal-victimization-layer
 status: draft
-nyquist_compliant: false
-wave_0_complete: false
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-06-19
 ---
 
@@ -83,4 +83,4 @@ created: 2026-06-19
 - [ ] Feedback latency < 60s
 - [ ] `nyquist_compliant: true` set in frontmatter
 
-**Approval:** pending
+**Approval:** approved (Wave 0 test stubs folded into 23-01 Task1 + 23-02 Task1 as RED-first tasks; commune.mjs extension in 23-03 Task3)

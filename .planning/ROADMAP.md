@@ -155,7 +155,11 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
   4. The 210 non-covered comunas render an explicit bilingual "no ENUSC victimization estimate for this comuna (coverage: 136 comunas)" note with no broken layout and no implied value.
   5. Every new figure is registered in the F-series figure registry (zero-orphan passes) and documented in SOURCES.md + EN/ES methodology pages (source, SAE method, experimental status, coverage limitation, victimization ≠ reported-crime distinction); a verification confirms the composite index and all Phase-18 outputs are byte-unchanged (additive-only).
 
-**Plans**: TBD (run `/gsd:plan-phase 23`)
+**Plans**: 4 plans
+- [ ] 23-01-PLAN.md — ENUSC VHDV fetcher (sha256-guarded ingest) + committed snapshot + ATTRIBUTION (VL-01, VL-02)
+- [ ] 23-02-PLAN.md — Additive enrichment of comuna JSONs + byte-unchanged guard + GitHub Actions wiring (VL-01, VL-02, VL-05)
+- [ ] 23-03-PLAN.md — EN/ES commune-page VHDV module + no-estimate fallback + i18n + type + commune validator (VL-03, VL-04)
+- [ ] 23-04-PLAN.md — F16 registry + SOURCES.md + EN/ES methodology + full-suite byte-unchanged gate (VL-05)
 **UI hint**: yes
 
 ---
@@ -166,5 +170,5 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 |-------|----------------|--------|-----------|
 | 18. Composite Crime Index | 8/8 | Complete    | 2026-06-19 |
 | 21. Commune Comparator + A-vs-B SEO | 0/TBD | Not started | - |
-| 23. ENUSC Communal Victimization Layer | 0/TBD | Not started (runs before 22) | - |
+| 23. ENUSC Communal Victimization Layer | 0/4 | Planned (runs before 22) | - |
 | 22. Go-Live / Launch Ops | 0/TBD | Not started (gated after 23) | - |
