@@ -123,6 +123,24 @@ def test_whitespace_only_url_raises_validation_error():
         IncidentRecord.model_validate(_valid_incident(url="   "))
 
 
+def test_javascript_url_raises_validation_error():
+    """CR-01: javascript: scheme must be rejected to prevent XSS in Astro pages."""
+    with pytest.raises(ValidationError, match="url"):
+        IncidentRecord.model_validate(_valid_incident(url="javascript:alert(1)"))
+
+
+def test_data_url_raises_validation_error():
+    """CR-01: data: scheme must be rejected."""
+    with pytest.raises(ValidationError, match="url"):
+        IncidentRecord.model_validate(_valid_incident(url="data:text/html,<script>alert(1)</script>"))
+
+
+def test_http_url_accepted():
+    """CR-01: plain http:// URLs are accepted."""
+    record = IncidentRecord.model_validate(_valid_incident(url="http://example.com/article"))
+    assert record.url == "http://example.com/article"
+
+
 # ---------------------------------------------------------------------------
 # ClassifierOutput — commune_name + region_hint (NEWS-01 redesign)
 # ---------------------------------------------------------------------------

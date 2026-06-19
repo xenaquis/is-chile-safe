@@ -76,6 +76,8 @@ class IncidentRecord(BaseModel):
     def url_must_not_be_empty(cls, v: str) -> str:
         if not v.strip():
             raise ValueError("url must not be empty (NEWS-05)")
+        if not (v.startswith("http://") or v.startswith("https://")):
+            raise ValueError(f"url must be http/https scheme, got: {v!r} (NEWS-05)")
         return v
 
 

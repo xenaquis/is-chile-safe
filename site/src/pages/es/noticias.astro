@@ -103,7 +103,7 @@ const jsonLd = {
             </div>
             <div class="incident-links">
               <a
-                href={incident.url}
+                href={incident.url.startsWith('http://') || incident.url.startsWith('https://') ? incident.url : '#'}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="incident-source"
