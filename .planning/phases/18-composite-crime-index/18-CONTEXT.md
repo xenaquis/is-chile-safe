@@ -48,6 +48,11 @@ Deliver an exposure-adjusted **0–100 composite crime-exposure index per comuna
 - Map-payload `ci` field encoding (level 1–5; omitted for pre-2018 years) — research-recommended, planner finalizes.
 - `comparator_table.json` exact schema/field set (must carry `composite_index` per commune for Phase 21).
 
+### Planning-Time Confirmations (2026-06-19, user-locked during plan-phase)
+- **C-01 (resolves Open Q1/Q2):** Composite uses exactly these **7 metrics, incivilidades EXCLUDED** — M1 `spd_homicide_rate`, M2 `cead_vida_rate` (excl. homicide), M3 `cead_robos_rate`, M4 `cead_propiedad_rate`, M5 `cead_vif_rate`, M6 `cead_drogas_rate`, M7 `cead_armas_rate`. `incivilidades` remains in the per-family breakdown but is NOT a composite input.
+- **C-02 (resolves D-02 weight vector):** Severity-weighted vector **locked** (sum = 1.00): `spd_homicide_rate` 0.30, `cead_robos_rate` 0.20, `cead_vida_rate` 0.15, `cead_propiedad_rate` 0.12, `cead_vif_rate` 0.10, `cead_drogas_rate` 0.08, `cead_armas_rate` 0.05. Document verbatim in `composite_config.py` + `data/SOURCES.md` + both methodology pages.
+- **C-03 (resolves Open Q3):** Pre-compute `regional_rank` alongside national `rank` in `build_composite_index.py`; store both in the `composite_index[year]` entry (CI-05 requires national + regional rank).
+
 ### Reviewed Todos (not folded)
 - `adsense-consent-mode-phase6.md` — matched on generic keywords only; AdSense + Consent Mode are explicitly **deferred out of v2.0** (Phase 22 note). Not folded into Phase 18.
 
