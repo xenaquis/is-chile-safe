@@ -89,7 +89,12 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
   3. The pipeline's `build_composite_index.py` step runs in isolation after the CEAD scraper and writes `data/cead/comparator_table.json` without breaking the existing CEAD scraper if it fails; a pytest distribution assertion confirms the index spread (25th percentile > 10% of max score) proving winsorization or percentile-rank normalization was applied.
   4. The CI forbidden-language validator (extended in this phase) flags "safest / most dangerous / más segura / más peligrosa" without a qualifying "reported / reportado" qualifier, and `npm run validate` exits 0 on the full build — confirming no absolute verdict is emitted anywhere.
   5. `@astrojs/check` passes on all TypeScript types; every consumer of `featured_rates` (commune panel, choropleth, Astro templates, figure-registry validator, pytest) is verified non-breaking after the additive schema migration; EN + ES methodology pages document the formula, normalization method, SPD VHC switch, and SII exposure caveat with every new figure registered (figure-registry zero-orphan passes).
-**Plans**: TBD
+**Plans**: 5 plans
+  - [ ] 18-01-PLAN.md — Composite index compute core: scipy + config + normalize/SII-cap/year-align + build_composite_index.py + comparator_table.json + tests
+  - [ ] 18-02-PLAN.md — Extract build_map_payload.py (ci field, 30 KB assertion); strip scrape_cead.py; three-step GitHub Actions order
+  - [ ] 18-03-PLAN.md — Choropleth index-mode toggle (default): ci on CommunaPayload + buildStyleMapFromCompositeIndex + MapIsland toggle + legend
+  - [ ] 18-04-PLAN.md — Index display surfaces: ResultPanel + EN/ES commune pages, integer score + bands + national/regional rank + always-visible caveat
+  - [ ] 18-05-PLAN.md — Editorial + docs gate: forbidden-language extension, F13/F14 figure-registry, SOURCES.md + methodology pages, full non-breaking validator suite
 **UI hint**: yes
 
 ### Phase 21: Commune Comparator + A-vs-B SEO
@@ -123,6 +128,6 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 18. Composite Crime Index | 0/TBD | Not started | - |
+| 18. Composite Crime Index | 0/5 | Planned | - |
 | 21. Commune Comparator + A-vs-B SEO | 0/TBD | Not started | - |
 | 22. Go-Live / Launch Ops | 0/TBD | Not started | - |
