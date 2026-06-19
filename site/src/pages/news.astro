@@ -11,11 +11,12 @@
  */
 import EditorialLayout from '../layouts/EditorialLayout.astro';
 import { existsSync, readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dataPath = path.resolve(__dirname, '../../../data/incidents/current.json');
+// Resolve from the synced public copy via process.cwd() (= site/ during `astro build`).
+// import.meta.url is unreliable at build time — compiled chunk locations differ per page,
+// which previously made EN resolve to a missing path and render empty (bilingual drift).
+const dataPath = path.resolve(process.cwd(), 'public/data/incidents/current.json');
 
 let generated: string | null = null;
 let incidents: Array<{
