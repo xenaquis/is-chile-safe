@@ -125,6 +125,16 @@ def _run_scoring(provider: str, golden_path: pathlib.Path, output_path: pathlib.
 
     golden: list[dict] = json.loads(golden_path.read_text(encoding="utf-8"))
 
+    # IN-02: validate golden set consistency — warn if commune_name is set but cut is missing
+    for item in golden:
+        gt = item["ground_truth"]
+        if gt.get("commune_name") is not None and not gt.get("cut"):
+            print(
+                f"[ab_score] WARNING: item {item['id']!r} has commune_name "
+                f"{gt['commune_name']!r} but no cut — commune_accuracy will be wrong for this item",
+                file=sys.stderr,
+            )
+
     labelled_items = [item for item in golden if item["ground_truth"]["commune_name"] is not None]
     null_items = [item for item in golden if item["ground_truth"]["commune_name"] is None]
 

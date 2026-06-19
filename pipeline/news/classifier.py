@@ -67,6 +67,12 @@ else:
 # ---------------------------------------------------------------------------
 
 _INDEX_FILE = pathlib.Path(__file__).parents[2] / "data" / "cead" / "meta" / "index.json"
+if not _INDEX_FILE.exists():
+    raise FileNotFoundError(
+        f"index.json not found at {_INDEX_FILE}. "
+        "Run the CEAD scraper first (python pipeline/scrape_cead.py) to generate "
+        "data/cead/meta/index.json before importing the classifier."
+    )
 _INDEX: list[dict] = json.loads(_INDEX_FILE.read_text(encoding="utf-8"))
 _COMMUNE_LIST_STR: str = "\n".join(
     f"{entry['name']} (region_id:{entry['region_id']})" for entry in _INDEX
