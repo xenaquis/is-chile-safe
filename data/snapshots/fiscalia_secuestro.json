@@ -1,0 +1,37 @@
+{
+  "source": "Fiscalia de Chile — Boletin Estadistico / Informe de Fenomenos Criminales: Secuestro",
+  "source_url": "https://www.fiscaliadechile.cl/persecucion-penal/estadisticas",
+  "vintage": "2023-2024",
+  "fetched": "2026-06-19T00:43:35Z",
+  "caveat": "Regional granularity only: Fiscalia regions do NOT map 1:1 to administrative regions (RM is split into multiple fiscalias: RM Sur, RM Centro Norte, RM Oriente, etc.). No downloadable commune-level dataset was found (reports are PDFs); commune-level secuestro data is deferred to S5b / Phase 18. This snapshot embeds static figures extracted manually from the Fiscalia Boletin Estadistico PDF (Wave 0 spike S5, 2026-06-18). REFERENCE-ONLY — not wired to any displayed metric.",
+  "records": [
+    {
+      "region": "Nacional",
+      "year": 2023,
+      "secuestros": 850
+    },
+    {
+      "region": "Nacional",
+      "year": 2024,
+      "secuestros": 868
+    },
+    {
+      "region": "RM Sur (Fiscalia)",
+      "year": 2024,
+      "secuestros": null,
+      "note": "Top region 2024; exact count not extracted from PDF in Wave 0"
+    },
+    {
+      "region": "RM Centro Norte (Fiscalia)",
+      "year": 2024,
+      "secuestros": null,
+      "note": "Top region 2024; exact count not extracted from PDF in Wave 0"
+    },
+    {
+      "region": "Valparaiso (Fiscalia)",
+      "year": 2024,
+      "secuestros": null,
+      "note": "Top region 2024; exact count not extracted from PDF in Wave 0"
+    }
+  ]
+}
