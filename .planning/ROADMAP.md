@@ -8,7 +8,7 @@ _Last updated: 2026-06-19 — v2.0 Composite Index, Comparators & Launch (Phases
 - ✅ **v1.1 Polish & QA** — Phases 7–9 (shipped 2026-06-15) — full detail: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
 - ✅ **v1.2 Map Fidelity, Findability & News** — Phases 10–17 (shipped 2026-06-18) — full detail: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 - ✅ **v1.3 Data Quality Hardening & Methodology** — Phases 19–20 (shipped 2026-06-19) — _(Phase 18 deliberately reserved for Composite Crime Index)_
-- 🔄 **v2.0 Composite Index, Comparators & Launch** — Phases 18, 21, 22 (in progress)
+- 🔄 **v2.0 Composite Index, Comparators & Launch** — Phases 18, 21, 23, 22 (in progress; Phase 23 ENUSC victimization layer added from SEED-002, runs before go-live)
 
 > **Phase numbering note:** Phase 18 is the RESERVED slot for the Composite Crime Index (intentional gap in v1.3 which used 19 + 20). The comparator follows at Phase 21 and go-live at Phase 22. There is no Phase 19 or 20 in this milestone — those are archived v1.3 phases.
 
@@ -72,7 +72,8 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 - [~] **Phase 18: Composite Crime Index** — exposure-adjusted 0–100 index, SPD VHC homicide switch, schema migration, index-driven choropleth _(RESERVED number; highest-risk phase — plan interactively)_ (executed 2026-06-19; verified gaps_found — 3 gap-closure plans 18-06..18-08 pending execution)
 - [x] **Phase 21: Commune Comparator + A-vs-B SEO** — interactive comparator island + ~6,800 bilingual A-vs-B programmatic pages built on Phase 18 outputs _(depends on Phase 18)_ (completed 2026-06-19)
-- [ ] **Phase 22: Go-Live / Launch Ops** — CF deploy hook, production deploy, live news audit, GSC submission _(parallel with Phase 21; no code dependency)_
+- [ ] **Phase 23: ENUSC Communal Victimization Layer** — additive INE ENUSC 2024 SAE household-victimization (VHDV) figure on the 136 covered comuna pages, graceful "no estimate" for the other 210; anti-infra-representation, additive-only vs Phase 18 _(depends on Phase 18 + 17; **runs BEFORE Phase 22**)_ — origin SEED-002
+- [ ] **Phase 22: Go-Live / Launch Ops** — CF deploy hook, production deploy, live news audit, GSC submission _(parallel with Phase 21; no code dependency; **gated after Phase 23** per SEED-002)_
 
 ---
 
@@ -136,6 +137,27 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 **Plans**: TBD
 
+### Phase 23: ENUSC Communal Victimization Layer
+
+**Sequence note**: Runs **BEFORE Phase 22 (Go-Live)** — the SEED-002 motivation is to not launch infra-representing reported crime. Numbered 23 (sequential), sequenced ahead of 22.
+**Goal**: Each of the 136 ENUSC-covered comuna pages additionally displays INE's ENUSC 2024 communal household violent-crime victimization (VHDV) figure as a clearly-labeled experimental / SAE-modeled estimate shown **alongside (never merged into)** the CEAD composite index, while the 210 uncovered comunas degrade gracefully to an explicit "no estimate" caveat — robustifying the site against reported-crime infra-representation **without altering any Phase-18 locked decision**.
+**Depends on**: Phase 18 (composite index, F-series figure registry zero-orphan, SOURCES.md discipline) and Phase 17 (name→CUT resolver)
+**Origin**: SEED-002 feasibility study (Design A) — `.planning/research/SEED-002-FINDINGS.md`, spikes 004–007
+**Requirements**: VL-01, VL-02, VL-03, VL-04, VL-05
+**Key constraints**: additive/versioned only (composite + all Phase-18 outputs byte-unchanged); comuna unit = 346; CEAD rates already per-100k (do not rescale); ~$0 infra; EN/ES parity; SEO-static; never an absolute seguro/peligroso verdict; every figure attributed + caveated.
+**Ingestion decision** (user-approved): **manual/assisted annual versioned snapshot** of the ENUSC SAE VHDV Excel checked into the repo with provenance (source URL, retrieval date, INE experimental disclaimer, checksum) — **not** a brittle recurring cron scraper. The Excel sits behind INE's JS "Cuadros Estadísticos" widget (`https://www.ine.gob.cl/estadisticas/estadisticas-experimentales/seguridad-ciudadana`) with **no stable static URL**. Metodología PDF: `http://www.ine.gob.cl/docs/default-source/estadisticas-experimentales-seguridad-ciudadana/publicaciones-y-anuarios/2024/presentación-metodología-sae--enusc-2024.pdf`. ArcGIS map: `https://experience.arcgis.com/experience/53d8caa5ab904894bb9b52ba6189c5cf`.
+**Research flag**: First execution task is to drill the INE widget once, download the VHDV Excel, and verify its real schema (CUT mapping, value/unit, presence of CV/precision columns, exact 136-comuna list) — the plan must be grounded on the actual file, not assumptions.
+**Success Criteria** (what must be TRUE):
+
+  1. A new isolated pipeline step ingests the ENUSC 2024 SAE VHDV Excel from a versioned in-repo snapshot into a data artifact with provenance (source URL, retrieval date, INE experimental disclaimer, checksum); it runs after the CEAD scraper and fails gracefully without breaking the CEAD pipeline if absent/malformed.
+  2. The 136 covered comunas map to valid CUT codes (reusing the existing name→CUT resolver); a build-time assertion confirms every ingested row resolves to a valid CUT and the coverage count equals the published N (~136); unresolved rows fail the build loudly.
+  3. Each covered comuna page (EN + ES) shows the VHDV victimization figure with value + reference year (2024) + a mandatory bilingual caveat labeling it an INE experimental, SAE-modeled estimate distinct from CEAD reported-crime — never an absolute verdict; the forbidden-language validator exits 0.
+  4. The 210 non-covered comunas render an explicit bilingual "no ENUSC victimization estimate for this comuna (coverage: 136 comunas)" note with no broken layout and no implied value.
+  5. Every new figure is registered in the F-series figure registry (zero-orphan passes) and documented in SOURCES.md + EN/ES methodology pages (source, SAE method, experimental status, coverage limitation, victimization ≠ reported-crime distinction); a verification confirms the composite index and all Phase-18 outputs are byte-unchanged (additive-only).
+
+**Plans**: TBD (run `/gsd:plan-phase 23`)
+**UI hint**: yes
+
 ---
 
 ## Progress Table
@@ -144,4 +166,5 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 |-------|----------------|--------|-----------|
 | 18. Composite Crime Index | 8/8 | Complete    | 2026-06-19 |
 | 21. Commune Comparator + A-vs-B SEO | 0/TBD | Not started | - |
-| 22. Go-Live / Launch Ops | 0/TBD | Not started | - |
+| 23. ENUSC Communal Victimization Layer | 0/TBD | Not started (runs before 22) | - |
+| 22. Go-Live / Launch Ops | 0/TBD | Not started (gated after 23) | - |

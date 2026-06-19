@@ -42,6 +42,16 @@
 - [ ] **GL-03**: A live news pipeline run executes (`DEEPSEEK_API_KEY` secret) followed by a 50-incident commune-assignment hallucination audit.
 - [ ] **GL-04**: An updated sitemap is submitted to Google Search Console immediately after first deploy, with URL Inspection on 5–10 representative comuna + A-vs-B pages.
 
+### Track 4 — ENUSC Communal Victimization Layer (→ Phase 23, runs before Phase 22)
+
+_Origin: SEED-002 feasibility study (Design A) — `.planning/research/SEED-002-FINDINGS.md`. Anti-infra-representation: ENUSC is the only inventoried source measuring **unreported** crime (cifra negra) at comuna level. Strictly additive vs Phase 18._
+
+- [ ] **VL-01**: A new isolated pipeline step ingests the INE ENUSC 2024 SAE VHDV (Victimización en Hogares por Delitos Violentos) Excel from a **versioned in-repo snapshot** into a data artifact with provenance (source URL, retrieval date, INE experimental disclaimer, checksum); it runs after the CEAD scraper and fails gracefully without breaking the CEAD pipeline if absent/malformed. (Manual/assisted annual acquisition — no stable static URL; behind INE's JS "Cuadros Estadísticos" widget.)
+- [ ] **VL-02**: The ~136 covered comunas map to valid CUT codes (reusing the existing name→CUT resolver); a build-time assertion confirms every ingested row resolves to a valid CUT and the coverage count equals the published N; unresolved rows fail the build loudly.
+- [ ] **VL-03**: Each covered comuna page (EN + ES) shows the VHDV victimization figure with value + reference year (2024) + a mandatory bilingual caveat labeling it an INE **experimental, SAE-modeled** estimate distinct from CEAD reported-crime — never an absolute verdict; the forbidden-language validator exits 0.
+- [ ] **VL-04**: The ~210 non-covered comunas render an explicit bilingual "no ENUSC victimization estimate for this comuna (coverage: 136 comunas)" note with no broken layout and no implied value.
+- [ ] **VL-05**: Every new figure is registered in the F-series figure registry (zero-orphan passes) and documented in SOURCES.md + EN/ES methodology pages (source, SAE method, experimental status, coverage limitation, victimization ≠ reported-crime distinction); a verification confirms the composite index and **all Phase-18 outputs are byte-unchanged** (additive-only).
+
 ---
 
 ## Future Requirements (deferred)
@@ -83,8 +93,13 @@
 | GL-02 | Phase 22 | Pending | Production rebuilt from master; rebuild-loop guard confirmed |
 | GL-03 | Phase 22 | Pending | Live news pipeline run + 50-incident commune audit |
 | GL-04 | Phase 22 | Pending | Sitemap submitted to GSC; URL Inspection on 5–10 pages |
+| VL-01 | Phase 23 | Pending | Isolated ENUSC SAE VHDV ingest from versioned snapshot + provenance; fails gracefully |
+| VL-02 | Phase 23 | Pending | ~136 comunas → valid CUT via existing resolver; build-time coverage assertion |
+| VL-03 | Phase 23 | Pending | EN/ES victimization figure + experimental/SAE caveat; forbidden-language green |
+| VL-04 | Phase 23 | Pending | ~210 uncovered comunas degrade with explicit bilingual "no estimate" note |
+| VL-05 | Phase 23 | Pending | F-series zero-orphan + SOURCES/methodology; Phase-18 outputs byte-unchanged (additive) |
 
-**Coverage:** 21/21 requirements mapped — CI-01..CI-10 → Phase 18, CMP-01..CMP-07 → Phase 21, GL-01..GL-04 → Phase 22. No orphans.
+**Coverage:** 26/26 requirements mapped — CI-01..CI-10 → Phase 18, CMP-01..CMP-07 → Phase 21, GL-01..GL-04 → Phase 22, VL-01..VL-05 → Phase 23 (runs before 22). No orphans.
 
 ---
-*Defined 2026-06-19 for milestone v2.0. 21 requirements across 3 tracks.*
+*Defined 2026-06-19 for milestone v2.0. 26 requirements across 4 tracks (Track 4 / VL added 2026-06-19 from SEED-002).*

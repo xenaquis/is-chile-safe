@@ -6,7 +6,7 @@ status: executing
 last_updated: "2026-06-19T18:59:12.372Z"
 last_activity: 2026-06-19
 progress:
-  total_phases: 3
+  total_phases: 4
   completed_phases: 1
   total_plans: 8
   completed_plans: 8
@@ -68,6 +68,10 @@ Items acknowledged and deferred at v1.x milestone closes:
 | Validators passing | 13/13 frontend + 179/179 pytest |
 
 ## Accumulated Context
+
+### Roadmap Evolution
+
+- Phase 23 added 2026-06-19: **ENUSC Communal Victimization Layer** (Track 4, VL-01..VL-05) — from SEED-002 feasibility study. Additive INE ENUSC 2024 SAE household-victimization (VHDV) figure on the ~136 covered comuna pages, graceful "no estimate" on the other ~210. **Sequenced BEFORE Phase 22 (Go-Live)** — motivation is to not launch infra-representing reported crime. Depends on Phase 18 + 17. Ingestion = manual/assisted versioned snapshot (no stable URL; behind INE JS widget). Findings: `.planning/research/SEED-002-FINDINGS.md`; spikes 004–007.
 
 ### Key Decisions
 
@@ -156,5 +160,6 @@ Items acknowledged and deferred at v1.x milestone closes:
 
 ## Operator Next Steps
 
-- Plan Phase 18 interactively: `/gsd:plan-phase 18` (high-risk; normalization method decision must be locked before implementation begins)
-- Phase 22 can be started in parallel: set CF_DEPLOY_HOOK_URL secret in GitHub repo settings first
+- **Plan Phase 23 (ENUSC Victimization Layer): `/gsd:plan-phase 23`** — runs before go-live. First plan task must drill INE's "Cuadros Estadísticos" widget once to download the VHDV Excel and verify its real schema (CUT mapping, value/unit, CV/precision columns, exact 136-comuna list) before designing the ingest. browseros must run INLINE (gsd-executor subagents lack it).
+- Phase 22 (Go-Live) is gated AFTER Phase 23; can still pre-stage: set CF_DEPLOY_HOOK_URL secret in GitHub repo settings.
+- Phase 18 gap-closure plans 18-06..18-08 are marked done in ROADMAP; confirm before relying on composite outputs.
