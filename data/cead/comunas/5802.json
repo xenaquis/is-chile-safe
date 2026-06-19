@@ -393,5 +393,20 @@
       "partial": true
     }
   ],
-  "last_updated": "2026-06-16"
+  "last_updated": "2026-06-16",
+  "composite_index": {
+    "2024": {
+      "score": 22.836211886823737,
+      "rank": 129,
+      "regional_rank": 16,
+      "level": 4,
+      "available_metrics": 7
+    }
+  },
+  "spd_homicide_rate": {
+    "2024": 36.38480570513754
+  },
+  "sii_exposure_index": {
+    "2024": 13742.0
+  }
 }

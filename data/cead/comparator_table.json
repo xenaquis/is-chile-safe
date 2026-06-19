@@ -1,0 +1,5192 @@
+[
+  {
+    "id": "10101",
+    "name": "Puerto Montt",
+    "slug": "puerto-montt",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 24.653412080213098,
+        "rank": 99,
+        "regional_rank": 3,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10102",
+    "name": "Calbuco",
+    "slug": "calbuco",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 24.47564117338047,
+        "rank": 106,
+        "regional_rank": 4,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10103",
+    "name": "Cochamó",
+    "slug": "cochamo",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 14.583925305183572,
+        "rank": 283,
+        "regional_rank": 23,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10104",
+    "name": "Fresia",
+    "slug": "fresia",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 22.889861249470073,
+        "rank": 127,
+        "regional_rank": 7,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10105",
+    "name": "Frutillar",
+    "slug": "frutillar",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 20.120334806156677,
+        "rank": 182,
+        "regional_rank": 15,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10106",
+    "name": "Los Muermos",
+    "slug": "los-muermos",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 10.837356146810091,
+        "rank": 319,
+        "regional_rank": 27,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10107",
+    "name": "Llanquihue",
+    "slug": "llanquihue",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 17.516202921719497,
+        "rank": 227,
+        "regional_rank": 18,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10108",
+    "name": "Maullín",
+    "slug": "maullin",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 17.13593818775408,
+        "rank": 235,
+        "regional_rank": 19,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10109",
+    "name": "Puerto Varas",
+    "slug": "puerto-varas",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 18.40519067048818,
+        "rank": 212,
+        "regional_rank": 16,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10201",
+    "name": "Castro",
+    "slug": "castro",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 22.843727914513597,
+        "rank": 128,
+        "regional_rank": 8,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10202",
+    "name": "Ancud",
+    "slug": "ancud",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 15.563226081577913,
+        "rank": 264,
+        "regional_rank": 21,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10203",
+    "name": "Chonchi",
+    "slug": "chonchi",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 13.348381416132707,
+        "rank": 303,
+        "regional_rank": 25,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10204",
+    "name": "Curaco de Vélez",
+    "slug": "curaco-de-velez",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 7.845518169421438,
+        "rank": 338,
+        "regional_rank": 29,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10205",
+    "name": "Dalcahue",
+    "slug": "dalcahue",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 21.29992337319573,
+        "rank": 159,
+        "regional_rank": 11,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10206",
+    "name": "Puqueldón",
+    "slug": "puqueldon",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 5.99104522787109,
+        "rank": 343,
+        "regional_rank": 30,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10207",
+    "name": "Queilén",
+    "slug": "queilen",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 22.325737856917687,
+        "rank": 141,
+        "regional_rank": 9,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10208",
+    "name": "Quellón",
+    "slug": "quellon",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 23.075016572977887,
+        "rank": 122,
+        "regional_rank": 6,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10209",
+    "name": "Quemchi",
+    "slug": "quemchi",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 8.507985671105345,
+        "rank": 333,
+        "regional_rank": 28,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10210",
+    "name": "Quinchao",
+    "slug": "quinchao",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 28.923197837152518,
+        "rank": 57,
+        "regional_rank": 2,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10301",
+    "name": "Osorno",
+    "slug": "osorno",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 24.437872817594823,
+        "rank": 107,
+        "regional_rank": 5,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10302",
+    "name": "Puerto Octay",
+    "slug": "puerto-octay",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 15.367059586555667,
+        "rank": 269,
+        "regional_rank": 22,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10303",
+    "name": "Purranque",
+    "slug": "purranque",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 22.324436240427865,
+        "rank": 143,
+        "regional_rank": 10,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10304",
+    "name": "Puyehue",
+    "slug": "puyehue",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 16.34303679401146,
+        "rank": 248,
+        "regional_rank": 20,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10305",
+    "name": "Río Negro",
+    "slug": "rio-negro",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 20.45167991464002,
+        "rank": 175,
+        "regional_rank": 14,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10306",
+    "name": "San Juan de la Costa",
+    "slug": "san-juan-de-la-costa",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 43.983459172798916,
+        "rank": 7,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10307",
+    "name": "San Pablo",
+    "slug": "san-pablo",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 21.241034615924846,
+        "rank": 161,
+        "regional_rank": 12,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10401",
+    "name": "Chaitén",
+    "slug": "chaiten",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 13.0082699087348,
+        "rank": 308,
+        "regional_rank": 26,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10402",
+    "name": "Futaleufú",
+    "slug": "futaleufu",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 18.0069243858112,
+        "rank": 219,
+        "regional_rank": 17,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10403",
+    "name": "Hualaihué",
+    "slug": "hualaihue",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 21.154164150666762,
+        "rank": 165,
+        "regional_rank": 13,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "10404",
+    "name": "Palena",
+    "slug": "palena",
+    "region_id": "10",
+    "composite_index": {
+      "2024": {
+        "score": 14.482669870451401,
+        "rank": 285,
+        "regional_rank": 24,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "1101",
+    "name": "Iquique",
+    "slug": "iquique",
+    "region_id": "1",
+    "composite_index": {
+      "2024": {
+        "score": 25.308995244130237,
+        "rank": 87,
+        "regional_rank": 5,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "1107",
+    "name": "Alto Hospicio",
+    "slug": "alto-hospicio",
+    "region_id": "1",
+    "composite_index": {
+      "2024": {
+        "score": 33.09265470227162,
+        "rank": 41,
+        "regional_rank": 4,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "11101",
+    "name": "Coyhaique",
+    "slug": "coyhaique",
+    "region_id": "11",
+    "composite_index": {
+      "2024": {
+        "score": 16.9951438839507,
+        "rank": 237,
+        "regional_rank": 5,
+        "level": 2,
+        "available_metrics": 6
+      }
+    }
+  },
+  {
+    "id": "11102",
+    "name": "Lago Verde",
+    "slug": "lago-verde",
+    "region_id": "11",
+    "composite_index": {
+      "2024": {
+        "score": 11.60368336813887,
+        "rank": 316,
+        "regional_rank": 9,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "11201",
+    "name": "Aysén",
+    "slug": "aysen",
+    "region_id": "11",
+    "composite_index": {
+      "2024": {
+        "score": 24.725283019863777,
+        "rank": 97,
+        "regional_rank": 2,
+        "level": 4,
+        "available_metrics": 6
+      }
+    }
+  },
+  {
+    "id": "11202",
+    "name": "Cisnes",
+    "slug": "cisnes",
+    "region_id": "11",
+    "composite_index": {
+      "2024": {
+        "score": 16.486144808696604,
+        "rank": 244,
+        "regional_rank": 6,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "11203",
+    "name": "Guaitecas",
+    "slug": "guaitecas",
+    "region_id": "11",
+    "composite_index": {
+      "2024": {
+        "score": 17.225200003774372,
+        "rank": 233,
+        "regional_rank": 4,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "11301",
+    "name": "Cochrane",
+    "slug": "cochrane",
+    "region_id": "11",
+    "composite_index": {
+      "2024": {
+        "score": 9.653793281611193,
+        "rank": 328,
+        "regional_rank": 10,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "11302",
+    "name": "OHiggins",
+    "slug": "ohiggins",
+    "region_id": "11",
+    "composite_index": {
+      "2024": {
+        "score": 14.862593176696343,
+        "rank": 277,
+        "regional_rank": 7,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "11303",
+    "name": "Tortel",
+    "slug": "tortel",
+    "region_id": "11",
+    "composite_index": {
+      "2024": {
+        "score": 22.553517500439312,
+        "rank": 137,
+        "regional_rank": 3,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "11401",
+    "name": "Chile Chico",
+    "slug": "chile-chico",
+    "region_id": "11",
+    "composite_index": {
+      "2024": {
+        "score": 46.07189454200182,
+        "rank": 5,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "11402",
+    "name": "Río Ibáñez",
+    "slug": "rio-ibanez",
+    "region_id": "11",
+    "composite_index": {
+      "2024": {
+        "score": 14.667577072745168,
+        "rank": 281,
+        "regional_rank": 8,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "12101",
+    "name": "Punta Arenas",
+    "slug": "punta-arenas",
+    "region_id": "12",
+    "composite_index": {
+      "2024": {
+        "score": 9.676202252580346,
+        "rank": 327,
+        "regional_rank": 6,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "12102",
+    "name": "Laguna Blanca",
+    "slug": "laguna-blanca",
+    "region_id": "12",
+    "composite_index": {
+      "2024": {
+        "score": 6.390542680579623,
+        "rank": 342,
+        "regional_rank": 8,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "12103",
+    "name": "Río Verde",
+    "slug": "rio-verde",
+    "region_id": "12",
+    "composite_index": {
+      "2024": {
+        "score": 7.995803028987624,
+        "rank": 337,
+        "regional_rank": 7,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "12104",
+    "name": "San Gregorio",
+    "slug": "san-gregorio",
+    "region_id": "12",
+    "composite_index": {
+      "2024": {
+        "score": 14.90036783641665,
+        "rank": 275,
+        "regional_rank": 4,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "12201",
+    "name": "Cabo de Hornos",
+    "slug": "cabo-de-hornos",
+    "region_id": "12",
+    "composite_index": {
+      "2024": {
+        "score": 10.618268955229194,
+        "rank": 321,
+        "regional_rank": 5,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "12202",
+    "name": "Antártica",
+    "slug": "antartica",
+    "region_id": "12",
+    "composite_index": {
+      "2024": {
+        "score": 0.0,
+        "rank": 346,
+        "regional_rank": 11,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "12301",
+    "name": "Porvenir",
+    "slug": "porvenir",
+    "region_id": "12",
+    "composite_index": {
+      "2024": {
+        "score": 20.28534245333438,
+        "rank": 179,
+        "regional_rank": 1,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "12302",
+    "name": "Primavera",
+    "slug": "primavera",
+    "region_id": "12",
+    "composite_index": {
+      "2024": {
+        "score": 18.5852829658786,
+        "rank": 207,
+        "regional_rank": 2,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "12303",
+    "name": "Timaukel",
+    "slug": "timaukel",
+    "region_id": "12",
+    "composite_index": {
+      "2024": {
+        "score": 2.1404135765744248,
+        "rank": 344,
+        "regional_rank": 9,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "12401",
+    "name": "Natales",
+    "slug": "natales",
+    "region_id": "12",
+    "composite_index": {
+      "2024": {
+        "score": 17.3110318956194,
+        "rank": 232,
+        "regional_rank": 3,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "12402",
+    "name": "Torres del Paine",
+    "slug": "torres-del-paine",
+    "region_id": "12",
+    "composite_index": {
+      "2024": {
+        "score": 1.1799799586762094,
+        "rank": 345,
+        "regional_rank": 10,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13101",
+    "name": "Santiago",
+    "slug": "santiago",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 39.00078063035604,
+        "rank": 21,
+        "regional_rank": 7,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13102",
+    "name": "Cerrillos",
+    "slug": "cerrillos",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 38.565291591078086,
+        "rank": 22,
+        "regional_rank": 8,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13103",
+    "name": "Cerro Navia",
+    "slug": "cerro-navia",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 37.392546460473994,
+        "rank": 26,
+        "regional_rank": 10,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13104",
+    "name": "Conchalí",
+    "slug": "conchali",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 26.23685837233348,
+        "rank": 76,
+        "regional_rank": 22,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13105",
+    "name": "El Bosque",
+    "slug": "el-bosque",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 26.298179236033565,
+        "rank": 73,
+        "regional_rank": 21,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13106",
+    "name": "Estación Central",
+    "slug": "estacion-central",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 39.645792160008476,
+        "rank": 17,
+        "regional_rank": 6,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13107",
+    "name": "Huechuraba",
+    "slug": "huechuraba",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 22.663347402469306,
+        "rank": 136,
+        "regional_rank": 31,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13108",
+    "name": "Independencia",
+    "slug": "independencia",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 24.70731441165161,
+        "rank": 98,
+        "regional_rank": 26,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13109",
+    "name": "La Cisterna",
+    "slug": "la-cisterna",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 45.2019471683258,
+        "rank": 6,
+        "regional_rank": 2,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13110",
+    "name": "La Florida",
+    "slug": "la-florida",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 22.971280013620607,
+        "rank": 124,
+        "regional_rank": 29,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13111",
+    "name": "La Granja",
+    "slug": "la-granja",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 31.544865664745117,
+        "rank": 46,
+        "regional_rank": 16,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13112",
+    "name": "La Pintana",
+    "slug": "la-pintana",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 41.89302180586113,
+        "rank": 10,
+        "regional_rank": 3,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13113",
+    "name": "La Reina",
+    "slug": "la-reina",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 16.404523830114975,
+        "rank": 247,
+        "regional_rank": 45,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13114",
+    "name": "Las Condes",
+    "slug": "las-condes",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 8.371319802436192,
+        "rank": 335,
+        "regional_rank": 51,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13115",
+    "name": "Lo Barnechea",
+    "slug": "lo-barnechea",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 7.120976388387432,
+        "rank": 341,
+        "regional_rank": 52,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13116",
+    "name": "Lo Espejo",
+    "slug": "lo-espejo",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 35.17879031986117,
+        "rank": 32,
+        "regional_rank": 12,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13117",
+    "name": "Lo Prado",
+    "slug": "lo-prado",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 49.82155642815269,
+        "rank": 3,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13118",
+    "name": "Macul",
+    "slug": "macul",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 24.77142006776791,
+        "rank": 94,
+        "regional_rank": 24,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13119",
+    "name": "Maipú",
+    "slug": "maipu",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 20.318366855832924,
+        "rank": 178,
+        "regional_rank": 36,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13120",
+    "name": "Ñuñoa",
+    "slug": "nunoa",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 21.49043203759632,
+        "rank": 158,
+        "regional_rank": 34,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13121",
+    "name": "Pedro Aguirre Cerda",
+    "slug": "pedro-aguirre-cerda",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 32.72108511746284,
+        "rank": 42,
+        "regional_rank": 15,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13122",
+    "name": "Peñalolén",
+    "slug": "penalolen",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 16.817614312348216,
+        "rank": 240,
+        "regional_rank": 44,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13123",
+    "name": "Providencia",
+    "slug": "providencia",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 38.07336668271517,
+        "rank": 25,
+        "regional_rank": 9,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13124",
+    "name": "Pudahuel",
+    "slug": "pudahuel",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 27.949175400978255,
+        "rank": 63,
+        "regional_rank": 18,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13125",
+    "name": "Quilicura",
+    "slug": "quilicura",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 18.20078601933467,
+        "rank": 215,
+        "regional_rank": 41,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13126",
+    "name": "Quinta Normal",
+    "slug": "quinta-normal",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 36.536135011082806,
+        "rank": 27,
+        "regional_rank": 11,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13127",
+    "name": "Recoleta",
+    "slug": "recoleta",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 41.58753421584995,
+        "rank": 11,
+        "regional_rank": 4,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13128",
+    "name": "Renca",
+    "slug": "renca",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 24.746527751195096,
+        "rank": 96,
+        "regional_rank": 25,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13129",
+    "name": "San Joaquín",
+    "slug": "san-joaquin",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 34.28499822104994,
+        "rank": 34,
+        "regional_rank": 13,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13130",
+    "name": "San Miguel",
+    "slug": "san-miguel",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 34.114585576414676,
+        "rank": 35,
+        "regional_rank": 14,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13131",
+    "name": "San Ramón",
+    "slug": "san-ramon",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 40.39559978165868,
+        "rank": 16,
+        "regional_rank": 5,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13132",
+    "name": "Vitacura",
+    "slug": "vitacura",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 9.39122913997303,
+        "rank": 329,
+        "regional_rank": 50,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13201",
+    "name": "Puente Alto",
+    "slug": "puente-alto",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 26.718676047670506,
+        "rank": 72,
+        "regional_rank": 20,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13202",
+    "name": "Pirque",
+    "slug": "pirque",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 14.843405383151069,
+        "rank": 278,
+        "regional_rank": 48,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13203",
+    "name": "San José de Maipo",
+    "slug": "san-jose-de-maipo",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 28.73261012860288,
+        "rank": 60,
+        "regional_rank": 17,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13301",
+    "name": "Colina",
+    "slug": "colina",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 21.68868680464401,
+        "rank": 151,
+        "regional_rank": 33,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13302",
+    "name": "Lampa",
+    "slug": "lampa",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 21.222125108206253,
+        "rank": 162,
+        "regional_rank": 35,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13303",
+    "name": "Tiltil",
+    "slug": "tiltil",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 19.90889579260591,
+        "rank": 186,
+        "regional_rank": 37,
+        "level": 3,
+        "available_metrics": 6
+      }
+    }
+  },
+  {
+    "id": "13401",
+    "name": "San Bernardo",
+    "slug": "san-bernardo",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 27.518162886348087,
+        "rank": 66,
+        "regional_rank": 19,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13402",
+    "name": "Buin",
+    "slug": "buin",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 19.735832774955533,
+        "rank": 188,
+        "regional_rank": 38,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13403",
+    "name": "Calera de Tango",
+    "slug": "calera-de-tango",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 18.612705594244993,
+        "rank": 205,
+        "regional_rank": 40,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13404",
+    "name": "Paine",
+    "slug": "paine",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 19.02453036113405,
+        "rank": 197,
+        "regional_rank": 39,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13501",
+    "name": "Melipilla",
+    "slug": "melipilla",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 21.927752678262085,
+        "rank": 148,
+        "regional_rank": 32,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13502",
+    "name": "Alhué",
+    "slug": "alhue",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 24.18937303222324,
+        "rank": 108,
+        "regional_rank": 28,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13503",
+    "name": "Curacaví",
+    "slug": "curacavi",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 24.556838777144897,
+        "rank": 102,
+        "regional_rank": 27,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13504",
+    "name": "María Pinto",
+    "slug": "maria-pinto",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 17.427173972023013,
+        "rank": 229,
+        "regional_rank": 43,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13505",
+    "name": "San Pedro",
+    "slug": "san-pedro",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 13.984996650639006,
+        "rank": 296,
+        "regional_rank": 49,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13601",
+    "name": "Talagante",
+    "slug": "talagante",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 24.89239659238657,
+        "rank": 92,
+        "regional_rank": 23,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13602",
+    "name": "El Monte",
+    "slug": "el-monte",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 22.680608802800386,
+        "rank": 134,
+        "regional_rank": 30,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13603",
+    "name": "Isla de Maipo",
+    "slug": "isla-de-maipo",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 15.526889863776157,
+        "rank": 266,
+        "regional_rank": 46,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13604",
+    "name": "Padre Hurtado",
+    "slug": "padre-hurtado",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 17.74289171069983,
+        "rank": 226,
+        "regional_rank": 42,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "13605",
+    "name": "Peñaflor",
+    "slug": "penaflor",
+    "region_id": "13",
+    "composite_index": {
+      "2024": {
+        "score": 14.932160161497594,
+        "rank": 273,
+        "regional_rank": 47,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "1401",
+    "name": "Pozo Almonte",
+    "slug": "pozo-almonte",
+    "region_id": "1",
+    "composite_index": {
+      "2024": {
+        "score": 41.028292915647434,
+        "rank": 13,
+        "regional_rank": 2,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "1402",
+    "name": "Camiña",
+    "slug": "camina",
+    "region_id": "1",
+    "composite_index": {
+      "2024": {
+        "score": 16.55247067187387,
+        "rank": 243,
+        "regional_rank": 7,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "1403",
+    "name": "Colchane",
+    "slug": "colchane",
+    "region_id": "1",
+    "composite_index": {
+      "2024": {
+        "score": 64.94781490474556,
+        "rank": 1,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "1404",
+    "name": "Huara",
+    "slug": "huara",
+    "region_id": "1",
+    "composite_index": {
+      "2024": {
+        "score": 36.07116831070431,
+        "rank": 28,
+        "regional_rank": 3,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "1405",
+    "name": "Pica",
+    "slug": "pica",
+    "region_id": "1",
+    "composite_index": {
+      "2024": {
+        "score": 24.475661488931273,
+        "rank": 105,
+        "regional_rank": 6,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "14101",
+    "name": "Valdivia",
+    "slug": "valdivia",
+    "region_id": "14",
+    "composite_index": {
+      "2024": {
+        "score": 24.747263429151317,
+        "rank": 95,
+        "regional_rank": 5,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "14102",
+    "name": "Corral",
+    "slug": "corral",
+    "region_id": "14",
+    "composite_index": {
+      "2024": {
+        "score": 14.732466294627622,
+        "rank": 280,
+        "regional_rank": 12,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "14103",
+    "name": "Lanco",
+    "slug": "lanco",
+    "region_id": "14",
+    "composite_index": {
+      "2024": {
+        "score": 16.92531347896287,
+        "rank": 238,
+        "regional_rank": 10,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "14104",
+    "name": "Los Lagos",
+    "slug": "los-lagos",
+    "region_id": "14",
+    "composite_index": {
+      "2024": {
+        "score": 30.9165813835634,
+        "rank": 51,
+        "regional_rank": 2,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "14105",
+    "name": "Máfil",
+    "slug": "mafil",
+    "region_id": "14",
+    "composite_index": {
+      "2024": {
+        "score": 32.3011788547509,
+        "rank": 44,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "14106",
+    "name": "Mariquina",
+    "slug": "mariquina",
+    "region_id": "14",
+    "composite_index": {
+      "2024": {
+        "score": 20.889987702791558,
+        "rank": 171,
+        "regional_rank": 7,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "14107",
+    "name": "Paillaco",
+    "slug": "paillaco",
+    "region_id": "14",
+    "composite_index": {
+      "2024": {
+        "score": 19.40972492388218,
+        "rank": 191,
+        "regional_rank": 9,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "14108",
+    "name": "Panguipulli",
+    "slug": "panguipulli",
+    "region_id": "14",
+    "composite_index": {
+      "2024": {
+        "score": 25.949361386969606,
+        "rank": 79,
+        "regional_rank": 3,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "14201",
+    "name": "La Unión",
+    "slug": "la-union",
+    "region_id": "14",
+    "composite_index": {
+      "2024": {
+        "score": 20.610422173680615,
+        "rank": 174,
+        "regional_rank": 8,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "14202",
+    "name": "Futrono",
+    "slug": "futrono",
+    "region_id": "14",
+    "composite_index": {
+      "2024": {
+        "score": 15.41908509951154,
+        "rank": 268,
+        "regional_rank": 11,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "14203",
+    "name": "Lago Ranco",
+    "slug": "lago-ranco",
+    "region_id": "14",
+    "composite_index": {
+      "2024": {
+        "score": 23.75465083256144,
+        "rank": 114,
+        "regional_rank": 6,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "14204",
+    "name": "Río Bueno",
+    "slug": "rio-bueno",
+    "region_id": "14",
+    "composite_index": {
+      "2024": {
+        "score": 25.856373897001433,
+        "rank": 81,
+        "regional_rank": 4,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "15101",
+    "name": "Arica",
+    "slug": "arica",
+    "region_id": "15",
+    "composite_index": {
+      "2024": {
+        "score": 35.16773686445272,
+        "rank": 33,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "15102",
+    "name": "Camarones",
+    "slug": "camarones",
+    "region_id": "15",
+    "composite_index": {
+      "2024": {
+        "score": 18.04084175044153,
+        "rank": 218,
+        "regional_rank": 2,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "15201",
+    "name": "Putre",
+    "slug": "putre",
+    "region_id": "15",
+    "composite_index": {
+      "2024": {
+        "score": 10.299103014315055,
+        "rank": 324,
+        "regional_rank": 4,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "15202",
+    "name": "General Lagos",
+    "slug": "general-lagos",
+    "region_id": "15",
+    "composite_index": {
+      "2024": {
+        "score": 15.665732511188775,
+        "rank": 258,
+        "regional_rank": 3,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16101",
+    "name": "Chillán",
+    "slug": "chillan",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 19.99075726069993,
+        "rank": 184,
+        "regional_rank": 6,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16102",
+    "name": "Bulnes",
+    "slug": "bulnes",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 21.621888254697126,
+        "rank": 153,
+        "regional_rank": 4,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16103",
+    "name": "Chillán Viejo",
+    "slug": "chillan-viejo",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 15.659720783517466,
+        "rank": 259,
+        "regional_rank": 12,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16104",
+    "name": "El Carmen",
+    "slug": "el-carmen",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 11.548394476772266,
+        "rank": 318,
+        "regional_rank": 20,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16105",
+    "name": "Pemuco",
+    "slug": "pemuco",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 13.67830003301723,
+        "rank": 299,
+        "regional_rank": 18,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16106",
+    "name": "Pinto",
+    "slug": "pinto",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 14.075885649670024,
+        "rank": 294,
+        "regional_rank": 17,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16107",
+    "name": "Quillón",
+    "slug": "quillon",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 18.082398829864044,
+        "rank": 217,
+        "regional_rank": 9,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16108",
+    "name": "San Ignacio",
+    "slug": "san-ignacio",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 17.311725252661358,
+        "rank": 231,
+        "regional_rank": 11,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16109",
+    "name": "Yungay",
+    "slug": "yungay",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 24.908698247880306,
+        "rank": 91,
+        "regional_rank": 1,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16201",
+    "name": "Quirihue",
+    "slug": "quirihue",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 22.24890856137483,
+        "rank": 144,
+        "regional_rank": 3,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16202",
+    "name": "Cobquecura",
+    "slug": "cobquecura",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 15.116813284818443,
+        "rank": 271,
+        "regional_rank": 14,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16203",
+    "name": "Coelemu",
+    "slug": "coelemu",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 15.591506036389111,
+        "rank": 262,
+        "regional_rank": 13,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16204",
+    "name": "Ninhue",
+    "slug": "ninhue",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 14.304638769382098,
+        "rank": 289,
+        "regional_rank": 16,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16205",
+    "name": "Portezuelo",
+    "slug": "portezuelo",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 7.752153259469194,
+        "rank": 339,
+        "regional_rank": 21,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16206",
+    "name": "Ránquil",
+    "slug": "ranquil",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 14.782019477487687,
+        "rank": 279,
+        "regional_rank": 15,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16207",
+    "name": "Treguaco",
+    "slug": "treguaco",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 19.669488046091114,
+        "rank": 189,
+        "regional_rank": 7,
+        "level": 3,
+        "available_metrics": 6
+      }
+    }
+  },
+  {
+    "id": "16301",
+    "name": "San Carlos",
+    "slug": "san-carlos",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 21.279976665704595,
+        "rank": 160,
+        "regional_rank": 5,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16302",
+    "name": "Coihueco",
+    "slug": "coihueco",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 19.115618765075418,
+        "rank": 195,
+        "regional_rank": 8,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16303",
+    "name": "Ñiquén",
+    "slug": "niquen",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 11.561075022295366,
+        "rank": 317,
+        "regional_rank": 19,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16304",
+    "name": "San Fabián",
+    "slug": "san-fabian",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 17.78389202297477,
+        "rank": 225,
+        "regional_rank": 10,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "16305",
+    "name": "San Nicolás",
+    "slug": "san-nicolas",
+    "region_id": "16",
+    "composite_index": {
+      "2024": {
+        "score": 22.32500558570282,
+        "rank": 142,
+        "regional_rank": 2,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "2101",
+    "name": "Antofagasta",
+    "slug": "antofagasta",
+    "region_id": "2",
+    "composite_index": {
+      "2024": {
+        "score": 24.137379420897,
+        "rank": 109,
+        "regional_rank": 7,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "2102",
+    "name": "Mejillones",
+    "slug": "mejillones",
+    "region_id": "2",
+    "composite_index": {
+      "2024": {
+        "score": 32.18396236530827,
+        "rank": 45,
+        "regional_rank": 4,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "2103",
+    "name": "Sierra Gorda",
+    "slug": "sierra-gorda",
+    "region_id": "2",
+    "composite_index": {
+      "2024": {
+        "score": 38.5513197499151,
+        "rank": 23,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "2104",
+    "name": "Taltal",
+    "slug": "taltal",
+    "region_id": "2",
+    "composite_index": {
+      "2024": {
+        "score": 21.627465115281424,
+        "rank": 152,
+        "regional_rank": 9,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "2201",
+    "name": "Calama",
+    "slug": "calama",
+    "region_id": "2",
+    "composite_index": {
+      "2024": {
+        "score": 26.090758931674653,
+        "rank": 78,
+        "regional_rank": 6,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "2202",
+    "name": "Ollagüe",
+    "slug": "ollague",
+    "region_id": "2",
+    "composite_index": {
+      "2024": {
+        "score": 35.62235871560104,
+        "rank": 31,
+        "regional_rank": 2,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "2203",
+    "name": "San Pedro de Atacama",
+    "slug": "san-pedro-de-atacama",
+    "region_id": "2",
+    "composite_index": {
+      "2024": {
+        "score": 28.91038686095312,
+        "rank": 58,
+        "regional_rank": 5,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "2301",
+    "name": "Tocopilla",
+    "slug": "tocopilla",
+    "region_id": "2",
+    "composite_index": {
+      "2024": {
+        "score": 33.67256442009674,
+        "rank": 39,
+        "regional_rank": 3,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "2302",
+    "name": "María Elena",
+    "slug": "maria-elena",
+    "region_id": "2",
+    "composite_index": {
+      "2024": {
+        "score": 23.87634017215159,
+        "rank": 111,
+        "regional_rank": 8,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "3101",
+    "name": "Copiapó",
+    "slug": "copiapo",
+    "region_id": "3",
+    "composite_index": {
+      "2024": {
+        "score": 25.347817266668713,
+        "rank": 86,
+        "regional_rank": 5,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "3102",
+    "name": "Caldera",
+    "slug": "caldera",
+    "region_id": "3",
+    "composite_index": {
+      "2024": {
+        "score": 34.08519264334104,
+        "rank": 36,
+        "regional_rank": 2,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "3103",
+    "name": "Tierra Amarilla",
+    "slug": "tierra-amarilla",
+    "region_id": "3",
+    "composite_index": {
+      "2024": {
+        "score": 30.961471516253173,
+        "rank": 50,
+        "regional_rank": 3,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "3201",
+    "name": "Chañaral",
+    "slug": "chanaral",
+    "region_id": "3",
+    "composite_index": {
+      "2024": {
+        "score": 36.02243176320545,
+        "rank": 29,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "3202",
+    "name": "Diego de Almagro",
+    "slug": "diego-de-almagro",
+    "region_id": "3",
+    "composite_index": {
+      "2024": {
+        "score": 16.863320430244112,
+        "rank": 239,
+        "regional_rank": 8,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "3301",
+    "name": "Vallenar",
+    "slug": "vallenar",
+    "region_id": "3",
+    "composite_index": {
+      "2024": {
+        "score": 21.574047232764887,
+        "rank": 155,
+        "regional_rank": 6,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "3302",
+    "name": "Alto del Carmen",
+    "slug": "alto-del-carmen",
+    "region_id": "3",
+    "composite_index": {
+      "2024": {
+        "score": 8.417515929822613,
+        "rank": 334,
+        "regional_rank": 9,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "3303",
+    "name": "Freirina",
+    "slug": "freirina",
+    "region_id": "3",
+    "composite_index": {
+      "2024": {
+        "score": 19.932037378096584,
+        "rank": 185,
+        "regional_rank": 7,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "3304",
+    "name": "Huasco",
+    "slug": "huasco",
+    "region_id": "3",
+    "composite_index": {
+      "2024": {
+        "score": 29.078613311977744,
+        "rank": 55,
+        "regional_rank": 4,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4101",
+    "name": "La Serena",
+    "slug": "la-serena",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 24.57080143559377,
+        "rank": 100,
+        "regional_rank": 6,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4102",
+    "name": "Coquimbo",
+    "slug": "coquimbo",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 26.27759178723442,
+        "rank": 74,
+        "regional_rank": 4,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4103",
+    "name": "Andacollo",
+    "slug": "andacollo",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 18.490789899650533,
+        "rank": 210,
+        "regional_rank": 10,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4104",
+    "name": "La Higuera",
+    "slug": "la-higuera",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 30.994159529947503,
+        "rank": 48,
+        "regional_rank": 3,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4105",
+    "name": "Paiguano",
+    "slug": "paiguano",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 26.16260519757729,
+        "rank": 77,
+        "regional_rank": 5,
+        "level": 4,
+        "available_metrics": 6
+      }
+    }
+  },
+  {
+    "id": "4106",
+    "name": "Vicuña",
+    "slug": "vicuna",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 18.72736392065856,
+        "rank": 203,
+        "regional_rank": 8,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4201",
+    "name": "Illapel",
+    "slug": "illapel",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 15.974321005202125,
+        "rank": 255,
+        "regional_rank": 11,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4202",
+    "name": "Canela",
+    "slug": "canela",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 9.128846102300196,
+        "rank": 330,
+        "regional_rank": 15,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4203",
+    "name": "Los Vilos",
+    "slug": "los-vilos",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 39.154241345832695,
+        "rank": 20,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4204",
+    "name": "Salamanca",
+    "slug": "salamanca",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 18.600524905351513,
+        "rank": 206,
+        "regional_rank": 9,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4301",
+    "name": "Ovalle",
+    "slug": "ovalle",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 21.124117243799763,
+        "rank": 166,
+        "regional_rank": 7,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4302",
+    "name": "Combarbalá",
+    "slug": "combarbala",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 13.367263756244114,
+        "rank": 302,
+        "regional_rank": 12,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4303",
+    "name": "Monte Patria",
+    "slug": "monte-patria",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 13.315935921753756,
+        "rank": 304,
+        "regional_rank": 13,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4304",
+    "name": "Punitaqui",
+    "slug": "punitaqui",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 9.97688128242182,
+        "rank": 326,
+        "regional_rank": 14,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "4305",
+    "name": "Río Hurtado",
+    "slug": "rio-hurtado",
+    "region_id": "4",
+    "composite_index": {
+      "2024": {
+        "score": 38.32291934558459,
+        "rank": 24,
+        "regional_rank": 2,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5101",
+    "name": "Valparaíso",
+    "slug": "valparaiso",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 33.83167621933158,
+        "rank": 38,
+        "regional_rank": 5,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5102",
+    "name": "Casablanca",
+    "slug": "casablanca",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 23.192717332223523,
+        "rank": 121,
+        "regional_rank": 15,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5103",
+    "name": "Concón",
+    "slug": "concon",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 18.642295640661274,
+        "rank": 204,
+        "regional_rank": 23,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5104",
+    "name": "Juan Fernández",
+    "slug": "juan-fernandez",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 26.25827435537181,
+        "rank": 75,
+        "regional_rank": 10,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5105",
+    "name": "Puchuncaví",
+    "slug": "puchuncavi",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 40.47633110182494,
+        "rank": 14,
+        "regional_rank": 3,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5107",
+    "name": "Quintero",
+    "slug": "quintero",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 30.41082820599476,
+        "rank": 52,
+        "regional_rank": 7,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5109",
+    "name": "Viña del Mar",
+    "slug": "vina-del-mar",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 24.796790679401667,
+        "rank": 93,
+        "regional_rank": 11,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5201",
+    "name": "Isla de Pascua",
+    "slug": "isla-de-pascua",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 29.31656842224009,
+        "rank": 54,
+        "regional_rank": 8,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5301",
+    "name": "Los Andes",
+    "slug": "los-andes",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 24.559772476435086,
+        "rank": 101,
+        "regional_rank": 12,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5302",
+    "name": "Calle Larga",
+    "slug": "calle-larga",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 11.746755673514777,
+        "rank": 315,
+        "regional_rank": 37,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5303",
+    "name": "Rinconada",
+    "slug": "rinconada",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 18.4266355544257,
+        "rank": 211,
+        "regional_rank": 25,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5304",
+    "name": "San Esteban",
+    "slug": "san-esteban",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 11.897368208141858,
+        "rank": 314,
+        "regional_rank": 36,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5401",
+    "name": "La Ligua",
+    "slug": "la-ligua",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 23.695836492900753,
+        "rank": 115,
+        "regional_rank": 13,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5402",
+    "name": "Cabildo",
+    "slug": "cabildo",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 12.935527679084776,
+        "rank": 310,
+        "regional_rank": 35,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5403",
+    "name": "Papudo",
+    "slug": "papudo",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 20.815715730421807,
+        "rank": 172,
+        "regional_rank": 19,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5404",
+    "name": "Petorca",
+    "slug": "petorca",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 15.598477845683979,
+        "rank": 261,
+        "regional_rank": 31,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5405",
+    "name": "Zapallar",
+    "slug": "zapallar",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 20.714295696221324,
+        "rank": 173,
+        "regional_rank": 20,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5501",
+    "name": "Quillota",
+    "slug": "quillota",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 21.53615217274413,
+        "rank": 156,
+        "regional_rank": 18,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5502",
+    "name": "La Calera",
+    "slug": "la-calera",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 20.048935276464917,
+        "rank": 183,
+        "regional_rank": 21,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5503",
+    "name": "Hijuelas",
+    "slug": "hijuelas",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 15.653727167929532,
+        "rank": 260,
+        "regional_rank": 30,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5504",
+    "name": "La Cruz",
+    "slug": "la-cruz",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 8.102616661321802,
+        "rank": 336,
+        "regional_rank": 38,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5506",
+    "name": "Nogales",
+    "slug": "nogales",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 17.96646106703138,
+        "rank": 222,
+        "regional_rank": 28,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5601",
+    "name": "San Antonio",
+    "slug": "san-antonio",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 27.254013417089944,
+        "rank": 69,
+        "regional_rank": 9,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5602",
+    "name": "Algarrobo",
+    "slug": "algarrobo",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 32.5416301442212,
+        "rank": 43,
+        "regional_rank": 6,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5603",
+    "name": "Cartagena",
+    "slug": "cartagena",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 61.037973499914635,
+        "rank": 2,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5604",
+    "name": "El Quisco",
+    "slug": "el-quisco",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 48.17211689524207,
+        "rank": 4,
+        "regional_rank": 2,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5605",
+    "name": "El Tabo",
+    "slug": "el-tabo",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 40.428619563790605,
+        "rank": 15,
+        "regional_rank": 4,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5606",
+    "name": "Santo Domingo",
+    "slug": "santo-domingo",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 13.822945555563138,
+        "rank": 298,
+        "regional_rank": 34,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5701",
+    "name": "San Felipe",
+    "slug": "san-felipe",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 23.497385968926416,
+        "rank": 118,
+        "regional_rank": 14,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5702",
+    "name": "Catemu",
+    "slug": "catemu",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 18.52641418406813,
+        "rank": 208,
+        "regional_rank": 24,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5703",
+    "name": "Llaillay",
+    "slug": "llaillay",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 22.70339329240789,
+        "rank": 132,
+        "regional_rank": 17,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5704",
+    "name": "Panquehue",
+    "slug": "panquehue",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 13.97877757140547,
+        "rank": 297,
+        "regional_rank": 33,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5705",
+    "name": "Putaendo",
+    "slug": "putaendo",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 17.982439290045857,
+        "rank": 221,
+        "regional_rank": 27,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5706",
+    "name": "Santa María",
+    "slug": "santa-maria",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 18.191015093098972,
+        "rank": 216,
+        "regional_rank": 26,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5801",
+    "name": "Quilpué",
+    "slug": "quilpue",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 19.810146497626828,
+        "rank": 187,
+        "regional_rank": 22,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5802",
+    "name": "Limache",
+    "slug": "limache",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 22.836211886823737,
+        "rank": 129,
+        "regional_rank": 16,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5803",
+    "name": "Olmué",
+    "slug": "olmue",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 16.568090018448515,
+        "rank": 242,
+        "regional_rank": 29,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "5804",
+    "name": "Villa Alemana",
+    "slug": "villa-alemana",
+    "region_id": "5",
+    "composite_index": {
+      "2024": {
+        "score": 14.455941481053626,
+        "rank": 286,
+        "regional_rank": 32,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6101",
+    "name": "Rancagua",
+    "slug": "rancagua",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 25.4687552587923,
+        "rank": 82,
+        "regional_rank": 8,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6102",
+    "name": "Codegua",
+    "slug": "codegua",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 21.214625992437742,
+        "rank": 163,
+        "regional_rank": 15,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6103",
+    "name": "Coinco",
+    "slug": "coinco",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 19.58398784460404,
+        "rank": 190,
+        "regional_rank": 17,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6104",
+    "name": "Coltauco",
+    "slug": "coltauco",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 12.553980107235137,
+        "rank": 311,
+        "regional_rank": 31,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6105",
+    "name": "Doñihue",
+    "slug": "donihue",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 15.976464152871335,
+        "rank": 254,
+        "regional_rank": 22,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6106",
+    "name": "Graneros",
+    "slug": "graneros",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 27.614736446332188,
+        "rank": 65,
+        "regional_rank": 6,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6107",
+    "name": "Las Cabras",
+    "slug": "las-cabras",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 25.10278120897559,
+        "rank": 89,
+        "regional_rank": 9,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6108",
+    "name": "Machalí",
+    "slug": "machali",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 14.229682840731007,
+        "rank": 290,
+        "regional_rank": 28,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6109",
+    "name": "Malloa",
+    "slug": "malloa",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 24.543539716101456,
+        "rank": 103,
+        "regional_rank": 10,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6110",
+    "name": "Mostazal",
+    "slug": "mostazal",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 35.848343207817116,
+        "rank": 30,
+        "regional_rank": 3,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6111",
+    "name": "Olivar",
+    "slug": "olivar",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 14.593713840220191,
+        "rank": 282,
+        "regional_rank": 27,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6112",
+    "name": "Peumo",
+    "slug": "peumo",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 22.51298356830569,
+        "rank": 138,
+        "regional_rank": 13,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6113",
+    "name": "Pichidegua",
+    "slug": "pichidegua",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 14.20994917232388,
+        "rank": 291,
+        "regional_rank": 29,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6114",
+    "name": "Quinta de Tilcoco",
+    "slug": "quinta-de-tilcoco",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 15.108490244347378,
+        "rank": 272,
+        "regional_rank": 25,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6115",
+    "name": "Rengo",
+    "slug": "rengo",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 27.226821266880457,
+        "rank": 70,
+        "regional_rank": 7,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6116",
+    "name": "Requínoa",
+    "slug": "requinoa",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 15.887533336027776,
+        "rank": 256,
+        "regional_rank": 23,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6117",
+    "name": "San Vicente",
+    "slug": "san-vicente",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 21.536138143446625,
+        "rank": 157,
+        "regional_rank": 14,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6201",
+    "name": "Pichilemu",
+    "slug": "pichilemu",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 41.51065123652483,
+        "rank": 12,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6202",
+    "name": "La Estrella",
+    "slug": "la-estrella",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 39.43405689191438,
+        "rank": 18,
+        "regional_rank": 2,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6203",
+    "name": "Litueche",
+    "slug": "litueche",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 22.70341395489706,
+        "rank": 131,
+        "regional_rank": 11,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6204",
+    "name": "Marchigüe",
+    "slug": "marchigue",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 13.215645675691135,
+        "rank": 305,
+        "regional_rank": 30,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6205",
+    "name": "Navidad",
+    "slug": "navidad",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 33.27813327944161,
+        "rank": 40,
+        "regional_rank": 4,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6206",
+    "name": "Paredones",
+    "slug": "paredones",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 16.4723322692671,
+        "rank": 246,
+        "regional_rank": 21,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6301",
+    "name": "San Fernando",
+    "slug": "san-fernando",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 27.73032642833858,
+        "rank": 64,
+        "regional_rank": 5,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6302",
+    "name": "Chépica",
+    "slug": "chepica",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 17.22158276537761,
+        "rank": 234,
+        "regional_rank": 20,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6303",
+    "name": "Chimbarongo",
+    "slug": "chimbarongo",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 15.583414857749855,
+        "rank": 263,
+        "regional_rank": 24,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6304",
+    "name": "Lolol",
+    "slug": "lolol",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 8.779441617414445,
+        "rank": 331,
+        "regional_rank": 33,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6305",
+    "name": "Nancagua",
+    "slug": "nancagua",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 22.692645354268755,
+        "rank": 133,
+        "regional_rank": 12,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6306",
+    "name": "Palmilla",
+    "slug": "palmilla",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 10.22053639567639,
+        "rank": 325,
+        "regional_rank": 32,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6307",
+    "name": "Peralillo",
+    "slug": "peralillo",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 17.91103107469786,
+        "rank": 224,
+        "regional_rank": 19,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6308",
+    "name": "Placilla",
+    "slug": "placilla",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 14.91682263554944,
+        "rank": 274,
+        "regional_rank": 26,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6309",
+    "name": "Pumanque",
+    "slug": "pumanque",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 21.046872181625577,
+        "rank": 168,
+        "regional_rank": 16,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "6310",
+    "name": "Santa Cruz",
+    "slug": "santa-cruz",
+    "region_id": "6",
+    "composite_index": {
+      "2024": {
+        "score": 18.7995065836071,
+        "rank": 201,
+        "regional_rank": 18,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7101",
+    "name": "Talca",
+    "slug": "talca",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 22.954621238963476,
+        "rank": 125,
+        "regional_rank": 4,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7102",
+    "name": "Constitución",
+    "slug": "constitucion",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 18.72781634059914,
+        "rank": 202,
+        "regional_rank": 15,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7103",
+    "name": "Curepto",
+    "slug": "curepto",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 7.736139592363494,
+        "rank": 340,
+        "regional_rank": 30,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7104",
+    "name": "Empedrado",
+    "slug": "empedrado",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 22.48586444849211,
+        "rank": 140,
+        "regional_rank": 6,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7105",
+    "name": "Maule",
+    "slug": "maule",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 10.545838513398534,
+        "rank": 322,
+        "regional_rank": 28,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7106",
+    "name": "Pelarco",
+    "slug": "pelarco",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 14.894425223321418,
+        "rank": 276,
+        "regional_rank": 22,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7107",
+    "name": "Pencahue",
+    "slug": "pencahue",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 12.40637758439684,
+        "rank": 312,
+        "regional_rank": 27,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7108",
+    "name": "Río Claro",
+    "slug": "rio-claro",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 14.132932510260614,
+        "rank": 293,
+        "regional_rank": 23,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7109",
+    "name": "San Clemente",
+    "slug": "san-clemente",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 19.067440282297635,
+        "rank": 196,
+        "regional_rank": 12,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7110",
+    "name": "San Rafael",
+    "slug": "san-rafael",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 15.744686859754475,
+        "rank": 257,
+        "regional_rank": 19,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7201",
+    "name": "Cauquenes",
+    "slug": "cauquenes",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 16.00555548362703,
+        "rank": 253,
+        "regional_rank": 18,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7202",
+    "name": "Chanco",
+    "slug": "chanco",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 8.580247831837216,
+        "rank": 332,
+        "regional_rank": 29,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7203",
+    "name": "Pelluhue",
+    "slug": "pelluhue",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 22.092071219271933,
+        "rank": 147,
+        "regional_rank": 8,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7301",
+    "name": "Curicó",
+    "slug": "curico",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 22.704704952335987,
+        "rank": 130,
+        "regional_rank": 5,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7302",
+    "name": "Hualañé",
+    "slug": "hualane",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 19.238106911768618,
+        "rank": 193,
+        "regional_rank": 11,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7303",
+    "name": "Licantén",
+    "slug": "licanten",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 33.923787725244196,
+        "rank": 37,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7304",
+    "name": "Molina",
+    "slug": "molina",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 23.637694434100347,
+        "rank": 116,
+        "regional_rank": 2,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7305",
+    "name": "Rauco",
+    "slug": "rauco",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 13.173863404081654,
+        "rank": 306,
+        "regional_rank": 26,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7306",
+    "name": "Romeral",
+    "slug": "romeral",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 21.792364024634466,
+        "rank": 150,
+        "regional_rank": 9,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7307",
+    "name": "Sagrada Familia",
+    "slug": "sagrada-familia",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 14.026228472050189,
+        "rank": 295,
+        "regional_rank": 24,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7308",
+    "name": "Teno",
+    "slug": "teno",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 18.300093799423905,
+        "rank": 214,
+        "regional_rank": 16,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7309",
+    "name": "Vichuquén",
+    "slug": "vichuquen",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 18.852273162407275,
+        "rank": 200,
+        "regional_rank": 14,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7401",
+    "name": "Linares",
+    "slug": "linares",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 20.338906843120736,
+        "rank": 177,
+        "regional_rank": 10,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7402",
+    "name": "Colbún",
+    "slug": "colbun",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 15.558671687545852,
+        "rank": 265,
+        "regional_rank": 20,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7403",
+    "name": "Longaví",
+    "slug": "longavi",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 18.003120490343044,
+        "rank": 220,
+        "regional_rank": 17,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7404",
+    "name": "Parral",
+    "slug": "parral",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 23.471555354459852,
+        "rank": 119,
+        "regional_rank": 3,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7405",
+    "name": "Retiro",
+    "slug": "retiro",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 15.150882549671751,
+        "rank": 270,
+        "regional_rank": 21,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7406",
+    "name": "San Javier",
+    "slug": "san-javier",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 22.135543458192974,
+        "rank": 146,
+        "regional_rank": 7,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7407",
+    "name": "Villa Alegre",
+    "slug": "villa-alegre",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 19.01494588380606,
+        "rank": 198,
+        "regional_rank": 13,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "7408",
+    "name": "Yerbas Buenas",
+    "slug": "yerbas-buenas",
+    "region_id": "7",
+    "composite_index": {
+      "2024": {
+        "score": 13.52059027857463,
+        "rank": 301,
+        "regional_rank": 25,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8101",
+    "name": "Concepción",
+    "slug": "concepcion",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 28.7146694408057,
+        "rank": 61,
+        "regional_rank": 5,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8102",
+    "name": "Coronel",
+    "slug": "coronel",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 24.0992126654016,
+        "rank": 110,
+        "regional_rank": 14,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8103",
+    "name": "Chiguayante",
+    "slug": "chiguayante",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 16.1043568642641,
+        "rank": 251,
+        "regional_rank": 29,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8104",
+    "name": "Florida",
+    "slug": "florida",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 28.81825471752978,
+        "rank": 59,
+        "regional_rank": 4,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8105",
+    "name": "Hualqui",
+    "slug": "hualqui",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 13.600649950248517,
+        "rank": 300,
+        "regional_rank": 32,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8106",
+    "name": "Lota",
+    "slug": "lota",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 42.012864795579105,
+        "rank": 9,
+        "regional_rank": 2,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8107",
+    "name": "Penco",
+    "slug": "penco",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 17.941717363973954,
+        "rank": 223,
+        "regional_rank": 25,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8108",
+    "name": "San Pedro de la Paz",
+    "slug": "san-pedro-de-la-paz",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 16.011918744264186,
+        "rank": 252,
+        "regional_rank": 30,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8109",
+    "name": "Santa Juana",
+    "slug": "santa-juana",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 25.41364705082414,
+        "rank": 84,
+        "regional_rank": 10,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8110",
+    "name": "Talcahuano",
+    "slug": "talcahuano",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 20.23314223853458,
+        "rank": 181,
+        "regional_rank": 21,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8111",
+    "name": "Tomé",
+    "slug": "tome",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 27.491815540973395,
+        "rank": 67,
+        "regional_rank": 6,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8112",
+    "name": "Hualpén",
+    "slug": "hualpen",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 19.27271884974204,
+        "rank": 192,
+        "regional_rank": 22,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8201",
+    "name": "Lebu",
+    "slug": "lebu",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 20.92549213455877,
+        "rank": 170,
+        "regional_rank": 19,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8202",
+    "name": "Arauco",
+    "slug": "arauco",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 19.122071349434524,
+        "rank": 194,
+        "regional_rank": 23,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8203",
+    "name": "Cañete",
+    "slug": "canete",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 30.980795219166684,
+        "rank": 49,
+        "regional_rank": 3,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8204",
+    "name": "Contulmo",
+    "slug": "contulmo",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 14.378768310331601,
+        "rank": 288,
+        "regional_rank": 31,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8205",
+    "name": "Curanilahue",
+    "slug": "curanilahue",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 18.521910347686795,
+        "rank": 209,
+        "regional_rank": 24,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8206",
+    "name": "Los Álamos",
+    "slug": "los-alamos",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 24.936696376553396,
+        "rank": 90,
+        "regional_rank": 12,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8207",
+    "name": "Tirúa",
+    "slug": "tirua",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 20.2656286197313,
+        "rank": 180,
+        "regional_rank": 20,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8301",
+    "name": "Los Ángeles",
+    "slug": "los-angeles",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 24.501602884339775,
+        "rank": 104,
+        "regional_rank": 13,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8302",
+    "name": "Antuco",
+    "slug": "antuco",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 16.48194829632285,
+        "rank": 245,
+        "regional_rank": 28,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8303",
+    "name": "Cabrero",
+    "slug": "cabrero",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 23.021379921622565,
+        "rank": 123,
+        "regional_rank": 16,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8304",
+    "name": "Laja",
+    "slug": "laja",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 21.579200937680298,
+        "rank": 154,
+        "regional_rank": 17,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8305",
+    "name": "Mulchén",
+    "slug": "mulchen",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 25.348204068666867,
+        "rank": 85,
+        "regional_rank": 11,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8306",
+    "name": "Nacimiento",
+    "slug": "nacimiento",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 16.787456152903474,
+        "rank": 241,
+        "regional_rank": 27,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8307",
+    "name": "Negrete",
+    "slug": "negrete",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 17.47782750147589,
+        "rank": 228,
+        "regional_rank": 26,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8308",
+    "name": "Quilaco",
+    "slug": "quilaco",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 27.146480612648432,
+        "rank": 71,
+        "regional_rank": 8,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8309",
+    "name": "Quilleco",
+    "slug": "quilleco",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 25.448562306695347,
+        "rank": 83,
+        "regional_rank": 9,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8310",
+    "name": "San Rosendo",
+    "slug": "san-rosendo",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 27.4146783552342,
+        "rank": 68,
+        "regional_rank": 7,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8311",
+    "name": "Santa Bárbara",
+    "slug": "santa-barbara",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 21.17403148071312,
+        "rank": 164,
+        "regional_rank": 18,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8312",
+    "name": "Tucapel",
+    "slug": "tucapel",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 11.994487557613644,
+        "rank": 313,
+        "regional_rank": 33,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8313",
+    "name": "Yumbel",
+    "slug": "yumbel",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 23.801039099457647,
+        "rank": 113,
+        "regional_rank": 15,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "8314",
+    "name": "Alto Biobío",
+    "slug": "alto-biobio",
+    "region_id": "8",
+    "composite_index": {
+      "2024": {
+        "score": 42.66752239652822,
+        "rank": 8,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9101",
+    "name": "Temuco",
+    "slug": "temuco",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 22.23410641575653,
+        "rank": 145,
+        "regional_rank": 14,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9102",
+    "name": "Carahue",
+    "slug": "carahue",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 10.805659345279597,
+        "rank": 320,
+        "regional_rank": 31,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9103",
+    "name": "Cunco",
+    "slug": "cunco",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 14.38082152111222,
+        "rank": 287,
+        "regional_rank": 27,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9104",
+    "name": "Curarrehue",
+    "slug": "curarrehue",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 18.30168329715333,
+        "rank": 213,
+        "regional_rank": 20,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9105",
+    "name": "Freire",
+    "slug": "freire",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 25.15174417460834,
+        "rank": 88,
+        "regional_rank": 7,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9106",
+    "name": "Galvarino",
+    "slug": "galvarino",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 16.225541527603127,
+        "rank": 249,
+        "regional_rank": 23,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9107",
+    "name": "Gorbea",
+    "slug": "gorbea",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 23.46590008265582,
+        "rank": 120,
+        "regional_rank": 10,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9108",
+    "name": "Lautaro",
+    "slug": "lautaro",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 20.382381335317707,
+        "rank": 176,
+        "regional_rank": 18,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9109",
+    "name": "Loncoche",
+    "slug": "loncoche",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 17.092236927748676,
+        "rank": 236,
+        "regional_rank": 22,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9110",
+    "name": "Melipeuco",
+    "slug": "melipeuco",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 16.21080451481696,
+        "rank": 250,
+        "regional_rank": 24,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9111",
+    "name": "Nueva Imperial",
+    "slug": "nueva-imperial",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 21.082106718227607,
+        "rank": 167,
+        "regional_rank": 16,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9112",
+    "name": "Padre Las Casas",
+    "slug": "padre-las-casas",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 14.135887276515504,
+        "rank": 292,
+        "regional_rank": 28,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9113",
+    "name": "Perquenco",
+    "slug": "perquenco",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 21.834928214723362,
+        "rank": 149,
+        "regional_rank": 15,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9114",
+    "name": "Pitrufquén",
+    "slug": "pitrufquen",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 23.863687010026318,
+        "rank": 112,
+        "regional_rank": 8,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9115",
+    "name": "Pucón",
+    "slug": "pucon",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 28.92807590793027,
+        "rank": 56,
+        "regional_rank": 4,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9116",
+    "name": "Saavedra",
+    "slug": "saavedra",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 39.27716745222816,
+        "rank": 19,
+        "regional_rank": 1,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9117",
+    "name": "Teodoro Schmidt",
+    "slug": "teodoro-schmidt",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 31.514093616931127,
+        "rank": 47,
+        "regional_rank": 2,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9118",
+    "name": "Toltén",
+    "slug": "tolten",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 13.010039559225195,
+        "rank": 307,
+        "regional_rank": 29,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9119",
+    "name": "Vilcún",
+    "slug": "vilcun",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 15.43307218896727,
+        "rank": 267,
+        "regional_rank": 25,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9120",
+    "name": "Villarrica",
+    "slug": "villarrica",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 28.32003665245726,
+        "rank": 62,
+        "regional_rank": 5,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9121",
+    "name": "Cholchol",
+    "slug": "cholchol",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 25.90309380605857,
+        "rank": 80,
+        "regional_rank": 6,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9201",
+    "name": "Angol",
+    "slug": "angol",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 21.001680374092242,
+        "rank": 169,
+        "regional_rank": 17,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9202",
+    "name": "Collipulli",
+    "slug": "collipulli",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 22.66959913478973,
+        "rank": 135,
+        "regional_rank": 12,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9203",
+    "name": "Curacautín",
+    "slug": "curacautin",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 17.32824253882757,
+        "rank": 230,
+        "regional_rank": 21,
+        "level": 2,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9204",
+    "name": "Ercilla",
+    "slug": "ercilla",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 18.987342483689712,
+        "rank": 199,
+        "regional_rank": 19,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9205",
+    "name": "Lonquimay",
+    "slug": "lonquimay",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 12.951947364396418,
+        "rank": 309,
+        "regional_rank": 30,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9206",
+    "name": "Los Sauces",
+    "slug": "los-sauces",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 14.549291795749543,
+        "rank": 284,
+        "regional_rank": 26,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9207",
+    "name": "Lumaco",
+    "slug": "lumaco",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 10.507502221669533,
+        "rank": 323,
+        "regional_rank": 32,
+        "level": 1,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9208",
+    "name": "Purén",
+    "slug": "puren",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 23.523135680353114,
+        "rank": 117,
+        "regional_rank": 9,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9209",
+    "name": "Renaico",
+    "slug": "renaico",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 22.892978803440837,
+        "rank": 126,
+        "regional_rank": 11,
+        "level": 4,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9210",
+    "name": "Traiguén",
+    "slug": "traiguen",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 22.490294648758347,
+        "rank": 139,
+        "regional_rank": 13,
+        "level": 3,
+        "available_metrics": 7
+      }
+    }
+  },
+  {
+    "id": "9211",
+    "name": "Victoria",
+    "slug": "victoria",
+    "region_id": "9",
+    "composite_index": {
+      "2024": {
+        "score": 29.967480550490205,
+        "rank": 53,
+        "regional_rank": 3,
+        "level": 5,
+        "available_metrics": 7
+      }
+    }
+  }
+]
