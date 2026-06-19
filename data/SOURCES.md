@@ -63,10 +63,64 @@ inter-batch sleep in orchestrator; validates 346-commune count after every scrap
 
 ---
 
+## Composite Crime Index — methodology
+
+**Status:** Active (Phase 18). The composite index combines 7 winsorized per-100k metrics into a single
+normalised score displayed in the ChoroplethLayer and ResultPanel.
+
+**Formula:** Weighted sum of 7 winsorized metrics (reference year 2024):
+
+```
+composite_score = sum(w_i * normalized_i)  for i in {M1, M2, M3, M4, M5, M6, M7}
+```
+
+**Locked weight vector (C-02):**
+
+| Metric key | Weight |
+|------------|--------|
+| spd_homicide_rate | 0.30 |
+| cead_robos_rate | 0.20 |
+| cead_vida_rate | 0.15 |
+| cead_propiedad_rate | 0.12 |
+| cead_vif_rate | 0.10 |
+| cead_drogas_rate | 0.08 |
+| cead_armas_rate | 0.05 |
+
+**Normalization method:** Winsorized min-max. Each metric is first winsorized with
+`scipy.stats.mstats.winsorize(limits=[0.01, 0.01])` to clip the top and bottom 1 % of values,
+then rescaled to [0, 1] via min-max. This prevents extreme outliers (e.g., Sierra Gorda
+43,369 per-100k) from collapsing the choropleth colour range.
+
+**M1 — homicide (SPD VHC switch):** M1 (`spd_homicide_rate`) uses the SPD VHC dataset as the
+index input rather than CEAD grupo 101 (see `## SPD — homicide reference snapshot` below).
+SPD VHC provides authenticated per-commune homicide counts unavailable cleanly in CEAD.
+CEAD grupo-101 `featured_rates.homicidios` is preserved unchanged for the per-family display
+on commune pages (additive schema migration — no existing consumers broken).
+
+**SII exposure caveat (M7):** The SII exposure metric (`sii_workers`) uses SII `PUB_COMU.xlsb`
+`Numero de trabajadores dependientes informados` per commune (reference year 2024). The commune
+is the firm's registered domicile / HQ, not the physical establishment. Multi-site firms
+attribute all workers to HQ, concentrating counts in business-hub communes. Cap applied:
+`sii_workers / ine_population > 5.0` → value clamped to `cap 5.0` before normalization.
+Communes without SII data have `available_metrics` decremented by 1.
+
+**Reference year:** 2024 (latest complete year for all 7 input metrics).
+
+**Figure registry tokens (accent-free, required to exist verbatim for F13/F14):**
+- F13: "SPD" + "homicidio" (SPD VHC homicide, M1 index input)
+- F13: "Subsecretaria de Prevencion" + "homicidio" (institutional provenance)
+- F14: "SII" + "trabajadores" (SII worker exposure metric)
+- F14: "SII" + "exposicion" (SII daytime exposure proxy — see exposicion caveat above)
+
+The SPD (Subsecretaria de Prevencion del Delito) administers the CEAD and the VHC homicide
+database. The SII (Servicio de Impuestos Internos) tracks exposicion econonomica by commune.
+
+---
+
 ## SPD — homicide reference snapshot
 
-> **Status: reference snapshot — NOT wired to the displayed metric.**
-> Deferred to Phase 18 (D-HOM metric switch). Stored in `data/snapshots/` once ingested.
+> **Status: Active (Phase 18). M1 index input = spd_homicide_rate.**
+> Previously deferred; now wired to the composite index. Stored in `data/snapshots/` once ingested.
 
 > **Institutional note (SC-07):** SPD (Subsecretaría de Prevención del Delito) is the
 > parent body that administers CEAD and owns the crime-classification taxonomy. See

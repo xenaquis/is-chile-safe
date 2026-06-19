@@ -13,9 +13,6 @@
  *   0 — all in-scope figures have registered sources (zero orphans)
  *   1 — one or more figures are orphaned (required token missing from SOURCES.md)
  *
- * F13 and F14 are explicitly excluded (deferred to Phase 18 — SPD VHC homicide
- * and Fiscalía secuestro metrics are reference snapshots, not yet displayed).
- *
  * Usage:
  *   node scripts/validate/figure-registry.mjs
  */
@@ -40,7 +37,7 @@ if (!existsSync(SOURCES_PATH)) {
 const sourcesContent = readFileSync(SOURCES_PATH, 'utf-8');
 
 // ---------------------------------------------------------------------------
-// Figure registry — in-scope figures F1-F12 + F15.
+// Figure registry — in-scope figures F1-F15.
 //
 // Each entry specifies:
 //   id         — figure number (e.g. 'F1')
@@ -50,8 +47,6 @@ const sourcesContent = readFileSync(SOURCES_PATH, 'utf-8');
 //                A figure passes if AT LEAST ONE group matches (logical OR
 //                across groups, AND within each group).
 //   note       — why this figure passes (editorial note or derived)
-//
-// F13 / F14 excluded: deferred Phase 18 (reference snapshots, not displayed).
 // ---------------------------------------------------------------------------
 const FIGURE_REGISTRY = [
   {
@@ -159,8 +154,26 @@ const FIGURE_REGISTRY = [
     ],
     note: 'chilemapas entry required for boundary polygon attribution.',
   },
-  // F13 — Homicide figure: deferred Phase 18 (SPD VHC reference snapshot, not displayed)
-  // F14 — Secuestro figure: deferred Phase 18 (Fiscalía reference snapshot, not displayed)
+  {
+    id: 'F13',
+    description: 'SPD VHC homicide rate — M1 composite index input (spd_homicide_rate)',
+    tokens: [
+      // SPD VHC homicide — M1: both token groups must match in SOURCES.md (accent-free)
+      ['SPD', 'homicidio'],
+      ['Subsecretaria de Prevencion', 'homicidio'],
+    ],
+    note: 'SPD VHC homicide is M1 in the composite index; both SPD+homicidio and Subsecretaria de Prevencion+homicidio must appear in SOURCES.md (accent-free).',
+  },
+  {
+    id: 'F14',
+    description: 'SII exposure proxy — workers per commune (sii_workers)',
+    tokens: [
+      // SII workers exposure — both token pairs must match in SOURCES.md (accent-free)
+      ['SII', 'trabajadores'],
+      ['SII', 'exposicion'],
+    ],
+    note: 'SII exposure metric requires SII+trabajadores and SII+exposicion in SOURCES.md (accent-free).',
+  },
   {
     id: 'F15',
     description: 'News incidents (count, date, location from RSS feeds)',
@@ -181,7 +194,7 @@ const FIGURE_REGISTRY = [
 // ---------------------------------------------------------------------------
 // Check each figure
 // ---------------------------------------------------------------------------
-console.log(`figure-registry: checking ${FIGURE_REGISTRY.length} in-scope figures (F1-F12, F15)`);
+console.log(`figure-registry: checking ${FIGURE_REGISTRY.length} in-scope figures (F1-F15)`);
 console.log(`figure-registry: reading ${SOURCES_PATH}`);
 console.log('');
 
@@ -226,5 +239,5 @@ if (orphans.length > 0) {
 }
 
 console.log(
-  `figure-registry: PASS — all ${FIGURE_REGISTRY.length} in-scope figures (F1-F12, F15) have registered sources in data/SOURCES.md (zero orphans)`
+  `figure-registry: PASS — all ${FIGURE_REGISTRY.length} in-scope figures (F1-F15) have registered sources in data/SOURCES.md (zero orphans)`
 );
