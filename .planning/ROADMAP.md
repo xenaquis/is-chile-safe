@@ -135,7 +135,11 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
   3. A live news pipeline run executes via `scrape-news.yml` (using `DEEPSEEK_API_KEY` repo secret) and a 50-incident commune-assignment hallucination audit confirms the name→CUT resolver is performing at acceptable accuracy in production.
   4. An updated sitemap is submitted to Google Search Console immediately after the first v2.0 deploy, with URL Inspection run on 5–10 representative commune pages and A-vs-B pages confirming they are indexable.
 
-**Plans**: TBD
+**Plans**: 3 plans
+
+- [ ] 22-01-PLAN.md — Set CF_DEPLOY_HOOK_URL secret; verify code-push deploy fires + production serves v2.0; confirm rebuild-loop guard (GL-01, GL-02)
+- [ ] 22-02-PLAN.md — Scored 50-incident commune-assignment audit + live News Pipeline run (GL-03)
+- [ ] 22-03-PLAN.md — Confirm v2.0 sitemap live; submit to GSC + URL Inspection on representative pages (GL-04)
 
 ### Phase 23: ENUSC Communal Victimization Layer
 
@@ -173,4 +177,4 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 | 18. Composite Crime Index | 8/8 | Complete    | 2026-06-19 |
 | 21. Commune Comparator + A-vs-B SEO | 0/TBD | Not started | - |
 | 23. ENUSC Communal Victimization Layer | 4/4 | Complete   | 2026-06-19 |
-| 22. Go-Live / Launch Ops | 0/TBD | Not started (gated after 23) | - |
+| 22. Go-Live / Launch Ops | 0/3 | Not started (gated after 23) | - |
