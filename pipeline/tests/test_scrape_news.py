@@ -82,10 +82,11 @@ _TEST_FEEDS = {
 }
 
 
-def _make_classifier_output(cut: str = _VALID_CUT):
+def _make_classifier_output(commune_name: str = "Santiago"):
     from pipeline.news.schema import ClassifierOutput
     return ClassifierOutput(
-        commune_cut=cut,
+        commune_name=commune_name,
+        region_hint="Metropolitana",
         family="propiedad",
         title_es="Robo con violencia en Santiago",
         title_en="Violent robbery in Santiago",
@@ -132,6 +133,7 @@ def test_main_happy_path(tmp_path, monkeypatch):
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
          patch("pipeline.news.feeds.fetch_feed") as mock_fetch, \
          patch("pipeline.news.classifier.classify") as mock_classify, \
+         patch("pipeline.news.resolver.resolve_cut") as mock_resolve, \
          patch("pipeline.news.centroids.get_centroid") as mock_centroid:
 
         # Feed returns 3 entries: 2 crime + 1 non-crime + 1 duplicate crime URL
@@ -146,14 +148,14 @@ def test_main_happy_path(tmp_path, monkeypatch):
         from pipeline.news.schema import ClassifierOutput
         side_effects = [
             ClassifierOutput(
-                commune_cut=_VALID_CUT, family="propiedad",
+                commune_name="Santiago", region_hint="Metropolitana", family="propiedad",
                 title_es="Robo con violencia en Santiago",
                 title_en="Violent robbery in Santiago",
                 summary="A man was injured during a robbery.",
                 confidence=0.9,
             ),
             ClassifierOutput(
-                commune_cut=_VALID_CUT, family="drogas",
+                commune_name="Puente Alto", region_hint="Metropolitana", family="drogas",
                 title_es="Carabineros detiene banda narco en Puente Alto",
                 title_en="Police arrest drug gang in Puente Alto",
                 summary="Five suspects arrested for drug trafficking.",
@@ -161,6 +163,9 @@ def test_main_happy_path(tmp_path, monkeypatch):
             ),
         ]
         mock_classify.side_effect = side_effects
+
+        # resolve_cut returns (cut, slug) for any valid commune name
+        mock_resolve.return_value = (_VALID_CUT, "santiago")
 
         # centroid returns known coords for the valid CUT
         mock_centroid.return_value = (-33.45, -70.67)
@@ -203,14 +208,19 @@ def test_main_happy_path(tmp_path, monkeypatch):
 # Test: missing DEEPSEEK_API_KEY returns 1 without raising
 # ---------------------------------------------------------------------------
 
-def test_main_no_api_key_returns_1(tmp_path, monkeypatch):
-    """Absent DEEPSEEK_API_KEY must produce return code 1, not raise."""
+def test_main_no_api_key_returns_0(tmp_path, monkeypatch):
+    """Absent API key must produce return code 0 (graceful exit), not raise.
+
+    The orchestrator degrades gracefully: no key → no data change → exit 0.
+    (CLAUDE.md: 'pipeline debe fallar con gracia y alertar')
+    """
     monkeypatch.delenv("DEEPSEEK_API_KEY", raising=False)
+    monkeypatch.delenv("MINIMAX_API_KEY", raising=False)
     monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
 
     import pipeline.scrape_news as sn
     result = sn.main()
-    assert result == 1, "main() must return 1 when DEEPSEEK_API_KEY is absent"
+    assert result == 0, "main() must return 0 (graceful exit) when API key is absent"
 
     # No files should be written
     written = list(tmp_path.rglob("*.json"))
@@ -239,6 +249,7 @@ def test_per_feed_failure_isolated(tmp_path, monkeypatch):
     with patch("pipeline.news.feeds.FEEDS", two_feeds), \
          patch("pipeline.news.feeds.fetch_feed", side_effect=_mock_fetch), \
          patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
+         patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
          patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
 
         import pipeline.scrape_news as sn
@@ -265,6 +276,7 @@ def test_classifier_none_items_skipped(tmp_path, monkeypatch):
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
          patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1, _CRIME_ENTRY_2]), \
          patch("pipeline.news.classifier.classify", return_value=None), \
+         patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
          patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
 
         import pipeline.scrape_news as sn
@@ -287,6 +299,7 @@ def test_centroid_none_items_skipped(tmp_path, monkeypatch):
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
          patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
          patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
+         patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
          patch("pipeline.news.centroids.get_centroid", return_value=None):
 
         import pipeline.scrape_news as sn
@@ -312,6 +325,7 @@ def test_incident_field_names_match_ts_interface(tmp_path, monkeypatch):
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
          patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
          patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
+         patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
          patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
 
         import pipeline.scrape_news as sn
@@ -322,3 +336,83 @@ def test_incident_field_names_match_ts_interface(tmp_path, monkeypatch):
     incident = data["incidents"][0]
     missing = required_fields - set(incident.keys())
     assert not missing, f"Incident missing TS interface fields: {missing}"
+
+
+# ---------------------------------------------------------------------------
+# Test: orchestrator resolves commune_name via resolve_cut (NEWS-03 / Task 2)
+# ---------------------------------------------------------------------------
+
+def test_orchestrator_resolves_name(tmp_path, monkeypatch):
+    """With a valid commune_name, the built incident has the resolved cut + non-null slug."""
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-fake")
+    monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
+
+    from pipeline.news.schema import ClassifierOutput
+    classifier_output = ClassifierOutput(
+        commune_name="Las Condes",
+        region_hint="Metropolitana",
+        family="propiedad",
+        title_es="Robo en Las Condes",
+        title_en="Robbery in Las Condes",
+        summary="A robbery occurred.",
+        confidence=0.9,
+    )
+    _LAS_CONDES_CUT = "13110"
+
+    with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
+         patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
+         patch("pipeline.news.classifier.classify", return_value=classifier_output), \
+         patch("pipeline.news.resolver.resolve_cut", return_value=(_LAS_CONDES_CUT, "las-condes")) as mock_resolve, \
+         patch("pipeline.news.centroids.get_centroid", return_value=(-33.41, -70.58)):
+
+        import pipeline.scrape_news as sn
+        result = sn.main()
+
+    assert result == 0
+    mock_resolve.assert_called_once_with("Las Condes", "Metropolitana")
+    data = json.loads((tmp_path / "current.json").read_text(encoding="utf-8"))
+    assert len(data["incidents"]) == 1
+    inc = data["incidents"][0]
+    assert inc["cut"] == _LAS_CONDES_CUT
+    assert inc["slug"] == "las-condes"
+
+
+def test_orchestrator_drops_unresolved_name(tmp_path, monkeypatch):
+    """When resolve_cut returns None (unknown commune name), the incident is dropped — no crash."""
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-fake")
+    monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
+
+    with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
+         patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
+         patch("pipeline.news.classifier.classify", return_value=_make_classifier_output("Gotham")), \
+         patch("pipeline.news.resolver.resolve_cut", return_value=None), \
+         patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
+
+        import pipeline.scrape_news as sn
+        result = sn.main()
+
+    assert result == 0
+    data = json.loads((tmp_path / "current.json").read_text(encoding="utf-8"))
+    assert data["incidents"] == [], "Unresolved commune name must result in 0 incidents"
+
+
+def test_key_check_provider_aware(tmp_path, monkeypatch):
+    """With NEWS_PROVIDER=minimax and MINIMAX_API_KEY set, orchestrator does not early-exit."""
+    monkeypatch.setenv("NEWS_PROVIDER", "minimax")
+    monkeypatch.setenv("MINIMAX_API_KEY", "mm-fake-key")
+    monkeypatch.delenv("DEEPSEEK_API_KEY", raising=False)
+    monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
+
+    with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
+         patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
+         patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
+         patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
+         patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
+
+        import pipeline.scrape_news as sn
+        result = sn.main()
+
+    # Pipeline must proceed (not early-exit) when minimax key is present
+    assert result == 0
+    current_path = tmp_path / "current.json"
+    assert current_path.exists(), "current.json must be written when minimax key is present"

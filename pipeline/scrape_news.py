@@ -77,18 +77,22 @@ def main() -> int:
     except ImportError:
         pass  # python-dotenv not installed — env vars must be set by caller
 
-    # T-05-04-02: Key check — log clear message, never print the key value.
+    # T-05-04-02 / T-16-09: Provider-aware key check — log clear message, never print key value.
     # Degrade gracefully (CLAUDE.md: "pipeline debe fallar con gracia y alertar"):
     # without a key the pipeline cannot classify, so skip this run cleanly (exit 0)
     # instead of failing the scheduled CI job every 6h. No key -> no data change ->
-    # no commit/deploy. Set DEEPSEEK_API_KEY (pipeline/.env in dev, repo secret in CI)
-    # to enable classification; once present, the run proceeds normally below.
-    api_key = os.environ.get("DEEPSEEK_API_KEY", "").strip()
+    # no commit/deploy.
+    # Pitfall 6 (Plan 03): key check must be provider-aware. NEWS_PROVIDER=minimax
+    # uses MINIMAX_API_KEY; default provider is deepseek → DEEPSEEK_API_KEY.
+    _provider = os.environ.get("NEWS_PROVIDER", "deepseek").strip().lower()
+    _key_env = "MINIMAX_API_KEY" if _provider == "minimax" else "DEEPSEEK_API_KEY"
+    api_key = os.environ.get(_key_env, "").strip()
     if not api_key:
         logger.warning(
-            "DEEPSEEK_API_KEY is not set — skipping news classification this run. "
+            "%s is not set — skipping news classification this run. "
             "Set it in pipeline/.env (dev) or as a repo secret (CI) to enable the pipeline. "
-            "Exiting cleanly with no data change."
+            "Exiting cleanly with no data change.",
+            _key_env,
         )
         return 0
 
@@ -118,6 +122,7 @@ def main() -> int:
         from pipeline.news.dedup import deduplicate
         from pipeline.news.store import build_incident, make_id, merge_and_write
         from pipeline.news.schema import VALID_CUTS
+        from pipeline.news.resolver import resolve_cut
 
         # Load seen-URL ledger (D-03)
         seen = load_seen(path=seen_path)
@@ -205,12 +210,18 @@ def main() -> int:
                 rejected += 1
                 continue
 
-            # classifier already validated commune_cut is in VALID_CUTS and confidence >= threshold
-            cut = result.commune_cut
-            if cut is None:
-                logger.debug("Rejected (null cut): title=%r", item["title"][:60])
+            # T-16-07: Resolve LLM commune_name → (cut, slug) via deterministic closed-set lookup.
+            # Returns None for unknown/hallucinated names → drop incident (anti-hallucination guard).
+            # Never let an unresolved name reach the store.
+            resolved = resolve_cut(result.commune_name, result.region_hint) if result.commune_name else None
+            if resolved is None:
+                logger.debug(
+                    "Rejected (unresolved commune name %r): title=%r",
+                    result.commune_name, item["title"][:60],
+                )
                 rejected += 1
                 continue
+            cut, slug = resolved
 
             centroid = get_centroid(cut)
             if centroid is None:
@@ -232,6 +243,7 @@ def main() -> int:
                 date=item["date"],
                 outlet=item["outlet"],
                 family=result.family,
+                slug=slug,
             )
             new_incidents.append(incident)
             classified += 1
