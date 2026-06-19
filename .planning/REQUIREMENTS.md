@@ -1,94 +1,70 @@
-# REQUIREMENTS — Milestone v1.3 Data Quality Hardening & Methodology
+# REQUIREMENTS — Milestone v2.0 Composite Index, Comparators & Launch
 
 **Defined:** 2026-06-19
-**Source:** v1.3 swarm review (`v1.3-REVIEW-FINDINGS.md`, `v1.3-METHODOLOGY-SPEC.md`, `v1.3-DECISIONS.md`). 0 blockers, 4 high, 24 actionable.
-**Goal:** Eliminate accumulated tech debt AND make every quantitative figure on the site explained + sourced+linked + caveated + EN/ES-parity — zero displayed number without a registry entry.
+**Source:** v2.0 milestone research (`.planning/research/SUMMARY.md` + STACK/FEATURES/ARCHITECTURE/PITFALLS) and SEED-001 (comparator + A-vs-B, locked constraints).
+**Goal:** Redesign the core safety metric into an exposure-adjusted composite index, build a commune comparator + curated A-vs-B SEO pages on top of it, and execute the production go-live.
 
-Each requirement traces to one or more review finding IDs. Severity from the review carries over (high = strongly recommended this milestone).
+**Tracks & dependency:** Track 1 (Composite Index, Phase 18 — reserved #) → Track 2 (Comparator + A-vs-B, Phase 21) is a **hard dependency** (the comparator headline number and A-vs-B prose need a computed index). Track 3 (Go-Live, Phase 22) has no code dependency and can run in parallel with Phase 21.
+
+**Locked constraints (carry through all tracks):** hybrid rollout (display all comunas, never 404/link to non-rollout pages); never an absolute "seguro/peligroso / safe/dangerous" verdict — a sortable single score implies a verdict through rank + color alone, so editorial framing + the CI validator must guard it; no thin content; static / SEO-indexable; every displayed figure explained + sourced + caveated with EN/ES parity (figure-registry zero-orphan).
 
 ---
 
-## v1.3 Requirements
+## v2.0 Requirements
 
-### Tech Debt & Correctness (→ Phase 19)
+### Track 1 — Composite Crime Index (→ Phase 18)
 
-- [x] **TD-01**: Methodology EN+ES correctly state the national mean is an **unweighted** mean of non-low-population commune rates (a typical-commune figure), matching `data.ts` and the is-chile-safe FAQ — no "population-weighted" claim anywhere user-facing. *(MC-01, MC-07 — high)*
-- [x] **TD-02**: The stale `map_placeholder_text` ("map coming soon" / "disponible próximamente") no longer renders anywhere; the live map is the only map surface. *(charter §2; map is live)*
-- [x] **TD-03**: News incidents render newest-first (sorted by `date` desc) on `/news/` and `/es/noticias/` (and any pin list). *(IN-03)*
-- [ ] **TD-04**: `/crime/homicide/` (vida-family aggregate, ambiguous "homicide" slug) redirects to its canonical target — no orphaned, editorially-ambiguous duplicate URL. *(COMU-03; DECISIONS c = redirect)*
-- [x] **TD-05**: Incident source URLs are validated by `new URL()` + protocol whitelist (http/https) both in `news.astro`/`noticias.astro` and in the pipeline (`build_incident`/`canonical_url`); non-http(s) URLs are dropped, not rendered. *(CQ-01, CQ-02)*
-- [x] **TD-06**: `map-payload-*.json` carries an explicit `partial_year` flag so the frontend can caveat partial years (e.g. 2025). *(DQ-MAP-PAYLOAD-2025-NO-PARTIAL-FLAG)*
-- [x] **TD-07**: Residual code tech-debt from PROJECT.md is closed: CI assertion for `FAMILY_KEYS` order, typed `by_family`, dynamic `AVAILABLE_YEARS`, `nyquist_compliant` flags reconciled for phases 4–6, and any skipif/xfail test cruft removed. *(PROJECT.md tech-debt line)*
+- [ ] **CI-01**: The pipeline computes a 0–100 composite crime-exposure index per comuna from the 7 defined metrics and writes it (additive, non-breaking) into per-comuna JSON, in an isolated `build_composite_index.py` step that does not break the CEAD scraper if it fails.
+- [ ] **CI-02**: The index normalizes per-metric distributions with winsorization or percentile-rank (never raw min-max), so right-skewed micro-comuna outliers don't collapse the scale; a pytest distribution assertion guards the spread.
+- [ ] **CI-03**: SPD VHC is the homicide input to the index (M5), reference year capped at the latest fully-consolidated year (≤2024); CEAD grupo-101 `featured_rates.homicidios` is preserved unchanged for backward compatibility.
+- [ ] **CI-04**: The index applies an SII economic-activity exposure denominator with a documented cap (fall back to INE population when `sii_workers / ine_population` exceeds the threshold) to prevent firm-HQ-domicile distortion.
+- [ ] **CI-05**: A user sees the index as an integer 0–100 with one of 5 labeled bands in the map popup, the ResultPanel, and comuna pages, plus the comuna's national and regional rank on the index.
+- [ ] **CI-06**: Every page that displays the index renders a mandatory bilingual caveat block (composite of *reported* crime burden, the sources, the data vintage, and the SII firm-domicile caveat) — no absolute safety verdict.
+- [ ] **CI-07**: The choropleth offers a toggle between index mode and the existing per-family rate mode (5 binned classes each); the popup shows the exact index score.
+- [ ] **CI-08**: The EN + ES methodology pages document the composite formula, the chosen normalization method, the SPD homicide switch, and the SII exposure caveat; every new figure is registered (figure-registry zero-orphan passes).
+- [ ] **CI-09**: The forbidden-language CI validator is extended to flag "safest / most dangerous / más segura / más peligrosa" (and equivalents) when not qualified by "reported / reportado", and runs in `npm run validate`.
+- [ ] **CI-10**: The `featured_rates`→7-metric schema migration is verified non-breaking across every consumer (commune panel, choropleth, Astro templates, figure-registry validator, pytest), with TypeScript types added and `@astrojs/check` + full validator suite green; `comparator_table.json` is emitted for Track 2.
 
-### Bilingual Parity (→ Phase 19)
+### Track 2 — Commune Comparator + A-vs-B SEO (→ Phase 21)
 
-- [x] **BIL-01**: All user-visible Spanish strings use "comuna" (not the English/French "commune") — including meta descriptions, JSON-LD, and RateTooltip labels; JS identifiers (`communeCount`, `loadCommune`) untouched. *(BP-02 — high)*
-- [x] **BIL-02**: `/es/delitos-por-region/` is no longer an orphan: it has a reciprocal EN counterpart with correct bidirectional hreflang, and the language toggle does not self-loop. *(BP-01 — high)*
-- [x] **BIL-03**: No stray English words remain in Spanish prose (e.g. "la adjacent ciudad" → "la ciudad vecina"). *(BP-03)*
-- [x] **BIL-04**: Hardcoded section headings, table headers, and the cookie-consent strings are sourced from `i18n.ts` (single source of truth), not duplicated literals per locale. *(BP-04, BP-05, BP-06, BP-08)*
+- [ ] **CMP-01**: A user can compare 2–3 comunas side by side in an interactive island showing the composite index headline, per-family breakdown, per-family trend indicator, and a "compare to national/regional average" column.
+- [ ] **CMP-02**: The comparator offers accent-insensitive autocomplete search across all 346 comunas, layered on a pre-rendered static HTML shell (comparator landing page is indexable).
+- [ ] **CMP-03**: Bilingual A-vs-B programmatic pages are generated from a curated priority-pair allowlist (`data/comparator-pairs.json`), using CUT-code URL slugs with alphabetical ordering so each pair has a single canonical page (no A-vs-B / B-vs-A duplication).
+- [ ] **CMP-04**: Each A-vs-B page carries ≥5 differentiating uniqueness blocks and ≥300 words of non-swappable prose (index difference, per-family rate table, trend narrative, national rank, regional context); a build-time thin-content assertion blocks pages that fall short.
+- [ ] **CMP-05**: The build asserts total page count stays under the Cloudflare free-tier safety bound (<18,000 files).
+- [ ] **CMP-06**: hreflang reciprocity and the cross-link spine validators are extended to cover A-vs-B pages, and every comuna page links to 3–5 relevant A-vs-B pairs.
+- [ ] **CMP-07**: A-vs-B prose quality is acceptance-checked on a random sample (≥10 pairs) before deploy, and pages publish in staged batches (~20 pairs) with GSC indexing verified between batches.
 
-### SEO & Spine (→ Phase 19)
+### Track 3 — Go-Live / Launch Ops (→ Phase 22)
 
-- [ ] **SEO-01**: `/is-santiago-safe/` and `/es/mapa-seguridad-santiago/` form a correct reciprocal hreflang pair; ES users are not sent to the EN page by the toggle. *(SEO-01)*
-- [ ] **SEO-02**: `site/public/robots.txt` exists with an `Allow` rule and a `Sitemap:` pointer to the sitemap index. *(SEO-04)*
-- [ ] **SEO-03**: Glossary is reachable from nav and/or footer (locale-aware `/glossary/`, `/es/glosario/`), and ranking routes have explicit sitemap inclusion rules (no silent catch-all). *(SEO-02, SEO-03)*
-
-### Methodology Completeness (→ Phase 20)
-
-- [x] **MTH-01**: Every displayed aggregate figure that is an unweighted commune mean (per-family `familyNationalMean`, per-region breakdowns) carries an inline caveat AND is explained in the methodology (EN+ES). *(MC-02, MC-04)*
-- [x] **MTH-02**: The 1–5 LevelChip incidence classification shown on every commune hero is explained in the methodology as a relative tier scale derived from the non-low-pop rate distribution (EN+ES). *(MC-05)*
-- [x] **MTH-03**: The drogas scope note (Ley 20.000 only) renders inline where the drogas figure appears (FamilyBreakdownBars), and trend/sparkline links deep-link to `#trend-formula`. *(MC-09, MC-06)*
-- [x] **MTH-04**: `methodology.astro` and `es/metodologia.astro` are at structural parity (matching H2 sections + attribution/table-note blocks), and a CI validator asserts forbidden-language (no non-attributed absolute "safe/dangerous" / "seguro/peligroso"). *(MC-10; charter validator #9)*
-
-### Sources Expansion (→ Phase 20)
-
-- [x] **SRC-01**: `data/SOURCES.md` has a first-class **INE** section (official URL, measure semantics, vintage, fetch script, third-party-mirror caveat), and a CI spot-check compares ≥5 commune populations against official INE. *(SC-01, SC-02)*
-- [x] **SRC-02**: `data/SOURCES.md` has an **ENUSC** section (URL, publisher, measure semantics, vintage, licence), and the methodology's underreporting/cifra-negra claims carry an inline citation link to it. *(SC-03 — high)*
-- [ ] **SRC-03**: `data/SOURCES.md` documents the **Subsecretaría de Prevención del Delito** (parent of CEAD) and the CEAD grupo/subgrupo **taxonomy provenance** (ajax_2.php seleccion=9), clarifying the chain of authority. *(SC-04, SC-07)*
-- [ ] **SRC-04**: The editorial methodology parameters (5% trend threshold, 3-year window, 10,000-inhabitant low-pop exclusion) are documented in `data/SOURCES.md`/methodology as editorial with rationale. *(SC-05, SC-06)*
-- [x] **SRC-05**: Every quantitative figure displayed on the site maps to a `data/SOURCES.md` registry entry (the figure registry from `v1.3-METHODOLOGY-SPEC.md`) — zero orphan numbers. *(METHODOLOGY-SPEC goal; milestone definition of done)*
+- [ ] **GL-01**: The `CF_DEPLOY_HOOK_URL` GitHub secret is set and verified with a test push (CF dashboard shows the triggered build) — done before any v2.0 code merge depends on a live deploy.
+- [ ] **GL-02**: Production is rebuilt from `master` and reflects v2.0 content, and the rebuild-loop guard is confirmed intact (data-only commits do not increment the CF build count).
+- [ ] **GL-03**: A live news pipeline run executes (`DEEPSEEK_API_KEY` secret) followed by a 50-incident commune-assignment hallucination audit.
+- [ ] **GL-04**: An updated sitemap is submitted to Google Search Console immediately after first deploy, with URL Inspection on 5–10 representative comuna + A-vs-B pages.
 
 ---
 
 ## Future Requirements (deferred)
 
-- **Phase 18 — Composite Crime Index & Metric Redesign** (next milestone after v1.3): exposure-adjusted composite index (SII denominator), SPD VHC homicide metric, `featured_rates`→7-metric schema, secuestro (Fiscalía, region-level), index-driven choropleth. Inputs hardened by v1.3.
-- SII / Fiscalía-secuestro / SPD-VHC snapshots promoted to first-class sources **at Phase 18** (when wired into displayed figures) — kept as stubs in v1.3. *(DECISIONS b)*
-- Interactive commune comparator + A-vs-B programmatic SEO pages (SEED-001 leftovers) — future SEO milestone.
+- **AdSense activation + Consent Mode v2** — wire `gtag` consent default (`ad_storage: denied`) + cookie banner, verify via Tag Assistant, then flip `ADSENSE_ENABLED`. Deferred out of v2.0 by decision (ads stay off this milestone); monetization is a later cycle.
+- **A-vs-B expansion beyond the priority allowlist** — only after GSC validates the initial staged batches.
+- **3-column comparator polish / additional comparator dimensions** — incremental over the 2–3 comuna baseline.
 
-## Out of Scope (v1.3)
+## Out of Scope
 
-- **Go-live / deploy infra** (set `CF_DEPLOY_HOOK_URL`, CF redeploy, DNS, AdSense consent) — human/ops, tracked in `DEPLOYMENT.md` + STATE Deferred Items; not a code requirement. (Note: prod is currently stale because the hook secret is unset.)
-- **New data sources beyond INE/ENUSC/SPD** — only authoritative backers of an already-displayed figure are in scope; no new datasets.
-- **Prior-milestone P08/P10 human-UAT items** — closed as superseded (DECISIONS a); not carried.
-- **Any new displayed metric or index** — reserved for Phase 18.
+- **User-configurable index weight sliders** — incompatible with static pre-rendering; invites false-precision misuse.
+- **Confidence intervals / error bars on the index** — backfires with lay users (CEAD error is systematic, not random); use data-vintage caveats instead.
+- **Star ratings / absolute "safe/dangerous" verdicts** — editorial-language constraint; the site reports relative incidence only.
+- **Real-time index updates** — CEAD is quarterly, SPD VHC annual; rebuild cadence suffices.
+- **New backend / database / state manager** — v2.0 stays 100% static JSON-in-repo.
 
 ## Traceability
 
-| REQ-ID | Phase | Status |
-|--------|-------|--------|
-| TD-01 | 19 | Complete |
-| TD-02 | 19 | Complete |
-| TD-03 | 19 | Complete |
-| TD-04 | 19 | Pending |
-| TD-05 | 19 | Complete |
-| TD-06 | 19 | Complete |
-| TD-07 | 19 | Complete |
-| BIL-01 | 19 | Complete |
-| BIL-02 | 19 | Complete |
-| BIL-03 | 19 | Complete |
-| BIL-04 | 19 | Complete |
-| SEO-01 | 19 | Pending |
-| SEO-02 | 19 | Pending |
-| SEO-03 | 19 | Pending |
-| MTH-01 | 20 | Complete |
-| MTH-02 | 20 | Complete |
-| MTH-03 | 20 | Complete |
-| MTH-04 | 20 | Complete |
-| SRC-01 | 20 | Complete |
-| SRC-02 | 20 | Complete |
-| SRC-03 | 20 | Pending |
-| SRC-04 | 20 | Pending |
-| SRC-05 | 20 | Complete |
+| REQ-ID | Phase | Notes |
+|--------|-------|-------|
+| CI-01..CI-10 | Phase 18 | (filled by roadmap) |
+| CMP-01..CMP-07 | Phase 21 | depends on Phase 18 |
+| GL-01..GL-04 | Phase 22 | parallel with Phase 21 |
 
-*Confirmed by roadmapper 2026-06-19. Coverage: 23/23 individual requirements mapped (TD-01..07 = 7, BIL-01..04 = 4, SEO-01..03 = 3, MTH-01..04 = 4, SRC-01..05 = 5 — total 23). Zero orphans.*
+---
+*Defined 2026-06-19 for milestone v2.0. 21 requirements across 3 tracks.*
