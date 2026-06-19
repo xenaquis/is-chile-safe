@@ -431,9 +431,10 @@ const jsonLd = {
       informados registrados en cada comuna. Esta cifra utiliza el domicilio fiscal de la empresa
       (casa matriz), no la ubicación del establecimiento físico, lo que concentra los recuentos
       en comunas de mayor actividad empresarial. Para evitar que esta distorsión domine el índice
-      compuesto, la métrica se limita a 5,0 veces la población residente INE de la comuna antes
-      de la normalización. Las comunas sin datos del SII tienen su recuento de métricas disponibles
-      decrementado en uno.
+      compuesto, cuando la razón entre trabajadores SII y población residente INE supera 5,0,
+      la métrica recurre a la población residente INE como denominador (5,0 es un umbral de
+      activación del recurso, no un multiplicador aplicado a la población INE). Las comunas sin
+      datos del SII tienen su recuento de métricas disponibles decrementado en uno.
     </p>
 
     <p>

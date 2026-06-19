@@ -414,8 +414,10 @@ const jsonLd = {
       (<em>trabajadores dependientes informados</em>) registered in each commune. This figure
       uses the firm's registered domicile (HQ), not physical establishment location, which
       concentrates counts in business-hub communes. To prevent this distortion from dominating
-      the composite, the metric is capped at 5.0 × the commune's INE resident population before
-      normalization. Communes without SII data have their available metric count decremented by one.
+      the composite, when the ratio of SII workers to INE resident population exceeds 5.0, the
+      metric falls back to the INE resident population as the denominator (5.0 is a fallback
+      trigger threshold, not a multiplier applied to INE). Communes without SII data have their
+      available metric count decremented by one.
     </p>
 
     <p>
