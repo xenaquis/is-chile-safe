@@ -21,6 +21,10 @@ interface Props {
   lang: 'en' | 'es';
 }
 
+/** WR-03 / CR-01 defense-in-depth: only allow http/https URLs in rendered hrefs. */
+const safeHref = (url: string): string =>
+  url.startsWith('http://') || url.startsWith('https://') ? url : '#';
+
 export function IncidentsList({ incidents, lang }: Props) {
   if (!incidents || incidents.length === 0) {
     return <p className="panel-muted" style={{ margin: 0, color: 'var(--muted)', fontSize: 16 }}>—</p>;
@@ -38,7 +42,7 @@ export function IncidentsList({ incidents, lang }: Props) {
           </div>
           {/* T-03-02-01: rel="noopener noreferrer" on all external links */}
           <a
-            href={e.url}
+            href={safeHref(e.url)}
             target="_blank"
             rel="noopener noreferrer"
             className="event-source"
