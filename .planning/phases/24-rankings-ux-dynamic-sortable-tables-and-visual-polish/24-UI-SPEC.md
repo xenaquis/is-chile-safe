@@ -1,10 +1,11 @@
 ---
 phase: 24
 slug: rankings-ux-dynamic-sortable-tables-and-visual-polish
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-06-19
+reviewed_at: 2026-06-19
 ---
 
 # Phase 24 — UI Design Contract
