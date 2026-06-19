@@ -241,6 +241,15 @@ Plans:
   3. The pipeline runs for real (gated by the human go-live `DEEPSEEK_API_KEY`/`MINIMAX_API_KEY` step) producing `data/incidents/current.json`; the map incident layer and the comuna-page "recent incidents" section render real, correctly-geolocated incidents with no console errors.
   4. Each incident links to its source article ↗ AND back to its comuna page; a dedicated news/incidents page exists (bilingual); a data-freshness indicator ("updated …") is shown; all incidents cite and link the press source per editorial policy.
 
+**Plans:** 5 plans (5 waves)
+
+Plans:
+- [ ] 16-01-PLAN.md — Geolocation redesign: resolver.py (name→CUT, accent-insensitive) + classifier emits commune_name (NEWS-01)
+- [ ] 16-02-PLAN.md — Golden set + env-configurable provider + ab_score.py + A/B run, winner wired (NEWS-02)
+- [ ] 16-03-PLAN.md — Schema slug + orchestrator resolve name→(cut,slug) + live pipeline run → current.json (NEWS-03)
+- [ ] 16-04-PLAN.md — Surfacing: incident→source + incident→comuna links, bilingual /news/ + /es/noticias/, nav/i18n/sitemap (NEWS-04)
+- [ ] 16-05-PLAN.md — Verify + gate: full pytest + chained build+validate + BrowserOS (EN+ES) + 16-VERIFICATION.md (NEWS-01..04)
+
 ### Phase 17: Data Quality, Source Traceability & Methodology
 
 **Goal**: Every quantitative figure on the site is verifiably correct and traceable to its *authoritative* source, and the methodology explicitly names and **links** each source — without re-architecting the metric. FOCUSED scope (re-scoped with user 2026-06-18); the composite index / schema migration is deferred to proposed Phase 18.
