@@ -353,7 +353,7 @@ Plans:
 
 **Wave 3** *(blocked on 20-02 — shares methodology.astro)*
 
-- [ ] 20-03-PLAN.md — Inline ENUSC + per-figure source citation links + trend #trend-formula deep-link + EN/ES structural parity assertion [MTH-04, SRC-02]
+- [x] 20-03-PLAN.md — Inline ENUSC + per-figure source citation links + trend #trend-formula deep-link + EN/ES structural parity assertion [MTH-04, SRC-02]
 
 ---
 
@@ -379,7 +379,7 @@ Plans:
 | 17. Data Quality, Source Traceability & Methodology | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 19. Tech-Debt Sweep | v1.3 | 6/6 | Complete   | 2026-06-19 |
-| 20. Methodology & Sources Hardening | v1.3 | 2/4 | In Progress|  |
+| 20. Methodology & Sources Hardening | v1.3 | 3/4 | In Progress|  |
 
 ## Backlog
 
