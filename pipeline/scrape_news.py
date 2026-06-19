@@ -41,6 +41,15 @@ logger = logging.getLogger(__name__)
 # Repo-relative output directory (overridable via env for tests)
 # ---------------------------------------------------------------------------
 _REPO_ROOT = pathlib.Path(__file__).parent.parent
+
+# Ensure the repo root is importable when run as a script
+# (`python pipeline/scrape_news.py` in CI/cron): sys.path[0] would otherwise be this
+# script's directory, hiding the top-level `pipeline` package and breaking the
+# `from pipeline.news...` imports in main(). Latent until DEEPSEEK_API_KEY was set in
+# CI — the key-absent guard returns cleanly before those imports ever run.
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
+
 _DEFAULT_DATA_DIR = _REPO_ROOT / "data" / "incidents"
 
 
