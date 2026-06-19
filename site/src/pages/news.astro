@@ -1,0 +1,183 @@
+---
+/**
+ * /news/ — EN news page (NEWS-04).
+ *
+ * Bilingual news surface for incidents sourced from RSS feeds + DeepSeek geolocation.
+ * Each incident links to its source article AND its comuna page.
+ * Legal-safe tone: attribute outlet; no absolute safe/dangerous verdicts.
+ *
+ * hreflang: /news/ <-> /es/noticias/
+ * Pitfall 4: existsSync fallback — build does NOT crash if current.json absent.
+ */
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import { existsSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const dataPath = path.resolve(__dirname, '../../../data/incidents/current.json');
+
+let generated: string | null = null;
+let incidents: Array<{
+  id: string;
+  title_es: string;
+  title_en: string;
+  date: string;
+  outlet: string;
+  url: string;
+  slug?: string;
+  cut?: string;
+}> = [];
+
+if (existsSync(dataPath)) {
+  try {
+    const raw = JSON.parse(readFileSync(dataPath, 'utf-8'));
+    generated = raw.generated ?? null;
+    incidents = raw.incidents ?? [];
+  } catch {
+    // Malformed JSON — empty fallback
+  }
+}
+
+// Format generated date for display
+let formattedDate = '';
+if (generated) {
+  try {
+    formattedDate = new Date(generated).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    formattedDate = generated.slice(0, 10);
+  }
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Chile Crime News — Recent Reported Incidents",
+  "description": "Recent crime incidents reported in Chilean news media, geolocated by commune. Each incident cites and links to its source article.",
+  "url": "https://ischilesafe.com/news/",
+};
+---
+
+<EditorialLayout
+  lang="en"
+  title="Chile Crime News — Recent Reported Incidents"
+  description="Recent crime incidents reported in Chilean news media, geolocated by commune. Each incident cites and links to its source article."
+  enPath="/news/"
+  esPath="/es/noticias/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Chile Crime News — Recent Reported Incidents</h1>
+    <p>
+      This page surfaces recent crime incidents reported in Chilean news media and geolocated
+      by commune. Each entry links to its original source article and to the commune page where
+      more CEAD statistical context is available. Incidents are extracted from RSS feeds and
+      classified by our automated pipeline. Attribution is always provided; no absolute
+      risk verdicts are made.
+    </p>
+    {generated && (
+      <p class="freshness">
+        <time datetime={generated}>Updated {formattedDate}</time>
+      </p>
+    )}
+  </section>
+
+  {incidents.length === 0 ? (
+    <section>
+      <p class="empty-state">No incidents available yet. Check back soon.</p>
+    </section>
+  ) : (
+    <section>
+      <ul class="incidents-list">
+        {incidents.map((incident) => (
+          <li class="incident-row" key={incident.id}>
+            <div class="incident-title">{incident.title_en}</div>
+            <div class="incident-meta">
+              {incident.date} · {incident.outlet}
+            </div>
+            <div class="incident-links">
+              <a
+                href={incident.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="incident-source"
+              >
+                Source: {incident.outlet} ↗
+              </a>
+              {incident.slug && (
+                <a href={'/commune/' + incident.slug + '/'} class="incident-commune">
+                  View commune
+                </a>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  .freshness {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--sm);
+  }
+
+  .empty-state {
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .incidents-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--lg);
+  }
+
+  .incident-row {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--md);
+  }
+
+  .incident-title {
+    font-weight: var(--weight-strong);
+    margin-bottom: var(--xs);
+  }
+
+  .incident-meta {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--xs);
+  }
+
+  .incident-links {
+    display: flex;
+    gap: var(--md);
+    flex-wrap: wrap;
+  }
+
+  .incident-source,
+  .incident-commune {
+    font-size: var(--text-label);
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .incident-source:hover,
+  .incident-commune:hover {
+    text-decoration: underline;
+  }
+</style>

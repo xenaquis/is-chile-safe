@@ -1,0 +1,184 @@
+---
+/**
+ * /es/noticias/ — ES news page parity with /news/ (NEWS-04).
+ *
+ * Incidentes recientes de noticias chilenas, geolocalizados por comuna.
+ * Cada entrada enlaza al artículo fuente y a la página de la comuna.
+ * Tono sobrio: siempre atribuir fuente; sin veredictos absolutos de seguridad/peligro.
+ *
+ * hreflang: /es/noticias/ <-> /news/
+ * Pitfall 4: existsSync fallback — build no falla si current.json está ausente.
+ * Pitfall slug: esPath hardcodeado — NUNCA getRelativeLocaleUrl para este slug.
+ */
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import { existsSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const dataPath = path.resolve(__dirname, '../../../../data/incidents/current.json');
+
+let generated: string | null = null;
+let incidents: Array<{
+  id: string;
+  title_es: string;
+  title_en: string;
+  date: string;
+  outlet: string;
+  url: string;
+  slug?: string;
+  cut?: string;
+}> = [];
+
+if (existsSync(dataPath)) {
+  try {
+    const raw = JSON.parse(readFileSync(dataPath, 'utf-8'));
+    generated = raw.generated ?? null;
+    incidents = raw.incidents ?? [];
+  } catch {
+    // JSON malformado — fallback vacío
+  }
+}
+
+// Formato de fecha para mostrar
+let formattedDate = '';
+if (generated) {
+  try {
+    formattedDate = new Date(generated).toLocaleDateString('es-CL', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    formattedDate = generated.slice(0, 10);
+  }
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Noticias de delincuencia en Chile — Incidentes recientes",
+  "description": "Incidentes recientes de delincuencia reportados en medios chilenos, geolocalizados por comuna. Cada incidente cita y enlaza su artículo fuente.",
+  "url": "https://ischilesafe.com/es/noticias/",
+};
+---
+
+<EditorialLayout
+  lang="es"
+  title="Noticias de delincuencia en Chile — Incidentes recientes"
+  description="Incidentes recientes de delincuencia reportados en medios chilenos, geolocalizados por comuna. Cada incidente cita y enlaza su artículo fuente."
+  enPath="/news/"
+  esPath="/es/noticias/"
+  jsonLd={jsonLd}
+>
+  <section>
+    <h1>Noticias de delincuencia en Chile — Incidentes recientes</h1>
+    <p>
+      Esta página presenta incidentes recientes de delincuencia reportados en medios de prensa
+      chilenos y geolocalizados por comuna. Cada entrada enlaza al artículo fuente original y
+      a la página de la comuna donde se dispone de mayor contexto estadístico CEAD. Los
+      incidentes se extraen de feeds RSS y se clasifican mediante pipeline automatizado.
+      Se atribuye siempre la fuente; no se emiten veredictos absolutos sobre seguridad.
+    </p>
+    {generated && (
+      <p class="freshness">
+        <time datetime={generated}>Actualizado {formattedDate}</time>
+      </p>
+    )}
+  </section>
+
+  {incidents.length === 0 ? (
+    <section>
+      <p class="empty-state">Sin incidentes aún. Vuelve pronto.</p>
+    </section>
+  ) : (
+    <section>
+      <ul class="incidents-list">
+        {incidents.map((incident) => (
+          <li class="incident-row" key={incident.id}>
+            <div class="incident-title">{incident.title_es}</div>
+            <div class="incident-meta">
+              {incident.date} · {incident.outlet}
+            </div>
+            <div class="incident-links">
+              <a
+                href={incident.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="incident-source"
+              >
+                Fuente: {incident.outlet} ↗
+              </a>
+              {incident.slug && (
+                <a href={'/es/comuna/' + incident.slug + '/'} class="incident-commune">
+                  Ver comuna
+                </a>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</EditorialLayout>
+
+<style>
+  section {
+    margin-bottom: var(--2xl);
+  }
+
+  .freshness {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--sm);
+  }
+
+  .empty-state {
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .incidents-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--lg);
+  }
+
+  .incident-row {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--md);
+  }
+
+  .incident-title {
+    font-weight: var(--weight-strong);
+    margin-bottom: var(--xs);
+  }
+
+  .incident-meta {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--xs);
+  }
+
+  .incident-links {
+    display: flex;
+    gap: var(--md);
+    flex-wrap: wrap;
+  }
+
+  .incident-source,
+  .incident-commune {
+    font-size: var(--text-label);
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .incident-source:hover,
+  .incident-commune:hover {
+    text-decoration: underline;
+  }
+</style>
