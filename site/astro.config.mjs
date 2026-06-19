@@ -1,3 +1,4 @@
+// Deploy trigger verification (22-01 GL-01): code-push → deploy-on-code.yml → CF deploy hook.
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
