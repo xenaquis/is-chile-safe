@@ -189,12 +189,21 @@ const FIGURE_REGISTRY = [
     ],
     note: 'News layer attribution: each pin cites outlet + URL inline; SOURCES.md must reference RSS/news.',
   },
+  {
+    id: 'F16',
+    description: 'ENUSC SAE VHDV household victimization rate (experimental, 2024)',
+    tokens: [
+      ['## INE ENUSC SAE', 'VHDV'],
+      ['ENUSC', 'Victimizacion en Hogares', 'SAE'],
+    ],
+    note: 'INE ENUSC 2024 communal SAE estimate; labeled experimental. 136/346 comunas coverage. Distinct from F11 (underreporting claims) which uses the ## ENUSC underreporting section.',
+  },
 ];
 
 // ---------------------------------------------------------------------------
 // Check each figure
 // ---------------------------------------------------------------------------
-console.log(`figure-registry: checking ${FIGURE_REGISTRY.length} in-scope figures (F1-F15)`);
+console.log(`figure-registry: checking ${FIGURE_REGISTRY.length} in-scope figures (F1-F16)`);
 console.log(`figure-registry: reading ${SOURCES_PATH}`);
 console.log('');
 
@@ -239,5 +248,5 @@ if (orphans.length > 0) {
 }
 
 console.log(
-  `figure-registry: PASS — all ${FIGURE_REGISTRY.length} in-scope figures (F1-F15) have registered sources in data/SOURCES.md (zero orphans)`
+  `figure-registry: PASS — all ${FIGURE_REGISTRY.length} in-scope figures (F1-F16) have registered sources in data/SOURCES.md (zero orphans)`
 );

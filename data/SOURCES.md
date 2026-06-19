@@ -315,6 +315,35 @@ ENUSC landing page (wired in plan 20-03).
 
 ---
 
+## INE ENUSC SAE — communal VHDV victimization (experimental)
+
+**Full name:** ENUSC 2024 — Victimización en Hogares por Delitos Violentos (VHDV), modelo de Estimación en Áreas Pequeñas (SAE).
+
+**Publisher:** Instituto Nacional de Estadísticas (INE) — Estadísticas Experimentales: Seguridad Ciudadana.
+
+**Official landing:**
+`https://www.ine.gob.cl/estadisticas/estadisticas-experimentales/seguridad-ciudadana`
+
+**File URL (sfvrsn may rotate on republish):**
+`https://www.ine.gob.cl/docs/default-source/estadisticas-experimentales-seguridad-ciudadana/cuadros-estadisticos/2024/tabulados-sae--enusc-2024-vhdv.xlsx?sfvrsn=671c099f_4`
+
+**Measure semantics:**
+Proportion of households reporting at least one violent crime (VHDV). Value is 0–1 (proportion), NOT per-100k. Do not rescale. Communal SAE estimates cover 136 of 346 comunas; the remaining 210 have no estimate.
+
+**INE status:** Estadística experimental, "etapa inicial de madurez" (INE's own label).
+
+**Vintage:** Reference year 2024; first published 2026-01-21.
+
+**sha256 of ingested file:** `ad9503826fd21590eca7cf37629872df09f3115ad0c6d80dfe5cedcb63c3d4ba`
+
+**Used by:** `data/snapshots/enusc_vhdv.json` → `data/cead/comunas/{CUT}.json` (enusc_vhdv field) → `site/src/pages/commune/[slug].astro` section 6c (F16). See also `data/snapshots/ATTRIBUTION.md`.
+
+**Licence:** Datos públicos del Estado de Chile (INE terms).
+
+**Distinct from:** `## ENUSC — underreporting / cifra negra` (F11 above) which references the ENUSC national survey for underreporting statistics, not the SAE communal estimates.
+
+---
+
 ## SPD — institutional authority (parent of CEAD + taxonomy)
 
 **Full name:** Subsecretaría de Prevención del Delito (SPD), Ministerio del Interior
