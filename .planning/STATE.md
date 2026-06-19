@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.3
-milestone_name: Data Quality Hardening & Methodology
-status: Awaiting next milestone
-last_updated: "2026-06-19T12:23:01.480Z"
-last_activity: 2026-06-19 — Milestone v1.3 completed and archived
+milestone: v2.0
+milestone_name: Composite Index, Comparators & Launch
+status: planning
+last_updated: "2026-06-19T12:34:30.658Z"
+last_activity: 2026-06-19
 progress:
-  total_phases: 10
-  completed_phases: 2
-  total_plans: 10
-  completed_plans: 10
-  percent: 20
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 
 ## Current Position
 
-Phase: Milestone v1.3 complete
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-06-19 — Milestone v1.3 completed and archived
+Status: Defining requirements
+Last activity: 2026-06-19 — Milestone v2.0 started
 
 ## Deferred Items
 

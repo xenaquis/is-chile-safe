@@ -10,11 +10,20 @@ El sitio captura tráfico SEO mediante páginas programáticas bilingües (por c
 
 Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-## Current Milestone: (between milestones — v1.3 shipped 2026-06-19)
+## Current Milestone: v2.0 Composite Index, Comparators & Launch
 
-**v1.3 Data Quality Hardening & Methodology — SHIPPED.** Tech debt eliminated and every displayed figure now explained + sourced+linked + caveated with EN/ES parity. P19 (Tech-Debt Sweep: methodology math fix, ES "comuna", orphan/hreflang, news sort, URL guards, i18n extraction, SEO spine, homicide redirect) + P20 (Methodology & Sources: INE/ENUSC/SPD-parent first-class in SOURCES.md, figure registry with zero orphans, per-figure explanations + caveats, CI forbidden-language + INE spot-check). Audit: code-complete, tech_debt, 0 blockers (`milestones/v1.3-MILESTONE-AUDIT.md`). Build 791 pages, 13/13 validators, 179 pytest. Decisions in `v1.3-DECISIONS.md`.
+**Goal:** Redesign the core safety metric into an exposure-adjusted composite index, build comparator/A-vs-B SEO pages on top of it, and execute the production go-live.
 
-**Next (proposed):** Phase 18 — Composite Crime Index & Metric Redesign (high-risk/large — plan interactively; inputs hardened by v1.3). Run `/gsd:new-milestone` to scope the next cycle.
+**Target features:**
+- **Composite Crime Index** (Phase 18, reserved #) — exposure-adjusted composite index, SPD homicide-metric switch, `featured_rates`→7-metric schema migration, index-driven choropleth. High-risk/large; inputs hardened by v1.3 / Phase-17 Wave-0.
+- **Commune comparator + A-vs-B SEO** — side-by-side 2–3 comuna comparator + programmatic "A o B?" long-tail pages, built on the composite index (depends on the index phase). Per SEED-001.
+- **Go-live / launch ops** — set `CF_DEPLOY_HOOK_URL`, manual redeploy, live news run + incident audit, GSC submission, flip AdSense + Consent Mode. Mostly human/ops.
+
+**Key context:** Composite-index inputs hardened in v1.3/Phase-17 Wave-0 (SPD VHC homicide truth, SII exposure proxy, CEAD `tipoVal` additive rule). Locked constraints (SEED-001): hybrid rollout (no 404 to non-rollout comunas), never absolute "seguro/peligroso", no thin content, static/SEO-indexable. Phase numbering: **18 reserved** for the composite index (intentional gap); comparator + go-live continue from 21+. Hard dependency: comparator lands after the index.
+
+**Previous (v1.3, shipped + archived 2026-06-19):** Data Quality Hardening & Methodology — tech debt eliminated; every displayed figure explained + sourced + caveated (EN/ES parity). P19 (Tech-Debt Sweep) + P20 (Methodology & Sources). Audit code-complete, 0 blockers. Build 791 pages, 13/13 validators, 179 pytest.
+
+**⚠️ Go-live blocker (now in-scope, track 3):** production is STALE — the `CF_DEPLOY_HOOK_URL` GitHub secret is unset, so no automated deploy fires. See `DEPLOYMENT.md` + memory `prod-deploy-hook-secret-gap`.
 
 **⚠️ Go-live blocker (human/ops, not code):** production is STALE — the `CF_DEPLOY_HOOK_URL` GitHub secret is unset, so no automated deploy fires. Set the secret (CF → Deploy Hooks → copy URL) + do a manual CF "Create deployment" from `master`. See `DEPLOYMENT.md` + memory `prod-deploy-hook-secret-gap`. Until then the live site does not reflect v1.1+ work.
 
@@ -144,4 +153,4 @@ This document evolves at phase transitions and milestone boundaries.
 **Not yet live:** the site is not deployed — go-live requires a Cloudflare account, DNS for `ischilesafe.com`, and the `DEEPSEEK_API_KEY` / `CF_DEPLOY_HOOK_URL` secrets (all in `DEPLOYMENT.md`). That single human step also unblocks the news live-run + 50-incident audit and AdSense activation.
 
 ---
-*Last updated: 2026-06-19 — v1.3 Data Quality Hardening & Methodology shipped + archived; next: proposed Phase 18 (Composite Index)*
+*Last updated: 2026-06-19 — v2.0 Composite Index, Comparators & Launch milestone started (3 tracks: composite index / comparator+A-vs-B SEO / go-live)*
