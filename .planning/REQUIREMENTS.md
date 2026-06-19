@@ -46,7 +46,7 @@
 
 - [x] **NEWS-01**: Geolocalización rediseñada — el LLM emite el NOMBRE de la comuna (+ hint de región), resuelto por lookup determinista nombre→CUT; precisión medida contra golden set y supera el enfoque actual.
 - [x] **NEWS-02**: Golden set etiquetado (30–50 incidentes con comuna+familia ground-truth) + script de scoring; proveedor LLM configurable por env; A/B DeepSeek vs MiniMax; ganador documentado y default.
-- [ ] **NEWS-03**: El pipeline corre de verdad (gated por API keys) produciendo `data/incidents/current.json`; pins + "incidentes recientes" renderizan incidentes reales geolocalizados, sin errores de consola.
+- [x] **NEWS-03**: El pipeline corre de verdad (gated por API keys) produciendo `data/incidents/current.json`; pins + "incidentes recientes" renderizan incidentes reales geolocalizados, sin errores de consola.
 - [ ] **NEWS-04**: Cada incidente enlaza a su fuente ↗ Y a la ficha de su comuna; página de noticias dedicada (bilingüe); indicador de frescura; todos citan y enlazan la fuente.
 
 ### Calidad de Dato, Trazabilidad de Fuente y Metodología (DQ) — Phase 17
