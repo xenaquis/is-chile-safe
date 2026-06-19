@@ -60,7 +60,7 @@ def build_incident(
     outlet: str,
     family: str,
     slug: str | None = None,
-) -> dict:
+) -> dict | None:
     """Build a validated incident dict ready for merge_and_write.
 
     All attribution fields are required (NEWS-05).
@@ -69,7 +69,7 @@ def build_incident(
     """
     if not is_safe_url(url):
         logger.warning("build_incident: rejected non-http(s) url %r", url)
-        return None  # type: ignore[return-value]
+        return None
     return {
         "id": make_id(url),
         "cut": cut,
