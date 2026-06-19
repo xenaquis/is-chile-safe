@@ -48,6 +48,7 @@ class IncidentRecord(BaseModel):
     outlet: str      # non-empty (NEWS-05 attribution)
     url: str         # non-empty (NEWS-05 attribution)
     family: str      # validated against VALID_FAMILIES
+    slug: str | None = None  # resolved commune slug (NEWS-03); optional for back-compat
 
     @field_validator("cut")
     @classmethod

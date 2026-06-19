@@ -104,6 +104,24 @@ def test_idempotent_merge(tmp_path):
     assert ids.count("dup001") == 1, "Duplicate incident must not be added twice"
 
 
+def test_build_incident_passes_slug():
+    """build_incident with slug= returns a dict whose 'slug' == the given value."""
+    from pipeline.news.store import build_incident
+    incident = build_incident(
+        url="https://biobiochile.cl/article/slug-test",
+        cut="13101",
+        lat=-33.456,
+        lng=-70.654,
+        title_es="Incidente con slug",
+        title_en="Incident with slug",
+        date="2026-06-13",
+        outlet="BioBio Chile",
+        family="propiedad",
+        slug="las-condes",
+    )
+    assert incident["slug"] == "las-condes"
+
+
 def test_archive_write(tmp_path):
     """Aged-out incidents must be written to archive/YYYY-MM.json."""
     current_path = tmp_path / "current.json"

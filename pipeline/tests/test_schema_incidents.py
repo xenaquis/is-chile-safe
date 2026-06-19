@@ -60,6 +60,7 @@ def test_incidents_file_valid_round_trip():
         "id", "cut", "lat", "lng",
         "title_es", "title_en",
         "date", "outlet", "url", "family",
+        "slug",  # optional field, always serialized (None when absent)
     }
 
 
@@ -166,3 +167,21 @@ def test_classifier_output_commune_name_accepted():
     assert obj.commune_name == "Providencia"
     assert obj.region_hint == "Metropolitana"
     assert obj.confidence == 0.91
+
+
+# ---------------------------------------------------------------------------
+# IncidentRecord — slug field (NEWS-03)
+# ---------------------------------------------------------------------------
+
+def test_incident_record_accepts_slug():
+    """An IncidentRecord built with slug validates and exposes .slug."""
+    record = IncidentRecord.model_validate(_valid_incident(slug="las-condes"))
+    assert record.slug == "las-condes"
+
+
+def test_incident_record_slug_optional():
+    """An IncidentRecord without slug still validates (back-compat with existing current.json)."""
+    data = _valid_incident()
+    data.pop("slug", None)  # ensure slug is absent
+    record = IncidentRecord.model_validate(data)
+    assert record.slug is None

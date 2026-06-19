@@ -46,6 +46,7 @@ def build_incident(
     date: str,
     outlet: str,
     family: str,
+    slug: str | None = None,
 ) -> dict:
     """Build a validated incident dict ready for merge_and_write.
 
@@ -63,6 +64,7 @@ def build_incident(
         "outlet": outlet,
         "url": url,
         "family": family,
+        "slug": slug,
     }
 
 
