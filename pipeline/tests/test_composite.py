@@ -213,6 +213,50 @@ def test_normalize_spread() -> None:
     assert normalized_nan.isna().iloc[5], "NaN in input must produce NaN in output"
 
 
+def test_normalize_nan_outlier_clip() -> None:
+    """NaN commune coexisting with a large outlier must NOT corrupt the clip point.
+
+    Regression for Gap 3 (CI-02): scipy winsorize sorts NaN to the high end, so
+    without masking the upper 1% clip point is derived from NaN positions rather
+    than real-data maxima. This test constructs a series with BOTH a NaN commune
+    AND a Sierra-Gorda-scale outlier and asserts the clip point comes from real data.
+    """
+    import numpy as np
+    import pandas as pd
+    from pipeline.composite_index import normalize_metric
+
+    # Build a series of 346 ascending values (mimicking 346 communes)
+    values = [float(i) for i in range(1, 347)]
+    # One commune is a large outlier (Sierra Gorda level)
+    values[0] = 43000.0
+    # A distinct commune is NaN (missing data)
+    nan_idx = 10
+    values[nan_idx] = float("nan")
+
+    series = pd.Series(values)
+    normalized = normalize_metric(series)
+
+    # (1) NaN position must remain NaN in output
+    assert normalized.isna().iloc[nan_idx], (
+        f"Index {nan_idx} must stay NaN in output"
+    )
+
+    # (2) Non-NaN max of output must be exactly 100.0 (clip point from real data)
+    non_nan_output = normalized.dropna()
+    max_val = non_nan_output.max()
+    assert np.isfinite(max_val), "Non-NaN output max must be finite"
+    assert abs(max_val - 100.0) < 1e-9, (
+        f"Non-NaN output max must be 100.0 (clip from real data), got {max_val:.6f}"
+    )
+
+    # (3) Spread guard: 25th pctile of non-NaN output > 10% of max
+    p25 = non_nan_output.quantile(0.25)
+    assert p25 > max_val * 0.10, (
+        f"Spread guard failed: 25th pctile {p25:.2f} <= 10% of max {max_val:.2f}. "
+        "Winsorization of non-NaN subset may not be working correctly."
+    )
+
+
 # ---------------------------------------------------------------------------
 # Task 3: Entrypoint + distribution tests (RED until build_composite_index.py)
 # ---------------------------------------------------------------------------
