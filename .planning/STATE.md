@@ -49,6 +49,13 @@ Both CONTEXTs are pre-written so discuss does not block the unattended run.
 Use **BrowserOS** for each phase's end-of-phase visual verification
 (methodology EN+ES; news page + incident→source + incident→comuna links).
 
+**Quality gates left ON by user choice (2026-06-18):** `ai_integration_phase`
++ `ui_phase` are intentionally enabled (quality > zero-questions). The pre-staged
+CONTEXTs pre-answer the essentials, but a sub-agent (e.g. AI eval/framework or
+UI-spec) MAY surface ONE scoping question — that is EXPECTED, not an error;
+answer it and let the run continue. Operator may want to check in periodically
+rather than fully walk away.
+
 **Open backlog (v1.2):** BUGFIX-999.1 (Tarapacá region_id collision) — RESOLVED
 2026-06-16 (quick 260616-ldi). Deferred to Phase 18: composite crime index,
 homicide metric switch to SPD in UI, `featured_rates`→7-metric schema migration,
