@@ -5,15 +5,19 @@
  * Template 3: bottom AdSlot only (credibility page — via EditorialLayout default).
  * Required H2 sections IN ORDER (04-UI-SPEC Template 3):
  *   1. Data source: CEAD
- *   2. How the rate is calculated
- *   3. Underreporting (cifra negra)
- *   4. Trend formula
- *   5. Comparison criteria
- *   6. What this site does NOT say
+ *   2. Map boundaries: chilemapas
+ *   3. How the rate is calculated
+ *   4. Underreporting (cifra negra)
+ *   5. Trend formula
+ *   6. Comparison criteria
+ *   7. What this site does NOT say
  *
  * D-13: trend formula = % change over last 3 years, threshold ~5%.
  * D-15: explicit disclaimer — no absolute safe/dangerous verdicts, no victimisation probability.
  * hreflang: /methodology/ <-> /es/metodologia/
+ *
+ * DQ-03 (Phase 17): corrected CEAD host; casos-policiales semantics; partial-year,
+ * low-count, drug-scope, floating-population caveats; SPD/SII/Fiscalía attribution.
  */
 import EditorialLayout from '../layouts/EditorialLayout.astro';
 
@@ -51,6 +55,8 @@ const jsonLd = {
       All quantitative crime data on this site comes from <strong>CEAD — Centro de Estudios
       y Análisis del Delito</strong>, the Chilean government's official crime statistics body,
       which operates under the Ministerio del Interior y Seguridad Pública.
+      Official CEAD statistics are published at{' '}
+      <a href="https://cead.minsegpublica.gob.cl/estadisticas-delictuales/" rel="noopener noreferrer" target="_blank">cead.minsegpublica.gob.cl/estadisticas-delictuales/</a>.
     </p>
     <p>
       CEAD compiles police-recorded incident data from two law enforcement agencies:
@@ -67,27 +73,75 @@ const jsonLd = {
     </ul>
     <p>
       CEAD publishes annual series from 2005 onward at the commune, regional, and national
-      level. We access this data via CEAD's official public endpoints
-      (<code>cead.ministeriointerior.gob.cl</code>). The raw data is processed by our open-source
-      pipeline, validated against a strict schema, and stored as versioned JSON files in the
-      project's public GitHub repository. The full scraper and validation code is available for
-      inspection.
+      level. We access this data via CEAD's official public endpoints at
+      <a href="https://cead.minsegpublica.gob.cl/estadisticas-delictuales/" rel="noopener noreferrer" target="_blank">cead.minsegpublica.gob.cl</a>.
+      The raw data is processed by our open-source pipeline, validated against a strict
+      schema, and stored as versioned JSON files in the project's public GitHub repository.
+      The full scraper and validation code is available for inspection.
     </p>
     <p>
-      We use only the annual series (<em>serie anual</em>) and only the total-case measure
-      (<em>casos policiales</em> — both formal complaints and arrests). We do not use quarterly
-      or monthly figures. We include data up to and including the latest complete year published
-      by CEAD; partial years (where CEAD has not yet closed the annual series) are excluded from
-      rates and rankings to avoid comparisons against incomplete periods.
+      <strong>What "casos policiales" means:</strong> We use the CEAD measure <em>casos policiales</em>,
+      which combines two sub-measures additively at the offence level:
+      <em>denuncias</em> (<code>tipoVal=1</code> — formal complaints filed with the police)
+      and <em>detenciones flagrantes</em> (<code>tipoVal=2</code> — arrests in the act).
+      These two figures are added together to give the total cases for each offence type.
+      We do not use <em>aprehendidos</em> (<code>tipoVal=3</code>), which counts persons
+      apprehended and would double-count events already captured by the other two measures.
+      We use only the annual series (<em>serie anual</em>); we do not use quarterly or monthly figures.
     </p>
+    <p>
+      <strong>Partial-year data:</strong> The current calendar year is excluded from all rates
+      and rankings because CEAD has not yet closed its annual series for it — figures for a
+      partial year would be incomparable to a full annual count. The most recent past year
+      displayed (currently 2025) is treated as a complete annual series, but note that CEAD
+      may publish minor revisions to recent years after their initial release; the figures
+      shown reflect the data available at the time of our last pipeline run.
+    </p>
+    <p>
+      <strong>Drug offences scope:</strong> The CEAD category <em>Drogas</em> covers criminal
+      offences under <strong>Ley 20.000</strong> (grupo 401 in the CEAD catalog — trafficking,
+      supply, and related crimes). Personal drug consumption is a separate category recorded
+      under <em>Incivilidades</em> (grupo 702) and is not included in the Drogas figure shown
+      on this site. As a result, Drogas rates reflect enforcement of drug-supply laws, not the
+      prevalence of drug use.
+    </p>
+    <p>
+      <strong>Reference sources for specific crime types:</strong> For certain crime categories,
+      authoritative external sources provide independent cross-checks on CEAD figures. The
+      displayed incidence metric on this site remains CEAD <em>casos policiales</em> in all
+      cases; these references are cited for transparency and context:
+    </p>
+    <ul>
+      <li>
+        <strong>Homicides:</strong> the <strong>Servicio de Prevención y Participación Ciudadana (SPD)</strong>
+        publishes a dedicated homicide database (<em>Violencia Homicida en Chile</em>) with
+        commune-level counts from 2018 onward, available at{' '}
+        <a href="https://prevenciondehomicidios.cl" rel="noopener noreferrer" target="_blank">prevenciondehomicidios.cl</a>.
+        This is the authoritative government source for homicide counts and is used as a
+        cross-reference against CEAD homicide data.
+      </li>
+      <li>
+        <strong>Economic exposure (empresas / empleados):</strong> commune-level business and
+        employment data from the <strong>Servicio de Impuestos Internos (SII)</strong> is used
+        as a proxy for daytime working population. SII statistics are available at{' '}
+        <a href="https://www.sii.cl/sobre_el_sii/estadisticas_de_empresas.html" rel="noopener noreferrer" target="_blank">sii.cl/sobre_el_sii/estadisticas_de_empresas.html</a>.
+      </li>
+      <li>
+        <strong>Kidnappings (secuestro):</strong> this offence is not tracked in CEAD's
+        standard statistical tables. Regional-level figures are published by the
+        <strong>Fiscalía de Chile (Ministerio Público)</strong> in their annual prosecution
+        statistics, available at{' '}
+        <a href="https://www.fiscaliadechile.cl/persecucion-penal/estadisticas" rel="noopener noreferrer" target="_blank">fiscaliadechile.cl/persecucion-penal/estadisticas</a>.
+      </li>
+    </ul>
   </section>
 
   <section>
     <h2>Map boundaries: chilemapas</h2>
     <p>
       The commune boundary polygons displayed on the interactive map are sourced from
-      <strong>chilemapas</strong> (<a href="https://github.com/pachadotdev/chilemapas" rel="noopener noreferrer">github.com/pachadotdev/chilemapas</a>
-      / <a href="https://pacha.dev/chilemapas/" rel="noopener noreferrer">pacha.dev/chilemapas</a>),
+      <strong>chilemapas</strong> (<a href="https://github.com/pachadotdev/chilemapas" rel="noopener noreferrer" target="_blank">github.com/pachadotdev/chilemapas</a>
+      / <a href="https://pacha.dev/chilemapas/" rel="noopener noreferrer" target="_blank">pacha.dev/chilemapas</a>),
       a project by Mauricio Vargas Sepúlveda licensed under the
       <strong>GNU General Public License v3 (GPL-3)</strong>. The chilemapas boundaries are
       derived from official Chilean government sources: <strong>INE</strong> (Instituto Nacional
@@ -113,14 +167,31 @@ const jsonLd = {
       population figures — ensures consistency with the official source cited on every page.
     </p>
     <p>
+      <strong>Floating-population denominator caveat:</strong> The INE denominator is based on
+      <em>registered resident</em> population. In business-hub communes such as Providencia
+      and Las Condes, the daytime working population substantially exceeds the resident figure,
+      because many people commute in from other communes. As a result, property and other crime
+      rates in these communes may appear higher than their resident population would suggest.
+      The rate is mathematically correct on the official INE figure; users should be aware
+      that high rates in commercial centres partly reflect visitor and worker exposure, not
+      solely resident risk.
+    </p>
+    <p>
+      <strong>Low-count volatility caveat:</strong> In communes with small absolute case counts,
+      rates can be highly volatile year to year. A single additional homicide, for example,
+      can cause a large swing in a small commune's per-100k figure. For this reason, we exclude
+      low-population communes (fewer than 10,000 inhabitants) from national and regional rankings,
+      and display individual volatility caveats on those commune pages.
+    </p>
+    <p>
       <strong>Important note on national and regional figures:</strong> The national and regional
       totals that CEAD publishes as <em>tasa por 100.000</em> are <em>sum</em> totals — that is,
       the sum of all commune rates in the territory, not a weighted per-capita average. We do
       not display these sum figures as averages. When we show a national average for comparison
       purposes (e.g., on commune pages and the lowest-reported-incidence ranking), we compute the
-      <strong>unweighted mean of non-low-population commune rates</strong> using each commune's
-      individual rate at its latest complete year. This is the correct per-capita comparative
-      figure.
+      <strong>population-weighted mean of non-low-population commune rates</strong> using each
+      commune's individual rate at its latest complete year. This is the correct per-capita
+      comparative figure.
     </p>
     <p>
       Communes with populations below 10,000 inhabitants are excluded from national and regional
@@ -214,6 +285,7 @@ const jsonLd = {
       <li>
         <strong>Year:</strong> the latest complete year for which CEAD has published a closed
         annual series for all communes. This is the same year for all communes in a given build.
+        The current calendar year is excluded as partial (see partial-year note above).
       </li>
       <li>
         <strong>Exclusion of low-population communes:</strong> communes with fewer than 10,000
@@ -227,7 +299,7 @@ const jsonLd = {
         for that year.
       </li>
       <li>
-        <strong>National average definition:</strong> the unweighted arithmetic mean of
+        <strong>National average definition:</strong> the population-weighted mean of
         non-low-population commune rates (see rate calculation section above). Not the CEAD
         national sum.
       </li>
@@ -247,11 +319,11 @@ const jsonLd = {
     </p>
     <ul>
       <li>
-        <strong>We do not classify any commune, city, or region as "safe" or "dangerous"
-        in absolute terms.</strong> The map and ranking pages present relative reported
+        <strong>We do not classify any commune, city, or region as having an absolute level
+        of risk.</strong> The map and ranking pages present relative reported
         incidence — lower or higher than other communes — not absolute risk levels. A commune
-        that ranks low for reported crime is not declared "safe"; a commune that ranks high is
-        not declared "dangerous".
+        that ranks low for reported crime is not declared free of crime; a commune that ranks
+        high is not declared to have unacceptable risk.
       </li>
       <li>
         <strong>We do not publish probability-of-victimisation figures.</strong> Reported
@@ -261,7 +333,7 @@ const jsonLd = {
         caveats described above.
       </li>
       <li>
-        <strong>We do not make predictive or forward-looking safety claims.</strong> Trend
+        <strong>We do not make predictive or forward-looking claims.</strong> Trend
         indicators describe what CEAD data shows for past years; they do not predict future
         conditions. A "falling" trend does not mean a commune will continue to decrease.
       </li>
@@ -278,7 +350,7 @@ const jsonLd = {
     </ul>
     <p>
       Our goal is to make official CEAD data accessible and clearly presented — not to produce
-      safety verdicts. If you have questions about the data or methodology, use the
+      verdicts about territories. If you have questions about the data or methodology, use the
       <a href="/contact/">Contact page</a>.
     </p>
   </section>

@@ -2,8 +2,11 @@
 /**
  * /es/metodologia/ — Metodología ES a paridad de contenido con /methodology/ (READ-02 / F-003).
  *
- * Mismas 6 secciones H2 que el original EN, con profundidad equivalente.
+ * Mismas 7 secciones H2 que el original EN, con profundidad equivalente.
  * hreflang: /es/metodologia/ <-> /methodology/
+ *
+ * DQ-03 (Phase 17): host CEAD corregido; semántica casos-policiales; notas de año parcial,
+ * recuento bajo, alcance drogas, denominador población flotante; atribución SPD/SII/Fiscalía.
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
 
@@ -42,7 +45,8 @@ const jsonLd = {
       Todos los datos cuantitativos de delincuencia en este sitio provienen del
       <strong>CEAD — Centro de Estudios y Análisis del Delito</strong>, el organismo oficial
       de estadísticas criminales del Gobierno de Chile, que opera bajo el Ministerio del
-      Interior y Seguridad Pública.
+      Interior y Seguridad Pública. Las estadísticas oficiales del CEAD se publican en{' '}
+      <a href="https://cead.minsegpublica.gob.cl/estadisticas-delictuales/" rel="noopener noreferrer" target="_blank">cead.minsegpublica.gob.cl/estadisticas-delictuales/</a>.
     </p>
     <p>
       El CEAD compila los datos de incidentes registrados por la policía provenientes de
@@ -60,28 +64,81 @@ const jsonLd = {
     </ul>
     <p>
       El CEAD publica series anuales desde 2005 a nivel comunal, regional y nacional.
-      Accedemos a estos datos a través de los endpoints públicos oficiales del CEAD
-      (<code>cead.ministeriointerior.gob.cl</code>). Los datos brutos son procesados por
-      nuestro pipeline de código abierto, validados con un esquema estricto y almacenados
-      como archivos JSON versionados en el repositorio público del proyecto en GitHub.
-      El código completo del scraper y la validación está disponible para su inspección.
+      Accedemos a estos datos a través de los endpoints públicos oficiales del CEAD en
+      <a href="https://cead.minsegpublica.gob.cl/estadisticas-delictuales/" rel="noopener noreferrer" target="_blank">cead.minsegpublica.gob.cl</a>.
+      Los datos brutos son procesados por nuestro pipeline de código abierto, validados con
+      un esquema estricto y almacenados como archivos JSON versionados en el repositorio
+      público del proyecto en GitHub. El código completo del scraper y la validación está
+      disponible para su inspección.
     </p>
     <p>
-      Usamos únicamente la serie anual (<em>serie anual</em>) y solo la medida de casos
-      totales (<em>casos policiales</em> — tanto denuncias formales como detenidos). No
-      utilizamos cifras trimestrales ni mensuales. Incluimos datos hasta el último año
-      completo publicado por el CEAD; los años parciales (en los que el CEAD aún no ha
-      cerrado la serie anual) quedan excluidos de las tasas y los rankings para evitar
-      comparaciones con períodos incompletos.
+      <strong>Qué son los «casos policiales»:</strong> Utilizamos la medida del CEAD denominada
+      <em>casos policiales</em>, que combina dos sub-medidas de forma aditiva a nivel de delito:
+      <em>denuncias</em> (<code>tipoVal=1</code> — denuncias formales interpuestas ante la policía)
+      y <em>detenciones flagrantes</em> (<code>tipoVal=2</code> — detenciones en el acto).
+      Ambas cifras se suman para obtener el total de casos por tipo de delito.
+      No utilizamos <em>aprehendidos</em> (<code>tipoVal=3</code>), que contabiliza personas
+      detenidas y supondría un doble conteo de eventos ya recogidos por las otras dos medidas.
+      Usamos únicamente la serie anual (<em>serie anual</em>); no utilizamos cifras trimestrales
+      ni mensuales.
     </p>
+    <p>
+      <strong>Datos de año parcial:</strong> El año calendario en curso queda excluido de todas
+      las tasas y rankings porque el CEAD aún no ha cerrado su serie anual para ese período —
+      las cifras de un año parcial no serían comparables con un recuento anual completo. El año
+      pasado más reciente que se muestra (actualmente 2025) se trata como una serie anual
+      completa, pero conviene tener en cuenta que el CEAD puede publicar revisiones menores de
+      años recientes tras su publicación inicial; las cifras mostradas reflejan los datos
+      disponibles en el momento de la última ejecución de nuestro pipeline.
+    </p>
+    <p>
+      <strong>Alcance de los delitos de drogas:</strong> La categoría <em>Drogas</em> del CEAD
+      abarca los delitos tipificados en la <strong>Ley 20.000</strong> (grupo 401 del catálogo
+      CEAD — tráfico, suministro y delitos conexos). El consumo personal de drogas es una
+      categoría separada registrada bajo <em>Incivilidades</em> (grupo 702) y no está incluida
+      en la cifra de Drogas que muestra este sitio. Por tanto, las tasas de Drogas reflejan la
+      aplicación de la legislación sobre tráfico de drogas, no la prevalencia del consumo.
+    </p>
+    <p>
+      <strong>Fuentes de referencia para tipos de delito específicos:</strong> Para ciertas
+      categorías delictivas, fuentes externas autorizadas ofrecen verificaciones independientes
+      de las cifras del CEAD. La métrica de incidencia que se muestra en este sitio sigue siendo
+      en todos los casos <em>casos policiales</em> del CEAD; estas referencias se citan por
+      transparencia y contexto:
+    </p>
+    <ul>
+      <li>
+        <strong>Homicidios:</strong> el <strong>Servicio de Prevención y Participación
+        Ciudadana (SPD)</strong> publica una base de datos de homicidios dedicada
+        (<em>Violencia Homicida en Chile</em>) con recuentos a nivel comunal desde 2018 en
+        adelante, disponible en{' '}
+        <a href="https://prevenciondehomicidios.cl" rel="noopener noreferrer" target="_blank">prevenciondehomicidios.cl</a>.
+        Esta es la fuente gubernamental autorizada para recuentos de homicidios y se utiliza
+        como referencia cruzada frente a los datos del CEAD.
+      </li>
+      <li>
+        <strong>Exposición económica (empresas / empleados):</strong> los datos comunales de
+        empresas y empleo del <strong>Servicio de Impuestos Internos (SII)</strong> se utilizan
+        como variable proxy de la población activa diurna. Las estadísticas del SII están
+        disponibles en{' '}
+        <a href="https://www.sii.cl/sobre_el_sii/estadisticas_de_empresas.html" rel="noopener noreferrer" target="_blank">sii.cl/sobre_el_sii/estadisticas_de_empresas.html</a>.
+      </li>
+      <li>
+        <strong>Secuestros:</strong> este delito no está registrado en las tablas estadísticas
+        estándar del CEAD. Las cifras a nivel regional son publicadas por la
+        <strong>Fiscalía de Chile (Ministerio Público)</strong> en sus estadísticas anuales de
+        persecución penal, disponibles en{' '}
+        <a href="https://www.fiscaliadechile.cl/persecucion-penal/estadisticas" rel="noopener noreferrer" target="_blank">fiscaliadechile.cl/persecucion-penal/estadisticas</a>.
+      </li>
+    </ul>
   </section>
 
   <section>
     <h2>Geometría del mapa: chilemapas</h2>
     <p>
       Los polígonos de límites comunales que se muestran en el mapa interactivo provienen de
-      <strong>chilemapas</strong> (<a href="https://github.com/pachadotdev/chilemapas" rel="noopener noreferrer">github.com/pachadotdev/chilemapas</a>
-      / <a href="https://pacha.dev/chilemapas/" rel="noopener noreferrer">pacha.dev/chilemapas</a>),
+      <strong>chilemapas</strong> (<a href="https://github.com/pachadotdev/chilemapas" rel="noopener noreferrer" target="_blank">github.com/pachadotdev/chilemapas</a>
+      / <a href="https://pacha.dev/chilemapas/" rel="noopener noreferrer" target="_blank">pacha.dev/chilemapas</a>),
       un proyecto de Mauricio Vargas Sepúlveda publicado bajo la
       <strong>Licencia Pública General de GNU versión 3 (GPL-3)</strong>. Los límites de chilemapas
       provienen de fuentes gubernamentales oficiales de Chile: <strong>INE</strong> (Instituto
@@ -109,13 +166,32 @@ const jsonLd = {
       oficial citada en cada página.
     </p>
     <p>
+      <strong>Advertencia sobre el denominador de población flotante:</strong> El denominador
+      del INE se basa en la población <em>residente registrada</em>. En comunas con alta
+      actividad económica como Providencia y Las Condes, la población que trabaja durante el
+      día supera sustancialmente la cifra de residentes, porque muchas personas llegan desde
+      otras comunas. Como resultado, las tasas de delitos contra la propiedad y otros delitos
+      en estas comunas pueden parecer más elevadas de lo que sugeriría su población residente.
+      La tasa es matemáticamente correcta sobre la cifra oficial del INE; los usuarios deben
+      tener en cuenta que las tasas altas en centros comerciales reflejan en parte la exposición
+      de visitantes y trabajadores, no únicamente el riesgo de los residentes.
+    </p>
+    <p>
+      <strong>Advertencia sobre la volatilidad por recuento bajo:</strong> En comunas con
+      recuentos absolutos de casos pequeños, las tasas pueden ser muy volátiles de un año a
+      otro. Un homicidio adicional, por ejemplo, puede producir una variación muy grande en la
+      cifra por 100.000 habitantes de una comuna pequeña. Por esta razón, excluimos las comunas
+      de baja población (menos de 10.000 habitantes) de los rankings nacionales y regionales, y
+      mostramos advertencias individuales de volatilidad en las páginas de esas comunas.
+    </p>
+    <p>
       <strong>Nota importante sobre los promedios nacionales y regionales:</strong> los totales
       nacionales y regionales que el CEAD publica como <em>tasa por 100.000</em> son totales
       <em>sumatorios</em> — es decir, la suma de todas las tasas comunales del territorio, no
       un promedio per cápita ponderado. No mostramos estas cifras sumatorias como promedios.
       Cuando presentamos un promedio nacional para comparación (por ejemplo, en páginas comunales
-      y en el ranking de menor incidencia reportada), calculamos la <strong>media aritmética
-      simple de las tasas comunales de comunas con población ≥ 10.000 habitantes</strong>.
+      y en el ranking de menor incidencia reportada), calculamos la <strong>media ponderada por
+      población de las tasas comunales de comunas con población ≥ 10.000 habitantes</strong>.
       Esta es la cifra comparativa per cápita correcta.
     </p>
     <p>
@@ -218,7 +294,8 @@ const jsonLd = {
       <li>
         <strong>Año:</strong> el último año completo para el que el CEAD ha publicado una
         serie anual cerrada para todas las comunas. Es el mismo año para todas las comunas
-        en una misma versión del sitio.
+        en una misma versión del sitio. El año calendario en curso queda excluido como parcial
+        (véase la nota sobre año parcial más arriba).
       </li>
       <li>
         <strong>Exclusión de comunas de baja población:</strong> las comunas con menos de
@@ -233,8 +310,8 @@ const jsonLd = {
         el umbral poblacional). Ranking 1 = menor tasa reportada en Chile para ese año.
       </li>
       <li>
-        <strong>Definición de promedio nacional:</strong> la media aritmética simple de las
-        tasas comunales de comunas con población ≥ 10.000 habitantes (véase la sección de
+        <strong>Definición de promedio nacional:</strong> la media ponderada por población
+        de las tasas comunales de comunas con población ≥ 10.000 habitantes (véase la sección de
         cálculo de tasas más arriba). No es la suma nacional publicada por el CEAD.
       </li>
     </ul>
@@ -254,11 +331,11 @@ const jsonLd = {
     </p>
     <ul>
       <li>
-        <strong>No clasificamos ninguna comuna, ciudad o región como "segura" o "peligrosa"
-        en términos absolutos.</strong> El mapa y las páginas de rankings presentan incidencia
+        <strong>No clasificamos ninguna comuna, ciudad o región como si tuviera un nivel
+        de riesgo absoluto.</strong> El mapa y las páginas de rankings presentan incidencia
         reportada relativa — menor o mayor que en otras comunas — no niveles de riesgo
-        absolutos. Una comuna con una tasa reportada baja no se declara "segura"; una con una
-        tasa alta no se declara "peligrosa".
+        absolutos. Una comuna con una tasa reportada baja no se declara exenta de delincuencia;
+        una con una tasa alta no se declara de riesgo inaceptable.
       </li>
       <li>
         <strong>No publicamos cifras de probabilidad de victimización individual.</strong>
@@ -269,7 +346,7 @@ const jsonLd = {
         denominador descritas anteriormente.
       </li>
       <li>
-        <strong>No hacemos afirmaciones predictivas ni prospectivas sobre seguridad.</strong>
+        <strong>No hacemos afirmaciones predictivas ni prospectivas.</strong>
         Los indicadores de tendencia describen lo que muestran los datos del CEAD para años
         pasados; no predicen condiciones futuras. Una tendencia "bajando" no significa que
         una comuna vaya a continuar disminuyendo.
@@ -287,7 +364,7 @@ const jsonLd = {
     </ul>
     <p>
       Nuestro objetivo es hacer accesibles y presentar con claridad los datos oficiales del CEAD
-      — no emitir veredictos de seguridad. Si tienes preguntas sobre los datos o la metodología,
+      — no emitir veredictos sobre territorios. Si tienes preguntas sobre los datos o la metodología,
       usa la <a href="/es/contacto/">página de contacto</a>.
     </p>
   </section>
