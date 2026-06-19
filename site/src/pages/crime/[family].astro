@@ -35,10 +35,13 @@ import { buildBreadcrumb, buildItemList } from '../../lib/jsonld.ts';
 
 export async function getStaticPaths() {
   const catalog = loadCatalog();
-  return catalog.family_keys.map((key) => ({
-    params: { family: FAMILY_SLUGS[key]!.en },
-    props: { familyKey: key },
-  }));
+  // TD-04: exclude vida family (slug 'homicide') — /crime/homicide/ redirects to /crime-ranking/homicide/
+  return catalog.family_keys
+    .filter((key) => key !== 'vida')
+    .map((key) => ({
+      params: { family: FAMILY_SLUGS[key]!.en },
+      props: { familyKey: key },
+    }));
 }
 
 // --- Page-level data ---

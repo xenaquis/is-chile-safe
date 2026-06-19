@@ -70,12 +70,22 @@ function sitemapFilter(url) {
   // Map pages always included
   if (/\/map\/$/.test(url) || /\/es\/mapa\/$/.test(url)) return true;
 
+  // Ranking pages: explicit allow rule (SEO-03) — before catch-all
+  if (/\/rankings\/$/.test(url)) return true;
+  if (/\/crime-ranking\/[^/]+\/$/.test(url)) return true;
+  if (/\/es\/ranking-delito\/[^/]+\/$/.test(url)) return true;
+
   // All other pages included by default (404, etc.)
   return true;
 }
 
 export default defineConfig({
   site: 'https://ischilesafe.com',
+  // TD-04: redirect ambiguous /crime/homicide/ (vida-family aggregate) to canonical ranking page
+  redirects: {
+    '/crime/homicide/': '/crime-ranking/homicide/',
+    '/es/delito/homicidios/': '/es/ranking-delito/homicidios/',
+  },
   i18n: {
     locales: ['en', 'es'],
     defaultLocale: 'en',

@@ -179,6 +179,9 @@ function checkCrimeDir(dir) {
     if (!entry.isDirectory()) continue;
     const htmlPath = path.join(dir, entry.name, 'index.html');
     if (existsSync(htmlPath)) {
+      const html = readFileSync(htmlPath, 'utf-8');
+      // Skip Astro-generated static redirect pages (no JSON-LD expected)
+      if (html.includes('http-equiv="refresh"') || html.includes("http-equiv='refresh'")) continue;
       checkPage(htmlPath, 'crime');
       crimeCount++;
     }

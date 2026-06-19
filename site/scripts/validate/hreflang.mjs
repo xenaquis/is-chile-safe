@@ -90,6 +90,8 @@ const MAX_DETAIL = 5; // report first 5 failing pages in detail
 
 for (const htmlPath of htmlFiles) {
   const html = readFileSync(htmlPath, 'utf-8');
+  // Skip Astro-generated static redirect pages (meta http-equiv refresh + noindex)
+  if (html.includes('http-equiv="refresh"') || html.includes("http-equiv='refresh'")) continue;
   const pageLabel = htmlPath.replace(DIST_DIR, '').replace(/\\/g, '/');
   const pageFailures = [];
 
