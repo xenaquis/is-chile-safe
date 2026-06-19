@@ -97,6 +97,19 @@
   min-width: 80px;
 }
 
+/* ==========================================================================
+   Mode toggle (composite index vs per-family rate — D-05)
+   ========================================================================== */
+
+.mode-toggle {
+  display: flex;
+  gap: 4px;
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  z-index: 801;
+}
+
 .ev-dot-mini {
   display: inline-block;
   width: 8px;

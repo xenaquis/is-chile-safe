@@ -76,6 +76,9 @@ interface Props {
   year: number;
   nationalAvg: number;
   onClose: () => void;
+  /** Current choropleth mode — 'composite' when index mode is active, 'family' for per-family rate mode.
+   *  Plan 04 uses this prop to gate the composite score block (D-06). */
+  mode?: 'composite' | 'family';
 }
 
 /** Convert series by_family RECORD → catalog-indexed ARRAY for PanelFamilyBars */

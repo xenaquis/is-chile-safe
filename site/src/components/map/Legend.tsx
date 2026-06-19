@@ -13,6 +13,7 @@ import { EN_STRINGS, ES_STRINGS } from '../../config/i18n';
 interface Props {
   lang: 'en' | 'es';
   breaks?: number[];
+  title?: string;
 }
 
 const QUAL_LABELS_EN = [
@@ -49,14 +50,15 @@ function bandLabel(i: number, breaks: number[], lang: 'en' | 'es'): string {
   return `${fmt(lo, lang)} – ${fmt(hi, lang)}`;
 }
 
-export function Legend({ lang, breaks }: Props) {
+export function Legend({ lang, breaks, title }: Props) {
   const qualLabels = lang === 'es' ? QUAL_LABELS_ES : QUAL_LABELS_EN;
   const unitNote = lang === 'es' ? ES_STRINGS.legend_per_100k_note : EN_STRINGS.legend_per_100k_note;
-  const title = lang === 'es' ? 'Incidencia reportada' : 'Reported incidence';
+  const defaultTitle = lang === 'es' ? 'Incidencia reportada' : 'Reported incidence';
+  const resolvedTitle = title ?? defaultTitle;
 
   return (
     <div className="legend">
-      <div className="legend-title">{title}</div>
+      <div className="legend-title">{resolvedTitle}</div>
       <div className="legend-bands">
         {INCIDENCE_COLORS.map((color, i) => (
           <div className="legend-band-row" key={i}>

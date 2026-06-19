@@ -24,6 +24,7 @@ import {
   buildStyleMapFromLevel,
   buildStyleMapFromFamily,
   buildStyleMapFromHomicide,
+  buildStyleMapFromCompositeIndex,
   applyStyleMap,
   highlightSelected,
   type CommunaPayload,
@@ -99,6 +100,9 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
   // Exclusive with family selection — selecting homicide passes familyIndex null,
   // which keeps existing family chips inactive.
   const [crimeIsHomicide, setCrimeIsHomicide] = useState(false);
+  // mode: choropleth mode — 'composite' (default, D-05) or 'family' (per-family rate).
+  // MapIsland is the SOLE owner of this state; ResultPanel reads it via prop (D-06).
+  const [mode, setMode] = useState<'composite' | 'family'>('composite');
   const [showEvents, setShowEvents] = useState(false);
   const [lowZoom, setLowZoom] = useState(true);
   const [selected, setSelected] = useState<string | null>(null);
@@ -198,8 +202,8 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
       // TD-06: surface partial-year caveat badge when flag is set
       setPartialYear(payload.partial_year === true);
 
-      // Build memoized style map from precomputed levels (D-11)
-      styleMapRef.current = buildStyleMapFromLevel(payload.comunas);
+      // Build memoized style map — default to composite index mode (D-05)
+      styleMapRef.current = buildStyleMapFromCompositeIndex(payload.comunas);
 
       // Mount choropleth layer (once, never re-mounted — D-12)
       if (!cancelled && mapRef.current) {
@@ -268,9 +272,11 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
       // TD-06: update partial-year badge for the newly loaded year
       setPartialYear(payload.partial_year === true);
 
-      // Rebuild style map based on current crime filter (three-way branch D-05/HOM-01):
-      // homicide chip → independent homicide scale; family chip → family rate; else → level
-      if (crimeIsHomicide) {
+      // Rebuild style map based on current mode + crime filter:
+      // composite mode → precomputed ci level; family mode → homicide / by_family / level
+      if (mode === 'composite') {
+        styleMapRef.current = buildStyleMapFromCompositeIndex(payload.comunas);
+      } else if (crimeIsHomicide) {
         styleMapRef.current = buildStyleMapFromHomicide(payload.comunas);
       } else if (crimeFamilyIndex !== null) {
         styleMapRef.current = buildStyleMapFromFamily(payload.comunas, crimeFamilyIndex);
@@ -285,7 +291,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
     void loadYear();
     return () => { cancelled = true; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [year, mapReady, crimeIsHomicide]);
+  }, [year, mapReady, crimeIsHomicide, mode]);
 
   // ---------------------------------------------------------------------------
   // Crime-type chip effect: recolor from by_family[] — no extra fetch (D-10)
@@ -296,8 +302,10 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const geoLayer = layerRef.current!;
 
-    // Three-way branch (D-05/HOM-01): homicide → family → level
-    if (crimeIsHomicide) {
+    // Mode-aware branch: composite → ci level; family mode → homicide / family / level
+    if (mode === 'composite') {
+      styleMapRef.current = buildStyleMapFromCompositeIndex(communas);
+    } else if (crimeIsHomicide) {
       styleMapRef.current = buildStyleMapFromHomicide(communas);
     } else if (crimeFamilyIndex !== null) {
       styleMapRef.current = buildStyleMapFromFamily(communas, crimeFamilyIndex);
@@ -306,7 +314,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
     }
 
     applyStyleMap(geoLayer, styleMapRef);
-  }, [crimeFamilyIndex, crimeIsHomicide]);
+  }, [crimeFamilyIndex, crimeIsHomicide, mode]);
 
   // ---------------------------------------------------------------------------
   // Low-zoom dot layer effect
@@ -456,8 +464,48 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
         aria-hidden="true"
       />
 
+      {/* Mode toggle: composite index vs per-family rate (D-05) */}
+      <div className="mode-toggle" role="group" aria-label={lang === 'es' ? 'Modo de mapa' : 'Map mode'}>
+        <button
+          className={`chip${mode === 'composite' ? ' active' : ''}`}
+          onClick={() => {
+            setMode('composite');
+            const communas = payloadRef.current;
+            if (!communas || !layerRef.current) return;
+            styleMapRef.current = buildStyleMapFromCompositeIndex(communas);
+            applyStyleMap(layerRef.current, styleMapRef);
+          }}
+        >
+          {lang === 'es' ? 'Índice' : 'Index'}
+        </button>
+        <button
+          className={`chip${mode === 'family' ? ' active' : ''}`}
+          onClick={() => {
+            setMode('family');
+            const communas = payloadRef.current;
+            if (!communas || !layerRef.current) return;
+            if (crimeIsHomicide) {
+              styleMapRef.current = buildStyleMapFromHomicide(communas);
+            } else if (crimeFamilyIndex !== null) {
+              styleMapRef.current = buildStyleMapFromFamily(communas, crimeFamilyIndex);
+            } else {
+              styleMapRef.current = buildStyleMapFromLevel(communas);
+            }
+            applyStyleMap(layerRef.current, styleMapRef);
+          }}
+        >
+          {lang === 'es' ? 'Por delito' : 'By crime'}
+        </button>
+      </div>
+
       {/* Legend (bottom-left) */}
-      <Legend lang={lang} breaks={breaks} />
+      <Legend
+        lang={lang}
+        breaks={mode === 'composite' ? undefined : breaks}
+        title={mode === 'composite'
+          ? (lang === 'es' ? 'Índice Delictivo' : 'Crime Index')
+          : undefined}
+      />
 
       {/* Zoom control (desktop only, hidden via CSS on mobile) */}
       <ZoomControl mapRef={mapRef} />
@@ -469,6 +517,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
           lang={lang}
           year={year}
           nationalAvg={nationalAvg}
+          mode={mode}
           onClose={() => {
             if (layerRef.current) {
               const prev = polyIdxRef.current.get(selected);
