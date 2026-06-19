@@ -22,3 +22,8 @@ Patterns established across spike sessions. New spikes follow these unless the q
 ## Tools & Libraries
 - BrowserOS MCP for headless verification (file:// URLs; `evaluate_script` for DOM checks).
 - None added as project deps — spikes are throwaway.
+
+## Research-spike pattern (added in SEED-002, spikes 004-007)
+- Not all spikes build a UI. **Fact-finding spikes** (feasibility/data-source research) produce a findings report under `.planning/research/`, not an HTML mockup. README still carries full frontmatter + Investigation Trail + Results.
+- Hybrid discovery: **WebSearch/WebFetch for static gov pages** (faster), **browseros inline for JS-heavy dashboards** (e.g. Power BI / ArcGIS embeds). browseros runs in the main loop, not a subagent (gov sites + iframe stitching).
+- To unwrap an embedded interactive report, `evaluate_script` for the `<iframe>.src` (e.g. Fiscalía → `app.powerbi.com/view?r=…`) — confirms the underlying data tech and scrape-brittleness without deep interaction.
