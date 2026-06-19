@@ -16,6 +16,7 @@ import json
 import logging
 import pathlib
 from collections import defaultdict
+from urllib.parse import urlparse
 
 from pydantic import ValidationError
 
@@ -28,6 +29,18 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+
+def is_safe_url(url: str) -> bool:
+    """Return True only when url has an http or https scheme (TD-05, T-19-04).
+
+    Rejects javascript:, data:, ftp:, and unparseable URLs.
+    """
+    try:
+        scheme = urlparse(url).scheme
+        return scheme in ("http", "https")
+    except Exception:
+        return False
 
 
 def make_id(url: str) -> str:
@@ -51,8 +64,12 @@ def build_incident(
     """Build a validated incident dict ready for merge_and_write.
 
     All attribution fields are required (NEWS-05).
-    Returns a plain dict matching the IncidentRecord schema.
+    Returns a plain dict matching the IncidentRecord schema,
+    or None if the url scheme is not http/https (TD-05, T-19-04).
     """
+    if not is_safe_url(url):
+        logger.warning("build_incident: rejected non-http(s) url %r", url)
+        return None  # type: ignore[return-value]
     return {
         "id": make_id(url),
         "cut": cut,
@@ -123,6 +140,9 @@ def merge_and_write(
 
     # 1. Load existing
     existing = _load_incidents_list(current_path)
+
+    # Filter out None results and non-http(s) incidents before merge (TD-05)
+    new_incidents = [i for i in new_incidents if i is not None and is_safe_url(i.get("url", ""))]
 
     # 2. Merge by id
     combined = _merge_by_id(existing, new_incidents)
