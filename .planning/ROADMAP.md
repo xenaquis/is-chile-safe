@@ -70,7 +70,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 ### v2.0 Composite Index, Comparators & Launch
 
-- [x] **Phase 18: Composite Crime Index** — exposure-adjusted 0–100 index, SPD VHC homicide switch, schema migration, index-driven choropleth _(RESERVED number; highest-risk phase — plan interactively)_ (completed 2026-06-19)
+- [~] **Phase 18: Composite Crime Index** — exposure-adjusted 0–100 index, SPD VHC homicide switch, schema migration, index-driven choropleth _(RESERVED number; highest-risk phase — plan interactively)_ (executed 2026-06-19; verified gaps_found — 3 gap-closure plans 18-06..18-08 pending execution)
 - [ ] **Phase 21: Commune Comparator + A-vs-B SEO** — interactive comparator island + ~6,800 bilingual A-vs-B programmatic pages built on Phase 18 outputs _(depends on Phase 18)_
 - [ ] **Phase 22: Go-Live / Launch Ops** — CF deploy hook, production deploy, live news audit, GSC submission _(parallel with Phase 21; no code dependency)_
 
@@ -92,13 +92,16 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
   4. The CI forbidden-language validator (extended in this phase) flags "safest / most dangerous / más segura / más peligrosa" without a qualifying "reported / reportado" qualifier, and `npm run validate` exits 0 on the full build — confirming no absolute verdict is emitted anywhere.
   5. `@astrojs/check` passes on all TypeScript types; every consumer of `featured_rates` (commune panel, choropleth, Astro templates, figure-registry validator, pytest) is verified non-breaking after the additive schema migration; EN + ES methodology pages document the formula, normalization method, SPD VHC switch, and SII exposure caveat with every new figure registered (figure-registry zero-orphan passes).
 
-**Plans**: 5 plans
+**Plans**: 5 plans + 3 gap-closure plans (18-06..18-08, post-verification)
 
   - [x] 18-01-PLAN.md — Composite index compute core: scipy + config + normalize/SII-cap/year-align + build_composite_index.py + comparator_table.json + tests
   - [x] 18-02-PLAN.md — Extract build_map_payload.py (ci field, 30 KB assertion); strip scrape_cead.py; three-step GitHub Actions order
   - [x] 18-03-PLAN.md — Choropleth index-mode toggle (default): ci on CommunaPayload + buildStyleMapFromCompositeIndex + MapIsland toggle + legend
   - [x] 18-04-PLAN.md — Index display surfaces: ResultPanel + EN/ES commune pages, integer score + bands + national/regional rank + always-visible caveat
   - [x] 18-05-PLAN.md — Editorial + docs gate: forbidden-language extension, F13/F14 figure-registry, SOURCES.md + methodology pages, full non-breaking validator suite
+  - [ ] 18-06-PLAN.md — Gap 1 (CI-05): key ResultPanel composite block on COMPOSITE_YEAR=2024 so the score/band/rank/caveat render in the default map view
+  - [ ] 18-07-PLAN.md — Gap 2 (CI-04/CI-08): correct SII cap docs (SOURCES.md + EN/ES methodology) to INE-fallback semantics matching D-03 and the code
+  - [ ] 18-08-PLAN.md — Gap 3 (CI-02): mask NaN before winsorizing in normalize_metric + NaN+outlier clip-point test
 
 **UI hint**: yes
 
@@ -139,6 +142,6 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 18. Composite Crime Index | 5/5 | Complete   | 2026-06-19 |
+| 18. Composite Crime Index | 5/8 | Gap closure (18-06..18-08 pending) | - |
 | 21. Commune Comparator + A-vs-B SEO | 0/TBD | Not started | - |
 | 22. Go-Live / Launch Ops | 0/TBD | Not started | - |
