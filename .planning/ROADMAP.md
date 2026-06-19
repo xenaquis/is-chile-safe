@@ -61,7 +61,7 @@ _Surfaced by the Phase-9 live review and re-scoped 2026-06-15 after a live Brows
 - [x] **Phase 14: Homicide as a First-Class Category** — Expose the existing per-commune `homicidios` data as its own map filter/layer + commune-panel breakdown (currently folded inside "vida"/Life crimes). (was Phase 11) [HOM-01, HOM-02] (completed 2026-06-16)
 - [x] **Phase 15: Crime-Type SEO Ranking Pages** — Programmatic bilingual "las N comunas con más {delito}" ranking pages (homicide first), with correct internal linking, hreflang, sitemap, single H1, and `ItemList` JSON-LD. Depends on Phases 14 + 13. (was Phase 12) [CSEO-01, CSEO-02] (completed 2026-06-16)
 - [x] **Phase 17: Data Quality, Source Traceability & Methodology** — _(runs FIRST — see Autonomous Run Order)_ Verify every surfaced figure against its authoritative source (re-check the 4 anomalies, partial-year flags, range sanity → `17-DATA-QUALITY.md`); fix the wrong CEAD host (`ministeriointerior`→`minsegpublica`); build a canonical source registry (`data/SOURCES.md`) naming CEAD (casos policiales `tipoVal=1,2`), SPD homicide, SII exposure, Fiscalía secuestro; commit reproducible normalized source snapshots; rewrite methodology EN+ES with a **clickable link to every source**. FOCUSED — no composite index, no schema migration, no displayed-metric change (deferred to Phase 18). Wave 0 research complete. Depends on Phase 11. [DQ-01, DQ-02, DQ-03, DQ-04] (completed 2026-06-19)
-- [ ] **Phase 16: News Activation + Geolocation Redesign + Model A/B** — _(runs SECOND)_ Redesign news geolocation (LLM emits the comuna NAME → deterministic name→CUT lookup, not a raw CUT guess), build a labelled golden set + scoring to A/B DeepSeek vs MiniMax (env-configurable provider), run the pipeline for real (API keys available), link incidents to source ↗ AND to their comuna page, and add a dedicated news page. Depends on Phase 11 + Phase 17 (source registry/methodology authoritative first). [NEWS-01, NEWS-02, NEWS-03, NEWS-04]
+- [x] **Phase 16: News Activation + Geolocation Redesign + Model A/B** — _(runs SECOND)_ Redesign news geolocation (LLM emits the comuna NAME → deterministic name→CUT lookup, not a raw CUT guess), build a labelled golden set + scoring to A/B DeepSeek vs MiniMax (env-configurable provider), run the pipeline for real (API keys available), link incidents to source ↗ AND to their comuna page, and add a dedicated news page. Depends on Phase 11 + Phase 17 (source registry/methodology authoritative first). [NEWS-01, NEWS-02, NEWS-03, NEWS-04] (completed 2026-06-19)
 
 ## Phase Details
 
@@ -241,7 +241,7 @@ Plans:
   3. The pipeline runs for real (gated by the human go-live `DEEPSEEK_API_KEY`/`MINIMAX_API_KEY` step) producing `data/incidents/current.json`; the map incident layer and the comuna-page "recent incidents" section render real, correctly-geolocated incidents with no console errors.
   4. Each incident links to its source article ↗ AND back to its comuna page; a dedicated news/incidents page exists (bilingual); a data-freshness indicator ("updated …") is shown; all incidents cite and link the press source per editorial policy.
 
-**Plans:** 4/5 plans executed
+**Plans:** 5/5 plans complete
 
 Plans:
 **Wave 1**
@@ -262,7 +262,7 @@ Plans:
 
 **Wave 5** *(blocked on Wave 4 completion)*
 
-- [ ] 16-05-PLAN.md — Verify + gate: full pytest + chained build+validate + BrowserOS (EN+ES) + 16-VERIFICATION.md (NEWS-01..04)
+- [x] 16-05-PLAN.md — Verify + gate: full pytest + chained build+validate + BrowserOS (EN+ES) + 16-VERIFICATION.md (NEWS-01..04)
 
 ### Phase 17: Data Quality, Source Traceability & Methodology
 
@@ -304,7 +304,7 @@ Plans:
 | 14. Homicide as a First-Class Category | v1.2 | 6/6 | Complete   | 2026-06-16 |
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 2/2 | Complete   | 2026-06-16 |
 | 17. Data Quality, Source Traceability & Methodology | v1.2 | 5/5 | Complete   | 2026-06-19 |
-| 16. News Activation + Geolocation + Model A/B | v1.2 | 4/5 | In Progress|  |
+| 16. News Activation + Geolocation + Model A/B | v1.2 | 5/5 | Complete   | 2026-06-19 |
 
 ## Backlog
 
