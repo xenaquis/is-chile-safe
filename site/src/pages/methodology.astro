@@ -361,6 +361,70 @@ const jsonLd = {
   </section>
 
   <section>
+    <h2 id="composite-index">Composite crime index (F13 + F14)</h2>
+    <p>
+      In addition to the per-family CEAD rates described above, this site displays a
+      <strong>composite crime index</strong> — a single normalised score that combines seven
+      per-100,000 metrics into one comparable figure for each commune. The composite is
+      used only for relative comparisons across communes; it is not an absolute safety verdict.
+    </p>
+
+    <h3>Formula</h3>
+    <p>
+      The composite score is a <strong>weighted sum of seven winsorized metrics</strong>
+      (reference year 2024):
+    </p>
+    <pre><code>composite_score = sum(w&#x2008;&#x2082;&#x2083; × normalized&#x2008;&#x2082;&#x2083;)  for each metric</code></pre>
+    <p>
+      The locked weight vector (C-02) is:
+    </p>
+    <ul>
+      <li><code>spd_homicide_rate</code> — 0.30 (M1)</li>
+      <li><code>cead_robos_rate</code> — 0.20</li>
+      <li><code>cead_vida_rate</code> — 0.15</li>
+      <li><code>cead_propiedad_rate</code> — 0.12</li>
+      <li><code>cead_vif_rate</code> — 0.10</li>
+      <li><code>cead_drogas_rate</code> — 0.08</li>
+      <li><code>cead_armas_rate</code> — 0.05</li>
+    </ul>
+
+    <h3>Normalization method</h3>
+    <p>
+      Each metric is first <strong>winsorized</strong> (limits [0.01, 0.01] — the top and bottom
+      1 % of commune values are clipped) before rescaling to [0, 1] via min-max normalization.
+      Winsorization prevents extreme outliers (micro-communes with very small populations can
+      produce per-100k rates in the tens of thousands) from collapsing the colour scale for
+      the remaining 99 % of communes.
+    </p>
+
+    <h3>M1 — homicide: SPD VHC switch (F13)</h3>
+    <p>
+      The homicide metric used in the composite index (M1, <code>spd_homicide_rate</code>) comes
+      from the <strong>SPD VHC dataset</strong> (Subsecretaría de Prevención del Delito / Centro para
+      la Prevención de Homicidios — Violencia Homicida en Chile), not from CEAD grupo 101. CEAD
+      grupo 101 ("Homicidios y femicidios") cannot isolate homicide from femicide at the subgroup
+      level, making SPD VHC the authoritative source for the index. The CEAD-sourced homicide figure
+      is preserved for the per-family display on commune pages (F1).
+    </p>
+
+    <h3>SII exposure caveat (F14)</h3>
+    <p>
+      One of the seven metrics is an economic exposure proxy derived from the
+      <strong>Servicio de Impuestos Internos (SII)</strong>: the number of dependent workers
+      (<em>trabajadores dependientes informados</em>) registered in each commune. This figure
+      uses the firm's registered domicile (HQ), not physical establishment location, which
+      concentrates counts in business-hub communes. To prevent this distortion from dominating
+      the composite, the metric is capped at 5.0 × the commune's INE resident population before
+      normalization. Communes without SII data have their available metric count decremented by one.
+    </p>
+
+    <p>
+      All composite methodology parameters are documented in the project's{' '}
+      <a href="https://github.com/xenaquis/is-chile-safe" rel="noopener noreferrer" target="_blank">SOURCES registry</a>.
+    </p>
+  </section>
+
+  <section>
     <h2>What this site does NOT say</h2>
     <p>
       The following statements are <strong>not made anywhere on this site</strong>, and if you

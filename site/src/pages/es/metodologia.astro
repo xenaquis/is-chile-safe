@@ -376,6 +376,73 @@ const jsonLd = {
   </section>
 
   <section>
+    <h2 id="indice-compuesto">Índice compuesto de delincuencia (F13 + F14)</h2>
+    <p>
+      Además de las tasas por familia del CEAD descritas anteriormente, este sitio muestra un
+      <strong>índice compuesto de delincuencia</strong> — una puntuación normalizada única que
+      combina siete métricas por 100.000 habitantes en una cifra comparable para cada comuna.
+      El índice se utiliza únicamente para comparaciones relativas entre comunas; no constituye
+      un veredicto absoluto de seguridad.
+    </p>
+
+    <h3>Fórmula</h3>
+    <p>
+      La puntuación compuesta es una <strong>suma ponderada de siete métricas winsorized</strong>
+      (año de referencia 2024):
+    </p>
+    <pre><code>puntuacion_compuesta = suma(w&#x2008;&#x2082;&#x2083; × normalizado&#x2008;&#x2082;&#x2083;)  para cada métrica</code></pre>
+    <p>
+      El vector de pesos bloqueado (C-02) es:
+    </p>
+    <ul>
+      <li><code>spd_homicide_rate</code> — 0,30 (M1)</li>
+      <li><code>cead_robos_rate</code> — 0,20</li>
+      <li><code>cead_vida_rate</code> — 0,15</li>
+      <li><code>cead_propiedad_rate</code> — 0,12</li>
+      <li><code>cead_vif_rate</code> — 0,10</li>
+      <li><code>cead_drogas_rate</code> — 0,08</li>
+      <li><code>cead_armas_rate</code> — 0,05</li>
+    </ul>
+
+    <h3>Método de normalización</h3>
+    <p>
+      Cada métrica se <strong>winsoriza</strong> primero (límites [0.01, 0.01] — el 1 % superior
+      e inferior de los valores comunales se recorta) antes de reescalarla a [0, 1] mediante
+      normalización min-max. La winsorización evita que los valores atípicos extremos (las
+      microcomunas con poblaciones muy pequeñas pueden producir tasas por 100.000 de decenas
+      de miles) colapsen la escala de color para el 99 % restante de las comunas.
+    </p>
+
+    <h3>M1 — homicidios: cambio a SPD VHC (F13)</h3>
+    <p>
+      La métrica de homicidios utilizada en el índice compuesto (M1, <code>spd_homicide_rate</code>)
+      proviene de la <strong>base de datos SPD VHC</strong> (Subsecretaría de Prevención del Delito /
+      Centro para la Prevención de Homicidios — Violencia Homicida en Chile), no del grupo 101 del
+      CEAD. El grupo 101 del CEAD («Homicidios y femicidios») no permite aislar homicidios de
+      femicidios a nivel de subgrupo, lo que convierte a SPD VHC en la fuente autorizada para el
+      índice. La cifra de homicidios del CEAD se conserva para el desglose por familia en las
+      páginas comunales (F1).
+    </p>
+
+    <h3>Advertencia sobre la exposición del SII (F14)</h3>
+    <p>
+      Una de las siete métricas es una variable de exposición económica derivada del
+      <strong>Servicio de Impuestos Internos (SII)</strong>: el número de trabajadores dependientes
+      informados registrados en cada comuna. Esta cifra utiliza el domicilio fiscal de la empresa
+      (casa matriz), no la ubicación del establecimiento físico, lo que concentra los recuentos
+      en comunas de mayor actividad empresarial. Para evitar que esta distorsión domine el índice
+      compuesto, la métrica se limita a 5,0 veces la población residente INE de la comuna antes
+      de la normalización. Las comunas sin datos del SII tienen su recuento de métricas disponibles
+      decrementado en uno.
+    </p>
+
+    <p>
+      Todos los parámetros metodológicos del índice compuesto están documentados en el{' '}
+      <a href="https://github.com/xenaquis/is-chile-safe" rel="noopener noreferrer" target="_blank">registro de fuentes</a> del proyecto.
+    </p>
+  </section>
+
+  <section>
     <h2>Lo que este sitio NO dice</h2>
     <p>
       Las siguientes afirmaciones <strong>no se hacen en ningún lugar de este sitio</strong>,
