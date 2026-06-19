@@ -251,3 +251,83 @@ def test_cead_subgroup101_rate_fixture_yields_plausible_rates():
         f"Expected at least 1 row with plausible homicide rate (0 < rate < 100/100k), "
         f"got rows: {[(r.get('name'), r.get('values')) for r in rows]}"
     )
+
+
+# ---------------------------------------------------------------------------
+# Test 5: build_map_payload emits correct top-level partial_year flag (TD-06)
+# ---------------------------------------------------------------------------
+
+def _make_records_with_partial(year: int, partial: bool, n: int = 3) -> list[dict]:
+    """Minimal records where the series entry for `year` carries partial=`partial`."""
+    from pipeline.shared.population import LOW_POPULATION_THRESHOLD
+
+    records = []
+    for i in range(n):
+        cut = str(20000 + i)
+        base = float((i % 50) + 5)
+        records.append({
+            "id": cut,
+            "name": f"Commune {i}",
+            "slug": f"commune-{i}",
+            "region_id": str((i % 16) + 1),
+            "population": LOW_POPULATION_THRESHOLD + 1000,
+            "low_population": False,
+            "national_rank": i + 1,
+            "regional_rank": i + 1,
+            "trend": "stable",
+            "homicide_rate": round(base * 0.05, 2),
+            "homicide_count": i + 1,
+            "featured_rates": {"propiedad": {}, "homicidios": {}, "secuestros": {}},
+            "series": [
+                {
+                    "year": year,
+                    "rate_per_100k": base * 3,
+                    "by_family": {
+                        "vida": round(base * 0.1, 1),
+                        "robos_violentos": round(base * 0.3, 1),
+                        "vif": round(base * 0.2, 1),
+                        "drogas": round(base * 0.15, 1),
+                        "armas": round(base * 0.05, 1),
+                        "propiedad": round(base * 1.5, 1),
+                        "incivilidades": round(base * 0.6, 1),
+                    },
+                    "partial": partial,
+                }
+            ],
+            "last_updated": "2026-06-19",
+        })
+    return records
+
+
+def test_map_payload_partial_year_false_for_complete_year():
+    """build_map_payload must include partial_year=False when all series records are complete."""
+    from pipeline.scrape_cead import build_map_payload
+
+    records = _make_records_with_partial(year=2024, partial=False)
+    all_rates = [r["series"][0]["rate_per_100k"] for r in records]
+    payload = build_map_payload(records, year=2024, all_rates=all_rates)
+
+    assert "partial_year" in payload, (
+        "build_map_payload must include top-level 'partial_year' key (TD-06). "
+        "This test is RED until TD-06 adds the flag."
+    )
+    assert payload["partial_year"] is False, (
+        f"Expected partial_year=False for complete year 2024, got {payload['partial_year']!r}"
+    )
+
+
+def test_map_payload_partial_year_true_for_partial_year():
+    """build_map_payload must include partial_year=True when any series record is partial."""
+    from pipeline.scrape_cead import build_map_payload
+
+    records = _make_records_with_partial(year=2026, partial=True)
+    all_rates = [r["series"][0]["rate_per_100k"] for r in records]
+    payload = build_map_payload(records, year=2026, all_rates=all_rates)
+
+    assert "partial_year" in payload, (
+        "build_map_payload must include top-level 'partial_year' key (TD-06). "
+        "This test is RED until TD-06 adds the flag."
+    )
+    assert payload["partial_year"] is True, (
+        f"Expected partial_year=True for partial year 2026, got {payload['partial_year']!r}"
+    )
