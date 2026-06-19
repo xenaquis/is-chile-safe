@@ -88,6 +88,14 @@ class ClassifierOutput(BaseModel):
 
     commune_name: str | None
     region_hint: str | None = None
+
+    @field_validator("region_hint", mode="before")
+    @classmethod
+    def coerce_region_hint_to_str(cls, v: object) -> str | None:
+        """LLM may emit region_hint as an integer (e.g. 6); coerce to string."""
+        if v is None:
+            return None
+        return str(v)
     family: str
     title_es: str    # plain text
     title_en: str    # plain text
