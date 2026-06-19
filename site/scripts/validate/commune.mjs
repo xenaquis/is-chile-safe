@@ -265,6 +265,15 @@ async function runDistValidation() {
         failures++;
       }
     }
+
+    // Assert ENUSC VHDV module presence (Phase 23 VL-03 / VL-04)
+    // Every commune page must have EITHER enusc-vhdv-section OR enusc-no-estimate
+    const hasVhdvSection = html.includes('enusc-vhdv-section');
+    const hasNoEstimate = html.includes('enusc-no-estimate');
+    if (!hasVhdvSection && !hasNoEstimate) {
+      console.error(`FAIL: ${htmlPath} — missing both enusc-vhdv-section and enusc-no-estimate`);
+      failures++;
+    }
   }
 
   // Validate each ES page
@@ -292,6 +301,14 @@ async function runDistValidation() {
         console.error(`FAIL: ES commune ${slug} contains forbidden term: "${term}"`);
         failures++;
       }
+    }
+
+    // Assert ENUSC VHDV module presence (Phase 23 VL-03 / VL-04)
+    const hasVhdvSection = html.includes('enusc-vhdv-section');
+    const hasNoEstimate = html.includes('enusc-no-estimate');
+    if (!hasVhdvSection && !hasNoEstimate) {
+      console.error(`FAIL: ${htmlPath} — missing both enusc-vhdv-section and enusc-no-estimate`);
+      failures++;
     }
   }
 
