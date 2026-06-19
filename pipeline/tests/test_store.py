@@ -122,6 +122,154 @@ def test_build_incident_passes_slug():
     assert incident["slug"] == "las-condes"
 
 
+def test_build_incident_accepts_http_url():
+    """build_incident with an http URL returns a valid incident dict (not None)."""
+    from pipeline.news.store import build_incident
+    result = build_incident(
+        url="http://biobiochile.cl/article/test",
+        cut="13101",
+        lat=-33.456,
+        lng=-70.654,
+        title_es="Incidente http",
+        title_en="Incident http",
+        date="2026-06-15",
+        outlet="BioBio Chile",
+        family="propiedad",
+    )
+    assert result is not None
+    assert result["url"] == "http://biobiochile.cl/article/test"
+
+
+def test_build_incident_accepts_https_url():
+    """build_incident with an https URL returns a valid incident dict (not None)."""
+    from pipeline.news.store import build_incident
+    result = build_incident(
+        url="https://biobiochile.cl/article/test",
+        cut="13101",
+        lat=-33.456,
+        lng=-70.654,
+        title_es="Incidente https",
+        title_en="Incident https",
+        date="2026-06-15",
+        outlet="BioBio Chile",
+        family="propiedad",
+    )
+    assert result is not None
+    assert result["url"] == "https://biobiochile.cl/article/test"
+
+
+def test_build_incident_rejects_javascript_url():
+    """build_incident with a javascript: URL must return None (TD-05, T-19-04)."""
+    from pipeline.news.store import build_incident
+    result = build_incident(
+        url="javascript:alert(1)",
+        cut="13101",
+        lat=-33.456,
+        lng=-70.654,
+        title_es="Incidente malicioso",
+        title_en="Malicious incident",
+        date="2026-06-15",
+        outlet="BioBio Chile",
+        family="propiedad",
+    )
+    assert result is None, "javascript: URL must be rejected by build_incident"
+
+
+def test_build_incident_rejects_data_url():
+    """build_incident with a data: URL must return None (TD-05, T-19-04)."""
+    from pipeline.news.store import build_incident
+    result = build_incident(
+        url="data:text/html,<script>alert(1)</script>",
+        cut="13101",
+        lat=-33.456,
+        lng=-70.654,
+        title_es="Incidente data",
+        title_en="Data incident",
+        date="2026-06-15",
+        outlet="BioBio Chile",
+        family="propiedad",
+    )
+    assert result is None, "data: URL must be rejected by build_incident"
+
+
+def test_build_incident_rejects_ftp_url():
+    """build_incident with an ftp: URL must return None (TD-05, T-19-04)."""
+    from pipeline.news.store import build_incident
+    result = build_incident(
+        url="ftp://example.com/file.txt",
+        cut="13101",
+        lat=-33.456,
+        lng=-70.654,
+        title_es="Incidente ftp",
+        title_en="FTP incident",
+        date="2026-06-15",
+        outlet="BioBio Chile",
+        family="propiedad",
+    )
+    assert result is None, "ftp: URL must be rejected by build_incident"
+
+
+def test_build_incident_rejects_malformed_url():
+    """build_incident with an unparseable URL must return None (TD-05, T-19-04)."""
+    from pipeline.news.store import build_incident
+    result = build_incident(
+        url="not a url at all !!",
+        cut="13101",
+        lat=-33.456,
+        lng=-70.654,
+        title_es="Incidente malformado",
+        title_en="Malformed incident",
+        date="2026-06-15",
+        outlet="BioBio Chile",
+        family="propiedad",
+    )
+    assert result is None, "Malformed URL must be rejected by build_incident"
+
+
+def test_merge_and_write_excludes_invalid_url_incidents(tmp_path):
+    """merge_and_write must not persist incidents whose url scheme is not http/https."""
+    from pipeline.news.store import build_incident
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+
+    # Build one valid and one that would be invalid (manually craft since build_incident would reject)
+    valid_incident = build_incident(
+        url="https://biobiochile.cl/article/valid",
+        cut="13101",
+        lat=-33.456,
+        lng=-70.654,
+        title_es="Válido",
+        title_en="Valid",
+        date="2026-06-15",
+        outlet="BioBio Chile",
+        family="propiedad",
+    )
+    assert valid_incident is not None
+
+    # Simulate a bad incident sneaking in (e.g. from old data) with non-http scheme
+    bad_incident = {
+        "id": "bad000000000001",
+        "cut": "13101",
+        "lat": -33.456,
+        "lng": -70.654,
+        "title_es": "Malo",
+        "title_en": "Bad",
+        "date": "2026-06-15",
+        "outlet": "Unknown",
+        "url": "javascript:alert(1)",
+        "family": "propiedad",
+        "slug": None,
+    }
+
+    merge_and_write([valid_incident, bad_incident], current_path, archive_dir=archive_dir)
+
+    import json
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    urls = [i["url"] for i in result["incidents"]]
+    assert "javascript:alert(1)" not in urls, "Non-http(s) URL must not be persisted"
+    assert "https://biobiochile.cl/article/valid" in urls, "Valid http(s) URL must be persisted"
+
+
 def test_archive_write(tmp_path):
     """Aged-out incidents must be written to archive/YYYY-MM.json."""
     current_path = tmp_path / "current.json"
