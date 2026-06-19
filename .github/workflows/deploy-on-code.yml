@@ -1,0 +1,42 @@
+# deploy-on-code.yml
+#
+# WHY THIS EXISTS
+# ---------------
+# Cloudflare Pages automatic production builds are DISABLED (DEPLOYMENT.md §4) to prevent a
+# rebuild loop caused by the every-6h data commits. Those data commits carry [skip ci] and
+# stage ONLY data/ files, so they will NOT match `paths: site/**` — no loop is reintroduced.
+# Side effect of disabling CF auto-build: pushes that contain ONLY site code never redeploy
+# production; the Deploy Hook is the sole production build trigger. This workflow closes that
+# gap for code pushes.
+#
+# Note: DEPLOYMENT.md documentation update (§1 and §10 workflow-cadence table) for this new
+# trigger is a deliberate follow-up, out of scope here.
+
+name: Deploy on Code Push
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'site/**'
+      - '.github/workflows/deploy-on-code.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # CR-01: CF_HOOK MUST be job-level — a step-level env var is NOT in scope for
+    # that same step's `if:` condition, so the deploy gate would never fire.
+    env:
+      CF_HOOK: ${{ secrets.CF_DEPLOY_HOOK_URL }}
+
+    steps:
+      - name: Trigger Cloudflare Pages deploy
+        run: |
+          if [ -z "$CF_HOOK" ]; then
+            echo "CF_DEPLOY_HOOK_URL not set — skipping Cloudflare deploy (dry-run mode)"
+            exit 0
+          fi
+          curl -fsS -X POST --retry 3 "$CF_HOOK"
