@@ -14,16 +14,16 @@
 
 ### Track 1 — Composite Crime Index (→ Phase 18)
 
-- [ ] **CI-01**: The pipeline computes a 0–100 composite crime-exposure index per comuna from the 7 defined metrics and writes it (additive, non-breaking) into per-comuna JSON, in an isolated `build_composite_index.py` step that does not break the CEAD scraper if it fails.
-- [ ] **CI-02**: The index normalizes per-metric distributions with winsorization or percentile-rank (never raw min-max), so right-skewed micro-comuna outliers don't collapse the scale; a pytest distribution assertion guards the spread.
-- [ ] **CI-03**: SPD VHC is the homicide input to the index (M5), reference year capped at the latest fully-consolidated year (≤2024); CEAD grupo-101 `featured_rates.homicidios` is preserved unchanged for backward compatibility.
-- [ ] **CI-04**: The index applies an SII economic-activity exposure denominator with a documented cap (fall back to INE population when `sii_workers / ine_population` exceeds the threshold) to prevent firm-HQ-domicile distortion.
+- [x] **CI-01**: The pipeline computes a 0–100 composite crime-exposure index per comuna from the 7 defined metrics and writes it (additive, non-breaking) into per-comuna JSON, in an isolated `build_composite_index.py` step that does not break the CEAD scraper if it fails.
+- [x] **CI-02**: The index normalizes per-metric distributions with winsorization or percentile-rank (never raw min-max), so right-skewed micro-comuna outliers don't collapse the scale; a pytest distribution assertion guards the spread.
+- [x] **CI-03**: SPD VHC is the homicide input to the index (M5), reference year capped at the latest fully-consolidated year (≤2024); CEAD grupo-101 `featured_rates.homicidios` is preserved unchanged for backward compatibility.
+- [x] **CI-04**: The index applies an SII economic-activity exposure denominator with a documented cap (fall back to INE population when `sii_workers / ine_population` exceeds the threshold) to prevent firm-HQ-domicile distortion.
 - [ ] **CI-05**: A user sees the index as an integer 0–100 with one of 5 labeled bands in the map popup, the ResultPanel, and comuna pages, plus the comuna's national and regional rank on the index.
 - [ ] **CI-06**: Every page that displays the index renders a mandatory bilingual caveat block (composite of *reported* crime burden, the sources, the data vintage, and the SII firm-domicile caveat) — no absolute safety verdict.
 - [ ] **CI-07**: The choropleth offers a toggle between index mode and the existing per-family rate mode (5 binned classes each); the popup shows the exact index score.
 - [ ] **CI-08**: The EN + ES methodology pages document the composite formula, the chosen normalization method, the SPD homicide switch, and the SII exposure caveat; every new figure is registered (figure-registry zero-orphan passes).
 - [ ] **CI-09**: The forbidden-language CI validator is extended to flag "safest / most dangerous / más segura / más peligrosa" (and equivalents) when not qualified by "reported / reportado", and runs in `npm run validate`.
-- [ ] **CI-10**: The `featured_rates`→7-metric schema migration is verified non-breaking across every consumer (commune panel, choropleth, Astro templates, figure-registry validator, pytest), with TypeScript types added and `@astrojs/check` + full validator suite green; `comparator_table.json` is emitted for Track 2.
+- [x] **CI-10**: The `featured_rates`→7-metric schema migration is verified non-breaking across every consumer (commune panel, choropleth, Astro templates, figure-registry validator, pytest), with TypeScript types added and `@astrojs/check` + full validator suite green; `comparator_table.json` is emitted for Track 2.
 
 ### Track 2 — Commune Comparator + A-vs-B SEO (→ Phase 21)
 
@@ -62,16 +62,16 @@
 
 | REQ-ID | Phase | Status | Notes |
 |--------|-------|--------|-------|
-| CI-01 | Phase 18 | Pending | Isolated build_composite_index.py step |
-| CI-02 | Phase 18 | Pending | Winsorization / percentile-rank normalization + pytest assertion |
-| CI-03 | Phase 18 | Pending | SPD VHC as M5; CEAD featured_rates.homicidios preserved |
-| CI-04 | Phase 18 | Pending | SII exposure denominator with documented cap |
+| CI-01 | Phase 18 | Complete | Isolated build_composite_index.py step |
+| CI-02 | Phase 18 | Complete | Winsorization / percentile-rank normalization + pytest assertion |
+| CI-03 | Phase 18 | Complete | SPD VHC as M5; CEAD featured_rates.homicidios preserved |
+| CI-04 | Phase 18 | Complete | SII exposure denominator with documented cap |
 | CI-05 | Phase 18 | Pending | 0–100 integer + 5 bands + national/regional rank in UI |
 | CI-06 | Phase 18 | Pending | Mandatory bilingual caveat block on all index-displaying pages |
 | CI-07 | Phase 18 | Pending | Choropleth toggle: index mode vs per-family rate mode |
 | CI-08 | Phase 18 | Pending | Methodology pages updated; figure-registry zero-orphan |
 | CI-09 | Phase 18 | Pending | Forbidden-language validator extended; npm run validate green |
-| CI-10 | Phase 18 | Pending | Schema migration non-breaking; TypeScript types; comparator_table.json emitted |
+| CI-10 | Phase 18 | Complete | Schema migration non-breaking; TypeScript types; comparator_table.json emitted |
 | CMP-01 | Phase 21 | Pending | 2–3 commune comparator island; depends on Phase 18 |
 | CMP-02 | Phase 21 | Pending | Accent-insensitive autocomplete; pre-rendered static shell |
 | CMP-03 | Phase 21 | Pending | A-vs-B pages from curated allowlist; CUT-code slugs; alphabetical ordering |
