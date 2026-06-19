@@ -61,6 +61,9 @@ KNOWN_RECORDS = [
 
 
 def main() -> None:
+    if not KNOWN_RECORDS:
+        raise RuntimeError("KNOWN_RECORDS is empty — refusing to overwrite snapshot.")
+
     payload = {
         "source": "Fiscalia de Chile — Boletin Estadistico / Informe de Fenomenos Criminales: Secuestro",
         "source_url": "https://www.fiscaliadechile.cl/persecucion-penal/estadisticas",
