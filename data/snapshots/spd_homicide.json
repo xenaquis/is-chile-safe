@@ -1,0 +1,9213 @@
+{
+  "source": "Subsecretaria de Prevencion del Delito / Centro para la Prevencion de Homicidios",
+  "source_url": "https://prevenciondehomicidios.cl/wp-content/uploads/2026/03/Base_de_Datos_VHC_2018_2025.xlsx",
+  "vintage": "2018-2025",
+  "fetched": "2026-06-19T00:43:42Z",
+  "caveat": "2025 data is partial and unconsolidated. Homicide count = victim-level row count per (COMUN_AGR, ID_ANO); communes with zero homicides 2018-2025 are absent (not zeroed). COMUN_AGR joined to CUT via make_slug normalization — ~31 communes expected absent (genuinely zero, not bucketed). REFERENCE-ONLY — not wired to any displayed metric.",
+  "records": [
+    {
+      "cut": "10101",
+      "name": "Puerto Montt",
+      "year": 2018,
+      "homicides": 11
+    },
+    {
+      "cut": "10101",
+      "name": "Puerto Montt",
+      "year": 2019,
+      "homicides": 13
+    },
+    {
+      "cut": "10101",
+      "name": "Puerto Montt",
+      "year": 2020,
+      "homicides": 16
+    },
+    {
+      "cut": "10101",
+      "name": "Puerto Montt",
+      "year": 2021,
+      "homicides": 13
+    },
+    {
+      "cut": "10101",
+      "name": "Puerto Montt",
+      "year": 2022,
+      "homicides": 12
+    },
+    {
+      "cut": "10101",
+      "name": "Puerto Montt",
+      "year": 2023,
+      "homicides": 15
+    },
+    {
+      "cut": "10101",
+      "name": "Puerto Montt",
+      "year": 2024,
+      "homicides": 8
+    },
+    {
+      "cut": "10101",
+      "name": "Puerto Montt",
+      "year": 2025,
+      "homicides": 16
+    },
+    {
+      "cut": "10102",
+      "name": "Calbuco",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "10102",
+      "name": "Calbuco",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "10102",
+      "name": "Calbuco",
+      "year": 2022,
+      "homicides": 5
+    },
+    {
+      "cut": "10102",
+      "name": "Calbuco",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "10102",
+      "name": "Calbuco",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "10102",
+      "name": "Calbuco",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "10103",
+      "name": "Cochamó",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "10103",
+      "name": "Cochamó",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "10104",
+      "name": "Fresia",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "10104",
+      "name": "Fresia",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "10104",
+      "name": "Fresia",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "10104",
+      "name": "Fresia",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "10105",
+      "name": "Frutillar",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "10105",
+      "name": "Frutillar",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "10105",
+      "name": "Frutillar",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "10105",
+      "name": "Frutillar",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "10106",
+      "name": "Los Muermos",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "10106",
+      "name": "Los Muermos",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "10106",
+      "name": "Los Muermos",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "10107",
+      "name": "Llanquihue",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "10107",
+      "name": "Llanquihue",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "10107",
+      "name": "Llanquihue",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "10107",
+      "name": "Llanquihue",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "10108",
+      "name": "Maullín",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "10109",
+      "name": "Puerto Varas",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "10109",
+      "name": "Puerto Varas",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "10109",
+      "name": "Puerto Varas",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "10109",
+      "name": "Puerto Varas",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "10109",
+      "name": "Puerto Varas",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "10109",
+      "name": "Puerto Varas",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "10109",
+      "name": "Puerto Varas",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "10109",
+      "name": "Puerto Varas",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "10201",
+      "name": "Castro",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "10201",
+      "name": "Castro",
+      "year": 2019,
+      "homicides": 4
+    },
+    {
+      "cut": "10201",
+      "name": "Castro",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "10201",
+      "name": "Castro",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "10201",
+      "name": "Castro",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "10201",
+      "name": "Castro",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "10201",
+      "name": "Castro",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "10202",
+      "name": "Ancud",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "10202",
+      "name": "Ancud",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "10202",
+      "name": "Ancud",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "10202",
+      "name": "Ancud",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "10202",
+      "name": "Ancud",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "10203",
+      "name": "Chonchi",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "10203",
+      "name": "Chonchi",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "10203",
+      "name": "Chonchi",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "10205",
+      "name": "Dalcahue",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "10205",
+      "name": "Dalcahue",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "10205",
+      "name": "Dalcahue",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "10205",
+      "name": "Dalcahue",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "10206",
+      "name": "Puqueldón",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "10207",
+      "name": "Queilén",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "10207",
+      "name": "Queilén",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "10208",
+      "name": "Quellón",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "10208",
+      "name": "Quellón",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "10208",
+      "name": "Quellón",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "10208",
+      "name": "Quellón",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "10208",
+      "name": "Quellón",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "10208",
+      "name": "Quellón",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "10209",
+      "name": "Quemchi",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "10210",
+      "name": "Quinchao",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "10210",
+      "name": "Quinchao",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "10210",
+      "name": "Quinchao",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "10210",
+      "name": "Quinchao",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "10301",
+      "name": "Osorno",
+      "year": 2018,
+      "homicides": 7
+    },
+    {
+      "cut": "10301",
+      "name": "Osorno",
+      "year": 2019,
+      "homicides": 4
+    },
+    {
+      "cut": "10301",
+      "name": "Osorno",
+      "year": 2020,
+      "homicides": 4
+    },
+    {
+      "cut": "10301",
+      "name": "Osorno",
+      "year": 2021,
+      "homicides": 7
+    },
+    {
+      "cut": "10301",
+      "name": "Osorno",
+      "year": 2022,
+      "homicides": 7
+    },
+    {
+      "cut": "10301",
+      "name": "Osorno",
+      "year": 2023,
+      "homicides": 7
+    },
+    {
+      "cut": "10301",
+      "name": "Osorno",
+      "year": 2024,
+      "homicides": 4
+    },
+    {
+      "cut": "10301",
+      "name": "Osorno",
+      "year": 2025,
+      "homicides": 9
+    },
+    {
+      "cut": "10302",
+      "name": "Puerto Octay",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "10302",
+      "name": "Puerto Octay",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "10302",
+      "name": "Puerto Octay",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "10303",
+      "name": "Purranque",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "10303",
+      "name": "Purranque",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "10303",
+      "name": "Purranque",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "10303",
+      "name": "Purranque",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "10303",
+      "name": "Purranque",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "10303",
+      "name": "Purranque",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "10304",
+      "name": "Puyehue",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "10304",
+      "name": "Puyehue",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "10304",
+      "name": "Puyehue",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "10305",
+      "name": "Río Negro",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "10305",
+      "name": "Río Negro",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "10305",
+      "name": "Río Negro",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "10305",
+      "name": "Río Negro",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "10306",
+      "name": "San Juan de la Costa",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "10306",
+      "name": "San Juan de la Costa",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "10306",
+      "name": "San Juan de la Costa",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "10306",
+      "name": "San Juan de la Costa",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "10307",
+      "name": "San Pablo",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "10307",
+      "name": "San Pablo",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "10307",
+      "name": "San Pablo",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "10307",
+      "name": "San Pablo",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "10307",
+      "name": "San Pablo",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "10307",
+      "name": "San Pablo",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "10402",
+      "name": "Futaleufú",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "10403",
+      "name": "Hualaihué",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "1101",
+      "name": "Iquique",
+      "year": 2018,
+      "homicides": 9
+    },
+    {
+      "cut": "1101",
+      "name": "Iquique",
+      "year": 2019,
+      "homicides": 11
+    },
+    {
+      "cut": "1101",
+      "name": "Iquique",
+      "year": 2020,
+      "homicides": 7
+    },
+    {
+      "cut": "1101",
+      "name": "Iquique",
+      "year": 2021,
+      "homicides": 23
+    },
+    {
+      "cut": "1101",
+      "name": "Iquique",
+      "year": 2022,
+      "homicides": 25
+    },
+    {
+      "cut": "1101",
+      "name": "Iquique",
+      "year": 2023,
+      "homicides": 20
+    },
+    {
+      "cut": "1101",
+      "name": "Iquique",
+      "year": 2024,
+      "homicides": 14
+    },
+    {
+      "cut": "1101",
+      "name": "Iquique",
+      "year": 2025,
+      "homicides": 11
+    },
+    {
+      "cut": "1107",
+      "name": "Alto Hospicio",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "1107",
+      "name": "Alto Hospicio",
+      "year": 2019,
+      "homicides": 11
+    },
+    {
+      "cut": "1107",
+      "name": "Alto Hospicio",
+      "year": 2020,
+      "homicides": 13
+    },
+    {
+      "cut": "1107",
+      "name": "Alto Hospicio",
+      "year": 2021,
+      "homicides": 26
+    },
+    {
+      "cut": "1107",
+      "name": "Alto Hospicio",
+      "year": 2022,
+      "homicides": 21
+    },
+    {
+      "cut": "1107",
+      "name": "Alto Hospicio",
+      "year": 2023,
+      "homicides": 17
+    },
+    {
+      "cut": "1107",
+      "name": "Alto Hospicio",
+      "year": 2024,
+      "homicides": 14
+    },
+    {
+      "cut": "1107",
+      "name": "Alto Hospicio",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "11101",
+      "name": "Coyhaique",
+      "year": 2018,
+      "homicides": 5
+    },
+    {
+      "cut": "11101",
+      "name": "Coyhaique",
+      "year": 2019,
+      "homicides": 5
+    },
+    {
+      "cut": "11101",
+      "name": "Coyhaique",
+      "year": 2020,
+      "homicides": 4
+    },
+    {
+      "cut": "11101",
+      "name": "Coyhaique",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "11101",
+      "name": "Coyhaique",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "11101",
+      "name": "Coyhaique",
+      "year": 2023,
+      "homicides": 5
+    },
+    {
+      "cut": "11101",
+      "name": "Coyhaique",
+      "year": 2024,
+      "homicides": 5
+    },
+    {
+      "cut": "11101",
+      "name": "Coyhaique",
+      "year": 2025,
+      "homicides": 5
+    },
+    {
+      "cut": "11201",
+      "name": "Aysén",
+      "year": 2018,
+      "homicides": 4
+    },
+    {
+      "cut": "11201",
+      "name": "Aysén",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "11201",
+      "name": "Aysén",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "11201",
+      "name": "Aysén",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "11201",
+      "name": "Aysén",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "11201",
+      "name": "Aysén",
+      "year": 2025,
+      "homicides": 4
+    },
+    {
+      "cut": "11202",
+      "name": "Cisnes",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "11202",
+      "name": "Cisnes",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "11202",
+      "name": "Cisnes",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "11301",
+      "name": "Cochrane",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "11401",
+      "name": "Chile Chico",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "11401",
+      "name": "Chile Chico",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "12101",
+      "name": "Punta Arenas",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "12101",
+      "name": "Punta Arenas",
+      "year": 2019,
+      "homicides": 6
+    },
+    {
+      "cut": "12101",
+      "name": "Punta Arenas",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "12101",
+      "name": "Punta Arenas",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "12101",
+      "name": "Punta Arenas",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "12101",
+      "name": "Punta Arenas",
+      "year": 2023,
+      "homicides": 8
+    },
+    {
+      "cut": "12101",
+      "name": "Punta Arenas",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "12101",
+      "name": "Punta Arenas",
+      "year": 2025,
+      "homicides": 8
+    },
+    {
+      "cut": "12103",
+      "name": "Río Verde",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "12201",
+      "name": "Cabo de Hornos",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "12301",
+      "name": "Porvenir",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "12301",
+      "name": "Porvenir",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "12301",
+      "name": "Porvenir",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "12301",
+      "name": "Porvenir",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "12401",
+      "name": "Natales",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "12401",
+      "name": "Natales",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "12401",
+      "name": "Natales",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "13101",
+      "name": "Santiago",
+      "year": 2018,
+      "homicides": 32
+    },
+    {
+      "cut": "13101",
+      "name": "Santiago",
+      "year": 2019,
+      "homicides": 45
+    },
+    {
+      "cut": "13101",
+      "name": "Santiago",
+      "year": 2020,
+      "homicides": 43
+    },
+    {
+      "cut": "13101",
+      "name": "Santiago",
+      "year": 2021,
+      "homicides": 45
+    },
+    {
+      "cut": "13101",
+      "name": "Santiago",
+      "year": 2022,
+      "homicides": 66
+    },
+    {
+      "cut": "13101",
+      "name": "Santiago",
+      "year": 2023,
+      "homicides": 66
+    },
+    {
+      "cut": "13101",
+      "name": "Santiago",
+      "year": 2024,
+      "homicides": 46
+    },
+    {
+      "cut": "13101",
+      "name": "Santiago",
+      "year": 2025,
+      "homicides": 44
+    },
+    {
+      "cut": "13102",
+      "name": "Cerrillos",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "13102",
+      "name": "Cerrillos",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "13102",
+      "name": "Cerrillos",
+      "year": 2020,
+      "homicides": 5
+    },
+    {
+      "cut": "13102",
+      "name": "Cerrillos",
+      "year": 2021,
+      "homicides": 7
+    },
+    {
+      "cut": "13102",
+      "name": "Cerrillos",
+      "year": 2022,
+      "homicides": 8
+    },
+    {
+      "cut": "13102",
+      "name": "Cerrillos",
+      "year": 2023,
+      "homicides": 13
+    },
+    {
+      "cut": "13102",
+      "name": "Cerrillos",
+      "year": 2024,
+      "homicides": 16
+    },
+    {
+      "cut": "13102",
+      "name": "Cerrillos",
+      "year": 2025,
+      "homicides": 8
+    },
+    {
+      "cut": "13103",
+      "name": "Cerro Navia",
+      "year": 2018,
+      "homicides": 20
+    },
+    {
+      "cut": "13103",
+      "name": "Cerro Navia",
+      "year": 2019,
+      "homicides": 13
+    },
+    {
+      "cut": "13103",
+      "name": "Cerro Navia",
+      "year": 2020,
+      "homicides": 15
+    },
+    {
+      "cut": "13103",
+      "name": "Cerro Navia",
+      "year": 2021,
+      "homicides": 11
+    },
+    {
+      "cut": "13103",
+      "name": "Cerro Navia",
+      "year": 2022,
+      "homicides": 13
+    },
+    {
+      "cut": "13103",
+      "name": "Cerro Navia",
+      "year": 2023,
+      "homicides": 11
+    },
+    {
+      "cut": "13103",
+      "name": "Cerro Navia",
+      "year": 2024,
+      "homicides": 13
+    },
+    {
+      "cut": "13103",
+      "name": "Cerro Navia",
+      "year": 2025,
+      "homicides": 13
+    },
+    {
+      "cut": "13104",
+      "name": "Conchalí",
+      "year": 2018,
+      "homicides": 13
+    },
+    {
+      "cut": "13104",
+      "name": "Conchalí",
+      "year": 2019,
+      "homicides": 11
+    },
+    {
+      "cut": "13104",
+      "name": "Conchalí",
+      "year": 2020,
+      "homicides": 13
+    },
+    {
+      "cut": "13104",
+      "name": "Conchalí",
+      "year": 2021,
+      "homicides": 9
+    },
+    {
+      "cut": "13104",
+      "name": "Conchalí",
+      "year": 2022,
+      "homicides": 11
+    },
+    {
+      "cut": "13104",
+      "name": "Conchalí",
+      "year": 2023,
+      "homicides": 15
+    },
+    {
+      "cut": "13104",
+      "name": "Conchalí",
+      "year": 2024,
+      "homicides": 7
+    },
+    {
+      "cut": "13104",
+      "name": "Conchalí",
+      "year": 2025,
+      "homicides": 12
+    },
+    {
+      "cut": "13105",
+      "name": "El Bosque",
+      "year": 2018,
+      "homicides": 16
+    },
+    {
+      "cut": "13105",
+      "name": "El Bosque",
+      "year": 2019,
+      "homicides": 11
+    },
+    {
+      "cut": "13105",
+      "name": "El Bosque",
+      "year": 2020,
+      "homicides": 21
+    },
+    {
+      "cut": "13105",
+      "name": "El Bosque",
+      "year": 2021,
+      "homicides": 11
+    },
+    {
+      "cut": "13105",
+      "name": "El Bosque",
+      "year": 2022,
+      "homicides": 15
+    },
+    {
+      "cut": "13105",
+      "name": "El Bosque",
+      "year": 2023,
+      "homicides": 14
+    },
+    {
+      "cut": "13105",
+      "name": "El Bosque",
+      "year": 2024,
+      "homicides": 12
+    },
+    {
+      "cut": "13105",
+      "name": "El Bosque",
+      "year": 2025,
+      "homicides": 11
+    },
+    {
+      "cut": "13106",
+      "name": "Estación Central",
+      "year": 2018,
+      "homicides": 10
+    },
+    {
+      "cut": "13106",
+      "name": "Estación Central",
+      "year": 2019,
+      "homicides": 24
+    },
+    {
+      "cut": "13106",
+      "name": "Estación Central",
+      "year": 2020,
+      "homicides": 21
+    },
+    {
+      "cut": "13106",
+      "name": "Estación Central",
+      "year": 2021,
+      "homicides": 11
+    },
+    {
+      "cut": "13106",
+      "name": "Estación Central",
+      "year": 2022,
+      "homicides": 30
+    },
+    {
+      "cut": "13106",
+      "name": "Estación Central",
+      "year": 2023,
+      "homicides": 21
+    },
+    {
+      "cut": "13106",
+      "name": "Estación Central",
+      "year": 2024,
+      "homicides": 24
+    },
+    {
+      "cut": "13106",
+      "name": "Estación Central",
+      "year": 2025,
+      "homicides": 26
+    },
+    {
+      "cut": "13107",
+      "name": "Huechuraba",
+      "year": 2018,
+      "homicides": 7
+    },
+    {
+      "cut": "13107",
+      "name": "Huechuraba",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "13107",
+      "name": "Huechuraba",
+      "year": 2020,
+      "homicides": 7
+    },
+    {
+      "cut": "13107",
+      "name": "Huechuraba",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "13107",
+      "name": "Huechuraba",
+      "year": 2022,
+      "homicides": 5
+    },
+    {
+      "cut": "13107",
+      "name": "Huechuraba",
+      "year": 2023,
+      "homicides": 9
+    },
+    {
+      "cut": "13107",
+      "name": "Huechuraba",
+      "year": 2024,
+      "homicides": 8
+    },
+    {
+      "cut": "13107",
+      "name": "Huechuraba",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "13108",
+      "name": "Independencia",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "13108",
+      "name": "Independencia",
+      "year": 2019,
+      "homicides": 11
+    },
+    {
+      "cut": "13108",
+      "name": "Independencia",
+      "year": 2020,
+      "homicides": 13
+    },
+    {
+      "cut": "13108",
+      "name": "Independencia",
+      "year": 2021,
+      "homicides": 6
+    },
+    {
+      "cut": "13108",
+      "name": "Independencia",
+      "year": 2022,
+      "homicides": 14
+    },
+    {
+      "cut": "13108",
+      "name": "Independencia",
+      "year": 2023,
+      "homicides": 8
+    },
+    {
+      "cut": "13108",
+      "name": "Independencia",
+      "year": 2024,
+      "homicides": 18
+    },
+    {
+      "cut": "13108",
+      "name": "Independencia",
+      "year": 2025,
+      "homicides": 11
+    },
+    {
+      "cut": "13109",
+      "name": "La Cisterna",
+      "year": 2018,
+      "homicides": 4
+    },
+    {
+      "cut": "13109",
+      "name": "La Cisterna",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "13109",
+      "name": "La Cisterna",
+      "year": 2020,
+      "homicides": 10
+    },
+    {
+      "cut": "13109",
+      "name": "La Cisterna",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "13109",
+      "name": "La Cisterna",
+      "year": 2022,
+      "homicides": 5
+    },
+    {
+      "cut": "13109",
+      "name": "La Cisterna",
+      "year": 2023,
+      "homicides": 6
+    },
+    {
+      "cut": "13109",
+      "name": "La Cisterna",
+      "year": 2024,
+      "homicides": 11
+    },
+    {
+      "cut": "13109",
+      "name": "La Cisterna",
+      "year": 2025,
+      "homicides": 8
+    },
+    {
+      "cut": "13110",
+      "name": "La Florida",
+      "year": 2018,
+      "homicides": 11
+    },
+    {
+      "cut": "13110",
+      "name": "La Florida",
+      "year": 2019,
+      "homicides": 17
+    },
+    {
+      "cut": "13110",
+      "name": "La Florida",
+      "year": 2020,
+      "homicides": 18
+    },
+    {
+      "cut": "13110",
+      "name": "La Florida",
+      "year": 2021,
+      "homicides": 8
+    },
+    {
+      "cut": "13110",
+      "name": "La Florida",
+      "year": 2022,
+      "homicides": 12
+    },
+    {
+      "cut": "13110",
+      "name": "La Florida",
+      "year": 2023,
+      "homicides": 16
+    },
+    {
+      "cut": "13110",
+      "name": "La Florida",
+      "year": 2024,
+      "homicides": 12
+    },
+    {
+      "cut": "13110",
+      "name": "La Florida",
+      "year": 2025,
+      "homicides": 13
+    },
+    {
+      "cut": "13111",
+      "name": "La Granja",
+      "year": 2018,
+      "homicides": 5
+    },
+    {
+      "cut": "13111",
+      "name": "La Granja",
+      "year": 2019,
+      "homicides": 14
+    },
+    {
+      "cut": "13111",
+      "name": "La Granja",
+      "year": 2020,
+      "homicides": 13
+    },
+    {
+      "cut": "13111",
+      "name": "La Granja",
+      "year": 2021,
+      "homicides": 10
+    },
+    {
+      "cut": "13111",
+      "name": "La Granja",
+      "year": 2022,
+      "homicides": 15
+    },
+    {
+      "cut": "13111",
+      "name": "La Granja",
+      "year": 2023,
+      "homicides": 17
+    },
+    {
+      "cut": "13111",
+      "name": "La Granja",
+      "year": 2024,
+      "homicides": 4
+    },
+    {
+      "cut": "13111",
+      "name": "La Granja",
+      "year": 2025,
+      "homicides": 14
+    },
+    {
+      "cut": "13112",
+      "name": "La Pintana",
+      "year": 2018,
+      "homicides": 19
+    },
+    {
+      "cut": "13112",
+      "name": "La Pintana",
+      "year": 2019,
+      "homicides": 36
+    },
+    {
+      "cut": "13112",
+      "name": "La Pintana",
+      "year": 2020,
+      "homicides": 39
+    },
+    {
+      "cut": "13112",
+      "name": "La Pintana",
+      "year": 2021,
+      "homicides": 28
+    },
+    {
+      "cut": "13112",
+      "name": "La Pintana",
+      "year": 2022,
+      "homicides": 21
+    },
+    {
+      "cut": "13112",
+      "name": "La Pintana",
+      "year": 2023,
+      "homicides": 26
+    },
+    {
+      "cut": "13112",
+      "name": "La Pintana",
+      "year": 2024,
+      "homicides": 35
+    },
+    {
+      "cut": "13112",
+      "name": "La Pintana",
+      "year": 2025,
+      "homicides": 40
+    },
+    {
+      "cut": "13113",
+      "name": "La Reina",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "13113",
+      "name": "La Reina",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "13113",
+      "name": "La Reina",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "13113",
+      "name": "La Reina",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "13113",
+      "name": "La Reina",
+      "year": 2025,
+      "homicides": 5
+    },
+    {
+      "cut": "13114",
+      "name": "Las Condes",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "13114",
+      "name": "Las Condes",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "13114",
+      "name": "Las Condes",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "13114",
+      "name": "Las Condes",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "13114",
+      "name": "Las Condes",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "13114",
+      "name": "Las Condes",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "13114",
+      "name": "Las Condes",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "13114",
+      "name": "Las Condes",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "13115",
+      "name": "Lo Barnechea",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "13115",
+      "name": "Lo Barnechea",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "13115",
+      "name": "Lo Barnechea",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "13115",
+      "name": "Lo Barnechea",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "13115",
+      "name": "Lo Barnechea",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "13116",
+      "name": "Lo Espejo",
+      "year": 2018,
+      "homicides": 15
+    },
+    {
+      "cut": "13116",
+      "name": "Lo Espejo",
+      "year": 2019,
+      "homicides": 11
+    },
+    {
+      "cut": "13116",
+      "name": "Lo Espejo",
+      "year": 2020,
+      "homicides": 16
+    },
+    {
+      "cut": "13116",
+      "name": "Lo Espejo",
+      "year": 2021,
+      "homicides": 16
+    },
+    {
+      "cut": "13116",
+      "name": "Lo Espejo",
+      "year": 2022,
+      "homicides": 17
+    },
+    {
+      "cut": "13116",
+      "name": "Lo Espejo",
+      "year": 2023,
+      "homicides": 17
+    },
+    {
+      "cut": "13116",
+      "name": "Lo Espejo",
+      "year": 2024,
+      "homicides": 9
+    },
+    {
+      "cut": "13116",
+      "name": "Lo Espejo",
+      "year": 2025,
+      "homicides": 12
+    },
+    {
+      "cut": "13117",
+      "name": "Lo Prado",
+      "year": 2018,
+      "homicides": 4
+    },
+    {
+      "cut": "13117",
+      "name": "Lo Prado",
+      "year": 2019,
+      "homicides": 9
+    },
+    {
+      "cut": "13117",
+      "name": "Lo Prado",
+      "year": 2020,
+      "homicides": 15
+    },
+    {
+      "cut": "13117",
+      "name": "Lo Prado",
+      "year": 2021,
+      "homicides": 4
+    },
+    {
+      "cut": "13117",
+      "name": "Lo Prado",
+      "year": 2022,
+      "homicides": 8
+    },
+    {
+      "cut": "13117",
+      "name": "Lo Prado",
+      "year": 2023,
+      "homicides": 10
+    },
+    {
+      "cut": "13117",
+      "name": "Lo Prado",
+      "year": 2024,
+      "homicides": 9
+    },
+    {
+      "cut": "13117",
+      "name": "Lo Prado",
+      "year": 2025,
+      "homicides": 10
+    },
+    {
+      "cut": "13118",
+      "name": "Macul",
+      "year": 2018,
+      "homicides": 6
+    },
+    {
+      "cut": "13118",
+      "name": "Macul",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "13118",
+      "name": "Macul",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "13118",
+      "name": "Macul",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "13118",
+      "name": "Macul",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "13118",
+      "name": "Macul",
+      "year": 2024,
+      "homicides": 8
+    },
+    {
+      "cut": "13118",
+      "name": "Macul",
+      "year": 2025,
+      "homicides": 6
+    },
+    {
+      "cut": "13119",
+      "name": "Maipú",
+      "year": 2018,
+      "homicides": 13
+    },
+    {
+      "cut": "13119",
+      "name": "Maipú",
+      "year": 2019,
+      "homicides": 14
+    },
+    {
+      "cut": "13119",
+      "name": "Maipú",
+      "year": 2020,
+      "homicides": 30
+    },
+    {
+      "cut": "13119",
+      "name": "Maipú",
+      "year": 2021,
+      "homicides": 21
+    },
+    {
+      "cut": "13119",
+      "name": "Maipú",
+      "year": 2022,
+      "homicides": 21
+    },
+    {
+      "cut": "13119",
+      "name": "Maipú",
+      "year": 2023,
+      "homicides": 28
+    },
+    {
+      "cut": "13119",
+      "name": "Maipú",
+      "year": 2024,
+      "homicides": 23
+    },
+    {
+      "cut": "13119",
+      "name": "Maipú",
+      "year": 2025,
+      "homicides": 11
+    },
+    {
+      "cut": "13120",
+      "name": "Ñuñoa",
+      "year": 2018,
+      "homicides": 4
+    },
+    {
+      "cut": "13120",
+      "name": "Ñuñoa",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "13120",
+      "name": "Ñuñoa",
+      "year": 2020,
+      "homicides": 4
+    },
+    {
+      "cut": "13120",
+      "name": "Ñuñoa",
+      "year": 2022,
+      "homicides": 5
+    },
+    {
+      "cut": "13120",
+      "name": "Ñuñoa",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "13120",
+      "name": "Ñuñoa",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "13120",
+      "name": "Ñuñoa",
+      "year": 2025,
+      "homicides": 7
+    },
+    {
+      "cut": "13121",
+      "name": "Pedro Aguirre Cerda",
+      "year": 2018,
+      "homicides": 9
+    },
+    {
+      "cut": "13121",
+      "name": "Pedro Aguirre Cerda",
+      "year": 2019,
+      "homicides": 5
+    },
+    {
+      "cut": "13121",
+      "name": "Pedro Aguirre Cerda",
+      "year": 2020,
+      "homicides": 19
+    },
+    {
+      "cut": "13121",
+      "name": "Pedro Aguirre Cerda",
+      "year": 2021,
+      "homicides": 8
+    },
+    {
+      "cut": "13121",
+      "name": "Pedro Aguirre Cerda",
+      "year": 2022,
+      "homicides": 11
+    },
+    {
+      "cut": "13121",
+      "name": "Pedro Aguirre Cerda",
+      "year": 2023,
+      "homicides": 13
+    },
+    {
+      "cut": "13121",
+      "name": "Pedro Aguirre Cerda",
+      "year": 2024,
+      "homicides": 11
+    },
+    {
+      "cut": "13121",
+      "name": "Pedro Aguirre Cerda",
+      "year": 2025,
+      "homicides": 8
+    },
+    {
+      "cut": "13122",
+      "name": "Peñalolén",
+      "year": 2018,
+      "homicides": 9
+    },
+    {
+      "cut": "13122",
+      "name": "Peñalolén",
+      "year": 2019,
+      "homicides": 9
+    },
+    {
+      "cut": "13122",
+      "name": "Peñalolén",
+      "year": 2020,
+      "homicides": 13
+    },
+    {
+      "cut": "13122",
+      "name": "Peñalolén",
+      "year": 2021,
+      "homicides": 9
+    },
+    {
+      "cut": "13122",
+      "name": "Peñalolén",
+      "year": 2022,
+      "homicides": 13
+    },
+    {
+      "cut": "13122",
+      "name": "Peñalolén",
+      "year": 2023,
+      "homicides": 11
+    },
+    {
+      "cut": "13122",
+      "name": "Peñalolén",
+      "year": 2024,
+      "homicides": 6
+    },
+    {
+      "cut": "13122",
+      "name": "Peñalolén",
+      "year": 2025,
+      "homicides": 13
+    },
+    {
+      "cut": "13123",
+      "name": "Providencia",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "13123",
+      "name": "Providencia",
+      "year": 2019,
+      "homicides": 4
+    },
+    {
+      "cut": "13123",
+      "name": "Providencia",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "13123",
+      "name": "Providencia",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "13123",
+      "name": "Providencia",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "13123",
+      "name": "Providencia",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "13123",
+      "name": "Providencia",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "13124",
+      "name": "Pudahuel",
+      "year": 2018,
+      "homicides": 12
+    },
+    {
+      "cut": "13124",
+      "name": "Pudahuel",
+      "year": 2019,
+      "homicides": 20
+    },
+    {
+      "cut": "13124",
+      "name": "Pudahuel",
+      "year": 2020,
+      "homicides": 20
+    },
+    {
+      "cut": "13124",
+      "name": "Pudahuel",
+      "year": 2021,
+      "homicides": 12
+    },
+    {
+      "cut": "13124",
+      "name": "Pudahuel",
+      "year": 2022,
+      "homicides": 15
+    },
+    {
+      "cut": "13124",
+      "name": "Pudahuel",
+      "year": 2023,
+      "homicides": 19
+    },
+    {
+      "cut": "13124",
+      "name": "Pudahuel",
+      "year": 2024,
+      "homicides": 14
+    },
+    {
+      "cut": "13124",
+      "name": "Pudahuel",
+      "year": 2025,
+      "homicides": 13
+    },
+    {
+      "cut": "13125",
+      "name": "Quilicura",
+      "year": 2018,
+      "homicides": 11
+    },
+    {
+      "cut": "13125",
+      "name": "Quilicura",
+      "year": 2019,
+      "homicides": 12
+    },
+    {
+      "cut": "13125",
+      "name": "Quilicura",
+      "year": 2020,
+      "homicides": 26
+    },
+    {
+      "cut": "13125",
+      "name": "Quilicura",
+      "year": 2021,
+      "homicides": 11
+    },
+    {
+      "cut": "13125",
+      "name": "Quilicura",
+      "year": 2022,
+      "homicides": 6
+    },
+    {
+      "cut": "13125",
+      "name": "Quilicura",
+      "year": 2023,
+      "homicides": 12
+    },
+    {
+      "cut": "13125",
+      "name": "Quilicura",
+      "year": 2024,
+      "homicides": 13
+    },
+    {
+      "cut": "13125",
+      "name": "Quilicura",
+      "year": 2025,
+      "homicides": 12
+    },
+    {
+      "cut": "13126",
+      "name": "Quinta Normal",
+      "year": 2018,
+      "homicides": 9
+    },
+    {
+      "cut": "13126",
+      "name": "Quinta Normal",
+      "year": 2019,
+      "homicides": 6
+    },
+    {
+      "cut": "13126",
+      "name": "Quinta Normal",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "13126",
+      "name": "Quinta Normal",
+      "year": 2021,
+      "homicides": 5
+    },
+    {
+      "cut": "13126",
+      "name": "Quinta Normal",
+      "year": 2022,
+      "homicides": 17
+    },
+    {
+      "cut": "13126",
+      "name": "Quinta Normal",
+      "year": 2023,
+      "homicides": 10
+    },
+    {
+      "cut": "13126",
+      "name": "Quinta Normal",
+      "year": 2024,
+      "homicides": 10
+    },
+    {
+      "cut": "13126",
+      "name": "Quinta Normal",
+      "year": 2025,
+      "homicides": 5
+    },
+    {
+      "cut": "13127",
+      "name": "Recoleta",
+      "year": 2018,
+      "homicides": 15
+    },
+    {
+      "cut": "13127",
+      "name": "Recoleta",
+      "year": 2019,
+      "homicides": 16
+    },
+    {
+      "cut": "13127",
+      "name": "Recoleta",
+      "year": 2020,
+      "homicides": 17
+    },
+    {
+      "cut": "13127",
+      "name": "Recoleta",
+      "year": 2021,
+      "homicides": 20
+    },
+    {
+      "cut": "13127",
+      "name": "Recoleta",
+      "year": 2022,
+      "homicides": 32
+    },
+    {
+      "cut": "13127",
+      "name": "Recoleta",
+      "year": 2023,
+      "homicides": 24
+    },
+    {
+      "cut": "13127",
+      "name": "Recoleta",
+      "year": 2024,
+      "homicides": 35
+    },
+    {
+      "cut": "13127",
+      "name": "Recoleta",
+      "year": 2025,
+      "homicides": 27
+    },
+    {
+      "cut": "13128",
+      "name": "Renca",
+      "year": 2018,
+      "homicides": 16
+    },
+    {
+      "cut": "13128",
+      "name": "Renca",
+      "year": 2019,
+      "homicides": 13
+    },
+    {
+      "cut": "13128",
+      "name": "Renca",
+      "year": 2020,
+      "homicides": 11
+    },
+    {
+      "cut": "13128",
+      "name": "Renca",
+      "year": 2021,
+      "homicides": 14
+    },
+    {
+      "cut": "13128",
+      "name": "Renca",
+      "year": 2022,
+      "homicides": 11
+    },
+    {
+      "cut": "13128",
+      "name": "Renca",
+      "year": 2023,
+      "homicides": 14
+    },
+    {
+      "cut": "13128",
+      "name": "Renca",
+      "year": 2024,
+      "homicides": 12
+    },
+    {
+      "cut": "13128",
+      "name": "Renca",
+      "year": 2025,
+      "homicides": 17
+    },
+    {
+      "cut": "13129",
+      "name": "San Joaquín",
+      "year": 2018,
+      "homicides": 6
+    },
+    {
+      "cut": "13129",
+      "name": "San Joaquín",
+      "year": 2019,
+      "homicides": 10
+    },
+    {
+      "cut": "13129",
+      "name": "San Joaquín",
+      "year": 2020,
+      "homicides": 10
+    },
+    {
+      "cut": "13129",
+      "name": "San Joaquín",
+      "year": 2021,
+      "homicides": 11
+    },
+    {
+      "cut": "13129",
+      "name": "San Joaquín",
+      "year": 2022,
+      "homicides": 12
+    },
+    {
+      "cut": "13129",
+      "name": "San Joaquín",
+      "year": 2023,
+      "homicides": 5
+    },
+    {
+      "cut": "13129",
+      "name": "San Joaquín",
+      "year": 2024,
+      "homicides": 10
+    },
+    {
+      "cut": "13129",
+      "name": "San Joaquín",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "13130",
+      "name": "San Miguel",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "13130",
+      "name": "San Miguel",
+      "year": 2019,
+      "homicides": 5
+    },
+    {
+      "cut": "13130",
+      "name": "San Miguel",
+      "year": 2020,
+      "homicides": 7
+    },
+    {
+      "cut": "13130",
+      "name": "San Miguel",
+      "year": 2021,
+      "homicides": 4
+    },
+    {
+      "cut": "13130",
+      "name": "San Miguel",
+      "year": 2022,
+      "homicides": 12
+    },
+    {
+      "cut": "13130",
+      "name": "San Miguel",
+      "year": 2023,
+      "homicides": 5
+    },
+    {
+      "cut": "13130",
+      "name": "San Miguel",
+      "year": 2024,
+      "homicides": 7
+    },
+    {
+      "cut": "13130",
+      "name": "San Miguel",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "13131",
+      "name": "San Ramón",
+      "year": 2018,
+      "homicides": 15
+    },
+    {
+      "cut": "13131",
+      "name": "San Ramón",
+      "year": 2019,
+      "homicides": 8
+    },
+    {
+      "cut": "13131",
+      "name": "San Ramón",
+      "year": 2020,
+      "homicides": 12
+    },
+    {
+      "cut": "13131",
+      "name": "San Ramón",
+      "year": 2021,
+      "homicides": 5
+    },
+    {
+      "cut": "13131",
+      "name": "San Ramón",
+      "year": 2022,
+      "homicides": 12
+    },
+    {
+      "cut": "13131",
+      "name": "San Ramón",
+      "year": 2023,
+      "homicides": 14
+    },
+    {
+      "cut": "13131",
+      "name": "San Ramón",
+      "year": 2024,
+      "homicides": 9
+    },
+    {
+      "cut": "13131",
+      "name": "San Ramón",
+      "year": 2025,
+      "homicides": 10
+    },
+    {
+      "cut": "13132",
+      "name": "Vitacura",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "13132",
+      "name": "Vitacura",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "13132",
+      "name": "Vitacura",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "13132",
+      "name": "Vitacura",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "13132",
+      "name": "Vitacura",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "13201",
+      "name": "Puente Alto",
+      "year": 2018,
+      "homicides": 38
+    },
+    {
+      "cut": "13201",
+      "name": "Puente Alto",
+      "year": 2019,
+      "homicides": 37
+    },
+    {
+      "cut": "13201",
+      "name": "Puente Alto",
+      "year": 2020,
+      "homicides": 35
+    },
+    {
+      "cut": "13201",
+      "name": "Puente Alto",
+      "year": 2021,
+      "homicides": 30
+    },
+    {
+      "cut": "13201",
+      "name": "Puente Alto",
+      "year": 2022,
+      "homicides": 33
+    },
+    {
+      "cut": "13201",
+      "name": "Puente Alto",
+      "year": 2023,
+      "homicides": 35
+    },
+    {
+      "cut": "13201",
+      "name": "Puente Alto",
+      "year": 2024,
+      "homicides": 49
+    },
+    {
+      "cut": "13201",
+      "name": "Puente Alto",
+      "year": 2025,
+      "homicides": 46
+    },
+    {
+      "cut": "13202",
+      "name": "Pirque",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "13202",
+      "name": "Pirque",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "13202",
+      "name": "Pirque",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "13203",
+      "name": "San José de Maipo",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "13203",
+      "name": "San José de Maipo",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "13203",
+      "name": "San José de Maipo",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "13203",
+      "name": "San José de Maipo",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "13203",
+      "name": "San José de Maipo",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "13203",
+      "name": "San José de Maipo",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "13301",
+      "name": "Colina",
+      "year": 2018,
+      "homicides": 17
+    },
+    {
+      "cut": "13301",
+      "name": "Colina",
+      "year": 2019,
+      "homicides": 15
+    },
+    {
+      "cut": "13301",
+      "name": "Colina",
+      "year": 2020,
+      "homicides": 35
+    },
+    {
+      "cut": "13301",
+      "name": "Colina",
+      "year": 2021,
+      "homicides": 28
+    },
+    {
+      "cut": "13301",
+      "name": "Colina",
+      "year": 2022,
+      "homicides": 30
+    },
+    {
+      "cut": "13301",
+      "name": "Colina",
+      "year": 2023,
+      "homicides": 11
+    },
+    {
+      "cut": "13301",
+      "name": "Colina",
+      "year": 2024,
+      "homicides": 27
+    },
+    {
+      "cut": "13301",
+      "name": "Colina",
+      "year": 2025,
+      "homicides": 22
+    },
+    {
+      "cut": "13302",
+      "name": "Lampa",
+      "year": 2018,
+      "homicides": 12
+    },
+    {
+      "cut": "13302",
+      "name": "Lampa",
+      "year": 2019,
+      "homicides": 7
+    },
+    {
+      "cut": "13302",
+      "name": "Lampa",
+      "year": 2020,
+      "homicides": 15
+    },
+    {
+      "cut": "13302",
+      "name": "Lampa",
+      "year": 2021,
+      "homicides": 5
+    },
+    {
+      "cut": "13302",
+      "name": "Lampa",
+      "year": 2022,
+      "homicides": 5
+    },
+    {
+      "cut": "13302",
+      "name": "Lampa",
+      "year": 2023,
+      "homicides": 19
+    },
+    {
+      "cut": "13302",
+      "name": "Lampa",
+      "year": 2024,
+      "homicides": 14
+    },
+    {
+      "cut": "13302",
+      "name": "Lampa",
+      "year": 2025,
+      "homicides": 22
+    },
+    {
+      "cut": "13303",
+      "name": "Tiltil",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "13303",
+      "name": "Tiltil",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "13303",
+      "name": "Tiltil",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "13303",
+      "name": "Tiltil",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "13303",
+      "name": "Tiltil",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "13303",
+      "name": "Tiltil",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "13401",
+      "name": "San Bernardo",
+      "year": 2018,
+      "homicides": 29
+    },
+    {
+      "cut": "13401",
+      "name": "San Bernardo",
+      "year": 2019,
+      "homicides": 23
+    },
+    {
+      "cut": "13401",
+      "name": "San Bernardo",
+      "year": 2020,
+      "homicides": 23
+    },
+    {
+      "cut": "13401",
+      "name": "San Bernardo",
+      "year": 2021,
+      "homicides": 17
+    },
+    {
+      "cut": "13401",
+      "name": "San Bernardo",
+      "year": 2022,
+      "homicides": 29
+    },
+    {
+      "cut": "13401",
+      "name": "San Bernardo",
+      "year": 2023,
+      "homicides": 34
+    },
+    {
+      "cut": "13401",
+      "name": "San Bernardo",
+      "year": 2024,
+      "homicides": 25
+    },
+    {
+      "cut": "13401",
+      "name": "San Bernardo",
+      "year": 2025,
+      "homicides": 28
+    },
+    {
+      "cut": "13402",
+      "name": "Buin",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "13402",
+      "name": "Buin",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "13402",
+      "name": "Buin",
+      "year": 2020,
+      "homicides": 4
+    },
+    {
+      "cut": "13402",
+      "name": "Buin",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "13402",
+      "name": "Buin",
+      "year": 2022,
+      "homicides": 8
+    },
+    {
+      "cut": "13402",
+      "name": "Buin",
+      "year": 2023,
+      "homicides": 10
+    },
+    {
+      "cut": "13402",
+      "name": "Buin",
+      "year": 2024,
+      "homicides": 5
+    },
+    {
+      "cut": "13402",
+      "name": "Buin",
+      "year": 2025,
+      "homicides": 5
+    },
+    {
+      "cut": "13403",
+      "name": "Calera de Tango",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "13403",
+      "name": "Calera de Tango",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "13403",
+      "name": "Calera de Tango",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "13403",
+      "name": "Calera de Tango",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "13403",
+      "name": "Calera de Tango",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "13404",
+      "name": "Paine",
+      "year": 2019,
+      "homicides": 4
+    },
+    {
+      "cut": "13404",
+      "name": "Paine",
+      "year": 2020,
+      "homicides": 5
+    },
+    {
+      "cut": "13404",
+      "name": "Paine",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "13404",
+      "name": "Paine",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "13404",
+      "name": "Paine",
+      "year": 2024,
+      "homicides": 5
+    },
+    {
+      "cut": "13404",
+      "name": "Paine",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "13501",
+      "name": "Melipilla",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "13501",
+      "name": "Melipilla",
+      "year": 2019,
+      "homicides": 11
+    },
+    {
+      "cut": "13501",
+      "name": "Melipilla",
+      "year": 2020,
+      "homicides": 6
+    },
+    {
+      "cut": "13501",
+      "name": "Melipilla",
+      "year": 2021,
+      "homicides": 6
+    },
+    {
+      "cut": "13501",
+      "name": "Melipilla",
+      "year": 2022,
+      "homicides": 12
+    },
+    {
+      "cut": "13501",
+      "name": "Melipilla",
+      "year": 2023,
+      "homicides": 11
+    },
+    {
+      "cut": "13501",
+      "name": "Melipilla",
+      "year": 2024,
+      "homicides": 11
+    },
+    {
+      "cut": "13501",
+      "name": "Melipilla",
+      "year": 2025,
+      "homicides": 7
+    },
+    {
+      "cut": "13502",
+      "name": "Alhué",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "13502",
+      "name": "Alhué",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "13503",
+      "name": "Curacaví",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "13503",
+      "name": "Curacaví",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "13503",
+      "name": "Curacaví",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "13503",
+      "name": "Curacaví",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "13503",
+      "name": "Curacaví",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "13504",
+      "name": "María Pinto",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "13504",
+      "name": "María Pinto",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "13505",
+      "name": "San Pedro",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "13505",
+      "name": "San Pedro",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "13601",
+      "name": "Talagante",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "13601",
+      "name": "Talagante",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "13601",
+      "name": "Talagante",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "13601",
+      "name": "Talagante",
+      "year": 2021,
+      "homicides": 6
+    },
+    {
+      "cut": "13601",
+      "name": "Talagante",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "13601",
+      "name": "Talagante",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "13601",
+      "name": "Talagante",
+      "year": 2024,
+      "homicides": 9
+    },
+    {
+      "cut": "13601",
+      "name": "Talagante",
+      "year": 2025,
+      "homicides": 6
+    },
+    {
+      "cut": "13602",
+      "name": "El Monte",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "13602",
+      "name": "El Monte",
+      "year": 2019,
+      "homicides": 4
+    },
+    {
+      "cut": "13602",
+      "name": "El Monte",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "13602",
+      "name": "El Monte",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "13602",
+      "name": "El Monte",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "13602",
+      "name": "El Monte",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "13602",
+      "name": "El Monte",
+      "year": 2024,
+      "homicides": 4
+    },
+    {
+      "cut": "13602",
+      "name": "El Monte",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "13603",
+      "name": "Isla de Maipo",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "13603",
+      "name": "Isla de Maipo",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "13603",
+      "name": "Isla de Maipo",
+      "year": 2025,
+      "homicides": 4
+    },
+    {
+      "cut": "13604",
+      "name": "Padre Hurtado",
+      "year": 2018,
+      "homicides": 4
+    },
+    {
+      "cut": "13604",
+      "name": "Padre Hurtado",
+      "year": 2019,
+      "homicides": 4
+    },
+    {
+      "cut": "13604",
+      "name": "Padre Hurtado",
+      "year": 2020,
+      "homicides": 5
+    },
+    {
+      "cut": "13604",
+      "name": "Padre Hurtado",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "13604",
+      "name": "Padre Hurtado",
+      "year": 2022,
+      "homicides": 5
+    },
+    {
+      "cut": "13604",
+      "name": "Padre Hurtado",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "13604",
+      "name": "Padre Hurtado",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "13605",
+      "name": "Peñaflor",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "13605",
+      "name": "Peñaflor",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "13605",
+      "name": "Peñaflor",
+      "year": 2020,
+      "homicides": 6
+    },
+    {
+      "cut": "13605",
+      "name": "Peñaflor",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "13605",
+      "name": "Peñaflor",
+      "year": 2022,
+      "homicides": 4
+    },
+    {
+      "cut": "13605",
+      "name": "Peñaflor",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "13605",
+      "name": "Peñaflor",
+      "year": 2024,
+      "homicides": 4
+    },
+    {
+      "cut": "13605",
+      "name": "Peñaflor",
+      "year": 2025,
+      "homicides": 5
+    },
+    {
+      "cut": "1401",
+      "name": "Pozo Almonte",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "1401",
+      "name": "Pozo Almonte",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "1401",
+      "name": "Pozo Almonte",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "1401",
+      "name": "Pozo Almonte",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "1401",
+      "name": "Pozo Almonte",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "1401",
+      "name": "Pozo Almonte",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "1403",
+      "name": "Colchane",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "1403",
+      "name": "Colchane",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "1403",
+      "name": "Colchane",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "1403",
+      "name": "Colchane",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "1404",
+      "name": "Huara",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "1404",
+      "name": "Huara",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "1404",
+      "name": "Huara",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "14101",
+      "name": "Valdivia",
+      "year": 2018,
+      "homicides": 6
+    },
+    {
+      "cut": "14101",
+      "name": "Valdivia",
+      "year": 2019,
+      "homicides": 10
+    },
+    {
+      "cut": "14101",
+      "name": "Valdivia",
+      "year": 2020,
+      "homicides": 11
+    },
+    {
+      "cut": "14101",
+      "name": "Valdivia",
+      "year": 2021,
+      "homicides": 7
+    },
+    {
+      "cut": "14101",
+      "name": "Valdivia",
+      "year": 2022,
+      "homicides": 14
+    },
+    {
+      "cut": "14101",
+      "name": "Valdivia",
+      "year": 2023,
+      "homicides": 11
+    },
+    {
+      "cut": "14101",
+      "name": "Valdivia",
+      "year": 2024,
+      "homicides": 10
+    },
+    {
+      "cut": "14101",
+      "name": "Valdivia",
+      "year": 2025,
+      "homicides": 8
+    },
+    {
+      "cut": "14103",
+      "name": "Lanco",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "14103",
+      "name": "Lanco",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "14104",
+      "name": "Los Lagos",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "14104",
+      "name": "Los Lagos",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "14104",
+      "name": "Los Lagos",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "14104",
+      "name": "Los Lagos",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "14105",
+      "name": "Máfil",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "14105",
+      "name": "Máfil",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "14105",
+      "name": "Máfil",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "14106",
+      "name": "Mariquina",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "14106",
+      "name": "Mariquina",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "14106",
+      "name": "Mariquina",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "14106",
+      "name": "Mariquina",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "14106",
+      "name": "Mariquina",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "14106",
+      "name": "Mariquina",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "14107",
+      "name": "Paillaco",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "14107",
+      "name": "Paillaco",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "14108",
+      "name": "Panguipulli",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "14108",
+      "name": "Panguipulli",
+      "year": 2019,
+      "homicides": 4
+    },
+    {
+      "cut": "14108",
+      "name": "Panguipulli",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "14108",
+      "name": "Panguipulli",
+      "year": 2021,
+      "homicides": 4
+    },
+    {
+      "cut": "14108",
+      "name": "Panguipulli",
+      "year": 2022,
+      "homicides": 4
+    },
+    {
+      "cut": "14108",
+      "name": "Panguipulli",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "14108",
+      "name": "Panguipulli",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "14108",
+      "name": "Panguipulli",
+      "year": 2025,
+      "homicides": 4
+    },
+    {
+      "cut": "14201",
+      "name": "La Unión",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "14201",
+      "name": "La Unión",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "14201",
+      "name": "La Unión",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "14201",
+      "name": "La Unión",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "14201",
+      "name": "La Unión",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "14201",
+      "name": "La Unión",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "14201",
+      "name": "La Unión",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "14202",
+      "name": "Futrono",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "14202",
+      "name": "Futrono",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "14202",
+      "name": "Futrono",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "14202",
+      "name": "Futrono",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "14203",
+      "name": "Lago Ranco",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "14203",
+      "name": "Lago Ranco",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "14203",
+      "name": "Lago Ranco",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "14203",
+      "name": "Lago Ranco",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "14203",
+      "name": "Lago Ranco",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "14203",
+      "name": "Lago Ranco",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "14204",
+      "name": "Río Bueno",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "14204",
+      "name": "Río Bueno",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "14204",
+      "name": "Río Bueno",
+      "year": 2024,
+      "homicides": 6
+    },
+    {
+      "cut": "14204",
+      "name": "Río Bueno",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "15101",
+      "name": "Arica",
+      "year": 2018,
+      "homicides": 14
+    },
+    {
+      "cut": "15101",
+      "name": "Arica",
+      "year": 2019,
+      "homicides": 14
+    },
+    {
+      "cut": "15101",
+      "name": "Arica",
+      "year": 2020,
+      "homicides": 17
+    },
+    {
+      "cut": "15101",
+      "name": "Arica",
+      "year": 2021,
+      "homicides": 22
+    },
+    {
+      "cut": "15101",
+      "name": "Arica",
+      "year": 2022,
+      "homicides": 45
+    },
+    {
+      "cut": "15101",
+      "name": "Arica",
+      "year": 2023,
+      "homicides": 32
+    },
+    {
+      "cut": "15101",
+      "name": "Arica",
+      "year": 2024,
+      "homicides": 26
+    },
+    {
+      "cut": "15101",
+      "name": "Arica",
+      "year": 2025,
+      "homicides": 28
+    },
+    {
+      "cut": "16101",
+      "name": "Chillán",
+      "year": 2018,
+      "homicides": 6
+    },
+    {
+      "cut": "16101",
+      "name": "Chillán",
+      "year": 2019,
+      "homicides": 6
+    },
+    {
+      "cut": "16101",
+      "name": "Chillán",
+      "year": 2020,
+      "homicides": 9
+    },
+    {
+      "cut": "16101",
+      "name": "Chillán",
+      "year": 2021,
+      "homicides": 6
+    },
+    {
+      "cut": "16101",
+      "name": "Chillán",
+      "year": 2022,
+      "homicides": 13
+    },
+    {
+      "cut": "16101",
+      "name": "Chillán",
+      "year": 2023,
+      "homicides": 7
+    },
+    {
+      "cut": "16101",
+      "name": "Chillán",
+      "year": 2024,
+      "homicides": 6
+    },
+    {
+      "cut": "16101",
+      "name": "Chillán",
+      "year": 2025,
+      "homicides": 6
+    },
+    {
+      "cut": "16102",
+      "name": "Bulnes",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "16102",
+      "name": "Bulnes",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "16103",
+      "name": "Chillán Viejo",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "16103",
+      "name": "Chillán Viejo",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "16103",
+      "name": "Chillán Viejo",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "16103",
+      "name": "Chillán Viejo",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "16103",
+      "name": "Chillán Viejo",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "16104",
+      "name": "El Carmen",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "16105",
+      "name": "Pemuco",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "16105",
+      "name": "Pemuco",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "16105",
+      "name": "Pemuco",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "16106",
+      "name": "Pinto",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "16106",
+      "name": "Pinto",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "16107",
+      "name": "Quillón",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "16107",
+      "name": "Quillón",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "16108",
+      "name": "San Ignacio",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "16108",
+      "name": "San Ignacio",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "16108",
+      "name": "San Ignacio",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "16109",
+      "name": "Yungay",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "16109",
+      "name": "Yungay",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "16201",
+      "name": "Quirihue",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "16201",
+      "name": "Quirihue",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "16201",
+      "name": "Quirihue",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "16201",
+      "name": "Quirihue",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "16203",
+      "name": "Coelemu",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "16203",
+      "name": "Coelemu",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "16203",
+      "name": "Coelemu",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "16204",
+      "name": "Ninhue",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "16206",
+      "name": "Ránquil",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "16207",
+      "name": "Treguaco",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "16207",
+      "name": "Treguaco",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "16301",
+      "name": "San Carlos",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "16301",
+      "name": "San Carlos",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "16301",
+      "name": "San Carlos",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "16301",
+      "name": "San Carlos",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "16301",
+      "name": "San Carlos",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "16301",
+      "name": "San Carlos",
+      "year": 2024,
+      "homicides": 4
+    },
+    {
+      "cut": "16301",
+      "name": "San Carlos",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "16302",
+      "name": "Coihueco",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "16302",
+      "name": "Coihueco",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "16302",
+      "name": "Coihueco",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "16303",
+      "name": "Ñiquén",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "16303",
+      "name": "Ñiquén",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "16303",
+      "name": "Ñiquén",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "16304",
+      "name": "San Fabián",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "16305",
+      "name": "San Nicolás",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "16305",
+      "name": "San Nicolás",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "2101",
+      "name": "Antofagasta",
+      "year": 2018,
+      "homicides": 15
+    },
+    {
+      "cut": "2101",
+      "name": "Antofagasta",
+      "year": 2019,
+      "homicides": 17
+    },
+    {
+      "cut": "2101",
+      "name": "Antofagasta",
+      "year": 2020,
+      "homicides": 34
+    },
+    {
+      "cut": "2101",
+      "name": "Antofagasta",
+      "year": 2021,
+      "homicides": 13
+    },
+    {
+      "cut": "2101",
+      "name": "Antofagasta",
+      "year": 2022,
+      "homicides": 31
+    },
+    {
+      "cut": "2101",
+      "name": "Antofagasta",
+      "year": 2023,
+      "homicides": 32
+    },
+    {
+      "cut": "2101",
+      "name": "Antofagasta",
+      "year": 2024,
+      "homicides": 37
+    },
+    {
+      "cut": "2101",
+      "name": "Antofagasta",
+      "year": 2025,
+      "homicides": 22
+    },
+    {
+      "cut": "2102",
+      "name": "Mejillones",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "2102",
+      "name": "Mejillones",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "2102",
+      "name": "Mejillones",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "2102",
+      "name": "Mejillones",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "2102",
+      "name": "Mejillones",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "2102",
+      "name": "Mejillones",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "2104",
+      "name": "Taltal",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "2104",
+      "name": "Taltal",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "2201",
+      "name": "Calama",
+      "year": 2018,
+      "homicides": 12
+    },
+    {
+      "cut": "2201",
+      "name": "Calama",
+      "year": 2019,
+      "homicides": 13
+    },
+    {
+      "cut": "2201",
+      "name": "Calama",
+      "year": 2020,
+      "homicides": 13
+    },
+    {
+      "cut": "2201",
+      "name": "Calama",
+      "year": 2021,
+      "homicides": 15
+    },
+    {
+      "cut": "2201",
+      "name": "Calama",
+      "year": 2022,
+      "homicides": 28
+    },
+    {
+      "cut": "2201",
+      "name": "Calama",
+      "year": 2023,
+      "homicides": 21
+    },
+    {
+      "cut": "2201",
+      "name": "Calama",
+      "year": 2024,
+      "homicides": 10
+    },
+    {
+      "cut": "2201",
+      "name": "Calama",
+      "year": 2025,
+      "homicides": 15
+    },
+    {
+      "cut": "2203",
+      "name": "San Pedro de Atacama",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "2301",
+      "name": "Tocopilla",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "2301",
+      "name": "Tocopilla",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "2301",
+      "name": "Tocopilla",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "2301",
+      "name": "Tocopilla",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "2301",
+      "name": "Tocopilla",
+      "year": 2022,
+      "homicides": 4
+    },
+    {
+      "cut": "2301",
+      "name": "Tocopilla",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "2301",
+      "name": "Tocopilla",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "2301",
+      "name": "Tocopilla",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "2302",
+      "name": "María Elena",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "3101",
+      "name": "Copiapó",
+      "year": 2018,
+      "homicides": 6
+    },
+    {
+      "cut": "3101",
+      "name": "Copiapó",
+      "year": 2019,
+      "homicides": 6
+    },
+    {
+      "cut": "3101",
+      "name": "Copiapó",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "3101",
+      "name": "Copiapó",
+      "year": 2021,
+      "homicides": 8
+    },
+    {
+      "cut": "3101",
+      "name": "Copiapó",
+      "year": 2022,
+      "homicides": 14
+    },
+    {
+      "cut": "3101",
+      "name": "Copiapó",
+      "year": 2023,
+      "homicides": 19
+    },
+    {
+      "cut": "3101",
+      "name": "Copiapó",
+      "year": 2024,
+      "homicides": 15
+    },
+    {
+      "cut": "3101",
+      "name": "Copiapó",
+      "year": 2025,
+      "homicides": 13
+    },
+    {
+      "cut": "3102",
+      "name": "Caldera",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "3102",
+      "name": "Caldera",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "3102",
+      "name": "Caldera",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "3102",
+      "name": "Caldera",
+      "year": 2022,
+      "homicides": 4
+    },
+    {
+      "cut": "3102",
+      "name": "Caldera",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "3102",
+      "name": "Caldera",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "3102",
+      "name": "Caldera",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "3103",
+      "name": "Tierra Amarilla",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "3103",
+      "name": "Tierra Amarilla",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "3103",
+      "name": "Tierra Amarilla",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "3103",
+      "name": "Tierra Amarilla",
+      "year": 2024,
+      "homicides": 4
+    },
+    {
+      "cut": "3201",
+      "name": "Chañaral",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "3201",
+      "name": "Chañaral",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "3201",
+      "name": "Chañaral",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "3201",
+      "name": "Chañaral",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "3202",
+      "name": "Diego de Almagro",
+      "year": 2018,
+      "homicides": 4
+    },
+    {
+      "cut": "3202",
+      "name": "Diego de Almagro",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "3301",
+      "name": "Vallenar",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "3301",
+      "name": "Vallenar",
+      "year": 2019,
+      "homicides": 4
+    },
+    {
+      "cut": "3301",
+      "name": "Vallenar",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "3301",
+      "name": "Vallenar",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "3301",
+      "name": "Vallenar",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "3301",
+      "name": "Vallenar",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "3301",
+      "name": "Vallenar",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "3301",
+      "name": "Vallenar",
+      "year": 2025,
+      "homicides": 7
+    },
+    {
+      "cut": "3303",
+      "name": "Freirina",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "3303",
+      "name": "Freirina",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "3304",
+      "name": "Huasco",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "3304",
+      "name": "Huasco",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "3304",
+      "name": "Huasco",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "4101",
+      "name": "La Serena",
+      "year": 2018,
+      "homicides": 11
+    },
+    {
+      "cut": "4101",
+      "name": "La Serena",
+      "year": 2019,
+      "homicides": 11
+    },
+    {
+      "cut": "4101",
+      "name": "La Serena",
+      "year": 2020,
+      "homicides": 20
+    },
+    {
+      "cut": "4101",
+      "name": "La Serena",
+      "year": 2021,
+      "homicides": 11
+    },
+    {
+      "cut": "4101",
+      "name": "La Serena",
+      "year": 2022,
+      "homicides": 22
+    },
+    {
+      "cut": "4101",
+      "name": "La Serena",
+      "year": 2023,
+      "homicides": 16
+    },
+    {
+      "cut": "4101",
+      "name": "La Serena",
+      "year": 2024,
+      "homicides": 17
+    },
+    {
+      "cut": "4101",
+      "name": "La Serena",
+      "year": 2025,
+      "homicides": 10
+    },
+    {
+      "cut": "4102",
+      "name": "Coquimbo",
+      "year": 2018,
+      "homicides": 10
+    },
+    {
+      "cut": "4102",
+      "name": "Coquimbo",
+      "year": 2019,
+      "homicides": 10
+    },
+    {
+      "cut": "4102",
+      "name": "Coquimbo",
+      "year": 2020,
+      "homicides": 11
+    },
+    {
+      "cut": "4102",
+      "name": "Coquimbo",
+      "year": 2021,
+      "homicides": 8
+    },
+    {
+      "cut": "4102",
+      "name": "Coquimbo",
+      "year": 2022,
+      "homicides": 17
+    },
+    {
+      "cut": "4102",
+      "name": "Coquimbo",
+      "year": 2023,
+      "homicides": 16
+    },
+    {
+      "cut": "4102",
+      "name": "Coquimbo",
+      "year": 2024,
+      "homicides": 9
+    },
+    {
+      "cut": "4102",
+      "name": "Coquimbo",
+      "year": 2025,
+      "homicides": 10
+    },
+    {
+      "cut": "4103",
+      "name": "Andacollo",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "4103",
+      "name": "Andacollo",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "4104",
+      "name": "La Higuera",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "4104",
+      "name": "La Higuera",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "4105",
+      "name": "Paiguano",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "4106",
+      "name": "Vicuña",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "4106",
+      "name": "Vicuña",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "4106",
+      "name": "Vicuña",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "4201",
+      "name": "Illapel",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "4201",
+      "name": "Illapel",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "4201",
+      "name": "Illapel",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "4201",
+      "name": "Illapel",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "4201",
+      "name": "Illapel",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "4202",
+      "name": "Canela",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "4202",
+      "name": "Canela",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "4202",
+      "name": "Canela",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "4203",
+      "name": "Los Vilos",
+      "year": 2018,
+      "homicides": 4
+    },
+    {
+      "cut": "4203",
+      "name": "Los Vilos",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "4203",
+      "name": "Los Vilos",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "4203",
+      "name": "Los Vilos",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "4203",
+      "name": "Los Vilos",
+      "year": 2022,
+      "homicides": 7
+    },
+    {
+      "cut": "4203",
+      "name": "Los Vilos",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "4203",
+      "name": "Los Vilos",
+      "year": 2024,
+      "homicides": 5
+    },
+    {
+      "cut": "4203",
+      "name": "Los Vilos",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "4204",
+      "name": "Salamanca",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "4204",
+      "name": "Salamanca",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "4204",
+      "name": "Salamanca",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "4204",
+      "name": "Salamanca",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "4204",
+      "name": "Salamanca",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "4301",
+      "name": "Ovalle",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "4301",
+      "name": "Ovalle",
+      "year": 2019,
+      "homicides": 4
+    },
+    {
+      "cut": "4301",
+      "name": "Ovalle",
+      "year": 2020,
+      "homicides": 5
+    },
+    {
+      "cut": "4301",
+      "name": "Ovalle",
+      "year": 2021,
+      "homicides": 5
+    },
+    {
+      "cut": "4301",
+      "name": "Ovalle",
+      "year": 2022,
+      "homicides": 12
+    },
+    {
+      "cut": "4301",
+      "name": "Ovalle",
+      "year": 2023,
+      "homicides": 11
+    },
+    {
+      "cut": "4301",
+      "name": "Ovalle",
+      "year": 2024,
+      "homicides": 8
+    },
+    {
+      "cut": "4301",
+      "name": "Ovalle",
+      "year": 2025,
+      "homicides": 7
+    },
+    {
+      "cut": "4302",
+      "name": "Combarbalá",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "4302",
+      "name": "Combarbalá",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "4302",
+      "name": "Combarbalá",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "4303",
+      "name": "Monte Patria",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "4303",
+      "name": "Monte Patria",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "4303",
+      "name": "Monte Patria",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "4303",
+      "name": "Monte Patria",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "4303",
+      "name": "Monte Patria",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "4303",
+      "name": "Monte Patria",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "4303",
+      "name": "Monte Patria",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "4304",
+      "name": "Punitaqui",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "4304",
+      "name": "Punitaqui",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "4304",
+      "name": "Punitaqui",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "4304",
+      "name": "Punitaqui",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "4305",
+      "name": "Río Hurtado",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "4305",
+      "name": "Río Hurtado",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "4305",
+      "name": "Río Hurtado",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "5101",
+      "name": "Valparaíso",
+      "year": 2018,
+      "homicides": 21
+    },
+    {
+      "cut": "5101",
+      "name": "Valparaíso",
+      "year": 2019,
+      "homicides": 18
+    },
+    {
+      "cut": "5101",
+      "name": "Valparaíso",
+      "year": 2020,
+      "homicides": 39
+    },
+    {
+      "cut": "5101",
+      "name": "Valparaíso",
+      "year": 2021,
+      "homicides": 20
+    },
+    {
+      "cut": "5101",
+      "name": "Valparaíso",
+      "year": 2022,
+      "homicides": 34
+    },
+    {
+      "cut": "5101",
+      "name": "Valparaíso",
+      "year": 2023,
+      "homicides": 30
+    },
+    {
+      "cut": "5101",
+      "name": "Valparaíso",
+      "year": 2024,
+      "homicides": 38
+    },
+    {
+      "cut": "5101",
+      "name": "Valparaíso",
+      "year": 2025,
+      "homicides": 24
+    },
+    {
+      "cut": "5102",
+      "name": "Casablanca",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "5102",
+      "name": "Casablanca",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "5102",
+      "name": "Casablanca",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "5102",
+      "name": "Casablanca",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "5102",
+      "name": "Casablanca",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "5102",
+      "name": "Casablanca",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "5103",
+      "name": "Concón",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "5103",
+      "name": "Concón",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "5103",
+      "name": "Concón",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "5103",
+      "name": "Concón",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "5103",
+      "name": "Concón",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "5103",
+      "name": "Concón",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "5103",
+      "name": "Concón",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "5105",
+      "name": "Puchuncaví",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "5105",
+      "name": "Puchuncaví",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "5105",
+      "name": "Puchuncaví",
+      "year": 2023,
+      "homicides": 5
+    },
+    {
+      "cut": "5105",
+      "name": "Puchuncaví",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "5105",
+      "name": "Puchuncaví",
+      "year": 2025,
+      "homicides": 4
+    },
+    {
+      "cut": "5107",
+      "name": "Quintero",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "5107",
+      "name": "Quintero",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "5107",
+      "name": "Quintero",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "5107",
+      "name": "Quintero",
+      "year": 2021,
+      "homicides": 7
+    },
+    {
+      "cut": "5107",
+      "name": "Quintero",
+      "year": 2022,
+      "homicides": 8
+    },
+    {
+      "cut": "5107",
+      "name": "Quintero",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "5107",
+      "name": "Quintero",
+      "year": 2025,
+      "homicides": 5
+    },
+    {
+      "cut": "5109",
+      "name": "Viña del Mar",
+      "year": 2018,
+      "homicides": 10
+    },
+    {
+      "cut": "5109",
+      "name": "Viña del Mar",
+      "year": 2019,
+      "homicides": 17
+    },
+    {
+      "cut": "5109",
+      "name": "Viña del Mar",
+      "year": 2020,
+      "homicides": 22
+    },
+    {
+      "cut": "5109",
+      "name": "Viña del Mar",
+      "year": 2021,
+      "homicides": 10
+    },
+    {
+      "cut": "5109",
+      "name": "Viña del Mar",
+      "year": 2022,
+      "homicides": 22
+    },
+    {
+      "cut": "5109",
+      "name": "Viña del Mar",
+      "year": 2023,
+      "homicides": 34
+    },
+    {
+      "cut": "5109",
+      "name": "Viña del Mar",
+      "year": 2024,
+      "homicides": 34
+    },
+    {
+      "cut": "5109",
+      "name": "Viña del Mar",
+      "year": 2025,
+      "homicides": 15
+    },
+    {
+      "cut": "5201",
+      "name": "Isla de Pascua",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "5201",
+      "name": "Isla de Pascua",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "5201",
+      "name": "Isla de Pascua",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "5301",
+      "name": "Los Andes",
+      "year": 2018,
+      "homicides": 5
+    },
+    {
+      "cut": "5301",
+      "name": "Los Andes",
+      "year": 2019,
+      "homicides": 4
+    },
+    {
+      "cut": "5301",
+      "name": "Los Andes",
+      "year": 2020,
+      "homicides": 4
+    },
+    {
+      "cut": "5301",
+      "name": "Los Andes",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "5301",
+      "name": "Los Andes",
+      "year": 2022,
+      "homicides": 6
+    },
+    {
+      "cut": "5301",
+      "name": "Los Andes",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "5301",
+      "name": "Los Andes",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "5301",
+      "name": "Los Andes",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "5302",
+      "name": "Calle Larga",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "5302",
+      "name": "Calle Larga",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "5302",
+      "name": "Calle Larga",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "5302",
+      "name": "Calle Larga",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "5303",
+      "name": "Rinconada",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "5304",
+      "name": "San Esteban",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "5304",
+      "name": "San Esteban",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "5304",
+      "name": "San Esteban",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "5401",
+      "name": "La Ligua",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "5401",
+      "name": "La Ligua",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "5401",
+      "name": "La Ligua",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "5401",
+      "name": "La Ligua",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "5401",
+      "name": "La Ligua",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "5401",
+      "name": "La Ligua",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "5401",
+      "name": "La Ligua",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "5402",
+      "name": "Cabildo",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "5402",
+      "name": "Cabildo",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "5402",
+      "name": "Cabildo",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "5402",
+      "name": "Cabildo",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "5402",
+      "name": "Cabildo",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "5402",
+      "name": "Cabildo",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "5402",
+      "name": "Cabildo",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "5403",
+      "name": "Papudo",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "5404",
+      "name": "Petorca",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "5404",
+      "name": "Petorca",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "5405",
+      "name": "Zapallar",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "5501",
+      "name": "Quillota",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "5501",
+      "name": "Quillota",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "5501",
+      "name": "Quillota",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "5501",
+      "name": "Quillota",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "5501",
+      "name": "Quillota",
+      "year": 2022,
+      "homicides": 9
+    },
+    {
+      "cut": "5501",
+      "name": "Quillota",
+      "year": 2023,
+      "homicides": 12
+    },
+    {
+      "cut": "5501",
+      "name": "Quillota",
+      "year": 2024,
+      "homicides": 8
+    },
+    {
+      "cut": "5501",
+      "name": "Quillota",
+      "year": 2025,
+      "homicides": 9
+    },
+    {
+      "cut": "5503",
+      "name": "Hijuelas",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "5503",
+      "name": "Hijuelas",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "5504",
+      "name": "La Cruz",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "5504",
+      "name": "La Cruz",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "5504",
+      "name": "La Cruz",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "5506",
+      "name": "Nogales",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "5506",
+      "name": "Nogales",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "5506",
+      "name": "Nogales",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "5506",
+      "name": "Nogales",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "5506",
+      "name": "Nogales",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "5506",
+      "name": "Nogales",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "5601",
+      "name": "San Antonio",
+      "year": 2018,
+      "homicides": 6
+    },
+    {
+      "cut": "5601",
+      "name": "San Antonio",
+      "year": 2019,
+      "homicides": 5
+    },
+    {
+      "cut": "5601",
+      "name": "San Antonio",
+      "year": 2020,
+      "homicides": 4
+    },
+    {
+      "cut": "5601",
+      "name": "San Antonio",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "5601",
+      "name": "San Antonio",
+      "year": 2022,
+      "homicides": 8
+    },
+    {
+      "cut": "5601",
+      "name": "San Antonio",
+      "year": 2023,
+      "homicides": 5
+    },
+    {
+      "cut": "5601",
+      "name": "San Antonio",
+      "year": 2024,
+      "homicides": 5
+    },
+    {
+      "cut": "5601",
+      "name": "San Antonio",
+      "year": 2025,
+      "homicides": 11
+    },
+    {
+      "cut": "5602",
+      "name": "Algarrobo",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "5602",
+      "name": "Algarrobo",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "5602",
+      "name": "Algarrobo",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "5602",
+      "name": "Algarrobo",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "5602",
+      "name": "Algarrobo",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "5603",
+      "name": "Cartagena",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "5603",
+      "name": "Cartagena",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "5603",
+      "name": "Cartagena",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "5603",
+      "name": "Cartagena",
+      "year": 2022,
+      "homicides": 13
+    },
+    {
+      "cut": "5603",
+      "name": "Cartagena",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "5603",
+      "name": "Cartagena",
+      "year": 2024,
+      "homicides": 7
+    },
+    {
+      "cut": "5603",
+      "name": "Cartagena",
+      "year": 2025,
+      "homicides": 5
+    },
+    {
+      "cut": "5604",
+      "name": "El Quisco",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "5604",
+      "name": "El Quisco",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "5604",
+      "name": "El Quisco",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "5604",
+      "name": "El Quisco",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "5604",
+      "name": "El Quisco",
+      "year": 2022,
+      "homicides": 4
+    },
+    {
+      "cut": "5604",
+      "name": "El Quisco",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "5604",
+      "name": "El Quisco",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "5604",
+      "name": "El Quisco",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "5605",
+      "name": "El Tabo",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "5605",
+      "name": "El Tabo",
+      "year": 2020,
+      "homicides": 4
+    },
+    {
+      "cut": "5605",
+      "name": "El Tabo",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "5605",
+      "name": "El Tabo",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "5701",
+      "name": "San Felipe",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "5701",
+      "name": "San Felipe",
+      "year": 2019,
+      "homicides": 5
+    },
+    {
+      "cut": "5701",
+      "name": "San Felipe",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "5701",
+      "name": "San Felipe",
+      "year": 2021,
+      "homicides": 6
+    },
+    {
+      "cut": "5701",
+      "name": "San Felipe",
+      "year": 2022,
+      "homicides": 5
+    },
+    {
+      "cut": "5701",
+      "name": "San Felipe",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "5701",
+      "name": "San Felipe",
+      "year": 2024,
+      "homicides": 8
+    },
+    {
+      "cut": "5701",
+      "name": "San Felipe",
+      "year": 2025,
+      "homicides": 6
+    },
+    {
+      "cut": "5702",
+      "name": "Catemu",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "5702",
+      "name": "Catemu",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "5702",
+      "name": "Catemu",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "5702",
+      "name": "Catemu",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "5702",
+      "name": "Catemu",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "5703",
+      "name": "Llaillay",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "5703",
+      "name": "Llaillay",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "5703",
+      "name": "Llaillay",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "5703",
+      "name": "Llaillay",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "5703",
+      "name": "Llaillay",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "5703",
+      "name": "Llaillay",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "5704",
+      "name": "Panquehue",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "5705",
+      "name": "Putaendo",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "5705",
+      "name": "Putaendo",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "5706",
+      "name": "Santa María",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "5801",
+      "name": "Quilpué",
+      "year": 2018,
+      "homicides": 5
+    },
+    {
+      "cut": "5801",
+      "name": "Quilpué",
+      "year": 2019,
+      "homicides": 7
+    },
+    {
+      "cut": "5801",
+      "name": "Quilpué",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "5801",
+      "name": "Quilpué",
+      "year": 2021,
+      "homicides": 7
+    },
+    {
+      "cut": "5801",
+      "name": "Quilpué",
+      "year": 2022,
+      "homicides": 10
+    },
+    {
+      "cut": "5801",
+      "name": "Quilpué",
+      "year": 2023,
+      "homicides": 8
+    },
+    {
+      "cut": "5801",
+      "name": "Quilpué",
+      "year": 2024,
+      "homicides": 8
+    },
+    {
+      "cut": "5801",
+      "name": "Quilpué",
+      "year": 2025,
+      "homicides": 7
+    },
+    {
+      "cut": "5802",
+      "name": "Limache",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "5802",
+      "name": "Limache",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "5802",
+      "name": "Limache",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "5802",
+      "name": "Limache",
+      "year": 2024,
+      "homicides": 5
+    },
+    {
+      "cut": "5802",
+      "name": "Limache",
+      "year": 2025,
+      "homicides": 6
+    },
+    {
+      "cut": "5803",
+      "name": "Olmué",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "5803",
+      "name": "Olmué",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "5803",
+      "name": "Olmué",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "5803",
+      "name": "Olmué",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "5803",
+      "name": "Olmué",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "5804",
+      "name": "Villa Alemana",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "5804",
+      "name": "Villa Alemana",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "5804",
+      "name": "Villa Alemana",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "5804",
+      "name": "Villa Alemana",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "5804",
+      "name": "Villa Alemana",
+      "year": 2022,
+      "homicides": 5
+    },
+    {
+      "cut": "5804",
+      "name": "Villa Alemana",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "5804",
+      "name": "Villa Alemana",
+      "year": 2024,
+      "homicides": 4
+    },
+    {
+      "cut": "5804",
+      "name": "Villa Alemana",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "6101",
+      "name": "Rancagua",
+      "year": 2018,
+      "homicides": 17
+    },
+    {
+      "cut": "6101",
+      "name": "Rancagua",
+      "year": 2019,
+      "homicides": 15
+    },
+    {
+      "cut": "6101",
+      "name": "Rancagua",
+      "year": 2020,
+      "homicides": 22
+    },
+    {
+      "cut": "6101",
+      "name": "Rancagua",
+      "year": 2021,
+      "homicides": 23
+    },
+    {
+      "cut": "6101",
+      "name": "Rancagua",
+      "year": 2022,
+      "homicides": 18
+    },
+    {
+      "cut": "6101",
+      "name": "Rancagua",
+      "year": 2023,
+      "homicides": 16
+    },
+    {
+      "cut": "6101",
+      "name": "Rancagua",
+      "year": 2024,
+      "homicides": 24
+    },
+    {
+      "cut": "6101",
+      "name": "Rancagua",
+      "year": 2025,
+      "homicides": 18
+    },
+    {
+      "cut": "6102",
+      "name": "Codegua",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "6102",
+      "name": "Codegua",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "6102",
+      "name": "Codegua",
+      "year": 2022,
+      "homicides": 4
+    },
+    {
+      "cut": "6102",
+      "name": "Codegua",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "6103",
+      "name": "Coinco",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "6103",
+      "name": "Coinco",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "6103",
+      "name": "Coinco",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "6104",
+      "name": "Coltauco",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "6104",
+      "name": "Coltauco",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "6104",
+      "name": "Coltauco",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "6105",
+      "name": "Doñihue",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "6105",
+      "name": "Doñihue",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "6105",
+      "name": "Doñihue",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "6105",
+      "name": "Doñihue",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "6106",
+      "name": "Graneros",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "6106",
+      "name": "Graneros",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "6106",
+      "name": "Graneros",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "6106",
+      "name": "Graneros",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "6106",
+      "name": "Graneros",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "6106",
+      "name": "Graneros",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "6106",
+      "name": "Graneros",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "6106",
+      "name": "Graneros",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "6107",
+      "name": "Las Cabras",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "6107",
+      "name": "Las Cabras",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "6107",
+      "name": "Las Cabras",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "6107",
+      "name": "Las Cabras",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "6107",
+      "name": "Las Cabras",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "6108",
+      "name": "Machalí",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "6108",
+      "name": "Machalí",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "6108",
+      "name": "Machalí",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "6108",
+      "name": "Machalí",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "6108",
+      "name": "Machalí",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "6109",
+      "name": "Malloa",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "6109",
+      "name": "Malloa",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "6109",
+      "name": "Malloa",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "6109",
+      "name": "Malloa",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "6110",
+      "name": "Mostazal",
+      "year": 2018,
+      "homicides": 4
+    },
+    {
+      "cut": "6110",
+      "name": "Mostazal",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "6110",
+      "name": "Mostazal",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "6110",
+      "name": "Mostazal",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "6110",
+      "name": "Mostazal",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "6110",
+      "name": "Mostazal",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "6110",
+      "name": "Mostazal",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "6110",
+      "name": "Mostazal",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "6111",
+      "name": "Olivar",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "6112",
+      "name": "Peumo",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "6112",
+      "name": "Peumo",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "6112",
+      "name": "Peumo",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "6113",
+      "name": "Pichidegua",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "6113",
+      "name": "Pichidegua",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "6113",
+      "name": "Pichidegua",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "6113",
+      "name": "Pichidegua",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "6115",
+      "name": "Rengo",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "6115",
+      "name": "Rengo",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "6115",
+      "name": "Rengo",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "6115",
+      "name": "Rengo",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "6115",
+      "name": "Rengo",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "6115",
+      "name": "Rengo",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "6116",
+      "name": "Requínoa",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "6116",
+      "name": "Requínoa",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "6116",
+      "name": "Requínoa",
+      "year": 2021,
+      "homicides": 6
+    },
+    {
+      "cut": "6116",
+      "name": "Requínoa",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "6116",
+      "name": "Requínoa",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "6117",
+      "name": "San Vicente",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "6117",
+      "name": "San Vicente",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "6117",
+      "name": "San Vicente",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "6117",
+      "name": "San Vicente",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "6117",
+      "name": "San Vicente",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "6117",
+      "name": "San Vicente",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "6117",
+      "name": "San Vicente",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "6117",
+      "name": "San Vicente",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "6201",
+      "name": "Pichilemu",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "6201",
+      "name": "Pichilemu",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "6201",
+      "name": "Pichilemu",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "6201",
+      "name": "Pichilemu",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "6201",
+      "name": "Pichilemu",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "6202",
+      "name": "La Estrella",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "6202",
+      "name": "La Estrella",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "6203",
+      "name": "Litueche",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "6203",
+      "name": "Litueche",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "6205",
+      "name": "Navidad",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "6205",
+      "name": "Navidad",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "6206",
+      "name": "Paredones",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "6301",
+      "name": "San Fernando",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "6301",
+      "name": "San Fernando",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "6301",
+      "name": "San Fernando",
+      "year": 2020,
+      "homicides": 7
+    },
+    {
+      "cut": "6301",
+      "name": "San Fernando",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "6301",
+      "name": "San Fernando",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "6301",
+      "name": "San Fernando",
+      "year": 2023,
+      "homicides": 8
+    },
+    {
+      "cut": "6301",
+      "name": "San Fernando",
+      "year": 2024,
+      "homicides": 6
+    },
+    {
+      "cut": "6301",
+      "name": "San Fernando",
+      "year": 2025,
+      "homicides": 5
+    },
+    {
+      "cut": "6302",
+      "name": "Chépica",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "6302",
+      "name": "Chépica",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "6302",
+      "name": "Chépica",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "6302",
+      "name": "Chépica",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "6303",
+      "name": "Chimbarongo",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "6304",
+      "name": "Lolol",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "6304",
+      "name": "Lolol",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "6305",
+      "name": "Nancagua",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "6305",
+      "name": "Nancagua",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "6305",
+      "name": "Nancagua",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "6305",
+      "name": "Nancagua",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "6306",
+      "name": "Palmilla",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "6306",
+      "name": "Palmilla",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "6307",
+      "name": "Peralillo",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "6308",
+      "name": "Placilla",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "6308",
+      "name": "Placilla",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "6309",
+      "name": "Pumanque",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "6310",
+      "name": "Santa Cruz",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "6310",
+      "name": "Santa Cruz",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "6310",
+      "name": "Santa Cruz",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "6310",
+      "name": "Santa Cruz",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "7101",
+      "name": "Talca",
+      "year": 2018,
+      "homicides": 8
+    },
+    {
+      "cut": "7101",
+      "name": "Talca",
+      "year": 2019,
+      "homicides": 14
+    },
+    {
+      "cut": "7101",
+      "name": "Talca",
+      "year": 2020,
+      "homicides": 8
+    },
+    {
+      "cut": "7101",
+      "name": "Talca",
+      "year": 2021,
+      "homicides": 8
+    },
+    {
+      "cut": "7101",
+      "name": "Talca",
+      "year": 2022,
+      "homicides": 12
+    },
+    {
+      "cut": "7101",
+      "name": "Talca",
+      "year": 2023,
+      "homicides": 11
+    },
+    {
+      "cut": "7101",
+      "name": "Talca",
+      "year": 2024,
+      "homicides": 10
+    },
+    {
+      "cut": "7101",
+      "name": "Talca",
+      "year": 2025,
+      "homicides": 13
+    },
+    {
+      "cut": "7102",
+      "name": "Constitución",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "7102",
+      "name": "Constitución",
+      "year": 2020,
+      "homicides": 5
+    },
+    {
+      "cut": "7102",
+      "name": "Constitución",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "7102",
+      "name": "Constitución",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "7102",
+      "name": "Constitución",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "7102",
+      "name": "Constitución",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "7102",
+      "name": "Constitución",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "7103",
+      "name": "Curepto",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "7104",
+      "name": "Empedrado",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "7104",
+      "name": "Empedrado",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "7104",
+      "name": "Empedrado",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "7105",
+      "name": "Maule",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "7105",
+      "name": "Maule",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "7105",
+      "name": "Maule",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "7105",
+      "name": "Maule",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "7105",
+      "name": "Maule",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "7105",
+      "name": "Maule",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "7105",
+      "name": "Maule",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "7106",
+      "name": "Pelarco",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "7106",
+      "name": "Pelarco",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "7107",
+      "name": "Pencahue",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "7108",
+      "name": "Río Claro",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "7108",
+      "name": "Río Claro",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "7108",
+      "name": "Río Claro",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "7109",
+      "name": "San Clemente",
+      "year": 2019,
+      "homicides": 4
+    },
+    {
+      "cut": "7109",
+      "name": "San Clemente",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "7109",
+      "name": "San Clemente",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "7109",
+      "name": "San Clemente",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "7109",
+      "name": "San Clemente",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "7109",
+      "name": "San Clemente",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "7109",
+      "name": "San Clemente",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "7110",
+      "name": "San Rafael",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "7110",
+      "name": "San Rafael",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "7201",
+      "name": "Cauquenes",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "7201",
+      "name": "Cauquenes",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "7201",
+      "name": "Cauquenes",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "7201",
+      "name": "Cauquenes",
+      "year": 2021,
+      "homicides": 5
+    },
+    {
+      "cut": "7201",
+      "name": "Cauquenes",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "7201",
+      "name": "Cauquenes",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "7201",
+      "name": "Cauquenes",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "7201",
+      "name": "Cauquenes",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "7202",
+      "name": "Chanco",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "7202",
+      "name": "Chanco",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "7202",
+      "name": "Chanco",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "7202",
+      "name": "Chanco",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "7203",
+      "name": "Pelluhue",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "7203",
+      "name": "Pelluhue",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "7203",
+      "name": "Pelluhue",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "7301",
+      "name": "Curicó",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "7301",
+      "name": "Curicó",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "7301",
+      "name": "Curicó",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "7301",
+      "name": "Curicó",
+      "year": 2021,
+      "homicides": 5
+    },
+    {
+      "cut": "7301",
+      "name": "Curicó",
+      "year": 2022,
+      "homicides": 8
+    },
+    {
+      "cut": "7301",
+      "name": "Curicó",
+      "year": 2023,
+      "homicides": 10
+    },
+    {
+      "cut": "7301",
+      "name": "Curicó",
+      "year": 2024,
+      "homicides": 6
+    },
+    {
+      "cut": "7301",
+      "name": "Curicó",
+      "year": 2025,
+      "homicides": 8
+    },
+    {
+      "cut": "7302",
+      "name": "Hualañé",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "7302",
+      "name": "Hualañé",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "7303",
+      "name": "Licantén",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "7303",
+      "name": "Licantén",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "7304",
+      "name": "Molina",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "7304",
+      "name": "Molina",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "7304",
+      "name": "Molina",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "7304",
+      "name": "Molina",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "7304",
+      "name": "Molina",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "7304",
+      "name": "Molina",
+      "year": 2024,
+      "homicides": 4
+    },
+    {
+      "cut": "7304",
+      "name": "Molina",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "7306",
+      "name": "Romeral",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "7307",
+      "name": "Sagrada Familia",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "7307",
+      "name": "Sagrada Familia",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "7307",
+      "name": "Sagrada Familia",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "7308",
+      "name": "Teno",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "7308",
+      "name": "Teno",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "7308",
+      "name": "Teno",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "7308",
+      "name": "Teno",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "7401",
+      "name": "Linares",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "7401",
+      "name": "Linares",
+      "year": 2019,
+      "homicides": 7
+    },
+    {
+      "cut": "7401",
+      "name": "Linares",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "7401",
+      "name": "Linares",
+      "year": 2021,
+      "homicides": 8
+    },
+    {
+      "cut": "7401",
+      "name": "Linares",
+      "year": 2022,
+      "homicides": 9
+    },
+    {
+      "cut": "7401",
+      "name": "Linares",
+      "year": 2023,
+      "homicides": 5
+    },
+    {
+      "cut": "7401",
+      "name": "Linares",
+      "year": 2024,
+      "homicides": 4
+    },
+    {
+      "cut": "7401",
+      "name": "Linares",
+      "year": 2025,
+      "homicides": 7
+    },
+    {
+      "cut": "7402",
+      "name": "Colbún",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "7402",
+      "name": "Colbún",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "7402",
+      "name": "Colbún",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "7402",
+      "name": "Colbún",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "7402",
+      "name": "Colbún",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "7402",
+      "name": "Colbún",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "7403",
+      "name": "Longaví",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "7403",
+      "name": "Longaví",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "7403",
+      "name": "Longaví",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "7403",
+      "name": "Longaví",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "7403",
+      "name": "Longaví",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "7403",
+      "name": "Longaví",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "7403",
+      "name": "Longaví",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "7404",
+      "name": "Parral",
+      "year": 2018,
+      "homicides": 4
+    },
+    {
+      "cut": "7404",
+      "name": "Parral",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "7404",
+      "name": "Parral",
+      "year": 2020,
+      "homicides": 5
+    },
+    {
+      "cut": "7404",
+      "name": "Parral",
+      "year": 2021,
+      "homicides": 4
+    },
+    {
+      "cut": "7404",
+      "name": "Parral",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "7404",
+      "name": "Parral",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "7404",
+      "name": "Parral",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "7404",
+      "name": "Parral",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "7405",
+      "name": "Retiro",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "7405",
+      "name": "Retiro",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "7405",
+      "name": "Retiro",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "7405",
+      "name": "Retiro",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "7406",
+      "name": "San Javier",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "7406",
+      "name": "San Javier",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "7406",
+      "name": "San Javier",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "7406",
+      "name": "San Javier",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "7406",
+      "name": "San Javier",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "7406",
+      "name": "San Javier",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "7406",
+      "name": "San Javier",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "7407",
+      "name": "Villa Alegre",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "7407",
+      "name": "Villa Alegre",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "7407",
+      "name": "Villa Alegre",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "7408",
+      "name": "Yerbas Buenas",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "7408",
+      "name": "Yerbas Buenas",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "7408",
+      "name": "Yerbas Buenas",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "8101",
+      "name": "Concepción",
+      "year": 2018,
+      "homicides": 10
+    },
+    {
+      "cut": "8101",
+      "name": "Concepción",
+      "year": 2019,
+      "homicides": 10
+    },
+    {
+      "cut": "8101",
+      "name": "Concepción",
+      "year": 2020,
+      "homicides": 14
+    },
+    {
+      "cut": "8101",
+      "name": "Concepción",
+      "year": 2021,
+      "homicides": 5
+    },
+    {
+      "cut": "8101",
+      "name": "Concepción",
+      "year": 2022,
+      "homicides": 17
+    },
+    {
+      "cut": "8101",
+      "name": "Concepción",
+      "year": 2023,
+      "homicides": 19
+    },
+    {
+      "cut": "8101",
+      "name": "Concepción",
+      "year": 2024,
+      "homicides": 11
+    },
+    {
+      "cut": "8101",
+      "name": "Concepción",
+      "year": 2025,
+      "homicides": 21
+    },
+    {
+      "cut": "8102",
+      "name": "Coronel",
+      "year": 2018,
+      "homicides": 10
+    },
+    {
+      "cut": "8102",
+      "name": "Coronel",
+      "year": 2019,
+      "homicides": 8
+    },
+    {
+      "cut": "8102",
+      "name": "Coronel",
+      "year": 2020,
+      "homicides": 7
+    },
+    {
+      "cut": "8102",
+      "name": "Coronel",
+      "year": 2021,
+      "homicides": 9
+    },
+    {
+      "cut": "8102",
+      "name": "Coronel",
+      "year": 2022,
+      "homicides": 11
+    },
+    {
+      "cut": "8102",
+      "name": "Coronel",
+      "year": 2023,
+      "homicides": 12
+    },
+    {
+      "cut": "8102",
+      "name": "Coronel",
+      "year": 2024,
+      "homicides": 16
+    },
+    {
+      "cut": "8102",
+      "name": "Coronel",
+      "year": 2025,
+      "homicides": 4
+    },
+    {
+      "cut": "8103",
+      "name": "Chiguayante",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "8103",
+      "name": "Chiguayante",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "8103",
+      "name": "Chiguayante",
+      "year": 2020,
+      "homicides": 4
+    },
+    {
+      "cut": "8103",
+      "name": "Chiguayante",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "8103",
+      "name": "Chiguayante",
+      "year": 2022,
+      "homicides": 7
+    },
+    {
+      "cut": "8103",
+      "name": "Chiguayante",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "8103",
+      "name": "Chiguayante",
+      "year": 2024,
+      "homicides": 5
+    },
+    {
+      "cut": "8103",
+      "name": "Chiguayante",
+      "year": 2025,
+      "homicides": 5
+    },
+    {
+      "cut": "8104",
+      "name": "Florida",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "8104",
+      "name": "Florida",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "8105",
+      "name": "Hualqui",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "8105",
+      "name": "Hualqui",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "8105",
+      "name": "Hualqui",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "8105",
+      "name": "Hualqui",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "8105",
+      "name": "Hualqui",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "8105",
+      "name": "Hualqui",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "8106",
+      "name": "Lota",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "8106",
+      "name": "Lota",
+      "year": 2020,
+      "homicides": 4
+    },
+    {
+      "cut": "8106",
+      "name": "Lota",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "8106",
+      "name": "Lota",
+      "year": 2022,
+      "homicides": 7
+    },
+    {
+      "cut": "8106",
+      "name": "Lota",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "8106",
+      "name": "Lota",
+      "year": 2024,
+      "homicides": 10
+    },
+    {
+      "cut": "8106",
+      "name": "Lota",
+      "year": 2025,
+      "homicides": 6
+    },
+    {
+      "cut": "8107",
+      "name": "Penco",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "8107",
+      "name": "Penco",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "8107",
+      "name": "Penco",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "8107",
+      "name": "Penco",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "8107",
+      "name": "Penco",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "8107",
+      "name": "Penco",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "8107",
+      "name": "Penco",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "8108",
+      "name": "San Pedro de la Paz",
+      "year": 2018,
+      "homicides": 5
+    },
+    {
+      "cut": "8108",
+      "name": "San Pedro de la Paz",
+      "year": 2019,
+      "homicides": 8
+    },
+    {
+      "cut": "8108",
+      "name": "San Pedro de la Paz",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "8108",
+      "name": "San Pedro de la Paz",
+      "year": 2021,
+      "homicides": 5
+    },
+    {
+      "cut": "8108",
+      "name": "San Pedro de la Paz",
+      "year": 2022,
+      "homicides": 7
+    },
+    {
+      "cut": "8108",
+      "name": "San Pedro de la Paz",
+      "year": 2023,
+      "homicides": 14
+    },
+    {
+      "cut": "8108",
+      "name": "San Pedro de la Paz",
+      "year": 2024,
+      "homicides": 7
+    },
+    {
+      "cut": "8108",
+      "name": "San Pedro de la Paz",
+      "year": 2025,
+      "homicides": 12
+    },
+    {
+      "cut": "8109",
+      "name": "Santa Juana",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "8109",
+      "name": "Santa Juana",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "8109",
+      "name": "Santa Juana",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "8110",
+      "name": "Talcahuano",
+      "year": 2018,
+      "homicides": 7
+    },
+    {
+      "cut": "8110",
+      "name": "Talcahuano",
+      "year": 2019,
+      "homicides": 8
+    },
+    {
+      "cut": "8110",
+      "name": "Talcahuano",
+      "year": 2020,
+      "homicides": 8
+    },
+    {
+      "cut": "8110",
+      "name": "Talcahuano",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "8110",
+      "name": "Talcahuano",
+      "year": 2022,
+      "homicides": 9
+    },
+    {
+      "cut": "8110",
+      "name": "Talcahuano",
+      "year": 2023,
+      "homicides": 14
+    },
+    {
+      "cut": "8110",
+      "name": "Talcahuano",
+      "year": 2024,
+      "homicides": 5
+    },
+    {
+      "cut": "8110",
+      "name": "Talcahuano",
+      "year": 2025,
+      "homicides": 13
+    },
+    {
+      "cut": "8111",
+      "name": "Tomé",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "8111",
+      "name": "Tomé",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "8111",
+      "name": "Tomé",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "8111",
+      "name": "Tomé",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "8111",
+      "name": "Tomé",
+      "year": 2024,
+      "homicides": 5
+    },
+    {
+      "cut": "8111",
+      "name": "Tomé",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "8112",
+      "name": "Hualpén",
+      "year": 2018,
+      "homicides": 5
+    },
+    {
+      "cut": "8112",
+      "name": "Hualpén",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "8112",
+      "name": "Hualpén",
+      "year": 2020,
+      "homicides": 5
+    },
+    {
+      "cut": "8112",
+      "name": "Hualpén",
+      "year": 2021,
+      "homicides": 9
+    },
+    {
+      "cut": "8112",
+      "name": "Hualpén",
+      "year": 2022,
+      "homicides": 9
+    },
+    {
+      "cut": "8112",
+      "name": "Hualpén",
+      "year": 2023,
+      "homicides": 5
+    },
+    {
+      "cut": "8112",
+      "name": "Hualpén",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "8112",
+      "name": "Hualpén",
+      "year": 2025,
+      "homicides": 6
+    },
+    {
+      "cut": "8201",
+      "name": "Lebu",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "8201",
+      "name": "Lebu",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "8201",
+      "name": "Lebu",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "8201",
+      "name": "Lebu",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "8201",
+      "name": "Lebu",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "8201",
+      "name": "Lebu",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "8202",
+      "name": "Arauco",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "8202",
+      "name": "Arauco",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "8202",
+      "name": "Arauco",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "8202",
+      "name": "Arauco",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "8202",
+      "name": "Arauco",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "8202",
+      "name": "Arauco",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "8202",
+      "name": "Arauco",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "8203",
+      "name": "Cañete",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "8203",
+      "name": "Cañete",
+      "year": 2021,
+      "homicides": 5
+    },
+    {
+      "cut": "8203",
+      "name": "Cañete",
+      "year": 2022,
+      "homicides": 7
+    },
+    {
+      "cut": "8203",
+      "name": "Cañete",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "8203",
+      "name": "Cañete",
+      "year": 2024,
+      "homicides": 6
+    },
+    {
+      "cut": "8204",
+      "name": "Contulmo",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "8204",
+      "name": "Contulmo",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "8205",
+      "name": "Curanilahue",
+      "year": 2019,
+      "homicides": 5
+    },
+    {
+      "cut": "8205",
+      "name": "Curanilahue",
+      "year": 2020,
+      "homicides": 5
+    },
+    {
+      "cut": "8205",
+      "name": "Curanilahue",
+      "year": 2021,
+      "homicides": 4
+    },
+    {
+      "cut": "8205",
+      "name": "Curanilahue",
+      "year": 2022,
+      "homicides": 4
+    },
+    {
+      "cut": "8205",
+      "name": "Curanilahue",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "8205",
+      "name": "Curanilahue",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "8205",
+      "name": "Curanilahue",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "8206",
+      "name": "Los Álamos",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "8206",
+      "name": "Los Álamos",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "8206",
+      "name": "Los Álamos",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "8206",
+      "name": "Los Álamos",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "8206",
+      "name": "Los Álamos",
+      "year": 2023,
+      "homicides": 5
+    },
+    {
+      "cut": "8206",
+      "name": "Los Álamos",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "8206",
+      "name": "Los Álamos",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "8207",
+      "name": "Tirúa",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "8207",
+      "name": "Tirúa",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "8207",
+      "name": "Tirúa",
+      "year": 2021,
+      "homicides": 4
+    },
+    {
+      "cut": "8207",
+      "name": "Tirúa",
+      "year": 2022,
+      "homicides": 4
+    },
+    {
+      "cut": "8207",
+      "name": "Tirúa",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "8207",
+      "name": "Tirúa",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "8207",
+      "name": "Tirúa",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "8301",
+      "name": "Los Ángeles",
+      "year": 2018,
+      "homicides": 5
+    },
+    {
+      "cut": "8301",
+      "name": "Los Ángeles",
+      "year": 2019,
+      "homicides": 6
+    },
+    {
+      "cut": "8301",
+      "name": "Los Ángeles",
+      "year": 2020,
+      "homicides": 17
+    },
+    {
+      "cut": "8301",
+      "name": "Los Ángeles",
+      "year": 2021,
+      "homicides": 13
+    },
+    {
+      "cut": "8301",
+      "name": "Los Ángeles",
+      "year": 2022,
+      "homicides": 19
+    },
+    {
+      "cut": "8301",
+      "name": "Los Ángeles",
+      "year": 2023,
+      "homicides": 12
+    },
+    {
+      "cut": "8301",
+      "name": "Los Ángeles",
+      "year": 2024,
+      "homicides": 17
+    },
+    {
+      "cut": "8301",
+      "name": "Los Ángeles",
+      "year": 2025,
+      "homicides": 10
+    },
+    {
+      "cut": "8302",
+      "name": "Antuco",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "8303",
+      "name": "Cabrero",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "8303",
+      "name": "Cabrero",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "8303",
+      "name": "Cabrero",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "8303",
+      "name": "Cabrero",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "8304",
+      "name": "Laja",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "8304",
+      "name": "Laja",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "8304",
+      "name": "Laja",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "8304",
+      "name": "Laja",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "8305",
+      "name": "Mulchén",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "8305",
+      "name": "Mulchén",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "8305",
+      "name": "Mulchén",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "8305",
+      "name": "Mulchén",
+      "year": 2022,
+      "homicides": 4
+    },
+    {
+      "cut": "8305",
+      "name": "Mulchén",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "8305",
+      "name": "Mulchén",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "8305",
+      "name": "Mulchén",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "8306",
+      "name": "Nacimiento",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "8306",
+      "name": "Nacimiento",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "8306",
+      "name": "Nacimiento",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "8306",
+      "name": "Nacimiento",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "8306",
+      "name": "Nacimiento",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "8306",
+      "name": "Nacimiento",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "8306",
+      "name": "Nacimiento",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "8307",
+      "name": "Negrete",
+      "year": 2021,
+      "homicides": 3
+    },
+    {
+      "cut": "8307",
+      "name": "Negrete",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "8307",
+      "name": "Negrete",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "8308",
+      "name": "Quilaco",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "8309",
+      "name": "Quilleco",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "8309",
+      "name": "Quilleco",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "8310",
+      "name": "San Rosendo",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "8311",
+      "name": "Santa Bárbara",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "8311",
+      "name": "Santa Bárbara",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "8311",
+      "name": "Santa Bárbara",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "8312",
+      "name": "Tucapel",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "8313",
+      "name": "Yumbel",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "8313",
+      "name": "Yumbel",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "8313",
+      "name": "Yumbel",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "8313",
+      "name": "Yumbel",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "8314",
+      "name": "Alto Biobío",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "8314",
+      "name": "Alto Biobío",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "9101",
+      "name": "Temuco",
+      "year": 2018,
+      "homicides": 6
+    },
+    {
+      "cut": "9101",
+      "name": "Temuco",
+      "year": 2019,
+      "homicides": 10
+    },
+    {
+      "cut": "9101",
+      "name": "Temuco",
+      "year": 2020,
+      "homicides": 6
+    },
+    {
+      "cut": "9101",
+      "name": "Temuco",
+      "year": 2021,
+      "homicides": 11
+    },
+    {
+      "cut": "9101",
+      "name": "Temuco",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "9101",
+      "name": "Temuco",
+      "year": 2023,
+      "homicides": 9
+    },
+    {
+      "cut": "9101",
+      "name": "Temuco",
+      "year": 2024,
+      "homicides": 9
+    },
+    {
+      "cut": "9101",
+      "name": "Temuco",
+      "year": 2025,
+      "homicides": 8
+    },
+    {
+      "cut": "9102",
+      "name": "Carahue",
+      "year": 2018,
+      "homicides": 3
+    },
+    {
+      "cut": "9102",
+      "name": "Carahue",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "9102",
+      "name": "Carahue",
+      "year": 2022,
+      "homicides": 6
+    },
+    {
+      "cut": "9103",
+      "name": "Cunco",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "9103",
+      "name": "Cunco",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "9104",
+      "name": "Curarrehue",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "9104",
+      "name": "Curarrehue",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "9104",
+      "name": "Curarrehue",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "9105",
+      "name": "Freire",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "9105",
+      "name": "Freire",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "9105",
+      "name": "Freire",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "9105",
+      "name": "Freire",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "9106",
+      "name": "Galvarino",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "9106",
+      "name": "Galvarino",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "9106",
+      "name": "Galvarino",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "9106",
+      "name": "Galvarino",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "9107",
+      "name": "Gorbea",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "9107",
+      "name": "Gorbea",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "9107",
+      "name": "Gorbea",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "9107",
+      "name": "Gorbea",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "9107",
+      "name": "Gorbea",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "9107",
+      "name": "Gorbea",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "9108",
+      "name": "Lautaro",
+      "year": 2019,
+      "homicides": 7
+    },
+    {
+      "cut": "9108",
+      "name": "Lautaro",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "9108",
+      "name": "Lautaro",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "9108",
+      "name": "Lautaro",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "9108",
+      "name": "Lautaro",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "9108",
+      "name": "Lautaro",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "9108",
+      "name": "Lautaro",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "9109",
+      "name": "Loncoche",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "9109",
+      "name": "Loncoche",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "9109",
+      "name": "Loncoche",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "9109",
+      "name": "Loncoche",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "9109",
+      "name": "Loncoche",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "9111",
+      "name": "Nueva Imperial",
+      "year": 2018,
+      "homicides": 4
+    },
+    {
+      "cut": "9111",
+      "name": "Nueva Imperial",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "9111",
+      "name": "Nueva Imperial",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "9111",
+      "name": "Nueva Imperial",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "9111",
+      "name": "Nueva Imperial",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "9111",
+      "name": "Nueva Imperial",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "9112",
+      "name": "Padre Las Casas",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "9112",
+      "name": "Padre Las Casas",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "9112",
+      "name": "Padre Las Casas",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "9112",
+      "name": "Padre Las Casas",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "9112",
+      "name": "Padre Las Casas",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "9112",
+      "name": "Padre Las Casas",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "9112",
+      "name": "Padre Las Casas",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "9112",
+      "name": "Padre Las Casas",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "9113",
+      "name": "Perquenco",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "9113",
+      "name": "Perquenco",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "9114",
+      "name": "Pitrufquén",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "9114",
+      "name": "Pitrufquén",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "9114",
+      "name": "Pitrufquén",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "9114",
+      "name": "Pitrufquén",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "9115",
+      "name": "Pucón",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "9115",
+      "name": "Pucón",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "9115",
+      "name": "Pucón",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "9115",
+      "name": "Pucón",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "9115",
+      "name": "Pucón",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "9116",
+      "name": "Saavedra",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "9116",
+      "name": "Saavedra",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "9116",
+      "name": "Saavedra",
+      "year": 2022,
+      "homicides": 4
+    },
+    {
+      "cut": "9116",
+      "name": "Saavedra",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "9116",
+      "name": "Saavedra",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "9116",
+      "name": "Saavedra",
+      "year": 2025,
+      "homicides": 3
+    },
+    {
+      "cut": "9117",
+      "name": "Teodoro Schmidt",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "9117",
+      "name": "Teodoro Schmidt",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "9117",
+      "name": "Teodoro Schmidt",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "9117",
+      "name": "Teodoro Schmidt",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "9117",
+      "name": "Teodoro Schmidt",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "9117",
+      "name": "Teodoro Schmidt",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "9118",
+      "name": "Toltén",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "9119",
+      "name": "Vilcún",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "9119",
+      "name": "Vilcún",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "9119",
+      "name": "Vilcún",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "9119",
+      "name": "Vilcún",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "9119",
+      "name": "Vilcún",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "9119",
+      "name": "Vilcún",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "9120",
+      "name": "Villarrica",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "9120",
+      "name": "Villarrica",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "9120",
+      "name": "Villarrica",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "9120",
+      "name": "Villarrica",
+      "year": 2022,
+      "homicides": 5
+    },
+    {
+      "cut": "9120",
+      "name": "Villarrica",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "9120",
+      "name": "Villarrica",
+      "year": 2024,
+      "homicides": 5
+    },
+    {
+      "cut": "9120",
+      "name": "Villarrica",
+      "year": 2025,
+      "homicides": 4
+    },
+    {
+      "cut": "9121",
+      "name": "Cholchol",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "9121",
+      "name": "Cholchol",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "9121",
+      "name": "Cholchol",
+      "year": 2025,
+      "homicides": 1
+    },
+    {
+      "cut": "9201",
+      "name": "Angol",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "9201",
+      "name": "Angol",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "9201",
+      "name": "Angol",
+      "year": 2020,
+      "homicides": 3
+    },
+    {
+      "cut": "9201",
+      "name": "Angol",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "9201",
+      "name": "Angol",
+      "year": 2022,
+      "homicides": 3
+    },
+    {
+      "cut": "9201",
+      "name": "Angol",
+      "year": 2023,
+      "homicides": 4
+    },
+    {
+      "cut": "9201",
+      "name": "Angol",
+      "year": 2024,
+      "homicides": 3
+    },
+    {
+      "cut": "9202",
+      "name": "Collipulli",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "9202",
+      "name": "Collipulli",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "9202",
+      "name": "Collipulli",
+      "year": 2020,
+      "homicides": 4
+    },
+    {
+      "cut": "9202",
+      "name": "Collipulli",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "9202",
+      "name": "Collipulli",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "9202",
+      "name": "Collipulli",
+      "year": 2023,
+      "homicides": 3
+    },
+    {
+      "cut": "9202",
+      "name": "Collipulli",
+      "year": 2024,
+      "homicides": 2
+    },
+    {
+      "cut": "9202",
+      "name": "Collipulli",
+      "year": 2025,
+      "homicides": 2
+    },
+    {
+      "cut": "9203",
+      "name": "Curacautín",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "9203",
+      "name": "Curacautín",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "9204",
+      "name": "Ercilla",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "9204",
+      "name": "Ercilla",
+      "year": 2019,
+      "homicides": 3
+    },
+    {
+      "cut": "9204",
+      "name": "Ercilla",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "9204",
+      "name": "Ercilla",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "9204",
+      "name": "Ercilla",
+      "year": 2023,
+      "homicides": 2
+    },
+    {
+      "cut": "9205",
+      "name": "Lonquimay",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "9205",
+      "name": "Lonquimay",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "9206",
+      "name": "Los Sauces",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "9206",
+      "name": "Los Sauces",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "9206",
+      "name": "Los Sauces",
+      "year": 2020,
+      "homicides": 2
+    },
+    {
+      "cut": "9207",
+      "name": "Lumaco",
+      "year": 2018,
+      "homicides": 2
+    },
+    {
+      "cut": "9207",
+      "name": "Lumaco",
+      "year": 2021,
+      "homicides": 2
+    },
+    {
+      "cut": "9207",
+      "name": "Lumaco",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "9208",
+      "name": "Purén",
+      "year": 2018,
+      "homicides": 1
+    },
+    {
+      "cut": "9208",
+      "name": "Purén",
+      "year": 2019,
+      "homicides": 2
+    },
+    {
+      "cut": "9208",
+      "name": "Purén",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "9208",
+      "name": "Purén",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "9209",
+      "name": "Renaico",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "9209",
+      "name": "Renaico",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "9210",
+      "name": "Traiguén",
+      "year": 2019,
+      "homicides": 1
+    },
+    {
+      "cut": "9210",
+      "name": "Traiguén",
+      "year": 2022,
+      "homicides": 1
+    },
+    {
+      "cut": "9210",
+      "name": "Traiguén",
+      "year": 2024,
+      "homicides": 1
+    },
+    {
+      "cut": "9211",
+      "name": "Victoria",
+      "year": 2018,
+      "homicides": 4
+    },
+    {
+      "cut": "9211",
+      "name": "Victoria",
+      "year": 2020,
+      "homicides": 1
+    },
+    {
+      "cut": "9211",
+      "name": "Victoria",
+      "year": 2021,
+      "homicides": 1
+    },
+    {
+      "cut": "9211",
+      "name": "Victoria",
+      "year": 2022,
+      "homicides": 2
+    },
+    {
+      "cut": "9211",
+      "name": "Victoria",
+      "year": 2023,
+      "homicides": 1
+    },
+    {
+      "cut": "9211",
+      "name": "Victoria",
+      "year": 2024,
+      "homicides": 4
+    },
+    {
+      "cut": "9211",
+      "name": "Victoria",
+      "year": 2025,
+      "homicides": 3
+    }
+  ]
+}
