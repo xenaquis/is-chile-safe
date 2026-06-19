@@ -21,8 +21,8 @@
 - [x] **CI-05**: A user sees the index as an integer 0–100 with one of 5 labeled bands in the map popup, the ResultPanel, and comuna pages, plus the comuna's national and regional rank on the index.
 - [x] **CI-06**: Every page that displays the index renders a mandatory bilingual caveat block (composite of *reported* crime burden, the sources, the data vintage, and the SII firm-domicile caveat) — no absolute safety verdict.
 - [x] **CI-07**: The choropleth offers a toggle between index mode and the existing per-family rate mode (5 binned classes each); the popup shows the exact index score.
-- [ ] **CI-08**: The EN + ES methodology pages document the composite formula, the chosen normalization method, the SPD homicide switch, and the SII exposure caveat; every new figure is registered (figure-registry zero-orphan passes).
-- [ ] **CI-09**: The forbidden-language CI validator is extended to flag "safest / most dangerous / más segura / más peligrosa" (and equivalents) when not qualified by "reported / reportado", and runs in `npm run validate`.
+- [x] **CI-08**: The EN + ES methodology pages document the composite formula, the chosen normalization method, the SPD homicide switch, and the SII exposure caveat; every new figure is registered (figure-registry zero-orphan passes).
+- [x] **CI-09**: The forbidden-language CI validator is extended to flag "safest / most dangerous / más segura / más peligrosa" (and equivalents) when not qualified by "reported / reportado", and runs in `npm run validate`.
 - [x] **CI-10**: The `featured_rates`→7-metric schema migration is verified non-breaking across every consumer (commune panel, choropleth, Astro templates, figure-registry validator, pytest), with TypeScript types added and `@astrojs/check` + full validator suite green; `comparator_table.json` is emitted for Track 2.
 
 ### Track 2 — Commune Comparator + A-vs-B SEO (→ Phase 21)
@@ -69,8 +69,8 @@
 | CI-05 | Phase 18 | Complete | 0–100 integer + 5 bands + national/regional rank in UI |
 | CI-06 | Phase 18 | Complete | Mandatory bilingual caveat block on all index-displaying pages |
 | CI-07 | Phase 18 | Complete | Choropleth toggle: index mode vs per-family rate mode |
-| CI-08 | Phase 18 | Pending | Methodology pages updated; figure-registry zero-orphan |
-| CI-09 | Phase 18 | Pending | Forbidden-language validator extended; npm run validate green |
+| CI-08 | Phase 18 | Complete | Methodology pages updated; figure-registry zero-orphan |
+| CI-09 | Phase 18 | Complete | Forbidden-language validator extended; npm run validate green |
 | CI-10 | Phase 18 | Complete | Schema migration non-breaking; TypeScript types; comparator_table.json emitted |
 | CMP-01 | Phase 21 | Pending | 2–3 commune comparator island; depends on Phase 18 |
 | CMP-02 | Phase 21 | Pending | Accent-insensitive autocomplete; pre-rendered static shell |

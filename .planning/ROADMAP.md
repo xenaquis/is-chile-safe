@@ -70,7 +70,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 ### v2.0 Composite Index, Comparators & Launch
 
-- [ ] **Phase 18: Composite Crime Index** — exposure-adjusted 0–100 index, SPD VHC homicide switch, schema migration, index-driven choropleth _(RESERVED number; highest-risk phase — plan interactively)_
+- [x] **Phase 18: Composite Crime Index** — exposure-adjusted 0–100 index, SPD VHC homicide switch, schema migration, index-driven choropleth _(RESERVED number; highest-risk phase — plan interactively)_ (completed 2026-06-19)
 - [ ] **Phase 21: Commune Comparator + A-vs-B SEO** — interactive comparator island + ~6,800 bilingual A-vs-B programmatic pages built on Phase 18 outputs _(depends on Phase 18)_
 - [ ] **Phase 22: Go-Live / Launch Ops** — CF deploy hook, production deploy, live news audit, GSC submission _(parallel with Phase 21; no code dependency)_
 
@@ -98,7 +98,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
   - [x] 18-02-PLAN.md — Extract build_map_payload.py (ci field, 30 KB assertion); strip scrape_cead.py; three-step GitHub Actions order
   - [x] 18-03-PLAN.md — Choropleth index-mode toggle (default): ci on CommunaPayload + buildStyleMapFromCompositeIndex + MapIsland toggle + legend
   - [x] 18-04-PLAN.md — Index display surfaces: ResultPanel + EN/ES commune pages, integer score + bands + national/regional rank + always-visible caveat
-  - [ ] 18-05-PLAN.md — Editorial + docs gate: forbidden-language extension, F13/F14 figure-registry, SOURCES.md + methodology pages, full non-breaking validator suite
+  - [x] 18-05-PLAN.md — Editorial + docs gate: forbidden-language extension, F13/F14 figure-registry, SOURCES.md + methodology pages, full non-breaking validator suite
 
 **UI hint**: yes
 
@@ -139,6 +139,6 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 18. Composite Crime Index | 4/5 | In Progress|  |
+| 18. Composite Crime Index | 5/5 | Complete   | 2026-06-19 |
 | 21. Commune Comparator + A-vs-B SEO | 0/TBD | Not started | - |
 | 22. Go-Live / Launch Ops | 0/TBD | Not started | - |
