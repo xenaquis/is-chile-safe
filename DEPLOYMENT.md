@@ -1,6 +1,6 @@
 # DEPLOYMENT.md — Cloudflare Pages Go-Live Runbook
 
-**ischilesafe.com** | Last updated: 2026-06-13
+**ischilesafe.com** | Last updated: 2026-06-19
 
 This runbook documents every human Cloudflare-dashboard and GitHub-secrets step required to take
 the site live. GitHub Actions automation handles scraping and data commits; Cloudflare Pages
@@ -33,6 +33,12 @@ handles building and serving the static site. The two are connected via a Deploy
 
 **Key principle:** GitHub Actions does NOT build the site. It only scrapes data, commits
 changed data to the repo, and pings the Deploy Hook. Cloudflare Pages does the Astro build.
+
+**Code-push deploys (`deploy-on-code.yml`):** Disabling CF auto-build (§4) also stops code-only
+pushes from redeploying production. `deploy-on-code.yml` closes that gap: a push to `master`
+touching `site/**` (or the workflow file itself) curls the same Deploy Hook, producing a real
+build. Data-only commits (`data/**`, `[skip ci]`) do not match its `paths` filter, so the
+rebuild-loop guard (§4, §9) is unaffected. Verified 2026-06-19 (GL-01/GL-02).
 
 ---
 
@@ -211,6 +217,7 @@ build. The timestamp and trigger source (Deploy Hook vs Git push) are shown per 
 |----------|------|----------|---------|
 | News Pipeline | `.github/workflows/news-pipeline.yml` | Every 6 hours (`0 */6 * * *`) | `schedule` + `workflow_dispatch` |
 | CEAD Scraper | `.github/workflows/cead-scraper.yml` | Quarterly (`0 3 1 1,4,7,10 *`) | `schedule` + `workflow_dispatch` |
+| Deploy on Code Push | `.github/workflows/deploy-on-code.yml` | On push to `master` touching `site/**` | `push` |
 | CI | `.github/workflows/ci.yml` | PRs + `workflow_dispatch` | `pull_request` + `workflow_dispatch` |
 
 ### Cron Timing Drift
@@ -254,3 +261,4 @@ If a CF Pages build fails (bad Astro build, missing npm package, etc.):
 - [ ] Custom domain `ischilesafe.com` bound, HTTPS confirmed (`curl -I`)
 - [ ] `news-pipeline.yml` dry-run via `workflow_dispatch` succeeded
 - [ ] Docs-only push confirmed CF build count stayed flat (rebuild-loop guard verified)
+- [x] Code-push deploy trigger verified — a `site/**` push fired `deploy-on-code.yml`, which curled the Deploy Hook and produced a real CF build (GL-01, 2026-06-19)
