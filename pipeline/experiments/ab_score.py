@@ -102,13 +102,22 @@ def _check_key(provider: str) -> bool:
 
 def _run_scoring(provider: str, golden_path: pathlib.Path, output_path: pathlib.Path) -> dict:
     """Run the classifier against the golden set and return the metrics dict."""
-    # Import classifier AFTER setting NEWS_PROVIDER (it reads the env at import time)
-    # Re-import is not possible in one process if the module is already loaded with a
-    # different provider. In practice this script is run once per provider invocation.
-    import importlib
+    # Import classifier AFTER setting NEWS_PROVIDER (it reads the env at import time).
+    # importlib.reload() is NOT used: reload() cannot re-initialize module-level objects
+    # (e.g. the OpenAI client) reliably across CPython versions, and silently scores the
+    # wrong provider in multi-import scenarios.  Each provider MUST be run in a separate
+    # process invocation (--provider X per process), which is the documented usage.
+    if "pipeline.news.classifier" in sys.modules:
+        print(
+            f"[ab_score] ERROR: pipeline.news.classifier is already imported in this process "
+            f"(possibly with a different provider). "
+            f"Run each provider in a separate process invocation:\n"
+            f"  NEWS_PROVIDER=deepseek python experiments/ab_score.py --provider deepseek\n"
+            f"  NEWS_PROVIDER=minimax  python experiments/ab_score.py --provider minimax",
+            file=sys.stderr,
+        )
+        sys.exit(1)
     import pipeline.news.classifier as classifier_mod
-    # Reload to pick up the current NEWS_PROVIDER if already imported
-    importlib.reload(classifier_mod)
     classify = classifier_mod.classify
 
     # Import resolver for predicted_name → predicted_cut
