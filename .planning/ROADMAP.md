@@ -138,7 +138,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 **Plans**: 3 plans
 
 - [x] 22-01-PLAN.md — Set CF_DEPLOY_HOOK_URL secret; verify code-push deploy fires + production serves v2.0; confirm rebuild-loop guard (GL-01, GL-02)
-- [ ] 22-02-PLAN.md — Scored 50-incident commune-assignment audit + live News Pipeline run (GL-03)
+- [x] 22-02-PLAN.md — Scored 50-incident commune-assignment audit + live News Pipeline run (GL-03)
 - [ ] 22-03-PLAN.md — Confirm v2.0 sitemap live; submit to GSC + URL Inspection on representative pages (GL-04)
 
 ### Phase 23: ENUSC Communal Victimization Layer
@@ -177,4 +177,4 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 | 18. Composite Crime Index | 8/8 | Complete    | 2026-06-19 |
 | 21. Commune Comparator + A-vs-B SEO | 0/TBD | Not started | - |
 | 23. ENUSC Communal Victimization Layer | 4/4 | Complete   | 2026-06-19 |
-| 22. Go-Live / Launch Ops | 1/3 | In Progress|  |
+| 22. Go-Live / Launch Ops | 2/3 | In Progress|  |
