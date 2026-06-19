@@ -33,20 +33,27 @@ def normalize_metric(series: pd.Series) -> pd.Series:
         pd.Series of float in [0, 100] with NaN preserved for missing communes.
     """
     arr = np.array(series, dtype=float)
+    mask = ~np.isnan(arr)
 
-    # Winsorize on original array (including NaN — scipy masked array handles this)
-    arr_w = np.array(winsorize(arr, limits=list(WINSORIZE_LIMITS)))
+    # Guard: all-NaN or empty input — return all-NaN Series
+    if mask.sum() == 0:
+        return pd.Series(np.full(len(arr), np.nan), index=series.index)
+
+    # Winsorize on non-NaN values only so NaN positions cannot corrupt the
+    # clip points (NaN sorts to the high end in scipy winsorize, which would
+    # pull the upper clip point away from real-data maxima).
+    arr_w = np.full_like(arr, np.nan)
+    arr_w[mask] = np.array(winsorize(arr[mask], limits=list(WINSORIZE_LIMITS)))
 
     lo = np.nanmin(arr_w)
     hi = np.nanmax(arr_w)
 
     if hi == lo:
-        result = np.zeros(len(arr))
+        result = np.full(len(arr), np.nan)
+        result[mask] = 0.0
     else:
-        result = (arr_w - lo) / (hi - lo) * 100.0
-
-    # Re-inject NaN by original mask — this is the load-bearing step
-    result[np.isnan(arr)] = np.nan
+        result = np.full(len(arr), np.nan)
+        result[mask] = (arr_w[mask] - lo) / (hi - lo) * 100.0
 
     return pd.Series(result, index=series.index)
 
@@ -140,9 +147,6 @@ def compute_composite(
         return 0.0, 0
 
     # Redistribute weight of absent metrics proportionally
-    score = (weighted_sum / total_weight) * 100.0 / 100.0 * 100.0
-    # Simplified: weighted_sum already uses [0,100] normalized values,
-    # and we rescale by total_weight to normalize weights of present metrics
     score = weighted_sum / total_weight
 
     return float(score), available
