@@ -246,6 +246,9 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
       <span class="hero-sep" aria-hidden="true">·</span>
       <span class="hero-stat">{eligibleRows.length} comunas en ranking</span>
     </div>
+    <p class="hero-caveat">
+      La media nacional es la <strong>media simple de comunas</strong> para esta familia delictiva (comunas ≥ 10.000 hab., último año completo). <a href="/es/metodologia/#comparison-criteria">Metodología</a>.
+    </p>
   </section>
 
   <!-- NationalRankingTable (ES) -->
@@ -298,6 +301,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     <h2 class="section-heading">
       Desglose regional — tasa media de {familyLabel.toLowerCase()} por 100.000 habitantes ({latestYear})
     </h2>
+    <p class="region-caveat">Media simple de comunas por región (comunas ≥ 10.000 hab.).</p>
     <div class="region-bars">
       {regionBreakRows.map((r) => {
         const widthPct = Math.round((r.rate / maxRegionRate) * 100) + '%';
@@ -386,6 +390,13 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
 
   .hero-sep {
     color: var(--line);
+  }
+
+  .hero-caveat,
+  .region-caveat {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--xs);
   }
 
   .ranking-section {

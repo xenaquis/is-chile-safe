@@ -240,6 +240,9 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
       <span class="hero-sep" aria-hidden="true">·</span>
       <span class="hero-stat">{eligibleRows.length} communes ranked</span>
     </div>
+    <p class="hero-caveat">
+      National mean is the <strong>unweighted commune mean</strong> for this crime family (communes ≥ 10k population, latest complete year). <a href="/methodology/#comparison-criteria">Methodology</a>.
+    </p>
   </section>
 
   <!-- NationalRankingTable -->
@@ -292,6 +295,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     <h2 class="section-heading">
       Regional breakdown — mean {familyLabel.toLowerCase()} rate per 100,000 inhabitants ({latestYear})
     </h2>
+    <p class="region-caveat">Unweighted commune mean per region (communes ≥ 10k population).</p>
     <div class="region-bars">
       {regionBreakRows.map((r) => {
         const widthPct = Math.round((r.rate / maxRegionRate) * 100) + '%';
@@ -380,6 +384,13 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
 
   .hero-sep {
     color: var(--line);
+  }
+
+  .hero-caveat,
+  .region-caveat {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--xs);
   }
 
   .ranking-section {

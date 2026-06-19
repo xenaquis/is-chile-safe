@@ -1,4 +1,6 @@
 ---
+import { FAMILY_SCOPE_NOTE_EN, FAMILY_SCOPE_NOTE_ES } from '../lib/familyDefs';
+
 /**
  * FamilyBreakdownBars — CSS horizontal bar chart for 7 crime families.
  * Ported from ischilesafe.com/map-view.jsx .type-bars block (lines 52-60).
@@ -30,6 +32,8 @@ interface Props {
 }
 
 const { byFamily, locale, level } = Astro.props;
+
+const FAMILY_SCOPE_NOTE = locale === 'es' ? FAMILY_SCOPE_NOTE_ES : FAMILY_SCOPE_NOTE_EN;
 
 // Fixed family order per UI-SPEC: vida + propiedad featured first
 const FAMILY_ORDER = [
@@ -85,6 +89,9 @@ const rows = FAMILY_ORDER.map((key, i) => {
     </div>
   ))}
 </div>
+{FAMILY_SCOPE_NOTE['drogas'] && (
+  <p class="family-scope-note">{FAMILY_SCOPE_NOTE['drogas']}</p>
+)}
 
 <style>
   .family-bars {
@@ -139,5 +146,12 @@ const rows = FAMILY_ORDER.map((key, i) => {
     font-weight: var(--weight-body);
     color: var(--muted);
     text-align: right;
+  }
+
+  .family-scope-note {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--sm);
+    line-height: 1.5;
   }
 </style>
