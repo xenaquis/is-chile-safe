@@ -2,7 +2,6 @@
 pipeline/tests/test_classifier.py
 
 Tests for pipeline/news/classifier.py — DeepSeek classification with mocked API.
-Wave-1 scaffold: skips if pipeline.news.classifier is not yet implemented.
 DeepSeek NEVER called live — all responses mocked via unittest.mock.patch.
 """
 from __future__ import annotations
@@ -13,18 +12,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-# Skip entire module if Wave-1 module not yet implemented
-try:
-    from pipeline.news import classifier as classifier_mod  # type: ignore
-    from pipeline.news.classifier import classify  # type: ignore
-    _MODULE_AVAILABLE = True
-except ImportError:
-    _MODULE_AVAILABLE = False
-
-pytestmark = pytest.mark.skipif(
-    not _MODULE_AVAILABLE,
-    reason="pipeline.news.classifier not yet implemented (Wave 1)",
-)
+from pipeline.news import classifier as classifier_mod  # type: ignore
+from pipeline.news.classifier import classify  # type: ignore
 
 def _make_mock_response(data: dict) -> MagicMock:
     mock_resp = MagicMock()

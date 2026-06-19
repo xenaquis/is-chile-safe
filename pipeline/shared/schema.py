@@ -6,7 +6,7 @@ All downstream plans import from this module — field names are canonical.
 """
 from __future__ import annotations
 
-from typing import Literal
+from typing import Literal, TypedDict
 
 from pydantic import BaseModel, field_validator
 
@@ -29,6 +29,33 @@ FAMILY_KEYS: list[str] = [
     "incivilidades",
 ]
 
+# Canonical ordering tuple — CI assertion target (TD-07 / T-19-10).
+# MapPayload.by_family compact list and FiltersRow chip indices both depend
+# on this order. Reordering FAMILY_KEYS without updating callers is a
+# silent data corruption; the test_family_keys_order_matches_canonical test
+# in pipeline/tests/test_schema.py fails the build if they diverge.
+FAMILY_KEYS_CANONICAL: tuple[str, ...] = (
+    "vida",
+    "robos_violentos",
+    "vif",
+    "drogas",
+    "armas",
+    "propiedad",
+    "incivilidades",
+)
+
+
+class ByFamily(TypedDict):
+    """Typed per-family rate dict — all seven CEAD crime families (TD-07)."""
+    vida: float | None
+    robos_violentos: float | None
+    vif: float | None
+    drogas: float | None
+    armas: float | None
+    propiedad: float | None
+    incivilidades: float | None
+
+
 FEATURED_FAMILIES: set[str] = {"propiedad", "vida"}  # D-06
 
 
@@ -40,7 +67,7 @@ FEATURED_FAMILIES: set[str] = {"propiedad", "vida"}  # D-06
 class YearRecord(BaseModel):
     year: int
     rate_per_100k: float
-    by_family: dict[str, float | None]  # keys match FAMILY_KEYS values
+    by_family: ByFamily  # typed per TD-07; keys match FAMILY_KEYS order
     partial: bool = False  # True if scrape date is before Dec 31 of that year
 
 

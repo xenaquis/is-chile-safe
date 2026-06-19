@@ -39,7 +39,15 @@ def sample_commune_dict():
             {
                 "year": 2024,
                 "rate_per_100k": 11181.0,
-                "by_family": {},
+                "by_family": {
+                    "vida": None,
+                    "robos_violentos": None,
+                    "vif": None,
+                    "drogas": None,
+                    "armas": None,
+                    "propiedad": None,
+                    "incivilidades": None,
+                },
                 "partial": False,
             }
         ],

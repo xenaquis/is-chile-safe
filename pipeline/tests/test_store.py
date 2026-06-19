@@ -2,7 +2,6 @@
 pipeline/tests/test_store.py
 
 Tests for pipeline/news/store.py — 30-day window, idempotent merge, archive write.
-Wave-1 scaffold: skips if pipeline.news.store is not yet implemented.
 Uses tmp_path pytest built-in fixture for isolation.
 """
 from __future__ import annotations
@@ -13,17 +12,7 @@ import json
 
 import pytest
 
-# Skip entire module if Wave-1 module not yet implemented
-try:
-    from pipeline.news.store import merge_and_write  # type: ignore
-    _MODULE_AVAILABLE = True
-except ImportError:
-    _MODULE_AVAILABLE = False
-
-pytestmark = pytest.mark.skipif(
-    not _MODULE_AVAILABLE,
-    reason="pipeline.news.store not yet implemented (Wave 1)",
-)
+from pipeline.news.store import merge_and_write  # type: ignore
 
 
 def _make_incident(uid: str, date_str: str, family: str = "propiedad") -> dict:

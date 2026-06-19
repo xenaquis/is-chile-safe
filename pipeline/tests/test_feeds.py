@@ -2,24 +2,13 @@
 pipeline/tests/test_feeds.py
 
 Tests for pipeline/news/feeds.py — RSS fetch, keyword pre-filter, seen-ledger.
-Wave-1 scaffold: skips if pipeline.news.feeds is not yet implemented.
 """
 from __future__ import annotations
 
 import pytest
 from pathlib import Path
 
-# Skip entire module if Wave-1 module not yet implemented
-try:
-    from pipeline.news.feeds import fetch_feed, is_crime_item, filter_seen  # type: ignore
-    _MODULE_AVAILABLE = True
-except ImportError:
-    _MODULE_AVAILABLE = False
-
-pytestmark = pytest.mark.skipif(
-    not _MODULE_AVAILABLE,
-    reason="pipeline.news.feeds not yet implemented (Wave 1)",
-)
+from pipeline.news.feeds import fetch_feed, is_crime_item, filter_seen  # type: ignore
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 

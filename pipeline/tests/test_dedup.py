@@ -2,7 +2,6 @@
 pipeline/tests/test_dedup.py
 
 Tests for pipeline/news/dedup.py — URL dedup + title-similarity dedup.
-Wave-1 scaffold: skips if pipeline.news.dedup is not yet implemented.
 All fixtures are inline dicts — no file fixtures needed.
 """
 from __future__ import annotations
@@ -11,17 +10,7 @@ import copy
 
 import pytest
 
-# Skip entire module if Wave-1 module not yet implemented
-try:
-    from pipeline.news.dedup import deduplicate, are_duplicates  # type: ignore
-    _MODULE_AVAILABLE = True
-except ImportError:
-    _MODULE_AVAILABLE = False
-
-pytestmark = pytest.mark.skipif(
-    not _MODULE_AVAILABLE,
-    reason="pipeline.news.dedup not yet implemented (Wave 1)",
-)
+from pipeline.news.dedup import deduplicate, are_duplicates  # type: ignore
 
 
 @pytest.fixture

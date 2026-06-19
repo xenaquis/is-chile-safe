@@ -55,17 +55,12 @@ def test_centroids_have_float_values():
 
 
 # ---------------------------------------------------------------------------
-# Tests on pipeline.news.centroids module (Wave 1 — skip if not yet present)
+# Tests on pipeline.news.centroids module
 # ---------------------------------------------------------------------------
 
-try:
-    import pipeline.news.centroids as centroids_mod  # type: ignore
-    _MODULE_AVAILABLE = True
-except ImportError:
-    _MODULE_AVAILABLE = False
+import pipeline.news.centroids as centroids_mod  # type: ignore
 
 
-@pytest.mark.skipif(not _MODULE_AVAILABLE, reason="pipeline.news.centroids not yet implemented (Wave 1)")
 def test_valid_cut_returns_latlon(monkeypatch, tmp_path):
     data = {"13101": {"lat": -33.456, "lng": -70.654}, "2101": {"lat": -18.5, "lng": -70.3}}
     centroid_file = tmp_path / "centroids.json"
@@ -78,7 +73,6 @@ def test_valid_cut_returns_latlon(monkeypatch, tmp_path):
     assert abs(lng - (-70.654)) < 0.001
 
 
-@pytest.mark.skipif(not _MODULE_AVAILABLE, reason="pipeline.news.centroids not yet implemented (Wave 1)")
 def test_unknown_cut_returns_none(monkeypatch, tmp_path):
     data = {"13101": {"lat": -33.456, "lng": -70.654}}
     centroid_file = tmp_path / "centroids.json"
