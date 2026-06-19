@@ -304,7 +304,18 @@ Plans:
   4. News incidents on `/news/` and `/es/noticias/` are sorted newest-first; no stale "coming soon" placeholder text renders anywhere on the site; non-http(s) incident source URLs are rejected before render.
   5. `site/public/robots.txt` exists with an `Allow` rule and a `Sitemap:` pointer; the glossary is reachable from nav and/or footer (both locales); `/is-santiago-safe/` ↔ `/es/mapa-seguridad-santiago/` form a correct reciprocal hreflang pair.
 
-**Plans**: TBD
+**Plans**: 6 plans
+Plans:
+**Wave 1** *(no file overlap — parallel)*
+- [ ] 19-01-PLAN.md — Methodology unweighted-mean fix (EN+ES) + map-payload partial_year flag [TD-01, TD-06]
+- [ ] 19-02-PLAN.md — News date-desc sort + new URL() scheme guard (news pages + pipeline store) [TD-03, TD-05]
+- [ ] 19-03-PLAN.md — ES commune->comuna + reciprocal EN /crimes-by-region/ + adjacent->vecina [BIL-01, BIL-02, BIL-03]
+**Wave 2** *(blocked on 19-03 — shares ES crime/ranking pages)*
+- [ ] 19-06-PLAN.md — Extract headings/table-headers/cookie strings to i18n.ts [BIL-04]
+**Wave 3** *(blocked on 19-06 — shares crime family pages)*
+- [ ] 19-04-PLAN.md — robots.txt + Santiago hreflang pair + glossary spine + /crime/homicide/ redirect [SEO-01, SEO-02, SEO-03, TD-04]
+**Wave 4** *(blocked on 19-04 — shares crime/region pages + i18n.ts)*
+- [ ] 19-05-PLAN.md — Retire stale map placeholder + FAMILY_KEYS guard/typed by_family/dynamic years/skipif cleanup/nyquist reconcile [TD-02, TD-07]
 **UI hint**: yes
 
 ### Phase 20: Methodology & Sources Hardening
@@ -344,7 +355,7 @@ Plans:
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 2/2 | Complete   | 2026-06-16 |
 | 17. Data Quality, Source Traceability & Methodology | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 5/5 | Complete   | 2026-06-19 |
-| 19. Tech-Debt Sweep | v1.3 | 0/TBD | Not started | - |
+| 19. Tech-Debt Sweep | v1.3 | 0/6 | Not started | - |
 | 20. Methodology & Sources Hardening | v1.3 | 0/TBD | Not started | - |
 
 ## Backlog
