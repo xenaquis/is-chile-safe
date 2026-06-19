@@ -96,115 +96,6 @@ def filter_series_for_trend(series: list[dict]) -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
-# Map-payload builder (D-09)
-# ---------------------------------------------------------------------------
-
-def build_map_payload(
-    records: list[dict],
-    year: int,
-    all_rates: list[float],
-) -> dict:
-    """
-    Build the map-payload dict for the given reference year.
-
-    Each entry: {id, rate, level, by_family} (D-09).
-    Only includes communes that have a series entry for the requested year.
-    Falls back to the most recent year if the exact year is missing.
-    """
-    from pipeline.cead.normalizer import compute_level
-    from pipeline.shared.schema import FAMILY_KEYS
-
-    comunas = []
-    for r in records:
-        # Find the rate for the reference year
-        rate = None
-        by_family: dict[str, float | None] = {k: None for k in FAMILY_KEYS}
-        for yr_rec in r.get("series", []):
-            if yr_rec["year"] == year:
-                rate = yr_rec["rate_per_100k"]
-                bf = yr_rec.get("by_family", {})
-                for k in FAMILY_KEYS:
-                    by_family[k] = bf.get(k)
-                break
-
-        if rate is None:
-            # Fall back to most recent year
-            sorted_series = sorted(r.get("series", []), key=lambda x: x["year"], reverse=True)
-            if sorted_series:
-                rate = sorted_series[0]["rate_per_100k"]
-                bf = sorted_series[0].get("by_family", {})
-                for k in FAMILY_KEYS:
-                    by_family[k] = bf.get(k)
-
-        if rate is None:
-            continue  # No data for this commune
-
-        level = compute_level(rate, all_rates)
-        # by_family stored as ordered list matching FAMILY_KEYS for compactness (<30KB D-09)
-        from pipeline.shared.schema import FAMILY_KEYS as _FK
-        # Round to integers (no decimal) to keep map-payload under 30 KB (D-09)
-        # Full precision is preserved in the per-commune JSON files.
-        by_family_list = [int(round(by_family[k])) if by_family[k] is not None else None for k in _FK]
-
-        # Homicide fields: read from the record's homicide_rate/homicide_count (set by accumulator)
-        # or from featured_rates.homicidios for the active year (null-vs-0 invariant preserved)
-        h_rate_raw = r.get("homicide_rate")
-        h_count_raw = r.get("homicide_count")
-        homicide_rate_val = int(round(h_rate_raw)) if h_rate_raw is not None else None
-        homicide_count_val = int(h_count_raw) if h_count_raw is not None else None
-
-        # Fallback: look up from featured_rates.homicidios for the active year.
-        # Keys may be int (in-memory pipeline dicts) or str (after JSON round-trip).
-        if homicide_rate_val is None:
-            fr = r.get("featured_rates", {})
-            homicidios = fr.get("homicidios", {}) if isinstance(fr, dict) else {}
-            # Try both int and str key (int from pipeline accumulator, str after JSON round-trip)
-            raw = homicidios.get(year) if homicidios.get(year) is not None else homicidios.get(str(year))
-            if raw is not None:
-                homicide_rate_val = int(round(raw))
-        if homicide_count_val is None:
-            fr = r.get("featured_rates", {})
-            homicidios_count = fr.get("homicidios_count", {}) if isinstance(fr, dict) else {}
-            raw_count = homicidios_count.get(year) if homicidios_count.get(year) is not None else homicidios_count.get(str(year))
-            if raw_count is not None:
-                homicide_count_val = int(raw_count)
-
-        # Build compact entry — omit None homicide fields to stay under 30KB (Pitfall 3).
-        # When homicide data exists the keys are present; when absent they're omitted entirely.
-        # homicide_count is also preserved in per-commune JSON via featured_rates.homicidios_count.
-        entry: dict = {
-            "id": r["id"],
-            "rate": int(round(rate)),
-            "level": level,
-            "by_family": by_family_list,  # ordered per FAMILY_KEYS
-        }
-        if homicide_rate_val is not None:
-            # Use abbreviated key "hr" (vs "homicide_rate") to stay under 30KB — saves ~10B per entry
-            # (D-09 compact encoding: same pattern as by_family compact list).
-            # Downstream (Half B UI) reads "hr" from map-payload; full name in per-commune JSON.
-            entry["hr"] = homicide_rate_val
-        # homicide_count intentionally dropped from the payload (Pitfall 3 budget escape):
-        # adding it would exceed 30KB with 346 communes. It lives in per-commune JSON
-        # via featured_rates.homicidios_count for downstream consumers that need it.
-        comunas.append(entry)
-
-    # Determine partial_year: True if any commune's series entry for this year is partial
-    partial_year = any(
-        yr_rec.get("partial", False)
-        for r in records
-        for yr_rec in r.get("series", [])
-        if yr_rec["year"] == year
-    )
-
-    return {
-        "generated": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
-        "year": year,
-        "partial_year": partial_year,
-        "comunas": comunas,
-    }
-
-
-# ---------------------------------------------------------------------------
 # Meta-index builder (D-05, 346 entries)
 # ---------------------------------------------------------------------------
 
@@ -320,15 +211,8 @@ def _write_all_outputs(
             if not yr_rec.get("partial", False):
                 all_years.add(yr_rec["year"])
 
-    # Step 2: Build and assert map-payload size < 30 KB (DATA-03)
-    # Map-payload uses compact (minified) JSON to stay under 30 KB.
-    logger.info("Building map-payload.json for year %d", last_complete_year)
-    map_payload = build_map_payload(communes, year=last_complete_year, all_rates=all_rates_for_year)
-    serialized = json.dumps(map_payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
-    if len(serialized) >= 30720:
-        raise ValueError(
-            f"map-payload.json exceeds 30 KB limit: {len(serialized)} bytes"
-        )
+    # Step 2 (moved to build_map_payload.py): map-payload is now built by the
+    # standalone pipeline/build_map_payload.py entrypoint (D-11 isolation).
 
     # Step 3: Write commune files
     logger.info("Writing %d commune files", len(communes))
@@ -343,21 +227,8 @@ def _write_all_outputs(
     if national:
         _atomic_write(output_dir / "national.json", national)
 
-    # Step 6: Write map-payload.json (last complete year, compact for <30KB D-09)
-    from pipeline.shared.atomic_write import atomic_write_json as _aw_compact
-    _aw_compact(output_dir / "map-payload.json", map_payload, compact=True)
-
-    # Step 7: Write per-year payloads (D-09, compact)
-    for yr in sorted(all_years):
-        yr_rates = []
-        for r in communes:
-            for yr_rec in r.get("series", []):
-                if yr_rec["year"] == yr:
-                    yr_rates.append(yr_rec["rate_per_100k"])
-                    break
-        if yr_rates:
-            yr_payload = build_map_payload(communes, year=yr, all_rates=yr_rates)
-            _aw_compact(output_dir / f"map-payload-{yr}.json", yr_payload, compact=True)
+    # Steps 6-7 (moved): map-payload.json and per-year payloads are now written by
+    # pipeline/build_map_payload.py (D-11 isolation, run after build_composite_index.py).
 
     # Step 8: Write meta files
     meta_index = build_meta_index(communes)

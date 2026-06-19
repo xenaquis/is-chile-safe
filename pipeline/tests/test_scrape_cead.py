@@ -130,7 +130,7 @@ def test_map_payload_entry_has_homicide_rate():
     EXPECTED TO FAIL (RED) until 14-02 wires the homicide accumulator into
     build_map_payload. Failure reads: KeyError / AssertionError '"hr" key missing'.
     """
-    from pipeline.scrape_cead import build_map_payload
+    from pipeline.build_map_payload import build_map_payload
 
     records = _make_records_with_homicide(5)
     all_rates = [r["series"][0]["rate_per_100k"] for r in records]
@@ -161,7 +161,7 @@ def test_map_payload_entry_has_homicide_count():
     read the per-commune commune JSON file (data/cead/comunas/{cut}.json).
     Also verifies that the abbreviated "hr" key IS present (homicide_rate).
     """
-    from pipeline.scrape_cead import build_map_payload
+    from pipeline.build_map_payload import build_map_payload
 
     records = _make_records_with_homicide(5)
     all_rates = [r["series"][0]["rate_per_100k"] for r in records]
@@ -194,7 +194,7 @@ def test_map_payload_346_entries_with_homicide_under_30kb():
     If this test fails with a size error rather than a key-missing error after
     14-02 lands, the payload encoding needs to be made more compact.
     """
-    from pipeline.scrape_cead import build_map_payload
+    from pipeline.build_map_payload import build_map_payload
 
     records = _make_minimal_records_346()
     all_rates = [r["series"][0]["rate_per_100k"] for r in records]
@@ -301,7 +301,7 @@ def _make_records_with_partial(year: int, partial: bool, n: int = 3) -> list[dic
 
 def test_map_payload_partial_year_false_for_complete_year():
     """build_map_payload must include partial_year=False when all series records are complete."""
-    from pipeline.scrape_cead import build_map_payload
+    from pipeline.build_map_payload import build_map_payload
 
     records = _make_records_with_partial(year=2024, partial=False)
     all_rates = [r["series"][0]["rate_per_100k"] for r in records]
@@ -318,7 +318,7 @@ def test_map_payload_partial_year_false_for_complete_year():
 
 def test_map_payload_partial_year_true_for_partial_year():
     """build_map_payload must include partial_year=True when any series record is partial."""
-    from pipeline.scrape_cead import build_map_payload
+    from pipeline.build_map_payload import build_map_payload
 
     records = _make_records_with_partial(year=2026, partial=True)
     all_rates = [r["series"][0]["rate_per_100k"] for r in records]
