@@ -298,6 +298,7 @@ Plans:
 **Depends on**: Phase 17 (SOURCES.md and methodology baseline exist). No dependency on Phase 20.
 **Requirements**: TD-01, TD-02, TD-03, TD-04, TD-05, TD-06, TD-07, BIL-01, BIL-02, BIL-03, BIL-04, SEO-01, SEO-02, SEO-03
 **Success Criteria** (what must be TRUE):
+
   1. The methodology pages (EN + ES) state the national aggregate is an **unweighted** mean of non-low-population commune rates; the word "population-weighted" does not describe the national aggregate anywhere user-facing; `data.ts`, the methodology, and the FAQ are internally consistent on this point.
   2. Every user-visible Spanish string reads "comuna" (not "commune"); meta descriptions, JSON-LD, and tooltip labels are updated; a grep for `\bcommune\b` in ES prose/meta/JSON-LD returns zero matches.
   3. `/es/delitos-por-region/` has a reciprocal EN counterpart with correct bidirectional hreflang; the language toggle navigates between them without self-looping; `/crime/homicide/` redirects to its canonical target.
@@ -307,15 +308,23 @@ Plans:
 **Plans**: 6 plans
 Plans:
 **Wave 1** *(no file overlap — parallel)*
-- [ ] 19-01-PLAN.md — Methodology unweighted-mean fix (EN+ES) + map-payload partial_year flag [TD-01, TD-06]
+
+- [x] 19-01-PLAN.md — Methodology unweighted-mean fix (EN+ES) + map-payload partial_year flag [TD-01, TD-06]
 - [ ] 19-02-PLAN.md — News date-desc sort + new URL() scheme guard (news pages + pipeline store) [TD-03, TD-05]
 - [ ] 19-03-PLAN.md — ES commune->comuna + reciprocal EN /crimes-by-region/ + adjacent->vecina [BIL-01, BIL-02, BIL-03]
+
 **Wave 2** *(blocked on 19-03 — shares ES crime/ranking pages)*
+
 - [ ] 19-06-PLAN.md — Extract headings/table-headers/cookie strings to i18n.ts [BIL-04]
+
 **Wave 3** *(blocked on 19-06 — shares crime family pages)*
+
 - [ ] 19-04-PLAN.md — robots.txt + Santiago hreflang pair + glossary spine + /crime/homicide/ redirect [SEO-01, SEO-02, SEO-03, TD-04]
+
 **Wave 4** *(blocked on 19-04 — shares crime/region pages + i18n.ts)*
+
 - [ ] 19-05-PLAN.md — Retire stale map placeholder + FAMILY_KEYS guard/typed by_family/dynamic years/skipif cleanup/nyquist reconcile [TD-02, TD-07]
+
 **UI hint**: yes
 
 ### Phase 20: Methodology & Sources Hardening
@@ -324,6 +333,7 @@ Plans:
 **Depends on**: Phase 19 (methodology wording corrected before expanding it). Consumes `data/SOURCES.md` from Phase 17; expands it.
 **Requirements**: MTH-01, MTH-02, MTH-03, MTH-04, SRC-01, SRC-02, SRC-03, SRC-04, SRC-05
 **Success Criteria** (what must be TRUE):
+
   1. `data/SOURCES.md` contains first-class entries for INE (population denominator, including the third-party-mirror supply-chain caveat), ENUSC (underreporting/cifra negra), and SPD-parent (institutional authority of CEAD + taxonomy provenance); the methodology pages carry inline citation links to each.
   2. The methodology explains, in both EN and ES, how per-family national means and per-region breakdown means are computed (unweighted commune means), and explains the 1–5 LevelChip tier classification as a relative distribution-derived scale — all as sub-sections that preserve the 7-H2 parity rule.
   3. The drogas scope note (Ley 20.000 grupo 401 only) appears inline on the FamilyBreakdownBars component where the drogas figure is displayed; the `#trend-formula` anchor exists and is deep-linked from trend/sparkline references.
@@ -355,7 +365,7 @@ Plans:
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 2/2 | Complete   | 2026-06-16 |
 | 17. Data Quality, Source Traceability & Methodology | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 5/5 | Complete   | 2026-06-19 |
-| 19. Tech-Debt Sweep | v1.3 | 0/6 | Not started | - |
+| 19. Tech-Debt Sweep | v1.3 | 1/6 | In Progress|  |
 | 20. Methodology & Sources Hardening | v1.3 | 0/TBD | Not started | - |
 
 ## Backlog
