@@ -158,6 +158,14 @@ export interface I18nStrings {
   ci_rank_regional: string;
   ci_caveat_text: string;
   ci_section_heading: string;
+
+  // Phase 23 — ENUSC SAE VHDV communal victimization module
+  enusc_section_heading: string;
+  enusc_section_aria: string;
+  enusc_ci_label: string;
+  enusc_caveat_text: string;
+  enusc_no_estimate_text: string;
+  enusc_no_estimate_aria: string;
 }
 
 export const EN_STRINGS: I18nStrings = {
@@ -316,6 +324,16 @@ export const EN_STRINGS: I18nStrings = {
   ci_rank_regional: '#{rank} in {region}',
   ci_caveat_text: 'Composite of reported crimes (CEAD/SPD), adjusted for SII economic activity. Does not reflect unreported crime. Reference year: 2024.',
   ci_section_heading: 'Composite Crime Index (2024)',
+
+  // Phase 23 — ENUSC SAE VHDV communal victimization module
+  enusc_section_heading: "Household Victimization (ENUSC 2024)",
+  enusc_section_aria: "ENUSC household victimization estimate",
+  enusc_ci_label: "95% confidence interval",
+  enusc_caveat_text:
+    "INE experimental estimate (SAE-modeled). Proportion of households reporting at least one violent crime. Covers 136 of 346 comunas. Distinct from CEAD reported-crime index — measures victimization survey responses, not police denuncias. Source: INE Estadísticas Experimentales, Seguridad Ciudadana.",
+  enusc_no_estimate_text:
+    "No INE ENUSC victimization estimate available for this comuna (SAE model covers 136 of 346 comunas).",
+  enusc_no_estimate_aria: "ENUSC no estimate available",
 };
 
 export const ES_STRINGS: I18nStrings = {
@@ -477,6 +495,16 @@ export const ES_STRINGS: I18nStrings = {
   ci_rank_regional: '#{rank} en {region}',
   ci_caveat_text: 'Compuesto de delitos reportados al sistema policial (CEAD/SPD), ajustado por actividad económica SII. No refleja delitos no denunciados. Datos de referencia: 2024.',
   ci_section_heading: 'Índice Compuesto de Delincuencia (2024)',
+
+  // Phase 23 — ENUSC SAE VHDV communal victimization module
+  enusc_section_heading: "Victimización en Hogares (ENUSC 2024)",
+  enusc_section_aria: "Estimación de victimización en hogares ENUSC",
+  enusc_ci_label: "Intervalo de confianza al 95%",
+  enusc_caveat_text:
+    "Estimación experimental de INE (modelo SAE). Proporción de hogares que reportaron al menos un delito violento. Cubre 136 de 346 comunas. Distinto del índice CEAD de delitos reportados — mide respuestas de encuesta de victimización, no denuncias policiales. Fuente: INE Estadísticas Experimentales, Seguridad Ciudadana.",
+  enusc_no_estimate_text:
+    "Sin estimación de victimización ENUSC disponible para esta comuna (el modelo SAE cubre 136 de 346 comunas).",
+  enusc_no_estimate_aria: "Sin estimación ENUSC disponible",
 };
 
 // D-17: Crime-family URL slug translations

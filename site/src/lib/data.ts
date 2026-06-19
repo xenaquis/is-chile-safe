@@ -65,6 +65,15 @@ export interface CommuneData extends CommuneMeta {
   last_updated?: string;
   // Phase 18-04 additive field (D-12) — rides along in per-commune JSON
   composite_index?: Record<string, CompositeIndexEntry>;
+  // Phase 23 additive field — present for 136 ENUSC-covered comunas, absent for 210
+  enusc_vhdv?: {
+    vhdv_rate: number;           // proportion 0–1 (e.g. 0.0478 = 4.78%); NOT per-100k
+    ci_lower: number;            // 95% CI lower bound (proportion)
+    ci_upper: number;            // 95% CI upper bound (proportion)
+    tipo_estimacion: string;     // "Directa y sintética" | "Sintética"
+    cv: number;                  // coefficient of variation (logarithmic)
+    vintage: number;             // 2024
+  };
   // Enriched by loadCommune()
   latestCompleteYear: number;
   regionName: string;
