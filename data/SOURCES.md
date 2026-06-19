@@ -19,6 +19,13 @@ Last verified: 2026-06-18 (Phase 17 Wave 0 spikes S1–S5).
 `POST https://cead.minsegpublica.gob.cl/wp-content/plugins/cead-estadisticas/ajax_2.php`
 with `seleccion=9` — returns all 22 grupos + 45 subgrupos regardless of `familia` param.
 
+**Taxonomy provenance:**
+The canonical familia/grupo/subgrupo tree is read at runtime from the catalog endpoint
+above (`ajax_2.php seleccion=9`). No separate public taxonomy document was located during
+Wave 0 research. The organizational authority for this classification scheme is the
+Subsecretaría de Prevención del Delito (SPD) — see `## SPD — institutional authority`
+below.
+
 **Measure semantics:**
 - `tipoVal=1,2` → **casos policiales** = denuncias (`1`) + detenciones flagrantes (`2`).
   These are strictly additive at the offence level (confirmed: 287+732=1,019 for
@@ -60,6 +67,10 @@ inter-batch sleep in orchestrator; validates 346-commune count after every scrap
 
 > **Status: reference snapshot — NOT wired to the displayed metric.**
 > Deferred to Phase 18 (D-HOM metric switch). Stored in `data/snapshots/` once ingested.
+
+> **Institutional note (SC-07):** SPD (Subsecretaría de Prevención del Delito) is the
+> parent body that administers CEAD and owns the crime-classification taxonomy. See
+> `## SPD — institutional authority` for the full parent-body entry.
 
 **Full name:** Subsecretaría de Prevención del Delito / Centro para la Prevención de
 Homicidios — Base de Datos VHC (Víctimas de Homicidios Consumados).
@@ -186,6 +197,108 @@ TopoJSON at 87 KB for the interactive choropleth map.
 
 **Important distinction:** chilemapas provides boundary geometry only. All crime
 statistics overlaid on the map are sourced from CEAD (see above), not from chilemapas.
+
+---
+
+## INE — population denominator (per-100k + <10k rule)
+
+**Full name:** Instituto Nacional de Estadísticas (INE) — Proyecciones de Población
+(base Censo 2017).
+
+**Official landing:**
+`https://www.ine.gob.cl/estadisticas/sociales/demografia-y-vitales/proyecciones-de-poblacion`
+[verify URL]
+
+**Measure semantics:**
+Resident-population projection by commune, year 2024. Used as:
+- (a) the per-100k denominator for every displayed rate (matches CEAD `medida=2`);
+- (b) the gate for the <10,000-inhabitant low-population exclusion (DATA-04).
+
+**Vintage:** INE Censo 2017 base + projection series; year 2024 slice.
+
+**Fetch provenance:** `pipeline/scripts/fetch_ine_population.py` →
+`data/ine/poblacion_comunal.json` (346 communes).
+
+**SUPPLY-CHAIN CAVEAT:** The fetch script currently downloads from a **THIRD-PARTY
+MIRROR**, not directly from INE:
+`https://github.com/bastianolea/censo_proyecciones_poblacion` (community-maintained,
+NOT an official INE distribution channel).
+
+Risk: if the mirror is abandoned, unmaintained, or re-methodologized without notice,
+denominators drift silently — affecting every displayed per-100k rate.
+
+Mitigation (P20): CI step spot-checks ≥5 commune populations against the official
+INE projection table after each fetch (implemented in plan 20-04). Future work:
+switch fetch to pull directly from the official INE endpoint once a stable machine-
+readable URL is confirmed.
+
+**Licence:** Datos públicos del Estado de Chile (INE).
+
+---
+
+## ENUSC — underreporting / cifra negra
+
+**Full name:** Encuesta Nacional Urbana de Seguridad Ciudadana (ENUSC).
+
+**Publisher:** Subsecretaría de Prevención del Delito, Ministerio del Interior y
+Seguridad Pública / INE (co-executed).
+
+**Official landing:**
+`https://www.ine.gob.cl/enusc` [verify URL — also published via
+`https://www.seguridadpublica.gov.cl` — confirm canonical before publish]
+
+**Measure semantics:**
+Household victimization survey. Among other indicators, reports the proportion of
+incidents reported to police (denuncia) by crime type — the empirical basis for the
+three cifra-negra (underreporting) statements on the methodology page (F11).
+
+**Vintage:** Cite the exact ENUSC edition year used for the on-page claims.
+[verify edition]
+
+**Used by:** `src/pages/methodology.astro` and `src/pages/es/metodologia.astro`
+(underreporting H2 section). These pages MUST carry an inline citation link to the
+ENUSC landing page (wired in plan 20-03).
+
+**Licence:** Datos públicos del Estado de Chile.
+
+---
+
+## SPD — institutional authority (parent of CEAD + taxonomy)
+
+**Full name:** Subsecretaría de Prevención del Delito (SPD), Ministerio del Interior
+y Seguridad Pública.
+
+**Portal:** `https://www.seguridadpublica.gov.cl`
+
+**Role:** Parent body that administers CEAD and publishes/owns the crime-classification
+scheme (grupo/subgrupo taxonomy). Chain of authority for both the CEAD taxonomy and
+the VHC homicide dataset.
+
+**Taxonomy provenance:** The canonical familia/grupo/subgrupo tree is read at runtime
+from the CEAD catalog endpoint (`ajax_2.php seleccion=9`). No separate public taxonomy
+document was located during Wave 0 research. SPD is the organizational authority for
+this classification.
+
+**Licence:** Datos públicos del Estado de Chile.
+
+---
+
+## Methodology parameters (editorial decisions)
+
+These are editorial decisions made by the site — not external sources. Documented here
+so every displayed rule has a named registry entry with its rationale.
+
+- **Trend window:** 3 years (year N vs N-3). Editorial.
+- **Trend threshold:** ±5% to label rising / falling / stable; chosen to avoid flagging
+  statistically marginal change. Editorial — no external standard claimed.
+- **Low-population exclusion:** Communes with fewer than 10,000 inhabitants are excluded
+  from rankings (DATA-04). Editorial; approximates the lower bound INE uses for small-
+  area reporting. Communes below threshold are **RETAINED** in the data and flagged —
+  never silently dropped.
+- **National aggregate figure:** **UNWEIGHTED** mean of non-low-population commune rates
+  ("typical-commune" statistic). Distinct from the population-weighted means used in the
+  national and regional time-series (F5). The methodology pages and FAQ must not describe
+  this figure as "population-weighted" (MC-01/MC-07 — corrected in plan 19).
 
 ---
 
