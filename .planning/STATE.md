@@ -2,8 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Map Fidelity, Findability & News
-status: Phase 16 complete
-last_updated: "2026-06-19T03:16:35.598Z"
+status: Awaiting next milestone
+last_updated: "2026-06-19T03:30:15.529Z"
+last_activity: 2026-06-19 — Milestone v1.2 completed and archived
 progress:
   total_phases: 8
   completed_phases: 8
@@ -26,42 +27,10 @@ See: .planning/PROJECT.md (updated 2026-06-15)
 
 ## Current Position
 
-Phases 10–15 COMPLETE (shipped 2026-06-16). Two phases remain in v1.2.
-
-**▶ NEXT ACTION: `/gsd-autonomous`** — runs the two remaining phases in this
-order (set with user 2026-06-18, see ROADMAP "▶ AUTONOMOUS RUN ORDER"):
-
-1. **Phase 17 — Data Quality, Source Traceability & Methodology** (runs FIRST).
-   FOCUSED scope: verify data vs source, fix the wrong CEAD host, source
-   registry (`data/SOURCES.md`), reproducible normalized snapshots of SPD/SII/
-   Fiscalía, rewrite methodology EN+ES with clickable sources. NO composite
-   index / NO schema migration / NO displayed-metric change (deferred to
-   proposed Phase 18). **Wave 0 research COMPLETE** — see
-   `phases/17-robust-crime-index/17-WAVE0-RESEARCH-A.md` + `17-WAVE0-RESEARCH-B.md` +
-   `17-CEAD-CATALOG.json`. Discuss artifact pre-staged: `17-CONTEXT.md`.
-
-2. **Phase 16 — News Activation + Geolocation Redesign + Model A/B** (runs
-   SECOND). **API keys WILL be available** (`DEEPSEEK_API_KEY` + `MINIMAX_API_KEY`
-   in gitignored `.env`) → full scope incl. live pipeline run + DeepSeek/MiniMax
-   A/B. Discuss artifact pre-staged: `phases/16-news-activation-geolocation-ab/16-CONTEXT.md`.
-
-Both CONTEXTs are pre-written so discuss does not block the unattended run.
-Use **BrowserOS** for each phase's end-of-phase visual verification
-(methodology EN+ES; news page + incident→source + incident→comuna links).
-
-**Quality gates left ON by user choice (2026-06-18):** `ai_integration_phase`
-
-+ `ui_phase` are intentionally enabled (quality > zero-questions). The pre-staged
-
-CONTEXTs pre-answer the essentials, but a sub-agent (e.g. AI eval/framework or
-UI-spec) MAY surface ONE scoping question — that is EXPECTED, not an error;
-answer it and let the run continue. Operator may want to check in periodically
-rather than fully walk away.
-
-**Open backlog (v1.2):** BUGFIX-999.1 (Tarapacá region_id collision) — RESOLVED
-2026-06-16 (quick 260616-ldi). Deferred to Phase 18: composite crime index,
-homicide metric switch to SPD in UI, `featured_rates`→7-metric schema migration,
-secuestro comuna-level (S5b).
+Phase: Milestone v1.2 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-06-19 — Milestone v1.2 completed and archived
 
 ## Deferred Items
 
@@ -202,5 +171,4 @@ All gated on one root action: execute `DEPLOYMENT.md` (CF account + DNS + `DEEPS
 
 ## Operator Next Steps
 
-- Plan Phase 7 with `/gsd:plan-phase 7`
-- Prerequisites before executing Phase 7: BrowserOS MCP connected (port 9200) + `cd site && npm run dev` running
+- Start the next milestone with /gsd:new-milestone

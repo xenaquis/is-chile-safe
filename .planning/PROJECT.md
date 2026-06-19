@@ -10,13 +10,11 @@ El sitio captura tráfico SEO mediante páginas programáticas bilingües (por c
 
 Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-## Current Milestone: v1.2 Map Fidelity, Findability & News
+## Current Milestone: (between milestones — v1.2 shipped 2026-06-18)
 
-**Goal:** El sitio tiene material rico pero "perdido" — geometría blocky, comunas inalcanzables, rankings que no enlazan comunas, capa de noticias construida pero apagada. v1.2 lo conecta y lo activa.
+**v1.2 Map Fidelity, Findability & News — SHIPPED.** The site's rich-but-"lost" material is now connected and the news layer is live: real commune geometry, all 346 comunas reachable + finder, home/IA hub-and-spoke, ranking + crime-type SEO, homicide as a first-class category, verified figures + traceable bilingual methodology, and live geolocated news (`/news/` + `/es/noticias/`). Audit: tech_debt, 0 blockers (`milestones/v1.2-MILESTONE-AUDIT.md`).
 
-**Sequence:** geometría real (10 ✓) → publicar 346 + finder (11 ✓) → home/IA hub-and-spoke (12) → SEO de rankings (13) → homicidio como categoría (14) → SEO por tipo de delito (15) → activar noticias + geolocalización rediseñada + A/B de modelos (16).
-
-**Status:** Phases 10–11 shipped 2026-06-15; next active phase = 12. Excluye go-live (humano, `DEPLOYMENT.md`).
+**Next (proposed):** Phase 18 — Composite Crime Index & Metric Redesign (deferred from Phase 17). Exposure-adjusted composite index, SPD homicide-metric switch, `featured_rates`→7-metric schema migration, index-driven choropleth. High-risk/large — plan interactively. Sources validated + snapshots committed in Phase 17 (DQ-04). Also pending: go-live (`DEPLOYMENT.md`, human). Run `/gsd:new-milestone` to scope the next cycle.
 
 ## Requirements
 
@@ -50,21 +48,23 @@ Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, s
 - ✓ Data correctness: rates use national MEAN ranked by rate/100k; 0 console errors; dead ranking links gated; AdSlot no-CLS / 0 adsbygoogle disabled — v1.1 (Phase 8, BUGFIX-01..05)
 - ✓ UX/readability/a11y: single-H1 hierarchy, 720px prose, bilingual glossary, sober tone, WCAG-AA contrast, map-control aria, meta/JSON-LD; grammatical ES region naming (F-006) + keyboard-operable mobile nav (WR-03) — v1.1 (Phase 9, UX/READ/A11Y)
 
-### Validated (v1.2 — partial, shipped 2026-06-15)
+### Validated (v1.2 Map Fidelity, Findability & News — shipped 2026-06-18)
 
 - ✓ High-resolution commune geometry from chilemapas (real boundaries, 85.6KB gzip, 346/0/0/0 join) — v1.2 (Phase 10, GEO-01/02)
 - ✓ All 346 comunas published + searchable directory (A–Z + by-region, accent-insensitive); rankings link every comuna; sitemap covers all — v1.2 (Phase 11, COMU-01/02/03)
+- ✓ Home/IA redesign (Hybrid C+B) + comuna hub-and-spoke cross-linking — v1.2 (Phase 12, IA-01/02/03)
+- ✓ Ranking SEO hardening: OG/Twitter cards site-wide, ItemList + BreadcrumbList JSON-LD — v1.2 (Phase 13, RSEO-01/02)
+- ✓ Homicide as a first-class map category (own filter/layer + commune-panel breakdown) — v1.2 (Phase 14, HOM-01/02)
+- ✓ Crime-type SEO ranking pages ("las N comunas con más {delito}", bilingual, homicide first) — v1.2 (Phase 15, CSEO-01/02)
+- ✓ News activation: geolocation redesign (name→CUT resolver, 95.45% comuna acc), DeepSeek/MiniMax A/B (DeepSeek default), live pipeline (19 incidents), bilingual `/news/` + `/es/noticias/` with source + comuna links — v1.2 (Phase 16, NEWS-01..04)
+- ✓ Data quality + source traceability + methodology: verified figures (`17-DATA-QUALITY.md`), canonical `data/SOURCES.md`, corrected CEAD host, reproducible source snapshots, rewritten bilingual methodology with clickable sources — v1.2 (Phase 17, DQ-01..04)
+- ✓ **BUGFIX-999.1 resolved** Tarapacá region_id collision fixed (region derived from CUT length; all 16 regions populate) — 2026-06-16 (quick-260616-ldi)
 
-### Active (v1.2 remaining + launch)
+### Active (next milestone + launch)
 
-- [ ] **Phase 12** Home/IA redesign (Hybrid C+B) + comuna hub-and-spoke [IA-01..03]
-- [ ] **Phase 13** Ranking SEO hardening (OG/Twitter cards, ItemList/BreadcrumbList JSON-LD) [RSEO-01/02]
-- [ ] **Phase 14** Homicide as a first-class map category [HOM-01/02]
-- [ ] **Phase 15** Crime-type SEO ranking pages [CSEO-01/02]
-- [ ] **Phase 16** News activation + geolocation redesign + DeepSeek/MiniMax A/B [NEWS-01..04]
-- [ ] **BUGFIX-999.1** Tarapacá comunas mis-assigned to Aysén/Los Ríos (region_id 11/14 collision) — derive region from CUT. Found at v1.1 close.
-- [ ] **Go-live `ischilesafe.com`** (human): `DEPLOYMENT.md` — CF Pages + DNS + secrets; live pipeline + 50-incident audit; GSC submission; flip `ADSENSE_ENABLED` + Consent Mode.
-- [ ] Deuda técnica: aserción CI de orden FAMILY_KEYS; tipado `by_family`; `AVAILABLE_YEARS` dinámico; flip `nyquist_compliant` (fases 4–6); 08-VALIDATION.md.
+- [ ] **Phase 18 (proposed)** Composite Crime Index & Metric Redesign — exposure-adjusted composite index, SPD homicide-metric switch, `featured_rates`→7-metric schema migration, index-driven choropleth. High-risk/large — plan interactively. Sources + snapshots ready from Phase 17.
+- [ ] **Go-live `ischilesafe.com`** (human): `DEPLOYMENT.md` — CF Pages + DNS + secrets; live pipeline + incident audit; GSC submission; flip `ADSENSE_ENABLED` + Consent Mode.
+- [ ] Deuda técnica: aserción CI de orden FAMILY_KEYS; tipado `by_family`; `AVAILABLE_YEARS` dinámico; flip `nyquist_compliant` (fases 4–6); 08-VALIDATION.md; P15 advisory human checks (locale-switcher, editorial — P17-superseded); COMU-03 `/crime/homicide/` vida-page crawl orphan.
 
 ### Out of Scope
 
@@ -109,7 +109,9 @@ Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, s
 | Hamburger zero-JS keyboard-operable vía checkbox sr-only-but-focusable | Mantiene la restricción D-09 (zero-JS) y da ruta de teclado al menú móvil sin display:none | ✓ Good — v1.1 (WR-03) |
 | chilemapas (GPL-3) como fuente de geometría comunal | Límites reales reconocibles dentro del presupuesto de tamaño; re-key de código a CUT con zero-pad | ✓ Good — v1.2 (Phase 10) |
 | ROLLOUT_ALL=true como default de build | Publicar las 346 comunas; elimina el problema de "material perdido" (orphan pages) | ✓ Good — v1.2 (Phase 11) |
-| `region_id` de 2 dígitos como clave de región | Códigos de provincia colisionan con números de región 10–16 (Tarapacá 11/14 ↔ Aysén/Los Ríos) | ⚠️ Revisit — v1.2 (BUGFIX-999.1: derivar región del CUT) |
+| `region_id` derivado del CUT (no del código de provincia) | Códigos de provincia de 2 dígitos colisionan con números de región 10–16 (Tarapacá 11/14 ↔ Aysén/Los Ríos); derivar del CUT lo resuelve | ✓ Good — v1.2 (BUGFIX-999.1 resuelto 2026-06-16) |
+| LLM emite NOMBRE de comuna → resolver determinista nombre→CUT (no CUT crudo) | El modelo alucina CUTs crudos (~60-70% mal); emitir el nombre + lookup determinista (None si desconocido) sube la precisión a 95.45% — el diseño, no el proveedor, era el cuello de botella | ✓ Good — v1.2 (Phase 16, NEWS-01) |
+| CEAD host correcto `cead.minsegpublica.gob.cl` + registro `data/SOURCES.md` | El sitio citaba el host equivocado (`ministeriointerior`); la afirmación "fuente de verdad" era ella misma no trazable | ✓ Good — v1.2 (Phase 17, DQ-02) |
 
 ## Evolution
 
@@ -130,13 +132,13 @@ This document evolves at phase transitions and milestone boundaries.
 
 ## Current State
 
-**Shipped:** v1.0 MVP (2026-06-13, 6 phases) → v1.1 Polish & QA (2026-06-15, Phases 7–9) → v1.2 in progress (Phases 10–11 shipped 2026-06-15; next = Phase 12). v1.1 closed with the two audit-flagged defects fixed (F-006 ES region grammar, WR-03 hamburger keyboard); 10/10 validators pass.
+**Shipped:** v1.0 MVP (2026-06-13, 6 phases) → v1.1 Polish & QA (2026-06-15, Phases 7–9) → **v1.2 Map Fidelity, Findability & News (2026-06-18, Phases 10–17)**. v1.2 closed via `/gsd-autonomous` (Phase 17 then 16); audit tech_debt / 0 blockers. Next: proposed Phase 18 (Composite Crime Index) + go-live.
 
-**Stack as built:** Astro 6.4 + React islands + Leaflet (frontend, `site/`); Python 3.12 pipeline (CEAD scraper + RSS/DeepSeek news, `pipeline/`, Pydantic v2, pytest); JSON-in-repo data store; GitHub Actions cron + Cloudflare Pages Deploy-Hook deploy. Now publishing all 346 comunas (×2 locales) with real chilemapas geometry and a searchable directory; 772 pages build clean under the 20K Cloudflare limit; 10 frontend validators + pipeline tests green.
+**Stack as built:** Astro 6.4 + React islands + Leaflet (frontend, `site/`); Python 3.12 pipeline (CEAD scraper + RSS/DeepSeek news + name→CUT resolver + A/B harness, `pipeline/`, Pydantic v2, pytest 158 green); JSON-in-repo data store (incl. `data/SOURCES.md`, `data/snapshots/`, `data/incidents/current.json`); GitHub Actions cron + Cloudflare Pages Deploy-Hook deploy. 792 pages build clean under the 20K Cloudflare limit; 12 frontend validators + pipeline tests green.
 
-**Known data issue (v1.2 backlog 999.1):** Tarapacá comunas (Iquique, Alto Hospicio, Pozo Almonte, Pica, Huara, Camiña, Colchane) are mis-grouped under Aysén/Los Ríos because `region_id` stores ambiguous 2-digit province codes (11/14) that collide with region numbers. Fix = derive region from the CUT.
+**Resolved:** Tarapacá region_id collision (BUGFIX-999.1) fixed 2026-06-16 — region derived from CUT length; all 16 regions populate.
 
 **Not yet live:** the site is not deployed — go-live requires a Cloudflare account, DNS for `ischilesafe.com`, and the `DEEPSEEK_API_KEY` / `CF_DEPLOY_HOOK_URL` secrets (all in `DEPLOYMENT.md`). That single human step also unblocks the news live-run + 50-incident audit and AdSense activation.
 
 ---
-*Last updated: 2026-06-15 — after v1.1 Polish & QA milestone (v1.2 active)*
+*Last updated: 2026-06-18 — after v1.2 Map Fidelity, Findability & News milestone (next: proposed Phase 18 + go-live)*
