@@ -814,3 +814,22 @@
   font-size: 10px;
   color: var(--muted);
 }
+
+
+/* TD-06 — partial year caveat badge */
+.partial-year-badge {
+  position: absolute;
+  top: calc(var(--map-topbar-h, 96px) + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 800;
+  background: rgba(255, 248, 220, 0.95);
+  border: 1px solid #d4a800;
+  color: #7a5c00;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}

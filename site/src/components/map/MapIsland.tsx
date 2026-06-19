@@ -50,6 +50,7 @@ import type { CommuneIndexEntry } from './SearchBox';
 interface MapPayload {
   generated: string;
   year: number;
+  partial_year?: boolean;
   comunas: CommunaPayload[];
 }
 
@@ -106,6 +107,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
   const [communeIndex, setCommuneIndex] = useState<CommuneIndexEntry[]>([]);
   const [mapReady, setMapReady] = useState(false);
   const [breaks, setBreaks] = useState<number[] | undefined>(undefined);
+  const [partialYear, setPartialYear] = useState(false);
 
   // ---------------------------------------------------------------------------
   // Map init effect (runs once on mount)
@@ -193,6 +195,9 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
         payload.comunas.map((c) => c.rate).filter((r) => r > 0), 5
       ));
 
+      // TD-06: surface partial-year caveat badge when flag is set
+      setPartialYear(payload.partial_year === true);
+
       // Build memoized style map from precomputed levels (D-11)
       styleMapRef.current = buildStyleMapFromLevel(payload.comunas);
 
@@ -259,6 +264,9 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
       setBreaks(computeQuantileBreaks(
         payload.comunas.map((c) => c.rate).filter((r) => r > 0), 5
       ));
+
+      // TD-06: update partial-year badge for the newly loaded year
+      setPartialYear(payload.partial_year === true);
 
       // Rebuild style map based on current crime filter (three-way branch D-05/HOM-01):
       // homicide chip → independent homicide scale; family chip → family rate; else → level
@@ -418,6 +426,15 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
           locate(map, featuresRef.current, userRef, selectCommune, setToast, lang);
         }}
       />
+
+      {/* TD-06: partial-year caveat badge — shown when latest year data is incomplete */}
+      {partialYear && (
+        <div className="partial-year-badge" role="note" aria-live="polite">
+          {lang === 'es'
+            ? `Año parcial (${year}) — datos aún no consolidados`
+            : `Partial year (${year}) — data not yet consolidated`}
+        </div>
+      )}
 
       {/* Map load error overlay (T-03-01-02 graceful failure) */}
       {loadError && (
