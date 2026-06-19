@@ -14,13 +14,17 @@
  *  10.  coverage.mjs          — route-count + no-orphan-link + sitemap-coverage + directory-completeness
  *  11.  spine.mjs             — IA spine cross-link reciprocity (Phase 12: rankings, breadcrumb, map-spoke, home H1)
  *  12.  seo.mjs               — OG/Twitter meta + JSON-LD shape validator (Phase 13 SEO hardening)
+ *  13.  figure-registry.mjs   — SRC-05 figure-registry zero-orphan completeness check over data/SOURCES.md
  *
  * Any non-zero exit from a child script fails the suite.
  * Prints a per-check PASS/FAIL summary at the end.
  *
  * Usage:
- *   node scripts/validate/all.mjs            # default build
+ *   node scripts/validate/all.mjs                  # default build
  *   EXPECT_ALL=true node scripts/validate/all.mjs  # full rollout (346 communes)
+ *
+ * Note: figure-registry.mjs (#13) reads data/SOURCES.md (offline, no dist/ needed)
+ * and runs regardless of build flags. All other validators require a prior build.
  */
 
 import { spawnSync } from 'node:child_process';
@@ -42,6 +46,7 @@ const VALIDATORS = [
   'coverage.mjs',
   'spine.mjs',
   'seo.mjs',
+  'figure-registry.mjs',
 ];
 
 const results = [];

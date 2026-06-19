@@ -302,6 +302,35 @@ so every displayed rule has a named registry entry with its rationale.
 
 ---
 
+## News feeds — qualitative incident layer (RSS)
+
+**Role:** Qualitative layer of recent incidents extracted from Chilean news media RSS feeds.
+Not a statistical source — complements the quantitative CEAD layer.
+
+**Feeds ingested:**
+- Emol (`https://www.emol.com/rss/`)
+- BioBioChile (`https://www.biobiochile.cl/feed/`)
+- T13 (`https://www.t13.cl/rss.xml`)
+- Cooperativa (`https://www.cooperativa.cl/rss/`)
+
+**Processing pipeline:**
+RSS items fetched via `feedparser`; classified and geolocated by DeepSeek v4-flash
+(`pipeline/news/`); stored in `data/news/current.json`.
+
+**Attribution requirement (displayed on news pages):**
+Every news pin cites its source outlet name and links to the original article URL.
+No incident is displayed without a source link.
+
+**Measure semantics:**
+Qualitative, not statistical. Incident counts are NOT comparable to CEAD per-100k rates.
+Coverage is subject to editorial selection by each news outlet.
+
+**Vintage:** Refreshed via GitHub Actions cron (daily).
+
+**Licence:** News item attribution via inline source links; no reproduction of article bodies.
+
+---
+
 ## Cross-source notes
 
 - **Population denominator for rates:** INE resident-population projections (2024).
