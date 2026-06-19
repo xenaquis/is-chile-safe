@@ -71,7 +71,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 ### v2.0 Composite Index, Comparators & Launch
 
 - [~] **Phase 18: Composite Crime Index** — exposure-adjusted 0–100 index, SPD VHC homicide switch, schema migration, index-driven choropleth _(RESERVED number; highest-risk phase — plan interactively)_ (executed 2026-06-19; verified gaps_found — 3 gap-closure plans 18-06..18-08 pending execution)
-- [ ] **Phase 21: Commune Comparator + A-vs-B SEO** — interactive comparator island + ~6,800 bilingual A-vs-B programmatic pages built on Phase 18 outputs _(depends on Phase 18)_
+- [x] **Phase 21: Commune Comparator + A-vs-B SEO** — interactive comparator island + ~6,800 bilingual A-vs-B programmatic pages built on Phase 18 outputs _(depends on Phase 18)_ (completed 2026-06-19)
 - [ ] **Phase 22: Go-Live / Launch Ops** — CF deploy hook, production deploy, live news audit, GSC submission _(parallel with Phase 21; no code dependency)_
 
 ---
@@ -101,7 +101,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
   - [x] 18-05-PLAN.md — Editorial + docs gate: forbidden-language extension, F13/F14 figure-registry, SOURCES.md + methodology pages, full non-breaking validator suite
   - [x] 18-06-PLAN.md — Gap 1 (CI-05): key ResultPanel composite block on COMPOSITE_YEAR=2024 so the score/band/rank/caveat render in the default map view
   - [x] 18-07-PLAN.md — Gap 2 (CI-04/CI-08): correct SII cap docs (SOURCES.md + EN/ES methodology) to INE-fallback semantics matching D-03 and the code
-  - [ ] 18-08-PLAN.md — Gap 3 (CI-02): mask NaN before winsorizing in normalize_metric + NaN+outlier clip-point test
+  - [x] 18-08-PLAN.md — Gap 3 (CI-02): mask NaN before winsorizing in normalize_metric + NaN+outlier clip-point test
 
 **UI hint**: yes
 
@@ -142,6 +142,6 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 18. Composite Crime Index | 7/8 | In Progress|  |
+| 18. Composite Crime Index | 8/8 | Complete   | 2026-06-19 |
 | 21. Commune Comparator + A-vs-B SEO | 0/TBD | Not started | - |
 | 22. Go-Live / Launch Ops | 0/TBD | Not started | - |
