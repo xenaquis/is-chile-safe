@@ -64,7 +64,7 @@ Full phase details, success criteria, and per-plan breakdown: **[milestones/v1.2
 
 > Phase 18 is intentionally skipped here — it is reserved for the post-v1.3 Composite Crime Index milestone (see Backlog).
 
-- [ ] **Phase 19: Tech-Debt Sweep** — Fix the methodology weighted/unweighted math contradiction, repair bilingual integrity (ES "comuna" terminology, orphan `/es/delitos-por-region/` + hreflang), remove stale placeholders, sort news newest-first, redirect COMU-03 `/crime/homicide/`, harden incident URL validation, extract hardcoded strings to `i18n.ts`, and tighten SEO spine (robots.txt, glossary nav, hreflang reciprocity). [TD-01..07, BIL-01..04, SEO-01..03]
+- [x] **Phase 19: Tech-Debt Sweep** — Fix the methodology weighted/unweighted math contradiction, repair bilingual integrity (ES "comuna" terminology, orphan `/es/delitos-por-region/` + hreflang), remove stale placeholders, sort news newest-first, redirect COMU-03 `/crime/homicide/`, harden incident URL validation, extract hardcoded strings to `i18n.ts`, and tighten SEO spine (robots.txt, glossary nav, hreflang reciprocity). [TD-01..07, BIL-01..04, SEO-01..03] (completed 2026-06-19)
 - [ ] **Phase 20: Methodology & Sources Hardening** — Add INE, ENUSC, and SPD-parent as first-class `data/SOURCES.md` entries; document editorial parameters (5% trend threshold, 3-year window, <10k rule); add methodology explanations for per-family means, per-region breakdowns, and LevelChip tiers; surface the drogas scope note on FamilyBreakdownBars; implement CI forbidden-language validator + INE population spot-check; close the figure registry so zero displayed numbers are orphaned. [MTH-01..04, SRC-01..05]
 
 ## Phase Details (archived — see milestones/v1.2-ROADMAP.md)
@@ -319,11 +319,11 @@ Plans:
 
 **Wave 3** *(blocked on 19-06 — shares crime family pages)*
 
-- [ ] 19-04-PLAN.md — robots.txt + Santiago hreflang pair + glossary spine + /crime/homicide/ redirect [SEO-01, SEO-02, SEO-03, TD-04]
+- [x] 19-04-PLAN.md — robots.txt + Santiago hreflang pair + glossary spine + /crime/homicide/ redirect [SEO-01, SEO-02, SEO-03, TD-04]
 
 **Wave 4** *(blocked on 19-04 — shares crime/region pages + i18n.ts)*
 
-- [ ] 19-05-PLAN.md — Retire stale map placeholder + FAMILY_KEYS guard/typed by_family/dynamic years/skipif cleanup/nyquist reconcile [TD-02, TD-07]
+- [x] 19-05-PLAN.md — Retire stale map placeholder + FAMILY_KEYS guard/typed by_family/dynamic years/skipif cleanup/nyquist reconcile [TD-02, TD-07]
 
 **UI hint**: yes
 
@@ -365,7 +365,7 @@ Plans:
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 2/2 | Complete   | 2026-06-16 |
 | 17. Data Quality, Source Traceability & Methodology | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 5/5 | Complete   | 2026-06-19 |
-| 19. Tech-Debt Sweep | v1.3 | 4/6 | In Progress|  |
+| 19. Tech-Debt Sweep | v1.3 | 6/6 | Complete   | 2026-06-19 |
 | 20. Methodology & Sources Hardening | v1.3 | 0/TBD | Not started | - |
 
 ## Backlog

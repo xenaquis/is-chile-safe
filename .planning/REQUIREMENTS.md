@@ -13,12 +13,12 @@ Each requirement traces to one or more review finding IDs. Severity from the rev
 ### Tech Debt & Correctness (→ Phase 19)
 
 - [x] **TD-01**: Methodology EN+ES correctly state the national mean is an **unweighted** mean of non-low-population commune rates (a typical-commune figure), matching `data.ts` and the is-chile-safe FAQ — no "population-weighted" claim anywhere user-facing. *(MC-01, MC-07 — high)*
-- [ ] **TD-02**: The stale `map_placeholder_text` ("map coming soon" / "disponible próximamente") no longer renders anywhere; the live map is the only map surface. *(charter §2; map is live)*
+- [x] **TD-02**: The stale `map_placeholder_text` ("map coming soon" / "disponible próximamente") no longer renders anywhere; the live map is the only map surface. *(charter §2; map is live)*
 - [x] **TD-03**: News incidents render newest-first (sorted by `date` desc) on `/news/` and `/es/noticias/` (and any pin list). *(IN-03)*
 - [ ] **TD-04**: `/crime/homicide/` (vida-family aggregate, ambiguous "homicide" slug) redirects to its canonical target — no orphaned, editorially-ambiguous duplicate URL. *(COMU-03; DECISIONS c = redirect)*
 - [x] **TD-05**: Incident source URLs are validated by `new URL()` + protocol whitelist (http/https) both in `news.astro`/`noticias.astro` and in the pipeline (`build_incident`/`canonical_url`); non-http(s) URLs are dropped, not rendered. *(CQ-01, CQ-02)*
 - [x] **TD-06**: `map-payload-*.json` carries an explicit `partial_year` flag so the frontend can caveat partial years (e.g. 2025). *(DQ-MAP-PAYLOAD-2025-NO-PARTIAL-FLAG)*
-- [ ] **TD-07**: Residual code tech-debt from PROJECT.md is closed: CI assertion for `FAMILY_KEYS` order, typed `by_family`, dynamic `AVAILABLE_YEARS`, `nyquist_compliant` flags reconciled for phases 4–6, and any skipif/xfail test cruft removed. *(PROJECT.md tech-debt line)*
+- [x] **TD-07**: Residual code tech-debt from PROJECT.md is closed: CI assertion for `FAMILY_KEYS` order, typed `by_family`, dynamic `AVAILABLE_YEARS`, `nyquist_compliant` flags reconciled for phases 4–6, and any skipif/xfail test cruft removed. *(PROJECT.md tech-debt line)*
 
 ### Bilingual Parity (→ Phase 19)
 
@@ -68,12 +68,12 @@ Each requirement traces to one or more review finding IDs. Severity from the rev
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
 | TD-01 | 19 | Complete |
-| TD-02 | 19 | Pending |
+| TD-02 | 19 | Complete |
 | TD-03 | 19 | Complete |
 | TD-04 | 19 | Pending |
 | TD-05 | 19 | Complete |
 | TD-06 | 19 | Complete |
-| TD-07 | 19 | Pending |
+| TD-07 | 19 | Complete |
 | BIL-01 | 19 | Complete |
 | BIL-02 | 19 | Complete |
 | BIL-03 | 19 | Complete |
