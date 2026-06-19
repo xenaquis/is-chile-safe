@@ -245,7 +245,7 @@ const jsonLd = {
   </section>
 
   <section>
-    <h2>Fórmula de tendencia</h2>
+    <h2 id="trend-formula">Fórmula de tendencia</h2>
     <p>
       Cada página comunal y pin del mapa muestra un indicador de tendencia: <em>subiendo</em>,
       <em>bajando</em> o <em>estable</em>. La tendencia se calcula de la siguiente manera:
@@ -275,7 +275,20 @@ const jsonLd = {
       estadísticamente marginales en comunas con recuentos absolutos bajos. Para comunas con
       grandes poblaciones y series estables, el umbral proporciona una señal conservadora; en
       comunas más pequeñas, la variación interanual puede superar el 5 % por ruido muestral
-      y no por un cambio genuino.
+      y no por un cambio genuino. Tanto el umbral del 5 % como la ventana de tres años son
+      parámetros editoriales — se documentan como decisiones editoriales en el registro de
+      fuentes del proyecto, no derivan de ningún estándar externo.
+    </p>
+    <p>
+      <strong>Nota sobre ponderación (F2 vs F5):</strong> Las tasas de <em>series temporales</em>
+      nacionales y regionales mostradas en los gráficos de tendencia utilizan medias comunales
+      ponderadas por población — lo correcto para seguir el cambio per cápita real a lo largo
+      del tiempo. En cambio, los <em>promedios agregados</em> nacionales y por familia que
+      aparecen en las páginas comunales y en los encabezados de ranking son medias
+      <strong>no ponderadas</strong> de las tasas comunales elegibles (la cifra de comuna
+      típica descrita más arriba). Ambos enfoques responden preguntas distintas: no ponderado
+      = «¿cómo es la comuna típica?»; ponderado por población = «¿qué experimenta el residente
+      promedio?». Ambas cifras están claramente etiquetadas en las páginas donde aparecen.
     </p>
   </section>
 
@@ -319,6 +332,46 @@ const jsonLd = {
       cifras internacionales, porque los estándares de registro, las definiciones legales y
       las estructuras demográficas difieren sustancialmente entre países, lo que hace poco
       fiables las comparaciones de tasas entre naciones.
+    </p>
+
+    <h3>Media nacional por familia (F3)</h3>
+    <p>
+      En las páginas de ranking de delitos, la cifra <em>Media nacional</em> muestra la media
+      simple (no ponderada) de las tasas comunales elegibles <strong>para esa familia delictiva
+      específica</strong>. Usa la misma base de comuna típica descrita anteriormente: solo comunas
+      con población ≥ 10.000 habitantes, último año completo, sin ponderación por población.
+      Responde a la pregunta «¿cuál es la tasa típica de una comuna chilena en este tipo de
+      delito?» — no es un promedio per cápita nacional.
+    </p>
+
+    <h3>Media de desglose regional (F4)</h3>
+    <p>
+      En las páginas de ranking de delitos, las barras de desglose regional muestran la
+      <em>media simple de las tasas comunales elegibles dentro de cada región</em> para la
+      familia delictiva mostrada. Las comunas con menos de 10.000 habitantes quedan excluidas
+      de esta media regional por las mismas razones de volatilidad que se aplican a la cifra
+      nacional. Es una cifra de comuna típica dentro de una región, no una tasa regional
+      ponderada por población.
+    </p>
+
+    <h3>Clasificación de nivel de incidencia — LevelChip 1–5 (F6)</h3>
+    <p>
+      Cada página comunal muestra un indicador de nivel de incidencia del 1 al 5. Se trata de
+      una <strong>clasificación relativa calculada en el momento de la compilación a partir de
+      la distribución de tasas comunales con población suficiente</strong>: las 346 comunas
+      elegibles se dividen en cinco grupos aproximadamente iguales, de menor (1) a mayor (5)
+      incidencia reportada para el último año completo. Una comuna en el nivel 3 se sitúa cerca
+      de la mediana nacional de incidencia reportada; una en el nivel 5 está en el quintil
+      superior.
+    </p>
+    <p>
+      Se trata de una <strong>clasificación relativa, no de un umbral absoluto</strong>. Los
+      límites de cada nivel cambian con cada compilación anual a medida que evoluciona la
+      distribución de tasas. <strong>No es un veredicto de seguridad</strong> — describe dónde
+      se ubica una comuna dentro de la distribución de incidencia policial registrada, sujeta
+      a todas las advertencias sobre subregistro, denominadores poblacionales y alcance por
+      tipo de delito descritas en esta página. Véase también la escala de colores del mapa
+      coroplético, que utiliza la misma clasificación de 5 niveles.
     </p>
   </section>
 

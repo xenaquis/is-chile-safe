@@ -237,7 +237,7 @@ const jsonLd = {
   </section>
 
   <section>
-    <h2>Trend formula</h2>
+    <h2 id="trend-formula">Trend formula</h2>
     <p>
       Each commune page and map pin displays a trend indicator: <em>rising</em>, <em>falling</em>,
       or <em>stable</em>. We compute the trend as follows:
@@ -267,7 +267,19 @@ const jsonLd = {
       meaningful trends in communes with small absolute case counts. For communes with large
       populations and stable series, the threshold provides a conservative signal; for smaller
       communes, year-to-year variation can exceed 5 % due to sample noise rather than genuine
-      change.
+      change. Both the 5 % threshold and the 3-year window are editorial parameters — they are
+      documented as editorial choices in the project's SOURCES registry, not derived from an
+      external standard.
+    </p>
+    <p>
+      <strong>Weighting note (F2 vs F5):</strong> The national and regional <em>time-series</em>
+      rates shown in trend charts use population-weighted commune means — correct for tracking
+      genuine per-capita change across time. By contrast, the national and per-family
+      <em>aggregate averages</em> shown on commune pages and ranking heroes are
+      <strong>unweighted</strong> means of eligible commune rates (the typical-commune figure
+      described above). These two approaches answer different questions: unweighted = "what is
+      the typical commune like?"; population-weighted = "what does the average resident
+      experience?". Both figures are clearly labelled on the pages where they appear.
     </p>
   </section>
 
@@ -308,6 +320,43 @@ const jsonLd = {
       We compare communes only to the national mean or to regional peers — not to international
       figures, because reporting standards, legal definitions, and demographic structures differ
       substantially across countries, making cross-country rate comparisons unreliable.
+    </p>
+
+    <h3>Per-family national mean (F3)</h3>
+    <p>
+      On crime-ranking pages, the <em>National mean</em> hero figure shows the unweighted mean
+      of eligible commune rates <strong>for that specific crime family</strong>. It uses the same
+      typical-commune basis as the overall national aggregate described above: non-low-population
+      communes only, latest complete year, unweighted (not population-weighted). It answers "what
+      is the typical Chilean commune's rate for this crime type?" — it is not a national
+      per-capita average.
+    </p>
+
+    <h3>Per-region breakdown mean (F4)</h3>
+    <p>
+      On crime-ranking pages, the regional breakdown bars show the <em>unweighted mean of eligible
+      commune rates within each region</em> for the displayed crime family. Communes with fewer
+      than 10,000 inhabitants are excluded from this regional mean for the same volatility reasons
+      that apply to the national figure. This is a typical-commune-within-a-region figure, not a
+      population-weighted regional rate.
+    </p>
+
+    <h3>Incidence level classification — LevelChip 1–5 (F6)</h3>
+    <p>
+      Each commune page displays an incidence level chip rated 1 to 5. This is a
+      <strong>relative classification derived at build time from the distribution of
+      non-low-population commune rates</strong>: the 346 eligible communes are divided into five
+      approximately equal tiers from lowest (1) to highest (5) reported incidence for the latest
+      complete year. A level 3 commune sits near the national median for reported incidence; a
+      level 5 commune ranks in the top tier.
+    </p>
+    <p>
+      This is a <strong>relative ranking, not an absolute threshold</strong>. The tier boundaries
+      shift each build year as the rate distribution changes. It is <strong>not a safety
+      verdict</strong> — it describes where a commune falls within the distribution of
+      police-recorded incidence, subject to all the caveats about underreporting, population
+      denominators, and crime-type scope described on this page. See also the choropleth map
+      colour scale, which uses the same 5-tier classification.
     </p>
   </section>
 
