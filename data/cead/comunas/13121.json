@@ -408,5 +408,13 @@
   },
   "sii_exposure_index": {
     "2024": 16803.0
+  },
+  "enusc_vhdv": {
+    "vhdv_rate": 0.114493957318919,
+    "ci_lower": 0.0988699393843492,
+    "ci_upper": 0.132224694215317,
+    "tipo_estimacion": "Directa y sintética",
+    "cv": 0.0342318030769485,
+    "vintage": 2024
   }
 }

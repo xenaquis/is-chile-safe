@@ -243,6 +243,31 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     );
   })()}
 
+  <!-- 6c. Módulo VHDV ENUSC (VL-03/VL-04) -->
+  {(() => {
+    const vhdv = data.enusc_vhdv;
+    if (!vhdv) {
+      return (
+        <section class="enusc-no-estimate" aria-label={t.enusc_no_estimate_aria}>
+          <p class="enusc-no-estimate-text">{t.enusc_no_estimate_text}</p>
+        </section>
+      );
+    }
+    return (
+      <section class="panel-section enusc-vhdv-section" aria-label={t.enusc_section_aria}>
+        <h2 class="section-heading">{t.enusc_section_heading}</h2>
+        <div class="enusc-rate">
+          {(vhdv.vhdv_rate * 100).toFixed(1)}%
+          <span class="enusc-year">(2024)</span>
+        </div>
+        <div class="enusc-ci">
+          {t.enusc_ci_label}: {(vhdv.ci_lower * 100).toFixed(1)}% – {(vhdv.ci_upper * 100).toFixed(1)}%
+        </div>
+        <div class="enusc-caveat">{t.enusc_caveat_text}</div>
+      </section>
+    );
+  })()}
+
   <!-- 7. ComparableCommune -->
   <ComparableCommune comparable={comparable} locale="es" />
 
@@ -480,5 +505,59 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     font-weight: 400;
     color: var(--muted);
     border-radius: 3px;
+  }
+
+  /* Phase 23: ENUSC VHDV module */
+  .enusc-vhdv-section {
+    margin: var(--xl) 0;
+    padding: var(--md);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .enusc-rate {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: var(--sm) 0;
+  }
+
+  .enusc-year {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-left: 6px;
+  }
+
+  .enusc-ci {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: var(--sm);
+  }
+
+  .enusc-caveat {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--primary);
+    padding: 8px 16px;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    border-radius: 3px;
+  }
+
+  .enusc-no-estimate {
+    margin: var(--xl) 0;
+    padding: var(--sm) var(--md);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .enusc-no-estimate-text {
+    margin: 0;
   }
 </style>
