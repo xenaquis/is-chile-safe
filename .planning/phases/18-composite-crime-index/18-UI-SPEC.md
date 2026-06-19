@@ -1,10 +1,11 @@
 ---
 phase: 18
 slug: composite-crime-index
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-06-19
+reviewed_at: 2026-06-19
 ---
 
 # Phase 18 — UI Design Contract
