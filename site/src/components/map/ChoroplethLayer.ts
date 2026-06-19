@@ -19,6 +19,8 @@ export interface CommunaPayload {
   hr: number | null;
   /** Homicide count (dropped from map-payload per budget; read from per-commune JSON featured_rates.homicidios_count). null in map-payload context. */
   homicide_count: number | null;
+  /** Composite crime index level (1-5, pre-computed by pipeline). null when not yet computed. */
+  ci: number | null;
 }
 
 /**
@@ -130,6 +132,28 @@ export function buildStyleMapFromHomicide(
     m.set(c.id, {
       fillColor: INCIDENCE_COLORS[level - 1]!,
       fillOpacity: rate === 0 ? 0.25 : 0.55,
+      color: '#ffffff',
+      weight: 1.2,
+    });
+  }
+  return m;
+}
+
+/**
+ * Build a CUT → PathOptions style map from the precomputed composite index level (ci).
+ * No client-side quantile recompute — the pipeline pre-computed the level (1-5).
+ * Null-ci communes fall back to level 3 with reduced fillOpacity (0.25) to visually
+ * distinguish them from communes with actual composite data (T-18-09 mitigation).
+ */
+export function buildStyleMapFromCompositeIndex(
+  comunas: CommunaPayload[]
+): Map<string, L.PathOptions> {
+  const m = new Map<string, L.PathOptions>();
+  for (const c of comunas) {
+    const level = c.ci ?? 3;
+    m.set(c.id, {
+      fillColor: INCIDENCE_COLORS[level - 1]!,
+      fillOpacity: c.ci === null ? 0.25 : 0.55,
       color: '#ffffff',
       weight: 1.2,
     });
