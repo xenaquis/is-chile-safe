@@ -315,7 +315,7 @@ Plans:
 
 **Wave 2** *(blocked on 19-03 — shares ES crime/ranking pages)*
 
-- [ ] 19-06-PLAN.md — Extract headings/table-headers/cookie strings to i18n.ts [BIL-04]
+- [x] 19-06-PLAN.md — Extract headings/table-headers/cookie strings to i18n.ts [BIL-04]
 
 **Wave 3** *(blocked on 19-06 — shares crime family pages)*
 
@@ -365,7 +365,7 @@ Plans:
 | 15. Crime-Type SEO Ranking Pages | v1.2 | 2/2 | Complete   | 2026-06-16 |
 | 17. Data Quality, Source Traceability & Methodology | v1.2 | 5/5 | Complete   | 2026-06-19 |
 | 16. News Activation + Geolocation + Model A/B | v1.2 | 5/5 | Complete   | 2026-06-19 |
-| 19. Tech-Debt Sweep | v1.3 | 3/6 | In Progress|  |
+| 19. Tech-Debt Sweep | v1.3 | 4/6 | In Progress|  |
 | 20. Methodology & Sources Hardening | v1.3 | 0/TBD | Not started | - |
 
 ## Backlog
