@@ -75,6 +75,7 @@ const strings = {
     const nameCol  = parseInt(table.dataset.nameCol  ?? '0', 10);
     const rateFmt  = table.dataset.rateFormat ?? 'round';
     const loc      = table.dataset.locale ?? blobLocale;
+    const defaultSortDir: 'asc' | 'desc' = table.dataset.defaultSortDir === 'asc' ? 'asc' : 'desc';
 
     // --- Collect rows + embedded data ---
     const tbody = table.querySelector('tbody');
@@ -101,9 +102,9 @@ const strings = {
     const years = Array.from(yearSet).sort((a, b) => b - a); // descending
     let selectedYear = years[0]; // default = most recent complete year
 
-    // Track active sort state: null = unsorted (server order), 'rate'|'name' with 'asc'|'desc'
-    let sortKey: 'rate' | 'name' | null = null;
-    let sortDir: 'asc' | 'desc' = 'desc';
+    // Track active sort state: initialized to 'rate' so arrow renders on load
+    let sortKey: 'rate' | 'name' | null = 'rate';
+    let sortDir: 'asc' | 'desc' = defaultSortDir;
 
     // --- Build controls strip (year selector + sort info) ---
     const controlsStrip = document.createElement('div');
@@ -257,6 +258,10 @@ const strings = {
         rateCell.dataset.numericRate = String(yearRate);
       }
     });
+
+    // Show sort affordance on load (arrow + aria-sort visible without user interaction)
+    updateAriaSort();
+    renderSort();
   });
 })();
 </script>
