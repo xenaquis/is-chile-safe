@@ -1,0 +1,57 @@
+---
+/**
+ * /es/comparar/ — ES comparator landing page.
+ *
+ * Pre-rendered static shell (h1, lead, methodology caveat, noscript) for SEO.
+ * ComparatorIsland mounts client:only="react" for interactive comparison.
+ *
+ * CMP-02: indexable shell guaranteed before island hydrates.
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ComparatorIsland from '../../../islands/ComparatorIsland';
+import MethodologyCaveat from '../../../components/MethodologyCaveat.astro';
+import { loadIndex } from '../../../lib/data.ts';
+import { ES_STRINGS } from '../../../config/i18n.ts';
+
+const communes = loadIndex().map(c => ({ id: c.cut, name: c.name, region_id: c.region_id }));
+
+// Pass only the cmp_* keys the island needs (client:only safety).
+const strings: Record<string, string> = {
+  cmp_input_placeholder: ES_STRINGS.cmp_input_placeholder,
+  cmp_empty_heading: ES_STRINGS.cmp_empty_heading,
+  cmp_add_prompt: ES_STRINGS.cmp_add_prompt,
+  cmp_no_match: ES_STRINGS.cmp_no_match,
+  cmp_max_reached: ES_STRINGS.cmp_max_reached,
+  cmp_avg_column: ES_STRINGS.cmp_avg_column,
+  cmp_remove_aria: ES_STRINGS.cmp_remove_aria,
+  cmp_data_error: ES_STRINGS.cmp_data_error,
+  cmp_homicide_row: ES_STRINGS.cmp_homicide_row,
+  cmp_homicide_no_data: ES_STRINGS.cmp_homicide_no_data,
+};
+---
+
+<BaseLayout
+  lang="es"
+  title="Comparar Comunas de Chile — Incidencia Delictiva Reportada — ¿Es seguro Chile?"
+  description="Selecciona 2 o 3 comunas para ver estadísticas de incidencia delictiva en paralelo. Fuente: estadísticas oficiales CEAD."
+  enPath="/compare/"
+  esPath="/es/comparar/"
+>
+  <div style="max-width: 1100px; margin: 0 auto; padding: var(--xl) var(--lg);">
+    <h1 style="font-size: var(--text-display); font-weight: var(--weight-strong); color: var(--ink); margin-bottom: var(--sm);">
+      {ES_STRINGS.cmp_page_h1}
+    </h1>
+    <p style="font-size: var(--text-body); color: var(--muted); margin-bottom: var(--md);">
+      {ES_STRINGS.cmp_page_lead}
+    </p>
+    <MethodologyCaveat locale="es" />
+    <noscript>
+      <p style="background: var(--bg); border: 1px solid var(--line); padding: var(--md); border-radius: var(--radius); color: var(--muted);">
+        Activa JavaScript para usar el comparador interactivo. Consulta las páginas de cada comuna para ver datos de incidencia.
+      </p>
+    </noscript>
+    <div id="comparator-root">
+      <ComparatorIsland client:only="react" lang="es" communes={communes} strings={strings} />
+    </div>
+  </div>
+</BaseLayout>

@@ -28,6 +28,8 @@ const communesHref = locale === 'en' ? '/communes/' : '/es/comunas/';
 const rankingsHref = locale === 'en' ? '/rankings/' : '/es/rankings/';
 // Hardcoded per-locale — getRelativeLocaleUrl does NOT translate ES slugs (Pitfall 3)
 const newsHref = locale === 'en' ? '/news/' : '/es/noticias/';
+// Hardcoded per-locale — getRelativeLocaleUrl does NOT translate ES slugs (Pitfall 3)
+const compareHref = locale === 'en' ? '/compare/' : '/es/comparar/';
 const glossaryHref = locale === 'en' ? '/glossary/' : '/es/glosario/';
 
 // Lang toggle: link to the alternate locale's equivalent path
@@ -63,6 +65,7 @@ const altHref = locale === 'en' ? esPath : enPath;
   <nav class="csm-nav" aria-label="Main navigation">
     <a href={homeHref} class="nav-link">{t.nav_home}</a>
     <a href={mapHref}  class="nav-link">{t.nav_map}</a>
+    <a href={compareHref} class="nav-link">{t.nav_compare}</a>
     <a href={communesHref} class="nav-link">{t.nav_communes}</a>
     <a href={rankingsHref} class="nav-link">{t.nav_rankings}</a>
     <a href={methodHref} class="nav-link">{t.nav_methodology}</a>

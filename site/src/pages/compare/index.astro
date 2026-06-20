@@ -1,0 +1,58 @@
+---
+/**
+ * /compare/ — EN comparator landing page.
+ *
+ * Pre-rendered static shell (h1, lead, methodology caveat, noscript) for SEO.
+ * ComparatorIsland mounts client:only="react" for interactive comparison.
+ *
+ * CMP-02: indexable shell guaranteed before island hydrates.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ComparatorIsland from '../../islands/ComparatorIsland';
+import MethodologyCaveat from '../../components/MethodologyCaveat.astro';
+import { loadIndex } from '../../lib/data.ts';
+import { EN_STRINGS } from '../../config/i18n.ts';
+
+const communes = loadIndex().map(c => ({ id: c.cut, name: c.name, region_id: c.region_id }));
+
+// Pass only the cmp_* + nav keys the island needs (client:only safety — island
+// cannot import EN_STRINGS at runtime without bundling the entire i18n module).
+const strings: Record<string, string> = {
+  cmp_input_placeholder: EN_STRINGS.cmp_input_placeholder,
+  cmp_empty_heading: EN_STRINGS.cmp_empty_heading,
+  cmp_add_prompt: EN_STRINGS.cmp_add_prompt,
+  cmp_no_match: EN_STRINGS.cmp_no_match,
+  cmp_max_reached: EN_STRINGS.cmp_max_reached,
+  cmp_avg_column: EN_STRINGS.cmp_avg_column,
+  cmp_remove_aria: EN_STRINGS.cmp_remove_aria,
+  cmp_data_error: EN_STRINGS.cmp_data_error,
+  cmp_homicide_row: EN_STRINGS.cmp_homicide_row,
+  cmp_homicide_no_data: EN_STRINGS.cmp_homicide_no_data,
+};
+---
+
+<BaseLayout
+  lang="en"
+  title="Compare Chile Communes — Reported Crime Data — Is Chile Safe"
+  description="Select 2 or 3 communes to view reported crime statistics side by side. Source: CEAD official statistics."
+  enPath="/compare/"
+  esPath="/es/comparar/"
+>
+  <div style="max-width: 1100px; margin: 0 auto; padding: var(--xl) var(--lg);">
+    <h1 style="font-size: var(--text-display); font-weight: var(--weight-strong); color: var(--ink); margin-bottom: var(--sm);">
+      {EN_STRINGS.cmp_page_h1}
+    </h1>
+    <p style="font-size: var(--text-body); color: var(--muted); margin-bottom: var(--md);">
+      {EN_STRINGS.cmp_page_lead}
+    </p>
+    <MethodologyCaveat locale="en" />
+    <noscript>
+      <p style="background: var(--bg); border: 1px solid var(--line); padding: var(--md); border-radius: var(--radius); color: var(--muted);">
+        Enable JavaScript to use the interactive comparator. See individual commune pages for reported crime data.
+      </p>
+    </noscript>
+    <div id="comparator-root">
+      <ComparatorIsland client:only="react" lang="en" communes={communes} strings={strings} />
+    </div>
+  </div>
+</BaseLayout>
