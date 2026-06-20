@@ -156,9 +156,40 @@ if (failures > 0) {
     console.error(`  ... and more failures (total individual failure count: ${failures})`);
   }
   console.error(`\nhreflang.mjs: FAILED (${failures} issue(s) across ${htmlFiles.length} pages)`);
-  process.exit(1);
+  // Note: do NOT exit here — run compare symmetry check below and exit at the end
 }
 
+// ---------------------------------------------------------------------------
+// Compare page EN/ES count symmetry assertion
+// ---------------------------------------------------------------------------
+const compareEnDir = path.join(DIST_DIR, 'compare');
+const compareEsDir = path.join(DIST_DIR, 'es', 'comparar');
+
+if (existsSync(compareEnDir) || existsSync(compareEsDir)) {
+  const compareEnDirs = existsSync(compareEnDir)
+    ? readdirSync(compareEnDir, { withFileTypes: true })
+        .filter((d) => d.isDirectory() && d.name.includes('-vs-'))
+    : [];
+  const compareEsDirs = existsSync(compareEsDir)
+    ? readdirSync(compareEsDir, { withFileTypes: true })
+        .filter((d) => d.isDirectory() && d.name.includes('-vs-'))
+    : [];
+
+  if (compareEnDirs.length !== compareEsDirs.length) {
+    console.error(
+      `FAIL [hreflang] compare page count mismatch: EN ${compareEnDirs.length} != ES ${compareEsDirs.length}`
+    );
+    failures++;
+  } else if (compareEnDirs.length > 0) {
+    console.log(
+      `PASS [hreflang] compare page symmetry: ${compareEnDirs.length} EN == ${compareEsDirs.length} ES`
+    );
+  }
+}
+
+if (failures > 0) {
+  process.exit(1);
+}
 console.log(`hreflang.mjs: PASSED — ${htmlFiles.length} pages checked`);
 console.log(`  All pages have 3 hreflang alternates + canonical`);
 console.log(`  Reciprocity verified: all alternate URLs resolve to real dist files`);

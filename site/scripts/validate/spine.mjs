@@ -11,6 +11,7 @@
  *   J (map-spoke on ficha):         every commune page HTML contains /map/?cut= (EN) or /es/mapa/?cut= (ES)
  *   K (home single H1):             dist/index.html and dist/es/index.html each have exactly one <h1
  *   L (rankings nav site-wide):     sample pages contain href="/rankings/" (EN) / href="/es/rankings/" (ES)
+ *   M (comparator-spoke on ficha): every commune page HTML contains href="/compare/" (EN) or href="/es/comparar/" (ES)
  *
  * Usage:
  *   node scripts/validate/spine.mjs
@@ -351,6 +352,68 @@ if (esNavOffenders.length === 0) {
 } else {
   console.error(`FAIL [L] rankings-nav: missing href="/es/rankings/" in: ${esNavOffenders.join(', ')}`);
   failures++;
+}
+
+// ---------------------------------------------------------------------------
+// ASSERTION M: comparator cross-link on commune ficha pages (CMP-06)
+// Every EN commune page must contain href="/compare/"
+// Every ES commune page must contain href="/es/comparar/"
+// ---------------------------------------------------------------------------
+const enCommuneDir2 = path.join(DIST_DIR, 'commune');
+const esComunaDir2 = path.join(DIST_DIR, 'es', 'comuna');
+
+if (existsSync(enCommuneDir2)) {
+  const enCommuneDirs2 = readdirSync(enCommuneDir2, { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .map((d) => d.name);
+
+  const enCmpOffenders = [];
+  for (const slug of enCommuneDirs2) {
+    const htmlPath = path.join(enCommuneDir2, slug, 'index.html');
+    if (existsSync(htmlPath)) {
+      const content = readFileSync(htmlPath, 'utf-8');
+      if (!content.includes('href="/compare/')) {
+        enCmpOffenders.push(slug);
+        if (enCmpOffenders.length >= 5) break;
+      }
+    }
+  }
+
+  if (enCmpOffenders.length === 0) {
+    console.log(`PASS [M] comparator-spoke: all EN commune pages contain href="/compare/"`);
+  } else {
+    console.error(
+      `FAIL [M] comparator-spoke: ${enCmpOffenders.length}+ EN commune pages missing href="/compare/": ${enCmpOffenders.join(', ')}`
+    );
+    failures++;
+  }
+}
+
+if (existsSync(esComunaDir2)) {
+  const esComunaDirs2 = readdirSync(esComunaDir2, { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .map((d) => d.name);
+
+  const esCmpOffenders = [];
+  for (const slug of esComunaDirs2) {
+    const htmlPath = path.join(esComunaDir2, slug, 'index.html');
+    if (existsSync(htmlPath)) {
+      const content = readFileSync(htmlPath, 'utf-8');
+      if (!content.includes('href="/es/comparar/')) {
+        esCmpOffenders.push(slug);
+        if (esCmpOffenders.length >= 5) break;
+      }
+    }
+  }
+
+  if (esCmpOffenders.length === 0) {
+    console.log(`PASS [M] comparator-spoke: all ES comuna pages contain href="/es/comparar/"`);
+  } else {
+    console.error(
+      `FAIL [M] comparator-spoke: ${esCmpOffenders.length}+ ES comuna pages missing href="/es/comparar/": ${esCmpOffenders.join(', ')}`
+    );
+    failures++;
+  }
 }
 
 // ---------------------------------------------------------------------------
