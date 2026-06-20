@@ -71,7 +71,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 ### v2.0 Composite Index, Comparators & Launch
 
 - [x] **Phase 18: Composite Crime Index** — exposure-adjusted 0–100 index, SPD VHC homicide switch, schema migration, index-driven choropleth _(RESERVED number; highest-risk phase)_ (completed 2026-06-19; 8/8 plans incl. gap-closure 18-06..18-08; VERIFICATION passed)
-- [ ] **Phase 21: Commune Comparator + A-vs-B SEO** — interactive comparator island + ~6,800 bilingual A-vs-B programmatic pages built on Phase 18 outputs _(depends on Phase 18; not started — no plans/artifacts on disk)_
+- [x] **Phase 21: Commune Comparator + A-vs-B SEO** — interactive comparator island + ~6,800 bilingual A-vs-B programmatic pages built on Phase 18 outputs _(depends on Phase 18; not started — no plans/artifacts on disk)_ (completed 2026-06-20)
 - [x] **Phase 23: ENUSC Communal Victimization Layer** — additive INE ENUSC 2024 SAE household-victimization (VHDV) figure on the 136 covered comuna pages, graceful "no estimate" for the other 210; anti-infra-representation, additive-only vs Phase 18 _(depends on Phase 18 + 17; **runs BEFORE Phase 22**)_ — origin SEED-002 (completed 2026-06-19)
 - [ ] **Phase 22: Go-Live / Launch Ops** — CF deploy hook, production deploy, live news audit, GSC submission _(parallel with Phase 21; no code dependency; **gated after Phase 23** per SEED-002)_
 - [x] **Phase 24: Rankings UX — dynamic sortable tables + visual polish** — wire `RankingTableEnhancer` into ranking surfaces lacking it (safest-cities EN+ES), descending default + asc override, brand-token polish, BrowserOS E2E _(depends on Phase 18; independent of Phase 22)_ (completed 2026-06-20)
@@ -133,7 +133,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 21-04-PLAN.md — Register budget validator + full 14/14 suite green + ≥10-pair prose acceptance + staged batch GSC verification
+- [x] 21-04-PLAN.md — Register budget validator + full 14/14 suite green + ≥10-pair prose acceptance + staged batch GSC verification
 
 ### Phase 22: Go-Live / Launch Ops
 
@@ -187,7 +187,7 @@ Plans:
 **Requirements**: TBD (define in UI-SPEC / plan-phase)
 **Depends on:** Phase 18 (composite-index data, already shipped). Independent of Phase 22 launch ops.
 **UI hint**: yes
-**Plans:** 3/4 plans executed
+**Plans:** 4/4 plans complete
 
 Plans:
 
@@ -201,7 +201,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 18. Composite Crime Index | 8/8 | Complete    | 2026-06-19 |
-| 21. Commune Comparator + A-vs-B SEO | 3/4 | In Progress|  |
+| 21. Commune Comparator + A-vs-B SEO | 4/4 | Complete   | 2026-06-20 |
 | 23. ENUSC Communal Victimization Layer | 4/4 | Complete   | 2026-06-19 |
 | 22. Go-Live / Launch Ops | 2/3 | In Progress|  |
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |

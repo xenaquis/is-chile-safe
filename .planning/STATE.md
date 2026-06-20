@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Composite Index, Comparators & Launch
 status: verifying
-last_updated: "2026-06-20T15:53:28.872Z"
+last_updated: "2026-06-20T15:58:46.907Z"
 last_activity: 2026-06-20
 progress:
   total_phases: 5
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 22
-  completed_plans: 20
-  percent: 60
+  completed_plans: 21
+  percent: 80
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-20 — Phase 24 (Rankings UX) complete + verified. v2.0 state: Phases 18, 23, 24 complete; Phase 21 (comparator) not started; Phase 22 (go-live) in progress (2/3, only GSC sitemap submission 22-03 remaining). Next = Phase 21 (plan from scratch) or Phase 22-03 (manual GSC submit)._
+_Last updated: 2026-06-20 — Phase 21 (Commune Comparator + A-vs-B SEO) complete: 4/4 plans done. avs-b-budget registered as validator #14 (14/14 green, 1258 dist files, 10/10 prose sample PASS). Pending human: visual prose acceptance + GSC URL Inspection before batch expansion. Phase 22-03 (GSC sitemap submission) also remaining._
 
 ## Project Reference
 
@@ -39,7 +39,7 @@ Phase 18 [████████████████████] 100% com
 Phase 23 [████████████████████] 100% complete
 Phase 24 [████████████████████] 100% complete
 Phase 22 [█████████████░░░░░░░]  67% in progress (2/3)
-Phase 21 [███████████████░░░░░]  75% in progress (3/4)
+Phase 21 [████████████████████] 100% complete (4/4)
 ```
 
 ## Deferred Items
@@ -138,7 +138,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 
 ## Session Continuity
 
-**Last session**: 2026-06-20 — Phase 21 Plan 03 complete: A-vs-B programmatic pages (20 EN+ES pairs), ComparatorPairsLinks on all 346 commune pages, hreflang+spine validators extended. Plan 04 is next.
+**Last session**: 2026-06-20 — Phase 21 Plan 04 complete: avs-b-budget.mjs registered as validator #14 in all.mjs; 14/14 validators green; 1258 dist files (margin 16742 vs 18000 limit); 10/10 prose sample PASS programmatically. Phase 21 COMPLETE (4/4). Pending human: visual prose acceptance + GSC URL Inspection before expanding batch beyond 20 pairs.
 **Prior session**: 2026-06-19 — v2.0 milestone roadmap written. 21/21 requirements mapped: CI-01..CI-10 → Phase 18, CMP-01..CMP-07 → Phase 21, GL-01..GL-04 → Phase 22. Phase 18 is the reserved number (intentional gap from v1.3). Hard dependency: Phase 21 depends on Phase 18. Phase 22 parallel with Phase 21. AdSense/Consent Mode deferred. Next: `/gsd:plan-phase 18` — interactively (high risk, not autonomous).
 **Prior session (2026-06-19, v1.3 close)**: v1.3 shipped — Phases 19 (Tech-Debt Sweep) + 20 (Methodology & Sources Hardening). 13/13 validators, 179 pytest green. Milestone archived.
 **Known env issue (not code)**: project is inside OneDrive — `dist/` artifacts desync between separate processes; ALWAYS chain build + validate in one command: `cd site && npm run build && npm run validate`.
@@ -167,6 +167,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 - [Phase ?]: crimeIsHomicide set in onFamilyChange handler; exclusive with family via familyIndex null
 - [Phase ?]: Column header matching in fetch_enusc_vhdv.py uses accent-normalized NFD comparison — real XLSX omits accents on 'victimas'/'logaritmico'
 - [Phase 21-03]: Low-population fallback for comparator pair links — when commune has no non-low-pop same-region neighbors (Arica, region 15), fall back to all same-region communes to guarantee all 346 pages have /compare/ href
+- [Phase 21-04]: avs-b-budget.mjs registered as validator #14 in all.mjs; full suite 14/14 green; GSC URL Inspection deferred to human operator before batch expansion beyond 20 enabled pairs
 
 ## Operator Next Steps
 
