@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-20T08:50:28.979028Z",
+  "generated": "2026-06-20T13:54:45.977786Z",
   "window_days": 30,
   "incidents": [
     {
@@ -417,6 +417,45 @@
       "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/06/20/pericias-confirmarian-ataque-sexual-tio-de-joven-asesinada-en-temuco-seria-imputado-femicidio-intimo.shtml",
       "family": "vida",
       "slug": "temuco"
+    },
+    {
+      "id": "64d4c8048f2c7a4a",
+      "cut": "8107",
+      "lat": -36.724747,
+      "lng": -72.940429,
+      "title_es": "Cinco detenidos en operativo antidrogas en Penco: 5 mil dosis incautadas",
+      "title_en": "Five arrested in anti-drug operation in Penco: 5,000 doses seized",
+      "date": "2026-06-20",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/06/20/cinco-detenidos-deja-nuevo-operativo-antidrogas-en-poblacion-montahue-de-penco-5-mil-dosis-incautadas.shtml",
+      "family": "drogas",
+      "slug": "penco"
+    },
+    {
+      "id": "2d34889b76331a73",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Carabineros recupera camión robado en Maipú con carga de $110 millones",
+      "title_en": "Carabineros recover stolen truck in Maipú with cargo worth $110 million",
+      "date": "2026-06-20",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/carabineros-recupero-camion-robado-en-maipu-con-carga-de-110-millones-de/2026-06-20/090921.html",
+      "family": "robos_violentos",
+      "slug": "maipu"
+    },
+    {
+      "id": "e30bb9760ed4b0ce",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Detenidos dos sujetos por robo de camión en Maipú",
+      "title_en": "Two individuals arrested for truck theft in Maipú",
+      "date": "2026-06-20",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/carabineros-detiene-a-dos-sujetos-tras-el-robo-de-un-camion-en-maipu-con-cargamento-avaluado-sobre-los-110-millones-de-pesos/",
+      "family": "robos_violentos",
+      "slug": "maipu"
     }
   ]
 }
