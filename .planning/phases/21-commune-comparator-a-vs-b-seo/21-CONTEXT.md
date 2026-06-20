@@ -37,6 +37,14 @@ Users can compare 2–3 communes side by side in an interactive island, and find
 - Acceptance-check a random sample of **≥10 A-vs-B pairs** for prose quality before any deploy.
 - Publish the **first batch ~20 pairs**, verify GSC URL Inspection, THEN expand to subsequent batches.
 
+### ADDED SCOPE (2026-06-20, user-directed) — Homicide rate per 100k on static commune pages
+**Problem found:** the static commune pages (`/commune/<slug>/`, `/es/comuna/<slug>/`) do NOT show a dedicated homicide-per-100k figure. They render the broad **"Life crimes" (vida)** family (~1060/100k for Santiago) — which is NOT the homicide rate (~8.7/100k). The dedicated homicide figure only ever existed in the interactive **map ResultPanel** (`site/src/components/map/ResultPanel.tsx` §7, HOM-02), which reads `featured_rates.homicidios` + `homicidios_count`.
+**Deliverable:** add a dedicated **"Homicide / Homicidios (year): N per 100,000 inhab. (M cases)"** figure to BOTH static commune pages (EN + ES), mirroring the map ResultPanel HOM-02 block:
+- Data source: `featured_rates.homicidios` (rate) + `featured_rates.homicidios_count` (count), latest complete year. Use `!== undefined` checks (0 is valid data, not "no data"). Graceful "No reported cases — CEAD {year}" fallback.
+- Attribution: "Source: CEAD, subgroup 101 Life Crimes ({year})" / ES equivalent. Keep it visually distinct from the broad vida/Life-crimes family bar (they are different metrics — do NOT merge).
+- Also surface the homicide rate as a row inside the comparator (CMP-01) so side-by-side commune comparison includes homicides per 100k.
+- Reuse the existing ResultPanel rendering logic as the reference (HOM-02). Forbidden-language validator must stay green; never an absolute verdict.
+
 ### Editorial / data invariants (project-wide — non-negotiable)
 - Never an absolute "safe/dangerous / seguro/peligroso" verdict; always attribute CEAD. Forbidden-language validator must stay green.
 - CEAD rates are already per-100k — never rescale (see memory [[crime-rates-already-per-100k]]).
