@@ -251,14 +251,28 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
   }
 
   // ---------------------------------------------------------------------------
-  // Get national/regional avg for a family
+  // National reference year — the latest COMPLETE national year, selected by
+  // value (Math.max) rather than array position so it does not depend on the
+  // series being stored in ascending order (WR-01). The avg column header is
+  // labelled with this year so the figures are never silently presented as the
+  // same reference year as the per-commune columns when they differ.
   // ---------------------------------------------------------------------------
-  function getNationalFamilyRate(family: string): number | null {
+  function nationalCompleteYear(): number | null {
     if (!nationalData) return null;
-    const latestSeries = nationalData.series.filter(s => !(s as SeriesEntry & { partial?: boolean }).partial);
-    if (!latestSeries.length) return null;
-    const last = latestSeries[latestSeries.length - 1];
-    const val = last.by_family[family];
+    const years = nationalData.series.filter(s => !s.partial).map(s => s.year);
+    if (years.length === 0) return null;
+    return Math.max(...years);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Get national/regional avg for a family at a specific year (find by year,
+  // never positionally — WR-01)
+  // ---------------------------------------------------------------------------
+  function getNationalFamilyRate(family: string, year: number | null): number | null {
+    if (!nationalData || year === null) return null;
+    const entry = nationalData.series.find(s => s.year === year && !s.partial);
+    if (!entry) return null;
+    const val = entry.by_family[family];
     return val !== undefined ? val : null;
   }
 
@@ -276,6 +290,11 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
   // ---------------------------------------------------------------------------
   const listboxId = 'cmp-listbox';
   const activeOptionId = activeIndex >= 0 ? `cmp-option-${activeIndex}` : undefined;
+
+  // National reference year for the "Chile avg." column (WR-01) — labelled in
+  // the column header so its figures are not silently compared as the same
+  // year as the per-commune columns.
+  const natYear = nationalCompleteYear();
 
   return (
     <div className="comparator-island" style={{ padding: 'var(--md)' }}>
@@ -519,10 +538,14 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
               const ci = data.composite_index?.[String(year)];
               const bandLabel = ci ? (CI_BANDS[ci.level]?.[lang] ?? '') : '';
 
-              // Homicide row (HOM-02 — !== undefined, 0 is valid)
+              // Homicide row (HOM-02 — !== undefined, 0 is valid).
+              // Gate on the RATE alone and append the count only if present
+              // (WR-05). A rate without a count is still a real, non-zero rate
+              // and must not be suppressed as "no reported cases" — matching the
+              // static A-vs-B pages.
               const homRate = data.featured_rates?.homicidios?.[String(year)];
               const homCount = data.featured_rates?.homicidios_count?.[String(year)];
-              const hasHom = homRate !== undefined && homCount !== undefined;
+              const hasHom = homRate !== undefined;
 
               return (
                 <div
@@ -609,7 +632,7 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
                         </th>
                         <td style={{ textAlign: 'right', padding: '4px', color: 'var(--ink)' }}>
                           {hasHom
-                            ? homRate!.toFixed(2)
+                            ? `${homRate!.toFixed(2)}${homCount !== undefined ? ` (${homCount})` : ''}`
                             : <span style={{ color: 'var(--muted)', fontSize: '11px' }}>
                                 {interpolate(s.cmp_homicide_no_data ?? 'No reported cases — CEAD {year}', { year })}
                               </span>
@@ -635,9 +658,14 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
                 padding: 'var(--md)',
               }}
             >
-              <h2 style={{ fontSize: 'var(--text-heading)', fontWeight: 'var(--weight-strong)', marginBottom: 'var(--sm)', color: 'var(--primary)' }}>
+              <h2 style={{ fontSize: 'var(--text-heading)', fontWeight: 'var(--weight-strong)', marginBottom: '2px', color: 'var(--primary)' }}>
                 {s.cmp_avg_column ?? (lang === 'es' ? 'Prom. Chile' : 'Chile avg.')}
               </h2>
+              {natYear !== null && (
+                <div style={{ fontSize: '11px', color: 'var(--muted)', marginBottom: 'var(--sm)' }}>
+                  {lang === 'es' ? `Año ${natYear}` : `Year ${natYear}`}
+                </div>
+              )}
               {nationalData ? (
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--text-label)' }}>
                   <thead>
@@ -652,7 +680,7 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
                   </thead>
                   <tbody>
                     {FAMILY_KEYS.map(family => {
-                      const rate = getNationalFamilyRate(family);
+                      const rate = getNationalFamilyRate(family, natYear);
                       const label = FAMILY_LABELS[family]?.[lang] ?? family;
                       return (
                         <tr key={family} style={{ borderTop: '1px solid var(--line)' }}>
