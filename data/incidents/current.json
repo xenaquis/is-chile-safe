@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-19T23:04:06.514385Z",
+  "generated": "2026-06-20T02:58:31.561169Z",
   "window_days": 30,
   "incidents": [
     {
@@ -378,6 +378,32 @@
       "url": "https://www.latercera.com/nacional/noticia/abogados-de-la-defensoria-sufren-agresion-saliendo-del-tribunal-oral-en-lo-penal-de-concepcion/",
       "family": "vida",
       "slug": "concepcion"
+    },
+    {
+      "id": "5d2d6ff98528ad22",
+      "cut": "8312",
+      "lat": -37.216412,
+      "lng": -71.724708,
+      "title_es": "Carabinero agredido por ebrio que se entregó en Tucapel",
+      "title_en": "Carabiniere attacked by drunk man who turned himself in at Tucapel",
+      "date": "2026-06-20",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/06/19/carabinero-es-agredido-por-sujeto-ebrio-que-llego-a-reten-a-entregarse-por-orden-de-arresto-en-tucapel.shtml",
+      "family": "vida",
+      "slug": "tucapel"
+    },
+    {
+      "id": "5424b6167e26fcfb",
+      "cut": "5109",
+      "lat": -33.027017,
+      "lng": -71.515513,
+      "title_es": "Minvu solicita querella por irregularidades en reconstrucción en El Olivar",
+      "title_en": "Minvu files complaint for irregularities in reconstruction in El Olivar",
+      "date": "2026-06-20",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/minvu-solicita-al-cde-interponer-querella-contra-dos-entidades-patrocinantes-por-irregularidades-en-reconstruccion-en-el-olivar/",
+      "family": "propiedad",
+      "slug": "vina-del-mar"
     }
   ]
 }
