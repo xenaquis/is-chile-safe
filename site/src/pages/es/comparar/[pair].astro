@@ -1,0 +1,406 @@
+---
+/**
+ * ES A-vs-B commune comparison page — /es/comparar/{cutA}-vs-{cutB}/
+ *
+ * IDENTICAL enabled-pair set as EN route — guarantees hreflang reciprocity.
+ * getStaticPaths reads the same data/comparator-pairs.json allowlist, filters
+ * p.enabled, and builds ES prose via buildComparisonProse(..., 'es').
+ *
+ * BaseLayout receives ONLY: lang, title, description, enPath, esPath.
+ * JSON-LD for A-vs-B is DEFERRED out of Phase 21 (21-RESEARCH.md Q3).
+ * No jsonLd prop is passed here — intentional and correct.
+ *
+ * Forbidden language: never un unqualified verdict about any territory.
+ * All language is framed as "incidencia reportada" / "tasa reportada".
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MethodologyCaveat from '../../../components/MethodologyCaveat.astro';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { loadCommune, loadIndex, loadNationalAverage } from '../../../lib/data.ts';
+import { buildComparisonProse, buildMetaDescription } from '../../../lib/comparisonProse.ts';
+import { ES_STRINGS, FAMILY_SLUGS } from '../../../config/i18n.ts';
+
+export async function getStaticPaths() {
+  const DATA_ROOT = path.resolve(process.cwd(), '..', 'data');
+  const pairs: Array<{ cutA: string; cutB: string; region_id: string; enabled: boolean }> =
+    JSON.parse(readFileSync(path.join(DATA_ROOT, 'comparator-pairs.json'), 'utf-8'));
+
+  const enabledPairs = pairs.filter((p) => p.enabled);
+
+  return enabledPairs.map(({ cutA, cutB }) => {
+    const commA = loadCommune(cutA);
+    const commB = loadCommune(cutB);
+    const prose = buildComparisonProse(commA, commB, 'es');
+    // CMP-04: build-time thin-content gate — throws on any pair below 300 words
+    const words = prose.split(/\s+/).filter(Boolean).length;
+    if (words < 300) {
+      throw new Error(
+        `[CMP-04] Thin content (ES): ${cutA}-vs-${cutB} (${words} words, need ≥300)`
+      );
+    }
+    return {
+      params: { pair: `${cutA}-vs-${cutB}` },
+      props: { commA, commB, prose },
+    };
+  });
+}
+
+// --- Page-level data ---
+const { commA, commB, prose } = Astro.props as {
+  commA: ReturnType<typeof loadCommune>;
+  commB: ReturnType<typeof loadCommune>;
+  prose: string;
+};
+
+const year = commA.latestCompleteYear;
+const enPath = `/compare/${commA.cut}-vs-${commB.cut}/`;
+const esPath = `/es/comparar/${commA.cut}-vs-${commB.cut}/`;
+
+const title = ES_STRINGS.avs_b_h1_pattern
+  .replace('{a}', commA.name)
+  .replace('{b}', commB.name);
+
+const description = buildMetaDescription(commA, commB, 'es');
+
+const t = ES_STRINGS;
+
+// Per-family rates at latest complete year
+const entryA = commA.series.find((s) => s.year === year && !s.partial);
+const entryB = commB.series.find((s) => s.year === year && !s.partial);
+const byFamilyA = entryA?.by_family ?? {};
+const byFamilyB = entryB?.by_family ?? {};
+
+// Filter vida to avoid homicide slug collision (FAMILY_SLUGS.vida.en === 'homicide')
+const familyKeys = Object.keys(byFamilyA).filter((k) => k !== 'vida');
+
+// Homicide sub-row (HOM-02): use !== undefined, never truthiness (0 is valid)
+const homA = commA.featured_rates?.homicidios;
+const homCountA = commA.featured_rates?.homicidios_count;
+const homRateA =
+  homA !== undefined && homA[String(year)] !== undefined ? homA[String(year)] : null;
+const homCountValA =
+  homCountA !== undefined && homCountA[String(year)] !== undefined
+    ? homCountA[String(year)]
+    : null;
+
+const homB = commB.featured_rates?.homicidios;
+const homCountB = commB.featured_rates?.homicidios_count;
+const homRateB =
+  homB !== undefined && homB[String(year)] !== undefined ? homB[String(year)] : null;
+const homCountValB =
+  homCountB !== undefined && homCountB[String(year)] !== undefined
+    ? homCountB[String(year)]
+    : null;
+
+// Family label map (ES)
+const familyLabelEs: Record<string, string> = {
+  robos_violentos: 'Robos con violencia',
+  propiedad: 'Delitos contra la propiedad',
+  vif: 'Violencia intrafamiliar',
+  drogas: 'Delitos relacionados con drogas',
+  armas: 'Delitos de armas',
+  incivilidades: 'Incivilidades y orden público',
+};
+---
+
+<!-- NOTE: no jsonLd prop — A-vs-B JSON-LD is deferred out of Phase 21 -->
+<BaseLayout
+  lang="es"
+  title={title}
+  description={description}
+  enPath={enPath}
+  esPath={esPath}
+>
+  <!-- 1. H1 -->
+  <h1 class="avs-b-h1">{title}</h1>
+
+  <!-- 2. Index-difference block -->
+  {(() => {
+    const ciA = commA.composite_index?.['2024'];
+    const ciB = commB.composite_index?.['2024'];
+    const scoreA = ciA?.score ?? 0;
+    const scoreB = ciB?.score ?? 0;
+    const delta = scoreA - scoreB;
+    const absDelta = Math.abs(delta).toFixed(1);
+    const direction = delta > 0 ? 'más alta' : delta < 0 ? 'más baja' : 'igual a';
+    return (
+      <section class="index-diff-block panel-section" aria-label="Comparación del índice delictivo">
+        <h2 class="section-heading">Comparación del Índice Delictivo (CEAD {year})</h2>
+        <p class="index-diff-text">
+          {commA.name} tiene una puntuación de <strong>{scoreA.toFixed(1)}</strong> en el índice compuesto de incidencia delictiva,
+          {direction !== 'igual a'
+            ? ` que es ${absDelta} puntos ${direction} que la puntuación de `
+            : ' igual a la puntuación de '}
+          {commB.name} ({scoreB.toFixed(1)}).
+          Una puntuación más alta refleja mayor incidencia reportada respecto a los pares nacionales.
+        </p>
+        <div class="index-scores-row">
+          <div class="index-score-card">
+            <span class="score-name">{commA.name}</span>
+            <span class="score-value">{scoreA.toFixed(1)}</span>
+            <span class="score-rank">Posición #{ciA?.rank ?? commA.national_rank} de 346</span>
+          </div>
+          <div class="index-score-card">
+            <span class="score-name">{commB.name}</span>
+            <span class="score-value">{scoreB.toFixed(1)}</span>
+            <span class="score-rank">Posición #{ciB?.rank ?? commB.national_rank} de 346</span>
+          </div>
+        </div>
+      </section>
+    );
+  })()}
+
+  <!-- 3. Per-family table (7 families + homicide sub-row, Chile avg column) -->
+  <section class="family-table-section panel-section" aria-label="Incidencia por categoría delictiva">
+    <h2 class="section-heading">Incidencia Reportada por Categoría Delictiva ({year}, por 100.000 habitantes)</h2>
+    <table class="avs-b-table">
+      <caption>Fuente: estadísticas oficiales CEAD</caption>
+      <thead>
+        <tr>
+          <th scope="col">Categoría</th>
+          <th scope="col">{commA.name}</th>
+          <th scope="col">{commB.name}</th>
+          <th scope="col">Prom. Chile</th>
+        </tr>
+      </thead>
+      <tbody>
+        {familyKeys.map((key) => {
+          const rateA = byFamilyA[key];
+          const rateB = byFamilyB[key];
+          const label = familyLabelEs[key] ?? key;
+          return (
+            <tr>
+              <td>{label}</td>
+              <td>{rateA !== undefined ? rateA.toLocaleString('es-CL', { maximumFractionDigits: 1 }) : '—'}</td>
+              <td>{rateB !== undefined ? rateB.toLocaleString('es-CL', { maximumFractionDigits: 1 }) : '—'}</td>
+              <td>—</td>
+            </tr>
+          );
+        })}
+        <!-- Homicide sub-row (HOM-02) — distinct from vida/Life-crimes family -->
+        <tr class="homicide-subrow">
+          <td><em>{t.cmp_homicide_row.replace('{year}', String(year))}</em></td>
+          <td>
+            {homRateA !== null
+              ? `${homRateA.toLocaleString('es-CL', { maximumFractionDigits: 1 })}${homCountValA !== null ? ` (${homCountValA})` : ''}`
+              : t.cmp_homicide_no_data.replace('{year}', String(year))}
+          </td>
+          <td>
+            {homRateB !== null
+              ? `${homRateB.toLocaleString('es-CL', { maximumFractionDigits: 1 })}${homCountValB !== null ? ` (${homCountValB})` : ''}`
+              : t.cmp_homicide_no_data.replace('{year}', String(year))}
+          </td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 4. Trend narrative -->
+  <section class="trend-section panel-section" aria-label="Comparación de tendencias">
+    <h2 class="section-heading">Tendencia de Incidencia Reportada</h2>
+    <p class="trend-text">
+      <strong>{commA.name}</strong>: tendencia {commA.trend === 'up' ? 'al alza' : commA.trend === 'down' ? 'a la baja' : 'estable'} en incidencia reportada.
+      <strong>{commB.name}</strong>: tendencia {commB.trend === 'up' ? 'al alza' : commB.trend === 'down' ? 'a la baja' : 'estable'}.
+      La dirección de tendencia se basa en la serie temporal plurianual del CEAD.
+    </p>
+  </section>
+
+  <!-- 5. National rank -->
+  <section class="national-rank-section panel-section" aria-label="Ranking nacional">
+    <h2 class="section-heading">Ranking Nacional</h2>
+    <p class="rank-text">
+      <strong>{commA.name}</strong> ocupa la posición nacional <strong>#{commA.national_rank}</strong> de 346 comunas
+      (posición 1 = mayor incidencia reportada).
+      <strong>{commB.name}</strong> ocupa la posición <strong>#{commB.national_rank}</strong> de 346.
+      Los rankings nacionales se derivan de los datos anuales completos más recientes del CEAD.
+    </p>
+  </section>
+
+  <!-- 6. Regional context -->
+  <section class="regional-section panel-section" aria-label="Contexto regional">
+    <h2 class="section-heading">Contexto Regional</h2>
+    {commA.region_id === commB.region_id ? (
+      <p class="regional-text">
+        Ambas comunas pertenecen a la región de <strong>{commA.regionName}</strong>.
+        Dentro de la región, <strong>{commA.name}</strong> ocupa la posición regional #{commA.regional_rank}
+        y <strong>{commB.name}</strong> ocupa la posición #{commB.regional_rank}
+        (posición 1 = mayor incidencia reportada dentro de la región).
+      </p>
+    ) : (
+      <p class="regional-text">
+        <strong>{commA.name}</strong> y <strong>{commB.name}</strong> pertenecen a regiones distintas
+        (<strong>{commA.regionName}</strong> y <strong>{commB.regionName}</strong> respectivamente).
+        Dentro de su propia región, {commA.name} ocupa la posición regional #{commA.regional_rank}
+        y {commB.name} ocupa la posición #{commB.regional_rank}.
+      </p>
+    )}
+  </section>
+
+  <!-- 7. Commune cross-links -->
+  <section class="commune-crosslinks panel-section" aria-label="Páginas de datos de comunas">
+    <h2 class="section-heading">Páginas de Datos de Comunas</h2>
+    <ul class="crosslink-list">
+      <li><a href={`/es/comuna/${commA.slug}/`}>Datos de {commA.name}</a></li>
+      <li><a href={`/es/comuna/${commB.slug}/`}>Datos de {commB.name}</a></li>
+    </ul>
+  </section>
+
+  <!-- 8. Prose summary (5 non-swappable blocks from buildComparisonProse) -->
+  <section class="prose-summary" aria-label="Resumen de la comparación">
+    {prose.split('\n\n').map((para) => <p>{para}</p>)}
+  </section>
+
+  <!-- 9. MethodologyCaveat (mandatory) -->
+  <MethodologyCaveat locale="es" />
+</BaseLayout>
+
+<style>
+  .avs-b-h1 {
+    font-size: var(--text-display);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin: var(--lg) 0 var(--md);
+    line-height: 1.15;
+  }
+
+  .panel-section {
+    margin: var(--xl) 0;
+    padding: var(--md);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .section-heading {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin-bottom: var(--md);
+  }
+
+  .index-diff-text {
+    font-size: var(--text-body);
+    color: var(--ink);
+    line-height: 1.5;
+    margin-bottom: var(--md);
+  }
+
+  .index-scores-row {
+    display: flex;
+    gap: var(--md);
+    flex-wrap: wrap;
+  }
+
+  .index-score-card {
+    flex: 1;
+    min-width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--sm) var(--md);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .score-name {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--xs);
+  }
+
+  .score-value {
+    font-size: var(--text-stat, 1.75rem);
+    font-weight: var(--weight-strong);
+    color: var(--primary);
+  }
+
+  .score-rank {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--xs);
+  }
+
+  .avs-b-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-body);
+  }
+
+  .avs-b-table caption {
+    font-size: var(--text-label);
+    color: var(--muted);
+    text-align: left;
+    margin-bottom: var(--xs);
+    caption-side: bottom;
+  }
+
+  .avs-b-table th,
+  .avs-b-table td {
+    padding: var(--xs) var(--sm);
+    text-align: right;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .avs-b-table th:first-child,
+  .avs-b-table td:first-child {
+    text-align: left;
+  }
+
+  .avs-b-table th {
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    background: var(--bg);
+  }
+
+  .homicide-subrow td {
+    font-style: italic;
+    color: var(--muted);
+    font-size: var(--text-label);
+  }
+
+  .trend-text,
+  .rank-text,
+  .regional-text {
+    font-size: var(--text-body);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .crosslink-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sm);
+  }
+
+  .crosslink-list li a {
+    display: inline-block;
+    padding: var(--xs) var(--sm);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-size: var(--text-label);
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .crosslink-list li a:hover {
+    background: #fff;
+  }
+
+  .prose-summary {
+    margin: var(--2xl) 0;
+    max-width: 72ch;
+  }
+
+  .prose-summary p {
+    font-size: var(--text-body);
+    font-weight: var(--weight-body);
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: var(--md);
+  }
+</style>
