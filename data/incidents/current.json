@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-20T02:58:31.561169Z",
+  "generated": "2026-06-20T08:50:28.979028Z",
   "window_days": 30,
   "incidents": [
     {
@@ -404,6 +404,19 @@
       "url": "https://www.latercera.com/nacional/noticia/minvu-solicita-al-cde-interponer-querella-contra-dos-entidades-patrocinantes-por-irregularidades-en-reconstruccion-en-el-olivar/",
       "family": "propiedad",
       "slug": "vina-del-mar"
+    },
+    {
+      "id": "a9cfad4b7ff3a6e8",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Pericias confirmarían ataque sexual: imputarán por femicidio íntimo a tío de joven asesinada en Temuco",
+      "title_en": "Examinations confirm sexual assault: uncle charged with intimate femicide of murdered young woman in Temuco",
+      "date": "2026-06-20",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/06/20/pericias-confirmarian-ataque-sexual-tio-de-joven-asesinada-en-temuco-seria-imputado-femicidio-intimo.shtml",
+      "family": "vida",
+      "slug": "temuco"
     }
   ]
 }
