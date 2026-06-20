@@ -15,6 +15,7 @@
  *  11.  spine.mjs             — IA spine cross-link reciprocity (Phase 12: rankings, breadcrumb, map-spoke, home H1)
  *  12.  seo.mjs               — OG/Twitter meta + JSON-LD shape validator (Phase 13 SEO hardening)
  *  13.  figure-registry.mjs   — SRC-05 figure-registry zero-orphan completeness check over data/SOURCES.md
+ *  14.  avs-b-budget.mjs      — file budget < 18,000 + EN/ES compare-page count symmetry (Phase 21 CMP-05)
  *
  * Any non-zero exit from a child script fails the suite.
  * Prints a per-check PASS/FAIL summary at the end.
@@ -47,6 +48,7 @@ const VALIDATORS = [
   'spine.mjs',
   'seo.mjs',
   'figure-registry.mjs',
+  'avs-b-budget.mjs',
 ];
 
 const results = [];
