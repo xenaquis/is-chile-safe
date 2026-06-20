@@ -120,8 +120,15 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
   4. Every commune page links to 3–5 relevant A-vs-B pairs involving that commune, and the hreflang reciprocity validator is extended to cover A-vs-B pages — all validators exit 0.
   5. A random sample of ≥ 10 A-vs-B pairs is acceptance-checked for prose quality before any pages are deployed; the first batch of ~20 pairs is published and GSC URL Inspection is verified before expanding to subsequent batches.
 
-**Plans**: TBD
+**Plans**: 4 plans
 **UI hint**: yes
+
+Plans:
+
+- [ ] 21-01-PLAN.md — Wave 0: same-region pair allowlist (5,031) + comparisonProse engine (≥300 non-swappable words) + avs-b-budget validator (<18,000 files) + 15 i18n keys
+- [ ] 21-02-PLAN.md — Comparator island (autocomplete + side-by-side + homicide row) + EN/ES static landing shells + Compare nav link
+- [ ] 21-03-PLAN.md — A-vs-B programmatic pages (EN/ES, thin-content gate) + commune-page cross-links + hreflang/spine validator extensions
+- [ ] 21-04-PLAN.md — Register budget validator + full 14/14 suite green + ≥10-pair prose acceptance + staged batch GSC verification
 
 ### Phase 22: Go-Live / Launch Ops
 
@@ -189,7 +196,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 18. Composite Crime Index | 8/8 | Complete    | 2026-06-19 |
-| 21. Commune Comparator + A-vs-B SEO | 0/TBD | Not started | - |
+| 21. Commune Comparator + A-vs-B SEO | 0/4 | Not started | - |
 | 23. ENUSC Communal Victimization Layer | 4/4 | Complete   | 2026-06-19 |
 | 22. Go-Live / Launch Ops | 2/3 | In Progress|  |
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |
