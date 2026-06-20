@@ -20,9 +20,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import MethodologyCaveat from '../../components/MethodologyCaveat.astro';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { loadCommune, loadIndex, loadNationalAverage } from '../../lib/data.ts';
+import { loadCommune, loadNational } from '../../lib/data.ts';
 import { buildComparisonProse, buildMetaDescription } from '../../lib/comparisonProse.ts';
-import { EN_STRINGS, FAMILY_SLUGS } from '../../config/i18n.ts';
+import { EN_STRINGS } from '../../config/i18n.ts';
 
 export async function getStaticPaths() {
   const DATA_ROOT = path.resolve(process.cwd(), '..', 'data');
@@ -68,8 +68,19 @@ const description = buildMetaDescription(commA, commB, 'en');
 
 const t = EN_STRINGS;
 
-// National average for the Chile avg column
-const nationalAvg = loadNationalAverage();
+// National per-family rates for the "Chile avg." column (WR-02).
+// national.json series[].by_family holds population-weighted national rates.
+// Use the SAME reference year as the commune columns when national has a
+// non-partial entry for it; otherwise fall back to national's latest complete
+// year so the column is never a row of dead "—" placeholders.
+const national = loadNational();
+const natEntry =
+  national.series.find((s) => s.year === year && !s.partial) ??
+  national.series.filter((s) => !s.partial).reduce(
+    (latest, s) => (latest && latest.year >= s.year ? latest : s),
+    undefined as (typeof national.series)[number] | undefined
+  );
+const natByFamily = natEntry?.by_family ?? {};
 
 // Per-family rates at latest complete year
 const entryA = commA.series.find((s) => s.year === year && !s.partial);
@@ -109,9 +120,6 @@ const familyLabelEn: Record<string, string> = {
   armas: 'Weapons offenses',
   incivilidades: 'Public-order incidents',
 };
-
-// National average by family (loadNationalAverage returns aggregate; for per-family
-// we show '—' as national per-family data requires an extra data call not in scope)
 ---
 
 <!-- NOTE: no jsonLd prop — A-vs-B JSON-LD is deferred out of Phase 21 -->
@@ -176,13 +184,14 @@ const familyLabelEn: Record<string, string> = {
         {familyKeys.map((key) => {
           const rateA = byFamilyA[key];
           const rateB = byFamilyB[key];
+          const rateNat = natByFamily[key];
           const label = familyLabelEn[key] ?? key;
           return (
             <tr>
               <td>{label}</td>
               <td>{rateA !== undefined ? rateA.toLocaleString('en-US', { maximumFractionDigits: 1 }) : '—'}</td>
               <td>{rateB !== undefined ? rateB.toLocaleString('en-US', { maximumFractionDigits: 1 }) : '—'}</td>
-              <td>—</td>
+              <td>{rateNat !== undefined ? rateNat.toLocaleString('en-US', { maximumFractionDigits: 1 }) : '—'}</td>
             </tr>
           );
         })}

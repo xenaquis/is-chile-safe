@@ -17,9 +17,9 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import MethodologyCaveat from '../../../components/MethodologyCaveat.astro';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { loadCommune, loadIndex, loadNationalAverage } from '../../../lib/data.ts';
+import { loadCommune, loadNational } from '../../../lib/data.ts';
 import { buildComparisonProse, buildMetaDescription } from '../../../lib/comparisonProse.ts';
-import { ES_STRINGS, FAMILY_SLUGS } from '../../../config/i18n.ts';
+import { ES_STRINGS } from '../../../config/i18n.ts';
 
 export async function getStaticPaths() {
   const DATA_ROOT = path.resolve(process.cwd(), '..', 'data');
@@ -64,6 +64,20 @@ const title = ES_STRINGS.avs_b_h1_pattern
 const description = buildMetaDescription(commA, commB, 'es');
 
 const t = ES_STRINGS;
+
+// National per-family rates for the "Prom. Chile" column (WR-02).
+// national.json series[].by_family holds population-weighted national rates.
+// Use the SAME reference year as the commune columns when national has a
+// non-partial entry for it; otherwise fall back to national's latest complete
+// year so the column is never a row of dead "—" placeholders.
+const national = loadNational();
+const natEntry =
+  national.series.find((s) => s.year === year && !s.partial) ??
+  national.series.filter((s) => !s.partial).reduce(
+    (latest, s) => (latest && latest.year >= s.year ? latest : s),
+    undefined as (typeof national.series)[number] | undefined
+  );
+const natByFamily = natEntry?.by_family ?? {};
 
 // Per-family rates at latest complete year
 const entryA = commA.series.find((s) => s.year === year && !s.partial);
@@ -168,13 +182,14 @@ const familyLabelEs: Record<string, string> = {
         {familyKeys.map((key) => {
           const rateA = byFamilyA[key];
           const rateB = byFamilyB[key];
+          const rateNat = natByFamily[key];
           const label = familyLabelEs[key] ?? key;
           return (
             <tr>
               <td>{label}</td>
               <td>{rateA !== undefined ? rateA.toLocaleString('es-CL', { maximumFractionDigits: 1 }) : '—'}</td>
               <td>{rateB !== undefined ? rateB.toLocaleString('es-CL', { maximumFractionDigits: 1 }) : '—'}</td>
-              <td>—</td>
+              <td>{rateNat !== undefined ? rateNat.toLocaleString('es-CL', { maximumFractionDigits: 1 }) : '—'}</td>
             </tr>
           );
         })}
