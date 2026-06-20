@@ -127,7 +127,7 @@ Plans:
 
 **Wave 1**
 
-- [ ] 21-01-PLAN.md — Wave 0: same-region pair allowlist (5,031) + comparisonProse engine (≥300 non-swappable words) + avs-b-budget validator (<18,000 files) + 15 i18n keys
+- [x] 21-01-PLAN.md — Wave 0: same-region pair allowlist (5,031) + comparisonProse engine (≥300 non-swappable words) + avs-b-budget validator (<18,000 files) + 15 i18n keys
 - [ ] 21-02-PLAN.md — Comparator island (autocomplete + side-by-side + homicide row) + EN/ES static landing shells + Compare nav link
 - [ ] 21-03-PLAN.md — A-vs-B programmatic pages (EN/ES, thin-content gate) + commune-page cross-links + hreflang/spine validator extensions
 
@@ -187,7 +187,7 @@ Plans:
 **Requirements**: TBD (define in UI-SPEC / plan-phase)
 **Depends on:** Phase 18 (composite-index data, already shipped). Independent of Phase 22 launch ops.
 **UI hint**: yes
-**Plans:** 3/3 plans complete
+**Plans:** 1/4 plans executed
 
 Plans:
 
@@ -201,7 +201,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 18. Composite Crime Index | 8/8 | Complete    | 2026-06-19 |
-| 21. Commune Comparator + A-vs-B SEO | 0/4 | Not started | - |
+| 21. Commune Comparator + A-vs-B SEO | 1/4 | In Progress|  |
 | 23. ENUSC Communal Victimization Layer | 4/4 | Complete   | 2026-06-19 |
 | 22. Go-Live / Launch Ops | 2/3 | In Progress|  |
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |

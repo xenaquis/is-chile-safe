@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Composite Index, Comparators & Launch
 status: executing
-last_updated: "2026-06-20T15:29:32.541Z"
-last_activity: 2026-06-20 -- Phase 21 planning complete
+last_updated: "2026-06-20T15:37:02.265Z"
+last_activity: 2026-06-20
 progress:
   total_phases: 5
   completed_phases: 3
   total_plans: 22
-  completed_plans: 17
+  completed_plans: 18
   percent: 60
 ---
 
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 
 ## Current Position
 
-Phase: 24 (rankings-ux-dynamic-sortable-tables-and-visual-polish) — COMPLETE (verified 2026-06-20, BrowserOS E2E PASS, GAP-24A resolved)
-Plan: 3 of 3
+Phase: 21 (Commune Comparator + A-vs-B SEO) — EXECUTING
+Plan: 2 of 4
 Status: Ready to execute
-Last activity: 2026-06-20 -- Phase 21 planning complete
+Last activity: 2026-06-20
 
 ## Progress Bar
 
