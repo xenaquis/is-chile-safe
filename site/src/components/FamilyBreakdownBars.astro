@@ -1,5 +1,5 @@
 ---
-import { FAMILY_SCOPE_NOTE_EN, FAMILY_SCOPE_NOTE_ES } from '../lib/familyDefs';
+import { FAMILY_SCOPE_NOTE_EN, FAMILY_SCOPE_NOTE_ES, FAMILY_LABELS_PAGE } from '../lib/familyDefs';
 
 /**
  * FamilyBreakdownBars — CSS horizontal bar chart for 7 crime families.
@@ -48,17 +48,6 @@ const FAMILY_ORDER = [
 
 const FEATURED = new Set(['vida', 'propiedad']);
 
-// Family labels per locale
-const FAMILY_LABELS: Record<string, { en: string; es: string }> = {
-  vida:            { en: 'Life crimes',         es: 'Delitos contra la vida' },
-  propiedad:       { en: 'Property crimes',     es: 'Delitos contra la propiedad' },
-  robos_violentos: { en: 'Violent robbery',     es: 'Robos violentos' },
-  incivilidades:   { en: 'Disorder',            es: 'Incivilidades' },
-  vif:             { en: 'Domestic violence',   es: 'Violencia intrafamiliar' },
-  drogas:          { en: 'Drug crimes',         es: 'Drogas' },
-  armas:           { en: 'Weapons',             es: 'Armas' },
-};
-
 // Build rows
 const vals = FAMILY_ORDER.map((key) => byFamily[key] ?? 0);
 const max = Math.max(...vals, 1); // avoid divide-by-zero
@@ -66,14 +55,14 @@ const max = Math.max(...vals, 1); // avoid divide-by-zero
 const rows = FAMILY_ORDER.map((key, i) => {
   const val = vals[i];
   const widthPct = Math.round((val / max) * 100) + '%';
-  const label = FAMILY_LABELS[key]?.[locale] ?? key;
+  const label = FAMILY_LABELS_PAGE[key]?.[locale] ?? key;
   const featured = FEATURED.has(key);
   return { key, val, widthPct, label, featured };
 });
 ---
 
 <div class="family-bars">
-  {rows.map(({ val, widthPct, label, featured }) => (
+  {rows.map(({ key, val, widthPct, label, featured }) => (
     <div class="family-bar-row">
       <span class={`family-bar-label${featured ? ' featured' : ''}`}>
         {featured && <span class="accent-dot" aria-hidden="true"></span>}
@@ -82,10 +71,11 @@ const rows = FAMILY_ORDER.map((key, i) => {
       <span class="family-bar-track" aria-hidden="true">
         <span
           class="family-bar-fill"
+          data-family={key}
           style={`width:${widthPct};background:var(--s${level})`}
         ></span>
       </span>
-      <span class="family-bar-val">{Math.round(val)}</span>
+      <span class="family-bar-val" data-family={key}>{Math.round(val)}</span>
     </div>
   ))}
 </div>

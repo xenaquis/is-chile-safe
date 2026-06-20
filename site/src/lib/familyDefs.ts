@@ -62,6 +62,19 @@ export const FAMILY_DEFS_ES: Record<string, string> = {
   homicidios:      'Casos de homicidio reportados desagregados por comuna, según estadísticas policiales oficiales del CEAD (subgrupo 101 dentro de Delitos contra la Vida).',
 };
 
+// Page-style family labels (lowercase / concise) — used by FamilyBreakdownBars
+// and CrimeFamilyCharts. Hoisted from FamilyBreakdownBars local const verbatim.
+export const FAMILY_LABELS_PAGE: Record<string, { en: string; es: string }> = {
+  vida:            { en: 'Life crimes',         es: 'Delitos contra la vida' },
+  propiedad:       { en: 'Property crimes',     es: 'Delitos contra la propiedad' },
+  robos_violentos: { en: 'Violent robbery',     es: 'Robos violentos' },
+  incivilidades:   { en: 'Disorder',            es: 'Incivilidades' },
+  vif:             { en: 'Domestic violence',   es: 'Violencia intrafamiliar' },
+  drogas:          { en: 'Drug crimes',         es: 'Drogas' },
+  armas:           { en: 'Weapons',             es: 'Armas' },
+  homicidios:      { en: 'Homicide',            es: 'Homicidios' },
+};
+
 // Optional per-family scope callout, surfaced as a visible note on crime-type
 // pages where a family's CEAD definition is easily misread. Only families with
 // a genuine caveat are populated; absent keys render no note.
