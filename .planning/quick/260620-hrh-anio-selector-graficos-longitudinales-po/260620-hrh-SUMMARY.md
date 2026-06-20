@@ -93,3 +93,13 @@ None — pure frontend rendering change; no new endpoints or auth paths.
 - Commits 1c6bed2, 3e94da2, ff57ba9: all present in git log
 - Built dist/commune/algarrobo/index.html contains all required markers: CONFIRMED
 - validate: all PASS
+
+## Post-Verification Fix (2026-06-20) — commit 9e8001b
+
+**Issue found:** Browser-equivalent static verification revealed a runtime DOM bug in the homicide block's year-switching. The `applyYear` script toggled elements by `style.display`, but one of the two elements (`.homicide-figure` or `.homicide-empty`) was missing from the DOM depending on whether the default year had homicide data — causing `getElementById` to return null and the toggle to silently no-op.
+
+**Fix applied:** Rendered both `.homicide-figure` and `#hom-empty` unconditionally in static HTML. Initial `display:none` applied to whichever does not match the default-year state, preserving SEO/no-JS visual output. `#hom-count` span also always rendered, hidden when count is null. `applyYear` logic unchanged.
+
+**Files:** `src/pages/commune/[slug].astro`, `src/pages/es/comuna/[slug].astro` (identical fix both locales).
+
+**Verification:** `dist/commune/algarrobo/index.html` and `dist/es/comuna/algarrobo/index.html` both contain `id="hom-rate"` and `id="hom-empty" style="display:none"` in static HTML.
