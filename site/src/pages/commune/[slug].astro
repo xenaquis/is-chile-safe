@@ -306,17 +306,12 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     return (
       <section class="homicide-section" aria-label="Homicide rate">
         <h2 class="section-heading" id="hom-heading">{`Homicides (${year})`}</h2>
-        {homRate !== null ? (
-          <p class="homicide-figure">
-            <span class="homicide-rate" id="hom-rate">{Math.round(homRate).toLocaleString('en-US')}</span>
-            <span class="homicide-unit"> per 100,000 inhabitants</span>
-            {count !== null && (
-              <span class="homicide-count" id="hom-count"> ({count} {count === 1 ? 'case' : 'cases'})</span>
-            )}
-          </p>
-        ) : (
-          <p class="homicide-empty" id="hom-empty">{`No reported cases — CEAD ${year}`}</p>
-        )}
+        <p class="homicide-figure" style={homRate !== null ? undefined : 'display:none'}>
+          <span class="homicide-rate" id="hom-rate">{homRate !== null ? Math.round(homRate).toLocaleString('en-US') : ''}</span>
+          <span class="homicide-unit"> per 100,000 inhabitants</span>
+          <span class="homicide-count" id="hom-count" style={count !== null ? undefined : 'display:none'}> ({count} {count === 1 ? 'case' : 'cases'})</span>
+        </p>
+        <p class="homicide-empty" id="hom-empty" style={homRate === null ? undefined : 'display:none'}>{`No reported cases — CEAD ${year}`}</p>
         <p class="homicide-source" id="hom-source">Source: CEAD, subgroup 101 Life Crimes ({year})</p>
       </section>
     );

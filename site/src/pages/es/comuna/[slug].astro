@@ -309,17 +309,12 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     return (
       <section class="homicide-section" aria-label="Tasa de homicidios">
         <h2 class="section-heading" id="hom-heading">{`Homicidios (${year})`}</h2>
-        {homRate !== null ? (
-          <p class="homicide-figure">
-            <span class="homicide-rate" id="hom-rate">{Math.round(homRate).toLocaleString('es-CL')}</span>
-            <span class="homicide-unit"> por 100.000 habitantes</span>
-            {count !== null && (
-              <span class="homicide-count" id="hom-count"> ({count} {count === 1 ? 'caso' : 'casos'})</span>
-            )}
-          </p>
-        ) : (
-          <p class="homicide-empty" id="hom-empty">{`Sin casos reportados — CEAD ${year}`}</p>
-        )}
+        <p class="homicide-figure" style={homRate !== null ? undefined : 'display:none'}>
+          <span class="homicide-rate" id="hom-rate">{homRate !== null ? Math.round(homRate).toLocaleString('es-CL') : ''}</span>
+          <span class="homicide-unit"> por 100.000 habitantes</span>
+          <span class="homicide-count" id="hom-count" style={count !== null ? undefined : 'display:none'}> ({count} {count === 1 ? 'caso' : 'casos'})</span>
+        </p>
+        <p class="homicide-empty" id="hom-empty" style={homRate === null ? undefined : 'display:none'}>{`Sin casos reportados — CEAD ${year}`}</p>
         <p class="homicide-source" id="hom-source">Fuente: CEAD, subgrupo 101 Delitos contra la Vida ({year})</p>
       </section>
     );
