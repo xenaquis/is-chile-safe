@@ -102,13 +102,13 @@ const highestList = buildItemList(highestRows, 'es', {
       <div class="lead-table-col">
         <h2 class="table-heading">Menor incidencia reportada</h2>
         <p class="table-subhead">Comunas con menor tasa CEAD por 100k hab. — {referenceYear}</p>
-        <CommuneRankingTable rows={lowestRows} locale="es" />
+        <CommuneRankingTable rows={lowestRows} locale="es" sortable={false} />
         <a href="/es/comunas-mas-seguras-chile/" class="see-all-link">Ver ranking completo &rarr;</a>
       </div>
       <div class="lead-table-col">
         <h2 class="table-heading">Mayor incidencia reportada</h2>
         <p class="table-subhead">Comunas con mayor tasa CEAD por 100k hab. — {referenceYear}</p>
-        <CommuneRankingTable rows={highestRows} locale="es" />
+        <CommuneRankingTable rows={highestRows} locale="es" sortable={false} />
         <a href="/es/comunas/" class="see-all-link">Ver todas las comunas &rarr;</a>
       </div>
     </div>
