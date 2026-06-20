@@ -23,6 +23,8 @@ import ComparableCommune from '../../../components/ComparableCommune.astro';
 import CommuneRankingTable from '../../../components/CommuneRankingTable.astro';
 import ComparatorPairsLinks from '../../../components/ComparatorPairsLinks.astro';
 import { FAMILY_SLUGS } from '../../../config/i18n.ts';
+import CrimeFamilyCharts from '../../../components/CrimeFamilyCharts.astro';
+import { FAMILY_ORDER } from '../../../lib/familyDefs';
 import MethodologyCaveat from '../../../components/MethodologyCaveat.astro';
 import {
   loadCommune,
@@ -126,12 +128,49 @@ const comparatorPairs = _sameRegionCandidates.slice(0, 5).map((c) => {
 // Prose (ES)
 const prose = buildCommuneProse(data, 'es');
 
+// Year selector data map — all years in series (complete + partial)
+const availableYears = [...data.series]
+  .sort((a, b) => b.year - a.year)
+  .map((s) => s.year);
+
+const yearData: Record<string, {
+  rate: number;
+  byFamily: Record<string, number>;
+  homRate: number | null;
+  homCount: number | null;
+}> = {};
+for (const s of data.series) {
+  const yrStr = String(s.year);
+  const homRateVal = data.featured_rates?.homicidios?.[yrStr];
+  const homCountVal = data.featured_rates?.homicidios_count?.[yrStr];
+  yearData[yrStr] = {
+    rate: s.rate_per_100k,
+    byFamily: s.by_family,
+    homRate: homRateVal !== undefined ? homRateVal : null,
+    homCount: homCountVal !== undefined ? homCountVal : null,
+  };
+}
+
 // URLs
 const enPath = `/commune/${data.slug}/`;
 const esPath = `/es/comuna/${data.slug}/`;
 
 // Meta
 const t = ES_STRINGS;
+
+// i18n strings needed by vanilla JS (passed via JSON island — no {expr} in <script>)
+const yearI18n = {
+  rateLabelTemplate: t.rate_label,          // 'Tasa por 100.000 hab. ({year})'
+  familyHeadingTemplate: t.family_breakdown_heading, // 'Incidencia reportada por categoría delictiva ({year})'
+  homHeadingTemplate: 'Homicidios ({year})',
+  homSourceTemplate: 'Fuente: CEAD, subgrupo 101 Delitos contra la Vida ({year})',
+  homEmptyTemplate: 'Sin casos reportados — CEAD {year}',
+  homUnit: 'por 100.000 habitantes',
+  casesSingular: 'caso',
+  casesPlural: 'casos',
+  locale: 'es-CL',
+  familyOrder: [...FAMILY_ORDER],
+};
 const title = `Incidencia en ${data.name} — Chile Safety Map`;
 const description = `Estadísticas CEAD de incidencia delictiva en ${data.name}, ${data.regionName}: tasa reportada, posición nacional, evolución 2005–${year}.`;
 
@@ -200,10 +239,11 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
 
   <!-- 3. KeyStatsRow -->
   <section class="key-stats-row" aria-label="Estadísticas clave">
-    <StatCard
-      label={t.rate_label.replace('{year}', String(year))}
-      value={Math.round(rate).toLocaleString('es-CL')}
-    />
+    <!-- Rate card — inline para permitir id hooks para JS del selector de año -->
+    <div class="stat-card">
+      <div class="stat-value" id="rate-value">{Math.round(rate).toLocaleString('es-CL')}</div>
+      <div class="stat-label" id="rate-label">{t.rate_label.replace('{year}', String(year))}</div>
+    </div>
     <StatCard
       label={t.national_rank_label}
       value={`#${data.national_rank} ${t.rank_of} 346`}
@@ -213,6 +253,20 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
       value={`#${data.regional_rank} de ${regionCommuneCount}`}
     />
   </section>
+
+  <!-- Selector de año (progressive enhancement — año por defecto en HTML estático) -->
+  <div class="year-selector-row">
+    <label for="year-select" class="year-selector-label">{t.year_selector_label}</label>
+    <select id="year-select" class="year-selector-select">
+      {availableYears.map((y) => (
+        <option value={String(y)} selected={y === year}>{y}</option>
+      ))}
+    </select>
+  </div>
+
+  <!-- JSON islands: datos por año + strings i18n para JS vanilla (sin {expr} en script) -->
+  <script type="application/json" id="year-data" set:html={JSON.stringify(yearData)}></script>
+  <script type="application/json" id="year-i18n" set:html={JSON.stringify(yearI18n)}></script>
 
   <!-- 4. SparklineSection -->
   <section class="sparkline-section" aria-label="Evolución anual">
@@ -239,7 +293,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
 
   <!-- 6. CrimeFamilyBreakdown -->
   <section class="family-breakdown" aria-label="Desglose por familia delictiva">
-    <h2 class="section-heading">
+    <h2 class="section-heading" id="family-heading">
       {t.family_breakdown_heading.replace('{year}', String(year))}
     </h2>
     <FamilyBreakdownBars byFamily={byFamily} locale="es" level={level} />
@@ -254,22 +308,31 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     const count = homCount !== undefined && homCount[String(year)] !== undefined ? homCount[String(year)] : null;
     return (
       <section class="homicide-section" aria-label="Tasa de homicidios">
-        <h2 class="section-heading">{`Homicidios (${year})`}</h2>
+        <h2 class="section-heading" id="hom-heading">{`Homicidios (${year})`}</h2>
         {homRate !== null ? (
           <p class="homicide-figure">
-            <span class="homicide-rate">{Math.round(homRate).toLocaleString('es-CL')}</span>
+            <span class="homicide-rate" id="hom-rate">{Math.round(homRate).toLocaleString('es-CL')}</span>
             <span class="homicide-unit"> por 100.000 habitantes</span>
             {count !== null && (
-              <span class="homicide-count"> ({count} {count === 1 ? 'caso' : 'casos'})</span>
+              <span class="homicide-count" id="hom-count"> ({count} {count === 1 ? 'caso' : 'casos'})</span>
             )}
           </p>
         ) : (
-          <p class="homicide-empty">{`Sin casos reportados — CEAD ${year}`}</p>
+          <p class="homicide-empty" id="hom-empty">{`Sin casos reportados — CEAD ${year}`}</p>
         )}
-        <p class="homicide-source">Fuente: CEAD, subgrupo 101 Delitos contra la Vida ({year})</p>
+        <p class="homicide-source" id="hom-source">Fuente: CEAD, subgrupo 101 Delitos contra la Vida ({year})</p>
       </section>
     );
   })()}
+
+  <!-- 6a-2. Gráficos de evolución longitudinal — SVG estático, sin JS, todos los años -->
+  <CrimeFamilyCharts
+    series={data.series}
+    homicidios={data.featured_rates?.homicidios ?? {}}
+    locale="es"
+    heading={t.charts_heading}
+  />
+  <p class="chart-partial-note">{t.chart_partial_note}</p>
 
   <!-- 6b. Índice Compuesto de Delincuencia (CI-05/CI-06) — superficie estática, sin toggle de mapa -->
   {(() => {
@@ -366,6 +429,107 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
   <!-- 10. MethodologyCaveat -->
   <MethodologyCaveat locale="es" />
 </BaseLayout>
+
+<script>
+// Selector de año — JS vanilla, sin isla de framework (D-09)
+// Todos los datos del servidor vienen de JSON islands — NUNCA de interpolación {expr}.
+(function () {
+  const yearDataEl = document.getElementById('year-data');
+  const yearI18nEl = document.getElementById('year-i18n');
+  const sel = document.getElementById('year-select') as HTMLSelectElement | null;
+  if (!yearDataEl || !yearI18nEl || !sel) return;
+
+  const yearData = JSON.parse(yearDataEl.textContent ?? '{}') as Record<string, {
+    rate: number;
+    byFamily: Record<string, number>;
+    homRate: number | null;
+    homCount: number | null;
+  }>;
+
+  const i18n = JSON.parse(yearI18nEl.textContent ?? '{}') as {
+    rateLabelTemplate: string;
+    familyHeadingTemplate: string;
+    homHeadingTemplate: string;
+    homSourceTemplate: string;
+    homEmptyTemplate: string;
+    homUnit: string;
+    casesSingular: string;
+    casesPlural: string;
+    locale: string;
+    familyOrder: string[];
+  };
+
+  function applyYear(yr: string) {
+    const d = yearData[yr];
+    if (!d) return;
+
+    // Tarjeta de tasa
+    const rateVal = document.getElementById('rate-value');
+    const rateLbl = document.getElementById('rate-label');
+    if (rateVal) rateVal.textContent = Math.round(d.rate).toLocaleString(i18n.locale);
+    if (rateLbl) rateLbl.textContent = i18n.rateLabelTemplate.replace('{year}', yr);
+
+    // Encabezado familias
+    const famHeading = document.getElementById('family-heading');
+    if (famHeading) famHeading.textContent = i18n.familyHeadingTemplate.replace('{year}', yr);
+
+    // Barras de familia
+    const vals = i18n.familyOrder.map((key: string) => d.byFamily[key] ?? 0);
+    const max = Math.max(...vals, 1);
+    i18n.familyOrder.forEach((key: string, idx: number) => {
+      const val = vals[idx] ?? 0;
+      const pct = Math.round((val / max) * 100) + '%';
+      const fillEl = document.querySelector(`.family-bar-fill[data-family="${key}"]`) as HTMLElement | null;
+      const valEl = document.querySelector(`.family-bar-val[data-family="${key}"]`) as HTMLElement | null;
+      if (fillEl) fillEl.style.width = pct;
+      if (valEl) valEl.textContent = String(Math.round(val));
+    });
+
+    // Sección homicidios
+    const homHeading = document.getElementById('hom-heading');
+    const homRate = document.getElementById('hom-rate');
+    const homCount = document.getElementById('hom-count');
+    const homEmpty = document.getElementById('hom-empty');
+    const homSource = document.getElementById('hom-source');
+    if (homHeading) homHeading.textContent = i18n.homHeadingTemplate.replace('{year}', yr);
+    if (homSource) homSource.textContent = i18n.homSourceTemplate.replace('{year}', yr);
+    if (d.homRate !== null) {
+      if (homRate) {
+        homRate.textContent = Math.round(d.homRate).toLocaleString(i18n.locale);
+        (homRate.parentElement as HTMLElement | null)?.style && ((homRate.parentElement as HTMLElement).style.display = '');
+      }
+      if (homEmpty) homEmpty.style.display = 'none';
+      if (homCount) {
+        if (d.homCount !== null) {
+          homCount.textContent = ` (${d.homCount} ${d.homCount === 1 ? i18n.casesSingular : i18n.casesPlural})`;
+          homCount.style.display = '';
+        } else {
+          homCount.style.display = 'none';
+        }
+      }
+    } else {
+      if (homRate) {
+        const fig = homRate.closest('.homicide-figure') as HTMLElement | null;
+        if (fig) fig.style.display = 'none';
+      }
+      if (homEmpty) {
+        homEmpty.textContent = i18n.homEmptyTemplate.replace('{year}', yr);
+        homEmpty.style.display = '';
+      }
+    }
+
+    // Resaltado de año activo en Sparkline
+    const rects = document.querySelectorAll<SVGRectElement>('.sparkline rect[data-year]');
+    rects.forEach((rect) => {
+      rect.setAttribute('fill', rect.getAttribute('data-year') === yr ? 'var(--primary)' : 'var(--muted)');
+    });
+  }
+
+  sel.addEventListener('change', () => {
+    applyYear(sel.value);
+  });
+})();
+</script>
 
 <style>
   .commune-hero {
@@ -648,5 +812,61 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
 
   .enusc-no-estimate-text {
     margin: 0;
+  }
+
+  /* 260620-hrh: selector de año */
+  .year-selector-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sm);
+    margin: var(--md) 0 var(--xl);
+  }
+
+  .year-selector-label {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--muted);
+  }
+
+  .year-selector-select {
+    font-size: var(--text-label);
+    padding: 4px 8px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  /* Tarjeta de tasa inline (espeja estilos del componente StatCard) */
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--xs);
+  }
+
+  .stat-value {
+    font-size: var(--text-display);
+    font-weight: var(--weight-strong);
+    line-height: 1.15;
+    color: var(--ink);
+  }
+
+  .stat-label {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--muted);
+  }
+
+  /* Nota de año parcial en gráficos */
+  .chart-partial-note {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: calc(-1 * var(--md));
+    margin-bottom: var(--xl);
   }
 </style>
