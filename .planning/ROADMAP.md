@@ -74,6 +74,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 - [x] **Phase 21: Commune Comparator + A-vs-B SEO** — interactive comparator island + ~6,800 bilingual A-vs-B programmatic pages built on Phase 18 outputs _(depends on Phase 18)_ (completed 2026-06-19)
 - [x] **Phase 23: ENUSC Communal Victimization Layer** — additive INE ENUSC 2024 SAE household-victimization (VHDV) figure on the 136 covered comuna pages, graceful "no estimate" for the other 210; anti-infra-representation, additive-only vs Phase 18 _(depends on Phase 18 + 17; **runs BEFORE Phase 22**)_ — origin SEED-002 (completed 2026-06-19)
 - [ ] **Phase 22: Go-Live / Launch Ops** — CF deploy hook, production deploy, live news audit, GSC submission _(parallel with Phase 21; no code dependency; **gated after Phase 23** per SEED-002)_
+- [ ] **Phase 24: Rankings UX — dynamic sortable tables + visual polish** — wire `RankingTableEnhancer` into ranking surfaces lacking it (safest-cities EN+ES), descending default + asc override, brand-token polish, BrowserOS E2E _(depends on Phase 18; independent of Phase 22)_
 
 ---
 
