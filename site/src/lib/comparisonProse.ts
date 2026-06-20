@@ -26,6 +26,7 @@
 
 import {
   latestCompleteYearRate,
+  loadIndex,
   type CommuneData,
   type SeriesEntry,
 } from './data.ts';
@@ -79,14 +80,22 @@ function topTwoFamilies(byFamily: Record<string, number>): [string, string] {
   return [entries[0]?.[0] ?? 'propiedad', entries[1]?.[0] ?? 'vida'];
 }
 
-/** The family where A and B diverge the most in absolute terms */
+/**
+ * The family where A and B diverge the most in absolute terms.
+ *
+ * `empty` is true when there is no meaningful per-category divergence to report
+ * — either both communes lack by-family data (latestCompleteEntry undefined →
+ * `{}`) or every category is identical. In that case callers MUST emit a neutral
+ * sentence rather than the seeded propiedad/0/0 default, which would fabricate a
+ * "property crimes 0 vs 0, gap 1×" claim (WR-06).
+ */
 function mostDivergentFamily(
   byFamilyA: Record<string, number>,
   byFamilyB: Record<string, number>
-): { family: string; rateA: number; rateB: number; factor: number } {
+): { family: string; rateA: number; rateB: number; factor: number; empty: boolean } {
   const families = Object.keys(byFamilyA);
   let maxDivergence = 0;
-  let result = { family: 'propiedad', rateA: 0, rateB: 0, factor: 1 };
+  let result = { family: 'propiedad', rateA: 0, rateB: 0, factor: 1, empty: true };
   for (const fam of families) {
     const rA = byFamilyA[fam] ?? 0;
     const rB = byFamilyB[fam] ?? 0;
@@ -100,6 +109,7 @@ function mostDivergentFamily(
         rateA: rA,
         rateB: rB,
         factor: lower > 0 ? higher / lower : (higher > 0 ? higher : 1),
+        empty: false,
       };
     }
   }
@@ -140,8 +150,14 @@ function EN_BLOCK2_FAMILY(
   family: string,
   rateA: number, rateB: number,
   factor: number,
+  empty: boolean,
   locale: Locale = 'en'
 ): string {
+  if (empty) {
+    // No per-category data, or no measurable divergence — emit a neutral,
+    // non-fabricated sentence (WR-06) instead of a "0 vs 0, gap 1×" claim.
+    return `Per-category reported incidence for ${nameA} and ${nameB} is comparable across the CEAD crime categories for the reference year, or category-level data is not yet available for both communes. The CEAD breakdown covers seven crime categories (crimes against persons, property crimes, violent robbery, public-order incidents, domestic violence, drug-related offenses, and weapons offenses); the year-by-year figures for each commune are available on its individual data page.`;
+  }
   const famLabel = familyName(family, locale);
   const higher = rateA >= rateB ? nameA : nameB;
   const lower = rateA >= rateB ? nameB : nameA;
@@ -192,7 +208,7 @@ function EN_BLOCK5_REGIONAL(
   if (sameRegion) {
     return `Both communes belong to the ${regionName} region, which contains ${regionSize} communes in total. Within the region, ${nameA} holds regional rank #${regRankA} and ${nameB} holds regional rank #${regRankB} (rank 1 = highest reported incidence within the region). Regional comparisons account for shared socioeconomic conditions, urban-density patterns, and local reporting infrastructure that influence measured incidence levels across communes in the same administrative area. Comparing two communes within the same region provides a geographically relevant benchmark beyond what the national rank alone can offer.`;
   }
-  return `${nameA} and ${nameB} belong to different regions: within its own region, ${nameA} holds regional rank #${regRankA}, and ${nameB} holds regional rank #${regRankB}. Cross-region comparisons are most meaningful in light of the national rank (#${regRankA === 0 ? '—' : ''}) rather than a shared regional baseline. Regional conditions — socioeconomic factors, population density, and local enforcement capacity — differ substantially across regions and shape how the reported rate relates to the underlying environment.`;
+  return `${nameA} and ${nameB} belong to different regions: within its own region, ${nameA} holds regional rank #${regRankA}, and ${nameB} holds regional rank #${regRankB}. Because the two communes sit in different regions, the national rank is the more meaningful basis for comparison than a shared regional baseline. Regional conditions — socioeconomic factors, population density, and local enforcement capacity — differ substantially across regions and shape how the reported rate relates to the underlying environment.`;
 }
 
 function EN_CLOSING_CMP(nameA: string, nameB: string, year: number): string {
@@ -223,8 +239,14 @@ function ES_BLOCK2_FAMILY(
   nameA: string, nameB: string,
   family: string,
   rateA: number, rateB: number,
-  factor: number
+  factor: number,
+  empty: boolean
 ): string {
+  if (empty) {
+    // Sin datos por categoría, o sin divergencia medible — frase neutra y no
+    // fabricada (WR-06) en lugar de una afirmación "0 vs 0, brecha 1×".
+    return `La incidencia reportada por categoría de ${nameA} y ${nameB} es comparable entre las categorías delictivas del CEAD para el año de referencia, o aún no hay datos por categoría disponibles para ambas comunas. El desglose del CEAD abarca siete categorías delictivas (delitos contra las personas, delitos contra la propiedad, robos con violencia, incivilidades y orden público, violencia intrafamiliar, delitos relacionados con drogas y delitos de armas); las cifras año a año de cada comuna están disponibles en su página individual de datos.`;
+  }
   const famLabel = familyName(family, 'es');
   const higher = rateA >= rateB ? nameA : nameB;
   const lower = rateA >= rateB ? nameB : nameA;
@@ -284,22 +306,19 @@ function ES_CLOSING_CMP(nameA: string, nameB: string, year: number): string {
 }
 
 // ---------------------------------------------------------------------------
-// Region size lookup from index.json (needed for Block 5)
+// Region size lookup (needed for Block 5)
 // ---------------------------------------------------------------------------
 
-// Import here uses the same DATA_ROOT pattern as data.ts (process.cwd()-based).
-// This function is called at SSG time only (never in the browser).
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
-
+// WR-07: derive region sizes from data.ts's loadIndex() rather than re-reading
+// meta/index.json with a second, divergent DATA_ROOT path resolver. loadIndex()
+// owns the single canonical DATA_ROOT and is build-CWD-robust; this function is
+// called at SSG time only (never in the browser).
 let _regionSizeCache: Map<string, number> | null = null;
 
 function getRegionSize(regionId: string): number {
   if (!_regionSizeCache) {
-    const DATA_ROOT = path.resolve(process.cwd(), '..', 'data', 'cead');
-    const idx = JSON.parse(readFileSync(path.join(DATA_ROOT, 'meta', 'index.json'), 'utf-8')) as Array<{ region_id: string }>;
     _regionSizeCache = new Map();
-    for (const entry of idx) {
+    for (const entry of loadIndex()) {
       _regionSizeCache.set(entry.region_id, (_regionSizeCache.get(entry.region_id) ?? 0) + 1);
     }
   }
@@ -349,7 +368,10 @@ export function buildComparisonProse(
   // Regional context
   const sameRegion = commA.region_id === commB.region_id;
   const regionNameRaw = commA.regionName; // enriched by loadCommune()
-  const regionSize = sameRegion ? getRegionSize(commA.region_id) : 0;
+  // WR-08: compute unconditionally (cheap + cached) so the value is always a
+  // real commune count, never a `0` sentinel that would surface as
+  // "contains 0 communes" if the same-/cross-region branch logic ever changes.
+  const regionSize = getRegionSize(commA.region_id);
 
   const paragraphs: string[] = [];
 
@@ -363,7 +385,7 @@ export function buildComparisonProse(
     paragraphs.push(EN_BLOCK2_FAMILY(
       commA.name, commB.name,
       divergent.family, divergent.rateA, divergent.rateB, divergent.factor,
-      'en'
+      divergent.empty, 'en'
     ));
 
     // Block 3: Trend narrative
@@ -396,7 +418,8 @@ export function buildComparisonProse(
     // Block 2: Per-family divergence (ES)
     paragraphs.push(ES_BLOCK2_FAMILY(
       commA.name, commB.name,
-      divergent.family, divergent.rateA, divergent.rateB, divergent.factor
+      divergent.family, divergent.rateA, divergent.rateB, divergent.factor,
+      divergent.empty
     ));
 
     // Block 3: Trend narrative (ES)
