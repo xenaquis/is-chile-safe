@@ -175,11 +175,11 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 **Requirements**: TBD (define in UI-SPEC / plan-phase)
 **Depends on:** Phase 18 (composite-index data, already shipped). Independent of Phase 22 launch ops.
 **UI hint**: yes
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
 
-- [ ] 24-01-PLAN.md - Fix enhancer to show sort affordance on load (data-default-sort-dir) + wire safest-cities EN+ES tables
+- [x] 24-01-PLAN.md - Fix enhancer to show sort affordance on load (data-default-sort-dir) + wire safest-cities EN+ES tables
 - [ ] 24-02-PLAN.md - BrowserOS E2E visual review (EN+ES, desktop 1280px + mobile 375px)
 
 ---

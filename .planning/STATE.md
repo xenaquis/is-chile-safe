@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Composite Index, Comparators & Launch
 status: executing
-last_updated: "2026-06-19T21:51:19.010Z"
-last_activity: 2026-06-19 -- Phase 22 execution started
+last_updated: "2026-06-20T00:26:10.805Z"
+last_activity: 2026-06-20
 progress:
-  total_phases: 4
+  total_phases: 5
   completed_phases: 2
-  total_plans: 15
-  completed_plans: 12
-  percent: 50
+  total_plans: 17
+  completed_plans: 15
+  percent: 40
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 
 ## Current Position
 
-Phase: 22 (go-live-launch-ops) — EXECUTING
-Plan: 1 of 3
-Status: Executing Phase 22
-Last activity: 2026-06-19 -- Phase 22 execution started
+Phase: 24 (rankings-ux-dynamic-sortable-tables-and-visual-polish) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-06-20
 
 ## Progress Bar
 
@@ -68,6 +68,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | Validators passing | 13/13 frontend + 179/179 pytest |
 | Phase 23 P01 | 20m | 3 tasks | 5 files |
 | Phase 23 P04 | 8m | 3 tasks | 4 files |
+| Phase 24 P01 | 12m | 2 tasks | 3 files |
 
 ## Accumulated Context
 
