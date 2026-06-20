@@ -356,11 +356,19 @@ if (esNavOffenders.length === 0) {
 
 // ---------------------------------------------------------------------------
 // ASSERTION M: comparator cross-link on commune ficha pages (CMP-06)
-// Every EN commune page must contain href="/compare/"
-// Every ES commune page must contain href="/es/comparar/"
+// Every EN commune page must embed the ComparatorPairsLinks spoke, and every
+// ES comuna page likewise. We must NOT match the site-wide PageHeader nav link
+// (bare href="/compare/" / href="/es/comparar/"), which is present on EVERY
+// page regardless of the spoke — matching it would make this a false-pass
+// (WR-03). Instead assert on the spoke's distinctive pair-slug link
+// href="/compare/<cutA>-vs-<cutB>/" (a "-vs-" link the nav never emits).
 // ---------------------------------------------------------------------------
 const enCommuneDir2 = path.join(DIST_DIR, 'commune');
 const esComunaDir2 = path.join(DIST_DIR, 'es', 'comuna');
+
+// Distinctive markers only the ComparatorPairsLinks spoke produces.
+const EN_SPOKE_RE = /href="\/compare\/\d+-vs-\d+\//;
+const ES_SPOKE_RE = /href="\/es\/comparar\/\d+-vs-\d+\//;
 
 if (existsSync(enCommuneDir2)) {
   const enCommuneDirs2 = readdirSync(enCommuneDir2, { withFileTypes: true })
@@ -372,7 +380,7 @@ if (existsSync(enCommuneDir2)) {
     const htmlPath = path.join(enCommuneDir2, slug, 'index.html');
     if (existsSync(htmlPath)) {
       const content = readFileSync(htmlPath, 'utf-8');
-      if (!content.includes('href="/compare/')) {
+      if (!EN_SPOKE_RE.test(content)) {
         enCmpOffenders.push(slug);
         if (enCmpOffenders.length >= 5) break;
       }
@@ -380,10 +388,10 @@ if (existsSync(enCommuneDir2)) {
   }
 
   if (enCmpOffenders.length === 0) {
-    console.log(`PASS [M] comparator-spoke: all EN commune pages contain href="/compare/"`);
+    console.log(`PASS [M] comparator-spoke: all EN commune pages contain a /compare/<a>-vs-<b>/ pair link`);
   } else {
     console.error(
-      `FAIL [M] comparator-spoke: ${enCmpOffenders.length}+ EN commune pages missing href="/compare/": ${enCmpOffenders.join(', ')}`
+      `FAIL [M] comparator-spoke: ${enCmpOffenders.length}+ EN commune pages missing a /compare/<a>-vs-<b>/ pair link: ${enCmpOffenders.join(', ')}`
     );
     failures++;
   }
@@ -399,7 +407,7 @@ if (existsSync(esComunaDir2)) {
     const htmlPath = path.join(esComunaDir2, slug, 'index.html');
     if (existsSync(htmlPath)) {
       const content = readFileSync(htmlPath, 'utf-8');
-      if (!content.includes('href="/es/comparar/')) {
+      if (!ES_SPOKE_RE.test(content)) {
         esCmpOffenders.push(slug);
         if (esCmpOffenders.length >= 5) break;
       }
@@ -407,10 +415,10 @@ if (existsSync(esComunaDir2)) {
   }
 
   if (esCmpOffenders.length === 0) {
-    console.log(`PASS [M] comparator-spoke: all ES comuna pages contain href="/es/comparar/"`);
+    console.log(`PASS [M] comparator-spoke: all ES comuna pages contain a /es/comparar/<a>-vs-<b>/ pair link`);
   } else {
     console.error(
-      `FAIL [M] comparator-spoke: ${esCmpOffenders.length}+ ES comuna pages missing href="/es/comparar/": ${esCmpOffenders.join(', ')}`
+      `FAIL [M] comparator-spoke: ${esCmpOffenders.length}+ ES comuna pages missing a /es/comparar/<a>-vs-<b>/ pair link: ${esCmpOffenders.join(', ')}`
     );
     failures++;
   }
