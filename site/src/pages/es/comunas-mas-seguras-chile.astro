@@ -10,6 +10,7 @@
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
 import DataCallout from '../../components/DataCallout.astro';
+import RankingTableEnhancer from '../../components/RankingTableEnhancer.astro';
 import {
   loadIndex,
   loadRolloutCuts,
@@ -28,6 +29,10 @@ const eligibleMeta = index.filter(
 const communeRates = eligibleMeta.map((meta) => {
   const data = loadCommune(meta.cut);
   const rate = latestCompleteYearRate(data);
+  const ratesByYear: Record<number, number> = {};
+  data.series.filter((s: any) => !s.partial).forEach((s: any) => {
+    ratesByYear[s.year] = s.rate_per_100k;
+  });
   return {
     cut: meta.cut,
     name: meta.name,
@@ -37,6 +42,7 @@ const communeRates = eligibleMeta.map((meta) => {
     nationalRank: data.national_rank,
     trend: data.trend,
     year: data.latestCompleteYear,
+    ratesByYear,
   };
 });
 
@@ -108,10 +114,19 @@ const jsonLd = {
     </p>
 
     <div class="ranking-table-wrapper" role="region" aria-label="Tabla de ranking de incidencia delictiva">
-      <table class="ranking-table">
+      <table
+        class="ranking-table"
+        data-ranking-table
+        data-rate-col="3"
+        data-name-col="1"
+        data-rate-format="round"
+        data-locale="es"
+        data-default-sort-dir="asc"
+      >
         <caption>
           Comunas con menor incidencia delictiva reportada por 100.000 habitantes —
           datos CEAD {dataYear}. Excluye comunas con población inferior a 10.000 hab.
+          Haga clic en los encabezados de columna para ordenar.
         </caption>
         <thead>
           <tr>
@@ -124,7 +139,7 @@ const jsonLd = {
         </thead>
         <tbody>
           {topCommunes.map((c, i) => (
-            <tr>
+            <tr data-rates={JSON.stringify(c.ratesByYear)}>
               <td>{i + 1}</td>
               <td>
                 <a href={`/es/comuna/${c.slug}/`}>{c.name}</a>
@@ -137,6 +152,7 @@ const jsonLd = {
         </tbody>
       </table>
     </div>
+    <RankingTableEnhancer locale="es" />
 
     <p class="table-note">
       Fuente: CEAD (Centro de Estudios y Análisis del Delito), datos para {dataYear}.
@@ -260,6 +276,7 @@ const jsonLd = {
   /* Tabla de ranking */
   .ranking-table-wrapper {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     margin-top: var(--md);
     margin-bottom: var(--md);
     border: 1px solid var(--line);
