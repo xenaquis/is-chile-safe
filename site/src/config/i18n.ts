@@ -34,6 +34,11 @@ export interface I18nStrings {
   // Sparkline
   sparkline_heading: string;
 
+  // Year selector + longitudinal charts (260620-hrh)
+  year_selector_label: string;
+  charts_heading: string;
+  chart_partial_note: string;
+
   // Partial year badge
   partial_year_badge: string;
 
@@ -214,6 +219,11 @@ export const EN_STRINGS: I18nStrings = {
 
   // Sparkline
   sparkline_heading: 'Annual evolution (2005–present)',
+
+  // Year selector + longitudinal charts (260620-hrh)
+  year_selector_label: 'Analysis year',
+  charts_heading: 'Crime evolution by category (2005–present)',
+  chart_partial_note: 'Faded points indicate partial-year data.',
 
   // Partial year badge
   partial_year_badge: 'Partial year ({year})',
@@ -402,6 +412,11 @@ export const ES_STRINGS: I18nStrings = {
 
   // Sparkline
   sparkline_heading: 'Evolución anual (2005–presente)',
+
+  // Selector de año + gráficos longitudinales (260620-hrh)
+  year_selector_label: 'Año de análisis',
+  charts_heading: 'Evolución de delitos por categoría (2005–presente)',
+  chart_partial_note: 'Los puntos atenuados indican datos de año parcial.',
 
   // Distintivo año parcial
   partial_year_badge: 'Año parcial ({year})',
