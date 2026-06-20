@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-20T13:54:45.977786Z",
+  "generated": "2026-06-20T19:21:39.576863Z",
   "window_days": 30,
   "incidents": [
     {
@@ -456,6 +456,97 @@
       "url": "https://www.latercera.com/nacional/noticia/carabineros-detiene-a-dos-sujetos-tras-el-robo-de-un-camion-en-maipu-con-cargamento-avaluado-sobre-los-110-millones-de-pesos/",
       "family": "robos_violentos",
       "slug": "maipu"
+    },
+    {
+      "id": "d00cf3f744181ab5",
+      "cut": "5102",
+      "lat": -33.310097,
+      "lng": -71.428575,
+      "title_es": "Adulto mayor muere atropellado en Ruta 68 en Casablanca",
+      "title_en": "Elderly man dies hit by car on Route 68 in Casablanca",
+      "date": "2026-06-20",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-valparaiso/2026/06/20/adulto-mayor-murio-atropellado-tras-bajarse-de-vehiculo-a-orinar-en-ruta-68-a-la-altura-de-casablanca.shtml",
+      "family": "vida",
+      "slug": "casablanca"
+    },
+    {
+      "id": "740b476bdd36681a",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Detienen a dos sujetos que robaron camión con más de $100 millones en elementos electrónicos en Maipú",
+      "title_en": "Two suspects arrested for stealing truck with over $100 million in electronics in Maipú",
+      "date": "2026-06-20",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/06/20/detienen-a-dos-sujetos-que-robaron-camion-con-mas-de-100-millones-en-elementos-electronicos-en-maipu.shtml",
+      "family": "robos_violentos",
+      "slug": "maipu"
+    },
+    {
+      "id": "6c4b81b486e82ed7",
+      "cut": "13126",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Mujer denuncia herida a bala; Carabineros descubre fábrica de armas con tecnología 3D",
+      "title_en": "Woman reports gunshot wound; police uncover 3D-printed weapons factory",
+      "date": "2026-06-20",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/mujer-denuncio-herida-a-bala-y-carabineros-descubrio-fabrica-de-armas/2026-06-20/133900.html",
+      "family": "armas",
+      "slug": "quinta-normal"
+    },
+    {
+      "id": "a4accb239120f7c8",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Dos talleres mecánicos y una residencial clandestina clausurados",
+      "title_en": "Two mechanical workshops and clandestine residence closed",
+      "date": "2026-06-20",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-antofagasta/dos-talleres-mecanicos-y-una-residencial-clandestina-fueron-clausurados/2026-06-20/111048.html",
+      "family": "incivilidades",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "321ca3444504d8db",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "Detenido por homicidio frustrado en Coquimbo",
+      "title_en": "Suspect arrested for attempted homicide in Coquimbo",
+      "date": "2026-06-20",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/carabineros-detiene-a-sujeto-acusado-por-homicidio-frustrado-en-la-comuna-de-coquimbo/",
+      "family": "vida",
+      "slug": "coquimbo"
+    },
+    {
+      "id": "426aa1ff850c6090",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Reformalizarán por femicidio íntimo a tío de joven asesinada en Temuco",
+      "title_en": "Uncle of murdered young woman in Temuco to be recharged for intimate femicide",
+      "date": "2026-06-20",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/reformalizaran-por-femicidio-intimo-a-tio-de-joven-asesinada-en-temuco-peritajes-confirmarian-ataque-sexual/",
+      "family": "vida",
+      "slug": "temuco"
+    },
+    {
+      "id": "3a3cb87567c2739d",
+      "cut": "7108",
+      "lat": -35.249753,
+      "lng": -71.282809,
+      "title_es": "Investigan femicidio en Río Claro: mujer muere apuñalada",
+      "title_en": "Femicide investigated in Río Claro: woman stabbed to death",
+      "date": "2026-06-20",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/investigan-femicidio-en-rio-claro-mujer-murio-tras-ser-apunalada/",
+      "family": "vif",
+      "slug": "rio-claro"
     }
   ]
 }
