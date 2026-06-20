@@ -535,7 +535,16 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
               if (!data) return null; // not yet fetched (shouldn't happen)
 
               const year = latestCompleteYear(data);
-              const ci = data.composite_index?.[String(year)];
+              // The composite index is computed for its own latest year (Phase 18
+              // keys it by the latest complete CEAD year, e.g. "2024"), which can
+              // lag the series' latestCompleteYear used for per-family/homicide
+              // rates. Index it by its OWN latest key, not the series year, or the
+              // headline silently falls back to "No composite index".
+              const ciYears = data.composite_index
+                ? Object.keys(data.composite_index).map(Number).filter(n => !Number.isNaN(n))
+                : [];
+              const ciYear = ciYears.length ? Math.max(...ciYears) : null;
+              const ci = ciYear !== null ? data.composite_index?.[String(ciYear)] : undefined;
               const bandLabel = ci ? (CI_BANDS[ci.level]?.[lang] ?? '') : '';
 
               // Homicide row (HOM-02 — !== undefined, 0 is valid).
