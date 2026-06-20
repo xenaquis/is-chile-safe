@@ -75,4 +75,5 @@ Component structure, prose-engine internals, autocomplete implementation, and pr
 ## Deferred Ideas
 - AdSense / Consent Mode v2 — out of v2.0 scope.
 - Expanding beyond the first ~20-pair batch happens only after GSC URL-Inspection verification (CMP-07).
+- **Schema.org JSON-LD on A-vs-B pages + `schema.mjs` validator extension** — DEFERRED out of Phase 21 (resolved 2026-06-20, 21-RESEARCH.md Open Question Q3). No CMP requirement (CMP-01..CMP-07) needs it; A-vs-B SEO value comes from directional prose (CMP-04) + reciprocal hreflang + commune↔compare cross-links (CMP-06), not JSON-LD. No Phase 21 plan references a `jsonLd` BaseLayout prop for A-vs-B pages or modifies `site/scripts/validate/schema.mjs`. If wanted later, scope as a follow-up phase (new `Dataset` shape + `schema.mjs` extension).
 </deferred>

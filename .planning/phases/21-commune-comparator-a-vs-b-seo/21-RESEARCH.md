@@ -48,6 +48,7 @@ Component structure, prose-engine internals, autocomplete implementation, and pr
 
 - AdSense activation + Consent Mode v2 — deferred out of v2.0 scope.
 - Expanding beyond the first ~20-pair batch — only after GSC validates the initial staged batches.
+- Schema.org JSON-LD on A-vs-B pages + `schema.mjs` extension to validate it — deferred (no CMP requirement needs it; see Open Question Q3).
 </user_constraints>
 
 ---
@@ -629,7 +630,7 @@ Currently 13 validators in `site/scripts/validate/all.mjs` [VERIFIED]:
 6. hreflang.mjs, 7. schema.mjs, 8. map.mjs, 9. forbidden-language.mjs,
 10. coverage.mjs, 11. spine.mjs, 12. seo.mjs, 13. figure-registry.mjs
 
-Phase 21 adds: `avs-b-budget.mjs` (→ 14 validators total). Extend spine.mjs and hreflang.mjs in place.
+Phase 21 adds: `avs-b-budget.mjs` (→ 14 validators total). Extend spine.mjs and hreflang.mjs in place. NOTE: `schema.mjs` is NOT modified in Phase 21 (A-vs-B JSON-LD is deferred — see Open Question Q3).
 
 ---
 
@@ -653,19 +654,22 @@ Phase 21 adds: `avs-b-budget.mjs` (→ 14 validators total). Extend spine.mjs an
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Should `buildComparisonProse()` live in `site/src/lib/comparisonProse.ts` (new file) or be added to `proseEngine.ts`?**
    - What we know: `proseEngine.ts` is already 503 lines. A new file keeps it clean.
-   - Recommendation: new `site/src/lib/comparisonProse.ts` — mirrors the pattern, keeps each module focused.
+   - **RESOLVED:** `buildComparisonProse()` lives in a NEW file `site/src/lib/comparisonProse.ts` (mirrors `proseEngine.ts`, keeps each module focused). Plans 01 and 03 already follow this — Plan 01 Task 2 creates the module and exports `buildComparisonProse` + `buildMetaDescription`; Plan 03 imports them. Plan and research agree.
 
 2. **Should the comparator island load `national.json` and `regions/{id}.json` for per-family averages in the AverageColumn, or should these be baked into the static shell as props?**
-   - What we know: `national.json` is a small file (~5KB). Region files vary.
-   - Recommendation: Pass national + both communes' region averages as props from the Astro shell (SSG-computed). Avoids 2 extra fetches in the island; amounts to a few KB of JSON in the HTML.
+   - What we know: `national.json` is a small file (~5KB). Region files vary by region; a 2–3-commune comparison can span up to three different regions.
+   - **RESOLVED — the approach differs by surface, and the plans use these approaches:**
+     - **Comparator island (Plan 02, CMP-01):** the island **fetches `/data/cead/national.json` and the relevant `/data/cead/regions/{region_id}.json` client-side** (via `safeFetch`, memoized — see Plan 02 interfaces + Task 1 action). Rationale: the selected commune set is dynamic (the user picks 2–3 at runtime), so the relevant region files are NOT knowable at SSG time. Only the 346-item index is passed as an SSG prop (for autocomplete); per-family averages for whichever regions are selected must be fetched on demand.
+     - **A-vs-B static pages (Plan 03, CMP-03/04):** the Chile-average column is computed **SSG-side at build time** via `loadNationalAverage()` / `national.json` per-family inside the page frontmatter/`getStaticPaths`. Rationale: the pair is fixed at build time, so the averages are baked directly into the static HTML — no client fetch, fully indexable.
+     - The original "bake into shell as props" recommendation applies only to the fixed-set static A-vs-B pages, NOT to the dynamic-set interactive island. Plans and research now agree on this split.
 
 3. **Do A-vs-B pages need Schema.org JSON-LD, and if so what type?**
    - What we know: Commune pages use `Dataset + Place`. A-vs-B pages are comparisons.
-   - Recommendation: Use `Dataset` with `name: "Commune A vs Commune B — Crime Comparison"` and `spatialCoverage: [{Place: commA}, {Place: commB}]`. Extend `schema.mjs` to validate this shape.
+   - **RESOLVED — DEFER out of Phase 21 scope.** Schema.org JSON-LD for A-vs-B pages (and any `schema.mjs` extension to validate it) is NOT required by any CMP requirement (CMP-01..CMP-07). A-vs-B SEO value comes from directional non-swappable prose (CMP-04) + reciprocal EN/ES hreflang (CMP-06) + commune↔compare cross-links (CMP-06), NOT from JSON-LD. To avoid dead wiring, no Phase 21 plan references a `jsonLd` BaseLayout prop for A-vs-B pages and no plan modifies `site/scripts/validate/schema.mjs`. Recorded in `21-CONTEXT.md` `## Deferred Ideas`. If A-vs-B JSON-LD is wanted later, scope it as a follow-up phase (new `Dataset` shape + `schema.mjs` extension).
 
 ---
 
@@ -714,7 +718,7 @@ Phase 21 adds: `avs-b-budget.mjs` (→ 14 validators total). Extend spine.mjs an
 - [ ] `site/scripts/generate-pairs.mjs` — generates `data/comparator-pairs.json` from index.json
 - [ ] `data/comparator-pairs.json` — does not yet exist; must be generated before getStaticPaths
 
-*(Existing validators `hreflang.mjs`, `spine.mjs` need extension but files exist)*
+*(Existing validators `hreflang.mjs`, `spine.mjs` need extension but files exist. `schema.mjs` is NOT touched — A-vs-B JSON-LD deferred per Q3.)*
 
 ---
 
