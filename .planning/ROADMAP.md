@@ -125,9 +125,14 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 Plans:
 
+**Wave 1**
+
 - [ ] 21-01-PLAN.md — Wave 0: same-region pair allowlist (5,031) + comparisonProse engine (≥300 non-swappable words) + avs-b-budget validator (<18,000 files) + 15 i18n keys
 - [ ] 21-02-PLAN.md — Comparator island (autocomplete + side-by-side + homicide row) + EN/ES static landing shells + Compare nav link
 - [ ] 21-03-PLAN.md — A-vs-B programmatic pages (EN/ES, thin-content gate) + commune-page cross-links + hreflang/spine validator extensions
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 21-04-PLAN.md — Register budget validator + full 14/14 suite green + ≥10-pair prose acceptance + staged batch GSC verification
 
 ### Phase 22: Go-Live / Launch Ops
