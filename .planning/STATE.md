@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Composite Index, Comparators & Launch
 status: executing
-last_updated: "2026-06-20T15:37:02.265Z"
+last_updated: "2026-06-20T15:46:52.146Z"
 last_activity: 2026-06-20
 progress:
   total_phases: 5
   completed_phases: 3
   total_plans: 22
-  completed_plans: 18
+  completed_plans: 19
   percent: 60
 ---
 
@@ -28,8 +28,8 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 ## Current Position
 
 Phase: 21 (Commune Comparator + A-vs-B SEO) — EXECUTING
-Plan: 2 of 4
-Status: Ready to execute
+Plan: 4 of 4 (Plan 03 complete — A-vs-B pages, cross-links, validators)
+Status: Executing Plan 04
 Last activity: 2026-06-20
 
 ## Progress Bar
@@ -39,7 +39,7 @@ Phase 18 [████████████████████] 100% com
 Phase 23 [████████████████████] 100% complete
 Phase 24 [████████████████████] 100% complete
 Phase 22 [█████████████░░░░░░░]  67% in progress (2/3)
-Phase 21 [░░░░░░░░░░░░░░░░░░░░]   0% not started
+Phase 21 [███████████████░░░░░]  75% in progress (3/4)
 ```
 
 ## Deferred Items
@@ -72,6 +72,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | Phase 23 P04 | 8m | 3 tasks | 4 files |
 | Phase 24 P01 | 12m | 2 tasks | 3 files |
 | Phase 24 P03 | 8m | 2 tasks | 3 files |
+| Phase 21 P03 | 35m | 3 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -137,7 +138,8 @@ Items acknowledged and deferred at v1.x milestone closes:
 
 ## Session Continuity
 
-**Last session**: 2026-06-19 — v2.0 milestone roadmap written. 21/21 requirements mapped: CI-01..CI-10 → Phase 18, CMP-01..CMP-07 → Phase 21, GL-01..GL-04 → Phase 22. Phase 18 is the reserved number (intentional gap from v1.3). Hard dependency: Phase 21 depends on Phase 18. Phase 22 parallel with Phase 21. AdSense/Consent Mode deferred. Next: `/gsd:plan-phase 18` — interactively (high risk, not autonomous).
+**Last session**: 2026-06-20 — Phase 21 Plan 03 complete: A-vs-B programmatic pages (20 EN+ES pairs), ComparatorPairsLinks on all 346 commune pages, hreflang+spine validators extended. Plan 04 is next.
+**Prior session**: 2026-06-19 — v2.0 milestone roadmap written. 21/21 requirements mapped: CI-01..CI-10 → Phase 18, CMP-01..CMP-07 → Phase 21, GL-01..GL-04 → Phase 22. Phase 18 is the reserved number (intentional gap from v1.3). Hard dependency: Phase 21 depends on Phase 18. Phase 22 parallel with Phase 21. AdSense/Consent Mode deferred. Next: `/gsd:plan-phase 18` — interactively (high risk, not autonomous).
 **Prior session (2026-06-19, v1.3 close)**: v1.3 shipped — Phases 19 (Tech-Debt Sweep) + 20 (Methodology & Sources Hardening). 13/13 validators, 179 pytest green. Milestone archived.
 **Known env issue (not code)**: project is inside OneDrive — `dist/` artifacts desync between separate processes; ALWAYS chain build + validate in one command: `cd site && npm run build && npm run validate`.
 
@@ -164,6 +166,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 - [Phase ?]: CEAD zero-marker is '0,0000000000' — parse_cead_float returns 0.0 not None
 - [Phase ?]: crimeIsHomicide set in onFamilyChange handler; exclusive with family via familyIndex null
 - [Phase ?]: Column header matching in fetch_enusc_vhdv.py uses accent-normalized NFD comparison — real XLSX omits accents on 'victimas'/'logaritmico'
+- [Phase 21-03]: Low-population fallback for comparator pair links — when commune has no non-low-pop same-region neighbors (Arica, region 15), fall back to all same-region communes to guarantee all 346 pages have /compare/ href
 
 ## Operator Next Steps
 
