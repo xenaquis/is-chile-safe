@@ -70,6 +70,23 @@ metrics:
 - **Fix:** Rendered rate card inline with `.stat-card`/`.stat-value`/`.stat-label` classes (identical to StatCard output) + ids. Other two stat cards stay as StatCard components.
 - **Files modified:** commune/[slug].astro, es/comuna/[slug].astro
 
+## Refinement — 260620-hrh (2026-06-20)
+
+Commit `318a25d`: clarify rank as natural-language percentile + surface year selector in hero (EN+ES)
+
+**Changes applied:**
+
+1. **Rank cards → percentile framing** — replaced `#N of 346` / `#N of M` StatCards with `Higher than {pct}%` / `Mayor que el {pct}%` (EN/ES). Sublabel shows `CEAD {year} · #{rank} of {total} · 1 = most reported incidence` for full transparency. `national_rank` rank 1 = highest incidence (descending) — percentile computed as `(total - rank) / total * 100`, clamped 1–99.
+2. **Year selector moved into hero** — div relocated immediately after `hero-meta` / low-pop caveat within `<section class="commune-hero">`. `id="year-select"` unchanged; vanilla JS finds it by id. JSON islands stay in place.
+3. **Selector restyled** — `.year-selector-row` now `inline-flex` card with border + padding; label/select bumped to `text-body` / `weight-strong` / `color: ink`. Visually prominent under H1.
+4. **i18n** — added `rank_pct_value`, `rank_national_label`, `rank_regional_label`, `rank_sublabel` to interface + EN_STRINGS + ES_STRINGS. Rewrote `year_selector_label` to `'View data for year:'` / `'Ver datos del año:'`.
+
+**Algarrobo verification:**
+- National: "Higher than 99%" (rank #4 of 346 → (346−4)/346 = 98.8% → 99, clamped)
+- Regional: "Higher than 89%"
+- `forbidden-language` validator: PASS
+- All 8 validators: PASS
+
 ## Verification Results
 
 - `astro check`: 9 pre-existing errors (ComparatorPairsLinks, RankingTableEnhancer, news, RankingRow type) — unchanged count, no new errors introduced
