@@ -95,6 +95,13 @@ const regionCommuneCount = loadIndex().filter(
   (c) => c.region_id === data.region_id
 ).length;
 
+// Percentile rank cards (260620-hrh)
+// national_rank/regional_rank are DESCENDING (rank 1 = highest incidence).
+// Percentile = fraction of communes with MORE incidence than this one, clamped 1–99.
+const NAT_TOTAL = 346;
+const natPct = Math.min(99, Math.max(1, Math.round((NAT_TOTAL - data.national_rank) / NAT_TOTAL * 100)));
+const regPct = Math.min(99, Math.max(1, Math.round((regionCommuneCount - data.regional_rank) / regionCommuneCount * 100)));
+
 // Similar comunas in same region (D-07)
 const similarComunas = nearestComparables(cut, 5);
 
@@ -232,6 +239,15 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     {data.low_population && (
       <p class="low-pop-caveat">{t.low_population_caveat}</p>
     )}
+    <!-- Year selector — moved into hero for prominence (260620-hrh) -->
+    <div class="year-selector-row">
+      <label for="year-select" class="year-selector-label">{t.year_selector_label}</label>
+      <select id="year-select" class="year-selector-select">
+        {availableYears.map((y) => (
+          <option value={String(y)} selected={y === year}>{y}</option>
+        ))}
+      </select>
+    </div>
   </section>
 
   <!-- 3. KeyStatsRow -->
@@ -242,24 +258,16 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
       <div class="stat-label" id="rate-label">{t.rate_label.replace('{year}', String(year))}</div>
     </div>
     <StatCard
-      label={t.national_rank_label}
-      value={`#${data.national_rank} ${t.rank_of} 346`}
+      value={t.rank_pct_value.replace('{pct}', String(natPct))}
+      label={t.rank_national_label}
+      sublabel={t.rank_sublabel.replace('{year}', String(year)).replace('{rank}', String(data.national_rank)).replace('{total}', String(NAT_TOTAL))}
     />
     <StatCard
-      label={t.regional_rank_label}
-      value={`#${data.regional_rank} of ${regionCommuneCount}`}
+      value={t.rank_pct_value.replace('{pct}', String(regPct))}
+      label={t.rank_regional_label.replace('{region}', data.regionName)}
+      sublabel={t.rank_sublabel.replace('{year}', String(year)).replace('{rank}', String(data.regional_rank)).replace('{total}', String(regionCommuneCount))}
     />
   </section>
-
-  <!-- Year selector (progressive enhancement — default year in static HTML) -->
-  <div class="year-selector-row">
-    <label for="year-select" class="year-selector-label">{t.year_selector_label}</label>
-    <select id="year-select" class="year-selector-select">
-      {availableYears.map((y) => (
-        <option value={String(y)} selected={y === year}>{y}</option>
-      ))}
-    </select>
-  </div>
 
   <!-- JSON islands: year data + i18n strings for vanilla JS (no {expr} in script) -->
   <script type="application/json" id="year-data" set:html={JSON.stringify(yearData)}></script>
@@ -806,23 +814,28 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     margin: 0;
   }
 
-  /* 260620-hrh: year selector */
+  /* 260620-hrh: year selector — prominent control in hero */
   .year-selector-row {
-    display: flex;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--sm) var(--md);
+    margin: var(--md) 0 0;
+    display: inline-flex;
     align-items: center;
     gap: var(--sm);
-    margin: var(--md) 0 var(--xl);
   }
 
   .year-selector-label {
-    font-size: var(--text-label);
+    font-size: var(--text-body);
     font-weight: var(--weight-strong);
-    color: var(--muted);
+    color: var(--ink);
   }
 
   .year-selector-select {
-    font-size: var(--text-label);
-    padding: 4px 8px;
+    font-size: var(--text-body);
+    font-weight: var(--weight-strong);
+    padding: 6px 10px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--card);

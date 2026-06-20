@@ -25,6 +25,12 @@ export interface I18nStrings {
   regional_rank_label: string;
   rank_of: string;
 
+  // Rank percentile cards (260620-hrh)
+  rank_pct_value: string;
+  rank_national_label: string;
+  rank_regional_label: string;
+  rank_sublabel: string;
+
   // Trend
   trend_up: string;
   trend_down: string;
@@ -211,6 +217,12 @@ export const EN_STRINGS: I18nStrings = {
   regional_rank_label: 'Regional rank',
   rank_of: 'of',
 
+  // Rank percentile cards (260620-hrh)
+  rank_pct_value: 'Higher than {pct}%',
+  rank_national_label: "of Chile's communes (reported incidence)",
+  rank_regional_label: 'of communes in {region}',
+  rank_sublabel: 'CEAD {year} · #{rank} of {total} · 1 = most reported incidence',
+
   // Trend
   trend_up: 'Rising',
   trend_down: 'Declining',
@@ -221,7 +233,7 @@ export const EN_STRINGS: I18nStrings = {
   sparkline_heading: 'Annual evolution (2005–present)',
 
   // Year selector + longitudinal charts (260620-hrh)
-  year_selector_label: 'Analysis year',
+  year_selector_label: 'View data for year:',
   charts_heading: 'Crime evolution by category (2005–present)',
   chart_partial_note: 'Faded points indicate partial-year data.',
 
@@ -404,6 +416,12 @@ export const ES_STRINGS: I18nStrings = {
   regional_rank_label: 'Ranking regional',
   rank_of: 'de',
 
+  // Tarjetas de percentil de ranking (260620-hrh)
+  rank_pct_value: 'Mayor que el {pct}%',
+  rank_national_label: 'de las comunas de Chile (incidencia reportada)',
+  rank_regional_label: 'de las comunas de {region}',
+  rank_sublabel: 'CEAD {year} · #{rank} de {total} · 1 = mayor incidencia reportada',
+
   // Tendencia
   trend_up: 'Al alza',
   trend_down: 'A la baja',
@@ -414,7 +432,7 @@ export const ES_STRINGS: I18nStrings = {
   sparkline_heading: 'Evolución anual (2005–presente)',
 
   // Selector de año + gráficos longitudinales (260620-hrh)
-  year_selector_label: 'Año de análisis',
+  year_selector_label: 'Ver datos del año:',
   charts_heading: 'Evolución de delitos por categoría (2005–presente)',
   chart_partial_note: 'Los puntos atenuados indican datos de año parcial.',
 
