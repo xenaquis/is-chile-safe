@@ -31,6 +31,12 @@ const allRanked = index
   .filter((c) => !c.low_population)
   .map((c) => {
     const commune = loadCommune(c.cut);
+    // Construir ratesByYear (solo años completos — se excluye partial) para que
+    // RankingTableEnhancer pueda ordenar + cambiar de año en las tablas del home.
+    const ratesByYear: Record<number, number> = {};
+    commune.series.filter((s: any) => !s.partial).forEach((s: any) => {
+      ratesByYear[s.year] = s.rate_per_100k;
+    });
     return {
       name: c.name,
       slug: c.slug,
@@ -38,6 +44,7 @@ const allRanked = index
       national_rank: commune.national_rank,
       trend: commune.trend,
       low_population: c.low_population,
+      ratesByYear,
     };
   })
   .sort((a, b) => a.rate - b.rate);
@@ -102,13 +109,13 @@ const highestList = buildItemList(highestRows, 'es', {
       <div class="lead-table-col">
         <h2 class="table-heading">Menor incidencia reportada</h2>
         <p class="table-subhead">Comunas con menor tasa CEAD por 100k hab. — {referenceYear}</p>
-        <CommuneRankingTable rows={lowestRows} locale="es" sortable={false} />
+        <CommuneRankingTable rows={lowestRows} locale="es" defaultSortDir="asc" />
         <a href="/es/comunas-mas-seguras-chile/" class="see-all-link">Ver ranking completo &rarr;</a>
       </div>
       <div class="lead-table-col">
         <h2 class="table-heading">Mayor incidencia reportada</h2>
         <p class="table-subhead">Comunas con mayor tasa CEAD por 100k hab. — {referenceYear}</p>
-        <CommuneRankingTable rows={highestRows} locale="es" sortable={false} />
+        <CommuneRankingTable rows={highestRows} locale="es" defaultSortDir="desc" />
         <a href="/es/comunas/" class="see-all-link">Ver todas las comunas &rarr;</a>
       </div>
     </div>
