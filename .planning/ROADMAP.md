@@ -175,7 +175,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 **Requirements**: TBD (define in UI-SPEC / plan-phase)
 **Depends on:** Phase 18 (composite-index data, already shipped). Independent of Phase 22 launch ops.
 **UI hint**: yes
-**Plans:** 2/2 plans complete
+**Plans:** 3/3 plans complete
 
 Plans:
 
