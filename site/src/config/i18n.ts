@@ -166,6 +166,23 @@ export interface I18nStrings {
   enusc_caveat_text: string;
   enusc_no_estimate_text: string;
   enusc_no_estimate_aria: string;
+
+  // Phase 21 — Commune Comparator
+  nav_compare: string;
+  cmp_page_h1: string;
+  cmp_page_lead: string;
+  cmp_input_placeholder: string;
+  cmp_empty_heading: string;
+  cmp_add_prompt: string;
+  cmp_no_match: string;
+  cmp_max_reached: string;
+  cmp_avg_column: string;
+  cmp_remove_aria: string;
+  cmp_data_error: string;
+  cmp_homicide_row: string;
+  cmp_homicide_no_data: string;
+  cmp_cross_links_heading: string;
+  avs_b_h1_pattern: string;
 }
 
 export const EN_STRINGS: I18nStrings = {
@@ -334,6 +351,23 @@ export const EN_STRINGS: I18nStrings = {
   enusc_no_estimate_text:
     "No INE ENUSC victimization estimate available for this comuna (SAE model covers 136 of 346 comunas).",
   enusc_no_estimate_aria: "ENUSC no estimate available",
+
+  // Phase 21 — Commune Comparator
+  nav_compare: 'Compare',
+  cmp_page_h1: 'Compare Chile Communes — Reported Crime Data',
+  cmp_page_lead: 'Select 2 or 3 communes to view reported crime statistics side by side. Source: CEAD official statistics.',
+  cmp_input_placeholder: 'Search commune name…',
+  cmp_empty_heading: 'Select 2 or 3 communes to compare',
+  cmp_add_prompt: 'Add another commune to compare',
+  cmp_no_match: 'No commune found — try removing accents',
+  cmp_max_reached: 'Maximum 3 communes reached',
+  cmp_avg_column: 'Chile avg.',
+  cmp_remove_aria: 'Remove {name}',
+  cmp_data_error: 'Could not load data for {name}. Try refreshing.',
+  cmp_homicide_row: 'Homicide (per 100k, {year})',
+  cmp_homicide_no_data: 'No reported cases — CEAD {year}',
+  cmp_cross_links_heading: 'Compare with other communes',
+  avs_b_h1_pattern: '{a} vs {b} — Reported Crime Comparison',
 };
 
 export const ES_STRINGS: I18nStrings = {
@@ -505,6 +539,23 @@ export const ES_STRINGS: I18nStrings = {
   enusc_no_estimate_text:
     "Sin estimación de victimización ENUSC disponible para esta comuna (el modelo SAE cubre 136 de 346 comunas).",
   enusc_no_estimate_aria: "Sin estimación ENUSC disponible",
+
+  // Phase 21 — Commune Comparator
+  nav_compare: 'Comparar',
+  cmp_page_h1: 'Comparar Comunas de Chile — Incidencia Delictiva Reportada',
+  cmp_page_lead: 'Selecciona 2 o 3 comunas para ver estadísticas de incidencia delictiva en paralelo. Fuente: estadísticas oficiales CEAD.',
+  cmp_input_placeholder: 'Buscar nombre de comuna…',
+  cmp_empty_heading: 'Selecciona 2 o 3 comunas para comparar',
+  cmp_add_prompt: 'Agrega otra comuna para comparar',
+  cmp_no_match: 'No se encontró la comuna — prueba sin tildes',
+  cmp_max_reached: 'Máximo 3 comunas alcanzado',
+  cmp_avg_column: 'Prom. Chile',
+  cmp_remove_aria: 'Quitar {name}',
+  cmp_data_error: 'No se pudieron cargar los datos de {name}. Intenta recargar.',
+  cmp_homicide_row: 'Homicidios (por 100k, {year})',
+  cmp_homicide_no_data: 'Sin casos reportados — CEAD {year}',
+  cmp_cross_links_heading: 'Comparar con otras comunas',
+  avs_b_h1_pattern: '{a} vs {b} — Comparación de Incidencia Delictiva',
 };
 
 // D-17: Crime-family URL slug translations
