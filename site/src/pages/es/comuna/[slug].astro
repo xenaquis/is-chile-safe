@@ -219,6 +219,32 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     <FamilyBreakdownBars byFamily={byFamily} locale="es" level={level} />
   </section>
 
+  <!-- 6a. Tasa de homicidios (paridad HOM-02 con el panel del mapa) — distinta de la familia amplia vida/Delitos contra la vida -->
+  {(() => {
+    const hom = data.featured_rates?.homicidios;
+    const homCount = data.featured_rates?.homicidios_count;
+    // 0 es dato válido — usar !== undefined, nunca truthiness
+    const homRate = hom !== undefined && hom[String(year)] !== undefined ? hom[String(year)] : null;
+    const count = homCount !== undefined && homCount[String(year)] !== undefined ? homCount[String(year)] : null;
+    return (
+      <section class="homicide-section" aria-label="Tasa de homicidios">
+        <h2 class="section-heading">{`Homicidios (${year})`}</h2>
+        {homRate !== null ? (
+          <p class="homicide-figure">
+            <span class="homicide-rate">{Math.round(homRate).toLocaleString('es-CL')}</span>
+            <span class="homicide-unit"> por 100.000 habitantes</span>
+            {count !== null && (
+              <span class="homicide-count"> ({count} {count === 1 ? 'caso' : 'casos'})</span>
+            )}
+          </p>
+        ) : (
+          <p class="homicide-empty">{`Sin casos reportados — CEAD ${year}`}</p>
+        )}
+        <p class="homicide-source">Fuente: CEAD, subgrupo 101 Delitos contra la Vida ({year})</p>
+      </section>
+    );
+  })()}
+
   <!-- 6b. Índice Compuesto de Delincuencia (CI-05/CI-06) — superficie estática, sin toggle de mapa -->
   {(() => {
     const COMPOSITE_YEAR = 2024;
@@ -418,6 +444,40 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
 
   .similar-comunas-spoke {
     margin: var(--xl) 0;
+  }
+
+  .homicide-section {
+    margin: var(--xl) 0;
+  }
+
+  .homicide-figure {
+    margin: var(--sm) 0 var(--xs);
+    color: var(--ink);
+  }
+
+  .homicide-rate {
+    font-size: var(--text-stat, 1.75rem);
+    font-weight: var(--weight-strong);
+    color: var(--primary);
+  }
+
+  .homicide-unit {
+    color: var(--ink);
+  }
+
+  .homicide-count {
+    color: var(--muted);
+  }
+
+  .homicide-empty {
+    color: var(--muted);
+    margin: var(--sm) 0 var(--xs);
+  }
+
+  .homicide-source {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin: 0;
   }
 
   .spoke-intro {
