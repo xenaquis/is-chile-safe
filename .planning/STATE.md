@@ -135,6 +135,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | 260616-ldi | Fix region_id grouping (BUGFIX-999.1): derive region from CUT length; all 16 regions now populate | 2026-06-16 | cad6a20 | [260616-ldi-fix-region-id-grouping-backlog-999-1-der](./quick/260616-ldi-fix-region-id-grouping-backlog-999-1-der/) |
 | 260616-lu4 | Make ranking tables dynamic via progressive enhancement | 2026-06-16 | 2a550bd | [260616-lu4-hacer-dinamicas-las-tablas-rankings-de-c](./quick/260616-lu4-hacer-dinamicas-las-tablas-rankings-de-c/) |
 | 260618-x95 | Fix prod-deploy gap: new deploy-on-code.yml curls CF Deploy Hook on push to master touching site/** | 2026-06-19 | 18b558b | [260618-x95-deploy-on-code](./quick/260618-x95-deploy-on-code/) |
+| 260620-hrh | Per-comuna year selector (whole-page, vanilla JS, default year static for SEO) + static SVG longitudinal charts (7 families + homicide/year), EN+ES | 2026-06-20 | ff57ba9 | [260620-hrh-anio-selector-graficos-longitudinales-po](./quick/260620-hrh-anio-selector-graficos-longitudinales-po/) |
 
 ## Session Continuity
 
