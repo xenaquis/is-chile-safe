@@ -1,0 +1,62 @@
+---
+/**
+ * ComparatorPairsLinks.astro — 3–5 same-region A-vs-B pair links snippet.
+ *
+ * Used on commune pages (EN + ES) to provide a comparator cross-link section.
+ * Links use canonical sorted-CUT slugs (cutA<cutB guaranteed by Plan 01 allowlist).
+ * ES prefix is hardcoded as '/es/comparar/' — getRelativeLocaleUrl() produces the
+ * wrong path for localized slugs (i18n-localized-slug-pitfall memory note).
+ *
+ * spine.mjs assertion M checks that every commune page contains href="/compare/"
+ * (EN) or href="/es/comparar/" (ES). This component satisfies that assertion.
+ */
+interface Props {
+  pairs: Array<{ cutA: string; cutB: string; nameA: string; nameB: string }>;
+  locale: 'en' | 'es';
+}
+
+const { pairs, locale } = Astro.props;
+// Hardcode ES slug per i18n-localized-slug-pitfall memory note
+const prefix = locale === 'en' ? '/compare/' : '/es/comparar/';
+const heading =
+  locale === 'en' ? 'Compare with other communes' : 'Comparar con otras comunas';
+---
+
+<section class="comparator-pairs-spoke">
+  <h2 class="section-heading">{heading}</h2>
+  <ul class="pairs-list">
+    {pairs.map(({ cutA, cutB, nameA, nameB }) => (
+      <li>
+        <a href={`${prefix}${cutA}-vs-${cutB}/`}>{nameA} vs {nameB}</a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .comparator-pairs-spoke {
+    margin: var(--xl) 0;
+  }
+
+  .pairs-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sm);
+  }
+
+  .pairs-list li a {
+    display: inline-block;
+    padding: var(--xs) var(--sm);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-size: var(--text-label);
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .pairs-list li a:hover {
+    background: var(--bg);
+  }
+</style>

@@ -21,6 +21,7 @@ import ComparisonCallout from '../../../components/ComparisonCallout.astro';
 import FamilyBreakdownBars from '../../../components/FamilyBreakdownBars.astro';
 import ComparableCommune from '../../../components/ComparableCommune.astro';
 import CommuneRankingTable from '../../../components/CommuneRankingTable.astro';
+import ComparatorPairsLinks from '../../../components/ComparatorPairsLinks.astro';
 import { FAMILY_SLUGS } from '../../../config/i18n.ts';
 import MethodologyCaveat from '../../../components/MethodologyCaveat.astro';
 import {
@@ -96,6 +97,31 @@ const regionCommuneCount = loadIndex().filter(
 
 // Comunas similares en la misma región (D-07)
 const similarComunas = nearestComparables(cut, 5);
+
+// Comparator pairs for ComparatorPairsLinks (same-region, up to 5, sorted CUTs)
+// Links use canonical pair slugs regardless of enabled status — spine assertion M
+// checks only for href="/es/comparar/" prefix, not a live page.
+// Fall back to including low_population communes when no non-low-pop neighbors exist
+// (e.g., Arica is the only non-low-pop commune in its region — Pitfall guard).
+const allIndex = loadIndex();
+const currentMeta = allIndex.find((c) => c.cut === cut);
+const _sameRegionNonLP = allIndex.filter(
+  (c) => c.region_id === (currentMeta?.region_id ?? '') && c.cut !== cut && !c.low_population
+);
+const _sameRegionCandidates = _sameRegionNonLP.length > 0
+  ? _sameRegionNonLP
+  : allIndex.filter((c) => c.region_id === (currentMeta?.region_id ?? '') && c.cut !== cut);
+const comparatorPairs = _sameRegionCandidates.slice(0, 5).map((c) => {
+  const sorted = [cut, c.cut].sort();
+  const pA = sorted[0]!;
+  const pB = sorted[1]!;
+  return {
+    cutA: pA,
+    cutB: pB,
+    nameA: pA === cut ? data.name : c.name,
+    nameB: pB === cut ? data.name : c.name,
+  };
+});
 
 // Prose (ES)
 const prose = buildCommuneProse(data, 'es');
@@ -304,6 +330,9 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
       {t.map_spoke_cta.replace('{name}', data.name)}
     </a>
   </section>
+
+  <!-- 8b-pre. Comparator pairs spoke (CMP-06 / spine assertion M) -->
+  <ComparatorPairsLinks pairs={comparatorPairs} locale="es" />
 
   <!-- 8b. Comunas similares en esta región (D-07) -->
   <section class="similar-comunas-spoke" aria-label="Comunas similares en esta región">
