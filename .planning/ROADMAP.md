@@ -1,6 +1,6 @@
 # Roadmap — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-19 — v2.0 Composite Index, Comparators & Launch (Phases 18, 21, 22); Phase 18 is the reserved number for Composite Crime Index_
+_Last updated: 2026-06-20 — v2.0 Composite Index, Comparators & Launch (Phases 18, 21, 22, 23, 24); Phase 18 is the reserved number for Composite Crime Index_
 
 ## Milestones
 
@@ -8,7 +8,7 @@ _Last updated: 2026-06-19 — v2.0 Composite Index, Comparators & Launch (Phases
 - ✅ **v1.1 Polish & QA** — Phases 7–9 (shipped 2026-06-15) — full detail: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
 - ✅ **v1.2 Map Fidelity, Findability & News** — Phases 10–17 (shipped 2026-06-18) — full detail: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 - ✅ **v1.3 Data Quality Hardening & Methodology** — Phases 19–20 (shipped 2026-06-19) — _(Phase 18 deliberately reserved for Composite Crime Index)_
-- 🔄 **v2.0 Composite Index, Comparators & Launch** — Phases 18, 21, 23, 22 (in progress; Phase 23 ENUSC victimization layer added from SEED-002, runs before go-live)
+- 🔄 **v2.0 Composite Index, Comparators & Launch** — Phases 18, 23, 24 complete; Phase 21 (comparator) not started, Phase 22 (go-live) in progress (2/3). Phase 23 ENUSC victimization layer added from SEED-002 (runs before go-live); Phase 24 rankings-UX added 2026-06-20.
 
 > **Phase numbering note:** Phase 18 is the RESERVED slot for the Composite Crime Index (intentional gap in v1.3 which used 19 + 20). The comparator follows at Phase 21 and go-live at Phase 22. There is no Phase 19 or 20 in this milestone — those are archived v1.3 phases.
 
@@ -70,8 +70,8 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 
 ### v2.0 Composite Index, Comparators & Launch
 
-- [~] **Phase 18: Composite Crime Index** — exposure-adjusted 0–100 index, SPD VHC homicide switch, schema migration, index-driven choropleth _(RESERVED number; highest-risk phase — plan interactively)_ (executed 2026-06-19; verified gaps_found — 3 gap-closure plans 18-06..18-08 pending execution)
-- [x] **Phase 21: Commune Comparator + A-vs-B SEO** — interactive comparator island + ~6,800 bilingual A-vs-B programmatic pages built on Phase 18 outputs _(depends on Phase 18)_ (completed 2026-06-19)
+- [x] **Phase 18: Composite Crime Index** — exposure-adjusted 0–100 index, SPD VHC homicide switch, schema migration, index-driven choropleth _(RESERVED number; highest-risk phase)_ (completed 2026-06-19; 8/8 plans incl. gap-closure 18-06..18-08; VERIFICATION passed)
+- [ ] **Phase 21: Commune Comparator + A-vs-B SEO** — interactive comparator island + ~6,800 bilingual A-vs-B programmatic pages built on Phase 18 outputs _(depends on Phase 18; not started — no plans/artifacts on disk)_
 - [x] **Phase 23: ENUSC Communal Victimization Layer** — additive INE ENUSC 2024 SAE household-victimization (VHDV) figure on the 136 covered comuna pages, graceful "no estimate" for the other 210; anti-infra-representation, additive-only vs Phase 18 _(depends on Phase 18 + 17; **runs BEFORE Phase 22**)_ — origin SEED-002 (completed 2026-06-19)
 - [ ] **Phase 22: Go-Live / Launch Ops** — CF deploy hook, production deploy, live news audit, GSC submission _(parallel with Phase 21; no code dependency; **gated after Phase 23** per SEED-002)_
 - [x] **Phase 24: Rankings UX — dynamic sortable tables + visual polish** — wire `RankingTableEnhancer` into ranking surfaces lacking it (safest-cities EN+ES), descending default + asc override, brand-token polish, BrowserOS E2E _(depends on Phase 18; independent of Phase 22)_ (completed 2026-06-20)

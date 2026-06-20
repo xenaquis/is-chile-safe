@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Composite Index, Comparators & Launch
-status: verifying
-last_updated: "2026-06-20T00:44:25.826Z"
+status: in-progress
+last_updated: "2026-06-20T01:00:00.000Z"
 last_activity: 2026-06-20
 progress:
   total_phases: 5
@@ -15,7 +15,7 @@ progress:
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-19 — v2.0 roadmap written (Phase 18 Composite Crime Index + Phase 21 Comparator + A-vs-B SEO + Phase 22 Go-Live). 21/21 requirements mapped. Next = plan Phase 18 (interactively — high risk)._
+_Last updated: 2026-06-20 — Phase 24 (Rankings UX) complete + verified. v2.0 state: Phases 18, 23, 24 complete; Phase 21 (comparator) not started; Phase 22 (go-live) in progress (2/3, only GSC sitemap submission 22-03 remaining). Next = Phase 21 (plan from scratch) or Phase 22-03 (manual GSC submit)._
 
 ## Project Reference
 
@@ -23,21 +23,23 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: v2.0 Composite Index, Comparators & Launch. Roadmap written; next = plan Phase 18.
+**Current focus**: v2.0 Composite Index, Comparators & Launch. Remaining: Phase 21 (comparator, not started) + Phase 22-03 (GSC sitemap submission, manual).
 
 ## Current Position
 
-Phase: 24 (rankings-ux-dynamic-sortable-tables-and-visual-polish) — EXECUTING
-Plan: 2 of 2
-Status: Phase complete — ready for verification
+Phase: 24 (rankings-ux-dynamic-sortable-tables-and-visual-polish) — COMPLETE (verified 2026-06-20, BrowserOS E2E PASS, GAP-24A resolved)
+Plan: 3 of 3
+Status: Phase complete
 Last activity: 2026-06-20
 
 ## Progress Bar
 
 ```
-Phase 18 [                    ] 0%
-Phase 21 [                    ] 0%
-Phase 22 [                    ] 0%
+Phase 18 [████████████████████] 100% complete
+Phase 23 [████████████████████] 100% complete
+Phase 24 [████████████████████] 100% complete
+Phase 22 [█████████████░░░░░░░]  67% in progress (2/3)
+Phase 21 [░░░░░░░░░░░░░░░░░░░░]   0% not started
 ```
 
 ## Deferred Items
