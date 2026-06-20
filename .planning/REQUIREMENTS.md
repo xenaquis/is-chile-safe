@@ -27,8 +27,8 @@
 
 ### Track 2 — Commune Comparator + A-vs-B SEO (→ Phase 21)
 
-- [ ] **CMP-01**: A user can compare 2–3 comunas side by side in an interactive island showing the composite index headline, per-family breakdown, per-family trend indicator, and a "compare to national/regional average" column.
-- [ ] **CMP-02**: The comparator offers accent-insensitive autocomplete search across all 346 comunas, layered on a pre-rendered static HTML shell (comparator landing page is indexable).
+- [x] **CMP-01**: A user can compare 2–3 comunas side by side in an interactive island showing the composite index headline, per-family breakdown, per-family trend indicator, and a "compare to national/regional average" column.
+- [x] **CMP-02**: The comparator offers accent-insensitive autocomplete search across all 346 comunas, layered on a pre-rendered static HTML shell (comparator landing page is indexable).
 - [x] **CMP-03**: Bilingual A-vs-B programmatic pages are generated from a curated priority-pair allowlist (`data/comparator-pairs.json`), using CUT-code URL slugs with alphabetical ordering so each pair has a single canonical page (no A-vs-B / B-vs-A duplication).
 - [x] **CMP-04**: Each A-vs-B page carries ≥5 differentiating uniqueness blocks and ≥300 words of non-swappable prose (index difference, per-family rate table, trend narrative, national rank, regional context); a build-time thin-content assertion blocks pages that fall short.
 - [x] **CMP-05**: The build asserts total page count stays under the Cloudflare free-tier safety bound (<18,000 files).
@@ -82,8 +82,8 @@ _Origin: SEED-002 feasibility study (Design A) — `.planning/research/SEED-002-
 | CI-08 | Phase 18 | Complete | Methodology pages updated; figure-registry zero-orphan |
 | CI-09 | Phase 18 | Complete | Forbidden-language validator extended; npm run validate green |
 | CI-10 | Phase 18 | Complete | Schema migration non-breaking; TypeScript types; comparator_table.json emitted |
-| CMP-01 | Phase 21 | Pending | 2–3 commune comparator island; depends on Phase 18 |
-| CMP-02 | Phase 21 | Pending | Accent-insensitive autocomplete; pre-rendered static shell |
+| CMP-01 | Phase 21 | Complete | 2–3 commune comparator island; depends on Phase 18 |
+| CMP-02 | Phase 21 | Complete | Accent-insensitive autocomplete; pre-rendered static shell |
 | CMP-03 | Phase 21 | Complete | A-vs-B pages from curated allowlist; CUT-code slugs; alphabetical ordering |
 | CMP-04 | Phase 21 | Complete | ≥5 uniqueness blocks + ≥300 non-swappable words; build-time assertion |
 | CMP-05 | Phase 21 | Complete | Total page count < 18,000 asserted at build time |
