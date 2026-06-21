@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-21T03:45:56.850615Z",
+  "generated": "2026-06-21T09:44:31.325485Z",
   "window_days": 30,
   "incidents": [
     {
@@ -677,6 +677,32 @@
       "url": "https://www.latercera.com/nacional/noticia/amplian-detencion-de-imputado-por-femicidio-intimo-en-rio-claro-fue-hallado-con-rastros-de-sangre/",
       "family": "vida",
       "slug": "rio-claro"
+    },
+    {
+      "id": "953612d3c2bd433a",
+      "cut": "12101",
+      "lat": -53.368996,
+      "lng": -71.47533,
+      "title_es": "Punta Arenas: Se querellan contra Gendarmería por ataque a interno que lo dejó en riesgo vital",
+      "title_en": "Punta Arenas: Lawsuit filed against Gendarmerie for attack on inmate that left him in critical condition",
+      "date": "2026-06-21",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-magallanes/2026/06/21/punta-arenas-se-querellan-contra-gendarmeria-por-ataque-a-interno-que-lo-dejo-en-riesgo-vital.shtml",
+      "family": "vida",
+      "slug": "punta-arenas"
+    },
+    {
+      "id": "4a8da5edd1d425c4",
+      "cut": "13110",
+      "lat": -33.539168,
+      "lng": -70.463562,
+      "title_es": "Balacera en La Florida deja un muerto y un menor herido",
+      "title_en": "Shooting in La Florida leaves one dead and a minor injured",
+      "date": "2026-06-21",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/la-florida-balacera-en-las-afueras-de-centro-juvenil-religioso-dejo-un/2026-06-20/235109.html",
+      "family": "vida",
+      "slug": "la-florida"
     }
   ]
 }
