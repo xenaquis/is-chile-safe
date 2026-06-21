@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-21T14:02:35.726637Z",
+  "generated": "2026-06-21T19:26:33.410114Z",
   "window_days": 30,
   "incidents": [
     {
@@ -729,6 +729,123 @@
       "url": "https://www.latercera.com/nacional/noticia/imputado-por-homicidio-a-estudiante-de-21-anos-en-antofagasta-quedo-en-prision-preventiva/",
       "family": "vida",
       "slug": "antofagasta"
+    },
+    {
+      "id": "86d61bd6b733b63e",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Alerta por aumento de consumo de drogas en estudiantes en Valdivia",
+      "title_en": "Alert over increase in drug use among students in Valdivia",
+      "date": "2026-06-21",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/06/21/senda-alerta-alza-de-consumo-de-drogas-en-estudiantes-en-valdivia-y-pide-reforzar-rol-de-familias.shtml",
+      "family": "drogas",
+      "slug": "valdivia"
+    },
+    {
+      "id": "d6f0678c7773cac8",
+      "cut": "13107",
+      "lat": -33.385523,
+      "lng": -70.60701,
+      "title_es": "Detuvieron a falso veterinario por amputar orejas y colas a cachorros en Huechuraba",
+      "title_en": "Fake veterinarian arrested for amputating ears and tails of puppies in Huechuraba",
+      "date": "2026-06-21",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/medioambiente/animales/detuvieron-a-falso-veterinario-por-amputar-orejas-y-colas-a-cachorros-en/2026-06-21/134358.html",
+      "family": "vida",
+      "slug": "huechuraba"
+    },
+    {
+      "id": "4d6d02c5ea0d2a83",
+      "cut": "10101",
+      "lat": -41.509945,
+      "lng": -72.83364,
+      "title_es": "Reflotan embarcación Koñimo I en la que murieron seis personas en Los Lagos",
+      "title_en": "Koñimo I vessel refloated after six deaths in Los Lagos",
+      "date": "2026-06-21",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-los-lagos/konimo-i-reflotan-embarcacion-en-la-que-murieron-seis-personas-en-los/2026-06-21/125040.html",
+      "family": "vida",
+      "slug": "puerto-montt"
+    },
+    {
+      "id": "25c77c84fe29c149",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Robo a conductor de aplicación en Maipú termina con dos detenidos",
+      "title_en": "Robbery of app driver in Maipú ends with two arrested",
+      "date": "2026-06-21",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robo-de-vehiculos/robo-a-conductor-de-aplicacion-en-maipu-termino-con-dos-detenidos-y-dos/2026-06-21/104107.html",
+      "family": "robos_violentos",
+      "slug": "maipu"
+    },
+    {
+      "id": "3017ecfa39c642ec",
+      "cut": "8313",
+      "lat": -37.090801,
+      "lng": -72.63642,
+      "title_es": "Investigan homicidio en Yumbel: víctima fue apuñalada en la vía pública",
+      "title_en": "Homicide under investigation in Yumbel: victim stabbed in public street",
+      "date": "2026-06-21",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/investigan-homicidio-en-yumbel-victima-fue-apunalada-en-plena-via-publica/",
+      "family": "vida",
+      "slug": "yumbel"
+    },
+    {
+      "id": "591507e29d050dd5",
+      "cut": "6106",
+      "lat": -34.046198,
+      "lng": -70.764803,
+      "title_es": "Operativo en cerro Santa Julia de Graneros para buscar a Máximo Farías",
+      "title_en": "Joint operation in Santa Julia hill in Graneros to search for Máximo Farías",
+      "date": "2026-06-21",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/se-realiza-operativo-conjunto-en-cerro-santa-julia-de-graneros-para-encontrar-a-maximo-farias-joven-desaparecido-hace-una-semana/",
+      "family": "vida",
+      "slug": "graneros"
+    },
+    {
+      "id": "8991453ce0972227",
+      "cut": "13107",
+      "lat": -33.385523,
+      "lng": -70.60701,
+      "title_es": "Sujeto acusado de amputar orejas y colas a perros en Huechuraba",
+      "title_en": "Man accused of amputating ears and tails of dogs in Huechuraba",
+      "date": "2026-06-21",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/detienen-a-sujeto-acusado-de-amputar-orejas-y-colas-a-perros-sin-ser-veterinario-en-huechuraba/",
+      "family": "vida",
+      "slug": "huechuraba"
+    },
+    {
+      "id": "5fab7dec91a7206c",
+      "cut": "8112",
+      "lat": -36.796448,
+      "lng": -73.103003,
+      "title_es": "Detienen a adolescente por tráfico de drogas en Hualpén",
+      "title_en": "Teenager arrested for drug trafficking in Hualpén",
+      "date": "2026-06-21",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/detienen-a-adolescente-por-trafico-de-drogas-incautaron-mas-de-3-mil-dosis-de-cocaina-de-su-domicilio-en-hualpen/",
+      "family": "drogas",
+      "slug": "hualpen"
+    },
+    {
+      "id": "faf3e39c8d8ad0db",
+      "cut": "13102",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Detienen a dos sujetos en Cerrillos y recuperan vehículo robado",
+      "title_en": "Two individuals arrested in Cerrillos, stolen vehicle recovered",
+      "date": "2026-06-21",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/detienen-a-dos-sujetos-tras-seguimiento-policial-en-cerrillos-y-recuperan-vehiculo-robado-en-ciudad-satelite/",
+      "family": "robos_violentos",
+      "slug": "cerrillos"
     }
   ]
 }
