@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-20T19:21:39.576863Z",
+  "generated": "2026-06-21T03:45:56.850615Z",
   "window_days": 30,
   "incidents": [
     {
@@ -546,6 +546,136 @@
       "outlet": "LaTercera",
       "url": "https://www.latercera.com/nacional/noticia/investigan-femicidio-en-rio-claro-mujer-murio-tras-ser-apunalada/",
       "family": "vif",
+      "slug": "rio-claro"
+    },
+    {
+      "id": "029f7c0472054fe6",
+      "cut": "8102",
+      "lat": -36.996187,
+      "lng": -73.045624,
+      "title_es": "Fiscalía pide 20 días más para investigar caso Puerto Coronel",
+      "title_en": "Prosecutor requests 20 more days to investigate Puerto Coronel case",
+      "date": "2026-06-21",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/06/20/fiscalia-pide-20-dias-mas-para-investigar-caso-puerto-coronel-por-nuevas-diligencias.shtml",
+      "family": "propiedad",
+      "slug": "coronel"
+    },
+    {
+      "id": "5719d913548236f9",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "Tres muertos y un herido grave en colisión frontal en Arica",
+      "title_en": "Three dead and one seriously injured in head-on collision in Arica",
+      "date": "2026-06-21",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-arica-y-parinacota/2026/06/20/al-menos-tres-muertos-y-una-persona-grave-tras-fatal-colision-de-camion-y-camioneta-en-arica.shtml",
+      "family": "vida",
+      "slug": "arica"
+    },
+    {
+      "id": "69bdb82a84dab275",
+      "cut": "10101",
+      "lat": -41.509945,
+      "lng": -72.83364,
+      "title_es": "Puerto Montt: 80 de 89 nuevas cámaras de televigilancia ya operan",
+      "title_en": "Puerto Montt: 80 out of 89 new surveillance cameras already operational",
+      "date": "2026-06-21",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-lagos/2026/06/20/puerto-montt-80-de-89-nuevas-camaras-de-televigilancia-ya-operan-y-proyectan-llegar-a-200.shtml",
+      "family": "incivilidades",
+      "slug": "puerto-montt"
+    },
+    {
+      "id": "bedef5db55522e40",
+      "cut": "9203",
+      "lat": -38.439136,
+      "lng": -71.784922,
+      "title_es": "Detienen a hombre por maltrato animal en Curacautín: rescatan 19 perros y gatos",
+      "title_en": "Man arrested for animal cruelty in Curacautín: 19 dogs and cats rescued",
+      "date": "2026-06-21",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/06/20/detienen-a-hombre-por-maltrato-animal-en-curacautin-rescatan-19-perros-y-gatos.shtml",
+      "family": "vida",
+      "slug": "curacautin"
+    },
+    {
+      "id": "6f4e975feefb8190",
+      "cut": "13110",
+      "lat": -33.539168,
+      "lng": -70.463562,
+      "title_es": "Balacera en La Florida deja un muerto y un adolescente herido",
+      "title_en": "Shooting in La Florida leaves one dead and one teenager injured",
+      "date": "2026-06-21",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/06/20/balacera-frente-a-centro-juvenil-en-la-florida-dejo-un-muerto-y-un-adolescente-herido.shtml",
+      "family": "vida",
+      "slug": "la-florida"
+    },
+    {
+      "id": "85251f2c36b1a6c1",
+      "cut": "7108",
+      "lat": -35.249753,
+      "lng": -71.282809,
+      "title_es": "Mujer asesinada con arma blanca en Río Claro; detienen a su pareja",
+      "title_en": "Woman killed with knife in Río Claro; partner arrested",
+      "date": "2026-06-21",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/femicidio/mujer-fue-asesinada-con-un-arma-blanca-en-rio-blanco-su-pareja-fue/2026-06-20/215943.html",
+      "family": "vif",
+      "slug": "rio-claro"
+    },
+    {
+      "id": "3a2f29ece267c953",
+      "cut": "9203",
+      "lat": -38.439136,
+      "lng": -71.784922,
+      "title_es": "Rescatan 19 mascotas con desnutrición en Curacautín y detienen a su dueño",
+      "title_en": "19 malnourished pets rescued in Curacautín, owner arrested",
+      "date": "2026-06-21",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/curacautin-carabineros-rescato-a-19-mascotas-con-signos-de-desnutricion/2026-06-20/211304.html",
+      "family": "vida",
+      "slug": "curacautin"
+    },
+    {
+      "id": "edbc9022fd6b0172",
+      "cut": "5101",
+      "lat": -33.116644,
+      "lng": -71.575283,
+      "title_es": "Valparaíso: Ciclista murió al chocar con barrera de contención mientras practicaba descenso",
+      "title_en": "Valparaíso: Cyclist died after hitting barrier while practicing downhill",
+      "date": "2026-06-20",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/accidentes-de-transito/valparaiso-ciclista-murio-al-chocar-con-barrera-de-contencion-mientras/2026-06-20/184638.html",
+      "family": "vida",
+      "slug": "valparaiso"
+    },
+    {
+      "id": "b904e6a91522c30e",
+      "cut": "13110",
+      "lat": -33.539168,
+      "lng": -70.463562,
+      "title_es": "Ataque armado frente a centro juvenil en La Florida deja un muerto y un herido",
+      "title_en": "Armed attack outside youth center in La Florida leaves one dead and one injured",
+      "date": "2026-06-21",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/ataque-armado-frente-a-centro-juvenil-en-la-florida-deja-un-muerto-y-un-adolescente-herido/",
+      "family": "armas",
+      "slug": "la-florida"
+    },
+    {
+      "id": "79807feb510a16b2",
+      "cut": "7108",
+      "lat": -35.249753,
+      "lng": -71.282809,
+      "title_es": "Amplían detención de imputado por femicidio íntimo en Río Claro",
+      "title_en": "Detention extended for accused in intimate femicide in Río Claro",
+      "date": "2026-06-20",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/amplian-detencion-de-imputado-por-femicidio-intimo-en-rio-claro-fue-hallado-con-rastros-de-sangre/",
+      "family": "vida",
       "slug": "rio-claro"
     }
   ]
