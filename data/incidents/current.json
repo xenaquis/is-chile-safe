@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-21T09:44:31.325485Z",
+  "generated": "2026-06-21T14:02:35.726637Z",
   "window_days": 30,
   "incidents": [
     {
@@ -703,6 +703,32 @@
       "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/la-florida-balacera-en-las-afueras-de-centro-juvenil-religioso-dejo-un/2026-06-20/235109.html",
       "family": "vida",
       "slug": "la-florida"
+    },
+    {
+      "id": "e80e6372b0fd14bf",
+      "cut": "5109",
+      "lat": -33.027017,
+      "lng": -71.515513,
+      "title_es": "Científica pierde datos de una década tras robo de computador en Viña del Mar",
+      "title_en": "Scientist loses a decade of data after computer theft in Viña del Mar",
+      "date": "2026-06-21",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-valparaiso/cientifica-chilena-perdio-anos-de-investigacion-tras-robo-de-computador/2026-06-21/094219.html",
+      "family": "robos_violentos",
+      "slug": "vina-del-mar"
+    },
+    {
+      "id": "cad227fbe9f431c4",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Imputado por homicidio en Antofagasta queda en prisión preventiva",
+      "title_en": "Defendant in Antofagasta homicide case held in pretrial detention",
+      "date": "2026-06-21",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/imputado-por-homicidio-a-estudiante-de-21-anos-en-antofagasta-quedo-en-prision-preventiva/",
+      "family": "vida",
+      "slug": "antofagasta"
     }
   ]
 }
