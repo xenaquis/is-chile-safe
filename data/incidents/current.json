@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-21T19:26:33.410114Z",
+  "generated": "2026-06-22T03:51:56.902432Z",
   "window_days": 30,
   "incidents": [
     {
@@ -846,6 +846,45 @@
       "url": "https://www.latercera.com/nacional/noticia/detienen-a-dos-sujetos-tras-seguimiento-policial-en-cerrillos-y-recuperan-vehiculo-robado-en-ciudad-satelite/",
       "family": "robos_violentos",
       "slug": "cerrillos"
+    },
+    {
+      "id": "7798058043aae370",
+      "cut": "13107",
+      "lat": -33.385523,
+      "lng": -70.60701,
+      "title_es": "Detenido por cirugías estéticas ilegales a perros en Huechuraba",
+      "title_en": "Man arrested for illegal cosmetic surgeries on dogs in Huechuraba",
+      "date": "2026-06-21",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/hombre-fue-detenido-por-realizar-cirugias-esteticas-a-perros-sin-ser/2026-06-21/154946.html",
+      "family": "vida",
+      "slug": "huechuraba"
+    },
+    {
+      "id": "ad4361f610203785",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "Envían a prisión preventiva a dos venezolanos por tráfico de migrantes en Arica",
+      "title_en": "Two Venezuelans sent to pretrial detention for migrant smuggling in Arica",
+      "date": "2026-06-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/envian-a-prision-preventiva-a-dos-venezolanos-por-trafico-de-migrantes-en-paso-clandestino-en-la-frontera-de-arica/",
+      "family": "vida",
+      "slug": "arica"
+    },
+    {
+      "id": "b9523c9630817030",
+      "cut": "13122",
+      "lat": -33.493075,
+      "lng": -70.506596,
+      "title_es": "Investigan homicidio frustrado a conductor en Peñalolén",
+      "title_en": "Attempted homicide of driver investigated in Peñalolén",
+      "date": "2026-06-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/investigan-homicidio-frustrado-con-arma-de-fuego-contra-conductor-en-penalolen-victima-choco-vivienda/",
+      "family": "vida",
+      "slug": "penalolen"
     }
   ]
 }
