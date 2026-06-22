@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-22T16:50:27.660858Z",
+  "generated": "2026-06-22T20:43:08.549742Z",
   "window_days": 30,
   "incidents": [
     {
@@ -1002,6 +1002,97 @@
       "url": "https://www.latercera.com/nacional/noticia/finaliza-juicio-por-corrupcion-en-la-corporacion-municipal-de-la-serena-fiscalia-estima-defraudacion-en-760-millones/",
       "family": "propiedad",
       "slug": "la-serena"
+    },
+    {
+      "id": "6fbba62324fd5a7b",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Juicio contra conductor que intentó atropellar a carabinero",
+      "title_en": "Trial begins for driver who tried to run over police officer",
+      "date": "2026-06-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/06/22/iba-drogado-y-a-190-km-h-comienza-juicio-contra-conductor-que-intento-atropellar-a-carabinero.shtml",
+      "family": "vida",
+      "slug": "temuco"
+    },
+    {
+      "id": "9db968563f22b132",
+      "cut": "9116",
+      "lat": -38.855295,
+      "lng": -73.295633,
+      "title_es": "Investigan homicidio en La Araucanía: hallaron cadáver de hombre en ruta Saavedra-Huapi",
+      "title_en": "Homicide investigated in La Araucanía: man's body found on Saavedra-Huapi road",
+      "date": "2026-06-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/06/22/investigan-homicidio-en-la-araucania-hallaron-cadaver-de-hombre-a-un-costado-de-ruta-saavedra-huapi.shtml",
+      "family": "vida",
+      "slug": "saavedra"
+    },
+    {
+      "id": "0c6aee9604491e62",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Múltiples amenazas de bomba en zonas emblemáticas de Santiago",
+      "title_en": "Multiple bomb threats in iconic areas of Santiago",
+      "date": "2026-06-22",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/multiples-amenazas-de-bomba-en-zonas-emblematicas-de-santiago/2026-06-22/134718.html",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "ab1e522e8c2dcdb7",
+      "cut": "13132",
+      "lat": -33.416252,
+      "lng": -70.57832,
+      "title_es": "Conductor que circulaba a 264 km/h en Costanera Norte queda en libertad",
+      "title_en": "Driver who drove at 264 km/h on Costanera Norte released",
+      "date": "2026-06-22",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/tribunal-dejo-en-libertad-a-conductor-que-circulaba-a-264-km-h-en-la/2026-06-22/131152.html",
+      "family": "vida",
+      "slug": "vitacura"
+    },
+    {
+      "id": "96cf47956b99ec0a",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Desalojo en el zoológico del Parque Metropolitano por aviso de bomba",
+      "title_en": "Evacuation at Metropolitan Park Zoo due to bomb threat",
+      "date": "2026-06-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/nuevo-aviso-de-bomba-carabineros-desaloja-ahora-el-zoologico-de-parque-metropolitano/",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "b4f66a0f8e49826d",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Evacúan GAM, Juzgados Civiles y Centro de Justicia por amenazas de bomba",
+      "title_en": "GAM, Civil Courts and Justice Center evacuated due to bomb threats",
+      "date": "2026-06-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/gobierno-anuncia-querellas-evacuan-el-gam-juzgados-civiles-y-centro-de-justicia-por-amenazas-de-bomba/",
+      "family": "incivilidades",
+      "slug": "santiago"
+    },
+    {
+      "id": "657c6a47f56191a9",
+      "cut": "13132",
+      "lat": -33.416252,
+      "lng": -70.57832,
+      "title_es": "Exalcalde Torrealba pide reabrir investigación por corrupción en Vitacura",
+      "title_en": "Former mayor Torrealba requests reopening of corruption investigation in Vitacura",
+      "date": "2026-06-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/torrealba-no-se-rinde-exalcalde-pide-reabrir-investigacion-y-enumera-diligencias-contra-su-circulo-de-hierro/",
+      "family": "propiedad",
+      "slug": "vitacura"
     }
   ]
 }
