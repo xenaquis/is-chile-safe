@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-22T11:47:37.151686Z",
+  "generated": "2026-06-22T16:50:27.660858Z",
   "window_days": 30,
   "incidents": [
     {
@@ -898,6 +898,110 @@
       "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/06/21/detienen-a-hombre-que-conducia-a-264-km-h-en-vitacura.shtml",
       "family": "incivilidades",
       "slug": "vitacura"
+    },
+    {
+      "id": "85d8a152c0bdf743",
+      "cut": "8111",
+      "lat": -36.631629,
+      "lng": -72.821324,
+      "title_es": "Corte revoca prisión preventiva de dos mujeres imputadas por secuestro de fiscal de Tomé",
+      "title_en": "Court revokes pretrial detention of two women accused of kidnapping prosecutor from Tomé",
+      "date": "2026-06-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/06/22/corte-revoca-prision-preventiva-de-dos-mujeres-imputadas-por-secuestro-de-fiscal-de-tome.shtml",
+      "family": "vida",
+      "slug": "tome"
+    },
+    {
+      "id": "bd09068c24150d89",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Asaltan almacén familiar con armas en Antofagasta",
+      "title_en": "Armed robbery of family store in Antofagasta",
+      "date": "2026-06-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-antofagasta/2026/06/22/video-sujetos-amenazaron-y-asaltaron-almacen-familiar-con-armas-en-mano-en-antofagasta.shtml",
+      "family": "robos_violentos",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "13bb18671210d6f5",
+      "cut": "13132",
+      "lat": -33.416252,
+      "lng": -70.57832,
+      "title_es": "Tribunal deja libre a conductor sorprendido a 264 km/h en Vitacura",
+      "title_en": "Court releases driver caught at 264 km/h in Vitacura",
+      "date": "2026-06-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/06/22/tribunal-rechaza-peticion-de-fiscalia-y-deja-libre-a-conductor-sorprendido-a-264-km-h-en-vitacura.shtml",
+      "family": "incivilidades",
+      "slug": "vitacura"
+    },
+    {
+      "id": "199ff1374a577775",
+      "cut": "13132",
+      "lat": -33.416252,
+      "lng": -70.57832,
+      "title_es": "Detenido conductor que manejaba a 264 km/h en Costanera Norte",
+      "title_en": "Driver detained for driving at 264 km/h on Costanera Norte",
+      "date": "2026-06-22",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/conductor-fue-detenido-por-manejar-a-264-kilometros-por-hora-en-la/2026-06-22/114519.html",
+      "family": "incivilidades",
+      "slug": "vitacura"
+    },
+    {
+      "id": "4aa6f4c4e9395376",
+      "cut": "13122",
+      "lat": -33.493075,
+      "lng": -70.506596,
+      "title_es": "Comerciante grave tras ataque a balazos en feria de Peñalolén",
+      "title_en": "Merchant seriously wounded in shooting at Peñalolén market",
+      "date": "2026-06-22",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/comerciante-sufrio-grave-ataque-a-balazos-tras-disputa-en-feria-de/2026-06-22/092048.html",
+      "family": "vida",
+      "slug": "penalolen"
+    },
+    {
+      "id": "0d8dcb40ddef6123",
+      "cut": "10404",
+      "lat": -43.672459,
+      "lng": -71.965103,
+      "title_es": "Contraloría detecta vertimiento de aguas servidas al río Palena",
+      "title_en": "Comptroller detects sewage dumping into Palena River",
+      "date": "2026-06-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/contraloria-detecta-vertimiento-de-aguas-servidas-al-rio-palena-envio-antecedentes-a-la-fiscalia/",
+      "family": "incivilidades",
+      "slug": "palena"
+    },
+    {
+      "id": "cc67ce7d5444a555",
+      "cut": "6101",
+      "lat": -34.103815,
+      "lng": -70.847285,
+      "title_es": "Fiscalía presenta acusación por robo a Brinks en Rancagua",
+      "title_en": "Prosecution files charges for Brinks robbery in Rancagua",
+      "date": "2026-06-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/fiscalia-presenta-acusacion-en-caso-por-robo-a-sucursal-de-brinks-en-rancagua/",
+      "family": "robos_violentos",
+      "slug": "rancagua"
+    },
+    {
+      "id": "a18efcdd4b99892b",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Juicio por corrupción en La Serena: defraudación de $760 millones",
+      "title_en": "Trial for corruption in La Serena: fraud of $760 million",
+      "date": "2026-06-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/finaliza-juicio-por-corrupcion-en-la-corporacion-municipal-de-la-serena-fiscalia-estima-defraudacion-en-760-millones/",
+      "family": "propiedad",
+      "slug": "la-serena"
     }
   ]
 }
