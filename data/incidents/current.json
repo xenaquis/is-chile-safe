@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-22T03:51:56.902432Z",
+  "generated": "2026-06-22T11:47:37.151686Z",
   "window_days": 30,
   "incidents": [
     {
@@ -885,6 +885,19 @@
       "url": "https://www.latercera.com/nacional/noticia/investigan-homicidio-frustrado-con-arma-de-fuego-contra-conductor-en-penalolen-victima-choco-vivienda/",
       "family": "vida",
       "slug": "penalolen"
+    },
+    {
+      "id": "612ec08177ee280f",
+      "cut": "13132",
+      "lat": -33.416252,
+      "lng": -70.57832,
+      "title_es": "Detienen a hombre que conducía a 264 km/h en Vitacura",
+      "title_en": "Man arrested for driving at 264 km/h in Vitacura",
+      "date": "2026-06-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/06/21/detienen-a-hombre-que-conducia-a-264-km-h-en-vitacura.shtml",
+      "family": "incivilidades",
+      "slug": "vitacura"
     }
   ]
 }
