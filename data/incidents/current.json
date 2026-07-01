@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-01T09:39:34.579706Z",
+  "generated": "2026-07-01T14:28:17.902765Z",
   "window_days": 30,
   "incidents": [
     {
@@ -1314,6 +1314,58 @@
       "url": "https://www.latercera.com/nacional/noticia/fijan-mas-de-15-anos-de-carcel-para-integrantes-de-banda-que-mato-a-pasajero-de-bus-red-en-estacion-central/",
       "family": "robos_violentos",
       "slug": "estacion-central"
+    },
+    {
+      "id": "9fc2febd759a796e",
+      "cut": "13117",
+      "lat": -33.45,
+      "lng": -70.72,
+      "title_es": "Barbero acusado de matar a adolescente en Lo Prado",
+      "title_en": "Barber accused of killing teenager in Lo Prado",
+      "date": "2026-07-01",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/01/barbero-es-el-acusado-de-matar-a-adolescente-en-lo-prado-profugo-tuvo-altercado-con-polola-de-victima.shtml",
+      "family": "vida",
+      "slug": "lo-prado"
+    },
+    {
+      "id": "b7075925e5c4bd7f",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Robos en Cementerio General de Concepción: sustracción de adornos y letras de sepulturas",
+      "title_en": "Thefts at Concepción General Cemetery: theft of ornaments and tomb letters",
+      "date": "2026-07-01",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/01/robos-en-cementerio-general-de-concepcion-denuncian-sustraccion-de-adornos-y-letras-de-sepulturas.shtml",
+      "family": "robos_violentos",
+      "slug": "concepcion"
+    },
+    {
+      "id": "bfe084c29a65e701",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Jornada de copamiento preventivo en Antofagasta",
+      "title_en": "Preventive saturation operation in Antofagasta",
+      "date": "2026-07-01",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/carabineros-desarrolla-una-nueva-jornada-de-copamiento-preventivo-en-antofagasta/",
+      "family": "incivilidades",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "d33bebdbf43d7a76",
+      "cut": "13104",
+      "lat": -33.385523,
+      "lng": -70.693079,
+      "title_es": "Violento portonazo en Conchalí: cinco sujetos armados robaron vehículo",
+      "title_en": "Violent carjacking in Conchalí: five armed subjects stole a vehicle",
+      "date": "2026-07-01",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/violento-portonazo-en-conchali-cinco-sujetos-armados-robaron-vehiculo-a-victima/",
+      "family": "robos_violentos",
+      "slug": "conchali"
     }
   ]
 }
