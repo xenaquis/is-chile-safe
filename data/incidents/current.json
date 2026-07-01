@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-01T14:28:17.902765Z",
+  "generated": "2026-07-01T19:49:51.033700Z",
   "window_days": 30,
   "incidents": [
     {
@@ -1366,6 +1366,97 @@
       "url": "https://www.latercera.com/nacional/noticia/violento-portonazo-en-conchali-cinco-sujetos-armados-robaron-vehiculo-a-victima/",
       "family": "robos_violentos",
       "slug": "conchali"
+    },
+    {
+      "id": "fdedfec49e600805",
+      "cut": "10301",
+      "lat": -40.605623,
+      "lng": -73.09956,
+      "title_es": "Confirman reconstrucción de regimiento en Osorno tras incendio",
+      "title_en": "Regiment reconstruction confirmed in Osorno after fire",
+      "date": "2026-07-01",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-lagos/2026/07/01/confirman-la-reconstruccion-de-regimiento-en-osorno-tras-incendio-que-destruyo-enfermeria-y-comedores.shtml",
+      "family": "propiedad",
+      "slug": "osorno"
+    },
+    {
+      "id": "fcead42d6735e3d2",
+      "cut": "8110",
+      "lat": -36.765719,
+      "lng": -73.045624,
+      "title_es": "Sindicato de Huachipato se querella contra exdirigentes por $900 millones no justificados",
+      "title_en": "Huachipato Union Files Complaint Against Former Leaders Over Unexplained $900 Million",
+      "date": "2026-07-01",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/01/900-millones-sin-justificar-huachipato-se-querella-contra-exdirigentes-sindicales-tras-auditoria.shtml",
+      "family": "propiedad",
+      "slug": "talcahuano"
+    },
+    {
+      "id": "3c0afd428972ee92",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "PDI desarticuló banda dedicada a portonazos y encerronas en Maipú",
+      "title_en": "PDI dismantled gang dedicated to portonazos and encerronas in Maipú",
+      "date": "2026-07-01",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robo-de-vehiculos/pdi-desarticulo-banda-dedicada-a-cometer-portonazos-y-encerronas-en-maipu/2026-07-01/113744.html",
+      "family": "robos_violentos",
+      "slug": "maipu"
+    },
+    {
+      "id": "b190e902ca9c470d",
+      "cut": "2203",
+      "lat": -23.442741,
+      "lng": -67.943059,
+      "title_es": "PDI incauta 175 kilos de cannabis en San Pedro de Atacama",
+      "title_en": "PDI seizes 175 kilos of cannabis in San Pedro de Atacama",
+      "date": "2026-07-01",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-antofagasta/fuerza-de-tarea-frontera-de-la-pdi-incauto-175-kilos-de-cannabis-en-el/2026-07-01/100911.html",
+      "family": "drogas",
+      "slug": "san-pedro-de-atacama"
+    },
+    {
+      "id": "2252d7ec6b51bef6",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "Accidente en Cuesta Chaca deja un fallecido en Arica",
+      "title_en": "Accident at Cuesta Chaca leaves one dead in Arica",
+      "date": "2026-07-01",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/accidentes-de-transito/arica-choque-entre-camioneta-y-bus-en-la-cuesta-chaca-dejo-un-fallecido/2026-07-01/104757.html",
+      "family": "vida",
+      "slug": "arica"
+    },
+    {
+      "id": "9b1e83ae50fd427e",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "Condenan a 8 años a hombre que disparó a madre, bebé y perro en Tongoy",
+      "title_en": "Man sentenced to 8 years for shooting mother, baby and dog in Tongoy",
+      "date": "2026-07-01",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/condenan-a-8-anos-y-medio-de-presidio-a-sujeto-que-disparo-en-tongoy-a-una-madre-un-bebe-de-10-meses-y-a-un-perro/",
+      "family": "vida",
+      "slug": "coquimbo"
+    },
+    {
+      "id": "d32c480b57f6e33d",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Condenan a dos sujetos por homicidio de trabajadora del GORE en balacera",
+      "title_en": "Two individuals sentenced for homicide of GORE worker in shooting",
+      "date": "2026-07-01",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/condenan-a-dos-sujetos-por-homicidio-de-trabajadora-del-gore-que-fue-herida-en-balacera-en-mercado-tirso-de-molina/",
+      "family": "vida",
+      "slug": "santiago"
     }
   ]
 }
