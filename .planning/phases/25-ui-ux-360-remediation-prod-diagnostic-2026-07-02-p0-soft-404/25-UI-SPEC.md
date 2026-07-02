@@ -1,7 +1,8 @@
 ---
 phase: 25
 slug: ui-ux-360-remediation-prod-diagnostic-2026-07-02-p0-soft-404
-status: draft
+status: approved
+reviewed_at: 2026-07-02
 shadcn_initialized: false
 preset: none
 created: 2026-07-02
