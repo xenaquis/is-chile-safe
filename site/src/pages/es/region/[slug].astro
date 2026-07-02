@@ -188,6 +188,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     <StatCard
       label="Posición nacional (entre 16 regiones)"
       value={`#${nationalPosition} de 16`}
+      sublabel="(1 = mayor incidencia reportada)"
     />
     <StatCard
       label="Promedio nacional"
@@ -197,8 +198,9 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
 
   <!-- 4. RegionSparkline -->
   <section class="sparkline-section" aria-label="Evolución anual">
-    <h2 class="section-heading">Evolución anual (2005–{latestCompleteYear})</h2>
+    <h2 class="section-heading">Evolución anual (2005–2026*)</h2>
     <Sparkline series={region.series} activeYear={latestCompleteYear} />
+    <p class="chart-footnote">* 2026: año parcial (ene–jun)</p>
   </section>
 
   <!-- 5. CommuneRankingTable -->
@@ -209,8 +211,17 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     <CommuneRankingTable rows={rankingRows} locale="es" />
   </section>
 
-  <!-- 6. MapPlaceholderSlot -->
-  <MapPlaceholderSlot mountType="region-map" locale="es" />
+  <!-- 6. MapPlaceholderSlot — región con CTA específica -->
+  <div class="map-placeholder-card-wrap">
+    <a href={`/es/mapa/?region=${region.slug}`} class="map-placeholder-card">
+      <svg width="40" height="40" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="map-pin-glyph">
+        <circle cx="11" cy="9" r="5" fill="var(--primary)" />
+        <ellipse cx="11" cy="9" rx="2" ry="2" fill="white" />
+        <path d="M11 14 Q7 18 11 22 Q15 18 11 14Z" fill="var(--primary)" />
+      </svg>
+      <span>Ver mapa interactivo →</span>
+    </a>
+  </div>
 
   <!-- 7. MethodologyCaveat -->
   <MethodologyCaveat locale="es" />
@@ -294,5 +305,42 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     color: var(--muted);
     margin-top: var(--sm);
     padding: 0 var(--xs);
+  }
+
+  .chart-footnote {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--xs);
+  }
+
+  .map-placeholder-card-wrap {
+    margin: var(--xl) 0;
+  }
+
+  .map-placeholder-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--md);
+    padding: var(--xl);
+    min-height: 280px;
+    border: 2px dashed var(--line);
+    border-radius: var(--radius);
+    background: var(--bg);
+    text-decoration: none;
+    color: var(--primary);
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .map-placeholder-card:hover {
+    border-color: var(--primary);
+    background: var(--card);
+  }
+
+  .map-pin-glyph {
+    opacity: 0.7;
   }
 </style>
