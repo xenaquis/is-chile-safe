@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-02T02:54:26.428267Z",
+  "generated": "2026-07-02T08:53:39.874748Z",
   "window_days": 30,
   "incidents": [
     {
@@ -1561,6 +1561,45 @@
       "url": "https://www.latercera.com/nacional/noticia/tragedia-en-el-teniente-fiscal-cuestiona-accion-de-codelco-por-informacion-requerida-y-evita-pronunciarse-por-resolucion/",
       "family": "vida",
       "slug": "machali"
+    },
+    {
+      "id": "cd2d4d2eefa49d0d",
+      "cut": "8102",
+      "lat": -36.996187,
+      "lng": -73.045624,
+      "title_es": "Gobierno confirma denuncia por colisión múltiple que causó muerte de enfermera en Coronel",
+      "title_en": "Government confirms complaint over multiple collision that caused nurse's death in Coronel",
+      "date": "2026-07-02",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/01/gobierno-confirma-denuncia-en-fiscalia-por-colision-multiple-que-causo-muerte-de-enfermera-en-coronel.shtml",
+      "family": "vida",
+      "slug": "coronel"
+    },
+    {
+      "id": "4ce3ace3fd040132",
+      "cut": "13122",
+      "lat": -33.493075,
+      "lng": -70.506596,
+      "title_es": "Rescatan a dos personas extraviadas en Quebrada de Macul en Peñalolén",
+      "title_en": "Two missing persons rescued in Quebrada de Macul in Peñalolén",
+      "date": "2026-07-02",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/rescatan-a-dos-personas-extraviadas-en-sector-de-dificil-acceso-del-parque-quebrada-de-macul-en-penalolen/",
+      "family": "vida",
+      "slug": "penalolen"
+    },
+    {
+      "id": "2c6c3f9c71a07683",
+      "cut": "13116",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Prisión preventiva para hombre de 73 años acusado de abusos sexuales contra menor en Lo Espejo",
+      "title_en": "Preventive detention for 73-year-old man accused of sexual abuse of minor in Lo Espejo",
+      "date": "2026-07-02",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/prision-preventiva-para-hombre-de-73-anos-acusado-de-abusos-sexuales-contra-menor-en-lo-espejo/",
+      "family": "vida",
+      "slug": "lo-espejo"
     }
   ]
 }
