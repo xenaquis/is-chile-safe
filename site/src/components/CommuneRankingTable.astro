@@ -13,6 +13,7 @@ import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
 import TrendChip from './TrendChip.astro';
 import RateTooltip from './RateTooltip.astro';
 import RankingTableEnhancer from './RankingTableEnhancer.astro';
+import { formatRate } from '../lib/formatNumber';
 
 interface RankingRow {
   name: string;
@@ -75,7 +76,7 @@ const glossaryLabel = t.glossary_link;
               <sup class="low-pop-marker" title={t.low_population_caveat}>*</sup>
             )}
           </td>
-          <td class="col-num">{Math.round(row.rate).toLocaleString()}</td>
+          <td class="col-num">{formatRate(row.rate, locale)}</td>
           <td class="col-num">
             {row.low_population ? '—' : `#${row.national_rank}`}
           </td>

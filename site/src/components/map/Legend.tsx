@@ -9,6 +9,7 @@
  */
 import { INCIDENCE_COLORS } from './colors';
 import { EN_STRINGS, ES_STRINGS } from '../../config/i18n';
+import { formatRate } from '../../lib/formatNumber';
 
 interface Props {
   lang: 'en' | 'es';
@@ -34,7 +35,7 @@ const QUAL_LABELS_ES = [
 
 /** Format a number using the locale-appropriate thousands separator. */
 function fmt(n: number, lang: 'en' | 'es'): string {
-  return Math.round(n).toLocaleString(lang === 'es' ? 'es-CL' : 'en-US');
+  return formatRate(n, lang);
 }
 
 /**

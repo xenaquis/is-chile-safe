@@ -19,6 +19,7 @@ import { PanelFamilyBars } from './PanelFamilyBars';
 import { IncidentsList, type Incident } from './IncidentsList';
 import { RateTooltip } from './RateTooltipReact';
 import { EN_STRINGS, ES_STRINGS } from '../../config/i18n';
+import { formatRate, formatDecimal } from '../../lib/formatNumber';
 
 // Catalog family_keys order (catalog.json):
 // 0=vida, 1=robos_violentos, 2=vif, 3=drogas, 4=armas, 5=propiedad, 6=incivilidades
@@ -197,7 +198,7 @@ export function ResultPanel({ cut, lang, year, nationalAvg, onClose, mode = 'fam
     ?? data.series[data.series.length - 1]; // fallback to latest
 
   const rate = seriesEntry?.rate_per_100k ?? null;
-  const displayRate = rate !== null ? Math.round(rate).toLocaleString('es-CL') : '—';
+  const displayRate = rate !== null ? formatRate(rate, lang) : '—';
 
   // Build sparkline series (all years, no filtering)
   const sparklineSeries = data.series.map((s) => ({
@@ -302,7 +303,7 @@ export function ResultPanel({ cut, lang, year, nationalAvg, onClose, mode = 'fam
 
       {/* 3. Stat card: rate */}
       <div className="stat-card" style={{ overflow: 'visible' }}>
-        <div className="stat-big">~{displayRate}</div>
+        <div className="stat-big">{displayRate}</div>
         <div className="stat-unit" style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap' }}>
           {lang === 'es'
             ? `Tasa por 100.000 hab. (${year})`
@@ -316,7 +317,7 @@ export function ResultPanel({ cut, lang, year, nationalAvg, onClose, mode = 'fam
         {/* Multiplier vs national average (D-04) */}
         {rate !== null && nationalAvg > 0 && (() => {
           const multiplierNum = rate / nationalAvg;
-          const multiplierStr = multiplierNum.toLocaleString(lang === 'es' ? 'es-CL' : 'en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+          const multiplierStr = formatDecimal(multiplierNum, lang, 1);
           const compTemplate = lang === 'es' ? ES_STRINGS.comparison_national : EN_STRINGS.comparison_national;
           const compLabel = compTemplate.replace('{multiplier}', multiplierStr);
           const barWidth = `${Math.min((rate / (nationalAvg * 3)), 1) * 100}%`;
@@ -390,7 +391,7 @@ export function ResultPanel({ cut, lang, year, nationalAvg, onClose, mode = 'fam
             <h4>{lang === 'es' ? `Homicidios (${year})` : `Homicide (${year})`}</h4>
             {hasData ? (
               <div>
-                <span className="stat-mid">{Math.round(homRate!).toLocaleString('es-CL')}</span>
+                <span className="stat-mid">{formatRate(homRate!, lang)}</span>
                 {lang === 'es' ? ' por 100.000 hab.' : ' per 100,000 inhab.'}
                 {count !== null && (
                   <span className="stat-sub">

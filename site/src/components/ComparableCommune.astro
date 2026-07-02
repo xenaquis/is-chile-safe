@@ -12,6 +12,7 @@
  */
 import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
 import TrendChip from './TrendChip.astro';
+import { formatRate } from '../lib/formatNumber';
 
 interface ComparableResult {
   name: string;
@@ -48,7 +49,7 @@ const communeHref = locale === 'en'
     <span class="comparable-region">{comparable.regionName}</span>
     <div class="comparable-stats">
       <span class="comparable-rate">
-        {Math.round(comparable.rate).toLocaleString()}
+        {formatRate(comparable.rate, locale)}
         <span class="comparable-rate-unit">{t.rate_unit}</span>
       </span>
       <span class="comparable-rank">
