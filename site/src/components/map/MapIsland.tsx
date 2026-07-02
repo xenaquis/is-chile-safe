@@ -122,7 +122,9 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
     const map = L.map(divRef.current, { zoomControl: false, attributionControl: true });
     map.attributionControl.setPosition('bottomleft');
     map.attributionControl.setPrefix('');
-    map.setView([-35.7, -71.8], 5);
+    map.fitBounds([[-55.9, -75.7], [-17.5, -66.4]], { padding: [20, 20] });
+    map.setMaxBounds([[-60, -80], [-14, -60]]);
+    map.setMinZoom(4);
     map.on('zoomend', () => setLowZoom(map.getZoom() < 8));
     mapRef.current = map;
 
@@ -222,8 +224,9 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
           }
         );
         // D-08: focus commune from ?cut= URL param (opaque string — Map lookup only, no DOM injection)
+        // T-25-04-URL: validate ?cut= is exactly 5 digits before any fetch (all Chilean CUTs are 5-digit integers)
         const focusCut = new URLSearchParams(window.location.search).get('cut');
-        if (focusCut) {
+        if (focusCut && /^\d{5}$/.test(focusCut)) {
           // Small timeout to allow Leaflet to finish rendering polygons before getBounds is valid
           setTimeout(() => selectCommune(focusCut), 100);
         }
@@ -433,6 +436,40 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
           if (!map) return;
           locate(map, featuresRef.current, userRef, selectCommune, setToast, lang);
         }}
+        modeToggle={
+          <div className="mode-toggle" role="group" aria-label={lang === 'es' ? 'Modo de mapa' : 'Map mode'}>
+            <button
+              className={`chip${mode === 'composite' ? ' active' : ''}`}
+              onClick={() => {
+                setMode('composite');
+                const communas = payloadRef.current;
+                if (!communas || !layerRef.current) return;
+                styleMapRef.current = buildStyleMapFromCompositeIndex(communas);
+                applyStyleMap(layerRef.current, styleMapRef);
+              }}
+            >
+              {lang === 'es' ? 'Índice' : 'Index'}
+            </button>
+            <button
+              className={`chip${mode === 'family' ? ' active' : ''}`}
+              onClick={() => {
+                setMode('family');
+                const communas = payloadRef.current;
+                if (!communas || !layerRef.current) return;
+                if (crimeIsHomicide) {
+                  styleMapRef.current = buildStyleMapFromHomicide(communas);
+                } else if (crimeFamilyIndex !== null) {
+                  styleMapRef.current = buildStyleMapFromFamily(communas, crimeFamilyIndex);
+                } else {
+                  styleMapRef.current = buildStyleMapFromLevel(communas);
+                }
+                applyStyleMap(layerRef.current, styleMapRef);
+              }}
+            >
+              {lang === 'es' ? 'Por delito' : 'By crime'}
+            </button>
+          </div>
+        }
       />
 
       {/* TD-06: partial-year caveat badge — shown when latest year data is incomplete */}
@@ -464,40 +501,6 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
         aria-hidden="true"
       />
 
-      {/* Mode toggle: composite index vs per-family rate (D-05) */}
-      <div className="mode-toggle" role="group" aria-label={lang === 'es' ? 'Modo de mapa' : 'Map mode'}>
-        <button
-          className={`chip${mode === 'composite' ? ' active' : ''}`}
-          onClick={() => {
-            setMode('composite');
-            const communas = payloadRef.current;
-            if (!communas || !layerRef.current) return;
-            styleMapRef.current = buildStyleMapFromCompositeIndex(communas);
-            applyStyleMap(layerRef.current, styleMapRef);
-          }}
-        >
-          {lang === 'es' ? 'Índice' : 'Index'}
-        </button>
-        <button
-          className={`chip${mode === 'family' ? ' active' : ''}`}
-          onClick={() => {
-            setMode('family');
-            const communas = payloadRef.current;
-            if (!communas || !layerRef.current) return;
-            if (crimeIsHomicide) {
-              styleMapRef.current = buildStyleMapFromHomicide(communas);
-            } else if (crimeFamilyIndex !== null) {
-              styleMapRef.current = buildStyleMapFromFamily(communas, crimeFamilyIndex);
-            } else {
-              styleMapRef.current = buildStyleMapFromLevel(communas);
-            }
-            applyStyleMap(layerRef.current, styleMapRef);
-          }}
-        >
-          {lang === 'es' ? 'Por delito' : 'By crime'}
-        </button>
-      </div>
-
       {/* Legend (bottom-left) */}
       <Legend
         lang={lang}
@@ -505,6 +508,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
         title={mode === 'composite'
           ? (lang === 'es' ? 'Índice Delictivo' : 'Crime Index')
           : undefined}
+        showIncidents={showEvents}
       />
 
       {/* Zoom control (desktop only, hidden via CSS on mobile) */}
