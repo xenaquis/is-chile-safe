@@ -11,7 +11,9 @@
 import EditorialLayout from '../layouts/EditorialLayout.astro';
 import DataCallout from '../components/DataCallout.astro';
 import FAQBlock from '../components/FAQBlock.astro';
-import { loadNationalAverage, loadIndex, loadCommune } from '../lib/data.ts';
+import CommuneRankingTable from '../components/CommuneRankingTable.astro';
+import Sparkline from '../components/Sparkline.astro';
+import { loadNationalAverage, loadIndex, loadCommune, latestCompleteYearRate, loadNational } from '../lib/data.ts';
 
 const nationalAvg = loadNationalAverage();
 
@@ -20,6 +22,22 @@ const index = loadIndex();
 const sampleCut = index.find((c) => !c.low_population)?.cut ?? '13101';
 const sampleCommune = loadCommune(sampleCut);
 const year = sampleCommune.latestCompleteYear;
+
+// Build national top/bottom-10 ranking rows
+const allRows = index.filter((c) => !c.low_population).map((meta) => {
+  const data = loadCommune(meta.cut);
+  const rate = latestCompleteYearRate(data);
+  const ratesByYear: Record<number, number> = {};
+  data.series.filter((s) => !s.partial).forEach((s) => { ratesByYear[s.year] = s.rate_per_100k; });
+  return { name: meta.name, slug: meta.slug, rate, national_rank: data.national_rank, trend: data.trend, low_population: meta.low_population, ratesByYear };
+});
+allRows.sort((a, b) => b.rate - a.rate);
+const nationalTop10 = allRows.slice(0, 10);
+const nationalBottom10 = allRows.slice(-10).reverse();
+
+// National trend sparkline
+const nationalData = loadNational();
+const nationalSeries = nationalData.series.map((s) => ({ year: s.year, rate_per_100k: s.rate_per_100k, partial: s.partial }));
 
 const faqItems = [
   {
@@ -82,6 +100,36 @@ const jsonLd = {
       source="Source: CEAD (Centro de Estudios y Análisis del Delito)"
       locale="en"
     />
+  </section>
+
+  <section>
+    <h2>Communes with Highest Reported Crime Rates — National (CEAD {year})</h2>
+    <p>The 10 communes with the highest reported crime rates per 100,000 inhabitants among non-low-population communes in Chile, according to CEAD data for {year}.</p>
+    <figure class="rate-table-figure">
+      <figcaption class="rate-table-caption">Highest reported crime rates in Chile (CEAD {year})</figcaption>
+      <CommuneRankingTable rows={nationalTop10} locale="en" sortable={false} />
+      <p class="rate-table-source">Source: CEAD – Ministry of Interior, {year}. Reported cases per 100,000 inhabitants.</p>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Communes with Lowest Reported Crime Rates — National (CEAD {year})</h2>
+    <p>The 10 communes with the lowest reported crime rates per 100,000 inhabitants among non-low-population communes in Chile, according to CEAD data for {year}.</p>
+    <figure class="rate-table-figure">
+      <figcaption class="rate-table-caption">Lowest reported crime rates in Chile (CEAD {year})</figcaption>
+      <CommuneRankingTable rows={nationalBottom10} locale="en" sortable={false} />
+      <p class="rate-table-source">Source: CEAD – Ministry of Interior, {year}. Reported cases per 100,000 inhabitants.</p>
+    </figure>
+  </section>
+
+  <section>
+    <h2>National Reported Crime Trend (CEAD)</h2>
+    <p>Population-weighted national reported crime rate per 100,000 inhabitants, 2005–{year}, according to CEAD data.</p>
+    <figure class="rate-table-figure">
+      <figcaption class="rate-table-caption">Chile — national reported crime rate per 100,000 inhabitants (CEAD, 2005–{year})</figcaption>
+      <Sparkline series={nationalSeries} activeYear={year} width={480} height={44} />
+      <p class="rate-table-source">Source: CEAD – Ministry of Interior. Population-weighted mean. Reported cases per 100,000 inhabitants.</p>
+    </figure>
   </section>
 
   <section>
@@ -202,5 +250,18 @@ const jsonLd = {
 
   a:hover {
     text-decoration: underline;
+  }
+
+  .rate-table-figure { margin: var(--lg) 0; overflow-x: auto; }
+  .rate-table-caption {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin-bottom: var(--sm);
+  }
+  .rate-table-source {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--xs);
   }
 </style>

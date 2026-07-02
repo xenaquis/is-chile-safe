@@ -11,12 +11,14 @@
 import EditorialLayout from '../layouts/EditorialLayout.astro';
 import DataCallout from '../components/DataCallout.astro';
 import RankingTableEnhancer from '../components/RankingTableEnhancer.astro';
+import Sparkline from '../components/Sparkline.astro';
 import {
   loadIndex,
   loadRolloutCuts,
   loadCommune,
   loadNationalAverage,
   latestCompleteYearRate,
+  loadNational,
 } from '../lib/data.ts';
 
 // Build ranking from published (rollout) non-low-population communes
@@ -60,6 +62,10 @@ const nationalAvg = loadNationalAverage();
 
 // Use year from first commune (all should share same latest year)
 const dataYear = topCommunes[0]?.year ?? communeRates[0]?.year ?? 0;
+
+// National trend sparkline for context
+const nationalData = loadNational();
+const nationalSeries = nationalData.series.map((s) => ({ year: s.year, rate_per_100k: s.rate_per_100k, partial: s.partial }));
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -165,6 +171,16 @@ const jsonLd = {
       Rate = police-reported incidents per 100,000 registered inhabitants.
       National rank 1 = lowest reported rate among all non-low-population communes in Chile.
     </p>
+  </section>
+
+  <section>
+    <h2>National Reported Crime Trend for Context (CEAD)</h2>
+    <p>The chart below shows Chile's national population-weighted reported crime rate per 100,000 inhabitants from 2005 to {dataYear}, providing context for where the low-incidence communes sit relative to national trends.</p>
+    <figure class="rate-table-figure">
+      <figcaption class="rate-table-caption">Chile — national reported crime rate per 100,000 inhabitants (CEAD, 2005–{dataYear})</figcaption>
+      <Sparkline series={nationalSeries} activeYear={dataYear} width={480} height={44} />
+      <p class="rate-table-source">Source: CEAD – Ministry of Interior. Population-weighted mean. Reported cases per 100,000 inhabitants.</p>
+    </figure>
   </section>
 
   <section>
@@ -327,5 +343,18 @@ const jsonLd = {
     font-size: var(--text-label);
     color: var(--muted);
     margin-top: var(--sm);
+  }
+
+  .rate-table-figure { margin: var(--lg) 0; overflow-x: auto; }
+  .rate-table-caption {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin-bottom: var(--sm);
+  }
+  .rate-table-source {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--xs);
   }
 </style>
