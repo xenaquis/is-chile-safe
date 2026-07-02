@@ -8,10 +8,12 @@
  *
  * hreflang: /news/ <-> /es/noticias/
  * Pitfall 4: existsSync fallback — build does NOT crash if current.json absent.
+ * P1-6: semantic h2/h3 heading structure, month-grouped sections, type+commune chips.
  */
 import EditorialLayout from '../layouts/EditorialLayout.astro';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
+import { loadIndex } from '../lib/data';
 
 // Resolve from the synced public copy via process.cwd() (= site/ during `astro build`).
 // import.meta.url is unreliable at build time — compiled chunk locations differ per page,
@@ -27,7 +29,8 @@ let incidents: Array<{
   outlet: string;
   url: string;
   slug?: string;
-  cut?: string;
+  cut?: string | number;
+  family?: string;
 }> = [];
 
 if (existsSync(dataPath)) {
@@ -38,6 +41,36 @@ if (existsSync(dataPath)) {
   } catch {
     // Malformed JSON — empty fallback
   }
+}
+
+// Build CUT → commune {name, slug} lookup from loadIndex() at build time
+const _index = loadIndex();
+const cutToCommune = new Map<string, { name: string; slug: string }>(
+  _index.map((c) => [c.cut, { name: c.name, slug: c.slug }])
+);
+// Also slug → commune for incidents that have slug but no cut
+const slugToCommune = new Map<string, { name: string; slug: string }>(
+  _index.map((c) => [c.slug, { name: c.name, slug: c.slug }])
+);
+
+// Helper: resolve commune info from incident (cut takes priority over slug)
+// cut may be numeric in current.json — convert to string for Map lookup
+function getCommuneInfo(incident: { cut?: string | number; slug?: string }): { name: string; slug: string } | undefined {
+  if (incident.cut != null) return cutToCommune.get(String(incident.cut));
+  if (incident.slug) return slugToCommune.get(incident.slug);
+  return undefined;
+}
+
+// Capitalize first letter of family label
+function familyLabel(family: string): string {
+  return family.charAt(0).toUpperCase() + family.slice(1);
+}
+
+// Format YYYY-MM as "Month YYYY" for h2 date groups
+function formatMonth(yearMonth: string): string {
+  const [year, month] = yearMonth.split('-');
+  const d = new Date(parseInt(year, 10), parseInt(month, 10) - 1, 1);
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
 }
 
 // Format generated date for display
@@ -57,6 +90,14 @@ if (generated) {
 // Sort newest-first (TD-03)
 incidents.sort((a, b) => b.date.localeCompare(a.date));
 
+// Group incidents by YYYY-MM (build-time, zero client JS)
+const monthGroups = new Map<string, typeof incidents>();
+for (const incident of incidents) {
+  const yearMonth = incident.date.slice(0, 7);
+  if (!monthGroups.has(yearMonth)) monthGroups.set(yearMonth, []);
+  monthGroups.get(yearMonth)!.push(incident);
+}
+
 // Safe URL helper — mirrors IncidentPinLayer.ts safeUrl() (TD-05, T-19-03)
 function safeUrl(url: string): string {
   try {
@@ -73,7 +114,7 @@ function safeUrl(url: string): string {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Chile Crime News — Recent Reported Incidents",
+  "name": "Recent Crime Incidents in Chile",
   "description": "Recent crime incidents reported in Chilean news media, geolocated by commune. Each incident cites and links to its source article.",
   "url": "https://ischilesafe.com/news/",
 };
@@ -88,7 +129,7 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <section>
-    <h1>Chile Crime News — Recent Reported Incidents</h1>
+    <h1>Recent Crime Incidents in Chile</h1>
     <p>
       This page surfaces recent crime incidents reported in Chilean news media and geolocated
       by commune. Each entry links to its original source article and to the commune page where
@@ -108,39 +149,116 @@ const jsonLd = {
       <p class="empty-state">No incidents available yet. Check back soon.</p>
     </section>
   ) : (
-    <section>
-      <ul class="incidents-list">
-        {incidents.map((incident) => (
-          <li class="incident-row" key={incident.id}>
-            <div class="incident-title">{incident.title_en}</div>
-            <div class="incident-meta">
-              {incident.date} · {incident.outlet}
-            </div>
-            <div class="incident-links">
-              <a
-                href={safeUrl(incident.url)}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="incident-source"
-              >
-                Source: {incident.outlet} ↗
-              </a>
-              {incident.slug && (
-                <a href={'/commune/' + incident.slug + '/'} class="incident-commune">
-                  View commune
+    Array.from(monthGroups.entries()).map(([yearMonth, groupIncidents]) => (
+      <section class="news-month-section">
+        <h2 class="news-date-group">{formatMonth(yearMonth)}</h2>
+        {groupIncidents.map((incident) => {
+          const communeInfo = getCommuneInfo(incident);
+          return (
+            <article class="news-card">
+              <h3 class="news-title">
+                <a href={safeUrl(incident.url)} target="_blank" rel="noopener noreferrer">
+                  {incident.title_en}
                 </a>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </section>
+              </h3>
+              <p class="news-meta">
+                {incident.family && (
+                  <span class="news-type-chip">{familyLabel(incident.family)}</span>
+                )}
+                {communeInfo && (
+                  <span class="news-commune-chip">
+                    <a href={'/commune/' + communeInfo.slug + '/'}>
+                      {communeInfo.name}
+                    </a>
+                  </span>
+                )}
+                <span class="news-date-outlet">{incident.date} · {incident.outlet}</span>
+              </p>
+            </article>
+          );
+        })}
+      </section>
+    ))
   )}
 </EditorialLayout>
 
 <style>
   section {
     margin-bottom: var(--2xl);
+  }
+
+  .news-month-section {
+    margin-bottom: var(--xl);
+  }
+
+  .news-date-group {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin-bottom: var(--md);
+    padding-bottom: var(--xs);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .news-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--md);
+    margin-bottom: var(--md);
+  }
+
+  .news-title {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin-bottom: var(--xs);
+    line-height: 1.25;
+  }
+
+  .news-title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .news-title a:hover {
+    text-decoration: underline;
+    color: var(--primary);
+  }
+
+  .news-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--xs);
+    margin: 0;
+  }
+
+  /* P1-6: compact badge — named 12px exception for dense news list */
+  .news-type-chip,
+  .news-commune-chip {
+    display: inline-flex;
+    align-items: center;
+    height: 22px;
+    padding: 0 var(--sm);
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    background: var(--line);
+    color: var(--ink);
+    margin-right: var(--xs);
+  }
+
+  .news-commune-chip a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .news-commune-chip:hover {
+    background: var(--bg);
+  }
+
+  .news-date-outlet {
+    font-size: var(--text-label);
+    color: var(--muted);
   }
 
   .freshness {
@@ -152,49 +270,5 @@ const jsonLd = {
   .empty-state {
     color: var(--muted);
     font-style: italic;
-  }
-
-  .incidents-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--lg);
-  }
-
-  .incident-row {
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: var(--md);
-  }
-
-  .incident-title {
-    font-weight: var(--weight-strong);
-    margin-bottom: var(--xs);
-  }
-
-  .incident-meta {
-    font-size: var(--text-label);
-    color: var(--muted);
-    margin-bottom: var(--xs);
-  }
-
-  .incident-links {
-    display: flex;
-    gap: var(--md);
-    flex-wrap: wrap;
-  }
-
-  .incident-source,
-  .incident-commune {
-    font-size: var(--text-label);
-    color: var(--primary);
-    text-decoration: none;
-  }
-
-  .incident-source:hover,
-  .incident-commune:hover {
-    text-decoration: underline;
   }
 </style>
