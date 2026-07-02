@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-01T19:49:51.033700Z",
+  "generated": "2026-07-02T02:54:26.428267Z",
   "window_days": 30,
   "incidents": [
     {
@@ -1457,6 +1457,110 @@
       "url": "https://www.latercera.com/nacional/noticia/condenan-a-dos-sujetos-por-homicidio-de-trabajadora-del-gore-que-fue-herida-en-balacera-en-mercado-tirso-de-molina/",
       "family": "vida",
       "slug": "santiago"
+    },
+    {
+      "id": "f06dfb848b28a56a",
+      "cut": "9102",
+      "lat": -38.61794,
+      "lng": -73.263269,
+      "title_es": "Colisión deja al menos un muerto y dos heridos graves en Carahue",
+      "title_en": "Collision leaves at least one dead and two seriously injured in Carahue",
+      "date": "2026-07-02",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/01/colision-deja-al-menos-un-muerto-y-dos-heridos-graves-en-carahue.shtml",
+      "family": "vida",
+      "slug": "carahue"
+    },
+    {
+      "id": "e2e16a6c7cca8286",
+      "cut": "13116",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Detienen a hombre de 73 años en Lo Espejo por delitos sexuales contra adolescente",
+      "title_en": "73-year-old man arrested in Lo Espejo for sexual crimes against teenager",
+      "date": "2026-07-02",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/01/detienen-a-hombre-de-73-anos-en-lo-espejo-por-delitos-sexuales-contra-una-adolescente.shtml",
+      "family": "vida",
+      "slug": "lo-espejo"
+    },
+    {
+      "id": "15dda221b27c2d33",
+      "cut": "13110",
+      "lat": -33.539168,
+      "lng": -70.463562,
+      "title_es": "Arrau encabeza operativo policial en La Florida: fiscalización masiva",
+      "title_en": "Arrau leads police operation in La Florida: massive inspection",
+      "date": "2026-07-02",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/01/arrau-encabeza-operativo-policial-en-la-florida-fiscalizacion-masiva-en-calles-y-estaciones-del-metro.shtml",
+      "family": "incivilidades",
+      "slug": "la-florida"
+    },
+    {
+      "id": "4cb58b497478f32e",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Carabineros desarticuló dos bandas de robo de vehículos en Antofagasta",
+      "title_en": "Carabineros dismantled two vehicle theft gangs in Antofagasta",
+      "date": "2026-07-02",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-antofagasta/carabineros-desarticulo-dos-bandas-dedicadas-al-robo-de-vehiculos-en/2026-07-01/201152.html",
+      "family": "robos_violentos",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "b5ed6e0824fead24",
+      "cut": "13110",
+      "lat": -33.539168,
+      "lng": -70.463562,
+      "title_es": "Megaoperativo de fiscalizaciones en La Florida lidera Ministro Arrau",
+      "title_en": "Minister Arrau leads mega inspection operation in La Florida",
+      "date": "2026-07-01",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/ministro-arrau-lidera-megaoperativo-de-fiscalizaciones-en-la-florida/2026-07-01/193723.html",
+      "family": "incivilidades",
+      "slug": "la-florida"
+    },
+    {
+      "id": "9bb9dc9ab0043f1e",
+      "cut": "5601",
+      "lat": -33.662085,
+      "lng": -71.493518,
+      "title_es": "Desalojo de megatoma en San Antonio alcanza 65% de avance",
+      "title_en": "Eviction of illegal settlement in San Antonio reaches 65% progress",
+      "date": "2026-07-01",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/vivienda/tomas-de-terrenos/dia-2-del-desalojo-de-la-megatoma-de-san-antonio-65-de-avance-y-un/2026-07-01/152259.html",
+      "family": "propiedad",
+      "slug": "san-antonio"
+    },
+    {
+      "id": "100580f409516079",
+      "cut": "13110",
+      "lat": -33.539168,
+      "lng": -70.463562,
+      "title_es": "Ministro Arrau encabeza despliegue policial nocturno en La Florida",
+      "title_en": "Minister Arrau leads nighttime police deployment in La Florida",
+      "date": "2026-07-02",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/en-la-florida-ministro-arrau-encabeza-nuevo-despliegue-policial-nocturno/",
+      "family": "vida",
+      "slug": "la-florida"
+    },
+    {
+      "id": "99ebe0d8a8f6774d",
+      "cut": "6108",
+      "lat": -34.321457,
+      "lng": -70.326922,
+      "title_es": "Tragedia en El Teniente: tribunal acoge cautela de garantías solicitada por Codelco",
+      "title_en": "Tragedy at El Teniente: court accepts guarantee caution requested by Codelco",
+      "date": "2026-07-01",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/tragedia-en-el-teniente-fiscal-cuestiona-accion-de-codelco-por-informacion-requerida-y-evita-pronunciarse-por-resolucion/",
+      "family": "vida",
+      "slug": "machali"
     }
   ]
 }
