@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-02T08:53:39.874748Z",
+  "generated": "2026-07-02T13:52:12.193821Z",
   "window_days": 30,
   "incidents": [
     {
@@ -1600,6 +1600,84 @@
       "url": "https://www.latercera.com/nacional/noticia/prision-preventiva-para-hombre-de-73-anos-acusado-de-abusos-sexuales-contra-menor-en-lo-espejo/",
       "family": "vida",
       "slug": "lo-espejo"
+    },
+    {
+      "id": "7b158c2ee64317d1",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Fallecido en accidente en Concepción era el histórico formador del Club Deportivo UdeC, Mario Montero",
+      "title_en": "Deceased in accident in Concepcion was historic trainer of UdeC Sports Club, Mario Montero",
+      "date": "2026-07-02",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/02/fallecido-en-accidente-de-transito-era-historico-formador-del-club-deportivo-udec-mario-montero.shtml",
+      "family": "vida",
+      "slug": "concepcion"
+    },
+    {
+      "id": "0615f735fb85e9d8",
+      "cut": "5601",
+      "lat": -33.662085,
+      "lng": -71.493518,
+      "title_es": "Nueva etapa del desalojo en megatoma de San Antonio deja 3 detenidos",
+      "title_en": "New stage of eviction in San Antonio megatoma leaves 3 detained",
+      "date": "2026-07-02",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-valparaiso/2026/07/02/nueva-etapa-del-desalojo-en-megatoma-de-san-antonio-deja-3-detenidos-uno-debe-17-millones-en-pension.shtml",
+      "family": "propiedad",
+      "slug": "san-antonio"
+    },
+    {
+      "id": "fb326299e89f3db7",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Falsos policías roban 4 millones a joven en Santiago",
+      "title_en": "False police rob 4 million pesos from young man in Santiago",
+      "date": "2026-07-02",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/falsos-policias-robaron-4-millones-de-pesos-a-joven-afuera-de-su-casa/2026-07-02/084503.html",
+      "family": "robos_violentos",
+      "slug": "santiago"
+    },
+    {
+      "id": "a09b2988d4ef7777",
+      "cut": "13113",
+      "lat": -33.446981,
+      "lng": -70.549631,
+      "title_es": "Detienen a ladrones que escaparon por techos tras robo en La Reina",
+      "title_en": "Thieves caught after escaping over roofs following home robbery in La Reina",
+      "date": "2026-07-02",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/detienen-a-ladrones-que-escaparon-por-los-techos-tras-robar-vivienda-en/2026-07-02/083607.html",
+      "family": "robos_violentos",
+      "slug": "la-reina"
+    },
+    {
+      "id": "f626687d4560427a",
+      "cut": "13201",
+      "lat": -33.585262,
+      "lng": -70.549631,
+      "title_es": "Violento turbazo en Puente Alto: ocho encapuchados golpean al dueño de casa",
+      "title_en": "Violent home invasion in Puente Alto: eight hooded men assault homeowner",
+      "date": "2026-07-02",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/con-golpes-al-dueno-de-casa-ocho-sujetos-perpetraron-violento-turbazo/2026-07-02/081342.html",
+      "family": "robos_violentos",
+      "slug": "puente-alto"
+    },
+    {
+      "id": "f721588598fadc26",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "Explosión en bodega minera en Arica deja un muerto",
+      "title_en": "Explosion at mining warehouse in Arica leaves one dead",
+      "date": "2026-07-02",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/fiscalia-y-pdi-indagan-muerte-de-un-hombre-por-explosion-en-bodega-de-una-planta-minera-en-arica/",
+      "family": "vida",
+      "slug": "arica"
     }
   ]
 }
