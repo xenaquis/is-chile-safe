@@ -7,6 +7,10 @@
 import EditorialLayout from '../layouts/EditorialLayout.astro';
 import { FAMILY_SLUGS } from '../config/i18n.ts';
 import { buildItemList } from '../lib/jsonld.ts';
+import { loadRegion } from '../lib/data.ts';
+
+// All 16 regions — load at build time for the region-links list
+const REGIONS = Array.from({ length: 16 }, (_, i) => loadRegion(String(i + 1)));
 
 const familyLabels: Record<string, string> = {
   vida:             'Homicide',
@@ -77,10 +81,15 @@ const rankingItemList = buildItemList(rankingLinks, 'en', { order: 'Unordered', 
 
   <h2>By region</h2>
   <p>
-    Each region page shows reported incidence trends and the communes within it.
-    Use the <a href="/map/">interactive map</a> to explore the 16 regions visually,
-    or navigate directly to a region from any commune page.
+    Each region page shows reported incidence trends, annual evolution, and the communes within it.
   </p>
+  <ul class="region-links-list">
+    {REGIONS.map((r) => (
+      <li>
+        <a href={`/region/${r.slug}/`}>{r.name} Region</a>
+      </li>
+    ))}
+  </ul>
 
   <p class="methodology-note">
     <small>
@@ -89,3 +98,18 @@ const rankingItemList = buildItemList(rankingLinks, 'en', { order: 'Unordered', 
     </small>
   </p>
 </EditorialLayout>
+
+<style>
+  .region-links-list {
+    list-style: none;
+    padding: 0;
+    columns: 2;
+    column-gap: var(--xl, 2rem);
+    margin: var(--md, 1rem) 0 var(--lg, 1.5rem);
+  }
+
+  .region-links-list li {
+    break-inside: avoid;
+    padding: 0.25rem 0;
+  }
+</style>

@@ -16,7 +16,7 @@
 import HomeLayout from '../layouts/HomeLayout.astro';
 import CommuneRankingTable from '../components/CommuneRankingTable.astro';
 import { loadIndex, loadCommune, latestCompleteYearRate, loadNationalAverage } from '../lib/data.ts';
-import { buildItemList } from '../lib/jsonld.ts';
+import { buildItemList, buildWebSite, buildOrganization } from '../lib/jsonld.ts';
 
 const nationalAvg = loadNationalAverage();
 
@@ -73,7 +73,7 @@ const highestList = buildItemList(highestRows, 'en', {
   enPath="/"
   esPath="/es/"
   pageType="home"
-  jsonLd={[lowestList, highestList]}
+  jsonLd={[buildWebSite(), buildOrganization(), lowestList, highestList]}
 >
   <!-- ========================================================
        ABOVE THE FOLD

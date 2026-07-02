@@ -120,6 +120,47 @@ export function buildItemList(
 }
 
 // ---------------------------------------------------------------------------
+// buildWebSite
+// ---------------------------------------------------------------------------
+
+/**
+ * Build a schema.org WebSite object with a SearchAction for the site-level
+ * sitelinks search box. Target points to the /map/ search parameter which
+ * accepts free-text commune queries.
+ */
+export function buildWebSite(): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Chile Safety Map',
+    url: BASE_URL,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${BASE_URL}/map/?search={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// buildOrganization
+// ---------------------------------------------------------------------------
+
+/**
+ * Build a schema.org Organization object for the site publisher.
+ */
+export function buildOrganization(): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Chile Safety Map',
+    url: BASE_URL,
+    description:
+      'Interactive crime data map of Chile using official CEAD statistics.',
+  };
+}
+
+// ---------------------------------------------------------------------------
 // buildBreadcrumb
 // ---------------------------------------------------------------------------
 
