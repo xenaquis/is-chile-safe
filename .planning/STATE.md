@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Composite Index, Comparators & Launch
-status: verifying
-last_updated: "2026-06-20T15:58:46.907Z"
-last_activity: 2026-06-20
+status: executing
+last_updated: "2026-07-02T23:06:43.563Z"
+last_activity: 2026-07-02 -- Phase 25 planning complete
 progress:
-  total_phases: 5
+  total_phases: 6
   completed_phases: 4
-  total_plans: 22
+  total_plans: 31
   completed_plans: 21
-  percent: 80
+  percent: 67
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -29,8 +29,8 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 
 Phase: 21 (Commune Comparator + A-vs-B SEO) — EXECUTING
 Plan: 4 of 4 (Plan 03 complete — A-vs-B pages, cross-links, validators)
-Status: Phase complete — ready for verification
-Last activity: 2026-06-20
+Status: Ready to execute
+Last activity: 2026-07-02 -- Phase 25 planning complete
 
 ## Progress Bar
 
