@@ -16,7 +16,11 @@ interface Props {
   onEventsToggle: (v: boolean) => void;
   onSelect: (cut: string) => void;
   onLocate: () => void;
+  /** Mode toggle rendered as own row at ≤480px */
+  modeToggle?: React.ReactNode;
 }
+
+import React from 'react';
 
 export function MapTopbar({
   lang,
@@ -29,6 +33,7 @@ export function MapTopbar({
   onEventsToggle,
   onSelect,
   onLocate,
+  modeToggle,
 }: Props) {
   return (
     <div className="map-topbar">
@@ -39,6 +44,7 @@ export function MapTopbar({
           onSelect={onSelect}
           onLocate={onLocate}
         />
+        {modeToggle}
       </div>
       <FiltersRow
         lang={lang}
