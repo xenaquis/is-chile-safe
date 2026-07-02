@@ -75,6 +75,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 - [x] **Phase 23: ENUSC Communal Victimization Layer** — additive INE ENUSC 2024 SAE household-victimization (VHDV) figure on the 136 covered comuna pages, graceful "no estimate" for the other 210; anti-infra-representation, additive-only vs Phase 18 _(depends on Phase 18 + 17; **runs BEFORE Phase 22**)_ — origin SEED-002 (completed 2026-06-19)
 - [ ] **Phase 22: Go-Live / Launch Ops** — CF deploy hook, production deploy, live news audit, GSC submission _(parallel with Phase 21; no code dependency; **gated after Phase 23** per SEED-002)_
 - [x] **Phase 24: Rankings UX — dynamic sortable tables + visual polish** — wire `RankingTableEnhancer` into ranking surfaces lacking it (safest-cities EN+ES), descending default + asc override, brand-token polish, BrowserOS E2E _(depends on Phase 18; independent of Phase 22)_ (completed 2026-06-20)
+- [ ] **Phase 25: UI/UX 360 remediation (prod diagnostic 2026-07-02)** — execute all fixes from `.planning/UI-360-DIAGNOSTIC-260702.md`: P0 soft-404/favicon/tablet-overflow, P1 number-locale/map-UX/editorial-visuals/news-semantics/compare-labeling/map-panel-years, P2 a11y+SEO polish _(depends on Phase 24)_
 
 ---
 
@@ -216,3 +217,4 @@ Plans:
 | 23. ENUSC Communal Victimization Layer | 4/4 | Complete   | 2026-06-19 |
 | 22. Go-Live / Launch Ops | 2/3 | In Progress|  |
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |
+| 25. UI/UX 360 remediation (prod diagnostic 260702) | 0/0 | Not started |  |
