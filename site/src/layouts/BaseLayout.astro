@@ -94,6 +94,11 @@ const adsenseClient = import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID ?? '';
     <meta name="theme-color" content="#0f766e" />
     <link rel="manifest" href="/manifest.json" />
 
+    <!-- Favicon (P0-3) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
     <!-- AdSense async loader (D-12): single load point, gated by ADSENSE_ENABLED build flag.
          CookieConsent banner is injected by EditorialLayout (Plan 03), not here. -->
     {adsenseEnabled && adsenseClient && (
