@@ -106,6 +106,7 @@ Rules:
 - NEVER invent or approximate a commune name. Copy it character-for-character from the list.
 - region_hint helps disambiguate; set to the region number or name from the list entry if known.
 - If the article is not about a crime incident, set commune_name to null and confidence to 0.0.
+- Traffic accidents, road collisions, and vehicle crashes are NOT crime incidents even if they result in fatalities. If an article is primarily about a traffic accident (colisión, accidente de tránsito, choque, atropello sin culpa criminal), you MUST set confidence to 0.0.
 - family MUST be exactly one of: {_FAMILY_ENUM_STR}
 - Output plain text only for title_es, title_en, and summary — no HTML, no markdown.
 """
