@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-02T13:52:12.193821Z",
+  "generated": "2026-07-02T19:20:51.313911Z",
   "window_days": 30,
   "incidents": [
     {
@@ -1678,6 +1678,84 @@
       "url": "https://www.latercera.com/nacional/noticia/fiscalia-y-pdi-indagan-muerte-de-un-hombre-por-explosion-en-bodega-de-una-planta-minera-en-arica/",
       "family": "vida",
       "slug": "arica"
+    },
+    {
+      "id": "aa5eb6e149854c8a",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Nuevo homicidio en Concepción provoca visita del ministro de Seguridad",
+      "title_en": "New homicide in Concepción prompts visit from Security Minister",
+      "date": "2026-07-02",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/02/autoridades-esperan-llegada-del-ministro-de-seguridad-al-bio-bio-tras-nuevo-homicidio-en-concepcion.shtml",
+      "family": "vida",
+      "slug": "concepcion"
+    },
+    {
+      "id": "935770b83d406702",
+      "cut": "13114",
+      "lat": -33.400888,
+      "lng": -70.506596,
+      "title_es": "Aviso de bomba obligó a evacuar edificio en Las Condes",
+      "title_en": "Bomb threat forces evacuation of building in Las Condes",
+      "date": "2026-07-02",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/aviso-de-bomba-obligo-a-evacuar-un-edificio-en-las-condes/2026-07-02/121949.html",
+      "family": "armas",
+      "slug": "las-condes"
+    },
+    {
+      "id": "2fd71f623c5b19b6",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "Trabajador muere por explosión en planta de insumos mineros en Arica",
+      "title_en": "Worker dies in explosion at mining supplies plant in Arica",
+      "date": "2026-07-02",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/trabajo/accidentes-laborales/trabajador-murio-por-explosion-dentro-de-planta-de-insumos-mineros-en/2026-07-02/114453.html",
+      "family": "vida",
+      "slug": "arica"
+    },
+    {
+      "id": "2f62aa5fed6e4881",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Joven asesinado con dos balazos en la cabeza en Concepción",
+      "title_en": "Young man killed with two gunshots to the head in Concepción",
+      "date": "2026-07-02",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/concepcion-joven-fue-asesinado-con-dos-balazos-en-la-cabeza-dentro-de/2026-07-02/110306.html",
+      "family": "vida",
+      "slug": "concepcion"
+    },
+    {
+      "id": "a02f544e61cf3813",
+      "cut": "13115",
+      "lat": -33.284732,
+      "lng": -70.367165,
+      "title_es": "Detenido por amenazas contra embajador de EE.UU.",
+      "title_en": "Arrested for threats against US ambassador in Chile",
+      "date": "2026-07-02",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/relaciones-exteriores/ee-uu/hombre-fue-detenido-por-amenazas-contra-el-embajador-de-ee-uu-en-chile/2026-07-02/101623.html",
+      "family": "vida",
+      "slug": "lo-barnechea"
+    },
+    {
+      "id": "774df85bee8ac965",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Caso Ojeda: inicia preparación de juicio con Niño Guerrero muerto",
+      "title_en": "Ojeda Case: trial preparation begins with dead Niño Guerrero",
+      "date": "2026-07-02",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/caso-ojeda-preparacion-de-juicio-parte-con-nino-guerrero-muerto-maduro-preso-y-larry-changa-cada-vez-mas-cerca-de-chile/",
+      "family": "vida",
+      "slug": "santiago"
     }
   ]
 }
