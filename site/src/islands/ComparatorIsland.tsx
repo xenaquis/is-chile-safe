@@ -9,6 +9,7 @@
  *   - strings: i18n strings object (do NOT import EN/ES_STRINGS here — client:only safety)
  */
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { formatDecimal } from '../lib/formatNumber';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -190,6 +191,43 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
       }
     }
   }, [selected, regionalData]);
+
+  // ---------------------------------------------------------------------------
+  // URL sync — update ?a=&b= whenever selection changes (Task 2, P1-2)
+  // ---------------------------------------------------------------------------
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const a = selected[0]?.id ?? '';
+    const b = selected[1]?.id ?? '';
+    window.history.replaceState(null, '', '?a=' + a + '&b=' + b);
+  }, [selected]);
+
+  // On mount: read ?a= and ?b= params, validate (4–5 digit CUT), pre-select
+  const didMountRef = useRef(false);
+  useEffect(() => {
+    if (didMountRef.current) return;
+    didMountRef.current = true;
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const aParam = params.get('a') ?? '';
+    const bParam = params.get('b') ?? '';
+    // Validate: CUT codes are 4 or 5 digits (e.g. 5101 = Valparaíso, 13101 = Santiago)
+    const cutRe = /^\d{4,5}$/;
+    const toPreselect: ComparatorEntry[] = [];
+    if (cutRe.test(aParam)) {
+      const found = communes.find(c => c.id === aParam);
+      if (found) toPreselect.push(found);
+    }
+    if (cutRe.test(bParam) && bParam !== aParam) {
+      const found = communes.find(c => c.id === bParam);
+      if (found) toPreselect.push(found);
+    }
+    if (toPreselect.length > 0) {
+      setSelected(toPreselect);
+      toPreselect.forEach(e => { void fetchCommune(e); });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // ---------------------------------------------------------------------------
   // Select / remove commune
@@ -456,9 +494,57 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
 
         {/* State prompt */}
         {selected.length === 0 && (
-          <p style={{ color: 'var(--muted)', fontSize: 'var(--text-label)', marginTop: 'var(--sm)' }}>
-            {s.cmp_empty_heading}
-          </p>
+          <div style={{ marginTop: 'var(--sm)' }}>
+            <p style={{ color: 'var(--muted)', fontSize: 'var(--text-label)', marginBottom: 'var(--xs)' }}>
+              {s.cmp_empty_heading}
+            </p>
+            <p style={{ color: 'var(--muted)', fontSize: 'var(--text-label)', marginBottom: 'var(--md)' }}>
+              {s.cmp_empty_body}
+            </p>
+            {/* Popular comparison chips */}
+            <div className="compare-suggestions" style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--sm)', marginTop: 'var(--md)' }}>
+              <span style={{ fontSize: 'var(--text-label)', color: 'var(--muted)', alignSelf: 'center' }}>
+                {s.cmp_chips_label}
+              </span>
+              {[
+                { a: { id: '13101', name: 'Santiago' }, b: { id: '13114', name: 'Las Condes' } },
+                { a: { id: '13123', name: 'Providencia' }, b: { id: '13120', name: 'Ñuñoa' } },
+                { a: { id: '5109', name: 'Viña del Mar' }, b: { id: '5101', name: 'Valparaíso' } },
+              ].map(pair => {
+                const aEntry = communes.find(c => c.id === pair.a.id);
+                const bEntry = communes.find(c => c.id === pair.b.id);
+                if (!aEntry || !bEntry) return null;
+                return (
+                  <button
+                    key={pair.a.id + '-' + pair.b.id}
+                    className="compare-chip"
+                    onClick={() => {
+                      setSelected([aEntry, bEntry]);
+                      void fetchCommune(aEntry);
+                      void fetchCommune(bEntry);
+                    }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      height: '36px',
+                      borderRadius: '999px',
+                      padding: '0 var(--md)',
+                      fontSize: 'var(--text-label)',
+                      fontWeight: 'var(--weight-strong)',
+                      background: 'var(--card)',
+                      border: '1px solid var(--line)',
+                      color: 'var(--ink)',
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                      minHeight: '44px',
+                    }}
+                  >
+                    {pair.a.name} vs {pair.b.name}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         )}
         {selected.length === 1 && (
           <p style={{ color: 'var(--muted)', fontSize: 'var(--text-label)', marginTop: 'var(--sm)' }}>
@@ -573,26 +659,62 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
                     {data.name}
                   </h2>
 
-                  {/* Composite index headline */}
-                  {ci ? (
-                    <div style={{ marginBottom: 'var(--md)' }}>
-                      <div style={{ fontSize: 'var(--text-display)', fontWeight: 'var(--weight-strong)', color: 'var(--ink)' }}>
-                        {ci.score.toFixed(1)}
-                      </div>
-                      <div style={{ fontSize: 'var(--text-label)', fontWeight: 'var(--weight-strong)', color: 'var(--muted)' }}>
-                        {bandLabel}
-                      </div>
-                      <div style={{ fontSize: 'var(--text-label)', color: 'var(--muted)' }}>
-                        #{ci.rank} {lang === 'es' ? 'de 346 a nivel nacional' : 'of 346 nationally'}
-                      </div>
+                  {/* Composite index headline — label always shown, band only in context of label */}
+                  <div style={{ marginBottom: 'var(--md)' }}>
+                    {/* Index name + methodology link */}
+                    <div style={{ fontSize: 'var(--text-label)', color: 'var(--muted)', marginBottom: 'var(--xs)' }}>
+                      <span style={{ fontWeight: 'var(--weight-strong)' }}>
+                        {s.cmp_composite_label ?? (lang === 'es' ? 'Índice Compuesto de Criminalidad' : 'Composite Crime Index')}
+                      </span>
+                      {' '}
+                      <a
+                        href={lang === 'es' ? '/es/metodologia/' : '/methodology/'}
+                        style={{ color: 'var(--muted)', fontSize: 'var(--text-label)' }}
+                      >
+                        {s.cmp_what_is_this ?? (lang === 'es' ? '(¿qué es esto?)' : '(what is this?)')}
+                      </a>
                     </div>
-                  ) : (
-                    <div style={{ marginBottom: 'var(--md)', color: 'var(--muted)', fontSize: 'var(--text-label)' }}>
-                      {lang === 'es' ? 'Sin índice compuesto' : 'No composite index'}
-                    </div>
-                  )}
+                    {ci ? (
+                      <>
+                        <div style={{ fontSize: 'var(--text-display)', fontWeight: 'var(--weight-strong)', color: 'var(--ink)' }}>
+                          {ci.score.toFixed(1)}
+                        </div>
+                        <div style={{ fontSize: 'var(--text-label)', fontWeight: 'var(--weight-strong)', color: 'var(--muted)' }}>
+                          {bandLabel}
+                        </div>
+                        <div style={{ fontSize: 'var(--text-label)', color: 'var(--muted)' }}>
+                          #{ci.rank} {lang === 'es' ? 'de 346 a nivel nacional' : 'of 346 nationally'}
+                        </div>
+                        {/* Single trend indicator in header — one overall trend per commune, not per family */}
+                        <div style={{ fontSize: 'var(--text-label)', marginTop: 'var(--xs)' }}>
+                          {data.trend ? (
+                            <span
+                              role="img"
+                              aria-label={lang === 'es'
+                                ? (data.trend === 'up' ? 'Al alza' : data.trend === 'down' ? 'A la baja' : 'Estable')
+                                : (data.trend === 'up' ? 'Rising' : data.trend === 'down' ? 'Declining' : 'Stable')}
+                              style={{ color: trendColor(data.trend) }}
+                            >
+                              {TREND_ARROW[data.trend]}
+                            </span>
+                          ) : (
+                            <span
+                              title={s.cmp_trend_unavailable ?? (lang === 'es' ? 'Datos de tendencia no disponibles para esta comuna.' : 'Trend data unavailable for this commune.')}
+                              style={{ color: 'var(--muted)', cursor: 'help' }}
+                            >
+                              —
+                            </span>
+                          )}
+                        </div>
+                      </>
+                    ) : (
+                      <div style={{ color: 'var(--muted)', fontSize: 'var(--text-label)' }}>
+                        {'—'}
+                      </div>
+                    )}
+                  </div>
 
-                  {/* Per-family breakdown */}
+                  {/* Per-family breakdown — trend shown once in header, not repeated per row */}
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--text-label)' }}>
                     <thead>
                       <tr>
@@ -601,9 +723,6 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
                         </th>
                         <th scope="col" style={{ textAlign: 'right', padding: '2px 4px', color: 'var(--muted)', fontWeight: 'var(--weight-strong)' }}>
                           {lang === 'es' ? 'Tasa/100k' : 'Rate/100k'}
-                        </th>
-                        <th scope="col" style={{ textAlign: 'center', padding: '2px 4px', color: 'var(--muted)', fontWeight: 'var(--weight-strong)' }}>
-                          {lang === 'es' ? 'Tend.' : 'Trend'}
                         </th>
                       </tr>
                     </thead>
@@ -617,37 +736,29 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
                               {label}
                             </th>
                             <td style={{ textAlign: 'right', padding: '4px', color: 'var(--ink)' }}>
-                              {rate !== null ? rate.toFixed(1) : '—'}
-                            </td>
-                            <td style={{ textAlign: 'center', padding: '4px' }}>
-                              <span
-                                role="img"
-                                aria-label={lang === 'es'
-                                  ? (data.trend === 'up' ? 'Al alza' : data.trend === 'down' ? 'A la baja' : 'Estable')
-                                  : (data.trend === 'up' ? 'Rising' : data.trend === 'down' ? 'Declining' : 'Stable')}
-                                style={{ color: trendColor(data.trend) }}
-                              >
-                                {TREND_ARROW[data.trend] ?? '→'}
-                              </span>
+                              {rate !== null ? formatDecimal(rate, lang) : '—'}
                             </td>
                           </tr>
                         );
                       })}
 
-                      {/* Homicide sub-row (HOM-02) */}
+                      {/* Homicide sub-row (HOM-02) — 1 decimal, plural fix */}
                       <tr style={{ borderTop: '2px solid var(--line)', background: 'var(--bg)' }}>
                         <th scope="row" style={{ textAlign: 'left', padding: '4px', fontWeight: 'var(--weight-strong)', color: 'var(--ink)', fontSize: '12px' }}>
                           {interpolate(s.cmp_homicide_row ?? 'Homicide (per 100k, {year})', { year })}
                         </th>
                         <td style={{ textAlign: 'right', padding: '4px', color: 'var(--ink)' }}>
                           {hasHom
-                            ? `${homRate!.toFixed(2)}${homCount !== undefined ? ` (${homCount})` : ''}`
+                            ? `${formatDecimal(homRate!, lang)}${homCount !== undefined
+                                ? ` (${homCount} ${homCount === 1
+                                    ? (s.cmp_case_singular ?? (lang === 'es' ? 'caso' : 'case'))
+                                    : (s.cmp_case_plural ?? (lang === 'es' ? 'casos' : 'cases'))})`
+                                : ''}`
                             : <span style={{ color: 'var(--muted)', fontSize: '11px' }}>
                                 {interpolate(s.cmp_homicide_no_data ?? 'No reported cases — CEAD {year}', { year })}
                               </span>
                           }
                         </td>
-                        <td />
                       </tr>
                     </tbody>
                   </table>
@@ -671,10 +782,18 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
                 {s.cmp_avg_column ?? (lang === 'es' ? 'Prom. Chile' : 'Chile avg.')}
               </h2>
               {natYear !== null && (
-                <div style={{ fontSize: '11px', color: 'var(--muted)', marginBottom: 'var(--sm)' }}>
+                <div style={{ fontSize: '11px', color: 'var(--muted)', marginBottom: 'var(--xs)' }}>
                   {lang === 'es' ? `Año ${natYear}` : `Year ${natYear}`}
                 </div>
               )}
+              {/* Composite index label and "—" placeholder — avg card always shows the label */}
+              <div style={{ fontSize: 'var(--text-label)', color: 'var(--muted)', marginBottom: 'var(--sm)' }}>
+                <span style={{ fontWeight: 'var(--weight-strong)' }}>
+                  {s.cmp_composite_label ?? (lang === 'es' ? 'Índice Compuesto de Criminalidad' : 'Composite Crime Index')}
+                </span>
+                {': '}
+                {'—'}
+              </div>
               {nationalData ? (
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--text-label)' }}>
                   <thead>
@@ -697,7 +816,7 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
                             {label}
                           </th>
                           <td style={{ textAlign: 'right', padding: '4px', color: 'var(--ink)' }}>
-                            {rate !== null ? rate.toFixed(1) : '—'}
+                            {rate !== null ? formatDecimal(rate, lang) : '—'}
                           </td>
                         </tr>
                       );

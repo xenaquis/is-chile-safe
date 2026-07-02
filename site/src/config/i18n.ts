@@ -193,6 +193,14 @@ export interface I18nStrings {
   cmp_homicide_row: string;
   cmp_homicide_no_data: string;
   cmp_cross_links_heading: string;
+  // Phase 25 — Compare island enrichments
+  cmp_composite_label: string;
+  cmp_what_is_this: string;
+  cmp_trend_unavailable: string;
+  cmp_empty_body: string;
+  cmp_chips_label: string;
+  cmp_case_singular: string;
+  cmp_case_plural: string;
   avs_b_h1_pattern: string;
 }
 
@@ -389,6 +397,14 @@ export const EN_STRINGS: I18nStrings = {
   cmp_homicide_row: 'Homicide (per 100k, {year})',
   cmp_homicide_no_data: 'No reported cases — CEAD {year}',
   cmp_cross_links_heading: 'Compare with other communes',
+  // Phase 25 — Compare island enrichments
+  cmp_composite_label: 'Composite Crime Index',
+  cmp_what_is_this: '(what is this?)',
+  cmp_trend_unavailable: 'Trend data unavailable for this commune.',
+  cmp_empty_body: 'Select 2 or 3 communes to view a side-by-side comparison of reported crime rates.',
+  cmp_chips_label: 'Popular comparisons:',
+  cmp_case_singular: 'case',
+  cmp_case_plural: 'cases',
   avs_b_h1_pattern: '{a} vs {b} — Reported Crime Comparison',
 };
 
@@ -588,6 +604,14 @@ export const ES_STRINGS: I18nStrings = {
   cmp_homicide_row: 'Homicidios (por 100k, {year})',
   cmp_homicide_no_data: 'Sin casos reportados — CEAD {year}',
   cmp_cross_links_heading: 'Comparar con otras comunas',
+  // Phase 25 — Compare island enrichments
+  cmp_composite_label: 'Índice Compuesto de Criminalidad',
+  cmp_what_is_this: '(¿qué es esto?)',
+  cmp_trend_unavailable: 'Datos de tendencia no disponibles para esta comuna.',
+  cmp_empty_body: 'Selecciona 2 o 3 comunas para ver una comparación lado a lado de las tasas de incidencia delictiva reportadas.',
+  cmp_chips_label: 'Comparaciones populares:',
+  cmp_case_singular: 'caso',
+  cmp_case_plural: 'casos',
   avs_b_h1_pattern: '{a} vs {b} — Comparación de Incidencia Delictiva',
 };
 
