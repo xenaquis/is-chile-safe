@@ -1,0 +1,83 @@
+---
+/**
+ * /404 — Real 404 page (P0-1).
+ *
+ * Astro emits dist/404.html which Cloudflare Pages serves with a real 404 status.
+ * This eliminates the soft-404 catch-all (unknown URLs were returning 200 homepage clones).
+ *
+ * No <meta name="robots" content="noindex"> — CF serves a real 404 status,
+ * so noindex is unnecessary and would mimic the old soft-404 pattern.
+ * No _redirects catch-all — Cloudflare picks up 404.html automatically.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  lang="en"
+  title="Page not found — Chile Safety Map"
+  description="The page you were looking for doesn't exist or has moved."
+  enPath="/404/"
+  esPath="/404/"
+  pageType="editorial"
+>
+  <div class="not-found-wrap">
+    <section class="not-found-en">
+      <h1>Page not found</h1>
+      <p>The page you were looking for doesn't exist or has moved.</p>
+      <nav class="cta-links" aria-label="Helpful links">
+        <a href="/" class="panel-cta">Go to home</a>
+        <a href="/map/" class="panel-cta">Explore the map</a>
+        <a href="/rankings/" class="panel-cta">View rankings</a>
+      </nav>
+    </section>
+
+    <hr />
+
+    <section class="not-found-es" lang="es">
+      <h1>Página no encontrada</h1>
+      <p>La página que buscas no existe o fue movida.</p>
+      <nav class="cta-links" aria-label="Links de ayuda">
+        <a href="/es/" class="panel-cta">Ir al inicio</a>
+        <a href="/es/mapa/" class="panel-cta">Explorar el mapa</a>
+        <a href="/es/rankings/" class="panel-cta">Ver rankings</a>
+      </nav>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found-wrap {
+    max-width: 640px;
+    margin: var(--3xl) auto;
+    padding: 0 var(--lg);
+  }
+
+  .not-found-en,
+  .not-found-es {
+    margin-bottom: var(--xl);
+  }
+
+  h1 {
+    font-size: var(--text-display);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin-bottom: var(--sm);
+  }
+
+  p {
+    color: var(--muted);
+    margin-bottom: var(--lg);
+  }
+
+  .cta-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sm);
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: var(--xl) 0;
+  }
+</style>
