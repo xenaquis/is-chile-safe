@@ -11,10 +11,28 @@
 import EditorialLayout from '../layouts/EditorialLayout.astro';
 import DataCallout from '../components/DataCallout.astro';
 import FAQBlock from '../components/FAQBlock.astro';
-import { loadCommune, loadNationalAverage, latestCompleteYearRate } from '../lib/data.ts';
+import CommuneRankingTable from '../components/CommuneRankingTable.astro';
+import Sparkline from '../components/Sparkline.astro';
+import { loadCommune, loadNationalAverage, latestCompleteYearRate, loadIndex } from '../lib/data.ts';
 
 const santiago = loadCommune('13101');
 const year = santiago.latestCompleteYear;
+
+// Build RM commune ranking rows for top/bottom-10 table
+const rmMeta = loadIndex().filter((c) => c.region_id === '13' && !c.low_population);
+const rmRows = rmMeta.map((meta) => {
+  const data = loadCommune(meta.cut);
+  const rate = latestCompleteYearRate(data);
+  const ratesByYear: Record<number, number> = {};
+  data.series.filter((s) => !s.partial).forEach((s) => { ratesByYear[s.year] = s.rate_per_100k; });
+  return { name: meta.name, slug: meta.slug, rate, national_rank: data.national_rank, trend: data.trend, low_population: meta.low_population, ratesByYear };
+});
+rmRows.sort((a, b) => b.rate - a.rate);
+const rmTop10 = rmRows.slice(0, 10);
+const rmBottom10 = rmRows.slice(-10).reverse();
+
+// Santiago sparkline series
+const santiagoSeries = santiago.series.map((s) => ({ year: s.year, rate_per_100k: s.rate_per_100k, partial: s.partial }));
 const rate = latestCompleteYearRate(santiago);
 const nationalAvg = loadNationalAverage();
 const vsNationalPct = nationalAvg > 0
@@ -92,6 +110,36 @@ const jsonLd = {
       source="Source: CEAD — unweighted mean of non-low-population communes"
       locale="en"
     />
+  </section>
+
+  <section>
+    <h2>Highest Reported Crime Rates in Región Metropolitana</h2>
+    <p>The following table shows the 10 communes in the Región Metropolitana with the highest reported crime rates per 100,000 inhabitants, according to CEAD data for {year}.</p>
+    <figure class="rate-table-figure">
+      <figcaption class="rate-table-caption">Highest reported crime rates — Región Metropolitana (CEAD {year})</figcaption>
+      <CommuneRankingTable rows={rmTop10} locale="en" sortable={false} />
+      <p class="rate-table-source">Source: CEAD – Ministry of Interior, {year}. Reported cases per 100,000 inhabitants.</p>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Lowest Reported Crime Rates in Región Metropolitana</h2>
+    <p>The following table shows the 10 communes in the Región Metropolitana with the lowest reported crime rates per 100,000 inhabitants, according to CEAD data for {year}.</p>
+    <figure class="rate-table-figure">
+      <figcaption class="rate-table-caption">Lowest reported crime rates — Región Metropolitana (CEAD {year})</figcaption>
+      <CommuneRankingTable rows={rmBottom10} locale="en" sortable={false} />
+      <p class="rate-table-source">Source: CEAD – Ministry of Interior, {year}. Reported cases per 100,000 inhabitants.</p>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Santiago Commune Reported Crime Trend (CEAD)</h2>
+    <p>Year-by-year reported crime rate for the municipality of Santiago according to CEAD data.</p>
+    <figure class="rate-table-figure">
+      <figcaption class="rate-table-caption">Santiago commune — reported crime rate per 100,000 inhabitants (CEAD, 2005–{year})</figcaption>
+      <Sparkline series={santiagoSeries} activeYear={year} width={480} height={44} />
+      <p class="rate-table-source">Source: CEAD – Ministry of Interior. Reported cases per 100,000 inhabitants.</p>
+    </figure>
   </section>
 
   <section>
@@ -187,6 +235,41 @@ const jsonLd = {
 <style>
   section {
     margin-bottom: var(--2xl);
+  }
+
+  .rate-table-figure { margin: var(--lg) 0; overflow-x: auto; }
+  .rate-table-caption {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin-bottom: var(--sm);
+  }
+  .rate-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-label);
+  }
+  .rate-table th {
+    font-weight: var(--weight-strong);
+    color: var(--muted);
+    text-align: left;
+    padding: var(--xs) var(--sm);
+    border-bottom: 2px solid var(--line);
+  }
+  .rate-table td {
+    padding: var(--xs) var(--sm);
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    vertical-align: middle;
+  }
+  .rate-rank { color: var(--muted); width: 2rem; }
+  .rate-commune a { color: var(--primary); font-weight: var(--weight-strong); }
+  .rate-value { font-weight: var(--weight-strong); text-align: right; }
+  .rate-trend { text-align: center; }
+  .rate-table-source {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--xs);
   }
 
   p + p {
