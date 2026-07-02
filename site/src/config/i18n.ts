@@ -293,7 +293,7 @@ export const EN_STRINGS: I18nStrings = {
   rate_tooltip_body: 'This figure counts police-reported incidents for every 100,000 people living in the area, allowing fair comparison between places of very different population sizes. Source: CEAD official police statistics.',
 
   // Phase 9 — glossary link
-  glossary_link: 'Crime type glossary',
+  glossary_link: 'Glossary',
 
   // Phase 9 — comparison multiplier
   comparison_national: '{multiplier}× the national average',
@@ -492,7 +492,7 @@ export const ES_STRINGS: I18nStrings = {
   rate_tooltip_body: 'Esta cifra cuenta los incidentes reportados a la policía por cada 100.000 personas residentes en la zona, permitiendo comparar lugares de tamaños muy distintos en igualdad de condiciones. Fuente: estadísticas policiales oficiales CEAD.',
 
   // Fase 9 — enlace al glosario
-  glossary_link: 'Glosario de tipos de delito',
+  glossary_link: 'Glosario',
 
   // Fase 9 — multiplicador de comparación
   comparison_national: '{multiplier}× el promedio nacional',

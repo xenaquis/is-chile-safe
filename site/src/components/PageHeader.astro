@@ -127,7 +127,7 @@ const altHref = locale === 'en' ? esPath : enPath;
     flex: 1;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 1100px) {
     .csm-nav {
       display: flex;
     }
@@ -201,7 +201,7 @@ const altHref = locale === 'en' ? esPath : enPath;
 
   /* Desktop: nav always visible, so the toggle is irrelevant — remove it from
      the tab order entirely. */
-  @media (min-width: 640px) {
+  @media (min-width: 1100px) {
     .nav-toggle-input { display: none; }
   }
 
@@ -224,7 +224,7 @@ const altHref = locale === 'en' ? esPath : enPath;
     margin-left: auto;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 1100px) {
     .nav-toggle-btn { display: none; }
   }
 
@@ -252,7 +252,7 @@ const altHref = locale === 'en' ? esPath : enPath;
   }
 
   /* Keep desktop layout unchanged */
-  @media (min-width: 640px) {
+  @media (min-width: 1100px) {
     .nav-toggle-input:checked ~ .csm-nav {
       position: static;
       flex-direction: row;

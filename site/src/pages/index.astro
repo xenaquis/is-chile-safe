@@ -254,16 +254,21 @@ const highestList = buildItemList(highestRows, 'en', {
   }
 
   .lead-tables-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--xl);
     max-width: 1100px;
     margin: 0 auto;
   }
 
-  @media (max-width: 767px) {
-    .lead-tables-grid {
-      grid-template-columns: 1fr;
+  .lead-table-col {
+    flex: 1 1 400px;
+    min-width: 0;
+  }
+
+  @media (max-width: 900px) {
+    .lead-table-col {
+      width: 100%;
     }
   }
 
