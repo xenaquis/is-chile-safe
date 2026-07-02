@@ -285,9 +285,17 @@ export function ResultPanel({ cut, lang, year, nationalAvg, onClose, mode = 'fam
               .replace('{total}', String(TOTAL_COMMUNES));
         const caveatText = lang === 'es' ? ES_STRINGS.ci_caveat_text : EN_STRINGS.ci_caveat_text;
         const sectionHeading = lang === 'es' ? ES_STRINGS.ci_section_heading : EN_STRINGS.ci_section_heading;
+        const yearMismatchTip = lang === 'es'
+          ? '¿Por qué difieren los años? El Índice Compuesto usa 2024 como el año completo más reciente de CEAD. La tasa de incidentes usa 2025 (datos parciales). Los rankings pueden diferir al provenir de dos métodos de cálculo.'
+          : 'Why do years differ? The Composite Index uses 2024 as the latest complete CEAD year. The incident rate uses 2025 (partial data). Rankings may differ because they come from two calculation methods.';
+        const yearMismatchLabel = lang === 'es' ? 'Por qué difieren los años' : 'Why years differ';
         return (
           <div className="panel-section composite-index-section">
-            <h4>{sectionHeading}</h4>
+            <h4>
+              {sectionHeading}
+              <span className="year-badge">{COMPOSITE_YEAR}</span>
+              <RateTooltip lang={lang} label={yearMismatchLabel} tip={yearMismatchTip} />
+            </h4>
             <div>
               <span className="stat-big">{Math.round(ci.score)}</span>
               <span className="stat-unit">{bandLabel}</span>
@@ -305,9 +313,8 @@ export function ResultPanel({ cut, lang, year, nationalAvg, onClose, mode = 'fam
       <div className="stat-card" style={{ overflow: 'visible' }}>
         <div className="stat-big">{displayRate}</div>
         <div className="stat-unit" style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap' }}>
-          {lang === 'es'
-            ? `Tasa por 100.000 hab. (${year})`
-            : `Rate per 100,000 inhab. (${year})`}
+          {lang === 'es' ? 'Tasa por 100.000 hab.' : 'Rate per 100,000 inhab.'}
+          <span className="year-badge">{year}</span>
           <RateTooltip
             lang={lang}
             label={lang === 'es' ? ES_STRINGS.rate_tooltip_title : EN_STRINGS.rate_tooltip_title}

@@ -887,3 +887,17 @@
   color: var(--muted);
   border-radius: 3px;
 }
+
+/* P1-4: Year badge — inline pill showing data year on composite/rate blocks */
+.year-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 var(--sm);
+  border-radius: 4px;
+  background: var(--line);
+  color: var(--muted);
+  font-size: var(--text-label);
+  font-weight: var(--weight-strong);
+  margin-left: var(--xs);
+}
