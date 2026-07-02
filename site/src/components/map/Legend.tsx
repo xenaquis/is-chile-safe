@@ -15,6 +15,7 @@ interface Props {
   lang: 'en' | 'es';
   breaks?: number[];
   title?: string;
+  showIncidents?: boolean;
 }
 
 const QUAL_LABELS_EN = [
@@ -51,15 +52,17 @@ function bandLabel(i: number, breaks: number[], lang: 'en' | 'es'): string {
   return `${fmt(lo, lang)} – ${fmt(hi, lang)}`;
 }
 
-export function Legend({ lang, breaks, title }: Props) {
+export function Legend({ lang, breaks, title, showIncidents }: Props) {
   const qualLabels = lang === 'es' ? QUAL_LABELS_ES : QUAL_LABELS_EN;
   const unitNote = lang === 'es' ? ES_STRINGS.legend_per_100k_note : EN_STRINGS.legend_per_100k_note;
   const defaultTitle = lang === 'es' ? 'Incidencia reportada' : 'Reported incidence';
   const resolvedTitle = title ?? defaultTitle;
 
-  return (
-    <div className="legend">
-      <div className="legend-title">{resolvedTitle}</div>
+  const closedLabel = lang === 'es' ? 'Índice delictivo ▸' : 'Crime Index ▸';
+  const openLabel   = lang === 'es' ? 'Índice delictivo ▾' : 'Crime Index ▾';
+
+  const legendBody = (
+    <>
       <div className="legend-bands">
         {INCIDENCE_COLORS.map((color, i) => (
           <div className="legend-band-row" key={i}>
@@ -78,6 +81,37 @@ export function Legend({ lang, breaks, title }: Props) {
         ))}
       </div>
       <div className="legend-unit">{unitNote}</div>
+      {showIncidents && (
+        <div className="legend-band-row legend-incident-row">
+          <span
+            className="legend-swatch legend-swatch-pin"
+            aria-hidden="true"
+          />
+          <span className="legend-band-label">
+            <span className="legend-qual-label">
+              {lang === 'es' ? 'Incidentes reportados' : 'Reported incidents'}
+            </span>
+          </span>
+        </div>
+      )}
+    </>
+  );
+
+  return (
+    <div className="legend">
+      {/* Desktop: fully expanded */}
+      <div className="legend-desktop">
+        <div className="legend-title">{resolvedTitle}</div>
+        {legendBody}
+      </div>
+      {/* Mobile (≤480px): collapsible via <details> */}
+      <details className="legend-mobile">
+        <summary className="legend-title legend-summary">
+          <span className="legend-summary-closed">{closedLabel}</span>
+          <span className="legend-summary-open">{openLabel}</span>
+        </summary>
+        {legendBody}
+      </details>
     </div>
   );
 }

@@ -151,14 +151,16 @@ export async function fetchAndMountIncidents(
 </div>`;
 
     // D-16: DOM-based L.marker; Pitfall 7: L.divIcon (.ev-dot)
+    // T-25-04-XSS: title already escaped via escHtml above; reuse for aria-label/title
     L.marker([incident.lat, incident.lng], {
       icon: L.divIcon({
         className: '',
-        html: '<div class="ev-dot"></div>',
+        html: `<div class="ev-dot" role="img" aria-label="${title}"></div>`,
         iconSize: [14, 14],
         iconAnchor: [7, 7],
       }),
-    })
+      title: title,
+    } as L.MarkerOptions)
       .bindPopup(popupHtml, { closeButton: false, offset: [0, -4] })
       .addTo(layer);
   }

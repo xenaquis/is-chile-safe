@@ -24,6 +24,9 @@
   --s4: #e8a05c;
   --s5: #c96b5a;
 
+  /* Incident pin color (distinct from choropleth orange) */
+  --pin: #6d28d9;
+
   /* Semantic trend colors */
   --trend-up:     #c96b5a;
   --trend-down:   #0f766e;

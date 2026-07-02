@@ -115,7 +115,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #e8a05c;
+  background: var(--pin);
   margin-right: 6px;
   flex-shrink: 0;
 }
@@ -168,6 +168,22 @@
   color: var(--muted);
 }
 
+.legend-incident-row {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+}
+
+.legend-swatch-pin {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--pin);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px var(--pin);
+  flex-shrink: 0;
+}
+
 /* Mobile: smaller legend font
  * NAMED EXCEPTION: 12px font-size used here instead of the standard 14px Label.
  * Rationale: legend is a map overlay with compact width; 12px improves legibility
@@ -180,6 +196,57 @@
 
   .legend-title {
     font-size: 12px;
+  }
+}
+
+/* ==========================================================================
+   Mobile legend — collapsible at ≤480px (P1-3)
+   ========================================================================== */
+
+/* Desktop: show expanded block, hide details */
+.legend-desktop { display: block; }
+.legend-mobile  { display: none; }
+
+@media (max-width: 480px) {
+  .legend {
+    min-width: 100px;
+    max-width: 160px;
+  }
+
+  /* Hide expanded desktop version; show collapsible details */
+  .legend-desktop { display: none; }
+  .legend-mobile  { display: block; }
+
+  /* summary toggle labels */
+  .legend-summary { cursor: pointer; list-style: none; margin-bottom: 0; }
+  .legend-summary::-webkit-details-marker { display: none; }
+  .legend-summary-open  { display: none; }
+  .legend-summary-closed{ display: inline; }
+
+  details.legend-mobile[open] .legend-summary-closed { display: none; }
+  details.legend-mobile[open] .legend-summary-open   { display: inline; }
+
+  details.legend-mobile[open] .legend-bands,
+  details.legend-mobile[open] .legend-unit,
+  details.legend-mobile[open] .legend-incident-row {
+    margin-top: 6px;
+  }
+}
+
+/* ==========================================================================
+   Mobile pill stacking at ≤480px — Index/By-crime pills as own row (P1-3)
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .map-topbar-row1 {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .mode-toggle {
+    position: static;
+    justify-content: flex-start;
   }
 }
 
@@ -425,8 +492,8 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #e8a05c;
-  border: 1px solid #ffffff;
+  background: var(--pin);
+  border: 2px solid #ffffff;
 }
 
 /* Incident popup */
