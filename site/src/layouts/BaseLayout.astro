@@ -117,8 +117,9 @@ const adsenseClient = import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID ?? '';
     }
   </head>
   <body>
+    <a href="#main-content" class="skip-link">{lang === 'es' ? 'Ir al contenido principal' : 'Skip to main content'}</a>
     <PageHeader locale={lang} enPath={enPath} esPath={esPath} />
-    <main class="page-content">
+    <main class="page-content" id="main-content">
       <slot />
     </main>
     <PageFooter locale={lang} enPath={enPath} esPath={esPath} />

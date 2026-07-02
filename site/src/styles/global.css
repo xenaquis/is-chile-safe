@@ -176,6 +176,25 @@ p {
   outline: none;
 }
 
+/* ---------- A11Y-02: Skip-to-main link (WCAG 2.4.1 AA) ---------- */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: var(--md);
+  background: var(--primary);
+  color: #ffffff;
+  padding: var(--xs) var(--md);
+  border-radius: 4px;
+  font-size: var(--text-label);
+  font-weight: var(--weight-strong);
+  z-index: 9999;
+  text-decoration: none;
+  transition: top 0.1s;
+}
+.skip-link:focus {
+  top: var(--sm);
+}
+
 /* ---------- READ-01: Editorial prose rhythm ---------- */
 .editorial-prose p {
   margin-bottom: var(--md);
