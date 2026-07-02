@@ -115,6 +115,8 @@ const labels = locale === 'en'
 
   .form-input:focus {
     border: 2px solid var(--primary);
+  }
+  .form-input:focus:not(:focus-visible) {
     outline: none;
   }
 

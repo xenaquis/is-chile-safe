@@ -356,8 +356,10 @@ const levelColors = INCIDENCE_COLORS;
   }
 
   .dir-search:focus {
-    outline: none;
     border-color: var(--primary);
+  }
+  .dir-search:focus:not(:focus-visible) {
+    outline: none;
   }
 
   .viewtoggle {
