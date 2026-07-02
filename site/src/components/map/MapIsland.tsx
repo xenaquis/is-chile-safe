@@ -224,9 +224,9 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
           }
         );
         // D-08: focus commune from ?cut= URL param (opaque string — Map lookup only, no DOM injection)
-        // T-25-04-URL: validate ?cut= is exactly 5 digits before any fetch (all Chilean CUTs are 5-digit integers)
+        // T-25-04-URL: validate ?cut= is 4-5 digits before any fetch (CUTs are unpadded — Valparaíso is 5101)
         const focusCut = new URLSearchParams(window.location.search).get('cut');
-        if (focusCut && /^\d{5}$/.test(focusCut)) {
+        if (focusCut && /^\d{4,5}$/.test(focusCut)) {
           // Small timeout to allow Leaflet to finish rendering polygons before getBounds is valid
           setTimeout(() => selectCommune(focusCut), 100);
         }
