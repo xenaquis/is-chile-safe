@@ -134,10 +134,12 @@ const jsonLd = {
         data-rate-format="round"
         data-locale="en"
         data-default-sort-dir="asc"
+        data-rank-col="0,4"
+        data-rank-note="Position and national rank reflect the latest complete year; they are hidden for earlier years."
       >
         <caption>
           Communes with lowest reported crime incidence per 100,000 inhabitants —
-          CEAD data for {dataYear}. Excludes communes with population below 10,000.
+          CEAD data for <span data-year-target>{dataYear}</span>. Excludes communes with population below 10,000.
           Click column headers to sort.
         </caption>
         <thead>

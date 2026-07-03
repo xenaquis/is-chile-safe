@@ -122,10 +122,12 @@ const jsonLd = {
         data-rate-format="round"
         data-locale="es"
         data-default-sort-dir="asc"
+        data-rank-col="0,4"
+        data-rank-note="La posición y el rango nacional corresponden al último año completo; se ocultan para años anteriores."
       >
         <caption>
           Comunas con menor incidencia delictiva reportada por 100.000 habitantes —
-          datos CEAD {dataYear}. Excluye comunas con población inferior a 10.000 hab.
+          datos CEAD <span data-year-target>{dataYear}</span>. Excluye comunas con población inferior a 10.000 hab.
           Haga clic en los encabezados de columna para ordenar.
         </caption>
         <thead>

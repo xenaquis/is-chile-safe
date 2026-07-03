@@ -248,11 +248,11 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
   <!-- NationalRankingTable -->
   <section class="ranking-section" aria-label="National commune ranking">
     <h2 class="section-heading">
-      Communes ranked by {familyLabel.toLowerCase()} rate per 100,000 inhabitants ({latestYear})
+      Communes ranked by {familyLabel.toLowerCase()} rate per 100,000 inhabitants (<span data-year-target>{latestYear}</span>)
     </h2>
     <p class="rate-explainer">{RANKING_RATE_EXPLAINER_EN}</p>
     <div class="table-wrapper">
-      <table class="ranking-table" data-ranking-table data-rate-col="3" data-name-col="1" data-rate-format="1dp" data-locale="en">
+      <table class="ranking-table" data-ranking-table data-rate-col="3" data-name-col="1" data-rate-format="1dp" data-locale="en" data-rank-col="0" data-rank-note="Rank reflects the latest complete year; it is hidden for earlier years.">
         <thead>
           <tr>
             <th scope="col">{t.th_rank}</th>

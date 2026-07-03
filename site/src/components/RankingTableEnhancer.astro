@@ -15,10 +15,25 @@
  *   data-name-col         — 0-based <td> index of the commune name cell (for name sort)
  *   data-rate-format      — "round" | "1dp" — matches the server-side format exactly
  *   data-locale           — "en" | "es" — drives toLocaleString formatting
+ *   data-rank-col         — (optional) comma-separated 0-based td indices of rank/position
+ *                           columns that are only valid for the default (latest) year.
+ *                           On year change, those cells blank to "—"; on return to the
+ *                           default year they restore their original server-rendered text.
+ *   data-rank-note        — (optional) localized note shown in the controls strip when a
+ *                           non-default year is selected, explaining that rank is hidden.
+ *                           If absent, cells just blank silently (still acceptable UX).
  *
  * Row-level data-* attributes (must be set on each <tr> in <tbody>):
  *   data-rates            — JSON map of completeYear (number) -> rate (number)
  *   data-low-pop          — "1" if low-population commune; absent otherwise
+ *
+ * Page-level data-* attributes (any element):
+ *   data-year-target      — elements with this attribute have their textContent set to the
+ *                           selected year on every change and on init. Intended for heading
+ *                           spans inside table section headings. NOTE: all [data-year-target]
+ *                           elements on the page are updated on every call; this is correct
+ *                           only when a single enhanced ranking table drives the page heading
+ *                           (true for all current pages using this attribute).
  */
 import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
 
@@ -77,6 +92,14 @@ const strings = {
     const loc      = table.dataset.locale ?? blobLocale;
     const defaultSortDir: 'asc' | 'desc' = table.dataset.defaultSortDir === 'asc' ? 'asc' : 'desc';
 
+    // Parse optional rank column indices (comma-separated, e.g. "0" or "0,4")
+    const rankCols: number[] = table.dataset.rankCol
+      ? table.dataset.rankCol.split(',').map((s) => parseInt(s.trim(), 10)).filter((n) => !isNaN(n))
+      : [];
+
+    // Optional localized note for non-default-year rank suppression
+    const rankNote: string | null = table.dataset.rankNote ?? null;
+
     // --- Collect rows + embedded data ---
     const tbody = table.querySelector('tbody');
     if (!tbody) return;
@@ -130,6 +153,16 @@ const strings = {
 
     controlsStrip.appendChild(labelEl);
     controlsStrip.appendChild(selectEl);
+
+    // Optional rank note element (shown only when selectedYear !== years[0])
+    let rankNoteEl: HTMLSpanElement | null = null;
+    if (rankNote) {
+      rankNoteEl = document.createElement('span');
+      rankNoteEl.className = 'rte-rank-note';
+      rankNoteEl.textContent = rankNote;
+      rankNoteEl.style.display = 'none';
+      controlsStrip.appendChild(rankNoteEl);
+    }
 
     // Insert the controls strip ABOVE the table (before the table's parent wrapper or the table itself)
     const tableParent = table.parentElement;
@@ -239,7 +272,36 @@ const strings = {
 
       // Reorder DOM: eligible first, then low-pop (D-2)
       const ordered = [...sortedEligible, ...sortedLowPop];
-      ordered.forEach(function (tr) { tbody.appendChild(tr); });
+      ordered.forEach(function (tr) { tbody!.appendChild(tr); });
+
+      // --- Rank column: blank on non-default year, restore on default year ---
+      if (rankCols.length > 0) {
+        allTrList.forEach(function (tr) {
+          const cells = tr.querySelectorAll('td');
+          rankCols.forEach(function (colIdx) {
+            const cell = cells[colIdx] as HTMLElement | undefined;
+            if (!cell) return;
+            if (selectedYear === years[0]) {
+              // Restore server-rendered rank text
+              cell.textContent = cell.dataset.origRank ?? cell.textContent;
+            } else {
+              cell.textContent = '—';
+            }
+          });
+        });
+      }
+
+      // --- Rank note: show when non-default year is selected ---
+      if (rankNoteEl) {
+        rankNoteEl.style.display = selectedYear === years[0] ? 'none' : '';
+      }
+
+      // --- Year target: update any elements carrying data-year-target ---
+      // NOTE: updates ALL [data-year-target] on the page; correct only when a
+      // single enhanced ranking table drives the heading (current page invariant).
+      document.querySelectorAll('[data-year-target]').forEach(function (el) {
+        el.textContent = String(selectedYear);
+      });
     }
 
     // Wire year selector
@@ -256,6 +318,17 @@ const strings = {
       const rateCell = tr.querySelectorAll('td')[rateCol] as HTMLElement | undefined;
       if (rateCell && yearRate !== undefined) {
         rateCell.dataset.numericRate = String(yearRate);
+      }
+
+      // Store original server-rendered rank text for rank columns (for restore on default year)
+      if (rankCols.length > 0) {
+        const cells = tr.querySelectorAll('td');
+        rankCols.forEach(function (colIdx) {
+          const cell = cells[colIdx] as HTMLElement | undefined;
+          if (cell && cell.dataset.origRank === undefined) {
+            cell.dataset.origRank = cell.textContent ?? '';
+          }
+        });
       }
     });
 
@@ -326,5 +399,11 @@ const strings = {
   :global(.rte-sort-arrow) {
     font-size: 0.75em;
     color: var(--primary, #0077cc);
+  }
+
+  .rte-rank-note {
+    font-size: var(--text-label, 0.8rem);
+    color: var(--muted, #666);
+    font-style: italic;
   }
 </style>

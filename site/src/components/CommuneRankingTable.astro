@@ -52,7 +52,7 @@ const glossaryLabel = t.glossary_link;
   <table
     class="commune-ranking-table"
     data-locale={locale}
-    {...(sortable ? { 'data-ranking-table': true, 'data-rate-col': '1', 'data-name-col': '0', 'data-rate-format': 'round', ...(defaultSortDir ? { 'data-default-sort-dir': defaultSortDir } : {}) } : {})}
+    {...(sortable ? { 'data-ranking-table': true, 'data-rate-col': '1', 'data-name-col': '0', 'data-rate-format': 'round', 'data-rank-col': '2', 'data-rank-note': locale === 'en' ? 'National rank reflects the latest complete year; it is hidden for earlier years.' : 'El rango nacional corresponde al último año completo; se oculta para años anteriores.', ...(defaultSortDir ? { 'data-default-sort-dir': defaultSortDir } : {}) } : {})}
   >
     <thead>
       <tr>
