@@ -77,3 +77,40 @@ def test_no_false_positive(incident_a, incident_c_distinct):
     assert len(result) == 2, (
         "Distinct incidents should not be removed by dedup"
     )
+
+
+def test_cross_outlet_google_news_dedup():
+    """Three Google-News outlets reporting same homicide collapse to one pin; distinct incident survives."""
+    base = {
+        "id": "aaa0000000000001",
+        "cut": "02101",
+        "lat": -23.65,
+        "lng": -70.39,
+        "date": "2026-07-03",
+        "family": "vida",
+        "url": "https://news.google.com/rss/articles/CBMiAAA?oc=5",
+    }
+    inc1 = {**base, "id": "aaa0000000000001",
+             "outlet": "Puranoticia",
+             "url": "https://news.google.com/rss/articles/CBMiAAA?oc=5",
+             "title_es": "Hombre muerto a balazos en Antofagasta",
+             "title_en": "Man shot dead in Antofagasta"}
+    inc2 = {**base, "id": "aaa0000000000002",
+             "outlet": "ADPrensa",
+             "url": "https://news.google.com/rss/articles/CBMiBBB?oc=5",
+             "title_es": "Hombre muere a balazos en Antofagasta",
+             "title_en": "Man dies in shooting in Antofagasta"}
+    inc3 = {**base, "id": "aaa0000000000003",
+             "outlet": "Canal 9 Biobío",
+             "url": "https://news.google.com/rss/articles/CBMiCCC?oc=5",
+             "title_es": "Hombre fallece a balazos en Antofagasta",
+             "title_en": "Man dies from gunshots in Antofagasta"}
+    distinct = {**base, "id": "aaa0000000000004",
+                "outlet": "Puranoticia",
+                "url": "https://news.google.com/rss/articles/CBMiDDD?oc=5",
+                "title_es": "Portonazo en sector norte de Antofagasta deja vehículo recuperado",
+                "title_en": "Carjacking in northern Antofagasta — vehicle recovered"}
+    result = deduplicate([inc1, inc2, inc3, distinct])
+    assert len(result) == 2, (
+        f"Expected 2 incidents (1 merged homicide + 1 distinct), got {len(result)}"
+    )

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Google News - homicidio chile</title>
+    <link>https://news.google.com</link>
+    <description>Google News RSS results</description>
+
+    <!-- Item 1: has <source> tag -> outlet = Puranoticia -->
+    <item>
+      <title>Hombre muerto a balazos en Antofagasta durante la madrugada</title>
+      <link>https://news.google.com/rss/articles/CBMiAAA1234567890?oc=5</link>
+      <guid isPermaLink="false">CBMiAAA1234567890</guid>
+      <description>Un hombre fue hallado con múltiples impactos de bala en el sector norte de Antofagasta. Carabineros investigan el homicidio.</description>
+      <source url="https://www.puranoticia.cl">Puranoticia</source>
+      <pubDate>Thu, 03 Jul 2026 04:00:00 +0000</pubDate>
+    </item>
+
+    <!-- Item 2: has <source> tag -> outlet = ADPrensa -->
+    <item>
+      <title>Balacera en Iquique deja dos detenidos por narcotráfico</title>
+      <link>https://news.google.com/rss/articles/CBMiBBB9876543210?oc=5</link>
+      <guid isPermaLink="false">CBMiBBB9876543210</guid>
+      <description>PDI detuvo a dos imputados tras un tiroteo relacionado con tráfico de drogas en Alto Hospicio.</description>
+      <source url="https://www.adprensa.cl">ADPrensa</source>
+      <pubDate>Thu, 03 Jul 2026 06:00:00 +0000</pubDate>
+    </item>
+
+    <!-- Item 3: NO <source> tag -> fallback to "Google News" -->
+    <item>
+      <title>Robo con violencia en Temuco deja víctima hospitalizada</title>
+      <link>https://news.google.com/rss/articles/CBMiCCCabcdef1234?oc=5</link>
+      <guid isPermaLink="false">CBMiCCCabcdef1234</guid>
+      <description>Una persona fue asaltada y golpeada en el centro de Temuco. Carabineros buscan a los responsables del robo.</description>
+      <pubDate>Thu, 03 Jul 2026 08:00:00 +0000</pubDate>
+    </item>
+
+  </channel>
+</rss>
