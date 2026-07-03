@@ -69,8 +69,12 @@ function familyLabel(family: string): string {
 
 // Format YYYY-MM as "Month YYYY" for h2 date groups
 function formatMonth(yearMonth: string): string {
+  if (!yearMonth || yearMonth.length < 7) return yearMonth;
   const [year, month] = yearMonth.split('-');
-  const d = new Date(parseInt(year, 10), parseInt(month, 10) - 1, 1);
+  const y = parseInt(year, 10);
+  const m = parseInt(month, 10);
+  if (isNaN(y) || isNaN(m)) return yearMonth;
+  const d = new Date(y, m - 1, 1);
   return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
 }
 
