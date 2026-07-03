@@ -205,9 +205,9 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
 
   <!-- 4. RegionSparkline -->
   <section class="sparkline-section" aria-label="Annual evolution">
-    <h2 class="section-heading">Annual evolution (2005–2026*)</h2>
+    <h2 class="section-heading">Annual evolution (2005–{latestCompleteYear}*)</h2>
     <Sparkline series={region.series} activeYear={latestCompleteYear} />
-    <p class="chart-footnote">* 2026: partial year data (Jan–Jun)</p>
+    <p class="chart-footnote">* {latestCompleteYear}: partial year data (Jan–Jun)</p>
   </section>
 
   <!-- 5. CommuneRankingTable -->
@@ -220,7 +220,7 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
 
   <!-- 6. MapPlaceholderSlot — region-specific CTA card -->
   <div class="map-placeholder-card-wrap">
-    <a href={`/map/?region=${region.slug}`} class="map-placeholder-card">
+    <a href="/map/" class="map-placeholder-card">
       <svg width="40" height="40" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="map-pin-glyph">
         <circle cx="11" cy="9" r="5" fill="var(--primary)" />
         <ellipse cx="11" cy="9" rx="2" ry="2" fill="white" />
