@@ -15,6 +15,7 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: write
+      issues: write
     # CR-01: CF_HOOK MUST be job-level — a step-level env var is NOT in scope for
     # that same step's `if:` condition, so the deploy gate would never fire.
     env:
@@ -52,3 +53,19 @@ jobs:
       - name: Trigger Cloudflare Pages deploy
         if: steps.commit.outputs.changed == 'true' && env.CF_HOOK != ''
         run: curl -X POST --fail --silent --show-error --retry 3 "$CF_HOOK"
+
+      - name: Alert via GitHub Issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          OPEN_ISSUE=$(gh issue list --label pipeline-failure --state open --json number --jq '.[0].number // empty')
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ -n "$OPEN_ISSUE" ]; then
+            gh issue comment "$OPEN_ISSUE" --body "News Pipeline failed again: $RUN_URL"
+          else
+            gh issue create \
+              --label pipeline-failure \
+              --title "[pipeline] News Pipeline failed on $(date -u +%F)" \
+              --body "Pipeline run failed: $RUN_URL"
+          fi
