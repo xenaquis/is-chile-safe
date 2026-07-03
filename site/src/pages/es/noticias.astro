@@ -9,10 +9,13 @@
  * hreflang: /es/noticias/ <-> /news/
  * Pitfall 4: existsSync fallback — build no falla si current.json está ausente.
  * Pitfall slug: esPath hardcodeado — NUNCA getRelativeLocaleUrl para este slug.
+ * P1-6: estructura semántica h2/h3, secciones por mes, chips de tipo + comuna (paridad con /news/).
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
+import { loadIndex } from '../../lib/data';
+import { FAMILY_LABELS_ES } from '../../lib/familyDefs';
 
 // Resolve from the synced public copy via process.cwd() (= site/ during `astro build`).
 // import.meta.url is unreliable at build time — compiled chunk locations differ per page,
@@ -28,7 +31,8 @@ let incidents: Array<{
   outlet: string;
   url: string;
   slug?: string;
-  cut?: string;
+  cut?: string | number;
+  family?: string;
 }> = [];
 
 if (existsSync(dataPath)) {
@@ -55,8 +59,44 @@ if (generated) {
   }
 }
 
+// Lookup CUT → comuna {name, slug} desde loadIndex() en build time (paridad con /news/)
+const _index = loadIndex();
+const cutToCommune = new Map<string, { name: string; slug: string }>(
+  _index.map((c) => [c.cut, { name: c.name, slug: c.slug }])
+);
+const slugToCommune = new Map<string, { name: string; slug: string }>(
+  _index.map((c) => [c.slug, { name: c.name, slug: c.slug }])
+);
+
+// Resolver comuna del incidente (cut prima sobre slug; cut puede venir numérico)
+function getCommuneInfo(incident: { cut?: string | number; slug?: string }): { name: string; slug: string } | undefined {
+  if (incident.cut != null) return cutToCommune.get(String(incident.cut));
+  if (incident.slug) return slugToCommune.get(incident.slug);
+  return undefined;
+}
+
+// Label localizado de familia desde el mapa canónico; fallback capitalizado
+function familyLabel(family: string): string {
+  return FAMILY_LABELS_ES[family] ?? family.charAt(0).toUpperCase() + family.slice(1);
+}
+
+// Formatear YYYY-MM como "mes de YYYY" para los h2 de grupo
+function formatMonth(yearMonth: string): string {
+  const [year, month] = yearMonth.split('-');
+  const d = new Date(parseInt(year, 10), parseInt(month, 10) - 1, 1);
+  return d.toLocaleDateString('es-CL', { year: 'numeric', month: 'long' });
+}
+
 // Ordenar más recientes primero (TD-03)
 incidents.sort((a, b) => b.date.localeCompare(a.date));
+
+// Agrupar por YYYY-MM (build time, cero JS en cliente)
+const monthGroups = new Map<string, typeof incidents>();
+for (const incident of incidents) {
+  const yearMonth = incident.date.slice(0, 7);
+  if (!monthGroups.has(yearMonth)) monthGroups.set(yearMonth, []);
+  monthGroups.get(yearMonth)!.push(incident);
+}
 
 // Helper URL segura — espeja IncidentPinLayer.ts safeUrl() (TD-05, T-19-03)
 function safeUrl(url: string): string {
@@ -109,33 +149,36 @@ const jsonLd = {
       <p class="empty-state">Sin incidentes aún. Vuelve pronto.</p>
     </section>
   ) : (
-    <section>
-      <ul class="incidents-list">
-        {incidents.map((incident) => (
-          <li class="incident-row" key={incident.id}>
-            <div class="incident-title">{incident.title_es}</div>
-            <div class="incident-meta">
-              {incident.date} · {incident.outlet}
-            </div>
-            <div class="incident-links">
-              <a
-                href={safeUrl(incident.url)}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="incident-source"
-              >
-                Fuente: {incident.outlet} ↗
-              </a>
-              {incident.slug && (
-                <a href={'/es/comuna/' + incident.slug + '/'} class="incident-commune">
-                  Ver comuna
+    Array.from(monthGroups.entries()).map(([yearMonth, groupIncidents]) => (
+      <section class="news-month-section">
+        <h2 class="news-date-group">{formatMonth(yearMonth)}</h2>
+        {groupIncidents.map((incident) => {
+          const communeInfo = getCommuneInfo(incident);
+          return (
+            <article class="news-card">
+              <h3 class="news-title">
+                <a href={safeUrl(incident.url)} target="_blank" rel="noopener noreferrer">
+                  {incident.title_es}
                 </a>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </section>
+              </h3>
+              <p class="news-meta">
+                {incident.family && (
+                  <span class="news-type-chip">{familyLabel(incident.family)}</span>
+                )}
+                {communeInfo && (
+                  <span class="news-commune-chip">
+                    <a href={'/es/comuna/' + communeInfo.slug + '/'}>
+                      {communeInfo.name}
+                    </a>
+                  </span>
+                )}
+                <span class="news-date-outlet">{incident.date} · {incident.outlet}</span>
+              </p>
+            </article>
+          );
+        })}
+      </section>
+    ))
   )}
 </EditorialLayout>
 
@@ -155,47 +198,77 @@ const jsonLd = {
     font-style: italic;
   }
 
-  .incidents-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--lg);
+  .news-month-section {
+    margin-bottom: var(--xl);
   }
 
-  .incident-row {
+  .news-date-group {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin-bottom: var(--md);
+    padding-bottom: var(--xs);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .news-card {
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: var(--md);
+    margin-bottom: var(--md);
   }
 
-  .incident-title {
+  .news-title {
+    font-size: var(--text-heading);
     font-weight: var(--weight-strong);
     margin-bottom: var(--xs);
+    line-height: 1.25;
   }
 
-  .incident-meta {
-    font-size: var(--text-label);
-    color: var(--muted);
-    margin-bottom: var(--xs);
-  }
-
-  .incident-links {
-    display: flex;
-    gap: var(--md);
-    flex-wrap: wrap;
-  }
-
-  .incident-source,
-  .incident-commune {
-    font-size: var(--text-label);
-    color: var(--primary);
+  .news-title a {
+    color: var(--ink);
     text-decoration: none;
   }
 
-  .incident-source:hover,
-  .incident-commune:hover {
+  .news-title a:hover {
     text-decoration: underline;
+    color: var(--primary);
+  }
+
+  .news-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--xs);
+    margin: 0;
+  }
+
+  /* P1-6: badge compacto — excepción 12px nombrada para lista densa */
+  .news-type-chip,
+  .news-commune-chip {
+    display: inline-flex;
+    align-items: center;
+    height: 22px;
+    padding: 0 var(--sm);
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    background: var(--line);
+    color: var(--ink);
+    margin-right: var(--xs);
+  }
+
+  .news-commune-chip a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .news-commune-chip:hover {
+    background: var(--bg);
+  }
+
+  .news-date-outlet {
+    font-size: var(--text-label);
+    color: var(--muted);
   }
 </style>
