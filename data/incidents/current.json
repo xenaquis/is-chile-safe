@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-03T08:58:01.748092Z",
+  "generated": "2026-07-03T13:55:55.232419Z",
   "window_days": 30,
   "incidents": [
     {
@@ -1821,6 +1821,97 @@
       "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/02/detienen-a-jefe-de-seguridad-municipal-de-yumbel-por-infraccion-a-ley-de-armas-tenia-pistola-robada.shtml",
       "family": "armas",
       "slug": "yumbel"
+    },
+    {
+      "id": "ed1650af9d3384c0",
+      "cut": "9202",
+      "lat": -38.041829,
+      "lng": -72.099665,
+      "title_es": "Detienen a boliviano con 45 kilos de marihuana en Collipulli",
+      "title_en": "Bolivian arrested with 45 kilos of marijuana in Collipulli",
+      "date": "2026-07-03",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/03/detienen-a-ciudadano-boliviano-con-45-kilos-de-marihuana-y-a-exceso-de-velocidad-en-la-araucania.shtml",
+      "family": "drogas",
+      "slug": "collipulli"
+    },
+    {
+      "id": "01923b4067be709f",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Asesinato de hombre en situación de calle en San Bernardo",
+      "title_en": "Murder of homeless man in San Bernardo",
+      "date": "2026-07-03",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/03/pelea-termina-con-asesinato-de-un-hombre-en-situacion-de-calle-en-san-bernardo.shtml",
+      "family": "vida",
+      "slug": "san-bernardo"
+    },
+    {
+      "id": "15f70c3c12490aae",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Detienen a dos implicados en tiroteo en Valdivia",
+      "title_en": "Two arrested for shooting in Valdivia",
+      "date": "2026-07-03",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-rios/2026/07/03/detienen-a-dos-personas-que-serian-responsables-de-tiroteo-en-sector-barrios-bajos-de-valdivia.shtml",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "9ed9af4f141d897e",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Pasajero detenido por fumar marihuana en Metro de San Bernardo",
+      "title_en": "Passenger arrested for smoking marijuana at San Bernardo Metro",
+      "date": "2026-07-03",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/03/nuevo-copamiento-policial-en-san-bernardo-pasajero-de-metro-termino-detenido-por-fumar-marihuana.shtml",
+      "family": "drogas",
+      "slug": "san-bernardo"
+    },
+    {
+      "id": "0f1093475222034d",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Hombre mata a golpes y puñaladas a persona en situación de calle en San Bernardo",
+      "title_en": "Man beats and stabs homeless person to death in San Bernardo",
+      "date": "2026-07-03",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/sujeto-mato-a-golpes-y-punaladas-a-hombre-en-situacion-de-calle-en-san/2026-07-03/073533.html",
+      "family": "vida",
+      "slug": "san-bernardo"
+    },
+    {
+      "id": "3ba7f9798fc43f5d",
+      "cut": "13108",
+      "lat": -33.416252,
+      "lng": -70.664389,
+      "title_es": "Dominicano asesinado a balazos en vivienda de Independencia",
+      "title_en": "Dominican shot dead inside home in Independencia",
+      "date": "2026-07-03",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/dominicano-fue-acribillado-al-interior-de-una-vivienda-en-independencia/2026-07-03/072620.html",
+      "family": "vida",
+      "slug": "independencia"
+    },
+    {
+      "id": "6cf7739ef5ad04f0",
+      "cut": "13108",
+      "lat": -33.416252,
+      "lng": -70.664389,
+      "title_es": "Hombre muere baleado en Independencia tras irrupción en su domicilio",
+      "title_en": "Man dies after being shot in Independencia following home invasion",
+      "date": "2026-07-03",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/hombre-muere-tras-ser-baleado-en-independencia-sujetos-habrian-ingresado-a-su-domicilio/",
+      "family": "vida",
+      "slug": "independencia"
     }
   ]
 }
