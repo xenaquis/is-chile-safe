@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 Phase: 25
 Plan: Not started
 Status: Ready to execute
-Last activity: 2026-07-03
+Last activity: 2026-07-03 - Completed quick task 260702-wjr: news-cron fix sequence (secret audit clean, Fase 25 deployed, alerting + freshness guard + CEAD/hook fixes)
 
 ## Progress Bar
 
@@ -136,6 +136,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | 260616-ldi | Fix region_id grouping (BUGFIX-999.1): derive region from CUT length; all 16 regions now populate | 2026-06-16 | cad6a20 | [260616-ldi-fix-region-id-grouping-backlog-999-1-der](./quick/260616-ldi-fix-region-id-grouping-backlog-999-1-der/) |
 | 260616-lu4 | Make ranking tables dynamic via progressive enhancement | 2026-06-16 | 2a550bd | [260616-lu4-hacer-dinamicas-las-tablas-rankings-de-c](./quick/260616-lu4-hacer-dinamicas-las-tablas-rankings-de-c/) |
 | 260618-x95 | Fix prod-deploy gap: new deploy-on-code.yml curls CF Deploy Hook on push to master touching site/** | 2026-06-19 | 18b558b | [260618-x95-deploy-on-code](./quick/260618-x95-deploy-on-code/) |
+| 260702-wjr | News-cron fixes: pre-public secret audit (clean), Fase 25 sync+deploy, GH Issue alerting on pipeline failure, freshness validator #15, --retry-all-errors deploy hook, CEAD PYTHONPATH fix | 2026-07-03 | b12067b | [260702-wjr-news-cron-fix-sequence-pre-public-secret](./quick/260702-wjr-news-cron-fix-sequence-pre-public-secret/) |
 | 260620-hrh | Per-comuna year selector (whole-page, vanilla JS, default year static for SEO) + static SVG longitudinal charts (7 families + homicide/year), EN+ES | 2026-06-20 | ff57ba9 | [260620-hrh-anio-selector-graficos-longitudinales-po](./quick/260620-hrh-anio-selector-graficos-longitudinales-po/) |
 | 260620-cps | Align ranking/methodology copy to "casos policiales" (denuncias + detenciones flagrantes); fix stray "denuncias" mislabels that contradicted the documented measure, EN+ES | 2026-06-20 | 2feb81a | [260620-cps-alinear-copy-casos-policiales](./quick/260620-cps-alinear-copy-casos-policiales/) |
 
