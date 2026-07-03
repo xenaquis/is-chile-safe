@@ -199,6 +199,14 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
     if (typeof window === 'undefined') return;
     const a = selected[0]?.id ?? '';
     const b = selected[1]?.id ?? '';
+    // Do not pollute the URL when nothing is selected yet
+    if (!a && !b) {
+      // Restore clean URL only if params are currently present
+      if (window.location.search) {
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+      return;
+    }
     window.history.replaceState(null, '', '?a=' + a + '&b=' + b);
   }, [selected]);
 
