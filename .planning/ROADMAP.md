@@ -75,7 +75,7 @@ Audit: **[milestones/v1.3-MILESTONE-AUDIT.md](milestones/v1.3-MILESTONE-AUDIT.md
 - [x] **Phase 23: ENUSC Communal Victimization Layer** — additive INE ENUSC 2024 SAE household-victimization (VHDV) figure on the 136 covered comuna pages, graceful "no estimate" for the other 210; anti-infra-representation, additive-only vs Phase 18 _(depends on Phase 18 + 17; **runs BEFORE Phase 22**)_ — origin SEED-002 (completed 2026-06-19)
 - [ ] **Phase 22: Go-Live / Launch Ops** — CF deploy hook, production deploy, live news audit, GSC submission _(parallel with Phase 21; no code dependency; **gated after Phase 23** per SEED-002)_
 - [x] **Phase 24: Rankings UX — dynamic sortable tables + visual polish** — wire `RankingTableEnhancer` into ranking surfaces lacking it (safest-cities EN+ES), descending default + asc override, brand-token polish, BrowserOS E2E _(depends on Phase 18; independent of Phase 22)_ (completed 2026-06-20)
-- [ ] **Phase 25: UI/UX 360 remediation (prod diagnostic 2026-07-02)** — execute all fixes from `.planning/UI-360-DIAGNOSTIC-260702.md`: P0 soft-404/favicon/tablet-overflow, P1 number-locale/map-UX/editorial-visuals/news-semantics/compare-labeling/map-panel-years, P2 a11y+SEO polish _(depends on Phase 24)_
+- [x] **Phase 25: UI/UX 360 remediation (prod diagnostic 2026-07-02)** — execute all fixes from `.planning/UI-360-DIAGNOSTIC-260702.md`: P0 soft-404/favicon/tablet-overflow, P1 number-locale/map-UX/editorial-visuals/news-semantics/compare-labeling/map-panel-years, P2 a11y+SEO polish _(depends on Phase 24)_ (completed 2026-07-03)
 
 ---
 
@@ -200,7 +200,7 @@ Plans:
 **Goal:** Execute ALL fixes from `.planning/UI-360-DIAGNOSTIC-260702.md` (2026-07-02 prod audit of ischilesafe.com; evidence `C:\Users\Carlo\bos-shots\`) following the report's "Orden sugerido": (1) P0-1 real 404 — check `public/_redirects`/Pages config, remove `/* /index.html 200` catch-all, add real `404.html`; (2) P0-3 favicon ico+svg + `<link rel=icon>` in base layout; (3) P0-2 tablet overflow 640–1080px — collapse nav to hamburger ≤1100px, stack home `.lead-table-col` ≤900px, shorten nav item to "Glossary"/"Glosario"; (4) P1-1 single `formatNumber(value, locale)` helper (Intl.NumberFormat) — fix MapIsland "~4.984" in EN, EN-formatted numbers in ES tables, Compare missing thousands separator + inconsistent decimals; (5) P1-3 map — fitBounds to Chile bbox + maxBounds, collapsible/compact mobile legend, Index/By-crime pills in 2 rows ≤480px, distinctive incident-pin color/shape + legend entry, pre-fetch guard for unknown ?cut=; (6) P1-5 static visuals on /is-santiago-safe/, /is-chile-safe/, /safest-cities-in-chile/ — top/bottom comuna tables + sparklines generated statically from public/data JSON (must be in HTML, nothing client-only); (7) P1-6 news — h2/h3 titles, comuna + crime-type chips per card, date grouping or pagination; harden Python classifier filter (exclude traffic accidents); (8) P1-2 compare — "Composite Crime Index" label + methodology link on big number, ?a=&b= URL sync via history.replaceState, popular-comparison chips in empty state, verify trend data (all show "→"); (9) P1-4 map panel — group blocks by year with badge + tooltip explaining differing years, drop the "~"; (10) P2 sweep — aria-label on incident markers, global :focus-visible + skip-link, JSON-LD WebSite+Organization on home, list of 16 linked regions in /rankings/, "#13 of 16" with "1 = highest reported", "(1 cases)" pluralization, region evolution title 2005–2026. P0 items are independent atomic commits, first.
 **Requirements**: Editorial: never label territories safe/dangerous in absolute terms; rank #1 = MOST reported crime; rates already per-100k (never rescale); getRelativeLocaleUrl doesn't translate ES slugs (hardcode /es/...); OneDrive repo: chain build+validate in one command; verify with `npx astro build` + `npx astro preview --port 4321 --host` and BrowserOS inline (no subagents; screenshots to no-spaces path; mobile via 375px iframe).
 **Depends on:** Phase 24
-**Plans:** 8/9 plans executed
+**Plans:** 9/9 plans complete
 
 Plans:
 
@@ -226,7 +226,7 @@ Plans:
 
 **Wave 5**
 
-- [ ] 25-09-PLAN.md — Full build+validate+check+pytest + BrowserOS inline visual review checkpoint (all P0/P1/P2)
+- [x] 25-09-PLAN.md — Full build+validate+check+pytest + BrowserOS inline visual review checkpoint (all P0/P1/P2)
 
 ---
 
@@ -239,4 +239,4 @@ Plans:
 | 23. ENUSC Communal Victimization Layer | 4/4 | Complete   | 2026-06-19 |
 | 22. Go-Live / Launch Ops | 2/3 | In Progress|  |
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |
-| 25. UI/UX 360 remediation (prod diagnostic 260702) | 8/9 | In Progress|  |
+| 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete   | 2026-07-03 |
