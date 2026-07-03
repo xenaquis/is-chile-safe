@@ -123,6 +123,7 @@ def main() -> int:
             is_crime_item,
             load_seen,
             parse_pub_date,
+            resolve_outlet,
             save_seen,
             strip_html,
         )
@@ -177,7 +178,7 @@ def main() -> int:
                         "title": title,
                         "description": description,
                         "date": pub_date.isoformat(),
-                        "outlet": feed_name,
+                        "outlet": resolve_outlet(entry, feed_name),
                     })
 
             except Exception as exc:

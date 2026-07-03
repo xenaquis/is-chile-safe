@@ -10,11 +10,53 @@ import json
 import logging
 import pathlib
 import re
+import urllib.parse
 from typing import Any
 
 import feedparser  # type: ignore
 
 logger = logging.getLogger(__name__)
+
+
+# ---------------------------------------------------------------------------
+# Google News URL builder
+# ---------------------------------------------------------------------------
+
+def google_news_url(query: str) -> str:
+    """Build a Google News RSS search URL for the given query string.
+
+    Uses percent-encoding so reserved chars (spaces, colons, parentheses) are
+    correctly encoded by urllib.parse.quote.
+    """
+    q = urllib.parse.quote(query, safe="")
+    return f"https://news.google.com/rss/search?q={q}&hl=es-419&gl=CL&ceid=CL:es-419"
+
+
+# ---------------------------------------------------------------------------
+# Google News query registry (name -> query string)
+# ---------------------------------------------------------------------------
+
+_GOOGLE_NEWS_QUERIES: dict[str, str] = {
+    "GoogleNews-Nacional": (
+        'homicidio OR balacera OR portonazo OR "crimen organizado" chile when:2d'
+    ),
+    "GoogleNews-Antofagasta": (
+        "(homicidio OR balacera OR robo OR portonazo) "
+        "(Antofagasta OR Calama OR Tocopilla) when:3d"
+    ),
+    "GoogleNews-Tarapaca": (
+        "(homicidio OR balacera OR robo) "
+        "(Iquique OR \"Alto Hospicio\" OR Tarapaca) when:3d"
+    ),
+    "GoogleNews-Coquimbo": (
+        "(homicidio OR balacera OR robo) "
+        '("La Serena" OR Coquimbo OR Ovalle) when:3d'
+    ),
+    "GoogleNews-Araucania": (
+        "(homicidio OR balacera OR robo OR atentado) "
+        "(Temuco OR Araucania OR Angol) when:3d"
+    ),
+}
 
 # ---------------------------------------------------------------------------
 # Feed registry
@@ -24,6 +66,8 @@ FEEDS: dict[str, str] = {
     "BioBioChile": "https://www.biobiochile.cl/static/feed-rss",
     "Cooperativa": "https://www.cooperativa.cl/noticias/site/tax/port/all/rss_3_158__1.xml",
     "LaTercera": "https://www.latercera.com/arc/outboundfeeds/rss/?outputType=xml",
+    "LaCuarta": "https://www.lacuarta.com/arc/outboundfeeds/rss/?outputType=xml",
+    **{name: google_news_url(q) for name, q in _GOOGLE_NEWS_QUERIES.items()},
 }
 
 # Identifies the bot + project URL for politeness (D-04, CLAUDE.md)
@@ -83,12 +127,36 @@ def canonical_url(entry: Any, feed_name: str) -> str:
     """Return the canonical article URL for the given feed.
 
     BioBioChile's <guid> is a WordPress ?p= ID — use <link> instead.
-    Cooperativa and LaTercera: <guid> IS the canonical permalink.
+    Google News item links are redirect URLs that land on the source article.
+    Cooperativa, LaTercera, LaCuarta: <guid> IS the canonical permalink.
     """
     if feed_name == "BioBioChile":
         return getattr(entry, "link", "") or ""
+    if feed_name.startswith("GoogleNews"):
+        return getattr(entry, "link", "") or ""
     # Default: use entry.id (guid field)
     return getattr(entry, "id", "") or getattr(entry, "link", "") or ""
+
+
+def resolve_outlet(entry: Any, feed_name: str) -> str:
+    """Return the outlet name for an incident.
+
+    For non-Google feeds, return the feed name unchanged.
+    For Google News feeds, extract the outlet from the item's <source> tag,
+    falling back to the constant "Google News" if absent or empty.
+    """
+    if not feed_name.startswith("GoogleNews"):
+        return feed_name
+    src = getattr(entry, "source", None)
+    if src is None:
+        return "Google News"
+    # feedparser maps <source> to a FeedParserDict or dict-like object
+    if isinstance(src, dict):
+        title = src.get("title", "")
+    else:
+        title = getattr(src, "title", "")
+    title = (title or "").strip()
+    return title if title else "Google News"
 
 
 # ---------------------------------------------------------------------------
