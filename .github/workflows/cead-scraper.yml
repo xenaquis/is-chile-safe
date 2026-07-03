@@ -20,6 +20,7 @@ jobs:
     # that same step's `if:` condition, so the deploy gate would never fire.
     env:
       CF_HOOK: ${{ secrets.CF_DEPLOY_HOOK_URL }}
+      PYTHONPATH: .
 
     steps:
       - uses: actions/checkout@v4
