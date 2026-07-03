@@ -226,8 +226,8 @@ export const EN_STRINGS: I18nStrings = {
   rank_of: 'of',
 
   // Rank percentile cards (260620-hrh)
-  rank_pct_value: 'Higher than {pct}%',
-  rank_national_label: "of Chile's communes (reported incidence)",
+  rank_pct_value: 'More reported crime than {pct}%',
+  rank_national_label: "of Chile's communes",
   rank_regional_label: 'of communes in {region}',
   rank_sublabel: 'CEAD {year} · #{rank} of {total} · 1 = most reported incidence',
 
@@ -433,8 +433,8 @@ export const ES_STRINGS: I18nStrings = {
   rank_of: 'de',
 
   // Tarjetas de percentil de ranking (260620-hrh)
-  rank_pct_value: 'Mayor que el {pct}%',
-  rank_national_label: 'de las comunas de Chile (incidencia reportada)',
+  rank_pct_value: 'Más delitos reportados que el {pct}%',
+  rank_national_label: 'de las comunas de Chile',
   rank_regional_label: 'de las comunas de {region}',
   rank_sublabel: 'CEAD {year} · #{rank} de {total} · 1 = mayor incidencia reportada',
 
