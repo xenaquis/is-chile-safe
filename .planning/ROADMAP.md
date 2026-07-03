@@ -239,4 +239,4 @@ Plans:
 | 23. ENUSC Communal Victimization Layer | 4/4 | Complete   | 2026-06-19 |
 | 22. Go-Live / Launch Ops | 2/3 | In Progress|  |
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |
-| 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete   | 2026-07-03 |
+| 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete    | 2026-07-03 |
