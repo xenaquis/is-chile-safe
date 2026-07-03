@@ -354,6 +354,7 @@ export interface RankingRow {
   national_rank: number;
   trend: 'up' | 'down' | 'stable';
   low_population: boolean;
+  ratesByYear: Record<number, number>;
 }
 
 export function nearestComparables(targetCut: string, n: number): RankingRow[] {
@@ -388,6 +389,13 @@ export function nearestComparables(targetCut: string, n: number): RankingRow[] {
 
   return sorted.map((c) => {
     const comm = loadCommune(c.cut);
+    // Build ratesByYear from complete (non-partial) series entries using rate_per_100k.
+    // This matches the displayed `rate` (latestCompleteYearRate) so the default-year
+    // cell value is identical to the previous static render.
+    const ratesByYear: Record<number, number> = {};
+    comm.series.filter((s) => !s.partial).forEach((s) => {
+      ratesByYear[s.year] = s.rate_per_100k;
+    });
     return {
       name: c.name,
       slug: c.slug,
@@ -395,6 +403,33 @@ export function nearestComparables(targetCut: string, n: number): RankingRow[] {
       national_rank: comm.national_rank,
       trend: comm.trend,
       low_population: c.low_population,
+      ratesByYear,
     };
   });
+}
+
+// ---------------------------------------------------------------------------
+// Enabled comparator pair slugs (BUG-2 fix)
+// ---------------------------------------------------------------------------
+
+/**
+ * Returns a Set of enabled comparator pair slugs in "${cutA}-vs-${cutB}" form.
+ * cutA < cutB (lexicographic) — matches the canonical slug in compare/[pair].astro.
+ * Memoized: the 5031-entry JSON is read once across all 692×2 commune page builds.
+ */
+let _enabledPairSlugsCache: Set<string> | null = null;
+
+export function loadEnabledPairSlugs(): Set<string> {
+  if (_enabledPairSlugsCache !== null) return _enabledPairSlugsCache;
+  const pairsPath = path.resolve(process.cwd(), '..', 'data', 'comparator-pairs.json');
+  const raw: Array<{ cutA: string; cutB: string; region_id: string; enabled: boolean }> =
+    JSON.parse(readFileSync(pairsPath, 'utf-8'));
+  const result = new Set<string>();
+  for (const p of raw) {
+    if (p.enabled === true) {
+      result.add(`${p.cutA}-vs-${p.cutB}`);
+    }
+  }
+  _enabledPairSlugsCache = result;
+  return result;
 }

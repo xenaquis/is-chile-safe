@@ -37,6 +37,7 @@ import {
   nearestComparables,
   latestCompleteYearRate,
   loadIndex,
+  loadEnabledPairSlugs,
 } from '../../lib/data.ts';
 import { buildCommuneProse } from '../../lib/proseEngine.ts';
 import { buildBreadcrumb, buildItemList } from '../../lib/jsonld.ts';
@@ -106,8 +107,7 @@ const regPct = Math.min(99, Math.max(1, Math.round((regionCommuneCount - data.re
 const similarComunas = nearestComparables(cut, 5);
 
 // Comparator pairs for ComparatorPairsLinks (same-region, up to 5, sorted CUTs)
-// Links use canonical pair slugs regardless of enabled status — spine assertion M
-// checks only for the href="/compare/" prefix, not a live page.
+// Only enabled pairs are linked — prevents internal 404 links (BUG-2 fix).
 // Fall back to including low_population communes when no non-low-pop neighbors exist
 // (e.g., Arica is the only non-low-pop commune in its region — Pitfall guard).
 const allIndex = loadIndex();
@@ -118,6 +118,7 @@ const _sameRegionNonLP = allIndex.filter(
 const _sameRegionCandidates = _sameRegionNonLP.length > 0
   ? _sameRegionNonLP
   : allIndex.filter((c) => c.region_id === (currentMeta?.region_id ?? '') && c.cut !== cut);
+const _enabledSlugs = loadEnabledPairSlugs();
 const comparatorPairs = _sameRegionCandidates.slice(0, 5).map((c) => {
   const sorted = [cut, c.cut].sort();
   const pA = sorted[0]!;
@@ -128,7 +129,7 @@ const comparatorPairs = _sameRegionCandidates.slice(0, 5).map((c) => {
     nameA: pA === cut ? data.name : c.name,
     nameB: pB === cut ? data.name : c.name,
   };
-});
+}).filter((p) => _enabledSlugs.has(`${p.cutA}-vs-${p.cutB}`));
 
 // Prose
 const prose = buildCommuneProse(data, 'en');
@@ -394,8 +395,8 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     </a>
   </section>
 
-  <!-- 8b-pre. Comparator pairs spoke (CMP-06 / spine assertion M) -->
-  <ComparatorPairsLinks pairs={comparatorPairs} locale="en" />
+  <!-- 8b-pre. Comparator pairs spoke (CMP-06 / spine assertion M) — only rendered when enabled pairs exist -->
+  {comparatorPairs.length > 0 && <ComparatorPairsLinks pairs={comparatorPairs} locale="en" />}
 
   <!-- 8b. Similar comunas in this region (D-07) -->
   <section class="similar-comunas-spoke" aria-label="Similar communes in this region">

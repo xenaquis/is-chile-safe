@@ -11,7 +11,7 @@
  *   J (map-spoke on ficha):         every commune page HTML contains /map/?cut= (EN) or /es/mapa/?cut= (ES)
  *   K (home single H1):             dist/index.html and dist/es/index.html each have exactly one <h1
  *   L (rankings nav site-wide):     sample pages contain href="/rankings/" (EN) / href="/es/rankings/" (ES)
- *   M (comparator-spoke on ficha): every commune page HTML contains href="/compare/" (EN) or href="/es/comparar/" (ES)
+ *   M (comparator-spoke on ficha): NO commune page links to a non-enabled compare pair (BUG-2 fix)
  *
  * Usage:
  *   node scripts/validate/spine.mjs
@@ -355,20 +355,34 @@ if (esNavOffenders.length === 0) {
 }
 
 // ---------------------------------------------------------------------------
-// ASSERTION M: comparator cross-link on commune ficha pages (CMP-06)
-// Every EN commune page must embed the ComparatorPairsLinks spoke, and every
-// ES comuna page likewise. We must NOT match the site-wide PageHeader nav link
-// (bare href="/compare/" / href="/es/comparar/"), which is present on EVERY
-// page regardless of the spoke — matching it would make this a false-pass
-// (WR-03). Instead assert on the spoke's distinctive pair-slug link
-// href="/compare/<cutA>-vs-<cutB>/" (a "-vs-" link the nav never emits).
+// ASSERTION M: comparator cross-link on commune ficha pages (BUG-2 fix)
+// The old assertion required EVERY commune page to have a -vs- pair link,
+// which forced 404 links for communes with no enabled same-region pairs.
+// New invariant: NO commune page may link to a NON-ENABLED compare pair.
+// Pages with zero enabled same-region pairs legitimately omit the spoke.
+//
+// WR-03: the bare nav href="/compare/" (no pair slug) is present on every
+// page but the regex /\d+-vs-\d+/ never matches it — no false positives.
 // ---------------------------------------------------------------------------
+
+// Load enabled pair slug set from repo-root data/comparator-pairs.json
+const PAIRS_JSON_PATH = path.resolve(SITE_ROOT, '..', 'data', 'comparator-pairs.json');
+let enabledPairSlugs = new Set();
+if (existsSync(PAIRS_JSON_PATH)) {
+  const rawPairs = JSON.parse(readFileSync(PAIRS_JSON_PATH, 'utf-8'));
+  for (const p of rawPairs) {
+    if (p.enabled === true) {
+      enabledPairSlugs.add(`${p.cutA}-vs-${p.cutB}`);
+    }
+  }
+}
+
 const enCommuneDir2 = path.join(DIST_DIR, 'commune');
 const esComunaDir2 = path.join(DIST_DIR, 'es', 'comuna');
 
-// Distinctive markers only the ComparatorPairsLinks spoke produces.
-const EN_SPOKE_RE = /href="\/compare\/\d+-vs-\d+\//;
-const ES_SPOKE_RE = /href="\/es\/comparar\/\d+-vs-\d+\//;
+// Regex to extract all pair slugs linked on a page (the -vs- pattern avoids the nav link)
+const EN_PAIR_EXTRACT_RE = /href="\/compare\/(\d+-vs-\d+)\//g;
+const ES_PAIR_EXTRACT_RE = /href="\/es\/comparar\/(\d+-vs-\d+)\//g;
 
 if (existsSync(enCommuneDir2)) {
   const enCommuneDirs2 = readdirSync(enCommuneDir2, { withFileTypes: true })
@@ -380,18 +394,24 @@ if (existsSync(enCommuneDir2)) {
     const htmlPath = path.join(enCommuneDir2, slug, 'index.html');
     if (existsSync(htmlPath)) {
       const content = readFileSync(htmlPath, 'utf-8');
-      if (!EN_SPOKE_RE.test(content)) {
-        enCmpOffenders.push(slug);
-        if (enCmpOffenders.length >= 5) break;
+      let match;
+      EN_PAIR_EXTRACT_RE.lastIndex = 0;
+      while ((match = EN_PAIR_EXTRACT_RE.exec(content)) !== null) {
+        const pairSlug = match[1];
+        if (!enabledPairSlugs.has(pairSlug)) {
+          enCmpOffenders.push(`${slug} → /compare/${pairSlug}/`);
+          if (enCmpOffenders.length >= 5) break;
+        }
       }
     }
+    if (enCmpOffenders.length >= 5) break;
   }
 
   if (enCmpOffenders.length === 0) {
-    console.log(`PASS [M] comparator-spoke: all EN commune pages contain a /compare/<a>-vs-<b>/ pair link`);
+    console.log(`PASS [M] comparator-spoke: no EN commune page links to a non-enabled compare pair`);
   } else {
     console.error(
-      `FAIL [M] comparator-spoke: ${enCmpOffenders.length}+ EN commune pages missing a /compare/<a>-vs-<b>/ pair link: ${enCmpOffenders.join(', ')}`
+      `FAIL [M] comparator-spoke: EN commune pages link to non-enabled compare pairs: ${enCmpOffenders.join(', ')}`
     );
     failures++;
   }
@@ -407,18 +427,24 @@ if (existsSync(esComunaDir2)) {
     const htmlPath = path.join(esComunaDir2, slug, 'index.html');
     if (existsSync(htmlPath)) {
       const content = readFileSync(htmlPath, 'utf-8');
-      if (!ES_SPOKE_RE.test(content)) {
-        esCmpOffenders.push(slug);
-        if (esCmpOffenders.length >= 5) break;
+      let match;
+      ES_PAIR_EXTRACT_RE.lastIndex = 0;
+      while ((match = ES_PAIR_EXTRACT_RE.exec(content)) !== null) {
+        const pairSlug = match[1];
+        if (!enabledPairSlugs.has(pairSlug)) {
+          esCmpOffenders.push(`${slug} → /es/comparar/${pairSlug}/`);
+          if (esCmpOffenders.length >= 5) break;
+        }
       }
     }
+    if (esCmpOffenders.length >= 5) break;
   }
 
   if (esCmpOffenders.length === 0) {
-    console.log(`PASS [M] comparator-spoke: all ES comuna pages contain a /es/comparar/<a>-vs-<b>/ pair link`);
+    console.log(`PASS [M] comparator-spoke: no ES comuna page links to a non-enabled compare pair`);
   } else {
     console.error(
-      `FAIL [M] comparator-spoke: ${esCmpOffenders.length}+ ES comuna pages missing a /es/comparar/<a>-vs-<b>/ pair link: ${esCmpOffenders.join(', ')}`
+      `FAIL [M] comparator-spoke: ES comuna pages link to non-enabled compare pairs: ${esCmpOffenders.join(', ')}`
     );
     failures++;
   }
