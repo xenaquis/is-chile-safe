@@ -45,6 +45,13 @@ findings:
   info: 3
   total: 6
 status: issues_found
+fix_status:
+  WR-01: fixed (commit 20cefc6)
+  WR-02: fixed (commit b5d1ce2)
+  WR-03: fixed (commit b5d1ce2)
+  IN-01: noted (no code change — devDependency deviation, acceptable)
+  IN-02: noted (no code change — deferred)
+  IN-03: fixed (commit 9668b6e)
 ---
 
 # Phase 25: Code Review Report
