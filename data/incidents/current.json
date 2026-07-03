@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-03T02:37:35.792618Z",
+  "generated": "2026-07-03T08:58:01.748092Z",
   "window_days": 30,
   "incidents": [
     {
@@ -1782,6 +1782,45 @@
       "url": "https://www.latercera.com/nacional/noticia/por-muerte-de-testigo-clave-sobreseen-a-exfiscal-jefe-de-puerto-natales-que-fue-indagado-por-supuesto-mensaje-a-narco/",
       "family": "drogas",
       "slug": "natales"
+    },
+    {
+      "id": "1c86ac2852fccd8c",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Mantienen prisión preventiva a Juan Pablo Leonelli por fraudes",
+      "title_en": "Preventive detention maintained for Juan Pablo Leonelli for fraud",
+      "date": "2026-07-03",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/03/mantienen-prision-preventiva-a-juan-pablo-leonelli-imputado-en-causa-fundacion-local-y-caso-manicure.shtml",
+      "family": "propiedad",
+      "slug": "temuco"
+    },
+    {
+      "id": "b71566eaa0339375",
+      "cut": "13108",
+      "lat": -33.416252,
+      "lng": -70.664389,
+      "title_es": "Ciudadano dominicano asesinado a balazos en Independencia",
+      "title_en": "Dominican citizen shot dead in Independencia",
+      "date": "2026-07-03",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/02/ciudadano-dominicano-es-asesinado-a-balazos-al-interior-de-domicilio-en-independencia.shtml",
+      "family": "vida",
+      "slug": "independencia"
+    },
+    {
+      "id": "61b40ec66d7f7270",
+      "cut": "8313",
+      "lat": -37.090801,
+      "lng": -72.63642,
+      "title_es": "Detienen a jefe de Seguridad Municipal de Yumbel por infracción a ley de armas",
+      "title_en": "Head of Municipal Security of Yumbel arrested for weapons law violation",
+      "date": "2026-07-03",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/02/detienen-a-jefe-de-seguridad-municipal-de-yumbel-por-infraccion-a-ley-de-armas-tenia-pistola-robada.shtml",
+      "family": "armas",
+      "slug": "yumbel"
     }
   ]
 }
