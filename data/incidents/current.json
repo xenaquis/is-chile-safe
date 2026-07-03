@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-02T19:20:51.313911Z",
+  "generated": "2026-07-03T02:37:35.792618Z",
   "window_days": 30,
   "incidents": [
     {
@@ -1756,6 +1756,32 @@
       "url": "https://www.latercera.com/nacional/noticia/caso-ojeda-preparacion-de-juicio-parte-con-nino-guerrero-muerto-maduro-preso-y-larry-changa-cada-vez-mas-cerca-de-chile/",
       "family": "vida",
       "slug": "santiago"
+    },
+    {
+      "id": "d189ec2bc4679205",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Audiencia preparatoria por crimen de Ronald Ojeda en Santiago",
+      "title_en": "Preparatory hearing for Ronald Ojeda murder in Santiago",
+      "date": "2026-07-02",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/judicial/casos-emblematicos/comenzo-audiencia-de-preparacion-del-juicio-oral-por-crimen-de-ronald/2026-07-02/164108.html",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "fc402a460a02cc63",
+      "cut": "12401",
+      "lat": -50.363054,
+      "lng": -73.72402,
+      "title_es": "Sobreseen a exfiscal de Puerto Natales indagado por mensaje a narco",
+      "title_en": "Former prosecutor of Puerto Natales acquitted in narco message case",
+      "date": "2026-07-02",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/por-muerte-de-testigo-clave-sobreseen-a-exfiscal-jefe-de-puerto-natales-que-fue-indagado-por-supuesto-mensaje-a-narco/",
+      "family": "drogas",
+      "slug": "natales"
     }
   ]
 }
