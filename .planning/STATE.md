@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 Phase: 25
 Plan: Not started
 Status: Ready to execute
-Last activity: 2026-07-03 - Completed quick task 260703-e83: P0 ranking-table bugs fixed (stale rank on year change, comparator 404 links filtered to enabled pairs, similar-communes table now truly sortable)
+Last activity: 2026-07-03 - Completed quick task 260703-fjh: news sources expanded 3→9 feeds (Google News RSS national+regional queries with source attribution, La Cuarta); 217 pipeline tests green
 
 ## Progress Bar
 
@@ -141,6 +141,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | 260620-hrh | Per-comuna year selector (whole-page, vanilla JS, default year static for SEO) + static SVG longitudinal charts (7 families + homicide/year), EN+ES | 2026-06-20 | ff57ba9 | [260620-hrh-anio-selector-graficos-longitudinales-po](./quick/260620-hrh-anio-selector-graficos-longitudinales-po/) |
 | 260620-cps | Align ranking/methodology copy to "casos policiales" (denuncias + detenciones flagrantes); fix stray "denuncias" mislabels that contradicted the documented measure, EN+ES | 2026-06-20 | 2feb81a | [260620-cps-alinear-copy-casos-policiales](./quick/260620-cps-alinear-copy-casos-policiales/) |
 | 260703-e83 | Fix P0 ranking-table bugs: stale rank column on year change, comparator links 404 (only enabled pairs), similar-communes table silently static (missing ratesByYear) | 2026-07-03 | 52d82e3 | [260703-e83-fix-p0-ranking-table-bugs-stale-rank-col](./quick/260703-e83-fix-p0-ranking-table-bugs-stale-rank-col/) |
+| 260703-fjh | Expand news sources: Google News RSS (1 national + 4 regional queries, source-tag attribution) + La Cuarta Arc feed; cross-outlet dedup verified by test | 2026-07-03 | 835e636 | [260703-fjh-expand-news-sources-add-google-news-rss-](./quick/260703-fjh-expand-news-sources-add-google-news-rss-/) |
 
 ## Session Continuity
 
