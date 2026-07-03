@@ -52,7 +52,7 @@ jobs:
 
       - name: Trigger Cloudflare Pages deploy
         if: steps.commit.outputs.changed == 'true' && env.CF_HOOK != ''
-        run: curl -X POST --fail --silent --show-error --retry 3 "$CF_HOOK"
+        run: curl -X POST --fail --silent --show-error --retry 5 --retry-all-errors "$CF_HOOK"
 
       - name: Alert via GitHub Issue on failure
         if: failure()
