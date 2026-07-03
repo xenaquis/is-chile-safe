@@ -1,16 +1,26 @@
 # Prompt para fix del pipeline de noticias (pegar tras /clear)
 
-> Prerequisito manual ANTES de correr esto: arreglar GitHub Billing
-> (Settings → Billing: payment method / spending limit de Actions).
-> El código no puede arreglar eso.
+> Decisión 2026-07-03: el repo se hará PÚBLICO (Actions gratis ilimitado) en vez
+> de arreglar billing. Cambiar visibilidad es acción manual del dueño:
+> GitHub → Settings → General → Danger Zone → Change visibility.
 
 ---
 
 Lee .planning/NEWS-CRON-DIAGNOSIS-260703.md (diagnóstico 2026-07-03: apagón del
-cron de noticias 06-23→06-30 por billing de GitHub Actions en repo privado,
-recuperado el 07-01; prod hoy fresco; repo local divergido 45↑/17↓). Ejecuta con
-/gsd:quick los fixes B del diagnóstico, en este orden (commits atómicos):
+cron de noticias 06-23→06-30 por cuota/billing de GitHub Actions en repo privado,
+recuperado el 07-01; prod hoy fresco; repo local divergido 45↑/17↓). Decisión ya
+tomada: el repo pasa a PÚBLICO (lo hace el dueño a mano) — no propongas
+alternativas de billing. Ejecuta con /gsd:quick los fixes, en este orden
+(commits atómicos):
 
+0. PRE-PUBLIC AUDIT (antes de que el dueño cambie la visibilidad): barrido de
+   secretos en TODO el historial y working tree — `git log -p` grep de patrones
+   (sk-, api_key, DEEPSEEK, token, password, CF_DEPLOY_HOOK, secret) + revisar
+   .env* no commiteados + pipeline/cache/ y .planning/ por credenciales o URLs
+   de deploy hook pegadas en docs. Reportar hallazgos ANTES de publicar; si hay
+   un secreto en el historial, detenerse y avisar (requeriría rotarlo). Los
+   GitHub Secrets del repo (DEEPSEEK_API_KEY, CF_DEPLOY_HOOK_URL) no se exponen
+   al publicar — eso está OK.
 1. SYNC + DEPLOY: `git pull --rebase origin master` (17 commits remotos, solo
    tocan data/ — si hay conflicto en current.json, gana la versión remota) y
    `git push` — esto publica la Fase 25 + datos frescos vía deploy-on-code.
