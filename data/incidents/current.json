@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-04T08:32:56.062373Z",
+  "generated": "2026-07-04T13:17:52.064033Z",
   "window_days": 30,
   "incidents": [
     {
@@ -3145,6 +3145,84 @@
       "date": "2026-07-04",
       "outlet": "Meganoticias",
       "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOenpCNkoyRmpaNUhmSXhOOHR4aFRtVk1BUEhFRG9meG1RY3dnemk4OFRSVTJCazNNaFJLT3RpNXNpdzRFSkhuVE5JSVF5anBaTjk0Mk1jZDVMeE5hQ3ZYV2J6cGhLSml2VzhYUV9zY05ZNGVvQ2VYU01aRDdCM1A1SC1VeHBfeXl1TnJ5WW5Xd2hMbURmUE5BNThPU2VkWjJ6REt6dHIzc1l6eUJ1RUlZc01pTkxzVUtNRUYzNDFCZFlDWnY4Mk84TlNB0gHPAUFVX3lxTE1zR2ozU3BKNjZPM1VjWUJXZVh5VG8xU2YxZDNYbWtCUzAtRW94NXQ0aUVhOXhMdFJJalVOdWYxWF9PUXFkVHhjV3RMUklRRzBFZk9MaDU1MEdxcDhpRVo2NEtlalNCSnpNckNZMXN6enhLUFFjZTVKMS10R3F0Q2dnSFBHTjNNaUpCSTI3eTZyWGx3dEl1RDNmNTlPSWhFZmhSZ25WaUlOQnNMOFg4cE80bmVRSUN3MUFUSmZCZlpFcGlJd3hpOEJKYlRHenRXVQ?oc=5",
+      "family": "incivilidades",
+      "slug": "coquimbo"
+    },
+    {
+      "id": "ef8ebde722edad95",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Altercado entre dos hombres culmina en asesinato número 40 en Bío Bío",
+      "title_en": "Altercation between two men ends in 40th murder in Bío Bío region",
+      "date": "2026-07-04",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/04/altercado-entre-dos-hombres-culmina-en-el-asesinato-numero-40-en-region-del-bio-bio-en-2026.shtml",
+      "family": "vida",
+      "slug": "concepcion"
+    },
+    {
+      "id": "0af61d32f10afa8c",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "El vacío familiar detrás de la tragedia de San Bernardo",
+      "title_en": "The family void behind the tragedy in San Bernardo",
+      "date": "2026-07-04",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/opinion/columnas-bbcl/2026/07/04/quien-cuida-a-los-que-matan-el-vacio-familiar-detras-de-la-tragedia.shtml",
+      "family": "robos_violentos",
+      "slug": "san-bernardo"
+    },
+    {
+      "id": "9dd606674d7e2f42",
+      "cut": "13117",
+      "lat": -33.45,
+      "lng": -70.72,
+      "title_es": "Operativo nocturno en barrio bohemio de Lo Prado deja varios detenidos",
+      "title_en": "Night operation in Lo Prado's bohemian neighborhood leaves several arrested",
+      "date": "2026-07-04",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/operativo-nocturno-de-carabineros-en-barrio-bohemio-de-lo-prado-deja/2026-07-04/074957.html",
+      "family": "drogas",
+      "slug": "lo-prado"
+    },
+    {
+      "id": "b212ef58c0d88082",
+      "cut": "13108",
+      "lat": -33.416252,
+      "lng": -70.664389,
+      "title_es": "Detenidos por disparos y porte ilegal de armas en Independencia",
+      "title_en": "Arrested for shots and illegal weapons in Independencia",
+      "date": "2026-07-04",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/por-disparos-en-la-via-publica-y-porte-ilegal-de-armas-carabineros-detiene-a-dos-personas-en-independencia/",
+      "family": "armas",
+      "slug": "independencia"
+    },
+    {
+      "id": "283a879a220e7aea",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Instituto Nacional suspende clases por amenaza de tiroteo",
+      "title_en": "National Institute suspends classes after shooting threat",
+      "date": "2026-07-02",
+      "outlet": "urgente.cl",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPb3o5RHBBZG1QN1R3UngxOG5xUHgyQ19MbUVDRUxLZEc2Zm1GbkVvRU9nTFM4d3dGaHlXeGhGcjFQSnVndUR0dGRFbW5YR1d1RmEyT0JzOEJpeDR2Vm83eVQzR1hxazFEdWF4ejc2SUIwY09OaGZhcWRrbDRBeVllNnhQU1FzU1N0UTJERU5n?oc=5",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "e7d722af0948fc44",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "Detienen a ex seremi de Salud por hacerse pasar por carabinero en Coquimbo",
+      "title_en": "Former Health Seremi arrested for impersonating police officer in Coquimbo",
+      "date": "2026-07-04",
+      "outlet": "Chilevisión",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOVGV6UHM0RnZ0a2hvZHFIcnF1S3JoT1dNUmxLd3NkWFlpbDNNYVFsUDU5bnZ6Zjh4MWw3YmRfb1laRUFQRlZ2SGFobDlCLXpPdXFJT2JKazBGRkREYkhCWWJlSUhzdmpfMlR0WGc2YlczUXFISERvRWNzRVhHa2l1NmpRU3NKQmt0anZWdEEwY1NKOHhFVE1Rb1BqaGFxRmdFZXZjcVRHUE81ZjFIQ1ZWcVRDcWJLVkJVU3RVeTV3?oc=5",
       "family": "incivilidades",
       "slug": "coquimbo"
     }
