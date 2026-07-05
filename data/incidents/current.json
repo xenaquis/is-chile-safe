@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-04T19:08:16.616524Z",
+  "generated": "2026-07-05T02:46:11.525647Z",
   "window_days": 30,
   "incidents": [
     {
@@ -3446,6 +3446,58 @@
       "url": "https://news.google.com/rss/articles/CBMilgJBVV95cUxOOWl1bmtvVlVKWU52YjluYWJWbnl4RS1ZX0dQN2pVMDJtbnI5MEZGbzNvNlJjWGw3dzBWVjNXcmxJVTZOOEVXLUhXNExXVXJjbWJLN2I5d3YwWkI1bzQzWmYtSElmclpackh0ZlYxSUxHeDhmR1BSNS1QSTA0bHZiclI5OEhTR2x5ZjdQa0FGWXhBcEIxNmhSeFUtbVk3QnI1ekxUYWJMVGdnRk85aG03bUo3S3c3aVVmSDBNc0RzWWZPc1JFOWR1c3FMZFgxaXprdnVuaGktdnYtUmtIX0ROcGVGYjl4YjM1MERWaDYxNFFDaGFxVXBlTTJJalRqQ211XzhSdlVudkszYmtNeDdYUWRTbUl0UQ?oc=5",
       "family": "robos_violentos",
       "slug": "temuco"
+    },
+    {
+      "id": "c7f14681f7013eee",
+      "cut": "10102",
+      "lat": -41.633202,
+      "lng": -73.212024,
+      "title_es": "Detienen a cinco menores en Calbuco por porte de armas e intento de atropello a carabineros",
+      "title_en": "Five minors arrested in Calbuco for carrying weapons and attempting to run over police officers",
+      "date": "2026-07-04",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/detienen-a-cinco-menores-tras-intentar-atropellar-a-carabineros/2026-07-04/172357.html",
+      "family": "vida",
+      "slug": "calbuco"
+    },
+    {
+      "id": "b039d948f85aa9e8",
+      "cut": "9202",
+      "lat": -38.041829,
+      "lng": -72.099665,
+      "title_es": "Araucanía: Conductor detenido por transportar más de 45 kilos de marihuana",
+      "title_en": "Araucanía: Driver arrested for transporting over 45 kilos of marijuana",
+      "date": "2026-07-04",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/araucania-conductor-fue-detenido-por-transportar-mas-de-45-kilos-de/2026-07-04/155414.html",
+      "family": "drogas",
+      "slug": "collipulli"
+    },
+    {
+      "id": "faa8b17e1a92e742",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Delincuentes armados maniataron a madre e hijos en robo en Maipú",
+      "title_en": "Armed criminals tied up mother and children during robbery in Maipú",
+      "date": "2026-07-04",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/maipu-delincuentes-armados-maniataron-a-madre-e-hijos-durante-robo-a-su/2026-07-04/105213.html",
+      "family": "robos_violentos",
+      "slug": "maipu"
+    },
+    {
+      "id": "dfca01c27fed0932",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Exseremi de Salud queda en prisión preventiva con caución por hacerse pasar por carabinero en La Serena",
+      "title_en": "Former Health Seremi placed in preventive detention with bail for impersonating a police officer in La Serena",
+      "date": "2026-07-04",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/exseremi-de-salud-queda-en-prision-preventiva-con-caucion-tras-hacerse-pasar-por-carabinero-en-la-serena/",
+      "family": "armas",
+      "slug": "la-serena"
     }
   ]
 }
