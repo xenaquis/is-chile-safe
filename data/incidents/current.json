@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-05T08:50:31.976924Z",
+  "generated": "2026-07-05T13:23:29.873692Z",
   "window_days": 30,
   "incidents": [
     {
@@ -3667,6 +3667,19 @@
       "url": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxPMF9PZVNPbGdQLXZRYVZ1YTh4TldVM0RnVnhxa0c3ZldKYTFyRk1Kdl9aYXlYV1NOc1BVcUM0T1AtV2h3d3VCMEFzUG5GckEyWlYxOXBka0hRMmJab3V4VWo0YUlONlRSSHFIRk15U21BQm9DOXpJbi1JaHVsSjVYVzdnNGpsUy1pSzI1SDR0NGNZOFNacl9sU2pPTTVMVGlDd19VV3RoTGpva2k2Yk94NEZnekdsREZZY3pVYi1JeGhfd2huampPaS1PVFRkaGdqbnMya19rZHN4dnl3alF3RXcwdjN5NHQxWG1XT0QtY3lrLW1wYnk3dFV2UFF2VWs?oc=5",
       "family": "robos_violentos",
       "slug": "temuco"
+    },
+    {
+      "id": "d4d51431fae4a57f",
+      "cut": "13120",
+      "lat": -33.446981,
+      "lng": -70.549631,
+      "title_es": "Cuatro sujetos roban vehículo a mujer en Ñuñoa",
+      "title_en": "Four individuals rob a woman's vehicle in Ñuñoa",
+      "date": "2026-07-05",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/cuatro-sujetos-roban-vehiculo-a-mujer-tras-abordarla-en-nunoa/",
+      "family": "robos_violentos",
+      "slug": "nunoa"
     }
   ]
 }
