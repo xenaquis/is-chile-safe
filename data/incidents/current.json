@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-06T02:51:44.200883Z",
+  "generated": "2026-07-06T10:12:11.776951Z",
   "window_days": 30,
   "incidents": [
     {
@@ -4070,6 +4070,32 @@
       "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNVnhLaUkwNmlzeG5UMW9QZWlmVjU0Z280YjhWR2hmcHh6RFAtUWowbk1jejZ5bXhfaU9ReHNzZkVJS2FYSEh3UWM2X3VEZy1xWEVFeks2WmZwUTJ0REhnMnc4WFRJRzlxQTFvQ2NSS21yaVJhVjg5a2Y3d2NOLTRKSXVCOUpldG5GTFlCUFdzZ2d2dXVDZTJ2cVptTHA3VVkzZ3R2NjlqRQ?oc=5",
       "family": "propiedad",
       "slug": "la-serena"
+    },
+    {
+      "id": "55b669460fcb25de",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Detenidos cuatro sujetos por robo con violencia en Iquique",
+      "title_en": "Four suspects arrested for violent robbery in Iquique",
+      "date": "2026-07-05",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNZVhYMmtYNWUwT0otbGJPVkxZcTFlSTJjcEhnam12ZTdSb21ZRExOOElMTzVmY3F2TG5yYVZDR2s0aEE2MWdScE02ampxZWpmRnlMMHBkVTlxUmxfcGZmNmhFeUNvVDhvSWxBLVBoNTRueW5PcTBJMWo4bWNzWGlDQm9LM3h2SXhVcFB5c3JiSTdlMVZ6eXozMkpoR2NPWTBKRnZhSDZnay0?oc=5",
+      "family": "robos_violentos",
+      "slug": "iquique"
+    },
+    {
+      "id": "fcae7d02ca8f4d5c",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Delincuentes armados maniataron a madre e hijos en robo en Maipú",
+      "title_en": "Armed criminals tied up mother and children during robbery in Maipú",
+      "date": "2026-07-04",
+      "outlet": "Cooperativa",
+      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQT2xCQ2dzaXVQS2lLeC1CaEJZWlVxRFRsczN1TnJhZEtQZ1l1LWd1VE5NMkp4VXdOeEc1QllNbW1iT2dRSXdjYzlIRmdQQkF6Q0xibFBkbkNOYVNiVnRiM01qNUJTdnl1VU1DdTlOd1I0aFI2Q2plZkk4Y2EyYTJXc3RtNmhvMUdyOVRLc3Vha1J2blhKaWlpa3VpQzlqcDkwSmxNTjhVbndzd0k3UEJIWUtPV3oxVnZxUDd1VGU1YzZYSTQxLTVvZ0JSaldZcVBTSUdxVEVsNG5mdWlKc0J2NnN1VE7SAYwBQVVfeXFMUFBpY0hVSm1zNjdzZk9LTUpoUGd0bmdDdjlBQXJ0NVRHOUNGSVVUSG5PSkpndERkQ1I4QTBZX25lS1liQjhZcmQyV2k3bWhMMzdtUE9SbVpuOGZpMWRRTXgtalFQNk1ncjdXaHR0QUlzbjJSNGdnYUtzb1dteTN0SmFmemdYeWRyNElaQ3E?oc=5",
+      "family": "robos_violentos",
+      "slug": "maipu"
     }
   ]
 }
