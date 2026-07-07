@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-07T02:45:49.085113Z",
+  "generated": "2026-07-07T09:36:08.785855Z",
   "window_days": 30,
   "incidents": [
     {
@@ -4642,6 +4642,45 @@
       "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPdGJmWEEzTXZkTkRNNGRBZEJWUXlaQ2ZXcDVpT2JJblpzT0FjUlFfb2FIMXFKY1JLdVRCaEUtQ21tbGVYNGdhNnVHSG55QXR1OUl0ZHlLY2x2RW1NRHd3emdSMXQ4cjY5MmQyTmRnd2JUck1NRS0wbEdXTmh4WVlXU29wUHZQclZPbXZUejFveGl1VEVLUWF3?oc=5",
       "family": "robos_violentos",
       "slug": "la-serena"
+    },
+    {
+      "id": "54a7ddc2250cc6f9",
+      "cut": "5601",
+      "lat": -33.662085,
+      "lng": -71.493518,
+      "title_es": "Demolida casi totalidad de viviendas en megatoma de San Antonio",
+      "title_en": "Almost all houses demolished in San Antonio's mega-squat",
+      "date": "2026-07-07",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/vivienda/tomas-de-terrenos/demolida-casi-la-totalidad-de-las-viviendas-en-la-megatoma-de-san-antonio/2026-07-06/233125.html",
+      "family": "propiedad",
+      "slug": "san-antonio"
+    },
+    {
+      "id": "1f2814e4fada087f",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Menores de 13, 15 y 17 asaltan tienda Entel en Mall Arauco Maipú",
+      "title_en": "Minors aged 13, 15 and 17 rob Entel store at Mall Arauco Maipú",
+      "date": "2026-07-07",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/adolescentes-de-13-15-y-17-asaltaron-armados-una-tienda-en-el-mall/2026-07-06/224632.html",
+      "family": "robos_violentos",
+      "slug": "maipu"
+    },
+    {
+      "id": "a7f140201c279352",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "Sujeto en prisión preventiva por atacar a su hermano con cuchillo y arrancarle un dedo en Arica",
+      "title_en": "Suspect in pretrial detention for attacking his brother with a knife and biting off his finger in Arica",
+      "date": "2026-07-07",
+      "outlet": "Puranoticia.cl",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNVUJqbHU0M0pheUxhVHRVdm5MbmVNUG9wOGpiRlRpZFZNMmhMeWtMYlh0MFlzd29SdVlrdWt6TEdnaTNaS0RTeXphSE5UZDUwLWZZRFdDUGRwdW9lOGY1LWs4TkpoLUc5Qkp2OElIY0NmS3pFOVhtX3lWMVdlTGtNSUNlUHZPRXRkeE5jQlI5TzhOZTdQN0pETUxrel9kZnhuVDM5d3BuQ3J6OFI3cDBHdQ?oc=5",
+      "family": "vida",
+      "slug": "arica"
     }
   ]
 }
