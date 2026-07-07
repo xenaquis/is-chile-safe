@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-07T09:36:08.785855Z",
+  "generated": "2026-07-07T14:25:09.814659Z",
   "window_days": 30,
   "incidents": [
     {
@@ -4681,6 +4681,123 @@
       "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNVUJqbHU0M0pheUxhVHRVdm5MbmVNUG9wOGpiRlRpZFZNMmhMeWtMYlh0MFlzd29SdVlrdWt6TEdnaTNaS0RTeXphSE5UZDUwLWZZRFdDUGRwdW9lOGY1LWs4TkpoLUc5Qkp2OElIY0NmS3pFOVhtX3lWMVdlTGtNSUNlUHZPRXRkeE5jQlI5TzhOZTdQN0pETUxrel9kZnhuVDM5d3BuQ3J6OFI3cDBHdQ?oc=5",
       "family": "vida",
       "slug": "arica"
+    },
+    {
+      "id": "7507d70503519aa4",
+      "cut": "13105",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Robo de medidor termina con fuga de agua y casa inundada en El Bosque",
+      "title_en": "Water meter theft leads to leak and partial house flooding in El Bosque",
+      "date": "2026-07-07",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/07/robo-de-medidor-termina-con-fuga-de-agua-y-casa-parcialmente-inundada-en-el-bosque.shtml",
+      "family": "propiedad",
+      "slug": "el-bosque"
+    },
+    {
+      "id": "ea2f8e0a532b4ff7",
+      "cut": "13105",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Robo de medidor genera fuga de agua en El Bosque",
+      "title_en": "Theft of water meter causes water leak in El Bosque",
+      "date": "2026-07-07",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/robo-de-medidor-genero-profusa-fuga-de-agua-en-el-bosque/2026-07-07/072805.html",
+      "family": "propiedad",
+      "slug": "el-bosque"
+    },
+    {
+      "id": "80b54906b403c4b9",
+      "cut": "13104",
+      "lat": -33.385523,
+      "lng": -70.693079,
+      "title_es": "Detenidos con más de 3 kilos de droga en Conchalí",
+      "title_en": "Two arrested with over 3 kilos of drugs in Conchalí",
+      "date": "2026-07-07",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/dos-sujetos-detenidos-y-mas-de-tres-kilos-de-droga-decomisada-en-conchali/",
+      "family": "drogas",
+      "slug": "conchali"
+    },
+    {
+      "id": "17872f6e30f0d77d",
+      "cut": "5603",
+      "lat": -33.525999,
+      "lng": -71.422614,
+      "title_es": "Cuatro carabineros dados de baja por hurtar cigarrillos de contrabando en Cartagena",
+      "title_en": "Four police officers discharged for stealing contraband cigarettes in Cartagena",
+      "date": "2026-07-07",
+      "outlet": "LaCuarta",
+      "url": "https://www.lacuarta.com/chile/noticia/dan-de-baja-a-cuatro-carabineros-por-hurtar-cigarrillos-de-contrabando-tras-volcamiento-de-un-camion-en-cartagena/",
+      "family": "propiedad",
+      "slug": "cartagena"
+    },
+    {
+      "id": "4c52702b44ef13bf",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "Apuñala y amputa dedo a su hermano en Arica: formalizado por homicidio simple",
+      "title_en": "Stabs and amputates finger of his brother in Arica: charged with simple homicide",
+      "date": "2026-07-07",
+      "outlet": "Epicentro Chile",
+      "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOc1Y5QVNzMWdTdDNWajRlYlJjV0NseDVmWXJSWkdubkZrWmRSdjdndldNcVVMa1A0S3Y3M2dDMXBLNktvNVVPNkY5SlJLWS1WcmVlMUtCWHlPaUFkRDVlU3hMSUpjd2kzTGxDRXo0YkF6ZmswVDJWbUNmZXBPMHlEVF9xWmZmSFVHVldzbGhsSWFWaV9WdTJQd0FsTnJUQnhNMzN0WWlfeWxRcUllR0sxOWJsSFduNVJWbnlKb3NiaVc0dFRWcWpzeWhhUzR4Z1hXTW9Oa003c0kzenFMZWlWbm4xYw?oc=5",
+      "family": "vida",
+      "slug": "arica"
+    },
+    {
+      "id": "1d9a417af5330e43",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Persecución en altura termina con detenido y camionetas recuperadas en Antofagasta",
+      "title_en": "High-altitude chase ends with arrest and two trucks recovered in Antofagasta",
+      "date": "2026-07-06",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQTTdWeGd4NDZ3U2xrOF95eDNldThkT0VjM1hmN2dXM1YxbzJpZjl3cUxJUWNCNTYyUG9qUmc2a1o4NDVGWmpwVUlJdHZYZkc1WTZJcW52ZG1zcnJMWHlYaXlKMG50TnRPcnctVFpmc3gwWHN3czM4RG4tYVI4NXoxVjhPeEtpRXlsSVZZVDZxTmVLVU5ENVYzOXBrZVRyWF9Sc2c4ZUlfUQ?oc=5",
+      "family": "robos_violentos",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "7fa53b44ade855f1",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Prision preventiva para cuatro delincuentes tras violento robo en Bajo Molle",
+      "title_en": "Preventive detention for four criminals after violent robbery in Bajo Molle",
+      "date": "2026-07-07",
+      "outlet": "Vilas Radio",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQbHREWGU5NE1RYXpaZWIzVk1OZkc5eFduejFxR1dWRzRqdFpUSDNCMXpRd2tMSFVMbW5KbmlzNUctODVsUUcyTDRtakZzVzktSHV3amFKNTNaYXU1Z1NBMGt0UzN5elVSQmJTNGRSQy1UNWJBcjBQVndIdkZhZG1KZnVwajIzUHpZSWw4aERvMWNGVXhqU2d1N2UwTWhJSFdiM0E3aGtLRDI4WnhtR0FNSExrbVdCTm5RclFEaEVR?oc=5",
+      "family": "robos_violentos",
+      "slug": "iquique"
+    },
+    {
+      "id": "624f6cf184f36481",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Detienen a adolescente por robo de motocicleta en La Serena",
+      "title_en": "Teenager arrested for motorcycle robbery in La Serena",
+      "date": "2026-07-07",
+      "outlet": "Mi Radio",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOUzdHaFI4cnk4TldQUzJCNGsxbGxLTnBiZGRHMFJ4VnBnQnVRTTlxTFBNR2U3dDdJbzBYWHpxLURvNVdwYmh4ZjBIZk5MVDhMS1dwNjZBTzZnU3doT0V3S1V3NEtwLWRBc2NiXy1QS2E3RTk1anQzOHRiSkZITkVKdnZmazI4SFVQMlBHbA?oc=5",
+      "family": "robos_violentos",
+      "slug": "la-serena"
+    },
+    {
+      "id": "6a8136e30277e2d2",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Condenan a 10 años de cárcel por violento asalto a estudiante en Temuco",
+      "title_en": "Sentenced to 10 years in prison for violent assault on student in Temuco",
+      "date": "2026-07-05",
+      "outlet": "tiempo21.cl",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNdkYwYy1JQ2VnMDUzY1NmdWNqQ21hVHA5RVRLZlF0eElUZUlmM3FEWGJaN1JhSWNCNDB4bGY3WFdoem5hUFBSR1FHd1Z0RlEtVUxIYWlWc3Vra1ZPeElOM1djeWpWUTJyWXNWTDF3UVNlYUJlVGdHUklIaVlvd1RnS2hJWHpneFdTM2dndUFlcXU5N2xHQThpT2VxNDRhVloxdnhCa2NEOA?oc=5",
+      "family": "robos_violentos",
+      "slug": "temuco"
     }
   ]
 }
