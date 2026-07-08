@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-08T08:23:38.598090Z",
+  "generated": "2026-07-08T13:55:32.469329Z",
   "window_days": 30,
   "incidents": [
     {
@@ -5370,6 +5370,71 @@
       "url": "https://news.google.com/rss/articles/CBMiqwJBVV95cUxPbGMtM2dQVlJPeDl3Wl9LR3dEbUlyYlZydFVFQmF1ZnU5U1prUGZ1U19jcHBKSHBhQVo2ZnFQZk40b195bnVYVkFYNkZ5RUlvcDdmOWZHVWtGWkdUSzJRUHhELUxqRGxJd0hJOG51X1ZjeUdXQjRVd0RDNTJqOWhvckxZYjByeUJlVWxYaDFsVW5BczlLMTBsNy0tTjF5LUhjU284MlNtajdUT1FWTjZRVTIzRjZqRDR1eThvYUJ2ZjFSU042WGI4c1RxeVBydVRObXJiNE9WeGg1bGtiaVB3WjBsVXlRVmRNWjY5czlidWNONTBCckoydmFIN05WTFhPOFZETWo2bWlXbnZZRlJwamVFOEJkckU1RlpRbHJ5NGJNbHNZRmt4TlZfaw?oc=5",
       "family": "drogas",
       "slug": "temuco"
+    },
+    {
+      "id": "cfb53061d79a44cf",
+      "cut": "13105",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Ataque a vivienda en El Bosque deja a mujer en riesgo vital",
+      "title_en": "Attack on home in El Bosque leaves woman in critical condition",
+      "date": "2026-07-08",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/ataque-contra-vivienda-en-el-bosque-dejo-a-mujer-en-riesgo-vital/2026-07-08/073635.html",
+      "family": "vida",
+      "slug": "el-bosque"
+    },
+    {
+      "id": "b7851c970bfb4d68",
+      "cut": "13105",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Disparan contra vivienda en El Bosque: mujer en riesgo vital",
+      "title_en": "Shots fired at home in El Bosque: woman in critical condition",
+      "date": "2026-07-08",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/desconocidos-disparan-contra-vivienda-en-el-bosque-mujer-de-59-anos-se-encuentra-en-riesgo-vital/",
+      "family": "vida",
+      "slug": "el-bosque"
+    },
+    {
+      "id": "53724fd3e0b9b28e",
+      "cut": "13114",
+      "lat": -33.400888,
+      "lng": -70.506596,
+      "title_es": "Detective de la PDI se parapeta en Las Condes tras denunciar malas prácticas",
+      "title_en": "PDI detective barricades himself in Las Condes after denouncing malpractice",
+      "date": "2026-07-08",
+      "outlet": "LaCuarta",
+      "url": "https://www.lacuarta.com/chile/noticia/me-van-a-matar-por-favor-ayudenme-detective-de-la-pdi-denuncia-malas-practicas-en-la-institucion-y-se-parapeto-en-las-condes/",
+      "family": "vida",
+      "slug": "las-condes"
+    },
+    {
+      "id": "58bc53c8e3cef867",
+      "cut": "5101",
+      "lat": -33.116644,
+      "lng": -71.575283,
+      "title_es": "Asesinado de un disparo en la espalda en Playa Ancha, Valparaíso",
+      "title_en": "Man murdered with a shot in the back in Playa Ancha, Valparaíso",
+      "date": "2026-07-07",
+      "outlet": "BioBioChile",
+      "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQTmdpZVo4YmI2YnVzN1ZEMDhBWTAxYnJFVU9xZF9ndnBiMlpadjlRSGFCdG9IRGZHWVRTekkydUpQMTBzMWt6Umh1Nl9icnRrWmdSVlBmY2s5M2lPTmV3bnlFa2hvSGFiOGoyWkl5UzMtcUl5Nl9BVktqNFd0S29oaEFzUkVvQmZnRGdHdHRMN0xBQkstUFJ1MzZiakp2UFpwWDY0ckVES3dxbDY4bDNaT1pCSzB3WFZqOEtPY25uTmRjXzNqNGxvY3RJRXN1Q1hwNnNJTkMxbjVfdTBEWnpQZVJoRUNKb3N3V21tbEoxOFA?oc=5",
+      "family": "vida",
+      "slug": "valparaiso"
+    },
+    {
+      "id": "8097a5c3af79a53d",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Detienen a pareja tras robo en local comercial de La Serena",
+      "title_en": "Couple arrested after robbery at commercial premises in La Serena",
+      "date": "2026-07-08",
+      "outlet": "diarioeldia.cl",
+      "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQeUZQY0NQblBjZ0d6dl9jbmtnYmdTY1o5aVFwSDNZNnVacVFyU2ZfcnYyRjFqck1Ld1hsdjNTdWxKaTlwVDlIY0ZfbURiTTFTajg2Z2x1NmwzMm82NW9ackdaWVMyZmJnekxnQndLWEhudTljeWdUa3JTVFdjTUdtd2Zob1p2eDAxSGxtMjIzNEFXdGxrUVN6TGpVR2dWbUdrbGx6VURhRnFhMmpsREFPNVRaM1F1SnZ4MV9uYXUzOTE0NjFpVGJiV3YwNW5EdWd6VGFtS2h5T0xCMFY4bmhMa0pn?oc=5",
+      "family": "robos_violentos",
+      "slug": "la-serena"
     }
   ]
 }
