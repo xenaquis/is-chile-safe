@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-09T09:35:59.293646Z",
+  "generated": "2026-07-09T14:51:08.817256Z",
   "window_days": 30,
   "incidents": [
     {
@@ -5942,6 +5942,58 @@
       "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOcEJlNm5RZU53RFdiTGNRRjczalpjM2M5bVd1VE50aHpjVzRoS0tveXZDWU4wczdpVmNHMXpvMGhtNUVQbmI3bmcyYTdFVGNQa21iN2NaZ0Q1Ym9PZXlyLXVnUkpuMWM1Uk9Ga2FfMTR2RElnYVZyeHZXeTlOSWFFYkRqV0pJb3JsUEp2OElkQnJCOUw0TTEyM2ZLd1c4WWVyLTBXTmlLWlZLRElBb3J1YjQtT2tQbEdtcDI3V01faTVtUQ?oc=5",
       "family": "armas",
       "slug": "la-serena"
+    },
+    {
+      "id": "cc61b62a8f24837c",
+      "cut": "13114",
+      "lat": -33.400888,
+      "lng": -70.506596,
+      "title_es": "Subcomisario PDI herido tras escapar de resguardo de Carabineros en Las Condes",
+      "title_en": "PDI sub-commissioner injured after escaping police protection in Las Condes",
+      "date": "2026-07-09",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/09/escapo-del-resguardo-de-carabineros-y-se-hirio-con-una-ventana-asi-termino-herido-el-subcomisario-pdi.shtml",
+      "family": "vida",
+      "slug": "las-condes"
+    },
+    {
+      "id": "82f7f50a0497c791",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Asesinato a puñaladas en Alameda",
+      "title_en": "Stabbing murder on Alameda",
+      "date": "2026-07-09",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/sujeto-fue-asesinado-de-una-punalada-en-plena-alameda/2026-07-09/082147.html",
+      "family": "vida",
+      "slug": "estacion-central"
+    },
+    {
+      "id": "3b3155c1af6da867",
+      "cut": "13114",
+      "lat": -33.400888,
+      "lng": -70.506596,
+      "title_es": "Funcionario PDI se autoinfiere corte en el cuello tras denunciar amenazas",
+      "title_en": "PDI officer self-inflicts cut on neck after reporting threats",
+      "date": "2026-07-09",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/funcionario-pdi-que-habia-denunciado-amenazas-se-autoinfirio-corte-en-el/2026-07-09/080855.html",
+      "family": "vida",
+      "slug": "las-condes"
+    },
+    {
+      "id": "b3016ab2c6a7791d",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Hombre muere apuñalado en riña en Estación Central",
+      "title_en": "Man dies after being stabbed in fight in Estación Central",
+      "date": "2026-07-09",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/hombre-muere-tras-ser-apunalado-en-estacion-central-habria-tenido-una-rina-con-otro-sujeto/",
+      "family": "vida",
+      "slug": "estacion-central"
     }
   ]
 }
