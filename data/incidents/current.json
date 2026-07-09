@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-09T02:38:33.735770Z",
+  "generated": "2026-07-09T09:35:59.293646Z",
   "window_days": 30,
   "incidents": [
     {
@@ -5864,6 +5864,84 @@
       "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPUHRNZlFnS2V3N0FWZjF4YWlDcTZnU01xeHVqR0Jvcy1naGNnOVd3WTkzUXVoYzZLWWdUZkQ5blk3V1ZkNVByV1JlcUw0TkFpaTdLQ3pMZ05ZVWRhWWZXektpYVlJTFRkUmRYMk0xRzRQbEtGWFk4Z1llNUU2bF84UUVqelpnTnRZWjRBNkduT3BBZlNHS0VHcmZPNGNXcWMwTlpkTW56RHdSNWpPczA0RW5vX0pfRmowSUVKSWhudkVMSnJEWUJkY1RrNkxndHdOcHfSAdIBQVVfeXFMT1B0TWZRZ0tldzdBVmYxeGFpQ3E2Z1NNcXh1akdCb3MtZ2hjZzlXd1k5M1F1aGM2S1lnVGZEOW5ZN1dWZDVQcldSZXFMNE5BaWk3S0N6TGdOWVVkYVlmV3pLaWFZSUxUZFJkWDJNMUc0UGxLRlhZOGdZZTVFNmxfOFFFanpaZ050WVo0QTZHbk9wQWZTR0tFR3JmTzRjV3FjME5aZE1uekR3UjVqT3MwNEVub19KX0ZqMElFSklobnZFTEpyRFlCZGNUazZMZ3R3TnB3?oc=5",
       "family": "robos_violentos",
       "slug": "victoria"
+    },
+    {
+      "id": "49508806a1165578",
+      "cut": "13114",
+      "lat": -33.400888,
+      "lng": -70.506596,
+      "title_es": "Arrau exige rigurosidad por denuncias de funcionario PDI atrincherado en Las Condes",
+      "title_en": "Minister Arrau demands rigor over complaints of PDI officer barricaded in Las Condes",
+      "date": "2026-07-09",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/07/09/ministro-arrau-exige-maxima-rigurosidad-por-denuncias-de-funcionario-pdi-que-se-parapeto-en-las-condes.shtml",
+      "family": "vida",
+      "slug": "las-condes"
+    },
+    {
+      "id": "599c125f3e149b59",
+      "cut": "13201",
+      "lat": -33.585262,
+      "lng": -70.549631,
+      "title_es": "Hallan muerta a joven que denunció violencia intrafamiliar en Puente Alto",
+      "title_en": "Young woman found dead after reporting domestic violence in Puente Alto",
+      "date": "2026-07-09",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/femicidio/hallaron-muerta-a-una-joven-que-de-madrugada-llamo-al-133-denunciando/2026-07-08/224008.html",
+      "family": "vif",
+      "slug": "puente-alto"
+    },
+    {
+      "id": "9676f60fd7e1957a",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Incautan 500 mil láminas y 300 álbumes falsificados del Mundial",
+      "title_en": "Seize 500 thousand sheets and 300 fake World Cup albums",
+      "date": "2026-07-09",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/carabineros-incauta-500-mil-laminas-y-300-albumes-falsificados-del-mundial-avaluo-supera-los-93-millones/",
+      "family": "propiedad",
+      "slug": "santiago"
+    },
+    {
+      "id": "bf941e4fec9d7f2b",
+      "cut": "13201",
+      "lat": -33.585262,
+      "lng": -70.549631,
+      "title_es": "Hallan cuerpo de mujer de 19 años en Puente Alto: indagan presunto femicidio",
+      "title_en": "Body of 19-year-old woman found in Puente Alto: alleged femicide investigated",
+      "date": "2026-07-09",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/hallan-cuerpo-de-mujer-de-19-anos-en-plena-via-publica-de-puente-alto-indagan-presunto-femicidio/",
+      "family": "vif",
+      "slug": "puente-alto"
+    },
+    {
+      "id": "e8c4bddbd7dbffce",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Cae en Santiago el prófugo más buscado de Bogotá tras balacera con Carabineros",
+      "title_en": "Most wanted fugitive from Bogotá captured in Santiago after shootout with Carabineros",
+      "date": "2026-07-09",
+      "outlet": "Teletrece",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNeWp0YXdienRvZ3U1cDJ2amtTWC1wYUpaenNsRkRRemljWFd6eEg4ZF9lR1M3ZmVhQlpBODZCTVVOT0NjaXltazNVdllIMUNnOGw4OFd1d1dzelhUdnVqa0ZJNXRXNTkzZ3haNGdPakZTNEhPb1IxalctMnRWSTRlclhYZkR4RjZ6VGNQaHFONnlER2tNVHRjU09EZEZZMUlPeGRBemNCb19HdlFnbi1iQkx2ZklDZGpjWUpnOEdkY1hqMmNMMmfSAcYBQVVfeXFMTXlqdGF3Ynp0b2d1NXAydmprU1gtcGFKWnpzbEZEUXppY1hXenhIOGRfZUdTN2ZlYUJaQTg2Qk1VTk9DY2l5bWszVXZZSDFDZzhsODhXdXdXc3pYVHZ1amtGSTV0VzU5M2d4WjRnT2pGUzRIT29SMWpXLTJ0Vkk0ZXJYWGZEeEY2elRjUGhxTjZ5REdrTVR0Y1NPRGRGWTFJT3hkQXpjQm9fR3ZRZ24tYkJMdmZJQ2RqY1lKZzhHZGNYajJjTDJn?oc=5",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "1f704c3a394b2c96",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Formalizados por delitos de ley de control de armas en La Serena",
+      "title_en": "Formalized for crimes under weapons control law in La Serena",
+      "date": "2026-07-09",
+      "outlet": "fiscaliadechile.cl",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOcEJlNm5RZU53RFdiTGNRRjczalpjM2M5bVd1VE50aHpjVzRoS0tveXZDWU4wczdpVmNHMXpvMGhtNUVQbmI3bmcyYTdFVGNQa21iN2NaZ0Q1Ym9PZXlyLXVnUkpuMWM1Uk9Ga2FfMTR2RElnYVZyeHZXeTlOSWFFYkRqV0pJb3JsUEp2OElkQnJCOUw0TTEyM2ZLd1c4WWVyLTBXTmlLWlZLRElBb3J1YjQtT2tQbEdtcDI3V01faTVtUQ?oc=5",
+      "family": "armas",
+      "slug": "la-serena"
     }
   ]
 }
