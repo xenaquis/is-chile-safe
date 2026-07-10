@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-10T09:29:18.119502Z",
+  "generated": "2026-07-10T14:15:30.368658Z",
   "window_days": 30,
   "incidents": [
     {
@@ -6514,6 +6514,123 @@
       "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPQVRna2M5NkhheWJJVDEwTlVqTjBtSGpxajk3amJjY2FlcUVWY2hmdjJRdFlSTFdvOWZyRkJSU1hDakxVN0hzRHo2Rnd0RGcyYVRxSEgtV1l1ZUlDU1BQWGl1Wl81ejVEUW1pZUU1a1JVTjZtdDl3NmhaRnhKdmJQU1k1V0pzZXQ5dEYwVFJyc3RVUDRKNTIzcVcyNGtfa2VteWMwMU9fTGFIUWYtb1JKWndNTHRjZ9IBtgFBVV95cUxPQVRna2M5NkhheWJJVDEwTlVqTjBtSGpxajk3amJjY2FlcUVWY2hmdjJRdFlSTFdvOWZyRkJSU1hDakxVN0hzRHo2Rnd0RGcyYVRxSEgtV1l1ZUlDU1BQWGl1Wl81ejVEUW1pZUU1a1JVTjZtdDl3NmhaRnhKdmJQU1k1V0pzZXQ5dEYwVFJyc3RVUDRKNTIzcVcyNGtfa2VteWMwMU9fTGFIUWYtb1JKWndNTHRjZw?oc=5",
       "family": "vida",
       "slug": "san-bernardo"
+    },
+    {
+      "id": "686bdba4ab888fa3",
+      "cut": "5101",
+      "lat": -33.116644,
+      "lng": -71.575283,
+      "title_es": "Alza en robos de medidores de agua y gas en Valparaíso y Viña del Mar",
+      "title_en": "Increase in theft of water and gas meters in Valparaíso and Viña del Mar",
+      "date": "2026-07-10",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-valparaiso/2026/07/10/reportan-alza-en-robo-de-medidores-de-agua-y-gas-en-valparaiso-y-vina-del-mar.shtml",
+      "family": "propiedad",
+      "slug": "valparaiso"
+    },
+    {
+      "id": "9ef4c2fd4aa1f02e",
+      "cut": "9115",
+      "lat": -39.271383,
+      "lng": -71.796464,
+      "title_es": "Formalizan otra vez a dueña de hogar de ancianos en Pucón por maltrato",
+      "title_en": "Nursing home owner in Pucón formalized again for mistreatment of resident",
+      "date": "2026-07-10",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/10/formalizar-otra-vez-a-duena-de-hogar-de-ancianos-en-pucon-por-maltrato-y-trato-degradante-a-residente.shtml",
+      "family": "vida",
+      "slug": "pucon"
+    },
+    {
+      "id": "993267cfe350b753",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Detienen a extranjero por apuñalar y morder a adolescente para robarle celular en Estación Central",
+      "title_en": "Foreigner arrested for stabbing and biting teenager to steal cellphone in Estación Central",
+      "date": "2026-07-10",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/10/detienen-a-extranjero-que-apunalo-y-mordio-a-adolescente-para-robarle-celular-en-estacion-central.shtml",
+      "family": "robos_violentos",
+      "slug": "estacion-central"
+    },
+    {
+      "id": "e77615a698b99f4e",
+      "cut": "10101",
+      "lat": -41.509945,
+      "lng": -72.83364,
+      "title_es": "Condenan a tres sujetos por robo con violencia calificado a estudiante en Puerto Montt",
+      "title_en": "Three individuals convicted of aggravated robbery with violence against a student in Puerto Montt",
+      "date": "2026-07-10",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-lagos/2026/07/10/no-se-acredito-el-secuestro-condenan-a-tres-sujetos-por-robo-con-violencia-calificado-a-estudiante.shtml",
+      "family": "robos_violentos",
+      "slug": "puerto-montt"
+    },
+    {
+      "id": "47a1ecd58c730d88",
+      "cut": "12101",
+      "lat": -53.368996,
+      "lng": -71.47533,
+      "title_es": "Profesor de música prófugo tras formalización por abuso sexual a alumna en Punta Arenas",
+      "title_en": "Music teacher on the run after being charged with repeated sexual abuse of student in Punta Arenas",
+      "date": "2026-07-10",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-aysen/2026/07/10/profesor-de-musica-esta-profugo-tras-formalizacion-por-abuso-sexual-reiterado-a-alumna-en-punta-arenas.shtml",
+      "family": "vida",
+      "slug": "punta-arenas"
+    },
+    {
+      "id": "ce77604b149475f1",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Violento abordazo en Maipú: atropellan a mujer que ayudaba a niños",
+      "title_en": "Violent carjacking in Maipú: woman run over while trying to help children",
+      "date": "2026-07-10",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/asaltantes-atropellan-a-mujer-que-intentaba-ayudar-a-ninos-en-violento-abordazo-en-maipu/",
+      "family": "robos_violentos",
+      "slug": "maipu"
+    },
+    {
+      "id": "50d03ea41bb40856",
+      "cut": "14201",
+      "lat": -40.208837,
+      "lng": -73.207288,
+      "title_es": "Homicidio en La Unión: tres imputados en prisión preventiva",
+      "title_en": "Homicide in La Unión: three defendants remanded in custody",
+      "date": "2026-07-08",
+      "outlet": "Paislobo Prensa",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1oV0RVSUlRVWprSnBJa0UwaXZHQ1FEY0txTmlFSmM5NlpkWEpzSjVIemdkV0lwdkZBQk5aMDZSOHlHcWhaa0ZzSVpCQjlLbVRaZUpBSVdUdHBvUEF2cXRDVl8yUTk3aGdCN2tiUFozd0hSSmJSSmZOei1GWURSZw?oc=5",
+      "family": "vida",
+      "slug": "la-union"
+    },
+    {
+      "id": "8b3ee2963a003a79",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "Agricultores de Pan de Azúcar alertan aumento de robos",
+      "title_en": "Farmers in Pan de Azúcar warn of increase in robberies",
+      "date": "2026-07-09",
+      "outlet": "madero.cl",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNMTRaLVU1MEJVYkkwVi1zbHZUc19tUUFvTzlSOHVFS21BM05Xck1aMUFVdWhkZTNUWHZSbUlXSndmUXJqSHh0QnRoUVQ3bEJZRUdDMVJKV2pqRjJoWkg1QnBMeEhabE4wUmYyX2ktRUhmWlBJWEJmOW9JTnlkQ3VkYV82X1VFc2l3T0VSU2xXc3BpQ2owZG81VHFIV3lHYXFodFVxcnBpZk8wbXMxOTdyUU40cmlYNFNzWWpXUVZCMWR4NmFEUzR0WmtqMVN1dTRrbkg4cUR5RTRCY1VT?oc=5",
+      "family": "robos_violentos",
+      "slug": "coquimbo"
+    },
+    {
+      "id": "b4cb5cdba6b9168a",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Comisario PDI formalizado por fraude de seguros por simular robo de auto",
+      "title_en": "PDI Commissioner formalized for insurance fraud for simulating car theft",
+      "date": "2026-07-10",
+      "outlet": "TemucoDiario.cl",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPMURDTjJJeTZGNXd4d3dIMUFEbzVxNzFzbTByT0RZbEhZbGozZDJfUVhRaTliX0Y5SDFuZm1JY2pKYkVZVWVfM29rUXh2dkxQWF9lS0pYaXN6Wk5kakdJQkhkSVpJeUtaN3ZQY2FtMUY4RmFFb2ktVVlrcWYydmdodUJIZnRETTZ3R3lKRzE2WDlYbEJrTzl3WHE0cWxob3BfSXFuNTlkQ2dydVg3bmp4c0E0WHZQTl95bzdudUZ4bUphVGtVXzU2SWN0QVcySnlLX2c?oc=5",
+      "family": "propiedad",
+      "slug": "temuco"
     }
   ]
 }
