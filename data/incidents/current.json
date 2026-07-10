@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-10T02:40:35.892983Z",
+  "generated": "2026-07-10T09:29:18.119502Z",
   "window_days": 30,
   "incidents": [
     {
@@ -6423,6 +6423,97 @@
       "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNeTRuQXk1cDJjMmVZbkl1dGlLdlQ0RVNBelM5Rk05TzlmUVhUd1NDRm1mRTBqazZEME0tVnNvUDl1a2pyLTdKbUREWmhxZE9yeFFCWjRlU3I3cWJIaXJXcGJKR3BpM0tvS1ZLdkt0ZmtOcVoyQnNfU09UY1lER0J0QVI0Z2VsVnV0Z3JYOHBXRDRQQXpsa2xad0FSLVp1Q2RZdUQwdw?oc=5",
       "family": "vida",
       "slug": "angol"
+    },
+    {
+      "id": "ccff2a38272ae059",
+      "cut": "8202",
+      "lat": -37.249702,
+      "lng": -73.234497,
+      "title_es": "Detienen a 3 sujetos por porte ilegal de armas en Arauco",
+      "title_en": "3 individuals arrested for illegal possession of weapons in Arauco",
+      "date": "2026-07-10",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/09/detienen-a-3-sujetos-por-porte-ilegal-de-armas-en-arauco-habrian-disparado-cerca-de-jardin-infantil.shtml",
+      "family": "armas",
+      "slug": "arauco"
+    },
+    {
+      "id": "575c6a5bd60c72f6",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Violento portonazo en Maipú deja a mujer atropellada",
+      "title_en": "Violent carjacking in Maipú leaves woman run over",
+      "date": "2026-07-10",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/violento-portonazo-en-maipu-mujer-fue-atropellada-por-delincuentes/2026-07-09/233825.html",
+      "family": "robos_violentos",
+      "slug": "maipu"
+    },
+    {
+      "id": "c9deb47177f335f7",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Detienen a presunto autor de homicidio en Estación Central",
+      "title_en": "Suspect arrested for homicide in Estación Central",
+      "date": "2026-07-10",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/detienen-a-presunto-autor-de-homicidio-ocurrido-en-plena-alameda-en-estacion-central/",
+      "family": "vida",
+      "slug": "estacion-central"
+    },
+    {
+      "id": "e95d1ebbaa01b802",
+      "cut": "5401",
+      "lat": -32.365877,
+      "lng": -71.259046,
+      "title_es": "Tres detenidos tras balacera y quema de vehículo en La Ligua",
+      "title_en": "Three arrested after shooting and vehicle burning in La Ligua",
+      "date": "2026-07-09",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPVFlRd19xNER2czdsOVdQRGcwVDRLd1hWV2l5RF80WnZZbm1IWVh6M0ZPQTRhTjFaTE1kQ2lTXzFMTFZpZTZGc3FzdmtaOC1wbmIxQWRiUlhrLWNjNWI0dkRyd2tPV0ZuSnZudjI1SEFkUzlNWDYtdjRiTVZrR2IyMmFvNEpwdWdDbnNRVUg5clB1QQ?oc=5",
+      "family": "armas",
+      "slug": "la-ligua"
+    },
+    {
+      "id": "e95d58300cdc93ab",
+      "cut": "2201",
+      "lat": -22.191672,
+      "lng": -68.619517,
+      "title_es": "PDI desarticula banda de tráfico de cannabis entre Calama, Santiago y Temuco",
+      "title_en": "PDI dismantles drug trafficking ring between Calama, Santiago and Temuco",
+      "date": "2026-07-08",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOaG84ckRPNk9TdlpkSFRZS3VZWWJ6UVRwNHJRc2p1WUVQZlRTeDZPR2psLUNPbUkxT3MxMExFRkZxZkNfMkRxTGVMY3J0ZFFwY2JETk9sRXhwY0NrZkNJaEpWV3I5MTMyblh5OTJoZHZUTjlSeUo4cmV4eXc0WDlBRnJZMkZNNGJmbHd4QQ?oc=5",
+      "family": "drogas",
+      "slug": "calama"
+    },
+    {
+      "id": "469bb95b177db6b8",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Imputados por robo a jóvenes que salían de discoteca en Iquique",
+      "title_en": "Charged for robbery of young people leaving nightclub in Iquique",
+      "date": "2026-07-07",
+      "outlet": "Radio Paulina",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNRThsU2VXdDRsTUFmOTg4bHdJYS1OY0JpOFJVeUZZcTZBajlsTE5neFp2Z3lGalA2X0RyVVphY2lHbFAydkIxTHcxal9sMTVOQ1ZzZzRXTEM2dllWeEJDMThlRnBnTExnT244V0ZYOVJpa0MtT05KdUdpWEJiMVhiMmhMQmdOOEpYZFl3eTNXS1JhWVZ2OGlkbVV1QkduckZHNVlSUllHY0xXM3ZoZTJ4OFdGT2xRdExQYVRHOVBzRGdKTldmMFBHd9IByAFBVV95cUxNRThsU2VXdDRsTUFmOTg4bHdJYS1OY0JpOFJVeUZZcTZBajlsTE5neFp2Z3lGalA2X0RyVVphY2lHbFAydkIxTHcxal9sMTVOQ1ZzZzRXTEM2dllWeEJDMThlRnBnTExnT244V0ZYOVJpa0MtT05KdUdpWEJiMVhiMmhMQmdOOEpYZFl3eTNXS1JhWVZ2OGlkbVV1QkduckZHNVlSUllHY0xXM3ZoZTJ4OFdGT2xRdExQYVRHOVBzRGdKTldmMFBHdw?oc=5",
+      "family": "robos_violentos",
+      "slug": "iquique"
+    },
+    {
+      "id": "edf73619a2acff4e",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Homicidio de niño en San Bernardo: aclaran baja de carabinero por motivos éticos tras infracción en vehículo",
+      "title_en": "Homicide of child in San Bernardo: clarify dismissal of carabinero for ethical reasons after vehicle infraction",
+      "date": "2026-07-10",
+      "outlet": "24horas",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPQVRna2M5NkhheWJJVDEwTlVqTjBtSGpxajk3amJjY2FlcUVWY2hmdjJRdFlSTFdvOWZyRkJSU1hDakxVN0hzRHo2Rnd0RGcyYVRxSEgtV1l1ZUlDU1BQWGl1Wl81ejVEUW1pZUU1a1JVTjZtdDl3NmhaRnhKdmJQU1k1V0pzZXQ5dEYwVFJyc3RVUDRKNTIzcVcyNGtfa2VteWMwMU9fTGFIUWYtb1JKWndNTHRjZ9IBtgFBVV95cUxPQVRna2M5NkhheWJJVDEwTlVqTjBtSGpxajk3amJjY2FlcUVWY2hmdjJRdFlSTFdvOWZyRkJSU1hDakxVN0hzRHo2Rnd0RGcyYVRxSEgtV1l1ZUlDU1BQWGl1Wl81ejVEUW1pZUU1a1JVTjZtdDl3NmhaRnhKdmJQU1k1V0pzZXQ5dEYwVFJyc3RVUDRKNTIzcVcyNGtfa2VteWMwMU9fTGFIUWYtb1JKWndNTHRjZw?oc=5",
+      "family": "vida",
+      "slug": "san-bernardo"
     }
   ]
 }
