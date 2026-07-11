@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-11T02:16:50.852577Z",
+  "generated": "2026-07-11T07:50:22.937851Z",
   "window_days": 30,
   "incidents": [
     {
@@ -7034,6 +7034,71 @@
       "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOLXpVWlQ4ZjJxVnZvZ1VPdWh1RmVQX3I4Q1VzdldzRDdZY3J6MVI3cWNCWFdWREZRTHB4X0ZBdlBxU2hwLU5qX3BuWGhhY2dOWTNqVGRkN3c0SlFZemxpckFUMGt4OUl2UURwN1dsdGxKaDMwNTlPRURkOC1mRXBPSmRDTC14NHhwVW5IdXRxV1RFV3NkZXZmNnNpLXBoeXRTSmo4eTJ5ajFaV05XclNSTGtUYzJWR2dIaGh2SmE1RmJiSE13N0dzM2wtQQ?oc=5",
       "family": "incivilidades",
       "slug": "la-serena"
+    },
+    {
+      "id": "e06360a4618675ec",
+      "cut": "9120",
+      "lat": -39.311575,
+      "lng": -72.20841,
+      "title_es": "Más de 20 años de cárcel a femicida en Villarrica",
+      "title_en": "Over 20 years in prison for femicide in Villarrica",
+      "date": "2026-07-11",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/10/mato-a-su-pareja-y-luego-quemo-casa-con-ella-dentro-mas-de-20-anos-de-carcel-a-femicida-en-villarrica.shtml",
+      "family": "vif",
+      "slug": "villarrica"
+    },
+    {
+      "id": "51341b1bd578dee3",
+      "cut": "6101",
+      "lat": -34.103815,
+      "lng": -70.847285,
+      "title_es": "Fiscalía indaga red que difundía imágenes de explotación sexual infantil en colegio de Rancagua",
+      "title_en": "Prosecutor's office investigates network that distributed child sexual exploitation images at school in Rancagua",
+      "date": "2026-07-11",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/delitos-sexuales/fiscalia-indaga-red-que-difundia-imagenes-de-explotacion-sexual-infantil/2026-07-10/223918.html",
+      "family": "vida",
+      "slug": "rancagua"
+    },
+    {
+      "id": "9e890e47d1f45bc0",
+      "cut": "13126",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Civiles armados atacan a narcos en Quinta Normal",
+      "title_en": "Armed civilians attack drug traffickers in Quinta Normal",
+      "date": "2026-07-10",
+      "outlet": "Chilevisión",
+      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxNNjdYS0I1TlVPRGdrTDBkOHpMaFI4dWNxYnRfUVNUcXV2VEo3SEtqcEU0SkpYeGhOV2xJY0diU05tbTlWS1g0d0hmVDhKRzdoWWs3UGtxRzRqOTk2YXR1SElQU0FWN2NZVDQwTU9YdzU2Z0FpSkVEdG03TWdTbDJ3ajBuZW5tc3o4TDYxY1QtUzlVZ08xOGRqS2R3ZVJfRlRUY0t3bXJMMjZ2OXFJd2V3Z3E1bVZTSzEwUS1uWDd6TXBZd2dlMHZTU0V6aVdwVFJYbHBpYk9Nd2hDUnRoTWtR?oc=5",
+      "family": "armas",
+      "slug": "quinta-normal"
+    },
+    {
+      "id": "b1a08a2178f26d43",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Exalcaldesa Karen Rojo será extraditada a Chile en julio para cumplir condena",
+      "title_en": "Former mayor Karen Rojo to be extradited to Chile in July to serve sentence",
+      "date": "2026-07-09",
+      "outlet": "VLN Radio",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOVnBYSkdwb3VaaGdkcUEwU3RubE9DWUl6VDZlY3dYbjBfempsaEU0Z0RhR0RuamR4X1VqSVkyb1hLTHNvaUtqRmZLbjZhcU5OLVpNOHRLWW5idGE3ZkEtbEJRTy1lSW5YRlhpS0UxUGJqSXVrckZTUTRHa1JPWXRrTE1OVEJCV3ByV1VNVWYwOUxXaHZ1dDNfajJEbmZDazl3eGhadkpEdTN1QWxsYkg0bEtCTEhwUUh4LWVPNmtwTGx0SnFzSUdxZDhWVQ?oc=5",
+      "family": "propiedad",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "1d44bad7469a271b",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Detienen a dos bolivianos por robo en Zona Franca de Iquique",
+      "title_en": "Two Bolivians detained for theft in Iquique Free Trade Zone",
+      "date": "2026-07-10",
+      "outlet": "Radio Paulina",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNMkZVbHNYakIxRDdKX056SjFLNWRoUzY1anRxNGtOMGxoLVYwMXlTRmVKbzNFLUlRbFpMZE9qS1hESHVhbERockxHNUw2WWJtSGtMR0Y0LWZzeS1vMU1OYTBhUlJmdjBPNFI1b1U3SlREMG0ya3VkX1hJd0hOMVlUd25EX3FWVFNMQ085NWc5RHdnTHY0MzlIdDJTcTNkcHFkU2JrZ2k4YjNjLThPWlc2ZkxUX3ZRcU53N0lF0gG7AUFVX3lxTE0yRlVsc1hqQjFEN0pfTnpKMUs1ZGhTNjVqdHE0a04wbGgtVjAxeVNGZUpvM0UtSVFsWkxkT2pLWERIdWFsRGhyTEc1TDZZYm1Ia0xHRjQtZnN5LW8xTU5hMGFSUmZ2ME80UjVvVTdKVEQwbTJrdWRfWEl3SE4xWVR3bkRfcVZUU0xDTzk1ZzlEd2dMdjQzOUh0MlNxM2RwcWRTYmtnaThiM2MtOE9aVzZmTFRfdlFxTnc3SUU?oc=5",
+      "family": "propiedad",
+      "slug": "iquique"
     }
   ]
 }
