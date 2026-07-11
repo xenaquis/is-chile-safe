@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-11T07:50:22.937851Z",
+  "generated": "2026-07-11T13:11:15.285496Z",
   "window_days": 30,
   "incidents": [
     {
@@ -7099,6 +7099,58 @@
       "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNMkZVbHNYakIxRDdKX056SjFLNWRoUzY1anRxNGtOMGxoLVYwMXlTRmVKbzNFLUlRbFpMZE9qS1hESHVhbERockxHNUw2WWJtSGtMR0Y0LWZzeS1vMU1OYTBhUlJmdjBPNFI1b1U3SlREMG0ya3VkX1hJd0hOMVlUd25EX3FWVFNMQ085NWc5RHdnTHY0MzlIdDJTcTNkcHFkU2JrZ2k4YjNjLThPWlc2ZkxUX3ZRcU53N0lF0gG7AUFVX3lxTE0yRlVsc1hqQjFEN0pfTnpKMUs1ZGhTNjVqdHE0a04wbGgtVjAxeVNGZUpvM0UtSVFsWkxkT2pLWERIdWFsRGhyTEc1TDZZYm1Ia0xHRjQtZnN5LW8xTU5hMGFSUmZ2ME80UjVvVTdKVEQwbTJrdWRfWEl3SE4xWVR3bkRfcVZUU0xDTzk1ZzlEd2dMdjQzOUh0MlNxM2RwcWRTYmtnaThiM2MtOE9aVzZmTFRfdlFxTnc3SUU?oc=5",
       "family": "propiedad",
       "slug": "iquique"
+    },
+    {
+      "id": "48745a38a174d20d",
+      "cut": "6101",
+      "lat": -34.103815,
+      "lng": -70.847285,
+      "title_es": "PDI investiga posible red de pornografía infantil en Rancagua",
+      "title_en": "PDI investigates possible child pornography ring in Rancagua",
+      "date": "2026-07-11",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-ohiggins/2026/07/11/pdi-investiga-posible-red-de-pornografia-infantil-en-el-instituto-marista-ohiggins-de-rancagua.shtml",
+      "family": "vida",
+      "slug": "rancagua"
+    },
+    {
+      "id": "5bcef1273ad7e799",
+      "cut": "9120",
+      "lat": -39.311575,
+      "lng": -72.20841,
+      "title_es": "Condenado por homicidio de comunero mapuche sigue libre por entramado judicial",
+      "title_en": "Convicted in Mapuche community member's homicide remains free due to judicial loopholes",
+      "date": "2026-07-11",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/11/entramado-judicial-permite-que-condenado-por-homicidio-de-comunero-siga-libre.shtml",
+      "family": "vida",
+      "slug": "villarrica"
+    },
+    {
+      "id": "b006b041bb102a2a",
+      "cut": "7406",
+      "lat": -35.630243,
+      "lng": -71.921132,
+      "title_es": "PDI detiene a ocho sujetos en San Javier por tráfico de drogas",
+      "title_en": "PDI arrests eight individuals in San Javier for drug trafficking",
+      "date": "2026-07-11",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/pdi-detiene-a-ocho-sujetos-en-san-javier-durante-operativo-por-trafico-de-drogas/",
+      "family": "drogas",
+      "slug": "san-javier"
+    },
+    {
+      "id": "2487118768859686",
+      "cut": "4301",
+      "lat": -30.674669,
+      "lng": -71.402962,
+      "title_es": "Carabineros desvincula a dos funcionarios por cohecho en Ovalle",
+      "title_en": "Carabineros dismiss two officers for bribery in Ovalle",
+      "date": "2026-07-09",
+      "outlet": "Epicentro Chile",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNMmtEbkxjY2xoSC0zamlEZTJSOWZzRzBhdTNOR0hlTzloUDRZWnlFVl9KQUVtaHZiNGNMeWJVOGlmWkZ4V1lpYU9icFVHbS0zNVZQUHB5ei1NWjlLbkZ3X3ZVTDMtWFdPbER1MjlyNlhHenZfMHdWVFNJTWNod3Q5aXg2ci16SFF0NGY0dEtSV0pSLUZRdnJWSTJMdy1ZeldWZUpqMmxQalVHU1BXS2lScVdyaG1tZ0RLdVBydTRKai1mZzA?oc=5",
+      "family": "incivilidades",
+      "slug": "ovalle"
     }
   ]
 }
