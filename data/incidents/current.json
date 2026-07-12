@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-11T18:58:53.241208Z",
+  "generated": "2026-07-12T02:27:17.173429Z",
   "window_days": 30,
   "incidents": [
     {
@@ -7333,6 +7333,97 @@
       "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQNHp6cUdweHlpRngtWGlwdG5ad1VpZm1wRzVFSXFUS1R3T3VnN21CNkZBc0s1NDhvMGVvUUZQZk9YdS1jUTdIMUVPMUdPNzM5Q3VJNmU3ZnlFbUc5UmIxZnZqdncwU2NoSG82UUdqVGlQdVMzZndXaDN5Sm0yVE5pZzlPc21vMmRzWlE3LTNPVFVtdmJ0RDV0c2QxQUVDQlh4eE9hUnVSQkxiVEQ4bWNBNVhVYXl0aVBJNngxSHJlQmFUN3h2cm9KdlJhUkhJd9IBzgFBVV95cUxQNHp6cUdweHlpRngtWGlwdG5ad1VpZm1wRzVFSXFUS1R3T3VnN21CNkZBc0s1NDhvMGVvUUZQZk9YdS1jUTdIMUVPMUdPNzM5Q3VJNmU3ZnlFbUc5UmIxZnZqdncwU2NoSG82UUdqVGlQdVMzZndXaDN5Sm0yVE5pZzlPc21vMmRzWlE3LTNPVFVtdmJ0RDV0c2QxQUVDQlh4eE9hUnVSQkxiVEQ4bWNBNVhVYXl0aVBJNngxSHJlQmFUN3h2cm9KdlJhUkhJdw?oc=5",
       "family": "drogas",
       "slug": "temuco"
+    },
+    {
+      "id": "79c932c07e102740",
+      "cut": "12101",
+      "lat": -53.368996,
+      "lng": -71.47533,
+      "title_es": "Declaran culpable a mujer que atacó a su padre con bate en Punta Arenas",
+      "title_en": "Woman found guilty of attacking her father with a bat in Punta Arenas",
+      "date": "2026-07-11",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-magallanes/2026/07/11/declaran-culpable-a-mujer-que-ataco-a-su-padre-con-un-bate-en-punta-arenas-victima-termino-en-la-uci.shtml",
+      "family": "vida",
+      "slug": "punta-arenas"
+    },
+    {
+      "id": "5a8cd91480b37a22",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Prisión preventiva para 27 imputados ligados al Tren de Aragua en Temuco",
+      "title_en": "Preventive detention for 27 defendants linked to Tren de Aragua in Temuco",
+      "date": "2026-07-11",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/11/temuco-decretan-prision-preventiva-a-27-imputados-que-estarian-ligados-al-tren-de-aragua.shtml",
+      "family": "drogas",
+      "slug": "temuco"
+    },
+    {
+      "id": "4b4ef49d63ce9fdf",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Prisión preventiva para 30 vinculados con facción sureña del Tren de Aragua",
+      "title_en": "Preventive detention for 30 linked to southern faction of Tren de Aragua",
+      "date": "2026-07-12",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/crimen-organizado/prision-preventiva-para-30-vinculados-con-faccion-surena-del-tren-de/2026-07-11/211529.html",
+      "family": "drogas",
+      "slug": "temuco"
+    },
+    {
+      "id": "9ccd6bafbc968026",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Cuatro detenidos por robo frustrado en La Serena",
+      "title_en": "Four detained for frustrated robbery in La Serena",
+      "date": "2026-07-11",
+      "outlet": "Serena y Coquimbo",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNT3pLUkhIUkd2VlpCNXRuR3dJbVdiSmZLYm1qV0dwbTdPN0Qtc1djX3lOd1VVaUt0X1BXT1VPYVc3WjJ1OGZvSDVYYXBvWHlRLUdYcUN4b2lnVnBLb3ZFb2hJdktWWWVhLWRuYlVURHAzZzBPM3g1REotWGVEdFFuVzRVUHBYRnhKU0NGd3RGbUo?oc=5",
+      "family": "robos_violentos",
+      "slug": "la-serena"
+    },
+    {
+      "id": "f6d411e7ea66e845",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Detienen a cuatro presuntos miembros del Tren de Aragua por secuestro y homicidio en La Serena y Coquimbo",
+      "title_en": "Four alleged Tren de Aragua members arrested for kidnapping and homicide in La Serena and Coquimbo",
+      "date": "2026-07-11",
+      "outlet": "Serena y Coquimbo",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNM1N4S1hSVm1RMHh3MXJ5Zkp2aXFZcFp6NkVIQWtBaG95Rm1KY0lWdmw0cUl4SlBKUzFLZHBNamtaVEVoUDRNWXFRc2hxRFkyQTRUdjdNWHJtNmRldjNHU25Ma0pqLUNPWG5FVjUzZzZKMko5THRtTDdxYnFWVnVHR2E5a1l1X3VQQVh5c2J2UnY1aFZrMXNRbG54MGlCT3FxZ0tsb1Y0Rm1FQlQ0c1ZDRHpfa2NnWmtTVlN1Xw?oc=5",
+      "family": "vida",
+      "slug": "la-serena"
+    },
+    {
+      "id": "cfc92033b894700e",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Condenan a exfuncionarias por fraude millonario en Corporación Gabriel González Videla",
+      "title_en": "Former officials sentenced for million-dollar fraud at Gabriel González Videla Corporation",
+      "date": "2026-07-11",
+      "outlet": "Serena y Coquimbo",
+      "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNSkI0aG1XVlk1Y08zaUlvejVtbWJNa0xqdmJuNXU1R1lDNWlMMnB0VXRCbHhkc1V4YVhTbURsRzF5LVR3TFgtbkxzT3d4YVVhS0FpYjVTQ1NnaUpadXh3YXMyWm5udm11TlR0Znd6eGcwY2VJeUZ3eEtFTUl4N3FnNDlRcU53cWlicXAyck1rbzVuOVMzLXNrcHFfZFk1TU9XdldLdUxTRld6anNwT2lLc291cmVucTYtZDcyVFBUMFptZVRfWlRkYWRJSFB1SVJFbWVUVjRwWmlOaW1lLU9xeUxR?oc=5",
+      "family": "propiedad",
+      "slug": "la-serena"
+    },
+    {
+      "id": "cfd24e6636489458",
+      "cut": "9201",
+      "lat": -37.797936,
+      "lng": -72.79785,
+      "title_es": "Extorsión por vehículo robado descubre más de 800 gramos de cocaína en Angol",
+      "title_en": "Extortion for stolen vehicle uncovers over 800 grams of cocaine in Angol",
+      "date": "2026-07-11",
+      "outlet": "Alerta Noticias Temuco.cl",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNWFp1LU5RZHpYSmNWQThtS3dxMXlrWWVvZkQ5OE1PRWFqaGN1aTVZVHhqd2VuYnc3YmpHQVdKeU9TMXdVdGpfaDc0V0VTYldSdFZ1R083UDRfN2RPT2tUN2FIVWJrdUljb2x1QmZEYl9oN29PWDdKenctUjBzay1pVjJwZTBYLXVPbG9vZGlQU3FwQXktbU5vREFkUXFIYTZDem04?oc=5",
+      "family": "drogas",
+      "slug": "angol"
     }
   ]
 }
