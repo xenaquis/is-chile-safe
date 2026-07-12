@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-12T02:27:17.173429Z",
+  "generated": "2026-07-12T08:11:24.690807Z",
   "window_days": 30,
   "incidents": [
     {
@@ -7424,6 +7424,84 @@
       "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNWFp1LU5RZHpYSmNWQThtS3dxMXlrWWVvZkQ5OE1PRWFqaGN1aTVZVHhqd2VuYnc3YmpHQVdKeU9TMXdVdGpfaDc0V0VTYldSdFZ1R083UDRfN2RPT2tUN2FIVWJrdUljb2x1QmZEYl9oN29PWDdKenctUjBzay1pVjJwZTBYLXVPbG9vZGlQU3FwQXktbU5vREFkUXFIYTZDem04?oc=5",
       "family": "drogas",
       "slug": "angol"
+    },
+    {
+      "id": "1f67400667a7e240",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "PDI detiene a ocho personas e incauta $228 millones en ketamina y éxtasis en Santiago",
+      "title_en": "PDI arrests eight people and seizes $228 million in ketamine and ecstasy in Santiago",
+      "date": "2026-07-12",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/11/pdi-detiene-a-ocho-personas-e-incauta-228-millones-en-ketamina-y-extasis-en-santiago.shtml",
+      "family": "drogas",
+      "slug": "santiago"
+    },
+    {
+      "id": "84ce79f81d91545e",
+      "cut": "8103",
+      "lat": -36.904,
+      "lng": -73.00259,
+      "title_es": "Investigan homicidio con arma cortante en Chiguayante",
+      "title_en": "Investigation into stabbing homicide in Chiguayante",
+      "date": "2026-07-10",
+      "outlet": "latribuna.cl",
+      "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxORmtqT0lPNjlOcjY4R0xoYmlfQnJFcHZWWWVFN2ZTNWpNUU1qRy1uM0sza1NsbDBGbW52SmdTbXdqYWw2S0FTbnpKQXBoVm02XzVCMEU4bnhEVVFoRFhZT3BhZzZfWlN2RGp4dE1VRlBrS0R4ZmJCVDg4TngwRktBdm90TXJWd3F1dWYzZHhXUjNZZkN1ckpHOHpfUFBGMlFVSWZVRlhNTjh0Nk43akw0LVB1SDJCYzRHREtPQzdxdWNhSlVXRG9RVFhwRXBObi1yUG1IME9xUUhjWlFxRzRESTNn0gHiAUFVX3lxTE5Ga2pPSU82OU5yNjhHTGhiaV9CckVwdlZZZUU3ZlM1ak1RTWpHLW4zSzNrU2xsMEZtbnZKZ1Ntd2phbDZLQVNuekpBcGhWbTZfNUIwRThueERVUWhEWFlPcGFnNl9aU3ZEanh0TVVGUGtLRHhmYkJUODhOeDBGS0F2b3RNclZ3cXV1ZjNkeFdSM1lmQ3VySkc4el9QUEYyUVVJZlVGWE1OOHQ2TjdqTDQtUHVIMkJjNEdES09DN3F1Y2FKVVdEb1FUWHBFcE5uLXJQbUgwT3FRSGNaUXFHNERJM2c?oc=5",
+      "family": "vida",
+      "slug": "chiguayante"
+    },
+    {
+      "id": "5fb9df3848295464",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "La Serena: Carabineros despliega operativo preventivo en el borde costero",
+      "title_en": "La Serena: Carabineros deploy preventive operation on the coast",
+      "date": "2026-07-11",
+      "outlet": "Serena y Coquimbo",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNaGpObGN5OXJDUDVSV3RPb2pkMnBVMWxrSzNlS2JLcThYT2x5MjhvTk9pcU5wYkZZWWdNbEVHdzFqcm9JbWdmV1J6Y0prRzFxZXhwRDBiZ1ZWUUp2eGdLaDktTWo1UXlXS0NZdEJBSGZhajBQSGl0d2NRYXA2dm1OaXhHRDB0cGVOQXllVE9JTjEzdDQyQXNlMFd6cE1SemRtRnc?oc=5",
+      "family": "incivilidades",
+      "slug": "la-serena"
+    },
+    {
+      "id": "604675a5e63051c1",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Formalizados por delitos de control de armas en La Serena",
+      "title_en": "Charged for weapons law crimes in La Serena",
+      "date": "2026-07-09",
+      "outlet": "La Serena Online",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNTWFXdjI3b2t0UlpTQVJEVWpFd2dRTm1RU1d0d0NqTHd5SjlGSE1xemVqbmFEVlJ3QURGVERrR09pOUNKRmQ5N3dobFlUWHFWSTA0c1NPWm93bWdSQkJBdFVLVFJQN2oyRmVHVk4yeTBWYWVmazZfeU1Mb29vb0xwMjFNRTZ2eTV6T3FyaVZZMnUwZjFmZHpYdUVYZWt4RzRvMmI4U2Fud0F6TEJVUzY3QmxNd0lJSHpv?oc=5",
+      "family": "armas",
+      "slug": "la-serena"
+    },
+    {
+      "id": "d9e4120dfc134055",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Hombre detenido con arma de fuego y chaleco antibalas en La Serena",
+      "title_en": "Man detained with firearm and bulletproof vest in La Serena",
+      "date": "2026-07-11",
+      "outlet": "Serena y Coquimbo",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUDAwX2p3QmYtd3ZxWEpwT21RUE55aHRhSnBySTN6TXB6Nm5XbmNrQzVib2JmQWxPbzBxN0U5U243NWtWT1J0cERSR3NZYnNRejRQZ2stRmxQYUExNE9qRmRiSXMzcTRGOG5HVXFiNVo4c1ZQd1NTRjQ4NnhETXVKemQ4UHo0S3RRN1psM0VSeDZxQWJZZk90aTBn?oc=5",
+      "family": "armas",
+      "slug": "la-serena"
+    },
+    {
+      "id": "2aa872006feba661",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Absuelven a lonko Guillermo Ñirripil en juicio por extorsión y robo con intimidación en Temuco",
+      "title_en": "Lonko Guillermo Ñirripil acquitted in extortion and armed robbery trial in Temuco",
+      "date": "2026-07-10",
+      "outlet": "elciudadano.com",
+      "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxQR3VVUkJlNFRhV1R1TjM3NGhBWF9TNkw2anV2ZmV1cUZSbnhVZHl1M3M4MVNoRzRJREd0cmgzRFNGM0tTUENBaG5Rb3JLVnFReXVxZmgxTURXT2ZYdHh6RWJDUkZ5VG9jdkh2RDRfcDlmLWxpTU91UVpUX2dFdmM4YnZIQVVGb3hGU0kxRUF6amRGelNadEExQUJhYWs3dUtJMlJQWWVETmMxQjQyX1N5eW5tUDd1U0xYcEJHbGNwdWNvR3NaNmtwcDZha2NxVW1HS0VIckNLTDQyZHNuWXdtdnhhUUxucWdiazhocUtDYldOM1hDU1M2UU5QeU0?oc=5",
+      "family": "robos_violentos",
+      "slug": "temuco"
     }
   ]
 }
