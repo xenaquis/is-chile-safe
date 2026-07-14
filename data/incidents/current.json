@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-14T07:57:29.343094Z",
+  "generated": "2026-07-14T13:34:15.744607Z",
   "window_days": 30,
   "incidents": [
     {
@@ -8854,6 +8854,136 @@
       "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPVEVEZDJEWXREX2k1TndRMGstZHRhN09fMXJOSUt4QXgySlFvZ0ZKWGpPd3d1d0daV0RlZ2ltQnlxbVhNeFlnX0hvU1VzVUgwdWI1UUd3ZVJnQXFpNmZZSzhVcE1ueW9IZExiREpiOGZ2U2F5elBraXJaQ212ZHVtOU1ONllPSzNTUHUyUVNFYVN3R3VrVVQ1R3FjeENfZ3VSVWlqdnp2ckQxdFpk0gGfAUFVX3lxTE1Xb25vS2xQa04xajljVlJIVWRGZDdTSmZDTkxQTzNDNnhMeDN5ZEUtTHRWMFRuU1BtRlkyZGJ1VEVXbjR0ekJfc0lYaVZjYkVnV1JFcGptZW5xM1NJaXZsNGE4NEFXV0VCT0NDcVEzY0JSSUN0eTNhblNQNlFTQXJ0cXpPbU5xU2U2Zi1BSTl3RDJqdEVnNTk1R1FmY0IxWQ?oc=5",
       "family": "vida",
       "slug": "temuco"
+    },
+    {
+      "id": "e58c8c6934a488ce",
+      "cut": "5301",
+      "lat": -32.937588,
+      "lng": -70.290321,
+      "title_es": "Controles en Los Libertadores terminan con dos detenidos por porte de armas",
+      "title_en": "Controls at Los Libertadores end with two arrested for weapons possession",
+      "date": "2026-07-14",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-valparaiso/2026/07/14/controles-en-complejo-fronterizo-los-libertadores-terminan-con-dos-detenidos-por-porte-de-armas.shtml",
+      "family": "armas",
+      "slug": "los-andes"
+    },
+    {
+      "id": "e00935b32cb636cb",
+      "cut": "13118",
+      "lat": -33.493075,
+      "lng": -70.592665,
+      "title_es": "Adolescente en riesgo vital tras ataque armado en Macul",
+      "title_en": "Teen in critical condition after armed attack in Macul",
+      "date": "2026-07-14",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/adolescente-esta-en-riesgo-vital-tras-sufrir-ataque-armado-frente-a-su/2026-07-14/074123.html",
+      "family": "vida",
+      "slug": "macul"
+    },
+    {
+      "id": "83d9f854569c6bda",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Cinco muertos en colisión entre bus y camioneta en Franklin, Santiago",
+      "title_en": "Five dead in collision between bus and truck fleeing police in Franklin, Santiago",
+      "date": "2026-07-14",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/accidentes-de-transito/tragedia-en-franklin-cinco-muertos-tras-colision-entre-bus-y-camioneta/2026-07-14/071117.html",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "aed3340b8a093a3c",
+      "cut": "13503",
+      "lat": -33.365549,
+      "lng": -71.066043,
+      "title_es": "PDI detuvo a dos colombianos por crimen en Curacaví",
+      "title_en": "PDI arrested two Colombians for crime in Curacaví",
+      "date": "2026-07-14",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/pdi-detuvo-a-dos-colombianos-por-el-crimen-el-presunto-ajuste-de-cuentas-narco-detras-de-horroroso-homicidio-en-curacavi/",
+      "family": "vida",
+      "slug": "curacavi"
+    },
+    {
+      "id": "55b8558f0eff8da9",
+      "cut": "13118",
+      "lat": -33.493075,
+      "lng": -70.592665,
+      "title_es": "Menor de 16 años en riesgo vital tras ser baleado en Macul",
+      "title_en": "16-year-old in critical condition after being shot in Macul",
+      "date": "2026-07-14",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/menor-de-16-anos-en-riesgo-vital-tras-ser-baleado-en-plena-via-publica-en-macul/",
+      "family": "vida",
+      "slug": "macul"
+    },
+    {
+      "id": "7f73ba2f2a5aecf2",
+      "cut": "13503",
+      "lat": -33.365549,
+      "lng": -71.066043,
+      "title_es": "PDI detiene a dos colombianos por homicidio en Curacaví",
+      "title_en": "PDI arrests two Colombians for homicide in Curacaví",
+      "date": "2026-07-14",
+      "outlet": "La Tercera",
+      "url": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxObDFsX3pfNnRBazhSU0lLTXdHRGZWUTFWZFpOZi1ZNktZVXZZN1o0dTE3TEltZnBVVmxpaWRzTmZXZVgtUHdNMk1DUlJVamd3RmVRemNGaXl3NTVKZHFFWFQtQXJVVHBBeXJjM2I5QnpBRG1vWU5NYTR1RDhvVDZ4UC1lZUxOWkk5U3cyMlRDMXo5WkpKcWxLTnNPeGRYY3A1MGdWTkNlbkV0UWxvX0YzWHMydERkTHVxczN2U0h6UE9HTnVmQkZKV3l1Sm1seUpfWEFqMVNXZkNfYTI3Qm8zQkxfbnZmdUlIZ3RpYmFxQlJzVW9Zam5V?oc=5",
+      "family": "vida",
+      "slug": "curacavi"
+    },
+    {
+      "id": "f0ed9247f3eecf80",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "Confirman presidio efectivo para 18 miembros de banda de tráfico de ketamina en Arica",
+      "title_en": "Effective prison sentences confirmed for 18 members of ketamine trafficking gang in Arica",
+      "date": "2026-07-14",
+      "outlet": "Arica al día",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOSXNGdFRpTVF5YlNJT2lMYlY5SEF2UXg0dzJ4T0h4WEZLSjF0WDVyX3Q2aFdHdEMwem1FMUtiZmtsQjhLQ0tPNV9uTVk5S3VzY2MtR2dUSldnMGJEQzNaOHlxN191Wm4tWkR6b25lclRuZl91cE4tdWFHWkJFMWNhNlhpSkF4bzNjWi12SHRtS1J4dzh5dlVPakNxekxOM2VIdlRNZjFEbG5ZVzBTVmF5VktCV1BIX253ZzVabjBfZXNCX1czVEpKdnNkVQ?oc=5",
+      "family": "drogas",
+      "slug": "arica"
+    },
+    {
+      "id": "c2b5bb8db7e843bc",
+      "cut": "13114",
+      "lat": -33.400888,
+      "lng": -70.506596,
+      "title_es": "Adriana Barrientos sufre violento portonazo en Las Condes",
+      "title_en": "Adriana Barrientos suffers violent carjacking in Las Condes",
+      "date": "2026-07-13",
+      "outlet": "DUPLOS.CL",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPMWE0VmdvT1FBbW95VThOUENrQ0ZOMUp1OUpUZWtIaVVqT205dEZINWVzRVhlU2lVaVRfQmdTeXFrcmx0Tk5nSlltNG5tYTFtN2tLMVBBd1FwLW5GVmx4Q2pYNThBNlRYWlVxY2VrSnRXb2R3X1J6d3dCZHNJY2Q5Z2Y2QXgxZEkyVlk0WHpOTjVMSEgxQVpNSmVLbGNxLXE4TFdyVUY4Z05uNWxrblVfbGozeGM?oc=5",
+      "family": "robos_violentos",
+      "slug": "las-condes"
+    },
+    {
+      "id": "e61ee894dad55ae6",
+      "cut": "13118",
+      "lat": -33.493075,
+      "lng": -70.592665,
+      "title_es": "Balacera en Macul deja a adolescente de 16 años en riesgo vital",
+      "title_en": "Shooting in Macul leaves 16-year-old teenager in critical condition",
+      "date": "2026-07-14",
+      "outlet": "Epicentro Chile",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOVHhSb3E0RmgzZzhnYzVTcHE3TVp5ZElmazJISjBnNnI5ZExPYnMwMVptTXVycHRma3NBeDNaaU1FNmhPQS1rQTg4YndmUGhTWmkzMjRKOWtmVEw3elJVdnpIZ3B4T0htUkZiSFJ5NVNoRnVVMmxOWG5EM1lYc05EYi0wU2R3MGRzekN0bUhZNkx5MFhUSWxvczVacXVQdXVENGVyLWVGc0htdDJhdFZTMGdEQjdLNko2R3c?oc=5",
+      "family": "vida",
+      "slug": "macul"
+    },
+    {
+      "id": "5c7e06c3efa05ddc",
+      "cut": "2201",
+      "lat": -22.191672,
+      "lng": -68.619517,
+      "title_es": "PDI recupera especies avaluadas en más de $4 millones y detiene a un hombre en Calama",
+      "title_en": "PDI recovers items worth over $4 million and arrests a man in Calama",
+      "date": "2026-07-14",
+      "outlet": "enlalinea.cl",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPaWxDb1hhVHlNYnNFZWtiOW1kbjlJMXZxbk45S0xNNlVIZG1zQ1VTZkJEUzVvdkcxaVpsdzJZNE5VVmZRVkpDNnRoNUlXekpscndwWnkzazF0UmtzQUJHd1BKTjZyOVgwcHdtbVQzNThoN3NnVVJOMFdEU3gwTTNDMHFfNGxtZUpsWWRNVGxhZC1Kd2JzZ1RBdmNSbUxJOFNEbXpQXzhyby1fSmJqbngw?oc=5",
+      "family": "propiedad",
+      "slug": "calama"
     }
   ]
 }
