@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-14T02:08:43.862425Z",
+  "generated": "2026-07-14T07:57:29.343094Z",
   "window_days": 30,
   "incidents": [
     {
@@ -8749,6 +8749,110 @@
       "outlet": "Rebelión",
       "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQMjE3blZ5WFNraU83NS14dmVib3Jha29NcFFqSHd1Y3VwVnJLdXNSVVZmWnppNHAta2w4bUVOMWRCN09Dc2dRQTAyQ21KOFVvanhfM0JuQkR5c2Mtb2JIWmhjUFNzWVFkUkFWc0lCaVc1c1BxSlRZTlpyV0pwTnVkOU4xZmxvaWNJbWJDc0dQd19LejRpdTRMajR1VXVha1ozOVdfUmlSc1pMZ2h5bE1sRXRFMnRjeEFDcGpiSF9KMTZiQjVrckV0NUkyVmFCeU96Vjdodg?oc=5",
       "family": "robos_violentos",
+      "slug": "temuco"
+    },
+    {
+      "id": "1f018c8afde21823",
+      "cut": "9211",
+      "lat": -38.277589,
+      "lng": -72.209528,
+      "title_es": "Robo de furgón desata persecución en La Araucanía: 4 detenidos",
+      "title_en": "Van theft triggers chase in La Araucanía: 4 arrested",
+      "date": "2026-07-14",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/13/robo-de-furgon-desata-persecucion-en-plena-ruta-5-en-la-araucania-4-detenidos-y-vehiculos-recuperados.shtml",
+      "family": "robos_violentos",
+      "slug": "victoria"
+    },
+    {
+      "id": "76dae49f23a57ff3",
+      "cut": "13201",
+      "lat": -33.585262,
+      "lng": -70.549631,
+      "title_es": "Adolescente hiere a hombre en el ojo al manipular arma en Puente Alto",
+      "title_en": "Adolescent injures man in the eye while handling firearm in Puente Alto",
+      "date": "2026-07-14",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/adolescente-manipulaba-arma-de-fuego-e-hirio-en-el-ojo-a-hombre-en/2026-07-14/005836.html",
+      "family": "armas",
+      "slug": "puente-alto"
+    },
+    {
+      "id": "3c2fed80e376be24",
+      "cut": "5502",
+      "lat": -32.801671,
+      "lng": -71.123422,
+      "title_es": "Robo de $800 millones al Banco BCI en La Calera",
+      "title_en": "Theft of $800 million from Banco BCI in La Calera",
+      "date": "2026-07-14",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/camion-atravesado-miguelitos-y-cambio-de-vehiculos-el-plan-que-permitio-el-robo-de-800-millones-al-banco-bci-en-la-calera/",
+      "family": "robos_violentos",
+      "slug": "la-calera"
+    },
+    {
+      "id": "04a9da34bc36a0d7",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Balacera en San Bernardo deja dos fallecidos y un auto incendiado",
+      "title_en": "Shooting in San Bernardo leaves two dead and a car burned",
+      "date": "2026-07-13",
+      "outlet": "Meganoticias",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOTnZCY1RtSkdfTVFiVXJkTWJxSF9vYkFJckYySy1YRDZIcGlDWDZUUDIxTzJaT1d4RmgxMjdHTC1JTEk3cldkcVZiUFRPVUdybVRxdHd5cmhObmZxV3VnLUphTnBIQ0pBSWp6NzZoRHJuTG8xaEV5bmlXMWJkVG1wbFN1VGUySFQ0ODBHLXA2dHRLTkw5OHJNQ3pndWd1Qmk0djdEaGNiQjF3Zm1IZGhPSXFtdHFURW1DRXJEXzdTUTFMdXpoQVHSAcsBQVVfeXFMTlhjZmZDZHNJX1EtZjZ5Nm1nckZWYncyMHlHMjcteWhDT2J4M0xxbHdFb0hQTG1UNXZlOWlaMlo3OWdfbXlxM2gydldYNkhMak5ZU28zNGFGTGh3WGtSR25ReEptQmYtTlNKV3FjNkdkZjBlSkE3emFpU0RFa3A0RFVBLVdaZVItNEwtYkFsU3Nvc3l1NTZQTEVzS1pBQS0tOWljUGNnbEhyMXBxS1BJLUtUbEJZU2VQMUd6d19RXy1PM25zVHZvS3BMaFk?oc=5",
+      "family": "vida",
+      "slug": "san-bernardo"
+    },
+    {
+      "id": "84dcbcf93ba9ca6b",
+      "cut": "13503",
+      "lat": -33.365549,
+      "lng": -71.066043,
+      "title_es": "En prisión imputados de homicidio de víctima encontrada en Curacaví",
+      "title_en": "Suspects in homicide of victim found in Curacaví remanded in custody",
+      "date": "2026-07-14",
+      "outlet": "fiscaliadechile.cl",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQeXRTVHVIN1lVWTVqcUliRmtJS2V6VXpkckhoYUVoRl9uTzAzQWZVcHdQai0xaVRhNzcwQ21xdVRmOEcyRjI2eWo4MHpSWUdfX01qNmdjY01NN2ZYdXRmV2pZaWh3YmZSck5ySERERTRjQkNEaGkxQWN4THdpdHFXYUoxTWxzcXRLeXlwLVJveUpESWFtdUdOZmpFQnZMNm9wTGNKNW05RTJnUGdNQjZnSVlKM0I2bWRpSFE?oc=5",
+      "family": "vida",
+      "slug": "curacavi"
+    },
+    {
+      "id": "c0b87e797e7120f9",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Más de 805 kilos de cannabis incautados en Antofagasta",
+      "title_en": "Over 805 kilos of cannabis seized in Antofagasta",
+      "date": "2026-07-13",
+      "outlet": "Timeline.cl",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPNmpMM3pRelNnT1NvWERKV1JsNlR2ZWVqM3ktT1VnYWlNeE9jWlZseWhJN3ZaYTVzMWVCMHRwbjFrZTYyUV9yeEE5bFBfdHk1dmNBQ1VGbVZOTjUxWGs3Sno2WkhwY1FRZFNIV0FEWGJKTUZBbWFBeTdVOFdPUk9jSlB4V2phY0lsSWxfVVhWOXQ2aW90aXYxdmhxTlZCTnExSk51NmVRS3liaGVpbk1mOExJVDY1dw?oc=5",
+      "family": "drogas",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "6aa7934d2f4a2869",
+      "cut": "9108",
+      "lat": -38.537762,
+      "lng": -72.249488,
+      "title_es": "Condenan a hijo de Héctor Llaitul y a otros cuatro comuneros a 15 años por atentado en Lautaro",
+      "title_en": "Héctor Llaitul's son and four other community members sentenced to 15 years for attack in Lautaro",
+      "date": "2026-07-14",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQdTRrTHJCblFxUEVBNFFzZmxpcTQ5OWxBcEhhYWVwNE1XVVlRVlJPc3daNXFJNTlqbmhSYWpCZUtNX01fM01CSlNYWHdDamVWZ2lvUXlKeG5jVmI1UUdiVTBMeURlZWQ1Tzhpb0lBbTMyQ0tpbGo5QmlMNzJKM283MEQ2YXF2Q2MzOE9KbjZMcmRGWER2?oc=5",
+      "family": "vida",
+      "slug": "lautaro"
+    },
+    {
+      "id": "510e1377065a4a39",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Condenan a 14 años de prisión al líder mapuche Héctor Llaitul en Temuco",
+      "title_en": "Mapuche leader Héctor Llaitul sentenced to 14 years in prison in Temuco",
+      "date": "2026-07-14",
+      "outlet": "Net Noticias",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPVEVEZDJEWXREX2k1TndRMGstZHRhN09fMXJOSUt4QXgySlFvZ0ZKWGpPd3d1d0daV0RlZ2ltQnlxbVhNeFlnX0hvU1VzVUgwdWI1UUd3ZVJnQXFpNmZZSzhVcE1ueW9IZExiREpiOGZ2U2F5elBraXJaQ212ZHVtOU1ONllPSzNTUHUyUVNFYVN3R3VrVVQ1R3FjeENfZ3VSVWlqdnp2ckQxdFpk0gGfAUFVX3lxTE1Xb25vS2xQa04xajljVlJIVWRGZDdTSmZDTkxQTzNDNnhMeDN5ZEUtTHRWMFRuU1BtRlkyZGJ1VEVXbjR0ekJfc0lYaVZjYkVnV1JFcGptZW5xM1NJaXZsNGE4NEFXV0VCT0NDcVEzY0JSSUN0eTNhblNQNlFTQXJ0cXpPbU5xU2U2Zi1BSTl3RDJqdEVnNTk1R1FmY0IxWQ?oc=5",
+      "family": "vida",
       "slug": "temuco"
     }
   ]
