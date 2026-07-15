@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-15T02:05:15.941339Z",
+  "generated": "2026-07-15T08:02:31.646179Z",
   "window_days": 30,
   "incidents": [
     {
@@ -9426,6 +9426,71 @@
       "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPMUdFaVNxTlp4cFhnWjhOOWgzSV84Vkx2MTNONUU0WFZyX0JqQlU3YXk0OU1lU3BLcHppd0dhOHpZOWZkTThGVkRGTGREdzN4RWFvdk1WVldLZFc2UWxlOUJEYnpjaHN6SFFRdzJobHBBQmRjaDJIbjZtTFNtOE9zNTh4WkZmaHNNSXppTnBIWG1NX3NIZlR0ZEp5cWdzQlJObEhzTlBRTzJsd9IBrwFBVV95cUxOVHVfZnliSEJPbHhYcnRMYTh1TmdGdnMtZi00MTY0N3NBVG1kcEl6VkNkU2pHQjUtTzRvTTZkYTJHLS14QzBnTllZYTVnMVdXTmpjZFJPNC1EdFRpS2lTa3d6TnJJdmMzV05SSVRBeWZteHFaQkRlaFdMYUdqUWVuZGRXMFEzTmQxd0plWUJzb2RRaGdUaExqdGtlYmVpWHAzXzBjNWFwU3hLazF6RWNV?oc=5",
       "family": "drogas",
       "slug": "angol"
+    },
+    {
+      "id": "2c071d08b69cf7e0",
+      "cut": "13132",
+      "lat": -33.416252,
+      "lng": -70.57832,
+      "title_es": "Tribunal deja en libertad a dos menores que participaron en violento asalto en Vitacura",
+      "title_en": "Court releases two minors involved in violent robbery in Vitacura",
+      "date": "2026-07-15",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/tribunal-deja-en-libertad-a-dos-menores-que-participaron-de-violento-asalto-en-vitacura/",
+      "family": "robos_violentos",
+      "slug": "vitacura"
+    },
+    {
+      "id": "0726a4704885037c",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Histórico golpe al narcotráfico: incautan 117 toneladas de droga en Antofagasta",
+      "title_en": "Historic blow to drug trafficking: 117 tons of drugs seized in Antofagasta",
+      "date": "2026-07-14",
+      "outlet": "Será Noticia",
+      "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQYmJTX0RkZ2JLUzBlLW9YRUY1YTlUaXZGOFpIaHVWUXljTHNpcVFDSEt5NjVERkcybGNYeUZtVHB3WXp2WlluNnFGZGpleXlpbk5kdDkwTk9nd2NyUEx1VFMwNklNSWxTRHVnbk9NSmpWZnNic3Z1UjR1ZVFiejcyUGRGNjJsdkQzVlE4UnRQY1Bldkk2UlZKcDVFOTFEaENxamdFU2JITnB0NHQxM3Vqdk55RmJIdjl1V1ludzJ1T2NOTjBTUlRLWDBuQjhqME16MDBJZE1tV2JCVjhzRVRKU1FuVVFCQXAydlVuZU9OMkxLT09LS2VuVnB3?oc=5",
+      "family": "drogas",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "f934795b656e3396",
+      "cut": "2201",
+      "lat": -22.191672,
+      "lng": -68.619517,
+      "title_es": "Detienen a tres por robo en local comercial de Calama y recuperan especies por $3 millones",
+      "title_en": "Three arrested for robbery at commercial premises in Calama, recovered items worth $3 million",
+      "date": "2026-07-15",
+      "outlet": "Diario El America",
+      "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxObHp4MGs2bUI4WmlRdnlsRTBIclhpV0ZNNkszcVQzOXBDd3M5WWxQRTVwam1YRlRjcXJzUzZFUjc0eTlZdlMzbnJQUUQzSnB4ZUpHcmNHaHNrMlFLSEM1T3ZTd0F2QjNmRFVTMEk3WlJ4Zk1qR1BpZ2t0NTFYSzU2QUhxd09aV2VmZUpERzFtWlZxcWhSSG1sY1p0ZDJCZ013RV9QUzZZMUdvTlRhYTVLX2tPajhTVmpiTnNSamJtOFhBS0o1WE9zd1I4Y0lfMktFWUFNc01XUXp0VFhQNmlBZFA3WQ?oc=5",
+      "family": "robos_violentos",
+      "slug": "calama"
+    },
+    {
+      "id": "30a5806587d0a887",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Condenan a médico por muerte de Sheccid Sepúlveda tras cirugía bariátrica en Antofagasta",
+      "title_en": "Doctor sentenced for death of Sheccid Sepúlveda after bariatric surgery in Antofagasta",
+      "date": "2026-07-15",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPLTk0MDdwMG1MRl84SVY4aTV0ZXc2eGlJcGdhQW5RenhXdEktbnJPdTJNdkZrVnFjT0hzR3lZMjlBdkZVZ052VlhWUjcyUHU3VFlrb0dqRTlqSnB6elFMNW5pLWE0TWIyX01VMGRNZXJDZjljbG5uSzRFeE1wc1A0d2d5aDlvVFQ0cGNPUE1ocWhtbnpYb0I1QXdndEJvVlV3eGc?oc=5",
+      "family": "vida",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "366672b0e0af59b5",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Tres detenidos por robo con violencia contra adulto mayor en La Serena",
+      "title_en": "Three detained for violent robbery against elderly in La Serena",
+      "date": "2026-07-15",
+      "outlet": "Serena y Coquimbo",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOOFdsdGFvOWpiZWo1N1hUWVpLYi1icW5zSjRKYk5vdldqazlINldFVUxSWm1WZG9lQTlMdVRsQXZUU0liTzlMMlpOZ202X0Y3MXNkSkhWbV9aRGZXSVYyNkRIVG9CZmhaVi0tUENZZUhHQmZCZlBtTmNlanJGZ2xKUFgtOTZLb3N0YTFYRHdHMHBTTHFKZk85U1RwNDhKTEZUcXN6czgzQTkybWRjQno1WDRyT2s?oc=5",
+      "family": "robos_violentos",
+      "slug": "la-serena"
     }
   ]
 }
