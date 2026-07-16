@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-16T02:15:19.442658Z",
+  "generated": "2026-07-16T08:07:12.154090Z",
   "window_days": 30,
   "incidents": [
     {
@@ -10180,6 +10180,136 @@
       "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxNX2FpVk1Ia2gxNEFPOFQ1elJudTI1dUdfb2RZVXpvZDd6QWRSYTBwVEtkdWo3RzZ5TkhSM0FtQlpwYk92ekU0NlpxMVI4c09lVGhZakxfQnI0NDVhUkJtUGhqY0h3ZmdGWC1OR0R1WTEtQmRyYlRGbExlN0s5Y1UxRUlMbTJiek4xUE9CT0ROZXY2THNEY1EybXJOaWR5RzBDR1F2TC16cHJURWpuQnhaTFdXQmpYeGlLSk5wZkxhRWdEdld2ZEpqVWNTS0ZJbkN4b3NhX3NpREJpS1d4UXhoS3BYbENJSnoxcThYY0lCbi1Zd0JvaGRWMHVR?oc=5",
       "family": "vida",
       "slug": "vicuna"
+    },
+    {
+      "id": "91f3535771d00686",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Arresto de El Rana, acusado de crimen de cabo Naín: baleó a dos carabineros",
+      "title_en": "Arrest of El Rana, accused of murder of corporal Naín: shot two carabineros",
+      "date": "2026-07-16",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-rios/2026/07/16/asi-fue-arresto-de-el-rana-acusado-de-crimen-de-cabo-nain-baleo-a-2-carabineros-uno-en-riesgo-vital.shtml",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "63f73c79f1748b37",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Arrau califica de sociópata a detenido por crimen de cabo Naín que baleó a 2 carabineros",
+      "title_en": "Arrau calls detainee sociopath for murder of Corporal Naín who shot 2 police officers",
+      "date": "2026-07-16",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/07/15/sociopata-arrau-por-detenido-por-crimen-de-cabo-nain-que-baleo-a-2-carabineros-uno-en-riesgo-vital.shtml",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "aa43f55de95517bf",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Carabinero baleado en Valdivia no puede ser trasladado a Santiago",
+      "title_en": "Carabiniere shot in Valdivia cannot be transferred to Santiago",
+      "date": "2026-07-16",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/carabinero-baleado-en-los-rios-no-esta-en-condiciones-de-ser-trasladado/2026-07-15/221223.html",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "4ce7ac362f171bb2",
+      "cut": "13604",
+      "lat": -33.58014,
+      "lng": -70.874779,
+      "title_es": "Funcionario de la PDI herido a bala en Padre Hurtado al frustrar robo de vehículo",
+      "title_en": "PDI officer shot in Padre Hurtado while thwarting car robbery",
+      "date": "2026-07-16",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/funcionario-de-la-pdi-es-herido-a-bala-en-padre-hurtado-tras-frustar-robo-en-un-vehiculo/",
+      "family": "robos_violentos",
+      "slug": "padre-hurtado"
+    },
+    {
+      "id": "83497857cbd33aa2",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Arrau visita a carabineros heridos en Valdivia y anuncia nuevos cargos",
+      "title_en": "Arrau visits injured police officers in Valdivia and announces new charges",
+      "date": "2026-07-16",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/arrau-visita-a-carabineros-heridos-en-valdivia-y-anuncia-nuevos-cargos-contra-detenido-durante-operativo/",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "e8e62c0afad22e58",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Detienen en Valdivia al presunto autor del crimen del cabo Naín Retamal",
+      "title_en": "Suspect arrested in Valdivia for murder of corporal Naín Retamal",
+      "date": "2026-07-15",
+      "outlet": "El Dínamo",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNcXhDNm9fTVN5U29UR05RQjI2RUt3NWVfVWlubHdGWjBoNktybERlNHZKRkZYY1N1NjJ3dEZsZDV1SC1hS3R4S0g5ZjhMSkJEbUFySUV0b1hERGNUcFVjMnVHa0dzRzF4WV9ySU1kVHpmMUlIMVZvNTM2YVQzTjBxNmZ5Tnk1RlpRSFQxU0ZOc3RkX1p2TkZsWGdBV0V0NHFWc1U0MEQxR1ZvNG95c0E5VnNBeXBWZ2NYWGlvTDY3MXU1UW5nX3lnUg?oc=5",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "92ce3b4f3a5fcdea",
+      "cut": "13503",
+      "lat": -33.365549,
+      "lng": -71.066043,
+      "title_es": "Detienen a dos colombianos por homicidio narco en Curacaví",
+      "title_en": "Two Colombians arrested for drug-related homicide in Curacaví",
+      "date": "2026-07-14",
+      "outlet": "La Tercera",
+      "url": "https://news.google.com/rss/articles/CBMimAJBVV95cUxPWVBXWS1OdzBPOUdSVHdKUDk0ejFqdWcyWlZ5NGZhU24wUnFEMjNXMTBfUncxZ3pTZVpUdmFOWHZFTWFJMEYxR3FhN0NCWXFjZHhxam1iLVZrNENfT1dDSDRJZ2Y2eXU3SjdxeFRRcnVCRWk4amdoeWZjV29XVHhNajNNM2JjV2dIWlhmbDM5bzlNU1BSVzFJNWxXS1ZwclJpdEJ5SnBBajh1eWxEd2JNQU84QnJUSzAxNkVaTmc2Yzl1VXRrUlNaLVNWc2FlVmlRQ1FETGxhWEl0eWRaS1RnOE9XME1TOVpFb19UVWtRWUxjODJoRXJwdTgtZFYyTUtsanVwTnpOMW1PamJ3MVdxMGxpOXhQNENQ0gGYAkFVX3lxTE9ZUFdZLU53ME85R1JUd0pQOTR6MWp1ZzJaVnk0ZmFTbjBScUQyM1cxMF9SdzFnelNlWlR2YU5YdkVNYUkwRjFHcWE3Q0JZcWNkeHFqbWItVms0Q19PV0NINElnZjZ5dTdKN3F4VFFydUJFaThqZ2h5ZmNXb1dUeE1qM00zYmNXZ0haWGZsMzlvOU1TUFJXMUk1bFdLVnByUml0QnlKcEFqOHV5bER3Yk1BTzhCclRLMDE2RVpOZzZjOXVVdGtSU1otU1ZzYWVWaVFDUURMbGFYSXR5ZFpLVGc4T1cwTVM5WkVvX1RVa1FZTGM4MmhFcnB1OC1kVjJNS2xqdXBOek4xbU9qYncxV3EwbGk5eFA0Q1A?oc=5",
+      "family": "vida",
+      "slug": "curacavi"
+    },
+    {
+      "id": "05bcb58a66807f9e",
+      "cut": "2104",
+      "lat": -25.30922,
+      "lng": -69.846505,
+      "title_es": "Desarticulan puntos de venta de drogas en Taltal",
+      "title_en": "Drug selling points dismantled in Taltal",
+      "date": "2026-07-16",
+      "outlet": "diarioangamos.com",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQd1l0VHJ0ZTlkRXBnVnl5RFo5SHFGUlJUNmxfdGhnZ1NGOEdLS0NmTkh3Skp0SmN4NVJtSzF6VGR0REctQ1RqZm9OMEFyZGdTbkJsWE1rX0pPRzZmU1dpV29SMlI2UGE0cjBfaHlkckdKeDB1SnktTEM3THZ2MEswSHJLVEYyLW5Jal9RNjBrUTUtQ21YaFN3bmktRHBvaGE1?oc=5",
+      "family": "drogas",
+      "slug": "taltal"
+    },
+    {
+      "id": "b943b51649448358",
+      "cut": "4105",
+      "lat": -30.238273,
+      "lng": -70.358984,
+      "title_es": "Prisión preventiva para tres imputados por robo de cables en Paiguano",
+      "title_en": "Preventive detention for three accused of cable theft in Paiguano",
+      "date": "2026-07-16",
+      "outlet": "Mi Radio",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOdlhmSVhPUUNYRHR6cmw0dXBadXNZRXlubThIdTZIX0Y5SjhiRDRDVGtqUFgtQWlHeW9hUzkyQkVkUktWLU0wUGJUVXJJVkxLTDk1TjM0QXUybDhZZlpzcVUyc19KOUxOaWpGRDNoZUs5Z203X0lSVmZ0UDhZQTRyUTZvemNuM1Z6MS1kbmNtWEhkS21FVncyLXlXQQ?oc=5",
+      "family": "propiedad",
+      "slug": "paiguano"
+    },
+    {
+      "id": "7746954d701118e2",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Formalización por disparos a carabineros y homicidio de cabo en Valdivia",
+      "title_en": "Formalization for shooting at police and homicide of corporal in Valdivia",
+      "date": "2026-07-16",
+      "outlet": "Puranoticia.cl",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOX1hYblpfeUNwZjJvUkZEeWxNY1k5aFlVYk45UUYyeEdseVdsbXJBTzhBd2Y0dmxQNTFiaG16YmI3X3BwbW13SGJkVllub25vQ3FGYzRXalZSdjNpR1U0M1JfNGlvS0JSaVJGbE95cEpYX0dBQUtoVi1kaGpuZ19FWUpsQW5LbXpMNkRQdXBBTXFaWl9pRTNieTNnNkVKZjBzRFg2WTBR?oc=5",
+      "family": "vida",
+      "slug": "valdivia"
     }
   ]
 }
