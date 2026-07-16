@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-16T13:42:58.698840Z",
+  "generated": "2026-07-16T19:05:18.265500Z",
   "window_days": 30,
   "incidents": [
     {
@@ -10427,6 +10427,84 @@
       "url": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxOUTBJSGJ3bWNOOGlNSmJCbzJLejZ4NS1XTnphZlM5eGYxdmRkcWVLZnRGOVVKWUJzamo5THpLTjRjbE1WN3U5UEtEX3dkWlBrMUNGM0Z6UXpxZ2IzSzZiYXVkSTBmazBaM0lhdFNpU0h4aFd6NnVXYWc4bTNkam4ta2pUckJXa0VZSTlaLV9xMGN2NXNLSTZoeWZPQWUwRjU4WEpmME81emk4UloxcC1QbDh1X0Y5OTd1aFlPSkM3a0JQZW1IUDliR0dSeUE5bmpKT3h6S3dhZmlrZks0a1FpZ0I5emdpT1RJQ3JDQ2NkcUluaWJxNVA5RUp3aGJ5aEk?oc=5",
       "family": "vida",
       "slug": "valdivia"
+    },
+    {
+      "id": "314f88e8f127e75b",
+      "cut": "13604",
+      "lat": -33.58014,
+      "lng": -70.874779,
+      "title_es": "Detective baleado al frustrar robo en Padre Hurtado",
+      "title_en": "Detective shot while foiling robbery in Padre Hurtado",
+      "date": "2026-07-16",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/detective-resulto-baleado-al-frustrar-un-robo-en-padre-hurtado/2026-07-16/113244.html",
+      "family": "robos_violentos",
+      "slug": "padre-hurtado"
+    },
+    {
+      "id": "6aa192f8d631ecca",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "\"Cobarde y violento\": Yáñez condena ataque a carabinero en Valdivia y critica intentos de derogar Ley Nain-Retamal",
+      "title_en": "\"Cowardly and violent\": Yáñez condemns attack on police officer in Valdivia and criticizes attempts to repeal Nain-Retamal Law",
+      "date": "2026-07-16",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/cobarde-y-violento-yanez-condena-ataque-a-carabinero-en-valdivia-y-critica-intentos-de-derogar-ley-nain-retamal/",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "b88bf4b106ef5684",
+      "cut": "16101",
+      "lat": -36.609879,
+      "lng": -72.06608,
+      "title_es": "Amplían detención de cinco carabineros por allanamientos ilegales en Chillán",
+      "title_en": "Detention extended for five police officers over illegal searches in Chillán",
+      "date": "2026-07-16",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/amplian-detencion-de-cinco-carabineros-investigados-por-allanamientos-irregulares-y-apremios-ilegitimos-en-chillan/",
+      "family": "vida",
+      "slug": "chillan"
+    },
+    {
+      "id": "758f908e1b300c28",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Desarticulan banda que traficaba armas en 12 regiones con 40 detenidos",
+      "title_en": "Gang trafficking weapons in 12 regions dismantled with 40 arrests",
+      "date": "2026-07-16",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/liderada-por-menores-y-coordinados-por-telegram-fiscalia-supraterritorial-desarticula-banda-que-traficaba-armas-en-12-regiones/",
+      "family": "armas",
+      "slug": "san-bernardo"
+    },
+    {
+      "id": "3eab9151efb3b043",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Condenan a 15 años por asesinato de español en Antofagasta",
+      "title_en": "15-year sentence for murder of Spanish citizen in Antofagasta",
+      "date": "2026-07-16",
+      "outlet": "El Diario de Antofagasta",
+      "url": "https://news.google.com/rss/articles/CBMihwJBVV95cUxPRlU0YWxtWVRnWDBORTA5MzJncXpPS0hJVndBUWNaLXVubWo3SFdJX1ZHakNTNUZhRVEtRjlGc1RQc0JKTFEtRWp1R21wQmQ1OTBfY0gwRl8xd1RkTDZBYl9LMmROUEM3OFdrbVZ2NVBtbXFKdFhtLVNUTl9aU2V6aWV3bTJ1MDFOcUhHSUppaEFsOXEwRE9PU1VlWkM4QnR5SWNtdEpnVndkY2lIbnBleXFnTlBlQWtnXzVDSlNFVU9DWUJOZ01GTW5RRk9hREJPYkFWMk5GUHFkalB0U2tmZmk3YlNWc1JyNGh6aGVhQXp5UzdkaGQ0NVlCZ2t6SkozenBieDROVQ?oc=5",
+      "family": "vida",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "c4bf0fc4f39c90e6",
+      "cut": "4301",
+      "lat": -30.674669,
+      "lng": -71.402962,
+      "title_es": "Homicidio de hombre hallado en pozo en Ovalle",
+      "title_en": "Homicide of man found in well in Ovalle",
+      "date": "2026-07-13",
+      "outlet": "RadioGennesis",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPR1BEdEVNN01WQWlBS1VoR3lPRDJjdGYwWm5OWldNLWF2OFliMHZ3Tk95cU9TU2pteEdaRzZtaVRMeXpycmwwYnp3QW5FNnBRMklNNlA0WS1hXzFYTHN2bm1DdmpISlRkSTZxU0FsVm5NdmIycVlkRUw4MlFoUUstRGNGMXhEWEt2cUdxV1ppRjNEMjFBMmJVRktFckRvYmlxN2JackpHOEFnTnlKWWM1RzdjY3I?oc=5",
+      "family": "vida",
+      "slug": "ovalle"
     }
   ]
 }
