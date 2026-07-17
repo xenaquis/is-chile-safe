@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-16T19:05:18.265500Z",
+  "generated": "2026-07-17T02:20:33.109062Z",
   "window_days": 30,
   "incidents": [
     {
@@ -10505,6 +10505,71 @@
       "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPR1BEdEVNN01WQWlBS1VoR3lPRDJjdGYwWm5OWldNLWF2OFliMHZ3Tk95cU9TU2pteEdaRzZtaVRMeXpycmwwYnp3QW5FNnBRMklNNlA0WS1hXzFYTHN2bm1DdmpISlRkSTZxU0FsVm5NdmIycVlkRUw4MlFoUUstRGNGMXhEWEt2cUdxV1ppRjNEMjFBMmJVRktFckRvYmlxN2JackpHOEFnTnlKWWM1RzdjY3I?oc=5",
       "family": "vida",
       "slug": "ovalle"
+    },
+    {
+      "id": "62cff78d7eea3459",
+      "cut": "13110",
+      "lat": -33.539168,
+      "lng": -70.463562,
+      "title_es": "Delincuentes maniatan a hombre y roban pensión de adulta mayor en La Florida",
+      "title_en": "Criminals tie up man and steal elderly woman's pension in La Florida",
+      "date": "2026-07-16",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/delincuentes-amarraron-a-hombre-con-cable-de-calientacamas-para-robar/2026-07-16/151317.html",
+      "family": "robos_violentos",
+      "slug": "la-florida"
+    },
+    {
+      "id": "996cd65f3afb3f44",
+      "cut": "13120",
+      "lat": -33.446981,
+      "lng": -70.549631,
+      "title_es": "Detenidos en Ñuñoa cuatro encapuchados con pistola robada en 2015",
+      "title_en": "Four hooded individuals detained in Ñuñoa with pistol stolen in 2015",
+      "date": "2026-07-16",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/carabineros-detuvo-en-nunoa-a-cuatro-encapuchados-que-portaban-pistola/2026-07-16/145650.html",
+      "family": "armas",
+      "slug": "nunoa"
+    },
+    {
+      "id": "0a4a1e5924e13e21",
+      "cut": "8203",
+      "lat": -37.893915,
+      "lng": -73.341741,
+      "title_es": "Detienen a prófugo vinculado con homicidio e incendio en Cañete",
+      "title_en": "Fugitive arrested linked to homicide and arson in Cañete",
+      "date": "2026-07-16",
+      "outlet": "armada.cl",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxONE5Wemw0ZWVLTGgzUkM0MFRENzF0UmZVWnlfaWtVcjZpcjN2eXRKMTk3OFpnUFlpRGh5U1BDV1Y2eEEtOFZFWFJGR0hWbEs1cGpOQnV1MmtGYzMwUHlsTlpqbkhyYkI2cFRlcDJoTmVIZVRnY3R4Rko5cHQxWG1zNTVYa0RtVHVSWTFiMXFaOVRXRE0?oc=5",
+      "family": "vida",
+      "slug": "canete"
+    },
+    {
+      "id": "41df44ef083fedc9",
+      "cut": "12401",
+      "lat": -50.363054,
+      "lng": -73.72402,
+      "title_es": "Detenido en Natales por homicidio en Cañete",
+      "title_en": "Suspect arrested in Natales for homicide in Cañete",
+      "date": "2026-07-16",
+      "outlet": "El Magallánico",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOT2h4a3UwNjRrSEptZDdlRmk0X3E1MUpycmtuR1dsWUJCeDZyQ1RxYkRvekJqeDdGcThjT2k5RFl4SnB5Xy1Ib0lnOWRsQ1RobnZGemZSTlRCRUtvUzd3TmwwZjE3SXpMV0pIaWt5S1JQaTZMZGszcmM3MEVlbjJJUkF0c0N3RHlEc1Y5a0JFZnkzUWlNdWpJQ0JfWVFZNEZsbXV6ZGVJLUFjaVFNY3VSZFpqVV9XOE10ZG0xVmJUY2NXa0J3a21FajJ4R1PSAcwBQVVfeXFMTk9oeGt1MDY0a0hKbWQ3ZUZpNF9xNTFKcnJrbkdXbFlCQng2ckNUcWJEb3pCang3RnE4Y09pOURZeEpweV8tSG9JZzlkbENUaG52RnpmUk5UQkVLb1M3d05sMGYxN0l6TFdKSGlreUtSUGk2TGRrM3JjNzBFZW4ySVJBdHNDd0R5RHNWOWtCRWZ5M1FpTXVqSUNCX1lRWTRGbG11emRlSS1BY2lRTWN1UmRaalVfVzhNdGRtMVZiVGNjV2tCd2ttRWoyeEdT?oc=5",
+      "family": "vida",
+      "slug": "natales"
+    },
+    {
+      "id": "64ef12290073e1cd",
+      "cut": "2201",
+      "lat": -22.191672,
+      "lng": -68.619517,
+      "title_es": "Carabineros sorprende fiesta clandestina con venta ilegal de alcohol en Calama",
+      "title_en": "Carabineros surprise clandestine party with illegal alcohol sale in Calama",
+      "date": "2026-07-17",
+      "outlet": "enlalinea.cl",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQdzR0RFBWbURLeFdFWjcyOWR0aktITW5QUHNwWS1HQjF5NVV0VmVnVUZ5cDZXQ0o1M2hNSUx6VUVVTXJqMEtQSHJoOXA0TXptaC04RlVlRGt5TjltN0RoaHVKUG9NOXdzeVF6Z3ZkY3E3YTI0dm9rLUp5bGFhT2hMWGN5N3h0aUdQc3VTQ2ZUVTZyVXhDOVdsX1dCSlZRUDRIc1U5SDN1bw?oc=5",
+      "family": "incivilidades",
+      "slug": "calama"
     }
   ]
 }
