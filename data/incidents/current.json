@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-17T02:20:33.109062Z",
+  "generated": "2026-07-17T08:04:31.588151Z",
   "window_days": 30,
   "incidents": [
     {
@@ -10570,6 +10570,136 @@
       "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQdzR0RFBWbURLeFdFWjcyOWR0aktITW5QUHNwWS1HQjF5NVV0VmVnVUZ5cDZXQ0o1M2hNSUx6VUVVTXJqMEtQSHJoOXA0TXptaC04RlVlRGt5TjltN0RoaHVKUG9NOXdzeVF6Z3ZkY3E3YTI0dm9rLUp5bGFhT2hMWGN5N3h0aUdQc3VTQ2ZUVTZyVXhDOVdsX1dCSlZRUDRIc1U5SDN1bw?oc=5",
       "family": "incivilidades",
       "slug": "calama"
+    },
+    {
+      "id": "4ed7def64db0523c",
+      "cut": "8313",
+      "lat": -37.090801,
+      "lng": -72.63642,
+      "title_es": "Acusado por abuso sexual a menor en Yumbel queda con arresto domiciliario",
+      "title_en": "Accused of sexual abuse of minor in Yumbel placed under house arrest",
+      "date": "2026-07-17",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/16/acusado-por-abuso-sexual-a-menor-de-14-anos-en-yumbel-quedo-con-arresto-domiciliario-total.shtml",
+      "family": "vida",
+      "slug": "yumbel"
+    },
+    {
+      "id": "1b74ef8491023c28",
+      "cut": "12401",
+      "lat": -50.363054,
+      "lng": -73.72402,
+      "title_es": "Detienen a presunto asesino de brigadista de Conaf en Puerto Natales",
+      "title_en": "Suspect arrested for murder of Conaf firefighter in Puerto Natales",
+      "date": "2026-07-17",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/detienen-a-presunto-asesino-de-brigadista-de-conaf-en-puerto-natales/2026-07-16/232639.html",
+      "family": "vida",
+      "slug": "natales"
+    },
+    {
+      "id": "5dca8d95e2f570d3",
+      "cut": "13103",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Hombre fallece electrocutado en paradero de Cerro Navia",
+      "title_en": "Man dies after electric shock at bus stop in Cerro Navia",
+      "date": "2026-07-17",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/hombre-fallecio-tras-recibir-descarga-electrica-en-paradero-de-cerro/2026-07-16/223421.html",
+      "family": "vida",
+      "slug": "cerro-navia"
+    },
+    {
+      "id": "ec5e92533312749c",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Carabinero herido a bala en Valdivia en estado muy crítico",
+      "title_en": "Police officer shot in Valdivia in very critical condition",
+      "date": "2026-07-17",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/ministro-arrau-afirma-que-carabinero-herido-a-bala-en-valdivia-permanece-en-estado-muy-critico/",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "1c0c05a9967d12d0",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Robo en barbería de La Serena: más de $2 millones en especies sustraídos",
+      "title_en": "Theft at La Serena barbershop: over $2 million in goods stolen",
+      "date": "2026-07-17",
+      "outlet": "Mi Radio",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPamQxdEFtb0dXVTBGc3hhaDhjS1p3M3V1LXN3SGJWeEZWY2pPbGg4UlN4VF83N3NDVEZiUnlQcmNPekJxM0thbVppRGg5Z25JOVMxejJJUmI0QkJzalpJTnNuVGZ3UDQxWWJHN1JNbm0tbWlIX1AyNE5YcTJzTUIwZWZscWFmVy1VaFZIdEZxQnhDVXMxZmEyRlFOTTZERXROT2stalc5UUR3QVVoTGsxcVB6MA?oc=5",
+      "family": "propiedad",
+      "slug": "la-serena"
+    },
+    {
+      "id": "1a51ea2a5906058f",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Delincuentes asaltan a conductor de aplicación en Las Compañías",
+      "title_en": "Criminals assault rideshare driver in Las Compañías",
+      "date": "2026-07-17",
+      "outlet": "Mi Radio",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPeDhGZ1YtZVFTcEcwSnMtR0lPZFo3c1FaZEdOeFpobDM2a2l1bVA3b3NTRE1vVWpER0xTMXFpV2QzTm9ja18yRG5VX05uUUs1WVZMbTBMZ0JBajB4TWE2RUtHTWNJMjlhdkFIdm5fdEtiNy02akRPQ1FvNkdMaGplZzVGQ0h6SlNVYzlNdXF5RWN6Uy1CdTFvY2RGWFBOUHJiN3BaemVDVjNVak0ta1RQNWlHbFNFbHlsX3hKLVVnVTlrVm5NbFc4?oc=5",
+      "family": "robos_violentos",
+      "slug": "la-serena"
+    },
+    {
+      "id": "491268bbcc2ca7d6",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Seguridad Municipal retiene a dos presuntos asaltantes de conductor de app en Las Compañías",
+      "title_en": "Municipal Security detains two suspected app driver robbers in Las Compañías",
+      "date": "2026-07-17",
+      "outlet": "El Serenense",
+      "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxQSnFTWl9HdkU2dGhLUGRQeXVoeVBFQU9ib09jQUg0S29fWklzYWh0VnBOQnZpTWpTOWtvOFBvd21lXzJFc3J4OUxjQTVvRHk4dFhadWxOdXFabHlsQnNQdHVESlBvek95czBlRmYtdkF1WV9sSFBxczE1YWFLR3JGVG5qT05waXIxQjZ5R21ZeHFmTzBEam1KUkt0V3VUNnVjbjNaQjFISkloWlJTNU5kcE9qRWNFS1BDR0xlcERrT0FhTFlYQ21aWkpSN0tQT2RiOWJYYkJvTzFrTmdyci1vTnp4Mk9SQWlSeVRVRGVUbmVwTk9F?oc=5",
+      "family": "robos_violentos",
+      "slug": "la-serena"
+    },
+    {
+      "id": "69b5bc969c321c08",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Detenido \"El Rana\" por crimen de cabo Naín y ataque a carabineros",
+      "title_en": "\"El Rana\" arrested for murder of Corporal Naín and shooting at police officers",
+      "date": "2026-07-17",
+      "outlet": "TemucoDiario.cl",
+      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQTURnWjdHMTNZYmxpZ1RmRmk4bk8tSFZNalkydnBLY1I4YkxyUFI4c0R5YUxJdkhoTENTZm5VLVlwclhPT3lVbFZfVXA5bWFjbTk5aEJENzlHRDRZZ0Y5T1NvdEMzcUNNeU1pZnA2dXpFYmRuWlQ3X0pRVTRJdDQxakRQNHFUV1k5ZHBBQ3VkS0RSbHZlN3IwSzBkUVRLV09WSHI3QlllWC1PQlA2SjhuNkxoRm44NUZWYXloMWRQekZpbFlPRE93QjNmUWlSck0xYUtxNkdzZnNrS0g2Smg4TF9hYlk?oc=5",
+      "family": "vida",
+      "slug": "temuco"
+    },
+    {
+      "id": "5cb56acd0bfc8651",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Imputado sigue hospitalizado tras operativo que dejó a carabinero en riesgo vital en Valdivia",
+      "title_en": "Defendant remains hospitalized after operation left carabinero in life-threatening risk in Valdivia",
+      "date": "2026-07-16",
+      "outlet": "RioenLinea",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQb2pNQ3BGWkx2MVlJTDFLTXlaWEZoYjFIR3BVTGQtOXlJbXgxRmdQZGFmVUM4VDY0OVU5ekpTVWFtakZ0U3QxV2lHVDFkYXpUeTNDMTVpMV9Jc2NoYUJDeURYa3FObWJiNWlNNjBVZnp5RXh4N1czVTBpbzM2azROSnhsVjlhSDZKQS1sVk9iRkROSENiYk16RkVVcjB3TjZNTUd2VnBGaEpJWFBwX1p6WjVJcmJEbTBlRzBPdg?oc=5",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "9a02efdccfc59a26",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Cae sujeto que transportaba cocaína en bus interprovincial con destino a Temuco",
+      "title_en": "Subject caught transporting cocaine on interprovincial bus headed to Temuco",
+      "date": "2026-07-14",
+      "outlet": "latribuna.cl",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNQU85WWJvbGdQT2g5Vm4zTHo3Z3A1RmZKNi13Tks5TVZwTTl6SnZZUFRVNGg1RnUwZmotZmZtcHQ2eU5GcVBwemNsTUVuaEtPMjE3NDIyNUk4VnFmaXhLeVdpZFBBbzQ3TzFOZHhUbHZPLXlyNTJSSlhBeEJlX01kTFBfNFllVE0xaFIxN3RlQ01LVXd6blEyT3d0WlNXTDBUNE5DdTJzMGRkVzd3UXI1VWpENEhrRmYtc204OFVuUGd6M2dPbDVYU9IB0AFBVV95cUxQYXQxUjFmTy0wOS1CX2QwMkJFOU1PdUtsS0UzcjljREVzcEtSUzZtcl9xTm9NZ1E3SUJpcVFwV3lWelVRaUhMUEZqSHdZLS1FeGtwb29tMlB2WW1faUw3b19BU01iNDh5NEpqc05OOEpTQUxlX01wRHlnZWF5RW55Nm8zUkhlbjJwTHpDUHBNSTBtdEJIakdrbm85WW1fbXI5Qy1YQ1I5cGx1RWFrOWdXMHRYa25KOXc3a0JVZVFQZHpvaWkwSkFqT21VeWlKWWhj?oc=5",
+      "family": "drogas",
+      "slug": "temuco"
     }
   ]
 }
