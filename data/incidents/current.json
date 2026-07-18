@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T02:07:07.779561Z",
+  "generated": "2026-07-18T07:43:51.842590Z",
   "window_days": 30,
   "incidents": [
     {
@@ -11246,6 +11246,71 @@
       "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQRjQ1S1J2R3FIX2ROSXZxbUJqY2RYMzlMZUNGWVhITnphQ3ZRSFRJT3RNX1FyNVZzNHV5UVk3X1ZOVGN0VE5VbXRRT1FBdl8tOThOVHJ3QmdiZF94S0xZbU1WaDZ4d0UzZTl3V2xucTc3NTczakJHc2Y2UW9nM0ZOZ1ZDeWZaWjdVTjB3aTBmV1ZhWnI3MmJtTGUtMDg?oc=5",
       "family": "armas",
       "slug": "los-sauces"
+    },
+    {
+      "id": "39e5c6be24756be7",
+      "cut": "2301",
+      "lat": -22.028941,
+      "lng": -70.027257,
+      "title_es": "Carabineros incauta marihuana y ketamina tras persecución en Tocopilla",
+      "title_en": "Carabineros seize marijuana and ketamine after chase in Tocopilla",
+      "date": "2026-07-18",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-antofagasta/carabineros-incauto-marihuana-y-ketamina-tras-persecucion-en-tocopilla/2026-07-17/202400.html",
+      "family": "drogas",
+      "slug": "tocopilla"
+    },
+    {
+      "id": "9e0ceb2335655dbe",
+      "cut": "5109",
+      "lat": -33.027017,
+      "lng": -71.515513,
+      "title_es": "Indagan muerte de tres personas en Viña del Mar",
+      "title_en": "Investigation into deaths of three people in Viña del Mar",
+      "date": "2026-07-18",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/indagan-muerte-de-tres-personas-en-inmueble-de-vina-del-mar/2026-07-17/224151.html",
+      "family": "vida",
+      "slug": "vina-del-mar"
+    },
+    {
+      "id": "ba7888aecba72ebc",
+      "cut": "1107",
+      "lat": -20.216725,
+      "lng": -69.996704,
+      "title_es": "Condenan a más de 5 años a sujeto por intento de asfixia a expareja y balacera en Alto Hospicio",
+      "title_en": "Man sentenced to over 5 years for attempted asphyxiation of ex-partner and shooting in Alto Hospicio",
+      "date": "2026-07-18",
+      "outlet": "Vilas Radio",
+      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxOejEtSDkwV3Q0RmhmRkRDTmU2R25Bc3B3YjlZRkR4QkJvczZNS0wtWl9VS0ROSm5IR0djb0NqcFl6SUtjOUR5WFdWVEF5YnFIOVRmT2NTbklnVTl5ejJscWxLd3JGcFllU0RNOVFIUVAtUUlNMVBFQ2JGWFZmQ0RmdExTS2pHTWcySmxNZkJRT0VuV2lYS2Y3dk1FaExKckxKRmZJTnQxTU1tVlQ4ekRweEMyaFZaanBXVVZSWmxSRG1zdEF5V0FPdnp5bEpISk5nWUFweGxEUUZhUQ?oc=5",
+      "family": "vida",
+      "slug": "alto-hospicio"
+    },
+    {
+      "id": "35b14ddfbe6f048b",
+      "cut": "8203",
+      "lat": -37.893915,
+      "lng": -73.341741,
+      "title_es": "Último prófugo por el crimen del cabo Eugenio Naín será formalizado",
+      "title_en": "Last fugitive for murder of Corporal Naín to be charged",
+      "date": "2026-07-16",
+      "outlet": "El diario de la Araucanía",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPd29Bekw3OXBYT0g3aVU1VUg2WU1VZ1hiYWEtTGxqaG9wOWVhWkxVUUxqTnM5R3E5dTRxaDhRYUVXaTVWVkNaYjdxRmU2V0hEc1pJOXdUYnF1TjFSbTY3cmFJRGVVZVhlVy1yWHNxTGlMMDNqZF9BN2Z5TFlBNWFoX3YxM3A4NUVTcFAxc0Q1UWPSAZYBQVVfeXFMT1lFYzJMUEtYd2NncEVQd3pHeVBLSlJKSk5TZHVWcy05TW85OENNdzFiVlhtcGgyN1lmckRFV1lrRlVWc2kteHBIZjNkQ3FBQ3p0UzQtLVVuRjVHczBWODJuWU5tTUZYaENaMHlvdDIxbTc2d0VSSjJua1AtT3dpWkpwOHNvcERWb2plczdrcmVtRVJYdndR?oc=5",
+      "family": "vida",
+      "slug": "canete"
+    },
+    {
+      "id": "dc27a86487569734",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Carabinero baleado en Valdivia en estado crítico",
+      "title_en": "Police officer shot in Valdivia in critical condition",
+      "date": "2026-07-17",
+      "outlet": "Radio Paulina",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPOGxRVjBqMklFQjR2NFM2Qy0weVJLMHFPc21BUVkwOS1jbWFlcEJ3LV9vMVpvbHd3bVp3WU1fYUZqYm1CSVZEbjg0eU5lS1Q0MkJOYzdtVG5GR19mblB5cTZrS2FsTnhURml2TUotek0waG9iakxRNlNMYm1lcGhMb0lDamdJRl9NeFRzZWtUTG9sTVBhUmJkemFqYW5ibE56LVJZU1NoVzg3aEQ0Q1czRHU4TVfSAbQBQVVfeXFMTzhsUVYwajJJRUI0djRTNkMtMHlSSzBxT3NtQVFZMDktY21hZXBCdy1fbzFab2x3d21ad1lNX2FGamJtQklWRG44NHlOZUtUNDJCTmM3bVRuRkdfZm5QeXE2a0thbE54VEZpdk1KLXpNMGhvYmpMUTZTTGJtZXBoTG9JQ2pnSUZfTXhUc2VrVExvbE1QYVJiZHphamFuYmxOei1SWVNTaFc4N2hENENXM0R1OE1X?oc=5",
+      "family": "vida",
+      "slug": "valdivia"
     }
   ]
 }
