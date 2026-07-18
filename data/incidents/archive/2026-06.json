@@ -1,0 +1,45 @@
+{
+  "generated": "2026-07-18T02:07:07.779270Z",
+  "window_days": 30,
+  "incidents": [
+    {
+      "id": "a139cc399fa16ead",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Asesinan a adulta mayor al volver de zumba en Maipú; menor se entrega",
+      "title_en": "Elderly woman killed on way back from Zumba in Maipú; minor surrenders",
+      "date": "2026-06-17",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/adulta-mayor-fue-asesinada-cuando-volvia-de-clase-de-zumba-menor-se/2026-06-17/072540.html",
+      "family": "vida",
+      "slug": "maipu"
+    },
+    {
+      "id": "708eaae7b0eb63fb",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "Hallan cadáver de mujer en canal de regadío en Arica",
+      "title_en": "Woman's body found in irrigation canal in Arica",
+      "date": "2026-06-17",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/cadaver-de-una-mujer-fue-hallado-en-un-canal-de-regadio-en-la-region-de/2026-06-17/124657.html",
+      "family": "vida",
+      "slug": "arica"
+    },
+    {
+      "id": "d424af898931432e",
+      "cut": "9109",
+      "lat": -39.36891,
+      "lng": -72.592739,
+      "title_es": "Loncoche: Adolescente pagó 60 mil a compañero de curso para que asesinara a su madre",
+      "title_en": "Loncoche: Teen paid 60 thousand to classmate to murder his mother",
+      "date": "2026-06-17",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/loncoche-adolescente-pago-60-mil-a-companero-de-curso-para-que/2026-06-17/103235.html",
+      "family": "vida",
+      "slug": "loncoche"
+    }
+  ]
+}
