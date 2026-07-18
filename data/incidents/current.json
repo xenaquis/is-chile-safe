@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T07:43:51.842590Z",
+  "generated": "2026-07-18T13:07:00.056734Z",
   "window_days": 30,
   "incidents": [
     {
@@ -11311,6 +11311,32 @@
       "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPOGxRVjBqMklFQjR2NFM2Qy0weVJLMHFPc21BUVkwOS1jbWFlcEJ3LV9vMVpvbHd3bVp3WU1fYUZqYm1CSVZEbjg0eU5lS1Q0MkJOYzdtVG5GR19mblB5cTZrS2FsTnhURml2TUotek0waG9iakxRNlNMYm1lcGhMb0lDamdJRl9NeFRzZWtUTG9sTVBhUmJkemFqYW5ibE56LVJZU1NoVzg3aEQ0Q1czRHU4TVfSAbQBQVVfeXFMTzhsUVYwajJJRUI0djRTNkMtMHlSSzBxT3NtQVFZMDktY21hZXBCdy1fbzFab2x3d21ad1lNX2FGamJtQklWRG44NHlOZUtUNDJCTmM3bVRuRkdfZm5QeXE2a0thbE54VEZpdk1KLXpNMGhvYmpMUTZTTGJtZXBoTG9JQ2pnSUZfTXhUc2VrVExvbE1QYVJiZHphamFuYmxOei1SWVNTaFc4N2hENENXM0R1OE1X?oc=5",
       "family": "vida",
       "slug": "valdivia"
+    },
+    {
+      "id": "035ad97eae122333",
+      "cut": "13103",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Robo de auto a conductor de aplicación en Cerro Navia",
+      "title_en": "Carjacking of app driver in Cerro Navia",
+      "date": "2026-07-18",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robo-de-vehiculos/falsos-pasajeros-robaron-un-auto-de-aplicacion-y-chocaron-contra-un/2026-07-18/074253.html",
+      "family": "robos_violentos",
+      "slug": "cerro-navia"
+    },
+    {
+      "id": "163f3a93651cb1b2",
+      "cut": "13116",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Vecino queda en medio de balacera en Lo Espejo y dos disparos impactan su vehículo",
+      "title_en": "Resident caught in middle of shooting in Lo Espejo; two bullets hit his vehicle",
+      "date": "2026-07-17",
+      "outlet": "Canal 13",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOZ0lzR2dQYUlFbTZncXJCNmRQYjkzMGxTS2ZpNkRzeUZ4S0FpY1kxNWtRcVN3YTl0MC1mSUdjRmE1NHVzc1hIbUxOU2paWEhqSl8ycnp2NWZZY3NXSm1EQTJhdEhqWEdOeFFuUWtSTUhFdjM3X2ljQURLcW1LbHE3dmRZM2hNeGk2QWhVd3dqY0dmRE9RVnNlNExrZm8yZGcxN2hvX3RMX1hZMEN4MXNKUV9lUTZyVWY5eFlz0gG7AUFVX3lxTE5nSXNHZ1BhSUVtNmdxckI2ZFBiOTMwbFNLZmk2RHN5RnhLQWljWTE1a1FxU3dhOXQwLWZJR2NGYTU0dXNzWEhtTE5TalpYSGpKXzJyenY1Zlljc1dKbURBMmF0SGpYR054UW5Ra1JNSEV2MzdfaWNBREtxbUtscTd2ZFkzaE14aTZBaFV3d2pjR2ZET1FWc2U0TGtmbzJkZzE3aG9fdExfWFkwQ3gxc0pRX2VRNnJVZjl4WXM?oc=5",
+      "family": "vida",
+      "slug": "lo-espejo"
     }
   ]
 }
