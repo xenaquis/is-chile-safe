@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-19T02:23:42.528199Z",
+  "generated": "2026-07-19T08:11:14.399657Z",
   "window_days": 30,
   "incidents": [
     {
@@ -11610,6 +11610,123 @@
       "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNUVhYR3I0cmc0VjJURHFncElUak1fZDJRVkwyc0tjWmc4SHB4Z0F6R1psX3NUQ3lWYzFDZ3Q1S0pjNUhfU0o5M3hyVzJsTFRjdDQ5M1NHNnAyN0QwSGhuaEtxZ2tqbjBRWnhUZThQQktOckF6TlNDZzBHTm5ScENqbjlHbDViNnZNMXBScFNYQVFBeUxtc3BUZXNzN3MwVEJsVDRiV1hnQWNIRTVINVpTNVZ2RXNlOXRSRUUwNDZBSFdmZ3RuR05IR1lISXpHMzdLYzNhSXIxOXlzSE5rNm82N1BOVHhYMG5aakVQYmp2aDlEY0NIQ2c?oc=5",
       "family": "vida",
       "slug": "temuco"
+    },
+    {
+      "id": "86e68547db48ce78",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Presidente Kast asiste a responso fúnebre de cabo Marcos Cosme en Temuco",
+      "title_en": "President Kast attends funeral of corporal Marcos Cosme in Temuco",
+      "date": "2026-07-19",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/07/19/presidente-kast-viaja-este-domingo-a-responso-funebre-de-cabo-marcos-cosme-en-la-araucania.shtml",
+      "family": "vida",
+      "slug": "temuco"
+    },
+    {
+      "id": "3b066c24b841550b",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Restos del cabo Marcos Cosme Barquero recibidos en Temuco tras muerte por disparo",
+      "title_en": "Remains of Corporal Marcos Cosme Barquero received in Temuco after death by gunshot",
+      "date": "2026-07-19",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/18/video-restos-del-cabo-marcos-cosme-barquero-son-recibidos-por-bomberos-y-carabineros-en-temuco.shtml",
+      "family": "vida",
+      "slug": "temuco"
+    },
+    {
+      "id": "71ba49ae44a2af38",
+      "cut": "8205",
+      "lat": -37.487413,
+      "lng": -73.242353,
+      "title_es": "Denuncian seguidilla de robos de cables en sectores rurales de Curanilahue",
+      "title_en": "Series of cable thefts reported in rural areas of Curanilahue",
+      "date": "2026-07-19",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/18/dejan-sin-luz-a-vecinos-denuncian-seguidilla-de-robos-de-cables-en-sectores-rurales-del-bio-bio.shtml",
+      "family": "propiedad",
+      "slug": "curanilahue"
+    },
+    {
+      "id": "2e06e6d4057544f5",
+      "cut": "13301",
+      "lat": -33.157849,
+      "lng": -70.605706,
+      "title_es": "Robo a servicentro en Colina termina con persecución y tres detenidos",
+      "title_en": "Gas station robbery in Colina ends with chase and three arrests",
+      "date": "2026-07-18",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/robo-a-servicentro-en-colina-termino-con-persecucion-y-tres-detenidos/2026-07-18/144321.html",
+      "family": "robos_violentos",
+      "slug": "colina"
+    },
+    {
+      "id": "56a69c900a2cd1d0",
+      "cut": "13201",
+      "lat": -33.585262,
+      "lng": -70.549631,
+      "title_es": "Hallazgo de cadáver con múltiples disparos en Puente Alto",
+      "title_en": "Body found with multiple gunshots in Puente Alto",
+      "date": "2026-07-19",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/investigan-hallazgo-de-cadaver-con-multiples-disparos-en-puente-alto/2026-07-18/224402.html",
+      "family": "vida",
+      "slug": "puente-alto"
+    },
+    {
+      "id": "5ca9afddfb88f8fd",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Presidente Kast viaja a Temuco para responso fúnebre de cabo Marcos Cosme",
+      "title_en": "President Kast travels to Temuco for funeral of Corporal Marcos Cosme",
+      "date": "2026-07-19",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/presidente-kast-viaja-a-temuco-para-participar-en-responso-funebre-del-cabo-marcos-cosme/",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "635821440af1fd8a",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Carabinero fallece tras ser baleado en operativo en Valdivia",
+      "title_en": "Carabinero dies after being shot in police operation in Valdivia",
+      "date": "2026-07-18",
+      "outlet": "G5noticias",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNcEdIbWdBdXp5OTdvaEtNN2FweGxqSnB4U3JQSXJ4cVRCTzRKSG1hdGJEV3A3cjlNUUpHdGdLVGUtVHI0dmdzN19WSGN4dkNhaGJXamZWYlQ1VWtXS3VrWXBGR0tQMENGWE1hdTdnNlFDQmdjb3pRTUNxRVdEZWRsbE1saDlFQm9nYXZfVm9XX1dvWlZlUExLWGhWT1g3bDhTZ2FV?oc=5",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "2e3cfae7913a7c99",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Carabinero baleado en Valdivia fallece",
+      "title_en": "Shot police officer dies in Valdivia",
+      "date": "2026-07-19",
+      "outlet": "tarapacaonline.cl",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQV05TWHN0OGJSM2lfRmdBZHNBajNFbUFfNW1aV3luVkdhWXYwUTlpRVhUd0xWWlhmWDZPdDZPbDlpTkZNdjhxMndwb2RXZmJIeklZQy1RQmxqbTFPaFluaDREOFdvb2pOdzM0OHdZbkdJUC1UTVdKaVN0NGExQnhJNWtCbU5NbU1fbW9qOHdEdGhZYkJGX0E?oc=5",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "9f9c14a90d63a41f",
+      "cut": "13129",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Violento ataque armado en La Legua: conductor recibió múltiples disparos",
+      "title_en": "Violent armed attack in La Legua: driver receives multiple gunshots",
+      "date": "2026-07-19",
+      "outlet": "Teletrece",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNUEMzZVZvSGR4bExicHFXRkhuVzdXSGV5X2x1dVVsY1p0eTZCbmkwYnFjbVg1SDdWR2tPSUtkQ20zZTBjcl9md0dIeEpCcVF3dndGbEJoZENmRXEzS2c4S0hjRFNTVHVPbzBhU04tZFdQSWdHQjQwaEtrdjRpb1BVZ2twcEJkQnlqaWRGYnFpVlJMd1U5ckhRNlFWM3FFRi1QemRjcy03aENRWlBDbVBaemFPZ1IyUdIBtgFBVV95cUxNUEMzZVZvSGR4bExicHFXRkhuVzdXSGV5X2x1dVVsY1p0eTZCbmkwYnFjbVg1SDdWR2tPSUtkQ20zZTBjcl9md0dIeEpCcVF3dndGbEJoZENmRXEzS2c4S0hjRFNTVHVPbzBhU04tZFdQSWdHQjQwaEtrdjRpb1BVZ2twcEJkQnlqaWRGYnFpVlJMd1U5ckhRNlFWM3FFRi1QemRjcy03aENRWlBDbVBaemFPZ1IyUQ?oc=5",
+      "family": "vida",
+      "slug": "san-joaquin"
     }
   ]
 }
