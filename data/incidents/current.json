@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-21T02:19:55.450259Z",
+  "generated": "2026-07-21T08:22:36.919644Z",
   "window_days": 30,
   "incidents": [
     {
@@ -12390,6 +12390,71 @@
       "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOa1Exc1ZSejd5WXB6Wjdhb1ZXbkNYZ3ZXTV9NYkZPdllYcVJaTmF4dU5OaXF5VkxJU3VHVTljMHo5V3U5ZVktMlM1VlI1ckYwcWRUZl9jcFdzbjQyc1lMOVJrTG5falU2S2ZrcG1WU29TZ0hLbUhOazZ0OTEtVGFGNW9wQ2VXQTF5X3JEX21RNHVMRVEwQk83T0E4LWhLT01RQ2hfM08wX3p0QU1FN0pTRHhOdmRscEcyU2hOUkxSTERRWFhBUHhtUDdPQWQ?oc=5",
       "family": "robos_violentos",
       "slug": "san-miguel"
+    },
+    {
+      "id": "e96493a5a831daa3",
+      "cut": "10201",
+      "lat": -42.444449,
+      "lng": -73.871884,
+      "title_es": "Prisión preventiva para conductor imputado por muerte de joven castreño",
+      "title_en": "Preventive detention for driver charged with death of young man from Castro",
+      "date": "2026-07-20",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQRGoxdHlXSHVQYndxekxvdWpSR09YMFZpOUJQS2sxVEM0ZmhsbGI5cHVuQjBLbS1TdVJYVFM1ekNGOENCaVg4N3RiQS12UFlacGQ1TmYySnRJNEFlTHFnYXNyRldNbnJXZ0lCemwydzUyTDZrVmZYSFVXY2h5STlvanJaMHNzUUlMYUFtQ08tYXhSMWpfSFVhb1ItUXBIN1FwMGNhZ3RyUks2QQ?oc=5",
+      "family": "vida",
+      "slug": "castro"
+    },
+    {
+      "id": "4aeb2267ccdf7929",
+      "cut": "13129",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Homicidio frustrado en San Joaquín: hombre baleado en su vehículo",
+      "title_en": "Attempted homicide in San Joaquín: man shot in his vehicle",
+      "date": "2026-07-19",
+      "outlet": "urgente.cl",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNcGwtYjB4QkMwVS1UUmRpMlFrcERubmZPNDB0WjZoRHYyc0xvMWljbW9VRDRQcjJDMmhQYzFnLVZqY3YzeU05R3BhckZkY0lkMGFNUl9IWmJVaG9IdnBsTzRQZW9MbjlPdGQ3V2RlWUdXSlVGVVNjQWlTaEk4NDA4Wjg1aTYyWGlBdDJNNi1QUkFucjV3bDBCZXhQcFZMcFpRTk9nSS1WTHhTOXRCdGlXbVNUVUtDVTM1a0czRUlrWUpLZw?oc=5",
+      "family": "vida",
+      "slug": "san-joaquin"
+    },
+    {
+      "id": "58c2797e0e5d6ae4",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Caso Naín: prisión preventiva para imputado en Temuco",
+      "title_en": "Naín Case: Preventive Detention for Accused in Temuco",
+      "date": "2026-07-21",
+      "outlet": "El Diario Santiago",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQRFVCdkZOa1YyQ05BS0doV3JWMHZYVHAzMENkYXZrcEp0WGY1OEljNm82TUV1Vl9UdnVkTGNfbk10cE1TU3R4OFhGWFNVTUtiSUdoRnAxcll2WkFTTXlfaUlTbWNnQldmMkhFajNDVFU1SjE3QUxkbjRNeXNQREl3MlhPXzRaQXFxZVB3SUhYbDhuZWM3cG1EejNRNkdtZw?oc=5",
+      "family": "vida",
+      "slug": "temuco"
+    },
+    {
+      "id": "d9772262b55b719d",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Prisión preventiva para imputado por homicidio de carabinero en La Araucanía y Valdivia",
+      "title_en": "Preventive detention for suspect in carabinero homicides in La Araucanía and Valdivia",
+      "date": "2026-07-20",
+      "outlet": "radiomodelo.cl",
+      "url": "https://news.google.com/rss/articles/CBMihAJBVV95cUxPVjlIdzV0MHBqY011QkdtZU5OMjNyT0dBVjFIbWJZdVhDNndzNWl5Mk43c3RZalgyRFhBVXFRWnh0RnQ0YnFiYldLVW0zM19PeFdrNE10cFZBR1hsNEtZOUdGUXA2OUlkN3RWSWx3RjVWM09pZ3JWdG5SZDNyVUtSeDVFN2FpNFVFOWxQRFdCaDJLd0ZzNXRYNXBFNzhzNDh1enlUYm5iX3FUV0l3UE04c1FiM3FkN1N2amdsYk54R1VxeWlSTHhZOC1sWWVjbnZaa1VzbXRlSWM2alcxa3pjOEY2eWhMQjBEZUdEb0pxUnRGYmxtYVJ1eFBwSVZtdFJvVGNOWQ?oc=5",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "a995942063d847a3",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Caso Naín: prisión preventiva por homicidio de carabineros",
+      "title_en": "Case Naín: preventive detention for murder of police officers",
+      "date": "2026-07-21",
+      "outlet": "G5noticias",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOUHp2SzRiS2NsRzd4aE00THBCNngxZ2ZkWmRRenpQa25qMWh0MWJBNWFXRk9PZDFGTjhwV1hwNlJTQ3F5bS1USkxDWDRRa3VoZTFNdDl5dW5FN0VTQVBlTUg5MEhQcnpIcmZXa1QwWW1OaGt1OWdzMVNCRkdTU3lrcmRCU3dxc3lJY1V3WXpvaGdqTHF2OVlaaTdEbzJkTUkwU2JQSEtOX0RWbWlBZ214bHpYUmxUdDExRE1DRWhUREU2VTNsODBTX09TSENCb0F1NFNuSmJOZmlRd0Mt?oc=5",
+      "family": "vida",
+      "slug": "temuco"
     }
   ]
 }
