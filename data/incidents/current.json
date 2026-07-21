@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-21T08:22:36.919644Z",
+  "generated": "2026-07-21T13:40:08.099306Z",
   "window_days": 30,
   "incidents": [
     {
@@ -12455,6 +12455,84 @@
       "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOUHp2SzRiS2NsRzd4aE00THBCNngxZ2ZkWmRRenpQa25qMWh0MWJBNWFXRk9PZDFGTjhwV1hwNlJTQ3F5bS1USkxDWDRRa3VoZTFNdDl5dW5FN0VTQVBlTUg5MEhQcnpIcmZXa1QwWW1OaGt1OWdzMVNCRkdTU3lrcmRCU3dxc3lJY1V3WXpvaGdqTHF2OVlaaTdEbzJkTUkwU2JQSEtOX0RWbWlBZ214bHpYUmxUdDExRE1DRWhUREU2VTNsODBTX09TSENCb0F1NFNuSmJOZmlRd0Mt?oc=5",
       "family": "vida",
       "slug": "temuco"
+    },
+    {
+      "id": "7945b67d36ea5ada",
+      "cut": "8102",
+      "lat": -36.996187,
+      "lng": -73.045624,
+      "title_es": "Reformalizarán a tres tripulantes del Cobra y a Blumar por caso Bruma",
+      "title_en": "Three Cobra crew members and Blumar to be re-charged in Bruma case",
+      "date": "2026-07-21",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/21/reformalizaran-por-homicidio-culposo-a-tres-tripulantes-del-cobra-y-a-blumar-por-caso-bruma.shtml",
+      "family": "vida",
+      "slug": "coronel"
+    },
+    {
+      "id": "f9d9b877bcd0ecf9",
+      "cut": "8301",
+      "lat": -37.433606,
+      "lng": -72.323701,
+      "title_es": "Querella de capítulos contra jueza por red de corrupción judicial en Los Ángeles",
+      "title_en": "Chapter complaint against judge over judicial corruption network in Los Ángeles",
+      "date": "2026-07-21",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/21/querella-de-capitulos-contra-jueza-fiscalia-la-involucra-en-red-de-corrupcion-judicial-en-los-angeles.shtml",
+      "family": "propiedad",
+      "slug": "los-angeles"
+    },
+    {
+      "id": "1bc12397055c081c",
+      "cut": "12101",
+      "lat": -53.368996,
+      "lng": -71.47533,
+      "title_es": "Condenan a 5 años a mujer por intentar matar a su padre con un bate en Punta Arenas",
+      "title_en": "Woman sentenced to 5 years for attempting to kill her father with a bat in Punta Arenas",
+      "date": "2026-07-21",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-magallanes/2026/07/21/sentencian-a-5-anos-de-carcel-a-mujer-que-intento-matar-a-su-padre-con-un-bate-en-punta-arenas.shtml",
+      "family": "vida",
+      "slug": "punta-arenas"
+    },
+    {
+      "id": "80e7c6cd900b69a8",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Balacera en Estación Central deja un herido de 17 años",
+      "title_en": "Shooting in Estación Central leaves 17-year-old injured",
+      "date": "2026-07-21",
+      "outlet": "BioBioChile",
+      "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxOdVFsVzhsSG9QVFh6b1pXTTVyakFaaERjdEhHNHRIR19RbGdUUU5xQXhNQ2VBNTlsQlA0S2NpTWlUc1BYQzRJc2tOVW50SWhzTE5mc2VrbXFDX2g2Yk04Ym0xeE95bDY3ZTViQzRhVHRoaXpLUEVQXzFJZ3A2eFhGNVEwaXV6SXV1dWhWUzEwNDBCc0JWVzZKdDVaMWxNSjk1UzBJRGFTQzV2SWJwb19vX2FsTzdwMEwxYXVHNVQ3WEJfNVdrZEprMG9UZXNBVWFKRkJiM3V4QmppZ2FCa05Mc1FOTmk1amJSX2hBeVFBT0ZJdzc0QldscA?oc=5",
+      "family": "vida",
+      "slug": "estacion-central"
+    },
+    {
+      "id": "58d24ff4ac136ab9",
+      "cut": "13121",
+      "lat": -33.493075,
+      "lng": -70.678734,
+      "title_es": "Homicidio en Pedro Aguirre Cerda: atacante huye tras disparar a hombre en paradero",
+      "title_en": "Homicide in Pedro Aguirre Cerda: attacker flees after shooting man at bus stop",
+      "date": "2026-07-20",
+      "outlet": "urgente.cl",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQX3ZhVTBuMmhiVnR1a0ZjMG5EenpLVDBYTmotMDZTT3NJLWhkLXFWTXpzblIxVUFuekl3WHpYX2hvY3hlcThjUXNnamo0NWl0RnJuSVhCTTBFdThxandEd1o0QzdMUi02ZFpkWTk2b081S3FPTFNoOVZSSjNpZVF4d1VGV0ZmU0JwdDVjcHFRN0tvSk83MXVUQVFpZWo0Tl9waXp6YjlzeVZ6SXM5bFczUg?oc=5",
+      "family": "vida",
+      "slug": "pedro-aguirre-cerda"
+    },
+    {
+      "id": "46d3d1125be7690a",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Formalizan a tres imputados por intento de robo de vehículo en Iquique",
+      "title_en": "Three suspects charged for attempted vehicle theft in Iquique",
+      "date": "2026-07-21",
+      "outlet": "Vilas Radio",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNSjlkQ3BpdjEydDczeTlDNUFHVEtCcDZ1WUE5RXNJVUJnbV9EQWNXcmpBaEJtaGFod3huQ1V2Y2ZIbTY5YVAxUFJSdHYwdEVlaGR5TTdqbU9iN012MWs0bjNVOWNQSFl6bm5fM0RFV0pLSFFGeGhacERIR3dzUE5Wdk53Mks1dDQ4aFlYdGM3T3lDMFlNV0ZVdXRucHRtTEYyOEZB?oc=5",
+      "family": "robos_violentos",
+      "slug": "iquique"
     }
   ]
 }
