@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-22T13:44:05.134790Z",
+  "generated": "2026-07-22T19:11:57.564441Z",
   "window_days": 30,
   "incidents": [
     {
@@ -12819,6 +12819,123 @@
       "url": "https://news.google.com/rss/articles/CBMihwJBVV95cUxQT0FxMy1uR0Y0aDdQLWR1bzRnbTlIRllQYTVNcjJQWUNvaGZpQUZueGUtTkYtWkVhWE0wQm5ZZVV1TW9LUVA0UnVtZUdXWDZPT0JSS3NtSDRwR19oZ0w1TGdudFF0U0htdXAyXzJ1eHlMZHczWUk4enJpcmFGQTZSUU05TFktV1BraGlrcFRveUlheDhZSVMxakVtN0J6S1Ria25jVXRrTmo1ZXlKY3J5Yi1qOTFMVXVLSmVHTlFIb0c0Y3dQR2pxTVVUeUF6d2U2Tnl2ZnlVYkZ6dW4tc0Q4WEFhdDU1YUpZbkRITVZYOUxwSmdIV1ROZEZEQUZnQ2U0cnZLdVI4SQ?oc=5",
       "family": "vida",
       "slug": "valdivia"
+    },
+    {
+      "id": "915d12936036ba82",
+      "cut": "13116",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Formalizan a sospechoso de balear a carabineros en Lo Espejo",
+      "title_en": "Suspect charged for shooting police officers in Lo Espejo",
+      "date": "2026-07-22",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/ff-aa-y-de-orden/carabineros/por-doble-homicidio-frustrado-sera-formalizado-sospechoso-de-balear-a/2026-07-22/130600.html",
+      "family": "vida",
+      "slug": "lo-espejo"
+    },
+    {
+      "id": "1d096ee7c5ef8e92",
+      "cut": "13116",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Detenido 'el panda' por baleo a carabineros en Lo Espejo",
+      "title_en": "'El Panda' arrested for shooting at police officers in Lo Espejo",
+      "date": "2026-07-22",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/fue-detenido-el-panda-autor-de-baleo-a-dos-carabineros-en-lo-espejo/2026-07-22/122845.html",
+      "family": "vida",
+      "slug": "lo-espejo"
+    },
+    {
+      "id": "afa50def08e4eeab",
+      "cut": "13203",
+      "lat": -33.712538,
+      "lng": -70.070825,
+      "title_es": "Tres personas extraviadas en Cajón del Maipo fueron encontradas vivas",
+      "title_en": "Three missing people in Cajón del Maipo found alive",
+      "date": "2026-07-22",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/tres-personas-que-estaban-extraviadas-en-cajon-del-maipo-fueron/2026-07-22/095447.html",
+      "family": "vida",
+      "slug": "san-jose-de-maipo"
+    },
+    {
+      "id": "4fa4524e19defa63",
+      "cut": "13116",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Cae El Panda, sujeto que baleó a dos carabineros en Lo Espejo",
+      "title_en": "'El Panda' arrested for shooting two police officers in Lo Espejo",
+      "date": "2026-07-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/cae-el-panda-el-sujeto-que-baleo-a-dos-carabineros-en-lo-espejo/",
+      "family": "vida",
+      "slug": "lo-espejo"
+    },
+    {
+      "id": "b8ac055abecdac10",
+      "cut": "7302",
+      "lat": -34.945023,
+      "lng": -71.702952,
+      "title_es": "Detienen a hombre por homicidio en Hualañé: amputó oreja a víctima y se entregó",
+      "title_en": "Man arrested for homicide in Hualañé: amputated victim's ear and turned himself in",
+      "date": "2026-07-22",
+      "outlet": "LaCuarta",
+      "url": "https://www.lacuarta.com/espectaculos/noticia/detienen-a-hombre-por-homicidio-en-hualane-le-amputo-la-oreja-a-la-victima-y-se-entrego-a-carabineros-tras-confesar-crimen-a-sus-padres/",
+      "family": "vida",
+      "slug": "hualane"
+    },
+    {
+      "id": "73a05e7705c2d485",
+      "cut": "13116",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Detienen a 'El Panda' por homicidio frustrado de carabineros en Lo Espejo",
+      "title_en": "'El Panda' arrested for attempted murder of police officers in Lo Espejo",
+      "date": "2026-07-22",
+      "outlet": "BioBioChile",
+      "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxOSXVyS3czNTUzWHZkVXdia1BtQV9pX1pQUnMxbjZCODV5dmNsUkM2WVdCUUlUbnpkaHM5Y19lTk41RElWWjRLZHJIdnBtd0xUZFo5SC1PYXVGTms4b0NJZHg0WHJPdkVxUkVfWFAwM3I3SnR6bzJfUk83alpFM3ZLdWYwQk5pQWpDMGdHOXhIWWZzNm1oMlFCdEcyZzVLX2dzT0s3UWtqa2dJeXZjSTBESV9fY2hfV0Y1MzdJSng5TnpFRDJLNExaZWx6ZWY4MzJHRDlvU1M1UGpTRUtPMXdrUDZma01WRHlQNDZkZHhrWQ?oc=5",
+      "family": "vida",
+      "slug": "lo-espejo"
+    },
+    {
+      "id": "599e183b5fc40a71",
+      "cut": "13301",
+      "lat": -33.157849,
+      "lng": -70.605706,
+      "title_es": "Investigan homicidio frustrado en Colina: hombre baleado con 10 disparos",
+      "title_en": "Attempted homicide investigated in Colina: man shot at least 10 times",
+      "date": "2026-07-22",
+      "outlet": "Meganoticias",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNS1ZuY3FaOHNUQmRzcmtCV3dtYTYwbjU3cnUyTzRFdFplTkl1SkhZZlFHVl9yRldxNjhlSTVaTWRRdEhlMWVxNndZM3hUalRYM3gydnd0U1RfU2xiejdTOHIzOVpEUWhfMF9lWHNwcF9NQ1dSQkg2TlhBUGs2OGRLT0g0ZHkxYTJ6VHF6cFVlWlJSanFqdzZmeGR5VHg1ODNLbkVmZVloZWVXZm1vRGFPSFlmNVJnZ05KUGthdjgtVjVmeTJOZkJkNXJ2RdIBywFBVV95cUxNS1ZuY3FaOHNUQmRzcmtCV3dtYTYwbjU3cnUyTzRFdFplTkl1SkhZZlFHVl9yRldxNjhlSTVaTWRRdEhlMWVxNndZM3hUalRYM3gydnd0U1RfU2xiejdTOHIzOVpEUWhfMF9lWHNwcF9NQ1dSQkg2TlhBUGs2OGRLT0g0ZHkxYTJ6VHF6cFVlWlJSanFqdzZmeGR5VHg1ODNLbkVmZVloZWVXZm1vRGFPSFlmNVJnZ05KUGthdjgtVjVmeTJOZkJkNXJ2RQ?oc=5",
+      "family": "vida",
+      "slug": "colina"
+    },
+    {
+      "id": "22524be84da2d893",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "Denuncian robo de estanques de agua en Tierras Blancas",
+      "title_en": "Theft of water tanks reported in Tierras Blancas",
+      "date": "2026-07-22",
+      "outlet": "Mi Radio",
+      "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxQdjFPVTFXVU5UWW5jVXgzQmREV1NYM3JXZmlxandkUURjbzdCbjRDZmtTYy1zOFJUY1lfVWg2UVEwYTIwSmcxVzNmWEM0ODZDTDVzQzlRejg3enl5NjliX3RWSUhMTmlvM01qbURiemVGWHBkTVpMRFpfREl3SGxMVk1MekI5eFFfaWdGM2NfUTNIek5QNHlmQnpSVHRGN25JUFU4eU45OU84bXBJZG1yUUtYM29RZDhvSzlNWUtlUkJCSS1uVlE1Q3JPcU5GNDNGTUpxTjNSY014U1V2MmVaWl9RVmFFODdkRVdRWUdzQS1iZlZHZUltei0xcWI?oc=5",
+      "family": "robos_violentos",
+      "slug": "coquimbo"
+    },
+    {
+      "id": "a1c8c51faa0a8b73",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Trasladan a imputado y condenado por muerte de suboficial Nain",
+      "title_en": "Accused and convicted transferred for death of suboficial Nain",
+      "date": "2026-07-22",
+      "outlet": "BioBioChile",
+      "url": "https://news.google.com/rss/articles/CBMikgJBVV95cUxPSEN3b3VaaTF6RjM0Q2ZvTzNJUngzSXN6akVveGFNYVg1ODhRS1NZREN4YkFHUGkyRXBXVTcxY1dmdzBKNW9qZ1VjWUNyVTJUZ0w2M096RmJlY0Z5UnMzdktQUEpzWHFCaGlyck5VRGtWajhLeWY0M09ZWG16bzFJbTMxU2JERm5OS0tsVkFScGJQM25YajQ5LUhCWl9BM0dxMXA5bXpKTlk0M1JPMmN2dm5aTGM2cUVCU1E4NmdlUjVHLW1kNEFBRF9qN0lMRmRtVEtnRXM5bjRQR1podXRjN3RxVHI1UHRYQU5hSERqbFdmdi1CQmhrTzdHOHpjemdsSmlHcEdqV0pPS2ZQRm11NENB?oc=5",
+      "family": "vida",
+      "slug": "temuco"
     }
   ]
 }
