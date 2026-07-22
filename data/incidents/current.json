@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-22T02:16:12.121732Z",
+  "generated": "2026-07-22T08:23:15.444335Z",
   "window_days": 30,
   "incidents": [
     {
@@ -12583,6 +12583,110 @@
       "date": "2026-07-21",
       "outlet": "SoyChile.cl",
       "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQeFkwaDl5UklHUmlHTlhheTJCemdLcXQtdEtUdF9iWmVRa3RPQ3Y1dENZclpZbW9FZmFWTGpHMkJwQ2JsZmg3N3ptSDVkR1lULUdJeU5GVzlRYS1xNG5DZE9YU1c1bDk0RjVJdUlrcWJJeWhHY0h1WmxxU2tXTWJIUlAtT1c5WGpNTTVhTzdHTFNCcEg0NzFjcQ?oc=5",
+      "family": "robos_violentos",
+      "slug": "victoria"
+    },
+    {
+      "id": "63483d94a60d679b",
+      "cut": "7302",
+      "lat": -34.945023,
+      "lng": -71.702952,
+      "title_es": "Macabro homicidio en Hualañé: hombre se entrega con parte de oreja de víctima",
+      "title_en": "Macabre homicide in Hualañé: man turns himself in with part of victim's ear",
+      "date": "2026-07-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-maule/2026/07/22/macabro-homicidio-en-hualane-hombre-se-entrego-a-personal-policial-con-parte-de-la-oreja-de-victima.shtml",
+      "family": "vida",
+      "slug": "hualane"
+    },
+    {
+      "id": "67a31dc97b453e73",
+      "cut": "13124",
+      "lat": -33.393205,
+      "lng": -70.850871,
+      "title_es": "10 delincuentes roban camión con $300 millones en computadores en Pudahuel",
+      "title_en": "10 criminals steal truck with $300 million in computers in Pudahuel",
+      "date": "2026-07-22",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/pudahuel-10-delincuentes-robaron-camion-con-300-millones-en-computadores/2026-07-21/232313.html",
+      "family": "robos_violentos",
+      "slug": "pudahuel"
+    },
+    {
+      "id": "0542a75064fb7c27",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Imputado por homicidio de carabinero ingresa a penal Santiago 1",
+      "title_en": "Suspect in police homicide enters Santiago 1 prison",
+      "date": "2026-07-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/el-rana-imputado-por-el-homicidio-del-suboficial-mayor-eugenio-nain-ingresa-al-penal-santiago-1-bajo-maxima-seguridad/",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "6443490e463c4936",
+      "cut": "16302",
+      "lat": -36.717919,
+      "lng": -71.514451,
+      "title_es": "Investigan homicidio de adolescente baleado por grupo en Coihueco",
+      "title_en": "Investigation into murder of teenager shot by group in Coihueco",
+      "date": "2026-07-20",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQdklEMUpIVDVzNjBmRUNqWVZBYm52NjN6cFFTcVNrRGZzUjZBV0EyT0xWOG9RVDhQNS1xcGNlRkpwUFVqb19peFlmOEZRWkxqS3MyY1h3VUw1OFdTU1dPRWctR0FVUjd2MkNVM2hqT25yREozWkFuNlVXaGcySEU0UWZVMWl2OVVwamttTU1aYVZLOVJTdUQtQnRhZkxsQWVQQnRXWGVDMVFMbGFjU0JiSW5QTQ?oc=5",
+      "family": "vida",
+      "slug": "coihueco"
+    },
+    {
+      "id": "363f4ee550bad663",
+      "cut": "3301",
+      "lat": -28.643656,
+      "lng": -70.624257,
+      "title_es": "Detienen en Vallenar a seis personas por robo de vehículo y porte de arma",
+      "title_en": "Six people arrested in Vallenar for vehicle theft and firearm possession",
+      "date": "2026-07-22",
+      "outlet": "Puranoticia",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxORG1vd2N3QTBvVm54NHVNaVM5bUhlRC1pZkpudkIyUmV3TFJMT2xNTWR1YmpySUdkNGRia0ZNUGg5NUZscnlsYk1jOUlTUG43LVBjT2oteUhHNmxRZDg2djI4cU02anhISmU2Uk5CSlJKYTZ3RDVCUl8tNGF1YUNQaTVpbURQQmlkdllrcENpaWJTZnVjUDJyb050ajBkR1kxeWV2eUNZNTA5dU9Y?oc=5",
+      "family": "robos_violentos",
+      "slug": "vallenar"
+    },
+    {
+      "id": "941a4891da9a36d0",
+      "cut": "13126",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Detienen a dos sujetos por homicidio frustrado de mujer en situación de calle",
+      "title_en": "Two suspects arrested for attempted murder of homeless woman",
+      "date": "2026-07-21",
+      "outlet": "soy-chile.cl",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQSnEzQTVJTkRsdzkyblFNbjFtNzI5RmZDRzVOUXR2YXJuWWZzcEhhNjVwS1hDVmVsa2xkaHhrX0tXMEJENGFwUUVVN2lCOXFvbnNfVF94OEhjNmVJM1BmVUo4ejJVcXR1cnUyVEdMSmVSY0NFWVFHQlozLU9pUmRZX1hkM1RSWmNvbzdsVFNfQ2xjbUVhLVl6Z1ViMFUxRy0tMmlMVjRYSQ?oc=5",
+      "family": "vida",
+      "slug": "quinta-normal"
+    },
+    {
+      "id": "8d0ec2ac8a574297",
+      "cut": "16101",
+      "lat": -36.609879,
+      "lng": -72.06608,
+      "title_es": "Detienen a sujeto por robo frustrado en vivienda de Chillán",
+      "title_en": "Suspect arrested for attempted robbery at a home in Chillán",
+      "date": "2026-07-21",
+      "outlet": "soy-chile.cl",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPRERfM2VwaFEyN0hFbDNYamlhMGhISk1oUWt5am5NMi1SM2sxNEFEVG5RTThuRERBdEpDR0ZZVXYyM2d5ZTE2LTNfdEFkUGZ2YjB0V01tdjRMUHB5Qy1UT3F3NmZQOWZBbXhFcHBPczNNSWFLV2d0SW5KWDczM21MWk0xenFnYUZSa1JWT2dKRUt1dkgzTHZaRGV6eXctSTNmV3c?oc=5",
+      "family": "robos_violentos",
+      "slug": "chillan"
+    },
+    {
+      "id": "9b0edf6d2b28dbdd",
+      "cut": "9211",
+      "lat": -38.277589,
+      "lng": -72.209528,
+      "title_es": "Arrestan a dos adolescentes por robo a vivienda en Victoria",
+      "title_en": "Two teenagers arrested for home robbery in Victoria",
+      "date": "2026-07-21",
+      "outlet": "latribuna.cl",
+      "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxORTE4eTMtZldTOWEyY0RseDA3a2tJQzh0UVd6dW9LNWJPeTFnTzliWXZ5VWxqTVFLSE9XVUI4VkZBSmRrNGNMV2JKT1hLU3lXNzlTS3MwRVZhenJlNG1meWxVQzNIOFcyMElmYWVsaXNZT21OU2syOFlObmZrMzFZVWxVR2JXbnhJSk0tc2NSamRxeU5feFZWbW1qeW1qQlN0aU5zcnk4YWpWazRCSmZHUUxnU1RtV21oU1JfSS1HbUNPLS1HbUF1a09oV053WloxSmlLRFQ3djE2Y1J4TEFpMk1DUm5jS2tQWUhwMjFlOXlYUE1tRlpOM9IB-AFBVV95cUxORTE4eTMtZldTOWEyY0RseDA3a2tJQzh0UVd6dW9LNWJPeTFnTzliWXZ5VWxqTVFLSE9XVUI4VkZBSmRrNGNMV2JKT1hLU3lXNzlTS3MwRVZhenJlNG1meWxVQzNIOFcyMElmYWVsaXNZT21OU2syOFlObmZrMzFZVWxVR2JXbnhJSk0tc2NSamRxeU5feFZWbW1qeW1qQlN0aU5zcnk4YWpWazRCSmZHUUxnU1RtV21oU1JfSS1HbUNPLS1HbUF1a09oV053WloxSmlLRFQ3djE2Y1J4TEFpMk1DUm5jS2tQWUhwMjFlOXlYUE1tRlpOMw?oc=5",
       "family": "robos_violentos",
       "slug": "victoria"
     }
