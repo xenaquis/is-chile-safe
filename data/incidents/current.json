@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-22T08:23:15.444335Z",
+  "generated": "2026-07-22T13:44:05.134790Z",
   "window_days": 30,
   "incidents": [
     {
@@ -12689,6 +12689,136 @@
       "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxORTE4eTMtZldTOWEyY0RseDA3a2tJQzh0UVd6dW9LNWJPeTFnTzliWXZ5VWxqTVFLSE9XVUI4VkZBSmRrNGNMV2JKT1hLU3lXNzlTS3MwRVZhenJlNG1meWxVQzNIOFcyMElmYWVsaXNZT21OU2syOFlObmZrMzFZVWxVR2JXbnhJSk0tc2NSamRxeU5feFZWbW1qeW1qQlN0aU5zcnk4YWpWazRCSmZHUUxnU1RtV21oU1JfSS1HbUNPLS1HbUF1a09oV053WloxSmlLRFQ3djE2Y1J4TEFpMk1DUm5jS2tQWUhwMjFlOXlYUE1tRlpOM9IB-AFBVV95cUxORTE4eTMtZldTOWEyY0RseDA3a2tJQzh0UVd6dW9LNWJPeTFnTzliWXZ5VWxqTVFLSE9XVUI4VkZBSmRrNGNMV2JKT1hLU3lXNzlTS3MwRVZhenJlNG1meWxVQzNIOFcyMElmYWVsaXNZT21OU2syOFlObmZrMzFZVWxVR2JXbnhJSk0tc2NSamRxeU5feFZWbW1qeW1qQlN0aU5zcnk4YWpWazRCSmZHUUxnU1RtV21oU1JfSS1HbUNPLS1HbUF1a09oV053WloxSmlLRFQ3djE2Y1J4TEFpMk1DUm5jS2tQWUhwMjFlOXlYUE1tRlpOMw?oc=5",
       "family": "robos_violentos",
       "slug": "victoria"
+    },
+    {
+      "id": "6a42b7a6953a617d",
+      "cut": "9203",
+      "lat": -38.439136,
+      "lng": -71.784922,
+      "title_es": "Gendarme en prisión preventiva por agresión con arma blanca en Curacautín",
+      "title_en": "Gendarme remanded for knife assault outside nightclub in Curacautín",
+      "date": "2026-07-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/22/gendarme-queda-en-prision-preventiva-por-agresion-con-arma-blanca-afuera-de-disco-en-curacautin.shtml",
+      "family": "vida",
+      "slug": "curacautin"
+    },
+    {
+      "id": "31dd091420e15fce",
+      "cut": "13203",
+      "lat": -33.712538,
+      "lng": -70.070825,
+      "title_es": "Encuentran con vida a los tres desaparecidos en Cajón del Maipo",
+      "title_en": "Three missing people found alive in Cajón del Maipo",
+      "date": "2026-07-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/22/encuentran-con-vida-a-las-tres-personas-desaparecidas-en-el-cajon-del-maipo.shtml",
+      "family": "vida",
+      "slug": "san-jose-de-maipo"
+    },
+    {
+      "id": "75f57a8d6c3a69a8",
+      "cut": "10101",
+      "lat": -41.509945,
+      "lng": -72.83364,
+      "title_es": "Más de 60 años de cárcel suman condenas de 3 sujetos por violento robo a universitario en Puerto Montt",
+      "title_en": "Over 60 years in prison total for 3 subjects for violent robbery of university student in Puerto Montt",
+      "date": "2026-07-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-lagos/2026/07/22/mas-de-60-anos-de-carcel-suman-condenas-de-3-sujetos-por-violento-robo-a-universitario-en-puerto-montt.shtml",
+      "family": "robos_violentos",
+      "slug": "puerto-montt"
+    },
+    {
+      "id": "666cb1aaec5b9070",
+      "cut": "13301",
+      "lat": -33.157849,
+      "lng": -70.605706,
+      "title_es": "Indagan ataque a balazos en Colina: Víctima recibió 10 disparos",
+      "title_en": "Investigation underway into shooting attack in Colina: Victim received 10 gunshot wounds",
+      "date": "2026-07-22",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/indagan-ataque-a-balazos-en-colina-victima-recibio-10-disparos/2026-07-22/093053.html",
+      "family": "vida",
+      "slug": "colina"
+    },
+    {
+      "id": "0090f2de5861464a",
+      "cut": "13301",
+      "lat": -33.157849,
+      "lng": -70.605706,
+      "title_es": "Investigan homicidio frustrado en Colina: hombre recibió alrededor de 10 impactos balísticos",
+      "title_en": "Frustrated homicide investigated in Colina: man received around 10 gunshot wounds",
+      "date": "2026-07-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/investigan-homicidio-frustrado-en-colina-hombre-recibio-alrededor-de-10-impactos-balisticos/",
+      "family": "vida",
+      "slug": "colina"
+    },
+    {
+      "id": "453e1f918a9001dc",
+      "cut": "13301",
+      "lat": -33.157849,
+      "lng": -70.605706,
+      "title_es": "Hombre recibió decena de balazos en Colina",
+      "title_en": "Man shot multiple times in Colina",
+      "date": "2026-07-22",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQNFp3NVZ2NXlReU1OczRpNWVYVEZhd3R5UmJJQTYzSlZIcE9aa1dhblBIcmZKRjRtbDhQMnhiU0kzX2VMUkV6Y0ZuVHBuczB5OTRMVXRjRDJOV05EcWZPQUtUcEc4U0pzak9Jb2lQcXZ3b3pleWUtMXA3S3REY3B1VGFyd2hIWDZJRGNNSm04V05LVnk2aHlhWA?oc=5",
+      "family": "vida",
+      "slug": "colina"
+    },
+    {
+      "id": "40c2a3604df99a13",
+      "cut": "13301",
+      "lat": -33.157849,
+      "lng": -70.605706,
+      "title_es": "Investigan homicidio frustrado en Colina tras ataque con 10 disparos",
+      "title_en": "Investigate attempted homicide in Colina after attack with 10 shots",
+      "date": "2026-07-22",
+      "outlet": "BioBioChile",
+      "url": "https://news.google.com/rss/articles/CBMigwJBVV95cUxNNEkzSjIxcWJ2czBacldVOWFCTlI0T3RZaTBwbHpNNXZ3WVBfVUM5OWUyd2h5X3lRdVQ2WVJnZWxyUVhkY0NfM1R4eVVtMU9oeGhKbFQ4WlBPWlZRVHlYM0ZEZTdtOHdVVXZ4eDh2aU81UHZQLVFZdGlOb1JMN244aDd0MWx0dUxYTXppYnhkRHhVZ0VRTHJCbEJwaFhGU2loU3NNVlBtQkJhRWpTVUY3SXVnQmtRU0kweDc1RTR3elNMRmlmRzJFN0lBdTJ2dHgxVHRIelZYWWp0ZnQ0V09oTGY4RXZwNzRvNzVCaGZWcE9qX3hNc3l4UWxRQTFMLU9SMTNj?oc=5",
+      "family": "vida",
+      "slug": "colina"
+    },
+    {
+      "id": "c2601c382ac832d2",
+      "cut": "13301",
+      "lat": -33.157849,
+      "lng": -70.605706,
+      "title_es": "Hombre recibe decena de balazos en Colina: indagan homicidio frustrado",
+      "title_en": "Man receives dozens of gunshots in Colina: attempted homicide investigated",
+      "date": "2026-07-22",
+      "outlet": "soy-chile.cl",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPUk4wdm4wamFJN05SeVpSN3R3V29ldEpBNl91Z0Y3NHRBQm5fYnBqRGZVc2poMnZTT2d0VVNZWVgtUkF2Y0lxblBHdWZoaHhtVGxPWmxValBRWDl5YzAxdFUybTAxYktKaXRndEtNaVJlMVZiaGVBblc0UGVQS3Y4ZXRyYVdqZ0hxZ2c2bk5pRkxzUWwt?oc=5",
+      "family": "vida",
+      "slug": "colina"
+    },
+    {
+      "id": "41a902adf2bf34a0",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Dos extranjeros en prisión por homicidio frustrado de mujer en Iquique",
+      "title_en": "Two foreigners jailed for attempted homicide of woman in Iquique",
+      "date": "2026-07-22",
+      "outlet": "Radio Paulina",
+      "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxQQ19oWnlQN3V6aE9iYjVmcGJWWlVOYmZkYUt5a0lZbGVkbllMX0lUSzc4TnRialJETE9OT3JuVjNGQnN5WGZ6My1wdUlLZ2F5UFRKUUFUbGJGQnNyTEdJUUhpeWltaVpqVTJoRDgtVU84TUk0bElZSmRSNHZFX3pSNm54UGRPTTJHWG9ST2hzZktFaXY2UmZabTJrcXFwYnpHZ0ZUVC1sOFRsMlB6cC1sSGZ1eG5GNXFDZW1GNFIxbGdITkY2SWVJMVczRlRJNXRDdXpBNkpTeXVoR3dBdXZrTmtmSUJpb0pIVldwSkozMmNVdE3SAfMBQVVfeXFMUENfaFp5UDd1emhPYmI1ZnBiVlpVTmJmZGFLeWtJWWxlZG5ZTF9JVEs3OE50YmpSRExPTk9yblYzRkJzeVhmejMtcHVJS2dheVBUSlFBVGxiRkJzckxHSVFIaXlpbWlaalUyaEQ4LVVPOE1JNGxJWUpkUjR2RV96UjZueFBkT00yR1hvUk9oc2ZLRWl2NlJmWm0ya3FxcGJ6R2dGVFQtbDhUbDJQenAtbEhmdXhuRjVxQ2VtRjRSMWxnSE5GNkllSTFXM0ZUSTV0Q3V6QTZKU3l1aEd3QXV2a05rZklCaW9KSFZXcEpKMzJjVXRN?oc=5",
+      "family": "vida",
+      "slug": "iquique"
+    },
+    {
+      "id": "3b5b28d1737cda46",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Prisión preventiva para imputado por homicidio de carabinero en Valdivia y La Araucanía",
+      "title_en": "Preventive detention for suspect in murder of police officer in Valdivia and La Araucanía",
+      "date": "2026-07-21",
+      "outlet": "tropicalisima.cl",
+      "url": "https://news.google.com/rss/articles/CBMihwJBVV95cUxQT0FxMy1uR0Y0aDdQLWR1bzRnbTlIRllQYTVNcjJQWUNvaGZpQUZueGUtTkYtWkVhWE0wQm5ZZVV1TW9LUVA0UnVtZUdXWDZPT0JSS3NtSDRwR19oZ0w1TGdudFF0U0htdXAyXzJ1eHlMZHczWUk4enJpcmFGQTZSUU05TFktV1BraGlrcFRveUlheDhZSVMxakVtN0J6S1Ria25jVXRrTmo1ZXlKY3J5Yi1qOTFMVXVLSmVHTlFIb0c0Y3dQR2pxTVVUeUF6d2U2Tnl2ZnlVYkZ6dW4tc0Q4WEFhdDU1YUpZbkRITVZYOUxwSmdIV1ROZEZEQUZnQ2U0cnZLdVI4SQ?oc=5",
+      "family": "vida",
+      "slug": "valdivia"
     }
   ]
 }
