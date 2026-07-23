@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-23T02:26:48.153723Z",
+  "generated": "2026-07-23T08:25:09.228210Z",
   "window_days": 30,
   "incidents": [
     {
@@ -12910,6 +12910,123 @@
       "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOVE1sWFZmVGQwYWRHUHdldkozRzViVGllWGxYaXk0TGx3RzZMLU5qOVE4MUxleFU3TVVyc05QNjI1QTBjSFpIM0ZMcmxMdnM4b0M5RmZ1a19sWUoySnFTeEZJeWM2ZnVIZVBYcDBmcWR4WUxVTGpLSjVOR2Zlb3hHM0hkcWVlb1gtQmQtYjZmemgySDhNLTRHcUM1RDFiTlpHM2N0c194R08xeHg3N2k2Q0J5ckI5RlI3WmZPYVcwaGFESy1lcTVIatIB0AFBVV95cUxPVHNxSVJqVmhLMFNlZ0dPbFNWdndmYkVib3FvWmtnV0Z2QUFwYzhCM2NFX09KOWdfSFlnR0RTVm5KOTdhMVlEY2t0dk0zSG83OTlrY2w4X0lPdTlqTXNIMXhGbTBVVGZVQ05qai14eC1DZDM2bkFPd2xGT1M1Zy1pdHZvNENQZjZMQlltYlpFV3hjX1R1ZjFMNEQ2SGE1T1JtV1kwbFJWamdMbl9RRDkybmMzM2NvblBJR3hxVXBwalpsVWNQU0o1bzRUQzg2OFpZ?oc=5",
       "family": "robos_violentos",
       "slug": "los-angeles"
+    },
+    {
+      "id": "689c73a019ee7c4d",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "Detienen en Recoleta a hombre con órdenes por homicidio y femicidio frustrado",
+      "title_en": "Man arrested in Recoleta with outstanding warrants for homicide and attempted femicide",
+      "date": "2026-07-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/23/carabineros-detiene-en-recoleta-a-hombre-con-ordenes-vigentes-por-homicidio-y-femicidio-frustrado.shtml",
+      "family": "vida",
+      "slug": "recoleta"
+    },
+    {
+      "id": "9da7dc7e6e1897a3",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Gendarmería ordena sumario por Nguillatún con imputado por crimen de cabos",
+      "title_en": "Gendarmería orders investigation into Nguillatún involving accused of police murders",
+      "date": "2026-07-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-rios/2026/07/22/gendarmeria-ordena-sumario-por-nguillatun-donde-participo-imputado-por-crimenes-de-cabos-nain-y-cosme.shtml",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "7e4689b1709fa739",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Ataque a balazos y hallazgo de cadáver en Santiago",
+      "title_en": "Shooting attack and corpse found in Santiago",
+      "date": "2026-07-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/22/fiscalia-indaga-ataque-a-balazos-a-mujer-de-18-anos-y-hallazgo-de-cadaver-en-plena-calle-en-santiago.shtml",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "4ead25e69fd8ec09",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Fisco debe indemnizar a mujer por falso positivo de cocaína",
+      "title_en": "State must compensate woman for false cocaine positive",
+      "date": "2026-07-23",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/judicial/fisco-debera-indemnizar-a-mujer-que-paso-siete-meses-presa-por-falso/2026-07-23/001612.html",
+      "family": "drogas",
+      "slug": "iquique"
+    },
+    {
+      "id": "d778babbec92d5ae",
+      "cut": "13126",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Descubren casa de cautiverio y tortura del Tren de Aragua en Quinta Normal",
+      "title_en": "Tren de Aragua captivity and torture house discovered in Quinta Normal",
+      "date": "2026-07-23",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/crimen-organizado/descubren-casa-de-cautiverio-tortura-y-entierro-del-tren-de-aragua-en/2026-07-22/232543.html",
+      "family": "vida",
+      "slug": "quinta-normal"
+    },
+    {
+      "id": "02f53b083d83fb83",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Homicidio en Santiago: un hombre muerto y una mujer herida tras balacera",
+      "title_en": "Homicide in Santiago: one man dead and one woman injured after shooting",
+      "date": "2026-07-23",
+      "outlet": "urgente.cl",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQOFRNOWZIRGk1WUMtUnBOREhHOUtMSVBubUhaWW83dHU2U19xMkpQTlVEUTZYbkRjNGNFTVJabG5Pc0NmRTFPckxoWXAzWWV4eW8xZGdjMlBkaURNaUxrbUJQck1lRDEzVkJxZDkxOUpZOVc5U3ZNWFdHajZRMHFfREloWEZ5SXRjZnFiOHlnYUFhelA1MVNoaGdIUVJ1b2M?oc=5",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "409d6ba5a3428035",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Detienen a presunto asaltante tras violento robo frustrado en Antofagasta",
+      "title_en": "Suspect arrested after violent attempted robbery in Antofagasta",
+      "date": "2026-07-22",
+      "outlet": "Timeline.cl",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQczNqWWVLNmw2SE5udm1obzFhVU03S2hObjhfb1ZIRFJmcGpncDE2VTFEbzNMd0RmV2ZIbml5bk9kRkVhZlpibVFxS2RCOTdDQ2NWOWZhVUIwQ2p4NFV5TWpsYmc3QzEwNHJVT0V0bHVGay1VVnc1VkM2a3gxSWM2c3FfM3MxLUxCOFllQUZneVZGOG55OGJZTjZxXzR6cUtMYjJOX0dIbjkxMm55RnVSVFExMVBWZUNwUUZ4WGJfZGhSR0RQ?oc=5",
+      "family": "robos_violentos",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "023330da83d5ceb4",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Dos asaltos violentos en Maipú: portonazo y abordazo en 72 horas",
+      "title_en": "Two violent assaults in Maipú: frustrated portonazo and carjacking within 72 hours",
+      "date": "2026-07-22",
+      "outlet": "La Voz de Maipú",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5WTS1GMFAxRGdveVVqZ0ptcC1RZnVmR0FlckY1U0Noa2NhRy0yT2hCb3JqZGdjeFhpT2hSY2dBalFNLS16dVNrTS1saUdrWXRkSzlSeFhrZ2YtNkM4dk9uT2VaNUs3WjhRbl83UFJndUYzR3M?oc=5",
+      "family": "robos_violentos",
+      "slug": "maipu"
+    },
+    {
+      "id": "690239200636ef1b",
+      "cut": "4301",
+      "lat": -30.674669,
+      "lng": -71.402962,
+      "title_es": "Detenido por tráfico de fentanilo en Ovalle",
+      "title_en": "Arrested for fentanyl trafficking in Ovalle",
+      "date": "2026-07-23",
+      "outlet": "urgente.cl",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQeDkzU2FBUFNOUHZxS3R1MVQtVC1VWXN5a3FETDJQb0VCVVZIYll2aHJxVnhPZjRWNnB3UHcxVW13cDRFd0szWGczSmdueEFzQU5rMXZDUUxmTTBIa1NQYUdzSnR4NFVYVXkxMS1Pai1OeWY4OW1FZzVlUFJLeUpvay1sZVlaWVNqZDVPeDV1R2dqRS15VnVIMzhzOVBfV25IaUYyTGdKV0ZuWHBNTy02YVVaOE1acWRQd0lQQ1BmbXZUR0pod1o5SFBxWmVlQ0NGbHdSeQ?oc=5",
+      "family": "drogas",
+      "slug": "ovalle"
     }
   ]
 }
