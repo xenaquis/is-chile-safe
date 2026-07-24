@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-24T02:24:25.863965Z",
+  "generated": "2026-07-24T08:22:16.610187Z",
   "window_days": 30,
   "incidents": [
     {
@@ -13703,6 +13703,58 @@
       "url": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxPbklhclJJbmk4b3dBRzNuTV95M0ZHcS14LXpZOEhweVZ6OWdmb0hJLWlFdEpNdFNleEoyNUhac1AzMFJyWWdpYTlTdDFxbGVaS1dXc1VrNHZ3cG41T2RUN2lxLXlGZFBEX3NSSmJtN3cxT2tkWW50WGc1SDJwRFc1bE1TcHNTVmpPbWF6VkpaWVp1cG9TQTZsRUJ0OTNDcDdYUzF4WjEwTkZDYXpvYnJzaFJ0NHM3MHBGN1ZSbVBSSktaWksyX3NZLUNEbEoxVUlvdGhDWEFfS3h2c2VaaVR2eW5KdmVoWi0ta2h1V1Mzdjc3d3FDeTBuNWFhY2VjSHAzS0Rqd0tTSVJQVVHSAYsCQVVfeXFMT25JYXJSSW5pOG93QUczbk1feTNGR3EteC16WThIcHlWejlnZm9ISS1pRXRKTXRTZXhKMjVIWnNQMzBScllnaWE5U3QxcWxlWktXV3NVazR2d3BuNU9kVDdpcS15RmRQRF9zUkpibTd3MU9rZFludFhnNUgycERXNWxNU3BzU1ZqT21helZKWlladXBvU0E2bEVCdDkzQ3A3WFMxeFoxME5GQ2F6b2Jyc2hSdDRzNzBwRjdWUm1QUkpLWlpLMl9zWS1DRGxKMVVJb3RoQ1hBX0t4dnNlWmlUdnluSnZlaFotLWtodVdTM3Y3N3dxQ3kwbjVhYWNlY0hwM0tEandLU0lSUFVR?oc=5",
       "family": "robos_violentos",
       "slug": "los-angeles"
+    },
+    {
+      "id": "ba77d13edfa6ffb4",
+      "cut": "11101",
+      "lat": -45.603111,
+      "lng": -72.048631,
+      "title_es": "Menores imputados por robo con homicidio en Coyhaique",
+      "title_en": "Minors charged with robbery and homicide in Coyhaique",
+      "date": "2026-07-24",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/menores-son-imputados-por-fatal-mexicana-en-coyhaique/2026-07-24/003851.html",
+      "family": "vida",
+      "slug": "coyhaique"
+    },
+    {
+      "id": "98ec7cd973ae214f",
+      "cut": "13302",
+      "lat": -33.268753,
+      "lng": -70.870954,
+      "title_es": "Incendio en fábrica de cosméticos en Lampa",
+      "title_en": "Fire at cosmetics factory in Lampa",
+      "date": "2026-07-24",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/incendios/incendio-afecto-a-una-fabrica-de-productos-cosmeticos-en-lampa/2026-07-23/235814.html",
+      "family": "propiedad",
+      "slug": "lampa"
+    },
+    {
+      "id": "6353f5423dcddd62",
+      "cut": "9203",
+      "lat": -38.439136,
+      "lng": -71.784922,
+      "title_es": "Gendarme en prisión preventiva por agresión con arma blanca en Curacautín",
+      "title_en": "Prison Guard in Preventive Detention for Knife Assault in Curacautín",
+      "date": "2026-07-22",
+      "outlet": "BioBioChile",
+      "url": "https://news.google.com/rss/articles/CBMijAJBVV95cUxOVmtvT2ljdUxSM1QtNzNWcFBjdFlWTVAtejh0c3ljb282XzJMbGRCaXVIampXRzl0WEdHaEZ6OVRRYmkwcjhZZ2poREFPeUlCcklKcks1YnR1VlljN19PYUlwTjFxMWxidDE3WGZOSGtCWW1fYzlFUTU0dUl6SVV1LWdHeG4yRzZnQ1RzcXMxYVpPVS1fZjVqNWtiSTlUUDZtWlJLSXIyelBYRzd6eWhpU2pTc3dta05CY0xSRE1xNGgxVnRCNU1PTHZ3RmZSR0lWVVRwalNOTFBNNkt1cHBleV9wUmdxdkNMWnFaYlBVRHI0TXAxRFZpRE9MekpXSmVneGoxa3VEMkJjTDZ5?oc=5",
+      "family": "vida",
+      "slug": "curacautin"
+    },
+    {
+      "id": "bc785b314388f4f6",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Trasladan a Santiago a detenido Carlos Cancino bajo amplia custodia",
+      "title_en": "Detainee Carlos Cancino transferred to Santiago under heavy custody",
+      "date": "2026-07-21",
+      "outlet": "Diario de Valdivia",
+      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNT0ZrNS1uS19GZlpwUFlObklCS1JNZVd2Z1hhcnliX1E2LW94X0JkVkl5MUxZS2s4czVTRng1RmRWMlhLM3h3ZFd4VVlMVHB2eTBpYWt3aFF1YU9qbTZKQjNWd280aVNINWl6X2w3ZjlhNm4yZzFJM3NCc2o5bFlKMjFyNXlPd240RHhmZ1hJalA3eTFST2xJV3hvcnNGS0hzRjV6R2Q1V0RIV1ZsU1lZQXprSzlCalJqWVpDRG9kQzFDSFBPcURKekZjdGRMOXdVQ2FfSF9YVjI?oc=5",
+      "family": "vida",
+      "slug": "valdivia"
     }
   ]
 }
