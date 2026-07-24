@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-24T08:22:16.610187Z",
+  "generated": "2026-07-24T13:29:56.539600Z",
   "window_days": 30,
   "incidents": [
     {
@@ -13755,6 +13755,58 @@
       "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNT0ZrNS1uS19GZlpwUFlObklCS1JNZVd2Z1hhcnliX1E2LW94X0JkVkl5MUxZS2s4czVTRng1RmRWMlhLM3h3ZFd4VVlMVHB2eTBpYWt3aFF1YU9qbTZKQjNWd280aVNINWl6X2w3ZjlhNm4yZzFJM3NCc2o5bFlKMjFyNXlPd240RHhmZ1hJalA3eTFST2xJV3hvcnNGS0hzRjV6R2Q1V0RIV1ZsU1lZQXprSzlCalJqWVpDRG9kQzFDSFBPcURKekZjdGRMOXdVQ2FfSF9YVjI?oc=5",
       "family": "vida",
       "slug": "valdivia"
+    },
+    {
+      "id": "7382cd49c1dc18be",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Caso Monsalve: abogada apela rebaja de cautelar y acusa revictimización",
+      "title_en": "Monsalve case: lawyer appeals reduction of precautionary measures and accuses revictimization",
+      "date": "2026-07-24",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/entrevistas-bbcl/entrevista-nacional/2026/07/24/caso-monsalve-abogada-querellante-confirma-apelacion-a-baja-de-cautelar-y-acusa-revictimizacion.shtml",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "078cc12cc6e2b364",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Detienen a 5 delincuentes por asalto a tienda tecnológica en Mallplaza Sur",
+      "title_en": "5 criminals arrested for assault on tech store at Mallplaza Sur",
+      "date": "2026-07-24",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/24/detienen-a-5-delincuentes-que-arrasaron-con-mostrador-de-tienda-tecnologica-en-mall-de-san-bernardo.shtml",
+      "family": "robos_violentos",
+      "slug": "san-bernardo"
+    },
+    {
+      "id": "410f70203c26205a",
+      "cut": "3302",
+      "lat": -29.026167,
+      "lng": -70.146747,
+      "title_es": "Hallazgo de dos mujeres fallecidas en Alto del Carmen",
+      "title_en": "Discovery of two deceased women in Alto del Carmen",
+      "date": "2026-07-24",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/pdi-confirma-hallazgo-de-dos-mujeres-fallecidas-en-sector-precordillerano-de-alto-del-carmen/",
+      "family": "vida",
+      "slug": "alto-del-carmen"
+    },
+    {
+      "id": "5ed2736572f50683",
+      "cut": "13110",
+      "lat": -33.539168,
+      "lng": -70.463562,
+      "title_es": "Detienen a dos personas por tráfico de armas en La Florida",
+      "title_en": "Two people arrested for arms trafficking in La Florida",
+      "date": "2026-07-24",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/detienen-a-dos-personas-con-importante-diferentes-tipos-de-armas-en-la-florida/",
+      "family": "armas",
+      "slug": "la-florida"
     }
   ]
 }
