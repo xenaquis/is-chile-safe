@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-25T08:02:34.407997Z",
+  "generated": "2026-07-25T13:18:05.681160Z",
   "window_days": 30,
   "incidents": [
     {
@@ -14429,6 +14429,71 @@
       "date": "2026-07-24",
       "outlet": "SoyChile.cl",
       "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQQlc3SWNTVms1M09McmhLTmEwYnVjcC1ydVpRbU5jU3hSM01NS0lhbXdHclVmWVY2TkRVNWhJLWFNNDBVSEpqakZsMndkLTB2aHVOZnNveHk0YlY5V3lOcElqOGxFWHBmNnJfR0tDb3dxN3RfZE96bzd3WWlPczdocmxzcTNvbkIwczVDa1RJajBYT2pqM1p6d2VZOA?oc=5",
+      "family": "vida",
+      "slug": "valdivia"
+    },
+    {
+      "id": "bb3abc7f96a6e8f0",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Arresto domiciliario nocturno a adolescentes por desórdenes en el Instituto Nacional",
+      "title_en": "Nightly house arrest for adolescents after disturbances at Instituto Nacional",
+      "date": "2026-07-25",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/07/25/dos-adolescentes-quedaron-con-arresto-domiciliario-nocturno-tras-desordenes-en-el-instituto-nacional.shtml",
+      "family": "incivilidades",
+      "slug": "santiago"
+    },
+    {
+      "id": "c889f2c0ac3a4dcd",
+      "cut": "5101",
+      "lat": -33.116644,
+      "lng": -71.575283,
+      "title_es": "Fuga en cárcel de Valparaíso: Fiscalía pide más de 50 años de prisión para cómplices",
+      "title_en": "Escape from Valparaíso prison: Prosecution seeks over 50 years for accomplices",
+      "date": "2026-07-25",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-valparaiso/2026/07/25/fuga-en-carcel-de-valparaiso-fiscalia-pide-mas-de-50-anos-de-prision-para-quienes-ayudaron-a-los-reos.shtml",
+      "family": "vida",
+      "slug": "valparaiso"
+    },
+    {
+      "id": "334c80b74e9917ba",
+      "cut": "13114",
+      "lat": -33.400888,
+      "lng": -70.506596,
+      "title_es": "Violenta encerrona a familia en Las Condes",
+      "title_en": "Violent carjacking attempt on family in Las Condes",
+      "date": "2026-07-25",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robo-de-vehiculos/delincuentes-perpetraron-violenta-pero-fallida-encerrona-a-familia-en/2026-07-25/075317.html",
+      "family": "robos_violentos",
+      "slug": "las-condes"
+    },
+    {
+      "id": "602aff00b2f73cf0",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Detienen en flagrancia a banda de robo de vehículos en Temuco",
+      "title_en": "Flagrante arrest of vehicle theft gang in Temuco",
+      "date": "2026-07-25",
+      "outlet": "TemucoDiario.cl",
+      "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxQSTExS25DX3lqUkg5MG03QVd3bkpISkVDQXNkdDBGWTJFUTlJaXdpcXRESTdOVWhPM1VCSm9ibjhVdnFBVG93QmhIM2xCWm8zcHZWM09sUXRIcHpFU1hGR3lZakQ4ajdXRWVKTGFRTS1JZ2JsMWFXLTNuOW8zQ2xza1RKekFmV0JrM01USm1CU2Zldk5zdjFRUjVpYzNBRGhsZlA5M25pWHlkX2d0UDZxUXplN2VVUlZrVG9PWUVoa3BiYVEtZVVJdlItYXZEVDlWRXVkVlBhSzk4ZW9pUlUxQ2tGQ2V0Szg?oc=5",
+      "family": "propiedad",
+      "slug": "temuco"
+    },
+    {
+      "id": "0603762592393ad9",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Prisión preventiva para ‘El Rana’ por homicidio de carabinero en Valdivia",
+      "title_en": "Preventive detention for ‘El Rana’ for homicide of police officer in Valdivia",
+      "date": "2026-07-24",
+      "outlet": "Página 7",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOWGRCRl96dHlUakg0b3BiQl9odHlTNFVhZnlJTE1qSXR2VUF1bnJUY1d4ZGJvd1h3Q0VnNExsdW0xcHgtWHlSNlNLdkZZc01vWGVHb1pLNDBFd0lZMUt1V2FsbEZvQUZmNmU1LV9PLS1jSW50NHVmYzZ5anZncW03N0lGcXllTTk2QU5Mdm5oWWlDOExEcHVvU0hGcERCSVd1ZUlNbG8wVHh4UmRPSXpiSUlmOHl3NVN6NmxCTTJGNmhHN25hY2JwNjdn0gHPAUFVX3lxTFBEMlJrV0xrUGtVdHJmbTd0YXBHcnhjOVptdXVBN3VvQUd1bGw4a0lCSzJvWVdMYTNsWmd6d2pXbU16MUNPVEdIYWM1WFdodUtNb1BtYjdZY1FHdkRVMFpvVUpMendSRHl5b2NIUFpwZVNiV1dwYXQ0VjcyTk1aTS1qZDgtMkZ0VUJ4M213SlBmSHJybkdUeFpVclpoX1Fwd2RVOXd1TXhkTzVVeWxJZ1poMnBjNERVRGpSZjFoVzBaSjliVWk1WGdNWDhTdXptUQ?oc=5",
       "family": "vida",
       "slug": "valdivia"
     }
