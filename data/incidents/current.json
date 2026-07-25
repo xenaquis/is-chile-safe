@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-25T02:17:59.468002Z",
+  "generated": "2026-07-25T08:02:34.407997Z",
   "window_days": 30,
   "incidents": [
     {
@@ -14379,6 +14379,58 @@
       "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNWEI4aWQta3cyVVZBaDlTTG9vQkl0aVVwdENDOE90bVByR2I0V3A5ZUotRHdiNWlfOWpERXQ0cTM5SDd2M29mUFJLUUV6ZjdLRXBfSWpzMDVZYnhDdjNhaDltS2E5dlVINmNMQkYwbDZ0a2EzSk1ZcEtJRUoyZHZPSk5kMElfY1RzZG9RamJNWkt5VmtsT2hObWJLU3FVd1NTbGtYN0sxOEpVU0tOVnRQNkZUX2NReUxjQWVyejE3Y2pYWE9leVFWcGg5bzBncnUzVkxaSEd4R0LSAdgBQVVfeXFMTVhCOGlkLWt3MlVWQWg5U0xvb0JJdGlVcHRDQzhPdG1QckdiNFdwOWVKLUR3YjVpXzlqREV0NHEzOUg3djNvZlBSS1FFemY3S0VwX0lqczA1WWJ4Q3YzYWg5bUthOXZVSDZjTEJGMGw2dGthM0pNWXBLSUVKMmR2T0pOZDBJX2NUc2RvUWpiTVpLeVZrbE9oTm1iS1NxVXdTU2xrWDdLMThKVVNLTlZ0UDZGVF9jUXlMY0FlcnoxN2NqWFhPZXlRVnBoOW8wZ3J1M1ZMWkhHeEdC?oc=5",
       "family": "robos_violentos",
       "slug": "pitrufquen"
+    },
+    {
+      "id": "ceb7e20e4f173003",
+      "cut": "2201",
+      "lat": -22.191672,
+      "lng": -68.619517,
+      "title_es": "Desarticulan red de trata en Calama y rescatan a 10 víctimas de explotación sexual",
+      "title_en": "Human trafficking network dismantled in Calama, 10 victims of sexual exploitation rescued",
+      "date": "2026-07-24",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-antofagasta/desarticulan-red-de-trata-y-rescatan-a-10-victimas-de-explotacion-sexual/2026-07-24/185748.html",
+      "family": "vida",
+      "slug": "calama"
+    },
+    {
+      "id": "9c7ccf58092f86f3",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "TOP de La Serena condena a 12 años de presidio a autor de homicidio en Coquimbo",
+      "title_en": "Oral Criminal Court of La Serena sentences homicide perpetrator to 12 years in prison in Coquimbo",
+      "date": "2026-07-24",
+      "outlet": "Poder Judicial",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPZEdUaGE4a3l3dnZGZ3Uxc3Y3dm00ZjltaFJhYU1zX3c0RzlKcnlfT1djTmlCV09TRHJqTU9xWll1RFRiOWo3dlFtOGpkRFNQVm5lS3FFOG90ZVhCLXJuTlJlQ1k0VUxIUGdpZHE4dUx2aHJlYU1jYVo2b0xaQXJ2Y0k1X0M?oc=5",
+      "family": "vida",
+      "slug": "coquimbo"
+    },
+    {
+      "id": "555df5298b9a0fb5",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Banda robó vehículo en Temuco y fue delatada por cámaras",
+      "title_en": "Gang stole vehicle in Temuco and was caught by cameras",
+      "date": "2026-07-25",
+      "outlet": "tiempo21.cl",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQdzMtTmJiUXJ1OThERTJHVm9OQW1kdi1xUjVSNjJvdFNpRE5XeU5YUXhhWlRYb3BuX0V6ZTB4VmF1OGdVRFVjLTNpczZ1Q04wRnVCRDZ6QmtsTmdvODE2REFCWDcyTEQtRE9kRHVWVUpBN1cxWXgtOUNLb1dpSjlOV0dJODdibm83anZWRnhjMl9LN0VrZmtpTC12NkdsS2JtR0IxWTV4X1VYb2o5Ti1yQnBxRnFKR01nMDYtTW9TRWs?oc=5",
+      "family": "robos_violentos",
+      "slug": "temuco"
+    },
+    {
+      "id": "f3a334f1c6a4ff82",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Imputado por delitos contra carabineros en Valdivia queda en prisión preventiva",
+      "title_en": "Suspect accused of crimes against police officers in Valdivia placed in pre-trial detention",
+      "date": "2026-07-24",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQQlc3SWNTVms1M09McmhLTmEwYnVjcC1ydVpRbU5jU3hSM01NS0lhbXdHclVmWVY2TkRVNWhJLWFNNDBVSEpqakZsMndkLTB2aHVOZnNveHk0YlY5V3lOcElqOGxFWHBmNnJfR0tDb3dxN3RfZE96bzd3WWlPczdocmxzcTNvbkIwczVDa1RJajBYT2pqM1p6d2VZOA?oc=5",
+      "family": "vida",
+      "slug": "valdivia"
     }
   ]
 }
