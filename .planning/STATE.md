@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 Phase: 25
 Plan: Not started
 Status: Ready to execute
-Last activity: 2026-07-26 - Completed quick task 260726-jya (bumped all GitHub Actions to v7 / Node-24); prior: gf7 decoder+rejected+hardening. All crons live and verified
+Last activity: 2026-07-26 - Completed quick task 260726-k23 (full system health verification: both crons green + v7 validated, Granite+rejected working, R2 corpus v2 backfilling, 288 tests, 0 secret leaks). System fully healthy, no follow-up needed
 
 ## Progress Bar
 
@@ -146,6 +146,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | 260726-ep0 | R2 research archive: daily cron uploads consolidated incidents (JSONL/CSV + APA citations), full article text via trafilatura (append-only, SHA-256, 100/run cap), url-ledger + corpus-state to bucket ischilesafe; live-verified 1264 incidents | 2026-07-26 | 820aac1 | [260726-ep0-archive-all-news-incidents-to-r2-with-ap](./quick/260726-ep0-archive-all-news-incidents-to-r2-with-ap/) |
 | 260726-gf7 | Google News URL decoder (batchexecute, live-verified) + archive rejected candidates (data/incidents/rejected/, corpus schema v2, kind-aware ledger) + security hardening (SSRF redirect+DNS guards, CSV injection, robustness); code review 2 CRITICAL+5 warnings all fixed; 288 tests | 2026-07-26 | 3f9648a | [260726-gf7-google-news-url-decoder-archive-rejected](./quick/260726-gf7-google-news-url-decoder-archive-rejected/) |
 | 260726-jya | Bump all GitHub Actions pins to v7 (Node-24 era): checkout v4→v7, setup-python v5→v7, setup-node v4→v7 across 4 workflows; clears Node-20 deprecation annotations | 2026-07-26 | 787a239 | [260726-jya-bump-github-actions-to-node-24-versions-](./quick/260726-jya-bump-github-actions-to-node-24-versions-/) |
+| 260726-k23 | Full system health verification (no code): both crons live-dispatched green + Node-20 annotation gone (v7 validated), Granite + rejected-capture (16 items) working, R2 corpus v2 with 248 full-text articles + gnews decoder recovering URLs (133 fetched), 288 tests, 0 secret leaks | 2026-07-26 | verify | [260726-k23-verify-full-system-health-v7-workflow-bu](./quick/260726-k23-verify-full-system-health-v7-workflow-bu/) |
 
 ## Session Continuity
 
