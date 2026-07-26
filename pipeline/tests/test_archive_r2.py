@@ -222,7 +222,9 @@ def test_fetch_article_mocked_success():
     mock_resp = MagicMock()
     mock_resp.status_code = 200
     mock_resp.url = "https://outlet.cl/final"
-    mock_resp.text = "<html><body>Contenido</body></html>"
+    mock_resp.headers = {"Content-Type": "text/html"}
+    mock_resp.iter_content.return_value = iter([b"<html><body>Contenido</body></html>"])
+    mock_resp.encoding = "utf-8"
 
     with patch.object(ft, "requests") as mock_req, \
          patch.object(ft, "trafilatura") as mock_traf:
@@ -230,7 +232,8 @@ def test_fetch_article_mocked_success():
         mock_req.RequestException = Exception
         mock_traf.extract.return_value = "texto extraído"
 
-        res = ft.fetch_article("https://news.google.com/rss/x")
+        # Use a non-gnews URL to avoid decoder path
+        res = ft.fetch_article("https://outlet.cl/nota")
 
     assert res["extraction_ok"] is True
     assert res["final_url"] == "https://outlet.cl/final"
@@ -245,7 +248,8 @@ def test_fetch_article_non_2xx():
     mock_resp = MagicMock()
     mock_resp.status_code = 404
     mock_resp.url = "https://outlet.cl/not-found"
-    mock_resp.text = ""
+    mock_resp.headers = {"Content-Type": "text/html"}
+    mock_resp.iter_content.return_value = iter([])
 
     with patch.object(ft, "requests") as mock_req, \
          patch.object(ft, "trafilatura"):
@@ -266,7 +270,9 @@ def test_fetch_article_empty_extraction():
     mock_resp = MagicMock()
     mock_resp.status_code = 200
     mock_resp.url = "https://outlet.cl/ok"
-    mock_resp.text = "<html></html>"
+    mock_resp.headers = {"Content-Type": "text/html"}
+    mock_resp.iter_content.return_value = iter([b"<html></html>"])
+    mock_resp.encoding = "utf-8"
 
     with patch.object(ft, "requests") as mock_req, \
          patch.object(ft, "trafilatura") as mock_traf:
