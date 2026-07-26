@@ -97,7 +97,8 @@ def format_apa(inc: dict) -> str:
     Missing outlet → "s. a."
     Unparseable/missing date → "(s. f.)"
     """
-    outlet = (inc.get("outlet") or "").strip() or "s. a."
+    raw_outlet = (inc.get("outlet") or "").strip()
+    outlet = raw_outlet if raw_outlet else None
     title = inc.get("title_es", "") or ""
     url = inc.get("url", "") or ""
     raw_date = inc.get("date", "") or ""
@@ -108,7 +109,10 @@ def format_apa(inc: dict) -> str:
     except (ValueError, KeyError):
         date_str = "(s. f.)"
 
-    return f"{outlet}. {date_str}. {title}. {url}"
+    if outlet:
+        return f"{outlet}. {date_str}. {title}. {url}"
+    else:
+        return f"s. a. {date_str}. {title}. {url}"
 
 
 # ---------------------------------------------------------------------------
