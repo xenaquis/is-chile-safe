@@ -386,19 +386,27 @@ def test_merge_ledger_append_only_fetched_unchanged():
 # ---------------------------------------------------------------------------
 
 def test_build_corpus_state_aggregation():
+    """
+    Schema v2: totals split by kind. Legacy rows without 'kind' default to "incident".
+    """
     ledger = {
         "A": {
-            "id": "A", "status": "fetched",
+            "id": "A", "status": "fetched", "kind": "incident",
             "char_count": 5, "text_sha256": "h1",
             "fetched_at": "2026-07-01T00:00:00+00:00",
         },
         "B": {
-            "id": "B", "status": "failed",
+            "id": "B", "status": "failed", "kind": "incident",
             "char_count": 0, "text_sha256": None,
             "fetched_at": None,
         },
         "C": {
-            "id": "C", "status": "pending",
+            "id": "C", "status": "pending",  # legacy: no kind field → defaults to "incident"
+            "char_count": 0, "text_sha256": None,
+            "fetched_at": None,
+        },
+        "R1": {
+            "id": "R1", "status": "pending", "kind": "rejected",
             "char_count": 0, "text_sha256": None,
             "fetched_at": None,
         },
@@ -408,12 +416,17 @@ def test_build_corpus_state_aggregation():
         {"id": "B", "outlet": "BioBio", "family": "vida", "date": "2026-06-15"},
         {"id": "C", "outlet": "Emol", "family": "robo", "date": "2026-06-20"},
     ]
+    rejected_list = [
+        {"id": "R1", "rejection_stage": "classifier_none", "outlet": "T13", "date": "2026-07-01"},
+    ]
 
-    state = ar.build_corpus_state(ledger, incidents)
+    state = ar.build_corpus_state(ledger, incidents, rejected_list)
 
-    assert state["totals"]["fetched_ok"] == 1
-    assert state["totals"]["failed"] == 1
-    assert state["totals"]["pending"] == 1
+    # v2 nested totals
+    assert state["totals"]["incidents"]["fetched_ok"] == 1
+    assert state["totals"]["incidents"]["failed"] == 1
+    assert state["totals"]["incidents"]["pending"] == 1   # legacy row C
+    assert state["totals"]["rejected"]["pending"] == 1
     assert state["total_chars"] == 5
 
     expected_sha = hashlib.sha256("h1".encode("utf-8")).hexdigest()
@@ -425,7 +438,10 @@ def test_build_corpus_state_aggregation():
     assert state["by_family"]["vida"] == 1
     assert state["by_month"]["2026-07"] == 1
     assert state["by_month"]["2026-06"] == 2
-    assert state["schema_version"] == 1
+    assert state["schema_version"] == 2
+
+    # rejected_by_stage
+    assert state["rejected_by_stage"]["classifier_none"] == 1
 
 
 # ---------------------------------------------------------------------------
@@ -520,3 +536,230 @@ def test_preflight_failure_returns_1_no_fetch(monkeypatch):
     assert result == 1, "Bad credentials/bucket must fail loud (CI alert), not exit 0"
     fetch_spy.assert_not_called()
     mock_client.put_object.assert_not_called()
+
+
+# ---------------------------------------------------------------------------
+# 19. consolidate_rejected: reads monthly files, dedups, attaches apa
+# ---------------------------------------------------------------------------
+
+def test_consolidate_rejected_reads_and_deduplicates(tmp_path):
+    import json as _json
+    rejected_dir = tmp_path / "rejected"
+    rejected_dir.mkdir()
+
+    item1 = {
+        "id": "aaaa1111",
+        "url": "https://t13.cl/nota/1",
+        "outlet": "T13",
+        "date": datetime.utcnow().strftime("%Y-%m-%d"),
+        "title": "Robo en plaza",
+        "description": "Descripción del evento",
+        "rejection_stage": "classifier_none",
+        "first_seen": "2026-07-01T00:00:00+00:00",
+    }
+    # Same id in two files → first-seen wins (dedup)
+    file1 = {"generated": "2026-07-01T00:00:00", "items": [item1]}
+    file2 = {"generated": "2026-07-02T00:00:00", "items": [{**item1, "outlet": "OTHER"}]}
+
+    (rejected_dir / "2026-07.json").write_text(_json.dumps(file1), encoding="utf-8")
+    (rejected_dir / "2026-06.json").write_text(_json.dumps(file2), encoding="utf-8")
+
+    result = ar.consolidate_rejected(tmp_path)
+
+    assert len(result) == 1, f"Expected 1 deduped record, got {len(result)}"
+    assert "apa" in result[0], "apa should be attached"
+
+
+def test_consolidate_rejected_missing_dir_returns_empty(tmp_path):
+    result = ar.consolidate_rejected(tmp_path)
+    assert result == []
+
+
+# ---------------------------------------------------------------------------
+# 20. merge_ledger backward-compat: legacy row without kind → kind="incident"
+# ---------------------------------------------------------------------------
+
+def test_merge_ledger_legacy_row_gains_incident_kind():
+    """An existing legacy row WITHOUT 'kind' must gain kind='incident' and stay intact."""
+    existing = {
+        "A": {
+            "id": "A",
+            "url": "https://x.cl",
+            "final_url": None,
+            "status": "pending",
+            "attempts": 0,
+            "fetched_at": None,
+            "text_sha256": None,
+            "char_count": 0,
+            # No 'kind' field — this is a legacy row
+        }
+    }
+    inc = _make_inc("A")
+    # No outcome this run
+    result = ar.merge_ledger(existing, [inc], {}, kind="incident")
+    assert result["A"].get("kind") == "incident", "Legacy row must gain kind='incident'"
+    assert result["A"]["status"] == "pending"  # should not be corrupted
+
+
+def test_merge_ledger_fetched_legacy_row_immutable():
+    """A fetched legacy row (no kind) must remain immutable — kind added, status unchanged."""
+    existing = {
+        "A": {
+            "id": "A",
+            "url": "https://x.cl",
+            "final_url": "https://x.cl/f",
+            "status": "fetched",
+            "attempts": 1,
+            "fetched_at": "2026-07-01T00:00:00+00:00",
+            "text_sha256": "abc123",
+            "char_count": 100,
+            # No 'kind' — legacy
+        }
+    }
+    inc = _make_inc("A")
+    outcomes = {"A": {"ok": False}}  # Would degrade if not immutable
+    result = ar.merge_ledger(existing, [inc], outcomes, kind="incident")
+    assert result["A"]["status"] == "fetched", "Fetched row must remain immutable"
+    assert result["A"]["text_sha256"] == "abc123"
+
+
+def test_merge_ledger_rejected_kind_set():
+    """Records merged with kind='rejected' get kind='rejected' in ledger."""
+    rej = {"id": "R1", "url": "https://emol.com/rej"}
+    result = ar.merge_ledger({}, [rej], {}, kind="rejected")
+    assert result["R1"]["kind"] == "rejected"
+
+
+# ---------------------------------------------------------------------------
+# 21. Rejected article uploaded with kind="rejected" and rejected.jsonl uploaded
+# ---------------------------------------------------------------------------
+
+def test_rejected_article_and_jsonl_uploaded(monkeypatch):
+    monkeypatch.setenv("R2_ENDPOINT_URL", "https://r2.example.com")
+    monkeypatch.setenv("R2_ACCESS_KEY_ID", "fakekey")
+    monkeypatch.setenv("R2_SECRET_ACCESS_KEY", "fakesecret")
+    monkeypatch.setenv("R2_BUCKET", "testbucket")
+    monkeypatch.setenv("ARCHIVE_MAX_FETCH", "10")
+
+    mock_client = MagicMock()
+    mock_client.get_object.side_effect = Exception("NoSuchKey")
+
+    monkeypatch.setattr(ar, "_make_r2_client", lambda *a, **kw: mock_client)
+
+    inc = _make_inc("INC1")
+    inc["apa"] = ar.format_apa(inc)
+
+    rej_item = {
+        "id": "REJ1",
+        "url": "https://t13.cl/rej/1",
+        "outlet": "T13",
+        "date": datetime.utcnow().strftime("%Y-%m-%d"),
+        "title": "Accidente de tráfico",
+        "description": "Descripción corta",
+        "rejection_stage": "classifier_none",
+        "first_seen": "2026-07-26T00:00:00+00:00",
+        "apa": "",
+    }
+
+    monkeypatch.setattr(ar, "consolidate_incidents", lambda _: [inc])
+    monkeypatch.setattr(ar, "consolidate_rejected", lambda _: [rej_item])
+
+    # Mock fetch_article to succeed for the rejected item
+    fetch_results = {
+        rej_item["url"]: {
+            "final_url": rej_item["url"],
+            "http_status": 200,
+            "extraction_ok": True,
+            "text": "article text here",
+            "lang": None,
+            "decoded_from_gnews": False,
+        },
+        inc["url"]: {
+            "final_url": inc["url"],
+            "http_status": 200,
+            "extraction_ok": True,
+            "text": "incident text here",
+            "lang": None,
+            "decoded_from_gnews": False,
+        },
+    }
+
+    monkeypatch.setattr(ar, "fetch_article", lambda url, **kw: fetch_results.get(url, {"extraction_ok": False, "text": "", "final_url": url, "http_status": None, "lang": None, "decoded_from_gnews": False}))
+
+    result = ar.main()
+    assert result == 0
+
+    called_keys = set()
+    for call in mock_client.put_object.call_args_list:
+        k = call.kwargs.get("Key") or (call.args[1] if len(call.args) > 1 else None)
+        if k:
+            called_keys.add(k)
+
+    assert any("rejected.jsonl" in k for k in called_keys), f"Missing rejected.jsonl in {called_keys}"
+
+    # Check that article objects for REJ1 were uploaded
+    rej_article_keys = [k for k in called_keys if "articles/REJ1" in k]
+    assert rej_article_keys, f"Expected articles/REJ1.json, got {called_keys}"
+
+    # Verify kind="rejected" in the article body
+    for call in mock_client.put_object.call_args_list:
+        k = call.kwargs.get("Key", "")
+        if "articles/REJ1" in k:
+            body = json.loads(call.kwargs["Body"].decode("utf-8"))
+            assert body.get("kind") == "rejected", f"Expected kind='rejected', got {body.get('kind')}"
+
+
+# ---------------------------------------------------------------------------
+# 22. Fetch priority: with max_fetch=1, incident gets fetched before rejected
+# ---------------------------------------------------------------------------
+
+def test_fetch_priority_incidents_before_rejected(monkeypatch):
+    """With max_fetch=1 and one incident + one rejected pending, only the incident is fetched."""
+    monkeypatch.setenv("R2_ENDPOINT_URL", "https://r2.example.com")
+    monkeypatch.setenv("R2_ACCESS_KEY_ID", "fakekey")
+    monkeypatch.setenv("R2_SECRET_ACCESS_KEY", "fakesecret")
+    monkeypatch.setenv("R2_BUCKET", "testbucket")
+    monkeypatch.setenv("ARCHIVE_MAX_FETCH", "1")
+
+    mock_client = MagicMock()
+    mock_client.get_object.side_effect = Exception("NoSuchKey")
+
+    monkeypatch.setattr(ar, "_make_r2_client", lambda *a, **kw: mock_client)
+
+    inc = _make_inc("INC_PRIO", url="https://emol.com/inc-prio")
+    inc["apa"] = ar.format_apa(inc)
+
+    rej_item = {
+        "id": "REJ_PRIO",
+        "url": "https://t13.cl/rej-prio",
+        "outlet": "T13",
+        "date": datetime.utcnow().strftime("%Y-%m-%d"),
+        "title": "Noticia rechazada",
+        "description": "desc",
+        "rejection_stage": "classifier_none",
+        "first_seen": "2026-07-26T00:00:00+00:00",
+        "apa": "",
+    }
+
+    monkeypatch.setattr(ar, "consolidate_incidents", lambda _: [inc])
+    monkeypatch.setattr(ar, "consolidate_rejected", lambda _: [rej_item])
+
+    fetched_urls = []
+
+    def _mock_fetch(url, **kw):
+        fetched_urls.append(url)
+        return {
+            "final_url": url, "http_status": 200, "extraction_ok": True,
+            "text": "text", "lang": None, "decoded_from_gnews": False,
+        }
+
+    monkeypatch.setattr(ar, "fetch_article", _mock_fetch)
+
+    result = ar.main()
+    assert result == 0
+
+    # Only one URL should have been fetched (cap=1), and it must be the incident
+    assert len(fetched_urls) == 1, f"Expected 1 fetch, got {len(fetched_urls)}: {fetched_urls}"
+    assert fetched_urls[0] == inc["url"], (
+        f"Incident must be fetched first (priority), got {fetched_urls[0]!r}"
+    )

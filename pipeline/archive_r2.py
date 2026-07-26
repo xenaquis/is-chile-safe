@@ -9,9 +9,10 @@ Uploads to research-archive/ in the configured bucket:
   incidents.csv            — UTF-8 BOM CSV for spreadsheet consumers
   manifest.json            — metadata envelope
   url-ledger.jsonl         — per-incident fetch accounting (state store in R2)
-  corpus-state.json        — aggregate stats: totals, by-outlet/family/month, corpus_sha256
+  corpus-state.json        — aggregate stats: totals (per kind), by-outlet/family/month, corpus_sha256
   corpus-state-history/YYYY-MM-DD.json — daily snapshot of corpus-state
   articles/{id}.json       — full article text + metadata (append-only, private)
+  rejected.jsonl           — rejected candidates with APA citations
 
 SAFEGUARDS:
   - SHA-256 per article (text_sha256) + corpus_sha256 over sorted per-article hashes
@@ -19,9 +20,10 @@ SAFEGUARDS:
   - Atomic single-object put_object uploads
   - Secrets logged by NAME only — never values
   - 2 MB article text cap (enforced in pipeline/news/fulltext.py)
-  - Per-run fetch cap via ARCHIVE_MAX_FETCH (default 100)
+  - Per-run fetch cap via ARCHIVE_MAX_FETCH (default 100); incidents consumed first
   - 15 s timeout + 1.5 s inter-request courtesy delay
   - Graceful exit 0 when any R2_* env var is missing
+  - Legacy ledger rows without `kind` field default to "incident" on merge (T-gf7-06)
 
 COPYRIGHT NOTE: Full article text is stored ONLY in the operator's private R2
 bucket for research purposes. Do NOT publish raw article text publicly. APA
@@ -76,7 +78,7 @@ import boto3  # noqa: E402
 LEDGER_KEY = "research-archive/url-ledger.jsonl"
 MAX_ATTEMPTS = 3
 ARCHIVE_BASE = "research-archive"
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2  # bumped: per-kind totals + rejected_by_stage
 
 _SPANISH_MONTHS = {
     1: "enero", 2: "febrero", 3: "marzo", 4: "abril",
@@ -99,7 +101,8 @@ def format_apa(inc: dict) -> str:
     """
     raw_outlet = (inc.get("outlet") or "").strip()
     outlet = raw_outlet if raw_outlet else None
-    title = inc.get("title_es", "") or ""
+    # Accept title_es for incidents, fall back to title for rejected items
+    title = inc.get("title_es") or inc.get("title") or ""
     url = inc.get("url", "") or ""
     raw_date = inc.get("date", "") or ""
 
@@ -164,6 +167,34 @@ def consolidate_incidents(data_dir: pathlib.Path) -> list:
     # Sort by date descending (most recent first)
     result.sort(key=lambda x: x.get("date", ""), reverse=True)
     return result
+
+
+def consolidate_rejected(data_dir: pathlib.Path) -> list:
+    """
+    Load all data_dir/rejected/*.json monthly envelopes, dedup by id (first-seen wins),
+    attach apa to each record, return list.
+
+    Tolerates missing rejected/ dir → returns [].
+    """
+    rejected_dir = data_dir / "rejected"
+    if not rejected_dir.is_dir():
+        return []
+
+    seen: dict[str, dict] = {}
+    for p in sorted(rejected_dir.glob("*.json")):
+        try:
+            envelope = json.loads(p.read_text("utf-8"))
+            for item in envelope.get("items", []):
+                item_id = item.get("id")
+                if item_id and item_id not in seen:
+                    # Build APA-compatible dict (rejected uses 'title', not 'title_es')
+                    rec = dict(item)
+                    rec["apa"] = format_apa(rec)
+                    seen[item_id] = rec
+        except Exception:
+            pass
+
+    return list(seen.values())
 
 
 # ---------------------------------------------------------------------------
@@ -246,7 +277,7 @@ def _download_ledger(client, bucket: str) -> dict:
         return {}
 
 
-def merge_ledger(existing: dict, incidents: list, outcomes: dict) -> dict:
+def merge_ledger(existing: dict, records: list, outcomes: dict, kind: str = "incident") -> dict:
     """
     Merge fetch outcomes into the ledger.
 
@@ -255,23 +286,25 @@ def merge_ledger(existing: dict, incidents: list, outcomes: dict) -> dict:
     - successful outcome → status "fetched", set final_url/text_sha256/char_count/fetched_at
     - failed outcome → attempts += 1; status "permanent_failure" if attempts >= MAX_ATTEMPTS
     - no outcome this run → keep prior status/attempts
+    - legacy rows WITHOUT a kind field → default to "incident" on creation/merge (T-gf7-06)
+    - existing rows with kind already set → NEVER overwrite kind
     Returns: dict keyed by id.
     """
     ledger = dict(existing)
 
-    for inc in incidents:
-        inc_id = inc.get("id", "")
-        if not inc_id:
+    for rec in records:
+        rec_id = rec.get("id", "")
+        if not rec_id:
             continue
 
-        # Existing fetched row — immutable
-        if inc_id in ledger and ledger[inc_id].get("status") == "fetched":
+        # Existing fetched row — immutable (append-only guard)
+        if rec_id in ledger and ledger[rec_id].get("status") == "fetched":
             continue
 
         # Start from existing row or create new
-        row = ledger.get(inc_id) or {
-            "id": inc_id,
-            "url": inc.get("url", ""),
+        row = ledger.get(rec_id) or {
+            "id": rec_id,
+            "url": rec.get("url", ""),
             "final_url": None,
             "status": "pending",
             "attempts": 0,
@@ -281,10 +314,14 @@ def merge_ledger(existing: dict, incidents: list, outcomes: dict) -> dict:
         }
         row = dict(row)
 
-        outcome = outcomes.get(inc_id)
+        # Set kind: prefer existing row's kind; default legacy rows to "incident" (T-gf7-06)
+        if "kind" not in row:
+            row["kind"] = kind
+
+        outcome = outcomes.get(rec_id)
         if outcome is None:
             # No fetch attempted this run
-            ledger[inc_id] = row
+            ledger[rec_id] = row
             continue
 
         if outcome.get("ok"):
@@ -300,63 +337,80 @@ def merge_ledger(existing: dict, incidents: list, outcomes: dict) -> dict:
             else:
                 row["status"] = "failed"
 
-        ledger[inc_id] = row
+        ledger[rec_id] = row
 
     return ledger
 
 
 # ---------------------------------------------------------------------------
-# Corpus state
+# Corpus state (schema_version 2: per-kind totals + rejected_by_stage)
 # ---------------------------------------------------------------------------
 
-def build_corpus_state(ledger: dict, incidents: list) -> dict:
+def build_corpus_state(ledger: dict, incidents: list, rejected: list | None = None) -> dict:
     """
-    Summarise the research corpus from ledger rows + incidents metadata.
+    Summarise the research corpus from ledger rows + incidents + rejected metadata.
 
-    Returns dict with: generated, totals, by_outlet, by_family, by_month,
-    total_chars, corpus_sha256, schema_version.
+    Schema v2 totals are split by kind:
+        totals = {
+            "incidents": {fetched_ok, failed, pending, permanent_failure},
+            "rejected":  {fetched_ok, failed, pending, permanent_failure},
+        }
+
+    by_outlet / by_family / by_month are derived from incidents only (existing behavior).
+    rejected_by_stage is derived from the rejected list.
+    corpus_sha256 covers all fetched sha256s regardless of kind.
     """
+    if rejected is None:
+        rejected = []
+
     # Build incident lookup for metadata
     inc_by_id: dict[str, dict] = {i.get("id", ""): i for i in incidents}
 
-    # Totals by status
-    totals: dict[str, int] = {
-        "incidents": len(incidents),
-        "fetched_ok": 0,
-        "failed": 0,
-        "pending": 0,
-        "permanent_failure": 0,
+    # Per-kind totals
+    kind_totals: dict[str, dict] = {
+        "incidents": {"fetched_ok": 0, "failed": 0, "pending": 0, "permanent_failure": 0},
+        "rejected": {"fetched_ok": 0, "failed": 0, "pending": 0, "permanent_failure": 0},
     }
-    by_outlet: dict[str, int] = Counter()
-    by_family: dict[str, int] = Counter()
-    by_month: dict[str, int] = Counter()
     total_chars = 0
     fetched_sha256s: list[str] = []
 
     for row in ledger.values():
         status = row.get("status", "pending")
+        # Legacy rows without kind default to "incident" (T-gf7-06)
+        row_kind = row.get("kind", "incident")
+        # Normalise to known kinds
+        kind_key = "rejected" if row_kind == "rejected" else "incidents"
+        bucket = kind_totals[kind_key]
+
         if status == "fetched":
-            totals["fetched_ok"] += 1
+            bucket["fetched_ok"] += 1
             total_chars += row.get("char_count", 0)
             sha = row.get("text_sha256")
             if sha:
                 fetched_sha256s.append(sha)
         elif status == "permanent_failure":
-            totals["permanent_failure"] += 1
+            bucket["permanent_failure"] += 1
         elif status == "failed":
-            totals["failed"] += 1
+            bucket["failed"] += 1
         else:
-            totals["pending"] += 1
+            bucket["pending"] += 1
 
-    # by_outlet / by_family / by_month from incidents list
+    # by_outlet / by_family / by_month from incidents list (incidents only, as before)
+    by_outlet: dict[str, int] = Counter()
+    by_family: dict[str, int] = Counter()
+    by_month: dict[str, int] = Counter()
     for inc in incidents:
-        inc_id = inc.get("id", "")
         outlet = inc.get("outlet") or "unknown"
         family = inc.get("family") or "unknown"
         month = (inc.get("date") or "")[:7] or "unknown"
         by_outlet[outlet] += 1
         by_family[family] += 1
         by_month[month] += 1
+
+    # rejected_by_stage: Counter over rejected items
+    rejected_by_stage: dict[str, int] = Counter(
+        r.get("rejection_stage") or "unknown" for r in rejected
+    )
 
     # corpus_sha256 = sha256 over sorted per-article text_sha256s joined by newline
     corpus_sha256 = hashlib.sha256(
@@ -365,7 +419,8 @@ def build_corpus_state(ledger: dict, incidents: list) -> dict:
 
     return {
         "generated": datetime.now(timezone.utc).isoformat(),
-        "totals": totals,
+        "totals": kind_totals,
+        "rejected_by_stage": dict(rejected_by_stage),
         "by_outlet": dict(by_outlet),
         "by_family": dict(by_family),
         "by_month": dict(by_month),
@@ -381,7 +436,7 @@ def build_corpus_state(ledger: dict, incidents: list) -> dict:
 
 def main() -> int:
     """
-    Consolidate incidents + full-text archive + upload to R2.
+    Consolidate incidents + rejected + full-text archive + upload to R2.
 
     Returns 0 always (clean CI exit). Uploads only happen when all R2_* vars present.
     """
@@ -408,9 +463,17 @@ def main() -> int:
     # Resolve data dir
     data_dir = _REPO_ROOT / "data" / "incidents"
 
-    # Load + consolidate incidents
+    # Load + consolidate incidents and rejected
     incidents = consolidate_incidents(data_dir)
     logger.info("Consolidated %d unique incidents", len(incidents))
+    rejected = consolidate_rejected(data_dir)
+    logger.info("Consolidated %d rejected candidates", len(rejected))
+
+    # Tag each record with kind in-memory for fetch bookkeeping
+    for inc in incidents:
+        inc["_kind"] = "incident"
+    for rej in rejected:
+        rej["_kind"] = "rejected"
 
     # Build R2 client + preflight: verify the bucket is reachable BEFORE spending
     # up to `max_fetch` courtesy-throttled article fetches. Bad credentials or a
@@ -430,28 +493,40 @@ def main() -> int:
     ledger = _download_ledger(client, bucket)
     logger.info("Ledger loaded: %d rows", len(ledger))
 
-    # Determine pending incidents (absent or not yet fetched)
+    # Determine pending records — incidents first, then rejected (within cap)
     _not_done = {"pending", "failed"}
-    pending = [
-        inc for inc in incidents
-        if inc.get("id")
-        and (
-            inc["id"] not in ledger
-            or ledger[inc["id"]].get("status") in _not_done
+
+    def _is_pending(rec: dict) -> bool:
+        rec_id = rec.get("id")
+        return bool(
+            rec_id
+            and (
+                rec_id not in ledger
+                or ledger[rec_id].get("status") in _not_done
+            )
         )
-    ]
-    pending = pending[:max_fetch]
-    logger.info("%d incidents pending fetch (cap %d)", len(pending), max_fetch)
+
+    pending_incidents = [inc for inc in incidents if _is_pending(inc)]
+    pending_rejected = [rej for rej in rejected if _is_pending(rej)]
+
+    # Incidents consume the cap first; rejected get the remainder
+    pending_combined = (pending_incidents + pending_rejected)[:max_fetch]
+    logger.info(
+        "%d records pending fetch (cap %d): %d incidents, %d rejected",
+        len(pending_combined), max_fetch,
+        len([r for r in pending_combined if r.get("_kind") == "incident"]),
+        len([r for r in pending_combined if r.get("_kind") == "rejected"]),
+    )
 
     # Fetch articles
     outcomes: dict[str, dict] = {}
     fetched_this_run = 0
-    for i, inc in enumerate(pending):
-        inc_id = inc["id"]
+    for i, rec in enumerate(pending_combined):
+        rec_id = rec["id"]
 
-        # Skip if already fetched (double-guard; should not reach here)
-        if ledger.get(inc_id, {}).get("status") == "fetched":
-            logger.debug("Skip already-fetched %s", inc_id)
+        # Skip if already fetched (double-guard)
+        if ledger.get(rec_id, {}).get("status") == "fetched":
+            logger.debug("Skip already-fetched %s", rec_id)
             continue
 
         # Courtesy delay between requests (not before the first one)
@@ -459,24 +534,29 @@ def main() -> int:
             time.sleep(REQUEST_DELAY)
 
         try:
-            res = fetch_article(inc["url"])
+            res = fetch_article(rec["url"])
         except Exception as exc:
-            # Log only the exception type — never URL body or secret
-            logger.warning("fetch_article failed for id=%s: %s", inc_id, type(exc).__name__)
-            outcomes[inc_id] = {"ok": False}
+            logger.warning("fetch_article failed for id=%s: %s", rec_id, type(exc).__name__)
+            outcomes[rec_id] = {"ok": False}
             continue
 
         if res.get("extraction_ok"):
-            obj = build_article_object(inc, res)
+            # Build article object — for rejected items, map title → title_es
+            article_rec = dict(rec)
+            if article_rec.get("_kind") == "rejected" and "title_es" not in article_rec:
+                article_rec["title_es"] = article_rec.get("title", "")
+            obj = build_article_object(article_rec, res)
+            # Tag article object with kind
+            obj["kind"] = rec.get("_kind", "incident")
             try:
                 client.put_object(
                     Bucket=bucket,
-                    Key=f"{ARCHIVE_BASE}/articles/{inc_id}.json",
+                    Key=f"{ARCHIVE_BASE}/articles/{rec_id}.json",
                     Body=json.dumps(obj, ensure_ascii=False).encode("utf-8"),
                     ContentType="application/json",
                 )
                 fetched_this_run += 1
-                outcomes[inc_id] = {
+                outcomes[rec_id] = {
                     "ok": True,
                     "final_url": obj["final_url"],
                     "text_sha256": obj["text_sha256"],
@@ -484,13 +564,15 @@ def main() -> int:
                     "fetched_at": obj["fetched_at"],
                 }
             except Exception as exc:
-                logger.warning("put_object failed for id=%s: %s", inc_id, type(exc).__name__)
-                outcomes[inc_id] = {"ok": False}
+                logger.warning("put_object failed for id=%s: %s", rec_id, type(exc).__name__)
+                outcomes[rec_id] = {"ok": False}
         else:
-            outcomes[inc_id] = {"ok": False}
+            outcomes[rec_id] = {"ok": False}
 
-    # Merge ledger + re-upload
-    ledger = merge_ledger(ledger, incidents, outcomes)
+    # Merge incidents and rejected into ledger (two passes with correct kind)
+    ledger = merge_ledger(ledger, incidents, outcomes, kind="incident")
+    ledger = merge_ledger(ledger, rejected, outcomes, kind="rejected")
+
     ledger_body = "\n".join(
         json.dumps(row, ensure_ascii=False) for row in ledger.values()
     ).encode("utf-8")
@@ -501,8 +583,8 @@ def main() -> int:
         ContentType="application/x-ndjson",
     )
 
-    # Corpus state
-    state = build_corpus_state(ledger, incidents)
+    # Corpus state (v2)
+    state = build_corpus_state(ledger, incidents, rejected)
     state_bytes = json.dumps(state, ensure_ascii=False, indent=2).encode("utf-8")
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     client.put_object(
@@ -538,6 +620,14 @@ def main() -> int:
         Key=f"{ARCHIVE_BASE}/manifest.json",
         Body=json.dumps(manifest, ensure_ascii=False, indent=2).encode("utf-8"),
         ContentType="application/json",
+    )
+
+    # Upload rejected.jsonl
+    client.put_object(
+        Bucket=bucket,
+        Key=f"{ARCHIVE_BASE}/rejected.jsonl",
+        Body=to_jsonl(rejected),
+        ContentType="application/x-ndjson",
     )
 
     total_fetched = sum(1 for r in ledger.values() if r.get("status") == "fetched")
