@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 Phase: 25
 Plan: Not started
 Status: Ready to execute
-Last activity: 2026-07-26 - Completed quick tasks 260726-dqf (Granite default, live-verified in Actions) and 260726-ep0 (R2 research archive with full-text corpus); PENDING OPERATOR: add R2_ENDPOINT_URL/R2_ACCESS_KEY_ID/R2_SECRET_ACCESS_KEY/R2_BUCKET repo secrets for the daily r2-archive cron
+Last activity: 2026-07-26 - Completed quick task 260726-gf7 (Google News decoder + rejected-candidate archive + SSRF/CSV security hardening); R2_* secrets set, both news + r2-archive crons live and verified; corpus now backfills full text incl. Google News URLs
 
 ## Progress Bar
 
@@ -144,6 +144,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | 260703-fjh | Expand news sources: Google News RSS (1 national + 4 regional queries, source-tag attribution) + La Cuarta Arc feed; cross-outlet dedup verified by test | 2026-07-03 | 835e636 | [260703-fjh-expand-news-sources-add-google-news-rss-](./quick/260703-fjh-expand-news-sources-add-google-news-rss-/) |
 | 260726-dqf | Adopt Granite 4.1 8B (OpenRouter) as default news classifier per spike 008 (commune 100% vs 95.45%, ~6-11x cheaper, 2.6x faster); family-whitespace guard; DeepSeek/MiniMax stay selectable via NEWS_PROVIDER | 2026-07-26 | 0dc42f7 | [260726-dqf-adopt-granite-4-1-8b-openrouter-as-defau](./quick/260726-dqf-adopt-granite-4-1-8b-openrouter-as-defau/) |
 | 260726-ep0 | R2 research archive: daily cron uploads consolidated incidents (JSONL/CSV + APA citations), full article text via trafilatura (append-only, SHA-256, 100/run cap), url-ledger + corpus-state to bucket ischilesafe; live-verified 1264 incidents | 2026-07-26 | 820aac1 | [260726-ep0-archive-all-news-incidents-to-r2-with-ap](./quick/260726-ep0-archive-all-news-incidents-to-r2-with-ap/) |
+| 260726-gf7 | Google News URL decoder (batchexecute, live-verified) + archive rejected candidates (data/incidents/rejected/, corpus schema v2, kind-aware ledger) + security hardening (SSRF redirect+DNS guards, CSV injection, robustness); code review 2 CRITICAL+5 warnings all fixed; 288 tests | 2026-07-26 | 3f9648a | [260726-gf7-google-news-url-decoder-archive-rejected](./quick/260726-gf7-google-news-url-decoder-archive-rejected/) |
 
 ## Session Continuity
 
