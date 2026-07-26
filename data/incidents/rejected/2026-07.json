@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-26T18:28:44.557149+00:00",
+  "generated": "2026-07-26T19:05:04.918452+00:00",
   "items": [
     {
       "id": "a026901347e4ca3a",
@@ -160,6 +160,16 @@
       "description": "Violento intento de robo a supermercado en Reñaca termina con destrozos y guardias heridos&nbsp;&nbsp;Epicentro Chile",
       "rejection_stage": "resolver_fail",
       "first_seen": "2026-07-26T18:28:44.557149+00:00"
+    },
+    {
+      "id": "d4f5ad4318132d55",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNQ1J2cXZZU3JuWThwRG9EVzU0empiSjladGNSYnZ0NDBCLTZ5a1RZemhla2Q2ZzNxcG9tMnBubXp2ckRqXzlRY1hjdXNIaU1ZSXVOVE5aODNYSTNmTUZSSUxOc2wzM3BzS3pwTXZZOHZZU2hJOHUzV2FRbTAxYTFCdDBneVVsZ0h6T3VkeURBdTBNQU5Nd2ZYbmJSX2xIR0lRRG05TFFkVmJUbXg2c0pPaTdfcHA0c2w5?oc=5",
+      "outlet": "Diario Versión Final",
+      "date": "2026-07-26",
+      "title": "Capturan en Chile al último exmilitar condenado por el asesinato de Víctor Jara - Diario Versión Final",
+      "description": "Capturan en Chile al último exmilitar condenado por el asesinato de Víctor Jara&nbsp;&nbsp;Diario Versión Final",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-26T19:05:04.918452+00:00"
     }
   ]
 }
