@@ -1,0 +1,1389 @@
+{
+  "n": 147,
+  "rejected": 18,
+  "cut_agreement_of_accepted": 0.814,
+  "family_agreement_of_accepted": 0.7287,
+  "note": "input = title_es proxy (original RSS text not stored); agreement vs DeepSeek output, not human ground truth",
+  "rows": [
+    {
+      "id": "0f1eff30b64eae9a",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": null,
+      "prod_cut": "13106",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Asalto a balazos a vendedores de láminas en Estación Central"
+    },
+    {
+      "id": "ea7b1dd75ab6fa5e",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "1403",
+      "prod_cut": "1403",
+      "pred_family": "vida",
+      "prod_family": "incivilidades",
+      "title": "Militares bolivianos detenidos en Colchane serán devueltos"
+    },
+    {
+      "id": "876b119a7c6cd4cb",
+      "status": "rejected",
+      "title": "Heridos a perdigones y hallados en plantación de paltos: lo que se sabe del doble homicidio en Sotaquí"
+    },
+    {
+      "id": "89c1787fbbecb089",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13116",
+      "prod_cut": "13116",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Dos detenidos por crimen de venezolano acribillado en Lo Espejo"
+    },
+    {
+      "id": "2894204a3fea4353",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": null,
+      "prod_cut": "13106",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Hallan grupo de menores haitianos en Estación Central"
+    },
+    {
+      "id": "22d6b09284c75509",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "9204",
+      "prod_cut": "9204",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Carabineros recupera camioneta robada en violento asalto en Ercilla"
+    },
+    {
+      "id": "8e177aa72d57b5a4",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13501",
+      "prod_cut": "13501",
+      "pred_family": "vida",
+      "prod_family": "vif",
+      "title": "Niña de 4 años en riesgo vital por brutal golpiza de expareja de su madre en Melipilla"
+    },
+    {
+      "id": "7f69b9489ae8945e",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "4301",
+      "prod_cut": "4301",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Doble homicidio en Sotaquí, Ovalle"
+    },
+    {
+      "id": "66a6e0996c848537",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "1403",
+      "prod_cut": "1403",
+      "pred_family": "vida",
+      "prod_family": "armas",
+      "title": "Carabineros detienen a cinco militares bolivianos en Colchane"
+    },
+    {
+      "id": "7912215ed97c59cd",
+      "cut_agree": false,
+      "fam_agree": false,
+      "pred_cut": "13114",
+      "prod_cut": "13127",
+      "pred_family": "vif",
+      "prod_family": "vida",
+      "title": "Operativo en Barrio Bellavista: 12 detenidos y armas incautadas por homicidio frustrado"
+    },
+    {
+      "id": "3eb3d328ac27bccf",
+      "status": "rejected",
+      "title": "Ciclista acribilló a hombre tras discusión en paradero"
+    },
+    {
+      "id": "ba3eb7672bea2b54",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13128",
+      "prod_cut": "13128",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Brutal riña en Renca: adolescente sufre colapso pulmonar tras ataque con tijera"
+    },
+    {
+      "id": "83c4471a37a072eb",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13113",
+      "prod_cut": "13113",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Persecución de auto robado terminó con seis detenidos tras choque en La Reina"
+    },
+    {
+      "id": "5487a377bbeadd3d",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "5506",
+      "prod_cut": "5506",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Prisión preventiva para profesor imputado por estupro y abuso sexual en Nogales"
+    },
+    {
+      "id": "a139cc399fa16ead",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13119",
+      "prod_cut": "13119",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Asesinan a adulta mayor al volver de zumba en Maipú; menor se entrega"
+    },
+    {
+      "id": "708eaae7b0eb63fb",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "15101",
+      "prod_cut": "15101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Hallan cadáver de mujer en canal de regadío en Arica"
+    },
+    {
+      "id": "d424af898931432e",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "9109",
+      "prod_cut": "9109",
+      "pred_family": "vif",
+      "prod_family": "vida",
+      "title": "Loncoche: Adolescente pagó 60 mil a compañero de curso para que asesinara a su madre"
+    },
+    {
+      "id": "cc65f607cc55209e",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "1403",
+      "prod_cut": "1403",
+      "pred_family": "vida",
+      "prod_family": "incivilidades",
+      "title": "Detienen a cinco militares bolivianos que ingresaron por frontera de Colchane"
+    },
+    {
+      "id": "5b61dd07c178a294",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13501",
+      "prod_cut": "13501",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Niña de cuatro años en riesgo vital tras agresión en Melipilla; detienen a sospechoso"
+    },
+    {
+      "id": "2908d29549f29224",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "9201",
+      "prod_cut": "9201",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Un muerto y un lesionado tras riña entre personas en situación de calle en Angol"
+    },
+    {
+      "id": "18dec5885a9f23b3",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8102",
+      "prod_cut": "8102",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Hombre acribillado dentro de su auto en Ruta 160 en Coronel"
+    },
+    {
+      "id": "5e05d3a6b71623c7",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "10208",
+      "prod_cut": "10208",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Mujer de 55 años y su perro sobreviven 4 días perdidos en Quellón"
+    },
+    {
+      "id": "3add7913e88b565d",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8101",
+      "prod_cut": "8101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Agresión a defensores públicos en Concepción tras fallo por asesinato de adolescente"
+    },
+    {
+      "id": "9e07a2c61fb7d39e",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "9109",
+      "prod_cut": "9109",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Loncoche: Adolescentes acusados por asesinato de mujer quedaron en internación provisoria"
+    },
+    {
+      "id": "a2134f9e9dce72f7",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13404",
+      "prod_cut": "13404",
+      "pred_family": "incivilidades",
+      "prod_family": "propiedad",
+      "title": "Incendio afecta a liceo de Paine"
+    },
+    {
+      "id": "859e57a2e1e6b282",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13125",
+      "prod_cut": "13125",
+      "pred_family": "armas",
+      "prod_family": "vida",
+      "title": "Tiroteo en multicancha de Quilicura deja tres menores heridos"
+    },
+    {
+      "id": "46637cc98baea756",
+      "status": "rejected",
+      "title": "Con disparos al aire: Sujetos asaltaron a vendedor de láminas mundialistas"
+    },
+    {
+      "id": "e3398cbd574040e5",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13501",
+      "prod_cut": "13501",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Amplían detención de sospechoso de agresión a niña de cuatro años en Melipilla"
+    },
+    {
+      "id": "c9322284e46668cb",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8101",
+      "prod_cut": "8101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Abogados de la Defensoría sufren agresión saliendo del Tribunal Oral en lo Penal de Concepción"
+    },
+    {
+      "id": "5d2d6ff98528ad22",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8312",
+      "prod_cut": "8312",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Carabinero agredido por ebrio que se entregó en Tucapel"
+    },
+    {
+      "id": "5424b6167e26fcfb",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": "6117",
+      "prod_cut": "5109",
+      "pred_family": "propiedad",
+      "prod_family": "propiedad",
+      "title": "Minvu solicita querella por irregularidades en reconstrucción en El Olivar"
+    },
+    {
+      "id": "a9cfad4b7ff3a6e8",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "9101",
+      "prod_cut": "9101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Pericias confirmarían ataque sexual: imputarán por femicidio íntimo a tío de joven asesinada en Temuco"
+    },
+    {
+      "id": "64d4c8048f2c7a4a",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8107",
+      "prod_cut": "8107",
+      "pred_family": "drogas",
+      "prod_family": "drogas",
+      "title": "Cinco detenidos en operativo antidrogas en Penco: 5 mil dosis incautadas"
+    },
+    {
+      "id": "2d34889b76331a73",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13119",
+      "prod_cut": "13119",
+      "pred_family": "propiedad",
+      "prod_family": "robos_violentos",
+      "title": "Carabineros recupera camión robado en Maipú con carga de $110 millones"
+    },
+    {
+      "id": "e30bb9760ed4b0ce",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13119",
+      "prod_cut": "13119",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Detenidos dos sujetos por robo de camión en Maipú"
+    },
+    {
+      "id": "d00cf3f744181ab5",
+      "status": "rejected",
+      "title": "Adulto mayor muere atropellado en Ruta 68 en Casablanca"
+    },
+    {
+      "id": "740b476bdd36681a",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13119",
+      "prod_cut": "13119",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Detienen a dos sujetos que robaron camión con más de $100 millones en elementos electrónicos en Maipú"
+    },
+    {
+      "id": "6c4b81b486e82ed7",
+      "status": "rejected",
+      "title": "Mujer denuncia herida a bala; Carabineros descubre fábrica de armas con tecnología 3D"
+    },
+    {
+      "id": "a4accb239120f7c8",
+      "status": "rejected",
+      "title": "Dos talleres mecánicos y una residencial clandestina clausurados"
+    },
+    {
+      "id": "321ca3444504d8db",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": "4101",
+      "prod_cut": "4102",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Detenido por homicidio frustrado en Coquimbo"
+    },
+    {
+      "id": "426aa1ff850c6090",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "9101",
+      "prod_cut": "9101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Reformalizarán por femicidio íntimo a tío de joven asesinada en Temuco"
+    },
+    {
+      "id": "3a3cb87567c2739d",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "7108",
+      "prod_cut": "7108",
+      "pred_family": "vida",
+      "prod_family": "vif",
+      "title": "Investigan femicidio en Río Claro: mujer muere apuñalada"
+    },
+    {
+      "id": "029f7c0472054fe6",
+      "cut_agree": false,
+      "fam_agree": false,
+      "pred_cut": null,
+      "prod_cut": "8102",
+      "pred_family": "vida",
+      "prod_family": "propiedad",
+      "title": "Fiscalía pide 20 días más para investigar caso Puerto Coronel"
+    },
+    {
+      "id": "5719d913548236f9",
+      "status": "rejected",
+      "title": "Tres muertos y un herido grave en colisión frontal en Arica"
+    },
+    {
+      "id": "69bdb82a84dab275",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "10101",
+      "prod_cut": "10101",
+      "pred_family": "incivilidades",
+      "prod_family": "incivilidades",
+      "title": "Puerto Montt: 80 de 89 nuevas cámaras de televigilancia ya operan"
+    },
+    {
+      "id": "bedef5db55522e40",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "9203",
+      "prod_cut": "9203",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Detienen a hombre por maltrato animal en Curacautín: rescatan 19 perros y gatos"
+    },
+    {
+      "id": "6f4e975feefb8190",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13110",
+      "prod_cut": "13110",
+      "pred_family": "robos_violentos",
+      "prod_family": "vida",
+      "title": "Balacera en La Florida deja un muerto y un adolescente herido"
+    },
+    {
+      "id": "85251f2c36b1a6c1",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "7108",
+      "prod_cut": "7108",
+      "pred_family": "vida",
+      "prod_family": "vif",
+      "title": "Mujer asesinada con arma blanca en Río Claro; detienen a su pareja"
+    },
+    {
+      "id": "3a2f29ece267c953",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "9203",
+      "prod_cut": "9203",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Rescatan 19 mascotas con desnutrición en Curacautín y detienen a su dueño"
+    },
+    {
+      "id": "edbc9022fd6b0172",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "5101",
+      "prod_cut": "5101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Valparaíso: Ciclista murió al chocar con barrera de contención mientras practicaba descenso"
+    },
+    {
+      "id": "b904e6a91522c30e",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13110",
+      "prod_cut": "13110",
+      "pred_family": "armas",
+      "prod_family": "armas",
+      "title": "Ataque armado frente a centro juvenil en La Florida deja un muerto y un herido"
+    },
+    {
+      "id": "79807feb510a16b2",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "7108",
+      "prod_cut": "7108",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Amplían detención de imputado por femicidio íntimo en Río Claro"
+    },
+    {
+      "id": "953612d3c2bd433a",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "12101",
+      "prod_cut": "12101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Punta Arenas: Se querellan contra Gendarmería por ataque a interno que lo dejó en riesgo vital"
+    },
+    {
+      "id": "4a8da5edd1d425c4",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13110",
+      "prod_cut": "13110",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Balacera en La Florida deja un muerto y un menor herido"
+    },
+    {
+      "id": "e80e6372b0fd14bf",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "5109",
+      "prod_cut": "5109",
+      "pred_family": "propiedad",
+      "prod_family": "robos_violentos",
+      "title": "Científica pierde datos de una década tras robo de computador en Viña del Mar"
+    },
+    {
+      "id": "cad227fbe9f431c4",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "2101",
+      "prod_cut": "2101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Imputado por homicidio en Antofagasta queda en prisión preventiva"
+    },
+    {
+      "id": "86d61bd6b733b63e",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "14101",
+      "prod_cut": "14101",
+      "pred_family": "drogas",
+      "prod_family": "drogas",
+      "title": "Alerta por aumento de consumo de drogas en estudiantes en Valdivia"
+    },
+    {
+      "id": "d6f0678c7773cac8",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": "13113",
+      "prod_cut": "13107",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Detuvieron a falso veterinario por amputar orejas y colas a cachorros en Huechuraba"
+    },
+    {
+      "id": "4d6d02c5ea0d2a83",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": "14104",
+      "prod_cut": "10101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Reflotan embarcación Koñimo I en la que murieron seis personas en Los Lagos"
+    },
+    {
+      "id": "25c77c84fe29c149",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13119",
+      "prod_cut": "13119",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Robo a conductor de aplicación en Maipú termina con dos detenidos"
+    },
+    {
+      "id": "3017ecfa39c642ec",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8313",
+      "prod_cut": "8313",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Investigan homicidio en Yumbel: víctima fue apuñalada en la vía pública"
+    },
+    {
+      "id": "591507e29d050dd5",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "6106",
+      "prod_cut": "6106",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Operativo en cerro Santa Julia de Graneros para buscar a Máximo Farías"
+    },
+    {
+      "id": "8991453ce0972227",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": "13113",
+      "prod_cut": "13107",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Sujeto acusado de amputar orejas y colas a perros en Huechuraba"
+    },
+    {
+      "id": "5fab7dec91a7206c",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8112",
+      "prod_cut": "8112",
+      "pred_family": "drogas",
+      "prod_family": "drogas",
+      "title": "Detienen a adolescente por tráfico de drogas en Hualpén"
+    },
+    {
+      "id": "faf3e39c8d8ad0db",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13102",
+      "prod_cut": "13102",
+      "pred_family": "propiedad",
+      "prod_family": "robos_violentos",
+      "title": "Detienen a dos sujetos en Cerrillos y recuperan vehículo robado"
+    },
+    {
+      "id": "7798058043aae370",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13107",
+      "prod_cut": "13107",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Detenido por cirugías estéticas ilegales a perros en Huechuraba"
+    },
+    {
+      "id": "ad4361f610203785",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "15101",
+      "prod_cut": "15101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Envían a prisión preventiva a dos venezolanos por tráfico de migrantes en Arica"
+    },
+    {
+      "id": "b9523c9630817030",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13122",
+      "prod_cut": "13122",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Investigan homicidio frustrado a conductor en Peñalolén"
+    },
+    {
+      "id": "612ec08177ee280f",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13132",
+      "prod_cut": "13132",
+      "pred_family": "vida",
+      "prod_family": "incivilidades",
+      "title": "Detienen a hombre que conducía a 264 km/h en Vitacura"
+    },
+    {
+      "id": "85d8a152c0bdf743",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": "8110",
+      "prod_cut": "8111",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Corte revoca prisión preventiva de dos mujeres imputadas por secuestro de fiscal de Tomé"
+    },
+    {
+      "id": "bd09068c24150d89",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "2101",
+      "prod_cut": "2101",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Asaltan almacén familiar con armas en Antofagasta"
+    },
+    {
+      "id": "13bb18671210d6f5",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13132",
+      "prod_cut": "13132",
+      "pred_family": "incivilidades",
+      "prod_family": "incivilidades",
+      "title": "Tribunal deja libre a conductor sorprendido a 264 km/h en Vitacura"
+    },
+    {
+      "id": "199ff1374a577775",
+      "cut_agree": false,
+      "fam_agree": false,
+      "pred_cut": "13101",
+      "prod_cut": "13132",
+      "pred_family": "vida",
+      "prod_family": "incivilidades",
+      "title": "Detenido conductor que manejaba a 264 km/h en Costanera Norte"
+    },
+    {
+      "id": "4aa6f4c4e9395376",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13122",
+      "prod_cut": "13122",
+      "pred_family": "robos_violentos",
+      "prod_family": "vida",
+      "title": "Comerciante grave tras ataque a balazos en feria de Peñalolén"
+    },
+    {
+      "id": "0d8dcb40ddef6123",
+      "cut_agree": false,
+      "fam_agree": false,
+      "pred_cut": "10402",
+      "prod_cut": "10404",
+      "pred_family": "propiedad",
+      "prod_family": "incivilidades",
+      "title": "Contraloría detecta vertimiento de aguas servidas al río Palena"
+    },
+    {
+      "id": "cc67ce7d5444a555",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "6101",
+      "prod_cut": "6101",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Fiscalía presenta acusación por robo a Brinks en Rancagua"
+    },
+    {
+      "id": "a18efcdd4b99892b",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "4101",
+      "prod_cut": "4101",
+      "pred_family": "vida",
+      "prod_family": "propiedad",
+      "title": "Juicio por corrupción en La Serena: defraudación de $760 millones"
+    },
+    {
+      "id": "6fbba62324fd5a7b",
+      "status": "rejected",
+      "title": "Juicio contra conductor que intentó atropellar a carabinero"
+    },
+    {
+      "id": "9db968563f22b132",
+      "status": "rejected",
+      "title": "Investigan homicidio en La Araucanía: hallaron cadáver de hombre en ruta Saavedra-Huapi"
+    },
+    {
+      "id": "0c6aee9604491e62",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13101",
+      "prod_cut": "13101",
+      "pred_family": "incivilidades",
+      "prod_family": "vida",
+      "title": "Múltiples amenazas de bomba en zonas emblemáticas de Santiago"
+    },
+    {
+      "id": "ab1e522e8c2dcdb7",
+      "status": "rejected",
+      "title": "Conductor que circulaba a 264 km/h en Costanera Norte queda en libertad"
+    },
+    {
+      "id": "96cf47956b99ec0a",
+      "cut_agree": false,
+      "fam_agree": false,
+      "pred_cut": "13114",
+      "prod_cut": "13101",
+      "pred_family": "incivilidades",
+      "prod_family": "vida",
+      "title": "Desalojo en el zoológico del Parque Metropolitano por aviso de bomba"
+    },
+    {
+      "id": "b4f66a0f8e49826d",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13101",
+      "prod_cut": "13101",
+      "pred_family": "incivilidades",
+      "prod_family": "incivilidades",
+      "title": "Evacúan GAM, Juzgados Civiles y Centro de Justicia por amenazas de bomba"
+    },
+    {
+      "id": "657c6a47f56191a9",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": "13123",
+      "prod_cut": "13132",
+      "pred_family": "propiedad",
+      "prod_family": "propiedad",
+      "title": "Exalcalde Torrealba pide reabrir investigación por corrupción en Vitacura"
+    },
+    {
+      "id": "b311435c97bdaa98",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8106",
+      "prod_cut": "8106",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Indignación por pena en libertad a asesinos de estudiante en Lota"
+    },
+    {
+      "id": "6914c2f75ba8c6e1",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13117",
+      "prod_cut": "13117",
+      "pred_family": "vif",
+      "prod_family": "vida",
+      "title": "Crimen a pasos de Municipalidad de Lo Prado: menor de 17 asesinado a disparos"
+    },
+    {
+      "id": "4f9a29c29e5b664e",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13117",
+      "prod_cut": "13117",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Adolescente de 17 años asesinado a tiros en Lo Prado"
+    },
+    {
+      "id": "b49d2521cd9b5b27",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13117",
+      "prod_cut": "13117",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Adolescente asesinado a balazos tras discusión con barbero en Lo Prado"
+    },
+    {
+      "id": "ccf3db82b6c75a7f",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "1101",
+      "prod_cut": "1101",
+      "pred_family": "drogas",
+      "prod_family": "drogas",
+      "title": "Incautan 618 kilos de droga a banda que operaba entre Iquique y Santiago"
+    },
+    {
+      "id": "4bd4fb8bbe09cda6",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "10301",
+      "prod_cut": "10301",
+      "pred_family": "incivilidades",
+      "prod_family": "propiedad",
+      "title": "Incendio en Regimiento Arauco de Osorno controlado por Bomberos"
+    },
+    {
+      "id": "925e9de0860d83df",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": "13101",
+      "prod_cut": "5601",
+      "pred_family": "propiedad",
+      "prod_family": "propiedad",
+      "title": "Nueva etapa de desalojo en megatoma Cerro Centinela busca desocupar 40 hectáreas"
+    },
+    {
+      "id": "3082bd25cc329f15",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": "13122",
+      "prod_cut": "13125",
+      "pred_family": "armas",
+      "prod_family": "armas",
+      "title": "Menores detenidos portando armas en Quilicura"
+    },
+    {
+      "id": "03757f29eb07ebda",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "5101",
+      "prod_cut": "5101",
+      "pred_family": "armas",
+      "prod_family": "armas",
+      "title": "PDI desarticula banda que traficaba y modificaba armas en Valparaíso"
+    },
+    {
+      "id": "9c492f009b57e814",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13119",
+      "prod_cut": "13119",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Gobierno se querella contra sujeto que intentó arrollar a carabinero tras robo en Maipú"
+    },
+    {
+      "id": "b5d2561d26c8532b",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "15101",
+      "prod_cut": "15101",
+      "pred_family": "drogas",
+      "prod_family": "drogas",
+      "title": "PDI detiene a sujeto con tres kilos de ketamina en aeropuerto de Arica"
+    },
+    {
+      "id": "ec6daf3d6244de10",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": null,
+      "prod_cut": "13104",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Violento robo a conductor de Didi en Conchalí: delincuentes le quitan auto a mano armada"
+    },
+    {
+      "id": "b0f631ec334a8394",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": "1401",
+      "prod_cut": "15202",
+      "pred_family": "propiedad",
+      "prod_family": "propiedad",
+      "title": "Carabineros detienen a tres sujetos con autos de contrabando en frontera"
+    },
+    {
+      "id": "64d77157e146cf05",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13117",
+      "prod_cut": "13117",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Asesinan a adolescente de 17 años en Lo Prado"
+    },
+    {
+      "id": "9b4df00d827ab0ef",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "5601",
+      "prod_cut": "5601",
+      "pred_family": "propiedad",
+      "prod_family": "propiedad",
+      "title": "Comienza segunda etapa de desalojo en megatoma de San Antonio"
+    },
+    {
+      "id": "3b9a7911482f493b",
+      "status": "rejected",
+      "title": "Familia de niño fallecido en encerrona se reúne con director de Carabineros"
+    },
+    {
+      "id": "a097d8658a17b6cc",
+      "cut_agree": false,
+      "fam_agree": false,
+      "pred_cut": null,
+      "prod_cut": "13106",
+      "pred_family": "vif",
+      "prod_family": "robos_violentos",
+      "title": "Condenan a más de 15 años a banda que mató a pasajero de bus en Estación Central"
+    },
+    {
+      "id": "9fc2febd759a796e",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13117",
+      "prod_cut": "13117",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Barbero acusado de matar a adolescente en Lo Prado"
+    },
+    {
+      "id": "b7075925e5c4bd7f",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8101",
+      "prod_cut": "8101",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Robos en Cementerio General de Concepción: sustracción de adornos y letras de sepulturas"
+    },
+    {
+      "id": "bfe084c29a65e701",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "2101",
+      "prod_cut": "2101",
+      "pred_family": "vida",
+      "prod_family": "incivilidades",
+      "title": "Jornada de copamiento preventivo en Antofagasta"
+    },
+    {
+      "id": "d33bebdbf43d7a76",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": "13114",
+      "prod_cut": "13104",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Violento portonazo en Conchalí: cinco sujetos armados robaron vehículo"
+    },
+    {
+      "id": "fdedfec49e600805",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "10301",
+      "prod_cut": "10301",
+      "pred_family": "propiedad",
+      "prod_family": "propiedad",
+      "title": "Confirman reconstrucción de regimiento en Osorno tras incendio"
+    },
+    {
+      "id": "fcead42d6735e3d2",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8110",
+      "prod_cut": "8110",
+      "pred_family": "propiedad",
+      "prod_family": "propiedad",
+      "title": "Sindicato de Huachipato se querella contra exdirigentes por $900 millones no justificados"
+    },
+    {
+      "id": "3c0afd428972ee92",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13119",
+      "prod_cut": "13119",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "PDI desarticuló banda dedicada a portonazos y encerronas en Maipú"
+    },
+    {
+      "id": "b190e902ca9c470d",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "2203",
+      "prod_cut": "2203",
+      "pred_family": "drogas",
+      "prod_family": "drogas",
+      "title": "PDI incauta 175 kilos de cannabis en San Pedro de Atacama"
+    },
+    {
+      "id": "2252d7ec6b51bef6",
+      "status": "rejected",
+      "title": "Accidente en Cuesta Chaca deja un fallecido en Arica"
+    },
+    {
+      "id": "9b1e83ae50fd427e",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": null,
+      "prod_cut": "4102",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Condenan a 8 años a hombre que disparó a madre, bebé y perro en Tongoy"
+    },
+    {
+      "id": "d32c480b57f6e33d",
+      "cut_agree": false,
+      "fam_agree": true,
+      "pred_cut": "9101",
+      "prod_cut": "13101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Condenan a dos sujetos por homicidio de trabajadora del GORE en balacera"
+    },
+    {
+      "id": "f06dfb848b28a56a",
+      "status": "rejected",
+      "title": "Colisión deja al menos un muerto y dos heridos graves en Carahue"
+    },
+    {
+      "id": "e2e16a6c7cca8286",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13116",
+      "prod_cut": "13116",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Detienen a hombre de 73 años en Lo Espejo por delitos sexuales contra adolescente"
+    },
+    {
+      "id": "15dda221b27c2d33",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13110",
+      "prod_cut": "13110",
+      "pred_family": "vida",
+      "prod_family": "incivilidades",
+      "title": "Arrau encabeza operativo policial en La Florida: fiscalización masiva"
+    },
+    {
+      "id": "4cb58b497478f32e",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "2101",
+      "prod_cut": "2101",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Carabineros desarticuló dos bandas de robo de vehículos en Antofagasta"
+    },
+    {
+      "id": "b5ed6e0824fead24",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13110",
+      "prod_cut": "13110",
+      "pred_family": "vida",
+      "prod_family": "incivilidades",
+      "title": "Megaoperativo de fiscalizaciones en La Florida lidera Ministro Arrau"
+    },
+    {
+      "id": "9bb9dc9ab0043f1e",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "5601",
+      "prod_cut": "5601",
+      "pred_family": "propiedad",
+      "prod_family": "propiedad",
+      "title": "Desalojo de megatoma en San Antonio alcanza 65% de avance"
+    },
+    {
+      "id": "100580f409516079",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13110",
+      "prod_cut": "13110",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Ministro Arrau encabeza despliegue policial nocturno en La Florida"
+    },
+    {
+      "id": "99ebe0d8a8f6774d",
+      "status": "rejected",
+      "title": "Tragedia en El Teniente: tribunal acoge cautela de garantías solicitada por Codelco"
+    },
+    {
+      "id": "cd2d4d2eefa49d0d",
+      "status": "rejected",
+      "title": "Gobierno confirma denuncia por colisión múltiple que causó muerte de enfermera en Coronel"
+    },
+    {
+      "id": "4ce3ace3fd040132",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13122",
+      "prod_cut": "13122",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Rescatan a dos personas extraviadas en Quebrada de Macul en Peñalolén"
+    },
+    {
+      "id": "2c6c3f9c71a07683",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13116",
+      "prod_cut": "13116",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Prisión preventiva para hombre de 73 años acusado de abusos sexuales contra menor en Lo Espejo"
+    },
+    {
+      "id": "7b158c2ee64317d1",
+      "status": "rejected",
+      "title": "Fallecido en accidente en Concepción era el histórico formador del Club Deportivo UdeC, Mario Montero"
+    },
+    {
+      "id": "0615f735fb85e9d8",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "5601",
+      "prod_cut": "5601",
+      "pred_family": "vida",
+      "prod_family": "propiedad",
+      "title": "Nueva etapa del desalojo en megatoma de San Antonio deja 3 detenidos"
+    },
+    {
+      "id": "fb326299e89f3db7",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13101",
+      "prod_cut": "13101",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Falsos policías roban 4 millones a joven en Santiago"
+    },
+    {
+      "id": "a09b2988d4ef7777",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13113",
+      "prod_cut": "13113",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Detienen a ladrones que escaparon por techos tras robo en La Reina"
+    },
+    {
+      "id": "f626687d4560427a",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13201",
+      "prod_cut": "13201",
+      "pred_family": "robos_violentos",
+      "prod_family": "robos_violentos",
+      "title": "Violento turbazo en Puente Alto: ocho encapuchados golpean al dueño de casa"
+    },
+    {
+      "id": "f721588598fadc26",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "15101",
+      "prod_cut": "15101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Explosión en bodega minera en Arica deja un muerto"
+    },
+    {
+      "id": "aa5eb6e149854c8a",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8101",
+      "prod_cut": "8101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Nuevo homicidio en Concepción provoca visita del ministro de Seguridad"
+    },
+    {
+      "id": "935770b83d406702",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13114",
+      "prod_cut": "13114",
+      "pred_family": "incivilidades",
+      "prod_family": "armas",
+      "title": "Aviso de bomba obligó a evacuar edificio en Las Condes"
+    },
+    {
+      "id": "2fd71f623c5b19b6",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "15101",
+      "prod_cut": "15101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Trabajador muere por explosión en planta de insumos mineros en Arica"
+    },
+    {
+      "id": "2f62aa5fed6e4881",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8101",
+      "prod_cut": "8101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Joven asesinado con dos balazos en la cabeza en Concepción"
+    },
+    {
+      "id": "a02f544e61cf3813",
+      "status": "rejected",
+      "title": "Detenido por amenazas contra embajador de EE.UU."
+    },
+    {
+      "id": "774df85bee8ac965",
+      "status": "rejected",
+      "title": "Caso Ojeda: inicia preparación de juicio con Niño Guerrero muerto"
+    },
+    {
+      "id": "d189ec2bc4679205",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13101",
+      "prod_cut": "13101",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Audiencia preparatoria por crimen de Ronald Ojeda en Santiago"
+    },
+    {
+      "id": "fc402a460a02cc63",
+      "cut_agree": false,
+      "fam_agree": false,
+      "pred_cut": null,
+      "prod_cut": "12401",
+      "pred_family": "vida",
+      "prod_family": "drogas",
+      "title": "Sobreseen a exfiscal de Puerto Natales indagado por mensaje a narco"
+    },
+    {
+      "id": "1c86ac2852fccd8c",
+      "cut_agree": false,
+      "fam_agree": false,
+      "pred_cut": "13101",
+      "prod_cut": "9101",
+      "pred_family": "vida",
+      "prod_family": "propiedad",
+      "title": "Mantienen prisión preventiva a Juan Pablo Leonelli por fraudes"
+    },
+    {
+      "id": "b71566eaa0339375",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13108",
+      "prod_cut": "13108",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Ciudadano dominicano asesinado a balazos en Independencia"
+    },
+    {
+      "id": "61b40ec66d7f7270",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "8313",
+      "prod_cut": "8313",
+      "pred_family": "armas",
+      "prod_family": "armas",
+      "title": "Detienen a jefe de Seguridad Municipal de Yumbel por infracción a ley de armas"
+    },
+    {
+      "id": "ed1650af9d3384c0",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "9202",
+      "prod_cut": "9202",
+      "pred_family": "drogas",
+      "prod_family": "drogas",
+      "title": "Detienen a boliviano con 45 kilos de marihuana en Collipulli"
+    },
+    {
+      "id": "01923b4067be709f",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13401",
+      "prod_cut": "13401",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Asesinato de hombre en situación de calle en San Bernardo"
+    },
+    {
+      "id": "15f70c3c12490aae",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "14101",
+      "prod_cut": "14101",
+      "pred_family": "armas",
+      "prod_family": "vida",
+      "title": "Detienen a dos implicados en tiroteo en Valdivia"
+    },
+    {
+      "id": "9ed9af4f141d897e",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13401",
+      "prod_cut": "13401",
+      "pred_family": "drogas",
+      "prod_family": "drogas",
+      "title": "Pasajero detenido por fumar marihuana en Metro de San Bernardo"
+    },
+    {
+      "id": "0f1093475222034d",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13401",
+      "prod_cut": "13401",
+      "pred_family": "robos_violentos",
+      "prod_family": "vida",
+      "title": "Hombre mata a golpes y puñaladas a persona en situación de calle en San Bernardo"
+    },
+    {
+      "id": "3ba7f9798fc43f5d",
+      "cut_agree": true,
+      "fam_agree": true,
+      "pred_cut": "13108",
+      "prod_cut": "13108",
+      "pred_family": "vida",
+      "prod_family": "vida",
+      "title": "Dominicano asesinado a balazos en vivienda de Independencia"
+    },
+    {
+      "id": "6cf7739ef5ad04f0",
+      "cut_agree": true,
+      "fam_agree": false,
+      "pred_cut": "13108",
+      "prod_cut": "13108",
+      "pred_family": "vif",
+      "prod_family": "vida",
+      "title": "Hombre muere baleado en Independencia tras irrupción en su domicilio"
+    }
+  ]
+}

@@ -23,6 +23,7 @@ Design decisions emerging from this spike session (non-negotiable for the real b
 | 005 | justice-funnel | standard | Fiscalía/PJUD/Gendarmería comuna-level + per-100k + additive vs CEAD | ✗ INVALIDATED for comuna (regional caveat only) | seed-002, fiscalia, pjud, gendarmeria |
 | 006 | special-crime-truth | standard | Which special-crime source beats CEAD per type at comuna level | ⚠ PARTIAL (homicide already in M1; femicide/juvenile not viable) | seed-002, observatorio, femicidio, juvenil |
 | 007 | supplementary-triage | standard | Do INE/Carabineros/PDI/SML/UAF/Aduanas clear the bar | ✗ INVALIDATED as new signal (dup CEAD / national-only) | seed-002, datos-gob-cl, triage |
+| 008 | granite-openrouter-classifier | comparison | Granite 4.1 8B (OpenRouter) matches/beats DeepSeek baseline on golden set at ~6x lower cost | ✓ VALIDATED → adopt (prod prompt + family-whitespace guard) | news, llm, classifier, openrouter, cost |
 
 ## SEED-002 outcome
 Full findings + go/no-go: **`.planning/research/SEED-002-FINDINGS.md`**. Verdict: **GO on a narrow additive ENUSC communal-victimization layer (Design A); NO-GO on full multi-source funnel; go-live not blocked.** Only ENUSC (new Jan-2026 SAE, 136/346 comunas) adds new anti-infra-rep signal at comuna level; everything else is duplicative, sub-comuna, or national-only. Observatorio homicidios already integrated (M1).
