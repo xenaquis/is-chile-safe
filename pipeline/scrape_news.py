@@ -25,11 +25,15 @@ Usage:
 """
 from __future__ import annotations
 
+import hashlib
+import json
 import logging
 import os
 import pathlib
+import re
 import socket
 import sys
+from datetime import datetime, timezone
 
 logging.basicConfig(
     level=logging.INFO,
@@ -51,6 +55,71 @@ if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
 _DEFAULT_DATA_DIR = _REPO_ROOT / "data" / "incidents"
+
+
+def _strip_html_simple(text: str) -> str:
+    """Strip HTML tags for rejected record description (no BeautifulSoup dep at module level)."""
+    return re.sub(r"<[^>]+>", "", text or "").strip()
+
+
+def record_rejected(items: list[dict], data_dir: pathlib.Path) -> None:
+    """
+    Persist rejected news candidates to data_dir/rejected/YYYY-MM.json.
+
+    Envelope: {"generated": <ISO UTC>, "items": [...]}.
+    Deduplicates by url id within the month file (first_seen preserved, no overwrites).
+    A failure here MUST NOT propagate — caller wraps in try/except.
+    """
+    if not items:
+        return
+
+    now = datetime.now(timezone.utc)
+    month_key = now.strftime("%Y-%m")
+    rejected_dir = data_dir / "rejected"
+    rejected_dir.mkdir(parents=True, exist_ok=True)
+    target = rejected_dir / f"{month_key}.json"
+
+    # Load existing file (tolerate missing/malformed)
+    existing_items: dict[str, dict] = {}
+    if target.exists():
+        try:
+            envelope = json.loads(target.read_text("utf-8"))
+            for record in envelope.get("items", []):
+                rec_id = record.get("id")
+                if rec_id:
+                    existing_items[rec_id] = record
+        except Exception:
+            pass
+
+    first_seen_iso = now.isoformat()
+
+    for item in items:
+        url = item.get("url") or ""
+        item_id = hashlib.sha256(url.encode("utf-8")).hexdigest()[:16]
+
+        # Dedup: skip if already present (preserve original first_seen)
+        if item_id in existing_items:
+            continue
+
+        description_raw = item.get("description") or ""
+        description = _strip_html_simple(description_raw)[:500]
+
+        existing_items[item_id] = {
+            "id": item_id,
+            "url": url,
+            "outlet": item.get("outlet") or "",
+            "date": item.get("date") or "",
+            "title": item.get("title") or "",
+            "description": description,
+            "rejection_stage": item.get("rejection_stage") or "",
+            "first_seen": first_seen_iso,
+        }
+
+    envelope = {
+        "generated": now.isoformat(),
+        "items": list(existing_items.values()),
+    }
+    target.write_text(json.dumps(envelope, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def _get_data_dir() -> pathlib.Path:
@@ -206,6 +275,7 @@ def main() -> int:
         new_incidents: list[dict] = []
         classified = 0
         rejected = 0
+        rejected_items: list[dict] = []
 
         for item in candidates:
             # CR-02: mark the URL seen as soon as we attempt classification — BEFORE any
@@ -222,6 +292,7 @@ def main() -> int:
                     item["url"], item["title"][:60],
                 )
                 rejected += 1
+                rejected_items.append({**item, "rejection_stage": "classifier_none"})
                 continue
 
             # T-16-07: Resolve LLM commune_name → (cut, slug) via deterministic closed-set lookup.
@@ -229,11 +300,13 @@ def main() -> int:
             # Never let an unresolved name reach the store.
             resolved = resolve_cut(result.commune_name, result.region_hint) if result.commune_name else None
             if resolved is None:
+                stage = "commune_null" if not result.commune_name else "resolver_fail"
                 logger.debug(
                     "Rejected (unresolved commune name %r): title=%r",
                     result.commune_name, item["title"][:60],
                 )
                 rejected += 1
+                rejected_items.append({**item, "rejection_stage": stage})
                 continue
             cut, slug = resolved
 
@@ -244,6 +317,7 @@ def main() -> int:
                     cut, item["title"][:60],
                 )
                 rejected += 1
+                rejected_items.append({**item, "rejection_stage": "centroid_fail"})
                 continue
 
             lat, lng = centroid
@@ -267,6 +341,12 @@ def main() -> int:
             "Classification summary: classified=%d, rejected=%d",
             classified, rejected,
         )
+
+        # Persist rejected candidates for selection-bias research corpus
+        try:
+            record_rejected(rejected_items, data_dir)
+        except Exception as _rej_exc:
+            logger.warning("record_rejected failed (non-fatal): %s", _rej_exc)
 
         # Cross-source deduplication (NEWS-03)
         deduped = deduplicate(new_incidents)
