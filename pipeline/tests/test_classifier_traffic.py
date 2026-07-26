@@ -3,7 +3,7 @@ pipeline/tests/test_classifier_traffic.py
 
 Regression tests for traffic-accident exclusion in the news classifier (P1-6 pipeline).
 
-DeepSeek is NEVER called live — all API responses are mocked via unittest.mock.patch.
+The configured LLM provider is NEVER called live — all API responses are mocked via unittest.mock.patch.
 Ensures that when the LLM correctly emits confidence=0.0 for a traffic-collision headline,
 classify() returns None (rejected by the CONFIDENCE_THRESHOLD gate).
 """

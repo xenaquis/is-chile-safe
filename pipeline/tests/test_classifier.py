@@ -1,8 +1,8 @@
 """
 pipeline/tests/test_classifier.py
 
-Tests for pipeline/news/classifier.py — DeepSeek classification with mocked API.
-DeepSeek NEVER called live — all responses mocked via unittest.mock.patch.
+Tests for pipeline/news/classifier.py — classification with mocked API.
+The configured LLM provider is NEVER called live — all responses mocked via unittest.mock.patch.
 """
 from __future__ import annotations
 
@@ -83,3 +83,25 @@ def test_invalid_family_rejected():
         mock_client.chat.completions.create.return_value = _make_mock_response(data)
         result = classify("Robo en Santiago", "Descripción del robo")
     assert result is None, "Expected None for invalid family key"
+
+
+def test_family_internal_whitespace_normalized():
+    """Granite 4.1 8B tokenizer artifact: 'robos_ violentos' must be normalized to 'robos_violentos'."""
+    data = dict(_VALID_RESPONSE, family="robos_ violentos", confidence=0.9)
+
+    with patch("pipeline.news.classifier.client") as mock_client:
+        mock_client.chat.completions.create.return_value = _make_mock_response(data)
+        result = classify("Robo violento en Santiago", "Descripción de robo violento")
+
+    assert result is not None, "Expected ClassifierOutput after family whitespace normalization"
+    assert result.family == "robos_violentos", f"Expected 'robos_violentos', got {result.family!r}"
+
+
+def test_default_provider_is_openrouter():
+    """With NEWS_PROVIDER unset, the module must default to openrouter/ibm-granite/granite-4.1-8b."""
+    assert classifier_mod._PROVIDER == "openrouter", (
+        f"Expected _PROVIDER='openrouter', got {classifier_mod._PROVIDER!r}"
+    )
+    assert classifier_mod._MODEL == "ibm-granite/granite-4.1-8b", (
+        f"Expected _MODEL='ibm-granite/granite-4.1-8b', got {classifier_mod._MODEL!r}"
+    )
