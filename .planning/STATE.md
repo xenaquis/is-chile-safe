@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 Phase: 25
 Plan: Not started
 Status: Ready to execute
-Last activity: 2026-07-03 - Completed quick task 260703-fjh: news sources expanded 3→9 feeds (Google News RSS national+regional queries with source attribution, La Cuarta); 217 pipeline tests green
+Last activity: 2026-07-26 - Completed quick task 260726-dqf: Granite 4.1 8B (OpenRouter) now default news classifier (spike 008 VALIDATED); PENDING OPERATOR: add OPENROUTER_API_KEY repo secret before next Actions run
 
 ## Progress Bar
 
@@ -142,6 +142,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | 260620-cps | Align ranking/methodology copy to "casos policiales" (denuncias + detenciones flagrantes); fix stray "denuncias" mislabels that contradicted the documented measure, EN+ES | 2026-06-20 | 2feb81a | [260620-cps-alinear-copy-casos-policiales](./quick/260620-cps-alinear-copy-casos-policiales/) |
 | 260703-e83 | Fix P0 ranking-table bugs: stale rank column on year change, comparator links 404 (only enabled pairs), similar-communes table silently static (missing ratesByYear) | 2026-07-03 | 52d82e3 | [260703-e83-fix-p0-ranking-table-bugs-stale-rank-col](./quick/260703-e83-fix-p0-ranking-table-bugs-stale-rank-col/) |
 | 260703-fjh | Expand news sources: Google News RSS (1 national + 4 regional queries, source-tag attribution) + La Cuarta Arc feed; cross-outlet dedup verified by test | 2026-07-03 | 835e636 | [260703-fjh-expand-news-sources-add-google-news-rss-](./quick/260703-fjh-expand-news-sources-add-google-news-rss-/) |
+| 260726-dqf | Adopt Granite 4.1 8B (OpenRouter) as default news classifier per spike 008 (commune 100% vs 95.45%, ~6-11x cheaper, 2.6x faster); family-whitespace guard; DeepSeek/MiniMax stay selectable via NEWS_PROVIDER | 2026-07-26 | 0dc42f7 | [260726-dqf-adopt-granite-4-1-8b-openrouter-as-defau](./quick/260726-dqf-adopt-granite-4-1-8b-openrouter-as-defau/) |
 
 ## Session Continuity
 
