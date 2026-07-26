@@ -221,10 +221,25 @@ def to_jsonl(incidents: list) -> bytes:
     return "\n".join(lines).encode("utf-8")
 
 
+# Cells starting with these chars are interpreted as formulas by Excel/Sheets;
+# a headline like "=cmd|..." would execute on open (CSV injection, WR-01).
+_CSV_FORMULA_PREFIXES = ("=", "+", "-", "@", "\t", "\r")
+
+
+def _csv_safe(value) -> str:
+    """Neutralize spreadsheet formula injection by prefixing risky cells with '."""
+    s = "" if value is None else str(value)
+    if s and s[0] in _CSV_FORMULA_PREFIXES:
+        return "'" + s
+    return s
+
+
 def to_csv(incidents: list) -> bytes:
     """
     Encode incidents as UTF-8 BOM CSV bytes.
     Header: id,date,cut,slug,family,outlet,title_es,title_en,url,lat,lng,apa
+
+    Text-bearing cells are sanitized against spreadsheet formula injection (WR-01).
     """
     buf = io.StringIO()
     fieldnames = ["id", "date", "cut", "slug", "family", "outlet",
@@ -233,7 +248,7 @@ def to_csv(incidents: list) -> bytes:
                             lineterminator="\n")
     writer.writeheader()
     for inc in incidents:
-        writer.writerow({f: inc.get(f, "") for f in fieldnames})
+        writer.writerow({f: _csv_safe(inc.get(f, "")) for f in fieldnames})
     return b"\xef\xbb\xbf" + buf.getvalue().encode("utf-8")
 
 
@@ -458,7 +473,14 @@ def main() -> int:
     # `or` fallback: GitHub Actions injects unset secrets as empty strings, so a
     # plain .get() default never kicks in and boto3 gets Bucket="" (run 30208466155).
     bucket = os.environ.get("R2_BUCKET", "").strip() or "ischilesafe"
-    max_fetch = int(os.environ.get("ARCHIVE_MAX_FETCH", "100"))
+    # Tolerate a malformed ARCHIVE_MAX_FETCH rather than crashing the run (WR-03).
+    try:
+        max_fetch = int(os.environ.get("ARCHIVE_MAX_FETCH", "100"))
+        if max_fetch < 0:
+            raise ValueError
+    except ValueError:
+        logger.warning("ARCHIVE_MAX_FETCH invalid — falling back to 100")
+        max_fetch = 100
 
     # Resolve data dir
     data_dir = _REPO_ROOT / "data" / "incidents"
@@ -468,6 +490,18 @@ def main() -> int:
     logger.info("Consolidated %d unique incidents", len(incidents))
     rejected = consolidate_rejected(data_dir)
     logger.info("Consolidated %d rejected candidates", len(rejected))
+
+    # Ledger/article objects are keyed on bare id (sha256(url)[:16]); guarantee
+    # incident and rejected id-sets are disjoint so a shared id can never
+    # cross-contaminate per-kind totals or overwrite an article object (WR-04).
+    # Incidents win — a URL that became an accepted incident is not also a
+    # "rejected candidate". Keeps the live 1,264-row incident ledger keys intact.
+    _incident_ids = {inc.get("id") for inc in incidents}
+    _before = len(rejected)
+    rejected = [r for r in rejected if r.get("id") not in _incident_ids]
+    if len(rejected) != _before:
+        logger.info("Dropped %d rejected records colliding with incident ids",
+                    _before - len(rejected))
 
     # Tag each record with kind in-memory for fetch bookkeeping
     for inc in incidents:

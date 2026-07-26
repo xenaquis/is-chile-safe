@@ -22,6 +22,17 @@ import pipeline.news.gnews_decoder as gnd
 import pipeline.news.fulltext as ft
 
 
+@pytest.fixture(autouse=True)
+def _stub_dns(monkeypatch):
+    """Default every test to a public-IP DNS resolution so is_safe_url's
+    getaddrinfo never touches the live network. Tests that need a private
+    resolution override this with their own monkeypatch."""
+    monkeypatch.setattr(
+        ft.socket, "getaddrinfo",
+        lambda *a, **k: [(2, 1, 6, "", ("93.184.216.34", 0))],
+    )
+
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -165,7 +176,8 @@ def test_new_format_exception_returns_none():
     "http://example.com/path?q=1",
 ])
 def test_is_safe_url_allowed(url):
-    assert ft.is_safe_url(url) is True
+    # resolve_dns=False → pure syntactic check, hermetic (no live DNS)
+    assert ft.is_safe_url(url, resolve_dns=False) is True
 
 
 # ---------------------------------------------------------------------------
@@ -184,7 +196,56 @@ def test_is_safe_url_allowed(url):
     "http://192.168.1.1/x",  # private
 ])
 def test_is_safe_url_rejected(url):
-    assert ft.is_safe_url(url) is False
+    assert ft.is_safe_url(url, resolve_dns=False) is False
+
+
+# ---------------------------------------------------------------------------
+# 6b. is_safe_url: DNS-based SSRF (CR-02) — attacker A-record → private IP
+# ---------------------------------------------------------------------------
+
+def test_is_safe_url_dns_rebinding_rejected(monkeypatch):
+    """A public hostname that resolves to a private IP must be rejected."""
+    monkeypatch.setattr(
+        ft.socket, "getaddrinfo",
+        lambda *a, **k: [(2, 1, 6, "", ("127.0.0.1", 0))],
+    )
+    assert ft.is_safe_url("https://evil.example.com/x") is False
+
+
+def test_is_safe_url_dns_public_allowed(monkeypatch):
+    monkeypatch.setattr(
+        ft.socket, "getaddrinfo",
+        lambda *a, **k: [(2, 1, 6, "", ("93.184.216.34", 0))],
+    )
+    assert ft.is_safe_url("https://outlet.cl/x") is True
+
+
+def test_is_safe_url_dns_failure_rejected(monkeypatch):
+    """Unresolvable host → unsafe (fail closed)."""
+    def _boom(*a, **k):
+        raise OSError("NXDOMAIN")
+    monkeypatch.setattr(ft.socket, "getaddrinfo", _boom)
+    assert ft.is_safe_url("https://nope.invalid/x") is False
+
+
+def test_fetch_article_redirect_to_private_ip_blocked(monkeypatch):
+    """CR-01: a public URL that 302-redirects to a private IP must not be fetched."""
+    redirect = MagicMock()
+    redirect.status_code = 302
+    redirect.headers = {"Location": "http://169.254.169.254/latest/meta-data/"}
+    redirect.close = MagicMock()
+
+    sess = MagicMock()
+    sess.get.return_value = redirect
+    sess.RequestException = Exception
+    # First hop host resolves public; is_safe_url on the redirect target sees a
+    # literal link-local IP and rejects without DNS.
+    monkeypatch.setattr(ft.socket, "getaddrinfo",
+                        lambda *a, **k: [(2, 1, 6, "", ("93.184.216.34", 0))])
+
+    result = ft.fetch_article("https://outlet.cl/nota", session=sess)
+    assert result["extraction_ok"] is False
+    assert "169.254.169.254" in result["final_url"]
 
 
 # ---------------------------------------------------------------------------

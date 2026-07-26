@@ -51,6 +51,16 @@ def _fix_b64_padding(token: str) -> str:
     return token + "=" * pad
 
 
+def _is_http_url(candidate: str) -> bool:
+    """Scheme allowlist for decoder output — the decoded blob is
+    attacker-influenceable, so only plain http/https may leave this module
+    (WR-05). fulltext.is_safe_url still re-checks host/IP downstream."""
+    try:
+        return urlparse(candidate).scheme in {"http", "https"}
+    except Exception:
+        return False
+
+
 def _extract_url_from_bytes(data: bytes) -> str | None:
     """
     Regex-scan raw bytes for a plausible https?:// URL.
@@ -61,8 +71,8 @@ def _extract_url_from_bytes(data: bytes) -> str | None:
     except Exception:
         return None
     matches = re.findall(r"https?://[^\x00-\x20\"'\x7f-\xff]+", text)
-    # Filter out likely garbage (too short)
-    matches = [m for m in matches if len(m) > 10]
+    # Filter out likely garbage (too short) and non-http schemes
+    matches = [m for m in matches if len(m) > 10 and _is_http_url(m)]
     if len(matches) == 1:
         return matches[0]
     return None
@@ -117,38 +127,56 @@ def _try_new_format(url: str, session, timeout: float) -> str | None:
         sg = sg_match.group(1)
         ts = ts_match.group(1)
 
-        # Build batchexecute f-request payload (documented gnews decode pattern)
-        # The inner array encodes: [article_id, sg, ts, article_id]
-        inner = json.dumps([[article_id, sg, ts, article_id]])
-        # Outer f-request structure
-        freq = json.dumps([[[
-            "Fbv4je",
-            inner,
-            None,
-            "generic",
-        ]]])
-        payload = f"f.req={freq}"
+        # Build batchexecute f-request payload — "garturlreq" structure (the
+        # protocol the googlenewsdecoder package documents; anything simpler
+        # gets an error envelope back). ts must be an int, sg a string.
+        garturlreq = [
+            "garturlreq",
+            [
+                ["X", "X", ["X", "X"], None, None, 1, 1, "US:en", None, 1,
+                 None, None, None, None, None, 0, 1],
+                "X", "X", 1, [1, 1, 1], 1, 1, None, 0, 0, None, 0,
+            ],
+            article_id,
+            int(ts) if ts.isdigit() else ts,  # real protocol sends int; tolerate drift
+            sg,
+        ]
+        freq = json.dumps([[["Fbv4je", json.dumps(garturlreq), None, "generic"]]])
 
+        # dict form → requests percent-encodes the body correctly
         post_resp = session.post(
             _BATCHEXECUTE_URL,
-            data=payload,
+            data={"f.req": freq},
             headers={
                 "User-Agent": _get_user_agent(),
-                "Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             },
             timeout=timeout,
         )
 
         raw = post_resp.text if hasattr(post_resp, "text") else ""
 
-        # Strip XSSI prefix )]}' and surrounding whitespace
-        stripped = re.sub(r"^\)\]\}'[\s]*", "", raw)
+        # Structured parse first: response is ")]}'\n\n<json>"; the decoded URL
+        # lives at json.loads(envelope[i][2])[1] for the "wrb.fr" element.
+        try:
+            chunk = raw.split("\n\n")[1]
+            envelope = json.loads(chunk)
+            for item in envelope:
+                if isinstance(item, list) and len(item) > 2 and item[0] == "wrb.fr" and item[2]:
+                    decoded = json.loads(item[2])
+                    candidate = decoded[1] if len(decoded) > 1 else None
+                    if isinstance(candidate, str) and _is_http_url(candidate):
+                        return candidate
+        except Exception:
+            pass
 
-        # Walk the JSON-ish structure looking for a https?:// URL
-        # The response is typically a nested array; we scan for URL patterns
+        # Fallback: regex scan of the stripped body for a non-Google URL
+        stripped = re.sub(r"^\)\]\}'[\s]*", "", raw)
         urls_found = re.findall(r"https?://[^\x00-\x20\"'\x5c\x7f-\xff]{10,}", stripped)
-        # Filter out the google.com batchexecute URL itself
-        urls_found = [u for u in urls_found if "news.google.com" not in u]
+        urls_found = [
+            u for u in urls_found
+            if "google.com" not in u and "gstatic.com" not in u and _is_http_url(u)
+        ]
         if urls_found:
             return urls_found[0]
 

@@ -24,6 +24,16 @@ import pipeline.archive_r2 as ar
 import pipeline.news.fulltext as ft
 
 
+@pytest.fixture(autouse=True)
+def _stub_dns(monkeypatch):
+    """is_safe_url resolves DNS in production; stub it to a public IP so the
+    mocked fetch tests never touch the live network."""
+    monkeypatch.setattr(
+        ft.socket, "getaddrinfo",
+        lambda *a, **k: [(2, 1, 6, "", ("93.184.216.34", 0))],
+    )
+
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -763,3 +773,67 @@ def test_fetch_priority_incidents_before_rejected(monkeypatch):
     assert fetched_urls[0] == inc["url"], (
         f"Incident must be fetched first (priority), got {fetched_urls[0]!r}"
     )
+
+
+# ---------------------------------------------------------------------------
+# Security hardening regression tests (review 260726-gf7)
+# ---------------------------------------------------------------------------
+
+def test_csv_formula_injection_neutralized():
+    """A headline starting with = / + / - / @ must be prefixed with ' in the CSV."""
+    inc = _make_inc(inc_id="X", title_es="=HYPERLINK(\"http://evil\")", outlet="@cmd")
+    inc["apa"] = "-2+3"
+    out = ar.to_csv([inc]).decode("utf-8-sig")
+    rows = out.splitlines()
+    data = rows[1]
+    assert "'=HYPERLINK" in data
+    assert "'@cmd" in data
+    assert "'-2+3" in data
+
+
+def test_csv_safe_leaves_normal_values():
+    assert ar._csv_safe("Robo en Santiago") == "Robo en Santiago"
+    assert ar._csv_safe("13101") == "13101"
+    assert ar._csv_safe(None) == ""
+
+
+def test_rejected_colliding_with_incident_id_dropped(tmp_path, monkeypatch):
+    """A rejected record sharing an incident id must be dropped (WR-04)."""
+    monkeypatch.setenv("R2_ENDPOINT_URL", "https://r2.example.com")
+    monkeypatch.setenv("R2_ACCESS_KEY_ID", "k")
+    monkeypatch.setenv("R2_SECRET_ACCESS_KEY", "s")
+    monkeypatch.setenv("R2_BUCKET", "b")
+    monkeypatch.setenv("ARCHIVE_MAX_FETCH", "0")
+
+    inc = _make_inc(inc_id="DUP", url="https://outlet.cl/shared")
+    monkeypatch.setattr(ar, "consolidate_incidents", lambda _: [inc])
+    monkeypatch.setattr(ar, "consolidate_rejected",
+                        lambda _: [{"id": "DUP", "url": "https://outlet.cl/shared",
+                                    "outlet": "X", "date": "2026-07-26", "title": "t"}])
+
+    mock_client = MagicMock()
+    mock_client.get_object.side_effect = Exception("NoSuchKey")
+    monkeypatch.setattr(ar, "_make_r2_client", lambda *a, **k: mock_client)
+
+    result = ar.main()
+    assert result == 0
+    rejected_bodies = [c.kwargs["Body"] for c in mock_client.put_object.call_args_list
+                       if c.kwargs.get("Key", "").endswith("rejected.jsonl")]
+    assert rejected_bodies, "rejected.jsonl must be uploaded"
+    assert rejected_bodies[0].decode("utf-8").strip() == "", "colliding rejected dropped"
+
+
+def test_malformed_max_fetch_does_not_crash(tmp_path, monkeypatch):
+    monkeypatch.setenv("R2_ENDPOINT_URL", "https://r2.example.com")
+    monkeypatch.setenv("R2_ACCESS_KEY_ID", "k")
+    monkeypatch.setenv("R2_SECRET_ACCESS_KEY", "s")
+    monkeypatch.setenv("R2_BUCKET", "b")
+    monkeypatch.setenv("ARCHIVE_MAX_FETCH", "not-a-number")
+
+    monkeypatch.setattr(ar, "consolidate_incidents", lambda _: [])
+    monkeypatch.setattr(ar, "consolidate_rejected", lambda _: [])
+    mock_client = MagicMock()
+    mock_client.get_object.side_effect = Exception("NoSuchKey")
+    monkeypatch.setattr(ar, "_make_r2_client", lambda *a, **k: mock_client)
+
+    assert ar.main() == 0  # must not raise ValueError

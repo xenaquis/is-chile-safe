@@ -13,9 +13,10 @@ from __future__ import annotations
 import hashlib
 import ipaddress
 import logging
+import socket
 import time
 from datetime import datetime, timezone
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 import requests
 import trafilatura
@@ -38,6 +39,7 @@ REQUEST_TIMEOUT = 15
 REQUEST_DELAY = 1.5
 MAX_TEXT_BYTES = 2 * 1024 * 1024  # 2 MB hard cap
 MAX_DOWNLOAD_BYTES = 5 * 1024 * 1024  # 5 MB streamed download cap (T-gf7-02)
+MAX_REDIRECTS = 5  # manual redirect cap — each hop re-validated (CR-01)
 ALLOWED_CONTENT_TYPES = ("text/html", "text/plain")  # T-gf7-03
 
 
@@ -45,24 +47,34 @@ ALLOWED_CONTENT_TYPES = ("text/html", "text/plain")  # T-gf7-03
 # URL safety guard (T-gf7-01)
 # ---------------------------------------------------------------------------
 
-def is_safe_url(url: str) -> bool:
+def _ip_is_blocked(ip: ipaddress._BaseAddress) -> bool:
+    """True if an IP must never be fetched (SSRF targets)."""
+    return (
+        ip.is_private or ip.is_loopback or ip.is_link_local
+        or ip.is_reserved or ip.is_multicast or ip.is_unspecified
+    )
+
+
+def is_safe_url(url: str, *, resolve_dns: bool = True) -> bool:
     """
     Return True only if the URL is safe to fetch.
 
     Rejects:
     - Non-http(s) schemes (ftp, file, javascript, etc.)
     - Embedded credentials (user:pass@host)
-    - Private / loopback / link-local / reserved IP literals (no DNS resolution)
+    - Private / loopback / link-local / reserved IP *literals*
+    - (when resolve_dns) hostnames whose DNS resolution yields ANY blocked IP —
+      closes the DNS-rebinding / attacker-A-record SSRF hole (CR-02). A
+      hostname that fails to resolve is rejected.
 
-    Does NOT perform DNS resolution — only literal IP addresses are checked.
-    Public hostnames (non-IP) are allowed.
+    resolve_dns=False keeps the pure-syntactic check for unit tests that must
+    not touch the network.
     """
     try:
         parsed = urlparse(url)
     except Exception:
         return False
 
-    # Scheme must be http or https
     if parsed.scheme not in {"http", "https"}:
         return False
 
@@ -70,24 +82,36 @@ def is_safe_url(url: str) -> bool:
     if parsed.username or parsed.password:
         return False
 
-    # Check if hostname is an IP literal
-    # urlparse.hostname is None for malformed/unbracketed IPv6 (http://::1/x) —
-    # treat a missing hostname as unsafe if netloc is non-empty.
     hostname = parsed.hostname
     if hostname is None:
-        # If netloc is present but hostname couldn't be parsed → reject
         if parsed.netloc:
             return False
-        hostname = ""
+        return False  # no host at all → unsafe
+
+    # Literal IP → check directly, no DNS.
     try:
         ip = ipaddress.ip_address(hostname)
-        # Reject private/loopback/link-local/reserved IPs
-        if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved:
-            return False
+        return not _ip_is_blocked(ip)
     except ValueError:
-        # Not an IP literal — treat as DNS name, allow
-        pass
+        pass  # not a literal IP — it's a DNS name
 
+    if not resolve_dns:
+        return True
+
+    # Resolve the hostname and reject if ANY address is blocked (CR-02).
+    try:
+        infos = socket.getaddrinfo(hostname, None)
+    except Exception:
+        logger.debug("is_safe_url: DNS resolution failed for %s", hostname)
+        return False
+    for info in infos:
+        addr = info[4][0]
+        try:
+            if _ip_is_blocked(ipaddress.ip_address(addr)):
+                logger.debug("is_safe_url: %s resolves to blocked IP", hostname)
+                return False
+        except ValueError:
+            return False
     return True
 
 
@@ -138,7 +162,15 @@ def fetch_article(
     # Google News decode wiring
     parsed_url = urlparse(url)
     if (parsed_url.hostname or "").lower() == "news.google.com":
-        decoded = decode_gnews_url(url, session=session, timeout=float(timeout))
+        # The decoder needs a session-like object with .get/.post for the
+        # new-format network path; the `requests` module itself qualifies and
+        # keeps the ft.requests test seam (production callers pass no session,
+        # which previously skipped decoding entirely — every gnews URL failed).
+        decoded = decode_gnews_url(
+            url,
+            session=session if session is not None else requests,
+            timeout=float(timeout),
+        )
         if decoded is None or decoded == url:
             # Decode failed (None) or returned unchanged (shouldn't happen for gnews host)
             if decoded is None:
@@ -172,17 +204,60 @@ def fetch_article(
         retry=retry_if_exception_type((requests.RequestException,)),
         reraise=True,
     )
-    def _do_get() -> requests.Response:
+    def _do_get(target: str) -> requests.Response:
+        # allow_redirects=False: we follow hops manually so is_safe_url runs on
+        # EVERY landed host (CR-01). requests otherwise follows a 302 to an
+        # internal address without re-checking, turning any public outlet that
+        # redirects into a blind-SSRF gadget.
         return _get(
-            fetch_url,
-            allow_redirects=True,
+            target,
+            allow_redirects=False,
             timeout=timeout,
             headers={"User-Agent": user_agent},
             stream=True,
         )
 
-    resp = _do_get()
-    final_url = getattr(resp, "url", fetch_url)
+    # Manual redirect loop with per-hop revalidation (CR-01).
+    current_url = fetch_url
+    resp = None
+    for _hop in range(MAX_REDIRECTS + 1):
+        resp = _do_get(current_url)
+        status = resp.status_code
+        if status in (301, 302, 303, 307, 308):
+            location = resp.headers.get("Location")
+            if not location:
+                break
+            next_url = urljoin(current_url, location)
+            if not is_safe_url(next_url):
+                logger.debug("fetch_article: redirect target rejected: %s", next_url[:80])
+                if hasattr(resp, "close"):
+                    resp.close()
+                return {
+                    "final_url": next_url,
+                    "http_status": None,
+                    "extraction_ok": False,
+                    "text": "",
+                    "lang": None,
+                    "decoded_from_gnews": decoded_from_gnews,
+                }
+            if hasattr(resp, "close"):
+                resp.close()
+            current_url = next_url
+            continue
+        break
+    else:
+        # Redirect budget exhausted
+        logger.debug("fetch_article: too many redirects from %s", fetch_url[:80])
+        return {
+            "final_url": current_url,
+            "http_status": None,
+            "extraction_ok": False,
+            "text": "",
+            "lang": None,
+            "decoded_from_gnews": decoded_from_gnews,
+        }
+
+    final_url = getattr(resp, "url", current_url)
     http_status = resp.status_code
 
     if not (200 <= http_status < 300):

@@ -130,7 +130,18 @@ def _get_data_dir() -> pathlib.Path:
 # ---------------------------------------------------------------------------
 # Per-run classification cap (D-17 cost control)
 # ---------------------------------------------------------------------------
-MAX_CLASSIFICATIONS_PER_RUN: int = int(os.environ.get("NEWS_MAX_CLASSIFY", "200"))
+def _int_env(name: str, default: int) -> int:
+    """Parse an int env var, falling back to default on any malformed value
+    rather than crashing the always-exit-0 pipeline (WR-03)."""
+    try:
+        val = int(os.environ.get(name, str(default)))
+        return val if val >= 0 else default
+    except ValueError:
+        logger.warning("%s invalid — falling back to %d", name, default)
+        return default
+
+
+MAX_CLASSIFICATIONS_PER_RUN: int = _int_env("NEWS_MAX_CLASSIFY", 200)
 
 
 # ---------------------------------------------------------------------------
