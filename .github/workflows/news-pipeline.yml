@@ -33,6 +33,7 @@ jobs:
 
       - name: Run news scraper
         env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python pipeline/scrape_news.py
 
