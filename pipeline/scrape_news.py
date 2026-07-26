@@ -91,10 +91,14 @@ def main() -> int:
     # without a key the pipeline cannot classify, so skip this run cleanly (exit 0)
     # instead of failing the scheduled CI job every 6h. No key -> no data change ->
     # no commit/deploy.
-    # Pitfall 6 (Plan 03): key check must be provider-aware. NEWS_PROVIDER=minimax
-    # uses MINIMAX_API_KEY; default provider is deepseek → DEEPSEEK_API_KEY.
-    _provider = os.environ.get("NEWS_PROVIDER", "deepseek").strip().lower()
-    _key_env = "MINIMAX_API_KEY" if _provider == "minimax" else "DEEPSEEK_API_KEY"
+    # Pitfall 6 (Plan 03): key check must be provider-aware. Must mirror the
+    # provider→key mapping in pipeline/news/classifier.py (default: openrouter
+    # → OPENROUTER_API_KEY since quick-260726-dqf / spike 008).
+    _provider = os.environ.get("NEWS_PROVIDER", "openrouter").strip().lower()
+    _key_env = {
+        "minimax": "MINIMAX_API_KEY",
+        "deepseek": "DEEPSEEK_API_KEY",
+    }.get(_provider, "OPENROUTER_API_KEY")
     api_key = os.environ.get(_key_env, "").strip()
     if not api_key:
         logger.warning(

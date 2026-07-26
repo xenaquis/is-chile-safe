@@ -11,7 +11,7 @@ Strategy:
 - assert main() returns 0 and current.json validates via IncidentsFile.model_validate
 - assert attribution fields (outlet, url, date) are present (NEWS-05)
 - assert dedup runs (injecting two near-identical items produces one incident)
-- assert missing DEEPSEEK_API_KEY returns 1 without raising
+- assert missing provider API key returns 0 (graceful exit) without raising
 """
 from __future__ import annotations
 
@@ -29,6 +29,14 @@ import pytest
 
 # A real valid CUT from the 346-commune list
 _VALID_CUT = "13101"  # Santiago
+
+# Fixture pub dates must stay inside store.py's 30-day retention window relative
+# to the real "today" — hardcoded dates silently expire and drop all incidents.
+import datetime as _dt
+
+def _recent_iso(hour: int) -> str:
+    d = _dt.datetime.now(_dt.timezone.utc) - _dt.timedelta(days=1)
+    return d.strftime("%Y-%m-%d") + f"T{hour:02d}:00:00Z"
 
 # Minimal feedparser-like entry object
 def _make_entry(title: str, link: str, guid: str, description: str, pub_date: str) -> SimpleNamespace:
@@ -49,7 +57,7 @@ _CRIME_ENTRY_1 = _make_entry(
     link="https://www.biobiochile.cl/noticias/robo-santiago.shtml",
     guid="https://www.biobiochile.cl/?p=1001",
     description="Un hombre resultó herido durante un asalto en plena vía pública.",
-    pub_date="2026-06-13T08:00:00Z",
+    pub_date=_recent_iso(8),
 )
 
 _CRIME_ENTRY_2 = _make_entry(
@@ -57,7 +65,7 @@ _CRIME_ENTRY_2 = _make_entry(
     link="https://www.biobiochile.cl/noticias/narco-puente-alto.shtml",
     guid="https://www.biobiochile.cl/?p=1002",
     description="La PDI detuvo a cinco imputados acusados de narcotráfico.",
-    pub_date="2026-06-13T09:00:00Z",
+    pub_date=_recent_iso(9),
 )
 
 _NON_CRIME_ENTRY = _make_entry(
@@ -65,7 +73,7 @@ _NON_CRIME_ENTRY = _make_entry(
     link="https://www.biobiochile.cl/noticias/la-roja-goleada.shtml",
     guid="https://www.biobiochile.cl/?p=1003",
     description="La selección chilena venció a Paraguay en el estadio Nacional.",
-    pub_date="2026-06-13T10:00:00Z",
+    pub_date=_recent_iso(10),
 )
 
 # Duplicate of entry 1 (same URL → dedup by url should collapse)
@@ -74,7 +82,7 @@ _CRIME_ENTRY_1_DUP = _make_entry(
     link="https://www.biobiochile.cl/noticias/robo-santiago.shtml",  # same URL
     guid="https://www.biobiochile.cl/?p=1001",
     description="Un hombre resultó herido durante un asalto en plena vía pública.",
-    pub_date="2026-06-13T08:00:00Z",
+    pub_date=_recent_iso(8),
 )
 
 _TEST_FEEDS = {
@@ -107,9 +115,9 @@ def news_data_dir(tmp_path, monkeypatch):
 
 
 @pytest.fixture(autouse=False)
-def deepseek_key(monkeypatch):
-    """Set a fake DEEPSEEK_API_KEY so the key-check passes."""
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-fake-test-key")
+def openrouter_key(monkeypatch):
+    """Set a fake OPENROUTER_API_KEY so the key-check passes (default provider)."""
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake-test-key")
 
 
 # ---------------------------------------------------------------------------
@@ -126,7 +134,7 @@ def test_main_happy_path(tmp_path, monkeypatch):
     - dedup collapses the duplicate URL (3 crime-matching entries → 2 unique URLs → 2 incidents)
     - centroid lat/lng are present
     """
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-fake")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
     monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
 
     # Patch FEEDS registry to our synthetic single feed
@@ -205,7 +213,7 @@ def test_main_happy_path(tmp_path, monkeypatch):
 
 
 # ---------------------------------------------------------------------------
-# Test: missing DEEPSEEK_API_KEY returns 1 without raising
+# Test: missing provider API key returns 0 (graceful exit) without raising
 # ---------------------------------------------------------------------------
 
 def test_main_no_api_key_returns_0(tmp_path, monkeypatch):
@@ -214,6 +222,7 @@ def test_main_no_api_key_returns_0(tmp_path, monkeypatch):
     The orchestrator degrades gracefully: no key → no data change → exit 0.
     (CLAUDE.md: 'pipeline debe fallar con gracia y alertar')
     """
+    monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
     monkeypatch.delenv("DEEPSEEK_API_KEY", raising=False)
     monkeypatch.delenv("MINIMAX_API_KEY", raising=False)
     monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
@@ -233,7 +242,7 @@ def test_main_no_api_key_returns_0(tmp_path, monkeypatch):
 
 def test_per_feed_failure_isolated(tmp_path, monkeypatch):
     """If one feed raises, main() continues with the others and still returns 0."""
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-fake")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
     monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
 
     two_feeds = {
@@ -270,7 +279,7 @@ def test_per_feed_failure_isolated(tmp_path, monkeypatch):
 
 def test_classifier_none_items_skipped(tmp_path, monkeypatch):
     """Items rejected by classify() (returns None) must not appear in output."""
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-fake")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
     monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
 
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
@@ -293,7 +302,7 @@ def test_classifier_none_items_skipped(tmp_path, monkeypatch):
 
 def test_centroid_none_items_skipped(tmp_path, monkeypatch):
     """Items with unknown centroid must be skipped."""
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-fake")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
     monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
 
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
@@ -319,7 +328,7 @@ def test_incident_field_names_match_ts_interface(tmp_path, monkeypatch):
     IncidentRecord fields must match the TypeScript Incident interface exactly (D-15):
     id, cut, lat, lng, title_es, title_en, date, outlet, url, family.
     """
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-fake")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
     monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
 
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
@@ -344,7 +353,7 @@ def test_incident_field_names_match_ts_interface(tmp_path, monkeypatch):
 
 def test_orchestrator_resolves_name(tmp_path, monkeypatch):
     """With a valid commune_name, the built incident has the resolved cut + non-null slug."""
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-fake")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
     monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
 
     from pipeline.news.schema import ClassifierOutput
@@ -379,7 +388,7 @@ def test_orchestrator_resolves_name(tmp_path, monkeypatch):
 
 def test_orchestrator_drops_unresolved_name(tmp_path, monkeypatch):
     """When resolve_cut returns None (unknown commune name), the incident is dropped — no crash."""
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-fake")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
     monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
 
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
