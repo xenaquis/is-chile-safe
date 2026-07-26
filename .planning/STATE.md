@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 Phase: 25
 Plan: Not started
 Status: Ready to execute
-Last activity: 2026-07-26 - Completed quick task 260726-dqf: Granite 4.1 8B (OpenRouter) now default news classifier (spike 008 VALIDATED); PENDING OPERATOR: add OPENROUTER_API_KEY repo secret before next Actions run
+Last activity: 2026-07-26 - Completed quick tasks 260726-dqf (Granite default, live-verified in Actions) and 260726-ep0 (R2 research archive with full-text corpus); PENDING OPERATOR: add R2_ENDPOINT_URL/R2_ACCESS_KEY_ID/R2_SECRET_ACCESS_KEY/R2_BUCKET repo secrets for the daily r2-archive cron
 
 ## Progress Bar
 
@@ -143,6 +143,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | 260703-e83 | Fix P0 ranking-table bugs: stale rank column on year change, comparator links 404 (only enabled pairs), similar-communes table silently static (missing ratesByYear) | 2026-07-03 | 52d82e3 | [260703-e83-fix-p0-ranking-table-bugs-stale-rank-col](./quick/260703-e83-fix-p0-ranking-table-bugs-stale-rank-col/) |
 | 260703-fjh | Expand news sources: Google News RSS (1 national + 4 regional queries, source-tag attribution) + La Cuarta Arc feed; cross-outlet dedup verified by test | 2026-07-03 | 835e636 | [260703-fjh-expand-news-sources-add-google-news-rss-](./quick/260703-fjh-expand-news-sources-add-google-news-rss-/) |
 | 260726-dqf | Adopt Granite 4.1 8B (OpenRouter) as default news classifier per spike 008 (commune 100% vs 95.45%, ~6-11x cheaper, 2.6x faster); family-whitespace guard; DeepSeek/MiniMax stay selectable via NEWS_PROVIDER | 2026-07-26 | 0dc42f7 | [260726-dqf-adopt-granite-4-1-8b-openrouter-as-defau](./quick/260726-dqf-adopt-granite-4-1-8b-openrouter-as-defau/) |
+| 260726-ep0 | R2 research archive: daily cron uploads consolidated incidents (JSONL/CSV + APA citations), full article text via trafilatura (append-only, SHA-256, 100/run cap), url-ledger + corpus-state to bucket ischilesafe; live-verified 1264 incidents | 2026-07-26 | 820aac1 | [260726-ep0-archive-all-news-incidents-to-r2-with-ap](./quick/260726-ep0-archive-all-news-incidents-to-r2-with-ap/) |
 
 ## Session Continuity
 
