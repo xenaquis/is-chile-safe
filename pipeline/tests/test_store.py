@@ -229,7 +229,7 @@ def test_merge_and_write_excludes_invalid_url_incidents(tmp_path):
         lng=-70.654,
         title_es="Válido",
         title_en="Valid",
-        date="2026-06-15",
+        date=_fresh_date(),
         outlet="BioBio Chile",
         family="propiedad",
     )
@@ -243,7 +243,7 @@ def test_merge_and_write_excludes_invalid_url_incidents(tmp_path):
         "lng": -70.654,
         "title_es": "Malo",
         "title_en": "Bad",
-        "date": "2026-06-15",
+        "date": _fresh_date(),
         "outlet": "Unknown",
         "url": "javascript:alert(1)",
         "family": "propiedad",
