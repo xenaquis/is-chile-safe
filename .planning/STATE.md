@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 Phase: 25
 Plan: Not started
 Status: Ready to execute
-Last activity: 2026-07-26 - Completed quick task 260726-gf7 (Google News decoder + rejected-candidate archive + SSRF/CSV security hardening); R2_* secrets set, both news + r2-archive crons live and verified; corpus now backfills full text incl. Google News URLs
+Last activity: 2026-07-26 - Completed quick task 260726-jya (bumped all GitHub Actions to v7 / Node-24); prior: gf7 decoder+rejected+hardening. All crons live and verified
 
 ## Progress Bar
 
@@ -145,6 +145,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | 260726-dqf | Adopt Granite 4.1 8B (OpenRouter) as default news classifier per spike 008 (commune 100% vs 95.45%, ~6-11x cheaper, 2.6x faster); family-whitespace guard; DeepSeek/MiniMax stay selectable via NEWS_PROVIDER | 2026-07-26 | 0dc42f7 | [260726-dqf-adopt-granite-4-1-8b-openrouter-as-defau](./quick/260726-dqf-adopt-granite-4-1-8b-openrouter-as-defau/) |
 | 260726-ep0 | R2 research archive: daily cron uploads consolidated incidents (JSONL/CSV + APA citations), full article text via trafilatura (append-only, SHA-256, 100/run cap), url-ledger + corpus-state to bucket ischilesafe; live-verified 1264 incidents | 2026-07-26 | 820aac1 | [260726-ep0-archive-all-news-incidents-to-r2-with-ap](./quick/260726-ep0-archive-all-news-incidents-to-r2-with-ap/) |
 | 260726-gf7 | Google News URL decoder (batchexecute, live-verified) + archive rejected candidates (data/incidents/rejected/, corpus schema v2, kind-aware ledger) + security hardening (SSRF redirect+DNS guards, CSV injection, robustness); code review 2 CRITICAL+5 warnings all fixed; 288 tests | 2026-07-26 | 3f9648a | [260726-gf7-google-news-url-decoder-archive-rejected](./quick/260726-gf7-google-news-url-decoder-archive-rejected/) |
+| 260726-jya | Bump all GitHub Actions pins to v7 (Node-24 era): checkout v4→v7, setup-python v5→v7, setup-node v4→v7 across 4 workflows; clears Node-20 deprecation annotations | 2026-07-26 | 787a239 | [260726-jya-bump-github-actions-to-node-24-versions-](./quick/260726-jya-bump-github-actions-to-node-24-versions-/) |
 
 ## Session Continuity
 
