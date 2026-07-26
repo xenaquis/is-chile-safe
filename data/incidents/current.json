@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-26T02:28:53.512166Z",
+  "generated": "2026-07-26T08:22:39.925136Z",
   "window_days": 30,
   "incidents": [
     {
@@ -15094,6 +15094,110 @@
       "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNcDRnbjlEcnkyVkVmTmhmVUM4VnJtVHZ3ekJRNVdEOW5EOHNRX3FKZ2M0UXlmUkU2dVlQR2d6akdRT0d4ZHJXNDh3OTdwdGxxU1pqNTN4eVpabG1sVkpwSDh5d3U2QnRDYzNKNENaTmdQZ2NhZGcwSjk2VzctcEd5SGxXLXhrLXcySnhsbHluX05MZGpnWGpNM1BNOXlsSUFZRzN3bDRxcktaLVlfTzdjS19LY2N4SEc4SDBFYUtDT0VQbEVzaWdERDdXakhkOEdqTThHMkM5S2dKaXc?oc=5",
       "family": "vif",
       "slug": "angol"
+    },
+    {
+      "id": "b1c3dfb1bd293466",
+      "cut": "13129",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Sujeto amenaza a gendarmes con corona de flores en San Joaquín",
+      "title_en": "Subject threatens prison guards with flower crown in San Joaquín",
+      "date": "2026-07-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/26/cae-sujeto-tras-amenazas-con-corona-de-flores-a-gendarmes-en-ex-penitenciaria-y-carcel-de-san-joaquin.shtml",
+      "family": "vida",
+      "slug": "san-joaquin"
+    },
+    {
+      "id": "5b264a6cd1c24111",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Detienen a dos sujetos por robo en vehículos en Temuco",
+      "title_en": "Two suspects arrested for stealing from vehicles in Temuco",
+      "date": "2026-07-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/25/detienen-a-dos-sujetos-tras-ser-sorprendidos-forzando-autos-y-robando-especies-en-temuco.shtml",
+      "family": "propiedad",
+      "slug": "temuco"
+    },
+    {
+      "id": "fc9cf69b7690457b",
+      "cut": "13108",
+      "lat": -33.416252,
+      "lng": -70.664389,
+      "title_es": "Balacera en cité de Independencia deja un muerto y un herido",
+      "title_en": "Shooting in Independencia tenement leaves one dead and one injured",
+      "date": "2026-07-26",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/balacera-en-cite-de-independencia-dejo-un-muerto-y-un-herido/2026-07-25/225939.html",
+      "family": "vida",
+      "slug": "independencia"
+    },
+    {
+      "id": "5619e4114a35b2ec",
+      "cut": "13302",
+      "lat": -33.268753,
+      "lng": -70.870954,
+      "title_es": "Indagatoria de masacre en fiesta de Lampa revela golpe al Tren de Aragua",
+      "title_en": "Investigation into massacre at Lampa party reveals blow to Tren de Aragua",
+      "date": "2026-07-24",
+      "outlet": "urgente.cl",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOaS03OVJ2THJCSFk0YmIxaUlqMHJKUUwzbXF6dG9Rb1luY2I3YmRBSHIweTR0UXI1V3pLWGM2YU5USVMtZlZWMHJiaW5VWko2TTd4X2F2aTR2WmhuMnVUcU95RW53N3hJS0ItekQzdXlWbjVuSkx5TThBNG1KdnZ2QTM2TzZOeUJqNnM3NjZEZ1dtT3M2TWhmZGhOcFB0WHY3Q3l3ekwyQnFsUkM5em1ZMnlNam8xWWZ2SkVrdXdLWGttY3JvZ1A4TEl3?oc=5",
+      "family": "vida",
+      "slug": "lampa"
+    },
+    {
+      "id": "9ee9633cb3983615",
+      "cut": "2203",
+      "lat": -23.442741,
+      "lng": -67.943059,
+      "title_es": "Robo por sorpresa en San Pedro de Atacama termina con detenido buscado por homicidio",
+      "title_en": "Surprise robbery in San Pedro de Atacama ends with arrest of suspect wanted for homicide since 2017",
+      "date": "2026-07-25",
+      "outlet": "urgente.cl",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPTU1iNXVoT0JkT1VvbWZnUlJIVXF0ZDZ5MmY2WGk0Tm1maGRvTkEwRm4zbl9wYzhrMENCRTRINE9KOXh0bmsyTXR3dlVBb1FXX243bHRaa3NURENPNzdaRzUtSl9lNzdEWFROYjNUM0x0bFZPOFpZcThhUWVMazZObVo1VHdMZjFPWWdFeUZGdlRtNTcxX19ab01BS0FMNmpPUWlUYjdwdWUxQk1rTGU3NFVBSmlVOFhuWERnTDBtRQ?oc=5",
+      "family": "robos_violentos",
+      "slug": "san-pedro-de-atacama"
+    },
+    {
+      "id": "315e6a985f25264b",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Formalizan a 4 detenidos por robo tentado en La Serena",
+      "title_en": "4 suspects charged with attempted robbery in La Serena",
+      "date": "2026-07-23",
+      "outlet": "La Serena Online",
+      "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxQRHFpYlVhNEVrRm9Rb2hGMV9Ca1o2QUVlUS1mckU1cTNhSkF0UGhZLTB3MEtFSTFrNnZpTllVamtFOXcxeldnTUxpbk9wSzVQWVplT2I5SVBiTVFWVFpVOUE3bXlTekRORFBLNmJoNGFCRWM5WFlYTUFxQmdVVy0zOFhZOEswYXRKOEliclN4b2s4eldVVl9ickJCeURJRC1FRmt4d0VhdzllOEhTTTNIYmpQLVFhYVNUUW9zMFBhLTJyZVBJZlZzZXV1N19zU09vM1Q1X2JHcm9oMGlFSW1UWVBYQUo3dmVxUDJUbEFR?oc=5",
+      "family": "robos_violentos",
+      "slug": "la-serena"
+    },
+    {
+      "id": "d5220ab269704446",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "Inspectores frustran robo a estudiante y asalto a servicentro en Coquimbo: 4 detenidos",
+      "title_en": "Inspectors thwart theft from student and gas station assault in Coquimbo: 4 arrested",
+      "date": "2026-07-24",
+      "outlet": "urgente.cl",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPRTIteFlGXzBMb3Y4eFlWU2tOcGlEaGZOc04tMncwamZDTjZQemxfSWdXNldWQl94aFMtWndJZ1RMMWYtcVQ1dkY5Z3dIc1F4ajZwdlB0UzNtdVJyaE9NVWg3eER3SEFWSV90QTFaeHFuNmVYY2g0MUNJMVZwRUV0Rmk5TnZCOTljMk9yUlhyczA3bUF1MmRsRzdvWmVSYW1nMU9OUlY0WFlhNDFtWTdWdk9R?oc=5",
+      "family": "robos_violentos",
+      "slug": "coquimbo"
+    },
+    {
+      "id": "2cf777f1b1370d8a",
+      "cut": "9112",
+      "lat": -38.778473,
+      "lng": -72.507694,
+      "title_es": "PDI recupera vehículo con patentes adulteradas en Padre las Casas",
+      "title_en": "PDI recovers vehicle with altered license plates in Padre las Casas",
+      "date": "2026-07-26",
+      "outlet": "Alerta Noticias Temuco.cl",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNSV9hNkxvSnhuSm80MWE3YnFDVlNIc2pyRzkwM2pXMkZxWFBJbENnbEFobnNKcVNWeU95NEdySDlzS3Q2SkU0SWFjQ1F4UVBhal8zbTBjODQ5RXl0dEZDZVo5SmtXaWRRbXVGc3BxUmtELXNodkxCYjB3Vkt1bVVTV3dZVC1CTzJTQ1ZKSnNfVktZUXREREtDV1ZYU1Vzc1RoR2c?oc=5",
+      "family": "propiedad",
+      "slug": "padre-las-casas"
     }
   ]
 }
