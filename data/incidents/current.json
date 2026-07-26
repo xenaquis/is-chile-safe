@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-26T08:22:39.925136Z",
+  "generated": "2026-07-26T13:13:00.805390Z",
   "window_days": 30,
   "incidents": [
     {
@@ -15198,6 +15198,45 @@
       "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNSV9hNkxvSnhuSm80MWE3YnFDVlNIc2pyRzkwM2pXMkZxWFBJbENnbEFobnNKcVNWeU95NEdySDlzS3Q2SkU0SWFjQ1F4UVBhal8zbTBjODQ5RXl0dEZDZVo5SmtXaWRRbXVGc3BxUmtELXNodkxCYjB3Vkt1bVVTV3dZVC1CTzJTQ1ZKSnNfVktZUXREREtDV1ZYU1Vzc1RoR2c?oc=5",
       "family": "propiedad",
       "slug": "padre-las-casas"
+    },
+    {
+      "id": "4fd6eef51784eb4f",
+      "cut": "8106",
+      "lat": -37.111421,
+      "lng": -73.103003,
+      "title_es": "Fiscalía presenta recurso para revocar penas en libertad de asesinos de Jeremy Venegas en Lota",
+      "title_en": "Prosecutor files appeal to revoke suspended sentences for murderers of Jeremy Venegas in Lota",
+      "date": "2026-07-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/26/fiscalia-presenta-recurso-para-revocar-penas-en-libertad-de-asesinos-de-jeremy-venegas-en-lota.shtml",
+      "family": "vida",
+      "slug": "lota"
+    },
+    {
+      "id": "c11bf860e51e8618",
+      "cut": "8102",
+      "lat": -36.996187,
+      "lng": -73.045624,
+      "title_es": "Detenido por agresión con objeto contundente en Coronel",
+      "title_en": "Detained for assault with blunt object in Coronel",
+      "date": "2026-07-26",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/por-agresion-con-un-objeto-contundente-que-dejo-a-la-victima-en-riesgo-vital-sujeto-es-detenido-en-coronel/",
+      "family": "vida",
+      "slug": "coronel"
+    },
+    {
+      "id": "5f27e543e5ddd937",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Fingieron comprar camioneta y detenidos tras persecución en Temuco",
+      "title_en": "Faked truck purchase leads to arrests after chase in Temuco",
+      "date": "2026-07-25",
+      "outlet": "tiempo21.cl",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTFB5blF3WW1UQS1vYkZBRnhwM0pDMnlnS2N4Y1lqekhSS3FfR1IxemNlcmh4aUV0cEc5ckVlWTRwbDB4X3VKR3M3dw?oc=5",
+      "family": "robos_violentos",
+      "slug": "temuco"
     }
   ]
 }
