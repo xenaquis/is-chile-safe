@@ -400,7 +400,9 @@ def main() -> int:
     endpoint_url = os.environ["R2_ENDPOINT_URL"].strip()
     access_key = os.environ["R2_ACCESS_KEY_ID"].strip()
     secret_key = os.environ["R2_SECRET_ACCESS_KEY"].strip()
-    bucket = os.environ.get("R2_BUCKET", "ischilesafe").strip()
+    # `or` fallback: GitHub Actions injects unset secrets as empty strings, so a
+    # plain .get() default never kicks in and boto3 gets Bucket="" (run 30208466155).
+    bucket = os.environ.get("R2_BUCKET", "").strip() or "ischilesafe"
     max_fetch = int(os.environ.get("ARCHIVE_MAX_FETCH", "100"))
 
     # Resolve data dir
@@ -410,8 +412,21 @@ def main() -> int:
     incidents = consolidate_incidents(data_dir)
     logger.info("Consolidated %d unique incidents", len(incidents))
 
-    # Build R2 client + download ledger
+    # Build R2 client + preflight: verify the bucket is reachable BEFORE spending
+    # up to `max_fetch` courtesy-throttled article fetches. Bad credentials or a
+    # wrong bucket must fail loud here (exit 1 → CI alert issue), not as 100
+    # per-object upload warnings after minutes of wasted fetching.
     client = _make_r2_client(endpoint_url, access_key, secret_key)
+    try:
+        client.head_bucket(Bucket=bucket)
+    except Exception as exc:
+        logger.error(
+            "R2 preflight failed for bucket %r: %s — aborting before any fetch. "
+            "Check R2_* secrets and bucket name.",
+            bucket, type(exc).__name__,
+        )
+        return 1
+
     ledger = _download_ledger(client, bucket)
     logger.info("Ledger loaded: %d rows", len(ledger))
 

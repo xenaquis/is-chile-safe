@@ -465,3 +465,52 @@ def test_append_only_guard_no_refetch(monkeypatch):
     result = ar.main()
     assert result == 0
     mock_fetch.assert_not_called()
+
+
+# ---------------------------------------------------------------------------
+# 17. Empty R2_BUCKET secret falls back to default (run 30208466155 regression)
+# ---------------------------------------------------------------------------
+
+def test_empty_bucket_env_falls_back_to_default(monkeypatch):
+    """GitHub Actions injects unset secrets as empty strings — Bucket must
+    fall back to 'ischilesafe', never be ''."""
+    monkeypatch.setenv("R2_ENDPOINT_URL", "https://r2.example.com")
+    monkeypatch.setenv("R2_ACCESS_KEY_ID", "fakekey")
+    monkeypatch.setenv("R2_SECRET_ACCESS_KEY", "fakesecret")
+    monkeypatch.setenv("R2_BUCKET", "")  # empty string, NOT missing
+    monkeypatch.setenv("ARCHIVE_MAX_FETCH", "0")
+
+    mock_client = MagicMock()
+    mock_client.get_object.side_effect = Exception("NoSuchKey")
+    monkeypatch.setattr(ar, "_make_r2_client", lambda *a, **kw: mock_client)
+    monkeypatch.setattr(ar, "consolidate_incidents", lambda _: [_make_inc("Z")])
+
+    result = ar.main()
+    assert result == 0
+
+    buckets = {c.kwargs.get("Bucket") for c in mock_client.put_object.call_args_list}
+    assert buckets == {"ischilesafe"}, f"Expected default bucket, got {buckets}"
+
+
+# ---------------------------------------------------------------------------
+# 18. Preflight head_bucket failure aborts loud (exit 1) before any fetch
+# ---------------------------------------------------------------------------
+
+def test_preflight_failure_returns_1_no_fetch(monkeypatch):
+    monkeypatch.setenv("R2_ENDPOINT_URL", "https://r2.example.com")
+    monkeypatch.setenv("R2_ACCESS_KEY_ID", "fakekey")
+    monkeypatch.setenv("R2_SECRET_ACCESS_KEY", "fakesecret")
+    monkeypatch.setenv("R2_BUCKET", "testbucket")
+
+    mock_client = MagicMock()
+    mock_client.head_bucket.side_effect = Exception("403 Forbidden")
+    monkeypatch.setattr(ar, "_make_r2_client", lambda *a, **kw: mock_client)
+    monkeypatch.setattr(ar, "consolidate_incidents", lambda _: [_make_inc("Z")])
+
+    fetch_spy = MagicMock()
+    monkeypatch.setattr(ar, "fetch_article", fetch_spy, raising=False)
+
+    result = ar.main()
+    assert result == 1, "Bad credentials/bucket must fail loud (CI alert), not exit 0"
+    fetch_spy.assert_not_called()
+    mock_client.put_object.assert_not_called()
