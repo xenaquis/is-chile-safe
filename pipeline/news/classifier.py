@@ -3,15 +3,26 @@ pipeline/news/classifier.py
 
 Provider-configurable closed-list classifier for Chilean crime news (NEWS-02).
 
-Provider selection:
-  - Set NEWS_PROVIDER=deepseek (default) or NEWS_PROVIDER=minimax in environment.
-  - DeepSeek: OpenAI client → api.deepseek.com; model deepseek-v4-flash; response_format json_object.
-  - MiniMax:  OpenAI client → api.minimaxi.chat/v1; model MiniMax-Text-01; NO response_format
-              (json_object returns HTTP 400 on MiniMax); JSON is parsed from content string
-              after stripping optional markdown fences.
+Provider selection (NEWS_PROVIDER env var):
+  - OpenRouter (DEFAULT, unset or "openrouter"): OpenAI client → openrouter.ai/api/v1;
+    model ibm-granite/granite-4.1-8b; NO response_format (JSON from fence-stripping path).
+    Validated in spike 008: 100% commune accuracy, parity on family, 0% parse failures,
+    ~6x cheaper, ~2.5x faster than DeepSeek. OPENROUTER_API_KEY required.
+  - DeepSeek ("deepseek"): OpenAI client → api.deepseek.com; model deepseek-v4-flash;
+    response_format json_object. DEEPSEEK_API_KEY required.
+  - MiniMax ("minimax"): OpenAI client → api.minimaxi.chat/v1; model MiniMax-Text-01;
+    NO response_format (json_object returns HTTP 400 on MiniMax); JSON is parsed from
+    content string after stripping optional markdown fences. MINIMAX_API_KEY required.
+
+Family whitespace normalization:
+  Granite 4.1 8B may emit a tokenizer artifact like "robos_ violentos" (internal space
+  after underscore). classify() collapses internal whitespace in the family value after
+  json.loads and before Pydantic validation, so "robos_ violentos" → "robos_violentos".
+  Guard is defensive: only applied when family is a str; None/missing untouched.
+  (Spike 008 artifact — see .planning/spikes/008-granite-openrouter-classifier/README.md)
 
 Anti-hallucination guards (NEWS-01 redesign):
-- temperature = 0.0 for both providers
+- temperature = 0.0 for all providers
 - LLM emits commune_name (Spanish name) + region_hint — NOT a bare CUT code
 - CUT resolution happens in pipeline/news/resolver.py (deterministic, closed-set)
 - confidence must be >= CONFIDENCE_THRESHOLD or item is rejected
@@ -44,22 +55,28 @@ CONFIDENCE_THRESHOLD: float = 0.6  # D-07 / RESEARCH A3
 # Provider selection (NEWS_PROVIDER env var)
 # ---------------------------------------------------------------------------
 
-_PROVIDER: str = os.environ.get("NEWS_PROVIDER", "deepseek").lower()
+_PROVIDER: str = os.environ.get("NEWS_PROVIDER", "openrouter").lower()
 
-if _PROVIDER == "minimax":
+if _PROVIDER == "deepseek":
     client = OpenAI(
-        api_key=os.environ.get("MINIMAX_API_KEY", ""),
-        base_url="https://api.minimaxi.chat/v1",
-    )
-    _MODEL: str = "MiniMax-Text-01"
-else:
-    # Default: deepseek
-    _PROVIDER = "deepseek"
-    client = OpenAI(
-        api_key=os.environ.get("DEEPSEEK_API_KEY", ""),
+        api_key=os.environ.get("DEEPSEEK_API_KEY", "placeholder"),
         base_url="https://api.deepseek.com",
     )
-    _MODEL = "deepseek-v4-flash"
+    _MODEL: str = "deepseek-v4-flash"
+elif _PROVIDER == "minimax":
+    client = OpenAI(
+        api_key=os.environ.get("MINIMAX_API_KEY", "placeholder"),
+        base_url="https://api.minimaxi.chat/v1",
+    )
+    _MODEL = "MiniMax-Text-01"
+else:
+    # Default: openrouter (ibm-granite/granite-4.1-8b — spike 008 validated)
+    _PROVIDER = "openrouter"
+    client = OpenAI(
+        api_key=os.environ.get("OPENROUTER_API_KEY", "placeholder"),
+        base_url="https://openrouter.ai/api/v1",
+    )
+    _MODEL = "ibm-granite/granite-4.1-8b"
 
 # ---------------------------------------------------------------------------
 # Build commune list once at module load — one entry per line:
@@ -153,6 +170,12 @@ def classify(title: str, description: str) -> ClassifierOutput | None:
         logger.warning("JSONDecodeError from %s for %r: %s", _PROVIDER, title[:60], exc)
         return None
 
+    # Normalize family whitespace before Pydantic validation.
+    # Granite 4.1 8B tokenizer artifact: "robos_ violentos" → "robos_violentos".
+    # Guard is defensive — only applied when family is a non-empty str.
+    if isinstance(data.get("family"), str):
+        data["family"] = "".join(data["family"].split())
+
     # Validate with Pydantic (rejects invalid family, missing fields, etc.)
     try:
         result = ClassifierOutput.model_validate(data)
@@ -192,7 +215,8 @@ def _call_api(user_content: str) -> str | None:
                 {"role": "user", "content": user_content},
             ],
         )
-        # DeepSeek supports response_format=json_object; MiniMax returns HTTP 400 on it
+        # DeepSeek supports response_format=json_object; OpenRouter and MiniMax omit it
+        # (OpenRouter uses fence-stripping path; MiniMax returns HTTP 400 on json_object)
         if _PROVIDER == "deepseek":
             kwargs["response_format"] = {"type": "json_object"}
 
