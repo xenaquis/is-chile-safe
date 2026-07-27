@@ -155,6 +155,7 @@ def repair_local(current_json_path: pathlib.Path) -> tuple[int, int]:
     current_json_path.write_text(
         json.dumps(data, ensure_ascii=False, indent=2),
         encoding="utf-8",
+        newline="\n",
     )
 
     logger.info("Local repair done: %d flipped to sexuales, %d death-dominated kept as vida",
@@ -239,6 +240,16 @@ def main() -> None:
         sys.exit(1)
 
     flipped, kept_death = repair_local(current_json_path)
+
+    # Sweep archived months too — archive_r2 consolidates current.json + archive/*.json
+    # (current wins by id), so archive-only incidents must also be repaired or the
+    # R2 incidents.csv / corpus-state.json would retain the old family for them.
+    archive_dir = current_json_path.parent / "archive"
+    for archive_path in sorted(archive_dir.glob("*.json")):
+        logger.info("Sweeping archive file: %s", archive_path.name)
+        a_flipped, a_kept = repair_local(archive_path)
+        flipped += a_flipped
+        kept_death += a_kept
 
     # Summary
     data = json.loads(current_json_path.read_text(encoding="utf-8"))
