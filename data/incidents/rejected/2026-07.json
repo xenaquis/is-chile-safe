@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-26T18:28:44.557149+00:00",
+  "generated": "2026-07-27T14:25:05.293368+00:00",
   "items": [
     {
       "id": "a026901347e4ca3a",
@@ -160,6 +160,346 @@
       "description": "Violento intento de robo a supermercado en Reñaca termina con destrozos y guardias heridos&nbsp;&nbsp;Epicentro Chile",
       "rejection_stage": "resolver_fail",
       "first_seen": "2026-07-26T18:28:44.557149+00:00"
+    },
+    {
+      "id": "d4f5ad4318132d55",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNQ1J2cXZZU3JuWThwRG9EVzU0empiSjladGNSYnZ0NDBCLTZ5a1RZemhla2Q2ZzNxcG9tMnBubXp2ckRqXzlRY1hjdXNIaU1ZSXVOVE5aODNYSTNmTUZSSUxOc2wzM3BzS3pwTXZZOHZZU2hJOHUzV2FRbTAxYTFCdDBneVVsZ0h6T3VkeURBdTBNQU5Nd2ZYbmJSX2xIR0lRRG05TFFkVmJUbXg2c0pPaTdfcHA0c2w5?oc=5",
+      "outlet": "Diario Versión Final",
+      "date": "2026-07-26",
+      "title": "Capturan en Chile al último exmilitar condenado por el asesinato de Víctor Jara - Diario Versión Final",
+      "description": "Capturan en Chile al último exmilitar condenado por el asesinato de Víctor Jara&nbsp;&nbsp;Diario Versión Final",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-26T19:05:04.918452+00:00"
+    },
+    {
+      "id": "f19cffdb8cce57f7",
+      "url": "https://www.biobiochile.cl/noticias/internacional/eeuu/2026/07/26/investigan-tiroteo-con-multiples-victimas-en-festival-gastronomico-realizado-en-seattle-eeuu.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-07-27",
+      "title": "Investigan tiroteo con múltiples víctimas en festival gastronómico realizado en Seattle, EEUU",
+      "description": "Un tiroteo registrado la tarde de este domingo en el Seattle Center, en Estados Unidos, dejó múltiples víctimas, según informó la Policía de Seattle. A través de un breve comunicado publicado en redes sociales, la institución señaló que se encuentra investigando lo ocurrido y pidió a la población evitar el área mientras se desarrollan las &#8230; Continua leyendo \"Investigan tiroteo con múltiples víctimas en festival gastronómico realizado en Seattle, EEUU\"\nThe post Investigan tiroteo con múltip",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "431cc1109261e07d",
+      "url": "https://www.latercera.com/mundo/noticia/mas-de-300000-evacuados-en-francia-y-espana-por-avance-de-los-incendios-forestales-en-europa-occidental/",
+      "outlet": "LaTercera",
+      "date": "2026-07-26",
+      "title": "Más de 300.000 evacuados en Francia y España por avance de los incendios forestales en Europa occidental",
+      "description": "Los servicios de extinción de ambos países combaten focos que han quemado más de 150.000 hectáreas en territorio español y cerca de 100.000 en el suroeste francés, con al menos dos muertos en España y dos bomberos franceses fallecidos esta semana.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "0ee10c66a840f2c0",
+      "url": "https://www.latercera.com/politica/noticia/garcia-ruminot-afirma-que-ex-subsecretario-rodriguez-podria-reincorporarse-si-se-comprueba-un-falso-positivo/",
+      "outlet": "LaTercera",
+      "date": "2026-07-26",
+      "title": "Ejecutivo confirma que exsubsecretario Rodríguez podría reincorporarse si se comprueba un falso positivo",
+      "description": "El titular de la Segpres, José García Ruminot, no confirmó si el exsubsecretario de Hacienda, Juan Pablo Rodríguez, volvería al Gobierno con el mismo cargo que ostentaba antes de su salida por el resultado positivo en un examen de drogas.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "809fd5959e37e03c",
+      "url": "https://www.latercera.com/mundo/noticia/diaz-canel-acusa-a-estados-unidos-de-querer-apropiarse-de-cuba-y-compara-su-politica-con-el-nazismo/",
+      "outlet": "LaTercera",
+      "date": "2026-07-26",
+      "title": "Díaz-Canel acusa a Estados Unidos de querer “apropiarse” de Cuba y compara su política con el nazismo",
+      "description": "El presidente cubano aseguró que Washington impulsa una “política genocida” para asfixiar económicamente a la isla. Sus declaraciones se produjeron durante la conmemoración del 73° aniversario del asalto al Cuartel Moncada.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "7bc26d2e7aa0cb1d",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQMVRuU0pzVXFveHE1SVo1aVVJRzE2Qm0yYkJ6a1g3bnFGYUJJUlZISmF1SEc5MDc4dXY2eWVXOTN2a05WT0NSY1VFdGNZM1FyLVRWUGdGa0x1NW1aU0FlYWFGZFQzQlhUX1g0YUc5OWcxU25pQXdLOUllVW5YT0htbV83OEhYb3ZuVUJ3SDN0UzdxNXM3MkdaNVJ6RWxqY1BiY2gzcTd2cE52ekJ5NU44T0tvU3lCSHEzZk5KWWQzT3FqQkI3?oc=5",
+      "outlet": "La Jornada",
+      "date": "2026-07-26",
+      "title": "Detienen al último prófugo por el asesinato de Víctor Jara en Chile - La Jornada",
+      "description": "Detienen al último prófugo por el asesinato de Víctor Jara en Chile&nbsp;&nbsp;La Jornada",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "df0bd131812547aa",
+      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxOTmRyc3JjVUc5d1Y5UlNQMzBWanl3a3NrYldCeDFwbUNzVl9SSENwZXlRZ3ZadkhjWEREcGlqWlJ1ZG5NYnJTWjMzbDZ3VV85M1hlR3ZlR2lSQktNaUFvZks1cjZpYVJFWUZ1Z2lBcm5rQ2t3cGhnVGZQZWZ1aTVwdDdIX0djTWwzVE1TUlROTHRoRnpreW1GOHZRUWtfOGFhMmxuUFpzZ2Q4cnVILWRuTU5IeEwwQzJJVUhfcl96a3BBRTBSeUpmRFBwQldLZE9LVnc2LXhBb3J5Tl9zQURjSGxMQmJYZ9IB6wFBVV95cUxQOV9aZEVKeWNUOFVPRmU5MlZxWXZvQVZNY2h1ODdWNHdDRkZUb3Bxa3hEMlFNSzVMeXVYdDFTcUp1TDB1OE5hUERsTlhoME8tTExBQVc4LTB4QWtjZ19SNmFfbGZDcmRTaXZqNG4wRnhYa2ZCSWFLM0FERDZOcnozSVBOcVZUOGx4OGN4b2Y5dTNnNkxvaDJ5YXlFUU8wODlhcldvZ0g3elVtUm5acjJWZk5aOEdEcEprclZzcVhkYjAyS2hFR2dtd0RxV0FlZUxDakl4SlJHRlZ5bTYtQ1kzYnpzZk9PaFA4TUZj?oc=5",
+      "outlet": "Reporte Indigo",
+      "date": "2026-07-26",
+      "title": "Víctor Jara: detienen al último exmilitar condenado por su secuestro y asesinato en Chile - Reporte Indigo",
+      "description": "Víctor Jara: detienen al último exmilitar condenado por su secuestro y asesinato en Chile&nbsp;&nbsp;Reporte Indigo",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "ca521f806076587e",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQOWZ4blkySzMtaVNTaWxuYmpSTDdjLVl3NmZXc0JyVXFqbTBVM0YtbXR3aUI0dVNCeE1sWlBnbzNBM2oxYXdsLXNlR2M1NU1JSmZOS2F1VDk3QkQ4b2dYZXV3SzA3WWNPaTRSUndtTU4wX2ZqR3NBYkFzb1VHbjN5eVlKTlJqTFlRdlUyamhTRHNyU1Z2ZkJSbFZTZHBIZw?oc=5",
+      "outlet": "El Clarinete",
+      "date": "2026-07-26",
+      "title": "Chile: detienen a militar prófugo, vinculado a homicidio de Víctor Jara - El Clarinete",
+      "description": "Chile: detienen a militar prófugo, vinculado a homicidio de Víctor Jara&nbsp;&nbsp;El Clarinete",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "ec7d207edea36da8",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNNDdKYjRyVVRhZ2tjTnFhOFVnWnAyamxmTHFrNzlQWjBHV1gwUEl6VnVVLVhaZjJjUTJkSXNNUWJKa3E0VE5MWkcxT2NtMEZ3VUdZZWNfTndCczBUa1h1Y0M1LVlxcWpreWlnOFppSzRrWExfeE1nWE5aMk1ITzZOTVJfblBiWDlld0RkMjJvdGZkMDljazlabmpYX0hISFZ2QlU3X1U3YVNuMzYwZUF4alhn?oc=5",
+      "outlet": "El Heraldo de San Luis Potosí.",
+      "date": "2026-07-26",
+      "title": "DETIENEN AL ÚLTIMO EXMILITAR PRÓFUGO POR EL ASESINATO DE VÍCTOR JARA - El Heraldo de San Luis Potosí.",
+      "description": "DETIENEN AL ÚLTIMO EXMILITAR PRÓFUGO POR EL ASESINATO DE VÍCTOR JARA&nbsp;&nbsp;El Heraldo de San Luis Potosí.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "2a62b82148519101",
+      "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQd2VXLWhXeThnc0VWNFJzZE9TZ0lVeGVReDRaVWZwVFpNMlN1bG80dm5QUU5nSTVlcEotRjdOeEZibi1SdDdQZTRxUWRNdXlLNXM1QVFrOTBRbkxpVHM5bDV6SDJ0LWZKQWhSY082V0dDVW00UnlfUXktYW9ZS241cmxVNU1oQTRkQkFMRV9MTEVpaHRxTUlRTS1jRUduQl9sY1Vzczd6em4tZ0djdTVkdkZBZGtPZC1mOTlPSVM2SUNuVnFQVUJqY3FqMTRHSTBYS19HdnlNbUF1UEtLN3ZkaThhMFpLX0NQWWNv0gHrAUFVX3lxTFB3ZVctaFd5OGdzRVY0UnNkT1NnSVV4ZVF4NFpVZnBUWk0yU3VsbzR2blBRTmdJNWVwSi1GN054RmJuLVJ0N1BlNHFRZE11eUs1czVBUWs5MFFuTGlUczlsNXpIMnQtZkpBaFJjTzZXR0NVbTRSeV9ReS1hb1lLbjVybFU1TWhBNGRCQUxFX0xMRWlodHFNSVFNLWNFR25CX2xjVXNzN3p6bi1nR2N1NWR2RkFka09kLWY5OU9JUzZJQ25WcVBVQmpjcWoxNEdJMFhLX0d2eU1tQXVQS0s3dmRpOGEwWktfQ1BZY28?oc=5",
+      "outlet": "noticiasdebariloche.com.ar",
+      "date": "2026-07-26",
+      "title": "Detenido en Chile el último prófugo por el asesinato del cantautor Víctor Jara, el exmilitar Nelson Haase Mazzei - noticiasdebariloche.com.ar",
+      "description": "Detenido en Chile el último prófugo por el asesinato del cantautor Víctor Jara, el exmilitar Nelson Haase Mazzei&nbsp;&nbsp;noticiasdebariloche.com.ar",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "c909607b71da5c99",
+      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1JdnhaVDBQbWZJU1lvTTBWTEF3cVRfcGV5YUdJTW5pZXV4Ri1WRmVNUHNvWVJMNzMtc0E2dXFNS2E3Z0otZ0dhYjFaNnItTmZ2UWtMc0ZwcWlaLU0wYTBBUkk5N1g2UDdBUGRvTFZaeWlVWkpPNEZ4SG5aNA?oc=5",
+      "outlet": "teleSUR",
+      "date": "2026-07-25",
+      "title": "Capturan en Chile a militar prófugo por asesinato de Víctor Jara - teleSUR",
+      "description": "Capturan en Chile a militar prófugo por asesinato de Víctor Jara&nbsp;&nbsp;teleSUR",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "83a1f0717ac5c66c",
+      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNX1FqMXNSV2Y2SUtDaVdWeDhUMkIxLXRiaFprU09RMXk5X2sxWGFnTWJrcG5hMXg1bm1STVpBdVZKcVNkVDU1OGEwRTM3UXB6am1wYm40QXg5UkRlQzF0R0xtaU5qdTU0dWFqRXU5RVNaNHY3ZHJUNmtZMlJsSE05b3VzazdLc0Z5dFlYdnFfUDFMU2JlOVhsSnU5TzgzVExUczVzMEtvQjR4WGhmcmg1SGxaSjNzVjVPSEM5STJ0dFI0NTZrZU5XdHZmRWx3SnptYVpZbURwb2FjTHdOdDFsYdIB5gFBVV95cUxNNDZWWnIyQmZCX24zNWdiMDhrTVE2dXNSbTEyTXVINkFLSktiUDlvTkJsZFU3VXhyUU1GMTlSc1BKUU01MTE0bl9TUG95MXM5OVE4aFp5Wi13NG4wRWZtNzMyZkJKdWlacVozdU43VXR3a3JvUHA4V1kwVHFocXJtOWxiOTZWQkZtcFVjZngwTDE1WHpjaURqRmxlN1FkdXRMbEVjZHdLMkUyTV9lLW8zV3YxYmZkM1R5ZDE5SlBuWVdnRGdkOUlzeEJnM1NTTUxfNmpwMThLVHNYb3JkY09XSmRSOElkQQ?oc=5",
+      "outlet": "Periódico Correo",
+      "date": "2026-07-26",
+      "title": "Cae en Chile condenado por el asesinato de Victor Jara tras permanecer prófugo por años - Periódico Correo",
+      "description": "Cae en Chile condenado por el asesinato de Victor Jara tras permanecer prófugo por años&nbsp;&nbsp;Periódico Correo",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "d022b23cc5aa5728",
+      "url": "https://news.google.com/rss/articles/CBMiO0FVX3lxTE5pOHpESVpLWW1fUUc1eU1hQmZlWENndEkzZ2JfbTNIZWFDZXU0M2FOTDlCZGxmSDU1dWNR?oc=5",
+      "outlet": "t.co",
+      "date": "2026-07-26",
+      "title": "Arrestan en Chile al último exmilitar condenado por el homicidio de Víctor Jara - Libre Expresión | Iván Mercado - t.co",
+      "description": "Arrestan en Chile al último exmilitar condenado por el homicidio de Víctor Jara - Libre Expresión | Iván Mercado&nbsp;&nbsp;t.co",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "72925e636cc95b05",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOT1R4X1VoUkt6cUtDTDYxQWhNdHhreDkzUVJrS3lmSHI5OVNyeER4dmJXMm8zS29kRDdCcjh6ZVVhanc4UzhJQlBKbDFtaUFyUVNKVHZMdkc5UXhtOWFHdUtPUVVfcUNJUllBVDNUc2JNWEF3SUhBRVFPc2dWQ1cyc2k4Z1hwM3VaUHdRamlDSUdXN29BdmZYa0VwN0RZVTNqTnR4VjRWTEx0clJ0a2JlLWROSmVLUURpVm1N?oc=5",
+      "outlet": "Serena y Coquimbo",
+      "date": "2026-07-27",
+      "title": "Nacional. Esta tarde, sujeto es abatido por funcionario PDI tras frustrar robo en servicentro - Serena y Coquimbo",
+      "description": "Nacional. Esta tarde, sujeto es abatido por funcionario PDI tras frustrar robo en servicentro&nbsp;&nbsp;Serena y Coquimbo",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "6436c12cb814ce96",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9Yb085elV3WDdJSFlQUzctMjFoUmdoN2h5b3ZpSFUtR1lxWi1XUDQ2c216RkpFczBaTXI4dFMwVFhrSEZYcEVvaFNSRldVMEdiV1NRUkxfOWItVmdGWDg0SE9vUlBmNlo4dTdpU1hIbm50ZV83VnlqaGstTXVtZw?oc=5",
+      "outlet": "moncloa.com",
+      "date": "2026-07-24",
+      "title": "Detenido en Badajoz un preso fugado de la cárcel de Tarragona con más de 150 detenciones - moncloa.com",
+      "description": "Detenido en Badajoz un preso fugado de la cárcel de Tarragona con más de 150 detenciones&nbsp;&nbsp;moncloa.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T02:34:35.392944+00:00"
+    },
+    {
+      "id": "73d0c98312e2114b",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/26/extranjero-muere-tras-choque-en-maipu-investigan-si-integraba-banda-de-motochorros.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-07-27",
+      "title": "Extranjero muere tras choque en Maipú: investigan si integraba banda de \"motochorros\"",
+      "description": "La Fiscalía Metropolitana Occidente investiga un accidente de tránsito registrado la tarde de este domingo en la comuna de Maipú, donde un ciudadano venezolano murió y otro extranjero resultó con lesiones de carácter reservado, en un hecho que podría estar vinculado a una serie de robos por sorpresa cometidos en el sector bajo la modalidad &#8230; Continua leyendo \"Extranjero muere tras choque en Maipú: investigan si integraba banda de \"motochorros\"\"\nThe post Extranjero muere tras choque en Maip",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T09:43:03.113195+00:00"
+    },
+    {
+      "id": "cd795a9ff6f6b110",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-valparaiso/joven-de-19-anos-fue-asesinado-a-disparos-en-sector-cerro-toro-de/2026-07-27/011813.html",
+      "outlet": "Cooperativa",
+      "date": "2026-07-27",
+      "title": "Joven de 19 años fue asesinado a disparos en sector Cerro Toro de Valparaíso",
+      "description": "La Brigada de Homicidios (BH) de la PDI de Valparaíso desplegó un operativo en el sector del Cerro Toro para indagar el crimen de un joven de 19 años registrado durante la tarde del domingo en el pasaje Torquemada.\n\"Una vez constituidos los detectives, junto a los peritos de criminalística y al médico criminalista, lograron establecer que la víctima corresponde a un hombre chileno, 19 años, con antecedentes policiales, el cual al examen del médico criminalista presentaba cuatro impactos por proy",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T09:43:03.113195+00:00"
+    },
+    {
+      "id": "4c18e4a257e3fb1a",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/accidentes-de-transito/presunto-motochorro-murio-en-accidente-de-transito-en-maipu/2026-07-26/223116.html",
+      "outlet": "Cooperativa",
+      "date": "2026-07-27",
+      "title": "Presunto \"motochorro\" murió en accidente de tránsito en Maipú",
+      "description": "Un joven muerto y otro herido de gravedad dejó un accidente de tránsito ocurrido la noche de este domingo en el sector de Primera Transversal, en la capitalina comuna de Maipú.\nLa Fiscalía -junto a equipos especializados de Carabineros- indagan las circunstancias del hecho, manejando como principal hipótesis que los involucrados habrían cometido robos por sorpresa momentos antes del choque.\nDe acuerdo con los antecedentes del caso, los dos hombres -ambos de nacionalidad venezolana- se desplazaba",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T09:43:03.113195+00:00"
+    },
+    {
+      "id": "aba6273e462cbb09",
+      "url": "https://www.latercera.com/mundo/noticia/tiroteo-deja-multiples-victimas-durante-festival-gastronomico-en-seattle-y-desata-amplio-operativo-policial/",
+      "outlet": "LaTercera",
+      "date": "2026-07-27",
+      "title": "Tiroteo deja múltiples víctimas durante festival gastronómico en Seattle y desata amplio operativo policial",
+      "description": "La balacera se registró al cierre de la última jornada del tradicional Bite of Seattle, mientras detectives trabajan para esclarecer lo ocurrido y las autoridades pidieron evitar el sector.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T09:43:03.113195+00:00"
+    },
+    {
+      "id": "9ec529da87280b7a",
+      "url": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxQSEQyWFNnM2xZQTYzQzRPODRBT2N5cFlTbEZJNFZ3WTUtQ0NBUmhYWmFId2p3UmJBdHhKN1lFTmhNem9CdWFrRDFrOUhjTjZfZ29vZTdGSURfYzhrSmhiSHg0RWlQRC02a2Q2MEFKTGUxdHBOOXZfenpQN05vOUpwV2pDODJ2ZnB2LUNhYUFDQWJwMFNycVFpc2RFUW1VVDF0LWpSa0YyN1hiSWREaTdFR2JWbjZXOVZrV1NHYWE4SUxwYk8za0szWHAwcTFvaGdBeEtQUmFwVjVCWEluc19PbGhEWEc2YWhHdUUxR0RJNjFMS3Q4a0FTMTk3VFVqN3ZkMHFYOFNKUk1YajA?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-07-26",
+      "title": "Séptimo asesinato del año en la comuna: hombre muere tras ser baleado tres veces en toma en Coronel - BioBioChile",
+      "description": "Séptimo asesinato del año en la comuna: hombre muere tras ser baleado tres veces en toma en Coronel&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T09:43:03.113195+00:00"
+    },
+    {
+      "id": "842e13a2f42a8357",
+      "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxPN2FUZUZvc0NHZUpXUkx5NU52YVZ6c3FJNWxVMHB4d1pBT3JFS3g2cDBTMTl5aVktdF91bjF3Qnpsa2J4Q3U2YUxOSlNLc0xnWjZhTDRSbUpmT0hmdlkybDJKNFV2MTh5SURva2VkVFAxV1JLN2l4QUdYR19QSXU5VTcyQWdicHBlU0JxSzhwQnBmUV9MSzRVNE5lUzAySk9RV2NkekhZbFNnUUtYbFZqTUlmSTQ2Y3FBRzhKQ2gzeDFpVWlqNXRVTGhyWEdMSjB5bHMwVFlzUEZLWTI1d2FlcUJ5SlpnMzExS2pr0gHrAUFVX3lxTE83YVRlRm9zQ0dlSldSTHk1TnZhVnpzcUk1bFUwcHh3WkFPckVLeDZwMFMxOXlpWS10X3VuMXdCemxrYnhDdTZhTE5KU0tzTGdaNmFMNFJtSmZPSGZ2WTJsMko0VXYxOHlJRG9rZWRUUDFXUks3aXhBR1hHX1BJdTlVNzJBZ2JwcGVTQnFLOHBCcGZRX0xLNFU0TmVTMDJKT1FXY2R6SFlsU2dRS1hsVmpNSWZJNDZjcUFHOEpDaDN4MWlVaWo1dFVMaHJYR0xKMHlsczBUWXNQRktZMjV3YWVxQnlKWmczMTFLams?oc=5",
+      "outlet": "Diario Red",
+      "date": "2026-07-27",
+      "title": "La Policía chilena detiene a un exmilitar prófugo condenado por el homicidio del cantautor Víctor Jara - Diario Red",
+      "description": "La Policía chilena detiene a un exmilitar prófugo condenado por el homicidio del cantautor Víctor Jara&nbsp;&nbsp;Diario Red",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T09:43:03.113195+00:00"
+    },
+    {
+      "id": "8f65205707213281",
+      "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxNR1U5QnBZWkhFS0daVHBoWlZ0N0JGMlc5NGRHMkJQWHczdDQzVTg0dGxReWNib1hNdFVLVC1nVlh2RDVYQmRxVnBlSWIyN3pjM0hZQ1h2Y2xhdllWSXkyQ1ZnTmZHWUNtTzh6QkwxRG1ZSzk4VG8tRXhkM2JEdnJFejd4cURLdElXN3hDdHFoaFhkMk9STU1neThMZXRnZjFoN1VfZ2kyaHpsQzhEUWtFenVPU0FVUS1qUmVjQ2lTWUVlRFR6cV9TdWpNN3RvcFZrb0p4amt2MTl6VHpqYW1ZMXI2T29WeEt6?oc=5",
+      "outlet": "El Sol de México",
+      "date": "2026-07-27",
+      "title": "Detienen en Chile al último exmilitar condenado por el asesinato del cantautor Víctor Jara - El Sol de México",
+      "description": "Detienen en Chile al último exmilitar condenado por el asesinato del cantautor Víctor Jara&nbsp;&nbsp;El Sol de México",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T09:43:03.113195+00:00"
+    },
+    {
+      "id": "1b7b9196f5fee0a6",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOZVZZd2N2WVphTDNQeEtYYTFQS29sd09LRndENnVCMmFYWmoyY1pfUGFDLWJfSXpaeHpGWTlJd3JRZXJHVzZ3Q2xoV2tCUVdRdk52ajNmQ3JuVmNKRE51THZBV2NYOUFXSWZIM0ZzMHhrX2RBbU1xTFF5VUR5dzlZWk1SQzQwekRkVWZhV2tqSGZid3M?oc=5",
+      "outlet": "Kaos en la red",
+      "date": "2026-07-27",
+      "title": "Capturan en Chile a militar prófugo por asesinato de Víctor Jara - Kaos en la red",
+      "description": "Capturan en Chile a militar prófugo por asesinato de Víctor Jara&nbsp;&nbsp;Kaos en la red",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T09:43:03.113195+00:00"
+    },
+    {
+      "id": "9430ef3b18593d87",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPVy1ycEtTelk2MGxNX3p6ZG1JWXNTSW5wZEJEUVVpRzdsTXc4eGY2N0VsZmpYVzVON0tJYi1hM0o1N1hTS0x5QURUVVpDeUl6eWZjMDB5TjlFMkFQak95dlEtRWFaYkU0VUIxd0VhVVR6VW5EZHNFTUpWckdERmZ6bGliUnRCUExjVUZ4RmJUWWtGVmQzS21zbUJFZHE1TjA4ejNCY0p5dzUybEnSAasBQVVfeXFMT1ctcnBLU3pZNjBsTV96emRtSVlzU0lucGRCRFFVaUc3bE13OHhmNjdFbGZqWFc1TjdLSWItYTNKNTdYU0tMeUFEVFVaQ3lJenlmYzAweU45RTJBUGpPeXZRLUVhWmJFNFVCMXdFYVVUelVuRGRzRU1KVnJHREZmemxpYlJ0QlBMY1VGeEZiVFlrRlZkM0ttc21CRWRxNU4wOHozQmNKeXc1MmxJ?oc=5",
+      "outlet": "La Crónica de Badajoz",
+      "date": "2026-07-25",
+      "title": "El Supremo rebaja la condena a un acusado de herir con arma blanca a dos varones - La Crónica de Badajoz",
+      "description": "El Supremo rebaja la condena a un acusado de herir con arma blanca a dos varones&nbsp;&nbsp;La Crónica de Badajoz",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T09:43:03.113195+00:00"
+    },
+    {
+      "id": "194c8c46cb6b083a",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/07/27/con-foco-en-fortalecer-a-carabineros-arrau-supera-a-steinert-y-cumple-70-dias-en-seguridad.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-07-27",
+      "title": "Con foco en \"fortalecer a Carabineros\": Arrau supera a Steinert y cumple 70 días en Seguridad",
+      "description": "Al cumplir 70 días al mando del Ministerio de Seguridad, Martín Arrau ha consolidado una agenda centrada en fortalecer a Carabineros, especialmente tras los últimos ataques contra funcionarios policiales. Asimismo, el secretario de Estado ya superó el tiempo que permaneció la exministra Steinert al frente de la cartera. Entre las prioridades del Ejecutivo, figuran las &#8230; Continua leyendo \"Con foco en \"fortalecer a Carabineros\": Arrau supera a Steinert y cumple 70 días en Seguridad\"\nThe post",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T14:25:05.293368+00:00"
+    },
+    {
+      "id": "fa516dc67b08f821",
+      "url": "https://www.lacuarta.com/chile/noticia/hijos-pequenos-estaban-en-el-departamento-revelan-nuevos-datos-sobre-ciudadano-venezolano-que-murio-desangrado/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-27",
+      "title": "Hijos pequeños estaban en el departamento: revelan nuevos datos sobre ciudadano venezolano que murió desangrado",
+      "description": "Su pareja está detenida y asegura que la víctima se autolesionó.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T14:25:05.293368+00:00"
+    },
+    {
+      "id": "60320bb51f70fd79",
+      "url": "https://www.lacuarta.com/espectaculos/noticia/denuncian-intento-de-femicidio-que-sufrio-famosa-participante-de-the-voice-revelan-delicado-estado-en-el-que-se-encuentra/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-27",
+      "title": "Denuncian intento de femicidio que sufrió famosa participante de The Voice: revelan delicado estado en el que se encuentra",
+      "description": "Los hechos habrían ocurrido durante el fin de semana. Acusación apunta contra su ex pareja.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T14:25:05.293368+00:00"
+    },
+    {
+      "id": "e157f3980b2f6c66",
+      "url": "https://www.lacuarta.com/chile/noticia/cadem-73-cree-que-mara-sedini-salio-del-gobierno-por-falta-de-experiencia-y-preparacion/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-27",
+      "title": "Cadem: 73% cree que Mara Sedini salió del Gobierno por falta de experiencia y preparación",
+      "description": "La encuesta también reveló que la mayoría rechazó que la exministra vocera hiciera públicas sus críticas contra la administración de José Antonio Kast. Solo un 13% cree que fue víctima de un sabotaje interno.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T14:25:05.293368+00:00"
+    },
+    {
+      "id": "a4f1909677ff2df1",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPY3UwZnRsT1F2QkxIWEh5MGxJSUlrTW55aWxMT2xOdjZFQjIxaGJPMnZTbUtkR0hyZFc1SUlBNnpJajFuUFpkMnNlckZjSmJqTWduU0thRXljMjh1VWZGOVlVY05XUU1ZMmp5ZjJWT2sySE01Tm5ObjR5NGJ5cFBjd1R6QTRFa2hqa1E3NzdnTkNYZllncEFGTHY1N29KMTZiU0d5TmEtOHZpNF9WZTZvaDhkbUF3TFI5MERKMUt2ZnlHdENhVmJKOHJTOHpMRmdr0gHkAUFVX3lxTE9xTzNiTkVIWHJndld0U1lRNzNTTHoxU3Z0LW1haFRDSkNYMUN3QkVvOWJ3cFd1TEtNTmMzYy12MzR4eU1YcU1ZUUdWY2pjeGw5X3h6MlZQT2RNS0MyZXc2NlJEbjVnUGVKNl9jLVBrUVV5LThKbGJPeS1ad2xiWkYyN1FzZ19zQjlnREl4SjdlaEhBcDluejROdmlvbThVMlR4R1otSk12ZllaR2lQQXpYb054NVdhLUpUZ0JxdkU4a0FVcm5uNlhWNWtrdTI1bVdpMHhxUHNseC01TUwzendtY3BVQg?oc=5",
+      "outlet": "El Espectador",
+      "date": "2026-07-27",
+      "title": "Capturan en Chile al último militar prófugo condenado por el asesinato de Víctor Jara - El Espectador",
+      "description": "Capturan en Chile al último militar prófugo condenado por el asesinato de Víctor Jara&nbsp;&nbsp;El Espectador",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T14:25:05.293368+00:00"
+    },
+    {
+      "id": "955f20eea57b8e35",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNNm43MFNYX1lyazdiYkRKWU5FOVJWMzVLN1I3RkJRenk0anlHRVdNck1HamJkZGtBdFU5YVVfZW1wNWI5OFFfZ1FwT0JkcEREOWF6QjJnTWszUzZibVRMQi1RN3RBbXJsa3ZObVpvNXpqUFltbm5vZEN1QWRPWWJlaDJjWXlNNks3RHV2WmdYWkJBRDJhOGxLeGNTWWhfbUVLRHNyOWJsTXZyZjhFbF8w?oc=5",
+      "outlet": "tuperiodico.soy",
+      "date": "2026-07-26",
+      "title": "La Policía chilena detiene a un exmilitar prófugo condenado por el homicidio del cantautor Víctor Jara - tuperiodico.soy",
+      "description": "La Policía chilena detiene a un exmilitar prófugo condenado por el homicidio del cantautor Víctor Jara&nbsp;&nbsp;tuperiodico.soy",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T14:25:05.293368+00:00"
+    },
+    {
+      "id": "c95b980d74d57e8c",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPalMzVmQtUGhyUUJHX1FwdjdXM01NOWRManVnM2dtOHZKSlFJRGFMTlBCYVl2UGFKUFpoUnZqQlczQ3VvdHc4NTc2NjVkU083OUVZVkM1dTFoY3VvanJDQmt1YzE5YjRkWGw4WFF0ekpFd0JzWjhrRlJXMnREMjFNSGJCZ0RRYTF5dWRjUjQtYzQ0LV8yX1RWU3lyMkgxdjVkdFE4QUNLSnlBMFQtbWs1NUYwVXNUemFSWXhsRw?oc=5",
+      "outlet": "Onda Cero Sur Extremadura",
+      "date": "2026-07-25",
+      "title": "Detenido en Badajoz un preso fugado de cárcel en Tarragona que acumulaba 150 detenciones - Onda Cero Sur Extremadura",
+      "description": "Detenido en Badajoz un preso fugado de cárcel en Tarragona que acumulaba 150 detenciones&nbsp;&nbsp;Onda Cero Sur Extremadura",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T14:25:05.293368+00:00"
+    },
+    {
+      "id": "e502c0936995bbdf",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxORmNnVG1hQzl5Q2tFOTF3bENzdFJBem5FRWJic1NqWmpmOVYwZUJGUnlGUlZNd29GUzh5aHRMZG9QMTlBWW9OM2xZQ1M4NmkyV1JvTVRmdWtXb0h2eTRYY2UwNEQtczBZeVFuSk9FWmJDZjl6MWFOdFdHWWYyaFFuWlhnbWtmblNaQi1DbFRRQ1dtUnRyTWo0eGtWLTI0RTdrSzB0ZDBTS0VpWXJwVWU4RHRHcDZZTkF2ZWVuX2xoVmFXOEdNRVlJUHBuOHVFQWRETS1wTnN0OA?oc=5",
+      "outlet": "h50 Digital Policial",
+      "date": "2026-07-24",
+      "title": "Detenido en Badajoz un peligroso fugitivo que había huido de una prisión de Tarragona y acumulaba más de 150 detenciones - h50 Digital Policial",
+      "description": "Detenido en Badajoz un peligroso fugitivo que había huido de una prisión de Tarragona y acumulaba más de 150 detenciones&nbsp;&nbsp;h50 Digital Policial",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T14:25:05.293368+00:00"
+    },
+    {
+      "id": "8e6d90d5fdfbbe24",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPWWpQWXRLVDNlZXhxU3YzcDB1T1JhdWNxSTFmckJmVTdOeEVEMjdPLTZDUlVsS0lXbnl1cmRwWTRrMTJMY3VMeGZmT0VSMUM5Nk5PTDRXM0NmTHgwVEt1aTljRVVLeXhJUUd0enBzbS0tREprQU1LVm1NbWpkY1JGdXdzYXZiTlV1OVBOTGozcVdwZ0Zaejl4VENfTGlOdWRxckgyRmlHdWtNOTJzdHpRZXotRFVZSS10U1hkYUNNb181NUx5OEZGc3RUY9IBywFBVV95cUxPWWpQWXRLVDNlZXhxU3YzcDB1T1JhdWNxSTFmckJmVTdOeEVEMjdPLTZDUlVsS0lXbnl1cmRwWTRrMTJMY3VMeGZmT0VSMUM5Nk5PTDRXM0NmTHgwVEt1aTljRVVLeXhJUUd0enBzbS0tREprQU1LVm1NbWpkY1JGdXdzYXZiTlV1OVBOTGozcVdwZ0Zaejl4VENfTGlOdWRxckgyRmlHdWtNOTJzdHpRZXotRFVZSS10U1hkYUNNb181NUx5OEZGc3RUYw?oc=5",
+      "outlet": "24horas",
+      "date": "2026-07-24",
+      "title": "PDI detiene a tres comuneros mapuches vinculados a delitos de violencia rural - 24horas",
+      "description": "PDI detiene a tres comuneros mapuches vinculados a delitos de violencia rural&nbsp;&nbsp;24horas",
+      "rejection_stage": "commune_null",
+      "first_seen": "2026-07-27T14:25:05.293368+00:00"
+    },
+    {
+      "id": "140ef3f39641d9ef",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFBWWl9BODB6STBqSzBrU1FKMWtac0RiZTlZZnktbmFHTHMzU1Zsam1KRXlVWFRqRWhtX2ZqNXBhWlBMaG9YSUtLSFlTc0FOa2R0NGtQNEJMRUJJQVNCa3A5LThYd9IBaEFVX3lxTE1OcWxJUGZEalcwVFI2ZDRlSVJQRWlxZGNWd1ZPUE44RlJBNy1yUDRsaGNnMG85cV9OZXoyRm9CbWdIWUtocnFYdUhBdldIdV8wQ0thSGdlYmctNTNETWxydXhhMG1uUGo5?oc=5",
+      "outlet": "Reporte Confidencial",
+      "date": "2026-07-27",
+      "title": "Cuatro venezolanos condenados a cadena perpetua en Chile - Reporte Confidencial",
+      "description": "Cuatro venezolanos condenados a cadena perpetua en Chile&nbsp;&nbsp;Reporte Confidencial",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-27T14:25:05.293368+00:00"
     }
   ]
 }
