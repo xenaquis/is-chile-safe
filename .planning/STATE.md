@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 Phase: 25
 Plan: Not started
 Status: Ready to execute
-Last activity: 2026-07-26 - Completed quick task 260726-k23 (full system health verification: both crons green + v7 validated, Granite+rejected working, R2 corpus v2 backfilling, 288 tests, 0 secret leaks). System fully healthy, no follow-up needed
+Last activity: 2026-07-27 - Completed quick task 260727-j6z (news-only "sexuales" family + 25 incidents repaired local+R2 + browser-language redirect on EN pages)
 
 ## Progress Bar
 
@@ -147,6 +147,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 | 260726-gf7 | Google News URL decoder (batchexecute, live-verified) + archive rejected candidates (data/incidents/rejected/, corpus schema v2, kind-aware ledger) + security hardening (SSRF redirect+DNS guards, CSV injection, robustness); code review 2 CRITICAL+5 warnings all fixed; 288 tests | 2026-07-26 | 3f9648a | [260726-gf7-google-news-url-decoder-archive-rejected](./quick/260726-gf7-google-news-url-decoder-archive-rejected/) |
 | 260726-jya | Bump all GitHub Actions pins to v7 (Node-24 era): checkout v4→v7, setup-python v5→v7, setup-node v4→v7 across 4 workflows; clears Node-20 deprecation annotations | 2026-07-26 | 787a239 | [260726-jya-bump-github-actions-to-node-24-versions-](./quick/260726-jya-bump-github-actions-to-node-24-versions-/) |
 | 260726-k23 | Full system health verification (no code): both crons live-dispatched green + Node-20 annotation gone (v7 validated), Granite + rejected-capture (16 items) working, R2 corpus v2 with 248 full-text articles + gnews decoder recovering URLs (133 fetched), 288 tests, 0 secret leaks | 2026-07-26 | verify | [260726-k23-verify-full-system-health-v7-workflow-bu](./quick/260726-k23-verify-full-system-health-v7-workflow-bu/) |
+| 260727-j6z | News-only "sexuales" family (classifier prompt + news schema + EN/ES labels; CEAD 7-family contract untouched), deterministic repair of mis-classified incidents (25 flipped vida→sexuales across current.json + archive, R2 incidents.csv/corpus-state rebuilt and verified), browser-language redirect on EN pages (hreflang-based, lang-pref persisted) | 2026-07-27 | 3ffc6d8 | [260727-j6z-fix-granite-classifier-sexual-crimes-mis](./quick/260727-j6z-fix-granite-classifier-sexual-crimes-mis/) |
 
 ## Session Continuity
 
