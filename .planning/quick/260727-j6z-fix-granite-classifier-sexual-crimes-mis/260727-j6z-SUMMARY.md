@@ -86,3 +86,12 @@ Commits:
 - 7ef2954: feat — browser redirect
 
 ## Self-Check: PASSED
+
+## Post-close R2 deep audit (2026-07-27, orchestrator)
+
+Full bucket audit after push/deploy:
+- Aggregates consistent at sexuales=29 / 1300 incidents: incidents.jsonl, incidents.csv, corpus-state.json, corpus-state-history/2026-07-27.json, manifest.json.
+- url-ledger.jsonl (1350 rows, 565 fetched): carries no family field — nothing to fix.
+- Per-article objects (research-archive/articles/{id}.json) freeze incident metadata at fetch time: 13 of 17 fetched sexuales articles carried stale family="vida" (fetched by the 08:52 UTC R2 cron, pre-repair). Patched in-place via boto3 (family field only; text/text_sha256 untouched) and re-verified: 0 stale remaining.
+- 12 sexuales articles still pending fetch will inherit the corrected family from consolidated records on future cron runs.
+- Older corpus-state-history snapshots retain pre-repair by_family by design (point-in-time records).
