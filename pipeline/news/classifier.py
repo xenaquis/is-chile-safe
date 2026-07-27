@@ -95,8 +95,12 @@ _COMMUNE_LIST_STR: str = "\n".join(
     f"{entry['name']} (region_id:{entry['region_id']})" for entry in _INDEX
 )
 
-# FAMILY_KEYS as comma-joined enum string for the prompt
+# FAMILY_KEYS as comma-joined enum string for CEAD internal use.
 _FAMILY_ENUM_STR: str = ", ".join(FAMILY_KEYS)
+
+# NEWS-ONLY enum for the classifier prompt: adds "sexuales" to the 7 CEAD families.
+# "sexuales" has no CEAD rate; it is a news-incident-only classification bucket.
+_NEWS_FAMILY_ENUM_STR: str = ", ".join([*FAMILY_KEYS, "sexuales"])
 
 # ---------------------------------------------------------------------------
 # System prompt (MUST contain the word "json" per DeepSeek JSON mode docs)
@@ -108,7 +112,7 @@ Given a news headline and summary, output exactly this JSON structure:
 {{
   "commune_name": "<exact Spanish commune name from CHILEAN COMMUNES below, or null if location unknown>",
   "region_hint": "<region name or number hint to disambiguate, or null>",
-  "family": "<one of: {_FAMILY_ENUM_STR}>",
+  "family": "<one of: {_NEWS_FAMILY_ENUM_STR}>",
   "title_es": "<concise Spanish headline, max 120 chars, plain text>",
   "title_en": "<English translation of title_es, max 120 chars, plain text>",
   "summary": "<1-2 sentence neutral summary in English, plain text>",
@@ -124,7 +128,8 @@ Rules:
 - region_hint helps disambiguate; set to the region number or name from the list entry if known.
 - If the article is not about a crime incident, set commune_name to null and confidence to 0.0.
 - Traffic accidents, road collisions, and vehicle crashes are NOT crime incidents even if they result in fatalities. If an article is primarily about a traffic accident (colisión, accidente de tránsito, choque, atropello sin culpa criminal), you MUST set confidence to 0.0.
-- family MUST be exactly one of: {_FAMILY_ENUM_STR}
+- Sexual crimes (violacion, abuso sexual, estupro, grooming, pornografia infantil, acoso sexual, agresion sexual, delitos de connotacion sexual) MUST use family "sexuales", NOT "vida". Exception: if the incident is a killing (homicidio, femicidio) the family stays "vida" even when a sexual assault accompanied the death — death dominates classification.
+- family MUST be exactly one of: {_NEWS_FAMILY_ENUM_STR}
 - Output plain text only for title_es, title_en, and summary — no HTML, no markdown.
 """
 

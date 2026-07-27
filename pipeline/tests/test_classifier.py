@@ -97,6 +97,21 @@ def test_family_internal_whitespace_normalized():
     assert result.family == "robos_violentos", f"Expected 'robos_violentos', got {result.family!r}"
 
 
+def test_sexuales_family_classify_returns_valid_output():
+    """classify() must return ClassifierOutput with family='sexuales' when LLM emits it (j6z Task 1)."""
+    data = dict(_VALID_RESPONSE, family="sexuales", confidence=0.9,
+                title_es="Hombre detenido por violacion en Valparaiso",
+                title_en="Man arrested for rape in Valparaiso",
+                summary="A man was arrested for rape in Valparaiso.")
+
+    with patch("pipeline.news.classifier.client") as mock_client:
+        mock_client.chat.completions.create.return_value = _make_mock_response(data)
+        result = classify("Hombre detenido por violacion en Valparaiso", "Arrestado por delito sexual")
+
+    assert result is not None, "Expected ClassifierOutput for sexuales family"
+    assert result.family == "sexuales"
+
+
 def test_default_provider_is_openrouter():
     """With NEWS_PROVIDER unset, the module must default to openrouter/ibm-granite/granite-4.1-8b."""
     assert classifier_mod._PROVIDER == "openrouter", (

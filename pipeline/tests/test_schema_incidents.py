@@ -99,6 +99,27 @@ def test_valid_families_accepted():
         assert record.family == family
 
 
+def test_sexuales_family_accepted_by_incident_record():
+    """IncidentRecord must accept news-only family 'sexuales' (j6z Task 1)."""
+    record = IncidentRecord.model_validate(_valid_incident(family="sexuales"))
+    assert record.family == "sexuales"
+
+
+def test_sexuales_family_accepted_by_classifier_output():
+    """ClassifierOutput must accept news-only family 'sexuales' (j6z Task 1)."""
+    from pipeline.news.schema import ClassifierOutput
+    output = ClassifierOutput.model_validate({
+        "commune_name": "Santiago",
+        "region_hint": "Metropolitana",
+        "family": "sexuales",
+        "title_es": "Hombre detenido por abuso sexual en Santiago",
+        "title_en": "Man arrested for sexual abuse in Santiago",
+        "summary": "A man was arrested for sexual abuse in Santiago.",
+        "confidence": 0.9,
+    })
+    assert output.family == "sexuales"
+
+
 # ---------------------------------------------------------------------------
 # IncidentRecord — attribution (NEWS-05)
 # ---------------------------------------------------------------------------

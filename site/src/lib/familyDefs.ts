@@ -24,6 +24,7 @@ export const FAMILY_LABELS_EN: Record<string, string> = {
   propiedad:       'Property Crimes',
   incivilidades:   'Disorder',
   homicidios:      'Homicide',
+  sexuales:        'Sexual Crimes',
 };
 
 // Sober one-sentence definition per family (EN)
@@ -48,6 +49,7 @@ export const FAMILY_LABELS_ES: Record<string, string> = {
   propiedad:       'Delitos contra la Propiedad',
   incivilidades:   'Incivilidades',
   homicidios:      'Homicidios',
+  sexuales:        'Delitos Sexuales',
 };
 
 // Sober one-sentence definition per family (ES)

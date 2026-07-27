@@ -17,7 +17,9 @@ from pipeline.shared.schema import FAMILY_KEYS
 # Constants
 # ---------------------------------------------------------------------------
 
-VALID_FAMILIES: set[str] = set(FAMILY_KEYS)
+# NEWS-ONLY extension: "sexuales" is not a CEAD quantitative family (no scraped rate).
+# It exists only for news incident classification — keep pipeline/shared/schema.py untouched.
+VALID_FAMILIES: set[str] = set(FAMILY_KEYS) | {"sexuales"}
 
 # WR-02: derive VALID_CUTS from the same index.json that resolver.py uses so the
 # validator and resolver are always aligned.  Using a separate cut_list.json created
