@@ -78,16 +78,33 @@ const altHref = locale === 'en' ? esPath : enPath;
       {locale === 'en' ? (
         <>
           <span class="lang-btn active" aria-current="true">EN</span>
-          <a href={altHref} class="lang-btn" lang="es">ES</a>
+          <a href={altHref} class="lang-btn" lang="es" data-lang-pref="es">ES</a>
         </>
       ) : (
         <>
-          <a href={altHref} class="lang-btn" lang="en">EN</a>
+          <a href={altHref} class="lang-btn" lang="en" data-lang-pref="en">EN</a>
           <span class="lang-btn active" aria-current="true">ES</span>
         </>
       )}
     </div>
   </div>
+
+  <script is:inline>
+    /* Persist lang-pref when user explicitly clicks a language toggle button.
+       data-lang-pref="en" or "es" set on each link; clicking stores the choice
+       so the BaseLayout redirect respects explicit user selection.
+       Plain JS only — no {expr} inside <script> (Astro project gotcha). */
+    (function () {
+      try {
+        document.querySelectorAll('[data-lang-pref]').forEach(function (el) {
+          el.addEventListener('click', function () {
+            var pref = el.getAttribute('data-lang-pref');
+            if (pref) localStorage.setItem('lang-pref', pref);
+          });
+        });
+      } catch (e) { /* fail silently */ }
+    })();
+  </script>
 </header>
 
 <style>

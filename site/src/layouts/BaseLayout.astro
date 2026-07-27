@@ -109,6 +109,27 @@ const adsenseClient = import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID ?? '';
          </script> breakout if any value contains the sequence — CR-01 fix).
          Emits one <script> per block when jsonLd is an array (D-08 array-of-scripts, NOT @graph).
          The .replace escape is applied PER BLOCK inside the map — T-13-01 mitigation. -->
+    {/* Browser-language redirect — EN pages only. Reads hreflang link already in <head>.
+        Plain JS only: no {expr} interpolation inside <script> (Astro project gotcha).
+        Wrapped in try/catch so a storage/parse failure never blocks rendering.
+        Uses window.location.replace (no Back-button bounce). */}
+    {lang === 'en' && (
+      <script is:inline>
+        try {
+          var pref = localStorage.getItem('lang-pref');
+          if (!pref) {
+            var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+            if (nav.toLowerCase().startsWith('es')) {
+              var esLink = document.querySelector('link[rel="alternate"][hreflang="es"]');
+              if (esLink && esLink.href) {
+                window.location.replace(esLink.href);
+              }
+            }
+          }
+        } catch (e) { /* fail silently — never block rendering */ }
+      </script>
+    )}
+
     {jsonLd !== null && (Array.isArray(jsonLd) ? jsonLd : [jsonLd])
       .filter(Boolean)
       .map((block) => (
