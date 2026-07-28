@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-28T02:09:27.294789Z",
+  "generated": "2026-07-28T08:27:49.705305Z",
   "window_days": 30,
   "incidents": [
     {
@@ -16225,6 +16225,123 @@
       "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOMXVKU2lGdHg1YTg1YXdJTmc0SlowOVFkTThLZ25WVi1GaGdwa0F0YnVqLWl6OGZHaG1GZUJ1bTE0QUVlc3hDdjQwTXk1VHBJQjM4ZmtJRGdUY3d2MTlUbHFXREtIZlN0LXg5NmhVQlQ1Y1FDXzBQQ0FhU0VUNklQcHcxRjcyd0I3ZW5PdHVsemVQLTNlRWJFYQ?oc=5",
       "family": "vida",
       "slug": "nunoa"
+    },
+    {
+      "id": "3546e8a95ea584ef",
+      "cut": "5802",
+      "lat": -33.032139,
+      "lng": -71.259698,
+      "title_es": "Mujer muere aplastada por portón de acceso vehicular en condominio de Limache",
+      "title_en": "Woman dies crushed by access gate in Limache condominium",
+      "date": "2026-07-28",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-valparaiso/2026/07/28/mujer-muere-aplastada-por-porton-de-acceso-vehicular-en-condominio-de-limache.shtml",
+      "family": "vida",
+      "slug": "limache"
+    },
+    {
+      "id": "72b0c624ac070042",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Fallece carabinero tras recibir impacto de bala al interior de comisaría en La Serena",
+      "title_en": "Carabinero dies after being shot inside police station in La Serena",
+      "date": "2026-07-28",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-coquimbo/2026/07/28/fallece-carabinero-tras-recibir-impacto-de-bala-al-interior-de-comisaria-en-la-serena.shtml",
+      "family": "vida",
+      "slug": "la-serena"
+    },
+    {
+      "id": "72714eb0797cd671",
+      "cut": "10102",
+      "lat": -41.633202,
+      "lng": -73.212024,
+      "title_es": "Sospechoso de asesinato en Calbuco será formalizado el jueves; se dice que estaba ebrio",
+      "title_en": "Suspect in Calbuco murder to be formally charged on Thursday; alleged to be drunk",
+      "date": "2026-07-28",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-lagos/2026/07/27/habria-estado-ebrio-sospechoso-de-asesinato-de-mujer-en-calbuco-sera-formalizado-el-jueves.shtml",
+      "family": "vida",
+      "slug": "calbuco"
+    },
+    {
+      "id": "0e89acd9552bf343",
+      "cut": "8102",
+      "lat": -36.996187,
+      "lng": -73.045624,
+      "title_es": "Sujetos robaron embarcación y luego sustrajeron más de 3 toneladas de jurel: quedaron en libertad",
+      "title_en": "Suspects stole a boat and then removed more than 3 tons of sardines: they were released",
+      "date": "2026-07-28",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/27/sujetos-robaron-embarcacion-y-luego-sustrajeron-mas-de-3-toneladas-de-jurel-quedaron-en-libertad.shtml",
+      "family": "propiedad",
+      "slug": "coronel"
+    },
+    {
+      "id": "0109f061808900c1",
+      "cut": "10102",
+      "lat": -41.633202,
+      "lng": -73.212024,
+      "title_es": "Detienen a sospechoso de asesinar a joven en la Isla Huar, Calbuco",
+      "title_en": "Suspect arrested for killing young woman on Huar Island, Calbuco",
+      "date": "2026-07-28",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/calbuco-detienen-a-sospechoso-de-asesinar-a-joven-en-la-isla-huar/2026-07-28/001040.html",
+      "family": "vida",
+      "slug": "calbuco"
+    },
+    {
+      "id": "80189af127a287a5",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Carabinero muere tras disparo ocurrido durante entrega de armamento en comisaría de La Serena",
+      "title_en": "Police officer dies after shooting during arms delivery at La Serena police station",
+      "date": "2026-07-28",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/carabinero-muere-tras-disparo-ocurrido-durante-entrega-de-armamento-en-comisaria-de-la-serena/",
+      "family": "vida",
+      "slug": "la-serena"
+    },
+    {
+      "id": "b6a876ec70f22c86",
+      "cut": "4106",
+      "lat": -29.886625,
+      "lng": -70.389297,
+      "title_es": "Investigan hallazgo de cuerpo calcinado de mujer en sitio eriado de Vicuña",
+      "title_en": "Investigators probe discovery of burned woman's body in overgrown site in Vicuña",
+      "date": "2026-07-28",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/investigan-hallazgo-de-cuerpo-calcinado-de-mujer-en-sitio-eriazo-de-vicuna/",
+      "family": "vida",
+      "slug": "vicuna"
+    },
+    {
+      "id": "40fa8d9e258827b9",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "La policía chilena detiene al último exmilitar condenado por el crimen del cantautor Víctor Jara",
+      "title_en": "Chilean police arrest the last ex-military convicted of the crime of folk singer Victor Jara",
+      "date": "2026-07-26",
+      "outlet": "RTVE.es",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOMy1Cdm9YV3MxOXFjM18xLVRRcUh3SW96bC0yTjNsanJyN05LMFZDRkxvQ2FCME1wZ3hwWEhnSkpGLTNvS1ZKNFhuTXJudUJ0aUlWQ3RyYThMcGVEdEVZbDNlV1dBVGhHOGNJNlFxbWR2YnlkNms0QjRpelhuWG1hNkU2S056MU01eXM3b2E3eVlPZTJtb1hiN1RkN3JwMXB1R2JqUGI4U0RKWkM1QkRhOUswNmxXREpjci1IWXF2bjZweVlFeVhaS3ZLaGNqbE1hNHJpazJJcw?oc=5",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "4bb9cfa7f1344afc",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Fiscalía Iquique obtiene condena de sujeto que intentó robar accesorios de vehículo y agredió a su dueño",
+      "title_en": "Iquique Fiscal Office Convicts Man Who Attempted to Steal Vehicle Accessories and Assaulted Owner",
+      "date": "2026-07-27",
+      "outlet": "CEI Noticias",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxONm9tWDBzcEVIVzNCZFliN1ZBbXFJajExRGM2S0VWaVRScmNZMDF1T1RMdE1CMndZQmNOT21wdWRrYjR6cnFFZHV6X1ZURFZ6MUV6SmpTLUJYTXE4V28zVjUxZFhUWVdQdVZxbWpnUUZtUFlIZHRYdUo1c3BYRUI3UVB1UEFmaVAzbmdYaWV1eThzaHdadFowOW8wTG5HSDBEZVBPcjYzcEJmSzlyMmN0SGt4N0RON0hMUzlJakdib3VFYURlZWRB?oc=5",
+      "family": "propiedad",
+      "slug": "iquique"
     }
   ]
 }

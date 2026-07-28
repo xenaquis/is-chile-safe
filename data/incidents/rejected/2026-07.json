@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-28T02:09:27.280120+00:00",
+  "generated": "2026-07-28T08:27:49.695078+00:00",
   "items": [
     {
       "id": "a026901347e4ca3a",
@@ -860,6 +860,16 @@
       "description": "Ley STOP: robos y homicidios lideran la baja de delitos en La Araucanía&nbsp;&nbsp;araucanianoticias.cl",
       "rejection_stage": "commune_null",
       "first_seen": "2026-07-28T02:09:27.280120+00:00"
+    },
+    {
+      "id": "af306617170f4980",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/estafas/gobierno-prepara-plan-de-educacion-ante-aumento-de-casos-de-vishing/2026-07-27/234157.html",
+      "outlet": "Cooperativa",
+      "date": "2026-07-28",
+      "title": "Gobierno prepara plan de educación ante aumento de casos de vishing",
+      "description": "El Gobierno prepara un plan de educación ante el aumento de casos de vishing, estafa en que delincuentes se hacen pasar por ejecutivos bancarios, funcionarios de instituciones o familiares a través de llamadas telefónicas.\nLos delincuentes buscan robar contraseñlas y claves de transferencias, apelando a la presión sicologica, rapidez y uso de datos personasles filtrados previamente.\nEl subsecretario de Prevención del Delito, Gonzalo Guerrero, detalló que \"hemos tomado contacto con distintas agen",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-28T08:27:49.695078+00:00"
     }
   ]
 }
