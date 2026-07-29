@@ -90,6 +90,7 @@ Full phase details for 18/21/22/23/24/25 remain below in this file's Phase Detai
 **⚙️ AUTONOMOUS MODE (authorized 2026-07-29):** the milestone runs unattended under `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md` — model routing, gate amendments (MAPUX-05 human acceptance → Fable-proxy with deferred human review; CRON-01 live dry run → local simulation; SEC-01/05 settings items → deferred-live), hard safety rules (no `git push`, no `data/` mutation, no GitHub settings changes, Phase-26 LLM call budget), and the deferred-live list for the user's return. That directive supersedes any conflicting phrasing here while the run is unattended.
 
 **Dependency graph:**
+
 - Phase 26 (Event Clustering Spike) gates **only the clustering portions** of Phases 27 and 28. It does **not** block Phase 27's faceting work — Phase 27 has zero dependency on the Phase 26 outcome and must not be sequenced as blocked.
 - Phase 27 (News Facet Data Model) has no dependency on Phase 26. It can start immediately, in parallel with Phase 26.
 - Phase 28 (News Visualizer UI) depends on Phase 27 (consumes `newsFacets.ts`) and conditionally on Phase 26 (consumes `cluster_id`/`is_primary` only on GO; degrades gracefully to faceting-only on NO-GO per NEWSUI-05).
@@ -100,6 +101,7 @@ Full phase details for 18/21/22/23/24/25 remain below in this file's Phase Detai
 - Phase 33 (Security Posture) runs parallel with or immediately after Phase 32.
 
 **Risk annotations:**
+
 - **Phase 26 is the milestone's high-risk phase.** A false merge (two distinct crimes displayed as one incident) is a published factual error on a safety-information site — not merely a bug.
 - **Phase 30 is a regression-risk phase.** `ChoroplethLayer.ts`, `IncidentPinLayer.ts`, and `LowZoomDotLayer.ts` are protected/untouched; the `?cut=` deep link must survive the rework unchanged, and no declarative react-leaflet layer component may be introduced.
 
@@ -284,7 +286,7 @@ Plans:
 
 **Wave 1**
 
-- [ ] 26-01-PLAN.md — Core clustering module: rapidfuzz prefilter, cluster_id (sha256), union-find assembly + oversized flag, LLM verdict schema + prompt-injection hardening, fully-mocked offline unit tests (CLUS-02, CLUS-03, CLUS-04, CLUS-05, CLUS-06)
+- [x] 26-01-PLAN.md — Core clustering module: rapidfuzz prefilter, cluster_id (sha256), union-find assembly + oversized flag, LLM verdict schema + prompt-injection hardening, fully-mocked offline unit tests (CLUS-02, CLUS-03, CLUS-04, CLUS-05, CLUS-06)
 
 **Wave 2**
 
@@ -424,7 +426,7 @@ Plans:
 | 22. Go-Live / Launch Ops | 2/3 | In Progress (22-03 deferred human task) |  |
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |
 | 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete    | 2026-07-03 |
-| 26. Event Clustering Spike | 0/4 | Planned | - |
+| 26. Event Clustering Spike | 1/4 | In Progress|  |
 | 27. News Facet Data Model | 0/? | Not started | - |
 | 28. News Visualizer UI | 0/? | Not started | - |
 | 29. Map UX Design Loop | 0/? | Not started | - |

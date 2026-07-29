@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
 status: executing
-last_updated: "2026-07-29T23:06:45.357Z"
-last_activity: 2026-07-29 -- Phase 26 planning complete
+last_updated: "2026-07-29T23:17:26.218Z"
+last_activity: 2026-07-29
 progress:
-  total_phases: 8
-  completed_phases: 0
-  total_plans: 4
-  completed_plans: 0
-  percent: 0
+  total_phases: 14
+  completed_phases: 5
+  total_plans: 35
+  completed_plans: 31
+  percent: 36
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 26 (Event Clustering Spike) — PLANNED, ready to execute
-Plan: 4 plans (26-01 core module -> 26-02 golden set -> 26-03 metrics/GO evidence -> 26-04 verdict + schema), 4 sequential waves
-Status: Ready to execute (Fable review APPROVED 2026-07-29)
-Last activity: 2026-07-29 -- Phase 26 planning complete
+Phase: 26 (event-clustering-spike) — EXECUTING
+Plan: 2 of 4
+Status: Ready to execute
+Last activity: 2026-07-29
 
 ## Progress Bar
 
@@ -84,6 +84,7 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 | Phase 24 P01 | 12m | 2 tasks | 3 files |
 | Phase 24 P03 | 8m | 2 tasks | 3 files |
 | Phase 21 P03 | 35m | 3 tasks | 7 files |
+| Phase 26 P01 | 35m | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -225,6 +226,7 @@ Decisions taken inline by the Fable orchestrator during the unattended run. Each
 - [Phase ?]: Column header matching in fetch_enusc_vhdv.py uses accent-normalized NFD comparison — real XLSX omits accents on 'victimas'/'logaritmico'
 - [Phase 21-03]: Low-population fallback for comparator pair links — when commune has no non-low-pop same-region neighbors (Arica, region 15), fall back to all same-region communes to guarantee all 346 pages have /compare/ href
 - [Phase 21-04]: avs-b-budget.mjs registered as validator #14 in all.mjs; full suite 14/14 green; GSC URL Inspection deferred to human operator before batch expansion beyond 20 enabled pairs
+- [Phase ?]: 26-01: rapidfuzz pre-filter threshold 45.0 kept frozen per F-02
 
 ## Operator Next Steps
 

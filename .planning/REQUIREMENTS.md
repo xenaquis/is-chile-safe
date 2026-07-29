@@ -38,11 +38,11 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 ### Event Clustering Spike (→ Phase 26)
 
 - [ ] **CLUS-01**: A hand-labeled golden set of 60–100 article pairs / small clusters is built from `data/incidents/archive/`, including adversarial near-misses (same comuna + same date but genuinely different crimes; same crime reported with a misspelled or homophonous comuna; and true same-event coverage from 2–3 outlets).
-- [ ] **CLUS-02**: A `rapidfuzz`-based lexical pre-filter narrows LLM candidate pairs to the existing `(cut, date)` buckets (optionally ±1 day), so LLM comparison cost is bounded and never O(n²) over the whole store.
-- [ ] **CLUS-03**: The LLM adjudicator returns a structured, fact-based verdict (corroborating location / entity / time-window facts plus rationale) at temperature 0.0 — never a bare similarity score — and an unparseable verdict is rejected as no-merge rather than defaulting permissively.
-- [ ] **CLUS-04**: RSS-derived article text is treated strictly as untrusted data and never as instructions, with the prompt structured so injected content cannot alter the adjudication task.
-- [ ] **CLUS-05**: Cluster IDs are derived deterministically as a `sha256` of the sorted set of member incident IDs — never from LLM output — so re-runs are bit-stable and cannot churn `data/` or fire spurious Cloudflare rebuilds.
-- [ ] **CLUS-06**: Cluster assembly uses connected components with a high edge threshold plus a max-cluster-size sanity cap (any cluster larger than 4 members is flagged for manual review, not published silently), and the full pairwise decision matrix per cluster is logged.
+- [x] **CLUS-02**: A `rapidfuzz`-based lexical pre-filter narrows LLM candidate pairs to the existing `(cut, date)` buckets (optionally ±1 day), so LLM comparison cost is bounded and never O(n²) over the whole store.
+- [x] **CLUS-03**: The LLM adjudicator returns a structured, fact-based verdict (corroborating location / entity / time-window facts plus rationale) at temperature 0.0 — never a bare similarity score — and an unparseable verdict is rejected as no-merge rather than defaulting permissively.
+- [x] **CLUS-04**: RSS-derived article text is treated strictly as untrusted data and never as instructions, with the prompt structured so injected content cannot alter the adjudication task.
+- [x] **CLUS-05**: Cluster IDs are derived deterministically as a `sha256` of the sorted set of member incident IDs — never from LLM output — so re-runs are bit-stable and cannot churn `data/` or fire spurious Cloudflare rebuilds.
+- [x] **CLUS-06**: Cluster assembly uses connected components with a high edge threshold plus a max-cluster-size sanity cap (any cluster larger than 4 members is flagged for manual review, not published silently), and the full pairwise decision matrix per cluster is logged.
 - [ ] **CLUS-07**: The spike reports measured pairwise precision and recall against the golden set, plus actual per-run LLM cost, and issues an explicit **GO / NO-GO** verdict against the locked gate: **100% precision, zero false merges**.
 - [ ] **CLUS-08**: The precision check is encoded as a pytest regression (`pipeline/tests/test_clustering.py`), not a one-off spike script, so a future model swap cannot silently regress clustering quality.
 - [ ] **CLUS-09**: On GO, `cluster_id: str | None` and `is_primary: bool` are added to `IncidentRecord` as optional-with-default fields, verified backward-compatible against existing `current.json` and archive consumers; on NO-GO, the finding is documented and no schema change ships.
@@ -138,11 +138,11 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | CLUS-01 | Phase 26 | Pending |
-| CLUS-02 | Phase 26 | Pending |
-| CLUS-03 | Phase 26 | Pending |
-| CLUS-04 | Phase 26 | Pending |
-| CLUS-05 | Phase 26 | Pending |
-| CLUS-06 | Phase 26 | Pending |
+| CLUS-02 | Phase 26 | Complete |
+| CLUS-03 | Phase 26 | Complete |
+| CLUS-04 | Phase 26 | Complete |
+| CLUS-05 | Phase 26 | Complete |
+| CLUS-06 | Phase 26 | Complete |
 | CLUS-07 | Phase 26 | Pending |
 | CLUS-08 | Phase 26 | Pending |
 | CLUS-09 | Phase 26 | Pending |
