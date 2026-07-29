@@ -24,6 +24,9 @@ import pytest
 
 REPO_ROOT = pathlib.Path(__file__).parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT))
+# The module under test lives at pipeline/build_enusc_enrichment.py and is imported
+# by bare name below, so pipeline/ itself must be importable — not just the repo root.
+sys.path.insert(0, str(REPO_ROOT / "pipeline"))
 
 # ---------------------------------------------------------------------------
 # Helpers
