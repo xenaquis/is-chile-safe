@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-29T14:01:54.178187+00:00",
+  "generated": "2026-07-29T19:10:37.808220+00:00",
   "items": [
     {
       "id": "a026901347e4ca3a",
@@ -1530,6 +1530,206 @@
       "description": "Ley STOP: robos y homicidios lideran la baja de delitos en La Araucanía&nbsp;&nbsp;araucanianoticias.cl",
       "rejection_stage": "commune_null",
       "first_seen": "2026-07-29T14:01:54.178187+00:00"
+    },
+    {
+      "id": "a160c3cad1dc9f8b",
+      "url": "https://www.biobiochile.cl/noticias/internacional/america-latina/2026/07/29/un-machismo-estructural-que-todavia-subsiste-c-fernandez-lleva-su-caso-al-comite-de-ddhh-de-la-onu.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-07-29",
+      "title": "\"Un machismo estructural que todavía subsiste\": C. Fernández lleva su caso al Comité de DDHH de la ONU",
+      "description": "La expresidenta de Argentina Cristina Fernández presentó una denuncia ante el Comité de Derechos Humanos de las Naciones Unidas para reclamar contra la sentencia por corrupción por la que fue condenada, asegurando estar presa por culpa del “machismo estructural que todavía subsiste”. A través de una carta abierta, la exmandataria trasandina afirmó que acude al &#8230; Continua leyendo \"\"Un machismo estructural que todavía subsiste\": C. Fernández lleva su caso al Comité de DDHH de la ONU\"\nThe pos",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "67c8f05f38655521",
+      "url": "https://www.latercera.com/pulso/noticia/fiscal-jefe-de-alta-complejidad-tras-cierre-penal-del-caso-de-alvaro-jalaff-entrego-informacion-de-mucha-relevancia/",
+      "outlet": "LaTercera",
+      "date": "2026-07-29",
+      "title": "Fiscal jefe de Alta Complejidad tras cierre penal del caso de Álvaro Jalaff: “Entregó información de mucha relevancia”",
+      "description": "\"El tribunal dio a conocer que va a dictar una sentencia condenatoria en contra del señor Jalaf en idénticos términos a los cuales la fiscalía lo acusó\", dijo el fiscal tras el cierre por procedimiento abreviado del lado de Álvaro Jalaff en el caso Factop.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "5d061f8015b63bae",
+      "url": "https://www.latercera.com/culto/noticia/demoledor-documental-acusa-a-jared-leto-de-delitos-sexuales-quizas-este-sea-el-golpe-de-gracia/",
+      "outlet": "LaTercera",
+      "date": "2026-07-29",
+      "title": "“Demoledor” documental acusa a Jared Leto de delitos sexuales: “Quizás este sea el golpe de gracia”",
+      "description": "El actor y músico está al centro de Jared Leto: Hollywood’s Dark Secret, producción de la BBC recién estrenada en que cuatro mujeres relatan haber sido víctimas de agresión sexual y violación cuando eran menores de edad. “Es inevitable sentir que este filme le asestará un duro golpe”, publicó The Guardian en su reseña. Él negó negó todas las denuncias, que tildó como “absoluta y categóricamente falsas”.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "88250dafb688be46",
+      "url": "https://www.latercera.com/nacional/noticia/todas-las-miradas-apuntan-a-la-ministra-lilian-leyton-suprema-interviene-y-analiza-abrir-sumario-por-nuevos-chats-con-hermosilla/",
+      "outlet": "LaTercera",
+      "date": "2026-07-29",
+      "title": "Todas las miradas apuntan a la ministra Lilian Leyton: Suprema interviene y analiza abrir sumario por nuevos chats con Hermosilla",
+      "description": "El pleno del máximo tribunal pidió de forma directa los antecedentes a la fiscal judicial que llevó el sumario en 2024 contra la magistrada por sus chats con el penalista imputado en el caso Audio. La idea era ver si en ese proceso estaban incluidas las nuevas conversaciones reveladas hace algunas semanas.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "c81a55263fbe47c5",
+      "url": "https://www.latercera.com/pulso/noticia/las-declaraciones-de-los-exduenos-de-huachipato-ante-la-fiscalia-por-el-caso-sartor/",
+      "outlet": "LaTercera",
+      "date": "2026-07-29",
+      "title": "Las declaraciones de los exdueños de Huachipato ante la Fiscalía por el caso Sartor",
+      "description": "Victoriano Cerda y Marcelo Pesce declararon como testigos en el caso Sartor y negaron tener alguna vinculación con Tactical Sport y la compra de Azul Azul. Además detallaron cómo opera la venta de jugadores y la relación de Huachipato con la U. Socios en Huachipato desde 2014, vendieron la firma en 2024.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "5fb4e0b92df69efe",
+      "url": "https://www.latercera.com/educacion/noticia/su-madre-tiene-la-enfermedad-y-ahora-el-lidera-la-fundacion-que-ella-creo-la-inspiradora-historia-del-kinesiologo-que-combate-el-parkinson/",
+      "outlet": "LaTercera",
+      "date": "2026-07-29",
+      "title": "Su madre tiene la enfermedad y ahora él lidera la fundación que ella creó: la inspiradora historia del kinesiólogo que combate el párkinson",
+      "description": "Miguel Pino es académico en la U. Católica de la Santísima Concepción y dirige UPA Biobío, fundación pionera en tratar los síntomas de esta enfermedad con ejercicios probados científicamente. Acaba de mostrar en el Congreso Mundial de Parkinson los resultados de su terapia estrella: el neuroboxing.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "154bb61398a24cd9",
+      "url": "https://www.latercera.com/nacional/noticia/pdi-desarticula-banda-delictual-dedicada-a-las-encerronas-y-portonazos-en-la-region-metropolitana/",
+      "outlet": "LaTercera",
+      "date": "2026-07-29",
+      "title": "PDI desarticula banda delictual dedicada a las encerronas y portonazos en la Región Metropolitana",
+      "description": "La banda estaba conformada por un grupo de jóvenes que ronda los 20 años y un menor de edad.",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "a8c0b50d66b33c50",
+      "url": "https://www.latercera.com/nacional/noticia/fiscalia-centro-norte-indagara-denuncia-del-servel-en-contra-del-partido-de-la-gente/",
+      "outlet": "LaTercera",
+      "date": "2026-07-29",
+      "title": "Fiscalía Centro Norte indagará denuncia del Servel en contra del Partido de la Gente",
+      "description": "La determinación se da luego del análisis que efectuó la Unidad Especializada en Anticorrupción, Infracción a la Probidad y Lavado de Activos que lidera el abogado Eugenio Campos.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "ba5a8073a14c2e25",
+      "url": "https://www.latercera.com/mundo/noticia/cristina-fernandez-denuncia-su-caso-ante-el-comite-de-derechos-humanos-de-la-onu/",
+      "outlet": "LaTercera",
+      "date": "2026-07-29",
+      "title": "Cristina Fernández denuncia su caso ante el Comité de Derechos Humanos de la ONU",
+      "description": "A través de una carta abierta sostuvo que acude al panel de Naciones Unidas por “el profundo sentido cívico y el respeto institucional” y por “la indignación” que le generan las “ilegalidades” de las que ha dicho ser “víctima”,",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "fca1e38aeddb3de5",
+      "url": "https://www.latercera.com/mundo/noticia/negligencia-parental-el-caso-de-un-padre-hallado-culpable-por-un-tiroteo-cometido-por-su-hijo-que-dejo-cuatro-muertos/",
+      "outlet": "LaTercera",
+      "date": "2026-07-29",
+      "title": "El caso de un padre hallado culpable por un tiroteo cometido por su hijo que dejó cuatro muertos en EE.UU.",
+      "description": "Un juez estadounidense condenó el martes a cadena perpetua sin posibilidad de libertad condicional a Colt Gray que mató a dos estudiantes y dos profesores en un ataque en la escuela secundaria Apalachee en Georgia, en 2024. Su padre fue encontrado culpable de asesinato y homicidio involuntario.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "94e2ca46f6983e00",
+      "url": "https://www.lacuarta.com/tendencias/noticia/ea-sports-fc-27-reduce-la-ayuda-de-la-ia-y-apuesta-por-una-jugabilidad-mucho-mas-manual/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-29",
+      "title": "EA Sports FC 27 reduce la ayuda de la IA y apuesta por una jugabilidad mucho más manual",
+      "description": "La franquicia volverá con una entrega que busca premiar la habilidad de los jugadores con una defensa menos automatizada, ataques más inteligentes y un mayor control sobre los pases, centros y jugadas a balón detenido.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "4867c5634328bb6f",
+      "url": "https://www.lacuarta.com/espectaculos/noticia/ha-muerto-glen-hansard-protagonista-de-once-y-ganador-del-oscar-por-la-cancion-falling-slowly/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-29",
+      "title": "Ha muerto Glen Hansard, protagonista de Once y ganador del Oscar por la canción “Falling Slowly”",
+      "description": "El músico y actor irlandés falleció tras sufrir un accidente en motocicleta en Dublín. Era reconocido por su interpretación en el drama independiente.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "0339a7d71c4c8fc3",
+      "url": "https://www.lacuarta.com/chile/noticia/me-gusta-la-sangre-el-detalle-en-su-nariz-que-hizo-caer-al-violador-serial-del-cajon-del-maipo-un-joven-ingeniero/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-29",
+      "title": "“Me gusta la sangre”: el detalle en su nariz que hizo caer al “violador serial” del Cajón del Maipo, un joven ingeniero",
+      "description": "Sujeto de 28 años enfrenta a la justicia por cuatro delitos sexuales.",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "b7a98f7101e92f3c",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOaUI2ZEdORWtWN2JDNHY4NWpZVXdudnBocXNhTTRPNGhrekxWbDhhcTcxMVI1dlNnTGgxdzkyWVVmaHNHR09MaTlsVXpPOU1tMEUyZ0gyc3NKMlBlU2I3bXdUcmI2OUtaSGpIdVZYQVItYTg3WjVNR0xIV0dMdUZ1TUliS1FTblZ4LXZjTzFFTEc1UDJnTS1XbmxSOWpmc2xz?oc=5",
+      "outlet": "login.cl",
+      "date": "2026-07-29",
+      "title": "Detienen a presunto autor de homicidio ocurrido en Llay Llay - login.cl",
+      "description": "Detienen a presunto autor de homicidio ocurrido en Llay Llay&nbsp;&nbsp;login.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "89748b1986f19dc8",
+      "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxORGljbS11RG1qUU9yOUJEanJhU2c1Tm9ZeG1mb0pITmNQRDc4V01nMGp3bGtTajVOUHhjel9QTjNiMWF2UWV4Q3NFMFZVQ3dxdko5WUppV1BtNFAwS2JtQklBMHg3R19xWFdGT0ZVdEVvM3ZWbDFLQU8zN29fWFhISnROX3JWSG9CdHc4SEljcHFLaWZtMUhaRVN0M2tWb0c4RDA5c2VYd3dwYURRUWROWkxSM1JXZXhwdmVGcjlZLUwtM1lsYUpqUXFlOFZPSlJQb0ZrcnFoYlotUjFXdkhLY0ppdVluREluT0Zz0gGGAkFVX3lxTE5aYnU0aElfUTJQdVpEZ0JIc2JtNnZHRVN4VUhYelZQcmJHSVRnTi1IMUhHU1dnN0ZpZzQ2c1JKMmROanBtQXRKenR6MkxYWVVkMXBja3lmcUNYSkJSMWRLc3U2d1VydVpQOFBvcVB2OS05TjY5NXh2XzZjVUhqSWRfSXJCNnZvY1JReUgwUUlCZUEwdEZ4UmxzZDNQdFdKWlFiVFdCQkRLLUpKM3Fxckl0bTc1TTlJYVU2UWxNQU5ZbFg3amhKRWZCNWgxOVpmeGE1ZlE2NkplNU5CQy1jcmFqMVhQeDJsQ0pfVFRuZ2R1b00tUGpVbHRWbEhqZWFfWWpiNkhzQWc?oc=5",
+      "outlet": "Infobae",
+      "date": "2026-07-29",
+      "title": "Policía dominicana confirma la llegada de “El Mello” extraditado desde España por un doble homicidio - Infobae",
+      "description": "Policía dominicana confirma la llegada de “El Mello” extraditado desde España por un doble homicidio&nbsp;&nbsp;Infobae",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "45959434acd3977c",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOaWlXMURhNjNMemYzV3JqNl8wX2E2NlFfUUYwU245RTByWENOa0E3MFl1RUNybzVKTGVKQ0Y2ZXlYYU5FM0Z2Slc0UnZReFlHbl9DODJibWhGaF91dUZEa1RVOTFqVGVJZGNHV0YzZzFBVEJGQnFrQm53QmVIa1NBeVBkODVBOEtfUV9yVVhsVG9jcFBoMVJDZTVNX1h2aVZsaHRkX1BXMzN6RDhjQV9NMA?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-07-28",
+      "title": "Puertos y Logística II Cap 76: Pesca ilegal y crimen organizado - SoyChile.cl",
+      "description": "Puertos y Logística II Cap 76: Pesca ilegal y crimen organizado&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "620c96e778bda35c",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPZVdSTnFoNkFVRkh4M0pmSERvbl9nSW1mdkpvRGlBR2F4S2hxaVRtWVFzSHgtelViNXRIeE5MLVRibWRfeTJsVHVxU2Y3N0pldzdaUWVqaDlPYTAyWDVlMzZCV01rd2lmdnZxclR1bkZIdE5BTS03MU9MN0MwVUdqYUJIYVpCcFBxTFV6VVVFY2pBZnloUnZJcXZnZVNGemhfanFBZE5uX1c0ZTlZS0FmRk85Z0g2QXJqMXVLNw?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-07-29",
+      "title": "Identifican a presuntos responsables de balacera en Rodelillo que dejó dos mujeres fallecidas - SoyChile.cl",
+      "description": "Identifican a presuntos responsables de balacera en Rodelillo que dejó dos mujeres fallecidas&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "48c3b69be2cae4b7",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNaWxGRXkyT21renc4UjBiYldMTHdBOXZQMDdJV3hCVWlJa1FnX2YzQnFNcUU3OVRCQXdpbnJVWVg0QVJ6dnhwcGV0MFB5a0hNY09QUjdDMjlqVkEyTTFqRllSODdqNUFQOTBfRVRRUzlOdHdlRlNUQ3BxT1RwVGhNT3FfS0tFU3NJUGR1WGxDTVZUZjhaRGd1SE9hYnBLUmk5SmdPbFdVQ1ZfT3hEX29wRFJwc21MbW9fNDdqcHJ3ODN2REZjOVJEZ0ZodVgxQThVMWVobFgxbw?oc=5",
+      "outlet": "piensachile.com",
+      "date": "2026-07-27",
+      "title": "Detenido al excoronel del ejército Nelson Haase Mazzei, condenado por el cobarde asesinato de Victor Jara - piensachile.com",
+      "description": "Detenido al excoronel del ejército Nelson Haase Mazzei, condenado por el cobarde asesinato de Victor Jara&nbsp;&nbsp;piensachile.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "33c6774d285e4934",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPRklLNnU2bzVTcFpIeU9QRkJmLUQwLWhSLWxkYXpLRDNWTGhFUWVNZmRZam9PRUhUVERRZ0xGaEFDSnMyM3dzZWV5Y2lpZEJvcXktNWFnRkRJV3dlbXJJM1d6OG1kZ3F6RU9mZm1yRzdoMl9tc0JZQld6QmhFQWNuSzVsM01ILVNONjNCXzRYTzZ6dUxldy1paWpzRG4zdExLZkZBWkZXQVZweHZORUtaVkpUaG9fQQ?oc=5",
+      "outlet": "Servicios Para una Educación Alternativa A.C. - EDUCA",
+      "date": "2026-07-28",
+      "title": "Chile: detienen al exmilitar Nelson Haase último condenado por el crimen de Víctor Jara - Servicios Para una Educación Alternativa A.C. - EDUCA",
+      "description": "Chile: detienen al exmilitar Nelson Haase último condenado por el crimen de Víctor Jara&nbsp;&nbsp;Servicios Para una Educación Alternativa A.C. - EDUCA",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
+    },
+    {
+      "id": "eae16107ca391aa5",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOdEE3ejlBQmdJUloxU1hjQUNOamV6ei1JZ1I4SnowT0JrX0N4MTdDc21wdTBaVjlQbTNvNU9tZF9IRWpIbjdvc2h5dnpCME9PU3lTVlhhWlFBR2NKNmVFYUxOZDJfbmNqYWhVSlVmdzBjZEJaZGkyRmowY2lGQktySXh3UkxJS3lJN1Q2ZGNrOG9PYkRuVFhMWmwxS0k2OTUyd21UT2QzMTRkQThsdFpaZGFnNFJtc0prQTZROFI1b3RkaV80RXp1d0NR?oc=5",
+      "outlet": "Timeline.cl",
+      "date": "2026-07-29",
+      "title": "Homicidios bajan un 31,8% en la Región de Antofagasta: más del 90% de los casos de 2026 han sido esclarecidos - Timeline.cl",
+      "description": "Homicidios bajan un 31,8% en la Región de Antofagasta: más del 90% de los casos de 2026 han sido esclarecidos&nbsp;&nbsp;Timeline.cl",
+      "rejection_stage": "commune_null",
+      "first_seen": "2026-07-29T19:10:37.808220+00:00"
     }
   ]
 }
