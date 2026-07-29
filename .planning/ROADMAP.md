@@ -107,7 +107,7 @@ Full phase details for 18/21/22/23/24/25 remain below in this file's Phase Detai
 
 **Carried-over deferred item (not mapped to any v2.1 phase):** v2.0 GL-04 / Phase 22-03 — Google Search Console sitemap submission. Human/manual, still outstanding, tracked but out of v2.1 scope.
 
-- [ ] **Phase 26: Event Clustering Spike** — GO/NO-GO on grouping multi-outlet coverage of the same real-world incident
+- [x] **Phase 26: Event Clustering Spike** — GO/NO-GO on grouping multi-outlet coverage of the same real-world incident (completed 2026-07-29)
 - [ ] **Phase 27: News Facet Data Model** — time/region/family facet indexes computed at build time, no dependency on Phase 26
 - [ ] **Phase 28: News Visualizer UI** — filter/grouping UI on `/news/` + `/es/noticias/`, SSG-safe, clustered-event cards on GO
 - [ ] **Phase 29: Map UX Design Loop** — iterative BrowserOS + Fable redesign of the map control shell, human acceptance gate
@@ -298,7 +298,7 @@ Plans:
 
 **Wave 4**
 
-- [ ] 26-04-PLAN.md — GO/NO-GO close-out: apply the measured verdict to IncidentRecord.cluster_id/is_primary (GO) or document NO-GO with zero schema change, finalize spike report, full pytest + 14/14 frontend validators green (CLUS-09)
+- [x] 26-04-PLAN.md — GO/NO-GO close-out: apply the measured verdict to IncidentRecord.cluster_id/is_primary (GO) or document NO-GO with zero schema change, finalize spike report, full pytest + 14/14 frontend validators green (CLUS-09)
 
 ### Phase 27: News Facet Data Model
 
@@ -426,7 +426,7 @@ Plans:
 | 22. Go-Live / Launch Ops | 2/3 | In Progress (22-03 deferred human task) |  |
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |
 | 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete    | 2026-07-03 |
-| 26. Event Clustering Spike | 3/4 | In Progress|  |
+| 26. Event Clustering Spike | 4/4 | Complete   | 2026-07-29 |
 | 27. News Facet Data Model | 0/? | Not started | - |
 | 28. News Visualizer UI | 0/? | Not started | - |
 | 29. Map UX Design Loop | 0/? | Not started | - |

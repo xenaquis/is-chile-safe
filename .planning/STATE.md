@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: executing
-last_updated: "2026-07-29T23:49:28.173Z"
+status: verifying
+last_updated: "2026-07-29T23:56:16.007Z"
 last_activity: 2026-07-29
 progress:
   total_phases: 14
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 35
-  completed_plans: 33
-  percent: 36
+  completed_plans: 34
+  percent: 43
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 Phase: 26 (event-clustering-spike) — EXECUTING
 Plan: 4 of 4
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-07-29
 
 ## Progress Bar
@@ -237,6 +237,7 @@ Decisions taken inline by the Fable orchestrator during the unattended run. Each
 - [Phase ?]: Phase 26-02: adjudicate_pair recovers leading JSON via raw_decode when the model appends trailing prose after valid JSON (deterministic bug found during live fill).
 - [Phase 26-03, 2026-07-29]: Measured pair-level clustering precision — TP=22, FP=11 over 86 non-excluded golden-set pairs (precision=66.67%, recall=73.33%) — confirms NO-GO against the locked 100%-precision/zero-false-merge gate. `test_golden_set_meets_go_gate` fails by design (honest signal, not weakened); Wave 4 (26-04) quarantines it with `@pytest.mark.xfail(strict=True)`. False-merge failure modes: 10/11 aggregate-vs-component (same operativo, sub-reports merged), 1/11 conflicting-sentence (Tongoy). Full suite: 317 passed, 1 failed-by-design, 1 skipped (opt-in live_llm).
 - [Phase 26-04, 2026-07-29]: **CLUS-09 closed NO-GO.** `IncidentRecord.cluster_id`/`is_primary` NOT added; `pipeline/news/schema.py` and `data/` byte-unchanged. `test_golden_set_meets_go_gate` quarantined with `@pytest.mark.xfail(strict=True)` (assertion body untouched). `26-SPIKE-REPORT.md` finalized with confirmed NO-GO verdict, schema-change status, backward-compat sweep, LLM call budget (105 calls total), and Phase 27/28 guidance. **Phase 28 note**: even a future GO would need a producer step — `store.py:merge_and_write` writes raw dicts, so a schema addition alone would never populate `cluster_id`; a clustering-run step after `dedup.deduplicate` inside `scrape_news.py` is the actual Phase 28 (or later) prerequisite, not something Phase 26 was ever going to deliver standalone. Phase 28's NEWSUI-05 degrades to faceting-only per the roadmap's own conditional.
+- [Phase ?]: Phase 26 closed NO-GO: CLUS-09 satisfied via documented NO-GO branch; gate test quarantined via xfail(strict=True); Phase 28 producer-step prerequisite recorded
 
 ## Operator Next Steps
 
