@@ -2,20 +2,20 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: planning
-last_updated: "2026-07-29T21:35:18.083Z"
-last_activity: 2026-07-29
+status: executing
+last_updated: "2026-07-29T23:06:45.357Z"
+last_activity: 2026-07-29 -- Phase 26 planning complete
 progress:
   total_phases: 8
   completed_phases: 0
-  total_plans: 0
+  total_plans: 4
   completed_plans: 0
   percent: 0
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-07-29 — v2.1 roadmap created: 8 phases (26–33), 54/54 requirements mapped, 100% coverage. Phase 26 (Event Clustering Spike) and Phase 27 (News Facet Data Model) are next up in parallel — Phase 27 has zero dependency on Phase 26's outcome. Next action: `/gsd:plan-phase 26`._
+_Last updated: 2026-07-29 — **v2.1 AUTONOMOUS RUN in progress** (see `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md`). Phase 26 (Event Clustering Spike) is PLANNED: 4 plans, 4 waves, Fable review APPROVED after two revision cycles (Opus plan-check 5 blockers + Opus premortem 4 HIGH/28 amendments + Opus re-check 2 regression blockers, all closed). 10 binding orchestrator decisions recorded as F-01..F-10. Next action: `/gsd:execute-phase 26`._
 
 ## Project Reference
 
@@ -23,14 +23,14 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: v2.1 News Intelligence, Map UX & Ops Hardening. Roadmap just created; no phase started yet. Phase 26 (Event Clustering Spike, high-risk) and Phase 27 (News Facet Data Model, independent of 26) can both be planned/started now.
+**Current focus**: v2.1 News Intelligence, Map UX & Ops Hardening — unattended autonomous run per `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md` (Sonnet codes, Opus validates, Fable decides; NO `git push`, `data/` read-only). Phase 26 planned and approved; executing next.
 
 ## Current Position
 
-Phase: 26 (Event Clustering Spike) — next to plan
-Plan: —
-Status: Roadmap created, ready to plan
-Last activity: 2026-07-29 — v2.1 ROADMAP.md written (Phases 26–33), REQUIREMENTS.md traceability filled (54/54 mapped)
+Phase: 26 (Event Clustering Spike) — PLANNED, ready to execute
+Plan: 4 plans (26-01 core module -> 26-02 golden set -> 26-03 metrics/GO evidence -> 26-04 verdict + schema), 4 sequential waves
+Status: Ready to execute (Fable review APPROVED 2026-07-29)
+Last activity: 2026-07-29 -- Phase 26 planning complete
 
 ## Progress Bar
 
@@ -41,7 +41,7 @@ Phase 24 [████████████████████] 100% com
 Phase 22 [█████████████░░░░░░░]  67% in progress (2/3, 22-03 deferred human task)
 Phase 21 [████████████████████] 100% complete (4/4)
 Phase 25 [████████████████████] 100% complete (9/9)
-Phase 26 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Event Clustering Spike — high risk)
+Phase 26 [░░░░░░░░░░░░░░░░░░░░]   0% PLANNED (4 plans, Fable APPROVED — Event Clustering Spike, high risk)
 Phase 27 [░░░░░░░░░░░░░░░░░░░░]   0% not started (News Facet Data Model — no dep on 26)
 Phase 28 [░░░░░░░░░░░░░░░░░░░░]   0% not started (News Visualizer UI)
 Phase 29 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map UX Design Loop — gates 30)
@@ -70,7 +70,7 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 | v2.1 Phases defined | 8 (26–33) |
 | v2.1 Phases complete | 0/8 |
 | v2.1 Requirements mapped | 54/54 |
-| v2.1 Plans created | 0 |
+| v2.1 Plans created | 4 (Phase 26) |
 | v2.1 Plans complete | 0 |
 | v2.0 Phases complete | 6/6 (18, 21, 22*, 23, 24, 25 — *22-03 deferred human task) |
 | v1.3 Phases complete | 2/2 (shipped 2026-06-19) |
@@ -78,7 +78,7 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 | v1.1 Phases complete | 3/3 (shipped 2026-06-15) |
 | v1.0 Phases complete | 6/6 (shipped 2026-06-13) |
 | Build pages (v1.3 close) | 791 pages |
-| Validators passing | 14/14 frontend + 179/179 pytest (as of Phase 21 close; re-verify at v2.1 kickoff) |
+| Validators passing | 14/14 frontend + **301** pytest (301 collected 2026-07-29 — the old 179 figure was stale) |
 | Phase 23 P01 | 20m | 3 tasks | 5 files |
 | Phase 23 P04 | 8m | 3 tasks | 4 files |
 | Phase 24 P01 | 12m | 2 tasks | 3 files |
