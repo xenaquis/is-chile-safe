@@ -10,22 +10,33 @@ El sitio captura tráfico SEO mediante páginas programáticas bilingües (por c
 
 Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-## Current Milestone: v2.0 Composite Index, Comparators & Launch
+## Current Milestone: v2.1 News Intelligence, Map UX & Ops Hardening
 
-**Goal:** Redesign the core safety metric into an exposure-adjusted composite index, build comparator/A-vs-B SEO pages on top of it, and execute the production go-live.
+**Goal:** Make the news layer explorable (facet by time / geography / crime family, and group reports of the same real-world event), make the map genuinely usable (news toggle and filters discoverable on desktop and 375px mobile), and close the outstanding documentation, cron-consistency and security-posture debt.
 
 **Target features:**
-- **Composite Crime Index** (Phase 18, reserved #) — exposure-adjusted composite index, SPD homicide-metric switch, `featured_rates`→7-metric schema migration, index-driven choropleth. High-risk/large; inputs hardened by v1.3 / Phase-17 Wave-0.
-- **Commune comparator + A-vs-B SEO** — side-by-side 2–3 comuna comparator + programmatic "A o B?" long-tail pages, built on the composite index (depends on the index phase). Per SEED-001.
-- **Go-live / launch ops** — set `CF_DEPLOY_HOOK_URL`, manual redeploy, live news run + incident audit, GSC submission, flip AdSense + Consent Mode. Mostly human/ops.
+- **Event clustering spike** (Phase 26) — can the LLMs we already pay for (Granite 4.1 8B via OpenRouter default, DeepSeek fallback) reliably group multiple articles covering the *same* incident? GO/NO-GO on cost, precision, and false-merge rate. Downstream integration only on GO.
+- **News faceting data model** (Phase 27) — derive time / geography (comuna→region) / crime-family facets from the existing `incidents/current.json` + archive; no new upstream data. Facet counts computed at build time so pages stay static and indexable.
+- **News visualizer UI** (Phase 28) — grouping + filtering UI on `/news/` and `/es/noticias/`, bilingual, SSG-safe (facets pre-rendered; JS only enhances). Clustered-event cards if Phase 26 is GO.
+- **Map UX audit — iterative BrowserOS design loop** (Phase 29) — drive the real rendered site in BrowserOS, screenshot desktop + 375px, iterate the control-shell design with Fable, re-screenshot, and **repeat until the design is excellent**. Not a one-pass audit: the loop is the deliverable, with a human acceptance gate at the end.
+- **Map control-shell rework** (Phase 30) — implement the accepted design. Leaflet logic in `MapIsland` is preserved; the filter panel and the news toggle are redesigned for discoverability, mobile 375px, keyboard and a11y.
+- **Docs & methodology refresh** (Phase 31) — methodology, source registry, CEAD/press attribution, editorial + legal disclaimers brought current with everything shipped since v1.3.
+- **Cron consistency** (Phase 32) — audit and reconcile the whole schedule surface: news daily, R2 research archive, CEAD quarterly reminder (runs local — Actions IPs are 403'd), and the freshness guard. One coherent story, no silent gaps.
+- **Security posture** (Phase 33) — secrets hygiene, GitHub Actions permissions, rate limits, and scraping courtesy toward CEAD and press RSS, reviewed in detail.
 
-**Key context:** Composite-index inputs hardened in v1.3/Phase-17 Wave-0 (SPD VHC homicide truth, SII exposure proxy, CEAD `tipoVal` additive rule). Locked constraints (SEED-001): hybrid rollout (no 404 to non-rollout comunas), never absolute "seguro/peligroso", no thin content, static/SEO-indexable. Phase numbering: **18 reserved** for the composite index (intentional gap); comparator + go-live continue from 21+. Hard dependency: comparator lands after the index.
+**Key context:**
+- **Per-phase protocol is mandatory** for every phase in this milestone: research → plan → premortem → plan review by a **Fable** agent → implementation by **Sonnet** → code review by **Opus** → GSD validation. Phases are deliberately granular so each cycle stays inside one context.
+- **Phase 26 gates 27/28.** If clustering is NO-GO, the finding is documented and the visualizer ships with faceting only.
+- **Phase 29 gates 30.** No map code is rewritten until a BrowserOS-verified design is accepted.
+- **BrowserOS gotchas** (learned in v1.1/v1.2): run browser phases inline — `gsd-executor` has no BrowserOS tools; `save_screenshot` needs a path with no spaces; there is no viewport-resize, so emulate mobile via a 375px iframe. Serve the build with `npx astro preview --port 4321 --host` (there is no `npm run preview` script), and chain build+validate in one command because the repo lives in OneDrive and `dist/` desyncs between processes.
+- **Non-negotiable constraints carried in:** never absolute "seguro/peligroso"; always attribute CEAD and the press outlet; every page stays pre-rendered and indexable; `sexuales` is a news-only family and CEAD `FAMILY_KEYS` stays at 7.
+- **Regression surface:** 14 validators + ~179 pytest must stay green through every phase.
 
-**Previous (v1.3, shipped + archived 2026-06-19):** Data Quality Hardening & Methodology — tech debt eliminated; every displayed figure explained + sourced + caveated (EN/ES parity). P19 (Tech-Debt Sweep) + P20 (Methodology & Sources). Audit code-complete, 0 blockers. Build 791 pages, 13/13 validators, 179 pytest.
+**Previous (v2.0, phases 18/21/22/23/24/25):** Composite Crime Index, ENUSC victimization layer, commune comparator + A-vs-B SEO, rankings UX, UI/UX 360 remediation, and go-live. Production is LIVE on v2.0 with both deploy secrets set.
 
-**⚠️ Go-live blocker (now in-scope, track 3):** production is STALE — the `CF_DEPLOY_HOOK_URL` GitHub secret is unset, so no automated deploy fires. See `DEPLOYMENT.md` + memory `prod-deploy-hook-secret-gap`.
+**Carried-over deferred item:** Phase 22-03 — Google Search Console sitemap submission. Human/manual, not code; still outstanding.
 
-**⚠️ Go-live blocker (human/ops, not code):** production is STALE — the `CF_DEPLOY_HOOK_URL` GitHub secret is unset, so no automated deploy fires. Set the secret (CF → Deploy Hooks → copy URL) + do a manual CF "Create deployment" from `master`. See `DEPLOYMENT.md` + memory `prod-deploy-hook-secret-gap`. Until then the live site does not reflect v1.1+ work.
+**Known carry-over debt (candidates for this milestone's phases):** home-title cannibalization, 8 `astro-check` errors, `?region=` handling in `MapIsland`, `figure-registry.mjs` substring matching, and the unresolved ENUSC edition year in `SOURCES.md`.
 
 ## Requirements
 
@@ -150,7 +161,7 @@ This document evolves at phase transitions and milestone boundaries.
 
 **Resolved:** Tarapacá region_id collision (BUGFIX-999.1) fixed 2026-06-16 — region derived from CUT length; all 16 regions populate.
 
-**Not yet live:** the site is not deployed — go-live requires a Cloudflare account, DNS for `ischilesafe.com`, and the `DEEPSEEK_API_KEY` / `CF_DEPLOY_HOOK_URL` secrets (all in `DEPLOYMENT.md`). That single human step also unblocks the news live-run + 50-incident audit and AdSense activation.
+**Live:** `ischilesafe.com` is deployed on Cloudflare Pages with both `DEEPSEEK_API_KEY` and `CF_DEPLOY_HOOK_URL` secrets set; auto-build is OFF and deploys fire from the data-change-gated deploy hook (verified at v2.0 go-live, GL-01/GL-02). Node pinned to 22.12.0. Remaining launch task: GSC sitemap submission (Phase 22-03, manual).
 
 ---
-*Last updated: 2026-06-19 — Phase 18 (Composite Crime Index) complete + verified (5/5); v2.0 remaining: Phase 22 go-live*
+*Last updated: 2026-07-29 — Milestone v2.1 (News Intelligence, Map UX & Ops Hardening) started; phases continue from 26*

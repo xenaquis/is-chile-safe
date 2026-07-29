@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.0
-milestone_name: Composite Index, Comparators & Launch
-status: executing
-last_updated: "2026-07-03T03:04:28.034Z"
-last_activity: 2026-07-03
+milestone: v2.1
+milestone_name: News Intelligence, Map UX & Ops Hardening
+status: planning
+last_updated: "2026-07-29T21:35:18.083Z"
+last_activity: 2026-07-29
 progress:
-  total_phases: 6
-  completed_phases: 5
-  total_plans: 31
-  completed_plans: 30
-  percent: 83
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 
 ## Current Position
 
-Phase: 25
-Plan: Not started
-Status: Ready to execute
-Last activity: 2026-07-27 - Completed quick task 260727-j6z (news-only "sexuales" family + 25 incidents repaired local+R2 + browser-language redirect on EN pages)
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-07-29 — Milestone v2.1 started
 
 ## Progress Bar
 
