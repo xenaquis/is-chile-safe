@@ -290,7 +290,7 @@ Plans:
 
 **Wave 2**
 
-- [ ] 26-02-PLAN.md — Golden-set construction: 60-100 hand-labeled pairs from real current.json data (mandatory comuna 2101/4102 hard buckets + sampled supplemental buckets), live-called cached verdicts, call budget logged (CLUS-01)
+- [x] 26-02-PLAN.md — Golden-set construction: 60-100 hand-labeled pairs from real current.json data (mandatory comuna 2101/4102 hard buckets + sampled supplemental buckets), live-called cached verdicts, call budget logged (CLUS-01)
 
 **Wave 3**
 
@@ -426,7 +426,7 @@ Plans:
 | 22. Go-Live / Launch Ops | 2/3 | In Progress (22-03 deferred human task) |  |
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |
 | 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete    | 2026-07-03 |
-| 26. Event Clustering Spike | 1/4 | In Progress|  |
+| 26. Event Clustering Spike | 2/4 | In Progress|  |
 | 27. News Facet Data Model | 0/? | Not started | - |
 | 28. News Visualizer UI | 0/? | Not started | - |
 | 29. Map UX Design Loop | 0/? | Not started | - |

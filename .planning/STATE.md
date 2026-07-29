@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
 status: executing
-last_updated: "2026-07-29T23:17:26.218Z"
+last_updated: "2026-07-29T23:41:05.551Z"
 last_activity: 2026-07-29
 progress:
   total_phases: 14
   completed_phases: 5
   total_plans: 35
-  completed_plans: 31
+  completed_plans: 32
   percent: 36
 ---
 
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 ## Current Position
 
 Phase: 26 (event-clustering-spike) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-07-29
 
@@ -85,6 +85,7 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 | Phase 24 P03 | 8m | 2 tasks | 3 files |
 | Phase 21 P03 | 35m | 3 tasks | 7 files |
 | Phase 26 P01 | 35m | 2 tasks | 3 files |
+| Phase 26 P02 | 35m | 1 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -230,6 +231,7 @@ Decisions taken inline by the Fable orchestrator during the unattended run. Each
 - [Phase 21-03]: Low-population fallback for comparator pair links — when commune has no non-low-pop same-region neighbors (Arica, region 15), fall back to all same-region communes to guarantee all 346 pages have /compare/ href
 - [Phase 21-04]: avs-b-budget.mjs registered as validator #14 in all.mjs; full suite 14/14 green; GSC URL Inspection deferred to human operator before batch expansion beyond 20 enabled pairs
 - [Phase ?]: 26-01: rapidfuzz pre-filter threshold 45.0 kept frozen per F-02
+- [Phase ?]: Phase 26-02: adjudicate_pair recovers leading JSON via raw_decode when the model appends trailing prose after valid JSON (deterministic bug found during live fill).
 
 ## Operator Next Steps
 

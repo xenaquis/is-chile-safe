@@ -37,7 +37,7 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 
 ### Event Clustering Spike (→ Phase 26)
 
-- [ ] **CLUS-01**: A hand-labeled golden set of 60–100 article pairs / small clusters is built from `data/incidents/archive/`, including adversarial near-misses (same comuna + same date but genuinely different crimes; same crime reported with a misspelled or homophonous comuna; and true same-event coverage from 2–3 outlets).
+- [x] **CLUS-01**: A hand-labeled golden set of 60–100 article pairs / small clusters is built from `data/incidents/archive/`, including adversarial near-misses (same comuna + same date but genuinely different crimes; same crime reported with a misspelled or homophonous comuna; and true same-event coverage from 2–3 outlets).
 - [x] **CLUS-02**: A `rapidfuzz`-based lexical pre-filter narrows LLM candidate pairs to the existing `(cut, date)` buckets (optionally ±1 day), so LLM comparison cost is bounded and never O(n²) over the whole store.
 - [x] **CLUS-03**: The LLM adjudicator returns a structured, fact-based verdict (corroborating location / entity / time-window facts plus rationale) at temperature 0.0 — never a bare similarity score — and an unparseable verdict is rejected as no-merge rather than defaulting permissively.
 - [x] **CLUS-04**: RSS-derived article text is treated strictly as untrusted data and never as instructions, with the prompt structured so injected content cannot alter the adjudication task.
@@ -137,7 +137,7 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CLUS-01 | Phase 26 | Pending |
+| CLUS-01 | Phase 26 | Complete |
 | CLUS-02 | Phase 26 | Complete |
 | CLUS-03 | Phase 26 | Complete |
 | CLUS-04 | Phase 26 | Complete |
