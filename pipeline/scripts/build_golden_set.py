@@ -27,10 +27,14 @@ requirement).
 from __future__ import annotations
 
 import argparse
+import datetime as dt
+import hashlib
 import json
 import logging
+import os
 import pathlib
 import sys
+import time
 from itertools import combinations
 
 # ---------------------------------------------------------------------------
@@ -43,8 +47,24 @@ REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+# Load .env BEFORE importing pipeline.news.clustering: that module constructs
+# its OpenAI `client` at import time from os.environ.get("OPENROUTER_API_KEY",
+# "placeholder") (clustering.py:56-59) — if dotenv loads any later than this,
+# the client is permanently bound to the placeholder key for the whole
+# process, and every live call fails auth regardless of a later preflight
+# check. Mirrors pipeline/scrape_news.py:162-167's try/except pattern.
+try:
+    from dotenv import load_dotenv as _load_dotenv_early
+
+    _load_dotenv_early(dotenv_path=REPO_ROOT / ".env")
+except ImportError:
+    pass  # python-dotenv not installed -- env vars must be set by caller
+
 from pipeline.news.clustering import (  # noqa: E402
+    MODEL,
+    SYSTEM_PROMPT,
     _PREFILTER_THRESHOLD,
+    adjudicate_pair,
     bucket_incidents,
     prefilter_candidates,
 )
@@ -59,6 +79,45 @@ DEFAULT_DRAFT_PATH = (
     / "26-event-clustering-spike"
     / "26-golden-set-draft.json"
 )
+DEFAULT_CALL_LOG_PATH = (
+    REPO_ROOT
+    / ".planning"
+    / "phases"
+    / "26-event-clustering-spike"
+    / "26-CALL-LOG.md"
+)
+DEFAULT_FINAL_FIXTURE_PATH = (
+    REPO_ROOT / "pipeline" / "tests" / "fixtures" / "clustering_golden_set.json"
+)
+
+# Base URL / hyperparameters mirrored from clustering.py's client construction
+# and _call_verdict_api — recorded verbatim into the fixture's meta block.
+_BASE_URL = "https://openrouter.ai/api/v1"
+_MAX_TOKENS = 220
+_TEMPERATURE = 0.0
+_MERGEABLE_RULE = "same_event and confidence=='high'"
+_CALL_BUDGET_CAP = 2000
+
+# Trivial, unambiguous probe pair for the mandatory single preflight call —
+# deliberately NOT part of the real golden-set pairs.
+_PROBE_INCIDENT_A = {
+    "id": "preflight-probe-a",
+    "cut": "0000",
+    "date": "2026-01-01",
+    "title_es": "Robo con violencia registrado en Santiago",
+}
+_PROBE_INCIDENT_B = {
+    "id": "preflight-probe-b",
+    "cut": "0000",
+    "date": "2026-01-01",
+    "title_es": "Incendio forestal afecta a Valparaiso",
+}
+
+
+class BudgetExceededError(RuntimeError):
+    """Raised when the projected call count would exceed the phase's
+    2,000-call OpenRouter budget. Callers must not proceed to the live fill
+    loop when this is raised."""
 
 MANDATORY_BUCKETS: list[tuple[str, str]] = [
     ("2101", "2026-07-01"),
@@ -120,6 +179,106 @@ _TYPO_TITLES: dict[str, tuple[str, str]] = {
     "Talca": ("Asalto a local comercial en el centro de Talca", "7101"),
     "Taltal": ("Naufragio de embarcación menor reportado en Taltal", "2104"),
 }
+
+
+_LEDGER_HEADER = """# Phase 26 — Cumulative OpenRouter Call Ledger
+
+Append-only. Never edit or delete existing rows — only append new ones.
+Budget cap: 2,000 OpenRouter calls for the whole phase
+(`.planning/v2.1-AUTONOMOUS-DIRECTIVE.md`).
+
+| timestamp | script | calls_this_run | cumulative_total | notes |
+|---|---|---|---|---|
+| 2026-07-29T00:00:00Z | 26-00-SPIKE-PING.md | 3 | 3 | spike ping baseline (3/3 PASS) |
+"""
+
+
+def _read_last_cumulative_total(path: pathlib.Path) -> int:
+    """Read the ledger's latest cumulative_total. Seeds the ledger (with the
+    3-call spike-ping baseline row) if it does not exist yet. Pure read/seed
+    — never makes a network call, safe to unit test offline."""
+    if not path.exists():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(_LEDGER_HEADER, encoding="utf-8")
+        return 3
+    text = path.read_text(encoding="utf-8")
+    rows = [
+        line
+        for line in text.splitlines()
+        if line.strip().startswith("|") and not line.strip().startswith("|---")
+    ]
+    if len(rows) < 2:
+        return 3
+    data_rows = rows[1:]  # rows[0] is the header row
+    last = data_rows[-1]
+    cols = [c.strip() for c in last.strip().strip("|").split("|")]
+    return int(cols[3])
+
+
+def _append_ledger_row(
+    path: pathlib.Path, *, calls_this_run: int, cumulative_total: int, notes: str
+) -> None:
+    """Append one row. Never rewrites/removes existing rows (append-only)."""
+    if not path.exists():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(_LEDGER_HEADER, encoding="utf-8")
+    timestamp = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    row = (
+        f"| {timestamp} | build_golden_set.py --fill-verdicts | "
+        f"{calls_this_run} | {cumulative_total} | {notes} |\n"
+    )
+    with path.open("a", encoding="utf-8") as f:
+        f.write(row)
+
+
+def _budget_guard(
+    call_log_path: pathlib.Path, projected: int, cap: int = _CALL_BUDGET_CAP
+) -> int:
+    """Refuse to start if last_cumulative_total + projected > cap.
+
+    Returns last_cumulative_total on success. On refusal: appends a
+    "NO-GO-by-cost" row to the ledger and raises BudgetExceededError.
+    NEVER calls adjudicate_pair or touches the network — safe to unit test
+    fully offline (per 26-02-PLAN.md's test_call_budget_refuses_to_start).
+    """
+    last_cumulative = _read_last_cumulative_total(call_log_path)
+    if last_cumulative + projected > cap:
+        _append_ledger_row(
+            call_log_path,
+            calls_this_run=0,
+            cumulative_total=last_cumulative,
+            notes=(
+                f"NO-GO-by-cost: refused to start -- last_cumulative="
+                f"{last_cumulative} + projected={projected} > cap={cap}"
+            ),
+        )
+        raise BudgetExceededError(
+            f"Refusing to start fill-verdicts: {last_cumulative} + "
+            f"{projected} > {cap}"
+        )
+    return last_cumulative
+
+
+def _load_dotenv_if_available() -> None:
+    """Mirrors pipeline/scrape_news.py:162-167's try/except dotenv pattern."""
+    try:
+        from dotenv import load_dotenv
+
+        load_dotenv(dotenv_path=REPO_ROOT / ".env")
+    except ImportError:
+        pass  # python-dotenv not installed -- env vars must be set by caller
+
+
+def _check_api_key() -> None:
+    """Assert OPENROUTER_API_KEY is set and non-placeholder. Checks emptiness
+    explicitly (project gotcha: unset GitHub secrets surface as EMPTY
+    STRINGS, not missing keys) -- never just presence."""
+    key = os.environ.get("OPENROUTER_API_KEY", "")
+    if not key or key == "placeholder":
+        raise SystemExit(
+            "FATAL: OPENROUTER_API_KEY is empty or the literal 'placeholder' "
+            "-- aborting before any live call."
+        )
 
 
 def _load_incidents_list(path: pathlib.Path) -> list[dict]:
@@ -340,6 +499,230 @@ def _print_summary(draft: dict) -> None:
         print(f"Range check OK: {len(pairs)} pairs within 60-100")
 
 
+def _has_model_verdict(pair: dict) -> bool:
+    cv = pair.get("cached_verdict")
+    return isinstance(cv, dict) and cv.get("source") == "model"
+
+
+def fill_verdicts(
+    draft_path: pathlib.Path = DEFAULT_DRAFT_PATH,
+    call_log_path: pathlib.Path = DEFAULT_CALL_LOG_PATH,
+    final_fixture_path: pathlib.Path = DEFAULT_FINAL_FIXTURE_PATH,
+) -> int:
+    """Live verdict-fill mode (Task 3). Resumable, idempotent, budget-ledgered.
+
+    Returns 0 on success (final fixture written, failed_pairs empty), 1 on
+    any non-fatal stop (budget refusal, failed_pairs non-empty). Raises
+    SystemExit only for the preflight abort conditions.
+    """
+    calls_this_run = 0
+    exit_note = "unknown exit path"
+    budget_already_logged = False
+    total_possible_note = "n/a"
+
+    try:
+        draft = json.loads(draft_path.read_text(encoding="utf-8"))
+        pairs = draft["pairs"]
+        meta = draft.setdefault("meta", {})
+        total_possible_note = meta.get("total_pairs", len(pairs))
+
+        pending = [p for p in pairs if p.get("proposed") and not _has_model_verdict(p)]
+        # +1 accounts for the mandatory single preflight probe call.
+        projected = len(pending) + 1
+
+        try:
+            _budget_guard(call_log_path, projected)
+        except BudgetExceededError:
+            budget_already_logged = True
+            exit_note = "NO-GO-by-cost (budget guard refused to start)"
+            print(f"NO-GO-by-cost: {exit_note}")
+            return 1
+
+        # --- Preflight: load .env, assert key, exactly ONE probe call ---
+        _load_dotenv_if_available()
+        _check_api_key()
+        probe_verdict = adjudicate_pair(_PROBE_INCIDENT_A, _PROBE_INCIDENT_B)
+        calls_this_run += 1
+        if probe_verdict.source != "model":
+            exit_note = (
+                f"aborted: preflight probe returned source={probe_verdict.source} "
+                "(not 'model') -- entire task aborted before the fill loop"
+            )
+            raise SystemExit(
+                "FATAL: preflight probe call did not reach the model "
+                f"(source={probe_verdict.source}) -- aborting fill-verdicts "
+                "before entering the fill loop."
+            )
+
+        # --- Idempotent, resumable fill loop ---
+        incidents_by_id = {
+            inc.get("id"): inc for inc in _load_incidents_list(INCIDENTS_PATH)
+        }
+        failed_pairs: list[str] = list(meta.get("failed_pairs", []))
+        consecutive_failures = 0
+        processed_since_write = 0
+
+        def _persist() -> None:
+            meta["failed_pairs"] = failed_pairs
+            draft_path.write_text(
+                json.dumps(draft, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+
+        aborted_early = False
+        for p in pending:
+            a = p.get("incident_a") or incidents_by_id.get(p["incident_a_id"])
+            b = p.get("incident_b") or incidents_by_id.get(p["incident_b_id"])
+            if a is None or b is None:
+                logger.warning(
+                    "Could not resolve incidents for pair %s -- marking failed",
+                    p["pair_id"],
+                )
+                if p["pair_id"] not in failed_pairs:
+                    failed_pairs.append(p["pair_id"])
+                consecutive_failures += 1
+                if consecutive_failures >= 3:
+                    aborted_early = True
+                    break
+                continue
+
+            verdict = adjudicate_pair(a, b)
+            calls_this_run += 1
+
+            if verdict.source == "model":
+                p["cached_verdict"] = verdict.model_dump()
+                if p["pair_id"] in failed_pairs:
+                    failed_pairs.remove(p["pair_id"])
+                consecutive_failures = 0
+            else:
+                # Single hand-rolled retry on a rate-limit-shaped failure,
+                # mirroring classifier.py's retry pattern (no tenacity dep).
+                time.sleep(2)
+                retry_verdict = adjudicate_pair(a, b)
+                calls_this_run += 1
+                if retry_verdict.source == "model":
+                    p["cached_verdict"] = retry_verdict.model_dump()
+                    if p["pair_id"] in failed_pairs:
+                        failed_pairs.remove(p["pair_id"])
+                    consecutive_failures = 0
+                else:
+                    p["cached_verdict"] = None
+                    if p["pair_id"] not in failed_pairs:
+                        failed_pairs.append(p["pair_id"])
+                    consecutive_failures += 1
+
+            processed_since_write += 1
+            if processed_since_write >= 10:
+                _persist()
+                processed_since_write = 0
+
+            if consecutive_failures >= 3:
+                logger.error(
+                    "Aborting fill loop after 3 consecutive non-model outcomes"
+                )
+                aborted_early = True
+                break
+
+        _persist()
+
+        if aborted_early:
+            exit_note = (
+                f"aborted after 3 consecutive non-model outcomes; "
+                f"{len(failed_pairs)} failed_pairs remain"
+            )
+            return 1
+
+        if failed_pairs:
+            exit_note = (
+                f"loop completed but failed_pairs non-empty ({len(failed_pairs)}); "
+                "fixture NOT finalized"
+            )
+            print(
+                f"WARNING: {len(failed_pairs)} pairs never got a model verdict: "
+                f"{failed_pairs} -- fixture not written."
+            )
+            return 1
+
+        # --- Finalize the committed fixture ---
+        system_prompt_sha256 = hashlib.sha256(SYSTEM_PROMPT.encode("utf-8")).hexdigest()
+        generated = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        final_meta = {
+            "model": MODEL,
+            "base_url": _BASE_URL,
+            "system_prompt_sha256": system_prompt_sha256,
+            "max_tokens": _MAX_TOKENS,
+            "temperature": _TEMPERATURE,
+            "mergeable_rule": _MERGEABLE_RULE,
+            "generated": generated,
+            "calls": calls_this_run,
+            "selected_buckets": meta.get("selected_buckets", []),
+            "total_pairs": len(pairs),
+        }
+        if "blind_second_pass" in meta:
+            final_meta["blind_second_pass"] = meta["blind_second_pass"]
+
+        final_pairs: list[dict] = []
+        for p in pairs:
+            entry: dict = {
+                "pair_id": p["pair_id"],
+                "incident_a_id": p["incident_a_id"],
+                "incident_b_id": p["incident_b_id"],
+                "title_a": p.get("title_a"),
+                "title_b": p.get("title_b"),
+                "outlet_a": p.get("outlet_a"),
+                "outlet_b": p.get("outlet_b"),
+                "url_a": p.get("url_a"),
+                "url_b": p.get("url_b"),
+                "label": p.get("label"),
+                "category": p.get("category"),
+                "label_basis": p.get("label_basis"),
+                "prefilter_score": p.get("prefilter_score"),
+                "proposed": p.get("proposed"),
+                "bypasses_bucket": p.get("bypasses_bucket", False),
+                "cached_verdict": p.get("cached_verdict") if p.get("proposed") else None,
+            }
+            if p.get("label_confidence"):
+                entry["label_confidence"] = p["label_confidence"]
+            if p.get("second_pass_confirmed") is not None:
+                entry["second_pass_confirmed"] = p["second_pass_confirmed"]
+            if p.get("second_pass_note"):
+                entry["second_pass_note"] = p["second_pass_note"]
+            if p.get("excluded"):
+                entry["excluded"] = p["excluded"]
+            if p.get("note"):
+                entry["note"] = p["note"]
+            final_pairs.append(entry)
+
+        final_fixture_path.parent.mkdir(parents=True, exist_ok=True)
+        final_fixture_path.write_text(
+            json.dumps({"meta": final_meta, "pairs": final_pairs}, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        print(
+            f"Final fixture written to {final_fixture_path} "
+            f"({len(final_pairs)} pairs, {calls_this_run} calls this run)"
+        )
+        exit_note = (
+            f"completed successfully; final fixture written "
+            f"({len(final_pairs)} pairs, {calls_this_run} calls this run)"
+        )
+        return 0
+
+    finally:
+        if not budget_already_logged:
+            last_cumulative = _read_last_cumulative_total(call_log_path)
+            new_cumulative = last_cumulative + calls_this_run
+            _append_ledger_row(
+                call_log_path,
+                calls_this_run=calls_this_run,
+                cumulative_total=new_cumulative,
+                notes=(
+                    f"{exit_note} (total_possible_in_bucket_pairs="
+                    f"{total_possible_note})"
+                ),
+            )
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -361,12 +744,14 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     if args.fill_verdicts:
-        print(
-            "--fill-verdicts is not yet implemented in this invocation of "
-            "build_golden_set.py — this mode is reserved for a later task "
-            "that owns the live-call code path. No network call was made."
-        )
-        return 0
+        try:
+            return fill_verdicts(draft_path=args.out)
+        except SystemExit as exc:
+            print(str(exc))
+            return 1
+        except BudgetExceededError as exc:
+            print(f"NO-GO-by-cost: {exc}")
+            return 1
 
     incidents = _load_incidents_list(INCIDENTS_PATH)
     if not incidents:

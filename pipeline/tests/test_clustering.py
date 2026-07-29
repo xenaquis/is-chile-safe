@@ -9,6 +9,7 @@ unittest.mock.patch on the module-level `pipeline.news.clustering.client`.
 from __future__ import annotations
 
 import json
+from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import httpx
@@ -24,6 +25,11 @@ from pipeline.news.clustering import (
     cluster_id,
     prefilter_candidates,
 )
+
+# Local FIXTURES_DIR per conftest.py convention -- not importable from
+# conftest.py (test_feeds.py:21, test_parser.py:10, test_scrape_cead.py:21
+# all define it locally too).
+FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 
 def _make_mock_response(data: dict) -> MagicMock:
@@ -177,6 +183,35 @@ def test_adjudicate_pair_rejects_malformed():
     assert verdict2.source == "failsafe_parse"
 
 
+def test_adjudicate_pair_recovers_json_with_trailing_prose():
+    """Some model outputs emit a valid JSON verdict followed by extra prose
+    despite the 'SOLO un objeto JSON' instruction (observed deterministically
+    at temperature=0.0 during Task 3's live fill run, pair
+    4102-2026-07-01-585fb5-e499c4). adjudicate_pair must recover the leading
+    JSON object via raw_decode rather than fail-safing on otherwise-valid
+    model output."""
+    incident_a = _incident("a", "Balean a mujer en Tongoy")
+    incident_b = _incident("b", "Matan a perro en ataque a disparos en Tongoy")
+
+    trailing_prose_content = (
+        '{"same_event": false, "confidence": "high", '
+        '"facts": {"lugar_coincide": true, "tipo_delito_coincide": false, '
+        '"actores_coinciden": null}, '
+        '"rationale": "Diferentes tipos de delitos y victimas mencionadas."}\n\n'
+        "**Explicacion detallada**\n\n1. **Lugar**: Ambos titulares mencionan Tongoy..."
+    )
+
+    with patch("pipeline.news.clustering.client") as mock_client:
+        mock_resp = MagicMock()
+        mock_resp.choices[0].message.content = trailing_prose_content
+        mock_client.chat.completions.create.return_value = mock_resp
+        verdict = adjudicate_pair(incident_a, incident_b)
+
+    assert verdict.source == "model"
+    assert verdict.same_event is False
+    assert verdict.confidence == "high"
+
+
 def test_adjudicate_pair_marks_auth_failure_as_failsafe_api():
     incident_a = _incident("a", "Homicidio en Lo Prado")
     incident_b = _incident("b", "Un muerto tras homicidio en Lo Prado")
@@ -221,3 +256,104 @@ def test_prompt_injection_resistance():
     # The untrusted text is confined to the user turn's labeled fields; the
     # system prompt is never mutated with headline content.
     assert incident_a["title_es"] not in messages[0]["content"]
+
+
+# ---------------------------------------------------------------------------
+# Task 3: golden-set fixture shape + call-budget guard
+# ---------------------------------------------------------------------------
+
+# Mandatory-bucket incident IDs from 26-02-PLAN.md <interfaces> -- at least
+# one pair from each mandatory bucket must be represented in the fixture.
+_MANDATORY_2101_IDS = {
+    "bfe084c29a65e701",
+    "0b69f11f785bc0c5",
+    "f8af960bd49a010d",
+    "717c7f1c77418734",
+    "0f1e3e9cdc5dd364",
+    "dc0f9cdcce2ded3b",
+    "041424e5985d8607",
+    "16439f8dc78173a6",
+    "b01de8947aa555f6",
+}
+_MANDATORY_4102_IDS = {
+    "9b1e83ae50fd427e",
+    "282067156cf95860",
+    "60a9e3a03c773ec4",
+    "585fb5b5b019e25e",
+    "e499c44be683263c",
+    "59dca37a17b66fa6",
+    "c3ec78c8f3e3be83",
+    "6eed24180c36dbec",
+}
+
+_GOLDEN_SET_PATH = FIXTURES_DIR / "clustering_golden_set.json"
+
+
+def _load_golden_set() -> dict:
+    if not _GOLDEN_SET_PATH.exists():
+        pytest.skip(f"{_GOLDEN_SET_PATH} not present -- run build_golden_set.py --fill-verdicts")
+    return json.loads(_GOLDEN_SET_PATH.read_text(encoding="utf-8"))
+
+
+def test_golden_set_shape():
+    data = _load_golden_set()
+    pairs = data["pairs"]
+
+    non_excluded = [p for p in pairs if not p.get("excluded")]
+    assert 60 <= len(non_excluded) <= 100, (
+        f"non-excluded pair count {len(non_excluded)} outside 60-100"
+    )
+
+    for p in non_excluded:
+        if p.get("proposed") is True:
+            assert p.get("label") is not None, f"{p['pair_id']}: missing label"
+            cv = p.get("cached_verdict")
+            assert isinstance(cv, dict), f"{p['pair_id']}: cached_verdict not a dict"
+            assert cv.get("source") == "model", (
+                f"{p['pair_id']}: cached_verdict.source != 'model' ({cv.get('source')})"
+            )
+        else:
+            assert p.get("cached_verdict") is None, (
+                f"{p['pair_id']}: proposed=false pair has non-null cached_verdict "
+                "(Fable-locked contract: proposed:false pairs are never adjudicated)"
+            )
+
+    mandatory_2101_seen = any(
+        p["incident_a_id"] in _MANDATORY_2101_IDS or p["incident_b_id"] in _MANDATORY_2101_IDS
+        for p in pairs
+    )
+    mandatory_4102_seen = any(
+        p["incident_a_id"] in _MANDATORY_4102_IDS or p["incident_b_id"] in _MANDATORY_4102_IDS
+        for p in pairs
+    )
+    assert mandatory_2101_seen, "no pair from the mandatory comuna 2101 bucket represented"
+    assert mandatory_4102_seen, "no pair from the mandatory comuna 4102 (Tongoy) bucket represented"
+
+    categories = {p["category"] for p in pairs}
+    for required_category in (
+        "same_date_diff_crime",
+        "multi_outlet_positive",
+        "typo_homophone_negative",
+    ):
+        assert required_category in categories, f"category {required_category!r} not represented"
+
+
+def test_call_budget_refuses_to_start(tmp_path, monkeypatch):
+    """Fully offline: stub last_cumulative_total so last_cumulative + projected
+    > 2000, assert the budget guard refuses to start (raises, never calls
+    adjudicate_pair) and appends a NO-GO-by-cost row. No live network call."""
+    from pipeline.scripts import build_golden_set
+
+    call_log_path = tmp_path / "26-CALL-LOG.md"
+    monkeypatch.setattr(
+        build_golden_set, "_read_last_cumulative_total", lambda path: 1990
+    )
+
+    with patch("pipeline.scripts.build_golden_set.adjudicate_pair") as mock_adjudicate:
+        with pytest.raises(build_golden_set.BudgetExceededError):
+            build_golden_set._budget_guard(call_log_path, projected=50, cap=2000)
+        mock_adjudicate.assert_not_called()
+
+    assert call_log_path.exists()
+    content = call_log_path.read_text(encoding="utf-8")
+    assert "NO-GO-by-cost" in content

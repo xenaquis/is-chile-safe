@@ -234,9 +234,23 @@ def adjudicate_pair(incident_a: dict, incident_b: dict) -> ClusterVerdict:
     raw_stripped = _strip_json_fence(raw)
     try:
         data = json.loads(raw_stripped)
-    except json.JSONDecodeError as exc:
-        logger.warning("JSONDecodeError from verdict call: %s", exc)
-        return _no_merge_verdict("failsafe_parse")
+    except json.JSONDecodeError:
+        # Some model outputs emit a valid JSON object followed by trailing
+        # prose despite the "SOLO un objeto JSON" instruction (observed
+        # deterministically at temperature=0.0 for some pairs). Recover the
+        # leading JSON value with raw_decode instead of fail-safing on
+        # otherwise-valid model output — this is strictly more permissive,
+        # never less, since raw_decode still raises on genuinely malformed
+        # JSON at position 0.
+        try:
+            data, _end = json.JSONDecoder().raw_decode(raw_stripped.strip())
+            logger.warning(
+                "Verdict call returned trailing content after valid JSON — "
+                "recovered leading JSON object via raw_decode."
+            )
+        except json.JSONDecodeError as exc:
+            logger.warning("JSONDecodeError from verdict call: %s", exc)
+            return _no_merge_verdict("failsafe_parse")
 
     try:
         verdict = ClusterVerdict.model_validate(data)
