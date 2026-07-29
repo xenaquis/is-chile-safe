@@ -1,105 +1,141 @@
-# REQUIREMENTS — Milestone v2.0 Composite Index, Comparators & Launch
+# REQUIREMENTS — Milestone v2.1 News Intelligence, Map UX & Ops Hardening
 
-**Defined:** 2026-06-19
-**Source:** v2.0 milestone research (`.planning/research/SUMMARY.md` + STACK/FEATURES/ARCHITECTURE/PITFALLS) and SEED-001 (comparator + A-vs-B, locked constraints).
-**Goal:** Redesign the core safety metric into an exposure-adjusted composite index, build a commune comparator + curated A-vs-B SEO pages on top of it, and execute the production go-live.
+**Defined:** 2026-07-29
+**Source:** v2.1 milestone research (`.planning/research/SUMMARY.md` + STACK/FEATURES/ARCHITECTURE/PITFALLS) plus user scoping decisions taken at milestone kickoff.
+**Goal:** Make the news layer explorable (facet by time / geography / crime family, and group reports of the same real-world event), make the map genuinely usable (news toggle and filters discoverable on desktop and 375px mobile), and close the outstanding documentation, cron-consistency and security-posture debt.
 
-**Tracks & dependency:** Track 1 (Composite Index, Phase 18 — reserved #) → Track 2 (Comparator + A-vs-B, Phase 21) is a **hard dependency** (the comparator headline number and A-vs-B prose need a computed index). Track 3 (Go-Live, Phase 22) has no code dependency and can run in parallel with Phase 21.
-
-**Locked constraints (carry through all tracks):** hybrid rollout (display all comunas, never 404/link to non-rollout pages); never an absolute "seguro/peligroso / safe/dangerous" verdict — a sortable single score implies a verdict through rank + color alone, so editorial framing + the CI validator must guard it; no thin content; static / SEO-indexable; every displayed figure explained + sourced + caveated with EN/ES parity (figure-registry zero-orphan).
+**Previous milestone:** v2.0 requirements archived at `milestones/v2.0-REQUIREMENTS.md`. One item remains open there and is **carried forward as a deferred, human-only task**: GL-04 / Phase 22-03 — Google Search Console sitemap submission. It is not a v2.1 requirement and no v2.1 phase depends on it.
 
 ---
 
-## v2.0 Requirements
+## Locked decisions (taken at kickoff — treat as settled, not open design questions)
 
-### Track 1 — Composite Crime Index (→ Phase 18)
+These came out of research convergence plus explicit user choices. A phase plan that reopens one of them is wrong unless it presents new evidence.
 
-- [x] **CI-01**: The pipeline computes a 0–100 composite crime-exposure index per comuna from the 7 defined metrics and writes it (additive, non-breaking) into per-comuna JSON, in an isolated `build_composite_index.py` step that does not break the CEAD scraper if it fails.
-- [x] **CI-02**: The index normalizes per-metric distributions with winsorization or percentile-rank (never raw min-max), so right-skewed micro-comuna outliers don't collapse the scale; a pytest distribution assertion guards the spread.
-- [x] **CI-03**: SPD VHC is the homicide input to the index (M5), reference year capped at the latest fully-consolidated year (≤2024); CEAD grupo-101 `featured_rates.homicidios` is preserved unchanged for backward compatibility.
-- [x] **CI-04**: The index applies an SII economic-activity exposure denominator with a documented cap (fall back to INE population when `sii_workers / ine_population` exceeds the threshold) to prevent firm-HQ-domicile distortion.
-- [x] **CI-05**: A user sees the index as an integer 0–100 with one of 5 labeled bands in the map popup, the ResultPanel, and comuna pages, plus the comuna's national and regional rank on the index.
-- [x] **CI-06**: Every page that displays the index renders a mandatory bilingual caveat block (composite of *reported* crime burden, the sources, the data vintage, and the SII firm-domicile caveat) — no absolute safety verdict.
-- [x] **CI-07**: The choropleth offers a toggle between index mode and the existing per-family rate mode (5 binned classes each); the popup shows the exact index score.
-- [x] **CI-08**: The EN + ES methodology pages document the composite formula, the chosen normalization method, the SPD homicide switch, and the SII exposure caveat; every new figure is registered (figure-registry zero-orphan passes).
-- [x] **CI-09**: The forbidden-language CI validator is extended to flag "safest / most dangerous / más segura / más peligrosa" (and equivalents) when not qualified by "reported / reportado", and runs in `npm run validate`.
-- [x] **CI-10**: The `featured_rates`→7-metric schema migration is verified non-breaking across every consumer (commune panel, choropleth, Astro templates, figure-registry validator, pytest), with TypeScript types added and `@astrojs/check` + full validator suite green; `comparator_table.json` is emitted for Track 2.
+| Decision | Value | Why |
+|---|---|---|
+| **Clustering GO gate** | **100% pairwise precision — zero false merges** on the golden set. Recall is unconstrained. | Under-grouping is invisible and harmless; over-grouping publishes a false factual claim on a safety site. A single false merge in the golden set is a NO-GO. |
+| **Facet URL strategy** | **Query params only** (`?family=&region=&window=`) on the existing `/news/` and `/es/noticias/`. No new indexable facet URLs. | Avoids thin/duplicate content, canonical/hreflang burden, and pressure on the shared Cloudflare 20K-file budget. All four researchers converged here. |
+| **Facet computation** | **Astro build time**, in a shared `site/src/lib/newsFacets.ts`, reading data via `process.cwd()`. | Keeps everything pre-rendered and indexable. `import.meta.url` already broke the EN news page once. |
+| **New dependencies** | `rapidfuzz` (pipeline only) + `zizmor` (CI only). Nothing else, and **zero new shipped frontend JS**. | Research verdict: no facet library, no new React island, no popover/positioning library, no embeddings API. |
+| **Map controls** | Native `<details>`/`<dialog>` + CSS. Leaflet's own `L.Control` owns in-map placement. | Matches the existing zero-JS nav pattern; no framework added. |
+| **Leaflet layer code** | `ChoroplethLayer.ts`, `IncidentPinLayer.ts`, `LowZoomDotLayer.ts` are **protected** — imperative `L.geoJSON()` stays. Declarative react-leaflet layer components are banned. | Reintroducing `<GeoJSON>` would restore the documented re-render-on-hover jank this repo deliberately avoided. |
+| **Anti-features — actively rejected** | No heat-map / density visualization. No severity or risk score. No "breaking" badges. No opaque event merging without visible constituent sources. | A density surface or a single severity number functions as an absolute "dangerous zone" label regardless of disclaimer text — direct conflict with the hard editorial constraint. |
 
-### Track 2 — Commune Comparator + A-vs-B SEO (→ Phase 21)
+## Per-phase protocol (mandatory, every phase)
 
-- [x] **CMP-01**: A user can compare 2–3 comunas side by side in an interactive island showing the composite index headline, per-family breakdown, per-family trend indicator, and a "compare to national/regional average" column.
-- [x] **CMP-02**: The comparator offers accent-insensitive autocomplete search across all 346 comunas, layered on a pre-rendered static HTML shell (comparator landing page is indexable).
-- [x] **CMP-03**: Bilingual A-vs-B programmatic pages are generated from a curated priority-pair allowlist (`data/comparator-pairs.json`), using CUT-code URL slugs with alphabetical ordering so each pair has a single canonical page (no A-vs-B / B-vs-A duplication).
-- [x] **CMP-04**: Each A-vs-B page carries ≥5 differentiating uniqueness blocks and ≥300 words of non-swappable prose (index difference, per-family rate table, trend narrative, national rank, regional context); a build-time thin-content assertion blocks pages that fall short.
-- [x] **CMP-05**: The build asserts total page count stays under the Cloudflare free-tier safety bound (<18,000 files).
-- [ ] **CMP-06**: hreflang reciprocity and the cross-link spine validators are extended to cover A-vs-B pages, and every comuna page links to 3–5 relevant A-vs-B pairs.
-- [ ] **CMP-07**: A-vs-B prose quality is acceptance-checked on a random sample (≥10 pairs) before deploy, and pages publish in staged batches (~20 pairs) with GSC indexing verified between batches.
+Every phase in this milestone runs: **research → plan → premortem → plan review by a Fable agent → implementation by Sonnet → code review by Opus → GSD validation.** Phases are deliberately granular so each cycle fits in one context.
 
-### Track 3 — Go-Live / Launch Ops (→ Phase 22)
+## Gates
 
-- [ ] **GL-01**: The `CF_DEPLOY_HOOK_URL` GitHub secret is set and verified with a test push (CF dashboard shows the triggered build) — done before any v2.0 code merge depends on a live deploy.
-- [ ] **GL-02**: Production is rebuilt from `master` and reflects v2.0 content, and the rebuild-loop guard is confirmed intact (data-only commits do not increment the CF build count).
-- [ ] **GL-03**: A live news pipeline run executes (`DEEPSEEK_API_KEY` secret) followed by a 50-incident commune-assignment hallucination audit.
-- [ ] **GL-04**: An updated sitemap is submitted to Google Search Console immediately after first deploy, with URL Inspection on 5–10 representative comuna + A-vs-B pages.
-
-### Track 4 — ENUSC Communal Victimization Layer (→ Phase 23, runs before Phase 22)
-
-_Origin: SEED-002 feasibility study (Design A) — `.planning/research/SEED-002-FINDINGS.md`. Anti-infra-representation: ENUSC is the only inventoried source measuring **unreported** crime (cifra negra) at comuna level. Strictly additive vs Phase 18._
-
-- [x] **VL-01**: A new isolated pipeline step ingests the INE ENUSC 2024 SAE VHDV (Victimización en Hogares por Delitos Violentos) Excel from a **versioned in-repo snapshot** into a data artifact with provenance (source URL, retrieval date, INE experimental disclaimer, checksum); it runs after the CEAD scraper and fails gracefully without breaking the CEAD pipeline if absent/malformed. (Manual/assisted annual acquisition — no stable static URL; behind INE's JS "Cuadros Estadísticos" widget.)
-- [x] **VL-02**: The ~136 covered comunas map to valid CUT codes (reusing the existing name→CUT resolver); a build-time assertion confirms every ingested row resolves to a valid CUT and the coverage count equals the published N; unresolved rows fail the build loudly.
-- [x] **VL-03**: Each covered comuna page (EN + ES) shows the VHDV victimization figure with value + reference year (2024) + a mandatory bilingual caveat labeling it an INE **experimental, SAE-modeled** estimate distinct from CEAD reported-crime — never an absolute verdict; the forbidden-language validator exits 0.
-- [x] **VL-04**: The ~210 non-covered comunas render an explicit bilingual "no ENUSC victimization estimate for this comuna (coverage: 136 comunas)" note with no broken layout and no implied value.
-- [x] **VL-05**: Every new figure is registered in the F-series figure registry (zero-orphan passes) and documented in SOURCES.md + EN/ES methodology pages (source, SAE method, experimental status, coverage limitation, victimization ≠ reported-crime distinction); a verification confirms the composite index and **all Phase-18 outputs are byte-unchanged** (additive-only).
+- **Phase 26 gates the clustering portions of 27/28 only.** Phase 27's faceting work has **no dependency** on the spike outcome and must not be sequenced as blocked.
+- **Phase 29 gates Phase 30.** No map code is rewritten until a BrowserOS-verified design is accepted by a human.
 
 ---
 
-## Future Requirements (deferred)
+## v2.1 Requirements
 
-- **AdSense activation + Consent Mode v2** — wire `gtag` consent default (`ad_storage: denied`) + cookie banner, verify via Tag Assistant, then flip `ADSENSE_ENABLED`. Deferred out of v2.0 by decision (ads stay off this milestone); monetization is a later cycle.
-- **A-vs-B expansion beyond the priority allowlist** — only after GSC validates the initial staged batches.
-- **3-column comparator polish / additional comparator dimensions** — incremental over the 2–3 comuna baseline.
+### Event Clustering Spike (→ Phase 26)
 
-## Out of Scope
+- [ ] **CLUS-01**: A hand-labeled golden set of 60–100 article pairs / small clusters is built from `data/incidents/archive/`, including adversarial near-misses (same comuna + same date but genuinely different crimes; same crime reported with a misspelled or homophonous comuna; and true same-event coverage from 2–3 outlets).
+- [ ] **CLUS-02**: A `rapidfuzz`-based lexical pre-filter narrows LLM candidate pairs to the existing `(cut, date)` buckets (optionally ±1 day), so LLM comparison cost is bounded and never O(n²) over the whole store.
+- [ ] **CLUS-03**: The LLM adjudicator returns a structured, fact-based verdict (corroborating location / entity / time-window facts plus rationale) at temperature 0.0 — never a bare similarity score — and an unparseable verdict is rejected as no-merge rather than defaulting permissively.
+- [ ] **CLUS-04**: RSS-derived article text is treated strictly as untrusted data and never as instructions, with the prompt structured so injected content cannot alter the adjudication task.
+- [ ] **CLUS-05**: Cluster IDs are derived deterministically as a `sha256` of the sorted set of member incident IDs — never from LLM output — so re-runs are bit-stable and cannot churn `data/` or fire spurious Cloudflare rebuilds.
+- [ ] **CLUS-06**: Cluster assembly uses connected components with a high edge threshold plus a max-cluster-size sanity cap (any cluster larger than 4 members is flagged for manual review, not published silently), and the full pairwise decision matrix per cluster is logged.
+- [ ] **CLUS-07**: The spike reports measured pairwise precision and recall against the golden set, plus actual per-run LLM cost, and issues an explicit **GO / NO-GO** verdict against the locked gate: **100% precision, zero false merges**.
+- [ ] **CLUS-08**: The precision check is encoded as a pytest regression (`pipeline/tests/test_clustering.py`), not a one-off spike script, so a future model swap cannot silently regress clustering quality.
+- [ ] **CLUS-09**: On GO, `cluster_id: str | None` and `is_primary: bool` are added to `IncidentRecord` as optional-with-default fields, verified backward-compatible against existing `current.json` and archive consumers; on NO-GO, the finding is documented and no schema change ships.
 
-- **User-configurable index weight sliders** — incompatible with static pre-rendering; invites false-precision misuse.
-- **Confidence intervals / error bars on the index** — backfires with lay users (CEAD error is systematic, not random); use data-vintage caveats instead.
-- **Star ratings / absolute "safe/dangerous" verdicts** — editorial-language constraint; the site reports relative incidence only.
-- **Real-time index updates** — CEAD is quarterly, SPD VHC annual; rebuild cadence suffices.
-- **New backend / database / state manager** — v2.0 stays 100% static JSON-in-repo.
+### News Facet Data Model (→ Phase 27)
+
+- [ ] **FACET-01**: A shared `site/src/lib/newsFacets.ts` computes facet indexes at build time from `data/incidents/current.json` plus the monthly archive, reading data via `process.cwd()`, and is consumed by both `/news/` and `/es/noticias/` so the two locales cannot drift.
+- [ ] **FACET-02**: Time facets expose day-granularity presets (today / 7d / 30d) plus monthly-archive access — no calendar-range slider, and sparse days are rolled up rather than rendered as empty per-day slots.
+- [ ] **FACET-03**: Geography facets resolve each incident's `cut` to its region via the established CUT-length derivation, giving a 16-region drill-down; the derivation is verified against `data/cead/meta/index.json` at phase kickoff (an open question research could not close).
+- [ ] **FACET-04**: Crime-family facets cover all 8 news families including the news-only `sexuales`, without extending CEAD's `FAMILY_KEYS` (which stays at 7).
+- [ ] **FACET-05**: Per-option facet counts are computed at build time and available to the UI (e.g. "Robo (14)").
+- [ ] **FACET-06**: No facet artifact is written under `site/**` and no new derived JSON is committed — facets are computed in-build, so the existing data-change-gated deploy hook cannot be triggered by facet computation.
+- [ ] **FACET-07**: The existing validator suite and page-count budget stay green: `@astrojs/check` clean on new code, all validators pass, and no new indexable URLs are introduced.
+
+### News Visualizer UI (→ Phase 28)
+
+- [ ] **NEWSUI-01**: A user can filter the news list by time window, region, and crime family, with per-option counts visible, on both `/news/` and `/es/noticias/`.
+- [ ] **NEWSUI-02**: The unfiltered superset of incidents is fully pre-rendered in static HTML; filtering is progressive enhancement only, so no incident content is invisible to Google or to a JS-disabled reader.
+- [ ] **NEWSUI-03**: A user can search comunas by typeahead (accent-insensitive, reusing the established directory-finder pattern) instead of scanning a 346-item select.
+- [ ] **NEWSUI-04**: Filter state is reflected in shareable query params and restored on load, and a zero-result combination renders a clear bilingual empty state that is never itself indexed as a thin page.
+- [ ] **NEWSUI-05**: On Phase 26 GO, clustered events render as a primary-article card with an "N fuentes / N sources" badge that always exposes every constituent outlet and URL — no source is ever hidden or overwritten by grouping. On NO-GO the page ships faceting only, degrading gracefully.
+- [ ] **NEWSUI-06**: Any LLM-produced text surfaced in the UI (rationale, grouped-event summary) is escaped, and the page adds no measurable CLS or hydration regression versus the current zero-JS news page.
+- [ ] **NEWSUI-07**: EN/ES parity holds for every new string, with i18n keys in `i18n.ts` as the single source of truth (not per-locale inline literals), and ES localized slugs hardcoded where `getRelativeLocaleUrl()` cannot translate them.
+
+### Map UX Design Loop (→ Phase 29)
+
+- [ ] **MAPUX-01**: The current map is driven in BrowserOS against a real served build (`npx astro preview --port 4321 --host`), and the baseline discoverability problem is captured with screenshots at desktop and at 375px (emulated via a 375px iframe — BrowserOS has no viewport resize).
+- [ ] **MAPUX-02**: The control-shell design is **iterated in a loop** — screenshot → redesign with a Fable agent → apply → re-screenshot — repeating until the design is excellent. A single audit pass does not satisfy this requirement; the loop and its iterations are the deliverable.
+- [ ] **MAPUX-03**: Each iteration is evaluated against concrete criteria, not taste alone: can a first-time user find and activate the news layer; can they find the filters; are touch targets ≥44px at 375px; is there any keyboard or focus trap; do controls avoid occluding the map or conflicting with Leaflet panes.
+- [ ] **MAPUX-04**: A lightweight live click-through of comparable products (police.uk, CityProtect) firms up the medium-confidence UX pattern claims before the design is locked.
+- [ ] **MAPUX-05**: The loop terminates in an accepted design spec plus a human acceptance gate; Phase 30 does not start until that gate passes.
+
+### Map Control-Shell Rework (→ Phase 30)
+
+- [ ] **MAPSH-01**: The news layer has an always-visible, explicitly labeled toggle — it is no longer buried inside a generic "mode" control. This is the specific complaint that motivated the milestone.
+- [ ] **MAPSH-02**: The filter panel is redesigned per the Phase 29 spec using native `<details>`/`<dialog>` and CSS, with a bottom-sheet or FAB pattern on mobile rather than filters nested inside the hamburger nav, and zero new shipped JS dependencies.
+- [ ] **MAPSH-03**: All map controls are keyboard-operable and screen-reader-labeled, with no focus traps, touch targets ≥44px at 375px, and no z-index conflict with Leaflet panes.
+- [ ] **MAPSH-04**: The `?region=` deep link is implemented to match the existing working `?cut=` behavior, including graceful degradation on an unknown value (no 404 or console error).
+- [ ] **MAPSH-05**: Changes are confined to `MapTopbar.tsx` and sibling control components; `ChoroplethLayer.ts`, `IncidentPinLayer.ts`, and `LowZoomDotLayer.ts` are untouched, and the Opus code review explicitly verifies that no declarative react-leaflet layer component (`<GeoJSON>`, `<Marker>`-as-JSX-child) was introduced.
+- [ ] **MAPSH-06**: Existing map behavior is regression-verified after the refactor: `?cut=` deep link, choropleth year/family filters, commune panel, geolocation, and incident pins all still work.
+- [ ] **MAPSH-07**: Map filters and news facets share vocabulary through common data (`familyDefs.ts`, `data.ts`) without creating a code dependency between the map island and the news pages.
+
+### Docs & Methodology Refresh (→ Phase 31)
+
+- [ ] **DOCS-01**: The EN + ES methodology pages are brought current with what the code actually computes today — composite index, ENUSC victimization layer, the news-only `sexuales` family, and the directional meaning of `national_rank` (rank #1 = most reported crime, not safest) — closing all prose-vs-computation drift.
+- [ ] **DOCS-02**: Editorial and legal disclaimers are reaffirmed across the affected pages: "reported incidence" framing, under-reporting caveats, and no absolute safe/dangerous verdict.
+- [ ] **DOCS-03**: `data/SOURCES.md` is current and canonical, the outstanding ENUSC `[verify edition]` year is resolved, and CEAD plus every press outlet is correctly attributed.
+- [ ] **DOCS-04**: The clustering behavior and the facet semantics are documented for readers — how same-event grouping works, what each facet means, and the measured limits and error rate — required if Phase 26 returned GO.
+- [ ] **DOCS-05**: `site/scripts/validators/figure-registry.mjs` is hardened so substring matching can no longer report green against a stub section, and the full validator suite plus pytest stay green.
+- [ ] **DOCS-06**: EN/ES parity holds and no existing anchor that other pages link to is broken by the rewrite.
+
+### Cron Consistency (→ Phase 32)
+
+- [ ] **CRON-01**: Every workflow asserts that each secret it consumes is non-empty before doing work, and fails loudly otherwise — closing the documented gotcha where an unset GitHub secret arrives as an empty string and produces a green run that did nothing.
+- [ ] **CRON-02**: A freshness/heartbeat guard covers all three data crons (news daily, R2 research archive, CEAD quarterly reminder) with cron-drift-tolerant thresholds, so a silent stall is detected rather than discovered weeks later — this project already lost a full week of news freshness to an Actions billing lapse with no alert.
+- [ ] **CRON-03**: Deploy-hook retry and backoff behavior is reconciled to one consistent policy across all workflows that call it (currently three different retry counts).
+- [ ] **CRON-04**: Issue labels are made specific per pipeline instead of shared generic labels across unrelated workflows, so an alert identifies its own source.
+- [ ] **CRON-05**: The CEAD cron's expected-to-fail status is documented in the workflow itself (Actions runner IPs are 403'd; the scraper runs locally and the cron serves only as a reminder), so it cannot be misread as a real failure or silently "fixed".
+- [ ] **CRON-06**: Every workflow that writes `data/` fetches and rebases before pushing, eliminating the race between concurrent crons touching the same files.
+- [ ] **CRON-07**: The whole schedule surface is documented as one coherent table (schedule, trigger, secrets consumed, permissions, what it writes) and audited after Phase 28 wires clustering into the news pipeline, so cost and latency changes are accounted for.
+
+### Security Posture (→ Phase 33)
+
+- [ ] **SEC-01**: `GITHUB_TOKEN` defaults to read-only at the repository level, and every job declares a minimal explicit `permissions:` block.
+- [ ] **SEC-02**: Third-party actions are pinned by full commit SHA with a version comment, with an explicit documented decision recorded for each (SHA-pin versus major-version tag).
+- [ ] **SEC-03**: A `.github/dependabot.yml` is added (none exists today) covering the `github-actions`, `pip`, and `npm` ecosystems.
+- [ ] **SEC-04**: `zizmor` runs in CI as an Actions-specific static analyzer (invoked via `pipx`/`uvx`, never added to `pipeline/requirements.txt`), alongside the existing `actionlint`, and its findings are triaged.
+- [ ] **SEC-05**: No API key can leak into logs or committed artifacts; GitHub secret scanning and push protection status is verified manually on the repository settings (research could not check this via API).
+- [ ] **SEC-06**: Scraping courtesy is verified — delays toward CEAD (a government server) and toward press RSS feeds are present and adequate, and clustering is confirmed not to have increased fetch volume against any upstream.
+
+---
+
+## Future Requirements (deferred, not this milestone)
+
+- Facet-count-aware SEO surfaces (e.g. a hand-picked `/news/robos/` page) — deliberately out of Phase 27/28 scope to avoid thin content; revisit once real facet traffic exists.
+- New grouped-marker visual treatment for clustered events on the map — a Phase 29/30 design question that may surface, explicitly deferred unless the design loop demands it.
+- AdSense Consent Mode wiring + flipping `ADSENSE_ENABLED` — monetization, a future cycle.
+- Embeddings-based clustering as a recall improvement — only if the lexical pre-filter plus LLM adjudication proves insufficient, and only after re-verifying OpenRouter embedding pricing.
+
+## Out of Scope (explicit exclusions with reasoning)
+
+- **Heat-map / density visualization of incidents** — functions as an implicit "dangerous zone" label regardless of disclaimer; direct conflict with the hard editorial constraint. Must be actively rejected in design review, not merely omitted.
+- **Severity or risk scoring per incident** — no supporting schema field exists, and it would become an absolute danger label.
+- **Real-time / "breaking" badges** — the pipeline is cron-driven, not sub-hourly; the badge would be false.
+- **User-submitted incident reports / social layer** — already out of scope project-wide; needs a backend and moderation.
+- **Client-side re-filtering library or a new React island for news** — volume (tens to low hundreds of records) never justifies the shipped JS, and it would put content behind hydration.
+- **Pre-rendered facet URLs (region × family × time)** — thin content plus canonical/hreflang burden against a shared 20K-file budget.
+- **Declarative react-leaflet layer components** — reintroduces the documented re-render-on-hover jank.
+- **GSC sitemap submission (v2.0 GL-04 / 22-03)** — carried forward as a human/manual task; not a v2.1 requirement.
 
 ## Traceability
 
-| REQ-ID | Phase | Status | Notes |
-|--------|-------|--------|-------|
-| CI-01 | Phase 18 | Complete | Isolated build_composite_index.py step |
-| CI-02 | Phase 18 | Complete | Winsorization / percentile-rank normalization + pytest assertion |
-| CI-03 | Phase 18 | Complete | SPD VHC as M5; CEAD featured_rates.homicidios preserved |
-| CI-04 | Phase 18 | Complete | SII exposure denominator with documented cap |
-| CI-05 | Phase 18 | Complete | 0–100 integer + 5 bands + national/regional rank in UI |
-| CI-06 | Phase 18 | Complete | Mandatory bilingual caveat block on all index-displaying pages |
-| CI-07 | Phase 18 | Complete | Choropleth toggle: index mode vs per-family rate mode |
-| CI-08 | Phase 18 | Complete | Methodology pages updated; figure-registry zero-orphan |
-| CI-09 | Phase 18 | Complete | Forbidden-language validator extended; npm run validate green |
-| CI-10 | Phase 18 | Complete | Schema migration non-breaking; TypeScript types; comparator_table.json emitted |
-| CMP-01 | Phase 21 | Complete | 2–3 commune comparator island; depends on Phase 18 |
-| CMP-02 | Phase 21 | Complete | Accent-insensitive autocomplete; pre-rendered static shell |
-| CMP-03 | Phase 21 | Complete | A-vs-B pages from curated allowlist; CUT-code slugs; alphabetical ordering |
-| CMP-04 | Phase 21 | Complete | ≥5 uniqueness blocks + ≥300 non-swappable words; build-time assertion |
-| CMP-05 | Phase 21 | Complete | Total page count < 18,000 asserted at build time |
-| CMP-06 | Phase 21 | Pending | hreflang + spine validators extended; commune pages link to 3–5 pairs |
-| CMP-07 | Phase 21 | Pending | Sample acceptance check ≥10 pairs; staged batches ~20 pairs |
-| GL-01 | Phase 22 | Pending | CF_DEPLOY_HOOK_URL secret set + verified; parallel with Phase 21 |
-| GL-02 | Phase 22 | Pending | Production rebuilt from master; rebuild-loop guard confirmed |
-| GL-03 | Phase 22 | Pending | Live news pipeline run + 50-incident commune audit |
-| GL-04 | Phase 22 | Pending | Sitemap submitted to GSC; URL Inspection on 5–10 pages |
-| VL-01 | Phase 23 | Complete | Isolated ENUSC SAE VHDV ingest from versioned snapshot + provenance; fails gracefully |
-| VL-02 | Phase 23 | Complete | ~136 comunas → valid CUT via existing resolver; build-time coverage assertion |
-| VL-03 | Phase 23 | Complete | EN/ES victimization figure + experimental/SAE caveat; forbidden-language green |
-| VL-04 | Phase 23 | Complete | ~210 uncovered comunas degrade with explicit bilingual "no estimate" note |
-| VL-05 | Phase 23 | Complete | F-series zero-orphan + SOURCES/methodology; Phase-18 outputs byte-unchanged (additive) |
-
-**Coverage:** 26/26 requirements mapped — CI-01..CI-10 → Phase 18, CMP-01..CMP-07 → Phase 21, GL-01..GL-04 → Phase 22, VL-01..VL-05 → Phase 23 (runs before 22). No orphans.
+Filled by the roadmapper.
 
 ---
-*Defined 2026-06-19 for milestone v2.0. 26 requirements across 4 tracks (Track 4 / VL added 2026-06-19 from SEED-002).*
+*Requirements defined 2026-07-29 for milestone v2.1. Phase numbering continues from v2.0 — v2.1 starts at Phase 26.*
