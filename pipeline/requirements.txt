@@ -13,3 +13,4 @@ openai==2.34.0
 scipy>=1.13,<2
 boto3
 trafilatura
+rapidfuzz==3.14.5
