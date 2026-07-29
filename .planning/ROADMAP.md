@@ -87,6 +87,8 @@ Full phase details for 18/21/22/23/24/25 remain below in this file's Phase Detai
 
 **Per-phase execution protocol (mandatory, every phase 26–33):** research → plan → premortem → plan review by a **Fable** agent → implementation by **Sonnet** → code review by **Opus** → GSD validation. Phases are deliberately granular so each cycle stays inside one context.
 
+**⚙️ AUTONOMOUS MODE (authorized 2026-07-29):** the milestone runs unattended under `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md` — model routing, gate amendments (MAPUX-05 human acceptance → Fable-proxy with deferred human review; CRON-01 live dry run → local simulation; SEC-01/05 settings items → deferred-live), hard safety rules (no `git push`, no `data/` mutation, no GitHub settings changes, Phase-26 LLM call budget), and the deferred-live list for the user's return. That directive supersedes any conflicting phrasing here while the run is unattended.
+
 **Dependency graph:**
 - Phase 26 (Event Clustering Spike) gates **only the clustering portions** of Phases 27 and 28. It does **not** block Phase 27's faceting work — Phase 27 has zero dependency on the Phase 26 outcome and must not be sequenced as blocked.
 - Phase 27 (News Facet Data Model) has no dependency on Phase 26. It can start immediately, in parallel with Phase 26.
@@ -267,7 +269,7 @@ Plans:
 **Depends on**: Nothing (spike runs against existing archived data in `data/incidents/archive/`); independent of Phases 27–30.
 **Requirements**: CLUS-01, CLUS-02, CLUS-03, CLUS-04, CLUS-05, CLUS-06, CLUS-07, CLUS-08, CLUS-09
 **Risk**: **Milestone's highest-risk phase.** A false merge (two distinct crimes displayed as one incident) is a published factual error on a safety-information site, not merely a bug. Precision-biased evaluation is non-negotiable; recall is unconstrained.
-**Research flag**: The exact numeric pairwise-precision GO threshold (locked decision: 100% precision, zero false merges on the golden set) and the LLM call pattern (batched vs. pairwise/iterative) must be finalized by the Phase 26 planner before the spike executes.
+**Research flag**: ✅ Partially resolved 2026-07-29 by pre-phase feasibility ping (`26-00-SPIKE-PING.md`): Granite 4.1 8B at temp 0.0 passed 3/3 (positive + clean negative + adversarial same-day/same-comuna negative) with clean structured JSON. Validated verdict schema and pairwise-within-`(cut,date)`-bucket call pattern recorded there. Remaining planner work: build the full golden set (must include the comuna-2101 nine-article/3-event bucket and the Tongoy 4102 noisy-positive bucket) and run the full evaluation against the locked 100%-precision gate.
 **Success Criteria** (what must be TRUE):
 
   1. A hand-labeled golden set of 60–100 article pairs/small clusters exists, built from `data/incidents/archive/`, including adversarial near-misses (same comuna+date/different crime; same crime/different comuna via typo or homophone; genuine same-event coverage from 2–3 outlets).
@@ -283,7 +285,7 @@ Plans:
 **Goal**: Every incident already in `data/incidents/current.json` and the monthly archive is discoverable by time window, region, and crime family through a single build-time-computed, shared facet index — with zero new dependency on Phase 26's outcome, zero new indexable URLs, and zero risk to the shared Cloudflare 20,000-file budget.
 **Depends on**: Nothing from Phase 26 (explicitly independent — faceting is a pure derivation over existing schema fields). Runs in parallel with Phase 26.
 **Requirements**: FACET-01, FACET-02, FACET-03, FACET-04, FACET-05, FACET-06, FACET-07
-**Research flag**: Verify at kickoff whether `region_id` is present per commune on `data/cead/meta/index.json` (open question research could not close) before finalizing the CUT→region derivation.
+**Research flag**: ✅ RESOLVED 2026-07-29 — `region_id` IS present per commune on `data/cead/meta/index.json` (verified: `{"cut":"10101","region_id":"10",...}`). Use it as the authoritative cross-check for the CUT-length derivation.
 **Success Criteria** (what must be TRUE):
 
   1. A shared `site/src/lib/newsFacets.ts` computes facet indexes (byFamily/byRegion/byMonth/time-window) at build time from `current.json` + the monthly archive, reading data via `process.cwd()`, and both `/news/` and `/es/noticias/` consume the exact same module (no per-locale drift).

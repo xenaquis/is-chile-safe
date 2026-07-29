@@ -51,7 +51,7 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 
 - [ ] **FACET-01**: A shared `site/src/lib/newsFacets.ts` computes facet indexes at build time from `data/incidents/current.json` plus the monthly archive, reading data via `process.cwd()`, and is consumed by both `/news/` and `/es/noticias/` so the two locales cannot drift.
 - [ ] **FACET-02**: Time facets expose day-granularity presets (today / 7d / 30d) plus monthly-archive access — no calendar-range slider, and sparse days are rolled up rather than rendered as empty per-day slots.
-- [ ] **FACET-03**: Geography facets resolve each incident's `cut` to its region via the established CUT-length derivation, giving a 16-region drill-down; the derivation is verified against `data/cead/meta/index.json` at phase kickoff (an open question research could not close).
+- [ ] **FACET-03**: Geography facets resolve each incident's `cut` to its region via the established CUT-length derivation, giving a 16-region drill-down. ✅ *Open question CLOSED 2026-07-29: `data/cead/meta/index.json` entries carry `region_id` per commune (verified) — use it as the authoritative cross-check for the derivation.*
 - [ ] **FACET-04**: Crime-family facets cover all 8 news families including the news-only `sexuales`, without extending CEAD's `FAMILY_KEYS` (which stays at 7).
 - [ ] **FACET-05**: Per-option facet counts are computed at build time and available to the UI (e.g. "Robo (14)").
 - [ ] **FACET-06**: No facet artifact is written under `site/**` and no new derived JSON is committed — facets are computed in-build, so the existing data-change-gated deploy hook cannot be triggered by facet computation.
