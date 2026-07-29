@@ -418,14 +418,22 @@ See "Architecture Patterns" above (Pattern 1-3) for verified, in-repo-sourced co
 | A3 | `same_event: true AND confidence: "high"` should be the only mergeable state (excluding `confidence: "low"` merges) | Anti-Patterns | If this restriction is NOT applied and the model returns `confidence: "low"` alongside `same_event: true` for a truly-distinct pair, it directly risks a false merge and gate failure. This is a recommendation, not something verified against real model behavior at scale (only 3 ping calls exist so far). |
 | A4 | Two archive files present on disk (`2026-04.json`, `2026-06.json`) are the complete archive set at research time | Golden-Set Construction Mechanics | If more archive files exist by execution time (a cron may have run between research and execution), the golden set should still primarily draw from `current.json` per the mandatory-bucket dates (both 2026-07-01, currently in `current.json`), so this is low-risk, but the planner should re-glob before finalizing. |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Exact rapidfuzz threshold and confidence-acceptance rule**
+> **Both questions were closed by the Fable orchestrator at plan review, 2026-07-29.** The locked values below are authoritative; the discussion text is kept for rationale only.
+>
+> | # | Locked decision | Locked in |
+> |---|---|---|
+> | Q1a | rapidfuzz pre-filter threshold = `_PREFILTER_THRESHOLD = 45.0` (`token_set_ratio`), tunable only by an explicit plan amendment — never by execution-time judgement | `26-01-PLAN.md` Task 1 |
+> | Q1b | Mergeable state = `same_event is True AND confidence == "high"`. `confidence: "low"` merges are NEVER accepted (precision-biased per the locked 100%/zero-false-merge gate) | `26-03-PLAN.md` `<interfaces>` |
+> | Q2 | **Same-day buckets only.** No ±1-day widening in Phase 26 — both mandatory hard buckets are same-day, and widening would inflate the pair universe and LLM cost without adding adversarial value. Revisit in Phase 28 if a real cross-day miss is observed | Fable, 2026-07-29 |
+
+1. **Exact rapidfuzz threshold and confidence-acceptance rule** — RESOLVED (see Q1a/Q1b above)
    - What we know: `token_set_ratio` is the right scorer family; the LLM verdict schema already distinguishes `confidence: high/low`.
    - What's unclear: the numeric threshold and whether `confidence: low` merges should ever be accepted.
    - Recommendation: planner locks both as explicit, documented plan decisions (not deferred to execution-time judgment), calibrated once the golden set is drafted — treat as the single most important open design choice in this phase, consistent with STATE.md's existing flag that this is "the milestone's highest-risk phase."
 
-2. **Whether `±1 day` bucket widening is used**
+2. **Whether `±1 day` bucket widening is used** — RESOLVED: NO (see Q2 above)
    - What we know: it's called out as "optional" in both REQUIREMENTS.md and the AUTONOMOUS-DIRECTIVE's pre-verified facts.
    - What's unclear: whether same-day-only buckets already provide enough hard-adversarial material (the two mandatory buckets are both same-day), or whether ±1 day is needed to catch real near-miss cases (e.g., an event reported a day late by one outlet).
    - Recommendation: start same-day-only (matches the 257-bucket structure the ping already characterized); note ±1 day as a fast follow-up if recall on the golden set is unexpectedly low on genuine multi-day-reported events — this does not affect the GO/NO-GO precision gate.

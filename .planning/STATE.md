@@ -153,6 +153,23 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 
 - (none)
 
+### Fable Decisions — v2.1 Autonomous Run
+
+Decisions taken inline by the Fable orchestrator during the unattended run. Each is binding; do not reopen in phase plans.
+
+| # | Date | Phase | Decision | Rationale |
+|---|------|-------|----------|-----------|
+| F-01 | 2026-07-29 | 26 | Proceed to planning with **no CONTEXT.md**; the autonomous directive is the decision source of record (`skip_discuss: true`, `mode: yolo`). | Directive authorizes unattended decision-making; its "planner decisions already taken" section supplies the locked context CONTEXT.md would have held. |
+| F-02 | 2026-07-29 | 26 | rapidfuzz pre-filter threshold **frozen at 45.0** (`token_set_ratio`) for the whole phase — may NOT be tuned after any precision number is observed. | Tuning post-measurement is exactly the circularity the 100%-precision gate exists to prevent. Premortem measured min score 48.7 on both mandatory buckets → 45.0 is a lexical floor, not a cost control. |
+| F-03 | 2026-07-29 | 26 | Mergeable state = `same_event is True AND confidence == "high"`. `confidence: "low"` merges are **never** accepted. | Precision-biased per the locked zero-false-merge gate. |
+| F-04 | 2026-07-29 | 26 | **No ±1-day bucket widening** in Phase 26 — same-day `(cut, date)` buckets only. Revisit in Phase 28 only if a real cross-day miss is observed. | Both mandatory hard buckets are same-day; widening inflates the pair universe and LLM cost without adding adversarial value. |
+| F-05 | 2026-07-29 | 26 | The pre-declared "reporting noise" label on the Tongoy 4102 bucket is **REVOKED**. `6eed24180c36dbec` ("19 años / homicidio") is presumed a DISTINCT event from the other seven ("8 años y medio / homicidio frustrado") unless source articles affirmatively prove one case. Same standard applied to 2101 Event C for `16439f8dc78173a6` and `b01de8947aa555f6`. | A mislabel in the `merge` direction is the ONLY direction that inflates precision — and the pre-declared label did exactly that. A 10.5-year sentence delta plus consummated-vs-frustrated is the signature of a different case. |
+| F-06 | 2026-07-29 | 26 | Blind second pass on every `merge`-labeled pair is **mandatory**: a separate subagent sees only titles/outlets/URLs — never the first pass's label or the `cached_verdict`. Disagreement → `no_merge`, or `excluded: "label_disputed"` (out of the precision denominator, reported separately). | Golden-set labels are the oracle; an unchecked label makes the 100% gate measure nothing. |
+| F-07 | 2026-07-29 | 26 | A GO requires `fp == 0` **AND** `tp > 0` **AND** `n_failsafe == 0`. `precision = None` when `tp + fp == 0` — a zero-denominator run is a STATE.md blocker, never a GO. An import/collection/runtime error is likewise a blocker, never a NO-GO verdict. | Without this, a run where every LLM call failed (e.g. missing `OPENROUTER_API_KEY`, which surfaces as an empty string in this project) would read as precision 1.0 → a GO on zero evidence. |
+| F-08 | 2026-07-29 | 26 | On NO-GO the gate test is quarantined with `@pytest.mark.xfail(strict=True)` — never by weakening its assertion — so the suite exits 0 for phases 27–33 while the verdict stays encoded and re-arms if a future model passes. | The directive requires every phase to leave the suite green; the original plan made GO and NO-GO mutually exclusive with that rule. |
+| F-09 | 2026-07-29 | 26 | Added a hand-constructed **cross-bucket typo/homophone `no_merge` sub-set** (~8–12 pairs, different `cut` values with lexically confusable comuna names) that bypasses `(cut, date)` bucketing by construction. | CLUS-01's third adversarial class was otherwise unreachable: exact-`(cut,date)` grouping can never emit a cross-comuna pair. ~12 extra calls. |
+| F-10 | 2026-07-29 | 26 | Accepted the cumulative append-only `26-CALL-LOG.md` ledger with a refuse-to-start guard **in place of** a bare `_MAX_LLM_CALLS` constant, seeded with the 3 spike-ping calls. | Stronger than the constant: it survives resumed runs and counts cumulatively across the phase, which a per-process constant cannot. |
+
 ### Quick Tasks Completed
 
 | # | Description | Date | Commit | Directory |
