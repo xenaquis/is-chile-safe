@@ -81,9 +81,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMingFBVV95cUxNSlQ0cU1lYUEwcW9wcDAzcktldmVwNjh2TGx5QTFFYkVSb2VQSGRsc29VRUZnbDk2UGYzN2EtNVVkMnhOSGloeXM2N0pIQWxETThKamk5ekc5VmpGODMyVlVFdmRuNjNBR3RZQW9nZlROSUlMcms1N1l0blpLT2I4d25KbzZQeTB5TWllMjNHQWJ1T2xPdUJ2czRxN2Zxdw?oc=5",
       "prefilter_score": 60.37735849056604,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-bfe084-f8af96",
@@ -99,9 +102,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPSVVqcGp2b1dPdWpsMFFxZXRRMjBoS0VFZmJHTURoSmR5TFpHbmtVVUNUZ3V1QU5XWkdSVk5zdEZqamZTakFjLUtXM1p1MXZpOHVkTEJpcllkM1BRazBxTjVDYUNnX3NGaVBnY256ZjRoeE1Lci10RURYZl9hQS1lc0hyaC1uQUhvOGZhMEZHX3c5WngzVjBnYWZVLURJRzlFVU9mZ1l3blpNMC1SRGZ6RWhn?oc=5",
       "prefilter_score": 54.90196078431372,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-bfe084-0f1e3e",
@@ -117,9 +123,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQOTFYZzZyZDZSQVJLNEVOZVBUZElqdDZmQ0RGX3NXM0Uza1ZBX2YxYXd1dHd4cTcxVjM0ZmJCMDJ1YlJVSV9wRHBOX3VNdmtMVW1acDR3cFh0T0xIRm9HcG90bTlzYm8tTTJqc1pVWW1hbUlYdGtRNVIxUmd6UjcyU2gwUlBxRGwtaEFySi1UTE1EbGZ3ZDJvag?oc=5",
       "prefilter_score": 53.7037037037037,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-bfe084-dc0f9c",
@@ -135,9 +144,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOOHM0Vldad1hIWmZDTEsxbTk4SkRBRGtrTVcwMS1pMGRuWThFNUdoMDRReGZBdkNvanBmUEJaNml0aGcxY1BCVXJXX1oxUE51SjBmWUlDcDFNVXFoYW5FSVlwQUFNbXlwNzI3U0kxeFpqSGdCbmdXYmFKckJHQzFhTFlZb3FoY1NBY0l1bmNWUno3NEFpU1lKQ3liUTlrTV9wVnJsUzRJSnQ0QmdYaEdIcExqSnNEQ3hwNno0OENVdGJyUmZ2aUtDQQ?oc=5",
       "prefilter_score": 52.38095238095238,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-bfe084-041424",
@@ -153,9 +165,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOd2kyeHNFMU5yci1DOWFId2hfSVliQTJJdXNCakkzejlpb0tpNGZaV1NhS3Y0YXU1cGhfLWhUd1JlcEJKZldaODduTnNNTXV2bVIxemFOMlhBZVNOTEZjZTA4RXNfcjRSS0w0U2UzYnhkV1VxSVB3bzRlYUZQVEpCRi1RVE5WRjZRamd2cmM5Z2xVMzQtblRwMXlJbUt1QUFpSFV1UnlsVVRrS3dtMVFiUnNqOWM5LWE1VW5wN09DQkZDWjY4UWpfb1Y0YXhNcVo4MWFWOU4wTW54Q1g4MWtPd1VWVQ?oc=5",
       "prefilter_score": 53.54330708661417,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-bfe084-16439f",
@@ -171,9 +186,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMihAJBVV95cUxQLS1XdXp5aG9DMjBmWldnTFdqdUNiOE9Eb1Y3cF83dmRHcW1wbTZoUEUwRVN1amtPWVhkSlE1b0I4SmdaUUpjODhwc1JpdnpaX01kWlNhX3o5QWJzc3pqeFVkVS1JOEo2Q0R0enh0Q0pod2NubDVGVFdobmFRd3ZhYlVEVW1sYTc4OEd3LVMxVlg3NkxpVC1xS2s5Yjd2VGQyaUNTVTBOa2J4alhxVHBnajdkTFpFa0M1UXBSN05ISFJmVjQxOUVOaDdOV0JCei1tM1A0V05wLUFDQmUzdkNOQUtpaFh6NkRId3V4a21MSjU0UjdRWDIySzBmUU8xZXN1NmV4Uw?oc=5",
       "prefilter_score": 53.125,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-bfe084-717c7f",
@@ -189,9 +207,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMikwJBVV95cUxNeTI5U05BZTNzN0p3bkdqSGt2bTVBMXdQN0c5WldWM1JSWFhENlR0N19DeVFrc01MZnNCcF9RbnlxT1ZkSjktNjhDZ01UeG9HazlHd085eGotYXNMX1RiQXZiNnREcW5KYXVTZGFnVENPcEFVRUN2WVlVbHpfMzV1VUIxbWh4dEtlZmFFa0FySGFGbF9pV19sa1ZBdTlXY0FTUlpGWWpfOHV2ZGFXaG9Pb3NfOHFPMG90MFJ5dkJOU3Z5cThPU3FUbHdRVDlRVDRGVm93T2RQaFByTXM1T2hvUVNsbHpvY1hhVlpXVnhsM1lOZy11ZkVrZldWRTNBUkI5Y0lMRjFUcWllQl9fVG9ra3B5dw?oc=5",
       "prefilter_score": 53.125,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-bfe084-b01de8",
@@ -207,9 +228,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNLVNvRXE1dGQ3TTFjZS1TV1p1VWx2dld5RzA3RGhXWHA3ZWx4c1Y4UjRUOHRSVHdpbkFBQ2RHdmM4MkZpRUZvaEh6SGxMY1VESi1nOU8tem1MOGZfeFRFU2NQNnhiZEJ4bVV2TWZJM2N4cXJfTlplaGlPQmhNdUc4Q245dGNsZkZZVzIyQU9pV0Q1bGlHNTVUSzVLVHI2QmdTQ3pvTjVR?oc=5",
       "prefilter_score": 57.8125,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-0b69f1-f8af96",
@@ -225,9 +249,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPSVVqcGp2b1dPdWpsMFFxZXRRMjBoS0VFZmJHTURoSmR5TFpHbmtVVUNUZ3V1QU5XWkdSVk5zdEZqamZTakFjLUtXM1p1MXZpOHVkTEJpcllkM1BRazBxTjVDYUNnX3NGaVBnY256ZjRoeE1Lci10RURYZl9hQS1lc0hyaC1uQUhvOGZhMEZHX3c5WngzVjBnYWZVLURJRzlFVU9mZ1l3blpNMC1SRGZ6RWhn?oc=5",
       "prefilter_score": 79.12087912087912,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la condena de 12 anios a la pareja por homicidio (Evento B)."
     },
     {
       "pair_id": "2101-2026-07-01-0b69f1-0f1e3e",
@@ -243,9 +270,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQOTFYZzZyZDZSQVJLNEVOZVBUZElqdDZmQ0RGX3NXM0Uza1ZBX2YxYXd1dHd4cTcxVjM0ZmJCMDJ1YlJVSV9wRHBOX3VNdmtMVW1acDR3cFh0T0xIRm9HcG90bTlzYm8tTTJqc1pVWW1hbUlYdGtRNVIxUmd6UjcyU2gwUlBxRGwtaEFySi1UTE1EbGZ3ZDJvag?oc=5",
       "prefilter_score": 56.666666666666664,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-0b69f1-dc0f9c",
@@ -261,9 +291,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOOHM0Vldad1hIWmZDTEsxbTk4SkRBRGtrTVcwMS1pMGRuWThFNUdoMDRReGZBdkNvanBmUEJaNml0aGcxY1BCVXJXX1oxUE51SjBmWUlDcDFNVXFoYW5FSVlwQUFNbXlwNzI3U0kxeFpqSGdCbmdXYmFKckJHQzFhTFlZb3FoY1NBY0l1bmNWUno3NEFpU1lKQ3liUTlrTV9wVnJsUzRJSnQ0QmdYaEdIcExqSnNEQ3hwNno0OENVdGJyUmZ2aUtDQQ?oc=5",
       "prefilter_score": 53.6231884057971,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-0b69f1-041424",
@@ -279,9 +312,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOd2kyeHNFMU5yci1DOWFId2hfSVliQTJJdXNCakkzejlpb0tpNGZaV1NhS3Y0YXU1cGhfLWhUd1JlcEJKZldaODduTnNNTXV2bVIxemFOMlhBZVNOTEZjZTA4RXNfcjRSS0w0U2UzYnhkV1VxSVB3bzRlYUZQVEpCRi1RVE5WRjZRamd2cmM5Z2xVMzQtblRwMXlJbUt1QUFpSFV1UnlsVVRrS3dtMVFiUnNqOWM5LWE1VW5wN09DQkZDWjY4UWpfb1Y0YXhNcVo4MWFWOU4wTW54Q1g4MWtPd1VWVQ?oc=5",
       "prefilter_score": 51.798561151079134,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-0b69f1-16439f",
@@ -297,9 +333,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMihAJBVV95cUxQLS1XdXp5aG9DMjBmWldnTFdqdUNiOE9Eb1Y3cF83dmRHcW1wbTZoUEUwRVN1amtPWVhkSlE1b0I4SmdaUUpjODhwc1JpdnpaX01kWlNhX3o5QWJzc3pqeFVkVS1JOEo2Q0R0enh0Q0pod2NubDVGVFdobmFRd3ZhYlVEVW1sYTc4OEd3LVMxVlg3NkxpVC1xS2s5Yjd2VGQyaUNTVTBOa2J4alhxVHBnajdkTFpFa0M1UXBSN05ISFJmVjQxOUVOaDdOV0JCei1tM1A0V05wLUFDQmUzdkNOQUtpaFh6NkRId3V4a21MSjU0UjdRWDIySzBmUU8xZXN1NmV4Uw?oc=5",
       "prefilter_score": 54.54545454545455,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-0b69f1-717c7f",
@@ -315,9 +354,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMikwJBVV95cUxNeTI5U05BZTNzN0p3bkdqSGt2bTVBMXdQN0c5WldWM1JSWFhENlR0N19DeVFrc01MZnNCcF9RbnlxT1ZkSjktNjhDZ01UeG9HazlHd085eGotYXNMX1RiQXZiNnREcW5KYXVTZGFnVENPcEFVRUN2WVlVbHpfMzV1VUIxbWh4dEtlZmFFa0FySGFGbF9pV19sa1ZBdTlXY0FTUlpGWWpfOHV2ZGFXaG9Pb3NfOHFPMG90MFJ5dkJOU3Z5cThPU3FUbHdRVDlRVDRGVm93T2RQaFByTXM1T2hvUVNsbHpvY1hhVlpXVnhsM1lOZy11ZkVrZldWRTNBUkI5Y0lMRjFUcWllQl9fVG9ra3B5dw?oc=5",
       "prefilter_score": 85.4368932038835,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la condena de 12 anios a la pareja por homicidio (Evento B)."
     },
     {
       "pair_id": "2101-2026-07-01-0b69f1-b01de8",
@@ -333,9 +375,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNLVNvRXE1dGQ3TTFjZS1TV1p1VWx2dld5RzA3RGhXWHA3ZWx4c1Y4UjRUOHRSVHdpbkFBQ2RHdmM4MkZpRUZvaEh6SGxMY1VESi1nOU8tem1MOGZfeFRFU2NQNnhiZEJ4bVV2TWZJM2N4cXJfTlplaGlPQmhNdUc4Q245dGNsZkZZVzIyQU9pV0Q1bGlHNTVUSzVLVHI2QmdTQ3pvTjVR?oc=5",
       "prefilter_score": 57.142857142857146,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-f8af96-0f1e3e",
@@ -351,9 +396,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQOTFYZzZyZDZSQVJLNEVOZVBUZElqdDZmQ0RGX3NXM0Uza1ZBX2YxYXd1dHd4cTcxVjM0ZmJCMDJ1YlJVSV9wRHBOX3VNdmtMVW1acDR3cFh0T0xIRm9HcG90bTlzYm8tTTJqc1pVWW1hbUlYdGtRNVIxUmd6UjcyU2gwUlBxRGwtaEFySi1UTE1EbGZ3ZDJvag?oc=5",
       "prefilter_score": 55.172413793103445,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-f8af96-dc0f9c",
@@ -369,9 +417,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOOHM0Vldad1hIWmZDTEsxbTk4SkRBRGtrTVcwMS1pMGRuWThFNUdoMDRReGZBdkNvanBmUEJaNml0aGcxY1BCVXJXX1oxUE51SjBmWUlDcDFNVXFoYW5FSVlwQUFNbXlwNzI3U0kxeFpqSGdCbmdXYmFKckJHQzFhTFlZb3FoY1NBY0l1bmNWUno3NEFpU1lKQ3liUTlrTV9wVnJsUzRJSnQ0QmdYaEdIcExqSnNEQ3hwNno0OENVdGJyUmZ2aUtDQQ?oc=5",
       "prefilter_score": 50.74626865671642,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-f8af96-041424",
@@ -387,9 +438,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOd2kyeHNFMU5yci1DOWFId2hfSVliQTJJdXNCakkzejlpb0tpNGZaV1NhS3Y0YXU1cGhfLWhUd1JlcEJKZldaODduTnNNTXV2bVIxemFOMlhBZVNOTEZjZTA4RXNfcjRSS0w0U2UzYnhkV1VxSVB3bzRlYUZQVEpCRi1RVE5WRjZRamd2cmM5Z2xVMzQtblRwMXlJbUt1QUFpSFV1UnlsVVRrS3dtMVFiUnNqOWM5LWE1VW5wN09DQkZDWjY4UWpfb1Y0YXhNcVo4MWFWOU4wTW54Q1g4MWtPd1VWVQ?oc=5",
       "prefilter_score": 50.370370370370374,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-f8af96-16439f",
@@ -405,9 +459,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMihAJBVV95cUxQLS1XdXp5aG9DMjBmWldnTFdqdUNiOE9Eb1Y3cF83dmRHcW1wbTZoUEUwRVN1amtPWVhkSlE1b0I4SmdaUUpjODhwc1JpdnpaX01kWlNhX3o5QWJzc3pqeFVkVS1JOEo2Q0R0enh0Q0pod2NubDVGVFdobmFRd3ZhYlVEVW1sYTc4OEd3LVMxVlg3NkxpVC1xS2s5Yjd2VGQyaUNTVTBOa2J4alhxVHBnajdkTFpFa0M1UXBSN05ISFJmVjQxOUVOaDdOV0JCei1tM1A0V05wLUFDQmUzdkNOQUtpaFh6NkRId3V4a21MSjU0UjdRWDIySzBmUU8xZXN1NmV4Uw?oc=5",
       "prefilter_score": 48.92086330935252,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-f8af96-717c7f",
@@ -423,9 +480,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMikwJBVV95cUxNeTI5U05BZTNzN0p3bkdqSGt2bTVBMXdQN0c5WldWM1JSWFhENlR0N19DeVFrc01MZnNCcF9RbnlxT1ZkSjktNjhDZ01UeG9HazlHd085eGotYXNMX1RiQXZiNnREcW5KYXVTZGFnVENPcEFVRUN2WVlVbHpfMzV1VUIxbWh4dEtlZmFFa0FySGFGbF9pV19sa1ZBdTlXY0FTUlpGWWpfOHV2ZGFXaG9Pb3NfOHFPMG90MFJ5dkJOU3Z5cThPU3FUbHdRVDlRVDRGVm93T2RQaFByTXM1T2hvUVNsbHpvY1hhVlpXVnhsM1lOZy11ZkVrZldWRTNBUkI5Y0lMRjFUcWllQl9fVG9ra3B5dw?oc=5",
       "prefilter_score": 79.12087912087912,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la condena de 12 anios a la pareja por homicidio (Evento B)."
     },
     {
       "pair_id": "2101-2026-07-01-f8af96-b01de8",
@@ -441,9 +501,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNLVNvRXE1dGQ3TTFjZS1TV1p1VWx2dld5RzA3RGhXWHA3ZWx4c1Y4UjRUOHRSVHdpbkFBQ2RHdmM4MkZpRUZvaEh6SGxMY1VESi1nOU8tem1MOGZfeFRFU2NQNnhiZEJ4bVV2TWZJM2N4cXJfTlplaGlPQmhNdUc4Q245dGNsZkZZVzIyQU9pV0Q1bGlHNTVUSzVLVHI2QmdTQ3pvTjVR?oc=5",
       "prefilter_score": 51.470588235294116,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-0f1e3e-dc0f9c",
@@ -459,9 +522,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOOHM0Vldad1hIWmZDTEsxbTk4SkRBRGtrTVcwMS1pMGRuWThFNUdoMDRReGZBdkNvanBmUEJaNml0aGcxY1BCVXJXX1oxUE51SjBmWUlDcDFNVXFoYW5FSVlwQUFNbXlwNzI3U0kxeFpqSGdCbmdXYmFKckJHQzFhTFlZb3FoY1NBY0l1bmNWUno3NEFpU1lKQ3liUTlrTV9wVnJsUzRJSnQ0QmdYaEdIcExqSnNEQ3hwNno0OENVdGJyUmZ2aUtDQQ?oc=5",
       "prefilter_score": 65.71428571428572,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren el operativo de vehiculos robados del dia de la detencion (nucleo Evento C)."
     },
     {
       "pair_id": "2101-2026-07-01-0f1e3e-041424",
@@ -477,9 +543,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOd2kyeHNFMU5yci1DOWFId2hfSVliQTJJdXNCakkzejlpb0tpNGZaV1NhS3Y0YXU1cGhfLWhUd1JlcEJKZldaODduTnNNTXV2bVIxemFOMlhBZVNOTEZjZTA4RXNfcjRSS0w0U2UzYnhkV1VxSVB3bzRlYUZQVEpCRi1RVE5WRjZRamd2cmM5Z2xVMzQtblRwMXlJbUt1QUFpSFV1UnlsVVRrS3dtMVFiUnNqOWM5LWE1VW5wN09DQkZDWjY4UWpfb1Y0YXhNcVo4MWFWOU4wTW54Q1g4MWtPd1VWVQ?oc=5",
       "prefilter_score": 52.4822695035461,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren el operativo de vehiculos robados del dia de la detencion (nucleo Evento C)."
     },
     {
       "pair_id": "2101-2026-07-01-0f1e3e-16439f",
@@ -495,9 +564,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMihAJBVV95cUxQLS1XdXp5aG9DMjBmWldnTFdqdUNiOE9Eb1Y3cF83dmRHcW1wbTZoUEUwRVN1amtPWVhkSlE1b0I4SmdaUUpjODhwc1JpdnpaX01kWlNhX3o5QWJzc3pqeFVkVS1JOEo2Q0R0enh0Q0pod2NubDVGVFdobmFRd3ZhYlVEVW1sYTc4OEd3LVMxVlg3NkxpVC1xS2s5Yjd2VGQyaUNTVTBOa2J4alhxVHBnajdkTFpFa0M1UXBSN05ISFJmVjQxOUVOaDdOV0JCei1tM1A0V05wLUFDQmUzdkNOQUtpaFh6NkRId3V4a21MSjU0UjdRWDIySzBmUU8xZXN1NmV4Uw?oc=5",
       "prefilter_score": 71.57894736842105,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-0f1e3e-717c7f",
@@ -513,9 +585,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMikwJBVV95cUxNeTI5U05BZTNzN0p3bkdqSGt2bTVBMXdQN0c5WldWM1JSWFhENlR0N19DeVFrc01MZnNCcF9RbnlxT1ZkSjktNjhDZ01UeG9HazlHd085eGotYXNMX1RiQXZiNnREcW5KYXVTZGFnVENPcEFVRUN2WVlVbHpfMzV1VUIxbWh4dEtlZmFFa0FySGFGbF9pV19sa1ZBdTlXY0FTUlpGWWpfOHV2ZGFXaG9Pb3NfOHFPMG90MFJ5dkJOU3Z5cThPU3FUbHdRVDlRVDRGVm93T2RQaFByTXM1T2hvUVNsbHpvY1hhVlpXVnhsM1lOZy11ZkVrZldWRTNBUkI5Y0lMRjFUcWllQl9fVG9ra3B5dw?oc=5",
       "prefilter_score": 51.12781954887218,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-0f1e3e-b01de8",
@@ -531,9 +606,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNLVNvRXE1dGQ3TTFjZS1TV1p1VWx2dld5RzA3RGhXWHA3ZWx4c1Y4UjRUOHRSVHdpbkFBQ2RHdmM4MkZpRUZvaEh6SGxMY1VESi1nOU8tem1MOGZfeFRFU2NQNnhiZEJ4bVV2TWZJM2N4cXJfTlplaGlPQmhNdUc4Q245dGNsZkZZVzIyQU9pV0Q1bGlHNTVUSzVLVHI2QmdTQ3pvTjVR?oc=5",
       "prefilter_score": 62.92134831460674,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-dc0f9c-041424",
@@ -549,9 +627,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOd2kyeHNFMU5yci1DOWFId2hfSVliQTJJdXNCakkzejlpb0tpNGZaV1NhS3Y0YXU1cGhfLWhUd1JlcEJKZldaODduTnNNTXV2bVIxemFOMlhBZVNOTEZjZTA4RXNfcjRSS0w0U2UzYnhkV1VxSVB3bzRlYUZQVEpCRi1RVE5WRjZRamd2cmM5Z2xVMzQtblRwMXlJbUt1QUFpSFV1UnlsVVRrS3dtMVFiUnNqOWM5LWE1VW5wN09DQkZDWjY4UWpfb1Y0YXhNcVo4MWFWOU4wTW54Q1g4MWtPd1VWVQ?oc=5",
       "prefilter_score": 70.44025157232704,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren el operativo de vehiculos robados del dia de la detencion (nucleo Evento C)."
     },
     {
       "pair_id": "2101-2026-07-01-dc0f9c-16439f",
@@ -567,9 +648,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMihAJBVV95cUxQLS1XdXp5aG9DMjBmWldnTFdqdUNiOE9Eb1Y3cF83dmRHcW1wbTZoUEUwRVN1amtPWVhkSlE1b0I4SmdaUUpjODhwc1JpdnpaX01kWlNhX3o5QWJzc3pqeFVkVS1JOEo2Q0R0enh0Q0pod2NubDVGVFdobmFRd3ZhYlVEVW1sYTc4OEd3LVMxVlg3NkxpVC1xS2s5Yjd2VGQyaUNTVTBOa2J4alhxVHBnajdkTFpFa0M1UXBSN05ISFJmVjQxOUVOaDdOV0JCei1tM1A0V05wLUFDQmUzdkNOQUtpaFh6NkRId3V4a21MSjU0UjdRWDIySzBmUU8xZXN1NmV4Uw?oc=5",
       "prefilter_score": 61.34969325153374,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-dc0f9c-717c7f",
@@ -585,9 +669,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMikwJBVV95cUxNeTI5U05BZTNzN0p3bkdqSGt2bTVBMXdQN0c5WldWM1JSWFhENlR0N19DeVFrc01MZnNCcF9RbnlxT1ZkSjktNjhDZ01UeG9HazlHd085eGotYXNMX1RiQXZiNnREcW5KYXVTZGFnVENPcEFVRUN2WVlVbHpfMzV1VUIxbWh4dEtlZmFFa0FySGFGbF9pV19sa1ZBdTlXY0FTUlpGWWpfOHV2ZGFXaG9Pb3NfOHFPMG90MFJ5dkJOU3Z5cThPU3FUbHdRVDlRVDRGVm93T2RQaFByTXM1T2hvUVNsbHpvY1hhVlpXVnhsM1lOZy11ZkVrZldWRTNBUkI5Y0lMRjFUcWllQl9fVG9ra3B5dw?oc=5",
       "prefilter_score": 51.65562913907285,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-dc0f9c-b01de8",
@@ -603,9 +690,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNLVNvRXE1dGQ3TTFjZS1TV1p1VWx2dld5RzA3RGhXWHA3ZWx4c1Y4UjRUOHRSVHdpbkFBQ2RHdmM4MkZpRUZvaEh6SGxMY1VESi1nOU8tem1MOGZfeFRFU2NQNnhiZEJ4bVV2TWZJM2N4cXJfTlplaGlPQmhNdUc4Q245dGNsZkZZVzIyQU9pV0Q1bGlHNTVUSzVLVHI2QmdTQ3pvTjVR?oc=5",
       "prefilter_score": 52.5,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-041424-16439f",
@@ -621,9 +711,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMihAJBVV95cUxQLS1XdXp5aG9DMjBmWldnTFdqdUNiOE9Eb1Y3cF83dmRHcW1wbTZoUEUwRVN1amtPWVhkSlE1b0I4SmdaUUpjODhwc1JpdnpaX01kWlNhX3o5QWJzc3pqeFVkVS1JOEo2Q0R0enh0Q0pod2NubDVGVFdobmFRd3ZhYlVEVW1sYTc4OEd3LVMxVlg3NkxpVC1xS2s5Yjd2VGQyaUNTVTBOa2J4alhxVHBnajdkTFpFa0M1UXBSN05ISFJmVjQxOUVOaDdOV0JCei1tM1A0V05wLUFDQmUzdkNOQUtpaFh6NkRId3V4a21MSjU0UjdRWDIySzBmUU8xZXN1NmV4Uw?oc=5",
       "prefilter_score": 53.65853658536585,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-041424-717c7f",
@@ -639,9 +732,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMikwJBVV95cUxNeTI5U05BZTNzN0p3bkdqSGt2bTVBMXdQN0c5WldWM1JSWFhENlR0N19DeVFrc01MZnNCcF9RbnlxT1ZkSjktNjhDZ01UeG9HazlHd085eGotYXNMX1RiQXZiNnREcW5KYXVTZGFnVENPcEFVRUN2WVlVbHpfMzV1VUIxbWh4dEtlZmFFa0FySGFGbF9pV19sa1ZBdTlXY0FTUlpGWWpfOHV2ZGFXaG9Pb3NfOHFPMG90MFJ5dkJOU3Z5cThPU3FUbHdRVDlRVDRGVm93T2RQaFByTXM1T2hvUVNsbHpvY1hhVlpXVnhsM1lOZy11ZkVrZldWRTNBUkI5Y0lMRjFUcWllQl9fVG9ra3B5dw?oc=5",
       "prefilter_score": 48.68421052631579,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Eventos distintos dentro del bucket 2101/2026-07-01 (A, B, C no coinciden)."
     },
     {
       "pair_id": "2101-2026-07-01-041424-b01de8",
@@ -657,9 +753,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNLVNvRXE1dGQ3TTFjZS1TV1p1VWx2dld5RzA3RGhXWHA3ZWx4c1Y4UjRUOHRSVHdpbkFBQ2RHdmM4MkZpRUZvaEh6SGxMY1VESi1nOU8tem1MOGZfeFRFU2NQNnhiZEJ4bVV2TWZJM2N4cXJfTlplaGlPQmhNdUc4Q245dGNsZkZZVzIyQU9pV0Q1bGlHNTVUSzVLVHI2QmdTQ3pvTjVR?oc=5",
       "prefilter_score": 53.41614906832298,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-16439f-717c7f",
@@ -675,9 +774,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMikwJBVV95cUxNeTI5U05BZTNzN0p3bkdqSGt2bTVBMXdQN0c5WldWM1JSWFhENlR0N19DeVFrc01MZnNCcF9RbnlxT1ZkSjktNjhDZ01UeG9HazlHd085eGotYXNMX1RiQXZiNnREcW5KYXVTZGFnVENPcEFVRUN2WVlVbHpfMzV1VUIxbWh4dEtlZmFFa0FySGFGbF9pV19sa1ZBdTlXY0FTUlpGWWpfOHV2ZGFXaG9Pb3NfOHFPMG90MFJ5dkJOU3Z5cThPU3FUbHdRVDlRVDRGVm93T2RQaFByTXM1T2hvUVNsbHpvY1hhVlpXVnhsM1lOZy11ZkVrZldWRTNBUkI5Y0lMRjFUcWllQl9fVG9ra3B5dw?oc=5",
       "prefilter_score": 52.56410256410256,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-16439f-b01de8",
@@ -693,9 +795,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNLVNvRXE1dGQ3TTFjZS1TV1p1VWx2dld5RzA3RGhXWHA3ZWx4c1Y4UjRUOHRSVHdpbkFBQ2RHdmM4MkZpRUZvaEh6SGxMY1VESi1nOU8tem1MOGZfeFRFU2NQNnhiZEJ4bVV2TWZJM2N4cXJfTlplaGlPQmhNdUc4Q245dGNsZkZZVzIyQU9pV0Q1bGlHNTVUSzVLVHI2QmdTQ3pvTjVR?oc=5",
       "prefilter_score": 60.60606060606061,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "2101-2026-07-01-717c7f-b01de8",
@@ -711,9 +816,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNLVNvRXE1dGQ3TTFjZS1TV1p1VWx2dld5RzA3RGhXWHA3ZWx4c1Y4UjRUOHRSVHdpbkFBQ2RHdmM4MkZpRUZvaEh6SGxMY1VESi1nOU8tem1MOGZfeFRFU2NQNnhiZEJ4bVV2TWZJM2N4cXJfTlplaGlPQmhNdUc4Q245dGNsZkZZVzIyQU9pV0Q1bGlHNTVUSzVLVHI2QmdTQ3pvTjVR?oc=5",
       "prefilter_score": 54.90196078431372,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Articulo de etapa posterior/agregado respecto del nucleo del operativo; sin lectura confirmada de la fuente (URL de Google News no verificable) -- se aplica el default no_merge (F-05)."
     },
     {
       "pair_id": "4102-2026-07-01-9b1e83-6eed24",
@@ -729,9 +837,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNMnl3TXNQemxVS3dQTDB2NXctblNWRFVqM3V5bGcwekFIRVpYaFdGemd4bmJ2dkMyVm13ZDRiQ25jRlo5eGdURVpwTDk0TGpUVzhzWWJKVTJGU3NhOHJpQjUxb2pScmlEWjBSTVFJSHZZb0dXSnVzUm9Vck1UbnYwdl9jaG84eWIzOE40cWlYYmlvU0cxZnVjM25tLUhpalF3cmF5T2VVWDBBUUxKM3JlTTNOdFBJVVdLWXNON0hlRnBUNGZ2YnEwLWx3?oc=5",
       "prefilter_score": 65.6,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "6eed24180c36dbec reporta condena de 19 anios por homicidio consumado, vs. 8 anios y medio por homicidio frustrado en el resto del bucket -- diferencia de pena (10.5 anios) y de etapa del delito (consumado vs. frustrado) es la firma de un caso DISTINTO, no ruido de cobertura (F-05, REVOCA 'reporting noise')."
     },
     {
       "pair_id": "4102-2026-07-01-9b1e83-282067",
@@ -747,9 +858,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxQUU5jdkJILWJhLXFnNFBjc3hzTE1TUU1OOUtxUVZTUHpJeFJNNHBYZzE3WGRKM0czaWJES0VtSDVwOEVzd01TdG00WDdLbGZyV0xlUk1jY1hqRVd1U2VONjJOOFFRckpJMmRaUUV5WHJ6bjgyV0x5V3o4SzN4WldnZHNuVlNvNzJqS2xxWlBXWFRWZXVLWXFONWFPeVBqbW5wcm95ZVZMWlplUG1yRXBVLW14SC1yajZJVmRlcDVnY0R3MnVMd04telFLS3FVa1pxTFVzV2JYblN1R3poRlBncTViVGwwdw?oc=5",
       "prefilter_score": 63.63636363636363,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-9b1e83-60a9e3",
@@ -765,9 +879,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxNLTgtUzVQb1BMRGUtUl93b05vS3ZZRVJmN0MzUUxDTWdoLWQta1E1amJVVThSRmF6aVRkVjU0R0NQMUhfOXV3dktmM1lTemVJZVpySVdBcXZrN0l6NE9VRzE0Tk8xNEdlSGs1U1c3elZtamRQNmltOVk3YjFEYkExM3cwUExkWnl6cW5kOTlJUEVLTUVQeVRXaVg2dUpfRkhtXzI5TS1RbWtDd0NKYXBWS2ZMZnd1bVVNU29LZHVTVG1jbTFIMGR1MGxIZUdmTkVKV1A1dk95Zm56OGFVejFsWHV5QW9pNGlZcTJ2dUp30gGPAkFVX3lxTFBvQnJhcDFrOUUzcDRyTXBtaHp5LTk5ZTFheW9ja2lNb3hzYWVRcjRSbUI4aXBhRktEZ2lVeVQ1MmZlck5sa2d0YXR0bHNtMWFzQ3luQ2xkeVF5a0FoemRSOTA3Um81V09ackVyT2NJN1NsRkVhbEV4YTRyUjhxSjFXbHFLZTBzSGlkaXZWSllsN1ZmS2FZU2FhUUdpZUlMOWQ1cGhpMkl0b2xOSEtld1dnSzhFd0JfdDBMMHY4QlFUbWVfZy1rU2d3WHY3SFFEZ29VRk52YmtnX3VTQ2p4QXVoeGZpX2NZTWJCWWptemt1aDdvQUN3STdodk0tdEQwU0lnNTAxSGliTFBSM3FESkk?oc=5",
       "prefilter_score": 94.4,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-9b1e83-585fb5",
@@ -783,9 +900,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPZDJJVjJRa1lRWlZWMk40UFVmVlM2WGVHQ0FnX2pJcl8yMGlTbzU2TXJUZThsaTFEMDhNcUFnUW9fcHZWbVNXNmIxRVd0RlN6RFU0VjE1TUdDc0lHdDV0c0hDSGxRNDhIbldGRW5USTB1SFFITTltQzlsUEVRdUoyakNvMDRkaW5LNmtmU3lKQzFERHNHTW9mMkVSZ2cyemZNcUZzTlU0dw?oc=5",
       "prefilter_score": 59.84251968503937,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-9b1e83-e499c4",
@@ -801,9 +921,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQOExHbVlGTGh3dDJnU3ZzOHFWZ295NW5nNGI0eWNnNVoyblNfUko3UTJWNTFHMXNPM3FPeGh5ZExFSHJMbTMwNks3LUJ2cmMxX1ZoTUJoOGVrY1M0LWw5WGlGN1hzc0k4VGtRdEgxRHBrUjl0M19vMnVVZFhjaHhaUkhxVWtVTG1ubDNxQ05GR2dIaktjWjVCZlk2SE45SFlOQmN4NHRWald1VlpiTXp0NVdpN3J0b3VMLXNSOXY0S1h1MTVGUHdvZTFJcW80QnJOQkxMQnlPLV9pS1RJbVJnazdn?oc=5",
       "prefilter_score": 75.38461538461539,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-9b1e83-59dca3",
@@ -819,9 +942,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQSmN4NFF5MnN6d2hYQlhtSmJzOXVmdGRzQURvdTNhVTBhSi05dlhtQkxhWF9qX254aGl4UGwxWjZROER2MDNuUnloOVBJeUVxMm5MN1RPbE56bEdOUjcwZVpxRDZCMVhONTZXSXRsb2o4ZDdWQzdBUFBDelNIZVU5NjY4ZDkxc3U2VEJKYnlOazk1RXRkNFlrRTdaMHhpLTBDdExGeG42cFpEb281WG45X20zUDV2TzZ4MHA0cDJYM3hzQ1ZPY3lOQTZlby1qTE1NRlQweW5CX2t2RHVCLWRtWWd3?oc=5",
       "prefilter_score": 66.14173228346456,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-9b1e83-c3ec78",
@@ -837,9 +963,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPU19GWURWOUpjSnZQNEgzbENOUEk2Q0RVc1dOWEk4aHV0WEotLVhFVHRLenppZEdqM2pBWmZBU2F3U1h3bTJRdHJHdWJ2Y1FUd0V0WE5tWXcyOW9jekVERDNfdnFSMWZrMlk0Rks0eVVvRjdOU2pJWThHVUktN2ROT3hzRnJLRk5tVzBDYjJBNXM1YUdvNDhsNzR3X2RDbTgxY3ltYlpCS2tZSkVNbko5QmVUQ0lxRzc4aUJUTW9uZw?oc=5",
       "prefilter_score": 67.62589928057554,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-6eed24-282067",
@@ -855,9 +984,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxQUU5jdkJILWJhLXFnNFBjc3hzTE1TUU1OOUtxUVZTUHpJeFJNNHBYZzE3WGRKM0czaWJES0VtSDVwOEVzd01TdG00WDdLbGZyV0xlUk1jY1hqRVd1U2VONjJOOFFRckpJMmRaUUV5WHJ6bjgyV0x5V3o4SzN4WldnZHNuVlNvNzJqS2xxWlBXWFRWZXVLWXFONWFPeVBqbW5wcm95ZVZMWlplUG1yRXBVLW14SC1yajZJVmRlcDVnY0R3MnVMd04telFLS3FVa1pxTFVzV2JYblN1R3poRlBncTViVGwwdw?oc=5",
       "prefilter_score": 97.3913043478261,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "6eed24180c36dbec reporta condena de 19 anios por homicidio consumado, vs. 8 anios y medio por homicidio frustrado en el resto del bucket -- diferencia de pena (10.5 anios) y de etapa del delito (consumado vs. frustrado) es la firma de un caso DISTINTO, no ruido de cobertura (F-05, REVOCA 'reporting noise')."
     },
     {
       "pair_id": "4102-2026-07-01-6eed24-60a9e3",
@@ -873,9 +1005,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxNLTgtUzVQb1BMRGUtUl93b05vS3ZZRVJmN0MzUUxDTWdoLWQta1E1amJVVThSRmF6aVRkVjU0R0NQMUhfOXV3dktmM1lTemVJZVpySVdBcXZrN0l6NE9VRzE0Tk8xNEdlSGs1U1c3elZtamRQNmltOVk3YjFEYkExM3cwUExkWnl6cW5kOTlJUEVLTUVQeVRXaVg2dUpfRkhtXzI5TS1RbWtDd0NKYXBWS2ZMZnd1bVVNU29LZHVTVG1jbTFIMGR1MGxIZUdmTkVKV1A1dk95Zm56OGFVejFsWHV5QW9pNGlZcTJ2dUp30gGPAkFVX3lxTFBvQnJhcDFrOUUzcDRyTXBtaHp5LTk5ZTFheW9ja2lNb3hzYWVRcjRSbUI4aXBhRktEZ2lVeVQ1MmZlck5sa2d0YXR0bHNtMWFzQ3luQ2xkeVF5a0FoemRSOTA3Um81V09ackVyT2NJN1NsRkVhbEV4YTRyUjhxSjFXbHFLZTBzSGlkaXZWSllsN1ZmS2FZU2FhUUdpZUlMOWQ1cGhpMkl0b2xOSEtld1dnSzhFd0JfdDBMMHY4QlFUbWVfZy1rU2d3WHY3SFFEZ29VRk52YmtnX3VTQ2p4QXVoeGZpX2NZTWJCWWptemt1aDdvQUN3STdodk0tdEQwU0lnNTAxSGliTFBSM3FESkk?oc=5",
       "prefilter_score": 68.70229007633588,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "6eed24180c36dbec reporta condena de 19 anios por homicidio consumado, vs. 8 anios y medio por homicidio frustrado en el resto del bucket -- diferencia de pena (10.5 anios) y de etapa del delito (consumado vs. frustrado) es la firma de un caso DISTINTO, no ruido de cobertura (F-05, REVOCA 'reporting noise')."
     },
     {
       "pair_id": "4102-2026-07-01-6eed24-585fb5",
@@ -891,9 +1026,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPZDJJVjJRa1lRWlZWMk40UFVmVlM2WGVHQ0FnX2pJcl8yMGlTbzU2TXJUZThsaTFEMDhNcUFnUW9fcHZWbVNXNmIxRVd0RlN6RFU0VjE1TUdDc0lHdDV0c0hDSGxRNDhIbldGRW5USTB1SFFITTltQzlsUEVRdUoyakNvMDRkaW5LNmtmU3lKQzFERHNHTW9mMkVSZ2cyemZNcUZzTlU0dw?oc=5",
       "prefilter_score": 60.0,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "6eed24180c36dbec reporta condena de 19 anios por homicidio consumado, vs. 8 anios y medio por homicidio frustrado en el resto del bucket -- diferencia de pena (10.5 anios) y de etapa del delito (consumado vs. frustrado) es la firma de un caso DISTINTO, no ruido de cobertura (F-05, REVOCA 'reporting noise')."
     },
     {
       "pair_id": "4102-2026-07-01-6eed24-e499c4",
@@ -909,9 +1047,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQOExHbVlGTGh3dDJnU3ZzOHFWZ295NW5nNGI0eWNnNVoyblNfUko3UTJWNTFHMXNPM3FPeGh5ZExFSHJMbTMwNks3LUJ2cmMxX1ZoTUJoOGVrY1M0LWw5WGlGN1hzc0k4VGtRdEgxRHBrUjl0M19vMnVVZFhjaHhaUkhxVWtVTG1ubDNxQ05GR2dIaktjWjVCZlk2SE45SFlOQmN4NHRWald1VlpiTXp0NVdpN3J0b3VMLXNSOXY0S1h1MTVGUHdvZTFJcW80QnJOQkxMQnlPLV9pS1RJbVJnazdn?oc=5",
       "prefilter_score": 73.17073170731707,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "6eed24180c36dbec reporta condena de 19 anios por homicidio consumado, vs. 8 anios y medio por homicidio frustrado en el resto del bucket -- diferencia de pena (10.5 anios) y de etapa del delito (consumado vs. frustrado) es la firma de un caso DISTINTO, no ruido de cobertura (F-05, REVOCA 'reporting noise')."
     },
     {
       "pair_id": "4102-2026-07-01-6eed24-59dca3",
@@ -927,9 +1068,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQSmN4NFF5MnN6d2hYQlhtSmJzOXVmdGRzQURvdTNhVTBhSi05dlhtQkxhWF9qX254aGl4UGwxWjZROER2MDNuUnloOVBJeUVxMm5MN1RPbE56bEdOUjcwZVpxRDZCMVhONTZXSXRsb2o4ZDdWQzdBUFBDelNIZVU5NjY4ZDkxc3U2VEJKYnlOazk1RXRkNFlrRTdaMHhpLTBDdExGeG42cFpEb281WG45X20zUDV2TzZ4MHA0cDJYM3hzQ1ZPY3lOQTZlby1qTE1NRlQweW5CX2t2RHVCLWRtWWd3?oc=5",
       "prefilter_score": 70.32967032967034,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "6eed24180c36dbec reporta condena de 19 anios por homicidio consumado, vs. 8 anios y medio por homicidio frustrado en el resto del bucket -- diferencia de pena (10.5 anios) y de etapa del delito (consumado vs. frustrado) es la firma de un caso DISTINTO, no ruido de cobertura (F-05, REVOCA 'reporting noise')."
     },
     {
       "pair_id": "4102-2026-07-01-6eed24-c3ec78",
@@ -945,9 +1089,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPU19GWURWOUpjSnZQNEgzbENOUEk2Q0RVc1dOWEk4aHV0WEotLVhFVHRLenppZEdqM2pBWmZBU2F3U1h3bTJRdHJHdWJ2Y1FUd0V0WE5tWXcyOW9jekVERDNfdnFSMWZrMlk0Rks0eVVvRjdOU2pJWThHVUktN2ROT3hzRnJLRk5tVzBDYjJBNXM1YUdvNDhsNzR3X2RDbTgxY3ltYlpCS2tZSkVNbko5QmVUQ0lxRzc4aUJUTW9uZw?oc=5",
       "prefilter_score": 82.0,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "same_date_diff_crime",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "6eed24180c36dbec reporta condena de 19 anios por homicidio consumado, vs. 8 anios y medio por homicidio frustrado en el resto del bucket -- diferencia de pena (10.5 anios) y de etapa del delito (consumado vs. frustrado) es la firma de un caso DISTINTO, no ruido de cobertura (F-05, REVOCA 'reporting noise')."
     },
     {
       "pair_id": "4102-2026-07-01-282067-60a9e3",
@@ -963,9 +1110,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxNLTgtUzVQb1BMRGUtUl93b05vS3ZZRVJmN0MzUUxDTWdoLWQta1E1amJVVThSRmF6aVRkVjU0R0NQMUhfOXV3dktmM1lTemVJZVpySVdBcXZrN0l6NE9VRzE0Tk8xNEdlSGs1U1c3elZtamRQNmltOVk3YjFEYkExM3cwUExkWnl6cW5kOTlJUEVLTUVQeVRXaVg2dUpfRkhtXzI5TS1RbWtDd0NKYXBWS2ZMZnd1bVVNU29LZHVTVG1jbTFIMGR1MGxIZUdmTkVKV1A1dk95Zm56OGFVejFsWHV5QW9pNGlZcTJ2dUp30gGPAkFVX3lxTFBvQnJhcDFrOUUzcDRyTXBtaHp5LTk5ZTFheW9ja2lNb3hzYWVRcjRSbUI4aXBhRktEZ2lVeVQ1MmZlck5sa2d0YXR0bHNtMWFzQ3luQ2xkeVF5a0FoemRSOTA3Um81V09ackVyT2NJN1NsRkVhbEV4YTRyUjhxSjFXbHFLZTBzSGlkaXZWSllsN1ZmS2FZU2FhUUdpZUlMOWQ1cGhpMkl0b2xOSEtld1dnSzhFd0JfdDBMMHY4QlFUbWVfZy1rU2d3WHY3SFFEZ29VRk52YmtnX3VTQ2p4QXVoeGZpX2NZTWJCWWptemt1aDdvQUN3STdodk0tdEQwU0lnNTAxSGliTFBSM3FESkk?oc=5",
       "prefilter_score": 73.6842105263158,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-282067-585fb5",
@@ -981,9 +1131,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPZDJJVjJRa1lRWlZWMk40UFVmVlM2WGVHQ0FnX2pJcl8yMGlTbzU2TXJUZThsaTFEMDhNcUFnUW9fcHZWbVNXNmIxRVd0RlN6RFU0VjE1TUdDc0lHdDV0c0hDSGxRNDhIbldGRW5USTB1SFFITTltQzlsUEVRdUoyakNvMDRkaW5LNmtmU3lKQzFERHNHTW9mMkVSZ2cyemZNcUZzTlU0dw?oc=5",
       "prefilter_score": 59.060402684563755,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-282067-e499c4",
@@ -999,9 +1152,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQOExHbVlGTGh3dDJnU3ZzOHFWZ295NW5nNGI0eWNnNVoyblNfUko3UTJWNTFHMXNPM3FPeGh5ZExFSHJMbTMwNks3LUJ2cmMxX1ZoTUJoOGVrY1M0LWw5WGlGN1hzc0k4VGtRdEgxRHBrUjl0M19vMnVVZFhjaHhaUkhxVWtVTG1ubDNxQ05GR2dIaktjWjVCZlk2SE45SFlOQmN4NHRWald1VlpiTXp0NVdpN3J0b3VMLXNSOXY0S1h1MTVGUHdvZTFJcW80QnJOQkxMQnlPLV9pS1RJbVJnazdn?oc=5",
       "prefilter_score": 75.72815533980582,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-282067-59dca3",
@@ -1017,9 +1173,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQSmN4NFF5MnN6d2hYQlhtSmJzOXVmdGRzQURvdTNhVTBhSi05dlhtQkxhWF9qX254aGl4UGwxWjZROER2MDNuUnloOVBJeUVxMm5MN1RPbE56bEdOUjcwZVpxRDZCMVhONTZXSXRsb2o4ZDdWQzdBUFBDelNIZVU5NjY4ZDkxc3U2VEJKYnlOazk1RXRkNFlrRTdaMHhpLTBDdExGeG42cFpEb281WG45X20zUDV2TzZ4MHA0cDJYM3hzQ1ZPY3lOQTZlby1qTE1NRlQweW5CX2t2RHVCLWRtWWd3?oc=5",
       "prefilter_score": 88.07339449541284,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-282067-c3ec78",
@@ -1035,9 +1194,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPU19GWURWOUpjSnZQNEgzbENOUEk2Q0RVc1dOWEk4aHV0WEotLVhFVHRLenppZEdqM2pBWmZBU2F3U1h3bTJRdHJHdWJ2Y1FUd0V0WE5tWXcyOW9jekVERDNfdnFSMWZrMlk0Rks0eVVvRjdOU2pJWThHVUktN2ROT3hzRnJLRk5tVzBDYjJBNXM1YUdvNDhsNzR3X2RDbTgxY3ltYlpCS2tZSkVNbko5QmVUQ0lxRzc4aUJUTW9uZw?oc=5",
       "prefilter_score": 100.0,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-60a9e3-585fb5",
@@ -1053,9 +1215,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPZDJJVjJRa1lRWlZWMk40UFVmVlM2WGVHQ0FnX2pJcl8yMGlTbzU2TXJUZThsaTFEMDhNcUFnUW9fcHZWbVNXNmIxRVd0RlN6RFU0VjE1TUdDc0lHdDV0c0hDSGxRNDhIbldGRW5USTB1SFFITTltQzlsUEVRdUoyakNvMDRkaW5LNmtmU3lKQzFERHNHTW9mMkVSZ2cyemZNcUZzTlU0dw?oc=5",
       "prefilter_score": 58.64661654135338,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-60a9e3-e499c4",
@@ -1071,9 +1236,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQOExHbVlGTGh3dDJnU3ZzOHFWZ295NW5nNGI0eWNnNVoyblNfUko3UTJWNTFHMXNPM3FPeGh5ZExFSHJMbTMwNks3LUJ2cmMxX1ZoTUJoOGVrY1M0LWw5WGlGN1hzc0k4VGtRdEgxRHBrUjl0M19vMnVVZFhjaHhaUkhxVWtVTG1ubDNxQ05GR2dIaktjWjVCZlk2SE45SFlOQmN4NHRWald1VlpiTXp0NVdpN3J0b3VMLXNSOXY0S1h1MTVGUHdvZTFJcW80QnJOQkxMQnlPLV9pS1RJbVJnazdn?oc=5",
       "prefilter_score": 80.88235294117646,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-60a9e3-59dca3",
@@ -1089,9 +1257,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQSmN4NFF5MnN6d2hYQlhtSmJzOXVmdGRzQURvdTNhVTBhSi05dlhtQkxhWF9qX254aGl4UGwxWjZROER2MDNuUnloOVBJeUVxMm5MN1RPbE56bEdOUjcwZVpxRDZCMVhONTZXSXRsb2o4ZDdWQzdBUFBDelNIZVU5NjY4ZDkxc3U2VEJKYnlOazk1RXRkNFlrRTdaMHhpLTBDdExGeG42cFpEb281WG45X20zUDV2TzZ4MHA0cDJYM3hzQ1ZPY3lOQTZlby1qTE1NRlQweW5CX2t2RHVCLWRtWWd3?oc=5",
       "prefilter_score": 71.57894736842105,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-60a9e3-c3ec78",
@@ -1107,9 +1278,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPU19GWURWOUpjSnZQNEgzbENOUEk2Q0RVc1dOWEk4aHV0WEotLVhFVHRLenppZEdqM2pBWmZBU2F3U1h3bTJRdHJHdWJ2Y1FUd0V0WE5tWXcyOW9jekVERDNfdnFSMWZrMlk0Rks0eVVvRjdOU2pJWThHVUktN2ROT3hzRnJLRk5tVzBDYjJBNXM1YUdvNDhsNzR3X2RDbTgxY3ltYlpCS2tZSkVNbko5QmVUQ0lxRzc4aUJUTW9uZw?oc=5",
       "prefilter_score": 73.6842105263158,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-585fb5-e499c4",
@@ -1125,9 +1299,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQOExHbVlGTGh3dDJnU3ZzOHFWZ295NW5nNGI0eWNnNVoyblNfUko3UTJWNTFHMXNPM3FPeGh5ZExFSHJMbTMwNks3LUJ2cmMxX1ZoTUJoOGVrY1M0LWw5WGlGN1hzc0k4VGtRdEgxRHBrUjl0M19vMnVVZFhjaHhaUkhxVWtVTG1ubDNxQ05GR2dIaktjWjVCZlk2SE45SFlOQmN4NHRWald1VlpiTXp0NVdpN3J0b3VMLXNSOXY0S1h1MTVGUHdvZTFJcW80QnJOQkxMQnlPLV9pS1RJbVJnazdn?oc=5",
       "prefilter_score": 59.2,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-585fb5-59dca3",
@@ -1143,9 +1320,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQSmN4NFF5MnN6d2hYQlhtSmJzOXVmdGRzQURvdTNhVTBhSi05dlhtQkxhWF9qX254aGl4UGwxWjZROER2MDNuUnloOVBJeUVxMm5MN1RPbE56bEdOUjcwZVpxRDZCMVhONTZXSXRsb2o4ZDdWQzdBUFBDelNIZVU5NjY4ZDkxc3U2VEJKYnlOazk1RXRkNFlrRTdaMHhpLTBDdExGeG42cFpEb281WG45X20zUDV2TzZ4MHA0cDJYM3hzQ1ZPY3lOQTZlby1qTE1NRlQweW5CX2t2RHVCLWRtWWd3?oc=5",
       "prefilter_score": 62.295081967213115,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-585fb5-c3ec78",
@@ -1161,9 +1341,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPU19GWURWOUpjSnZQNEgzbENOUEk2Q0RVc1dOWEk4aHV0WEotLVhFVHRLenppZEdqM2pBWmZBU2F3U1h3bTJRdHJHdWJ2Y1FUd0V0WE5tWXcyOW9jekVERDNfdnFSMWZrMlk0Rks0eVVvRjdOU2pJWThHVUktN2ROT3hzRnJLRk5tVzBDYjJBNXM1YUdvNDhsNzR3X2RDbTgxY3ltYlpCS2tZSkVNbko5QmVUQ0lxRzc4aUJUTW9uZw?oc=5",
       "prefilter_score": 58.208955223880594,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-e499c4-59dca3",
@@ -1179,9 +1362,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQSmN4NFF5MnN6d2hYQlhtSmJzOXVmdGRzQURvdTNhVTBhSi05dlhtQkxhWF9qX254aGl4UGwxWjZROER2MDNuUnloOVBJeUVxMm5MN1RPbE56bEdOUjcwZVpxRDZCMVhONTZXSXRsb2o4ZDdWQzdBUFBDelNIZVU5NjY4ZDkxc3U2VEJKYnlOazk1RXRkNFlrRTdaMHhpLTBDdExGeG42cFpEb281WG45X20zUDV2TzZ4MHA0cDJYM3hzQ1ZPY3lOQTZlby1qTE1NRlQweW5CX2t2RHVCLWRtWWd3?oc=5",
       "prefilter_score": 76.8,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-e499c4-c3ec78",
@@ -1197,9 +1383,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPU19GWURWOUpjSnZQNEgzbENOUEk2Q0RVc1dOWEk4aHV0WEotLVhFVHRLenppZEdqM2pBWmZBU2F3U1h3bTJRdHJHdWJ2Y1FUd0V0WE5tWXcyOW9jekVERDNfdnFSMWZrMlk0Rks0eVVvRjdOU2pJWThHVUktN2ROT3hzRnJLRk5tVzBDYjJBNXM1YUdvNDhsNzR3X2RDbTgxY3ltYlpCS2tZSkVNbko5QmVUQ0lxRzc4aUJUTW9uZw?oc=5",
       "prefilter_score": 77.37226277372262,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "4102-2026-07-01-59dca3-c3ec78",
@@ -1215,9 +1404,12 @@
       "url_b": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPU19GWURWOUpjSnZQNEgzbENOUEk2Q0RVc1dOWEk4aHV0WEotLVhFVHRLenppZEdqM2pBWmZBU2F3U1h3bTJRdHJHdWJ2Y1FUd0V0WE5tWXcyOW9jekVERDNfdnFSMWZrMlk0Rks0eVVvRjdOU2pJWThHVUktN2ROT3hzRnJLRk5tVzBDYjJBNXM1YUdvNDhsNzR3X2RDbTgxY3ltYlpCS2tZSkVNbko5QmVUQ0lxRzc4aUJUTW9uZw?oc=5",
       "prefilter_score": 84.90566037735849,
       "proposed": true,
-      "category": "mandatory_pending_label",
+      "category": "multi_outlet_positive",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Ambos articulos cubren la misma condena de 8 anios y medio por homicidio frustrado en Tongoy."
     },
     {
       "pair_id": "10101-2026-07-13-6ac246-02942e",
@@ -1235,7 +1427,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "low",
+      "note": "Baleo con un detenido en Puerto Montt; homicidio frustrado consistente con el baleo -- no se leyo la fuente."
     },
     {
       "pair_id": "10201-2026-07-20-02dc8b-e96493",
@@ -1253,7 +1448,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "lugar",
+      "label_confidence": "high",
+      "note": "Tipos de delito distintos: contrabando de droga vs. muerte de joven en accidente."
     },
     {
       "pair_id": "10301-2026-07-13-84510b-a3b712",
@@ -1271,7 +1469,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Ambos titulares describen a la misma mujer detenida por homicidio frustrado con arma cortante."
     },
     {
       "pair_id": "10301-2026-07-13-84510b-6a05cf",
@@ -1289,7 +1490,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "lugar",
+      "label_confidence": "high",
+      "note": "Arma cortante vs. balacera -- mecanismos de agresion distintos, casos distintos."
     },
     {
       "pair_id": "10301-2026-07-13-84510b-fbfa50",
@@ -1307,7 +1511,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Mismo hecho: mujer detenida por homicidio frustrado con arma cortante."
     },
     {
       "pair_id": "10301-2026-07-13-a3b712-6a05cf",
@@ -1325,7 +1532,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "lugar",
+      "label_confidence": "high",
+      "note": "Arma cortante vs. balacera -- casos distintos."
     },
     {
       "pair_id": "10301-2026-07-13-a3b712-fbfa50",
@@ -1343,7 +1553,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Mismo hecho: mujer detenida por PDI, homicidio frustrado con arma cortante."
     },
     {
       "pair_id": "1101-2026-06-30-ccf3db-101e7d",
@@ -1361,7 +1574,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "lugar",
+      "label_confidence": "high",
+      "note": "Incautacion de droga vs. asalto armado a un show -- hechos distintos."
     },
     {
       "pair_id": "1101-2026-07-03-d2699e-b1882c",
@@ -1379,7 +1595,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "lugar",
+      "label_confidence": "high",
+      "note": "Robo de caja fuerte en Registro Civil vs. robo de carga en Zofri -- hechos distintos."
     },
     {
       "pair_id": "1101-2026-07-04-399878-9c66ce",
@@ -1397,7 +1616,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Misma banda, mismo robo de carga de camiones en Zofri -- un integrante formalizado y un profugo del mismo caso."
     },
     {
       "pair_id": "1101-2026-07-05-55b669-f96d80",
@@ -1415,7 +1637,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Titulares identicos: cuatro sujetos detenidos por robo con violencia en Iquique."
     },
     {
       "pair_id": "1101-2026-07-05-55b669-595ce7",
@@ -1433,7 +1658,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Mismo hecho: cuatro sujetos detenidos por robo con violencia en Iquique."
     },
     {
       "pair_id": "1101-2026-07-05-f96d80-595ce7",
@@ -1451,7 +1679,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Mismo hecho: cuatro sujetos detenidos por robo con violencia en Iquique."
     },
     {
       "pair_id": "1101-2026-07-05-fb5a88-595ce7",
@@ -1469,7 +1700,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "lugar",
+      "label_confidence": "high",
+      "note": "Robo de carga en Zofri (banda distinta) vs. robo con violencia de cuatro sujetos -- hechos distintos."
     },
     {
       "pair_id": "1101-2026-07-06-d1e1fc-694162",
@@ -1487,7 +1721,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "lugar",
+      "label_confidence": "low",
+      "note": "Titulares no describen claramente el mismo hecho concreto -- no verificado con la fuente."
     },
     {
       "pair_id": "1101-2026-07-07-7fa53b-469bb9",
@@ -1505,7 +1742,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "lugar",
+      "label_confidence": "low",
+      "note": "Robo en Bajo Molle vs. robo a jovenes saliendo de discoteca -- no se puede confirmar que sea el mismo hecho solo por el titular."
     },
     {
       "pair_id": "1101-2026-07-07-399bfa-469bb9",
@@ -1523,7 +1763,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "no_merge",
+      "label_basis": "lugar",
+      "label_confidence": "high",
+      "note": "Robo de $2,7 millones en Zofri vs. robo a jovenes en discoteca -- hechos distintos."
     },
     {
       "pair_id": "1101-2026-07-10-7978e0-1d44ba",
@@ -1541,7 +1784,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "actores",
+      "label_confidence": "high",
+      "note": "Titulares identicos: dos bolivianos detenidos por robo en Zona Franca de Iquique."
     },
     {
       "pair_id": "1101-2026-07-12-19aad8-1af3c1",
@@ -1559,7 +1805,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "sentencia",
+      "label_confidence": "high",
+      "note": "Misma condena: colombiano a 23 anios por robos, drogas y arma."
     },
     {
       "pair_id": "1101-2026-07-19-330757-6d58f9",
@@ -1577,7 +1826,10 @@
       "proposed": true,
       "category": "sampled",
       "bypasses_bucket": false,
-      "label": null
+      "label": "merge",
+      "label_basis": "lugar",
+      "label_confidence": "high",
+      "note": "Mismo incendio en Iquique con un fallecido y un bombero herido."
     },
     {
       "pair_id": "typo-5301-8301",
@@ -1595,7 +1847,7 @@
       "proposed": true,
       "category": "typo_homophone_negative",
       "bypasses_bucket": true,
-      "label": null,
+      "label": "no_merge",
       "incident_a": {
         "id": "typo-5301-01",
         "cut": "5301",
@@ -1611,7 +1863,10 @@
         "title_es": "Detienen a sospechoso de hurto en Los Angeles",
         "outlet": "synthesized",
         "url": ""
-      }
+      },
+      "label_basis": "cut_mismatch",
+      "label_confidence": "high",
+      "note": "Pares construidos deliberadamente: comunas lexicamente confundibles pero CUT distinto y hechos distintos."
     },
     {
       "pair_id": "typo-8308-8309",
@@ -1629,7 +1884,7 @@
       "proposed": true,
       "category": "typo_homophone_negative",
       "bypasses_bucket": true,
-      "label": null,
+      "label": "no_merge",
       "incident_a": {
         "id": "typo-8308-01",
         "cut": "8308",
@@ -1645,7 +1900,10 @@
         "title_es": "Incendio intencional afecta bodega en Quilleco",
         "outlet": "synthesized",
         "url": ""
-      }
+      },
+      "label_basis": "cut_mismatch",
+      "label_confidence": "high",
+      "note": "Pares construidos deliberadamente: comunas lexicamente confundibles pero CUT distinto y hechos distintos."
     },
     {
       "pair_id": "typo-16301-10307",
@@ -1663,7 +1921,7 @@
       "proposed": true,
       "category": "typo_homophone_negative",
       "bypasses_bucket": true,
-      "label": null,
+      "label": "no_merge",
       "incident_a": {
         "id": "typo-16301-01",
         "cut": "16301",
@@ -1679,7 +1937,10 @@
         "title_es": "Sustraen vehículo estacionado en San Pablo",
         "outlet": "synthesized",
         "url": ""
-      }
+      },
+      "label_basis": "cut_mismatch",
+      "label_confidence": "high",
+      "note": "Pares construidos deliberadamente: comunas lexicamente confundibles pero CUT distinto y hechos distintos."
     },
     {
       "pair_id": "typo-13301-7304",
@@ -1697,7 +1958,7 @@
       "proposed": true,
       "category": "typo_homophone_negative",
       "bypasses_bucket": true,
-      "label": null,
+      "label": "no_merge",
       "incident_a": {
         "id": "typo-13301-01",
         "cut": "13301",
@@ -1713,7 +1974,10 @@
         "title_es": "Encuentran vehículo con encargo por robo en Molina",
         "outlet": "synthesized",
         "url": ""
-      }
+      },
+      "label_basis": "cut_mismatch",
+      "label_confidence": "high",
+      "note": "Pares construidos deliberadamente: comunas lexicamente confundibles pero CUT distinto y hechos distintos."
     },
     {
       "pair_id": "typo-3102-5502",
@@ -1731,7 +1995,7 @@
       "proposed": true,
       "category": "typo_homophone_negative",
       "bypasses_bucket": true,
-      "label": null,
+      "label": "no_merge",
       "incident_a": {
         "id": "typo-3102-01",
         "cut": "3102",
@@ -1747,7 +2011,10 @@
         "title_es": "Detienen a conductor en estado de ebriedad en Calera",
         "outlet": "synthesized",
         "url": ""
-      }
+      },
+      "label_basis": "cut_mismatch",
+      "label_confidence": "high",
+      "note": "Pares construidos deliberadamente: comunas lexicamente confundibles pero CUT distinto y hechos distintos."
     },
     {
       "pair_id": "typo-7202-14103",
@@ -1765,7 +2032,7 @@
       "proposed": true,
       "category": "typo_homophone_negative",
       "bypasses_bucket": true,
-      "label": null,
+      "label": "no_merge",
       "incident_a": {
         "id": "typo-7202-01",
         "cut": "7202",
@@ -1781,7 +2048,10 @@
         "title_es": "Denuncian violencia intrafamiliar en Lanco",
         "outlet": "synthesized",
         "url": ""
-      }
+      },
+      "label_basis": "cut_mismatch",
+      "label_confidence": "high",
+      "note": "Pares construidos deliberadamente: comunas lexicamente confundibles pero CUT distinto y hechos distintos."
     },
     {
       "pair_id": "typo-11301-1403",
@@ -1799,7 +2069,7 @@
       "proposed": true,
       "category": "typo_homophone_negative",
       "bypasses_bucket": true,
-      "label": null,
+      "label": "no_merge",
       "incident_a": {
         "id": "typo-11301-01",
         "cut": "11301",
@@ -1815,7 +2085,10 @@
         "title_es": "Carabineros detecta ingreso irregular de migrantes en Colchane",
         "outlet": "synthesized",
         "url": ""
-      }
+      },
+      "label_basis": "cut_mismatch",
+      "label_confidence": "high",
+      "note": "Pares construidos deliberadamente: comunas lexicamente confundibles pero CUT distinto y hechos distintos."
     },
     {
       "pair_id": "typo-16105-8107",
@@ -1833,7 +2106,7 @@
       "proposed": true,
       "category": "typo_homophone_negative",
       "bypasses_bucket": true,
-      "label": null,
+      "label": "no_merge",
       "incident_a": {
         "id": "typo-16105-01",
         "cut": "16105",
@@ -1849,7 +2122,10 @@
         "title_es": "Riña vecinal termina con detenido en Penco",
         "outlet": "synthesized",
         "url": ""
-      }
+      },
+      "label_basis": "cut_mismatch",
+      "label_confidence": "high",
+      "note": "Pares construidos deliberadamente: comunas lexicamente confundibles pero CUT distinto y hechos distintos."
     },
     {
       "pair_id": "typo-6112-13202",
@@ -1867,7 +2143,7 @@
       "proposed": true,
       "category": "typo_homophone_negative",
       "bypasses_bucket": true,
-      "label": null,
+      "label": "no_merge",
       "incident_a": {
         "id": "typo-6112-01",
         "cut": "6112",
@@ -1883,7 +2159,10 @@
         "title_es": "Detienen a conductor tras persecución en Pirque",
         "outlet": "synthesized",
         "url": ""
-      }
+      },
+      "label_basis": "cut_mismatch",
+      "label_confidence": "high",
+      "note": "Pares construidos deliberadamente: comunas lexicamente confundibles pero CUT distinto y hechos distintos."
     },
     {
       "pair_id": "typo-7101-2104",
@@ -1901,7 +2180,7 @@
       "proposed": true,
       "category": "typo_homophone_negative",
       "bypasses_bucket": true,
-      "label": null,
+      "label": "no_merge",
       "incident_a": {
         "id": "typo-7101-01",
         "cut": "7101",
@@ -1917,7 +2196,10 @@
         "title_es": "Naufragio de embarcación menor reportado en Taltal",
         "outlet": "synthesized",
         "url": ""
-      }
+      },
+      "label_basis": "cut_mismatch",
+      "label_confidence": "high",
+      "note": "Pares construidos deliberadamente: comunas lexicamente confundibles pero CUT distinto y hechos distintos."
     }
   ]
 }
