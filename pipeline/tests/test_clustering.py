@@ -8,7 +8,9 @@ unittest.mock.patch on the module-level `pipeline.news.clustering.client`.
 """
 from __future__ import annotations
 
+import hashlib
 import json
+import os
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -17,6 +19,8 @@ import pytest
 from openai import AuthenticationError
 
 from pipeline.news.clustering import (
+    MODEL,
+    SYSTEM_PROMPT,
     ClusterVerdict,
     UnionFind,
     adjudicate_pair,
@@ -25,6 +29,7 @@ from pipeline.news.clustering import (
     cluster_id,
     prefilter_candidates,
 )
+from pipeline.scripts.run_clustering_spike import compute_pairwise_metrics
 
 # Local FIXTURES_DIR per conftest.py convention -- not importable from
 # conftest.py (test_feeds.py:21, test_parser.py:10, test_scrape_cead.py:21
@@ -357,3 +362,122 @@ def test_call_budget_refuses_to_start(tmp_path, monkeypatch):
     assert call_log_path.exists()
     content = call_log_path.read_text(encoding="utf-8")
     assert "NO-GO-by-cost" in content
+
+
+# ---------------------------------------------------------------------------
+# Plan 26-03: GO/NO-GO evidence — offline pytest regressions (CLUS-06/07/08)
+# ---------------------------------------------------------------------------
+
+
+def test_golden_set_metrics_match_recorded_baseline():
+    """Always-green internal-consistency sentinel: recomputes
+    compute_pairwise_metrics against the CURRENT fixture and asserts it
+    equals the `meta.baseline` block recorded once when the fixture was
+    finalized. This test only checks internal consistency against the
+    recorded baseline, never the GO/NO-GO gate itself -- it must stay green
+    even on a NO-GO."""
+    data = _load_golden_set()
+    metrics = compute_pairwise_metrics(data["pairs"])
+    baseline = data["meta"]["baseline"]
+    assert metrics == baseline
+
+
+def test_golden_set_meets_go_gate():
+    """The actual GO/NO-GO signal (CLUS-08), computed offline from the
+    CURRENT cached verdicts. This assertion is NEVER weakened to force a
+    pass -- a NO-GO here is the correct, honest result for Wave 4 to act on.
+    On NO-GO, Wave 4 (26-04-PLAN.md) quarantines this specific test with
+    @pytest.mark.xfail(strict=True); this plan does not add that marker."""
+    data = _load_golden_set()
+    metrics = compute_pairwise_metrics(data["pairs"])
+    assert metrics["fp"] == 0 and metrics["tp"] > 0 and metrics["n_failsafe"] == 0
+
+
+def test_cached_verdicts_match_current_model_config():
+    """Model/prompt-staleness guard (T-26-16): recomputes the live
+    SYSTEM_PROMPT hash and compares against the fixture's recorded meta so a
+    future model/prompt swap is loud, not silent."""
+    data = _load_golden_set()
+    meta = data["meta"]
+
+    current_prompt_hash = hashlib.sha256(SYSTEM_PROMPT.encode()).hexdigest()
+
+    assert meta["model"] == MODEL, (
+        "clustering model/prompt changed — the cached golden-set verdicts "
+        "are stale; re-run `pipeline/scripts/build_golden_set.py "
+        "--fill-verdicts` and re-confirm the GO gate before shipping."
+    )
+    assert meta["system_prompt_sha256"] == current_prompt_hash, (
+        "clustering model/prompt changed — the cached golden-set verdicts "
+        "are stale; re-run `pipeline/scripts/build_golden_set.py "
+        "--fill-verdicts` and re-confirm the GO gate before shipping."
+    )
+    assert meta["max_tokens"] == 220, (
+        "clustering model/prompt changed — the cached golden-set verdicts "
+        "are stale; re-run `pipeline/scripts/build_golden_set.py "
+        "--fill-verdicts` and re-confirm the GO gate before shipping."
+    )
+    assert meta["temperature"] == 0.0, (
+        "clustering model/prompt changed — the cached golden-set verdicts "
+        "are stale; re-run `pipeline/scripts/build_golden_set.py "
+        "--fill-verdicts` and re-confirm the GO gate before shipping."
+    )
+    assert meta["mergeable_rule"] == "same_event and confidence=='high'", (
+        "clustering model/prompt changed — the cached golden-set verdicts "
+        "are stale; re-run `pipeline/scripts/build_golden_set.py "
+        "--fill-verdicts` and re-confirm the GO gate before shipping."
+    )
+
+
+@pytest.mark.live_llm
+@pytest.mark.skipif(
+    not os.environ.get("CLUSTERING_LIVE_EVAL"), reason="opt-in live re-evaluation"
+)
+def test_golden_set_live_reeval():
+    """Opt-in live re-evaluation (skipped by default). Re-adjudicates every
+    `proposed: true`, non-excluded fixture pair via a LIVE `adjudicate_pair`
+    call (skipping `proposed: false` pairs exactly as the production fill
+    loop does) and recomputes metrics via compute_pairwise_metrics. The ONLY
+    hard assertion is `fp == 0` (the false-merge count), matching the
+    phase's zero-false-merge gate. Any TP/FN drift versus `meta.baseline` is
+    logged, never asserted -- model nondeterminism across live calls makes
+    an exact-equality assertion on TP/FN flaky."""
+    data = _load_golden_set()
+    baseline = data["meta"]["baseline"]
+
+    live_pairs = []
+    for p in data["pairs"]:
+        if p.get("excluded"):
+            continue
+        if p.get("proposed") is not True:
+            # proposed:false pairs are never adjudicated, live or cached.
+            live_pairs.append(p)
+            continue
+        incident_a = {"title_es": p["title_a"]}
+        incident_b = {"title_es": p["title_b"]}
+        verdict = adjudicate_pair(incident_a, incident_b)
+        live_pairs.append(
+            {
+                **p,
+                "cached_verdict": {
+                    "same_event": verdict.same_event,
+                    "confidence": verdict.confidence,
+                    "facts": verdict.facts,
+                    "rationale": verdict.rationale,
+                    "source": verdict.source,
+                },
+            }
+        )
+
+    metrics = compute_pairwise_metrics(live_pairs)
+
+    print(f"\n[live_reeval] baseline={baseline}")
+    print(f"[live_reeval] live_metrics={metrics}")
+    if metrics.get("tp") != baseline.get("tp") or metrics.get("fn") != baseline.get("fn"):
+        print(
+            f"[live_reeval] TP/FN drift detected: "
+            f"tp {baseline.get('tp')} -> {metrics.get('tp')}, "
+            f"fn {baseline.get('fn')} -> {metrics.get('fn')} (logged, not asserted)"
+        )
+
+    assert metrics["fp"] == 0

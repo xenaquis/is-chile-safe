@@ -9,6 +9,15 @@ from pathlib import Path
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 
+def pytest_configure(config):
+    """Register custom pytest markers so they never emit an 'unknown mark'
+    warning. `live_llm` (Phase 26): makes real OpenRouter calls, skipped by
+    default (opt-in via CLUSTERING_LIVE_EVAL env var)."""
+    config.addinivalue_line(
+        "markers", "live_llm: makes real OpenRouter calls, skipped by default"
+    )
+
+
 @pytest.fixture
 def sample_cead_html():
     """Fixture: real CEAD response HTML captured from live endpoint.
