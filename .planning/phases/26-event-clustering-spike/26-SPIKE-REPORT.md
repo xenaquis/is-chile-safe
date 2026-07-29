@@ -190,4 +190,42 @@ One row per non-excluded golden-set pair (n=86).
 
 Precision=0.6667, FP=11, TP=22, n_failsafe=0.
 
-**GO/NO-GO verdict: [PENDING — Fable orchestrator confirms against locked gate: 100% precision, 0 false merges, tp > 0, n_failsafe == 0]**
+**GO/NO-GO verdict: NO-GO** — confirmed by the Fable orchestrator 2026-07-29 against the locked gate (100% precision, 0 false merges). Measured fp=11, tp=22, precision=0.667, recall=0.7333, n_failsafe=0.
+
+FP pair_ids (11, pair-by-pair auditable): `2101-2026-07-01-bfe084-dc0f9c`, `2101-2026-07-01-bfe084-16439f`, `2101-2026-07-01-0f1e3e-16439f`, `2101-2026-07-01-0f1e3e-b01de8`, `2101-2026-07-01-dc0f9c-16439f`, `2101-2026-07-01-dc0f9c-b01de8`, `2101-2026-07-01-041424-16439f`, `2101-2026-07-01-041424-b01de8`, `2101-2026-07-01-16439f-b01de8`, `4102-2026-07-01-6eed24-60a9e3`, `1101-2026-07-06-d1e1fc-694162` (see "False-Merge Failure-Mode Analysis" above for the model's rationale per pair).
+
+The suite is green via `@pytest.mark.xfail(strict=True)` on `test_golden_set_meets_go_gate`, not via a weakened assertion; the day this test passes, the xfail itself fails and forces re-confirmation.
+
+## Schema change status
+
+No schema change shipped. `pipeline/news/schema.py` byte-unchanged; `data/` byte-unchanged. `IncidentRecord` does NOT gain `cluster_id`/`is_primary` this phase.
+
+For the record (informational, not applicable since this is NO-GO): even a GO would not have produced any visible clustering. `store.py:merge_and_write` writes raw dicts (not `model_dump()`), so a schema addition alone changes no existing output byte and produces no `data/` diff. Consequently **nothing would have populated `cluster_id`** on a GO either — a producer step (running clustering after `dedup.deduplicate` inside `scrape_news.py`, writing `cluster_id`/`is_primary` into `build_incident`'s dict) is a Phase 28 prerequisite, not something Phase 26 was ever going to deliver on its own.
+
+## Backward-compat consumer sweep
+
+- `pipeline/tests/test_schema_incidents.py:59` key-set assertion — untouched (no schema change on NO-GO).
+- `pipeline/tests/test_scrape_news.py:346` uses a subset check (`required_fields - set(...)`), safe either way.
+- `pipeline/archive_r2.py:245-251` uses `csv.DictWriter(..., extrasaction="ignore")` with `inc.get(f, "")` — no new fields exist to write; `incidents.csv` schema unchanged.
+- `incidents.jsonl`/`corpus-state.json` are built from raw dicts and are unaffected either way.
+- `site/src/components/map/IncidentPinLayer.ts:42-54` is a hand-kept TS mirror, deliberately NOT edited in this pipeline-only phase (no-op on NO-GO; mirroring would be deferred to Phase 28 anyway).
+
+## LLM call budget
+
+Cumulative total per `26-CALL-LOG.md`: 3 (26-00 spike ping) + 4 (aborted preflight attempt) + 100 (loop completed, 1 failed pair) + 103 (retry, 1 failed pair) + 105 (final, fixture written) — the ledger is cumulative-running-total, so the phase total is **105 calls**, well under the 2,000 cap.
+
+## What Phase 27/28 should do with this
+
+- **Phase 28's NEWSUI-05 degrades to faceting-only**, per the roadmap's own conditional — no event-clustering UI ships this milestone.
+- Three measured failure modes any future clustering attempt must beat:
+  1. **Aggregate/roundup-vs-component merging** (10 of 11 FPs): a single multi-suspect/multi-vehicle operativo reported as one roundup article and separately as per-suspect/per-stage component articles gets merged as "same event" when it should not be — the model treats shared location+date+operative-type as sufficient.
+  2. **Procedural-stage merging**: detention -> formalization -> conviction articles about what is procedurally the same underlying case but a materially different news event are conflated.
+  3. **Conflicting-sentence/charge merging** (1 of 11 FPs, Tongoy): two convictions in the same comuna with different sentence lengths (19 years vs 8.5 years) were merged despite the sentence delta being the strongest signal they are different cases.
+- `confidence` was `"high"` on 94/94 verdicts (see "Confidence Distribution" above) — the `confidence == "high"` half of the mergeable rule (F-03) rejected ZERO pairs. A future attempt **cannot rely on the model's self-reported confidence as a precision lever**; it must add explicit fact-level checks to the verdict schema (procedural stage, sentence length/charge specifics, aggregate-vs-single-suspect framing) rather than a confidence field the model always reports as high.
+- The golden set (`pipeline/tests/fixtures/clustering_golden_set.json`, 86 non-excluded pairs) and the offline regression (`test_golden_set_meets_go_gate`, `test_golden_set_metrics_match_recorded_baseline`) already exist, so a future attempt is cheap to evaluate: re-run `build_golden_set.py --fill-verdicts` against a revised prompt/model and re-run the gate test — no new golden-set construction needed.
+
+## Phase close-out regression
+
+- `python -m pytest pipeline/tests -q`: **317 passed, 1 skipped (opt-in live_llm), 1 xfailed (`test_golden_set_meets_go_gate`, strict) — exit 0.**
+- `cd site && npm run build && npm run validate` (single chained command, OneDrive convention): **15/15 validators passed** (structure, commune, rollout, region, crime, hreflang, schema, map, forbidden-language, coverage, spine, seo, figure-registry, avs-b-budget, freshness). This phase touched no `site/**` files — confirms the negative control.
+- `git diff --stat -- data/`: empty. `data/` confirmed byte-unchanged across the entire phase (all four plans, 26-01..26-04).

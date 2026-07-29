@@ -45,7 +45,7 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 - [x] **CLUS-06**: Cluster assembly uses connected components with a high edge threshold plus a max-cluster-size sanity cap (any cluster larger than 4 members is flagged for manual review, not published silently), and the full pairwise decision matrix per cluster is logged.
 - [x] **CLUS-07**: The spike reports measured pairwise precision and recall against the golden set, plus actual per-run LLM cost, and issues an explicit **GO / NO-GO** verdict against the locked gate: **100% precision, zero false merges**.
 - [x] **CLUS-08**: The precision check is encoded as a pytest regression (`pipeline/tests/test_clustering.py`), not a one-off spike script, so a future model swap cannot silently regress clustering quality.
-- [ ] **CLUS-09**: On GO, `cluster_id: str | None` and `is_primary: bool` are added to `IncidentRecord` as optional-with-default fields, verified backward-compatible against existing `current.json` and archive consumers; on NO-GO, the finding is documented and no schema change ships.
+- [x] **CLUS-09**: On GO, `cluster_id: str | None` and `is_primary: bool` are added to `IncidentRecord` as optional-with-default fields, verified backward-compatible against existing `current.json` and archive consumers; on NO-GO, the finding is documented and no schema change ships. **Satisfied via NO-GO branch (2026-07-29): fp=11, no schema change shipped — see `.planning/phases/26-event-clustering-spike/26-SPIKE-REPORT.md`.**
 
 ### News Facet Data Model (→ Phase 27)
 
@@ -145,7 +145,7 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 | CLUS-06 | Phase 26 | Complete |
 | CLUS-07 | Phase 26 | Complete |
 | CLUS-08 | Phase 26 | Complete |
-| CLUS-09 | Phase 26 | Pending |
+| CLUS-09 | Phase 26 | Complete (NO-GO branch) |
 | FACET-01 | Phase 27 | Pending |
 | FACET-02 | Phase 27 | Pending |
 | FACET-03 | Phase 27 | Pending |
