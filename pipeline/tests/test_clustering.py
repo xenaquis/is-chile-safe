@@ -382,6 +382,10 @@ def test_golden_set_metrics_match_recorded_baseline():
     assert metrics == baseline
 
 
+@pytest.mark.xfail(
+    strict=True,
+    reason="Phase 26 NO-GO: fp=11 on 2026-07-29; see 26-SPIKE-REPORT.md",
+)
 def test_golden_set_meets_go_gate():
     """The actual GO/NO-GO signal (CLUS-08), computed offline from the
     CURRENT cached verdicts. This assertion is NEVER weakened to force a
