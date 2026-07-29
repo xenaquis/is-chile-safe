@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-29T02:13:23.113328Z",
+  "generated": "2026-07-29T08:34:12.793252Z",
   "window_days": 30,
   "incidents": [
     {
@@ -16927,6 +16927,84 @@
       "url": "https://news.google.com/rss/articles/CBMijAJBVV95cUxPWjQ0THZzX000MTBzZ0ZBMzhQWEZ6bFdaVmZDZ2xqMVVOcDY0SmFUeTZweWQycHludEc3czg2WmlSR2tLcnBseGR0R3lNY1l2YjUybXdMMDAyaG9lNVNubUpFd3BQWDBFdmtJVWNkbVF5a2dYS25MclpfUjV1Y04wdmMxTkV3cWFOMlQ4b2dfMUxfcU1wMTFQTEZwOWlzSGFaWTZpRzJXR2o5VEZ1b1dwRF8ybW1hVGdZR05MUlBTdF9vemFyVE45clFPMFJoQzBXbmU2RWFISFEzZHRhSXR0VUl3Vi1JZFhRcWt4VHRBRURwUnlwbFVidXhfRDRkOVJjekJKRndFclJBQTNv?oc=5",
       "family": "vida",
       "slug": "la-serena"
+    },
+    {
+      "id": "03af757136f2f027",
+      "cut": "8107",
+      "lat": -36.724747,
+      "lng": -72.940429,
+      "title_es": "Fiscalía pide ampliar plazo de indagatoria por incendios de Penco y Tomé: audiencia quedó para octubre",
+      "title_en": "Prosecutor requests extension of investigation period for fires in Penco and Tomé: hearing set for October",
+      "date": "2026-07-29",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/28/fiscalia-pide-ampliar-plazo-de-indagatoria-por-incendios-de-penco-y-tome-audiencia-quedo-para-octubre.shtml",
+      "family": "vida",
+      "slug": "penco"
+    },
+    {
+      "id": "1ac73e0eb6d740ac",
+      "cut": "9203",
+      "lat": -38.439136,
+      "lng": -71.784922,
+      "title_es": "Sujeto que incumplía arresto atacó con palo a carabinero en La Araucanía: quedó en prisión preventiva",
+      "title_en": "Subject violating arrest attacked carabinero with stick in Araucanía: placed in preventive prison",
+      "date": "2026-07-29",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/28/sujeto-que-incumplia-arresto-ataco-con-palo-a-carabinero-en-la-araucania-quedo-en-prision-preventiva.shtml",
+      "family": "vida",
+      "slug": "curacautin"
+    },
+    {
+      "id": "42fb230601537b36",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Fran Maira confirma agresión y en TV afirman que recompensa ofrecida por ella misma motivó la golpiza",
+      "title_en": "Fran Maira confirms assault and TV claims her own reward offer motivated the beating",
+      "date": "2026-07-29",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/espectaculos-y-tv/celebridades/2026/07/28/fran-maira-confirma-agresion-y-en-tv-afirman-que-recompensa-ofrecida-por-ella-misma-motivo-la-golpiza.shtml",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "7adcacbc36a325e5",
+      "cut": "13201",
+      "lat": -33.585262,
+      "lng": -70.549631,
+      "title_es": "Capturan a presunto violador serial vinculado con cinco ataques en el Cajón del Maipo",
+      "title_en": "Arrest made of alleged serial rapist linked to five attacks in Cajón del Maipo",
+      "date": "2026-07-29",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/delitos-sexuales/capturan-a-presunto-violador-serial-vinculado-con-cinco-ataques-en-el/2026-07-29/002920.html",
+      "family": "sexuales",
+      "slug": "puente-alto"
+    },
+    {
+      "id": "7439ea319eb7e2a5",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Delincuentes disparan a conductor al intentar escapar de violenta encerrona en San Bernardo",
+      "title_en": "Criminals shoot driver while trying to escape violent cornering in San Bernardo",
+      "date": "2026-07-29",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/delincuentes-disparan-a-conductor-al-intentar-escapar-de-violenta-encerrona-en-san-bernardo/",
+      "family": "vida",
+      "slug": "san-bernardo"
+    },
+    {
+      "id": "3acd92f619c17145",
+      "cut": "3101",
+      "lat": -27.364912,
+      "lng": -69.888394,
+      "title_es": "Core Pallauta condenado por obstrucción a la investigación en Copiapó",
+      "title_en": "Core Pallauta convicted of obstruction of investigation in Copiapó",
+      "date": "2026-07-27",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPZUN6WWJISmxqa0JiSERBU254dV9ra1ZEeHFlR3VGN1R1U1l0X3NBQU91ZVhUd2ZTTURvazJFQnc4WDBwbmp2WTRzNE12M3pqdmxGX29TOTRvYksyMGlHcDg1cXdPVmtfMU5TX3RCODl2cnBadnMxbHNQNnNJZHR6NjQ5S0Y2dE1X?oc=5",
+      "family": "vida",
+      "slug": "copiapo"
     }
   ]
 }
