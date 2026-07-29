@@ -278,7 +278,25 @@ Plans:
   4. No cluster in the golden-set run exceeds 4 members without being explicitly flagged for manual review, and the full pairwise decision matrix per cluster is present in the spike's logged output for audit.
   5. On GO, `IncidentRecord` gains optional-with-default `cluster_id: str | None` and `is_primary: bool` fields, verified backward-compatible against existing `current.json` and archive consumers (existing tests still pass unmodified); on NO-GO, the finding is documented in the spike report and no schema change ships.
 
-**Plans**: TBD
+**Plans**: 4 plans, sequential waves 1-4 (each wave gated on the prior wave's output)
+
+Plans:
+
+**Wave 1**
+
+- [ ] 26-01-PLAN.md — Core clustering module: rapidfuzz prefilter, cluster_id (sha256), union-find assembly + oversized flag, LLM verdict schema + prompt-injection hardening, fully-mocked offline unit tests (CLUS-02, CLUS-03, CLUS-04, CLUS-05, CLUS-06)
+
+**Wave 2**
+
+- [ ] 26-02-PLAN.md — Golden-set construction: 60-100 hand-labeled pairs from real current.json data (mandatory comuna 2101/4102 hard buckets + sampled supplemental buckets), live-called cached verdicts, call budget logged (CLUS-01)
+
+**Wave 3**
+
+- [ ] 26-03-PLAN.md — Pair-level precision/recall/cost evidence: run_clustering_spike.py + full pairwise decision matrix + offline pytest regression against the golden set (CLUS-07, CLUS-08)
+
+**Wave 4**
+
+- [ ] 26-04-PLAN.md — GO/NO-GO close-out: apply the measured verdict to IncidentRecord.cluster_id/is_primary (GO) or document NO-GO with zero schema change, finalize spike report, full pytest + 14/14 frontend validators green (CLUS-09)
 
 ### Phase 27: News Facet Data Model
 
@@ -406,7 +424,7 @@ Plans:
 | 22. Go-Live / Launch Ops | 2/3 | In Progress (22-03 deferred human task) |  |
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |
 | 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete    | 2026-07-03 |
-| 26. Event Clustering Spike | 0/? | Not started | - |
+| 26. Event Clustering Spike | 0/4 | Planned | - |
 | 27. News Facet Data Model | 0/? | Not started | - |
 | 28. News Visualizer UI | 0/? | Not started | - |
 | 29. Map UX Design Loop | 0/? | Not started | - |
