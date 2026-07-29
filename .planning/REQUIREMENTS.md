@@ -43,8 +43,8 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 - [x] **CLUS-04**: RSS-derived article text is treated strictly as untrusted data and never as instructions, with the prompt structured so injected content cannot alter the adjudication task.
 - [x] **CLUS-05**: Cluster IDs are derived deterministically as a `sha256` of the sorted set of member incident IDs — never from LLM output — so re-runs are bit-stable and cannot churn `data/` or fire spurious Cloudflare rebuilds.
 - [x] **CLUS-06**: Cluster assembly uses connected components with a high edge threshold plus a max-cluster-size sanity cap (any cluster larger than 4 members is flagged for manual review, not published silently), and the full pairwise decision matrix per cluster is logged.
-- [ ] **CLUS-07**: The spike reports measured pairwise precision and recall against the golden set, plus actual per-run LLM cost, and issues an explicit **GO / NO-GO** verdict against the locked gate: **100% precision, zero false merges**.
-- [ ] **CLUS-08**: The precision check is encoded as a pytest regression (`pipeline/tests/test_clustering.py`), not a one-off spike script, so a future model swap cannot silently regress clustering quality.
+- [x] **CLUS-07**: The spike reports measured pairwise precision and recall against the golden set, plus actual per-run LLM cost, and issues an explicit **GO / NO-GO** verdict against the locked gate: **100% precision, zero false merges**.
+- [x] **CLUS-08**: The precision check is encoded as a pytest regression (`pipeline/tests/test_clustering.py`), not a one-off spike script, so a future model swap cannot silently regress clustering quality.
 - [ ] **CLUS-09**: On GO, `cluster_id: str | None` and `is_primary: bool` are added to `IncidentRecord` as optional-with-default fields, verified backward-compatible against existing `current.json` and archive consumers; on NO-GO, the finding is documented and no schema change ships.
 
 ### News Facet Data Model (→ Phase 27)
@@ -143,8 +143,8 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 | CLUS-04 | Phase 26 | Complete |
 | CLUS-05 | Phase 26 | Complete |
 | CLUS-06 | Phase 26 | Complete |
-| CLUS-07 | Phase 26 | Pending |
-| CLUS-08 | Phase 26 | Pending |
+| CLUS-07 | Phase 26 | Complete |
+| CLUS-08 | Phase 26 | Complete |
 | CLUS-09 | Phase 26 | Pending |
 | FACET-01 | Phase 27 | Pending |
 | FACET-02 | Phase 27 | Pending |

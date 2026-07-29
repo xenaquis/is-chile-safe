@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
 status: executing
-last_updated: "2026-07-29T23:41:05.551Z"
+last_updated: "2026-07-29T23:49:28.173Z"
 last_activity: 2026-07-29
 progress:
   total_phases: 14
   completed_phases: 5
   total_plans: 35
-  completed_plans: 32
+  completed_plans: 33
   percent: 36
 ---
 
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 ## Current Position
 
 Phase: 26 (event-clustering-spike) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-07-29
 
@@ -86,6 +86,7 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 | Phase 21 P03 | 35m | 3 tasks | 7 files |
 | Phase 26 P01 | 35m | 2 tasks | 3 files |
 | Phase 26 P02 | 35m | 1 tasks | 6 files |
+| Phase 26 P03 | 25m | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -234,6 +235,7 @@ Decisions taken inline by the Fable orchestrator during the unattended run. Each
 - [Phase 21-04]: avs-b-budget.mjs registered as validator #14 in all.mjs; full suite 14/14 green; GSC URL Inspection deferred to human operator before batch expansion beyond 20 enabled pairs
 - [Phase ?]: 26-01: rapidfuzz pre-filter threshold 45.0 kept frozen per F-02
 - [Phase ?]: Phase 26-02: adjudicate_pair recovers leading JSON via raw_decode when the model appends trailing prose after valid JSON (deterministic bug found during live fill).
+- [Phase 26-03, 2026-07-29]: Measured pair-level clustering precision — TP=22, FP=11 over 86 non-excluded golden-set pairs (precision=66.67%, recall=73.33%) — confirms NO-GO against the locked 100%-precision/zero-false-merge gate. `test_golden_set_meets_go_gate` fails by design (honest signal, not weakened); Wave 4 (26-04) quarantines it with `@pytest.mark.xfail(strict=True)`. False-merge failure modes: 10/11 aggregate-vs-component (same operativo, sub-reports merged), 1/11 conflicting-sentence (Tongoy). Full suite: 317 passed, 1 failed-by-design, 1 skipped (opt-in live_llm).
 
 ## Operator Next Steps
 

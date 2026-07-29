@@ -294,7 +294,7 @@ Plans:
 
 **Wave 3**
 
-- [ ] 26-03-PLAN.md — Pair-level precision/recall/cost evidence: run_clustering_spike.py + full pairwise decision matrix + offline pytest regression against the golden set (CLUS-07, CLUS-08)
+- [x] 26-03-PLAN.md — Pair-level precision/recall/cost evidence: run_clustering_spike.py + full pairwise decision matrix + offline pytest regression against the golden set (CLUS-07, CLUS-08)
 
 **Wave 4**
 
@@ -426,7 +426,7 @@ Plans:
 | 22. Go-Live / Launch Ops | 2/3 | In Progress (22-03 deferred human task) |  |
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |
 | 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete    | 2026-07-03 |
-| 26. Event Clustering Spike | 2/4 | In Progress|  |
+| 26. Event Clustering Spike | 3/4 | In Progress|  |
 | 27. News Facet Data Model | 0/? | Not started | - |
 | 28. News Visualizer UI | 0/? | Not started | - |
 | 29. Map UX Design Loop | 0/? | Not started | - |
