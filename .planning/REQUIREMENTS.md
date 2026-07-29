@@ -135,7 +135,68 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 
 ## Traceability
 
-Filled by the roadmapper.
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| CLUS-01 | Phase 26 | Pending |
+| CLUS-02 | Phase 26 | Pending |
+| CLUS-03 | Phase 26 | Pending |
+| CLUS-04 | Phase 26 | Pending |
+| CLUS-05 | Phase 26 | Pending |
+| CLUS-06 | Phase 26 | Pending |
+| CLUS-07 | Phase 26 | Pending |
+| CLUS-08 | Phase 26 | Pending |
+| CLUS-09 | Phase 26 | Pending |
+| FACET-01 | Phase 27 | Pending |
+| FACET-02 | Phase 27 | Pending |
+| FACET-03 | Phase 27 | Pending |
+| FACET-04 | Phase 27 | Pending |
+| FACET-05 | Phase 27 | Pending |
+| FACET-06 | Phase 27 | Pending |
+| FACET-07 | Phase 27 | Pending |
+| NEWSUI-01 | Phase 28 | Pending |
+| NEWSUI-02 | Phase 28 | Pending |
+| NEWSUI-03 | Phase 28 | Pending |
+| NEWSUI-04 | Phase 28 | Pending |
+| NEWSUI-05 | Phase 28 | Pending |
+| NEWSUI-06 | Phase 28 | Pending |
+| NEWSUI-07 | Phase 28 | Pending |
+| MAPUX-01 | Phase 29 | Pending |
+| MAPUX-02 | Phase 29 | Pending |
+| MAPUX-03 | Phase 29 | Pending |
+| MAPUX-04 | Phase 29 | Pending |
+| MAPUX-05 | Phase 29 | Pending |
+| MAPSH-01 | Phase 30 | Pending |
+| MAPSH-02 | Phase 30 | Pending |
+| MAPSH-03 | Phase 30 | Pending |
+| MAPSH-04 | Phase 30 | Pending |
+| MAPSH-05 | Phase 30 | Pending |
+| MAPSH-06 | Phase 30 | Pending |
+| MAPSH-07 | Phase 30 | Pending |
+| DOCS-01 | Phase 31 | Pending |
+| DOCS-02 | Phase 31 | Pending |
+| DOCS-03 | Phase 31 | Pending |
+| DOCS-04 | Phase 31 | Pending |
+| DOCS-05 | Phase 31 | Pending |
+| DOCS-06 | Phase 31 | Pending |
+| CRON-01 | Phase 32 | Pending |
+| CRON-02 | Phase 32 | Pending |
+| CRON-03 | Phase 32 | Pending |
+| CRON-04 | Phase 32 | Pending |
+| CRON-05 | Phase 32 | Pending |
+| CRON-06 | Phase 32 | Pending |
+| CRON-07 | Phase 32 | Pending |
+| SEC-01 | Phase 33 | Pending |
+| SEC-02 | Phase 33 | Pending |
+| SEC-03 | Phase 33 | Pending |
+| SEC-04 | Phase 33 | Pending |
+| SEC-05 | Phase 33 | Pending |
+| SEC-06 | Phase 33 | Pending |
+
+**Coverage: 54/54 v2.1 requirements mapped to exactly one phase (Phases 26–33). No orphans, no duplicates.**
+(9 CLUS + 7 FACET + 7 NEWSUI + 5 MAPUX + 7 MAPSH + 6 DOCS + 7 CRON + 6 SEC = 54)
+
+Deferred (not a v2.1 requirement, tracked separately): v2.0 GL-04 / Phase 22-03 — GSC sitemap submission (human/manual).
 
 ---
 *Requirements defined 2026-07-29 for milestone v2.1. Phase numbering continues from v2.0 — v2.1 starts at Phase 26.*
+*Traceability filled by the roadmapper 2026-07-29 — 8 phases (26–33), 54/54 requirements mapped, 100% coverage.*

@@ -6,7 +6,7 @@ status: planning
 last_updated: "2026-07-29T21:35:18.083Z"
 last_activity: 2026-07-29
 progress:
-  total_phases: 0
+  total_phases: 8
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -15,22 +15,22 @@ progress:
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-06-20 — Phase 21 (Commune Comparator + A-vs-B SEO) complete: 4/4 plans done. avs-b-budget registered as validator #14 (14/14 green, 1258 dist files, 10/10 prose sample PASS). Pending human: visual prose acceptance + GSC URL Inspection before batch expansion. Phase 22-03 (GSC sitemap submission) also remaining._
+_Last updated: 2026-07-29 — v2.1 roadmap created: 8 phases (26–33), 54/54 requirements mapped, 100% coverage. Phase 26 (Event Clustering Spike) and Phase 27 (News Facet Data Model) are next up in parallel — Phase 27 has zero dependency on Phase 26's outcome. Next action: `/gsd:plan-phase 26`._
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-06-19)
+See: .planning/PROJECT.md (updated 2026-07-29)
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: v2.0 Composite Index, Comparators & Launch. Remaining: Phase 21 (comparator, not started) + Phase 22-03 (GSC sitemap submission, manual).
+**Current focus**: v2.1 News Intelligence, Map UX & Ops Hardening. Roadmap just created; no phase started yet. Phase 26 (Event Clustering Spike, high-risk) and Phase 27 (News Facet Data Model, independent of 26) can both be planned/started now.
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 26 (Event Clustering Spike) — next to plan
 Plan: —
-Status: Defining requirements
-Last activity: 2026-07-29 — Milestone v2.1 started
+Status: Roadmap created, ready to plan
+Last activity: 2026-07-29 — v2.1 ROADMAP.md written (Phases 26–33), REQUIREMENTS.md traceability filled (54/54 mapped)
 
 ## Progress Bar
 
@@ -38,13 +38,22 @@ Last activity: 2026-07-29 — Milestone v2.1 started
 Phase 18 [████████████████████] 100% complete
 Phase 23 [████████████████████] 100% complete
 Phase 24 [████████████████████] 100% complete
-Phase 22 [█████████████░░░░░░░]  67% in progress (2/3)
+Phase 22 [█████████████░░░░░░░]  67% in progress (2/3, 22-03 deferred human task)
 Phase 21 [████████████████████] 100% complete (4/4)
+Phase 25 [████████████████████] 100% complete (9/9)
+Phase 26 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Event Clustering Spike — high risk)
+Phase 27 [░░░░░░░░░░░░░░░░░░░░]   0% not started (News Facet Data Model — no dep on 26)
+Phase 28 [░░░░░░░░░░░░░░░░░░░░]   0% not started (News Visualizer UI)
+Phase 29 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map UX Design Loop — gates 30)
+Phase 30 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map Control-Shell Rework — regression risk)
+Phase 31 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Docs & Methodology Refresh)
+Phase 32 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Cron Consistency)
+Phase 33 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Security Posture)
 ```
 
 ## Deferred Items
 
-Items acknowledged and deferred at v1.x milestone closes:
+Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 
 | Category | Item | Status |
 |----------|------|--------|
@@ -52,22 +61,24 @@ Items acknowledged and deferred at v1.x milestone closes:
 | uat | Phase 05 HUMAN-UAT — live pipeline run + 50-incident commune-hallucination audit | partial (2 pending) — resolved at GL-03 |
 | uat | Phase 06 HUMAN-UAT — live ischilesafe.com cutover + no-rebuild-loop verification | partial (2 pending) — resolved at GL-01/GL-02 |
 | todo | adsense-consent-mode — wire AdSense Consent Mode + flip ADSENSE_ENABLED | DEFERRED out of v2.0; monetization is a future cycle |
+| todo | GL-04 / Phase 22-03 — Google Search Console sitemap submission | DEFERRED human/manual; carried into v2.1 but NOT a v2.1 requirement or phase |
 
 ## Performance Metrics
 
 | Metric | Value |
 |--------|-------|
-| v2.0 Phases defined | 3 (18, 21, 22) |
-| v2.0 Phases complete | 0/3 |
-| v2.0 Requirements mapped | 21/21 |
-| v2.0 Plans created | 0 |
-| v2.0 Plans complete | 0 |
+| v2.1 Phases defined | 8 (26–33) |
+| v2.1 Phases complete | 0/8 |
+| v2.1 Requirements mapped | 54/54 |
+| v2.1 Plans created | 0 |
+| v2.1 Plans complete | 0 |
+| v2.0 Phases complete | 6/6 (18, 21, 22*, 23, 24, 25 — *22-03 deferred human task) |
 | v1.3 Phases complete | 2/2 (shipped 2026-06-19) |
 | v1.2 Phases complete | 8/8 (shipped 2026-06-18) |
 | v1.1 Phases complete | 3/3 (shipped 2026-06-15) |
 | v1.0 Phases complete | 6/6 (shipped 2026-06-13) |
 | Build pages (v1.3 close) | 791 pages |
-| Validators passing | 13/13 frontend + 179/179 pytest |
+| Validators passing | 14/14 frontend + 179/179 pytest (as of Phase 21 close; re-verify at v2.1 kickoff) |
 | Phase 23 P01 | 20m | 3 tasks | 5 files |
 | Phase 23 P04 | 8m | 3 tasks | 4 files |
 | Phase 24 P01 | 12m | 2 tasks | 3 files |
@@ -78,6 +89,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 
 ### Roadmap Evolution
 
+- **v2.1 roadmap created 2026-07-29**: 8 phases (26–33), continuing sequential numbering from v2.0's last phase (25). Phase 26 (Event Clustering Spike, high-risk) is independent and gates only the clustering portions of 27/28 — Phase 27 (News Facet Data Model) has zero dependency on Phase 26 and runs in parallel. Phase 28 (News Visualizer UI) depends on 27 and conditionally on 26. Phase 29 (Map UX Design Loop, iterative BrowserOS + Fable) hard-gates Phase 30 (Map Control-Shell Rework, regression-risk — protected Leaflet layer files) via a human acceptance gate. Phases 31 (Docs & Methodology Refresh), 32 (Cron Consistency), 33 (Security Posture) are closing phases sequenced after 26–30's shape is known; 32 audits the pipeline after 28 wires clustering in; 33 runs parallel with or after 32. Mandatory per-phase protocol for all 8 phases: research → plan → premortem → plan review by a Fable agent → implementation by Sonnet → code review by Opus → GSD validation. Carried-over deferred item NOT mapped to any v2.1 phase: v2.0 GL-04 / Phase 22-03 GSC sitemap submission (human/manual).
 - Phase 25 added 2026-07-02: **UI/UX 360 remediation** — executes all fixes from `.planning/UI-360-DIAGNOSTIC-260702.md` (prod audit, evidence in `C:\Users\Carlo\bos-shots\`). P0: real 404.html (kill catch-all soft-404), favicon ico+svg+link, tablet 640–1080px overflow (hamburger ≤1100px, stack home lead-table-col ≤900px, "Glossary" nav copy). P1: single `formatNumber(value, locale)` via Intl.NumberFormat (MapIsland/Compare/ES tables), map fitBounds+maxBounds + collapsible mobile legend + pills 2 rows ≤480px + distinctive incident-pin color/shape + legend entry + ?cut= pre-fetch guard, static visuals (top/bottom tables + sparklines from public/data JSON) on /is-santiago-safe/ /is-chile-safe/ /safest-cities-in-chile/, news h2/h3 + comuna/crime chips + date grouping + classifier filter excluding traffic accidents (Python pipeline), compare "Composite Crime Index" label + methodology link + ?a=&b= URL sync (history.replaceState) + popular-comparison chips + verify trend data, map panel year badges + tooltip + drop "~". P2: aria-label on incident markers, global :focus-visible + skip-link, JSON-LD WebSite+Organization on home, 16 region links in /rankings/, directional "#13 of 16 (1 = highest reported)", "(1 cases)" plural, region evolution title 2005–2026. Constraints: never label territories safe/dangerous; rank #1 = MOST reported crime; rates already per-100k; hardcode ES slugs; OneDrive — chain build+validate in one command; verify via astro preview + BrowserOS inline.
 - Phase 23 added 2026-06-19: **ENUSC Communal Victimization Layer** (Track 4, VL-01..VL-05) — from SEED-002 feasibility study. Additive INE ENUSC 2024 SAE household-victimization (VHDV) figure on the ~136 covered comuna pages, graceful "no estimate" on the other ~210. **Sequenced BEFORE Phase 22 (Go-Live)** — motivation is to not launch infra-representing reported crime. Depends on Phase 18 + 17. Ingestion = manual/assisted versioned snapshot (no stable URL; behind INE JS widget). Findings: `.planning/research/SEED-002-FINDINGS.md`; spikes 004–007.
 
@@ -101,6 +113,10 @@ Items acknowledged and deferred at v1.x milestone closes:
 - [v2.0 Roadmap, 2026-06-19] AdSense activation + Consent Mode v2 DEFERRED out of v2.0 — monetization is a future cycle.
 - [v2.0 Roadmap, 2026-06-19] Phase 22 (Go-Live) has no code dependency on Phase 21 — can run in parallel; starts once CF_DEPLOY_HOOK_URL secret is set.
 - [Phase 18-01, 2026-06-19] scipy winsorized min-max (D-01) implemented; SII cap=5.0 confirmed; Providencia CUT 13123 (ratio 5.186) is only capped commune; 141 SPD-absent communes get 0.0; SII-absent available_metrics decremented by 1.
+- [v2.1 Roadmap, 2026-07-29] Clustering GO gate is locked at 100% pairwise precision / zero false merges on the golden set — recall is unconstrained. A single false merge in the golden set is a NO-GO; exact call pattern (batched vs pairwise) is a Phase 26 planner decision.
+- [v2.1 Roadmap, 2026-07-29] Facet URL strategy is locked to query params only (`?family=&region=&window=`) on existing `/news/` + `/es/noticias/` — no new indexable facet URLs, ever.
+- [v2.1 Roadmap, 2026-07-29] New dependencies for the whole milestone: `rapidfuzz` (pipeline, Phase 26) + `zizmor` (CI-only, Phase 33). Zero new shipped frontend JS.
+- [v2.1 Roadmap, 2026-07-29] Map controls locked to native `<details>`/`<dialog>` + CSS + Leaflet's own `L.Control` — no popover/positioning library, no declarative react-leaflet layer components.
 
 ### Critical Pitfalls to Avoid
 
@@ -112,12 +128,22 @@ Items acknowledged and deferred at v1.x milestone closes:
 - **[Phase 22] CF_DEPLOY_HOOK_URL unset keeps production stale** — set the secret FIRST before any v2.0 code merge depends on a live deploy.
 - **OneDrive build desync** — repo is inside OneDrive; always chain build+validate in ONE command (`cd site && npm run build && npm run validate`).
 - **Forbidden language** — never an unqualified absolute "safe/dangerous/seguro/peligroso" verdict about any territory; CI validator enforces this.
+- **[Phase 26] False merges in LLM event clustering** — two distinct same-day/same-comuna crimes collapsed into one displayed incident is the milestone's single highest-risk failure mode. Mitigate with structured fact-based verdict schema, precision-biased threshold defaulting to no-merge on ambiguity, golden-set pairwise-precision gate before GO.
+- **[Phase 26/32] Non-deterministic cluster IDs burning the free-tier build budget** — LLM non-determinism leaking into cluster-ID assignment would trigger spurious deploys against the 500-builds/month ceiling. Cluster IDs must be sha256 of sorted member-ID set, never LLM output.
+- **[Phase 27/28] Facet/URL explosion causing thin content** — crossing time × 16 regions × 8 families as new indexable URLs would produce hundreds of near-empty pages against the shared 20K Cloudflare file budget. Keep facets as query-param client state over existing pages only.
+- **[Phase 30] Reintroducing the react-leaflet `<GeoJSON>` re-render-on-hover bug** during the control-shell refactor. Explicit Opus code-review acceptance criterion bans `<GeoJSON>`/`<Marker>`-as-JSX-child patterns.
+- **[Phase 32/33] Cron billing-lapse / empty-string-secret silent failures recurring** — both have already happened once (a full week of news freshness lost silently). Mitigate with explicit non-empty-secret assertion steps and a freshness/heartbeat guard covering all three data crons.
 
 ### Research Flags for Planning
 
 - **Phase 18 — plan interactively (NOT autonomous):** Normalization method final decision; SII cap threshold (recommended: sii_workers / ine_population > 5.0 → INE fallback); schema migration consumer enumeration; SPD VHC reference year confirmation (cap at 2024 until SPD confirms 2025 as final); composite_config.py metric weights (homicide 0.30 recommended, then violent families, then property, then incivilidades).
 - **Phase 21 — scope prose engine before committing:** buildComparisonProse() must generate substantively different text per pair from real trend data; priority-pair allowlist exact count must be computed from actual commune data before getStaticPaths is written. Scope these two sub-problems in planning before committing to page count.
 - **Phase 22 — standard patterns, no research needed:** All steps are documented human actions; see DEPLOYMENT.md and memory `prod-deploy-hook-secret-gap`.
+- **Phase 26 — plan interactively (high-risk):** numeric pairwise-precision GO threshold is locked at 100%/zero-false-merges but the LLM call pattern (batched vs. pairwise/iterative) and candidate window size (same-day vs. ±1 day) are Phase 26 planner decisions.
+- **Phase 27 — verify at kickoff:** does `data/cead/meta/index.json` carry `region_id` per commune? Must confirm before finalizing the CUT→region derivation. Consider (optional) adding a `facets.mjs` build-time validator to the 14-validator suite.
+- **Phase 28 — standard pattern:** SSG faceting is already proven in this codebase (`news.astro`'s `monthGroups`); decide the cluster "primary article" tie-break rule (earliest date? highest confidence?) during planning if Phase 26 was GO.
+- **Phase 30 — needs a follow-up read of `IncidentPinLayer.ts`:** whether Phase 28's clustered-event UI needs a new grouped-marker map-pin treatment; explicit decision needed on whether to close the `?region=` gap as part of this rework.
+- **Phase 33 — explicit per-action decision needed:** SHA-pin vs. major-version-tag for each third-party action (e.g. `rhysd/actionlint`) — not a blanket rule.
 
 ### Todos
 
@@ -151,8 +177,9 @@ Items acknowledged and deferred at v1.x milestone closes:
 
 ## Session Continuity
 
-**Last session**: 2026-06-20 — Phase 21 Plan 04 complete: avs-b-budget.mjs registered as validator #14 in all.mjs; 14/14 validators green; 1258 dist files (margin 16742 vs 18000 limit); 10/10 prose sample PASS programmatically. Phase 21 COMPLETE (4/4). Pending human: visual prose acceptance + GSC URL Inspection before expanding batch beyond 20 pairs.
-**Prior session**: 2026-06-19 — v2.0 milestone roadmap written. 21/21 requirements mapped: CI-01..CI-10 → Phase 18, CMP-01..CMP-07 → Phase 21, GL-01..GL-04 → Phase 22. Phase 18 is the reserved number (intentional gap from v1.3). Hard dependency: Phase 21 depends on Phase 18. Phase 22 parallel with Phase 21. AdSense/Consent Mode deferred. Next: `/gsd:plan-phase 18` — interactively (high risk, not autonomous).
+**Last session**: 2026-07-29 — v2.1 roadmap created: `.planning/ROADMAP.md` appended with Phase Details for 26–33, dependency graph (26 gates only clustering-in-27/28; 27 independent; 29 hard-gates 30), risk annotations (26 high-risk, 30 regression-risk), and mandatory per-phase protocol. `.planning/REQUIREMENTS.md` traceability filled: 54/54 requirements mapped to Phases 26–33, 100% coverage, no orphans. `.planning/STATE.md` updated: total_phases=8, Current Position points at Phase 26 as next to plan (Phase 27 can run in parallel — no dependency on 26). Next: `/gsd:plan-phase 26` (and/or `/gsd:plan-phase 27` in parallel).
+**Prior session**: 2026-06-20 — Phase 21 Plan 04 complete: avs-b-budget.mjs registered as validator #14 in all.mjs; 14/14 validators green; 1258 dist files (margin 16742 vs 18000 limit); 10/10 prose sample PASS programmatically. Phase 21 COMPLETE (4/4). Pending human: visual prose acceptance + GSC URL Inspection before expanding batch beyond 20 pairs.
+**Prior session (2026-06-19, v2.0 roadmap)**: v2.0 milestone roadmap written. 21/21 requirements mapped: CI-01..CI-10 → Phase 18, CMP-01..CMP-07 → Phase 21, GL-01..GL-04 → Phase 22. Phase 18 is the reserved number (intentional gap from v1.3). Hard dependency: Phase 21 depends on Phase 18. Phase 22 parallel with Phase 21. AdSense/Consent Mode deferred.
 **Prior session (2026-06-19, v1.3 close)**: v1.3 shipped — Phases 19 (Tech-Debt Sweep) + 20 (Methodology & Sources Hardening). 13/13 validators, 179 pytest green. Milestone archived.
 **Known env issue (not code)**: project is inside OneDrive — `dist/` artifacts desync between separate processes; ALWAYS chain build + validate in one command: `cd site && npm run build && npm run validate`.
 
@@ -184,6 +211,7 @@ Items acknowledged and deferred at v1.x milestone closes:
 
 ## Operator Next Steps
 
-- **Plan Phase 23 (ENUSC Victimization Layer): `/gsd:plan-phase 23`** — runs before go-live. First plan task must drill INE's "Cuadros Estadísticos" widget once to download the VHDV Excel and verify its real schema (CUT mapping, value/unit, CV/precision columns, exact 136-comuna list) before designing the ingest. browseros must run INLINE (gsd-executor subagents lack it).
-- Phase 22 (Go-Live) is gated AFTER Phase 23; can still pre-stage: set CF_DEPLOY_HOOK_URL secret in GitHub repo settings.
-- Phase 18 gap-closure plans 18-06..18-08 are marked done in ROADMAP; confirm before relying on composite outputs.
+- **Plan Phase 26 (Event Clustering Spike): `/gsd:plan-phase 26`** — highest-risk phase this milestone; must lock the LLM call pattern (batched vs pairwise) and candidate window size during planning; the numeric GO gate (100% precision, zero false merges) is already locked in REQUIREMENTS.md.
+- **Plan Phase 27 (News Facet Data Model) in parallel: `/gsd:plan-phase 27`** — has zero dependency on Phase 26; first task should verify `region_id` presence on `data/cead/meta/index.json`.
+- Phase 29 (Map UX Design Loop) can also start independently — remember the BrowserOS constraints (run inline, no viewport resize, `npx astro preview --port 4321 --host`, chain build+validate in one command).
+- Phase 22-03 (GSC sitemap submission) remains an outstanding deferred human/manual task, carried forward but not part of v2.1.
