@@ -6,16 +6,16 @@ status: verifying
 last_updated: "2026-07-29T23:56:16.007Z"
 last_activity: 2026-07-29
 progress:
-  total_phases: 14
-  completed_phases: 6
-  total_plans: 35
-  completed_plans: 34
-  percent: 43
+  total_phases: 8
+  completed_phases: 1
+  total_plans: 4
+  completed_plans: 4
+  percent: 12
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-07-29 — **v2.1 AUTONOMOUS RUN in progress** (see `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md`). Phase 26 (Event Clustering Spike) is PLANNED: 4 plans, 4 waves, Fable review APPROVED after two revision cycles (Opus plan-check 5 blockers + Opus premortem 4 HIGH/28 amendments + Opus re-check 2 regression blockers, all closed). 10 binding orchestrator decisions recorded as F-01..F-10. Next action: `/gsd:execute-phase 26`._
+_Last updated: 2026-07-29 — **v2.1 AUTONOMOUS RUN in progress**. **Phase 26 (Event Clustering Spike) COMPLETE — verdict: NO-GO.** Measured fp=11 / tp=22 / precision=0.667 over 86 hand-labeled golden-set pairs; the locked gate was 100% precision / zero false merges. No schema change shipped (CLUS-09 NO-GO branch); GO gate quarantined with `xfail(strict=True)` so a future model that passes re-opens the decision. Gates: Opus code review (0 CRITICAL / 8 HIGH) -> 2 fix cycles -> re-review PASSED; Opus verification PASSED 5/5 criteria, 9/9 requirements. 16 binding Fable decisions F-01..F-16. Suite 344 passed / 1 skipped / 1 xfailed, 15/15 validators. Next: Phase 27 (News Facet Data Model)._
 
 ## Project Reference
 
@@ -23,14 +23,14 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: v2.1 News Intelligence, Map UX & Ops Hardening — unattended autonomous run per `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md` (Sonnet codes, Opus validates, Fable decides; NO `git push`, `data/` read-only). Phase 26 planned and approved; executing next.
+**Current focus**: v2.1 News Intelligence, Map UX & Ops Hardening — unattended autonomous run per `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md` (Sonnet codes, Opus validates, Fable decides; NO `git push`, `data/` read-only). Phase 26 CLOSED with a documented NO-GO. Phase 27 (News Facet Data Model) is next — it has zero dependency on Phase 26's outcome.
 
 ## Current Position
 
-Phase: 26 (event-clustering-spike) — EXECUTING
-Plan: 4 of 4
-Status: Phase complete — ready for verification
-Last activity: 2026-07-29
+Phase: 27 (News Facet Data Model) — next to plan
+Plan: —
+Status: Phase 26 complete (NO-GO documented); ready to plan Phase 27
+Last activity: 2026-07-29 — Phase 26 closed: 4/4 plans, code review + 2 fix cycles + re-review PASSED, verification PASSED
 
 ## Progress Bar
 
@@ -41,8 +41,8 @@ Phase 24 [████████████████████] 100% com
 Phase 22 [█████████████░░░░░░░]  67% in progress (2/3, 22-03 deferred human task)
 Phase 21 [████████████████████] 100% complete (4/4)
 Phase 25 [████████████████████] 100% complete (9/9)
-Phase 26 [░░░░░░░░░░░░░░░░░░░░]   0% PLANNED (4 plans, Fable APPROVED — Event Clustering Spike, high risk)
-Phase 27 [░░░░░░░░░░░░░░░░░░░░]   0% not started (News Facet Data Model — no dep on 26)
+Phase 26 [████████████████████] 100% COMPLETE (4/4 — Event Clustering Spike: verdict NO-GO, documented)
+Phase 27 [░░░░░░░░░░░░░░░░░░░░]   0% next to plan (News Facet Data Model — no dep on 26)
 Phase 28 [░░░░░░░░░░░░░░░░░░░░]   0% not started (News Visualizer UI)
 Phase 29 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map UX Design Loop — gates 30)
 Phase 30 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map Control-Shell Rework — regression risk)
@@ -68,17 +68,17 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 | Metric | Value |
 |--------|-------|
 | v2.1 Phases defined | 8 (26–33) |
-| v2.1 Phases complete | 0/8 |
+| v2.1 Phases complete | 1/8 (26 — NO-GO verdict documented) |
 | v2.1 Requirements mapped | 54/54 |
 | v2.1 Plans created | 4 (Phase 26) |
-| v2.1 Plans complete | 0 |
+| v2.1 Plans complete | 4 |
 | v2.0 Phases complete | 6/6 (18, 21, 22*, 23, 24, 25 — *22-03 deferred human task) |
 | v1.3 Phases complete | 2/2 (shipped 2026-06-19) |
 | v1.2 Phases complete | 8/8 (shipped 2026-06-18) |
 | v1.1 Phases complete | 3/3 (shipped 2026-06-15) |
 | v1.0 Phases complete | 6/6 (shipped 2026-06-13) |
 | Build pages (v1.3 close) | 791 pages |
-| Validators passing | 14/14 frontend + **301** pytest (301 collected 2026-07-29 — the old 179 figure was stale) |
+| Validators passing | **15/15** frontend + **344 passed / 1 skipped / 1 xfailed** pytest (as of Phase 26 close; the old 179 figure was long stale) |
 | Phase 23 P01 | 20m | 3 tasks | 5 files |
 | Phase 23 P04 | 8m | 3 tasks | 4 files |
 | Phase 24 P01 | 12m | 2 tasks | 3 files |
@@ -155,6 +155,44 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 ### Blockers
 
 - (none)
+
+### Phase 26 Outcome — NO-GO (read this before Phase 27/28)
+
+**LLM event clustering is NOT viable at the locked precision gate.** Measured over 86 hand-labeled pairs
+from `pipeline/tests/fixtures/clustering_golden_set.json`: `tp=22, fp=11, precision=0.667, recall=0.733,
+n_failsafe=0`. Gate was 100% precision / zero false merges. 105 of 2,000 permitted OpenRouter calls spent.
+
+**The three failure modes any future attempt must beat** (10 of 11 false merges are the first one):
+1. **Aggregate-vs-component** — a roundup ("Dos operativos en Antofagasta…") merged with each individual
+   operation it summarizes.
+2. **Procedural-stage** — detention / formalization / conviction of the same underlying case merged as one event.
+3. **Conflicting sentence or charge** — "19 años por homicidio" merged with "8 años y medio por homicidio
+   frustrado" (Tongoy).
+
+**A falsified design assumption:** `confidence` came back `"high"` on **94/94** verdicts, so the
+`confidence == "high"` half of the mergeable rule (F-03) rejected ZERO pairs. The model's self-reported
+confidence is unusable as a precision lever — a future attempt must add explicit fact-level checks
+(procedural stage, sentence figure, aggregate-vs-single) to the verdict schema itself.
+
+**Consequences already decided:** Phase 28's NEWSUI-05 degrades to faceting-only. No `cluster_id`/`is_primary`
+on `IncidentRecord` (`pipeline/news/schema.py` byte-unchanged, zero commits). Note also that
+`store.py:merge_and_write` writes raw dicts, so even a GO would have produced no `data/` diff and nothing
+would have populated `cluster_id` — a producer step after `dedup.deduplicate` in `scrape_news.py` is a
+Phase 28 prerequisite, not something Phase 26 delivered.
+
+**Re-entry is cheap:** the golden set, `compute_pairwise_metrics`, and the offline regressions are committed.
+Re-run `build_golden_set.py --fill-verdicts` then `test_golden_set_meets_go_gate`. That test carries
+`xfail(strict=True)`, so a model that passes turns it into a FAILURE and re-opens the decision rather than
+silently hiding a GO.
+
+### Deferred-live list (user actions on return — v2.1 autonomous run)
+
+1. Review the autonomous work, then `git pull --rebase origin master` (remote crons kept committing `data/`) and push. **42 local commits, nothing pushed.**
+2. CRON-01 live blanked-secret dry run; observe one dependabot PR (SEC-03) — deferred per directive gate amendment 2.
+3. GitHub Settings (UI-only, directive gate amendment 3): default `GITHUB_TOKEN` read-only (SEC-01), verify secret scanning + push protection (SEC-05), check Actions billing state.
+4. v2.0 carry-over: GSC sitemap submission (22-03 / GL-04).
+5. Human review of the Phase 29 design acceptance evidence pack — pending, that phase has not run yet.
+6. After all that: `/gsd:complete-milestone` for v2.0 (still formally open), then v2.1.
 
 ### Fable Decisions — v2.1 Autonomous Run
 
