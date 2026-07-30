@@ -340,7 +340,21 @@ Plans:
   4. Filter state round-trips through shareable query params (survives reload/share), and a zero-result filter combination renders a clear bilingual empty state that is never itself indexed as a thin page.
   5. On Phase 26 GO, a clustered event renders as one primary-article card with an "N fuentes / N sources" badge that always exposes every constituent outlet and URL (no source hidden); on NO-GO, the page ships faceting only. Either way, any LLM-produced text shown in the UI is escaped, and the page adds no measurable CLS or hydration regression versus the current zero-JS news page. EN/ES parity holds via `i18n.ts`-sourced keys.
 
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+
+**Wave 1**
+
+- [ ] 28-01-PLAN.md — newsFilterLogic.ts (parse/serialize params, norm, window math, F-28 self-exclusion counts) + test; newsFacets.ts anchorDate field; 15 news_* i18n keys
+
+**Wave 2**
+
+- [ ] 28-02-PLAN.md — Wire /news/ + /es/noticias/: data-* attributes, UI-SPEC filter-bar markup, anchorDate in facetsProjection, inline <script> importing newsFilterLogic
+
+**Wave 3**
+
+- [ ] 28-03-PLAN.md — facets.mjs assertions 11-17 (anchorDate, card-count, i18n parity, empty-state, no-island, no-cluster-markup, F-27 bundling proof) + chained phase-close gate
 
 ### Phase 29: Map UX Design Loop
 
@@ -438,7 +452,7 @@ Plans:
 | 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete    | 2026-07-03 |
 | 26. Event Clustering Spike | 4/4 | Complete   | 2026-07-29 |
 | 27. News Facet Data Model | 2/2 | Complete   | 2026-07-30 |
-| 28. News Visualizer UI | 0/? | Not started | - |
+| 28. News Visualizer UI | 0/3 | Planned | - |
 | 29. Map UX Design Loop | 0/? | Not started | - |
 | 30. Map Control-Shell Rework | 0/? | Not started | - |
 | 31. Docs & Methodology Refresh | 0/? | Not started | - |
