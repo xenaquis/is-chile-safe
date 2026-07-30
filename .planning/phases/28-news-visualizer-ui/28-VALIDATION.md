@@ -1,8 +1,8 @@
 ---
 phase: 28
 slug: news-visualizer-ui
-status: draft
-nyquist_compliant: false
+status: approved
+nyquist_compliant: true
 wave_0_complete: false
 created: 2026-07-30
 ---
@@ -18,7 +18,7 @@ created: 2026-07-30
 
 | Property | Value |
 |----------|-------|
-| **Framework** | vitest (already installed; `site/src/lib/newsFacets.test.ts` is the existing real spec, 20 tests) |
+| **Framework** | vitest (already installed; `site/src/lib/newsFacets.test.ts` is the existing real spec — **13 tests** (measured). The repo-wide vitest total is 20 across 2 files (`newsFacets` 13 + `formatNumber` 7); do not read the 20 as this file's count) |
 | **Config file** | existing `site/vitest.config.*` — unmodified by this phase |
 | **Quick run command** | `cd site && npx vitest run src/lib/newsFilterLogic.test.ts src/lib/newsFacets.test.ts` |
 | **Full suite command** | `cd site && npm run build && npm test && npm run validate` |
@@ -59,7 +59,7 @@ Task IDs are assigned by the planner; this map fixes the requirement→layer→c
 | NEWSUI-06 | `#news-facets` payload still escaped at source | build validator | `facets.mjs` assertion 7 (existing, source-level, both locales) — extends automatically to any new field on the same object | ✅ existing |
 | NEWSUI-06 | No `innerHTML` with data-derived strings | build validator | source-level assertion over the two pages + `newsFilterLogic.ts` | ❌ Wave 0 |
 | NEWSUI-07 | EN/ES parity for all new `news_*` keys | build validator | `facets.mjs` (or a new validator) — every new key present in BOTH `EN_STRINGS` and `ES_STRINGS` | ❌ Wave 0 |
-| all | astro check baseline unchanged | CLI | `npm run check` → exactly **4 errors, 0 warnings** (pre-existing, all in `scripts/validate/*.mjs`) | ✅ measured |
+| all | astro check baseline unchanged | CLI | `npm run check` → exactly **4 errors, 0 warnings** (pre-existing, all `ts(7031)` implicit-any in `src/components/ComparatorPairsLinks.astro:28` — NOT in `scripts/validate/*.mjs`, which emits only `ts(6133)` hints) | ✅ measured |
 
 *Status column is filled by the executor during the run.*
 
@@ -108,6 +108,6 @@ The interactive halves are automated-adjacent, not automated: the plan must not 
 - [ ] No watch-mode flags (`vitest run`, never bare `vitest`)
 - [ ] Every new assertion has a demonstrated RED counterexample
 - [ ] Feedback latency < 40s
-- [ ] `nyquist_compliant: true` set in frontmatter
+- [x] `nyquist_compliant: true` set in frontmatter
 
-**Approval:** pending
+**Approval:** approved 2026-07-30 (Fable orchestrator)

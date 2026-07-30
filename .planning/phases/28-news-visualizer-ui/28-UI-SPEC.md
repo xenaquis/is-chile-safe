@@ -86,8 +86,8 @@ All copy ships as new keys in `site/src/config/i18n.ts` `I18nStrings` interface 
 | Filter bar heading (`<details><summary>`) | "Filter news" | "Filtrar noticias" | `news_filter_heading` |
 | Time-window filter group label | "Time" | "Fecha" | `news_filter_window_label` |
 | Window option: today | "Latest data: {date}" (e.g. "Latest data: Jul 27") | "Últimos datos: {date}" (e.g. "Últimos datos: 27 jul") | `news_window_latest` |
-| Window option: 7d | "Last 7 days ({n})" | "Últimos 7 días ({n})" | `news_window_7d` |
-| Window option: 30d | "Last 30 days ({n})" | "Últimos 30 días ({n})" | `news_window_30d` |
+| Window option: 7d | "Last 7 days" | "Últimos 7 días" | `news_window_7d_label` — **renamed 2026-07-30**; the count moved to its own `<span class="filter-count">`, so no `{n}` token |
+| Window option: 30d | "Last 30 days" | "Últimos 30 días" | `news_window_30d_label` — **renamed 2026-07-30**, same reason |
 | Window option: all (default-checked) | "All dates" | "Todas las fechas" | `news_window_all` — REQUIRED: this is the default-checked control in the group; an unlabeled radio would be announced unnamed by a screen reader. `value=""` is unchanged (absence of the param still means all) — only the visible/accessible label is added. |
 | Region filter group label | "Region" | "Región" | `news_filter_region_label` |
 | Family filter group label | "Crime type" | "Tipo de delito" | `news_filter_family_label` |
@@ -132,10 +132,10 @@ Placed between the existing intro `<section>` (h1 + lead + freshness) and the mo
   <div class="filter-groups">
     <fieldset class="filter-group" data-facet="window">
       <legend>{t.news_filter_window_label}</legend>
-      <label class="filter-chip"><input type="radio" name="window" value="today"> {t.news_window_latest}</label>
-      <label class="filter-chip"><input type="radio" name="window" value="7d"> {t.news_window_7d}</label>
-      <label class="filter-chip"><input type="radio" name="window" value="30d"> {t.news_window_30d}</label>
-      <label class="filter-chip"><input type="radio" name="window" value="" checked> {t.news_window_all}</label>
+      <label class="filter-chip"><input type="radio" name="window" value="today"> <span class="filter-opt-label">{windowLatestLabel}</span> <span class="filter-count">{todayCount}</span></label>
+      <label class="filter-chip"><input type="radio" name="window" value="7d"> <span class="filter-opt-label">{t.news_window_7d_label}</span> <span class="filter-count">{count7d}</span></label>
+      <label class="filter-chip"><input type="radio" name="window" value="30d"> <span class="filter-opt-label">{t.news_window_30d_label}</span> <span class="filter-count">{count30d}</span></label>
+      <label class="filter-chip"><input type="radio" name="window" value="" checked> <span class="filter-opt-label">{t.news_window_all}</span> <span class="filter-count">{countAll}</span></label>
     </fieldset>
     <fieldset class="filter-group" data-facet="region">
       <legend>{t.news_filter_region_label}</legend>
@@ -157,6 +157,16 @@ Placed between the existing intro `<section>` (h1 + lead + freshness) and the mo
 </details>
 ```
 
+**AMENDED 2026-07-30 (Fable, resolving a CRITICAL review finding) — the count slot is a dedicated `<span>`, never the label itself.**
+
+Every filter option (window radios, region checkboxes, family checkboxes alike) renders as:
+`<label class="filter-chip"><input …> <span class="filter-opt-label">TEXT</span> <span class="filter-count">N</span></label>`
+
+- The client script writes counts **only** via `span.filter-count`'s `textContent`. It must **never** assign `textContent` or `innerHTML` on the `<label>`, the `<fieldset>`, or `.filter-chip` — the `<input>` is a CHILD of the `<label>`, so assigning the label's `textContent` destroys the radio/checkbox. As originally written, the script called its apply routine once on load, which would have deleted every control in the filter bar before the user touched anything.
+- **All four** window options get a count span, including `today` and the default `""` (all). Consequently the i18n strings carry NO `{n}` token: the count lives in its own node. The `news_window_7d` / `news_window_30d` keys are therefore renamed `news_window_7d_label` / `news_window_30d_label` with copy "Last 7 days" / "Últimos 7 días" (no `({n})`), and `news_result_count` keeps its `{n}` because it is a sentence.
+- **Server-side substitution (F-32):** `{date}` in `news_window_latest` and `{n}` in `news_result_count` are substituted **at build time** in the `.astro` frontmatter, and every initial count span is rendered with its real server-side value. The pre-rendered HTML that Google indexes must never contain a literal `{n}` or `{date}`. The client script only ever *updates* these nodes.
+- **Anchor-date formatting (F-32):** every `toLocaleDateString` call for the anchor date passes `timeZone: 'UTC'`. Verified: without it, `new Date('2026-07-27T00:00:00Z').toLocaleDateString('es-CL', {month:'short',day:'numeric'})` returns "26 jul" in Chile — the label would misstate the data by one day.
+
 - `role="status" aria-live="polite"` on the result-count element satisfies the accessibility rule's aria-live requirement — filtering changes are announced.
 - Every control has a real `<label>`/`<legend>` (no icon-only or placeholder-only controls) — keyboard-operable natively via `<input>`/`<button>` semantics, `:focus-visible` already global (Phase 25 P2-1, reused not redefined).
 - The `open` attribute ships on the server-rendered `<details>` at every breakpoint, and no JS ever adds or removes it. Open/closed is therefore resolved during HTML parse, before first paint — there is no post-paint insertion and no CLS by construction (no-CLS rule). See the ≤480px row of the responsive table for the same decision stated as the mobile rule.
@@ -164,7 +174,8 @@ Placed between the existing intro `<section>` (h1 + lead + freshness) and the mo
 ### Facet counts (F-20 compliance)
 
 - Counts shown on **initial render / no-filter state = unfiltered marginal totals** straight from `facetsProjection.byFamily`/`byRegion`/`byWindow` (already computed server-side, F-20 contract, no change).
-- **Once a user has any filter active, per-option counts recompute client-side from `facetKeys`** (the array of `{id, family, regionId, yearMonth, window}` — NOT currently serialized to the page; Phase 28 must add `facetKeys` to the `facetsProjection` object in both `news.astro`/`es/noticias.astro`, through the same `escapeForInlineScript` + `set:html` path already guarding `byFamily`/`byRegion`/`byMonth`). This is the explicit choice the F-20 contract requires Phase 28 to make: **cross-filtered counts, recomputed client-side**, because showing stale unfiltered counts next to a filtered result list would be misleading UX inconsistent with NEWSUI-01's "per-option counts visible" requirement once a filter is active.
+- **SUPERSEDED BY F-29 (2026-07-30) — read this first.** `facetKeys` is **NOT** serialized into `#news-facets`. Cross-filtered counts are derived from the `data-*` attributes already present on every rendered `.news-card` (`data-family`, `data-region-id`, `data-year-month`, `data-date`, `data-commune-norm`). Measured cost of the original instruction: 121,626 bytes per page for 1,215 incidents, against today's 973-byte payload — to ship data the page already carries as HTML. The paragraph below is kept for the record; the *choice* it makes (cross-filtered counts, recomputed client-side) still stands, only the transport changed.
+- ~~Once a user has any filter active, per-option counts recompute client-side from `facetKeys`~~ (the array of `{id, family, regionId, yearMonth, window}` — NOT currently serialized to the page; Phase 28 must add `facetKeys` to the `facetsProjection` object in both `news.astro`/`es/noticias.astro`, through the same `escapeForInlineScript` + `set:html` path already guarding `byFamily`/`byRegion`/`byMonth`). This is the explicit choice the F-20 contract requires Phase 28 to make: **cross-filtered counts, recomputed client-side**, because showing stale unfiltered counts next to a filtered result list would be misleading UX inconsistent with NEWSUI-01's "per-option counts visible" requirement once a filter is active.
 - `facetKeys` is LLM-derived (`family` traces to the classifier) — apply the same `escapeForInlineScript` treatment already used for the rest of the payload; do not add a second unescaped `set:html` call.
 
 ### Comuna typeahead (NEWSUI-03 — REUSE, do not reinvent)
@@ -175,7 +186,7 @@ Reuse the exact pattern from `site/src/pages/communes/index.astro:174-306`:
 - `?q=` URL param pre-population read-only-into-`input.value` (never innerHTML) — communes/index.astro:279-284, T-12-01 rule
 - Trusted-name-slice highlighting, never raw query injection — communes/index.astro:201-215, T-11-05 rule
 
-Phase 28's comuna search does **not** need a full 346-row citem list (news incidents already carry `communeInfo`); the search narrows the **visible incident list** by comuna name match against each `.news-commune-chip`'s underlying commune name (add `data-commune-norm` attribute on `.news-card`, mirroring `data-norm` on `.citem`). Same `norm()` function, copy-pasted (do not import cross-page — communes/index.astro's script is inline/non-modular by design, consistent with this codebase's zero-shared-client-JS-module convention for inline page scripts).
+Phase 28's comuna search does **not** need a full 346-row citem list (news incidents already carry `communeInfo`); the search narrows the **visible incident list** by comuna name match against each `.news-commune-chip`'s underlying commune name (add `data-commune-norm` attribute on `.news-card`, mirroring `data-norm` on `.citem`). **SUPERSEDED BY F-27/F-30 (2026-07-30):** `norm()` is defined ONCE in `site/src/lib/newsFilterLogic.ts`, unit-tested there, and **imported** by both pages' inline `<script>` blocks — the shipped body must be the tested body. `communes/index.astro` keeps its own copy (out of scope for this phase), so two bodies exist repo-wide, one of them tested; this is not "a single canonical norm()". Original superseded instruction follows: ~~Same `norm()` function, copy-pasted (do not import cross-page~~ — communes/index.astro's script is inline/non-modular by design, consistent with this codebase's zero-shared-client-JS-module convention for inline page scripts).
 
 ### Query-param contract (NEWSUI-04)
 
