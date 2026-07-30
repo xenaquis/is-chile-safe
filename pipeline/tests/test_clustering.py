@@ -230,6 +230,46 @@ def test_adjudicate_pair_missing_title_never_raises():
     assert isinstance(verdict, ClusterVerdict)
 
 
+@pytest.mark.parametrize(
+    "bad_title_a",
+    [
+        None,  # incident_a lacks title_es entirely (key absent -> .get default None)
+        "",  # empty string
+        "   \n\t  ",  # whitespace-only
+    ],
+)
+def test_adjudicate_pair_empty_title_failsafes_without_api_call(bad_title_a):
+    """RG-02: a missing/None/empty/whitespace-only title_es on either side
+    must short-circuit to a fail-safe no-merge verdict BEFORE any API call,
+    never spend a call on an empty pair, and never let one draw a merge
+    edge."""
+    if bad_title_a is None:
+        incident_a = {"id": "a", "cut": "2101", "date": "2026-07-01"}  # no title_es key
+    else:
+        incident_a = _incident("a", bad_title_a)
+    incident_b = _incident("b", "Homicidio en Lo Prado")
+
+    with patch("pipeline.news.clustering.client") as mock_client:
+        verdict = adjudicate_pair(incident_a, incident_b)
+        mock_client.chat.completions.create.assert_not_called()
+
+    assert verdict.same_event is False
+    assert verdict.source == "failsafe_parse"
+
+
+def test_adjudicate_pair_empty_title_b_failsafes_without_api_call():
+    """Same guard on the B side."""
+    incident_a = _incident("a", "Homicidio en Lo Prado")
+    incident_b = _incident("b", "")
+
+    with patch("pipeline.news.clustering.client") as mock_client:
+        verdict = adjudicate_pair(incident_a, incident_b)
+        mock_client.chat.completions.create.assert_not_called()
+
+    assert verdict.same_event is False
+    assert verdict.source == "failsafe_parse"
+
+
 def test_adjudicate_pair_marks_auth_failure_as_failsafe_api():
     incident_a = _incident("a", "Homicidio en Lo Prado")
     incident_b = _incident("b", "Un muerto tras homicidio en Lo Prado")

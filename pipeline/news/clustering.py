@@ -242,7 +242,21 @@ def adjudicate_pair(incident_a: dict, incident_b: dict) -> ClusterVerdict:
     Never raises. On any API failure, unparseable JSON, or schema-validation
     failure, returns a fail-safe no-merge verdict whose `source` field makes
     it machine-distinguishable from a real model verdict (CLUS-03).
+
+    RG-02: a missing, None, non-string, or empty/whitespace-only `title_es`
+    on either side short-circuits to a fail-safe no-merge verdict BEFORE any
+    API call is made -- two empty headlines carry no information to
+    adjudicate, and spending a live call on them risks a "same_event: true"
+    reply being recorded as a genuine `source: "model"` verdict that could
+    draw a merge edge from absent data.
     """
+    if not _clean_title(incident_a.get("title_es")) or not _clean_title(incident_b.get("title_es")):
+        logger.warning(
+            "Empty/missing title_es on one side of the pair -- fail-safe "
+            "no-merge without spending an API call."
+        )
+        return _no_merge_verdict("failsafe_parse")
+
     user_content = _build_user_content(incident_a, incident_b)
 
     raw = _call_verdict_api(user_content)
