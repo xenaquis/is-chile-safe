@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: verifying
-last_updated: "2026-07-30T00:00:00.000Z"
-last_activity: "2026-07-30 — Phase 27 CLOSED: newsFacets.ts + facets.mjs validator #16 + both news pages wired; Opus verification PASSED 5/5, FACET-01..07 complete"
+status: "28-01 executed — newsFilterLogic.ts (F-27 module) + anchorDate on newsFacets.ts + 15 news_* i18n keys shipped; F-27/F-31 bundling assumption empirically CONFIRMED via Task 0 probe; full gate 16/16 validators, vitest 32/32, astro check 4-error baseline unchanged"
+last_updated: "2026-07-30T13:45:00.000Z"
+last_activity: "2026-07-30 — Plan 28-01 executed: newsFilterLogic.ts + test, newsFacets.ts anchorDate field, 15 news_* i18n keys, F-27 bundling probe (renamed _f27probe.astro -> f27probe.astro, Astro excludes underscore-prefixed pages from routing) confirmed bare-<script> imports ARE bundled (inlined, under 4096-byte assetsInlineLimit)"
 progress:
-  total_phases: 8
-  completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
-  percent: 25
+  total_phases: 14
+  completed_phases: 7
+  total_plans: 41
+  completed_plans: 38
+  percent: 50
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 28 (News Visualizer UI) — next to plan. Phase 27 COMPLETE (2/2 plans, verification PASSED 5/5).
-Plan: —
-Status: 27-02 executed — /news/ and /es/noticias/ wired to computeNewsFacets() via inert #news-facets node; full gate 16/16 validators, astro check 4-error baseline unchanged, pytest 344/1/1(xfail) reconfirmed
-Last activity: 2026-07-30 — Plan 27-02 executed: news.astro + es/noticias.astro consume computeNewsFacets() identically; phase-closing gate green (16/16, freshness passed outright at 2.7 days)
+Phase: 28 (News Visualizer UI) — in progress. Phase 27 COMPLETE (2/2 plans, verification PASSED 5/5).
+Plan: 28-01 executed (Wave 1 of 3). Plan 28-02 (page wiring) next.
+Status: 28-01 executed — newsFilterLogic.ts (F-27 module) + anchorDate on newsFacets.ts + 15 news_* i18n keys shipped; F-27/F-31 bundling assumption empirically CONFIRMED; full gate 16/16 validators, vitest 32/32, astro check 4-error baseline unchanged
+Last activity: 2026-07-30 — Plan 28-01 executed: newsFilterLogic.ts + test, newsFacets.ts anchorDate field, 15 news_* i18n keys, F-27 bundling probe confirmed bare-<script> imports are bundled by Astro/Vite
 
 ## Progress Bar
 
@@ -43,7 +43,7 @@ Phase 21 [████████████████████] 100% com
 Phase 25 [████████████████████] 100% complete (9/9)
 Phase 26 [████████████████████] 100% COMPLETE (4/4 — Event Clustering Spike: verdict NO-GO, documented)
 Phase 27 [████████████████████] 100% COMPLETE (2/2 — 27-01 newsFacets.ts + facets.mjs validator #16 shipped; 27-02 page wiring + phase-close gate 16/16)
-Phase 28 [░░░░░░░░░░░░░░░░░░░░]   0% not started (News Visualizer UI)
+Phase 28 [██████░░░░░░░░░░░░░░]  33% in progress (1/3 — 28-01 newsFilterLogic.ts + anchorDate + i18n keys shipped, F-27 bundling probe CONFIRMED; 28-02/28-03 next)
 Phase 29 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map UX Design Loop — gates 30)
 Phase 30 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map Control-Shell Rework — regression risk)
 Phase 31 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Docs & Methodology Refresh)
@@ -192,6 +192,7 @@ silently hiding a GO.
 **Shipped.** `site/src/lib/newsFacets.ts` exports `computeNewsFacets(incidents, index, archiveDir?)` returning `{byFamily, byRegion, byWindow, byMonth, facetKeys}`, computed at build time. Both `/news/` and `/es/noticias/` consume it and emit a counts-only projection into an inert `<script type="application/json" id="news-facets">` node (973 bytes, EN payload byte-equal to ES). `site/scripts/validate/facets.mjs` is registered as **validator #16**. `site/src/lib/newsFacets.test.ts` is a real vitest spec (20 tests) wired to a real `npm test`. Verification PASSED 5/5 success criteria, FACET-01..07 all complete, 0 blockers.
 
 **Published module contract (F-20 — Phase 28 inherits this, do not change it):**
+
 - Facet counts are **unfiltered marginal totals** over the window. A facet UI that needs cross-filtered counts recomputes them client-side in Phase 28 — Phase 27 ships the base index only.
 - `regionId` values are **strings**, matching `region_id` in `data/cead/meta/index.json` verbatim. Never coerced to numbers.
 - `cut` is coerced with `String(cut)` at every lookup boundary. A `cut` absent from the index deliberately falls outside every region bucket, which makes `facets.mjs` assertion 2 hard-fail the build — that is the intended guard. Do NOT "fix" it into a silent `?? 'unknown'` bucket.
@@ -199,6 +200,7 @@ silently hiding a GO.
 - `byMonth` counts the **union of incident IDs** across `current.json` and the monthly archive, de-duplicated. A month in both sources is tagged `source: 'both'`; `currentCount` reports the current-only distinct count.
 
 **Four things Phase 28 must handle:**
+
 1. **"Today" is anchored to the newest incident's date, not wall-clock** (deliberate — wall-clock would empty the bucket on any day the cron did not run). Consequence: if the cron dies, a chip reading "Today (11)" would label stale incidents. **Phase 28 must label windows relative to the data** ("Últimos datos: 27 jul"), never as an absolute "today". As of Phase 27's close the newest incident was 2026-07-27 while the date was 2026-07-30 — the skew is already live.
 2. **`facets.mjs` has 10 assertion blocks but only 7 are load-bearing** (F-24). Assertion 1's count-sum and assertion 8's three containment comparisons are true by construction for every input (confirmed by a 20,000-input fuzz); assertion 4 is unreachable behind assertion 3. Do not read the assertion count as coverage. Making them falsifiable is a good Phase 28 or `/gsd:quick` task.
 3. **Latent `byMonth` id-fallback edge cases** (F-24, RR-2/3/4): an id-less incident present in both sources double-counts; two id-less incidents sharing cut+date collapse to one; an empty archive `incidents` array still tags `source:'both'` and can emit a `count: 0` bucket. Unreachable in live data today (1215 incidents, 1215 distinct ids, zero missing ids or cuts).
