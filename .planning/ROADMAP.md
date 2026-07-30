@@ -393,7 +393,14 @@ Plans:
   4. `?region=` behaves like the existing working `?cut=` (including graceful degradation on an unknown value — no 404, no console error), and a full regression pass confirms `?cut=` deep link, choropleth year/family filters, commune panel, geolocation, and incident pins all still work unchanged.
   5. Changes are confined to `MapTopbar.tsx` and sibling control components; the Opus code review explicitly verifies `ChoroplethLayer.ts`/`IncidentPinLayer.ts`/`LowZoomDotLayer.ts` are untouched and no declarative react-leaflet layer component was introduced; map filters and news facets share vocabulary via common data (`familyDefs.ts`, `data.ts`) without a code dependency between the map island and the news pages.
 
-**Plans**: TBD
+**Plans**: 6 plans
+Plans:
+- [ ] 30-01-PLAN.md — Wave 0: fix F-40 cross-origin redirect + ORCHESTRATOR-INLINE pre-change score.mjs baseline capture
+- [ ] 30-02-PLAN.md — Wave 1: shared i18n keys, mapFilterDefs/FilterFields contracts, ?region= pure parser + vitest
+- [ ] 30-03-PLAN.md — Wave 2: NewsToggle + EntryPointsRail (details/radiogroup, mutual exclusion, Escape/click-outside, z-index fixes)
+- [ ] 30-04-PLAN.md — Wave 3: FilterSheet mobile FAB + dialog/showModal, FAB x result-panel collision fix
+- [ ] 30-05-PLAN.md — Wave 4: delete FiltersRow, rewrite MapTopbar, bounded MapIsland edit (mode-toggle move + ?region= wiring)
+- [ ] 30-06-PLAN.md — Wave 5: non-browser gate script + ORCHESTRATOR-INLINE regression/acceptance pass + phase close
 **UI hint**: yes
 
 ### Phase 31: Docs & Methodology Refresh
