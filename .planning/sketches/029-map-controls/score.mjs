@@ -58,7 +58,20 @@ export function scoreControlShell(opts) {
   // FAB `closest()` returns null, making scrollWidth === clientWidth for free.
   // Replaced with the same viewport+topmost test, PLUS a whole-document overflow scan
   // that cannot be defeated by renaming a class.
-  const filterEntry = document.querySelector('[data-role="filter-entry"], .filters-row, #filter-fab');
+  // A responsive shell has more than one filter entry point in the DOM (a grouped rail at
+  // wide widths, a FAB below the mobile breakpoint) with the inactive one display:none.
+  // `querySelector` returns the first in DOCUMENT order, which would pick the HIDDEN one
+  // and score the design as undiscoverable. Take the first candidate that is actually
+  // rendered. (Found by execution on iter-2 before any score was recorded.)
+  const filterCandidates = Array.prototype.slice.call(
+    document.querySelectorAll('[data-role="filter-entry"], .filters-row, #filter-fab')
+  );
+  const filterEntry =
+    filterCandidates.filter((el) => {
+      const r = el.getBoundingClientRect();
+      return r.width > 0 && r.height > 0 && getComputedStyle(el).display !== 'none';
+    })[0] || null;
+  results.filterEntryCandidates = filterCandidates.length;
   if (!filterEntry) {
     results.filterEntryMissing = true;
     results.filterEntryDiscoverable = false;
@@ -121,9 +134,18 @@ export function scoreControlShell(opts) {
 
   // --- Criterion 5: no map occlusion / Leaflet pane conflict ---------------------------
   const mapPane = document.querySelector('.leaflet-map-pane, .leaflet-container');
-  const controls = Array.prototype.slice.call(
-    document.querySelectorAll('.map-topbar, .legend, .mode-toggle, [data-role="filter-entry"], [data-role="news-toggle"], [data-role="entry-point"]')
-  );
+  // Only controls that are actually PAINTED can occlude the map or conflict with a pane.
+  // A responsive shell keeps its inactive alternative in the DOM at display:none (the FAB
+  // above the mobile breakpoint, the grouped rail below it); scoring those produced a
+  // z-index violation for a control the user cannot see. Found by execution on iter-2.
+  const controls = Array.prototype.slice
+    .call(document.querySelectorAll('.map-topbar, .legend, .mode-toggle, [data-role="filter-entry"], [data-role="news-toggle"], [data-role="entry-point"]'))
+    .filter((el) => {
+      const cs = getComputedStyle(el);
+      if (cs.display === 'none' || cs.visibility === 'hidden') return false;
+      const r = el.getBoundingClientRect();
+      return r.width > 0 && r.height > 0;
+    });
   // An element inherits its ancestor's stacking context, so `auto` is only a defect on a
   // control that has no positioned control ancestor carrying an explicit z-index >= 700.
   // (Found by execution on iter-1: the first form flagged `.filters-row` — z-index:auto but

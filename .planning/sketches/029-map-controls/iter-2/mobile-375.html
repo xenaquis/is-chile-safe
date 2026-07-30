@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>iter-2 — responsive control shell</title>
+<!--
+  THROWAWAY SKETCH. Never deployed. Phase 29 ships no map code.
+
+  ITERATION 2. `desktop.html` and `mobile-375.html` in this directory are BYTE-IDENTICAL
+  copies of this one responsive document. That is the headline change: iteration 1's split
+  into two viewport-specific files was found, by the frozen `breakpoint-481` and
+  `breakpoint-639` conditions, to be unable to answer breakpoint questions at all — the
+  desktop file overflowed 637px at 481px, WORSE than the 507px baseline it was meant to
+  fix, and the news toggle went offscreen again. The real app is one responsive page with
+  real bands at 480 and 640 (map.css:192/210/240/271), so the sketch must be too.
+
+  Fixes every defect iteration 1 measured:
+    1. c1 @481px  — grouped entry points free up topbar width; the toggle collapses to an
+                    icon+dot below 640px and stays in the viewport at every width.
+    2. c2 @52/479/637px — THE FLAT SCROLLING ROW IS GONE. Filters are grouped into three
+                    separately-labeled <details> entry points (CrimeMapping finding 1:
+                    "a permanent labeled rail grouped by dimension, nothing ever offscreen").
+                    Nothing overflows because nothing is a scroll container any more.
+    3. c3         — the locate button is 44x44, not 32x32 (WCAG 2.5.5).
+    4. aria-expanded — driven by the native `toggle` event on each <details>, and by the
+                    dialog's own `close` event, wired so it actually fires.
+
+  Also: a persistent filter-state summary (CrimeMapping finding 3) so the active selection
+  is legible without opening anything.
+-->
+<style>
+  :root{--primary:#0f766e;--ink:#1f2933;--line:#e4e7eb;--muted:#647380}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;font:16px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
+  .page-header{height:64px;display:flex;align-items:center;padding:0 24px;border-bottom:1px solid var(--line);font-weight:700}
+
+  /* ---- Leaflet stand-in: real pane z-index ladder (leaflet.css) ---- */
+  .map-shell{position:relative;height:calc(100vh - 64px)}
+  .leaflet-container{position:absolute;inset:0;background:#dfe6ec;overflow:hidden}
+  .leaflet-pane{position:absolute;inset:0}
+  .leaflet-tile-pane{z-index:200;background:repeating-linear-gradient(45deg,#e8eef3 0 20px,#e3eaf0 20px 40px)}
+  .leaflet-overlay-pane{z-index:400}
+  .leaflet-shadow-pane{z-index:500}
+  .leaflet-marker-pane{z-index:600}
+  .leaflet-tooltip-pane{z-index:650}
+  .leaflet-popup-pane{z-index:700}
+  .popup-dummy{position:absolute;top:72px;right:120px;width:300px;height:64px;background:#fff;border:1px solid var(--line);border-radius:8px;opacity:.9}
+
+  /* ---- Control shell ---- */
+  .map-topbar{position:absolute;top:0;left:0;right:0;z-index:800;padding:10px 12px;
+    background:linear-gradient(#f8fafcf5,#f8fafcdd);display:flex;flex-direction:column;gap:8px}
+  .topbar-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+  .search-box{position:relative;flex:1 1 240px;min-width:0;max-width:420px}
+  .search-input{width:100%;height:44px;border:1px solid var(--line);border-radius:22px;padding:0 52px 0 16px;font-size:15px;background:#fff}
+  /* FIX 3: 44x44, was 32x32 in iteration 1 (WCAG 2.5.5) */
+  .locate-btn-visible{position:absolute;right:2px;top:0;width:44px;height:44px;border:0;border-radius:22px;background:transparent;cursor:pointer;font-size:16px}
+
+  /* FIX 1: the news toggle is its own persistent control, never inside a filter surface
+     and never inside a scroll container. It collapses to icon+label-dot under 640px so it
+     cannot be pushed out of the viewport the way iteration 1's fixed-width pill was. */
+  .news-toggle{position:relative;z-index:800;flex:0 0 auto;height:44px;min-width:44px;
+    display:inline-flex;align-items:center;gap:8px;padding:0 16px;border:1px solid var(--primary);
+    border-radius:22px;background:#fff;color:var(--primary);font-weight:600;font-size:15px;cursor:pointer}
+  .news-toggle[aria-pressed="true"]{background:var(--primary);color:#fff}
+  .ev-dot-mini{width:9px;height:9px;border-radius:50%;background:#c2410c;flex:0 0 auto}
+  .news-toggle[aria-pressed="true"] .ev-dot-mini{background:#fff}
+  .news-label-short{display:none}
+
+  /* FIX 2: grouped, separately-labeled entry points — no scroll container anywhere.
+     CrimeMapping finding 1. Each is a native <details>, so open/close needs no JS. */
+  .entry-points{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .entry{position:relative}
+  .entry>summary{list-style:none;height:44px;min-width:44px;display:inline-flex;align-items:center;gap:8px;
+    padding:0 16px;border:1px solid var(--line);border-radius:22px;background:#fff;font-size:15px;cursor:pointer;white-space:nowrap}
+  .entry>summary::-webkit-details-marker{display:none}
+  .entry[open]>summary{border-color:var(--primary);color:var(--primary)}
+  .entry-label{font-weight:600}
+  .entry-value{color:var(--muted)}
+  .entry[open] .entry-value{color:var(--primary)}
+  .entry-panel{position:absolute;top:52px;left:0;z-index:801;min-width:260px;max-width:min(92vw,340px);
+    background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 24px #0003;padding:10px;
+    display:flex;flex-direction:column;gap:4px;max-height:60vh;overflow-y:auto}
+  .opt{min-height:44px;flex:0 0 auto;display:flex;align-items:center;padding:0 12px;border:0;border-radius:8px;background:transparent;
+    font-size:15px;text-align:left;cursor:pointer;width:100%}
+  .opt[aria-checked="true"]{background:var(--primary);color:#fff}
+
+  /* CrimeMapping finding 3: current state legible without opening anything. */
+  .state-summary{font-size:13px;color:var(--muted);padding:0 4px}
+
+  /* ---- Competing furniture, real classes + real z-index ---- */
+  .legend{position:absolute;left:16px;bottom:32px;z-index:700;width:200px;padding:12px;background:#fff;border-radius:10px;box-shadow:0 2px 10px #0002;font-size:13px}
+  .legend-band{height:13px;margin:3px 0;border-radius:3px}
+  .zoom-ctl{position:absolute;right:16px;bottom:120px;z-index:700;width:44px;background:#fff;border-radius:8px;box-shadow:0 1px 6px #0003}
+  .zoom-ctl button{display:block;width:44px;height:44px;border:0;background:transparent;font-size:20px;cursor:pointer}
+  .result-panel{position:absolute;right:0;top:64px;bottom:0;width:380px;z-index:700;background:#fff;border-left:1px solid var(--line);padding:16px}
+  .partial-year-badge{position:absolute;z-index:800;display:none}
+  .search-dropdown{position:absolute;z-index:900;display:none}
+  .toast{position:absolute;z-index:1000;display:none}
+  .filter-fab{display:none;z-index:800}
+  dialog.sheet{border:0;padding:0;width:100%;max-width:100%;margin:0;position:fixed;bottom:0;top:auto;
+    border-radius:16px 16px 0 0;box-shadow:0 -3px 20px #0003}
+  dialog.sheet::backdrop{background:#0006}
+  .sheet-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .sheet-close{height:44px;min-width:44px;border:0;background:transparent;font-size:20px;cursor:pointer}
+  .sheet-body{padding:12px 16px 24px;display:flex;flex-direction:column;gap:14px}
+  .sheet-group-label{font-weight:600;font-size:14px}
+  .sheet-opts{display:flex;flex-direction:column;gap:4px}
+
+  /* ---- REAL breakpoints, matching map.css ---- */
+  @media (max-width:639px){
+    .zoom-ctl{display:none}                 /* map.css:257-275 — desktop only */
+    .result-panel{left:0;right:0;top:auto;bottom:0;width:auto;height:40vh;border-left:0;border-top:1px solid var(--line)}
+    .news-label-long{display:none}            /* shorten the label, never remove it (MAPSH-01) */
+    .news-label-short{display:inline}
+    .news-toggle{padding:0 14px}
+  }
+  @media (max-width:480px){
+    .map-topbar{padding:8px}
+    /* Below 480 the grouped entry points become one bottom-sheet FAB — a <dialog> opened
+       with showModal(), NOT nested in the hamburger nav (MAPSH-02). */
+    .entry-points{display:none}
+    .state-summary{display:none}
+    .filter-fab{display:inline-flex;align-items:center;gap:8px;position:absolute;right:16px;bottom:24px;
+      z-index:800;height:52px;min-width:52px;padding:0 18px;border:0;border-radius:26px;background:var(--primary);
+      color:#fff;font-size:15px;font-weight:600;box-shadow:0 3px 12px #0004;cursor:pointer}
+    .result-panel{display:none}  /* not shown at rest; would otherwise cover the FAB */
+  }
+</style>
+</head>
+<body>
+<header class="page-header">Chile Safety Map</header>
+
+<div class="map-shell">
+  <div class="leaflet-container">
+    <div class="leaflet-pane leaflet-tile-pane"></div>
+    <div class="leaflet-pane leaflet-overlay-pane"></div>
+    <div class="leaflet-pane leaflet-shadow-pane"></div>
+    <div class="leaflet-pane leaflet-marker-pane"></div>
+    <div class="leaflet-pane leaflet-tooltip-pane"></div>
+    <div class="leaflet-pane leaflet-popup-pane"><div class="popup-dummy"></div></div>
+  </div>
+
+  <div class="map-topbar">
+    <div class="topbar-row">
+      <div class="search-box">
+        <input class="search-input" type="search" placeholder="Buscar comuna…" aria-label="Buscar comuna">
+        <button class="locate-btn-visible" aria-label="Mostrar mi ubicación">◎</button>
+      </div>
+
+      <button class="news-toggle" data-role="news-toggle" aria-pressed="false"
+              aria-label="Mostrar incidentes recientes de prensa en el mapa">
+        <span class="ev-dot-mini" aria-hidden="true"></span><span class="news-label news-label-long">Noticias recientes</span><span class="news-label-short">Noticias</span>
+      </button>
+    </div>
+
+    <div class="entry-points" data-role="filter-entry">
+      <details class="entry" data-role="entry-point" id="e-year">
+        <summary aria-haspopup="true" aria-expanded="false" aria-controls="p-year">
+          <span class="entry-label">Año</span><span class="entry-value">2025</span>
+        </summary>
+        <div class="entry-panel" id="p-year" role="group" aria-label="Año">
+          <button class="opt" role="radio" aria-checked="true">2025</button>
+          <button class="opt" role="radio" aria-checked="false">2024</button>
+          <button class="opt" role="radio" aria-checked="false">2023</button>
+        </div>
+      </details>
+
+      <details class="entry" data-role="entry-point" id="e-family">
+        <summary aria-haspopup="true" aria-expanded="false" aria-controls="p-family">
+          <span class="entry-label">Tipo de delito</span><span class="entry-value">Todos</span>
+        </summary>
+        <div class="entry-panel" id="p-family" role="group" aria-label="Tipo de delito">
+          <button class="opt" role="radio" aria-checked="true">Todos</button>
+          <button class="opt" role="radio" aria-checked="false">Vida y convivencia</button>
+          <button class="opt" role="radio" aria-checked="false">Propiedad</button>
+          <button class="opt" role="radio" aria-checked="false">Robos violentos</button>
+          <button class="opt" role="radio" aria-checked="false">Incivilidades</button>
+          <button class="opt" role="radio" aria-checked="false">VIF</button>
+          <button class="opt" role="radio" aria-checked="false">Drogas</button>
+          <button class="opt" role="radio" aria-checked="false">Armas</button>
+          <button class="opt" role="radio" aria-checked="false">Homicidios</button>
+        </div>
+      </details>
+
+      <details class="entry" data-role="entry-point" id="e-mode">
+        <summary aria-haspopup="true" aria-expanded="false" aria-controls="p-mode">
+          <span class="entry-label">Modo</span><span class="entry-value">Índice</span>
+        </summary>
+        <div class="entry-panel" id="p-mode" role="group" aria-label="Modo de mapa">
+          <button class="opt" role="radio" aria-checked="true">Índice</button>
+          <button class="opt" role="radio" aria-checked="false">Por delito</button>
+        </div>
+      </details>
+
+      <span class="state-summary" id="state-summary" aria-live="polite">Índice · Todos los delitos · 2025</span>
+    </div>
+  </div>
+
+  <button class="filter-fab" id="filter-fab" data-role="filter-entry" aria-haspopup="dialog" aria-controls="filter-sheet" aria-expanded="false">Filtros</button>
+
+  <dialog class="sheet" id="filter-sheet" aria-labelledby="sheet-title">
+    <div class="sheet-head">
+      <strong id="sheet-title">Filtros</strong>
+      <button class="sheet-close" id="sheet-close" aria-label="Cerrar filtros">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div><div class="sheet-group-label">Año</div>
+        <div class="sheet-opts"><button class="opt" role="radio" aria-checked="true">2025</button>
+        <button class="opt" role="radio" aria-checked="false">2024</button></div></div>
+      <div><div class="sheet-group-label">Tipo de delito</div>
+        <div class="sheet-opts"><button class="opt" role="radio" aria-checked="true">Todos</button>
+        <button class="opt" role="radio" aria-checked="false">Vida y convivencia</button>
+        <button class="opt" role="radio" aria-checked="false">Propiedad</button>
+        <button class="opt" role="radio" aria-checked="false">Robos violentos</button></div></div>
+    </div>
+  </dialog>
+
+  <div class="legend">
+    <strong>Índice Delictivo</strong>
+    <div class="legend-band" style="background:#d7f0ee"></div>
+    <div class="legend-band" style="background:#8fd3cd"></div>
+    <div class="legend-band" style="background:#f6d08a"></div>
+    <div class="legend-band" style="background:#e8a06a"></div>
+    <div class="legend-band" style="background:#c9573f"></div>
+    <div>Tasa reportada por 100.000 habitantes</div>
+  </div>
+
+  <div class="zoom-ctl"><button aria-label="Acercar">+</button><button aria-label="Alejar">−</button></div>
+  <div class="result-panel"><strong>Comuna seleccionada</strong><p>Panel de resultados (stand-in).</p></div>
+  <div class="partial-year-badge"></div>
+  <div class="search-dropdown"></div>
+  <div class="toast"></div>
+</div>
+
+<script>
+  /* FIX 4: aria-expanded is driven by the NATIVE toggle/close events, and verified to fire.
+     Iteration 1 wired a `close` listener that never ran, leaving aria-expanded="true" after
+     the sheet closed — a screen reader was told the sheet was still open. */
+  var entries = document.querySelectorAll('details.entry');
+  for (var i = 0; i < entries.length; i++) {
+    (function (d) {
+      d.addEventListener('toggle', function () {
+        d.querySelector('summary').setAttribute('aria-expanded', d.open ? 'true' : 'false');
+        if (d.open) {                       /* only one panel open at a time */
+          for (var j = 0; j < entries.length; j++) {
+            if (entries[j] !== d && entries[j].open) entries[j].open = false;
+          }
+        }
+      });
+    })(entries[i]);
+  }
+
+  var fab = document.getElementById('filter-fab');
+  var sheet = document.getElementById('filter-sheet');
+  var closeBtn = document.getElementById('sheet-close');
+  fab.addEventListener('click', function () {
+    sheet.showModal();
+    fab.setAttribute('aria-expanded', 'true');
+  });
+  /* Set the attribute where the close is INITIATED as well as on the close event, so the
+     state is correct even if a UA does not deliver `close` as expected — which is exactly
+     what bit iteration 1. */
+  closeBtn.addEventListener('click', function () {
+    sheet.close();
+    fab.setAttribute('aria-expanded', 'false');
+    fab.focus();
+  });
+  sheet.addEventListener('close', function () {
+    fab.setAttribute('aria-expanded', 'false');
+  });
+</script>
+</body>
+</html>
