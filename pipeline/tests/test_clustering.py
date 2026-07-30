@@ -591,6 +591,79 @@ def test_fill_verdicts_keeps_baseline_silent_when_matching(tmp_path, monkeypatch
     assert "baseline_stale" not in written["meta"]
 
 
+def test_fill_verdicts_in_loop_budget_abort_fires_at_expected_call_count(tmp_path, monkeypatch):
+    """RG-05: `test_fill_verdicts_projects_retry_worst_case` only covers the
+    PRE-FLIGHT projection (loop never entered). The in-loop re-check
+    (build_golden_set.py:585-598 -- the half of HI-01's fix that actually
+    prevents a mid-run overrun) was never exercised, so it could be deleted
+    or have its comparison inverted and the whole suite would stay green.
+
+    This test bypasses the pre-flight guard (which, given a realistic
+    worst-case-2x projection, can never itself be admitted alongside a
+    real in-loop trip -- the projection is deliberately conservative enough
+    that the in-loop check is unreachable if the preflight math is
+    believed) by stubbing `_budget_guard` directly, then drives the ACTUAL
+    in-loop arithmetic with a real `last_cumulative=1990` and an
+    all-model-success stub (no retries, so consecutive-failure logic can
+    never confound the result). With `last_cumulative=1990`, the loop must
+    abort exactly when `1990 + calls_this_run + 2 > 2000`, i.e. right
+    before the 9th pending pair is processed (probe=1 call + 8 successful
+    pairs = 9 calls total before the abort)."""
+    from pipeline.scripts import build_golden_set
+
+    call_log_path = tmp_path / "26-CALL-LOG.md"
+    draft_path = tmp_path / "draft.json"
+
+    n_pending = 12  # comfortably more than the 8 pairs expected to process
+    draft_path.write_text(
+        json.dumps(
+            {
+                "meta": {"total_pairs": n_pending},
+                "pairs": [
+                    {
+                        "pair_id": f"p{i}",
+                        "proposed": True,
+                        "incident_a_id": f"a{i}",
+                        "incident_b_id": f"b{i}",
+                        "incident_a": {"id": f"a{i}", "title_es": "x"},
+                        "incident_b": {"id": f"b{i}", "title_es": "y"},
+                        "label": "no_merge",
+                        "category": "same_date_diff_crime",
+                    }
+                    for i in range(n_pending)
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(build_golden_set, "_budget_guard", lambda *a, **k: 1990)
+    monkeypatch.setattr(build_golden_set, "_load_incidents_list", lambda path: [])
+    monkeypatch.setattr(build_golden_set, "_load_dotenv_if_available", lambda: None)
+    monkeypatch.setattr(build_golden_set, "_check_api_key", lambda: None)
+
+    with patch(
+        "pipeline.scripts.build_golden_set.adjudicate_pair",
+        side_effect=lambda *a, **k: _model_verdict_stub(same_event=False),
+    ) as mock_adjudicate:
+        result = build_golden_set.fill_verdicts(
+            draft_path=draft_path,
+            call_log_path=call_log_path,
+            final_fixture_path=tmp_path / "final.json",
+        )
+
+    assert result == 1
+    # probe (1) + 8 successfully processed pending pairs = 9 calls, then the
+    # in-loop check aborts BEFORE the 9th pending pair (calls_this_run=9 at
+    # that point: 1990 + 9 + 2 = 2001 > 2000).
+    assert mock_adjudicate.call_count == 9
+
+    content = call_log_path.read_text(encoding="utf-8")
+    assert "in-loop budget cap reached" in content
+    # Not finalized -- the fixture must not be written on a budget abort.
+    assert not (tmp_path / "final.json").exists()
+
+
 def test_fill_verdicts_projects_retry_worst_case(tmp_path, monkeypatch):
     """HI-01: the pre-flight projection must account for the retry path
     (up to 2 calls per pending pair), not just 1. With 3 pending pairs and
