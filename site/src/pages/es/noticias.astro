@@ -14,9 +14,13 @@
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
-import { loadIndex } from '../../lib/data';
+import { loadIndex, loadRegion, regionFileId } from '../../lib/data';
 import { FAMILY_LABELS_ES } from '../../lib/familyDefs';
 import { computeNewsFacets, escapeForInlineScript } from '../../lib/newsFacets';
+import { norm, FILTER_LOGIC_MARKER } from '../../lib/newsFilterLogic';
+import { ES_STRINGS, regionNameEs } from '../../config/i18n.ts';
+
+const t = ES_STRINGS;
 
 // Resolve from the synced public copy via process.cwd() (= site/ during `astro build`).
 // import.meta.url is unreliable at build time — compiled chunk locations differ per page,
@@ -68,6 +72,8 @@ const cutToCommune = new Map<string, { name: string; slug: string }>(
 const slugToCommune = new Map<string, { name: string; slug: string }>(
   _index.map((c) => [c.slug, { name: c.name, slug: c.slug }])
 );
+// CUT → region_id, para los data-region-id de cada card (espeja el mapa interno de newsFacets.ts)
+const cutToRegion = new Map<string, string>(_index.map((c) => [c.cut, c.region_id]));
 
 // Resolver comuna del incidente (cut prima sobre slug; cut puede venir numérico)
 function getCommuneInfo(incident: { cut?: string | number; slug?: string }): { name: string; slug: string } | undefined {
@@ -132,7 +138,28 @@ const facetsProjection = {
     sevenDay: facets.byWindow.sevenDay.length,
     thirtyDay: facets.byWindow.thirtyDay.length,
   },
+  anchorDate: facets.anchorDate,
 };
+
+// Nombres de región para la barra de filtros (máx. 16 lookups) — CommuneMeta no
+// tiene campo de nombre de región, así que loadRegion(regionFileId(...)).name es
+// la única fuente correcta.
+const regionNames = new Map<string, string>(
+  facets.byRegion.map((r) => [r.regionId, regionNameEs(loadRegion(regionFileId(r.regionId)).name)])
+);
+
+// F-32: sustitución server-side — el HTML indexado nunca debe contener un token
+// literal {n}/{date}. La fecha ancla se formatea con timeZone: 'UTC' obligatorio
+// (sin esto, un lector chileno vería la etiqueta desfasada un día).
+const anchorLabel = facets.anchorDate
+  ? new Date(facets.anchorDate + 'T00:00:00Z').toLocaleDateString('es-CL', {
+      timeZone: 'UTC',
+      month: 'short',
+      day: 'numeric',
+    })
+  : '—';
+const resultCountText = t.news_result_count.replace('{n}', String(incidents.length));
+const windowLatestText = t.news_window_latest.replace('{date}', anchorLabel);
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -167,18 +194,101 @@ const jsonLd = {
     )}
   </section>
 
+  {incidents.length > 0 && (
+    <details class="news-filter-bar" id="news-filters" open>
+      <summary>{t.news_filter_heading}</summary>
+      <div class="filter-groups">
+        <fieldset class="filter-group" data-facet="window">
+          <legend>{t.news_filter_window_label}</legend>
+          <label class="filter-chip">
+            <input type="radio" name="window" value="today" />
+            <span class="filter-opt-label">{windowLatestText}</span>
+            <span class="filter-count">{facets.byWindow.today.length}</span>
+          </label>
+          <label class="filter-chip">
+            <input type="radio" name="window" value="7d" />
+            <span class="filter-opt-label">{t.news_window_7d_label}</span>
+            <span class="filter-count">{facets.byWindow.sevenDay.length}</span>
+          </label>
+          <label class="filter-chip">
+            <input type="radio" name="window" value="30d" />
+            <span class="filter-opt-label">{t.news_window_30d_label}</span>
+            <span class="filter-count">{facets.byWindow.thirtyDay.length}</span>
+          </label>
+          <label class="filter-chip">
+            <input type="radio" name="window" value="" checked />
+            <span class="filter-opt-label">{t.news_window_all}</span>
+            <span class="filter-count">{incidents.length}</span>
+          </label>
+        </fieldset>
+        <fieldset class="filter-group" data-facet="region">
+          <legend>{t.news_filter_region_label}</legend>
+          {facets.byRegion.map((r) => (
+            <label class="filter-chip">
+              <input type="checkbox" name="region" value={r.regionId} />
+              <span class="filter-opt-label">{regionNames.get(r.regionId) ?? r.regionId}</span>
+              <span class="filter-count">{r.count}</span>
+            </label>
+          ))}
+        </fieldset>
+        <fieldset class="filter-group" data-facet="family">
+          <legend>{t.news_filter_family_label}</legend>
+          {facets.byFamily.map((f) => (
+            <label class="filter-chip">
+              <input type="checkbox" name="family" value={f.key} />
+              <span class="filter-opt-label">{familyLabel(f.key)}</span>
+              <span class="filter-count">{f.count}</span>
+            </label>
+          ))}
+        </fieldset>
+        <div class="filter-group" data-facet="comuna-search">
+          <label for="news-comuna-q">{t.news_search_comuna_label}</label>
+          <input
+            type="search"
+            id="news-comuna-q"
+            placeholder={t.news_search_comuna_placeholder}
+            autocomplete="off"
+          />
+        </div>
+      </div>
+      <p class="filter-actions">
+        <span
+          id="news-result-count"
+          role="status"
+          aria-live="polite"
+          data-result-count-template={t.news_result_count}
+        >
+          {resultCountText}
+        </span>
+        <button type="button" id="news-clear-filters">{t.news_clear_filters}</button>
+      </p>
+    </details>
+  )}
+
+  <div id="news-empty" hidden>
+    <p>{t.news_empty_heading}</p>
+    <p>{t.news_empty_body}</p>
+  </div>
+
   {incidents.length === 0 ? (
     <section>
       <p class="empty-state">Sin incidentes aún. Vuelve pronto.</p>
     </section>
   ) : (
     Array.from(monthGroups.entries()).map(([yearMonth, groupIncidents]) => (
-      <section class="news-month-section">
+      <section class="news-month-section" id={'month-' + yearMonth}>
         <h2 class="news-date-group">{formatMonth(yearMonth)}</h2>
         {groupIncidents.map((incident) => {
           const communeInfo = getCommuneInfo(incident);
           return (
-            <article class="news-card">
+            <article
+              class="news-card"
+              data-family={incident.family ?? ''}
+              data-region-id={cutToRegion.get(String(incident.cut)) ?? ''}
+              data-year-month={yearMonth}
+              data-commune-norm={communeInfo ? norm(communeInfo.name) : ''}
+              data-date={incident.date}
+            >
               <h3 class="news-title">
                 <a href={safeUrl(incident.url)} target="_blank" rel="noopener noreferrer">
                   {incident.title_es}
@@ -207,6 +317,197 @@ const jsonLd = {
       una family envenenada del clasificador LLM) cerraría este elemento antes de
       tiempo y rompería hacia markup — escapar `<` en el borde de serialización. */}
   <script type="application/json" id="news-facets" set:html={escapeForInlineScript(JSON.stringify(facetsProjection))}></script>
+  <script>
+    import {
+      parseFilterParams,
+      serializeFilterParams,
+      norm,
+      cardMatchesFilters,
+      computeFacetCounts,
+      FILTER_LOGIC_MARKER,
+      type FilterParams,
+      type CardFilterState,
+    } from '../../lib/newsFilterLogic';
+
+    (function () {
+      const filtersElMaybe = document.getElementById('news-filters');
+      if (!filtersElMaybe) return; // sin incidentes renderizados — nada que conectar
+      const filtersEl: HTMLElement = filtersElMaybe;
+
+      filtersEl.setAttribute('data-filter-logic', FILTER_LOGIC_MARKER);
+
+      const facetsBlob = document.getElementById('news-facets');
+      let anchorDate: string | null = null;
+      try {
+        const parsed = JSON.parse(facetsBlob?.textContent || '{}');
+        anchorDate = parsed.anchorDate ?? null;
+      } catch {
+        anchorDate = null;
+      }
+
+      const cardEls = Array.from(document.querySelectorAll<HTMLElement>('.news-card'));
+      const cards: { el: HTMLElement; state: CardFilterState }[] = cardEls.map((el) => ({
+        el,
+        state: {
+          family: el.getAttribute('data-family') || '',
+          regionId: el.getAttribute('data-region-id') || '',
+          date: el.getAttribute('data-date') || '',
+          communeNorm: el.getAttribute('data-commune-norm') || '',
+        },
+      }));
+
+      const monthSections = Array.from(
+        document.querySelectorAll<HTMLElement>('.news-month-section')
+      );
+
+      const resultCountEl = document.getElementById('news-result-count');
+      const resultCountTemplate = resultCountEl?.dataset.resultCountTemplate || '{n}';
+      const emptyEl = document.getElementById('news-empty');
+      const comunaInput = document.getElementById('news-comuna-q') as HTMLInputElement | null;
+      const clearBtn = document.getElementById('news-clear-filters');
+
+      let active: FilterParams = parseFilterParams(window.location.search);
+
+      // Pre-poblar controles desde los params parseados (T-12-01: solo asignación de value, nunca innerHTML)
+      filtersEl.querySelectorAll<HTMLInputElement>('input[name="window"]').forEach((input) => {
+        input.checked = input.value === active.window;
+      });
+      filtersEl.querySelectorAll<HTMLInputElement>('input[name="region"]').forEach((input) => {
+        input.checked = active.region.includes(input.value);
+      });
+      filtersEl.querySelectorAll<HTMLInputElement>('input[name="family"]').forEach((input) => {
+        input.checked = active.family.includes(input.value);
+      });
+      if (comunaInput && active.q) {
+        comunaInput.value = active.q;
+      }
+
+      function applyFilters(): void {
+        let visibleTotal = 0;
+
+        for (const { el, state } of cards) {
+          const matches = cardMatchesFilters(state, active, anchorDate);
+          el.hidden = !matches;
+          if (matches) visibleTotal++;
+        }
+
+        for (const section of monthSections) {
+          const visibleInSection = Array.from(
+            section.querySelectorAll<HTMLElement>('.news-card')
+          ).some((card) => !card.hidden);
+          section.hidden = !visibleInSection;
+        }
+
+        if (emptyEl) emptyEl.hidden = visibleTotal !== 0;
+
+        if (resultCountEl) {
+          resultCountEl.textContent = resultCountTemplate.replace('{n}', String(visibleTotal));
+        }
+
+        // Conteos por opción con auto-exclusión F-28, desde los data-* de cada card (F-29)
+        const windowKeys = ['today', '7d', '30d'];
+        const windowCounts = computeFacetCounts(
+          cards.map((c) => c.state),
+          active,
+          anchorDate,
+          'window',
+          windowKeys
+        );
+        // "Todas las fechas" (value="") no tiene predicado de ventana propio — su conteo
+        // con auto-exclusión es simplemente cuántas cards coinciden con las demás
+        // dimensiones de filtro activas.
+        const allDatesCount = cards.filter((c) =>
+          cardMatchesFilters(c.state, active, anchorDate, 'window')
+        ).length;
+        filtersEl.querySelectorAll<HTMLElement>('[data-facet="window"] label.filter-chip').forEach((label) => {
+          const input = label.querySelector('input') as HTMLInputElement | null;
+          const countEl = label.querySelector('.filter-count');
+          if (!input || !countEl) return;
+          countEl.textContent = String(input.value === '' ? allDatesCount : windowCounts[input.value] ?? 0);
+        });
+
+        const regionKeys = Array.from(
+          filtersEl.querySelectorAll<HTMLInputElement>('[data-facet="region"] input')
+        ).map((i) => i.value);
+        const regionCounts = computeFacetCounts(
+          cards.map((c) => c.state),
+          active,
+          anchorDate,
+          'region',
+          regionKeys
+        );
+        filtersEl.querySelectorAll<HTMLElement>('[data-facet="region"] label.filter-chip').forEach((label) => {
+          const input = label.querySelector('input') as HTMLInputElement | null;
+          const countEl = label.querySelector('.filter-count');
+          if (!input || !countEl) return;
+          countEl.textContent = String(regionCounts[input.value] ?? 0);
+        });
+
+        const familyKeys = Array.from(filtersEl.querySelectorAll<HTMLInputElement>('[data-facet="family"] input')).map((i) => i.value);
+        const familyCounts = computeFacetCounts(
+          cards.map((c) => c.state),
+          active,
+          anchorDate,
+          'family',
+          familyKeys
+        );
+        filtersEl.querySelectorAll<HTMLElement>('[data-facet="family"] label.filter-chip').forEach((label) => {
+          const input = label.querySelector('input') as HTMLInputElement | null;
+          const countEl = label.querySelector('.filter-count');
+          if (!input || !countEl) return;
+          countEl.textContent = String(familyCounts[input.value] ?? 0);
+        });
+
+        history.replaceState(null, '', '?' + serializeFilterParams(active));
+      }
+
+      filtersEl.querySelectorAll<HTMLInputElement>('input[name="window"]').forEach((input) => {
+        input.addEventListener('change', () => {
+          active = { ...active, window: input.value as FilterParams['window'] };
+          applyFilters();
+        });
+      });
+      filtersEl.querySelectorAll<HTMLInputElement>('input[name="region"]').forEach((input) => {
+        input.addEventListener('change', () => {
+          const checked = Array.from(
+            filtersEl.querySelectorAll<HTMLInputElement>('input[name="region"]:checked')
+          ).map((i) => i.value);
+          active = { ...active, region: checked };
+          applyFilters();
+        });
+      });
+      filtersEl.querySelectorAll<HTMLInputElement>('input[name="family"]').forEach((input) => {
+        input.addEventListener('change', () => {
+          const checked = Array.from(
+            filtersEl.querySelectorAll<HTMLInputElement>('input[name="family"]:checked')
+          ).map((i) => i.value);
+          active = { ...active, family: checked };
+          applyFilters();
+        });
+      });
+      if (comunaInput) {
+        comunaInput.addEventListener('input', () => {
+          active = { ...active, q: comunaInput.value };
+          applyFilters();
+        });
+      }
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          active = { family: [], region: [], window: '', q: '' };
+          filtersEl.querySelectorAll<HTMLInputElement>('input[name="window"]').forEach((input) => {
+            input.checked = input.value === '';
+          });
+          filtersEl.querySelectorAll<HTMLInputElement>('input[name="region"], input[name="family"]').forEach((input) => {
+            input.checked = false;
+          });
+          if (comunaInput) comunaInput.value = '';
+          applyFilters();
+        });
+      }
+
+      applyFilters();
+    })();
+  </script>
 </EditorialLayout>
 
 <style>
@@ -297,5 +598,110 @@ const jsonLd = {
   .news-date-outlet {
     font-size: var(--text-label);
     color: var(--muted);
+  }
+
+  /* Phase 28 — barra de filtros (UI-SPEC: subordinada a la lista, sin lavado de acento) */
+  .news-filter-bar {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--lg);
+    margin-bottom: var(--xl);
+    background: #fff;
+  }
+
+  .news-filter-bar summary {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    cursor: pointer;
+  }
+
+  .filter-groups {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--lg);
+    margin-top: var(--md);
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sm);
+  }
+
+  .filter-group legend,
+  .filter-group > label[for] {
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+  }
+
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--xs);
+    min-height: 44px;
+    padding: 0 var(--sm);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .filter-chip:has(input:checked) {
+    background: var(--primary);
+    color: #fff;
+    border-radius: 4px;
+  }
+
+  .filter-count {
+    color: var(--muted);
+    font-size: var(--text-label);
+    font-weight: 400;
+  }
+
+  .filter-chip:has(input:checked) .filter-count {
+    color: #fff;
+  }
+
+  #news-comuna-q {
+    min-height: 44px;
+    padding: 0 var(--sm);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+
+  .filter-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--md);
+    margin-top: var(--lg);
+  }
+
+  #news-result-count {
+    font-size: var(--text-body);
+    color: var(--primary);
+  }
+
+  #news-clear-filters {
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--primary);
+    padding: var(--xs) var(--sm);
+    min-height: 44px;
+    cursor: pointer;
+  }
+
+  #news-empty {
+    padding: var(--lg);
+    margin-bottom: var(--xl);
+    color: var(--muted);
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    .filter-groups {
+      flex-direction: column;
+    }
   }
 </style>
