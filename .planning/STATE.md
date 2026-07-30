@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: "28-01 executed — newsFilterLogic.ts (F-27 module) + anchorDate on newsFacets.ts + 15 news_* i18n keys shipped; F-27/F-31 bundling assumption empirically CONFIRMED via Task 0 probe; full gate 16/16 validators, vitest 32/32, astro check 4-error baseline unchanged"
-last_updated: "2026-07-30T13:45:00.000Z"
-last_activity: "2026-07-30 — Plan 28-01 executed: newsFilterLogic.ts + test, newsFacets.ts anchorDate field, 15 news_* i18n keys, F-27 bundling probe (renamed _f27probe.astro -> f27probe.astro, Astro excludes underscore-prefixed pages from routing) confirmed bare-<script> imports ARE bundled (inlined, under 4096-byte assetsInlineLimit)"
+status: verifying
+last_updated: "2026-07-30T13:45:17.871Z"
+last_activity: 2026-07-30
 progress:
   total_phases: 14
   completed_phases: 7
-  total_plans: 41
+  total_plans: 40
   completed_plans: 38
   percent: 50
 ---
@@ -29,8 +29,8 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 Phase: 28 (News Visualizer UI) — in progress. Phase 27 COMPLETE (2/2 plans, verification PASSED 5/5).
 Plan: 28-01 executed (Wave 1 of 3). Plan 28-02 (page wiring) next.
-Status: 28-01 executed — newsFilterLogic.ts (F-27 module) + anchorDate on newsFacets.ts + 15 news_* i18n keys shipped; F-27/F-31 bundling assumption empirically CONFIRMED; full gate 16/16 validators, vitest 32/32, astro check 4-error baseline unchanged
-Last activity: 2026-07-30 — Plan 28-01 executed: newsFilterLogic.ts + test, newsFacets.ts anchorDate field, 15 news_* i18n keys, F-27 bundling probe confirmed bare-<script> imports are bundled by Astro/Vite
+Status: Phase complete — ready for verification
+Last activity: 2026-07-30
 
 ## Progress Bar
 

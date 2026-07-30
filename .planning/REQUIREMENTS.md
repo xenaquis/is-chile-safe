@@ -59,13 +59,13 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 
 ### News Visualizer UI (→ Phase 28)
 
-- [ ] **NEWSUI-01**: A user can filter the news list by time window, region, and crime family, with per-option counts visible, on both `/news/` and `/es/noticias/`.
-- [ ] **NEWSUI-02**: The unfiltered superset of incidents is fully pre-rendered in static HTML; filtering is progressive enhancement only, so no incident content is invisible to Google or to a JS-disabled reader.
-- [ ] **NEWSUI-03**: A user can search comunas by typeahead (accent-insensitive, reusing the established directory-finder pattern) instead of scanning a 346-item select.
-- [ ] **NEWSUI-04**: Filter state is reflected in shareable query params and restored on load, and a zero-result combination renders a clear bilingual empty state that is never itself indexed as a thin page.
-- [ ] **NEWSUI-05**: On Phase 26 GO, clustered events render as a primary-article card with an "N fuentes / N sources" badge that always exposes every constituent outlet and URL — no source is ever hidden or overwritten by grouping. On NO-GO the page ships faceting only, degrading gracefully.
-- [ ] **NEWSUI-06**: Any LLM-produced text surfaced in the UI (rationale, grouped-event summary) is escaped, and the page adds no measurable CLS or hydration regression versus the current zero-JS news page.
-- [ ] **NEWSUI-07**: EN/ES parity holds for every new string, with i18n keys in `i18n.ts` as the single source of truth (not per-locale inline literals), and ES localized slugs hardcoded where `getRelativeLocaleUrl()` cannot translate them.
+- [x] **NEWSUI-01**: A user can filter the news list by time window, region, and crime family, with per-option counts visible, on both `/news/` and `/es/noticias/`.
+- [x] **NEWSUI-02**: The unfiltered superset of incidents is fully pre-rendered in static HTML; filtering is progressive enhancement only, so no incident content is invisible to Google or to a JS-disabled reader.
+- [x] **NEWSUI-03**: A user can search comunas by typeahead (accent-insensitive, reusing the established directory-finder pattern) instead of scanning a 346-item select.
+- [x] **NEWSUI-04**: Filter state is reflected in shareable query params and restored on load, and a zero-result combination renders a clear bilingual empty state that is never itself indexed as a thin page.
+- [x] **NEWSUI-05**: On Phase 26 GO, clustered events render as a primary-article card with an "N fuentes / N sources" badge that always exposes every constituent outlet and URL — no source is ever hidden or overwritten by grouping. On NO-GO the page ships faceting only, degrading gracefully.
+- [x] **NEWSUI-06**: Any LLM-produced text surfaced in the UI (rationale, grouped-event summary) is escaped, and the page adds no measurable CLS or hydration regression versus the current zero-JS news page.
+- [x] **NEWSUI-07**: EN/ES parity holds for every new string, with i18n keys in `i18n.ts` as the single source of truth (not per-locale inline literals), and ES localized slugs hardcoded where `getRelativeLocaleUrl()` cannot translate them.
 
 ### Map UX Design Loop (→ Phase 29)
 
@@ -153,13 +153,13 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 | FACET-05 | Phase 27 | Complete |
 | FACET-06 | Phase 27 | Complete |
 | FACET-07 | Phase 27 | Complete |
-| NEWSUI-01 | Phase 28 | Pending |
-| NEWSUI-02 | Phase 28 | Pending |
-| NEWSUI-03 | Phase 28 | Pending |
-| NEWSUI-04 | Phase 28 | Pending |
-| NEWSUI-05 | Phase 28 | Pending |
-| NEWSUI-06 | Phase 28 | Pending |
-| NEWSUI-07 | Phase 28 | Pending |
+| NEWSUI-01 | Phase 28 | Complete |
+| NEWSUI-02 | Phase 28 | Complete |
+| NEWSUI-03 | Phase 28 | Complete |
+| NEWSUI-04 | Phase 28 | Complete |
+| NEWSUI-05 | Phase 28 | Complete |
+| NEWSUI-06 | Phase 28 | Complete |
+| NEWSUI-07 | Phase 28 | Complete |
 | MAPUX-01 | Phase 29 | Pending |
 | MAPUX-02 | Phase 29 | Pending |
 | MAPUX-03 | Phase 29 | Pending |

@@ -346,11 +346,11 @@ Plans:
 
 **Wave 1**
 
-- [ ] 28-01-PLAN.md — newsFilterLogic.ts (parse/serialize params, norm, window math, F-28 self-exclusion counts) + test; newsFacets.ts anchorDate field; 15 news_* i18n keys
+- [x] 28-01-PLAN.md — newsFilterLogic.ts (parse/serialize params, norm, window math, F-28 self-exclusion counts) + test; newsFacets.ts anchorDate field; 15 news_* i18n keys
 
 **Wave 2**
 
-- [ ] 28-02-PLAN.md — Wire /news/ + /es/noticias/: data-* attributes, UI-SPEC filter-bar markup, anchorDate in facetsProjection, inline <script> importing newsFilterLogic
+- [x] 28-02-PLAN.md — Wire /news/ + /es/noticias/: data-* attributes, UI-SPEC filter-bar markup, anchorDate in facetsProjection, inline <script> importing newsFilterLogic
 
 **Wave 3**
 
@@ -452,7 +452,7 @@ Plans:
 | 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete    | 2026-07-03 |
 | 26. Event Clustering Spike | 4/4 | Complete   | 2026-07-29 |
 | 27. News Facet Data Model | 2/2 | Complete   | 2026-07-30 |
-| 28. News Visualizer UI | 1/3 | In Progress | - |
+| 28. News Visualizer UI | 2/3 | In Progress|  |
 | 29. Map UX Design Loop | 0/? | Not started | - |
 | 30. Map Control-Shell Rework | 0/? | Not started | - |
 | 31. Docs & Methodology Refresh | 0/? | Not started | - |
