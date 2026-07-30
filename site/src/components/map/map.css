@@ -326,7 +326,17 @@
   .legend-mobile  { display: block; }
 
   /* summary toggle labels */
-  .legend-summary { cursor: pointer; list-style: none; margin-bottom: 0; }
+  /* MAPSH-03 / F-51: this summary is the legend's only control at <=480px and it
+     measured 97x18 — a map-owned target under 44px, which the close bar forbids.
+     display:flex + min-height grows the hit area without moving the label. */
+  .legend-summary {
+    cursor: pointer;
+    list-style: none;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
   .legend-summary::-webkit-details-marker { display: none; }
   .legend-summary-open  { display: none; }
   .legend-summary-closed{ display: inline; }

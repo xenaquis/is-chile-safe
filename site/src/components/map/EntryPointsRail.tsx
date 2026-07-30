@@ -138,7 +138,7 @@ export function EntryPointsRail({
           aria-expanded={openId === 'year'}
           aria-controls="entry-panel-year"
         >
-          {strings.map_entry_year}: {year}
+          {strings.map_entry_year}
         </summary>
         <div id="entry-panel-year">
           <YearField lang={lang} year={year} onYearChange={onYearChange} />
@@ -163,7 +163,7 @@ export function EntryPointsRail({
           aria-expanded={openId === 'family'}
           aria-controls="entry-panel-family"
         >
-          {strings.map_entry_family}: {fLabelLong}
+          {strings.map_entry_family}
         </summary>
         <div id="entry-panel-family">
           <FamilyField lang={lang} crimeFamily={crimeFamily} onFamilyChange={onFamilyChange} />
@@ -188,7 +188,7 @@ export function EntryPointsRail({
           aria-expanded={openId === 'mode'}
           aria-controls="entry-panel-mode"
         >
-          {strings.map_entry_mode}: {mLabel}
+          {strings.map_entry_mode}
         </summary>
         <div id="entry-panel-mode">
           <ModeField lang={lang} mode={mode} onModeChange={onModeChange} />

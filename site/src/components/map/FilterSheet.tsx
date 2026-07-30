@@ -62,6 +62,10 @@ export function FilterSheet({
 
     function handleDialogClose() {
       fab!.setAttribute('aria-expanded', 'false');
+      // Spec §6: closing returns focus to the invoking control. Measured in a real
+      // browser: after a native Escape dismissal focus lands on <body>, not on the
+      // FAB — the close-button path restores it explicitly, this path did not.
+      fab!.focus();
     }
 
     fab.addEventListener('click', handleFabClick);
