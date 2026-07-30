@@ -731,6 +731,19 @@ def fill_verdicts(
         # --fill-verdicts must never silently rewrite the recorded baseline
         # out from under the internal-consistency sentinel that exists to
         # catch exactly that kind of drift).
+        #
+        # RG-04: preserving `existing_baseline` unconditionally, with no
+        # comparison against what the pairs being written NOW would compute,
+        # can write a fixture whose `meta.baseline` describes a DIFFERENT set
+        # of pairs than what's on disk -- an internally inconsistent
+        # artifact, silently. Recompute and COMPARE: if they match, keep the
+        # preserved baseline silently (identical either way). If they
+        # differ, do NOT overwrite the recorded baseline (still HI-03's
+        # idempotency contract), but emit a loud warning naming old vs new
+        # and record `meta.baseline_stale` so the mismatch is detectable by
+        # the test suite rather than only surfacing later as a bare
+        # `metrics != baseline` failure with no diagnostic.
+        recomputed_baseline = compute_pairwise_metrics(final_pairs)
         existing_baseline = None
         if final_fixture_path.exists():
             try:
@@ -740,8 +753,22 @@ def fill_verdicts(
                 existing_baseline = None
         if existing_baseline is not None:
             final_meta["baseline"] = existing_baseline
+            if existing_baseline != recomputed_baseline:
+                logger.error(
+                    "meta.baseline on disk (%s) does not match the recomputed "
+                    "metrics for the pairs being written now (%s). Preserving "
+                    "the recorded baseline per HI-03 -- the fixture is now "
+                    "internally inconsistent. Note: re-running --fill-verdicts "
+                    "again will NOT fix this, because an existing baseline is "
+                    "always preserved, never regenerated; set meta.baseline "
+                    "deliberately (or delete it before this run) if this "
+                    "re-fill is intended to move the baseline.",
+                    existing_baseline, recomputed_baseline,
+                )
+                final_meta["baseline_stale"] = True
+                final_meta["baseline_recomputed_at_write"] = recomputed_baseline
         else:
-            final_meta["baseline"] = compute_pairwise_metrics(final_pairs)
+            final_meta["baseline"] = recomputed_baseline
 
         final_fixture_path.parent.mkdir(parents=True, exist_ok=True)
         final_fixture_path.write_text(

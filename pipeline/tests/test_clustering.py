@@ -458,6 +458,139 @@ def test_call_budget_refuses_to_start(tmp_path, monkeypatch):
     assert "NO-GO-by-cost" in content
 
 
+def _model_verdict_stub(**overrides):
+    verdict = MagicMock()
+    verdict.source = overrides.get("source", "model")
+    verdict.model_dump.return_value = {
+        "same_event": overrides.get("same_event", False),
+        "confidence": overrides.get("confidence", "high"),
+        "facts": {},
+        "rationale": "stub",
+        "source": verdict.source,
+    }
+    return verdict
+
+
+def test_fill_verdicts_detects_and_flags_stale_baseline(tmp_path, monkeypatch):
+    """RG-04: preserving an existing meta.baseline unconditionally, with no
+    comparison, can write a fixture whose meta.baseline describes a
+    DIFFERENT set of pairs than what's actually on disk. When the recorded
+    baseline no longer matches the recomputed metrics for the pairs being
+    written now, the write path must NOT overwrite the recorded baseline
+    (HI-03's idempotency contract), but MUST flag the mismatch loudly and
+    in a test-detectable way (`meta.baseline_stale`)."""
+    from pipeline.scripts import build_golden_set
+
+    call_log_path = tmp_path / "26-CALL-LOG.md"
+    draft_path = tmp_path / "draft.json"
+    final_fixture_path = tmp_path / "final.json"
+
+    pair = {
+        "pair_id": "p0",
+        "proposed": True,
+        "incident_a_id": "a0",
+        "incident_b_id": "b0",
+        "title_a": "x",
+        "title_b": "y",
+        "label": "merge",
+        "category": "same_date_diff_crime",
+        # Already model-sourced -> pending is empty, loop never enters.
+        "cached_verdict": {
+            "same_event": True, "confidence": "high", "facts": {},
+            "rationale": "r", "source": "model",
+        },
+    }
+    draft_path.write_text(
+        json.dumps({"meta": {"total_pairs": 1}, "pairs": [pair]}), encoding="utf-8"
+    )
+
+    # A previously-written final fixture whose recorded baseline is a
+    # deliberately WRONG stand-in for what the current pair set computes to
+    # (tp=1 for the merge pair above) -- simulating baseline drift from an
+    # earlier run over a different pair set.
+    stale_baseline = {
+        "tp": 0, "fp": 0, "fn": 0, "fn_prefiltered": 0, "fn_llm_rejected": 0,
+        "tn": 0, "precision": None, "recall": None, "n_pairs": 0, "n_failsafe": 0,
+    }
+    final_fixture_path.write_text(
+        json.dumps({"meta": {"baseline": stale_baseline}, "pairs": [pair]}),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(build_golden_set, "_read_last_cumulative_total", lambda path: 0)
+    monkeypatch.setattr(build_golden_set, "_load_incidents_list", lambda path: [])
+    monkeypatch.setattr(build_golden_set, "_load_dotenv_if_available", lambda: None)
+    monkeypatch.setattr(build_golden_set, "_check_api_key", lambda: None)
+    monkeypatch.setattr(
+        build_golden_set, "adjudicate_pair", lambda *a, **k: _model_verdict_stub()
+    )
+
+    result = build_golden_set.fill_verdicts(
+        draft_path=draft_path, call_log_path=call_log_path, final_fixture_path=final_fixture_path,
+    )
+
+    assert result == 0
+    written = json.loads(final_fixture_path.read_text(encoding="utf-8"))
+    # The recorded (stale) baseline is preserved verbatim, never overwritten...
+    assert written["meta"]["baseline"] == stale_baseline
+    # ...but the mismatch is flagged loudly and in a test-detectable way.
+    assert written["meta"]["baseline_stale"] is True
+    assert written["meta"]["baseline_recomputed_at_write"]["tp"] == 1
+
+
+def test_fill_verdicts_keeps_baseline_silent_when_matching(tmp_path, monkeypatch):
+    """When the recorded baseline DOES match the recomputed metrics, no
+    staleness marker is written."""
+    from pipeline.scripts import build_golden_set
+
+    call_log_path = tmp_path / "26-CALL-LOG.md"
+    draft_path = tmp_path / "draft.json"
+    final_fixture_path = tmp_path / "final.json"
+
+    pair = {
+        "pair_id": "p0",
+        "proposed": True,
+        "incident_a_id": "a0",
+        "incident_b_id": "b0",
+        "title_a": "x",
+        "title_b": "y",
+        "label": "merge",
+        "category": "same_date_diff_crime",
+        "cached_verdict": {
+            "same_event": True, "confidence": "high", "facts": {},
+            "rationale": "r", "source": "model",
+        },
+    }
+    draft_path.write_text(
+        json.dumps({"meta": {"total_pairs": 1}, "pairs": [pair]}), encoding="utf-8"
+    )
+
+    matching_baseline = build_golden_set.compute_pairwise_metrics([
+        {**pair, "cached_verdict": pair["cached_verdict"]}
+    ])
+    final_fixture_path.write_text(
+        json.dumps({"meta": {"baseline": matching_baseline}, "pairs": [pair]}),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(build_golden_set, "_read_last_cumulative_total", lambda path: 0)
+    monkeypatch.setattr(build_golden_set, "_load_incidents_list", lambda path: [])
+    monkeypatch.setattr(build_golden_set, "_load_dotenv_if_available", lambda: None)
+    monkeypatch.setattr(build_golden_set, "_check_api_key", lambda: None)
+    monkeypatch.setattr(
+        build_golden_set, "adjudicate_pair", lambda *a, **k: _model_verdict_stub()
+    )
+
+    result = build_golden_set.fill_verdicts(
+        draft_path=draft_path, call_log_path=call_log_path, final_fixture_path=final_fixture_path,
+    )
+
+    assert result == 0
+    written = json.loads(final_fixture_path.read_text(encoding="utf-8"))
+    assert written["meta"]["baseline"] == matching_baseline
+    assert "baseline_stale" not in written["meta"]
+
+
 def test_fill_verdicts_projects_retry_worst_case(tmp_path, monkeypatch):
     """HI-01: the pre-flight projection must account for the retry path
     (up to 2 calls per pending pair), not just 1. With 3 pending pairs and
@@ -739,12 +872,29 @@ def test_golden_set_metrics_match_recorded_baseline():
     equals the `meta.baseline` block recorded once when the fixture was
     finalized. This test only checks internal consistency against the
     recorded baseline, never the GO/NO-GO gate itself -- it must stay green
-    even on a NO-GO."""
+    even on a NO-GO.
+
+    RG-04: an existing `meta.baseline` is ALWAYS preserved on re-fill, never
+    regenerated (HI-03's idempotency contract) -- so "regenerate via
+    --fill-verdicts" is not a fix for a stale baseline; only deleting
+    `meta.baseline` (or setting it deliberately) before a re-fill moves it.
+    `meta.baseline_stale` is the loud, test-detectable signal
+    build_golden_set.py writes when it detects that mismatch at write time;
+    assert it is never set on the committed fixture."""
     data = _load_golden_set()
     metrics = compute_pairwise_metrics(data["pairs"])
     assert "baseline" in data["meta"], (
-        "fixture missing meta.baseline — regenerate via "
-        "`pipeline/scripts/build_golden_set.py --fill-verdicts`"
+        "fixture missing meta.baseline — run "
+        "`pipeline/scripts/build_golden_set.py --fill-verdicts` once against "
+        "a fixture with no existing meta.baseline to generate it (an "
+        "existing baseline is never regenerated by a re-fill)."
+    )
+    assert not data["meta"].get("baseline_stale"), (
+        "fixture meta.baseline_stale is True -- build_golden_set.py detected "
+        "that the recorded meta.baseline no longer matches the pairs on "
+        "disk (see meta.baseline_recomputed_at_write for the current value). "
+        "An existing baseline is never auto-regenerated; deliberately update "
+        "or delete meta.baseline before the next --fill-verdicts run."
     )
     baseline = data["meta"]["baseline"]
     assert metrics == baseline
