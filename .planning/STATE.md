@@ -154,7 +154,7 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 
 ### Blockers
 
-- **RESOLVED 2026-07-30 (later the same day): `freshness` is GREEN again — 16/16 validators.** The user returned and authorized `git pull --rebase origin master` (12 remote data-cron commits, rebase clean, 97 local commits preserved, still nothing pushed). `current.json` is now `generated: 2026-07-30T13:50:51Z` with **1392 incidents** (was 1215), and the full gate re-ran green: astro check 4/0, vitest 37, `facets.mjs` 22 assertions (all counts adapted dynamically to the new data — nothing was hardcoded), pytest 344/1/1, **16/16 validators**. The F-19 exclusion is no longer in effect; phases 29–33 close on a plain 16/16 again. Historical record of the exclusion as applied at Phase 28's close follows.
+- **RESOLVED 2026-07-30 (later the same day): `freshness` is GREEN again — 16/16 validators.** The user returned and authorized `git pull --rebase origin master` (12 remote data-cron commits, rebase clean, 97 local commits preserved; **pushed later the same day — see § Deferred-live list**). `current.json` is now `generated: 2026-07-30T13:50:51Z` with **1392 incidents** (was 1215), and the full gate re-ran green: astro check 4/0, vitest 37, `facets.mjs` 22 assertions (all counts adapted dynamically to the new data — nothing was hardcoded), pytest 344/1/1, **16/16 validators**. The F-19 exclusion is no longer in effect; phases 29–33 close on a plain 16/16 again. Historical record of the exclusion as applied at Phase 28's close follows.
 - **[historical] `freshness` validator RED at Phase 28's close — F-19 environmental exclusion APPLIED (2026-07-30).** The phase closed on **15/16 validators, freshness excluded**. Both of F-19's preconditions were checked and hold:
   - (a) The failure output is **exactly** the age assertion, not missing-file and not an unparseable `generated`: `FAIL freshness: data/incidents/current.json is 3.0 days old (generated: 2026-07-27T14:25:05.303451Z)`.
   - (b) `git log -1 --format=%ci origin/master -- data/incidents/current.json` → **2026-07-30 02:02:51 +0000**, i.e. within 3 days. The news cron is alive; this checkout is merely unpulled, because the directive reserves `git pull --rebase` for the user's return.
@@ -235,7 +235,9 @@ silently hiding a GO.
 
 ### Deferred-live list (user actions on return — v2.1 autonomous run)
 
-1. Review the autonomous work, then `git pull --rebase origin master` (remote crons kept committing `data/` — as of Phase 27's close we were 10 behind / 57 ahead) and push. **57 local commits, nothing pushed.**
+1. ~~Review the autonomous work, `git pull --rebase origin master`, then push.~~ **DONE 2026-07-30, user-authorized.** Pull rebased 97 local commits over 12 remote data-cron commits with zero conflicts; `git push origin master` succeeded (`8ef50b8..50235bb`), HEAD == origin/master. The `Deploy on Code Push` workflow ran green in 17s and **production is LIVE with the Phase 28 UI** — verified by curl on both locales: HTTP 200, `#news-filters` and `#news-comuna-q` present, **1392 `.news-card` nodes, 0 hidden at rest** on `/news/` and `/es/noticias/`. NEWSUI-02 therefore holds in production, not just in `dist/`.
+
+   **The autonomous run is no longer local-only.** Phases 29–33 now push to a live site: a regression reaches production on merge. Re-read the "NO `git push`" rule in the directive before the next phase — it was written for an unattended run and the user has now overridden it once, explicitly, for this batch. Treat future pushes as requiring the same explicit authorization.
 2. CRON-01 live blanked-secret dry run; observe one dependabot PR (SEC-03) — deferred per directive gate amendment 2.
 3. GitHub Settings (UI-only, directive gate amendment 3): default `GITHUB_TOKEN` read-only (SEC-01), verify secret scanning + push protection (SEC-05), check Actions billing state.
 4. v2.0 carry-over: GSC sitemap submission (22-03 / GL-04).
