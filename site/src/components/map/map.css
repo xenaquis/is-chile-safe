@@ -1098,3 +1098,95 @@
   font-weight: var(--weight-strong);
   margin-left: var(--xs);
 }
+
+/* ==========================================================================
+   Phase 30-04 — Mobile filter FAB + native dialog bottom sheet (MAPSH-02/03)
+   ========================================================================== */
+
+.filter-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 24px;
+  z-index: 800;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .filter-fab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Collision fix (spec 4a): when a commune is selected, .result-panel's
+   40vh bottom sheet must never occlude the FAB. CSS-only, via the
+   already-shipped .map-stage.has-panel hook (MapIsland.tsx:413). */
+@media (max-width: 640px) {
+  .map-stage.has-panel .filter-fab {
+    bottom: calc(40vh + 16px);
+  }
+}
+
+/* No z-index rule for #filter-sheet — showModal() renders it in the
+   browser's top layer; a z-index there is a defect (spec section 5). */
+.filter-sheet {
+  border: none;
+  border-radius: 12px 12px 0 0;
+  padding: 16px;
+  width: 100%;
+  max-width: 100%;
+  margin: auto 0 0 0;
+  background: var(--card);
+  color: var(--ink);
+}
+
+.filter-sheet::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.filter-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.filter-sheet-header h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.filter-sheet-close {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.filter-sheet-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filter-sheet-field-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
