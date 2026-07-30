@@ -538,6 +538,22 @@ for (const [locale, distPath] of DIST_PAGES) {
         `incidents.length (${incidents.length})`
     );
   }
+  // NEWSUI-02 companion guard: the count check above treats
+  // `<article class="news-card" hidden …>` identically to a visible card,
+  // so it cannot by itself detect a regression to server-side hiding.
+  // Assert that zero .news-card / .news-month-section nodes ship the
+  // `hidden` attribute, and that no author CSS overrides `display` on the
+  // hidden-controlled nodes (which would defeat the UA [hidden] rule even
+  // if the attribute itself is absent).
+  if (/<article\b[^>]*\bclass="[^"]*\bnews-card\b[^"]*"[^>]*\shidden[\s>]/.test(distHtml)) {
+    fail(`assertion 12 — ${locale} ships a .news-card with the hidden attribute (NEWSUI-02 violation)`);
+  }
+  if (/<section\b[^>]*\bclass="[^"]*\bnews-month-section\b[^"]*"[^>]*\shidden[\s>]/.test(distHtml)) {
+    fail(`assertion 12 — ${locale} ships a hidden .news-month-section (NEWSUI-02 violation)`);
+  }
+  if (/\.news-card[^{}]*\{[^}]*display\s*:/.test(distHtml)) {
+    fail(`assertion 12 — ${locale} author CSS sets display on .news-card, defeating [hidden]`);
+  }
 }
 
 // ---------------------------------------------------------------------------
