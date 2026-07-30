@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-30T02:02:50.986779Z",
+  "generated": "2026-07-30T08:19:39.512788Z",
   "window_days": 30,
   "incidents": [
     {
@@ -17746,6 +17746,84 @@
       "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPdzJ0blJPNXppX1MwcGk1ZlpYaGtPaWJMOUs1N1lOYXFjYlVabWpyYS1kaUhJbXF2ZUxiMDBwbGJ5ZzU1TVlsZGpCc045clJVOUxaWmg3SF95ZXV5LWx2eTRqUG5aTWtBem83OG5vNDdueWduUUk1aXc2RnhtRUU0SlVEVHdBRlpVVXNaVm5rYjM5SHZ6UWJ1alF5eHRCMWJQR2drSnRVQWZGNVN4Uy1abWNiQUp5emlwdzliMzhGd1I2bTZMTlVVYWpGY9IBywFBVV95cUxPdzJ0blJPNXppX1MwcGk1ZlpYaGtPaWJMOUs1N1lOYXFjYlVabWpyYS1kaUhJbXF2ZUxiMDBwbGJ5ZzU1TVlsZGpCc045clJVOUxaWmg3SF95ZXV5LWx2eTRqUG5aTWtBem83OG5vNDdueWduUUk1aXc2RnhtRUU0SlVEVHdBRlpVVXNaVm5rYjM5SHZ6UWJ1alF5eHRCMWJQR2drSnRVQWZGNVN4Uy1abWNiQUp5emlwdzliMzhGd1I2bTZMTlVVYWpGYw?oc=5",
       "family": "vida",
       "slug": "coronel"
+    },
+    {
+      "id": "f876e6cd23d29205",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Detienen a dos grafiteros que vulneraron seguridad del Aeropuerto de Santiago y vandalizaron avión",
+      "title_en": "Two graffiti artists arrested for violating Santiago Airport security and vandalizing aircraft",
+      "date": "2026-07-30",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/29/detienen-a-dos-grafiteros-que-vulneraron-seguridad-del-aeropuerto-de-santiago-y-vandalizaron-avion.shtml",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "cad805bdb883d03d",
+      "cut": "13114",
+      "lat": -33.400888,
+      "lng": -70.506596,
+      "title_es": "Mantienen prisión preventiva de padre de la niña que murió tras caer de edificio en Las Condes",
+      "title_en": "Preventive detention of father of child who died after falling from building in Las Condes maintained",
+      "date": "2026-07-30",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/casos-emblematicos/mantienen-prision-preventiva-de-padre-de-la-nina-que-murio-tras-caer-de/2026-07-30/011914.html",
+      "family": "vida",
+      "slug": "las-condes"
+    },
+    {
+      "id": "a63553184fc4a8c2",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Futbolista de Lota Schwager declarado culpable por conducir ebrio y causar muerte",
+      "title_en": "Lota Schwager player convicted for drunk driving causing death",
+      "date": "2026-07-30",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/deportes/futbol/lota-schwager/jugador-de-lota-schwager-fue-declarado-culpable-por-conducir-ebrio-y/2026-07-29/225218.html",
+      "family": "vida",
+      "slug": "concepcion"
+    },
+    {
+      "id": "43ca304534cb161f",
+      "cut": "13124",
+      "lat": -33.393205,
+      "lng": -70.850871,
+      "title_es": "PDI detiene a dos grafiteros por vandalizar un avión en el aeropuerto de Santiago",
+      "title_en": "PDI arrests two graffiti artists for vandalizing an aircraft at Santiago Airport",
+      "date": "2026-07-30",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/pdi-detiene-a-dos-grafiteros-por-vandalizar-un-avion-en-el-aeropuerto-de-santiago/",
+      "family": "propiedad",
+      "slug": "pudahuel"
+    },
+    {
+      "id": "9b8dd3bedc393388",
+      "cut": "13404",
+      "lat": -33.848166,
+      "lng": -70.740895,
+      "title_es": "Investigan homicidio de hombre en Paine: cuerpo hallado cerca de camión con impactos de bala",
+      "title_en": "Investigation into man's murder in Paine: body found near truck with bullet impacts",
+      "date": "2026-07-30",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/investigan-homicidio-de-hombre-en-paine-cuerpo-fue-hallado-cerca-de-camion-que-presentaba-impactos-de-bala/",
+      "family": "vida",
+      "slug": "paine"
+    },
+    {
+      "id": "2590011e1e100270",
+      "cut": "14104",
+      "lat": -39.860779,
+      "lng": -72.571245,
+      "title_es": "Reportan caída del 31% en homicidios y alertan aumento de estafas en la Región de Los Lagos",
+      "title_en": "31% drop in homicides reported, scams on the rise in Los Lagos Region",
+      "date": "2026-07-28",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQbFV3Nlh2VFcxazkyTkNjdEJzNkx6VFFmWUgyMHFWcC1RSjROUEt3VERvQlFNNkxEQjM0TU5BN1pRbUN4TmtXLS1rc3dLOGVCclRRMFJ6aUNOV3k0MDBzNXl4bzFRQXE5d0lCT2c3WmNlU3FRdDBRRDJRVWdZazItbERNbU54Ti1sNHdITzhUbTRKT0xBeUVETTFpSjlLNUJGdnpwa1JQTkMxVWhU?oc=5",
+      "family": "vida",
+      "slug": "los-lagos"
     }
   ]
 }
