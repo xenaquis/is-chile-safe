@@ -13,6 +13,85 @@
   width: 100%;
   height: calc(100vh - 64px);
   overflow: hidden;
+  /* Consumed by .partial-year-badge as `top: calc(var(--map-topbar-h, 96px) + 8px)`.
+     It was consumed but DEFINED NOWHERE in the repo, so the 96px fallback was always
+     used — and Phase 30 changes the real topbar height at every band, which would have
+     rendered the badge inside the topbar with no gate to catch it (premortem §11).
+     It belongs here, on the common ancestor: the badge is a SIBLING of .map-topbar,
+     so a definition on .map-topbar itself would never inherit to it. */
+  --map-topbar-h: 108px;
+}
+
+/* Phase 30 — grouped filter entry points (spec §2/§4). The rail sits on the same
+   row band as the search box and must never add a third topbar row (F-54 coverage
+   ceilings). No z-index on the rail: it is nested inside .map-topbar at 800, and
+   score.mjs treats `auto` as compliant when a control ancestor carries an explicit
+   z-index >= 700 (score.mjs:179-189). */
+.entry-points-rail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.entry-points-rail > details {
+  position: relative;
+}
+
+.entry-points-rail > details > summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+  list-style: none;
+}
+
+.entry-points-rail > details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* The open panel must clear its .map-topbar siblings (spec §3: 801). */
+.entry-points-rail > details[open] > div {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 801;
+  min-width: 240px;
+  max-width: min(92vw, 420px);
+  padding: 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* F-46 mitigation 1: may truncate, must NEVER wrap to a second line. The safety net
+   only — EntryPointsRail composes a per-band string that FITS, because an element
+   that actually truncates has scrollWidth - clientWidth > 8, which is exactly what
+   score.mjs flags as hidden overflow and would fail criterion 2 (premortem §2). */
+.entry-state-summary {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  font-size: 12px;
+  color: var(--muted);
+  flex-basis: 100%;
+}
+
+/* Spec §4 band 4 (>=1024): the state summary sits inline with the entry points
+   rather than on its own line (F-52). */
+@media (min-width: 1024px) {
+  .entry-state-summary {
+    flex-basis: auto;
+    margin-left: 8px;
+  }
 }
 
 .map-canvas {
@@ -121,6 +200,53 @@
 }
 
 /* ==========================================================================
+   News toggle (MAPSH-01) — standalone, always-visible, labeled control.
+   Explicit z-index at every band (never falls back to .mode-toggle's
+   position:static reset — Pitfall 2 / spec §3).
+   ========================================================================== */
+
+.news-toggle {
+  position: relative;
+  z-index: 800;
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.news-toggle.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.news-toggle-label-short {
+  display: none;
+}
+
+.news-toggle-label-long {
+  display: inline;
+}
+
+@media (max-width: 640px) {
+  .news-toggle-label-long {
+    display: none;
+  }
+
+  .news-toggle-label-short {
+    display: inline;
+  }
+}
+
+/* ==========================================================================
    Legend (bottom-left overlay)
    ========================================================================== */
 
@@ -128,7 +254,7 @@
   position: absolute;
   bottom: 32px;
   left: 16px;
-  z-index: 700;
+  z-index: 750;
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -275,8 +401,8 @@
 }
 
 .zoom-ctl button {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -330,6 +456,10 @@
   font-weight: 400;
   color: var(--ink);
   min-width: 0;
+  /* MAPSH-03 / F-51: the input itself measured 17px tall inside its taller wrapper,
+     and score.mjs measures the interactive ELEMENT, not the wrapper. It sits inside
+     .map-topbar, which the close bar requires free of sub-44px targets. */
+  min-height: 44px;
 }
 
 .search-input::placeholder {
@@ -345,8 +475,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border: none;
   background: transparent;
   color: var(--muted);
