@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>iter-1 — desktop</title>
+<!--
+  THROWAWAY SKETCH. Never deployed, never imported. Phase 29 ships no map code.
+
+  Iteration 1 attacks ONE defect: the news-layer toggle is the last chip in a row that
+  overflows 507px on desktop (29-BASELINE.md §1), so it is invisible. It is lifted out of
+  the scrolling row into the topbar's first row, given an explicit z-index of 800, and the
+  chip row gets a real overflow affordance (trailing fade + a visible scrollbar) in place
+  of map.css:47-59's doubly-suppressed one.
+
+  Iteration 1 deliberately KEEPS the flat scrolling chip row. That is the honest scope of
+  this iteration, and it means criterion 2 will still FAIL at narrow widths — which is the
+  point: it gives iteration 2 a real, measured target rather than a matter of taste.
+
+  Stand-ins below carry the REAL classes and z-index values from map.css and leaflet.css,
+  so the rubric measures stacking and collisions rather than a formality.
+-->
+<style>
+  :root{--primary:#0f766e;--ink:#1f2933;--line:#e4e7eb;--bg:#f5f7fa}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;font:16px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
+  .page-header{height:64px;display:flex;align-items:center;padding:0 24px;border-bottom:1px solid var(--line);font-weight:700}
+
+  /* ---- Leaflet stand-in: real pane z-index ladder from leaflet.css ---- */
+  .map-shell{position:relative;height:calc(100vh - 64px)}
+  .leaflet-container{position:absolute;inset:0;background:#dfe6ec;overflow:hidden}
+  .leaflet-pane{position:absolute;inset:0}
+  .leaflet-tile-pane{z-index:200;background:repeating-linear-gradient(45deg,#e8eef3 0 20px,#e3eaf0 20px 40px)}
+  .leaflet-overlay-pane{z-index:400}
+  .leaflet-shadow-pane{z-index:500}
+  .leaflet-marker-pane{z-index:600}
+  .leaflet-tooltip-pane{z-index:650}
+  .leaflet-popup-pane{z-index:700}
+  /* Dummy popup positioned to OVERLAP the news toggle, so criterion 1's elementFromPoint
+     topmost check is a real stacking test: a toggle without an explicit z-index loses. */
+  .popup-dummy{position:absolute;top:76px;right:150px;width:340px;height:70px;background:#fff;border:1px solid var(--line);border-radius:8px;opacity:.9}
+
+  /* ---- The control shell under design ---- */
+  .map-topbar{position:absolute;top:0;left:0;right:0;z-index:800;padding:12px 16px;background:linear-gradient(#f8fafcf2,#f8fafcd9)}
+  .map-topbar-row1{display:flex;align-items:center;gap:8px}
+  .search-box{position:relative;flex:0 0 380px}
+  .search-input{width:100%;height:44px;border:1px solid var(--line);border-radius:22px;padding:0 44px 0 16px;font-size:15px;background:#fff}
+  .locate-btn-visible{position:absolute;right:6px;top:6px;width:32px;height:32px;border:0;border-radius:16px;background:transparent;cursor:pointer}
+
+  /* ITERATION 1's FIX: the news toggle lives in row 1, never in the scrolling row.
+     Explicit z-index 800 — never `auto`, whose paint order is DOM-order dependent and
+     would not survive contact with the real 970-line map.css. */
+  .news-toggle{position:relative;z-index:800;height:44px;display:inline-flex;align-items:center;gap:8px;
+    padding:0 18px;border:1px solid var(--primary);border-radius:22px;background:#fff;color:var(--primary);
+    font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .news-toggle[aria-pressed="true"]{background:var(--primary);color:#fff}
+  .ev-dot-mini{width:9px;height:9px;border-radius:50%;background:#c2410c;flex:0 0 auto}
+  .mode-toggle{position:relative;z-index:801;margin-left:auto;display:flex;gap:6px}
+
+  /* Chip row: still scrolls, but the affordance is RESTORED (the baseline suppressed it
+     twice — scrollbar-width:none plus a hidden ::-webkit-scrollbar). */
+  .filters-row{position:relative;display:flex;align-items:center;gap:8px;margin-top:10px;
+    overflow-x:auto;white-space:nowrap;padding-bottom:6px;
+    scrollbar-width:thin;
+    -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 48px),transparent 100%);
+    mask-image:linear-gradient(to right,#000 calc(100% - 48px),transparent 100%)}
+  .filters-row::-webkit-scrollbar{height:8px}
+  .filters-row::-webkit-scrollbar-thumb{background:#cbd2d9;border-radius:4px}
+  .chip{height:44px;display:inline-flex;align-items:center;gap:6px;padding:0 16px;border:1px solid var(--line);
+    border-radius:22px;background:#fff;font-size:15px;cursor:pointer;white-space:nowrap}
+  .chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .scroll-hint{position:absolute;right:0;top:0;height:44px;width:44px;display:flex;align-items:center;justify-content:center;
+    border:0;background:#fff;border-radius:22px;box-shadow:0 1px 4px #0002;cursor:pointer;font-size:18px}
+
+  /* ---- Competing furniture, real classes + real z-index (map.css) ---- */
+  .legend{position:absolute;left:16px;bottom:32px;z-index:700;width:210px;padding:12px;background:#fff;border-radius:10px;box-shadow:0 2px 10px #0002;font-size:13px}
+  .legend-band{height:14px;margin:3px 0;border-radius:3px}
+  .zoom-ctl{position:absolute;right:16px;bottom:120px;z-index:700;width:44px;background:#fff;border-radius:8px;box-shadow:0 1px 6px #0003}
+  .zoom-ctl button{display:block;width:44px;height:44px;border:0;background:transparent;font-size:20px;cursor:pointer}
+  .result-panel{position:absolute;right:0;top:64px;bottom:0;width:380px;z-index:700;background:#fff;border-left:1px solid var(--line);padding:16px}
+  /* Transient surfaces: present in the real app, shown only on demand. Kept in the DOM so
+     their classes and z-index are documented, hidden so they do not fake an occlusion. */
+  .partial-year-badge{position:absolute;top:120px;left:50%;transform:translateX(-50%);z-index:800;display:none}
+  .search-dropdown{position:absolute;z-index:900;display:none}
+  .toast{position:absolute;z-index:1000;display:none}
+</style>
+</head>
+<body>
+<header class="page-header">Chile Safety Map</header>
+
+<div class="map-shell">
+  <div class="leaflet-container">
+    <div class="leaflet-pane leaflet-tile-pane"></div>
+    <div class="leaflet-pane leaflet-overlay-pane"></div>
+    <div class="leaflet-pane leaflet-shadow-pane"></div>
+    <div class="leaflet-pane leaflet-marker-pane"></div>
+    <div class="leaflet-pane leaflet-tooltip-pane"></div>
+    <div class="leaflet-pane leaflet-popup-pane"><div class="popup-dummy"></div></div>
+  </div>
+
+  <div class="map-topbar">
+    <div class="map-topbar-row1">
+      <div class="search-box">
+        <input class="search-input" type="search" placeholder="Buscar comuna…" aria-label="Buscar comuna">
+        <button class="locate-btn-visible" aria-label="Mostrar mi ubicación">◎</button>
+      </div>
+
+      <button class="news-toggle" data-role="news-toggle" aria-pressed="false"
+              aria-label="Mostrar incidentes recientes de prensa en el mapa">
+        <span class="ev-dot-mini" aria-hidden="true"></span>Noticias recientes
+      </button>
+
+      <div class="mode-toggle" role="group" aria-label="Modo de mapa">
+        <button class="chip active">Índice</button>
+        <button class="chip">Por delito</button>
+      </div>
+    </div>
+
+    <div class="filters-row" data-role="filter-entry">
+      <select class="chip" aria-label="Filtrar por año"><option>2025</option><option>2024</option></select>
+      <button class="chip active">Todos</button>
+      <button class="chip">Vida y convivencia</button>
+      <button class="chip">Propiedad</button>
+      <button class="chip">Robos violentos</button>
+      <button class="chip">Incivilidades</button>
+      <button class="chip">VIF</button>
+      <button class="chip">Drogas</button>
+      <button class="chip">Armas</button>
+      <button class="chip">Homicidios</button>
+      <button class="scroll-hint" aria-label="Ver más filtros">›</button>
+    </div>
+  </div>
+
+  <div class="legend">
+    <strong>Índice Delictivo</strong>
+    <div class="legend-band" style="background:#d7f0ee"></div>
+    <div class="legend-band" style="background:#8fd3cd"></div>
+    <div class="legend-band" style="background:#f6d08a"></div>
+    <div class="legend-band" style="background:#e8a06a"></div>
+    <div class="legend-band" style="background:#c9573f"></div>
+    <div>Tasa reportada por 100.000 habitantes</div>
+  </div>
+
+  <div class="zoom-ctl"><button aria-label="Acercar">+</button><button aria-label="Alejar">−</button></div>
+  <div class="result-panel"><strong>Comuna seleccionada</strong><p>Panel de resultados (stand-in).</p></div>
+  <div class="partial-year-badge"></div>
+  <div class="search-dropdown"></div>
+  <div class="toast"></div>
+</div>
+</body>
+</html>

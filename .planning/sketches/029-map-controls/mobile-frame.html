@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phase 29 — narrow-viewport harness</title>
+<!--
+  Committed harness, not an ad-hoc DOM injection (premortem F9): an injected iframe dies
+  with the browser tab, and the MCP connection has already dropped once this run.
+
+  MUST be served over HTTP, never opened via file://. A file:// parent is an opaque origin,
+  so iframe.contentDocument returns null and every measurement inside comes back empty.
+  Verified by execution at approval time: file:// -> "BLOCKED: contentDocument null";
+  http://127.0.0.1:4399 -> innerWidth 375, matchMedia('(max-width:480px)') true.
+
+  Usage: /mobile-frame.html?src=/iter-1/mobile-375.html&w=375
+-->
+<style>
+  html,body{margin:0;padding:0;background:#2b2b2b;display:flex;justify-content:center;overflow:hidden}
+  iframe{border:0;background:#fff;display:block}
+</style>
+</head>
+<body>
+<script>
+  var p = new URLSearchParams(location.search);
+  var src = p.get('src') || '/iter-1/mobile-375.html';
+  var w = parseInt(p.get('w') || '375', 10);
+  var h = parseInt(p.get('h') || '812', 10);
+  var f = document.createElement('iframe');
+  f.id = 'f';
+  f.width = w;
+  f.height = h;
+  f.style.width = w + 'px';
+  f.style.height = h + 'px';
+  f.src = src;
+  document.body.appendChild(f);
+  // Same-origin proof helper: the scoring step asserts this is true before recording
+  // any measurement, so a cross-origin failure surfaces as NOT_MEASURED_FAIL rather
+  // than as a silently empty result.
+  window.__frameReadable = function () {
+    try { return document.getElementById('f').contentDocument !== null; }
+    catch (e) { return false; }
+  };
+</script>
+</body>
+</html>

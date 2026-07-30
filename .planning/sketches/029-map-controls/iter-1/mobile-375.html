@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>iter-1 — 375px</title>
+<!--
+  THROWAWAY SKETCH. Served over HTTP only (a file:// parent cannot read this document
+  through an iframe — opaque origin, contentDocument null; verified by execution).
+
+  Iteration 1 at narrow widths: the news toggle is lifted out of the scrolling row and
+  pinned in the topbar, and the filter chips move into a <dialog> bottom sheet opened with
+  a REAL showModal() call. showModal() puts the dialog in the browser's top layer, which
+  gives modal focus containment, ESC-to-close and a backdrop natively — satisfying
+  MAPSH-02's zero-new-JS-dependency constraint and the WCAG keyboard gate at once, with no
+  hand-rolled focus trap. A declarative <dialog open> would give none of that, which is why
+  the score asserts `dialog.matches(':modal')` rather than grepping for the word showModal.
+
+  The chip row is retained INSIDE the sheet, still flat and still scrolling. Iteration 1
+  does not restructure it — that is iteration 2's job — so criterion 2 is expected to FAIL
+  here. That failure is the point of the loop.
+-->
+<style>
+  :root{--primary:#0f766e;--ink:#1f2933;--line:#e4e7eb}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;font:16px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
+  .page-header{height:56px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line);font-weight:700}
+
+  .map-shell{position:relative;height:calc(100vh - 56px)}
+  .leaflet-container{position:absolute;inset:0;background:#dfe6ec;overflow:hidden}
+  .leaflet-pane{position:absolute;inset:0}
+  .leaflet-tile-pane{z-index:200;background:repeating-linear-gradient(45deg,#e8eef3 0 20px,#e3eaf0 20px 40px)}
+  .leaflet-overlay-pane{z-index:400}
+  .leaflet-shadow-pane{z-index:500}
+  .leaflet-marker-pane{z-index:600}
+  .leaflet-tooltip-pane{z-index:650}
+  .leaflet-popup-pane{z-index:700}
+  .popup-dummy{position:absolute;top:60px;left:8px;width:290px;height:56px;background:#fff;border:1px solid var(--line);border-radius:8px;opacity:.9}
+
+  .map-topbar{position:absolute;top:0;left:0;right:0;z-index:800;padding:8px;background:linear-gradient(#f8fafcf5,#f8fafce0)}
+  .map-topbar-row1{display:flex;align-items:center;gap:8px}
+  .search-box{position:relative;flex:1 1 auto;min-width:0}
+  .search-input{width:100%;height:44px;border:1px solid var(--line);border-radius:22px;padding:0 16px;font-size:15px;background:#fff}
+
+  /* Always visible at 375px, and NOT dependent on .mode-toggle's precedent — the real
+     .mode-toggle resets to position:static below 480px (map.css:240-251), so that
+     precedent does not hold here. This control carries its own explicit z-index. */
+  .news-toggle{position:relative;z-index:800;height:44px;min-width:44px;display:inline-flex;align-items:center;
+    gap:6px;padding:0 14px;border:1px solid var(--primary);border-radius:22px;background:#fff;color:var(--primary);
+    font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap;flex:0 0 auto}
+  .news-toggle[aria-pressed="true"]{background:var(--primary);color:#fff}
+  .ev-dot-mini{width:9px;height:9px;border-radius:50%;background:#c2410c}
+
+  /* Filter FAB. Bottom-RIGHT is free at this width: .zoom-ctl is desktop-only (shown at
+     >=640px, map.css:257-275) and .legend sits bottom-LEFT. It would be covered by
+     .result-panel's 40vh bottom sheet when a commune is selected — recorded in SCORE.md
+     as an interaction to resolve, not silently ignored. */
+  .filter-fab{position:absolute;right:16px;bottom:24px;z-index:800;height:52px;min-width:52px;
+    display:inline-flex;align-items:center;gap:8px;padding:0 18px;border:0;border-radius:26px;
+    background:var(--primary);color:#fff;font-size:15px;font-weight:600;box-shadow:0 3px 12px #0004;cursor:pointer}
+
+  dialog.sheet{border:0;padding:0;width:100%;max-width:100%;margin:0 0 0 0;position:fixed;bottom:0;top:auto;
+    border-radius:16px 16px 0 0;box-shadow:0 -3px 20px #0003}
+  dialog.sheet::backdrop{background:#0006}
+  .sheet-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .sheet-close{height:44px;min-width:44px;border:0;background:transparent;font-size:20px;cursor:pointer}
+  .sheet-body{padding:12px 16px 24px}
+  /* Iteration 1 keeps the flat scrolling row — with a restored affordance, but flat. */
+  .filters-row{display:flex;align-items:center;gap:8px;overflow-x:auto;white-space:nowrap;padding-bottom:8px;
+    scrollbar-width:thin;
+    -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 40px),transparent 100%);
+    mask-image:linear-gradient(to right,#000 calc(100% - 40px),transparent 100%)}
+  .filters-row::-webkit-scrollbar{height:8px}
+  .filters-row::-webkit-scrollbar-thumb{background:#cbd2d9;border-radius:4px}
+  .chip{height:44px;display:inline-flex;align-items:center;padding:0 16px;border:1px solid var(--line);
+    border-radius:22px;background:#fff;font-size:15px;cursor:pointer;white-space:nowrap}
+  .chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+  .legend{position:absolute;left:8px;bottom:24px;z-index:700;font-size:12px}
+  .legend-mobile{background:#fff;border-radius:10px;box-shadow:0 2px 8px #0002;padding:8px 10px}
+  .legend-mobile summary{min-height:44px;display:flex;align-items:center;cursor:pointer}
+  .partial-year-badge{position:absolute;z-index:800;display:none}
+  .search-dropdown{position:absolute;z-index:900;display:none}
+  .toast{position:absolute;z-index:1000;display:none}
+</style>
+</head>
+<body>
+<header class="page-header">Chile Safety Map</header>
+
+<div class="map-shell">
+  <div class="leaflet-container">
+    <div class="leaflet-pane leaflet-tile-pane"></div>
+    <div class="leaflet-pane leaflet-overlay-pane"></div>
+    <div class="leaflet-pane leaflet-shadow-pane"></div>
+    <div class="leaflet-pane leaflet-marker-pane"></div>
+    <div class="leaflet-pane leaflet-tooltip-pane"></div>
+    <div class="leaflet-pane leaflet-popup-pane"><div class="popup-dummy"></div></div>
+  </div>
+
+  <div class="map-topbar">
+    <div class="map-topbar-row1">
+      <div class="search-box">
+        <input class="search-input" type="search" placeholder="Buscar comuna…" aria-label="Buscar comuna">
+      </div>
+      <button class="news-toggle" data-role="news-toggle" aria-pressed="false"
+              aria-label="Mostrar incidentes recientes de prensa en el mapa">
+        <span class="ev-dot-mini" aria-hidden="true"></span>Noticias
+      </button>
+    </div>
+  </div>
+
+  <button class="filter-fab" id="filter-fab" data-role="filter-entry"
+          aria-haspopup="dialog" aria-controls="filter-sheet" aria-expanded="false">Filtros</button>
+
+  <dialog class="sheet" id="filter-sheet" aria-labelledby="sheet-title">
+    <div class="sheet-head">
+      <strong id="sheet-title">Filtros</strong>
+      <button class="sheet-close" id="sheet-close" aria-label="Cerrar filtros">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="filters-row">
+        <select class="chip" aria-label="Filtrar por año"><option>2025</option><option>2024</option></select>
+        <button class="chip active">Todos</button>
+        <button class="chip">Vida y convivencia</button>
+        <button class="chip">Propiedad</button>
+        <button class="chip">Robos violentos</button>
+        <button class="chip">Incivilidades</button>
+        <button class="chip">VIF</button>
+        <button class="chip">Drogas</button>
+        <button class="chip">Armas</button>
+        <button class="chip">Homicidios</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="legend">
+    <details class="legend-mobile"><summary>Índice delictivo ▸</summary>
+      <div>Tasa reportada por 100.000 habitantes</div>
+    </details>
+  </div>
+  <div class="partial-year-badge"></div>
+  <div class="search-dropdown"></div>
+  <div class="toast"></div>
+</div>
+
+<script>
+  /* Real showModal() — not a declarative `open` attribute. The score asserts
+     dialog.matches(':modal'), which is the only check that distinguishes the two. */
+  var fab = document.getElementById('filter-fab');
+  var sheet = document.getElementById('filter-sheet');
+  fab.addEventListener('click', function () {
+    sheet.showModal();
+    fab.setAttribute('aria-expanded', 'true');
+  });
+  document.getElementById('sheet-close').addEventListener('click', function () { sheet.close(); });
+  sheet.addEventListener('close', function () {
+    fab.setAttribute('aria-expanded', 'false');
+    fab.focus(); /* focus returns to the invoking control */
+  });
+</script>
+</body>
+</html>
