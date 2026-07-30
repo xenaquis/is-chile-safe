@@ -1,10 +1,11 @@
 ---
 phase: 28
 slug: news-visualizer-ui
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-07-30
+reviewed_at: 2026-07-30
 ---
 
 # Phase 28 — UI Design Contract
@@ -23,7 +24,7 @@ This is **not a redesign**. It adds filtering controls on top of the existing ze
 | Preset | not applicable |
 | Component library | none — native HTML elements only (`<details>`, `<input type="search">`), per NEWSUI hard constraint of zero new shipped JS dependencies |
 | Icon library | none — this codebase uses no icon font/SVG-icon library anywhere in `site/src`; do not introduce one. Any chevron/caret affordance on `<details>` uses the browser's native disclosure triangle or a 1-2 line inline SVG matching existing `--ink` stroke color, not a new dependency |
-| Font | system stack inherited from `site/src/styles/global.css` `body` rule (no custom @font-face in this codebase) |
+| Font | `--font` = `'Nunito Sans', 'Segoe UI', system-ui, sans-serif`, loaded via the Google Fonts `@import` at `global.css:7` (weights 400 + 700 only) and set at `global.css:48`. Inherit it; do NOT add a weight, a family, or a second `@import`. The shipped 400/700 pair already matches the two weights declared in the Typography section, so no design change follows. |
 
 ---
 
@@ -70,6 +71,8 @@ Copied verbatim from `site/src/styles/global.css:13-17`:
 | Accent (10%) | `--primary` = #0f766e | Active/selected filter chip background, "Clear filters" link, focus ring accent, result-count number |
 | Destructive | none needed | This phase has no destructive action (no delete/irreversible operation) |
 
+**Focal point (declared explicitly):** the incident list stays the visual anchor of the page. The filter bar is deliberately subordinate — a thin `--line`-bordered block on the page background, no accent wash, no elevation/shadow, no larger-than-`--text-heading` type. If the filter bar reads as the page's primary object at any breakpoint, the contract is violated.
+
 Accent (`--primary` teal) reserved for: (1) the active-state background of a selected filter chip/checkbox, (2) the "×" / "Clear filters" affordance text color, (3) the `aria-live` result-count number when it updates, (4) `:focus-visible` outline (already global site-wide per Phase 25 P2-1 — reused, not redefined). Never used for chip default/unselected state, never used as a background wash.
 
 ---
@@ -85,6 +88,7 @@ All copy ships as new keys in `site/src/config/i18n.ts` `I18nStrings` interface 
 | Window option: today | "Latest data: {date}" (e.g. "Latest data: Jul 27") | "Últimos datos: {date}" (e.g. "Últimos datos: 27 jul") | `news_window_latest` |
 | Window option: 7d | "Last 7 days ({n})" | "Últimos 7 días ({n})" | `news_window_7d` |
 | Window option: 30d | "Last 30 days ({n})" | "Últimos 30 días ({n})" | `news_window_30d` |
+| Window option: all (default-checked) | "All dates" | "Todas las fechas" | `news_window_all` — REQUIRED: this is the default-checked control in the group; an unlabeled radio would be announced unnamed by a screen reader. `value=""` is unchanged (absence of the param still means all) — only the visible/accessible label is added. |
 | Region filter group label | "Region" | "Región" | `news_filter_region_label` |
 | Family filter group label | "Crime type" | "Tipo de delito" | `news_filter_family_label` |
 | Comuna search label | "Search by comuna" | "Buscar por comuna" | `news_search_comuna_label` |
@@ -98,7 +102,13 @@ All copy ships as new keys in `site/src/config/i18n.ts` `I18nStrings` interface 
 
 No destructive action exists in this phase, so no destructive-confirmation copy is needed.
 
-**"Today" label rule (STATE.md Phase 27 handoff item #1, binding):** never render an absolute "Today"/"Hoy". The `news_window_latest` string above is always rendered as "Latest data: {date}" / "Últimos datos: {date}", where `{date}` is `byWindow`'s anchor date (the newest incident's `date` field, formatted with the existing `toLocaleDateString(locale, { month: 'short', day: 'numeric' })` pattern already used for `formattedDate` in both pages) — never `new Date()` / wall-clock "today".
+**"Today" label rule (STATE.md Phase 27 handoff item #1, binding):** never render an absolute "Today"/"Hoy". The `news_window_latest` string above is always rendered as "Latest data: {date}" / "Últimos datos: {date}" — never `new Date()` / wall-clock "today".
+
+**Where `{date}` comes from (corrected — the checker proved the earlier claim wrong):** the anchor date is NOT currently reachable from either page. `newsFacets.ts:180-183` computes `newestDate` as a *local* variable only; it is not a field on `NewsFacetIndex`, `FacetKeyEntry`, or `WindowFacet`. The planner must pick ONE of:
+- (a) add an `anchorDate` field to `NewsFacetIndex` (preferred — it makes the value the module's published contract rather than a re-derivation), or
+- (b) derive it build-time as `incidents[0].date`, valid because the array is sorted newest-first at `news.astro:97`.
+
+**Do NOT reuse the existing `formattedDate`** (`news.astro:86-90`). It formats `generated` — the *pipeline timestamp*, not the newest incident's date; the two currently differ by ~3 days, which is exactly the Phase 27 handoff hazard this rule exists to prevent. It also uses `{ year, month: 'long', day: 'numeric' }`, not the `{ month: 'short', day: 'numeric' }` shape this label wants. Format the anchor date separately with `toLocaleDateString(locale, { month: 'short', day: 'numeric' })`.
 
 ---
 
@@ -125,7 +135,7 @@ Placed between the existing intro `<section>` (h1 + lead + freshness) and the mo
       <label class="filter-chip"><input type="radio" name="window" value="today"> {t.news_window_latest}</label>
       <label class="filter-chip"><input type="radio" name="window" value="7d"> {t.news_window_7d}</label>
       <label class="filter-chip"><input type="radio" name="window" value="30d"> {t.news_window_30d}</label>
-      <label class="filter-chip"><input type="radio" name="window" value="" checked> {/* "All" implicit — no explicit "all" chip copy needed, default state */}</label>
+      <label class="filter-chip"><input type="radio" name="window" value="" checked> {t.news_window_all}</label>
     </fieldset>
     <fieldset class="filter-group" data-facet="region">
       <legend>{t.news_filter_region_label}</legend>
@@ -147,14 +157,14 @@ Placed between the existing intro `<section>` (h1 + lead + freshness) and the mo
 </details>
 ```
 
-- `role="status" aria-live="polite"` on the result-count element satisfies the hard constraint's aria-live requirement — filtering changes are announced.
+- `role="status" aria-live="polite"` on the result-count element satisfies the accessibility rule's aria-live requirement — filtering changes are announced.
 - Every control has a real `<label>`/`<legend>` (no icon-only or placeholder-only controls) — keyboard-operable natively via `<input>`/`<button>` semantics, `:focus-visible` already global (Phase 25 P2-1, reused not redefined).
-- The `open` attribute defaults the filter bar expanded on desktop; JS may collapse it on ≤480px after first paint via a `matchMedia` check **executed before first paint is not required** — reserve space with the same collapsed/expanded box height either way so no CLS occurs (hard constraint 8). Concretely: `<details>` panel gets a fixed `min-height` reservation is unnecessary because `<details>` open/closed is resolved synchronously during SSR HTML parse — there is no post-paint insertion, so no CLS risk exists for this element by construction.
+- The `open` attribute ships on the server-rendered `<details>` at every breakpoint, and no JS ever adds or removes it. Open/closed is therefore resolved during HTML parse, before first paint — there is no post-paint insertion and no CLS by construction (no-CLS rule). See the ≤480px row of the responsive table for the same decision stated as the mobile rule.
 
 ### Facet counts (F-20 compliance)
 
 - Counts shown on **initial render / no-filter state = unfiltered marginal totals** straight from `facetsProjection.byFamily`/`byRegion`/`byWindow` (already computed server-side, F-20 contract, no change).
-- **Once a user has any filter active, per-option counts recompute client-side from `facetKeys`** (the array of `{id, family, regionId, yearMonth, window}` — NOT currently serialized to the page; Phase 28 must add `facetKeys` to the `facetsProjection` object in both `news.astro`/`es/noticias.astro`, through the same `escapeForInlineScript` + `set:html` path already guarding `byFamily`/`byRegion`/`byMonth`). This is the explicit choice required by hard constraint 5: **cross-filtered counts, recomputed client-side**, because showing stale unfiltered counts next to a filtered result list would be misleading UX inconsistent with NEWSUI-01's "per-option counts visible" requirement once a filter is active.
+- **Once a user has any filter active, per-option counts recompute client-side from `facetKeys`** (the array of `{id, family, regionId, yearMonth, window}` — NOT currently serialized to the page; Phase 28 must add `facetKeys` to the `facetsProjection` object in both `news.astro`/`es/noticias.astro`, through the same `escapeForInlineScript` + `set:html` path already guarding `byFamily`/`byRegion`/`byMonth`). This is the explicit choice the F-20 contract requires Phase 28 to make: **cross-filtered counts, recomputed client-side**, because showing stale unfiltered counts next to a filtered result list would be misleading UX inconsistent with NEWSUI-01's "per-option counts visible" requirement once a filter is active.
 - `facetKeys` is LLM-derived (`family` traces to the classifier) — apply the same `escapeForInlineScript` treatment already used for the rest of the payload; do not add a second unescaped `set:html` call.
 
 ### Comuna typeahead (NEWSUI-03 — REUSE, do not reinvent)
@@ -180,14 +190,16 @@ URL params on the existing page paths only (`/news/` / `/es/noticias/`) — **no
 
 State sync via `history.replaceState` (mirrors the existing pattern already shipped on `/compare/` per STATE.md Phase 25 P1-2 "?a=&b= URL sync via history.replaceState") — not `pushState` (filtering is not a navigation event requiring back-button entries, consistent with the Compare page precedent).
 
-### Empty state (hard constraint 7 / NEWSUI-04)
+### Empty state (never-indexable-thin-content rule / NEWSUI-04)
 
 When a filter combination yields zero visible `.news-card` elements:
 - Show a `<div id="news-empty" hidden>` block (server-rendered, toggled via `hidden` attribute — same technique as `communes/index.astro`'s `#empty-msg`) containing `news_empty_heading` (as text, not a heading tag — do not use `<h1>`/`<h2>` for a transient client-side state, avoiding any impression of a distinct "page" for SEO/thin-content purposes) + `news_empty_body`.
+- **Hide/show mechanism is LOCKED to the `hidden` attribute, everywhere, for every element the filter script shows or hides** — `.news-card`, `.news-month-section`, and `#news-empty` alike. Do NOT mix in `style.display` (the `communes/index.astro:262-267` precedent uses `style.display`; deliberately diverge from it on this point). Rationale: the section rule below counts *visible* `.news-card` children, so if cards were hidden by one mechanism and counted by the other, empty sections would never collapse — a check that cannot fire. The visibility predicate is therefore exactly `!card.hidden`, one mechanism, one query.
+- **Also hide any month section left empty by filtering.** The list is `<section class="news-month-section">` wrapping an `<h2 class="news-date-group">` plus its cards (`news.astro:177-178`); without this, a filter leaves a bare "July 2026" heading floating over empty space. Same shape as the existing solution at `communes/index.astro:262-267` (hide the section when it contains zero visible children), but with the `hidden` attribute per the locked mechanism above: set `hidden` on a `.news-month-section` whose `!card.hidden` count is 0, and remove `hidden` when that count returns above 0.
 - The canonical URL and `<title>`/`<meta description>` never change based on filter state — this is pure client-side DOM visibility toggling, never a server-rendered variant, satisfying "never indexable as thin content."
 - No `<link rel="canonical">` manipulation, no History API `title` change.
 
-### LLM-derived string escaping (hard constraint 8 / NEWSUI-06)
+### LLM-derived string escaping (no-`innerHTML`-on-data-derived-strings rule / NEWSUI-06)
 
 - Every DOM write of `family`, `title_en`/`title_es`, `outlet` — all of which trace back to the classifier or scraped RSS — uses `textContent`, never `innerHTML`, **except** the existing highlight-mark pattern which is scoped exclusively to the TRUSTED `data-name`/`data-commune-norm` attribute (never to `family`/`title`/`outlet`).
 - The `facetKeys` addition to the inline JSON payload goes through `escapeForInlineScript` (existing function, `newsFacets.ts:103-105`) — no new escaping utility needed.
@@ -198,7 +210,7 @@ When a filter combination yields zero visible `.news-card` elements:
 |------------|----------|
 | ≥1100px (existing hamburger threshold, `PageHeader.astro:147/221/244/272`) | Filter bar renders as a horizontal row of `<fieldset>` groups inside the `<details>` panel; `<details>` defaults `open`. |
 | 481px–1099px | Filter groups wrap to 2 columns inside the `<details>` panel (flex-wrap, no new breakpoint token — reuse existing flex/wrap CSS pattern already used by `.news-meta { flex-wrap: wrap }`). `<details>` defaults `open`. |
-| ≤480px (existing pill-stacking threshold, Phase 25 P1-3 "pills 2 rows ≤480px") | Filter groups stack to single column; chips/checkboxes get `min-height: 44px` (touch-target requirement, hard constraint 10); `<details>` defaults **closed** (`open` attribute omitted) to avoid pushing the incident list below the fold on small screens — this is a build-time (SSR) attribute choice per viewport-width media query is impossible server-side, so instead: ship `open` by default (same on all breakpoints, matching the zero-CLS reasoning above) and let a `≤480px` CSS rule visually collapse the panel content behind the `<summary>` toggle via `details:not([open]) .filter-groups { display: none }` is the native behavior already — no extra CSS needed; the only mobile-specific decision is that JS may call `.removeAttribute('open')` on `DOMContentLoaded` under `matchMedia('(max-width: 480px)')` if measured to help mobile scroll depth, but this is optional polish, not required for NEWSUI compliance. |
+| ≤480px (existing pill-stacking threshold, Phase 25 P1-3 "pills 2 rows ≤480px") | **Decision, single sentence:** the `<details>` element ships `open` at every breakpoint — `open` is an SSR attribute and viewport width is not knowable server-side, so a per-breakpoint default is not available and post-paint collapsing would cause the CLS that the no-CLS-regression rule forbids. At ≤480px the filter groups stack to a single column and each chip/checkbox gets `min-height: 44px` (touch target, accessibility rule). Do NOT add JS that removes `open` after load. |
 
 No new pixel breakpoints are introduced. 1100px and 480px are reused verbatim from the existing codebase.
 
@@ -223,15 +235,15 @@ Per `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md` (`mode: yolo`, `skip_discuss: true`
 
 | # | Decision | Evidence / rationale |
 |---|----------|----------------------|
-| 1 | No component library / shadcn — plain Astro + vanilla CSS/JS | No `components.json`, no `tailwind.config.*` anywhere in repo; `REQUIREMENTS.md` locked decision "New dependencies: rapidfuzz + zizmor... zero new shipped frontend JS"; hard constraint 3 bans new frontend deps outright. |
+| 1 | No component library / shadcn — plain Astro + vanilla CSS/JS | No `components.json`, no `tailwind.config.*` anywhere in repo; `REQUIREMENTS.md` locked decision "New dependencies: rapidfuzz + zizmor... zero new shipped frontend JS"; the zero-new-frontend-deps rule bans them outright. |
 | 2 | Spacing/typography/color tokens are 100% reused from `site/src/styles/global.css` — no new tokens | Existing `.news-card`/`.news-type-chip` styles in `news.astro`/`es/noticias.astro` already consume these exact tokens; introducing new ones would create visual drift between the filter bar and the list it filters. |
 | 3 | Filter bar = native `<details>`/`<fieldset>`, not a custom dropdown/popover | Mirrors the milestone-locked "Map controls: native `<details>`/`<dialog>` + CSS" decision (REQUIREMENTS.md locked decisions table) — same zero-JS-dependency posture extended to news faceting for consistency across the milestone. |
 | 4 | Comuna typeahead reuses `communes/index.astro`'s inline vanilla-JS pattern verbatim (norm/highlight/`?q=`) rather than a new component | NEWSUI-03 explicitly says "reusing the established directory-finder pattern" — `communes/index.astro:174-306` is the only accent-insensitive search implementation in the codebase (confirmed via grep across `site/src`). |
 | 5 | Cross-filtered facet counts are recomputed **client-side from `facetKeys`** once any filter is active; unfiltered totals shown at rest | F-20 published contract explicitly assigns this as "Phase 28's client-side job" — not a new decision, a pre-declared one being executed. |
-| 6 | "Today" is never rendered as an absolute label — always "Latest data: {anchor date}" / "Últimos datos: {fecha}" | STATE.md Phase 27 Outcome handoff item #1 (binding); the anchor date already exists on `facetKeys`/`byWindow` computation in `newsFacets.ts`. |
+| 6 | "Today" is never rendered as an absolute label — always "Latest data: {anchor date}" / "Últimos datos: {fecha}" | STATE.md Phase 27 Outcome handoff item #1 (binding). **Corrected by the checker:** the anchor date does NOT already exist on `facetKeys`/`byWindow` — `newsFacets.ts:180-183` keeps `newestDate` as a local variable and exposes it nowhere. See the "Where `{date}` comes from" block in the Copywriting Contract for the two admissible ways to surface it. |
 | 7 | Query params: `family`, `region`, `window`, `q` — comma-separated multi-value for family/region, single-value enum for window | Matches the milestone-locked "Facet URL strategy: query params only (`?family=&region=&window=`)" wording verbatim from REQUIREMENTS.md; `q` added by analogy to the existing `communes/index.astro` `?q=` convention for the comuna search NEWSUI-03 requires. |
 | 8 | URL sync via `history.replaceState`, not `pushState` | Matches the precedent already shipped on `/compare/` (STATE.md Phase 25 P1-2: "?a=&b= URL sync via history.replaceState"), the only prior instance of query-param-synced client filtering in this codebase. |
-| 9 | NEWSUI-05 clustered "N sources" badge is speced as an i18n key only, not wired into markup, and no cluster card structure is defined | Binding per ROADMAP.md/STATE.md: Phase 26 returned NO-GO, `IncidentRecord` has no `cluster_id`; NEWSUI-05 explicitly "degrades gracefully to faceting-only." Spec'ing card markup for a feature with no data source would violate hard constraint 4 ("do not re-litigate"). |
+| 9 | NEWSUI-05 clustered "N sources" badge is speced as an i18n key only, not wired into markup, and no cluster card structure is defined | Binding per ROADMAP.md/STATE.md: Phase 26 returned NO-GO, `IncidentRecord` has no `cluster_id`; NEWSUI-05 explicitly "degrades gracefully to faceting-only." Spec'ing card markup for a feature with no data source would violate the NO-GO-is-binding rule ("do not re-litigate"). |
 | 10 | Breakpoints: 1100px (filter-bar row/wrap threshold, matches hamburger nav) and 480px (touch-target/stacking threshold) — no new breakpoint | Grep-confirmed exact values already in `PageHeader.astro` (1100px) and referenced in STATE.md Phase 25 history ("pills 2 rows ≤480px"); reusing them keeps the filter bar visually consistent with the rest of the site's responsive behavior. |
 | 11 | Accent color reserved list limited to 4 elements (selected-chip bg, clear-filters text, live result count, focus ring) | Direct application of the hard-constraint pattern already used site-wide — `--primary` teal is never a background wash anywhere in the existing CSS (confirmed by reading both news pages' full `<style>` blocks); extending that discipline to the new filter UI avoids introducing a new accent usage pattern. |
 | 12 | No destructive-action row in the Copywriting Contract | This phase has zero delete/irreversible operations — "Clear filters" resets client-side state only, not a destructive action requiring confirmation copy. |
