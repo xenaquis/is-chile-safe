@@ -224,3 +224,37 @@ def test_incident_record_slug_optional():
     data.pop("slug", None)  # ensure slug is absent
     record = IncidentRecord.model_validate(data)
     assert record.slug is None
+
+
+# ---------------------------------------------------------------------------
+# CLUS-09 NO-GO branch (W-4): Phase 26 event clustering closed NO-GO
+# (fp=11 on the golden set, see 26-SPIKE-REPORT.md) -- no `cluster_id`/
+# `is_primary` schema change shipped. This regression asserts that
+# directly, rather than via a command selecting zero tests: it must fail
+# loudly if either field is ever added to IncidentRecord without an explicit
+# decision to revisit CLUS-09 on a future GO.
+# ---------------------------------------------------------------------------
+
+
+def test_incident_record_has_no_cluster_fields_no_go_branch():
+    """Phase 26 closed NO-GO: `cluster_id`/`is_primary` were never added to
+    IncidentRecord. This is the real, always-selected regression for
+    CLUS-09's NO-GO branch (replaces a command that selected zero tests --
+    `pytest test_schema_incidents.py -k cluster_fields_optional` -- and
+    reported green while verifying nothing, W-4)."""
+    field_names = set(IncidentRecord.model_fields.keys())
+    assert "cluster_id" not in field_names, (
+        "IncidentRecord gained cluster_id -- Phase 26 closed NO-GO and no "
+        "schema change was supposed to ship; if CLUS-09 is being revisited "
+        "on a future GO, update this test deliberately."
+    )
+    assert "is_primary" not in field_names, (
+        "IncidentRecord gained is_primary -- Phase 26 closed NO-GO and no "
+        "schema change was supposed to ship; if CLUS-09 is being revisited "
+        "on a future GO, update this test deliberately."
+    )
+
+    record = IncidentRecord.model_validate(_valid_incident())
+    dumped = record.model_dump()
+    assert "cluster_id" not in dumped
+    assert "is_primary" not in dumped

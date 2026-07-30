@@ -1,9 +1,9 @@
 ---
 phase: 26
 slug: event-clustering-spike
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: complete
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-07-29
 revised: 2026-07-29
 ---
@@ -43,15 +43,15 @@ Frontend validators (14) are unaffected by this phase but must stay green:
 
 | Requirement | Behavior | Test Type | Automated Command | File Exists | Status |
 |---|---|---|---|---|---|
-| CLUS-01 | Golden-set fixture exists, 60–100 labeled pairs (population = all non-excluded pairs including proposed:false), includes cut 2101/2026-07-01 and cut 4102/2026-07-01 buckets, includes exactly-10-pair hand-constructed typo/homophone negative sub-set, every pair carries a `category` and all three CLUS-01 adversarial classes are represented, proposed:false pairs carry a permanently null `cached_verdict` | unit | `pytest pipeline/tests/test_clustering.py::test_golden_set_shape -x` | ❌ W0 | ⬜ pending |
-| CLUS-02 | rapidfuzz pre-filter proposes correct candidate pairs, drops unrelated titles; `bucket_incidents` is the single shared `(cut,date)` grouping function | unit | `pytest pipeline/tests/test_clustering.py -k "prefilter or bucket_incidents" -x` | ❌ W0 | ⬜ pending |
-| CLUS-03 | Unparseable / off-schema LLM output rejected as no-merge, with machine-detectable `source`/`rationale` fail-safe provenance | unit | `pytest pipeline/tests/test_clustering.py::test_adjudicate_pair_rejects_malformed -x` | ❌ W0 | ⬜ pending |
-| CLUS-04 | Injected instruction text inside a headline cannot flip the verdict | unit | `pytest pipeline/tests/test_clustering.py::test_prompt_injection_resistance -x` | ❌ W0 | ⬜ pending |
-| CLUS-05 | `cluster_id` byte-identical across runs with shuffled input order; sha256 of sorted member IDs | unit | `pytest pipeline/tests/test_clustering.py::test_cluster_id_deterministic -x` | ❌ W0 | ⬜ pending |
-| CLUS-06 | Cluster >4 members flagged, never silently published; pairwise matrix logged | unit | `pytest pipeline/tests/test_clustering.py::test_oversized_cluster_flagged -x` | ❌ W0 | ⬜ pending |
-| CLUS-07 | Pairwise precision from golden-set cached verdicts, computed via `compute_pairwise_metrics` with an honest zero-denominator guard and a proposed:false skip guard (never reads cached_verdict on those pairs); recall + cost + confidence distribution reported | integration (offline) | `pytest pipeline/tests/test_clustering.py::test_golden_set_meets_go_gate -x` | ❌ W0 | ⬜ pending |
-| CLUS-08 | Whole clustering test file runs with zero live network calls by default (client patched or `live_llm`-gated); model/prompt staleness caught by a dedicated regression | integration | `pytest pipeline/tests/test_clustering.py -q` | ❌ W0 | ⬜ pending |
-| CLUS-09 | `IncidentRecord` with `cluster_id=None, is_primary=False` still validates existing `current.json` / archive shape | regression | `pytest pipeline/tests/test_schema_incidents.py -k cluster_fields_optional -x` | ⚠️ extend existing | ⬜ pending |
+| CLUS-01 | Golden-set fixture exists, 60–100 labeled pairs (population = all non-excluded pairs including proposed:false), includes cut 2101/2026-07-01 and cut 4102/2026-07-01 buckets, includes exactly-10-pair hand-constructed typo/homophone negative sub-set, every pair carries a `category` and all three CLUS-01 adversarial classes are represented, proposed:false pairs carry a permanently null `cached_verdict` | unit | `pytest pipeline/tests/test_clustering.py::test_golden_set_shape -x` | ✅ | ✅ green (1 passed) |
+| CLUS-02 | rapidfuzz pre-filter proposes correct candidate pairs, drops unrelated titles; `bucket_incidents` is the single shared `(cut,date)` grouping function | unit | `pytest pipeline/tests/test_clustering.py -k "prefilter or bucket_incidents" -x` | ✅ | ✅ green (passed) |
+| CLUS-03 | Unparseable / off-schema LLM output rejected as no-merge, with machine-detectable `source`/`rationale` fail-safe provenance | unit | `pytest pipeline/tests/test_clustering.py::test_adjudicate_pair_rejects_malformed -x` | ✅ | ✅ green (1 passed) |
+| CLUS-04 | Injected instruction text inside a headline cannot flip the verdict | unit | `pytest pipeline/tests/test_clustering.py::test_prompt_injection_resistance -x` | ✅ | ✅ green (1 passed) |
+| CLUS-05 | `cluster_id` byte-identical across runs with shuffled input order; sha256 of sorted member IDs | unit | `pytest pipeline/tests/test_clustering.py::test_cluster_id_deterministic -x` | ✅ | ✅ green (1 passed) |
+| CLUS-06 | Cluster >4 members flagged, never silently published; pairwise matrix logged | unit | `pytest pipeline/tests/test_clustering.py::test_oversized_cluster_flagged -x` | ✅ | ✅ green (1 passed) |
+| CLUS-07 | Pairwise precision from golden-set cached verdicts, computed via `compute_pairwise_metrics` with an honest zero-denominator guard and a proposed:false skip guard (never reads cached_verdict on those pairs); recall + cost + confidence distribution reported | integration (offline) | `pytest pipeline/tests/test_clustering.py::test_golden_set_meets_go_gate -x` | ✅ | ✅ green (1 xfailed, strict — honest NO-GO signal, exit 0; see 26-SPIKE-REPORT.md) |
+| CLUS-08 | Whole clustering test file runs with zero live network calls by default (client patched or `live_llm`-gated); model/prompt staleness caught by a dedicated regression | integration | `pytest pipeline/tests/test_clustering.py -q` | ✅ | ✅ green (30 passed, 1 skipped, 1 xfailed) |
+| CLUS-09 | Satisfied via the NO-GO branch: `IncidentRecord` never gains `cluster_id`/`is_primary` this phase; `pipeline/news/schema.py` and `data/` byte-unchanged | regression | `pytest pipeline/tests/test_schema_incidents.py::test_incident_record_has_no_cluster_fields_no_go_branch -x` (replaces the original `-k cluster_fields_optional` command, which selected 0 tests and exited 0 while verifying nothing — W-4) | ✅ | ✅ green (1 passed) |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -59,12 +59,12 @@ Frontend validators (14) are unaffected by this phase but must stay green:
 
 ## Wave 0 Requirements
 
-- [ ] `pipeline/requirements.txt` — add `rapidfuzz==3.14.5` (installed locally but absent from the manifest; clean CI fails on import without it)
-- [ ] `pipeline/tests/test_clustering.py` — new file, covers CLUS-01..CLUS-08
-- [ ] `pipeline/tests/fixtures/clustering_golden_set.json` — hand-labeled pairs + cached LLM verdicts (CLUS-01 deliverable; also makes CLUS-07/08 runnable offline)
-- [ ] `pipeline/tests/conftest.py` — `pytest_configure` registers the `live_llm` marker (`config.addinivalue_line("markers", "live_llm: makes real OpenRouter calls, skipped by default")`) before `test_golden_set_live_reeval` is collected
-- [ ] Backward-compat test case for CLUS-09 in the existing incident-schema test file
-- [ ] `pipeline/news/clustering.py` — module under test
+- [x] `pipeline/requirements.txt` — add `rapidfuzz==3.14.5` (installed locally but absent from the manifest; clean CI fails on import without it)
+- [x] `pipeline/tests/test_clustering.py` — new file, covers CLUS-01..CLUS-08
+- [x] `pipeline/tests/fixtures/clustering_golden_set.json` — hand-labeled pairs + cached LLM verdicts (CLUS-01 deliverable; also makes CLUS-07/08 runnable offline)
+- [x] `pipeline/tests/conftest.py` — `pytest_configure` registers the `live_llm` marker (`config.addinivalue_line("markers", "live_llm: makes real OpenRouter calls, skipped by default")`) before `test_golden_set_live_reeval` is collected
+- [x] Backward-compat test case for CLUS-09 in the existing incident-schema test file (`test_incident_record_has_no_cluster_fields_no_go_branch`, added post-review per W-4)
+- [x] `pipeline/news/clustering.py` — module under test
 
 ---
 
@@ -93,12 +93,12 @@ Frontend validators (14) are unaffected by this phase but must stay green:
 
 ## Validation Sign-Off
 
-- [ ] All tasks have automated verify or a Wave 0 dependency
-- [ ] Sampling continuity: no 3 consecutive tasks without automated verify
-- [ ] Wave 0 covers all MISSING references, including `live_llm` marker registration
-- [ ] No watch-mode flags
-- [ ] Feedback latency < 60s
-- [ ] `nyquist_compliant: true` set in frontmatter
+- [x] All tasks have automated verify or a Wave 0 dependency
+- [x] Sampling continuity: no 3 consecutive tasks without automated verify
+- [x] Wave 0 covers all MISSING references, including `live_llm` marker registration
+- [x] No watch-mode flags
+- [x] Feedback latency < 60s
+- [x] `nyquist_compliant: true` set in frontmatter
 
-**Approval:** pending
+**Approval:** APPROVED 2026-07-29 — gsd-verifier (Opus), `26-VERIFICATION.md`: status passed, 5/5 ROADMAP success criteria verified, 9/9 CLUS-01..CLUS-09 requirements satisfied (CLUS-09 via the documented NO-GO branch). `python -m pytest pipeline/tests -q` independently re-run: 317 passed, 1 skipped, 1 xfailed (strict), exit 0, at time of verification. Post-review-fix (code-review 8 HIGH + verification 4 warnings addressed): 331 passed, 1 skipped, 1 xfailed, exit 0.
 </content>
