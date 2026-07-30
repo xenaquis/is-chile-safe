@@ -152,6 +152,14 @@ if (!observedFamilies.has('sexuales')) {
 
 // ---------------------------------------------------------------------------
 // Assertion 6: CUT-length cross-check for all 346 index.json entries
+//
+// L-1 (fix cycle 1): this assertion hardcodes INDEX_JSON_PATH and does NOT
+// honor the argv[2]/FACETS_CURRENT_JSON override (that override only affects
+// CURRENT_JSON_PATH). It cannot be exercised in the negative direction without
+// mutating a tracked file under data/, which the F-19/hard-rule regime
+// forbids. It is currently true in the positive direction (346 entries, all
+// CUT-length derivations match, exactly 16 distinct region_ids) but is
+// untestable for a negative case — a known coverage limitation, not a bug.
 // ---------------------------------------------------------------------------
 if (indexData.length !== 346) {
   fail(`assertion 6 — expected 346 index.json entries, found ${indexData.length}`);
@@ -172,23 +180,97 @@ if (derivedRegionIds.size !== 16) {
 }
 
 // ---------------------------------------------------------------------------
-// Assertion 7: byMonth completeness — every current.json month is representable
-// in the archive+current union this validator independently derives
+// Assertion 7 (fix cycle 1, M-2): per-month union-of-IDs count, cross-checked
+// against the BUILT PAGE's rendered #news-facets byMonth output.
+//
+// The prior version only asserted "every current.json month appears in the
+// archive+current union it just built" — a tautology that cannot fail for any
+// input (confirmed empirically: a current-only 2019 month with zero archive
+// coverage still passed). This version independently recomputes, from raw
+// data/incidents/*.json only, the per-month de-duplicated-by-id union size,
+// then reads the ACTUAL rendered dist/ page (produced by newsFacets.ts,
+// unmodified) and asserts its byMonth counts match. This is what makes it
+// falsifiable: if newsFacets.ts regresses to reporting the archive count alone
+// for 'both' months (H-1), this assertion diverges from the page's real
+// output and fails the build. It also closes H-1's validator half.
 // ---------------------------------------------------------------------------
-const currentMonths = new Set(incidents.map((i) => i.date.slice(0, 7)));
-const archiveMonths = new Set();
-if (existsSync(ARCHIVE_DIR)) {
-  const files = readdirSync(ARCHIVE_DIR).filter((f) => /^\d{4}-\d{2}\.json$/.test(f));
+function loadArchiveMonthIds(dir) {
+  const map = new Map();
+  if (!existsSync(dir)) return map;
+  let files = [];
+  try {
+    files = readdirSync(dir).filter((f) => /^\d{4}-\d{2}\.json$/.test(f));
+  } catch {
+    return map;
+  }
   for (const f of files) {
-    archiveMonths.add(f.replace('.json', ''));
+    const yearMonth = f.replace('.json', '');
+    try {
+      const raw = JSON.parse(readFileSync(path.join(dir, f), 'utf-8'));
+      const ids = new Set((raw.incidents ?? []).map((inc, i) => String(inc.id ?? `${f}-${i}`)));
+      map.set(yearMonth, ids);
+    } catch {
+      // Malformed archive month — skip, mirrors newsFacets.ts Pitfall 4 discipline
+    }
+  }
+  return map;
+}
+
+const archiveMonthIds = loadArchiveMonthIds(ARCHIVE_DIR);
+const currentMonthIds = new Map();
+for (const inc of incidents) {
+  const ym = inc.date.slice(0, 7);
+  if (!currentMonthIds.has(ym)) currentMonthIds.set(ym, new Set());
+  currentMonthIds.get(ym).add(String(inc.id ?? `${inc.cut}-${inc.date}`));
+}
+
+const expectedByMonth = new Map();
+const allMonthsForCheck = new Set([...archiveMonthIds.keys(), ...currentMonthIds.keys()]);
+for (const yearMonth of allMonthsForCheck) {
+  const archiveIds = archiveMonthIds.get(yearMonth);
+  const currentIds = currentMonthIds.get(yearMonth);
+  if (archiveIds && currentIds) {
+    expectedByMonth.set(yearMonth, new Set([...archiveIds, ...currentIds]).size);
+  } else if (archiveIds) {
+    expectedByMonth.set(yearMonth, archiveIds.size);
+  } else {
+    expectedByMonth.set(yearMonth, currentIds.size);
   }
 }
-const unionMonths = new Set([...currentMonths, ...archiveMonths]);
-for (const month of currentMonths) {
-  if (!unionMonths.has(month)) {
-    fail(`assertion 7 — current.json month "${month}" is excluded from the archive+current union`);
+
+const NEWS_DIST_HTML_PATH = path.join(SITE_ROOT, 'dist', 'news', 'index.html');
+if (!existsSync(NEWS_DIST_HTML_PATH)) {
+  fail(`assertion 7 — built page not found at ${NEWS_DIST_HTML_PATH} (requires a prior build)`);
+}
+const newsDistHtml = readFileSync(NEWS_DIST_HTML_PATH, 'utf-8');
+const facetsMatch = newsDistHtml.match(
+  /<script type="application\/json" id="news-facets">([\s\S]*?)<\/script>/
+);
+if (!facetsMatch) {
+  fail('assertion 7 — could not find #news-facets JSON node in dist/news/index.html');
+}
+let renderedFacets;
+try {
+  // The rendered node is escaped per H-2 (`<` -> `<`) — valid JSON, parses identically.
+  renderedFacets = JSON.parse(facetsMatch[1]);
+} catch (err) {
+  fail(`assertion 7 — could not parse #news-facets JSON — ${err.message}`);
+}
+const renderedByMonth = new Map((renderedFacets.byMonth ?? []).map((m) => [m.yearMonth, m.count]));
+
+for (const [yearMonth, expectedCount] of expectedByMonth) {
+  const actualCount = renderedByMonth.get(yearMonth);
+  if (actualCount === undefined) {
+    fail(`assertion 7 — month "${yearMonth}" missing from rendered #news-facets byMonth`);
+  }
+  if (actualCount !== expectedCount) {
+    fail(
+      `assertion 7 — byMonth count mismatch for "${yearMonth}": rendered=${actualCount}, ` +
+        `independently-computed union=${expectedCount}`
+    );
   }
 }
+const unionMonths = new Set([...currentMonthIds.keys(), ...archiveMonthIds.keys()]);
 
 // ---------------------------------------------------------------------------
 // Assertion 8: window day-granularity sanity (monotonic containment)
@@ -220,9 +302,16 @@ if (!(todayCount <= sevenDayCount && sevenDayCount <= thirtyDayCount)) {
 if (thirtyDayCount > incidents.length) {
   fail(`assertion 8 — thirtyDay count (${thirtyDayCount}) exceeds total incidents (${incidents.length})`);
 }
-if (incidents.length > 0 && todayCount === 0) {
-  fail('assertion 8 — today window is empty despite incidents.length > 0');
-}
+// M-3 (fix cycle 1): removed the prior "today window is empty despite
+// incidents.length > 0" check — it was unreachable dead code. `today` is
+// defined as `date === newestDate` where `newestDate` is the max date of that
+// SAME array, so a non-empty array always has >= 1 match by construction; the
+// check could never fail for any input (confirmed: could not construct a
+// counterexample). Re-deriving "todayCount equals count of max-date incidents"
+// here would just duplicate the identical computation a few lines above over
+// the identical input and is equally incapable of failing — not a real
+// regression guard. Monotonic containment (above) and the thirtyDay-vs-total
+// bound (above) remain as the real invariants this assertion protects.
 
 // ---------------------------------------------------------------------------
 // Assertion 9: TZ determinism. The window boundaries above use only UTC-safe
@@ -230,6 +319,14 @@ if (incidents.length > 0 && todayCount === 0) {
 // validator's own source — a self-scan would always match its own pattern
 // list and exit 1 unconditionally) for TZ-sensitive patterns, then run an
 // executable spawnSync proof under both TZ=UTC and TZ=America/Santiago.
+//
+// L-1 (fix cycle 1): like assertion 6, this hardcodes NEWS_FACETS_TS_PATH and
+// does not honor the argv[2]/FACETS_CURRENT_JSON override — that override
+// only ever pointed at CURRENT_JSON_PATH. This assertion is nonetheless
+// demonstrably live: a prior wave's reported deviation was this exact scan
+// firing on a doc-comment containing the literal `toLocaleDateString`,
+// forcing a reword. Known coverage limitation for the negative-file-path
+// case, not a bug.
 // ---------------------------------------------------------------------------
 if (!existsSync(NEWS_FACETS_TS_PATH)) {
   fail(`assertion 9 — newsFacets.ts not found at ${NEWS_FACETS_TS_PATH}`);
