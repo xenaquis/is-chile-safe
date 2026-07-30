@@ -604,6 +604,10 @@ def test_golden_set_metrics_match_recorded_baseline():
     even on a NO-GO."""
     data = _load_golden_set()
     metrics = compute_pairwise_metrics(data["pairs"])
+    assert "baseline" in data["meta"], (
+        "fixture missing meta.baseline — regenerate via "
+        "`pipeline/scripts/build_golden_set.py --fill-verdicts`"
+    )
     baseline = data["meta"]["baseline"]
     assert metrics == baseline
 

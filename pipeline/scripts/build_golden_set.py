@@ -68,6 +68,7 @@ from pipeline.news.clustering import (  # noqa: E402
     bucket_incidents,
     prefilter_candidates,
 )
+from pipeline.scripts.run_clustering_spike import compute_pairwise_metrics  # noqa: E402
 
 logger = logging.getLogger(__name__)
 
@@ -713,6 +714,26 @@ def fill_verdicts(
             if p.get("note"):
                 entry["note"] = p["note"]
             final_pairs.append(entry)
+
+        # HI-03: `meta.baseline` is the value `test_golden_set_metrics_match_
+        # recorded_baseline` asserts against -- it must be WRITTEN by this
+        # generation path, not hand-typed into the fixture. Idempotent: if a
+        # baseline already exists in the fixture currently on disk, preserve
+        # it verbatim rather than recomputing (a legitimate re-run of
+        # --fill-verdicts must never silently rewrite the recorded baseline
+        # out from under the internal-consistency sentinel that exists to
+        # catch exactly that kind of drift).
+        existing_baseline = None
+        if final_fixture_path.exists():
+            try:
+                existing_data = json.loads(final_fixture_path.read_text(encoding="utf-8"))
+                existing_baseline = existing_data.get("meta", {}).get("baseline")
+            except (json.JSONDecodeError, OSError):
+                existing_baseline = None
+        if existing_baseline is not None:
+            final_meta["baseline"] = existing_baseline
+        else:
+            final_meta["baseline"] = compute_pairwise_metrics(final_pairs)
 
         final_fixture_path.parent.mkdir(parents=True, exist_ok=True)
         final_fixture_path.write_text(
