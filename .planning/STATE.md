@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: planning
-last_updated: "2026-07-30T06:25:08.701Z"
-last_activity: "2026-07-30 — Plan 27-01 executed: computeNewsFacets() (UTC window arithmetic, family/region/month facets, facetKeys) + facets.mjs validator #16 registered in all.mjs"
+status: verifying
+last_updated: "2026-07-30T00:00:00.000Z"
+last_activity: "2026-07-30 — Phase 27 CLOSED: newsFacets.ts + facets.mjs validator #16 + both news pages wired; Opus verification PASSED 5/5, FACET-01..07 complete"
 progress:
-  total_phases: 14
-  completed_phases: 6
-  total_plans: 37
-  completed_plans: 36
-  percent: 43
+  total_phases: 8
+  completed_phases: 2
+  total_plans: 6
+  completed_plans: 6
+  percent: 25
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -222,6 +222,8 @@ Decisions taken inline by the Fable orchestrator during the unattended run. Each
 | F-20 | 2026-07-30 | 27→28 | Published forward contract for `newsFacets.ts`, stated as a comment block in the module so Phase 28 inherits it: (a) facet counts are **unfiltered totals** over the window — cross-filtered counts are Phase 28's client-side job; (b) region ids are **strings**, matching `region_id` in `index.json` verbatim, never coerced to numbers; (c) `cut` is coerced with `String(cut)` at every lookup boundary. | These three are cheap now and force a Phase 28 rewrite if wrong. The premortem's probe of "what breaks in Phase 28 because of a Phase 27 choice" surfaced all three as unspecified. |
 | F-21 | 2026-07-30 | 27 | `facets.mjs` **is** adopted as validator **#16**; the phase-close bar becomes 16/16 (modulo F-19). Every hardcoded count reference must be corrected in the same commit that registers it — including `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md` lines 16/77/104 and its verbatim handoff prompt, and `all.mjs:2`'s already-stale "12". A stale count anywhere is a phase defect, not a nit. | The plan asserted no other document hardcodes "15 validators"; the checker proved that false — the governing directive does, in three places, one of which instructs future sessions to correct STATE.md *back* to 15. Leaving it stale would actively mislead phases 28–33. |
 | F-22 | 2026-07-30 | 27 | **Revision cycle 2 applied INLINE by the Fable orchestrator instead of a third planner round.** The Opus re-review returned 3 blockers with exact replacement text; Fable edited both PLAN.md files directly and stamped `Fable review: APPROVED`. | The planner reintroduced the *same* defect class it had just narrated as fixed: cycle 1 wrote correct prose banning `; echo "EXIT:$?"` and then, one line below, piped a gate command into `tail` — whose exit status is always 0 — leaving the only gate on Plan 01's entire deliverable a no-op, and leaving the phase-close gate unable to go red. Two of the three blockers were regressions introduced *by* the amendments, both copied from the premortem's suggested code without validating it against the repo. A third Sonnet round had a poor expected value against three surgical, fully-specified edits, and the directive caps fix cycles at 2 and then requires deciding inline. Generalizable lesson for phases 28–33: **a verify command's exit status must never pass through a pipe, a `;`, or a trailing `\|\| echo`** — audit every `<automated>` block for this specifically, because it is the defect that survives being described correctly. |
+| F-23 | 2026-07-30 | 27 | **Opus code review ran INLINE (Fable) because Opus subagents were unavailable** — `529 Overloaded` on five consecutive attempts. Explicitly REJECTED the alternative of downgrading the reviewer to Sonnet. The inline review found 2 HIGH / 3 MEDIUM / 2 LOW by execution (mutation-testing the spec, falsifiability-probing every validator assertion, tracing the latent cast); a fresh Opus context then performed the **re-review** once the API recovered, and it confirmed the fixer's claims and added RR-1. | Sonnet reviewing Sonnet's own output is exactly the circularity F-06/F-11 exist to prevent — an unavailable reviewer is a reason to escalate, never to weaken the gate. The independent re-review after the fix cycle restored the two-model separation, so the phase still closed with a genuine outside pass rather than a self-review. If Opus is unavailable again in phases 28–33, prefer inline-Fable + a later independent Opus re-review over a same-tier review. |
+| F-24 | 2026-07-30 | 27→28 | **RR-2/3/4 and the two newly-found tautological assertions are ACCEPTED, not fixed — carried to Phase 28.** (a) `byMonth`'s id-fallback edge cases: an id-less incident in both sources double-counts, two id-less incidents sharing cut+date collapse to one, an empty archive `incidents` array still tags `source:'both'`. (b) `facets.mjs` assertion 1 (count-sum) and assertion 8's three containment comparisons are true by construction for every input — the verifier confirmed with a 20,000-input fuzz — and assertion 4 is unreachable behind assertion 3. So the validator's "10 assertions" is honestly **7 load-bearing**, now stated as such in `27-VALIDATION.md`. | Live data cannot reach any of (a): 1215 incidents, 1215 distinct ids, zero missing ids or cuts. Adding untested branches for unreachable inputs to the one module Phase 28 depends on is worse than documenting them. For (b), fix cycles were already capped at 2 and the verifier ruled them non-blocking — assertion 7 independently recomputes the union and cross-checks BOTH rendered locales, so a real divergence still reddens the build. Recorded so Phase 28 does not rediscover them and does not mistake the assertion count for coverage. |
 | F-10 | 2026-07-29 | 26 | Accepted the cumulative append-only `26-CALL-LOG.md` ledger with a refuse-to-start guard **in place of** a bare `_MAX_LLM_CALLS` constant, seeded with the 3 spike-ping calls. | Stronger than the constant: it survives resumed runs and counts cumulatively across the phase, which a per-process constant cannot. |
 
 ### Quick Tasks Completed

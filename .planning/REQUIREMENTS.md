@@ -55,7 +55,7 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 - [x] **FACET-04**: Crime-family facets cover all 8 news families including the news-only `sexuales`, without extending CEAD's `FAMILY_KEYS` (which stays at 7).
 - [x] **FACET-05**: Per-option facet counts are computed at build time and available to the UI (e.g. "Robo (14)").
 - [x] **FACET-06**: No facet artifact is written under `site/**` and no new derived JSON is committed — facets are computed in-build, so the existing data-change-gated deploy hook cannot be triggered by facet computation.
-- [ ] **FACET-07**: The existing validator suite and page-count budget stay green: `@astrojs/check` clean on new code, all validators pass, and no new indexable URLs are introduced.
+- [x] **FACET-07**: The existing validator suite and page-count budget stay green: `@astrojs/check` clean on new code, all validators pass, and no new indexable URLs are introduced.
 
 ### News Visualizer UI (→ Phase 28)
 
@@ -152,7 +152,7 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 | FACET-04 | Phase 27 | Complete |
 | FACET-05 | Phase 27 | Complete |
 | FACET-06 | Phase 27 | Complete |
-| FACET-07 | Phase 27 | Pending |
+| FACET-07 | Phase 27 | Complete |
 | NEWSUI-01 | Phase 28 | Pending |
 | NEWSUI-02 | Phase 28 | Pending |
 | NEWSUI-03 | Phase 28 | Pending |
