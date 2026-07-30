@@ -29,7 +29,7 @@ from pipeline.news.clustering import (
     cluster_id,
     prefilter_candidates,
 )
-from pipeline.scripts.run_clustering_spike import compute_pairwise_metrics
+from pipeline.scripts.run_clustering_spike import _build_report, compute_pairwise_metrics
 
 # Local FIXTURES_DIR per conftest.py convention -- not importable from
 # conftest.py (test_feeds.py:21, test_parser.py:10, test_scrape_cead.py:21
@@ -566,6 +566,34 @@ def test_compute_pairwise_metrics_null_cached_verdict_counts_as_failsafe():
     assert metrics["n_failsafe"] == 1
     assert metrics["fp"] == 0
     assert metrics["tp"] == 0
+
+
+def test_build_report_does_not_crash_on_null_cached_verdict():
+    """RG-01: compute_pairwise_metrics no longer raises on a null
+    cached_verdict (n_failsafe=1), but _build_report subscripted
+    p["cached_verdict"].get(...) directly at three sites and crashed with
+    AttributeError on exactly the same input -- the fixture state
+    build_golden_set.py writes on a failed pair. Must render an explicit
+    absent/failsafe marker in the report instead of raising."""
+    pair = {
+        "pair_id": "synthetic-null-verdict",
+        "incident_a_id": "a1",
+        "incident_b_id": "b1",
+        "title_a": "Titulo A",
+        "title_b": "Titulo B",
+        "label": "merge",
+        "category": "same_date_diff_crime",
+        "proposed": True,
+        "cached_verdict": None,
+    }
+    fixture = {"meta": {"model": "test-model", "generated": "2026-01-01T00:00:00Z"}, "pairs": [pair]}
+    metrics = compute_pairwise_metrics(fixture["pairs"])
+    assert metrics["n_failsafe"] == 1
+
+    report = _build_report(fixture, metrics, clusters={}, flagged={})  # must not raise
+
+    assert "synthetic-null-verdict" in report
+    assert "n/a (null verdict" in report
 
 
 @pytest.mark.parametrize(

@@ -160,8 +160,17 @@ def _build_report(fixture: dict, metrics: dict, clusters: dict, flagged: dict) -
     excluded_pairs = [p for p in pairs if p.get("excluded")]
     proposed_pairs = [p for p in non_excluded if p.get("proposed") is True]
 
-    conf_high = sum(1 for p in proposed_pairs if p["cached_verdict"].get("confidence") == "high")
-    conf_low = sum(1 for p in proposed_pairs if p["cached_verdict"].get("confidence") == "low")
+    # RG-01: `cached_verdict` can be null on a proposed:true pair that never
+    # got a model verdict written (build_golden_set.py's fill loop writes
+    # None on a failed pair) -- `.get(...) or {}` avoids AttributeError on
+    # `.get`, matching the hardening already applied in
+    # compute_pairwise_metrics/_edge_drawn.
+    conf_high = sum(
+        1 for p in proposed_pairs if (p.get("cached_verdict") or {}).get("confidence") == "high"
+    )
+    conf_low = sum(
+        1 for p in proposed_pairs if (p.get("cached_verdict") or {}).get("confidence") == "low"
+    )
 
     # HI-02: `total_possible_in_bucket_pairs` in 26-CALL-LOG.md is actually
     # `meta.total_pairs` (the sampled DRAFT pair count) mislabeled -- it
@@ -378,9 +387,12 @@ def _build_report(fixture: dict, metrics: dict, clusters: dict, flagged: dict) -
     for p in non_excluded:
         proposed = p.get("proposed")
         if proposed is True:
-            cv = p["cached_verdict"]
-            same_event = str(cv.get("same_event"))
-            confidence = str(cv.get("confidence"))
+            # RG-01: null cached_verdict (failed pair, never got a model
+            # verdict) must render as an explicit absent/failsafe marker,
+            # not crash on .get() against None.
+            cv = p.get("cached_verdict") or {}
+            same_event = str(cv.get("same_event")) if p.get("cached_verdict") is not None else "n/a (null verdict — failsafe)"
+            confidence = str(cv.get("confidence")) if p.get("cached_verdict") is not None else "n/a (null verdict — failsafe)"
         else:
             same_event = "n/a (prefiltered)"
             confidence = "n/a (prefiltered)"
