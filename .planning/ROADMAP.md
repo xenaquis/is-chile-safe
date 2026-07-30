@@ -109,7 +109,7 @@ Full phase details for 18/21/22/23/24/25 remain below in this file's Phase Detai
 
 - [x] **Phase 26: Event Clustering Spike** — GO/NO-GO on grouping multi-outlet coverage of the same real-world incident (completed 2026-07-29)
 - [ ] **Phase 27: News Facet Data Model** — time/region/family facet indexes computed at build time, no dependency on Phase 26
-- [ ] **Phase 28: News Visualizer UI** — filter/grouping UI on `/news/` + `/es/noticias/`, SSG-safe, clustered-event cards on GO
+- [x] **Phase 28: News Visualizer UI** — filter/grouping UI on `/news/` + `/es/noticias/`, SSG-safe, clustered-event cards on GO (completed 2026-07-30)
 - [ ] **Phase 29: Map UX Design Loop** — iterative BrowserOS + Fable redesign of the map control shell, human acceptance gate
 - [ ] **Phase 30: Map Control-Shell Rework** — implement the accepted design; Leaflet layer code untouched
 - [ ] **Phase 31: Docs & Methodology Refresh** — methodology/sources/attribution brought current with everything shipped since v1.3 plus this milestone
@@ -354,7 +354,7 @@ Plans:
 
 **Wave 3**
 
-- [ ] 28-03-PLAN.md — facets.mjs assertions 11-17 (anchorDate, card-count, i18n parity, empty-state, no-island, no-cluster-markup, F-27 bundling proof) + chained phase-close gate
+- [x] 28-03-PLAN.md — facets.mjs assertions 11-17 (anchorDate, card-count, i18n parity, empty-state, no-island, no-cluster-markup, F-27 bundling proof) + chained phase-close gate
 
 ### Phase 29: Map UX Design Loop
 
@@ -452,7 +452,7 @@ Plans:
 | 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete    | 2026-07-03 |
 | 26. Event Clustering Spike | 4/4 | Complete   | 2026-07-29 |
 | 27. News Facet Data Model | 2/2 | Complete   | 2026-07-30 |
-| 28. News Visualizer UI | 2/3 | In Progress|  |
+| 28. News Visualizer UI | 3/3 | Complete   | 2026-07-30 |
 | 29. Map UX Design Loop | 0/? | Not started | - |
 | 30. Map Control-Shell Rework | 0/? | Not started | - |
 | 31. Docs & Methodology Refresh | 0/? | Not started | - |
