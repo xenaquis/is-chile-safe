@@ -855,15 +855,19 @@ for (const [locale, filePath] of SOURCE_SCAN_FILES) {
     fail(`assertion 20 — ${locale} source file not found at ${filePath}`);
   }
   const src = readFileSync(filePath, 'utf-8');
-  // Strip only whole-line // (or /* or *) comments before scanning — a doc
-  // comment merely NAMING a forbidden sink (e.g. "never innerHTML") must not
-  // read as a violation. Do NOT strip trailing "//..." on a code line: a
-  // line containing a URL literal (e.g. "https://ischilesafe.com/news/")
-  // would otherwise be truncated at the "//" inside the URL, silently
-  // hiding any forbidden sink assignment later on that same line.
+  // WR2-04 fix: the WR-04 fix (whole-line-only filtering) traded a false
+  // negative for a false positive — a doc comment merely NAMING a
+  // forbidden sink (e.g. "// never use innerHTML here") trailing on a code
+  // line was scanned as code and failed. Strip block-comment-only lines
+  // (/* or *) as before, then strip a trailing "// ..." from every
+  // remaining line — but only where the "//" is NOT preceded by ":"
+  // (a URL scheme, e.g. "https://ischilesafe.com/news/"), so a URL literal
+  // is never mistaken for a comment start and any forbidden sink elsewhere
+  // on that same line is still scanned.
   const codeOnly = src
     .split('\n')
-    .filter((line) => !/^\s*(\/\/|\/\*|\*)/.test(line))
+    .filter((line) => !/^\s*(\/\*|\*)/.test(line))
+    .map((line) => line.replace(/(^|[^:'"`\\])\/\/(?!\/).*$/, '$1'))
     .join('\n');
   for (const pattern of FORBIDDEN_DOM_SINKS) {
     if (pattern.test(codeOnly)) {
