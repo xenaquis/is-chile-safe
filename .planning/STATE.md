@@ -187,9 +187,28 @@ Re-run `build_golden_set.py --fill-verdicts` then `test_golden_set_meets_go_gate
 `xfail(strict=True)`, so a model that passes turns it into a FAILURE and re-opens the decision rather than
 silently hiding a GO.
 
+### Phase 27 Outcome — PASSED (read this before Phase 28)
+
+**Shipped.** `site/src/lib/newsFacets.ts` exports `computeNewsFacets(incidents, index, archiveDir?)` returning `{byFamily, byRegion, byWindow, byMonth, facetKeys}`, computed at build time. Both `/news/` and `/es/noticias/` consume it and emit a counts-only projection into an inert `<script type="application/json" id="news-facets">` node (973 bytes, EN payload byte-equal to ES). `site/scripts/validate/facets.mjs` is registered as **validator #16**. `site/src/lib/newsFacets.test.ts` is a real vitest spec (20 tests) wired to a real `npm test`. Verification PASSED 5/5 success criteria, FACET-01..07 all complete, 0 blockers.
+
+**Published module contract (F-20 — Phase 28 inherits this, do not change it):**
+- Facet counts are **unfiltered marginal totals** over the window. A facet UI that needs cross-filtered counts recomputes them client-side in Phase 28 — Phase 27 ships the base index only.
+- `regionId` values are **strings**, matching `region_id` in `data/cead/meta/index.json` verbatim. Never coerced to numbers.
+- `cut` is coerced with `String(cut)` at every lookup boundary. A `cut` absent from the index deliberately falls outside every region bucket, which makes `facets.mjs` assertion 2 hard-fail the build — that is the intended guard. Do NOT "fix" it into a silent `?? 'unknown'` bucket.
+- `byFamily` sorted descending by count; `byRegion` ascending by numeric region id (value stays a string); `byMonth` newest-first. Family keys are derived from data actually present, never from `familyDefs.ts`'s label map (which contains an unrelated `homicidios` key that would emit a phantom 0-count facet).
+- `byMonth` counts the **union of incident IDs** across `current.json` and the monthly archive, de-duplicated. A month in both sources is tagged `source: 'both'`; `currentCount` reports the current-only distinct count.
+
+**Four things Phase 28 must handle:**
+1. **"Today" is anchored to the newest incident's date, not wall-clock** (deliberate — wall-clock would empty the bucket on any day the cron did not run). Consequence: if the cron dies, a chip reading "Today (11)" would label stale incidents. **Phase 28 must label windows relative to the data** ("Últimos datos: 27 jul"), never as an absolute "today". As of Phase 27's close the newest incident was 2026-07-27 while the date was 2026-07-30 — the skew is already live.
+2. **`facets.mjs` has 10 assertion blocks but only 7 are load-bearing** (F-24). Assertion 1's count-sum and assertion 8's three containment comparisons are true by construction for every input (confirmed by a 20,000-input fuzz); assertion 4 is unreachable behind assertion 3. Do not read the assertion count as coverage. Making them falsifiable is a good Phase 28 or `/gsd:quick` task.
+3. **Latent `byMonth` id-fallback edge cases** (F-24, RR-2/3/4): an id-less incident present in both sources double-counts; two id-less incidents sharing cut+date collapse to one; an empty archive `incidents` array still tags `source:'both'` and can emit a `count: 0` bucket. Unreachable in live data today (1215 incidents, 1215 distinct ids, zero missing ids or cuts).
+4. **The `#news-facets` payload is emitted through `set:html`, which is unescaped.** `escapeForInlineScript()` turns every `<` into `<` — required, because `JSON.stringify` does NOT escape `</script>` and `byFamily[].key` traces back to the LLM classifier over scraped headlines. `facets.mjs` assertion 7 guards this at **source level** for both pages, because with today's data the escaped and unescaped output are byte-identical, so no dist-level check can detect the call being removed. Any new data-derived string added to this node needs the same treatment.
+
+**CEAD separation intact:** `pipeline/shared/schema.py`'s `FAMILY_KEYS` is still exactly 7 and byte-unchanged. The news vocabulary is 8, including the news-only `sexuales`. Zero Python touched, zero `data/` mutation, zero new indexable URLs, 1266 dist files against the 18,000 budget.
+
 ### Deferred-live list (user actions on return — v2.1 autonomous run)
 
-1. Review the autonomous work, then `git pull --rebase origin master` (remote crons kept committing `data/`) and push. **42 local commits, nothing pushed.**
+1. Review the autonomous work, then `git pull --rebase origin master` (remote crons kept committing `data/` — as of Phase 27's close we were 10 behind / 57 ahead) and push. **57 local commits, nothing pushed.**
 2. CRON-01 live blanked-secret dry run; observe one dependabot PR (SEC-03) — deferred per directive gate amendment 2.
 3. GitHub Settings (UI-only, directive gate amendment 3): default `GITHUB_TOKEN` read-only (SEC-01), verify secret scanning + push protection (SEC-05), check Actions billing state.
 4. v2.0 carry-over: GSC sitemap submission (22-03 / GL-04).
@@ -289,10 +308,10 @@ Decisions taken inline by the Fable orchestrator during the unattended run. Each
 
 ## Operator Next Steps
 
-**Phase 26 is CLOSED (NO-GO documented). Remaining v2.1 work: Phases 27 -> 28 -> 29 -> 30 -> 31 -> 32 -> 33.**
+**Phases 26 and 27 are CLOSED. Remaining v2.1 work: Phases 28 -> 29 -> 30 -> 31 -> 32 -> 33.**
 
-- **NEXT: `/gsd:plan-phase 27`** (News Facet Data Model). Zero dependency on Phase 26's outcome. First task should re-confirm `region_id` on `data/cead/meta/index.json` — the directive's pre-verified facts say it is present, so this is a cheap sanity check, not research. Facets are query-param only (`?family=&region=&window=`) on the existing `/news/` + `/es/noticias/` — never new indexable URLs.
-- **Phase 28** (News Visualizer UI): NEWSUI-05 **degrades to faceting-only** — Phase 26 returned NO-GO, so there is no clustering layer to visualize. Do not re-litigate; see the Phase 26 Outcome section above.
+- **NEXT: `/gsd:plan-phase 28`** (News Visualizer UI). Depends on Phase 27, which is complete — `computeNewsFacets()` ships and both news pages already consume it. Read § Phase 27 Outcome below before planning; it carries the module's published contract and four things Phase 28 must handle.
+- **Phase 28** (News Visualizer UI): NEWSUI-05 **degrades to faceting-only** — Phase 26 returned NO-GO, so there is no clustering layer to visualize. Do not re-litigate; see the Phase 26 Outcome section above. Facets stay **query-param only** (`?family=&region=&window=`) over the existing `/news/` + `/es/noticias/` — never new indexable URLs.
 - **Phase 29** (Map UX Design Loop) is independent of 27/28 and can be planned any time. Must run INLINE in the orchestrator session — `gsd-executor` has no BrowserOS tools. Constraints: `npx astro preview --port 4321 --host`, no viewport-resize (emulate mobile via a 375px iframe), screenshot paths without spaces, chain build+validate in one command. If BrowserOS MCP (`http://127.0.0.1:9200/mcp`) is unreachable: retry once, then mark 29 BLOCKED, skip 30 (hard-gated), and continue with 31/32/33.
 - **Phase 30** starts only after 29's Fable-proxy acceptance gate.
 - **Phases 31/32/33** close the milestone (docs, cron consistency, security posture).
