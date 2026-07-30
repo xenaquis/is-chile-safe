@@ -279,7 +279,11 @@ Decisions taken inline by the Fable orchestrator during the unattended run. Each
 
 ## Operator Next Steps
 
-- **Plan Phase 26 (Event Clustering Spike): `/gsd:plan-phase 26`** — highest-risk phase this milestone; must lock the LLM call pattern (batched vs pairwise) and candidate window size during planning; the numeric GO gate (100% precision, zero false merges) is already locked in REQUIREMENTS.md.
-- **Plan Phase 27 (News Facet Data Model) in parallel: `/gsd:plan-phase 27`** — has zero dependency on Phase 26; first task should verify `region_id` presence on `data/cead/meta/index.json`.
-- Phase 29 (Map UX Design Loop) can also start independently — remember the BrowserOS constraints (run inline, no viewport resize, `npx astro preview --port 4321 --host`, chain build+validate in one command).
-- Phase 22-03 (GSC sitemap submission) remains an outstanding deferred human/manual task, carried forward but not part of v2.1.
+**Phase 26 is CLOSED (NO-GO documented). Remaining v2.1 work: Phases 27 -> 28 -> 29 -> 30 -> 31 -> 32 -> 33.**
+
+- **NEXT: `/gsd:plan-phase 27`** (News Facet Data Model). Zero dependency on Phase 26's outcome. First task should re-confirm `region_id` on `data/cead/meta/index.json` — the directive's pre-verified facts say it is present, so this is a cheap sanity check, not research. Facets are query-param only (`?family=&region=&window=`) on the existing `/news/` + `/es/noticias/` — never new indexable URLs.
+- **Phase 28** (News Visualizer UI): NEWSUI-05 **degrades to faceting-only** — Phase 26 returned NO-GO, so there is no clustering layer to visualize. Do not re-litigate; see the Phase 26 Outcome section above.
+- **Phase 29** (Map UX Design Loop) is independent of 27/28 and can be planned any time. Must run INLINE in the orchestrator session — `gsd-executor` has no BrowserOS tools. Constraints: `npx astro preview --port 4321 --host`, no viewport-resize (emulate mobile via a 375px iframe), screenshot paths without spaces, chain build+validate in one command. If BrowserOS MCP (`http://127.0.0.1:9200/mcp`) is unreachable: retry once, then mark 29 BLOCKED, skip 30 (hard-gated), and continue with 31/32/33.
+- **Phase 30** starts only after 29's Fable-proxy acceptance gate.
+- **Phases 31/32/33** close the milestone (docs, cron consistency, security posture).
+- Phase 22-03 (GSC sitemap submission) remains a deferred human/manual task, carried forward but not part of v2.1.
