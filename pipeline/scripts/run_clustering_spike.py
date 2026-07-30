@@ -24,8 +24,10 @@ Usage:
 from __future__ import annotations
 
 import json
+import os
 import pathlib
 import sys
+import tempfile
 
 # Ensure the repo root is importable when run standalone
 # (`python pipeline/scripts/run_clustering_spike.py`): sys.path[0] would
@@ -458,14 +460,51 @@ _DEFAULT_HUMAN_SECTION = f"""{_HUMAN_SECTION_SENTINEL}
 def _assemble_report(machine_report: str) -> str:
     """Combine the freshly-generated machine section with whatever
     human-authored section already exists on disk (verbatim), or seed a
-    [PENDING] placeholder human section on the very first run."""
-    human_section = _DEFAULT_HUMAN_SECTION
-    if REPORT_PATH.exists():
-        existing = REPORT_PATH.read_text(encoding="utf-8")
-        idx = existing.find(_HUMAN_SECTION_SENTINEL)
-        if idx != -1:
-            human_section = existing[idx:]
+    [PENDING] placeholder human section on the very first run.
+
+    RG-03: distinguish "no report exists yet" (use the [PENDING] placeholder)
+    from "a report exists but its sentinel cannot be found" (ABORT loudly).
+    The old code silently fell back to [PENDING] in the second case too,
+    which would overwrite a confirmed NO-GO verdict, the 11 FP pair_ids, and
+    the Phase 27/28 guidance with a placeholder on exit 0 -- exactly the loss
+    HI-04 existed to prevent -- if the sentinel line were ever reflowed by a
+    formatter, hand-edited, or lost to a torn write."""
+    if not REPORT_PATH.exists():
+        return machine_report.rstrip("\n") + "\n\n" + _DEFAULT_HUMAN_SECTION
+
+    existing = REPORT_PATH.read_text(encoding="utf-8")
+    idx = existing.find(_HUMAN_SECTION_SENTINEL)
+    if idx == -1:
+        raise SystemExit(
+            f"FATAL: {REPORT_PATH} exists but has no human-section sentinel — "
+            "refusing to overwrite possibly hand-authored content. Re-insert "
+            "the sentinel comment or restore from git history."
+        )
+    human_section = existing[idx:]
     return machine_report.rstrip("\n") + "\n\n" + human_section
+
+
+def _write_report_atomically(report: str) -> None:
+    """Write REPORT_PATH atomically: write to a temp file in the same
+    directory, then os.replace(). RG-03: this repo lives on OneDrive, where a
+    non-atomic write_text can be torn by the sync client mid-write -- a torn
+    write is exactly the kind of sentinel corruption that would trigger the
+    abort above on the next run. os.replace is atomic on both POSIX and
+    Windows."""
+    REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_name = tempfile.mkstemp(
+        dir=str(REPORT_PATH.parent), prefix=REPORT_PATH.name + ".", suffix=".tmp"
+    )
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(report)
+        os.replace(tmp_name, REPORT_PATH)
+    except BaseException:
+        try:
+            os.unlink(tmp_name)
+        except OSError:
+            pass
+        raise
 
 
 def main() -> None:
@@ -507,7 +546,7 @@ def main() -> None:
 
     machine_report = _build_report(fixture, metrics, clusters, flagged)
     report = _assemble_report(machine_report)
-    REPORT_PATH.write_text(report, encoding="utf-8")
+    _write_report_atomically(report)
 
     print(json.dumps(metrics, indent=2))
     print(f"\nWrote report to {REPORT_PATH}")

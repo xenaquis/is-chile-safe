@@ -608,6 +608,76 @@ def test_compute_pairwise_metrics_null_cached_verdict_counts_as_failsafe():
     assert metrics["tp"] == 0
 
 
+def test_assemble_report_aborts_on_missing_sentinel(tmp_path, monkeypatch):
+    """RG-03: if REPORT_PATH already exists but its sentinel cannot be
+    located (reflowed by a formatter, hand-edited, torn write), the
+    generator must ABORT with a non-zero exit rather than silently falling
+    back to the [PENDING] placeholder -- the exact loss HI-04 existed to
+    prevent. Only "no report at all" may use the placeholder."""
+    from pipeline.scripts import run_clustering_spike as rcs
+
+    report_path = tmp_path / "26-SPIKE-REPORT.md"
+    report_path.write_text(
+        "# Some report\n\n## GO/NO-GO Verdict\n\n**GO/NO-GO verdict: NO-GO**\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(rcs, "REPORT_PATH", report_path)
+
+    with pytest.raises(SystemExit, match="no human-section sentinel"):
+        rcs._assemble_report("machine section")
+
+    # The file on disk must be untouched.
+    assert "NO-GO" in report_path.read_text(encoding="utf-8")
+
+
+def test_assemble_report_uses_pending_placeholder_when_no_report_exists(tmp_path, monkeypatch):
+    """Only "first run, no file at all" gets the [PENDING] placeholder."""
+    from pipeline.scripts import run_clustering_spike as rcs
+
+    report_path = tmp_path / "26-SPIKE-REPORT.md"
+    monkeypatch.setattr(rcs, "REPORT_PATH", report_path)
+
+    assembled = rcs._assemble_report("machine section")
+
+    assert "[PENDING" in assembled
+    assert rcs._HUMAN_SECTION_SENTINEL in assembled
+
+
+def test_assemble_report_preserves_existing_human_section(tmp_path, monkeypatch):
+    """A well-formed sentinel is preserved verbatim, never regenerated."""
+    from pipeline.scripts import run_clustering_spike as rcs
+
+    report_path = tmp_path / "26-SPIKE-REPORT.md"
+    report_path.write_text(
+        f"# Old machine section\n\n{rcs._HUMAN_SECTION_SENTINEL}\n\n"
+        "## GO/NO-GO Verdict\n\n**GO/NO-GO verdict: NO-GO**\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(rcs, "REPORT_PATH", report_path)
+
+    assembled = rcs._assemble_report("new machine section")
+
+    assert "new machine section" in assembled
+    assert "**GO/NO-GO verdict: NO-GO**" in assembled
+    assert "[PENDING" not in assembled
+
+
+def test_write_report_atomically_writes_and_replaces(tmp_path, monkeypatch):
+    """RG-03: the write path uses a temp file + os.replace rather than a
+    direct write_text — verify the content lands correctly and no stray temp
+    file survives."""
+    from pipeline.scripts import run_clustering_spike as rcs
+
+    report_path = tmp_path / "26-SPIKE-REPORT.md"
+    monkeypatch.setattr(rcs, "REPORT_PATH", report_path)
+
+    rcs._write_report_atomically("hello world")
+
+    assert report_path.read_text(encoding="utf-8") == "hello world"
+    leftover_tmp = list(tmp_path.glob("*.tmp"))
+    assert leftover_tmp == []
+
+
 def test_build_report_does_not_crash_on_null_cached_verdict():
     """RG-01: compute_pairwise_metrics no longer raises on a null
     cached_verdict (n_failsafe=1), but _build_report subscripted
