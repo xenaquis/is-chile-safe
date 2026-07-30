@@ -91,7 +91,7 @@ export function EntryPointsRail({
       const closingId = openId;
       setOpenId(null);
       e.stopPropagation();
-      const refs: Record<EntryId, React.RefObject<HTMLElement>> = {
+      const refs: Record<EntryId, React.RefObject<HTMLElement | null>> = {
         year: yearSummaryRef,
         family: familySummaryRef,
         mode: modeSummaryRef,

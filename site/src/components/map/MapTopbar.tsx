@@ -1,9 +1,13 @@
 /**
- * MapTopbar.tsx — Composes SearchBox + FiltersRow in the map topbar overlay.
+ * MapTopbar.tsx — Composes SearchBox + NewsToggle + EntryPointsRail + FilterSheet
+ * in the map topbar overlay.
  * Position: absolute top, z-index 800, full width below the page header.
  */
+import React from 'react';
 import { SearchBox, type CommuneIndexEntry } from './SearchBox';
-import { FiltersRow } from './FiltersRow';
+import { NewsToggle } from './NewsToggle';
+import { EntryPointsRail } from './EntryPointsRail';
+import { FilterSheet } from './FilterSheet';
 
 interface Props {
   lang: 'en' | 'es';
@@ -16,11 +20,9 @@ interface Props {
   onEventsToggle: (v: boolean) => void;
   onSelect: (cut: string) => void;
   onLocate: () => void;
-  /** Mode toggle rendered as own row at ≤480px */
-  modeToggle?: React.ReactNode;
+  mode: 'composite' | 'family';
+  onModeChange: (mode: 'composite' | 'family') => void;
 }
-
-import React from 'react';
 
 export function MapTopbar({
   lang,
@@ -33,7 +35,8 @@ export function MapTopbar({
   onEventsToggle,
   onSelect,
   onLocate,
-  modeToggle,
+  mode,
+  onModeChange,
 }: Props) {
   return (
     <div className="map-topbar">
@@ -44,16 +47,25 @@ export function MapTopbar({
           onSelect={onSelect}
           onLocate={onLocate}
         />
-        {modeToggle}
+        <NewsToggle lang={lang} showEvents={showEvents} onEventsToggle={onEventsToggle} />
       </div>
-      <FiltersRow
+      <EntryPointsRail
         lang={lang}
         year={year}
         onYearChange={onYearChange}
         crimeFamily={crimeFamily}
         onFamilyChange={onFamilyChange}
-        showEvents={showEvents}
-        onEventsToggle={onEventsToggle}
+        mode={mode}
+        onModeChange={onModeChange}
+      />
+      <FilterSheet
+        lang={lang}
+        year={year}
+        onYearChange={onYearChange}
+        crimeFamily={crimeFamily}
+        onFamilyChange={onFamilyChange}
+        mode={mode}
+        onModeChange={onModeChange}
       />
     </div>
   );

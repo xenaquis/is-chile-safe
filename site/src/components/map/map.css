@@ -34,6 +34,15 @@
   flex-wrap: wrap;
 }
 
+/* Phase 30-05: at <=480px the FAB (FilterSheet) takes over; the rail hides so
+   both controls' data-role hooks are present in the DOM but only one is
+   visible at any band (score.mjs picks whichever is display !== 'none'). */
+@media (max-width: 480px) {
+  .entry-points-rail {
+    display: none;
+  }
+}
+
 .entry-points-rail > details {
   position: relative;
 }
@@ -123,20 +132,6 @@
   gap: 8px;
 }
 
-.filters-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  overflow-x: auto;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.filters-row::-webkit-scrollbar {
-  display: none;
-}
-
 /* ==========================================================================
    Filter chips
    ========================================================================== */
@@ -174,19 +169,6 @@
   background-position: right 10px center;
   padding-right: 30px;
   min-width: 80px;
-}
-
-/* ==========================================================================
-   Mode toggle (composite index vs per-family rate — D-05)
-   ========================================================================== */
-
-.mode-toggle {
-  display: flex;
-  gap: 4px;
-  position: absolute;
-  top: 8px;
-  right: 16px;
-  z-index: 801;
 }
 
 .ev-dot-mini {
@@ -368,11 +350,6 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-  }
-
-  .mode-toggle {
-    position: static;
-    justify-content: flex-start;
   }
 }
 

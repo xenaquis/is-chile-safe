@@ -43,6 +43,7 @@ import { MapTopbar } from './MapTopbar';
 import { ResultPanel } from './ResultPanel';
 import { Toast } from './Toast';
 import type { CommuneIndexEntry } from './SearchBox';
+import { resolveRegionFocus } from '../../lib/regionParam';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -229,6 +230,24 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
         if (focusCut && /^\d{4,5}$/.test(focusCut)) {
           // Small timeout to allow Leaflet to finish rendering polygons before getBounds is valid
           setTimeout(() => selectCommune(focusCut), 100);
+        }
+
+        // MAPSH-04/F-48: ?region= single-value region focus. Only when no valid
+        // ?cut= was requested — a commune deep link is more specific and wins.
+        if (!(focusCut && /^\d{4,5}$/.test(focusCut)) && idx) {
+          const regionCuts = resolveRegionFocus(window.location.search, idx);
+          if (regionCuts) {
+            setTimeout(() => {
+              const m = mapRef.current;
+              if (!m) return;
+              const bounds = L.latLngBounds([]);
+              regionCuts.forEach((cut) => {
+                const ly = polyIdxRef.current.get(cut);
+                if (ly && 'getBounds' in ly) bounds.extend((ly as L.Polygon).getBounds());
+              });
+              if (bounds.isValid()) m.fitBounds(bounds, { padding: [40, 40] });
+            }, 100); // same reason as ?cut= (MapIsland.tsx:230): getBounds is not valid until Leaflet has rendered the polygons
+          }
         }
       }
     }
@@ -436,40 +455,22 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
           if (!map) return;
           locate(map, featuresRef.current, userRef, selectCommune, setToast, lang);
         }}
-        modeToggle={
-          <div className="mode-toggle" role="group" aria-label={lang === 'es' ? 'Modo de mapa' : 'Map mode'}>
-            <button
-              className={`chip${mode === 'composite' ? ' active' : ''}`}
-              onClick={() => {
-                setMode('composite');
-                const communas = payloadRef.current;
-                if (!communas || !layerRef.current) return;
-                styleMapRef.current = buildStyleMapFromCompositeIndex(communas);
-                applyStyleMap(layerRef.current, styleMapRef);
-              }}
-            >
-              {lang === 'es' ? 'Índice' : 'Index'}
-            </button>
-            <button
-              className={`chip${mode === 'family' ? ' active' : ''}`}
-              onClick={() => {
-                setMode('family');
-                const communas = payloadRef.current;
-                if (!communas || !layerRef.current) return;
-                if (crimeIsHomicide) {
-                  styleMapRef.current = buildStyleMapFromHomicide(communas);
-                } else if (crimeFamilyIndex !== null) {
-                  styleMapRef.current = buildStyleMapFromFamily(communas, crimeFamilyIndex);
-                } else {
-                  styleMapRef.current = buildStyleMapFromLevel(communas);
-                }
-                applyStyleMap(layerRef.current, styleMapRef);
-              }}
-            >
-              {lang === 'es' ? 'Por delito' : 'By crime'}
-            </button>
-          </div>
-        }
+        mode={mode}
+        onModeChange={(next) => {
+          setMode(next);
+          const communas = payloadRef.current;
+          if (!communas || !layerRef.current) return;
+          if (next === 'composite') {
+            styleMapRef.current = buildStyleMapFromCompositeIndex(communas);
+          } else if (crimeIsHomicide) {
+            styleMapRef.current = buildStyleMapFromHomicide(communas);
+          } else if (crimeFamilyIndex !== null) {
+            styleMapRef.current = buildStyleMapFromFamily(communas, crimeFamilyIndex);
+          } else {
+            styleMapRef.current = buildStyleMapFromLevel(communas);
+          }
+          applyStyleMap(layerRef.current, styleMapRef);
+        }}
       />
 
       {/* TD-06: partial-year caveat badge — shown when latest year data is incomplete */}
