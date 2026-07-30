@@ -545,11 +545,30 @@ for (const [locale, distPath] of DIST_PAGES) {
   // `hidden` attribute, and that no author CSS overrides `display` on the
   // hidden-controlled nodes (which would defeat the UA [hidden] rule even
   // if the attribute itself is absent).
-  if (/<article\b[^>]*\bclass="[^"]*\bnews-card\b[^"]*"[^>]*\shidden[\s>]/.test(distHtml)) {
-    fail(`assertion 12 — ${locale} ships a .news-card with the hidden attribute (NEWSUI-02 violation)`);
+  //
+  // WR2-02 fix: `hidden` must be tested in ATTRIBUTE-NAME position, never as
+  // a substring of an attribute VALUE (cards carry free-form `data-*`
+  // values — commune names, LLM-classifier family output — that are not
+  // fully controlled, e.g. `data-note="a hidden b"` on a fully visible
+  // card must NOT trip this). Strip every `="..."` attribute-value body
+  // from the captured opening tag before testing for a bare `hidden`
+  // token, so only a genuine `hidden` attribute (boolean or `hidden=""`,
+  // whether mid-tag or as the last attribute before `>`) can match.
+  function tagHasHiddenAttr(tag) {
+    const valuesStripped = tag.replace(/="[^"]*"/g, '=""');
+    return /\shidden(?=[\s>])/.test(valuesStripped);
   }
-  if (/<section\b[^>]*\bclass="[^"]*\bnews-month-section\b[^"]*"[^>]*\shidden[\s>]/.test(distHtml)) {
-    fail(`assertion 12 — ${locale} ships a hidden .news-month-section (NEWSUI-02 violation)`);
+  for (const m of distHtml.matchAll(/<article\b[^>]*>/g)) {
+    const tag = m[0];
+    if (/\bclass="[^"]*\bnews-card\b[^"]*"/.test(tag) && tagHasHiddenAttr(tag)) {
+      fail(`assertion 12 — ${locale} ships a .news-card with the hidden attribute (NEWSUI-02 violation)`);
+    }
+  }
+  for (const m of distHtml.matchAll(/<section\b[^>]*>/g)) {
+    const tag = m[0];
+    if (/\bclass="[^"]*\bnews-month-section\b[^"]*"/.test(tag) && tagHasHiddenAttr(tag)) {
+      fail(`assertion 12 — ${locale} ships a hidden .news-month-section (NEWSUI-02 violation)`);
+    }
   }
   if (/\.news-card[^{}]*\{[^}]*display\s*:/.test(distHtml)) {
     fail(`assertion 12 — ${locale} author CSS sets display on .news-card, defeating [hidden]`);
