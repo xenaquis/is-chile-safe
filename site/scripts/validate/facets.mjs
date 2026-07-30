@@ -899,11 +899,34 @@ for (const [locale, pagePath] of SERIALIZATION_SITES) {
 }
 
 // ---------------------------------------------------------------------------
+// Assertion 22 (WR2-01): the WR-01 URL-preserving replaceState form is gated
+// at source level. Test 12 in newsFilterLogic.test.ts pins
+// serializeFilterParams (unchanged by the WR-01 fix) and cannot detect a
+// revert of the page's inline <script> — mutating either page back to
+// `history.replaceState(null, '', '?' + serializeFilterParams(active))`
+// left the whole vitest suite AND every prior validator assertion green.
+// Mirrors the SERIALIZATION_SITES source-level pattern already used by
+// assertion 7 (which guards both locales for exactly this reason).
+//
+// Falsifiable counterexample: revert either page's replaceState call to the
+// pre-WR-01 form -> RED.
+// ---------------------------------------------------------------------------
+for (const [locale, pagePath] of SERIALIZATION_SITES) {
+  const pageSrc = readFileSync(pagePath, 'utf-8');
+  if (/replaceState\([^)]*['"]\?['"]\s*\+\s*serializeFilterParams/.test(pageSrc)) {
+    fail(`assertion 22 — ${locale} rebuilds the query from scratch with '?' + serializeFilterParams (WR-01 regression)`);
+  }
+  if (!pageSrc.includes("location.pathname + (qs ? '?' + qs : '') + location.hash")) {
+    fail(`assertion 22 — ${locale} lost the WR-01 URL-preserving replaceState form`);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // All assertions passed
 // ---------------------------------------------------------------------------
 console.log(
   `PASS facets: ${incidents.length} incidents, ${familyCounts.size} families observed, ` +
     `${indexData.length} communes cross-checked, ${unionMonths.size} months in byMonth union, ` +
     `window(today=${todayCount},7d=${sevenDayCount},30d=${thirtyDayCount}), TZ-determinism verified, ` +
-    `21 assertions passed`
+    `22 assertions passed`
 );
