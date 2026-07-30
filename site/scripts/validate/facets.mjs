@@ -504,12 +504,17 @@ for (const [locale, distPath] of DIST_PAGES) {
 }
 for (const [locale, pagePath] of SERIALIZATION_SITES) {
   const pageSrc = readFileSync(pagePath, 'utf-8');
-  const monthCalls = Array.from(pageSrc.matchAll(/toLocaleDateString\(([^)]*month:[^)]*)\)/gs));
-  for (const call of monthCalls) {
-    if (!/timeZone:\s*['"]UTC['"]/.test(call[1])) {
+  // Scan the call's argument region by slicing a fixed-length tail after the
+  // call head, rather than matching a paren-free "[^)]*" run — a call whose
+  // arguments contain a nested paren (e.g. buildOpts(), Number(x), a nested
+  // object/function call) would otherwise silently escape a "[^)]*"-based
+  // regex: it does not fail, it just stops matching.
+  for (const m of pageSrc.matchAll(/(toLocaleDateString|Intl\.DateTimeFormat)\s*\(/g)) {
+    const tail = pageSrc.slice(m.index, m.index + 400);
+    if (/month\s*:/.test(tail) && !/timeZone:\s*['"]UTC['"]/.test(tail)) {
       fail(
-        `assertion 11 — ${locale} page has a toLocaleDateString(...) call with a ` +
-          `"month:" option but no "timeZone: 'UTC'" — call snippet: ${call[0].slice(0, 80)}`
+        `assertion 11 — ${locale} page has a ${m[1]}(...) call with a ` +
+          `"month:" option but no "timeZone: 'UTC'" — call snippet: ${tail.slice(0, 80)}`
       );
     }
   }
