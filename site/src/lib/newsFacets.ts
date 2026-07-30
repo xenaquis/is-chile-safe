@@ -72,7 +72,8 @@ export interface NewsFacetIndex {
 /**
  * lower(days) computes the UTC-anchored lower-bound date string for a window,
  * per Planning Decision 1. anchorMs is Date.parse(newestDate + 'T00:00:00Z').
- * Never local-time Date construction, never toLocaleDateString, never getMonth().
+ * Never local-time Date construction; never locale-formatted date strings;
+ * never a Date object's local month accessor.
  */
 function lowerBoundDate(anchorMs: number, days: number): string {
   const ms = anchorMs - days * 86400000;

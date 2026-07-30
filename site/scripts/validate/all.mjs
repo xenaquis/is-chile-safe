@@ -1,5 +1,5 @@
 /**
- * all.mjs — Aggregate validator: run all 12 validation scripts in sequence.
+ * all.mjs — Aggregate validator: run all 16 validation scripts in sequence.
  *
  * Validators:
  *   1.  structure.mjs         — required source files + sample page meta
@@ -17,6 +17,7 @@
  *  13.  figure-registry.mjs   — SRC-05 figure-registry zero-orphan completeness check over data/SOURCES.md
  *  14.  avs-b-budget.mjs      — file budget < 18,000 + EN/ES compare-page count symmetry (Phase 21 CMP-05)
  *  15.  freshness.mjs         — data/incidents/current.json <= 3 days old
+ *  16.  facets.mjs            — news facet count integrity (family/region containment via live Python-source parsing, CUT-length cross-check, byMonth completeness, TZ-determinism, stray-artifact absence)
  *
  * Any non-zero exit from a child script fails the suite.
  * Prints a per-check PASS/FAIL summary at the end.
@@ -51,6 +52,7 @@ const VALIDATORS = [
   'figure-registry.mjs',
   'avs-b-budget.mjs',
   'freshness.mjs',
+  'facets.mjs',
 ];
 
 const results = [];
