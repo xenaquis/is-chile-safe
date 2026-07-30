@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: verifying
-last_updated: "2026-07-29T23:56:16.007Z"
-last_activity: 2026-07-29
+status: planning
+last_updated: "2026-07-30T06:25:08.701Z"
+last_activity: "2026-07-30 — Plan 27-01 executed: computeNewsFacets() (UTC window arithmetic, family/region/month facets, facetKeys) + facets.mjs validator #16 registered in all.mjs"
 progress:
-  total_phases: 8
-  completed_phases: 1
-  total_plans: 4
-  completed_plans: 4
-  percent: 12
+  total_phases: 14
+  completed_phases: 6
+  total_plans: 37
+  completed_plans: 36
+  percent: 43
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 27 (News Facet Data Model) — next to plan
-Plan: —
-Status: Phase 26 complete (NO-GO documented); ready to plan Phase 27
-Last activity: 2026-07-29 — Phase 26 closed: 4/4 plans, code review + 2 fix cycles + re-review PASSED, verification PASSED
+Phase: 27 (News Facet Data Model) — in progress (1/2 plans)
+Plan: 27-01 complete (Wave 1); 27-02 (page wiring) remaining
+Status: 27-01 executed — newsFacets.ts + facets.mjs validator #16 shipped, 16/16 vitest cases pass, astro check delta = 0 new errors
+Last activity: 2026-07-30 — Plan 27-01 executed: computeNewsFacets() (UTC window arithmetic, family/region/month facets, facetKeys) + facets.mjs validator #16 registered in all.mjs
 
 ## Progress Bar
 
@@ -42,7 +42,7 @@ Phase 22 [█████████████░░░░░░░]  67% in 
 Phase 21 [████████████████████] 100% complete (4/4)
 Phase 25 [████████████████████] 100% complete (9/9)
 Phase 26 [████████████████████] 100% COMPLETE (4/4 — Event Clustering Spike: verdict NO-GO, documented)
-Phase 27 [░░░░░░░░░░░░░░░░░░░░]   0% next to plan (News Facet Data Model — no dep on 26)
+Phase 27 [██████████░░░░░░░░░░]  50% in progress (1/2 — 27-01 newsFacets.ts + facets.mjs validator #16 shipped; 27-02 page wiring remaining)
 Phase 28 [░░░░░░░░░░░░░░░░░░░░]   0% not started (News Visualizer UI)
 Phase 29 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map UX Design Loop — gates 30)
 Phase 30 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map Control-Shell Rework — regression risk)
@@ -163,8 +163,10 @@ from `pipeline/tests/fixtures/clustering_golden_set.json`: `tp=22, fp=11, precis
 n_failsafe=0`. Gate was 100% precision / zero false merges. 105 of 2,000 permitted OpenRouter calls spent.
 
 **The three failure modes any future attempt must beat** (10 of 11 false merges are the first one):
+
 1. **Aggregate-vs-component** — a roundup ("Dos operativos en Antofagasta…") merged with each individual
    operation it summarizes.
+
 2. **Procedural-stage** — detention / formalization / conviction of the same underlying case merged as one event.
 3. **Conflicting sentence or charge** — "19 años por homicidio" merged with "8 años y medio por homicidio
    frustrado" (Tongoy).

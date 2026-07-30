@@ -320,7 +320,7 @@ Plans:
 
 **Wave 1**
 
-- [ ] 27-01-PLAN.md — newsFacets.ts (computeNewsFacets: byFamily/byRegion/byWindow/byMonth) + facets.mjs validator registered as #16
+- [x] 27-01-PLAN.md — newsFacets.ts (computeNewsFacets: byFamily/byRegion/byWindow/byMonth) + facets.mjs validator registered as #16
 
 **Wave 2**
 
@@ -437,7 +437,7 @@ Plans:
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |
 | 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete    | 2026-07-03 |
 | 26. Event Clustering Spike | 4/4 | Complete   | 2026-07-29 |
-| 27. News Facet Data Model | 0/2 | Planned | - |
+| 27. News Facet Data Model | 1/2 | In Progress|  |
 | 28. News Visualizer UI | 0/? | Not started | - |
 | 29. Map UX Design Loop | 0/? | Not started | - |
 | 30. Map Control-Shell Rework | 0/? | Not started | - |

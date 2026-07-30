@@ -49,12 +49,12 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 
 ### News Facet Data Model (→ Phase 27)
 
-- [ ] **FACET-01**: A shared `site/src/lib/newsFacets.ts` computes facet indexes at build time from `data/incidents/current.json` plus the monthly archive, reading data via `process.cwd()`, and is consumed by both `/news/` and `/es/noticias/` so the two locales cannot drift.
-- [ ] **FACET-02**: Time facets expose day-granularity presets (today / 7d / 30d) plus monthly-archive access — no calendar-range slider, and sparse days are rolled up rather than rendered as empty per-day slots.
-- [ ] **FACET-03**: Geography facets resolve each incident's `cut` to its region via the established CUT-length derivation, giving a 16-region drill-down. ✅ *Open question CLOSED 2026-07-29: `data/cead/meta/index.json` entries carry `region_id` per commune (verified) — use it as the authoritative cross-check for the derivation.*
-- [ ] **FACET-04**: Crime-family facets cover all 8 news families including the news-only `sexuales`, without extending CEAD's `FAMILY_KEYS` (which stays at 7).
-- [ ] **FACET-05**: Per-option facet counts are computed at build time and available to the UI (e.g. "Robo (14)").
-- [ ] **FACET-06**: No facet artifact is written under `site/**` and no new derived JSON is committed — facets are computed in-build, so the existing data-change-gated deploy hook cannot be triggered by facet computation.
+- [x] **FACET-01**: A shared `site/src/lib/newsFacets.ts` computes facet indexes at build time from `data/incidents/current.json` plus the monthly archive, reading data via `process.cwd()`, and is consumed by both `/news/` and `/es/noticias/` so the two locales cannot drift.
+- [x] **FACET-02**: Time facets expose day-granularity presets (today / 7d / 30d) plus monthly-archive access — no calendar-range slider, and sparse days are rolled up rather than rendered as empty per-day slots.
+- [x] **FACET-03**: Geography facets resolve each incident's `cut` to its region via the established CUT-length derivation, giving a 16-region drill-down. ✅ *Open question CLOSED 2026-07-29: `data/cead/meta/index.json` entries carry `region_id` per commune (verified) — use it as the authoritative cross-check for the derivation.*
+- [x] **FACET-04**: Crime-family facets cover all 8 news families including the news-only `sexuales`, without extending CEAD's `FAMILY_KEYS` (which stays at 7).
+- [x] **FACET-05**: Per-option facet counts are computed at build time and available to the UI (e.g. "Robo (14)").
+- [x] **FACET-06**: No facet artifact is written under `site/**` and no new derived JSON is committed — facets are computed in-build, so the existing data-change-gated deploy hook cannot be triggered by facet computation.
 - [ ] **FACET-07**: The existing validator suite and page-count budget stay green: `@astrojs/check` clean on new code, all validators pass, and no new indexable URLs are introduced.
 
 ### News Visualizer UI (→ Phase 28)
@@ -146,12 +146,12 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 | CLUS-07 | Phase 26 | Complete |
 | CLUS-08 | Phase 26 | Complete |
 | CLUS-09 | Phase 26 | Complete (NO-GO branch) |
-| FACET-01 | Phase 27 | Pending |
-| FACET-02 | Phase 27 | Pending |
-| FACET-03 | Phase 27 | Pending |
-| FACET-04 | Phase 27 | Pending |
-| FACET-05 | Phase 27 | Pending |
-| FACET-06 | Phase 27 | Pending |
+| FACET-01 | Phase 27 | Complete |
+| FACET-02 | Phase 27 | Complete |
+| FACET-03 | Phase 27 | Complete |
+| FACET-04 | Phase 27 | Complete |
+| FACET-05 | Phase 27 | Complete |
+| FACET-06 | Phase 27 | Complete |
 | FACET-07 | Phase 27 | Pending |
 | NEWSUI-01 | Phase 28 | Pending |
 | NEWSUI-02 | Phase 28 | Pending |
