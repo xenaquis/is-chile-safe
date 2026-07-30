@@ -41,7 +41,18 @@ describe('computeNewsFacets', () => {
       byWindow: { today: [], sevenDay: [], thirtyDay: [] },
       byMonth: [],
       facetKeys: [],
+      anchorDate: null,
     });
+  });
+
+  it('Test 12: anchorDate is the newest incident date, exposing the existing newestDate local', () => {
+    const incidents: IncidentLike[] = [
+      { cut: '13101', date: '2026-07-20', family: 'vida' },
+      { cut: '13101', date: '2026-07-27', family: 'vida' },
+      { cut: '13101', date: '2026-07-15', family: 'vida' },
+    ];
+    const result = computeNewsFacets(incidents, makeIndex());
+    expect(result.anchorDate).toBe('2026-07-27');
   });
 
   it('Test 2: byFamily uses real data keys (robos_violentos), homicidios never appears', () => {

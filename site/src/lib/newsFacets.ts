@@ -74,6 +74,7 @@ export interface NewsFacetIndex {
   byWindow: WindowFacet;
   byMonth: MonthBucket[];
   facetKeys: FacetKeyEntry[];
+  anchorDate: string | null;
 }
 
 // --- Internal helpers ---
@@ -249,5 +250,5 @@ export function computeNewsFacets(
     })
     .sort((a, b) => b.yearMonth.localeCompare(a.yearMonth));
 
-  return { byFamily, byRegion, byWindow, byMonth, facetKeys };
+  return { byFamily, byRegion, byWindow, byMonth, facetKeys, anchorDate: newestDate };
 }
