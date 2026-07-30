@@ -822,13 +822,15 @@ for (const [locale, filePath] of SOURCE_SCAN_FILES) {
     fail(`assertion 20 — ${locale} source file not found at ${filePath}`);
   }
   const src = readFileSync(filePath, 'utf-8');
-  // Strip // line comments before scanning — a doc comment merely NAMING a
-  // forbidden sink (e.g. "never innerHTML") must not read as a violation.
-  // Mirrors the same false-positive class the plan calls out for the
-  // set:html bare-token scan below.
+  // Strip only whole-line // (or /* or *) comments before scanning — a doc
+  // comment merely NAMING a forbidden sink (e.g. "never innerHTML") must not
+  // read as a violation. Do NOT strip trailing "//..." on a code line: a
+  // line containing a URL literal (e.g. "https://ischilesafe.com/news/")
+  // would otherwise be truncated at the "//" inside the URL, silently
+  // hiding any forbidden sink assignment later on that same line.
   const codeOnly = src
     .split('\n')
-    .map((line) => line.replace(/\/\/.*$/, ''))
+    .filter((line) => !/^\s*(\/\/|\/\*|\*)/.test(line))
     .join('\n');
   for (const pattern of FORBIDDEN_DOM_SINKS) {
     if (pattern.test(codeOnly)) {
