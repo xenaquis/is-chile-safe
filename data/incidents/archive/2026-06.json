@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-23T02:26:48.152407Z",
+  "generated": "2026-07-30T02:02:50.985391Z",
   "window_days": 30,
   "incidents": [
     {
@@ -1093,6 +1093,71 @@
       "url": "https://www.latercera.com/nacional/noticia/torrealba-no-se-rinde-exalcalde-pide-reabrir-investigacion-y-enumera-diligencias-contra-su-circulo-de-hierro/",
       "family": "propiedad",
       "slug": "vitacura"
+    },
+    {
+      "id": "03757f29eb07ebda",
+      "cut": "5101",
+      "lat": -33.116644,
+      "lng": -71.575283,
+      "title_es": "PDI desarticula banda que traficaba y modificaba armas en Valparaíso",
+      "title_en": "PDI dismantles gang trafficking and modifying weapons in Valparaíso",
+      "date": "2026-06-29",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/pdi-desbarato-banda-criminal-que-traficaba-reparaba-y-modificaba-armas/2026-06-29/192016.html",
+      "family": "armas",
+      "slug": "valparaiso"
+    },
+    {
+      "id": "9c492f009b57e814",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Gobierno se querella contra sujeto que intentó arrollar a carabinero tras robo en Maipú",
+      "title_en": "Government files complaint against suspect who tried to run over police officer after robbery in Maipú",
+      "date": "2026-06-29",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/gobierno/ejecutivo-se-querello-contra-sujeto-que-intento-arrollar-a-carabinero/2026-06-29/191417.html",
+      "family": "robos_violentos",
+      "slug": "maipu"
+    },
+    {
+      "id": "b5d2561d26c8532b",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "PDI detiene a sujeto con tres kilos de ketamina en aeropuerto de Arica",
+      "title_en": "PDI arrests man with three kilos of ketamine at Arica airport",
+      "date": "2026-06-29",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/pdi-detuvo-en-el-aeropuerto-de-arica-a-sujeto-que-transportaba-tres/2026-06-29/151558.html",
+      "family": "drogas",
+      "slug": "arica"
+    },
+    {
+      "id": "ec6daf3d6244de10",
+      "cut": "13104",
+      "lat": -33.385523,
+      "lng": -70.693079,
+      "title_es": "Violento robo a conductor de Didi en Conchalí: delincuentes le quitan auto a mano armada",
+      "title_en": "Violent robbery of Didi driver in Conchalí: thieves take car at gunpoint",
+      "date": "2026-06-29",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robo-de-vehiculos/violento-robo-a-conductor-de-didi-en-conchali-delincuentes-le-quitaron/2026-06-29/121456.html",
+      "family": "robos_violentos",
+      "slug": "conchali"
+    },
+    {
+      "id": "b0f631ec334a8394",
+      "cut": "15202",
+      "lat": -17.823099,
+      "lng": -69.561562,
+      "title_es": "Carabineros detienen a tres sujetos con autos de contrabando en frontera",
+      "title_en": "Carabineros arrest three individuals with smuggled cars at border",
+      "date": "2026-06-29",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robo-de-vehiculos/carabineros-detuvo-a-tres-sujetos-que-intentaron-cruzar-a-bolivia-con/2026-06-29/114840.html",
+      "family": "propiedad",
+      "slug": "general-lagos"
     }
   ]
 }
