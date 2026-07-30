@@ -2,20 +2,20 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: verifying
+status: in_progress
 last_updated: "2026-07-30T14:00:27.653Z"
 last_activity: 2026-07-30
 progress:
-  total_phases: 14
-  completed_phases: 8
-  total_plans: 40
-  completed_plans: 39
-  percent: 57
+  total_phases: 8
+  completed_phases: 3
+  total_plans: 9
+  completed_plans: 9
+  percent: 38
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-07-30 — **v2.1 AUTONOMOUS RUN in progress**. **Phase 28 (News Visualizer UI) COMPLETE — 3/3 plans (28-01 filter logic + anchorDate + i18n keys; 28-02 filter-bar UI wiring on both news pages; 28-03 facets.mjs extended to 21 assertions, phase-close gate 16/16, pytest 344/1/1). Ready for verification.** **Phase 27 (News Facet Data Model) COMPLETE — verification PASSED 5/5, FACET-01..07 complete; 16/16 validators (facets.mjs is #16), vitest 20 passed.** Gates: inline-Fable code review (2 HIGH/3 MED/2 LOW, Opus unavailable — F-23) -> fix cycle 1 -> independent Opus re-review (RR-1) -> fix cycle 2 -> Opus verification PASSED. Two HIGH were real: byMonth undercounted June by 17%, and the set:html payload was a latent XSS (JSON.stringify does not escape `</script>`). **Phase 26 (Event Clustering Spike) COMPLETE — verdict: NO-GO.** Measured fp=11 / tp=22 / precision=0.667 over 86 hand-labeled golden-set pairs; the locked gate was 100% precision / zero false merges. No schema change shipped (CLUS-09 NO-GO branch); GO gate quarantined with `xfail(strict=True)` so a future model that passes re-opens the decision. Gates: Opus code review (0 CRITICAL / 8 HIGH) -> 2 fix cycles -> re-review PASSED; Opus verification PASSED 5/5 criteria, 9/9 requirements. 24 binding Fable decisions F-01..F-24. Suite 344 passed / 1 skipped / 1 xfailed, 16/16 validators (facets.mjs added as validator #16 at Phase 27 close). Next: Phase 28 (News Visualizer UI)._
+_Last updated: 2026-07-30 — **v2.1 AUTONOMOUS RUN in progress**. **Phase 28 (News Visualizer UI) COMPLETE — Opus verification PASSED 5/5 criteria, NEWSUI-01..07 all complete.** 3/3 plans (28-01 `newsFilterLogic.ts` + `anchorDate` + 15 i18n keys; 28-02 filter-bar wiring on both news pages; 28-03 `facets.mjs` extended to 22 assertions). Gates: Opus code review (3 HIGH/5 MED/6 LOW) -> fix cycle 1 -> independent Opus re-review (5 more, incl. the WR-01 fix shipping ungated) -> fix cycle 2 -> Opus verification PASSED. **Ten real defects were found AFTER the implementation passed every automated gate green** — including NEWSUI-02 having no gate at all, and a comuna query that was never trimmed so `"santiago "` matched zero communes. Final state: astro check 4/0 baseline, vitest **37**, `facets.mjs` **22 assertions**, pytest 344/1/1, **15/16 validators — `freshness` red under the pre-declared F-19 environmental exclusion** (see § Blockers). Next: Phase 29 (Map UX Design Loop). **Phase 27 (News Facet Data Model) COMPLETE — verification PASSED 5/5, FACET-01..07 complete; 16/16 validators (facets.mjs is #16), vitest 20 passed.** Gates: inline-Fable code review (2 HIGH/3 MED/2 LOW, Opus unavailable — F-23) -> fix cycle 1 -> independent Opus re-review (RR-1) -> fix cycle 2 -> Opus verification PASSED. Two HIGH were real: byMonth undercounted June by 17%, and the set:html payload was a latent XSS (JSON.stringify does not escape `</script>`). **Phase 26 (Event Clustering Spike) COMPLETE — verdict: NO-GO.** Measured fp=11 / tp=22 / precision=0.667 over 86 hand-labeled golden-set pairs; the locked gate was 100% precision / zero false merges. No schema change shipped (CLUS-09 NO-GO branch); GO gate quarantined with `xfail(strict=True)` so a future model that passes re-opens the decision. Gates: Opus code review (0 CRITICAL / 8 HIGH) -> 2 fix cycles -> re-review PASSED; Opus verification PASSED 5/5 criteria, 9/9 requirements. 24 binding Fable decisions F-01..F-24. Suite 344 passed / 1 skipped / 1 xfailed, 16/16 validators (facets.mjs added as validator #16 at Phase 27 close). Next: Phase 28 (News Visualizer UI)._
 
 ## Project Reference
 
@@ -23,14 +23,14 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: v2.1 News Intelligence, Map UX & Ops Hardening — unattended autonomous run per `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md` (Sonnet codes, Opus validates, Fable decides; NO `git push`, `data/` read-only). Phases 26 (NO-GO, documented) and 27 (News Facet Data Model, PASSED 5/5) are CLOSED. **Phase 28 (News Visualizer UI) is next** — read § Phase 27 Outcome for the newsFacets contract it consumes.
+**Current focus**: v2.1 News Intelligence, Map UX & Ops Hardening — unattended autonomous run per `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md` (Sonnet codes, Opus validates, Fable decides; NO `git push`, `data/` read-only). Phases 26 (NO-GO, documented), 27 (News Facet Data Model, PASSED 5/5) and 28 (News Visualizer UI, PASSED 5/5) are CLOSED. **Phase 29 (Map UX Design Loop) is next** — it MUST run inline in the orchestrator session, because `gsd-executor` has no BrowserOS tools.
 
 ## Current Position
 
-Phase: 28 (News Visualizer UI) — all 3 plans executed (28-01, 28-02, 28-03). Phase 27 COMPLETE (2/2 plans, verification PASSED 5/5).
-Plan: 28-03 executed (Wave 3 of 3, terminal plan) — facets.mjs extended to 21 assertions, phase-close gate 16/16.
-Status: Phase complete — ready for verification
-Last activity: 2026-07-30
+Phase: 29 (Map UX Design Loop) — next to plan. Phase 28 COMPLETE (3/3 plans, verification PASSED 5/5, NEWSUI-01..07 complete).
+Plan: —
+Status: Phase 28 closed after 2 code-review cycles (10 defects fixed, 1 accepted) and Opus verification PASSED
+Last activity: 2026-07-30 — Phase 28 closed: faceting UI live on /news/ + /es/noticias/, 15/16 validators (freshness excluded per F-19)
 
 ## Progress Bar
 
@@ -43,7 +43,7 @@ Phase 21 [████████████████████] 100% com
 Phase 25 [████████████████████] 100% complete (9/9)
 Phase 26 [████████████████████] 100% COMPLETE (4/4 — Event Clustering Spike: verdict NO-GO, documented)
 Phase 27 [████████████████████] 100% COMPLETE (2/2 — 27-01 newsFacets.ts + facets.mjs validator #16 shipped; 27-02 page wiring + phase-close gate 16/16)
-Phase 28 [████████████████████] 100% COMPLETE (3/3 — 28-01 newsFilterLogic.ts + anchorDate + i18n keys; 28-02 filter-bar UI wiring; 28-03 facets.mjs 21 assertions + phase-close gate 16/16)
+Phase 28 [████████████████████] 100% COMPLETE (3/3 — verification PASSED 5/5; facets.mjs at 22 assertions; 15/16 validators, freshness excluded per F-19)
 Phase 29 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map UX Design Loop — gates 30)
 Phase 30 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map Control-Shell Rework — regression risk)
 Phase 31 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Docs & Methodology Refresh)
@@ -212,6 +212,25 @@ silently hiding a GO.
 4. **The `#news-facets` payload is emitted through `set:html`, which is unescaped.** `escapeForInlineScript()` turns every `<` into `<` — required, because `JSON.stringify` does NOT escape `</script>` and `byFamily[].key` traces back to the LLM classifier over scraped headlines. `facets.mjs` assertion 7 guards this at **source level** for both pages, because with today's data the escaped and unescaped output are byte-identical, so no dist-level check can detect the call being removed. Any new data-derived string added to this node needs the same treatment.
 
 **CEAD separation intact:** `pipeline/shared/schema.py`'s `FAMILY_KEYS` is still exactly 7 and byte-unchanged. The news vocabulary is 8, including the news-only `sexuales`. Zero Python touched, zero `data/` mutation, zero new indexable URLs, 1266 dist files against the 18,000 budget.
+
+### Phase 28 Outcome — PASSED (read this before Phase 29/30)
+
+**Shipped.** A faceting UI on `/news/` and `/es/noticias/`: filter by time window, region and crime family with per-option counts, plus an accent-insensitive comuna typeahead. Query-param only (`?family=&region=&window=&q=`) over the two existing URLs — **zero new indexable routes**. Verification PASSED 5/5 criteria, NEWSUI-01..07 all complete.
+
+**Verified by execution, not by report** (the verifier transpiled the shipped module and ran it over the `data-*` attributes scraped from the built HTML):
+- **28 filter options compared per locale** (4 window + 8 family + 16 region), **0 mismatches** between each option's displayed count and the list it actually filters, on both locales. Server/client window-boundary equivalence is proven, not assumed.
+- **NEWSUI-02 holds:** 1,215 `<article class="news-card">` in BOTH dist pages, **0** carrying `hidden` at rest, 0 `astro-island`, 0 `client:` directives. The only JS is one deferred module script.
+- **F-27 proven in the real build:** both page chunks literally `import{…}from"./newsFilterLogic.<hash>.js"` with the SAME content hash — the shipped code IS the unit-tested module, not a copy-pasted twin.
+
+**What Phase 29/30 must know:**
+1. **`?region=` means different things on the two surfaces (N1 — this is a trap).** On `/news/` it is CSV multi-value (`region=13,5`); the map's `?region=` is a single-value focus and its gap is still unclosed. **Phase 30 must NOT reuse `parseFilterParams`** for the map.
+2. **The manual browser pass never ran** (N3). Genuinely unverified without a browser: numeric CLS/INP, filter-bar layout at 375px, keyboard/focus behavior, the `aria-live` announcement, and a real JS-disabled render. Phase 29 runs BrowserOS inline anyway — **fold this into its first session**, it is nearly free there.
+3. **`facets.mjs` is now 22 assertions** and still validator #16 (no sibling file, so no F-21 count cascade). Carried, non-blocking: assertion 11's 400-char tail window is theoretically escapable (WR2-05), assertion 19's label claims a route-count check it does not perform, and F-24's three original true-by-construction blocks are still there. **Do not read the assertion count as coverage.**
+4. **The "All dates" count span is not recomputed client-side** (N4) — it keeps its server-rendered value. Cosmetic.
+
+**The uncomfortable lesson, recorded because it will recur:** ten real defects survived a fully green gate — 21 validator assertions, 36 vitest tests, a clean astro check — and were found only by two Opus review cycles. Among them: NEWSUI-02, the phase's headline invariant, had **no gate at all** (the card-count regex matched `hidden` cards identically); the 30-day boundary and `today` predicate were completely unpinned; and a never-trimmed comuna query meant `"santiago "` returned zero results on a page holding hundreds of matches. Green gates measured what they were written to measure, not what mattered.
+
+**Zero data mutation:** `data/` untouched, zero Python changed, `FAMILY_KEYS` still exactly 7.
 
 ### Deferred-live list (user actions on return — v2.1 autonomous run)
 
