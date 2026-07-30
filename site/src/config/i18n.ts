@@ -132,6 +132,23 @@ export interface I18nStrings {
   dir_lowpop_tag: string;
   dir_empty: string;
 
+  // Phase 28 — news faceting UI (NEWSUI-01..07)
+  news_filter_heading: string;
+  news_filter_window_label: string;
+  news_window_latest: string;
+  news_window_7d_label: string;
+  news_window_30d_label: string;
+  news_window_all: string;
+  news_filter_region_label: string;
+  news_filter_family_label: string;
+  news_search_comuna_label: string;
+  news_search_comuna_placeholder: string;
+  news_result_count: string;
+  news_clear_filters: string;
+  news_empty_heading: string;
+  news_empty_body: string;
+  news_cluster_source_count: string;
+
   // Quick 260616-lu4 — ranking table controls
   sort_label: string;
   sort_ascending: string;
@@ -333,6 +350,23 @@ export const EN_STRINGS: I18nStrings = {
   dir_count: '{n} of 346 communes',
   dir_lowpop_tag: 'low pop.',
   dir_empty: 'No results for "{q}".',
+
+  // Phase 28 — news faceting UI (NEWSUI-01..07)
+  news_filter_heading: 'Filter news',
+  news_filter_window_label: 'Time',
+  news_window_latest: 'Latest data: {date}',
+  news_window_7d_label: 'Last 7 days',
+  news_window_30d_label: 'Last 30 days',
+  news_window_all: 'All dates',
+  news_filter_region_label: 'Region',
+  news_filter_family_label: 'Crime type',
+  news_search_comuna_label: 'Search by comuna',
+  news_search_comuna_placeholder: "Filter by comuna name… (e.g. 'la ', 'puerto', 'vina')",
+  news_result_count: '{n} incidents shown',
+  news_clear_filters: 'Clear filters',
+  news_empty_heading: 'No incidents match these filters',
+  news_empty_body: 'Try a different time window, region, or crime type, or clear all filters to see every reported incident.',
+  news_cluster_source_count: '{n} sources',
 
   // Quick 260616-lu4 — ranking table controls
   sort_label: 'Sort by {column}',
@@ -540,6 +574,23 @@ export const ES_STRINGS: I18nStrings = {
   dir_count: '{n} de 346 comunas',
   dir_lowpop_tag: 'baja pob.',
   dir_empty: 'Sin resultados para "{q}".',
+
+  // Fase 28 — UI de facetas de noticias (NEWSUI-01..07)
+  news_filter_heading: 'Filtrar noticias',
+  news_filter_window_label: 'Fecha',
+  news_window_latest: 'Últimos datos: {date}',
+  news_window_7d_label: 'Últimos 7 días',
+  news_window_30d_label: 'Últimos 30 días',
+  news_window_all: 'Todas las fechas',
+  news_filter_region_label: 'Región',
+  news_filter_family_label: 'Tipo de delito',
+  news_search_comuna_label: 'Buscar por comuna',
+  news_search_comuna_placeholder: "Filtra por comuna… (ej. 'la ', 'puerto', 'viña')",
+  news_result_count: '{n} incidentes mostrados',
+  news_clear_filters: 'Limpiar filtros',
+  news_empty_heading: 'Ningún incidente coincide con estos filtros',
+  news_empty_body: 'Prueba otro período, región o tipo de delito, o limpia los filtros para ver todos los incidentes reportados.',
+  news_cluster_source_count: '{n} fuentes',
 
   // Quick 260616-lu4 — ranking table controls
   sort_label: 'Ordenar por {column}',
