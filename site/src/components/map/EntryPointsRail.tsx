@@ -10,7 +10,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { EN_STRINGS, ES_STRINGS } from '../../config/i18n';
-import { CHIP_DEFS } from '../../lib/mapFilterDefs';
+import { CHIP_DEFS, MODE_LABELS } from '../../lib/mapFilterDefs';
 import { YearField, FamilyField, ModeField } from './FilterFields';
 
 type EntryId = 'year' | 'family' | 'mode';
@@ -35,9 +35,11 @@ function familyLabel(lang: 'en' | 'es', crimeFamily: string | null, short: boole
   return lang === 'es' ? def.labelEs : def.labelEn;
 }
 
+// M-04: sourced from the same MODE_LABELS constant ModeField uses, so the
+// state summary and the selected option can never show two different names
+// for the same state again.
 function modeLabel(lang: 'en' | 'es', mode: 'composite' | 'family'): string {
-  if (mode === 'composite') return lang === 'es' ? 'Índice' : 'Index';
-  return lang === 'es' ? 'Por delito' : 'By crime';
+  return MODE_LABELS[lang][mode];
 }
 
 type Band = 'wide' | 'mid' | 'narrow';
@@ -195,9 +197,32 @@ export function EntryPointsRail({
         </div>
       </details>
 
-      <div className="entry-state-summary" aria-live="polite">
-        {stateSummary}
-      </div>
     </div>
+  );
+}
+
+/**
+ * StateSummary — the persistent selection summary (spec §2 item 4, aria-live per §6).
+ * Rendered by MapTopbar as a SIBLING of the rail rather than inside it: the rail is
+ * display:none at <=480px, and a summary nested inside it would vanish with it. Keeping
+ * it out here lets it stay in the DOM (visually hidden at that band) so the screen-reader
+ * announcement survives, without the rail itself rendering as a 1x1 element — which the
+ * rubric would then pick as the filter entry point and count as a sub-44px target.
+ */
+export function StateSummary({ lang, year, crimeFamily, mode }: { lang: 'en'|'es'; year: number; crimeFamily: string|null; mode: 'composite'|'family' }) {
+  const [band, setBand] = useState<Band>(getBand());
+  useEffect(() => {
+    function onResize() { setBand(getBand()); }
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+  const fLong = familyLabel(lang, crimeFamily, false);
+  const fShort = familyLabel(lang, crimeFamily, true);
+  const mLabel = modeLabel(lang, mode);
+  const text = band === 'wide' ? mLabel + ' · ' + fLong + ' · ' + year
+    : band === 'mid' ? fLong + ' · ' + year
+    : fShort + ' · ' + year;
+  return (
+    <div className="entry-state-summary" aria-live="polite">{text}</div>
   );
 }

@@ -43,7 +43,7 @@ import { MapTopbar } from './MapTopbar';
 import { ResultPanel } from './ResultPanel';
 import { Toast } from './Toast';
 import type { CommuneIndexEntry } from './SearchBox';
-import { resolveRegionFocus } from '../../lib/regionParam';
+import { resolveRegionFocus, shouldApplyRegionFocus } from '../../lib/regionParam';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -234,7 +234,8 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
 
         // MAPSH-04/F-48: ?region= single-value region focus. Only when no valid
         // ?cut= was requested — a commune deep link is more specific and wins.
-        if (!(focusCut && /^\d{4,5}$/.test(focusCut)) && idx) {
+        // M-07: precedence rule now lives in a tested, pure helper.
+        if (shouldApplyRegionFocus(window.location.search) && idx) {
           const regionCuts = resolveRegionFocus(window.location.search, idx);
           if (regionCuts) {
             setTimeout(() => {

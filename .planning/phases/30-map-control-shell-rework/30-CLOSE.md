@@ -114,6 +114,47 @@ Run against the real page; these are the invariant the premortem named as having
 **exits 0 on all 9 assertions**, each proven falsifiable by mutation · protected Leaflet layer files
 and `score.mjs` **byte-identical** to `PHASE30_BASE_SHA` · zero new dependencies.
 
+## 6b. After the Opus code review and fix cycle 1 (final measured state)
+
+The review returned 0 CRITICAL / 2 HIGH / 7 MEDIUM / 4 LOW. All 13 were addressed. Re-measured after
+the fixes — and **the fix cycle itself introduced three regressions, caught only because the whole
+rubric was re-run rather than the fixer's report believed**:
+
+| Regression introduced by fix cycle 1 | Cause | Resolution |
+|---|---|---|
+| coverage @375 rose 21.7 → **27.4 %**, breaching F-50's 22.7 % ceiling AND STRESS.md's frozen ≤25 % | M-01 kept the state summary visible at ≤480, growing the topbar 111 → 137 px | summary is visually-hidden (not removed) at ≤480 — the `aria-live` announcement survives, the pixels return |
+| c3 gained a map-owned violation: the rail itself at **296×18** | the rail stayed in flow at ≤480 to host the summary, and it carries `data-role` | `StateSummary` extracted out of the rail and rendered by `MapTopbar`; the rail is `display:none` again below 480 |
+| topbar @1296 grew 113 → **139 px** (coverage 29.4 → 32.9) | the extracted summary became a direct child of the column-flex topbar, forming its own row at every band | summary moved into `.map-topbar-row1` with `flex-wrap` — one row at ≥1024, wraps at the narrow bands |
+
+A fourth interaction was caught the same way: H-01's band-aware `--map-topbar-h` was tuned to the
+*pre-fix* heights, and M-01 changed them — and at exactly 1023 px the `max-width: 1023px` form did not
+match while the topbar was already 139 px. Inverted to a tall base with a `min-width: 1024px`
+override, so the badge errs low rather than landing inside the topbar.
+
+**Final measured state (post-fix-cycle):**
+
+| Width | c1 | c3 map-owned | c4 | c5 | raw coverage | topbar | badge clears topbar | summary |
+|---|---|---|---|---|---|---|---|---|
+| 1296 | PASS | **0** | FAIL¹ | PASS | 29.4 | 113 | ✔ | fits, 1 line |
+| 1024 | PASS | **0** | FAIL¹ | PASS | 29.4 | 113 | ✔ | fits, 1 line |
+| 639 | PASS | **0** | FAIL¹ | PASS | 35.3 | 139 | ✔ | fits |
+| 481 | PASS | **0** | FAIL¹ | PASS | 39.1 | 139 | ✔ | fits |
+| 375 | PASS | **0** | **PASS** | PASS | **21.7** | 111 | ✔ | visually hidden, announced |
+| 320 | PASS | **0** | **PASS** | PASS | **23.0** | 111 | ✔ | visually hidden, announced |
+
+¹ **c4's FAIL at ≥481 is a documented instrument false positive (F-58), not a regression.** The
+roving tabindex the review's H-02 required sets `negativeTabindexCount: 9`, and `score.mjs:131-137`
+reads any rendered negative tabindex as a trap signal. The nine elements are radios inside **closed**
+`<details>` panels. **The real Tab walk is the ground truth and it is clean**: from the news toggle,
+focus moves `news-toggle → Año → Tipo de delito → Modo → zoom "+"` — precisely spec §6's documented
+order — skipping all nine and exiting the rail. `score.mjs` was not edited.
+
+`?region=05` (the padded form) now resolves: the map moves west to tile column x=3, because region 5
+includes Isla de Pascua and Juan Fernández, so its combined bounds span the Pacific and the fit stays
+at zoom 4. **This is also why my earlier `?cut=13101&region=05` precedence test could not have
+failed** — `region=05` resolved to nothing before the M-07 fix. Re-tested with `?region=13`: zoom 8,
+panel closed; with `?cut=13101&region=05`: panel on Santiago at zoom 12.
+
 ## 7. Accepted and recorded, not fixed
 
 - **Residual sub-44 px targets** (16–17 per width) are the skip link, site title, locale links,

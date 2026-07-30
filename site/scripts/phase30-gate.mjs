@@ -241,6 +241,13 @@ gitDiffExitCode('zero new dependencies (package.json/package-lock.json unchanged
 
 // ---------------------------------------------------------------------------
 // Assertion 5: showModal( presence
+//
+// M-06 note: this is necessary-not-sufficient. A substring match cannot
+// distinguish `showModal()` actually being called from a `<dialog open>`
+// coexisting with a dead `showModal(` reference, or from a string literal.
+// The real proof — `dialog.matches(':modal') === true` in a live browser —
+// can only be observed at runtime; it lives in 30-06's browser pass
+// (30-CLOSE.md §3), not in this static gate.
 // ---------------------------------------------------------------------------
 (function checkShowModal() {
   if (!existsSync(ASTRO_DIR)) {
@@ -263,7 +270,15 @@ gitDiffExitCode('zero new dependencies (package.json/package-lock.json unchanged
 })();
 
 // ---------------------------------------------------------------------------
-// Assertion 6: z-index ladder in CSS (whitespace-insensitive)
+// Assertion 6: z-index ladder in CSS, bound per-selector (whitespace-insensitive)
+//
+// M-05 fix: the previous version only asked whether the strings "z-index:750",
+// "z-index:800", "z-index:801" appeared SOMEWHERE in the bundled CSS — it bound
+// no value to a selector. That could not fail: z-index:800 is emitted by the
+// pre-existing .map-topbar and .partial-year-badge rules even if .news-toggle
+// and .filter-fab lost theirs entirely. This version extracts the declaration
+// block for each pinned selector and asserts the value inside THAT block, plus
+// asserts the sheet selector carries none at all (spec §3's "z-index: none").
 // ---------------------------------------------------------------------------
 (function checkZIndex() {
   if (!existsSync(ASTRO_DIR)) {
@@ -276,9 +291,30 @@ gitDiffExitCode('zero new dependencies (package.json/package-lock.json unchanged
     return;
   }
 
-  const required = ['z-index:750', 'z-index:800', 'z-index:801'];
+  // [selector-open-token, required "prop:value" inside that block]
+  const rulesRequired = [
+    ['.news-toggle{', 'z-index:800'],
+    ['.filter-fab{', 'z-index:800'],
+    ['.legend{', 'z-index:750'],
+  ];
+  // Selectors whose block must contain NO z-index declaration at all.
+  const rulesForbidden = ['#filter-sheet{', '.filter-sheet{'];
+
   const foundRequired = new Set();
-  let legendViolation = null;
+  const missingByFile = [];
+  let forbiddenViolation = null;
+  let legendZ700Violation = null;
+
+  // Returns the declaration block body for the first occurrence of `openToken`
+  // in `stripped`, starting the scan at `searchFrom`. Returns null if not found.
+  function blockAfter(stripped, openToken, searchFrom) {
+    const idx = stripped.indexOf(openToken, searchFrom);
+    if (idx === -1) return null;
+    const bodyStart = idx + openToken.length;
+    const closeIdx = stripped.indexOf('}', bodyStart);
+    const body = closeIdx === -1 ? stripped.slice(bodyStart) : stripped.slice(bodyStart, closeIdx);
+    return { body, nextSearchFrom: idx + openToken.length };
+  }
 
   for (const f of cssFiles) {
     let text;
@@ -289,51 +325,80 @@ gitDiffExitCode('zero new dependencies (package.json/package-lock.json unchanged
     }
     const stripped = text.replace(/\s+/g, '');
 
-    for (const req of required) {
-      if (stripped.includes(req)) foundRequired.add(req);
+    for (const [selector, requiredValue] of rulesRequired) {
+      let searchFrom = 0;
+      while (true) {
+        const found = blockAfter(stripped, selector, searchFrom);
+        if (!found) break;
+        if (found.body.includes(requiredValue)) {
+          foundRequired.add(selector);
+        }
+        searchFrom = found.nextSearchFrom;
+      }
     }
 
-    // .legend{...z-index:700 must be absent. Look for ".legend{" followed
-    // (without another "}" in between) by "z-index:700".
+    for (const selector of rulesForbidden) {
+      let searchFrom = 0;
+      while (true) {
+        const found = blockAfter(stripped, selector, searchFrom);
+        if (!found) break;
+        if (found.body.includes('z-index:')) {
+          forbiddenViolation = `${f}: ${selector} contains a z-index declaration`;
+        }
+        searchFrom = found.nextSearchFrom;
+      }
+    }
+
+    // .legend{...z-index:700 must be absent (the pre-Phase-30 popup-pane tie).
     let searchFrom = 0;
     while (true) {
-      const legendIdx = stripped.indexOf('.legend{', searchFrom);
-      if (legendIdx === -1) break;
-      const closeIdx = stripped.indexOf('}', legendIdx);
-      const block = closeIdx === -1 ? stripped.slice(legendIdx) : stripped.slice(legendIdx, closeIdx);
-      if (block.includes('z-index:700')) {
-        legendViolation = f;
-        break;
+      const found = blockAfter(stripped, '.legend{', searchFrom);
+      if (!found) break;
+      if (found.body.includes('z-index:700')) {
+        legendZ700Violation = f;
       }
-      searchFrom = legendIdx + 8;
+      searchFrom = found.nextSearchFrom;
     }
-    if (legendViolation) break;
   }
 
-  const missing = required.filter((r) => !foundRequired.has(r));
+  const missing = rulesRequired.filter(([selector]) => !foundRequired.has(selector));
   if (missing.length > 0) {
-    fail('z-index ladder present', `Missing required value(s) in dist/_astro/*.css: ${missing.join(', ')}`);
+    fail(
+      'z-index ladder present (value-per-selector)',
+      `${missing.map(([s, v]) => `${s} missing ${v}`).join('; ')} in dist/_astro/*.css`
+    );
   } else {
-    pass('z-index ladder present (750, 800, 801)');
+    pass('z-index ladder present, bound per selector (.news-toggle=800, .filter-fab=800, .legend=750)');
   }
 
-  if (legendViolation) {
-    fail('.legend z-index:700 absent', `Found ".legend{...z-index:700" in ${legendViolation}`);
+  if (forbiddenViolation) {
+    fail('filter sheet has no z-index', forbiddenViolation);
+  } else {
+    pass('filter sheet (#filter-sheet/.filter-sheet) carries no z-index');
+  }
+
+  if (legendZ700Violation) {
+    fail('.legend z-index:700 absent', `Found ".legend{...z-index:700" in ${legendZ700Violation}`);
   } else {
     pass('.legend z-index:700 absent');
   }
 })();
 
 // ---------------------------------------------------------------------------
-// Assertion 7: no react-leaflet declarative components in map source
+// Assertion 7: no react-leaflet declarative components anywhere in site/src,
+// and no react-leaflet dependency in package.json
+//
+// M-06 fix: was scoped to site/src/components/map/**  and .tsx/.ts only. F-47
+// bans a declarative react-leaflet layer "anywhere", and a <GeoJSON> in
+// site/src/pages or site/src/lib, or in a .jsx/.js file, previously passed.
 // ---------------------------------------------------------------------------
 (function checkReactLeaflet() {
-  const MAP_SRC_DIR = path.join(SITE_ROOT, 'src', 'components', 'map');
-  if (!existsSync(MAP_SRC_DIR)) {
-    fail('react-leaflet declarative usage absent', `Directory not found: ${MAP_SRC_DIR}`);
+  const SRC_DIR = path.join(SITE_ROOT, 'src');
+  if (!existsSync(SRC_DIR)) {
+    fail('react-leaflet declarative usage absent', `Directory not found: ${SRC_DIR}`);
     return;
   }
-  const srcFiles = listFiles(MAP_SRC_DIR, ['.tsx', '.ts']);
+  const srcFiles = listFiles(SRC_DIR, ['.tsx', '.ts', '.jsx', '.js']);
   // JSX-component patterns (<GeoJSON, <Marker) must not be followed by a "."
   // or word char — that would indicate a TS namespace/generic reference
   // (e.g. `useRef<GeoJSON.Feature[]>` or `L.Marker`) rather than an actual
@@ -361,7 +426,26 @@ gitDiffExitCode('zero new dependencies (package.json/package-lock.json unchanged
   if (violations.length > 0) {
     fail('react-leaflet declarative usage absent', violations.join('; '));
   } else {
-    pass('no react-leaflet declarative components (<GeoJSON, <Marker, react-leaflet import) in map source');
+    pass('no react-leaflet declarative components (<GeoJSON, <Marker, react-leaflet import) anywhere in site/src');
+  }
+
+  const pkgPath = path.join(SITE_ROOT, 'package.json');
+  if (!existsSync(pkgPath)) {
+    fail('react-leaflet dependency absent', `package.json not found: ${pkgPath}`);
+    return;
+  }
+  let pkg;
+  try {
+    pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
+  } catch (e) {
+    fail('react-leaflet dependency absent', `Could not parse package.json: ${e.message}`);
+    return;
+  }
+  const deps = { ...(pkg.dependencies || {}), ...(pkg.devDependencies || {}) };
+  if (Object.prototype.hasOwnProperty.call(deps, 'react-leaflet')) {
+    fail('react-leaflet dependency absent', `"react-leaflet" present in ${pkgPath}`);
+  } else {
+    pass('react-leaflet absent from site/package.json dependencies');
   }
 })();
 

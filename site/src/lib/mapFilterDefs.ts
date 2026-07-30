@@ -33,6 +33,15 @@ export const CHIP_DEFS = [
 
 export type ChipDef = (typeof CHIP_DEFS)[number];
 
+// M-04: single source of truth for the mode-toggle option labels, consumed by
+// both ModeField (FilterFields.tsx) and EntryPointsRail's modeLabel() so the
+// selected option and the persistent state summary can never show two
+// different names for the same state again. Base-SHA labels restored.
+export const MODE_LABELS = {
+  es: { composite: 'Índice', family: 'Por delito' },
+  en: { composite: 'Index', family: 'By crime' },
+} as const;
+
 // Available years: current year → 2005, newest first.
 const CEAD_EARLIEST_YEAR = 2005;
 export const AVAILABLE_YEARS: number[] = Array.from(

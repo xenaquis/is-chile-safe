@@ -21,7 +21,7 @@ export function NewsToggle({ lang, showEvents, onEventsToggle }: Props) {
       type="button"
       data-role="news-toggle"
       aria-pressed={showEvents}
-      aria-label={strings.map_news_toggle_long}
+      aria-label={strings.map_news_toggle_aria}
       className={`news-toggle${showEvents ? ' active' : ''}`}
       onClick={() => onEventsToggle(!showEvents)}
     >

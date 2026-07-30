@@ -6,7 +6,7 @@
 import React from 'react';
 import { SearchBox, type CommuneIndexEntry } from './SearchBox';
 import { NewsToggle } from './NewsToggle';
-import { EntryPointsRail } from './EntryPointsRail';
+import { EntryPointsRail, StateSummary } from './EntryPointsRail';
 import { FilterSheet } from './FilterSheet';
 
 interface Props {
@@ -48,6 +48,7 @@ export function MapTopbar({
           onLocate={onLocate}
         />
         <NewsToggle lang={lang} showEvents={showEvents} onEventsToggle={onEventsToggle} />
+        <StateSummary lang={lang} year={year} crimeFamily={crimeFamily} mode={mode} />
       </div>
       <EntryPointsRail
         lang={lang}

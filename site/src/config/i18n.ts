@@ -226,6 +226,7 @@ export interface I18nStrings {
   map_entry_mode: string;
   map_news_toggle_long: string;
   map_news_toggle_short: string;
+  map_news_toggle_aria: string;
   map_filters_fab: string;
 }
 
@@ -455,6 +456,7 @@ export const EN_STRINGS: I18nStrings = {
   map_entry_mode: 'Map mode',
   map_news_toggle_long: 'Recent incidents',
   map_news_toggle_short: 'News',
+  map_news_toggle_aria: 'Show recent press incidents on the map',
   map_filters_fab: 'Filters',
 };
 
@@ -687,6 +689,7 @@ export const ES_STRINGS: I18nStrings = {
   map_entry_mode: 'Modo',
   map_news_toggle_long: 'Noticias recientes',
   map_news_toggle_short: 'Noticias',
+  map_news_toggle_aria: 'Mostrar incidentes recientes de prensa en el mapa',
   map_filters_fab: 'Filtros',
 };
 

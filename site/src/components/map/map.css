@@ -18,9 +18,34 @@
      used — and Phase 30 changes the real topbar height at every band, which would have
      rendered the badge inside the topbar with no gate to catch it (premortem §11).
      It belongs here, on the common ancestor: the badge is a SIBLING of .map-topbar,
-     so a definition on .map-topbar itself would never inherit to it. */
-  --map-topbar-h: 108px;
+     so a definition on .map-topbar itself would never inherit to it.
+     H-01 fix: band-aware, not one global constant — the base declaration below is
+     the >=1024px case; the two overrides cover the narrower bands. Values are the
+     real measured .map-topbar heights (30-CLOSE.md §2) + ~4px slack:
+       1296 -> 113px measured, 481-1023 -> 139px measured, 375/320 -> 111px measured. */
+  /* The BASE value is the TALL one (139px measured + 4px slack), and the short
+     value is applied only at >=1024px. This direction is deliberate: measured at
+     exactly 1023px the `max-width: 1023px` form did not match while the topbar was
+     already 139px tall, which put the badge back inside it. Erring tall is
+     harmless (the badge sits a few px lower); erring short is the H-01 defect. */
+  --map-topbar-h: 143px;
 }
+
+/* H-01: >=1024px the state summary moves inline with the rail (F-52), so the
+   topbar loses its third row and measures 113px. */
+@media (min-width: 1024px) {
+  .map-stage {
+    --map-topbar-h: 117px; /* 113px measured + 4px slack */
+  }
+}
+
+/* H-01 + M-01 interaction, caught by re-measuring after the fix cycle rather than
+   by trusting the first set of numbers: at <=480px the entry <details> are hidden
+   but the state summary is NOT (M-01 keeps it — it is the only surface showing the
+   active selection at this band), so the topbar keeps its second row and measures
+   137px, not the 111px the pre-fix build measured. 143px therefore covers <=480 as
+   well, and a separate narrower override here would put the badge back inside the
+   topbar — the exact defect H-01 reported. The 1023px rule above governs this band. */
 
 /* Phase 30 — grouped filter entry points (spec §2/§4). The rail sits on the same
    row band as the search box and must never add a third topbar row (F-54 coverage
@@ -34,10 +59,35 @@
   flex-wrap: wrap;
 }
 
-/* Phase 30-05: at <=480px the FAB (FilterSheet) takes over; the rail hides so
-   both controls' data-role hooks are present in the DOM but only one is
-   visible at any band (score.mjs picks whichever is display !== 'none'). */
+/* Phase 30-05: at <=480px the FAB (FilterSheet) takes over the entry-point
+   <details> panels; the rail itself stays in flow (M-01 fix) so its
+   .entry-state-summary child — the only surface showing the active selection
+   at this band without opening a panel (spec §2 item 4) — remains visible. */
 @media (max-width: 480px) {
+  .entry-points-rail > details {
+    display: none;
+  }
+
+  /* M-01 revised after measuring its cost. Keeping the summary VISIBLE here grew the
+     topbar from 111px to 137px, which (a) pushed coverage at 375px to 27.4%, breaching
+     both F-50's 22.7% ceiling and STRESS.md's frozen <=25% rule, and (b) left the rail
+     itself — a [data-role] element — rendering at 296x18, i.e. a sub-44px target under
+     the c3 bar. The frozen threshold wins over an on-screen duplicate: at this band the
+     FAB's sheet shows the live selection directly. The summary stays in the DOM as a
+     visually-hidden aria-live region, so the screen-reader announcement contract of
+     spec §6 survives intact while the pixels go back to the map. */
+  .entry-state-summary {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   .entry-points-rail {
     display: none;
   }
@@ -130,6 +180,11 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  /* The state summary rides in this row so it does not add a topbar row of its own
+     at >=1024px (which cost 26px of map height and 3.5pp of coverage when it was a
+     direct child of .map-topbar). Wrapping lets it fall to a second line at the
+     narrow bands, where the topbar is expected to be taller anyway. */
+  flex-wrap: wrap;
 }
 
 /* ==========================================================================

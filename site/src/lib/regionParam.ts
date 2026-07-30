@@ -20,12 +20,31 @@ export function resolveRegionFocus(
   search: string,
   idx: CommuneIndexEntry[]
 ): string[] | null {
-  const focusRegion = new URLSearchParams(search).get('region');
-  if (!focusRegion) return null;
+  const raw = new URLSearchParams(search).get('region');
+  if (!raw) return null;
+
+  // M-07: region_id in data/cead/meta/index.json is unpadded ("1"…"16"), but
+  // ?region=05 is the padded form used elsewhere in Chilean CUT data (and the
+  // premortem's own worked example). Trim whitespace and strip leading zeros
+  // before matching so a valid padded value doesn't silently degrade to "no
+  // focus" — that's indistinguishable from the feature never having worked.
+  const norm = raw.trim().replace(/^0+(?=\d)/, '');
 
   const cuts = idx
-    .filter((c) => c.region_id === focusRegion)
+    .filter((c) => c.region_id === norm)
     .map((c) => c.cut);
 
   return cuts.length > 0 ? cuts : null;
+}
+
+/**
+ * M-07: the "?cut= wins over ?region=" precedence rule, extracted from
+ * MapIsland.tsx as a tiny pure helper so it is directly testable — previously
+ * it lived only as an inline guard with no test coverage of its own.
+ * Returns true when there is no valid 4-5 digit ?cut= present, i.e. region
+ * focus should be applied.
+ */
+export function shouldApplyRegionFocus(search: string): boolean {
+  const focusCut = new URLSearchParams(search).get('cut');
+  return !(focusCut !== null && /^\d{4,5}$/.test(focusCut));
 }
