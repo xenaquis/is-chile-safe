@@ -468,10 +468,382 @@ if (strayArtifacts.length > 0) {
 }
 
 // ---------------------------------------------------------------------------
+// Assertion 11: anchorDate correctness + UTC timeZone on page-level
+// toLocaleDateString month formatting.
+//
+// Reuses the `newestDate` local already computed above (assertion 8) rather
+// than recomputing a third time. Falsifiable counterexample (manually
+// demonstrated once, not executed by this file): point FACETS_CURRENT_JSON at
+// a tmp fixture whose max incident date is moved back one day -> RED, because
+// the rendered anchorDate would then differ from the independently
+// recomputed newestDate. Second counterexample: remove `timeZone: 'UTC'` from
+// a `toLocaleDateString(...)` call with a `month:` option in either page's
+// source -> RED (closes the gap left by assertion 9, which only scans
+// newsFacets.ts and never reads the .astro pages).
+// ---------------------------------------------------------------------------
+for (const [locale, distPath] of DIST_PAGES) {
+  const distHtml = readFileSync(distPath, 'utf-8');
+  const facetsMatch = distHtml.match(
+    /<script type="application\/json" id="news-facets">([\s\S]*?)<\/script>/
+  );
+  if (!facetsMatch) {
+    fail(`assertion 11 — could not find #news-facets JSON node in ${locale} built page`);
+  }
+  let renderedFacets;
+  try {
+    renderedFacets = JSON.parse(facetsMatch[1]);
+  } catch (err) {
+    fail(`assertion 11 — could not parse ${locale} #news-facets JSON — ${err.message}`);
+  }
+  if (renderedFacets.anchorDate !== newestDate) {
+    fail(
+      `assertion 11 — ${locale} rendered anchorDate "${renderedFacets.anchorDate}" !== ` +
+        `independently-recomputed newest date "${newestDate}"`
+    );
+  }
+}
+for (const [locale, pagePath] of SERIALIZATION_SITES) {
+  const pageSrc = readFileSync(pagePath, 'utf-8');
+  const monthCalls = Array.from(pageSrc.matchAll(/toLocaleDateString\(([^)]*month:[^)]*)\)/gs));
+  for (const call of monthCalls) {
+    if (!/timeZone:\s*['"]UTC['"]/.test(call[1])) {
+      fail(
+        `assertion 11 — ${locale} page has a toLocaleDateString(...) call with a ` +
+          `"month:" option but no "timeZone: 'UTC'" — call snippet: ${call[0].slice(0, 80)}`
+      );
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Assertion 12: card-count == incident-count (NEWSUI-02 static superset).
+//
+// Matches `<article ...class="...news-card..."...>` order-independently over
+// attributes, NOT a bare substring count (which also matches the inlined
+// `.news-card` CSS rule text — VERIFIED: bare substring returns 1216 vs the
+// correct 1215). Falsifiable counterexample: render with one incident
+// dropped -> RED.
+// ---------------------------------------------------------------------------
+for (const [locale, distPath] of DIST_PAGES) {
+  const distHtml = readFileSync(distPath, 'utf-8');
+  const cardMatches = distHtml.match(/<article\b[^>]*\bclass="[^"]*\bnews-card\b[^"]*"/g) ?? [];
+  if (cardMatches.length !== incidents.length) {
+    fail(
+      `assertion 12 — ${locale} news-card count (${cardMatches.length}) !== ` +
+        `incidents.length (${incidents.length})`
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Assertion 13: EN/ES i18n key parity for all news_* keys (digit-safe).
+//
+// Falsifiable counterexample: delete one news_* key from ES_STRINGS -> RED.
+// ---------------------------------------------------------------------------
+const I18N_TS_PATH = path.join(SITE_ROOT, 'src', 'config', 'i18n.ts');
+if (!existsSync(I18N_TS_PATH)) {
+  fail(`assertion 13 — i18n.ts not found at ${I18N_TS_PATH}`);
+}
+const i18nSrc = readFileSync(I18N_TS_PATH, 'utf-8');
+function extractBlock(src, anchor) {
+  const idx = src.indexOf(anchor);
+  if (idx === -1) return null;
+  // From the anchor to the next top-level "};" close (mirrors this file's
+  // style of parsing TS source with string ops rather than importing it).
+  const closeIdx = src.indexOf('\n};', idx);
+  return closeIdx === -1 ? src.slice(idx) : src.slice(idx, closeIdx);
+}
+const enBlock = extractBlock(i18nSrc, 'export const EN_STRINGS');
+const esBlock = extractBlock(i18nSrc, 'export const ES_STRINGS');
+if (!enBlock) fail('assertion 13 — could not locate "export const EN_STRINGS" in i18n.ts');
+if (!esBlock) fail('assertion 13 — could not locate "export const ES_STRINGS" in i18n.ts');
+function extractNewsKeys(block) {
+  return new Set(Array.from(block.matchAll(/^\s*(news_[a-z0-9_]+)\s*:/gm)).map((m) => m[1]));
+}
+const enNewsKeys = extractNewsKeys(enBlock);
+const esNewsKeys = extractNewsKeys(esBlock);
+if (enNewsKeys.size < 15) {
+  fail(`assertion 13 — EN_STRINGS harvested only ${enNewsKeys.size} news_* keys, expected >= 15`);
+}
+if (esNewsKeys.size < 15) {
+  fail(`assertion 13 — ES_STRINGS harvested only ${esNewsKeys.size} news_* keys, expected >= 15`);
+}
+for (const key of enNewsKeys) {
+  if (!esNewsKeys.has(key)) {
+    fail(`assertion 13 — news_* key "${key}" present in EN_STRINGS but missing from ES_STRINGS`);
+  }
+}
+for (const key of esNewsKeys) {
+  if (!enNewsKeys.has(key)) {
+    fail(`assertion 13 — news_* key "${key}" present in ES_STRINGS but missing from EN_STRINGS`);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Assertion 14: empty-state node presence — id="news-empty", ships `hidden`
+// in the initial render, and is not an h1/h2.
+//
+// Falsifiable counterexample: remove `hidden` from #news-empty, or delete
+// the node -> RED.
+// ---------------------------------------------------------------------------
+for (const [locale, distPath] of DIST_PAGES) {
+  const distHtml = readFileSync(distPath, 'utf-8');
+  const emptyMatch = distHtml.match(/<(\w+)\b([^>]*\bid="news-empty"[^>]*)>/);
+  if (!emptyMatch) {
+    fail(`assertion 14 — ${locale} built page has no element with id="news-empty"`);
+  }
+  const [, tagName, attrs] = emptyMatch;
+  if (!/\bhidden\b/.test(attrs)) {
+    fail(`assertion 14 — ${locale} #news-empty node does not ship the "hidden" attribute`);
+  }
+  if (/^h[12]$/i.test(tagName)) {
+    fail(`assertion 14 — ${locale} #news-empty is a <${tagName}> heading, expected a non-heading element`);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Assertion 15: no-island — dist HTML never contains Astro's hydration
+// marker "astro-island" (structural proof of NEWSUI-06's no-hydration
+// claim). Falsifiable counterexample: add any client: directive -> RED
+// (astro-island would then appear in the built output).
+// ---------------------------------------------------------------------------
+for (const [locale, distPath] of DIST_PAGES) {
+  const distHtml = readFileSync(distPath, 'utf-8');
+  if (distHtml.includes('astro-island')) {
+    fail(`assertion 15 — ${locale} built page contains "astro-island" (unexpected hydration island)`);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Assertion 16: no cluster markup — news_cluster_source_count (Plan 28-01's
+// reserved, unwired key) must never be CONSUMED by either page's template.
+// Checked against the two .astro sources only, never i18n.ts (which is
+// expected/required to hold the reserved key per assertion 13).
+//
+// Falsifiable counterexample: add a source-count badge element referencing
+// the key or one of these class tokens to either page -> RED.
+// ---------------------------------------------------------------------------
+const CLUSTER_MARKUP_PATTERNS = [
+  /news-source-count/,
+  /news-cluster/,
+  /source-count/,
+  /sources<\//,
+  /fuentes<\//,
+];
+for (const [locale, pagePath] of SERIALIZATION_SITES) {
+  const pageSrc = readFileSync(pagePath, 'utf-8');
+  for (const pattern of CLUSTER_MARKUP_PATTERNS) {
+    if (pattern.test(pageSrc)) {
+      fail(`assertion 16 — ${locale} page source contains cluster-markup pattern ${pattern}`);
+    }
+  }
+}
+for (const [locale, distPath] of DIST_PAGES) {
+  const distHtml = readFileSync(distPath, 'utf-8');
+  for (const pattern of CLUSTER_MARKUP_PATTERNS) {
+    if (pattern.test(distHtml)) {
+      fail(`assertion 16 — ${locale} built page contains cluster-markup pattern ${pattern}`);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Assertion 17: F-27 bundling proof — the shipped page script (inline OR
+// chunked, whichever emission shape Astro actually produced) must contain
+// the FILTER_LOGIC_MARKER string literal ('newsFilterLogic/v1'). Identifiers
+// are mangled by minification; only string literals survive, which is why
+// this asserts against the literal rather than any function/variable name.
+//
+// Collects (a) all inline <script type="module"> bodies in the page, and
+// (b) the contents of every dist/_astro/*.js referenced via
+// <script type="module" src="/_astro/...">, PLUS one level of that chunk's
+// own static import specifiers (Rollup may hoist newsFilterLogic into a
+// shared chunk — VERIFIED on the current tree: news.astro's page script
+// imports from "./newsFilterLogic.BS0afx7K.js", which is where the marker
+// actually lives).
+//
+// Falsifiable counterexample (manually demonstrated once): delete the
+// import line from news.astro's script, rebuild, confirm this fails for the
+// en locale, restore, reconfirm green.
+// ---------------------------------------------------------------------------
+const ASTRO_DIR = path.join(SITE_ROOT, 'dist', '_astro');
+for (const [locale, distPath] of DIST_PAGES) {
+  const distDir = path.dirname(distPath);
+  const distHtml = readFileSync(distPath, 'utf-8');
+  const searched = [];
+  let combined = '';
+
+  for (const m of distHtml.matchAll(/<script type="module">([\s\S]*?)<\/script>/g)) {
+    combined += m[1];
+    searched.push('(inline)');
+  }
+
+  for (const m of distHtml.matchAll(/<script type="module" src="([^"]+)"><\/script>/g)) {
+    const srcAttr = m[1];
+    const chunkPath = srcAttr.startsWith('/')
+      ? path.join(SITE_ROOT, 'dist', srcAttr)
+      : path.join(distDir, srcAttr);
+    searched.push(chunkPath);
+    if (!existsSync(chunkPath)) continue;
+    const chunkSrc = readFileSync(chunkPath, 'utf-8');
+    combined += chunkSrc;
+
+    // One level of that chunk's own static import specifiers.
+    for (const im of chunkSrc.matchAll(/from"(\.\/[^"]+\.js)"|from '(\.\/[^']+\.js)'/g)) {
+      const spec = im[1] || im[2];
+      const importedPath = path.join(ASTRO_DIR, path.basename(spec));
+      searched.push(importedPath);
+      if (existsSync(importedPath)) {
+        combined += readFileSync(importedPath, 'utf-8');
+      }
+    }
+  }
+
+  if (!combined.includes('newsFilterLogic/v1')) {
+    fail(
+      `assertion 17 — ${locale} page's shipped module script(s) do not contain the ` +
+        `FILTER_LOGIC_MARKER literal "newsFilterLogic/v1". Scripts searched: ${searched.join(', ')}`
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Assertion 18: filter-control presence + no unsubstituted {n}/{date} tokens
+// (NEWSUI-01, NEWSUI-03, F-32).
+//
+// Falsifiable counterexamples: delete the comuna input -> RED; render
+// news_window_latest without substituting {date} -> RED; drop the
+// data-result-count-template carrier -> RED.
+// ---------------------------------------------------------------------------
+for (const [locale, distPath] of DIST_PAGES) {
+  const distHtml = readFileSync(distPath, 'utf-8');
+  const requiredIds = ['news-filters', 'news-comuna-q', 'news-result-count', 'news-clear-filters'];
+  for (const id of requiredIds) {
+    if (!distHtml.includes(`id="${id}"`)) {
+      fail(`assertion 18 — ${locale} built page missing required id="${id}"`);
+    }
+  }
+  for (const facet of ['window', 'region', 'family']) {
+    if (!distHtml.includes(`data-facet="${facet}"`)) {
+      fail(`assertion 18 — ${locale} built page missing fieldset with data-facet="${facet}"`);
+    }
+  }
+  for (const facet of ['region', 'family']) {
+    const fieldsetMatch = distHtml.match(
+      new RegExp(`data-facet="${facet}"[\\s\\S]*?</fieldset>`)
+    );
+    if (!fieldsetMatch || !/<input\b[^>]*type="checkbox"/.test(fieldsetMatch[0])) {
+      fail(`assertion 18 — ${locale} built page's ${facet} fieldset has no checkbox input`);
+    }
+  }
+
+  // Exact form per plan (F-32): strip the one required data-result-count-template
+  // carrier, then scan for unsubstituted tokens.
+  const scan = distHtml.replace(/\sdata-result-count-template="[^"]*"/g, '');
+  if (scan.includes('{n}') || scan.includes('{date}')) {
+    fail(`assertion 18 — ${locale}: unsubstituted token in rendered markup`);
+  }
+  if ((distHtml.match(/data-result-count-template="/g) || []).length !== 1) {
+    fail(`assertion 18 — ${locale}: expected exactly one data-result-count-template`);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Assertion 19: canonical + route count unchanged (no new indexable URL).
+//
+// Falsifiable counterexample: add a "?family=robos" link -> RED.
+// ---------------------------------------------------------------------------
+const EXPECTED_CANONICAL = new Map([
+  ['EN', 'https://ischilesafe.com/news/'],
+  ['ES', 'https://ischilesafe.com/es/noticias/'],
+]);
+const FORBIDDEN_QUERY_PARAMS = ['?family=', '?region=', '?window=', '?q='];
+for (const [locale, distPath] of DIST_PAGES) {
+  const distHtml = readFileSync(distPath, 'utf-8');
+  const canonicalMatch = distHtml.match(/<link rel="canonical" href="([^"]*)"/);
+  if (!canonicalMatch || canonicalMatch[1] !== EXPECTED_CANONICAL.get(locale)) {
+    fail(
+      `assertion 19 — ${locale} canonical is "${canonicalMatch ? canonicalMatch[1] : '(missing)'}", ` +
+        `expected "${EXPECTED_CANONICAL.get(locale)}"`
+    );
+  }
+  if (/<link rel="alternate"[^>]*\?(family|region|window|q)=/.test(distHtml)) {
+    fail(`assertion 19 — ${locale} built page emits a query-string <link rel="alternate">`);
+  }
+  for (const hrefMatch of distHtml.matchAll(/<a\b[^>]*\bhref="([^"]*)"/g)) {
+    for (const param of FORBIDDEN_QUERY_PARAMS) {
+      if (hrefMatch[1].includes(param)) {
+        fail(`assertion 19 — ${locale} built page has an internal <a href> containing "${param}": ${hrefMatch[1]}`);
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Assertion 20: no innerHTML/outerHTML/insertAdjacentHTML/document.write with
+// data-derived strings (NEWSUI-06). set:html remains permitted only on the
+// single #news-facets node (assertion 7), counted via the ATTRIBUTE form
+// (`set:html=`), exactly 1 per page — never the bare token, which is 2 in
+// both pages today because of a Phase 27 explanatory comment.
+//
+// Falsifiable counterexample: replace a textContent = with innerHTML = in
+// either source -> RED.
+// ---------------------------------------------------------------------------
+const FORBIDDEN_DOM_SINKS = [/innerHTML/, /outerHTML/, /insertAdjacentHTML/, /document\.write/];
+const NEWS_FILTER_LOGIC_TS_PATH = path.join(SITE_ROOT, 'src', 'lib', 'newsFilterLogic.ts');
+const SOURCE_SCAN_FILES = [
+  ['EN', path.join(SITE_ROOT, 'src', 'pages', 'news.astro')],
+  ['ES', path.join(SITE_ROOT, 'src', 'pages', 'es', 'noticias.astro')],
+  ['shared', NEWS_FILTER_LOGIC_TS_PATH],
+];
+for (const [locale, filePath] of SOURCE_SCAN_FILES) {
+  if (!existsSync(filePath)) {
+    fail(`assertion 20 — ${locale} source file not found at ${filePath}`);
+  }
+  const src = readFileSync(filePath, 'utf-8');
+  // Strip // line comments before scanning — a doc comment merely NAMING a
+  // forbidden sink (e.g. "never innerHTML") must not read as a violation.
+  // Mirrors the same false-positive class the plan calls out for the
+  // set:html bare-token scan below.
+  const codeOnly = src
+    .split('\n')
+    .map((line) => line.replace(/\/\/.*$/, ''))
+    .join('\n');
+  for (const pattern of FORBIDDEN_DOM_SINKS) {
+    if (pattern.test(codeOnly)) {
+      fail(`assertion 20 — ${locale} source (${filePath}) contains forbidden DOM sink ${pattern}`);
+    }
+  }
+}
+for (const [locale, pagePath] of SERIALIZATION_SITES) {
+  const pageSrc = readFileSync(pagePath, 'utf-8');
+  const setHtmlAttrCount = (pageSrc.match(/set:html=/g) || []).length;
+  if (setHtmlAttrCount !== 1) {
+    fail(
+      `assertion 20 — ${locale} page has ${setHtmlAttrCount} set:html= attribute occurrence(s), expected exactly 1`
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Assertion 21: no client: directive at source level (hardens assertion 15
+// upstream of the build). Falsifiable counterexample: add client:load to any
+// element in either page -> RED.
+// ---------------------------------------------------------------------------
+const CLIENT_DIRECTIVE_PATTERN = /client:(load|idle|visible|only|media)/;
+for (const [locale, pagePath] of SERIALIZATION_SITES) {
+  const pageSrc = readFileSync(pagePath, 'utf-8');
+  if (CLIENT_DIRECTIVE_PATTERN.test(pageSrc)) {
+    fail(`assertion 21 — ${locale} page source contains a client: directive`);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // All assertions passed
 // ---------------------------------------------------------------------------
 console.log(
   `PASS facets: ${incidents.length} incidents, ${familyCounts.size} families observed, ` +
     `${indexData.length} communes cross-checked, ${unionMonths.size} months in byMonth union, ` +
-    `window(today=${todayCount},7d=${sevenDayCount},30d=${thirtyDayCount}), TZ-determinism verified`
+    `window(today=${todayCount},7d=${sevenDayCount},30d=${thirtyDayCount}), TZ-determinism verified, ` +
+    `21 assertions passed`
 );

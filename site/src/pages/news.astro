@@ -81,8 +81,8 @@ function formatMonth(yearMonth: string): string {
   const y = parseInt(year, 10);
   const m = parseInt(month, 10);
   if (isNaN(y) || isNaN(m)) return yearMonth;
-  const d = new Date(y, m - 1, 1);
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+  const d = new Date(Date.UTC(y, m - 1, 1));
+  return d.toLocaleDateString('en-US', { timeZone: 'UTC', year: 'numeric', month: 'long' });
 }
 
 // Format generated date for display
@@ -90,6 +90,7 @@ let formattedDate = '';
 if (generated) {
   try {
     formattedDate = new Date(generated).toLocaleDateString('en-US', {
+      timeZone: 'UTC',
       year: 'numeric',
       month: 'long',
       day: 'numeric',

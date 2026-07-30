@@ -55,6 +55,7 @@ let formattedDate = '';
 if (generated) {
   try {
     formattedDate = new Date(generated).toLocaleDateString('es-CL', {
+      timeZone: 'UTC',
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -94,8 +95,8 @@ function formatMonth(yearMonth: string): string {
   const y = parseInt(year, 10);
   const m = parseInt(month, 10);
   if (isNaN(y) || isNaN(m)) return yearMonth;
-  const d = new Date(y, m - 1, 1);
-  return d.toLocaleDateString('es-CL', { year: 'numeric', month: 'long' });
+  const d = new Date(Date.UTC(y, m - 1, 1));
+  return d.toLocaleDateString('es-CL', { timeZone: 'UTC', year: 'numeric', month: 'long' });
 }
 
 // Ordenar más recientes primero (TD-03)
