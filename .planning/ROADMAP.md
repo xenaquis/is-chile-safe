@@ -314,7 +314,17 @@ Plans:
   4. All 8 news crime-family facets (including the news-only `sexuales`) are present with correct per-option counts (e.g. "Robo (14)"), and CEAD's `FAMILY_KEYS` remains unmodified at 7.
   5. No facet artifact is written under `site/**`, no new derived JSON is committed, `@astrojs/check` is clean on the new code, and the full validator suite plus page-count budget stay green with no new indexable URLs introduced.
 
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+
+**Wave 1**
+
+- [ ] 27-01-PLAN.md — newsFacets.ts (computeNewsFacets: byFamily/byRegion/byWindow/byMonth) + facets.mjs validator registered as #16
+
+**Wave 2**
+
+- [ ] 27-02-PLAN.md — Wire news.astro + es/noticias.astro to computeNewsFacets(); chained build+validate+check+pytest phase-close gate
 
 ### Phase 28: News Visualizer UI
 
@@ -427,7 +437,7 @@ Plans:
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |
 | 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete    | 2026-07-03 |
 | 26. Event Clustering Spike | 4/4 | Complete   | 2026-07-29 |
-| 27. News Facet Data Model | 0/? | Not started | - |
+| 27. News Facet Data Model | 0/2 | Planned | - |
 | 28. News Visualizer UI | 0/? | Not started | - |
 | 29. Map UX Design Loop | 0/? | Not started | - |
 | 30. Map Control-Shell Rework | 0/? | Not started | - |
