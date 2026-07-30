@@ -371,7 +371,11 @@ Plans:
   4. A lightweight live click-through of at least one comparable product (police.uk or CityProtect) is performed in BrowserOS and its findings inform at least one design iteration.
   5. The loop terminates in a written, accepted design spec, and a human explicitly signs off (the acceptance gate) before Phase 30 is allowed to start — recorded in STATE.md / the phase's plan artifacts.
 
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 29-01-PLAN.md — Iteration 1: always-visible news toggle + mobile dialog bottom sheet, scored against the falsifiable rubric
+- [ ] 29-02-PLAN.md — Iteration 2 (competitor-informed grouped filter entry points), design spec, Fable-proxy acceptance gate
 **UI hint**: yes
 
 ### Phase 30: Map Control-Shell Rework
