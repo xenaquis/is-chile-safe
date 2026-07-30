@@ -154,6 +154,11 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 
 ### Blockers
 
+- **`freshness` validator RED at Phase 28's close — F-19 environmental exclusion APPLIED (2026-07-30).** The phase closes on **15/16 validators, freshness excluded**. Both of F-19's preconditions were checked and hold:
+  - (a) The failure output is **exactly** the age assertion, not missing-file and not an unparseable `generated`: `FAIL freshness: data/incidents/current.json is 3.0 days old (generated: 2026-07-27T14:25:05.303451Z)`.
+  - (b) `git log -1 --format=%ci origin/master -- data/incidents/current.json` → **2026-07-30 02:02:51 +0000**, i.e. within 3 days. The news cron is alive; this checkout is merely unpulled, because the directive reserves `git pull --rebase` for the user's return.
+  Nothing was remediated. None of F-19's BANNED actions was taken: `MAX_AGE_DAYS` unchanged, the validator not edited/skipped/deleted/unregistered, `data/` untouched, no `git pull`/`rebase`/`push`. It was green at 2.7 days when Phase 27 closed and at 3.0 days mid-Phase-28; it flipped purely from elapsed time. **This resolves itself the moment the user pulls** — it is not a code defect and there is nothing for a future phase to fix. Phases 29–33 should expect it to stay red and apply the same branch (F-33/F-34: the gate goes red, the orchestrator decides out of band).
+
 - **Freshness validator (was #15, now #16 counting `facets.mjs`) — RESOLVED at Phase 27 close, watch for recurrence.** At Phase 27's gate run (2026-07-30), `data/incidents/current.json` was 2.7 days old (`generated: 2026-07-27T14:25:05Z`) — under the `MAX_AGE_DAYS=3` threshold, so `freshness` PASSED outright and the phase closed a plain 16/16 (F-19's environmental-exclusion branch was NOT needed). This entry is kept as a standing note: the underlying cause (local checkout behind `origin/master`'s news cron commits, `git pull --rebase` reserved for the user's return) is unchanged, and `freshness` may flip red again in a later phase purely from elapsed time. If it does, F-19's pre-declared branch (STATE.md Fable Decisions) governs — do not improvise.
 
 ### Phase 26 Outcome — NO-GO (read this before Phase 27/28)
