@@ -13,6 +13,7 @@ import {
   computeFacetCounts,
   FILTER_LOGIC_MARKER,
   WINDOW_7D_WIDTH_DAYS,
+  WINDOW_30D_WIDTH_DAYS,
   type CardFilterState,
   type FilterParams,
 } from './newsFilterLogic';
@@ -128,5 +129,35 @@ describe('newsFilterLogic', () => {
   it('Test 12 (WR-01 regression): serializeFilterParams with an all-empty filter state returns an empty string', () => {
     const empty: FilterParams = { family: [], region: [], window: '', q: '' };
     expect(serializeFilterParams(empty)).toBe('');
+  });
+
+  it('Test 13 (WR-03, mutation-tested): matchesWindow 30d boundary is inclusive at width-1 days back, exclusive one day further', () => {
+    const newestDate = '2026-07-28';
+    // WINDOW_30D_WIDTH_DAYS - 1 = 29 days back from anchor = 2026-06-29 (inclusive boundary)
+    const boundaryDate = '2026-06-29';
+    const oneDayFurther = '2026-06-28';
+    expect(matchesWindow(boundaryDate, newestDate, '30d')).toBe(true);
+    expect(matchesWindow(oneDayFurther, newestDate, '30d')).toBe(false);
+    // Sanity: the constant used for this test is indeed 30 (mutation target).
+    expect(WINDOW_30D_WIDTH_DAYS).toBe(30);
+  });
+
+  it('Test 14 (WR-03, mutation-tested): matchesWindow "today" matches only the anchor date exactly', () => {
+    expect(matchesWindow('2026-07-28', '2026-07-28', 'today')).toBe(true);
+    expect(matchesWindow('2026-07-27', '2026-07-28', 'today')).toBe(false);
+    expect(matchesWindow('2026-07-29', '2026-07-28', 'today')).toBe(false);
+  });
+
+  it('Test 15 (WR-03): computeFacetCounts window dimension uses matchesWindow per key', () => {
+    const cards = makeCards();
+    const newestDate = computeNewestDate(cards.map((c) => c.date));
+    const active: FilterParams = { family: [], region: [], window: '', q: '' };
+    // makeCards() dates: 2026-07-28 (today), 07-20, 07-15, 07-10, 2026-06-01, 2026-05-01
+    // newestDate = 2026-07-28
+    // today: only 07-28 -> 1
+    // 7d (anchor-6 = 07-22): only 07-28 -> 1
+    // 30d (anchor-29 = 06-29): 07-28, 07-20, 07-15, 07-10 -> 4
+    const counts = computeFacetCounts(cards, active, newestDate, 'window', ['today', '7d', '30d']);
+    expect(counts).toEqual({ today: 1, '7d': 1, '30d': 4 });
   });
 });
