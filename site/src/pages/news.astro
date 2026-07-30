@@ -15,6 +15,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { loadIndex } from '../lib/data';
 import { FAMILY_LABELS_EN } from '../lib/familyDefs';
+import { computeNewsFacets } from '../lib/newsFacets';
 
 // Resolve from the synced public copy via process.cwd() (= site/ during `astro build`).
 // import.meta.url is unreliable at build time — compiled chunk locations differ per page,
@@ -116,6 +117,20 @@ function safeUrl(url: string): string {
   return '#';
 }
 
+// Facet index (Phase 27, FACET-01/05/06) — build-time only, inert #news-facets JSON node below.
+const archiveDir = path.resolve(process.cwd(), 'public/data/incidents/archive');
+const facets = computeNewsFacets(incidents, loadIndex(), archiveDir);
+const facetsProjection = {
+  byFamily: facets.byFamily,
+  byRegion: facets.byRegion,
+  byMonth: facets.byMonth,
+  byWindow: {
+    today: facets.byWindow.today.length,
+    sevenDay: facets.byWindow.sevenDay.length,
+    thirtyDay: facets.byWindow.thirtyDay.length,
+  },
+};
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -185,6 +200,7 @@ const jsonLd = {
       </section>
     ))
   )}
+  <script type="application/json" id="news-facets" set:html={JSON.stringify(facetsProjection)}></script>
 </EditorialLayout>
 
 <style>
