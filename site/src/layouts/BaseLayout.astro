@@ -122,7 +122,8 @@ const adsenseClient = import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID ?? '';
             if (nav.toLowerCase().startsWith('es')) {
               var esLink = document.querySelector('link[rel="alternate"][hreflang="es"]');
               if (esLink && esLink.href) {
-                window.location.replace(esLink.href);
+                var esUrl = new URL(esLink.href);
+                window.location.replace(esUrl.pathname + esUrl.search + esUrl.hash);
               }
             }
           }
