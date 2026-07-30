@@ -1,6 +1,6 @@
 # Phase 29 — Accepted Map Control-Shell Design Spec
 
-**Status**: accepted by Fable-proxy on independently-reviewed evidence (MAPUX-05). Human review **deferred, not waived**.
+**Status**: **ACCEPTED — MAPUX-05 fully discharged.** Independently Opus-reviewed (BLOCK resolved), then the human gate was closed by explicit user delegation to Fable with the priority "UI y UX" (F-46). Nothing about this acceptance remains provisional.
 **Implements**: MAPUX-01..05. **Consumed by**: Phase 30 (Map Control-Shell Rework).
 **Evidence**: `29-BASELINE.md`, `.planning/sketches/029-map-controls/` (`STRESS.md`, `MANIFEST.md`, `iter-1/`, `iter-2/`, `score.mjs`), `29-UI-CHECK.md`.
 
