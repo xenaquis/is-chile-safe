@@ -238,36 +238,96 @@ for (const yearMonth of allMonthsForCheck) {
   }
 }
 
-const NEWS_DIST_HTML_PATH = path.join(SITE_ROOT, 'dist', 'news', 'index.html');
-if (!existsSync(NEWS_DIST_HTML_PATH)) {
-  fail(`assertion 7 — built page not found at ${NEWS_DIST_HTML_PATH} (requires a prior build)`);
-}
-const newsDistHtml = readFileSync(NEWS_DIST_HTML_PATH, 'utf-8');
-const facetsMatch = newsDistHtml.match(
-  /<script type="application\/json" id="news-facets">([\s\S]*?)<\/script>/
-);
-if (!facetsMatch) {
-  fail('assertion 7 — could not find #news-facets JSON node in dist/news/index.html');
-}
-let renderedFacets;
-try {
-  // The rendered node is escaped per H-2 (`<` -> `<`) — valid JSON, parses identically.
-  renderedFacets = JSON.parse(facetsMatch[1]);
-} catch (err) {
-  fail(`assertion 7 — could not parse #news-facets JSON — ${err.message}`);
-}
-const renderedByMonth = new Map((renderedFacets.byMonth ?? []).map((m) => [m.yearMonth, m.count]));
+// RR-1 (fix cycle 2): both locales are checked, not just EN. Before this, no
+// validator ever opened dist/es/noticias/index.html, so the ES page could drift
+// or lose its facet node entirely without any gate noticing.
+const DIST_PAGES = [
+  ['EN', path.join(SITE_ROOT, 'dist', 'news', 'index.html')],
+  ['ES', path.join(SITE_ROOT, 'dist', 'es', 'noticias', 'index.html')],
+];
 
-for (const [yearMonth, expectedCount] of expectedByMonth) {
-  const actualCount = renderedByMonth.get(yearMonth);
-  if (actualCount === undefined) {
-    fail(`assertion 7 — month "${yearMonth}" missing from rendered #news-facets byMonth`);
+// RR-1 (fix cycle 2), part 1 of 2 — SOURCE-level guard on the H-2 escaping.
+//
+// The re-review proposed catching a reverted escaping by asserting the rendered
+// node contains no raw `<`. Measured: that does NOT work. The real payload
+// contains no `<` at all, so `escapeForInlineScript(JSON.stringify(p))` and a
+// bare `JSON.stringify(p)` emit byte-identical HTML — I reverted the ES page's
+// call, rebuilt, and the dist-level check still passed. The only check that
+// actually detects the control disappearing is a source-level one, so both
+// guards are kept: this one catches the revert, the dist-level `<` check below
+// catches a hostile payload that somehow reaches the page unescaped.
+const SERIALIZATION_SITES = [
+  ['EN', path.join(SITE_ROOT, 'src', 'pages', 'news.astro')],
+  ['ES', path.join(SITE_ROOT, 'src', 'pages', 'es', 'noticias.astro')],
+];
+for (const [locale, pagePath] of SERIALIZATION_SITES) {
+  if (!existsSync(pagePath)) {
+    fail(`assertion 7 — ${locale} news page source not found at ${pagePath}`);
   }
-  if (actualCount !== expectedCount) {
+  const pageSrc = readFileSync(pagePath, 'utf-8');
+  if (!pageSrc.includes('escapeForInlineScript(JSON.stringify(facetsProjection))')) {
     fail(
-      `assertion 7 — byMonth count mismatch for "${yearMonth}": rendered=${actualCount}, ` +
-        `independently-computed union=${expectedCount}`
+      `assertion 7 — ${locale} news page does not wrap the #news-facets payload in ` +
+        `escapeForInlineScript(JSON.stringify(facetsProjection)). set:html is unescaped, so a ` +
+        `"</script" sequence in a data-derived string (byFamily[].key comes from the LLM ` +
+        `classifier over scraped headlines) would break out of the script element. ` +
+        `This guard is source-level on purpose: with today's data the escaped and unescaped ` +
+        `output are byte-identical, so no dist-level check can detect the call being removed.`
     );
+  }
+}
+
+for (const [locale, distPath] of DIST_PAGES) {
+  if (!existsSync(distPath)) {
+    fail(`assertion 7 — ${locale} built page not found at ${distPath} (requires a prior build)`);
+  }
+  const distHtml = readFileSync(distPath, 'utf-8');
+  const facetsMatch = distHtml.match(
+    /<script type="application\/json" id="news-facets">([\s\S]*?)<\/script>/
+  );
+  if (!facetsMatch) {
+    fail(`assertion 7 — could not find #news-facets JSON node in ${locale} built page`);
+  }
+
+  // RR-1: page-level regression guard for the H-2 escaping.
+  //
+  // `escapeForInlineScript` turns every `<` into `<`, so a correctly
+  // serialized node can contain NO raw `<` at all. Today's real payload happens
+  // to contain no `<` either, which means reverting the escaping call in either
+  // page would produce a byte-identical dist/ and pass every other gate — the
+  // security control could vanish invisibly. This check fires on the RESULT
+  // (no raw `<` in the node) rather than on hostile input, so it holds now,
+  // before any poisoned family value exists, and it fires per locale.
+  if (facetsMatch[1].includes('<')) {
+    fail(
+      `assertion 7 — raw "<" found in the ${locale} #news-facets node: the H-2 ` +
+        `escapeForInlineScript() call is missing or was reverted on this page. A raw ` +
+        `"</script" sequence in a data-derived string would break out of the script element.`
+    );
+  }
+
+  let renderedFacets;
+  try {
+    // The rendered node is escaped per H-2 (`<` -> `<`) — valid JSON, parses identically.
+    renderedFacets = JSON.parse(facetsMatch[1]);
+  } catch (err) {
+    fail(`assertion 7 — could not parse ${locale} #news-facets JSON — ${err.message}`);
+  }
+  const renderedByMonth = new Map(
+    (renderedFacets.byMonth ?? []).map((m) => [m.yearMonth, m.count])
+  );
+
+  for (const [yearMonth, expectedCount] of expectedByMonth) {
+    const actualCount = renderedByMonth.get(yearMonth);
+    if (actualCount === undefined) {
+      fail(`assertion 7 — month "${yearMonth}" missing from ${locale} rendered #news-facets byMonth`);
+    }
+    if (actualCount !== expectedCount) {
+      fail(
+        `assertion 7 — ${locale} byMonth count mismatch for "${yearMonth}": rendered=${actualCount}, ` +
+          `independently-computed union=${expectedCount}`
+      );
+    }
   }
 }
 const unionMonths = new Set([...currentMonthIds.keys(), ...archiveMonthIds.keys()]);
