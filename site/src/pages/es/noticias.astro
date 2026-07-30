@@ -16,7 +16,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { loadIndex } from '../../lib/data';
 import { FAMILY_LABELS_ES } from '../../lib/familyDefs';
-import { computeNewsFacets } from '../../lib/newsFacets';
+import { computeNewsFacets, escapeForInlineScript } from '../../lib/newsFacets';
 
 // Resolve from the synced public copy via process.cwd() (= site/ during `astro build`).
 // import.meta.url is unreliable at build time — compiled chunk locations differ per page,
@@ -203,7 +203,10 @@ const jsonLd = {
       </section>
     ))
   )}
-  <script type="application/json" id="news-facets" set:html={JSON.stringify(facetsProjection)}></script>
+  {/* H-2: set:html no escapa; un `</script>` dentro de un string serializado (p.ej.
+      una family envenenada del clasificador LLM) cerraría este elemento antes de
+      tiempo y rompería hacia markup — escapar `<` en el borde de serialización. */}
+  <script type="application/json" id="news-facets" set:html={escapeForInlineScript(JSON.stringify(facetsProjection))}></script>
 </EditorialLayout>
 
 <style>
