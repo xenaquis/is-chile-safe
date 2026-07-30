@@ -418,6 +418,57 @@ def test_call_budget_refuses_to_start(tmp_path, monkeypatch):
     assert "NO-GO-by-cost" in content
 
 
+def test_fill_verdicts_projects_retry_worst_case(tmp_path, monkeypatch):
+    """HI-01: the pre-flight projection must account for the retry path
+    (up to 2 calls per pending pair), not just 1. With 3 pending pairs and
+    last_cumulative=1994, the OLD projection (len(pending)+1=4) would fit
+    under cap=2000 (1998 <= 2000) and admit a run that could then spend up
+    to 7 calls -- overrunning the cap with no refusal. The FIXED projection
+    (2*len(pending)+1=7) must refuse to start (1994+7=2001 > 2000)."""
+    from pipeline.scripts import build_golden_set
+
+    call_log_path = tmp_path / "26-CALL-LOG.md"
+    draft_path = tmp_path / "draft.json"
+    draft_path.write_text(
+        json.dumps(
+            {
+                "meta": {"total_pairs": 3},
+                "pairs": [
+                    {
+                        "pair_id": f"p{i}",
+                        "proposed": True,
+                        "incident_a_id": f"a{i}",
+                        "incident_b_id": f"b{i}",
+                        "incident_a": {"id": f"a{i}", "title_es": "x"},
+                        "incident_b": {"id": f"b{i}", "title_es": "y"},
+                    }
+                    for i in range(3)
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(
+        build_golden_set, "_read_last_cumulative_total", lambda path: 1994
+    )
+
+    with patch("pipeline.scripts.build_golden_set.adjudicate_pair") as mock_adjudicate:
+        result = build_golden_set.fill_verdicts(
+            draft_path=draft_path,
+            call_log_path=call_log_path,
+            final_fixture_path=tmp_path / "final.json",
+        )
+        # The budget guard must refuse before ANY adjudicate_pair call
+        # (including the preflight probe) -- proving the refusal happened
+        # on the worst-case projection, not mid-loop.
+        mock_adjudicate.assert_not_called()
+
+    assert result == 1
+    content = call_log_path.read_text(encoding="utf-8")
+    assert "NO-GO-by-cost" in content
+
+
 # ---------------------------------------------------------------------------
 # HI-06: direct unit tests for compute_pairwise_metrics — the single function
 # that decided the milestone verdict, previously exercised only via the one

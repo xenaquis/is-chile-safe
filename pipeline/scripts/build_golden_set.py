@@ -527,11 +527,15 @@ def fill_verdicts(
         total_possible_note = meta.get("total_pairs", len(pairs))
 
         pending = [p for p in pairs if p.get("proposed") and not _has_model_verdict(p)]
-        # +1 accounts for the mandatory single preflight probe call.
-        projected = len(pending) + 1
+        # Worst case is 2 calls per pending pair (primary + one retry on any
+        # non-model outcome, see the retry block below) +1 for the mandatory
+        # single preflight probe call. A projection of len(pending)+1 (one
+        # call per pair) ignores the retry path entirely and can be overrun
+        # up to ~2x with no refusal (HI-01).
+        projected = 2 * len(pending) + 1
 
         try:
-            _budget_guard(call_log_path, projected)
+            last_cumulative = _budget_guard(call_log_path, projected)
         except BudgetExceededError:
             budget_already_logged = True
             exit_note = "NO-GO-by-cost (budget guard refused to start)"
@@ -569,7 +573,23 @@ def fill_verdicts(
             )
 
         aborted_early = False
+        budget_aborted_early = False
         for p in pending:
+            # In-loop re-check (HI-01): the pre-flight projection admits a
+            # run based on a worst-case estimate, but re-verify before EVERY
+            # pair that spending up to 2 more calls (primary + retry) would
+            # not push the cumulative total past the cap. A run that started
+            # under budget must never silently overrun it mid-loop.
+            if last_cumulative + calls_this_run + 2 > _CALL_BUDGET_CAP:
+                exit_note = (
+                    f"aborted: in-loop budget cap reached "
+                    f"(last_cumulative={last_cumulative} + "
+                    f"calls_this_run={calls_this_run} + 2 > cap={_CALL_BUDGET_CAP})"
+                )
+                aborted_early = True
+                budget_aborted_early = True
+                break
+
             a = p.get("incident_a") or incidents_by_id.get(p["incident_a_id"])
             b = p.get("incident_b") or incidents_by_id.get(p["incident_b_id"])
             if a is None or b is None:
@@ -625,10 +645,11 @@ def fill_verdicts(
         _persist()
 
         if aborted_early:
-            exit_note = (
-                f"aborted after 3 consecutive non-model outcomes; "
-                f"{len(failed_pairs)} failed_pairs remain"
-            )
+            if not budget_aborted_early:
+                exit_note = (
+                    f"aborted after 3 consecutive non-model outcomes; "
+                    f"{len(failed_pairs)} failed_pairs remain"
+                )
             return 1
 
         if failed_pairs:
