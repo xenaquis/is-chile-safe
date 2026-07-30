@@ -184,10 +184,28 @@ Responde SOLO un objeto JSON, sin markdown, con esta forma exacta:
 Si tienes duda, responde same_event=false (preferimos NO agrupar antes que agrupar mal)."""
 
 
+def _clean_title(title: str | None) -> str:
+    """Collapse whitespace/newlines and cap length so a crafted headline
+    cannot forge a second labeled field or append adjudication instructions
+    inside the user turn (HI-08 prompt-injection hardening)."""
+    return re.sub(r"\s+", " ", str(title or "")).strip()[:300]
+
+
 def _build_user_content(incident_a: dict, incident_b: dict) -> str:
     """Build the user turn — CLUS-04: only these two labeled fields, never
-    full RSS summaries/descriptions (prompt-injection hardening)."""
-    return f"Titular A: {incident_a['title_es']}\nTitular B: {incident_b['title_es']}"
+    full RSS summaries/descriptions (prompt-injection hardening).
+
+    Titles are JSON-encoded as a single data envelope rather than
+    newline-delimited "Titular A:"/"Titular B:" labels, so no textual
+    delimiter inside an attacker-influenced title can forge a second field
+    (HI-08). `.get(...)` with a default (never direct subscripting) means a
+    missing `title_es` never raises `KeyError` out of this "never raises"
+    function (HI-07)."""
+    payload = {
+        "titular_a": _clean_title(incident_a.get("title_es", "")),
+        "titular_b": _clean_title(incident_b.get("title_es", "")),
+    }
+    return json.dumps(payload, ensure_ascii=False)
 
 
 def _call_verdict_api(user_content: str) -> str | None:
