@@ -15,7 +15,7 @@ progress:
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-07-29 — **v2.1 AUTONOMOUS RUN in progress**. **Phase 26 (Event Clustering Spike) COMPLETE — verdict: NO-GO.** Measured fp=11 / tp=22 / precision=0.667 over 86 hand-labeled golden-set pairs; the locked gate was 100% precision / zero false merges. No schema change shipped (CLUS-09 NO-GO branch); GO gate quarantined with `xfail(strict=True)` so a future model that passes re-opens the decision. Gates: Opus code review (0 CRITICAL / 8 HIGH) -> 2 fix cycles -> re-review PASSED; Opus verification PASSED 5/5 criteria, 9/9 requirements. 16 binding Fable decisions F-01..F-16. Suite 344 passed / 1 skipped / 1 xfailed, 16/16 validators (facets.mjs added as validator #16 at Phase 27 close). Next: Phase 28 (News Visualizer UI)._
+_Last updated: 2026-07-30 — **v2.1 AUTONOMOUS RUN in progress**. **Phase 27 (News Facet Data Model) COMPLETE — verification PASSED 5/5, FACET-01..07 complete; 16/16 validators (facets.mjs is #16), vitest 20 passed.** Gates: inline-Fable code review (2 HIGH/3 MED/2 LOW, Opus unavailable — F-23) -> fix cycle 1 -> independent Opus re-review (RR-1) -> fix cycle 2 -> Opus verification PASSED. Two HIGH were real: byMonth undercounted June by 17%, and the set:html payload was a latent XSS (JSON.stringify does not escape `</script>`). **Phase 26 (Event Clustering Spike) COMPLETE — verdict: NO-GO.** Measured fp=11 / tp=22 / precision=0.667 over 86 hand-labeled golden-set pairs; the locked gate was 100% precision / zero false merges. No schema change shipped (CLUS-09 NO-GO branch); GO gate quarantined with `xfail(strict=True)` so a future model that passes re-opens the decision. Gates: Opus code review (0 CRITICAL / 8 HIGH) -> 2 fix cycles -> re-review PASSED; Opus verification PASSED 5/5 criteria, 9/9 requirements. 24 binding Fable decisions F-01..F-24. Suite 344 passed / 1 skipped / 1 xfailed, 16/16 validators (facets.mjs added as validator #16 at Phase 27 close). Next: Phase 28 (News Visualizer UI)._
 
 ## Project Reference
 
@@ -23,12 +23,12 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: v2.1 News Intelligence, Map UX & Ops Hardening — unattended autonomous run per `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md` (Sonnet codes, Opus validates, Fable decides; NO `git push`, `data/` read-only). Phase 26 CLOSED with a documented NO-GO. Phase 27 (News Facet Data Model) is next — it has zero dependency on Phase 26's outcome.
+**Current focus**: v2.1 News Intelligence, Map UX & Ops Hardening — unattended autonomous run per `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md` (Sonnet codes, Opus validates, Fable decides; NO `git push`, `data/` read-only). Phases 26 (NO-GO, documented) and 27 (News Facet Data Model, PASSED 5/5) are CLOSED. **Phase 28 (News Visualizer UI) is next** — read § Phase 27 Outcome for the newsFacets contract it consumes.
 
 ## Current Position
 
-Phase: 27 (News Facet Data Model) — COMPLETE (2/2 plans)
-Plan: 27-01 complete (Wave 1); 27-02 complete (Wave 2 — page wiring)
+Phase: 28 (News Visualizer UI) — next to plan. Phase 27 COMPLETE (2/2 plans, verification PASSED 5/5).
+Plan: —
 Status: 27-02 executed — /news/ and /es/noticias/ wired to computeNewsFacets() via inert #news-facets node; full gate 16/16 validators, astro check 4-error baseline unchanged, pytest 344/1/1(xfail) reconfirmed
 Last activity: 2026-07-30 — Plan 27-02 executed: news.astro + es/noticias.astro consume computeNewsFacets() identically; phase-closing gate green (16/16, freshness passed outright at 2.7 days)
 
@@ -70,8 +70,8 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 | v2.1 Phases defined | 8 (26–33) |
 | v2.1 Phases complete | 2/8 (26 — NO-GO verdict documented; 27 — News Facet Data Model, 16/16 validators) |
 | v2.1 Requirements mapped | 54/54 |
-| v2.1 Plans created | 4 (Phase 26) |
-| v2.1 Plans complete | 4 |
+| v2.1 Plans created | 6 (Phase 26: 4, Phase 27: 2) |
+| v2.1 Plans complete | 6 |
 | v2.0 Phases complete | 6/6 (18, 21, 22*, 23, 24, 25 — *22-03 deferred human task) |
 | v1.3 Phases complete | 2/2 (shipped 2026-06-19) |
 | v1.2 Phases complete | 8/8 (shipped 2026-06-18) |
