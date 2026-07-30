@@ -37,7 +37,7 @@ The `confidence == 'high'` condition rejected 0 pairs on this golden set; measur
 
 ## Honest Reduction Ratio (Frozen Pre-filter)
 
-`total_possible_in_bucket_pairs` (from `26-CALL-LOG.md`): **99**. Pairs actually proposed by the pre-filter (proposed=true, non-excluded): **86**. Reduction ratio: **~13.1%**.
+Total candidate pairs the pre-filter evaluated (all pairs, proposed true or false, before any label_disputed exclusion): **94** (94 proposed, 0 pre-filtered out). Pre-filter reduction ratio (pre-filter effect ONLY, separate from exclusion): **~0.0%** (0 of 94 pairs filtered).
 On the two mandatory buckets the expected reduction is approx 0% (min observed `token_set_ratio` = 48.7 against a frozen threshold of 45.0). The real cost bound in this phase is `(cut,date)` bucketing itself, not the lexical pre-filter. Largest observed bucket sizes: comuna 2101/2026-07-01 has 9 articles -> 36 possible pairs; comuna 4102 (Tongoy)/2026-07-01 has 8 articles -> 28 possible pairs. (For context, a hypothetical 26-article bucket would yield 325 possible pairs, a 16-article bucket 120 possible pairs — no bucket in this sample reaches that size.)
 
 ## Second-Pass Label Confirmation
@@ -77,7 +77,7 @@ Blind second pass performed by: Fable orchestrator, 4 independent Opus reviewers
 
 ## False-Merge Failure-Mode Analysis
 
-11 false-merge pair(s) — every pair below was a genuine model error (see F-15: 2 independent blind reviewers judged all 11 FP pairs, 22/22 unanimous `different`, zero `same`, zero `unsure`).
+11 false-merge pair(s) on this run of the fixture:
 
 | pair_id | title_a | title_b | failure mode |
 |---|---|---|---|
@@ -186,6 +186,13 @@ One row per non-excluded golden-set pair (n=86).
 | typo-6112-13202 | typo_homophone_negative | True | no_merge | False | high | no | TN |
 | typo-7101-2104 | typo_homophone_negative | True | no_merge | False | high | no | TN |
 
+## Measured Verdict Inputs (machine-computed)
+
+Precision=0.6667, FP=11, TP=22, n_failsafe=0. FP pair_ids (11): `2101-2026-07-01-bfe084-dc0f9c`, `2101-2026-07-01-bfe084-16439f`, `2101-2026-07-01-0f1e3e-16439f`, `2101-2026-07-01-0f1e3e-b01de8`, `2101-2026-07-01-dc0f9c-16439f`, `2101-2026-07-01-dc0f9c-b01de8`, `2101-2026-07-01-041424-16439f`, `2101-2026-07-01-041424-b01de8`, `2101-2026-07-01-16439f-b01de8`, `4102-2026-07-01-6eed24-60a9e3`, `1101-2026-07-06-d1e1fc-694162`.
+The confirmed GO/NO-GO verdict and all narrative guidance for Phase 27/28 are recorded in the human-authored section below the sentinel comment, which this script never overwrites.
+
+<!-- HUMAN-AUTHORED SECTION BELOW THIS LINE -- pipeline/scripts/run_clustering_spike.py NEVER regenerates, edits, or deletes anything at or after this line. It only ever rewrites the machine-generated report content above it. -->
+
 ## GO/NO-GO Verdict
 
 Precision=0.6667, FP=11, TP=22, n_failsafe=0.
@@ -193,6 +200,8 @@ Precision=0.6667, FP=11, TP=22, n_failsafe=0.
 **GO/NO-GO verdict: NO-GO** — confirmed by the Fable orchestrator 2026-07-29 against the locked gate (100% precision, 0 false merges). Measured fp=11, tp=22, precision=0.667, recall=0.7333, n_failsafe=0.
 
 FP pair_ids (11, pair-by-pair auditable): `2101-2026-07-01-bfe084-dc0f9c`, `2101-2026-07-01-bfe084-16439f`, `2101-2026-07-01-0f1e3e-16439f`, `2101-2026-07-01-0f1e3e-b01de8`, `2101-2026-07-01-dc0f9c-16439f`, `2101-2026-07-01-dc0f9c-b01de8`, `2101-2026-07-01-041424-16439f`, `2101-2026-07-01-041424-b01de8`, `2101-2026-07-01-16439f-b01de8`, `4102-2026-07-01-6eed24-60a9e3`, `1101-2026-07-06-d1e1fc-694162` (see "False-Merge Failure-Mode Analysis" above for the model's rationale per pair).
+
+Every FP was independently confirmed a genuine model error, not a mislabel (F-15): 2 independent blind reviewers judged all 11 FP pairs, 22/22 unanimous `different`, zero `same`, zero `unsure`. This is a historical, one-time audit fact about the F-15 review and is recorded here (hand-authored) rather than in the generated "False-Merge Failure-Mode Analysis" section above, so it is never printed next to a dynamically-computed FP count it could someday contradict (HI-05).
 
 The suite is green via `@pytest.mark.xfail(strict=True)` on `test_golden_set_meets_go_gate`, not via a weakened assertion; the day this test passes, the xfail itself fails and forces re-confirmation.
 

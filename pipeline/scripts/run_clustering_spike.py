@@ -153,18 +153,6 @@ def _classification(p: dict) -> str:
     return "TN"
 
 
-def _read_total_possible_in_bucket_pairs() -> str:
-    if not CALL_LOG_PATH.exists():
-        return "unknown (26-CALL-LOG.md not found)"
-    text = CALL_LOG_PATH.read_text(encoding="utf-8")
-    import re
-
-    matches = re.findall(r"total_possible_in_bucket_pairs=(\d+)", text)
-    if matches:
-        return matches[-1]
-    return "unknown"
-
-
 def _build_report(fixture: dict, metrics: dict, clusters: dict, flagged: dict) -> str:
     pairs = fixture["pairs"]
     meta = fixture.get("meta", {})
@@ -175,15 +163,25 @@ def _build_report(fixture: dict, metrics: dict, clusters: dict, flagged: dict) -
     conf_high = sum(1 for p in proposed_pairs if p["cached_verdict"].get("confidence") == "high")
     conf_low = sum(1 for p in proposed_pairs if p["cached_verdict"].get("confidence") == "low")
 
-    total_possible = _read_total_possible_in_bucket_pairs()
+    # HI-02: `total_possible_in_bucket_pairs` in 26-CALL-LOG.md is actually
+    # `meta.total_pairs` (the sampled DRAFT pair count) mislabeled -- it
+    # includes the 10 synthesized cross-bucket typo/homophone pairs (which
+    # have no (cut,date) bucket at all, `bypasses_bucket: true`) and excludes
+    # every bucket that was never sampled. It is not "total possible
+    # in-bucket pairs" under any reading, so it must never be used as the
+    # reduction-ratio denominator. Measure the pre-filter's OWN effect
+    # instead, separated from the (unrelated) label_disputed exclusions:
+    # reduction = 1 - proposed / (proposed + prefiltered), i.e. what
+    # fraction of pairs the lexical pre-filter itself dropped, over ALL
+    # pairs (not just non-excluded ones -- exclusion is a labeling decision,
+    # not a pre-filter outcome).
+    n_prefiltered_total = sum(1 for p in pairs if p.get("proposed") is False)
+    n_proposed_total = sum(1 for p in pairs if p.get("proposed") is True)
+    total_possible = n_proposed_total + n_prefiltered_total
     n_proposed = len(proposed_pairs)
-    try:
-        total_possible_int = int(total_possible)
-        reduction_pct = (
-            f"{(1 - n_proposed / total_possible_int) * 100:.1f}%" if total_possible_int else "n/a"
-        )
-    except (ValueError, TypeError):
-        reduction_pct = "n/a"
+    reduction_pct = (
+        f"{(1 - n_proposed_total / total_possible) * 100:.1f}%" if total_possible else "n/a"
+    )
 
     merge_labels_non_excluded = [p for p in non_excluded if p["label"] == "merge"]
     second_pass_confirmed = sum(
@@ -269,9 +267,12 @@ def _build_report(fixture: dict, metrics: dict, clusters: dict, flagged: dict) -
     lines.append("## Honest Reduction Ratio (Frozen Pre-filter)")
     lines.append("")
     lines.append(
-        f"`total_possible_in_bucket_pairs` (from `26-CALL-LOG.md`): **{total_possible}**. "
-        f"Pairs actually proposed by the pre-filter (proposed=true, non-excluded): **{n_proposed}**. "
-        f"Reduction ratio: **~{reduction_pct}**."
+        f"Total candidate pairs the pre-filter evaluated (all pairs, proposed "
+        f"true or false, before any label_disputed exclusion): **{total_possible}** "
+        f"({n_proposed_total} proposed, {n_prefiltered_total} pre-filtered out). "
+        f"Pre-filter reduction ratio (pre-filter effect ONLY, separate from "
+        f"exclusion): **~{reduction_pct}** ({n_prefiltered_total} of {total_possible} "
+        f"pairs filtered)."
     )
     lines.append(
         "On the two mandatory buckets the expected reduction is approx 0% "
@@ -338,12 +339,14 @@ def _build_report(fixture: dict, metrics: dict, clusters: dict, flagged: dict) -
     fp_pairs = [p for p in proposed_pairs if p["label"] == "no_merge" and _edge_drawn(p)]
     lines.append("## False-Merge Failure-Mode Analysis")
     lines.append("")
-    lines.append(
-        f"{len(fp_pairs)} false-merge pair(s) — every pair below was a "
-        f"genuine model error (see F-15: 2 independent blind reviewers "
-        f"judged all 11 FP pairs, 22/22 unanimous `different`, zero `same`, "
-        f"zero `unsure`)."
-    )
+    # HI-05: this count is the only claim this generated section makes about
+    # the FP pairs -- it is derived from len(fp_pairs), never hardcoded. The
+    # historical blind-audit fact (F-15's "22/22 unanimous different") is a
+    # one-time record of a specific past audit, not a value this script can
+    # recompute -- it belongs in the human-authored section below the
+    # sentinel so it is never printed next to a dynamic count it could
+    # someday contradict.
+    lines.append(f"{len(fp_pairs)} false-merge pair(s) on this run of the fixture:")
     lines.append("")
     if fp_pairs:
         lines.append("| pair_id | title_a | title_b | failure mode |")
@@ -389,20 +392,68 @@ def _build_report(fixture: dict, metrics: dict, clusters: dict, flagged: dict) -
         )
     lines.append("")
 
-    lines.append("## GO/NO-GO Verdict")
+    # HI-04: the GO/NO-GO verdict confirmation, FP pair_id list, schema
+    # change status, backward-compat sweep, LLM call budget, Phase 27/28
+    # guidance, and phase close-out regression are HAND-AUTHORED sections
+    # that live below the sentinel (see main()) -- this generator never
+    # writes them, so it can never clobber them on re-run. It DOES emit the
+    # measured inputs the human verdict is confirmed against, dynamically:
+    lines.append("## Measured Verdict Inputs (machine-computed)")
     lines.append("")
     lines.append(
         f"Precision={precision_str.split(' ')[0]}, FP={metrics['fp']}, "
-        f"TP={metrics['tp']}, n_failsafe={metrics['n_failsafe']}."
+        f"TP={metrics['tp']}, n_failsafe={metrics['n_failsafe']}. "
+        f"FP pair_ids ({len(fp_pairs)}): "
+        + (", ".join(f"`{p['pair_id']}`" for p in fp_pairs) if fp_pairs else "(none)")
+        + "."
     )
-    lines.append("")
     lines.append(
-        "**GO/NO-GO verdict: [PENDING — Fable orchestrator confirms against "
-        "locked gate: 100% precision, 0 false merges, tp > 0, n_failsafe == 0]**"
+        "The confirmed GO/NO-GO verdict and all narrative guidance for "
+        "Phase 27/28 are recorded in the human-authored section below the "
+        "sentinel comment, which this script never overwrites."
     )
     lines.append("")
 
     return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# HI-04: machine-generated / human-authored split. Re-running this script
+# must NEVER destroy the finalized verdict, the FP pair_id audit, the schema
+# change status, the backward-compat sweep, the LLM call budget, or the
+# "What Phase 27/28 should do with this" guidance -- all of that is
+# hand-authored, one-time, orchestrator-confirmed content. Everything above
+# the sentinel is regenerated fresh from the fixture on every run; everything
+# at or after the sentinel is copied byte-for-byte from whatever is already
+# on disk (or seeded with a [PENDING] placeholder on the very first run).
+# ---------------------------------------------------------------------------
+
+_HUMAN_SECTION_SENTINEL = (
+    "<!-- HUMAN-AUTHORED SECTION BELOW THIS LINE -- "
+    "pipeline/scripts/run_clustering_spike.py NEVER regenerates, edits, or "
+    "deletes anything at or after this line. It only ever rewrites the "
+    "machine-generated report content above it. -->"
+)
+
+_DEFAULT_HUMAN_SECTION = f"""{_HUMAN_SECTION_SENTINEL}
+
+## GO/NO-GO Verdict
+
+**GO/NO-GO verdict: [PENDING — Fable orchestrator confirms against locked gate: 100% precision, 0 false merges, tp > 0, n_failsafe == 0]**
+"""
+
+
+def _assemble_report(machine_report: str) -> str:
+    """Combine the freshly-generated machine section with whatever
+    human-authored section already exists on disk (verbatim), or seed a
+    [PENDING] placeholder human section on the very first run."""
+    human_section = _DEFAULT_HUMAN_SECTION
+    if REPORT_PATH.exists():
+        existing = REPORT_PATH.read_text(encoding="utf-8")
+        idx = existing.find(_HUMAN_SECTION_SENTINEL)
+        if idx != -1:
+            human_section = existing[idx:]
+    return machine_report.rstrip("\n") + "\n\n" + human_section
 
 
 def main() -> None:
@@ -442,7 +493,8 @@ def main() -> None:
     missing = fp_incident_ids - all_component_members
     assert not missing, f"FP-involved incidents missing from clusters/flagged: {missing}"
 
-    report = _build_report(fixture, metrics, clusters, flagged)
+    machine_report = _build_report(fixture, metrics, clusters, flagged)
+    report = _assemble_report(machine_report)
     REPORT_PATH.write_text(report, encoding="utf-8")
 
     print(json.dumps(metrics, indent=2))
