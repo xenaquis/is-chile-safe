@@ -12,11 +12,19 @@ This script is READ-ONLY with respect to `data/`: it only reads
 CLI contract:
     --dry-run          Sample + report counts, write nothing to disk.
     (no flag)           Write the draft to disk (default action).
-    --fill-verdicts     Reserved for a later task's live-call mode. This
-                         invocation does NOT implement live calling — passing
-                         this flag is a documented no-op that prints a clear
-                         "not yet implemented in this invocation" message and
-                         exits without touching the network.
+    --fill-verdicts     LIVE, money-spending mode (W-1: this flag IS
+                         implemented — it is NOT a no-op). Loads a draft,
+                         makes one preflight probe call, then makes ~1 live
+                         OpenRouter call per pending pair (up to 2 on a
+                         retry), checkpoints the draft to disk every 10
+                         pairs, and on success writes the finalized fixture
+                         to pipeline/tests/fixtures/clustering_golden_set.json.
+                         Every call is appended to the cumulative
+                         26-CALL-LOG.md ledger, guarded by a refuse-to-start
+                         check against the phase's 2,000-call budget cap
+                         (_budget_guard). Resumable/idempotent: re-running
+                         only re-adjudicates pairs that don't already carry
+                         a model-sourced cached_verdict.
     --out PATH          Override the default draft output path.
 
 Bucketing is delegated entirely to `pipeline.news.clustering.bucket_incidents`
@@ -775,7 +783,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--fill-verdicts",
         action="store_true",
-        help="Reserved for a later task's live-call mode (not implemented here).",
+        help=(
+            "LIVE mode: makes real OpenRouter calls (~1 per pending pair, "
+            "up to 2,000 cumulative-budget-guarded) and writes the "
+            "finalized golden-set fixture on success. NOT a no-op."
+        ),
     )
     parser.add_argument(
         "--out",
