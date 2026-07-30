@@ -324,7 +324,7 @@ Plans:
 
 **Wave 2**
 
-- [ ] 27-02-PLAN.md — Wire news.astro + es/noticias.astro to computeNewsFacets(); chained build+validate+check+pytest phase-close gate
+- [x] 27-02-PLAN.md — Wire news.astro + es/noticias.astro to computeNewsFacets(); chained build+validate+check+pytest phase-close gate
 
 ### Phase 28: News Visualizer UI
 
@@ -437,7 +437,7 @@ Plans:
 | 24. Rankings UX (sortable tables + polish) | 3/3 | Complete | 2026-06-20 |
 | 25. UI/UX 360 remediation (prod diagnostic 260702) | 9/9 | Complete    | 2026-07-03 |
 | 26. Event Clustering Spike | 4/4 | Complete   | 2026-07-29 |
-| 27. News Facet Data Model | 1/2 | In Progress|  |
+| 27. News Facet Data Model | 2/2 | Complete   | 2026-07-30 |
 | 28. News Visualizer UI | 0/? | Not started | - |
 | 29. Map UX Design Loop | 0/? | Not started | - |
 | 30. Map Control-Shell Rework | 0/? | Not started | - |

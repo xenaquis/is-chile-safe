@@ -15,7 +15,7 @@ progress:
 
 # STATE — Chile Safety Map (ischilesafe.com)
 
-_Last updated: 2026-07-29 — **v2.1 AUTONOMOUS RUN in progress**. **Phase 26 (Event Clustering Spike) COMPLETE — verdict: NO-GO.** Measured fp=11 / tp=22 / precision=0.667 over 86 hand-labeled golden-set pairs; the locked gate was 100% precision / zero false merges. No schema change shipped (CLUS-09 NO-GO branch); GO gate quarantined with `xfail(strict=True)` so a future model that passes re-opens the decision. Gates: Opus code review (0 CRITICAL / 8 HIGH) -> 2 fix cycles -> re-review PASSED; Opus verification PASSED 5/5 criteria, 9/9 requirements. 16 binding Fable decisions F-01..F-16. Suite 344 passed / 1 skipped / 1 xfailed, 15/15 validators. Next: Phase 27 (News Facet Data Model)._
+_Last updated: 2026-07-29 — **v2.1 AUTONOMOUS RUN in progress**. **Phase 26 (Event Clustering Spike) COMPLETE — verdict: NO-GO.** Measured fp=11 / tp=22 / precision=0.667 over 86 hand-labeled golden-set pairs; the locked gate was 100% precision / zero false merges. No schema change shipped (CLUS-09 NO-GO branch); GO gate quarantined with `xfail(strict=True)` so a future model that passes re-opens the decision. Gates: Opus code review (0 CRITICAL / 8 HIGH) -> 2 fix cycles -> re-review PASSED; Opus verification PASSED 5/5 criteria, 9/9 requirements. 16 binding Fable decisions F-01..F-16. Suite 344 passed / 1 skipped / 1 xfailed, 16/16 validators (facets.mjs added as validator #16 at Phase 27 close). Next: Phase 28 (News Visualizer UI)._
 
 ## Project Reference
 
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 27 (News Facet Data Model) — in progress (1/2 plans)
-Plan: 27-01 complete (Wave 1); 27-02 (page wiring) remaining
-Status: 27-01 executed — newsFacets.ts + facets.mjs validator #16 shipped, 16/16 vitest cases pass, astro check delta = 0 new errors
-Last activity: 2026-07-30 — Plan 27-01 executed: computeNewsFacets() (UTC window arithmetic, family/region/month facets, facetKeys) + facets.mjs validator #16 registered in all.mjs
+Phase: 27 (News Facet Data Model) — COMPLETE (2/2 plans)
+Plan: 27-01 complete (Wave 1); 27-02 complete (Wave 2 — page wiring)
+Status: 27-02 executed — /news/ and /es/noticias/ wired to computeNewsFacets() via inert #news-facets node; full gate 16/16 validators, astro check 4-error baseline unchanged, pytest 344/1/1(xfail) reconfirmed
+Last activity: 2026-07-30 — Plan 27-02 executed: news.astro + es/noticias.astro consume computeNewsFacets() identically; phase-closing gate green (16/16, freshness passed outright at 2.7 days)
 
 ## Progress Bar
 
@@ -42,7 +42,7 @@ Phase 22 [█████████████░░░░░░░]  67% in 
 Phase 21 [████████████████████] 100% complete (4/4)
 Phase 25 [████████████████████] 100% complete (9/9)
 Phase 26 [████████████████████] 100% COMPLETE (4/4 — Event Clustering Spike: verdict NO-GO, documented)
-Phase 27 [██████████░░░░░░░░░░]  50% in progress (1/2 — 27-01 newsFacets.ts + facets.mjs validator #16 shipped; 27-02 page wiring remaining)
+Phase 27 [████████████████████] 100% COMPLETE (2/2 — 27-01 newsFacets.ts + facets.mjs validator #16 shipped; 27-02 page wiring + phase-close gate 16/16)
 Phase 28 [░░░░░░░░░░░░░░░░░░░░]   0% not started (News Visualizer UI)
 Phase 29 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map UX Design Loop — gates 30)
 Phase 30 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map Control-Shell Rework — regression risk)
@@ -68,7 +68,7 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 | Metric | Value |
 |--------|-------|
 | v2.1 Phases defined | 8 (26–33) |
-| v2.1 Phases complete | 1/8 (26 — NO-GO verdict documented) |
+| v2.1 Phases complete | 2/8 (26 — NO-GO verdict documented; 27 — News Facet Data Model, 16/16 validators) |
 | v2.1 Requirements mapped | 54/54 |
 | v2.1 Plans created | 4 (Phase 26) |
 | v2.1 Plans complete | 4 |
@@ -78,7 +78,7 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 | v1.1 Phases complete | 3/3 (shipped 2026-06-15) |
 | v1.0 Phases complete | 6/6 (shipped 2026-06-13) |
 | Build pages (v1.3 close) | 791 pages |
-| Validators passing | **15/15** frontend + **344 passed / 1 skipped / 1 xfailed** pytest (as of Phase 26 close; the old 179 figure was long stale) |
+| Validators passing | **16/16** frontend + **344 passed / 1 skipped / 1 xfailed** pytest (as of Phase 27 close; facets.mjs added as validator #16; the old 179 figure was long stale) |
 | Phase 23 P01 | 20m | 3 tasks | 5 files |
 | Phase 23 P04 | 8m | 3 tasks | 4 files |
 | Phase 24 P01 | 12m | 2 tasks | 3 files |
@@ -154,7 +154,7 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 
 ### Blockers
 
-- **Freshness validator (#15) goes red from 2026-07-30 — environmental, not a defect.** `data/incidents/current.json` in this checkout is dated `2026-07-27T14:25:05Z`; `freshness.mjs` fails past 3 days. The news cron is **alive** — `origin/master` carries `b827b8e data: auto-update news` and we are 10 commits behind / 47 ahead. The local copy is stale only because the directive reserves `git pull --rebase` for the user's return. **Clears by itself on that pull.** Handling for phases 27–33 is fixed by F-19; the listed remediations are banned.
+- **Freshness validator (was #15, now #16 counting `facets.mjs`) — RESOLVED at Phase 27 close, watch for recurrence.** At Phase 27's gate run (2026-07-30), `data/incidents/current.json` was 2.7 days old (`generated: 2026-07-27T14:25:05Z`) — under the `MAX_AGE_DAYS=3` threshold, so `freshness` PASSED outright and the phase closed a plain 16/16 (F-19's environmental-exclusion branch was NOT needed). This entry is kept as a standing note: the underlying cause (local checkout behind `origin/master`'s news cron commits, `git pull --rebase` reserved for the user's return) is unchanged, and `freshness` may flip red again in a later phase purely from elapsed time. If it does, F-19's pre-declared branch (STATE.md Fable Decisions) governs — do not improvise.
 
 ### Phase 26 Outcome — NO-GO (read this before Phase 27/28)
 
