@@ -88,7 +88,11 @@ def compute_pairwise_metrics(pairs: list[dict]) -> dict:
         # nothing -- not a TN, since no decision was ever made about it.
 
     for p in proposed_pairs:
-        cv = p["cached_verdict"]
+        # `cached_verdict` can be null on a proposed:true pair that never got
+        # a model verdict written (build_golden_set.py's fill loop writes
+        # None on a failed pair) -- `.get(...) or {}` counts it toward
+        # n_failsafe instead of raising AttributeError on `.get` (HI-06).
+        cv = p.get("cached_verdict") or {}
         if cv.get("source") != "model":
             n_failsafe += 1
 
@@ -128,7 +132,7 @@ def _edge_drawn(p: dict) -> bool:
     """Whether the pipeline would draw a merge edge for a proposed pair."""
     if p.get("proposed") is not True:
         return False
-    cv = p["cached_verdict"]
+    cv = p.get("cached_verdict") or {}
     return cv.get("same_event") is True and cv.get("confidence") == "high"
 
 

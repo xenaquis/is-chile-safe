@@ -419,6 +419,127 @@ def test_call_budget_refuses_to_start(tmp_path, monkeypatch):
 
 
 # ---------------------------------------------------------------------------
+# HI-06: direct unit tests for compute_pairwise_metrics — the single function
+# that decided the milestone verdict, previously exercised only via the one
+# committed fixture (which has zero proposed:false pairs, so fn_prefiltered,
+# the precision=None zero-denominator guard, n_failsafe, and the "prefiltered
+# no_merge counts toward nothing" rule were all unverified branches).
+# ---------------------------------------------------------------------------
+
+
+def _synthetic_pair(
+    *,
+    proposed: bool,
+    label: str,
+    same_event: bool | None = None,
+    confidence: str | None = None,
+    source: str = "model",
+    excluded: str | None = None,
+    cached_verdict: dict | None = None,
+    pair_id: str = "synthetic",
+) -> dict:
+    """Build a minimal synthetic pair dict for compute_pairwise_metrics —
+    NOT the real fixture, so each branch can be isolated."""
+    entry: dict = {
+        "pair_id": pair_id,
+        "proposed": proposed,
+        "label": label,
+    }
+    if excluded:
+        entry["excluded"] = excluded
+    if proposed:
+        if cached_verdict is not None:
+            entry["cached_verdict"] = cached_verdict
+        elif same_event is not None:
+            entry["cached_verdict"] = {
+                "same_event": same_event,
+                "confidence": confidence,
+                "source": source,
+            }
+        else:
+            entry["cached_verdict"] = None
+    else:
+        entry["cached_verdict"] = None
+    return entry
+
+
+def test_compute_pairwise_metrics_zero_denominator_guard():
+    """No pairs at all -> precision and recall must be None, never 1.0/0.0
+    (F-07: an unmeasured run is not a pass)."""
+    metrics = compute_pairwise_metrics([])
+    assert metrics["precision"] is None
+    assert metrics["recall"] is None
+    assert metrics["tp"] == 0 and metrics["fp"] == 0
+
+
+def test_compute_pairwise_metrics_prefiltered_merge_counts_as_fn():
+    """A proposed:false pair labeled merge (the pre-filter dropped a true
+    positive candidate) counts toward fn_prefiltered and the total fn."""
+    pairs = [_synthetic_pair(proposed=False, label="merge")]
+    metrics = compute_pairwise_metrics(pairs)
+    assert metrics["fn_prefiltered"] == 1
+    assert metrics["fn"] == 1
+    assert metrics["n_pairs"] == 1
+
+
+def test_compute_pairwise_metrics_prefiltered_no_merge_counts_nothing():
+    """A proposed:false pair labeled no_merge was never adjudicated -- it
+    must NOT be counted as a TN (no decision was ever made about it)."""
+    pairs = [_synthetic_pair(proposed=False, label="no_merge")]
+    metrics = compute_pairwise_metrics(pairs)
+    assert metrics["tn"] == 0
+    assert metrics["fn"] == 0
+    assert metrics["n_pairs"] == 1
+
+
+def test_compute_pairwise_metrics_excluded_pairs_dropped():
+    """label_disputed (or any `excluded`) pairs are dropped entirely before
+    counting -- never contribute to n_pairs or any bucket."""
+    pairs = [
+        _synthetic_pair(
+            proposed=True, label="merge", same_event=True, confidence="high",
+            excluded="label_disputed",
+        )
+    ]
+    metrics = compute_pairwise_metrics(pairs)
+    assert metrics["n_pairs"] == 0
+    assert metrics["tp"] == 0
+
+
+def test_compute_pairwise_metrics_null_cached_verdict_counts_as_failsafe():
+    """A proposed:true pair whose cached_verdict is null (build_golden_set.py
+    writes None on a failed pair) must count toward n_failsafe, never raise
+    AttributeError on cv.get(...) (HI-06)."""
+    pairs = [_synthetic_pair(proposed=True, label="merge", cached_verdict=None)]
+    metrics = compute_pairwise_metrics(pairs)  # must not raise
+    assert metrics["n_failsafe"] == 1
+    assert metrics["fp"] == 0
+    assert metrics["tp"] == 0
+
+
+@pytest.mark.parametrize(
+    "pair,expected_field,expected_value",
+    [
+        (_synthetic_pair(proposed=True, label="merge", same_event=True, confidence="high"), "tp", 1),
+        (_synthetic_pair(proposed=True, label="no_merge", same_event=True, confidence="high"), "fp", 1),
+        (_synthetic_pair(proposed=True, label="merge", same_event=False, confidence="high"), "fn_llm_rejected", 1),
+        (_synthetic_pair(proposed=True, label="no_merge", same_event=False, confidence="high"), "tn", 1),
+        (
+            _synthetic_pair(proposed=True, label="merge", same_event=True, confidence="low"),
+            "fn_llm_rejected", 1,
+        ),  # confidence=low never merges even if same_event=True (F-03)
+        (
+            _synthetic_pair(proposed=True, label="merge", same_event=True, confidence="high", source="failsafe_parse"),
+            "n_failsafe", 1,
+        ),
+    ],
+)
+def test_compute_pairwise_metrics_branches(pair, expected_field, expected_value):
+    metrics = compute_pairwise_metrics([pair])
+    assert metrics[expected_field] == expected_value
+
+
+# ---------------------------------------------------------------------------
 # Plan 26-03: GO/NO-GO evidence — offline pytest regressions (CLUS-06/07/08)
 # ---------------------------------------------------------------------------
 
