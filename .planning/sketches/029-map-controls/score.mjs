@@ -121,16 +121,39 @@ export function scoreControlShell(opts) {
   const focusables = Array.prototype.slice.call(
     document.querySelectorAll('a[href],button,input,select,textarea,summary,[tabindex]')
   );
-  const scriptText = Array.prototype.slice
-    .call(document.querySelectorAll('script'))
-    .map((s) => s.textContent || '')
-    .join('\n');
+  const allScripts = Array.prototype.slice.call(document.querySelectorAll('script'));
+  const externalScripts = allScripts.filter((s) => s.src && !s.textContent.trim());
+  const scriptText = allScripts.map((s) => s.textContent || '').join('\n');
   results.focusableCount = focusables.length;
-  results.negativeTabindexCount = focusables.filter((el) => el.tabIndex < 0).length;
+  // Only RENDERED elements can hold focus, so only they can trap it. The real map ships a
+  // deliberate `display:none` aria sentinel carrying tabIndex={-1} (MapIsland.tsx:500);
+  // counting it reported a keyboard trap on a page that has none.
+  results.negativeTabindexCount = focusables.filter((el) => {
+    if (el.tabIndex >= 0) return false;
+    const cs = getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden') return false;
+    const r = el.getBoundingClientRect();
+    return r.width > 0 && r.height > 0;
+  }).length;
   results.keyInterceptors = ['keydown', 'keyup', 'preventDefault'].filter((k) => scriptText.indexOf(k) !== -1);
-  results.keyboardTrapFree =
-    results.negativeTabindexCount === 0 && results.keyInterceptors.length === 0;
-  results.criterion4 = results.keyboardTrapFree ? 'PASS' : 'FAIL';
+  results.externalScriptCount = externalScripts.length;
+  // FAIL CLOSED when the scan cannot see the code. Against the real /map/, Astro/React ship
+  // `<script type="module" src=...>` whose textContent is EMPTY — so an inline-only scan would
+  // report `keyInterceptors: []` and PASS on a page with a genuine focus trap. Since the design
+  // spec mandates this file as Phase 30's regression instrument against that very page, a
+  // silent PASS there would be the worst possible failure mode.
+  if (externalScripts.length > 0) {
+    results.keyboardTrapFree = null;
+    results.criterion4 = 'NOT_MEASURED_FAIL';
+    results.criterion4Note =
+      externalScripts.length + ' external script(s) with no inline text: a static scan cannot ' +
+      'see their handlers. Settle criterion 4 by source inspection of the bundle entrypoints ' +
+      '(grep the built chunk for keydown/keyup/preventDefault) plus a real Tab walk.';
+  } else {
+    results.keyboardTrapFree =
+      results.negativeTabindexCount === 0 && results.keyInterceptors.length === 0;
+    results.criterion4 = results.keyboardTrapFree ? 'PASS' : 'FAIL';
+  }
 
   // --- Criterion 5: no map occlusion / Leaflet pane conflict ---------------------------
   const mapPane = document.querySelector('.leaflet-map-pane, .leaflet-container');
@@ -177,8 +200,13 @@ export function scoreControlShell(opts) {
   // violation: its paint order is DOM-order dependent and will not survive contact with
   // the real 970-line map.css. The first draft's `Number('auto') || 0` scored such a
   // control as fully compliant.
+  // `<= 700`, NOT `< 700`. Exactly 700 is `.leaflet-popup-pane`'s own z-index, so a control
+  // sitting at 700 TIES the popup pane and their paint order is decided by DOM position —
+  // which is the single real z-index defect this phase found on the live map (`.legend` at
+  // 700, map.css:131). The original `< 700` predicate excluded precisely that value, so the
+  // instrument would have returned PASS on the one case it was written to catch.
   results.zIndexViolations = results.controlZIndexes.filter(
-    (c) => (c.zIndex === null && !c.governedByAncestor) || (c.zIndex > 0 && c.zIndex < 700)
+    (c) => (c.zIndex === null && !c.governedByAncestor) || (c.zIndex > 0 && c.zIndex <= 700)
   );
 
   if (!mapPane) {

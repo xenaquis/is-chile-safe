@@ -19,7 +19,7 @@ Every change below answers a specific **number** from `iter-1/SCORE.md`, not a m
 
 | Condition | vw | c1 news | c2 filters | c3 targets | c4 keyboard | c5 z-index | overflow | coverage |
 |---|---|---|---|---|---|---|---|---|
-| desktop-1296 | 1296 | PASS | PASS | **PASS** ↑ | PASS | PASS | 0 px | 33.2 % |
+| desktop-1296 | 1296 | PASS | PASS | **PASS** ↑ | PASS | **PASS** ↑ | 0 px | 33.2 % |
 | content-growth | 1296 | PASS | **PASS** ↑ | **PASS** ↑ | PASS | PASS | **0 px** ↑ (was 52) | 33.9 % |
 | mobile-375 | 375 | PASS | PASS | PASS | PASS | PASS | 0 px | 22.7 % |
 | narrow-320 | 320 | PASS | PASS | PASS | PASS | PASS | 0 px | 32.2 % ⚠ |
@@ -28,7 +28,7 @@ Every change below answers a specific **number** from `iter-1/SCORE.md`, not a m
 | breakpoint-639 | 639 | PASS | **PASS** ↑ | **PASS** ↑ | PASS | PASS | **0 px** ↑ (was 479) | 33.3 % |
 | breakpoint-481 | 481 | **PASS** ↑ | **PASS** ↑ | **PASS** ↑ | PASS | PASS | **0 px** ↑ (was 637) | 43.1 % ⚠ |
 
-↑ = moved FAIL → PASS against iteration 1. **Nine criterion × condition cells improved**; none regressed.
+↑ = moved FAIL → PASS against iteration 1. **Eight criterion × condition cells improved**; none regressed. (An earlier draft of this file, MANIFEST.md and the design spec all said "nine" — miscounted, corrected after the independent review checked the arithmetic against iteration 1's eight FAILs.)
 
 `entryPointCount` went **0 → 3** (4 under `content-growth`), which is the structural difference `check-iteration.mjs` requires to certify this as a distinct iteration rather than a restyle.
 
@@ -92,3 +92,21 @@ Both were **measurement** defects, not threshold changes, so neither is barred b
 `desktop.png` (1296 px) · `mobile-375.png` (375 px), both captured to `C:\Users\Carlo\bos-shots\p29\` first because `save_screenshot` rejects paths containing spaces.
 
 **Note on `mobile-375.png`**: it was captured from the pre-fix build, showing the unlabeled-dot state that finding 1 above describes, and the FAB is outside the captured region (measured present at x=277 y=736, 82 × 52 px, `display:flex`, `z-index:800`). It is retained deliberately as the evidence for finding 1 rather than replaced with a flattering re-shot.
+
+## Post-review correction: criterion 5 (added after the independent Opus pass)
+
+The reviewer found `score.mjs`'s z-index predicate read `z > 0 && z < 700`, which **excludes exactly 700** — the value of `.leaflet-popup-pane`, and therefore the one real z-index defect this phase found on the live map (`.legend` at 700, `map.css:131`). The instrument would have returned PASS on the single case it existed to catch, while `MANIFEST.md` printed "baseline c5 FAIL" as prose.
+
+Corrected to `<= 700` and re-measured:
+
+- **Real `/map/`**: `zIndexViolations: ["legend=700"]` → `criterion5: FAIL`. The baseline defect is now machine-detected, not asserted.
+- **Iteration 1**: `criterion5: FAIL` — it had inherited `.legend { z-index: 700 }` unchanged.
+- **Iteration 2**: `.legend` raised to **750**, clear of the popup pane → `zIndexViolations: []`, `criterion5: PASS`.
+
+This adds a ninth improved cell in substance, but the table above deliberately keeps the conservative count of eight to match iteration 1's recorded FAILs.
+
+## Post-review correction: criterion 4 fails closed
+
+Criterion 4 scanned inline `<script>` text only. Against the real `/map/` — the page the design spec makes this instrument responsible for — Astro/React can ship `<script type="module" src=…>` whose `textContent` is empty, so the scan would find nothing and report PASS **on a page with a genuine focus trap**. It now reports `criterion4: NOT_MEASURED_FAIL` whenever external scripts with no inline text are present, naming how to settle it instead.
+
+A second, opposite defect surfaced in the same run: the real map's `negativeTabindexCount` was non-zero because of a deliberate `display:none` aria sentinel (`MapIsland.tsx:500`), which cannot hold focus and therefore cannot trap it. Only rendered elements are counted now. With both fixes the real `/map/` scores `criterion4: PASS` — correctly, since it has no trap.

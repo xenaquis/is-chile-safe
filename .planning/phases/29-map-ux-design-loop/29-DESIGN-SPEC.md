@@ -16,17 +16,27 @@ The baseline failure is not chip styling: **one flat, horizontally-scrolling row
 |---|---|---|
 | `.filters-row` hidden overflow | **507 px** | **991 px** |
 | News toggle (`.ev-chip`) position | x = 1370 — ~590 px offscreen | ~855 px offscreen |
-| Control coverage of map area | 24.7 % (topbar 18.4 + legend 6.3) | — |
+| Control coverage of map area | **26.2 %** (instrument); 24.7 % by hand (topbar 18.4 + legend 6.3) | — |
 | `.legend` z-index | **700 — ties `.leaflet-popup-pane`** | — |
-| `mapWidthRatio` | 0.63 (812/1296) | — |
+| `mapWidthRatio` | **0.627** (812/1296) | — |
 
 Half the product's value — the qualitative news layer — is unreachable unless the user guesses that an unmarked row scrolls sideways.
+
+**Every figure above was reproduced by running `score.mjs` unchanged against the real `/map/`** (`http://127.0.0.1:4321/es/mapa/`), which returns:
+
+```
+c1 FAIL (newsToggleDiscoverable false, rect x=1370)   c2 FAIL (filterOverflowPx 507, scrollbarSuppressed true)
+c3 FAIL (touchTargetViolations 20)                    c4 PASS (negativeTabindexCount 0, keyInterceptors [])
+c5 FAIL (zIndexViolations ["legend=700"])             controlCoveragePct 26.2   mapWidthRatio 0.627
+```
+
+**Four of five criteria return FAIL against the real application, and the fifth correctly returns PASS.** That is the evidence that this rubric is a real instrument rather than a rubber stamp for prototypes built to satisfy it — and it is a live demonstration that §8's hooks let Phase 30 reuse it as-is.
 
 ## 1. Loop history (read this before judging the iteration count)
 
 `ROADMAP.md:371` defines an iteration as screenshot → redesign → apply → re-screenshot. Iteration 1's "before" is **the measured baseline of the real artifact**, not a prior sketch — a stronger prior state than a sketch of a sketch. The chain **baseline → iter-1 → iter-2** therefore contains **two complete redesign→re-measure transitions**, which is what MAPUX-02's "at least two full iterations" protects. No cycle was skipped.
 
-Iteration 1 was not a rubber stamp: the eight conditions frozen in `STRESS.md` *before it was designed* broke it three ways — the news toggle went offscreen again at 481 px, the row overflowed **637 px** there (worse than the 507 px baseline), and a 32 × 32 px locate button failed WCAG 2.5.5. Iteration 2 moved **9 criterion × condition cells FAIL→PASS with none regressing**. `check-iteration.mjs` was demonstrated to reject a copied iteration, so the claim "two real iterations happened" is gated, not narrated.
+Iteration 1 was not a rubber stamp: the eight conditions frozen in `STRESS.md` *before it was designed* broke it three ways — the news toggle went offscreen again at 481 px, the row overflowed **637 px** there (worse than the 507 px baseline), and a 32 × 32 px locate button failed WCAG 2.5.5. Iteration 2 moved **8 criterion × condition cells FAIL→PASS with none regressing** (an earlier draft said 9 — miscounted). `check-iteration.mjs` was demonstrated to reject a copied iteration, so the claim "two real iterations happened" is gated, not narrated.
 
 ## 2. The accepted design
 
@@ -56,16 +66,22 @@ Placed in the real ladder — 700 `legend`/`result-panel`/`zoom-ctl` · 800 `map
 
 ## 4. The four real breakpoint bands
 
-Not "desktop and mobile" — the bands `map.css:192/210/240/271/463` actually switch on. **One responsive implementation**, not viewport-specific variants: iteration 1's split-file approach was measured unable to answer breakpoint questions at all.
+Not "desktop and mobile" — the bands `map.css:192/210/240/271/463` actually switch on. **The real rules are `max-width:480px` and `max-width:640px`, which are inclusive**, so the bands are ≤ 480 / 481–639 / 640–1023 / ≥ 1024. An earlier draft wrote "< 480 / 480–639", which is off by one and contradicted `STRESS.md`'s own `breakpoint-481` condition. **One responsive implementation**, not viewport-specific variants: iteration 1's split-file approach was measured unable to answer breakpoint questions at all.
 
 | Band | Shell |
 |---|---|
-| **< 480** | Topbar = search + news toggle (short label `Noticias`). Entry points hidden; filter FAB + `<dialog>` bottom sheet. `.result-panel` is a 40vh bottom sheet. `.legend-mobile` stays a `<details>`. |
-| **480 – 639** | Grouped entry points visible inline. News toggle keeps the short label. `.zoom-ctl` still hidden (appears ≥ 640). |
+| **≤ 480** | Topbar = search + news toggle (short label `Noticias`). Entry points hidden; filter FAB + `<dialog>` bottom sheet. **`.result-panel` and the FAB collide — see §4a, this is a required decision, not an omission.** `.legend-mobile` stays a `<details>`. |
+| **481 – 639** | Grouped entry points visible inline. News toggle keeps the short label. `.zoom-ctl` still hidden (appears ≥ 640). |
 | **640 – 1023** | Full labels (`Noticias recientes`). `.zoom-ctl` appears bottom-right. `.result-panel` becomes the right-hand 380 px panel. |
 | **≥ 1024** | As above, with the state summary inline. |
 
 `.mode-toggle`'s `position:static` reset at ≤ 480 (`map.css:240-251`) **is not a usable precedent for the news toggle** — the toggle carries its own explicit z-index at every band, because that reset drops the element out of the stacking context exactly where the toggle must stay pinned.
+
+## 4a. The FAB × `.result-panel` collision (REQUIRED — do not leave to implementation)
+
+At ≤ 640 px `.result-panel` becomes a bottom sheet occupying the lower **40vh** (`map.css:450-480`). The filter FAB sits at `right:16px; bottom:24px`. **They occupy the same space whenever a commune is selected.** Iteration 1 flagged this; the scored sketch sidestepped it by setting `.result-panel { display:none }` below 480 px, which is a sketch convenience and **not** acceptable behaviour in the real app, where selecting a commune is the primary interaction.
+
+**Decision for Phase 30**: the FAB is anchored **above** the result panel rather than hidden by it — when `.result-panel` is open at ≤ 640 px, the FAB's `bottom` becomes `calc(40vh + 16px)`, animating with the sheet. The FAB must never be occluded and must never overlap the sheet's own controls. Verify with the rubric's `elementFromPoint` topmost check on `[data-role="filter-entry"]` **with a commune selected**, which is a state the Phase 29 sketches never modelled.
 
 ## 5. Element semantics (determines React state shape — cannot be inferred from a screenshot)
 
@@ -73,7 +89,7 @@ Not "desktop and mobile" — the bands `map.css:192/210/240/271/463` actually sw
 |---|---|---|
 | News layer toggle | `<button aria-pressed>` | boolean `showEvents` |
 | Entry point (each dimension) | `<details>` + `<summary>` | native `open`; **one panel open at a time**, enforced on the `toggle` event |
-| Option inside a panel | `<button role="radio" aria-checked>` | single-select per dimension |
+| Option inside a panel | `<button role="radio" aria-checked>` inside a container with **`role="radiogroup"`** | single-select per dimension. The sketch used `role="group"`, which is **invalid** as a parent for `role="radio"` — Phase 30 must ship `radiogroup` |
 | Mobile filter sheet | `<dialog>` + **`showModal()`** | native top layer |
 | Legend | `<details>` at ≤ 480 (existing) | unchanged |
 
@@ -87,6 +103,7 @@ DOM order: skip-link → header nav → search input → locate button → **new
 - News toggle: `aria-pressed` + `aria-label` (`Mostrar incidentes recientes de prensa en el mapa`).
 - Each entry point's `<summary>`: `aria-expanded` + `aria-controls`, driven by the native `toggle` event.
 - Dialog: `aria-labelledby` pointing at its title.
+- **Dismissal for the `<details>` entry panels** (unspecified in the sketch, required here): Escape closes the open panel and returns focus to its `<summary>`; a click or focus outside the open `<details>` closes it; opening one panel closes any other (enforced on the native `toggle` event). These are non-modal popovers, so they must NOT trap focus — that is the `<dialog>`'s job at ≤ 480 px.
 - **State summary is an `aria-live="polite"` region.** `/news/` already ships this precedent (`#news-result-count`, verified in F-41), and CrimeMapping findings 3–4 argue for it.
 
 ## 7. Labels — EN and ES, with the longest-string consequence
@@ -119,6 +136,15 @@ DOM order: skip-link → header nav → search input → locate button → **new
 | **MAPSH-05** | Changes confined to `MapTopbar.tsx` + sibling control components. `ChoroplethLayer.ts` / `IncidentPinLayer.ts` / `LowZoomDotLayer.ts` untouched. No declarative react-leaflet layer component | ROADMAP |
 | **MAPSH-06** | **OUT OF SCOPE for this spec** — regression verification is Phase 30's job; it should use `score.mjs` via the §8 hooks | — |
 | **MAPSH-07** | Shared vocabulary with news facets **via data, not a code dependency**. See the trap in §10 | Phase 28 Outcome N1 |
+
+## 9a. Component scope — two things MAPSH-05 does not resolve on its own
+
+**`FiltersRow.tsx` is DELETED, not refactored.** Its chip row is the defect. `MapTopbar.tsx` renders the grouped entry points directly. This matters beyond tidiness: `score.mjs` falls back to `.ev-chip` and `.filters-row` when no `data-role` hook is found, so if the legacy classes survive anywhere, **Phase 30's own instrument would silently bind to the old markup and report on the wrong elements**. Phase 30 must assert `.filters-row` and `.ev-chip` no longer exist in `dist/`.
+
+**Folding `Modo` into an entry point requires editing `MapIsland.tsx`, which MAPSH-05's in-scope list does not name.** `MapTopbar.tsx:19-20` receives the mode toggle as a `modeToggle` **prop** constructed by its parent (`MapIsland.tsx:440-460`), so the grouping cannot be done inside `MapTopbar.tsx` alone. Two admissible resolutions — **Phase 30 must pick one and record it, not discover it mid-implementation**:
+
+- **(a) Preferred.** Authorize a **narrowly-scoped** `MapIsland.tsx` edit: move the mode-toggle markup into `MapTopbar.tsx` and pass `mode` / `onModeChange` as plain props. MAPSH-05's intent is protecting the **Leaflet layer files** (`ChoroplethLayer.ts`, `IncidentPinLayer.ts`, `LowZoomDotLayer.ts`), not freezing the island's prop wiring. The code review's MAPSH-05 check should read "confined to `MapTopbar.tsx`, sibling control components, **and the mode-toggle prop wiring in `MapIsland.tsx`**".
+- **(b) Fallback.** Leave the mode toggle exactly as it is (its own control, its own `modeToggle` prop) and ship only `Año` and `Tipo de delito` as entry points. This is strictly less good — `Modo` stays a separate ungrouped control — but it is fully within MAPSH-05 as written.
 
 ## 10. Explicit non-decisions and traps
 

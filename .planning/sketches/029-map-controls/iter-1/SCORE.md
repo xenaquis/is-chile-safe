@@ -16,16 +16,18 @@ It **keeps the flat scrolling chip row**. That is the honest scope of this itera
 
 | Condition | vw | c1 news | c2 filters | c3 targets | c4 keyboard | c5 z/occlusion | overflow | coverage |
 |---|---|---|---|---|---|---|---|---|
-| desktop-1296 | 1296 | PASS | PASS | **FAIL** | PASS | PASS | 0 px | 35.2 % |
-| content-growth | 1296 | PASS | **FAIL** | **FAIL** | PASS | PASS | **52 px** | 38.5 % |
-| mobile-375 | 375 | PASS | PASS | PASS | PASS | PASS | 0 px | 13.4 % |
-| narrow-320 | 320 | PASS | PASS | PASS | PASS | PASS | 0 px | 14.3 % |
-| longest-label | 375 | PASS | PASS | PASS | PASS | PASS | 0 px | 13.4 % |
-| text-150pct | 375 | PASS | PASS | PASS | PASS | PASS | 0 px | 13.4 % |
-| breakpoint-639 | 639 | PASS | **FAIL** | **FAIL** | PASS | PASS | **479 px** | 35.7 % |
-| breakpoint-481 | 481 | **FAIL** | **FAIL** | **FAIL** | PASS | PASS | **637 px** | 36.8 % |
+| desktop-1296 | 1296 | PASS | PASS | **FAIL** | PASS | **FAIL** | 0 px | 35.2 % |
+| content-growth | 1296 | PASS | **FAIL** | **FAIL** | PASS | **FAIL** | **52 px** | 38.5 % |
+| mobile-375 | 375 | PASS | PASS | PASS | PASS | **FAIL** | 0 px | 13.4 % |
+| narrow-320 | 320 | PASS | PASS | PASS | PASS | **FAIL** | 0 px | 14.3 % |
+| longest-label | 375 | PASS | PASS | PASS | PASS | **FAIL** | 0 px | 13.4 % |
+| text-150pct | 375 | PASS | PASS | PASS | PASS | **FAIL** | 0 px | 13.4 % |
+| breakpoint-639 | 639 | PASS | **FAIL** | **FAIL** | PASS | **FAIL** | **479 px** | 35.7 % |
+| breakpoint-481 | 481 | **FAIL** | **FAIL** | **FAIL** | PASS | **FAIL** | **637 px** | 36.8 % |
 
 **Iteration 1 did not sweep the board.** The pre-registered conditions broke it in three independent ways, which is the entire reason they were frozen before it was designed.
+
+The **c5 column reads FAIL at every condition** after the post-review predicate correction (`<= 700`, see below): iteration 1 kept `.legend { z-index: 700 }` from the baseline, tying `.leaflet-popup-pane`. The raw JSON blocks below were captured under the *old* `< 700` predicate and therefore still record `criterion5: "PASS"` with an empty `zIndexViolations` — they are left byte-unchanged as the honest record of what was measured at the time, and this table carries the corrected reading. Re-measured value: `zIndexViolations: ["legend=700"]`.
 
 ## The four defects iteration 2 must fix
 
@@ -38,7 +40,7 @@ It **keeps the flat scrolling chip row**. That is the honest scope of this itera
 
 - **`showModal()` is real, and proven so.** `dialog.matches(':modal')` is `false` at rest and **`true`** when opened, with `dlg.contains(document.activeElement)` true — native top-layer modality, so focus containment, ESC and the backdrop come for free with **zero new JS dependencies** (MAPSH-02). This is the assertion that distinguishes a real `showModal()` from a declarative `<dialog open>`; `grep -c "showModal"` cannot.
 - **Criterion 4 by construction (F-41 standard):** `negativeTabindexCount: 0` and `keyInterceptors: []` at every condition — no script intercepts `keydown`/`keyup`/`preventDefault`, so native tab order applies and a trap is impossible.
-- **Criterion 5 clean** at every condition after the rubric correction below: `zIndexViolations: []`, with `map-topbar=800`, `news-toggle=800`, `mode-toggle=801`, `filter-fab=800`, `legend=700`.
+- ~~**Criterion 5 clean**~~ **SUPERSEDED — criterion 5 is FAIL.** Re-measured after the independent review found the predicate excluded the very value it was written to catch: it read `z > 0 && z < 700`, so a control at *exactly* 700 — tying `.leaflet-popup-pane` — was scored compliant. Corrected to `<= 700`; iteration 1 then reports `zIndexViolations: ["legend=700"]`, `criterion5: FAIL`. Iteration 1 inherited the baseline's legend/popup tie unchanged. The other placements are sound: `map-topbar=800`, `news-toggle=800`, `mode-toggle=801`, `filter-fab=800`.
 - Mobile coverage **13.4 %**, comfortably inside the pre-registered ≤ 25 % ceiling (baseline was 24.7 %).
 
 ## A correction made to the rubric, recorded rather than buried
