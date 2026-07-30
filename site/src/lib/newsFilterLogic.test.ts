@@ -148,6 +148,12 @@ describe('newsFilterLogic', () => {
     expect(matchesWindow('2026-07-29', '2026-07-28', 'today')).toBe(false);
   });
 
+  it('Test 16 (WR-06, mutation-tested): norm() trims leading/trailing whitespace so a comuna query with stray spaces matches the same set as the trimmed query', () => {
+    expect(norm('  santiago  ')).toBe(norm('santiago'));
+    expect(norm('santiago ')).toBe('santiago');
+    expect(norm(' Viña del Mar')).toBe(norm('Vina del Mar'));
+  });
+
   it('Test 15 (WR-03): computeFacetCounts window dimension uses matchesWindow per key', () => {
     const cards = makeCards();
     const newestDate = computeNewestDate(cards.map((c) => c.date));

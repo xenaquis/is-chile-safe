@@ -43,9 +43,17 @@ export interface FilterParams {
  * Algorithm copied verbatim from communes/index.astro:175-176, defined ONCE
  * here for the news pages (F-27/F-30) — never re-declared inline in a page
  * <script>. communes/index.astro keeps its own separate copy.
+ *
+ * Trims leading/trailing whitespace (WR-06): callers only ever compare
+ * norm(query) against norm(communeName), which never carries surrounding
+ * whitespace, so trimming here cannot drop information a caller relies on —
+ * it only makes a pasted/typed "santiago " (trailing space is routine from
+ * mobile autocomplete/paste/double-tap-space) match the same set as
+ * "santiago".
  */
 export function norm(s: string): string {
   return s
+    .trim()
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
     .toLowerCase();
