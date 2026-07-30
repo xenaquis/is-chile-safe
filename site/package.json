@@ -11,6 +11,7 @@
     "build": "cross-env ROLLOUT_ALL=true astro build",
     "check": "astro check",
     "validate": "node scripts/validate/all.mjs",
+    "test": "vitest run",
     "gen-og": "node scripts/gen-og.mjs"
   },
   "dependencies": {
