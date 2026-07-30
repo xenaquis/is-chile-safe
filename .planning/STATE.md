@@ -346,6 +346,15 @@ Decisions taken inline by the Fable orchestrator during the unattended run. Each
 - [Phase 26-04, 2026-07-29]: **CLUS-09 closed NO-GO.** `IncidentRecord.cluster_id`/`is_primary` NOT added; `pipeline/news/schema.py` and `data/` byte-unchanged. `test_golden_set_meets_go_gate` quarantined with `@pytest.mark.xfail(strict=True)` (assertion body untouched). `26-SPIKE-REPORT.md` finalized with confirmed NO-GO verdict, schema-change status, backward-compat sweep, LLM call budget (105 calls total), and Phase 27/28 guidance. **Phase 28 note**: even a future GO would need a producer step — `store.py:merge_and_write` writes raw dicts, so a schema addition alone would never populate `cluster_id`; a clustering-run step after `dedup.deduplicate` inside `scrape_news.py` is the actual Phase 28 (or later) prerequisite, not something Phase 26 was ever going to deliver standalone. Phase 28's NEWSUI-05 degrades to faceting-only per the roadmap's own conditional.
 - [Phase ?]: Phase 26 closed NO-GO: CLUS-09 satisfied via documented NO-GO branch; gate test quarantined via xfail(strict=True); Phase 28 producer-step prerequisite recorded
 
+## Phase 29 readiness (checked 2026-07-30, at Phase 28 close)
+
+**BrowserOS MCP is REACHABLE** — `list_pages` returned 38 open tabs. The directive's "retry once, else mark 29 BLOCKED and skip 30" branch is therefore **NOT** triggered; Phase 29 proceeds normally in the next session.
+
+Two practical notes for whoever runs it:
+- The browser currently holds ~38 tabs belonging to an unrelated project (LegalAtlas). **Open a new page for the design loop; do not close or navigate the user's existing tabs.**
+- Constraints from memory + the directive: serve with `npx astro preview --port 4321 --host` (there is no `npm run preview` script); BrowserOS has no viewport-resize, so emulate mobile via a 375px iframe; screenshot paths must contain no spaces; and Phase 29 must run INLINE in the orchestrator session because `gsd-executor` has no BrowserOS tools.
+- Fold in Phase 28's deferred manual pass (N3) while the browser is open — it is nearly free there: filter-bar layout at 375px, keyboard/focus, the `aria-live` announcement, a real JS-disabled render, and CLS/INP on `/news/` + `/es/noticias/`.
+
 ## Operator Next Steps
 
 **Phases 26 and 27 are CLOSED. Remaining v2.1 work: Phases 28 -> 29 -> 30 -> 31 -> 32 -> 33.**
