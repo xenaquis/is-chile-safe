@@ -219,6 +219,14 @@ export interface I18nStrings {
   cmp_case_singular: string;
   cmp_case_plural: string;
   avs_b_h1_pattern: string;
+
+  // Phase 30 — map control-shell entry points
+  map_entry_year: string;
+  map_entry_family: string;
+  map_entry_mode: string;
+  map_news_toggle_long: string;
+  map_news_toggle_short: string;
+  map_filters_fab: string;
 }
 
 export const EN_STRINGS: I18nStrings = {
@@ -440,6 +448,14 @@ export const EN_STRINGS: I18nStrings = {
   cmp_case_singular: 'case',
   cmp_case_plural: 'cases',
   avs_b_h1_pattern: '{a} vs {b} — Reported Crime Comparison',
+
+  // Phase 30 — map control-shell entry points
+  map_entry_year: 'Year',
+  map_entry_family: 'Crime type',
+  map_entry_mode: 'Map mode',
+  map_news_toggle_long: 'Recent incidents',
+  map_news_toggle_short: 'News',
+  map_filters_fab: 'Filters',
 };
 
 export const ES_STRINGS: I18nStrings = {
@@ -664,6 +680,14 @@ export const ES_STRINGS: I18nStrings = {
   cmp_case_singular: 'caso',
   cmp_case_plural: 'casos',
   avs_b_h1_pattern: '{a} vs {b} — Comparación de Incidencia Delictiva',
+
+  // Phase 30 — map control-shell entry points
+  map_entry_year: 'Año',
+  map_entry_family: 'Tipo de delito',
+  map_entry_mode: 'Modo',
+  map_news_toggle_long: 'Noticias recientes',
+  map_news_toggle_short: 'Noticias',
+  map_filters_fab: 'Filtros',
 };
 
 // D-17: Crime-family URL slug translations
