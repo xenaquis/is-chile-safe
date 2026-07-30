@@ -573,6 +573,20 @@ for (const [locale, distPath] of DIST_PAGES) {
   if (/\.news-card[^{}]*\{[^}]*display\s*:/.test(distHtml)) {
     fail(`assertion 12 — ${locale} author CSS sets display on .news-card, defeating [hidden]`);
   }
+  // WR2-03 fix: the CSS-rule check above only inspects stylesheet text, so
+  // an inline `style="display:none"` directly on a card/month-section node
+  // — the reflex alternative to `el.hidden = …` and therefore the most
+  // likely future F-26 regression — left the validator green. Test each
+  // opening tag's own `style="..."` attribute value for a `display` decl.
+  for (const m of distHtml.matchAll(/<(article|section)\b[^>]*>/g)) {
+    const tag = m[0];
+    if (
+      /\bclass="[^"]*\bnews-(card|month-section)\b[^"]*"/.test(tag) &&
+      /\sstyle="[^"]*display\s*:/.test(tag)
+    ) {
+      fail(`assertion 12 — ${locale} sets inline style="display:..." on a news node (F-26 violation)`);
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
