@@ -124,4 +124,9 @@ describe('newsFilterLogic', () => {
   it('Test 11: FILTER_LOGIC_MARKER is the exact string-literal contract', () => {
     expect(FILTER_LOGIC_MARKER).toBe('newsFilterLogic/v1');
   });
+
+  it('Test 12 (WR-01 regression): serializeFilterParams with an all-empty filter state returns an empty string', () => {
+    const empty: FilterParams = { family: [], region: [], window: '', q: '' };
+    expect(serializeFilterParams(empty)).toBe('');
+  });
 });

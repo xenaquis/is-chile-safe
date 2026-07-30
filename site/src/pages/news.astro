@@ -458,7 +458,20 @@ const jsonLd = {
           countEl.textContent = String(familyCounts[input.value] ?? 0);
         });
 
-        history.replaceState(null, '', '?' + serializeFilterParams(active));
+        const nextParams = new URLSearchParams(location.search);
+        nextParams.delete('family');
+        nextParams.delete('region');
+        nextParams.delete('window');
+        nextParams.delete('q');
+        for (const [key, value] of new URLSearchParams(serializeFilterParams(active))) {
+          nextParams.set(key, value);
+        }
+        const qs = nextParams.toString();
+        history.replaceState(
+          null,
+          '',
+          location.pathname + (qs ? '?' + qs : '') + location.hash
+        );
       }
 
       filtersEl.querySelectorAll<HTMLInputElement>('input[name="window"]').forEach((input) => {
