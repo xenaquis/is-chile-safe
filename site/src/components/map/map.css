@@ -39,14 +39,6 @@
   }
 }
 
-/* H-01 + M-01 interaction, caught by re-measuring after the fix cycle rather than
-   by trusting the first set of numbers: at <=480px the entry <details> are hidden
-   but the state summary is NOT (M-01 keeps it — it is the only surface showing the
-   active selection at this band), so the topbar keeps its second row and measures
-   137px, not the 111px the pre-fix build measured. 143px therefore covers <=480 as
-   well, and a separate narrower override here would put the badge back inside the
-   topbar — the exact defect H-01 reported. The 1023px rule above governs this band. */
-
 /* Phase 30 — grouped filter entry points (spec §2/§4). The rail sits on the same
    row band as the search box and must never add a third topbar row (F-54 coverage
    ceilings). No z-index on the rail: it is nested inside .map-topbar at 800, and
@@ -59,10 +51,10 @@
   flex-wrap: wrap;
 }
 
-/* Phase 30-05: at <=480px the FAB (FilterSheet) takes over the entry-point
-   <details> panels; the rail itself stays in flow (M-01 fix) so its
-   .entry-state-summary child — the only surface showing the active selection
-   at this band without opening a panel (spec §2 item 4) — remains visible. */
+/* At <=480px the FAB (FilterSheet) replaces the entry-point <details> panels and
+   the rail is hidden entirely. The state summary is NOT inside the rail (it is
+   rendered by MapTopbar into row 1), so it survives independently — visually
+   hidden at this band, still announced via aria-live. See 30-CLOSE.md §6b. */
 @media (max-width: 480px) {
   .entry-points-rail > details {
     display: none;
@@ -1182,15 +1174,23 @@
 
 /* No z-index rule for #filter-sheet — showModal() renders it in the
    browser's top layer; a z-index there is a defect (spec section 5). */
+/* N-1: padding lives on .filter-sheet-inner, NOT on the <dialog> itself. The
+   light-dismiss handler closes when the click target IS the dialog element, and
+   padding on the dialog makes that 16px ring part of the VISIBLE sheet — so a thumb
+   resting on the gutter of a bottom sheet would dismiss it. */
 .filter-sheet {
   border: none;
   border-radius: 12px 12px 0 0;
-  padding: 16px;
+  padding: 0;
   width: 100%;
   max-width: 100%;
   margin: auto 0 0 0;
   background: var(--card);
   color: var(--ink);
+}
+
+.filter-sheet-inner {
+  padding: 16px;
 }
 
 .filter-sheet::backdrop {

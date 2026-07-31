@@ -449,6 +449,34 @@ gitDiffExitCode('zero new dependencies (package.json/package-lock.json unchanged
   }
 })();
 
+
+// ---------------------------------------------------------------------------
+// Assertion 8: the ?cut= precedence rule is actually WIRED, not merely exported.
+//
+// N-2 (re-review): shouldApplyRegionFocus() is unit-tested and exported, but
+// replacing its call site in MapIsland.tsx with `if (idx)` — i.e. deleting the
+// whole "a valid ?cut= beats ?region=" rule — left the entire suite 51/51 green.
+// The rule is only observable in a browser, so it is guarded here at source
+// level (the F-24 precedent: when no runtime check can distinguish, assert the
+// call exists rather than pretending the unit test covers it).
+// ---------------------------------------------------------------------------
+(function assertRegionPrecedenceWired() {
+  const islandPath = path.join(SITE_ROOT, 'src/components/map/MapIsland.tsx');
+  const src = readFileSync(islandPath, 'utf8');
+  const importsIt = src.includes('shouldApplyRegionFocus');
+  const callsIt = /if\s*\(\s*shouldApplyRegionFocus\(/.test(src);
+  const stillResolves = src.includes('resolveRegionFocus(');
+  if (importsIt && callsIt && stillResolves) {
+    pass('?cut= precedence rule wired (shouldApplyRegionFocus guards the region block)');
+  } else {
+    fail(
+      '?cut= precedence rule wired',
+      'MapIsland.tsx must guard the ?region= block with if (shouldApplyRegionFocus(...)) — imports:' +
+        importsIt + ' guardCall:' + callsIt + ' resolveCall:' + stillResolves
+    );
+  }
+})();
+
 // ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------

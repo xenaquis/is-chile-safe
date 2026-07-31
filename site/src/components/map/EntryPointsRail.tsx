@@ -63,19 +63,11 @@ export function EntryPointsRail({
 }: Props) {
   const strings = lang === 'es' ? ES_STRINGS : EN_STRINGS;
   const [openId, setOpenId] = useState<EntryId | null>(null);
-  const [band, setBand] = useState<Band>(getBand());
   const railRef = useRef<HTMLDivElement>(null);
   const yearSummaryRef = useRef<HTMLElement>(null);
   const familySummaryRef = useRef<HTMLElement>(null);
   const modeSummaryRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    function handleResize() {
-      setBand(getBand());
-    }
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     function handleMouseDown(e: MouseEvent) {
@@ -102,18 +94,6 @@ export function EntryPointsRail({
     }
   }
 
-  const fLabelLong = familyLabel(lang, crimeFamily, false);
-  const fLabelShort = familyLabel(lang, crimeFamily, true);
-  const mLabel = modeLabel(lang, mode);
-
-  let stateSummary: string;
-  if (band === 'wide') {
-    stateSummary = `${mLabel} · ${fLabelLong} · ${year}`;
-  } else if (band === 'mid') {
-    stateSummary = `${fLabelLong} · ${year}`;
-  } else {
-    stateSummary = `${fLabelShort} · ${year}`;
-  }
 
   return (
     <div

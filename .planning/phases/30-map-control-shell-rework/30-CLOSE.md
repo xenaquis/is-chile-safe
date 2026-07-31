@@ -155,6 +155,60 @@ at zoom 4. **This is also why my earlier `?cut=13101&region=05` precedence test 
 failed** — `region=05` resolved to nothing before the M-07 fix. Re-tested with `?region=13`: zoom 8,
 panel closed; with `?cut=13101&region=05`: panel on Santiago at zoom 12.
 
+## 6c. Independent Opus re-review and fix cycle 2 (final)
+
+The re-review verified the 13 findings **by execution and mutation** (it rendered `FilterFields`
+through `react-dom/server` to check the roving tabindex in every reachable state, and mutated the
+gate's own rules): **8 CLOSED, 4 PARTIAL, 1 OPEN**, plus **three new MEDIUM findings the fix cycle
+introduced**. All three are now fixed and verified:
+
+- **N-1 — the backdrop light-dismiss also covered the sheet's own visible gutter.** The `<dialog>`
+  carried `padding: 16px`, and the handler closes when the click target *is* the dialog element — so
+  the 16 px ring inside the visible sheet dismissed it, which on a bottom sheet is exactly where a
+  thumb rests. Padding moved to a `.filter-sheet-inner` wrapper. **Verified in the browser:** the
+  inner element now fills the dialog exactly (gutter 0 px), `elementFromPoint` at the sheet's top edge
+  returns `.filter-sheet-inner`, not the dialog, so that click can no longer dismiss.
+- **N-2 — the `?cut=` precedence rule was wired but ungated.** The re-review proved that replacing the
+  guard with `if (idx)` — deleting the rule entirely — left the suite at **51/51 green**. The rule is
+  only observable in a browser, so it is now guarded at source level (`phase30-gate.mjs` assertion 8,
+  the F-24 precedent). **Proven falsifiable:** on the mutated tree the gate exits 1 naming the missing
+  guard while vitest still reports 51/51 — which is precisely the hole it was written to close.
+- **N-3 — dead code left by the `StateSummary` extraction** (`band` state, its resize listener and the
+  unrendered `stateSummary` string in `EntryPointsRail`). Removed.
+
+Also cleaned: a stale `map.css` comment block that still described the superseded M-01 approach and
+contradicted the code beside it.
+
+**Confirmed by the re-review, not just claimed:** the three orchestrator corrections in §6b broke
+nothing — no band's summary can wrap, no topbar grew, no new sub-44 px target appeared, and the rail
+and FAB are mutually exclusive at every width. It also independently confirmed F-58's account: the
+arrow-key handler adds **no** `keyInterceptors` signal, so c4's FAIL is attributable solely to the
+roving tabindex.
+
+**Final suite:** build OK · **vitest 51** · **16/16 validators** · **pytest 344 passed / 1 skipped /
+1 xfailed** · astro check **4 errors / 0 warnings** at the baseline location · `phase30-gate.mjs`
+**12/12 PASS** · protected Leaflet files and `score.mjs` byte-identical.
+
+**Final rubric, all five widths:** c1 **PASS**, c3 **zero map-owned violations**, c5 **PASS** with
+`zIndexViolations: []`, badge clears the topbar everywhere, coverage **21.7 % @375** and **23.0 %
+@320** (baseline 27.5 / 28.6), summary fits on one line at every band where it is visible.
+
+**Carried, with the reason recorded rather than fixed** (fix cycles are capped at 2):
+- **L-03** — `AVAILABLE_YEARS` offers 2026, which has no payload yet; selecting it shows the
+  "no data" toast. Pre-existing behaviour of the ported year list, now pinned by a test. Worth a
+  Phase 31 look.
+- **L-04** — the gate compares astro-check error *locations*, so a same-location regression or a new
+  *warning* would not redden it. Deliberate: the count-based alternative is the one that invites
+  baseline-bumping.
+- Two LOW items about an unreachable radiogroup state on an out-of-vocabulary `crimeFamily` and the
+  `offsetParent` guard being a behavioural no-op today.
+
+**One deviation stated plainly rather than framed as a fix:** at ≤480 px the state summary is
+screen-reader-only, so **spec §2 item 4 is met for assistive tech but not for sighted users at that
+band**. That is a deliberate trade against F-50's ceiling and STRESS.md's frozen ≤25 % rule — showing
+it cost 26 px of topbar and pushed coverage to 27.4 %. At that width the sheet shows the live
+selection when opened. Recorded as a spec deviation, not a silent one.
+
 ## 7. Accepted and recorded, not fixed
 
 - **Residual sub-44 px targets** (16–17 per width) are the skip link, site title, locale links,

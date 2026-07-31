@@ -126,6 +126,7 @@ export function FilterSheet({
           }
         }}
       >
+        <div className="filter-sheet-inner">
         <div className="filter-sheet-header">
           <h2 id="filter-sheet-title">{strings.map_filters_fab}</h2>
           <button
@@ -150,6 +151,7 @@ export function FilterSheet({
             <div className="filter-sheet-field-label">{strings.map_entry_mode}</div>
             <ModeField lang={lang} mode={mode} onModeChange={onModeChange} />
           </div>
+        </div>
         </div>
       </dialog>
     </>
