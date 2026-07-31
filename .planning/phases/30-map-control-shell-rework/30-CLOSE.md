@@ -92,6 +92,8 @@ Run against the real page; these are the invariant the premortem named as having
 | `?region=13` | fits the map to Región Metropolitana **without** opening ResultPanel | **PASS** — tiles at zoom **8**, panel closed |
 | `?region=99999` | silent degradation | **PASS** — default extent (zoom 4), panel closed, **zero console errors/warnings** |
 | `?cut=13101&region=05` | the commune deep link WINS | **PASS** — panel on Santiago at zoom 12, no flight to Valparaíso |
+| **Geolocation** (criterion 4, and the one item no other artifact evidenced) | the locate button still calls `navigator.geolocation` and degrades gracefully when denied | **PASS** — button measures **44×44** with `aria-label="Mostrar mi ubicación"`; clicking it calls `getCurrentPosition` with a real error callback, and a simulated `PERMISSION_DENIED` surfaces the toast **"No se pudo obtener tu ubicación"** rather than failing silently or throwing |
+| **MAPSH-07** shared vocabulary via DATA, no code edge between the map island and the news pages | grep the import graph both directions | **PASS** — zero imports from `src/components/map/**` to any news module, and zero from the news pages/modules to any map component. `mapFilterDefs.ts` reaches the shared vocabulary through `./familyDefs`, the same data module the news side reads independently |
 
 ## 5. Two measurement artifacts that first looked like defects — recorded so they are not rediscovered
 

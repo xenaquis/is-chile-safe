@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 30 (Map Control-Shell Rework) — next to plan. Phase 29 COMPLETE (2/2 plans, MAPUX-01..05 all satisfied, design spec accepted).
+Phase: 31 (Docs & Methodology Refresh) — next to plan. Phase 30 COMPLETE (6/6 plans, MAPSH-01..07, 29-DESIGN-SPEC.md implemented).
 Plan: —
-Status: Phase 29 closed after an independent Opus review (1 BLOCK + 2 FLAGs) and one fix cycle; close gate green at 16/16
-Last activity: 2026-07-30 — Phase 29 closed: 29-DESIGN-SPEC.md accepted, Phase 30 unblocked, human review deferred
+Status: Phase 30 closed after an Opus code review (2 HIGH/7 MED/4 LOW), an independent Opus re-review (3 new MEDIUM, all from the fix cycle itself) and two fix cycles; close gate green — vitest 51, 16/16 validators, pytest 344/1/1, phase30-gate 12/12
+Last activity: 2026-07-30 — Phase 30 closed: the flat scrolling filter row is gone, the news toggle is discoverable at every width, zero map-owned touch-target violations
 
 ## Progress Bar
 
@@ -45,7 +45,7 @@ Phase 26 [████████████████████] 100% COM
 Phase 27 [████████████████████] 100% COMPLETE (2/2 — 27-01 newsFacets.ts + facets.mjs validator #16 shipped; 27-02 page wiring + phase-close gate 16/16)
 Phase 28 [████████████████████] 100% COMPLETE (3/3 — verification PASSED 5/5; facets.mjs at 22 assertions; 15/16 validators, freshness excluded per F-19)
 Phase 29 [████████████████████] 100% COMPLETE (2/2 — design loop: 2 gated iterations, 29-DESIGN-SPEC.md accepted; Phase 30 unblocked)
-Phase 30 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Map Control-Shell Rework — regression risk)
+Phase 30 [████████████████████] 100% COMPLETE (6/6 — control shell reworked; c1/c3/c5 baseline FAIL -> PASS; protected Leaflet files byte-identical)
 Phase 31 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Docs & Methodology Refresh)
 Phase 32 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Cron Consistency)
 Phase 33 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Security Posture)
@@ -232,6 +232,29 @@ silently hiding a GO.
 7. **Criterion 1 tests presence and stacking, never legibility.** The loop's most valuable finding came from looking at a screenshot: iteration 2 first hid the toggle's label below 640 px, leaving a bare dot that the rubric scored PASS and MAPSH-01 forbids.
 
 **The lesson, recorded because it repeats every phase:** the independent Opus review found that **two of the five rubric criteria could not fail** — c4 scanned only inline `<script>` text (empty for the real page's module bundles, so it would have passed a genuine focus trap) and c5's `< 700` predicate excluded exactly 700, the value of the one z-index defect the phase found. Both had been reported as passing gates. A green rubric is evidence about the rubric.
+
+### Phase 30 Outcome — PASSED (read this before Phase 31)
+
+**Shipped: the accepted design, in real code.** `FiltersRow.tsx` is deleted (file and CSS rules); `MapTopbar.tsx` composes `SearchBox` + a standalone labeled `NewsToggle` + `EntryPointsRail` (three `<details>` entry points) + `FilterSheet` (FAB + `<dialog>`/`showModal()` below 480 px), with `StateSummary` as an `aria-live` region in row 1. `?region=` ships (single-value, own parser, yields to `?cut=`). The three protected Leaflet layer files and `score.mjs` are **byte-identical** to the pre-phase SHA.
+
+**Measured against the real app, before and after** (`30-BASELINE.md` / `30-CLOSE.md`, same harness, iframe height pinned to 800):
+
+| | baseline | close |
+|---|---|---|
+| news toggle | offscreen at x=**1370**, c1 FAIL at every width | on-screen and **labeled at all five widths**, c1 PASS |
+| hidden overflow | **507–1046 px** in `.filters-row`, scrollbar suppressed | the element is gone; only Leaflet's own tile pane remains (F-57) |
+| touch targets | 19–20 violations incl. locate 32 px, zoom 36 px, search input 17 px, legend summary 18 px | **zero map-owned violations** at every width |
+| z-index | `.legend`=700, tying `.leaflet-popup-pane` | `zIndexViolations: []`, ladder 750/800/801 |
+| coverage @375 | 27.5 % (over both the 22.7 % ceiling and the frozen ≤25 % rule) | **21.7 %** |
+
+**What Phase 31 must know:**
+1. **`phase30-gate.mjs` is NOT a validator** — it is a standalone phase-close script, deliberately unregistered so the "16 validators" count did not cascade (F-21). It has 12 assertions, each proven falsifiable by mutation.
+2. **Three decisions correct earlier ones on evidence**: F-55 (c4 IS measurable and passes — my own F-53(a) and the premortem were both wrong), F-56 (union coverage is the comparability metric; the raw figure counts nested hooks 2–3×, proven by rebuilding the pre-change tree: 21.2 % both sides), F-58 (roving tabindex makes c4 report FAIL at ≥481 — an instrument false positive, settled by a real Tab walk: `news-toggle → Año → Tipo de delito → Modo → zoom`).
+3. **Two measurement artifacts that will bite anyone driving this map again**: a `<dialog>` ignores synthetic key events, and **Leaflet runs neither `fitBounds` nor tile fetches in a background tab** — measured hidden, `?region=13`, `?region=99999`, `?cut=` and a plain load all look identical, which reads exactly like a silent no-op. Always measure in a visible tab.
+4. **A recorded spec deviation**: below 480 px the state summary is screen-reader-only, so spec §2 item 4 is met for assistive tech but not for sighted users at that band — traded deliberately against the frozen ≤25 % coverage rule.
+5. **Pre-existing, worth a Phase 31 line**: the legend's numeric bands come from the overall commune rate (`MapIsland.tsx:201,290`) and never vary by selected family, including homicide; and `AVAILABLE_YEARS` offers 2026, which has no payload yet.
+
+**The lesson this phase adds:** the fix cycles were where the damage was. Cycle 1 closed 13 findings and introduced three regressions — including pushing coverage past the one threshold `STRESS.md` freezes — and cycle 2's own re-review found three more. Every one was caught by re-running the whole instrument rather than reading the fixer's report. Also: **my own precedence test could not have failed** (`?cut=13101&region=05` "proved" the cut wins while `region=05` resolved to nothing), which is the same class of defect this run keeps finding in other people's gates.
 
 ### Phase 28 Outcome — PASSED (read this before Phase 29/30)
 
