@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-31T02:27:45.528609Z",
+  "generated": "2026-07-31T08:44:06.966475Z",
   "window_days": 30,
   "incidents": [
     {
@@ -18448,6 +18448,84 @@
       "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNR2VJS0c3eFVSMFZ1YmptVHIyX3hVVEYyLW5BRjZwN01xblAwMzY0eUlRNmtZUC1rZm9xSUZmdm52QWItU2xWNXBjTXhET1hsRE56SWdyemhid0pZdVY3N3I0VWdyTldoMF9GTVpXYXJXTzkxci02TEg2U05Pc1pDd3ZFSVdaS2tGVkxKd2VGNHhzdk4zX0xXYzFoNHFwUGs1OXhSRzVGX2s?oc=5",
       "family": "incivilidades",
       "slug": "temuco"
+    },
+    {
+      "id": "2c028b921631dcb1",
+      "cut": "8112",
+      "lat": -36.796448,
+      "lng": -73.103003,
+      "title_es": "Detienen a sospechoso de ataque a tiros contra casa en Hualpén que dejó un hombre asesinado",
+      "title_en": "Suspect arrested in shooting attack on house in Hualpén that left a man dead",
+      "date": "2026-07-31",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/31/detienen-a-sospechoso-de-ataque-a-tiros-contra-casa-en-hualpen-que-dejo-un-hombre-asesinado.shtml",
+      "family": "vida",
+      "slug": "hualpen"
+    },
+    {
+      "id": "30ab8589781eaa12",
+      "cut": "8102",
+      "lat": -36.996187,
+      "lng": -73.045624,
+      "title_es": "En prisión queda hombre que mató a golpes a adulto mayor en Coronel: víctima se negó a darle dinero",
+      "title_en": "Man who beat senior citizen to death in Coronel jailed: victim refused to give him money",
+      "date": "2026-07-31",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/07/30/en-prision-queda-hombre-que-mato-a-golpes-a-adulto-mayor-en-coronel-victima-se-nego-a-darle-dinero.shtml",
+      "family": "vida",
+      "slug": "coronel"
+    },
+    {
+      "id": "e46772c0ed19c8da",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Estudiante de 16 años muere apuñalado al exterior de su liceo en San Bernardo",
+      "title_en": "16-year-old student stabbed to death outside his high school in San Bernardo",
+      "date": "2026-07-30",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/estudiante-de-16-anos-muere-apunalado-al-exterior-de-su-liceo-en-san-bernardo/",
+      "family": "vida",
+      "slug": "san-bernardo"
+    },
+    {
+      "id": "944f43b900486354",
+      "cut": "9204",
+      "lat": -38.080923,
+      "lng": -72.362812,
+      "title_es": "PDI detiene a adolescente investigado por robo con intimidación y robo de vehículo en Ercilla",
+      "title_en": "PDI arrests teen investigated for robbery with intimidation and vehicle theft in Ercilla",
+      "date": "2026-07-30",
+      "outlet": "soychile.cl",
+      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQTDZleEdtdVV1SDZiRDRRa29BNk9fdm5ySjdXc3RDLWFEMDY2cDlna3ljUWZkQkhfbWR0ajh0Zmc5TElfUzFWUGM4bTVSVzN1WS1iODJ6YWVsc05ubk5uM2FkdHQwSFppcFpXU3dFT0g5S2tCUl8xMWdlb0QzRVk0ODh4QnNtY19vYnJBSWRCZC1zdw?oc=5",
+      "family": "robos_violentos",
+      "slug": "ercilla"
+    },
+    {
+      "id": "b82c5734487b6f9f",
+      "cut": "9201",
+      "lat": -37.797936,
+      "lng": -72.79785,
+      "title_es": "Carabineros del OS-9 detuvo a “Los Castores” por brutal agresión en Angol: víctima falleció días después",
+      "title_en": "Carabineros of OS-9 arrest “The Beaver Gang” for brutal assault in Angol: victim died days later",
+      "date": "2026-07-30",
+      "outlet": "G5noticias",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQMG1nNTRSUHRFQ05xOGJvSzJ2NDN5d2ZWcDNKZzVrVFZleGdJQnlSMWFHZEJZX1l6VU9iSl8tNEpiSkN5N1c3b1plWGNTdUwyZ2o3RHJmU1l0ZERLdXhrbFozUHAyc2xYc0dlRzRWTnlqLUJyZlo2aTljMXgwYVNSVU9FQkFuV055cFJRLXMyTEdYQURKTERvS0NQWk5fV2ZLR29KcUFXMlMtS0FNS1VNOVI5OFJsbzhxeUxpdDBFX1ZXU3JVOTVNcWhFMGk3Wm01?oc=5",
+      "family": "vida",
+      "slug": "angol"
+    },
+    {
+      "id": "63819645eb0509ae",
+      "cut": "9201",
+      "lat": -37.797936,
+      "lng": -72.79785,
+      "title_es": "Control carretero termina con detenido y millonaria incautación de marihuana en Cabrero",
+      "title_en": "Road checkpoint ends with arrest and massive marijuana seizure in Cabrero",
+      "date": "2026-07-30",
+      "outlet": "latribuna.cl",
+      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPRGg0VE8yeDgxdUZjM2x0TEtCZmJCRzRtUl81Q1FCd0xvcjd3VVBsS3JjMkJPSnE0bTBRN01zMnY0ekFPZ2RQbG1aODZibzIzb0xhYXR5cjlLUk1jT2RYSXlOWXlZZTZjY3RxWGRtZ3U4bG5QcERMVHEyWnc5bzZSS044anVBQm9BVjUtR3F4ZkhDSHdrX1o1dGhMMHgwRnFhWm9KMFR1OGxZMmNEZmNYSFBLSklsUS0yNjlfcUpRdU5GaUNHNzNxSDRBU2hvYml5V0hsUW1LQ2NSOUXSAdsBQVVfeXFMT0RoNFRPMng4MXVGYzNsdExLQmZiQkc0bVJfNUNRQndMb3I3d1VQbEtyYzJCT0pxNG0wUTdNczJ2NHpBT2dkUGxtWjg2Ym8yM29MYWF0eXI5S1JNY09kWEl5Tll5WWU2Y2N0cVhkbWd1OGxuUHBETFRxMlp3OW82UktOOGp1QUJvQVY1LUdxeGZIQ0h3a19aNXRoTDB4MEZxYVpvSjBUdThsWTJjRGZjWEhQS0pJbFEtMjY5X3FKUXVORmlDRzczcUg0QVNob2JpeVdIbFFtS0NjUjlF?oc=5",
+      "family": "drogas",
+      "slug": "angol"
     }
   ]
 }
