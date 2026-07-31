@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-30T19:20:47.934861+00:00",
+  "generated": "2026-07-31T02:27:45.512566+00:00",
   "items": [
     {
       "id": "a026901347e4ca3a",
@@ -2370,6 +2370,236 @@
       "description": "Can detector “Apolo” permitió detectar droga enviada por courier: dos detenidos en operativo de la PDI&nbsp;&nbsp;latribuna.cl",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-07-30T19:20:47.934861+00:00"
+    },
+    {
+      "id": "7a31152c5fb862dd",
+      "url": "https://www.latercera.com/nacional/noticia/en-medio-de-criticas-de-abogada-querellante-tribunal-revisara-este-viernes-solicitud-de-general-r-yanez-para-viajar-a-brasil/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "En medio de críticas de abogada querellante: tribunal revisará este viernes solicitud de general (r) Yáñez para viajar a Brasil",
+      "description": "El otrora mandamás de Carabineros fue invitado a exponer en el marco de la Cumbre Regional sobre Seguridad y Justicia 2026, que organiza el BID junto al Ministerio de Justicia de Brasil.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "fb8f2f412e87935a",
+      "url": "https://www.latercera.com/mundo/noticia/avalancha-migratoria-desde-marruecos-a-enclave-espanol-de-ceuta-provoca-caos-y-deja-al-menos-16-muertos-en-24-horas/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Avalancha migratoria desde Marruecos a enclave español de Ceuta provoca caos y deja al menos 16 muertos en 24 horas",
+      "description": "El incidente obligó a desplegar tropas y agentes de policía adicionales, mientras que el jefe de gobierno, Pedro Sánchez, anunció que viajará este viernes a la ciudad autónoma. La primera ministra de Italia, Giorgia Meloni, dijo que estaba considerando suspender el acuerdo de Schengen con España a raíz de la crisis migratoria en Ceuta.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "1ecc07c0cc9ff630",
+      "url": "https://www.latercera.com/nacional/noticia/fiscalia-revela-que-en-10-anos-los-ingresos-de-adolescentes-al-sistema-penal-han-bajado-un-20/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Fiscalía revela que en 10 años los ingresos de adolescentes al sistema penal han bajado un 20%",
+      "description": "Un informe elaborado por la Fiscalía Nacional que analizó el periodo 2015-2025, detectó que la mayoría de los jóvenes infractores son hombres entre 16 y 17 años, lo que equivale al 64% del total. El estudio además siguió a 30.590 jóvenes durante 11 años y constató que solo un 2,4% de ellos concentra el 13% de todos los delitos.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "0f4a637e79c35168",
+      "url": "https://www.latercera.com/politica/noticia/transgrede-todo-protocolo-exsubsecretario-rodriguez-desmiente-a-laboratorio-donde-se-realizo-test-de-drogas/",
+      "outlet": "LaTercera",
+      "date": "2026-07-30",
+      "title": "“Transgrede todo protocolo”: exsubsecretario Rodríguez desmiente a laboratorio donde se realizó test de drogas",
+      "description": "La exautoridad precisó que desde el centro de análisis realizaron un segundo informe donde aseguraron que el resultado del examen realizado el 12 de junio no le atribuía la condición de consumidor de drogas.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "91134a8e1a040641",
+      "url": "https://www.latercera.com/politica/noticia/paulina-vodanovic-ps-si-alguien-tiene-informacion-pendiente-en-ddhh-son-los-complices-pasivos/",
+      "outlet": "LaTercera",
+      "date": "2026-07-30",
+      "title": "Paulina Vodanovic (PS): “Si alguien tiene información pendiente en DD.HH. son los ‘cómplices pasivos’”",
+      "description": "La timonel socialista salió al paso de quienes han cuestionado el Informe de la Comisión Nacional de Verdad y Reconciliación tras el caso de Bernarda Vera, mujer que se encontraba en la lista de detenidos desaparecidos y un examen de ADN confirmó que se encuentra viva en Argentina.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "f6b186354bd90e25",
+      "url": "https://www.latercera.com/nacional/noticia/corte-de-iquique-confirma-sobreseimiento-de-suboficial-imputada-en-indagatoria-por-trafico-de-ketamina-en-vuelo-fach/",
+      "outlet": "LaTercera",
+      "date": "2026-07-30",
+      "title": "Corte de Iquique confirma sobreseimiento de suboficial imputada en indagatoria por tráfico de ketamina en vuelo FACH",
+      "description": "El CDE y el Ministerio de Seguridad habían apelado contra resolución de Juzgado de Garantía.  La Fiscalía de Tarapacá desistió de perseverar en la investigación.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "18c3122abed1513a",
+      "url": "https://www.latercera.com/mundo/noticia/condenan-a-15-de-prision-a-padre-cuyo-hijo-protagonizo-tiroteo-que-dejo-cuatro-muertos-en-eeuu/",
+      "outlet": "LaTercera",
+      "date": "2026-07-30",
+      "title": "Condenan a 15 años de prisión a padre cuyo hijo protagonizó tiroteo que dejó cuatro muertos en EE.UU.",
+      "description": "Según CNN, se trata de un caso histórico que pone a prueba los límites de quién puede ser considerado responsable de un tiroteo masivo.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "b6782422706871a7",
+      "url": "https://www.latercera.com/nacional/noticia/naya-facil-a-tribunales-carabineros-concluye-informe-por-conduccion-temeraria-y-fiscalia-analiza-eventual-formalizacion/",
+      "outlet": "LaTercera",
+      "date": "2026-07-30",
+      "title": "¿Naya Fácil a tribunales? Carabineros concluye informe por conducción temeraria y Fiscalía analiza eventual formalización",
+      "description": "La policía uniformada concluyó que Nayadeth Neculhueque pasó a 188 km/hr por un pórtico del Acceso Sur y a 114 km/hr por otro a dos kilómetros. Entre medio de ambos aceleró llegando a 211 km/hr.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "59e06bdfa8f01e4b",
+      "url": "https://www.latercera.com/nacional/noticia/del-amor-al-odio-silber-desclasifica-discusion-con-portazos-y-gritos-en-oficina-de-lagos-y-vargas-por-supuestos-pagos-a-migueles/",
+      "outlet": "LaTercera",
+      "date": "2026-07-30",
+      "title": "Del amor al odio: Silber desclasifica discusión con portazos y gritos en oficina de Lagos y Vargas por supuestos pagos a Migueles",
+      "description": "El altercado, como detalló el imputado, tuvo lugar luego de que un medio de comunicación reportara los presuntos sobornos a la exministra Ángela Vivanco. Según el exdiputado, Mario Vargas no tenía idea de nada. El episodio, a juicio de Silber, marcó un antes y un después en la relación que había entre los exsocios.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "ca5490786dba7a29",
+      "url": "https://www.latercera.com/nacional/noticia/podria-cumplir-la-sentencia-en-chile-lo-ultimo-que-se-sabe-del-ejecutivo-chileno-detenido-en-brasil-por-racismo/",
+      "outlet": "LaTercera",
+      "date": "2026-07-30",
+      "title": "Detenido y alegando demencia: lo último que se sabe del chileno detenido en Brasil por racismo a casi 3 meses del suceso",
+      "description": "Germán Naranjo, exgerente comercial de la pesquera Landes, lleva más de dos meses detenido en Brasil tras emitiri dichos racistas y homofóbicos en un vuelo entre Sao Paulo y Frankfurt. La investigación de su caso sigue en manos de la justicia brasileña.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "1dca823c0e9e6d46",
+      "url": "https://www.latercera.com/mundo/noticia/ascienden-a-10-los-cuerpos-recuperados-del-mar-en-ceuta-en-las-ultimas-24-horas/",
+      "outlet": "LaTercera",
+      "date": "2026-07-30",
+      "title": "Ascienden a 10 los cuerpos recuperados del mar en Ceuta en las últimas 24 horas",
+      "description": "Si se mantiene el ritmo, pronto se alcanzará la cifra de muertos con la que finalizó el pasado año, de 46 en total.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "3843d7cef4d11355",
+      "url": "https://www.lacuarta.com/espectaculos/noticia/paty-maldonado-recuerda-su-reaccion-al-ver-a-su-hermano-fallecido-perdi-el-control/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-30",
+      "title": "Paty Maldonado recuerda su reacción al ver a su hermano fallecido: “Perdí el control”",
+      "description": "",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "e1c4e88ee675be37",
+      "url": "https://www.lacuarta.com/chile/noticia/lo-que-hallaron-en-videos-probaria-todo-el-peritaje-policial-que-acorralaria-a-naya-facil-en-caso-de-conduccion-temeraria/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-30",
+      "title": "Lo que hallaron en videos probaría todo: el peritaje policial que acorralaría a Naya Fácil en caso de conducción temeraria",
+      "description": "Fiscalía y Carabineros tienen en sus manos un informe con un dato clave en contra de la influencer.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "7ac28298e720654e",
+      "url": "https://www.lacuarta.com/chile/noticia/su-lado-activista-le-vuelve-a-ganar-kast-jr-puso-el-grito-en-el-cielo-por-una-historia-de-gabriel-boric-en-instagram/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-30",
+      "title": "“Su lado activista le vuelve a ganar”: Kast Jr. puso el grito en el cielo por una historia de Gabriel Boric en Instagram",
+      "description": "El diputado José Antonio Kast salió a condenar la publicación del exPresidente en redes sociales.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "30679074b7f98e95",
+      "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxNNjN3Ym8zaG4wcDhmUmRiVXBnXzBPTENxWXBMUFNfUDBmSWlkY2ViMHZvRUU2enBtNUswTXVfajRIdnpaamkwemN5elJWZUVMejV1U2RoM29ZdnRRaUxSSTBsbTQ2TGh0cWhTVzZVMkN4NDNzZElxY1Z1UEtHeEh3Yi1ubFFzQUVJOUNhOUFmWG11T3BtTWlSWU1GOFBDVmlZbDNfV3dYMThIcTYwQjhnVTFNb196eDh4QU9ybkR5c0pBZDVvUk0tRlBiXzRpb0ZzY1E3WmI3UjM0VllHMGNEa1VSRXhZaG9JNkMwZzZXblRsUQ?oc=5",
+      "outlet": "G5noticias",
+      "date": "2026-07-30",
+      "title": "Foro Internacional de Crimen Organizado reunió al ministro Fernando Rabat y a referentes para fortalecer la seguridad en Chile - G5noticias",
+      "description": "Foro Internacional de Crimen Organizado reunió al ministro Fernando Rabat y a referentes para fortalecer la seguridad en Chile&nbsp;&nbsp;G5noticias",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "78674a61ab598467",
+      "url": "https://news.google.com/rss/articles/CBMijAJBVV95cUxNM1dGVXBKM1AxaDhpRG14MkdBV1llZGN1eE5hWV92U0RZeWtlOG9kek82WUctdnROdUtacE0wbzZSWDlSa3Exc1JzNGhic0ZScWZnd3dsN0wtSWFhM0dEeGVtb0prX2R4Z0xvbEpvYmcxTDJWU3laTUhsaTdtQWw4Q2lWR3ZhZGNGU19GVmJaQWJLZUYyaEZXSUFmMkNsVVN6VmkxaDJSWnVjWmgxYjExclBtYUtiWk1oWERtMjJuZ2xDS2p0ZXZENHMtLWczOEpOa19CaXZlVTBDWlRlODNEUUVfdlBmQTNkeTBKb0plamZJcWZsRG81NjNaaUNtTkFlU0JCZEtjWmNuX0wz?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-07-30",
+      "title": "Secuestros, sicariato y robo de madera: el foco de Fiscalía contra el crimen organizado en el Bío Bío - BioBioChile",
+      "description": "Secuestros, sicariato y robo de madera: el foco de Fiscalía contra el crimen organizado en el Bío Bío&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "bbe9f882865d631b",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNY18yMk1aazh0a3NuWm9JTmJzN3dhVEZTY2tQNHdfR2xKdDVKWHV3Tkd4QkhxbWpwczloUG0xRzhlaXh3U2MwbHR1cFVucDJoR1FWYlNBUHdBNmozM1E5MVA4alBrZzVXeUZTWF9FSE1rMkdnSTlyZktxNTJSMndqU3lZM08yY09GdEMxcGF6bDRZSFdlNHpUSEhYU3E1Y093STRLOEI0SncteVZWaDhWbVFPX1ZDSEhMMGRiN0p1d2lucjItRkhB?oc=5",
+      "outlet": "laregionhoy.cl",
+      "date": "2026-07-29",
+      "title": "Identifican a presuntos responsables de balacera en Rodelillo que dejó dos mujeres fallecidas - laregionhoy.cl",
+      "description": "Identifican a presuntos responsables de balacera en Rodelillo que dejó dos mujeres fallecidas&nbsp;&nbsp;laregionhoy.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "653edde31e50f288",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPMlNtYXkwdnVWbDU3NDBkaGtlRFVla1k5ZlFVdDRDc0FhZTNFNFlMTjFmanZBblFXUnozM1VYMGUwcFNtSE5ZQnZlcFk5UlhwV1c5RlBuSXIxTVIzMGwxWnlBYVJnSmgtUkh0MGdjVHJrcWhta09ucjdKYlRINE13OXJhdHN1NnlGSFlMRkw3Y2JnUUZIZDlzRVlGdTBiTkVHMG11Szd6bE40NjZMeWRBVzJma2FfX0o0VTRMYm530gGyAUFVX3lxTE9lTV9TZzgtWjNoNjNmMWhZdGtPUS1FQi11dVdnTVhpSExsUnRHS0dYcENNWl96MXh4YjYzTEY1a3RwNGdQS1Axcm1YeEFZR0xWeDNZUTItYW1ELVlSeVJ0Mm96TEE2MXFuS29CZDFrenpoYjN5d0haRjIxeHBmRmFPc0MtUXdtdXJLWDE4V0lQYXBOUV9ZTWNGaHhRcGdoVUhYUEZtd2hWSWFSd1JBRk4xVlE?oc=5",
+      "outlet": "eltiempomx.com",
+      "date": "2026-07-29",
+      "title": "Reforma en Chile busca sancionar a funcionarios con pruebas antidrogas positivas - eltiempomx.com",
+      "description": "Reforma en Chile busca sancionar a funcionarios con pruebas antidrogas positivas&nbsp;&nbsp;eltiempomx.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "3749a80a0c57c849",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQOS1haFY2bHZWZVBBa19ySEZCRmdhdm82dFBZU1ZxZXIwUktRRWhUbXI5a2lDbDhMS0ZoR2JyRTJHM2xZVGdmRVNCOEY0RmxINXdZRnBRRlFrTEs0bEpoMjhEOWstbUk3RXUxbUY5X21EV3VFUTBVbmdnZi1KYl9MQ0x2dVVsVjR2X1NBeHBPU0xfVC1CY0HSAZsBQVVfeXFMUDZIXzVkRE1mSVlmMWd5cF80QnV5N1dRWUI2R21BNnBmZG14SmFKTHJUYlZtbjJ5SU40VFhFV1JlRVRPRVc0M1Mybm5GU3FVNTZIYUlJQWt3aHktMnY0dWpiYWhtVUNrRlUyWDBoMGg5Q1BTaWU0R3JaUXhESDVUaFNoRGN1YkNQc1NfcWNwN1l4M1RPYmdBYnhSNEk?oc=5",
+      "outlet": "Pulso Diario San Luis",
+      "date": "2026-07-30",
+      "title": "Cae presunto autor intelectual de homicidio de Manzo - Pulso Diario San Luis",
+      "description": "Cae presunto autor intelectual de homicidio de Manzo&nbsp;&nbsp;Pulso Diario San Luis",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "312309fce021b583",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNZGdHeEtRVVpGdFlzbW1GZjhGT3FYM3J5a2Vja196Y3VWSzE1eGZoZThpNVRfaC00Q3hLZUVVVUhQZGxPRktlcE9DVzV0MVFCY1RIdVFOZjl1ekJIakt3RE9WaVRFaGt3Y0NwRVJfbi0xNHhyQVBpWEkyQXItVGhyX3VSTWUxX0ZkcURfbkVKMkdQOU94X1RCT3JYY1JlZzBVa0tZNlJlOA?oc=5",
+      "outlet": "Fast Check",
+      "date": "2026-07-30",
+      "title": "Homicidios en 2026 han disminuido en un 17% respecto al año anterior - Fast Check",
+      "description": "Homicidios en 2026 han disminuido en un 17% respecto al año anterior&nbsp;&nbsp;Fast Check",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "f151c2a398ea7b15",
+      "url": "https://news.google.com/rss/articles/CBMipAJBVV95cUxNOWtwa2dqWTZ5aE1TV0pBb01LeW5TcTlOVl9WSnEtWTFMWlZXY2x5Rk9ZSVMyUkxDUmlvWmZMTGNGSmtCX3FkV3RqbE5PTjhDM2R0bzB5QWc2LWxZNG95NXFLS2ZUclJ2RGRZZzRxQnZuR2xlVnFHTWJJTGRUSGtYaXJtSlJ5S1Q3TXpJbTgxZlQwTTN5OHpIdGt1UThKYkVGOXI4T0xjdGtPai1Nc1QtaWhTWU9yZGJDS2YwSERGR2JmNmZfZGJzWG1Kd0xtcTlsS0NKbi1SODdXZlV1Vnd5SmU4SWtNQ2VBM2FTQTNlOEFEamk1aHdJc0ZGUVl3bXRNajFFQjhsS2s3NTZBdV9qd0VkODExU1BqTHlwVnZJWHlBdUNi0gGqAkFVX3lxTE9ORVJnWTJEajNEOUdGU21PZzRnbU9pTk1Yd1Q4YXJVRWFfQzV1V2R2SXJ0ZTR2cVRHVGktcC10dHFoOUM3ZTIzYWRMYWstdF9MVE1qM2Nta2VnVFpJTk91eFVUNkZwWWJ5U0NrU0RBYkpkRkQ2ZkRRaEJzd2VKR1ZvOVpSR0lmTGVNUVFBSElpYXIxUjdwUk9Wank2eTI4VEQxdjNyRWFGb3VaR1AxcWltQTlZYWkzTDBUX1NBSmV1S1h2WjA0NFp3d1BoN0R1Z203WENGSDlENTlac2Y3WG5LNG56VjgybXFtSVFRa0pOR21rQjRmOVdfUEY4RE44d1N6cDBVT2NzWmR1T2ZoUnFCemNnSkFXVml6OGQxdDBVQlB3eXpBbFNBQ3c?oc=5",
+      "outlet": "Reporte Indigo",
+      "date": "2026-07-30",
+      "title": "La Unión Europea lamentó la muerte de Alejandro Leyva Aguilar, y condenó la impunidad en los casos de asesinato de periodistas en México - Reporte Indigo",
+      "description": "La Unión Europea lamentó la muerte de Alejandro Leyva Aguilar, y condenó la impunidad en los casos de asesinato de periodistas en México&nbsp;&nbsp;Reporte Indigo",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "e613987e2e345b66",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQZ0J1c3BkR2tsOXNZS1hOQ2oxcnB4UkhoZVNRVmRYSVh1ams3aGRMYnFDR3N2aVNvam80Mzl6RTBsODlrRW84VEN6SVNGQURzdkk2ZFZGOEJiVVRfdktFUGJjSVJmYnF5SzVPZVJraVR4eHhWQk9PQXM2MUlYSFZpV1dkN25mVjNiZURueFBYOU5DUml0Q0lxSElZQ0pvMTdxOWhz0gGoAUFVX3lxTE9YaDNUc1JURkVvNjhOb3RsZkNjSHdzb192dXNDb1ZwcmprTHJ2VnlHNi1DNzRkMm9MbGpPcERnNVFJU0l0UzdadjFOa1d1QkFfR0txOXhRaW1CQ2pNVTNXTVNFdzNwWEdtVnh4cThxdUZFczl5TGVDcmFFdXVJRUc2VllYVlNBQm1zX1NKZTl4Sm5wRWtBTTZWZGE4WHE0TmM1V0EwYktOSA?oc=5",
+      "outlet": "Oronoticias Puebla",
+      "date": "2026-07-30",
+      "title": "Detienen a “R1”, presunto autor intelectual del homicidio de Carlos Manzo - Oronoticias Puebla",
+      "description": "Detienen a “R1”, presunto autor intelectual del homicidio de Carlos Manzo&nbsp;&nbsp;Oronoticias Puebla",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
+    },
+    {
+      "id": "e7dcfb248e90dd63",
+      "url": "https://news.google.com/rss/articles/CBMigwJBVV95cUxQSW5sQTZRN0xtdF9vRV9FM0JCS25uQTRtMXl3MmpYdzBRTkRYN21QY1ktN1hubU5kR21LbnlzZWZ5dGJTMzNFdklUcnV2TnBjWVlVRkZycTdTNzBPSTN6Y0FuMDlyUk44TmlBZ1BXUDJkaV83UlYtVkM1LXE2TFlmbXRXaXpETDVpY21BUGxmOVJnMkhMSUo1WnFBSGpfVDNsdUJwUVlaakxRRUptUHNGam9BYUhqVzBpUjFZX1BaY1VpUHcwMHB6RVJRejVFbng4R0FycnBZTlRZYW00eElnNS1GYUR2dlVyTHVzWTBMWC00TU5OT1p0MXhtZmlVcDZwNk400gGDAkFVX3lxTE0yU3hBclVCYlVxMkRFVU82UXkzMl80VERIT2hLNzI1Zl9DQUtyREl0b2dHWFFROXpHZUZQbmVJaGJpM2l6OUxZRDY0dG5jOFdxNFA1VGJfZkdYVzlKYm9NYl9BZnlvRnlzeFJmTkNxQThCT0xoSF9IYms2NEkyanB0Q2dTVUREN2drX01Vb0FpUWtvbnUtMmIwMEEtODA1RV85NFZGVy1oSzRJdzh2N3pzZFB4U1gtV05NQ0FkR3dRUGdfcWt5WEZUNG42eWw1dGFnYk9fcWVGSl9FSGtERVE3encwSzYwQk5pREZwMlpKN0FfMGM5RExlMWlEX3FoaU1yem8?oc=5",
+      "outlet": "Onda Cero",
+      "date": "2026-07-31",
+      "title": "Cuatro detenidos como presuntos autores de viarios hurtos y robos con violencia en Don Benito - Onda Cero",
+      "description": "Cuatro detenidos como presuntos autores de viarios hurtos y robos con violencia en Don Benito&nbsp;&nbsp;Onda Cero",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T02:27:45.512566+00:00"
     }
   ]
 }

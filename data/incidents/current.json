@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-30T19:20:47.950917Z",
+  "generated": "2026-07-31T02:27:45.528609Z",
   "window_days": 30,
   "incidents": [
     {
@@ -55,58 +55,6 @@
       "slug": "lo-prado"
     },
     {
-      "id": "ccf3db82b6c75a7f",
-      "cut": "1101",
-      "lat": -20.213,
-      "lng": -70.152,
-      "title_es": "Incautan 618 kilos de droga a banda que operaba entre Iquique y Santiago",
-      "title_en": "Police seize 618 kilos of drugs from gang operating between Iquique and Santiago",
-      "date": "2026-06-30",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/incautan-618-kilos-de-droga-a-banda-que-operaba-entre-iquique-y-santiago/2026-06-30/163258.html",
-      "family": "drogas",
-      "slug": "iquique"
-    },
-    {
-      "id": "4bd4fb8bbe09cda6",
-      "cut": "10301",
-      "lat": -40.605623,
-      "lng": -73.09956,
-      "title_es": "Incendio en Regimiento Arauco de Osorno controlado por Bomberos",
-      "title_en": "Fire at Arauco Regiment in Osorno controlled by firefighters",
-      "date": "2026-06-30",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/region-de-los-lagos/incendio-en-el-regimiento-arauco-de-osorno-fue-controlado-por-bomberos/2026-06-30/160458.html",
-      "family": "propiedad",
-      "slug": "osorno"
-    },
-    {
-      "id": "925e9de0860d83df",
-      "cut": "5601",
-      "lat": -33.662085,
-      "lng": -71.493518,
-      "title_es": "Nueva etapa de desalojo en megatoma Cerro Centinela busca desocupar 40 hectáreas",
-      "title_en": "New eviction phase at Cerro Centinela mega-squat seeks to vacate 40 hectares",
-      "date": "2026-06-30",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/vivienda/tomas-de-terrenos/nueva-etapa-de-desalojo-de-la-megatoma-buscan-desocupar-40-hectareas/2026-06-30/115706.html",
-      "family": "propiedad",
-      "slug": "san-antonio"
-    },
-    {
-      "id": "3082bd25cc329f15",
-      "cut": "13125",
-      "lat": -33.354794,
-      "lng": -70.721768,
-      "title_es": "Menores detenidos portando armas en Quilicura",
-      "title_en": "Minors arrested carrying weapons in Quilicura",
-      "date": "2026-06-30",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/policial/tenian-una-subametralladora-menores-conducian-vehiculo-portando-armas/2026-06-29/214455.html",
-      "family": "armas",
-      "slug": "quilicura"
-    },
-    {
       "id": "64d77157e146cf05",
       "cut": "13117",
       "lat": -33.45,
@@ -131,32 +79,6 @@
       "url": "https://www.latercera.com/nacional/noticia/parte-la-segunda-etapa-del-desalojo-de-la-megatoma-de-san-antonio-van-25-hectareas-y-100-viviendas/",
       "family": "propiedad",
       "slug": "san-antonio"
-    },
-    {
-      "id": "3b9a7911482f493b",
-      "cut": "13401",
-      "lat": -33.600626,
-      "lng": -70.721768,
-      "title_es": "Familia de niño fallecido en encerrona se reúne con director de Carabineros",
-      "title_en": "Family of child killed in ambush meets with Carabineros director",
-      "date": "2026-06-30",
-      "outlet": "LaTercera",
-      "url": "https://www.latercera.com/nacional/noticia/familia-de-nino-que-perdio-la-vida-en-encerrona-en-san-bernardo-se-reune-con-general-director-de-carabineros/",
-      "family": "robos_violentos",
-      "slug": "san-bernardo"
-    },
-    {
-      "id": "a097d8658a17b6cc",
-      "cut": "13106",
-      "lat": -33.446981,
-      "lng": -70.721768,
-      "title_es": "Condenan a más de 15 años a banda que mató a pasajero de bus en Estación Central",
-      "title_en": "Over 15 years sentenced for gang that killed bus passenger in Estación Central",
-      "date": "2026-06-30",
-      "outlet": "LaTercera",
-      "url": "https://www.latercera.com/nacional/noticia/fijan-mas-de-15-anos-de-carcel-para-integrantes-de-banda-que-mato-a-pasajero-de-bus-red-en-estacion-central/",
-      "family": "robos_violentos",
-      "slug": "estacion-central"
     },
     {
       "id": "9fc2febd759a796e",
@@ -1095,19 +1017,6 @@
       "slug": "calama"
     },
     {
-      "id": "f1eaa7ff08a67b56",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Revocan libertad de acusados de millonario robo en Antofagasta",
-      "title_en": "Court revokes release of accused in million-dollar robbery in Antofagasta",
-      "date": "2026-06-30",
-      "outlet": "El Diario de Antofagasta",
-      "url": "https://news.google.com/rss/articles/CBMilwJBVV95cUxQZ3cycmxHeFdWb0J4N1BMeUlMSWZiaEt6VzBsVEUxNEkwdG1sZUZYN1JiWU80VUxkOS14UGkyWTFqZ2JTYkllQ3Z0d19GNGJHY2d4YlRVdUYwVjd3YzR4WjVzZTJKeXFFNGNnZ3ZuQXRGSXJHWFR0VFV1Mk40NFdURjdEN3FXVFNYQ0R1c0p3QWliWUFGMUlfbTBFVFZPMkpLODVSUTBCYm51NlVKc1NkSHZUQnBkbzFucDBMbThEeXBHR2xnZHFxTFdyRTl0aVBoOXgtQ21kN1dPeUdLMVVDd0RJQl9ibW12MUpBRUViOW1oZEdSWm9GTkx0b2NPZ05VczhPZUcyVmhEQ05IdjUzS2ZHZ1BFOWs?oc=5",
-      "family": "robos_violentos",
-      "slug": "antofagasta"
-    },
-    {
       "id": "0f1e3e9cdc5dd364",
       "cut": "2101",
       "lat": -24.258584,
@@ -1157,19 +1066,6 @@
       "outlet": "antofagastaaldia.cl",
       "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNcjhSLWhlbFRrOVc5STlRYWVsdHZ4SE9NUzRzM3dVU3RQMTNpYjJYa2xUaFhxMTVrTkhHVzBjNkgyQThQMFVNZzdHcTBZMzZpR1JBam1qQ1dLWVJ1ZDlnWGw2UlA2Qk8tSnNlY2l2TldjVllsSjdOZTVNQ2FUZVVyS29TY0tXNVBEVklrb2ZyUkdiVEVvTFZxRjJtQkJRb2YtRC0xd21tNWl2ZG9GQTROTVlGbjJxZkI4alJnYVpFeTRkeGRVQ190Sg?oc=5",
       "family": "propiedad",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "f5eef55ef8f20e00",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Imputados por robo a empresa de valores en Antofagasta seguirán en prisión preventiva",
-      "title_en": "Defendants in Antofagasta security company robbery to remain in pretrial detention",
-      "date": "2026-06-30",
-      "outlet": "elnortero.cl",
-      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQMWpPZEd2elhCZnZzeFVISTVUOHpzdWhfbWxpWFBrdXJzMVpueVNUQkFnOEFfaVRTQ21vWkRocGYzZTJlRmdVYnBOUUJrV1ZMSnA0QVhFQXh0OU9aemdCRTBYTFVFM1NIM0kxMi1FN2dsR0dfWVkyQ09ZSjBCWkRSa2FuQVJtV2d0SmhkM0VRY3NQeExNT3FtanVCV3dDMXlPNFRrNGVGSDVPbUwtNDZfLTNwcTkxd2FEREFhSnRhM1RHOGs?oc=5",
-      "family": "robos_violentos",
       "slug": "antofagasta"
     },
     {
@@ -1247,19 +1143,6 @@
       "date": "2026-07-03",
       "outlet": "El Reportero de Iquique",
       "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOaUNBOWotYThiYXRiS01iZklLZGtvYjNaNTdaZHIyY0wzYjFYMjZGZXZuM3dfWXd3RVFrT1RheTZXYmpOUkppV3ZSOHRKdEJYWF9ENldVYl9jZTVESVFIeE5BWDFUT2cwVWc3UlVPdlpDSEVqWVpGU3Q0OVZzdlVCNTNoRkRkSzV4V1dRMHpiSUl5cldHaFhDZWdPdDNvR044NUJLSVlMVWgwSll2VHpDZllXQVJlc2NEVjZaRlhFWi10eElNUThfbjVkMmtudw?oc=5",
-      "family": "robos_violentos",
-      "slug": "iquique"
-    },
-    {
-      "id": "101e7deabf3d70d7",
-      "cut": "1101",
-      "lat": -20.213,
-      "lng": -70.152,
-      "title_es": "AK4:20 sufre violento asalto armado antes de show en Iquique",
-      "title_en": "AK4:20 suffers violent armed robbery before show in Iquique",
-      "date": "2026-06-30",
-      "outlet": "Sabes.cl",
-      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQV0xOLTlCUllBdVlEUjFXZzZ0M19HMTVJcWZpNUVlem41cEItX2ZZVUxVTzQzejJIVmlXcWU0LVNwcTBGMWdhWDE2andIbHc2a29td1NEeEdnUnhtdlZfZzJzTWg4bmJkbnpuMXV2Y3VPanlneVYtcmZTN2Nram5CUWh1Vmtyd005YzJkVEFrQkhldURXUkZRNW5ZbU56NnhMbVRsc2lUbVpHbjF3NTRVUmZib0wtc1NLbFZMMXZiSnpCM2t0cTRDY0U1RXA3bnphRHVVQw?oc=5",
       "family": "robos_violentos",
       "slug": "iquique"
     },
@@ -1391,19 +1274,6 @@
       "outlet": "diarioeldia.cl",
       "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPUnAyZk5uQUtBNmFwQmVNYWU3MkRGNHlKR1NYbm1oQ2daZGJyaVN0UGRkTFRmMTFpRWJuVXVtMHlTLXMtTFJoU1lvb3hzVnNlOTJleG5LcnhlNmlpa2E2OURvOFBLWUEyMDJHaEFONlRGSzFISVE5MGhyVnlGaW5DOEp2Um5OdFY2WHFXYUVuME9ucTE5dnQxQWJGUkV4UTNCbTNWYU5JQW1raGZMVnN0LTdKOHVwMXJPbkxLVTc1OXZuUDB0Tk9Ub2E2WFdaZjN3WTlfNGZBTU5UQXJwNUJjM2gyRDJKaTZxQUE?oc=5",
       "family": "propiedad",
-      "slug": "la-serena"
-    },
-    {
-      "id": "9e54d6c7ec5a6c6e",
-      "cut": "4101",
-      "lat": -29.807222,
-      "lng": -71.081914,
-      "title_es": "Condenan a 17 años de cárcel a autor de homicidio en La Serena",
-      "title_en": "Sentenced to 17 years in prison for homicide in La Serena",
-      "date": "2026-06-30",
-      "outlet": "elobservatodo.cl",
-      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNTHBJenpyelVjWEYzaXJKNlJtbWQ4OXB1ZU5aY3l6cE1hTDNBU0l3TVpwdmhFLVhLbGRfcHJkblAwTGl0Mk1OdjR4ZjhjZFdaRlVjaC1ZS0s3Y3FCTWh0RUlSV3V2OWxXdHBkRW5OVC02aGJYa1BjaW5RYXVUQlpjUU4tVEc3aEpoMWRxMGJXTFM1S2lnRmU5cllaWWVIM1RUSjNMOGxsNA?oc=5",
-      "family": "vida",
       "slug": "la-serena"
     },
     {
@@ -1654,19 +1524,6 @@
       "slug": "carahue"
     },
     {
-      "id": "4e5425a6a02eaa22",
-      "cut": "9120",
-      "lat": -39.311575,
-      "lng": -72.20841,
-      "title_es": "Madre entrega a su hijo que participó en robo violento en Licán Ray",
-      "title_en": "Mother turns in her son who participated in violent robbery in Licán Ray",
-      "date": "2026-06-30",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQYUFGSzlTQXM4SG5HalZWM0hqT0pEeEtvdVBHMEhNdzU1WG5qdXMzb0lCbFBOcnN1eW45T3puakV3cElqY3NHaEwtSjBvTEc0UUttSUxkSy14ZUtUaEFYSXRaNG52cERVNW9YRnU5dGgxRUJwLXBVVkk0Rk9lZEVRRGRwZnMzaHp1WWlnWGFnTQ?oc=5",
-      "family": "robos_violentos",
-      "slug": "villarrica"
-    },
-    {
       "id": "b01aebd2733bcbeb",
       "cut": "9102",
       "lat": -38.61794,
@@ -1678,19 +1535,6 @@
       "url": "https://news.google.com/rss/articles/CBMilAJBVV95cUxONnFENk9kWUVpclpLYmZqNy1fNFk1T0hEazR4a09taVF1RHlrSkhvQXVVdWxrZHZaTVoyV191bjVzeWZ3Mkcxak50S0pqS2pBa01KUkFwSGdDZkFnNFhjdnZ2YUV4UW5GaDlzZkZES20xbkZobUNxMEZRYndmNGJ3NGNtMUFMRElVMzZ4Sk9ZMW5ZVzNuemxhVkJHb0NpSDJVLV9KZ080TXV2cGdVV3FSVWpSSXkzLVJraXl5U2ZHWWhqQTJFcFVrX3F4cjRQOE1FOGxUNUN5OTZPOENNY3lPbTFIekFDQXAyNWx0MUo1QzNpczh1ZGw0WUpCS0EwSXFpZGE2NFRLWUV6R1lSSmVFOWJZQ1g?oc=5",
       "family": "vida",
       "slug": "carahue"
-    },
-    {
-      "id": "61e1c3427c1239a8",
-      "cut": "9114",
-      "lat": -39.084666,
-      "lng": -72.65729,
-      "title_es": "Condenan en Pitrufquén a imputado por hurto de energía con conexión clandestina",
-      "title_en": "Convicted in Pitrufquén for theft of energy with clandestine connection",
-      "date": "2026-06-30",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOVGllQmhLd2lseko3VGRxaHBXaWRnV3hZYzdyR3hPUEVFcHVtVkdIOFoxVkFGR0FHNTJoUi1mV1NiZXJIR3B3NFhUSjE4QnlwZW9zSkhoWXNmWVdDdVdjNTE4RTRBSER2WnRKWXRqbGdnNWt4YW5KSmZpaUlpS0NnNDl3REM4X29ESlRQYjB0dm1Rdk5hc0RpeHg5aVc1dw?oc=5",
-      "family": "propiedad",
-      "slug": "pitrufquen"
     },
     {
       "id": "2fc5c13682767abd",
@@ -18357,6 +18201,253 @@
       "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQekRScGJwYV9mNGpKUFM2aXF6ZmktSkRoV2tsMEtJbDRqeGRVMG5fYWNJaXVmdmZtTm53eTZXZVJlME9RSkNwRnRKYm1IaUVqS1c0YXZpS0NLbml0UnhxUFpfQ2V2OEZ6RnN3Ykh4NVFmbjJZaEJvUDVpM2hSbEQxdDc3TFk3d1ZBQXZ3STF1LXF6QQ?oc=5",
       "family": "robos_violentos",
       "slug": "ercilla"
+    },
+    {
+      "id": "85e4d5a0018996f9",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Cámara capta fatal riña de estudiantes que terminó con la vida de menor de 16 años en San Bernardo",
+      "title_en": "Security camera captures fatal student brawl that resulted in the death of a minor under 16 in San Bernardo",
+      "date": "2026-07-31",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/30/camara-capta-fatal-rina-de-estudiantes-que-termino-con-la-vida-de-menor-de-16-anos-en-san-bernardo.shtml",
+      "family": "vida",
+      "slug": "san-bernardo"
+    },
+    {
+      "id": "4decfafeeed03021",
+      "cut": "12101",
+      "lat": -53.368996,
+      "lng": -71.47533,
+      "title_es": "Detienen a pareja por ingreso de hachís camuflado como ‘crema de miel’ en encomienda a Punta Arenas",
+      "title_en": "Arrest of couple for smuggling hashish disguised as ‘honey cream’ in shipment to Punta Arenas",
+      "date": "2026-07-31",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-magallanes/2026/07/30/detienen-a-pareja-por-ingreso-de-hachis-camuflado-como-crema-de-miel-en-encomienda-a-punta-arenas.shtml",
+      "family": "drogas",
+      "slug": "punta-arenas"
+    },
+    {
+      "id": "c29c98fe1bce6112",
+      "cut": "13103",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Transeúnte muere en medio de ráfaga de disparos en plena vía pública en Cerro Navia",
+      "title_en": "Pedestrian dies in gunfire barrage on public road in Cerro Navia",
+      "date": "2026-07-31",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/07/30/transeunte-muere-en-medio-de-rafaga-de-disparos-en-plena-via-publica-en-cerro-navia.shtml",
+      "family": "vida",
+      "slug": "cerro-navia"
+    },
+    {
+      "id": "efd91a8f032448ee",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Estudiante murió tras ser apuñalado en colegio de San Bernardo",
+      "title_en": "Student died after being stabbed at San Bernardo school",
+      "date": "2026-07-30",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/estudiante-murio-tras-ser-apunalado-en-colegio-de-san-bernardo/2026-07-30/173732.html",
+      "family": "vida",
+      "slug": "san-bernardo"
+    },
+    {
+      "id": "a9e70c4b74dd7de3",
+      "cut": "13114",
+      "lat": -33.400888,
+      "lng": -70.506596,
+      "title_es": "Se destraba lío por competencia en arista Antofagasta de ProCultura y la causa se radica en la jurisdicción de Santiago",
+      "title_en": "The dispute over jurisdiction in Antofagasta involving ProCultura is settled in Santiago's jurisdiction",
+      "date": "2026-07-31",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/se-destraba-lio-por-competencia-en-arista-antofagasta-de-procultura-y-la-causa-se-radica-en-la-jurisdiccion-de-santiago/",
+      "family": "vida",
+      "slug": "las-condes"
+    },
+    {
+      "id": "5defd9fbbd0d3c3e",
+      "cut": "5109",
+      "lat": -33.027017,
+      "lng": -71.515513,
+      "title_es": "Everton anuncia minuto de silencio por los seis fallecidos en atropello en Viña del Mar",
+      "title_en": "Everton announces minute of silence for the six killed in a hit-and-run in Viña del Mar",
+      "date": "2026-07-31",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/el-deportivo/noticia/everton-anuncia-un-minuto-de-silencio-por-los-seis-fallecidos-en-un-atropello-en-vina-del-mar/",
+      "family": "vida",
+      "slug": "vina-del-mar"
+    },
+    {
+      "id": "4824148274be61e3",
+      "cut": "13109",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "En Capitán Yáber sólo hay un cupo: las dudas sobre dónde podrían cumplir prisión preventiva los imputados del caso Sartor",
+      "title_en": "In Capitan Yáber there is only one slot: doubts about where the defendants in the Sartor case could serve pretrial detention",
+      "date": "2026-07-30",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/en-capitan-yaber-solo-hay-un-cupo-las-dudas-sobre-donde-podrian-cumplir-prision-preventiva-los-imputados-del-caso-sartor/",
+      "family": "vida",
+      "slug": "la-cisterna"
+    },
+    {
+      "id": "b2a214cccf2f5688",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Fiscalía del Bío Bío apunta al crimen organizado: secuestros, sicariato y robo de madera",
+      "title_en": "Bío Bío Prosecutor's Office points to organized crime: kidnappings, hitmen, and timber theft",
+      "date": "2026-07-30",
+      "outlet": "Canal 9 Bío Bío Televisión",
+      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPTVVYd0h3X0hKOU1hRlBkNVlYYXZQRzhqcUFheVVCX0Q1bDAyUGJEaXpISVJGcnVsUFZub3lfVXd1QUVEeWZQc2haRTY3bU9uREtSeUxiTm9ZZTRReTlmb3NGQXNLOHFZY2kyWmgwdEVmd0RFUFVSQm5wMThtQ2ptM0pRT2NUQ2tWS1o2eG5KbklLcy1KVVBPWDlZUkFpVkU2dFphYWMyM1gxeFJoeGlaU3QxS09pTHhxU2VzUFRtTEJqYXpoS0c3by1PY3JzeFNxYm5OSjF3X09hQQ?oc=5",
+      "family": "vida",
+      "slug": "concepcion"
+    },
+    {
+      "id": "c6b89719066034aa",
+      "cut": "13107",
+      "lat": -33.385523,
+      "lng": -70.60701,
+      "title_es": "Quién es el joven de 23 años que fue asesinado mientras defendía a familia durante robo en Huechuraba",
+      "title_en": "Who is the 23-year-old man killed while defending family during robbery in Huechuraba",
+      "date": "2026-07-30",
+      "outlet": "BioBioChile",
+      "url": "https://news.google.com/rss/articles/CBMikgJBVV95cUxNRjVxbUJrWTBNeHZnbUZTNUhnQ0RUajhWcXJ3cmRud0x3anR3cVpWM3FXTUpiQ2tHWVowVlRycEpoOTc4VFRHWWZqYTNUOXJWdkhKcTlDTmVSRUlSNERRanU5TkdVblYzdjZmR2ZncGR1dU5DSDAwdmg0SnRSUDVVOW91eUV3ZjFlcWtrRmJ3QU1taVhJN1ZQN0Z4M2kwOG1LSmdqUU1DX2tONE1XZkk1MVIzTXV5THJwcTlxbldGUUZmLVRTdHl3cWJHbHFtTzlzX1lOSnl5NDM2eThqS25DSGtUZ0ZsSm56LXU3cUstLVFPRjA0YnFRd1BQdXJfaFFVRVIzYXVaa3hzVm1oLWM1a0xn?oc=5",
+      "family": "vida",
+      "slug": "huechuraba"
+    },
+    {
+      "id": "631ec5fd42066a92",
+      "cut": "13113",
+      "lat": -33.446981,
+      "lng": -70.549631,
+      "title_es": "Quién es el joven de 23 años que fue asesinado al proteger a su familia durante un asalto en Huechuraba",
+      "title_en": "Who is the 23-year-old man killed while protecting his family during a robbery in Huechuraba",
+      "date": "2026-07-30",
+      "outlet": "El Informador Chile",
+      "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxOdTlDWXVlZ3BTLWp3b19VMU1jT1BiTUpKb3NoVFN3alZPZW85cjJBX3QwVkRmaGdXTlJjRUQ4V0lUbHFZTmFXSTVENVVYWjAwRFhFQjl2R0Vta3VTdFZrZnVEbGI2cGRkZGVZQjl1SDAzNkw5U2NjWVRYWi1ER1RMTDZsVGVDdm9iVGxtaHUxMlN1VGtmdkRwWmZlMU12czBSakNoWmw4YjlxNDlaNEVFNFFMTTZ5S3ZvRTdvZWR4WGRpWnFtdkVXbVlIVW5fMWIzeEZoUk16dnUtQnR5QUNfMjN3?oc=5",
+      "family": "vida",
+      "slug": "la-reina"
+    },
+    {
+      "id": "b230d6980d86a31f",
+      "cut": "2301",
+      "lat": -22.028941,
+      "lng": -70.027257,
+      "title_es": "Robo a escuela en Tocopilla termina con detenido y recuperación de especies avaluadas en $6 millones",
+      "title_en": "School robbery in Tocopilla ends with arrest and recovery of assets worth $6 million",
+      "date": "2026-07-30",
+      "outlet": "Timeline.cl",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOcEMxRUhMRGRUcURBNWpBQ0MzTGNGeFViMlBkdS1Fc012djZnem5mQUZnNmtGSzhoSlE1b0dHcW9ta3JpSG9ndHpDR1A1bmVpZ2NaSXBkZ0loLUQwa0N6N0d5VjNObG50ajNEMEQ5TnFBNlZORkZ1TEFXMXVsbzB5d2pMa0hyVGE1YWtrbVhmZ1ZSRTY4ZktQWFVzV01pcG9kR2o4TmdwYlBZOE1NbXVuWkhydnFtX3VEMEp5NHAtN1FlZw?oc=5",
+      "family": "robos_violentos",
+      "slug": "tocopilla"
+    },
+    {
+      "id": "6cb9b241f1b3f7d2",
+      "cut": "2301",
+      "lat": -22.028941,
+      "lng": -70.027257,
+      "title_es": "Detienen a sujeto por millonario robo a escuela de Tocopilla: recuperan todos los equipos sustraídos",
+      "title_en": "Arrest made in multimillion-dollar school robbery in Tocopilla: all stolen equipment recovered",
+      "date": "2026-07-30",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPSzFDNFJsdXRtNU1MRDBXazhrSWwzeXVVUWpBaTVEdU44VElmMTBnbnBWNEw5eDdrMVk1ZllXd1VxM0RXSkhvaVdIZzNXMjZoU3UzejZMZWxySEstdVJTWFA5emtZc3NDRFI2V3FkZVp4RUdibktQUmdmUWM3VFZzN1F1Y1JJamZHa2RQVjlzSzRkdzBreHFN?oc=5",
+      "family": "propiedad",
+      "slug": "tocopilla"
+    },
+    {
+      "id": "ce2a4e3bd806ebce",
+      "cut": "5101",
+      "lat": -33.116644,
+      "lng": -71.575283,
+      "title_es": "Carabineros recupera vehículo con encargo por robo en Valparaíso: un detenido",
+      "title_en": "Carabineros recovers vehicle with robbery charge in Valparaíso: one arrested",
+      "date": "2026-07-30",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQTnhOTFUwT2YwbDExUkhXaFFaSDZHUWQ0U0gtRlViMkg4NmZZSm1RNWZMNVdTS0VQaXhWZlRyR3BkT285YWozbUtKMzJyYXpUaGRhenpnNGdPSUloZEFsUDVxUTlldDRhMHF3T1lpSVpKVEVMMzJTN0dFMUFuS1lOZUpUUEpLdHp3cmJReEpMMGh4d2FGb3owOTJiU0dYcF90SmpXSE1CcGdGSkt0YzlF?oc=5",
+      "family": "vida",
+      "slug": "valparaiso"
+    },
+    {
+      "id": "6a0c57dcfb8f2782",
+      "cut": "1405",
+      "lat": -20.459504,
+      "lng": -68.948188,
+      "title_es": "Operativo extraordinario de carabineros concluye con 14 detenidos y más de 300 fiscalizaciones en Tarapacá",
+      "title_en": "Extraordinary carabineros operation concludes with 14 arrests and over 300 inspections in Tarapacá",
+      "date": "2026-07-30",
+      "outlet": "Vilas Radio",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOeUdNeENPeWVORmxyLVFadlVZRjhUQXR0ZlU0TmNldzVUWnQyTHZrNEk5blhsOExTMkpBNDIyZnJiTVZBSnEydTFYSzhtNktjSGUxRXlMSUZXQ2pLd0tHRlJReDBBVVBJUnJuVU9HMUVBOUhaRjcwZmc1Q3duaTc3NTZVLXEwUHRNRDdUY01wb1dhaWEzUnE1UE01aFhCVjZrMTl1R2t5WmdXRmRFZ3lDd2dDWGtxZjZGOERlYTV4cTNqbzJCcnQ4Tw?oc=5",
+      "family": "vida",
+      "slug": "pica"
+    },
+    {
+      "id": "6c387013d40b672e",
+      "cut": "9201",
+      "lat": -37.797936,
+      "lng": -72.79785,
+      "title_es": "DETENEN A LOS CASTORES POR BRUTAL AGRESIÓN QUE TERMINÓ EN HOMICIDIO EN ANGOL",
+      "title_en": "CASTORES ARRESTED FOR BRUTAL ASSAULT THAT RESULTED IN HOMICIDE IN ANGOL",
+      "date": "2026-07-30",
+      "outlet": "araucanianoticias.cl",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQbE44enNxS3NUWFl5RENsRk5CRThucWFIMVRXdnhEdHNQSDBsWTVtOE1UM1hzVHoxZmtCN1lWdTN3TGt4dWtGSjNDYjZfdC1DU3A5ZEtUNDRkWndndFc3TkZ3V0dZYmFMQXExUE1xYzRueHotNmRYX1RsTzFfamJWM0hiRWRXTEJqSXNRdmtGanp3OVR3S3NRS3BDa1V2Zmx2SXFOTm9JTHZ4am1zbWtMNTRvdV9GUThvSnJVTHU2cw?oc=5",
+      "family": "vida",
+      "slug": "angol"
+    },
+    {
+      "id": "42aaff6d40f1db99",
+      "cut": "9202",
+      "lat": -38.041829,
+      "lng": -72.099665,
+      "title_es": "Adolescente de 17 años detenido por robo con intimidación y robo de vehículo en Collipulli",
+      "title_en": "17-year-old adolescent arrested for robbery with intimidation and vehicle theft in Collipulli",
+      "date": "2026-07-30",
+      "outlet": "El diario de la Araucanía",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOc3NxWUl1aE9kTXpNZEIzMnlMZDEyanRaUm5VVXZzajNqcmFOczhVYkc4TkZENUpxbF9ieW1lUVhwQ1VIS1B4R0I1aTFhUzkxX2szYjRscDFDcmJKQnExOGExNjNBWHIxTUcyRkhRWVIxeVZuVUEybDZhemJ5VUh5a3FKeDRRUzNEcUN6ZFFybXVUdHhvSDR0eHB1amkzLVdWdU1iMDZESkxmUdIBqgFBVV95cUxOc3NxWUl1aE9kTXpNZEIzMnlMZDEyanRaUm5VVXZzajNqcmFOczhVYkc4TkZENUpxbF9ieW1lUVhwQ1VIS1B4R0I1aTFhUzkxX2szYjRscDFDcmJKQnExOGExNjNBWHIxTUcyRkhRWVIxeVZuVUEybDZhemJ5VUh5a3FKeDRRUzNEcUN6ZFFybXVUdHhvSDR0eHB1amkzLVdWdU1iMDZESkxmUQ?oc=5",
+      "family": "robos_violentos",
+      "slug": "collipulli"
+    },
+    {
+      "id": "de8935625032966e",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Controles migratorios terminan con 17 denuncias y un detenido por orden judicial en La Araucanía",
+      "title_en": "Migratory controls end with 17 complaints and one arrest under court order in La Araucanía",
+      "date": "2026-07-31",
+      "outlet": "latribuna.cl",
+      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQUUV3UnpSaHFJTlJlcFJZY0RKWldtUXVKdmtxLXJlMjBDNXI4WTJMdVJUUTdZTXVhNUNzdzM2MWVqZWI3YTNNSkt3cExFSmc4VnFaX3Bucm5zVXNYNHZmSDhISzJpVVRILU9KRzBTZ2ZBSmhwdzZYRXNZOVM5VGluWFFoaVRSZURCWUFobmQ5eWNUOG9nRTVwb2Q0S0hlaldKanVMeW1SVUItNjFncXFicTlLRWNMSERTYXJFMF90VlM4NjltODNLWV9DSlE4X3pjdTNfR1FxTWZWZFp6Nzdr0gHnAUFVX3lxTE9Wa0IxZjBXMEtIb1pyTC1FM21JSmVaWEFYQVVBdzhudUlmdHVNMHVoa1J0RzlGOGVVWXJHSVhEeXpCdVpPSjRKVldDOHRIblEzY185aDJKTXVVeFlmMkFhaEgwTW9NNFF5OVFHTjE2NF9aTWhIU2pZREFhT05TS1VFeW9mX29LdWk2WUZxWjVlUHdPZXpCZzVYaUpDQUFmYmdCSTRVc3MwZ3lhaERtaDBwdmxxeUVIWlZIcnZvSzN6ZUgwZ25VdVJYY04xVWhndVhKX1NTdjZRSHhwMXlXXzlmblBuRjVsbw?oc=5",
+      "family": "vida",
+      "slug": "temuco"
+    },
+    {
+      "id": "763a43d251a177bd",
+      "cut": "9121",
+      "lat": -38.591025,
+      "lng": -72.913652,
+      "title_es": "Cholchol logra histórico avance: su retén de carabineros será elevado a tenencia",
+      "title_en": "Cholchol achieves historic advance: its carabineros detachment will be upgraded to a tenancy",
+      "date": "2026-07-30",
+      "outlet": "araucanianoticias.cl",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQY200ckNlQjlUSWZ4dktoMUx2S2EzQTdFcVQ4Nm5HWTZURVhnSS16eUZ3RlhWelpveWFzZzlfSXc3bnd3TGhPSWV3ZlY2SHdyNjM1d09tMzR2b0N4RXhVZjZqVS1sVDVUVjhSNnJqX3MxX2FRaHlEZUhqbDZfQ0c0b0dmc0NWSzdvb1lkRzFkMTNZYnNtWllZdHVCRXJ0dnp2ZkdDRkJZZkIzb2E2QUhnVE96elQwd05tUEt0dmpYbnkwUQ?oc=5",
+      "family": "vida",
+      "slug": "cholchol"
+    },
+    {
+      "id": "d511f63dbdcf76a8",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Disturbios en el Liceo Jorge Teillier dejan a dos estudiantes detenidos mientras el alcalde responde informe de Contraloría",
+      "title_en": "Disturbances at Jorge Teillier High School result in two students arrested as mayor responds to Contraloría report",
+      "date": "2026-07-30",
+      "outlet": "Alerta Noticias Temuco.cl",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNR2VJS0c3eFVSMFZ1YmptVHIyX3hVVEYyLW5BRjZwN01xblAwMzY0eUlRNmtZUC1rZm9xSUZmdm52QWItU2xWNXBjTXhET1hsRE56SWdyemhid0pZdVY3N3I0VWdyTldoMF9GTVpXYXJXTzkxci02TEg2U05Pc1pDd3ZFSVdaS2tGVkxKd2VGNHhzdk4zX0xXYzFoNHFwUGs1OXhSRzVGX2s?oc=5",
+      "family": "incivilidades",
+      "slug": "temuco"
     }
   ]
 }
