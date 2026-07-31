@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-31T08:44:06.966475Z",
+  "generated": "2026-07-31T13:56:03.334086Z",
   "window_days": 30,
   "incidents": [
     {
@@ -18526,6 +18526,84 @@
       "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPRGg0VE8yeDgxdUZjM2x0TEtCZmJCRzRtUl81Q1FCd0xvcjd3VVBsS3JjMkJPSnE0bTBRN01zMnY0ekFPZ2RQbG1aODZibzIzb0xhYXR5cjlLUk1jT2RYSXlOWXlZZTZjY3RxWGRtZ3U4bG5QcERMVHEyWnc5bzZSS044anVBQm9BVjUtR3F4ZkhDSHdrX1o1dGhMMHgwRnFhWm9KMFR1OGxZMmNEZmNYSFBLSklsUS0yNjlfcUpRdU5GaUNHNzNxSDRBU2hvYml5V0hsUW1LQ2NSOUXSAdsBQVVfeXFMT0RoNFRPMng4MXVGYzNsdExLQmZiQkc0bVJfNUNRQndMb3I3d1VQbEtyYzJCT0pxNG0wUTdNczJ2NHpBT2dkUGxtWjg2Ym8yM29MYWF0eXI5S1JNY09kWEl5Tll5WWU2Y2N0cVhkbWd1OGxuUHBETFRxMlp3OW82UktOOGp1QUJvQVY1LUdxeGZIQ0h3a19aNXRoTDB4MEZxYVpvSjBUdThsWTJjRGZjWEhQS0pJbFEtMjY5X3FKUXVORmlDRzczcUg0QVNob2JpeVdIbFFtS0NjUjlF?oc=5",
       "family": "drogas",
       "slug": "angol"
+    },
+    {
+      "id": "aba185459dbe9a0d",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Caso Manicure: vuelven a suspender preparación de juicio oral tras rechazo a sobreseimiento de acusada",
+      "title_en": "Manicure Case: Oral trial preparation suspended again after denial of accused's dismissal",
+      "date": "2026-07-31",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/07/31/caso-manicure-vuelven-a-suspender-preparacion-de-juicio-oral-tras-rechazo-a-sobreseimiento-de-acusada.shtml",
+      "family": "vida",
+      "slug": "temuco"
+    },
+    {
+      "id": "74b91b7fa13cdbdc",
+      "cut": "13103",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Hombre con discapacidad muere tras recibir disparo en balacera en Cerro Navia",
+      "title_en": "Disabled man dies after being shot in gunfight in Cerro Navia",
+      "date": "2026-07-31",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/cerro-navia-hombre-con-discapacidad-murio-al-recibir-un-disparo-en/2026-07-31/073447.html",
+      "family": "vida",
+      "slug": "cerro-navia"
+    },
+    {
+      "id": "928f60b3427c49c1",
+      "cut": "13103",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Persona con movilidad reducida muere tras quedar atrapada en el fuego cruzado de una balacera en Cerro Navia",
+      "title_en": "Mobility-impaired person dies after being caught in crossfire of a shooting in Cerro Navia",
+      "date": "2026-07-31",
+      "outlet": "Sabes.cl",
+      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNMjRWOFVMVHdRQy1sUjNJcmZWSk1sQk5EbUFvSDRyOHN6Rm8yVGFXVnB6ejVqakZyLVNZZGxHWnNDOWhlLUxnekQtYVRHb0h2Uld5OFdodWZmMW1TbzV2aENWUnlxdTZxbVpLa3phdTE4UFdpbzd6TnNqV05pUmlRbS05WTNNcm1wdVNOQmswX1UzWXh5bzJZNlFqNkh1My14WGxjRjdoN19zVjhmTHpjRFNYdU1UNUJLX3lraTZIQ2lfN2FpRC1xel94SjNGQTc5WWhB?oc=5",
+      "family": "vida",
+      "slug": "cerro-navia"
+    },
+    {
+      "id": "debff519bd4af471",
+      "cut": "13113",
+      "lat": -33.446981,
+      "lng": -70.549631,
+      "title_es": "Ministro Arrau lamenta asesinato en Huechuraba y responde sobre la baja de homicidios",
+      "title_en": "Minister Arrau mourns murder in Huechuraba and comments on the decline in homicides",
+      "date": "2026-07-30",
+      "outlet": "ADN Radio",
+      "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxPckJQUlZ2bXY4SXQ2NXNMRmVOOG1GVTYxMzBCWFZiMS1RZHQ5MVFKSm5mN3ZiS0xuQWJhUW9ZNzFNZTVZMGQwSGQxTDhha0tJMmwxeFpneHZGMEZOdWQzMXo3Q005cXJvMXZMNGx1d0ppeTlET3JFVUJCa3p2b0MyRVFBUE95SkJ1Vkc4TWtXSXJNWk1yV2N6Nll5c2dpWkp0andIbUl0ZDkwbUZ5LXNnSnlRdkc0cXBwSlp1M1Nudl9BWUFyVVZzQmhsT19zY1EtS0IzeFJ6RUgtSHdYbTJwZ3FpbXZFUFVPTUo5SVh2RjVXck9CWHYybGtqRmxrYXdOeUMxSk9TUDdvUdIBigJBVV95cUxPckJQUlZ2bXY4SXQ2NXNMRmVOOG1GVTYxMzBCWFZiMS1RZHQ5MVFKSm5mN3ZiS0xuQWJhUW9ZNzFNZTVZMGQwSGQxTDhha0tJMmwxeFpneHZGMEZOdWQzMXo3Q005cXJvMXZMNGx1d0ppeTlET3JFVUJCa3p2b0MyRVFBUE95SkJ1Vkc4TWtXSXJNWk1yV2N6Nll5c2dpWkp0andIbUl0ZDkwbUZ5LXNnSnlRdkc0cXBwSlp1M1Nudl9BWUFyVVZzQmhsT19zY1EtS0IzeFJ6RUgtSHdYbTJwZ3FpbXZFUFVPTUo5SVh2RjVXck9CWHYybGtqRmxrYXdOeUMxSk9TUDdvUQ?oc=5",
+      "family": "vida",
+      "slug": "la-reina"
+    },
+    {
+      "id": "38c9da82261b715b",
+      "cut": "3101",
+      "lat": -27.364912,
+      "lng": -69.888394,
+      "title_es": "Prisión preventiva para imputado por homicidio: discusión terminó con dos puñaladas en Copiapó",
+      "title_en": "Preventive prison for accused of homicide: argument ended with two stab wounds in Copiapó",
+      "date": "2026-07-31",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPdVV6ZGRnMDd4dUtnampaX1JVOURqczAzOFRrZU5yYTZYVlctcmlDZk14cFNLcXB4dERFQ2JSb3k1NEc2OXhlajU1WFowZXBhSmNIMEtsS2NBWjhEMWdlckNtWjExeFlVOFh5OUt4RWJaV2UwME5hM0gxV2VtVXJnQ3dKUjhoenFQXzRvQ0tDLUg1dw?oc=5",
+      "family": "vida",
+      "slug": "copiapo"
+    },
+    {
+      "id": "e824c2e52c4f4101",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Fiscalía de La Serena investiga robo que afectó a víctima a la salida de sucursal bancaria",
+      "title_en": "La Serena Prosecutor's Office investigates robbery affecting victim at bank branch exit",
+      "date": "2026-07-29",
+      "outlet": "El Serenense",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPZDZhRkcxa0hNQ2R6WVhCelBzRXQ3YmtJNlVYTFlzYmlGNGJwa0hCRkM3RVBmc0drb2p0S1RXbkROQU1aTm91TXpVaFN4cnZhdWRPNnE0M2JYd2dkZ3NBbHcwczQ1elhlV3JCWE9NcVl6WVk4dlNjc0RYY2NaYlRKcGVrb3NObHZNN2VJZ05sVk5wYVlzVTQtUXdvUjJnd2NPUkdUQnVOM3RYZlhHZ3pETXd5ZHUwZmc3UzA3bWpVVFJEbkxPbE9pTS1TRHFFTEVaYl95XzRn?oc=5",
+      "family": "robos_violentos",
+      "slug": "la-serena"
     }
   ]
 }

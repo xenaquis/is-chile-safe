@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-31T08:44:06.952163+00:00",
+  "generated": "2026-07-31T13:56:03.320146+00:00",
   "items": [
     {
       "id": "a026901347e4ca3a",
@@ -2650,6 +2650,106 @@
       "description": "\"No logra escapar a esta situación\": hombre muere tras recibir disparo durante balacera en Cerro Navia&nbsp;&nbsp;24horas",
       "rejection_stage": "resolver_fail",
       "first_seen": "2026-07-31T08:44:06.952163+00:00"
+    },
+    {
+      "id": "7abeeb6aa3aef70a",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/07/31/arrau-dice-no-tomarse-con-exitismo-baja-de-176-en-homicidios-en-2026-nos-queda-un-gran-camino.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-07-31",
+      "title": "Arrau dice no tomarse con \"exitismo\" baja de 17,6% en homicidios en 2026: \"Nos queda un gran camino\"",
+      "description": "Tras informarse una caída preliminar de 17,6% en la cantidad de homicidios este año, . En concreto, según lo informado, son 101 homicidios menos los que se llevan registrados este año. Sin embargo, el secretario de Estado llamó a mirar estos resultados con cautela. Además, aseguró que desde el Gobierno buscarán, también, disminuir la sensación &#8230; Continua leyendo \"Arrau dice no tomarse con \"exitismo\" baja de 17,6% en homicidios en 2026: \"Nos queda un gran camino\"\"\nThe post Arrau dice no tom",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T13:56:03.320146+00:00"
+    },
+    {
+      "id": "c1edadc6328fae1b",
+      "url": "https://www.latercera.com/mundo/noticia/calculan-en-60000-los-migrantes-que-han-entrado-a-ceuta-desde-marruecos-y-elevan-a-41-los-muertos/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Calculan en 60.000 los migrantes que han entrado a Ceuta desde Marruecos y elevan a 41 los muertos",
+      "description": "Fuentes del Ministerio de Interior español calculan que unos 25.000 habrían retornado voluntariamente a Marruecos hasta el mediodía del viernes.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T13:56:03.320146+00:00"
+    },
+    {
+      "id": "e0a6a2a6f2ff51e2",
+      "url": "https://www.latercera.com/el-deportivo/noticia/sobreseido-en-chile-pero-en-juicio-en-estados-unidos-en-que-esta-el-fifagate-que-involucra-a-sergio-jadue/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Sobreseído en Chile, pero en juicio en Estados Unidos: en qué está el FIFAGate que involucra a Sergio Jadue",
+      "description": "Esta semana el calerano fue sobreseído por prescripción de delitos en Chile. En Estados Unidos, su condena se ha aplazado 16 veces. Otros involucrados incluso han muerto esperando la decisión de los tribunales.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T13:56:03.320146+00:00"
+    },
+    {
+      "id": "e81e7b501807b69a",
+      "url": "https://www.latercera.com/nacional/noticia/carabineros-detiene-a-97-profugos-de-la-justicia-en-operativo-a-nivel-nacional-48-de-ellos-por-delitos-sexuales/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Carabineros detiene a 97 prófugos de la justicia en operativo a nivel nacional: 48 de ellos por delitos sexuales",
+      "description": "Según la información policial, del total de detenidos 92 corresponden a personas de nacionalidad chilena y 89 son mayores de edad.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T13:56:03.320146+00:00"
+    },
+    {
+      "id": "736315276c67dc6a",
+      "url": "https://www.lacuarta.com/deportes/noticia/pendejo-de-mi-conch-las-afectuosas-palabras-que-dedico-omar-carabali-a-jugador-argentino-por-cancherear-un-penal/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-31",
+      "title": "“Pendejo de mi…, conch…”: las “afectuosas” palabras que dedicó Omar Carabalí a jugador argentino por cancherear un penal",
+      "description": "Boca Juniors eliminó a O’Higgins de la Copa Sudamericana. En la definición por penales, eso sí, Carabalí contuvo un disparo decisivo y encaró a su ejecutante.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T13:56:03.320146+00:00"
+    },
+    {
+      "id": "c2a9d1a1aa1e7944",
+      "url": "https://www.lacuarta.com/chile/noticia/apunalo-a-su-ex-en-plena-via-publica-y-frente-a-testigos-madre-del-asesino-lo-entrego-a-carabineros-pero-quedara-libre/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-31",
+      "title": "Apuñaló a su ex en plena vía pública y frente a testigos: madre del asesino lo entregó a Carabineros, pero quedará libre",
+      "description": "Natalia, de apenas 17 años, falleció tras el cobarde ataque de quien fuera su pololo. Familia luchó por una condena mayor, pero fue imposible.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T13:56:03.320146+00:00"
+    },
+    {
+      "id": "3026fadea037ad4f",
+      "url": "https://news.google.com/rss/articles/CBMihgJBVV95cUxORmNXX295TzVzNmYzY2lLUmFxbG9iR081ZTZxX2R0Tks1c1hBWk42d09wWWhiajE0aVlyOUNtcFhLbmNQcV9XVUo3WlI3OWp3Uks0M01hSFNodzZuZzdzUTFUWm1WVGRrZDNZRlo3MEdZZ2hBbUQ3ZkVuVjBWYkJTS2thZjQ0aEdwY2NlamNYbEMzQmNYVDhuOHRCRUlIeDZ1WnlvaGsxVWpQbllQQjl2VjY4VXk1dW41N2ZyeG56bXlvajlLUE5xb0p2UWJ2SVd0Tnc0NG0wbk5mUnA5blc3T1RmNFJDUTRzYmh0Q3Bmc1o4OGNfQVRHLU1PMnRUN2pBT3pfbmlR?oc=5",
+      "outlet": "El Líbero",
+      "date": "2026-07-31",
+      "title": "Chile y Venezuela acuerdan normalizar sus relaciones / SLEP se querella por homicidio frustrado contra tres estudiantes del IN - El Líbero",
+      "description": "Chile y Venezuela acuerdan normalizar sus relaciones / SLEP se querella por homicidio frustrado contra tres estudiantes del IN&nbsp;&nbsp;El Líbero",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T13:56:03.320146+00:00"
+    },
+    {
+      "id": "517a0e4ac0b0063d",
+      "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxPRWhTVDk1Y1JKTWU5amxoRDFzMnJ3MXJEbjh5NjBJU25mS1ZmWm0tdnhwSm5fVkt2NlE5UU1JVWZKVVJlcW1Iam8xaENxSVRRXzJmZ2d2QjlLWVk4NGJfYTY2MDRkbUd1XzRKTk50c3NBMU5DamZPLVVrMlBFQmJtM0tFLWxOYkpqQl9Fa25lZnBKb3JlT3hwbHBjYk5EWjl0WlJMS3ZtQWZPUUk5WWlQRjRoSUk2SXBYSVAzOGJhZzVUQlcxakNIUHJEMTZ6d1NQZXZPOFEtZzg3RkVwSHBTS3gtYlVNQW5FZ1k1ekF4a0tSeUtTTDZadDZB?oc=5",
+      "outlet": "chilevision.cl",
+      "date": "2026-07-31",
+      "title": "Víctima intentó escapar: Revelan nuevos antecedentes tras muerte de adulto mayor durante balacera en Cerro Navia - chilevision.cl",
+      "description": "Víctima intentó escapar: Revelan nuevos antecedentes tras muerte de adulto mayor durante balacera en Cerro Navia&nbsp;&nbsp;chilevision.cl",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-07-31T13:56:03.320146+00:00"
+    },
+    {
+      "id": "c0bb1de8b49d8138",
+      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPdVBWbGFMMUoxUjRwTFNSQjRMaTJXaXh4VnZWdXplWmNuc2RqQ0VyblBGZ29WNl9POC1QQ19DZFpZZ1E0dG8zMWUzNVdwMW91bnJaOWM2ZHdIYW9Lc29GOUc5SF9oNEFnQTZkMW5rRnowSE5YNHFzUjdTSXRDMUhkU3JoOXJDS3ZwZTRmVTg2MWJYakVtUmRYeDBvbEt6STM0cDVlUGM0ZUd4Nlk3eHVBWENvcEJCS1MwNXF6V0lKU3VvYVJsUW9odUdRdVE3Zw?oc=5",
+      "outlet": "Sabes.cl",
+      "date": "2026-07-30",
+      "title": "Arrau confirma sumario por operaciones estéticas en esposa del general de Carabineros que cubrió Dipreca - Sabes.cl",
+      "description": "Arrau confirma sumario por operaciones estéticas en esposa del general de Carabineros que cubrió Dipreca&nbsp;&nbsp;Sabes.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T13:56:03.320146+00:00"
+    },
+    {
+      "id": "ba918e838d59ced0",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQM2JyTHBQb0hZMW9POVluTWVSSXBRb1FKTFN6aGozTkJiMXozaTZTRlZJV09oX0ZCQkpUZFBnem5HaW1CVkFBNFdoZWc1cHVxYWtYZ3hVajBFb0c2Wlo1bmh1X3IyT1o5MnRQcEJXWFdFbEwzVTJ2RmNCcHd5OFpIWVFzN0lBQlYwOVBNYXVER0JnN2ZicFE?oc=5",
+      "outlet": "El Potosí",
+      "date": "2026-07-31",
+      "title": "Un policía muere en nuevo tiroteo en San Matías - El Potosí",
+      "description": "Un policía muere en nuevo tiroteo en San Matías&nbsp;&nbsp;El Potosí",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-07-31T13:56:03.320146+00:00"
     }
   ]
 }
