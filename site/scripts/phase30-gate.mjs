@@ -477,6 +477,54 @@ gitDiffExitCode('zero new dependencies (package.json/package-lock.json unchanged
   }
 })();
 
+
+// ---------------------------------------------------------------------------
+// Assertion 9: the keyboard invariants F-58 rests on are encoded, not just walked.
+//
+// Verification finding: the "no focus trap" conclusion at 481/639/1296 rested
+// SOLELY on a one-off Tab walk, with nothing to stop a later edit reintroducing
+// a document-scoped key interceptor — the same durability hole N-2 found for the
+// ?cut= precedence rule, which was closed with a source-level assertion. Same
+// precedent applied here.
+//
+//  (a) No map component may register a document-scoped keyboard listener. This is
+//      what keeps score.mjs's criterion 4 measurable at all (keyInterceptors: [])
+//      and is why the rail's Escape handling is a container-scoped React onKeyDown.
+//  (b) The roving tabindex must stay: exactly the WAI-ARIA radiogroup pattern that
+//      F-58 records as the (benign) cause of c4's negativeTabindexCount.
+// ---------------------------------------------------------------------------
+(function assertKeyboardInvariants() {
+  const mapDir = path.join(SITE_ROOT, 'src/components/map');
+  const files = listFiles(mapDir, ['.ts', '.tsx']);
+  const offenders = [];
+  for (const f of files) {
+    const src = readFileSync(f, 'utf8');
+    if (/document\.addEventListener\([^)]*key/i.test(src)) {
+      offenders.push(path.relative(SITE_ROOT, f));
+    }
+  }
+  if (offenders.length > 0) {
+    fail(
+      'no document-scoped keyboard listener in map components',
+      'found in: ' + offenders.join(', ') + ' — a global key interceptor makes score.mjs criterion 4 unmeasurable and can trap focus'
+    );
+  } else {
+    pass('no document-scoped keyboard listener in map components (F-49/F-58 invariant)');
+  }
+
+  const ff = readFileSync(path.join(mapDir, 'FilterFields.tsx'), 'utf8');
+  const hasRoving = /tabIndex=\{[^}]*\?\s*0\s*:\s*-1\s*\}/.test(ff) || (ff.includes('tabIndex={0}') && ff.includes('tabIndex={-1}'));
+  const hasArrows = ff.includes('ArrowRight') && ff.includes('ArrowLeft') && ff.includes('Home') && ff.includes('End');
+  if (hasRoving && hasArrows) {
+    pass('radiogroups keep roving tabindex + arrow/Home/End navigation');
+  } else {
+    fail(
+      'radiogroups keep roving tabindex + arrow key navigation',
+      'FilterFields.tsx must keep the WAI-ARIA radiogroup pattern — roving:' + hasRoving + ' arrowKeys:' + hasArrows
+    );
+  }
+})();
+
 // ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
