@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-31T13:56:03.320146+00:00",
+  "generated": "2026-07-31T19:20:42.461861+00:00",
   "items": [
     {
       "id": "a026901347e4ca3a",
@@ -2750,6 +2750,256 @@
       "description": "Un policía muere en nuevo tiroteo en San Matías&nbsp;&nbsp;El Potosí",
       "rejection_stage": "resolver_fail",
       "first_seen": "2026-07-31T13:56:03.320146+00:00"
+    },
+    {
+      "id": "6ee9db3274ec640e",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/07/31/exsubsecretario-juan-pablo-rodriguez-da-negativo-en-nuevo-examen-de-drogas-tras-polemica.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-07-31",
+      "title": "Exsubsecretario Juan Pablo Rodríguez da negativo en nuevo examen de drogas tras polémica",
+      "description": "Tras realizarse un nuevo examen, el exsubsecretario de Hacienda, Juan Pablo Rodríguez, dio negativo al consumo de drogas. &#8220;El resultado emitido con fecha 31 de julio del 2026 por el USDTL (United States Drug Testing Laboratories), referencia del Laboratorio de la Pontificia Universidad Católica de Chile, es recibido con fecha 31 de julio del 2026 &#8230; Continua leyendo \"Exsubsecretario Juan Pablo Rodríguez da negativo en nuevo examen de drogas tras polémica\"\nThe post Exsubsecretario Juan",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "93a84dd0bc6203d3",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/delitos-sexuales/explotacion-sexual-en-tarapaca-11-rescatadas-cinco-criminales-y-cinco/2026-07-31/124316.html",
+      "outlet": "Cooperativa",
+      "date": "2026-07-31",
+      "title": "Explotación sexual en Tarapacá: 11 rescatadas, cinco criminales y cinco \"clientes\" detenidos",
+      "description": "Once mujeres jóvenes de nacionalidad boliviana fueron rescatadas por la Policía de Investigaciones en el marco de un operativo realizado esta madrugada de viernes, vinculado con una causa por el delito de trata de personas con fines de explotación sexual en la Región de Tarapacá. \nSegún informó la policia civil, la red abusaba de víctimas de entre 15 y 18 años de edad que ingresaban a territorio chileno, engañadas, a través de pasos no habilitados ubicados en la frontera de Colchane.\nPosteriorme",
+      "rejection_stage": "commune_null",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "a4026e16e9784b92",
+      "url": "https://www.latercera.com/politica/noticia/gobierno-en-alerta-nuevo-test-de-drogas-de-exsubsecretario-de-hacienda-arroja-negativo-y-alarma-a-autoridades-de-gobierno/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "La Moneda en alerta: nuevo test de drogas de exsubsecretario de Hacienda arroja negativo y alarma a autoridades de gobierno",
+      "description": "La reunión mensual de subsecretarios estuvo marcada por el caso de Juan Pablo Rodríguez. El nuevo examen negativo conocido durante la jornada, al que accedió este medio, sumado a la controversia por la contramuestra, abrió un debate interno para modificar el protocolo de los test de drogas que aplica el Ejecutivo.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "3e642d7d398c7a38",
+      "url": "https://www.latercera.com/pulso/noticia/caso-sartor-tribunal-decreta-primeras-medidas-cautelares-y-cuatro-imputados-quedan-con-arresto-domiciliario/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Caso Sartor: Tribunal decreta primeras medidas cautelares y cuatro imputados quedan con arresto domiciliario",
+      "description": "La fiscalía pidió la prisión preventiva para cinco imputados, lo que se debatirá la próxima semana. Con arresto domiciliario total quedaron Óscar ebel y Hugo Baranda y parcial, Mauro Valdés y Miguel León. El fiscal Juan Pablo Araya, dijo que, en el caso de Michael Clark, \"tenemos información de que podrían haber más de un contrato\" en relación a la compraventa de Azul Azul.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "68242dfbb0e4da11",
+      "url": "https://www.latercera.com/mundo/noticia/disparan-al-ministro-del-interior-de-ecuador-en-una-operacion-antidrogas-en-esmeraldas/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Disparan al ministro del Interior de Ecuador en una operación antidrogas en Esmeraldas",
+      "description": "John Reimberg fue recibido a tiros por una mujer cuando pretendía ingresar en su domicilio en Esmeraldas, en el norte del país, como parte de un operativo contra una red de narcotráfico y tráfico ilegal de combustible.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "bc95096f3462aeae",
+      "url": "https://www.latercera.com/nacional/noticia/los-otros-nueve-casos-de-supuestos-detenidos-desaparecidos-similares-a-bernarda-vera-y-las-razones-de-los-jueces-para-descartar-fraude/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Los otros nueve casos de supuestos detenidos desaparecidos similares a Bernarda Vera y las razones de los jueces para descartar fraude",
+      "description": "De acuerdo con resoluciones de ministros que han indagado estas situaciones, no se puede establecer que familiares que recibieron pensiones o indemnizaciones del Estado por ello sean autores de una defraudación a las arcas fiscales.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "599a79a9f625f043",
+      "url": "https://www.latercera.com/nacional/noticia/tribunal-autoriza-viaje-del-general-r-ricardo-yanez-a-brasil-participara-en-cumbre-de-seguridad/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Tribunal autoriza viaje del general (r) Ricardo Yáñez a Brasil: participará en cumbre de seguridad",
+      "description": "El exgeneral director de Carabineros se mantiene con arraigo nacional y firma mensual, tras ser formalizado en la denominada causa Alto Mando.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "4189a217d4ba1de8",
+      "url": "https://www.latercera.com/videos/noticia/desde-la-redaccion-entrevista-a-daniel-manouchehri-y-mauro-tamayo/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Desde la Redacción: entrevista a Daniel Manouchehri y Mauro Tamayo",
+      "description": "En el programa de streaming de La Tercera el diputado socialista Daniel Manouchehri acusó que “uno pudiese afirmar\" que toda la negociación por la megarreforma que hizo el exsubsecretario de Hacienda, Juan Pablo Rodríguez, la hizo \"bajo el efecto de las drogas”. Esto a raíz del doble positivo de la otrora autoridad en el test que se le realizó. El parlamentario, además, dijo que la ministra del Deporte, Natalia Duco, \"tiene que salir\" del gabinete si se constata un mal uso de su auto fiscal. En ",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "474f505735889ecc",
+      "url": "https://www.latercera.com/videos/noticia/viernes-de-culto-miguel-tapia-revela-los-secretos-de-los-prisioneros-y-de-pateando-piedras/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Viernes de Culto | Miguel Tapia revela los secretos de Los Prisioneros y de Pateando Piedras",
+      "description": "En conversación con Francisco Aravena y Claudio Vergara, el exbaterista de la banda sanmiguelina revela seceretos inéditos en la antesala de la celebración de los 40 años del álbum Pateando Piedras, cita que será en septiembre en el Teatro Caupolicán, y de sus recuerdos en torno al conjunto que lo lanzó a la celebridad.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "9b3550925ff4db31",
+      "url": "https://www.latercera.com/pulso/noticia/cambiazos-abc-presenta-querella-por-estafa-en-la-venta-de-relojes-apple-watch/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "“Cambiazos”: Abc presenta querella por estafa en la venta de relojes Apple Watch",
+      "description": "La empresa del retail mediano sufrió un fraude de $14,6 millones en relojes Apple comprados online y devueltos como réplicas. Aunque su querella fue declarada inadmisible por un error formal, el tribunal derivó los antecedentes a la Fiscalía como denuncia.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "f3a5b033aff6f1bb",
+      "url": "https://www.latercera.com/politica/noticia/manouchehri-y-caso-rodriguez-uno-pudiese-afirmar-que-toda-la-negociacion-por-megarreforma-la-hizo-bajo-el-efecto-de-las-drogas/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Manouchehri y caso Rodríguez: “Uno pudiese afirmar que toda la negociación (por megarreforma) la hizo bajo el efecto de las drogas”",
+      "description": "El diputado socialista, en el marco de lo sucedido con el exsubsecretario de Hacienda, planteó que es válido “preguntarse cuántas de las autoridades que han salido pudieron haber dado positivo\" por estupefacientes.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "afc19117300f6e0c",
+      "url": "https://www.latercera.com/mundo/noticia/rusia-advierte-de-que-el-aumento-de-los-ataques-ucranianos-pone-en-riesgo-cualquier-perspectiva-de-paz/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Rusia advierte de que el aumento de los ataques ucranianos pone en riesgo cualquier “perspectiva de paz”",
+      "description": "La portavoz del Ministerio de Exteriores de Rusia, ha asegurado que en la última semana los ataques de Ucrania han dejado 61 muertos, además de 327 heridos.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "b9e71cf451a778ed",
+      "url": "https://www.latercera.com/mundo/noticia/keiko-fujimori-forma-un-nuevo-gobierno-con-15-ministros-investigados-y-con-antecedentes-por-diversos-delitos/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "Keiko Fujimori forma un nuevo gobierno con 15 ministros investigados y con antecedentes por diversos delitos",
+      "description": "Quien ostenta el dudoso honor de ser el integrante de este nuevo gabinete de Keiko Fujimori con más episodios judiciales a sus espaldas es el ministro de Ambiente, Vladimiro Huaroc, con 51 investigaciones declaradas.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "71d8c49c8325c795",
+      "url": "https://www.latercera.com/nacional/noticia/a-un-ano-de-la-tragedia-en-el-teniente-en-que-esta-la-investigacion/",
+      "outlet": "LaTercera",
+      "date": "2026-07-31",
+      "title": "A un año de la tragedia en El Teniente: ¿En qué está la investigación",
+      "description": "La tragedia dejó seis trabajadores fallecidos, mientras la investigación aún continúa abierta.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "e1379d7a5f23b64d",
+      "url": "https://www.lacuarta.com/chile/noticia/polemico-dardo-de-manouchehri-alerto-que-subsecretario-pudo-estar-drogado-cuando-negocio-la-megarreforma/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-31",
+      "title": "Polémico dardo de Manouchehri: Alertó que subsecretario pudo estar drogado cuando negoció la megarreforma",
+      "description": "El diputado socialista expuso sus dudas tras el test de drogas que tumbó al subsecretario de Hacienda.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "1de4469d3125c48b",
+      "url": "https://www.lacuarta.com/chile/noticia/el-profesor-sabia-que-le-iban-a-pegar-surge-video-y-revelador-antecedente-tras-asesinato-de-escolar-en-san-bernardo/",
+      "outlet": "LaCuarta",
+      "date": "2026-07-31",
+      "title": "“El profesor sabía que le iban a pegar”: surge video y revelador antecedente tras asesinato de escolar en San Bernardo",
+      "description": "Adolescente fue apuñalado por un grupo de alumnos del mismo liceo.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "60be6115959e1a41",
+      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxQNGFMYWk4bldHLWlLY0x5ZjRRNllfc0VvMERmaTlOcWN0YmVLYjlvcUhYLTJkOGZabzUtdW5hQ0F4QWFLRzRYci1IN2stS0ROdjhfenhZVnpNeWRPUlRzUm5xbzNRVERRc1lITU1ZMGdPTGFXYzlyckUxTnd5OVdqWGZvb19WTFNFcTd5VEJVVzg0RU9sTUFtVm5RMlptN2RsVnZuUjRsaDJLV1JRSlZPZmJBbk53c3RWd1R6NXQ1eTlyYWRhVnd2a3g4UW4tSGNSVEhZY3B1Z0lEbW41b1lNbUxzQ1NnZ9IB-gFBVV95cUxObTJjUGwzdDRxcV9aY1RiRHhNQTdybWZJUzM2eXZJcXMyTFdwY1Jrck5NU19nX0tjbFFCNGdKVXJfYTJ6YzFxSzMzbzN5UlRObVV1S0pVNzlOV2M4NFhzdi01Mi1adWFxNkxJcG1Rc2VWaEt1SFZTNC1nVE93R1FyMzY5V18tcG92ZlU2RjVYdGttUmZJdjBsYmNJM0plSkV1dTI1N28yUzZBUUJpQjRDclA5ellMN18zRnVYZWpqbWxUdXpIV0taZVN4dWl1YlU3emUzV0VybGRoLVFnVzV5Z2luRVhHX3JRMi1nT0NFZjkzZDBfR241alR3?oc=5",
+      "outlet": "ADN Radio",
+      "date": "2026-07-31",
+      "title": "Expertos alertan por avance del crimen organizado en Chile: la nueva estrategia que plantean para reforzar fronteras - ADN Radio",
+      "description": "Expertos alertan por avance del crimen organizado en Chile: la nueva estrategia que plantean para reforzar fronteras&nbsp;&nbsp;ADN Radio",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "eee7bc8c3854b8e6",
+      "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxNcFplUFBocndiSHJUTzlGZlRoc2RkRkdicHpKYi0xenJ2eC1IdjdhWG9JcWk4cGZXbXIybl9Qa1lEb2tLaFpXV3ZHRi1XS3pXZ1FNN3MxM0xtOWo0VEs1Nzg1NF9xeVFWVHd5M1ZNLWUyem9yQy1fRFQ2NVhUVEJ5NmdtX21VOFU2clNPdjk1STJ0RmttbUFmU2FvZjRta1V3S3NNcDNBaGJEY0J3YzU3eExBSnJscGpOcWlfQ2Y4RUtPNllLNjI5ZlltZzAxYlNtelU0dGF4OEFwM2VPYXN1YmJRTWNOOE54?oc=5",
+      "outlet": "Revista Seguridad",
+      "date": "2026-07-31",
+      "title": "Seguridad pública a rango constitucional, la reforma que podría redefinir el combate al crimen organizado en Chile - Revista Seguridad",
+      "description": "Seguridad pública a rango constitucional, la reforma que podría redefinir el combate al crimen organizado en Chile&nbsp;&nbsp;Revista Seguridad",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "7ecfa053320503e0",
+      "url": "https://news.google.com/rss/articles/CBMikwJBVV95cUxPY08wcllPR0xQaTRtZ2ZyVUFEVnJfWTMyWDJ1UnY5RUJPQVVxOXdhejRwckF0eHZjQkczeVNwN2Z0UWExdWJQd1RQa0pPdWVVZGNNblYzTllnSG9nTGppS0FoS25Oa0pBenpMNWNjSGFlZlFtU1FnbTgteW5SQ0pLUGlCeUJtRHNuX1k1UjhXLXJ5dEZ1N01XOXJZNWdGdk5nZUpJb0thandJRy1ZaXNoYTlZM21LMTY2bXp4RnFGM3lZYy03LTVFVEw0LURkd013akRaNUw2TlBndWp2azA0bElta2l5SlptLVc1NmpzQTRzbElnUGEtbVVJOU5aRFNPNjdDZ1hhQVliN1dNamZLbF9wcw?oc=5",
+      "outlet": "pauta.cl",
+      "date": "2026-07-31",
+      "title": "Paulina Patiño afirma que Chile va por el camino correcto para enfrentar el crimen organizado - pauta.cl",
+      "description": "Paulina Patiño afirma que Chile va por el camino correcto para enfrentar el crimen organizado&nbsp;&nbsp;pauta.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "b3e8dc957dfb0e1d",
+      "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxQSHhEQlZPZmhFdzM5WDJGci1NT3hKLVRaN216SHp3c0ZrQkpmRTBNcmJBeW1lV0RNc3NkRWJFV3N6aGJMaGlqR2M4cHlsYzVDamJaWDZ1T0RCUElhVkNRZlNiUGxudy1SOHllVi1JM2JJekdhdm1JMk9WS0ljcVNKRmUwYjVpOWpIRVJFcDc5am42aGtCbHNlUHg2UERTelpjaG5GVmY5b0taSlNzcURRaDI0N3NraHVUMzhmbC01R2dyQkxJQmtoYVNLU3ZBWVc1MDlMc2pNbXZnaVF4dTRtWnJIbGNWY19rYWxYajM5RmJhLXMwYmhTbGlxYk0?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-07-31",
+      "title": "Robo a camión de valores termina con tiroteo en Franklin: hay un ladrón muerto y 2 vigilantes heridos - BioBioChile",
+      "description": "Robo a camión de valores termina con tiroteo en Franklin: hay un ladrón muerto y 2 vigilantes heridos&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "9f2c73656b53ebc6",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNNUplTlROR19NQ1ZhaUV3aEpMTjhDRWlTa1g2TmJEWl90TlFKUk1KQldHYnlRWmE3WTRtZkJ2Vk12TTZsMlpnbkhoeFY5RWU4cG1HOUhTR0hhdTJQSjAzdnlacnBUOHpGLTR1UjRESzJLLVpHVXVsZktHYkxVdTg2bXY1cmZyZF9XaHVQMjZCRlNJODFvRGpsX2JCXzBGZXJBYzBKeHd1WQ?oc=5",
+      "outlet": "puranoticia.pnt.cl",
+      "date": "2026-07-31",
+      "title": "El 10% de los adolescentes infractores concentra el 43% de los delitos en Chile - puranoticia.pnt.cl",
+      "description": "El 10% de los adolescentes infractores concentra el 43% de los delitos en Chile&nbsp;&nbsp;puranoticia.pnt.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "90cfc86332e55c84",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOVFRUNXdWX2xFR3dQaUpSRy1xT3oyTXpGbWNaYlBkMS1ZRTUxamFpVXZzNURyNmZNUzFJVFRlQmt3Mzl4bm9mZ21XUGlOYjhzNlZYVGNwOHBQYjlnNnJPM08xdGRCbUFLVmZWbVhZS0FVNG8yMjRVWHlreDRKQlQ1dmhJUFhTU0NSTVJIYmF0OXFaZTBjZjdrekZyV3ZoXzdfVVh6U19qZG0wSXBFSGp3TkVjSzJJMEZEeWpv?oc=5",
+      "outlet": "Zona Cero",
+      "date": "2026-07-31",
+      "title": "Cae en Pasto venezolano con circular roja de la Interpol: haría parte del 'Tren de Aragua' - Zona Cero",
+      "description": "Cae en Pasto venezolano con circular roja de la Interpol: haría parte del 'Tren de Aragua'&nbsp;&nbsp;Zona Cero",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "c4d7f06989ff3b69",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQQnFkQVVzblVJWW9PbnpLTEo4bFVkRjhyZkw3Z3ZHQmVsVzZEY2NnaERBSjJCSWNXelRvbnlCU2V0T3dkU0ZlUFNwbUV3N2N5ay0yckNnT2ZOTlYxdHRmd2NpVHhFNk9QbHI0MF9fWFY4THlQcU92WG5XbGJuM29EMHJ0WnQxM2wzeWwtYV9IWVF2VV9ESWZzM3k2VXTSAaIBQVVfeXFMTkYtamc1bVVJbk1RQnBWTzBVYXQtbnpkdWF1cks0S2MwZV9yVnBXckRkd21EeHNVbG1IWGNlMmh3Yk52dUxRMjZvbXJMYlBYLTF2Ti15OGh5T0xyb0ZwZkkwWmFVN2xEblR0bGVLQXVVTWI5UVctOXo2MUJJX0Q0MFJvMGk5WFhwOUZCb2pOVHB6eF9oNWZ6Uy05blJiRlB4R2hB?oc=5",
+      "outlet": "Pulso Diario San Luis",
+      "date": "2026-07-31",
+      "title": "El CJNG, detrás del asesinato de Carlos Manzo, confirma Harfuch - Pulso Diario San Luis",
+      "description": "El CJNG, detrás del asesinato de Carlos Manzo, confirma Harfuch&nbsp;&nbsp;Pulso Diario San Luis",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "8c1f33eaf1b6f2ba",
+      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNQkt3ME9obDdBMFlGUElXME9DTE5QQWN5dGJZVHBORmN1Y2F2bWRwNmFHYTZWM2Y3YmREVGlMODVUZ0xqMDhKb1dCOUJfTmtIck9HT0h5dkpubi1Xb21YUXNIQ3V5ajVyb0EtMmstLVB1a0p4cVlkeXk0LXNxSURHZVJyRk83UWhyR0Z0R1gzTTdUZU5oR01kRTJBamh3cE5nS3p5UzZwOXoyaDZFdzk3MnVNRTNmcEVZVHZ4aDdNSjlnV0VTX3RkeWFSUDU3N0xwZ1Bj?oc=5",
+      "outlet": "Epicentro Chile",
+      "date": "2026-07-31",
+      "title": "Asalto a camión de valores termina con balacera, un fallecido y tres heridos en barrio Franklin - Epicentro Chile",
+      "description": "Asalto a camión de valores termina con balacera, un fallecido y tres heridos en barrio Franklin&nbsp;&nbsp;Epicentro Chile",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
+    },
+    {
+      "id": "05cf16b03f69a6b0",
+      "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxQRWR0WVBrUXhvT2RiOWNwT092ZTloanJ5YmZyc3hrdVYwa3VuZ0hldXJOWER1cXU0c3RTcFFRdGMtWnhGMXhCSmo5SEEtVUQ4VFdTYTFjS0U1LUlXY2NNZXcyRUEyeHliVzBVZDlKUGJIajd2bGQ0R2xZbG0yYWhBYUhrZ0xMb1RpVUxmRzdBQ2pNbWxSRHJzaHVpYlNVbUtUMThjYjdkSjdPRndtNnc2VFZwQm5fc3RvRTlEUUEzNlc4ZGhuM2xTUjlyem8yZlR4dmNnSmZ5dURCdkNDX0Y2OXRVVFY4d3fSAecBQVVfeXFMUEVkdFlQa1F4b09kYjljcE9PdmU5aGpyeWJmcnN4a3VWMGt1bmdIZXVyTlhEdXF1NHN0U3BRUXRjLVp4RjF4QkpqOUhBLVVEOFRXU2ExY0tFNS1JV2NjTWV3MkVBMnh5YlcwVWQ5SlBiSGo3dmxkNEdsWWxtMmFoQWFIa2dMTG9UaVVMZkc3QUNqTW1sUkRyc2h1aWJTVW1LVDE4Y2I3ZEo3T0Z3bTZ3NlRWcEJuX3N0b0U5RFFBMzZXOGRobjNsU1I5cnpvMmZUeHZjZ0pmeXVEQnZDQ19GNjl0VVRWOHd3?oc=5",
+      "outlet": "noticiasnqn.com.ar",
+      "date": "2026-07-31",
+      "title": "Allanamiento en Confluencia: secuestran celulares, armas caseras y demoran a cuatro personas - noticiasnqn.com.ar",
+      "description": "Allanamiento en Confluencia: secuestran celulares, armas caseras y demoran a cuatro personas&nbsp;&nbsp;noticiasnqn.com.ar",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-07-31T19:20:42.461861+00:00"
     }
   ]
 }
