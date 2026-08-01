@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-01T02:28:43.934290+00:00",
+  "generated": "2026-08-01T08:14:35.818518+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -120,6 +120,56 @@
       "description": "Adulto mayor muere tras quedar en medio de una balacera entre bandas rivales en Cerro Navia&nbsp;&nbsp;Meganoticias",
       "rejection_stage": "resolver_fail",
       "first_seen": "2026-08-01T02:28:43.934290+00:00"
+    },
+    {
+      "id": "5c277bbc5fe16e6f",
+      "url": "https://www.biobiochile.cl/biobiotv/opinion/comentarios/2026/08/01/boric-la-imbecilidad-del-presidente.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-01",
+      "title": "Boric: la imbecilidad del presidente",
+      "description": "En esta columna el desorden del gobierno, el ataque de Boric a Kast, la imposición de aranceles de Estados Unidos y el tráfico de influencias de Guido Girardi.\nThe post Boric: la imbecilidad del presidente appeared first on BioBioChile.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T08:14:35.818518+00:00"
+    },
+    {
+      "id": "5cc1b5d538eac3f3",
+      "url": "https://www.biobiochile.cl/noticias/internacional/america-latina/2026/07/31/fui-secuestrado-por-el-poder-judicial-expresidente-de-peru-humala-sale-libre-tras-condena-anulada.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-01",
+      "title": "\"Fui secuestrado por el Poder Judicial\": Expresidente de Perú Humala sale libre tras condena anulada",
+      "description": "El expresidente de Perú, Ollanta Humala, salió del penal de Barbadillo luego que el Poder Judicial peruano ordenara su liberación inmediata tras la sentencia del Tribunal Constitucional (TC) que anuló su condena de 15 años de prisión que le había sido impuesta por el presunto delito de lavado de activos. A su salida, señaló ante &#8230; Continua leyendo \"\"Fui secuestrado por el Poder Judicial\": Expresidente de Perú Humala sale libre tras condena anulada\"\nThe post &quot;Fui secuestrado por el Pod",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T08:14:35.818518+00:00"
+    },
+    {
+      "id": "7bcb9bd31c754d7a",
+      "url": "https://www.latercera.com/mundo/noticia/ascienden-a-nueve-los-muertos-y-a-28-los-heridos-por-un-ataque-con-misiles-balisticos-rusos-sobre-kiev/",
+      "outlet": "LaTercera",
+      "date": "2026-08-01",
+      "title": "Ascienden a nueve los muertos y a 28 los heridos por un ataque con misiles balísticos rusos sobre Kiev",
+      "description": "El alcalde de la capital ucraniana, Vitali Klitschko, detalló que varias explosiones sacudieron la ciudad después de que Rusia atacara al menos cuatro de sus distritos. \"Diecisiete de los heridos están siendo atendidos en hospitales\", añadió.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T08:14:35.818518+00:00"
+    },
+    {
+      "id": "f036ea8566fbc0b5",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPWFEyV3haMFU1clBFUGNucG5uVkFhbmROR3YzbW96UTBaQm1wRks3T2NIZUdPMzFQamhjVzR6Nm9jYXhieEZFVWU1X1B1V2owazVPaHRkVFBTZ2pGVTRXQmlfdi1Wakh6YTd2MWM2cG5UYi16c2VtbjBzdWI4cVpSSkVQYmx2dERzOUhyU1ZEZVhFWVBEYzRwRF8ydFRQMU9jUVRSQnJtNi1zYTRQNUF2YjZJb1ZPU2hCeGlKRFo0OWJsU0tIdjU1LWQ4WQ?oc=5",
+      "outlet": "Análisis Urbano",
+      "date": "2026-08-01",
+      "title": "Detenido en Pasto extranjero con Circular Roja, integrante de \"Los Gallegos\", estructura del Tren de Aragua - Análisis Urbano",
+      "description": "Detenido en Pasto extranjero con Circular Roja, integrante de \"Los Gallegos\", estructura del Tren de Aragua&nbsp;&nbsp;Análisis Urbano",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T08:14:35.818518+00:00"
+    },
+    {
+      "id": "c68f2818e2436358",
+      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPNEVCaHhROGVJcXFWUjZHQmpfcVA5aE1Mc19LVHc3cTltcms0TFl3b0dDcExlemVCRERhb3doMVUxU0l2RFo4dEtobm1jVklTUFJxbl9PNk50bV9SSmtCdHIwM1lDMkRCNG54WUtUaWVNSnJ2X3JxTVhSVHBMeUZSbHd4YXlWMEZURG1nVkhOV1J1RmVHaVJlZVdDcHdRLUF5eldnWTdUQk05YjVEZm9kQzd5al9LbTh1eVd2UG1EUDhrZi1Hdkg0OGJXaW9qUEcxX0lFbHJJVHrSAdgBQVVfeXFMTzRFQmh4UThlSXFxVlI2R0JqX3FQOWhNTHNfS1R3N3E5bXJrNExZd29HQ3BMZXplQkREYW93aDFVMVNJdkRaOHRLaG5tY1ZJU1BScW5fTzZOdG1fUkprQnRyMDNZQzJEQjRueFlLVGllTUpydl9ycU1YUlRwTHlGUmx3eGF5VjBGVERtZ1ZITldSdUZlR2lSZWVXQ3B3US1BeXpXZ1k3VEJNOWI1RGZvZEM3eWpfS204dXlXdlBtRFA4a2YtR3ZINDhiV2lvalBHMV9JRWxySVR6?oc=5",
+      "outlet": "Meganoticias",
+      "date": "2026-07-31",
+      "title": "Es blindada y está diseñada para evacuaciones médicas tácticas: Así es la nueva ambulancia de Carabineros - Meganoticias",
+      "description": "Es blindada y está diseñada para evacuaciones médicas tácticas: Así es la nueva ambulancia de Carabineros&nbsp;&nbsp;Meganoticias",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T08:14:35.818518+00:00"
     }
   ]
 }
