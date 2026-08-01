@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-01T08:14:35.818518+00:00",
+  "generated": "2026-08-01T13:23:31.287424+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -170,6 +170,126 @@
       "description": "Es blindada y está diseñada para evacuaciones médicas tácticas: Así es la nueva ambulancia de Carabineros&nbsp;&nbsp;Meganoticias",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-08-01T08:14:35.818518+00:00"
+    },
+    {
+      "id": "6870fecc3e4847b4",
+      "url": "https://www.biobiochile.cl/especial/bbcl-investiga/noticias/articulos/2026/08/01/liberen-a-sergio-jadue-los-detalles-del-portazo-de-tribunal-a-fiscalia-que-despeja-su-regreso-a-chile.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-01",
+      "title": "Sergio Jadue libre: los detalles del portazo de tribunal a fiscalía que despeja su regreso a Chile",
+      "description": "El 13º Juzgado de Garantía de Santiago decretó el sobreseimiento definitivo de Sergio Jadue tras concluir que la causa permaneció paralizada durante ocho años mientras la Fiscalía esperaba una extradición desde Estados Unidos que nunca se concretó. La jueza rechazó uno a uno los argumentos del Ministerio Público y del SII para impedir la prescripción, levantó la orden de detención contra el expresidente de la ANFP y dejó sin efecto su calidad de prófugo de la justicia.\nThe post Sergio Jadue libr",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T13:23:31.287424+00:00"
+    },
+    {
+      "id": "9bf8fef87eef6301",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/dos-extranjeros-detenidos-por-balacera-durante-asalto-a-camion-de/2026-08-01/075209.html",
+      "outlet": "Cooperativa",
+      "date": "2026-08-01",
+      "title": "Dos extranjeros detenidos por balacera durante asalto a camión de valores en Franklin",
+      "description": "Carabineros capturó esta jornada a dos presuntos integrantes de la banda que, el viernes, protagonizaron una balacera durante un frustrado asalto a un camión de valores en Barrio Franklin, que culminó con uno de sus compañeros delictuales fallecidos y dos guardias heridos.\nEl operativo, llevado a cabo por el OS9 y el Laboratorio de Criminalística, detuvo a un ciudadano venezolano de 22 años sindicado como uno de los autores de los disparos; y a un individuo de 28 de la misma nacionalidad, que fi",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-08-01T13:23:31.287424+00:00"
+    },
+    {
+      "id": "85dd42e6827f48cc",
+      "url": "https://www.latercera.com/nacional/noticia/los-reportes-por-operaciones-sospechas-de-gabriel-silber-que-la-uaf-informo-al-fiscal-de-la-trama-bielorrusa/",
+      "outlet": "LaTercera",
+      "date": "2026-08-01",
+      "title": "Los reportes por operaciones sospechas de Gabriel Silber que la UAF informó al fiscal de la trama bielorrusa",
+      "description": "El imputado está en la mira de la Fiscalía. Si bien tenía firmado un acuerdo de cooperación eficaz, el Ministerio Público ingresó esta semana una solicitud para formalizarlo. Los reportes se sostienen en movimientos que realizó respecto de fondos ingresados en aseguradoras, y que se informaron dado los delitos porque se le indaga.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T13:23:31.287424+00:00"
+    },
+    {
+      "id": "d10ef1bccf06e503",
+      "url": "https://www.latercera.com/mundo/noticia/iran-advierte-a-paises-que-cooperen-con-eeuu-y-amenaza-con-endurecer-el-bloqueo-en-el-estrecho-de-ormuz/",
+      "outlet": "LaTercera",
+      "date": "2026-08-01",
+      "title": "Irán advierte a países que cooperen con EE.UU. y amenaza con endurecer el bloqueo en el estrecho de Ormuz",
+      "description": "\"Los países musulmanes deben reconsiderar su cooperación y colaboración con Estados Unidos. De lo contrario, cualquier país que se convierta en el escudo defensivo de la criminal y agresora Estados Unidos arderá en el fuego de la guerra”, señaló un militar iraní.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T13:23:31.287424+00:00"
+    },
+    {
+      "id": "b3e9ead50d040e99",
+      "url": "https://www.latercera.com/nacional/noticia/dos-detenidos-pasaran-a-control-por-frustrado-asalto-a-camion-de-valores-en-barrio-franklin/",
+      "outlet": "LaTercera",
+      "date": "2026-08-01",
+      "title": "Dos detenidos pasarán a control por frustrado asalto a camión de valores en barrio Franklin",
+      "description": "Los imputados, un ciudadano venezolano de 22 años y un ecuatoriano de 28, fueron detenidos mediante órdenes judiciales solicitadas por la Fiscalía Centro Norte. Ambos serán presentados durante la mañana de este sábado ante el Centro de Justicia.",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-08-01T13:23:31.287424+00:00"
+    },
+    {
+      "id": "20017974a39faaed",
+      "url": "https://www.latercera.com/mundo/noticia/al-menos-67-migrantes-murieron-al-intentar-ingresar-a-ceuta-desde-marruecos/",
+      "outlet": "LaTercera",
+      "date": "2026-08-01",
+      "title": "Al menos 67 migrantes murieron al intentar ingresar a Ceuta desde Marruecos",
+      "description": "Las víctimas fallecieron en los últimos días mientras intentaban llegar por mar al enclave español en el norte de África, en medio de una entrada masiva de personas. Las autoridades españolas reforzaron la seguridad fronteriza y continúan las labores de búsqueda.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T13:23:31.287424+00:00"
+    },
+    {
+      "id": "c772c9420eef012a",
+      "url": "https://www.latercera.com/nacional/noticia/el-exitoso-programa-de-medellin-para-alejar-a-los-jovenes-del-crimen-organizado/",
+      "outlet": "LaTercera",
+      "date": "2026-08-01",
+      "title": "El exitoso programa de Medellín para alejar a los jóvenes del crimen organizado",
+      "description": "La directora de esta iniciativa creada en la alcaldía de Medellín relata cómo han logrado trabajar, en menos de cinco años, con más de 12.500 adolescentes para evitar que sigan formando parte del círculo delictual y de violencia. Con un equipo de 120 profesionales, la mayoría sicólogos, esta política pública intenta prevenir y atacar el problema abordando el ciclo de vida completo.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T13:23:31.287424+00:00"
+    },
+    {
+      "id": "778d7197a0a6a67f",
+      "url": "https://www.latercera.com/politica/noticia/sebastian-zamora-no-vamos-a-esperar-los-indultos-del-presidente-vamos-a-presionarlos-desde-el-congreso/",
+      "outlet": "LaTercera",
+      "date": "2026-08-01",
+      "title": "Sebastián Zamora: “No vamos a esperar los indultos del presidente, vamos a presionarlos desde el Congreso”",
+      "description": "El diputado republicano fija como objetivos conseguir indultos para los uniformados condenados durante el estallido social y eliminar el INDH. No cree que sean elementos distractores de la agenda del gobierno. \"Lo que hace el partido y la bancada es impulsar lo que son sus principios y valores\", afirma.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T13:23:31.287424+00:00"
+    },
+    {
+      "id": "5d07a0641d88179c",
+      "url": "https://www.latercera.com/nacional/noticia/roberto-rondanelli-director-del-cr2-en-anos-de-el-nino-se-producen-estos-fenomenos-con-mucha-mas-intensidad-no-son-los-sistemas-frontales-tipicos/",
+      "outlet": "LaTercera",
+      "date": "2026-08-01",
+      "title": "Roberto Rondanelli, director del CR2: “En años de El Niño se producen estos fenómenos con mucha más intensidad, no son los sistemas frontales típicos”",
+      "description": "El director del centro más importante de estudios del clima en Chile advierte que las lluvias extremas podrían repetirse durante este año, mientras llama a reconstruir pensando en cómo las ciudades enfrentan estas inclemencias en el futuro. “Sigue siendo inaceptable que haya muerto gente por este temporal”, asevera.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T13:23:31.287424+00:00"
+    },
+    {
+      "id": "852c0dcd24297750",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNZmhSREtybnVfVmtYM0EtMmk2N2szWnZxNXZjSkpSTWdtcmliSkNKbTFRMENVS3U3Y0gyRUwySm1ZNjQ4ZUFpU1NXc2UwQUxsYmhBNmVCTkVTVHlrTzhJcGhPdHdZZWp1RGpGNVVrWV9JSzFKYm5kMklncWhjRUIySVR0SldBN0dtMjlWMUZHRzhINUxPVUFaZkI4bFBRSmlwQkFXd0pyWlNsWlotNGVoMWR3OWF0U1hrdkZzYk91M03SAeIBQVVfeXFMTlZOTUJJZnpQT2Y4SHVrdF9TTXhIcEptYWw0dHR3LWJ0eFk1ZERNWlQtbEM5UThYS2NVanBETi1OSXpOOF9wdmVFX25kRmhKbEhuOHVNRjdLd0xBMGdRSHI2ZFJxd3JIZUtfam4xdnlCUkpWcW0tam9yd3NxbEpESHZaZ3FYRUE3MDhoVTViMUFFdG1ENzR5WENja05MTlZNbExhUVk3WjFzZzRBb2d6TTBoNXJvTVFaRnVIRzdzelFHYzg3SGNIcV9nekdWMVhfcjJhTzNaZE1lZURDcEFRSmFNZw?oc=5",
+      "outlet": "La Tercera",
+      "date": "2026-08-01",
+      "title": "El exitoso programa de Medellín para alejar a los jóvenes del crimen organizado - La Tercera",
+      "description": "El exitoso programa de Medellín para alejar a los jóvenes del crimen organizado&nbsp;&nbsp;La Tercera",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T13:23:31.287424+00:00"
+    },
+    {
+      "id": "0d8269efb686d7b3",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNdUQ0Zi1mSUtVR2p4OERnV19NdGxjaGRvYXRHcS1OcG5fS3ViMElwbUdoaXhaaTNMdm5GZ0NweHpLWGo0SzdLaW5GaXQzRkQ2Uk93bEpGVnEyV0xETXFUYUNPWlFTT201NWZBVVBNdlBDUGpQUEFIelFXY242VU5IRk5qaEpabnpYX0d0dUZsbi12ektzd0UwblBabWxHQ0dRUnVUeDBqc3ZPZ3Y3OUZlRFo4Rm5OdDV3MVpCR2FB?oc=5",
+      "outlet": "Teletrece",
+      "date": "2026-08-01",
+      "title": "Denuncian que gobernador boliviano aparece en vehículo con encargo por robo en Chile - Teletrece",
+      "description": "Denuncian que gobernador boliviano aparece en vehículo con encargo por robo en Chile&nbsp;&nbsp;Teletrece",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T13:23:31.287424+00:00"
+    },
+    {
+      "id": "3085f69df6e5bafc",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQSVAzUWlheC1YdTBFRGRUbWxtcFFKdFhZVEhQOHlfM0lTb20zZTlHYmFYRFJrMHBQeWlJNDJtVXB4Wm1rOU9oYUcxOG84WU5LTmJuQWxhcUtraGtRTHcwTUxzWWcwNE4xekRJVldiNW5XR0I3NXIwemF6aXNadFFUUzFmLUZfZmJGQUJ5ZWJEVGFZMUhNeUhOSURpaDYtcml1SmRJMURWYk9BaUlxV1hxcC1qYkxVQ0tCajJJelp6Vy1FMEhmUzFNbkFn0gHPAUFVX3lxTE9yMUx5NFk1M2NjeDA4NF82SFJFTzE3VklXeExxMGRhRWdCa3E2cEp2a3F6RUxSYTFWLUNvdDlNTWdxNU9pdjM1MG0tRGZKNE5kclU2UF90R1hzNUdDRUJIbzFQMS1hLTVNU0pQUEs2THA1Sjg0Q054NFpCOHJjd2FBajdsaHRMaVZmdXI4RlptVmg2RVpCVzBtYm9ieFZXLVdnQWFhRmlva1R3c05POFZZblBDckZENi1pNS0wMmhFT0ZFSVI0VmMyT05GRi1tWQ?oc=5",
+      "outlet": "Página 7",
+      "date": "2026-08-01",
+      "title": "Diputado denuncia que gobernador boliviano fue visto en camioneta con encargo por robo en Chile - Página 7",
+      "description": "Diputado denuncia que gobernador boliviano fue visto en camioneta con encargo por robo en Chile&nbsp;&nbsp;Página 7",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-01T13:23:31.287424+00:00"
     }
   ]
 }
