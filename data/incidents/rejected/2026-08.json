@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-01T19:03:38.314145+00:00",
+  "generated": "2026-08-02T02:25:43.149967+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -400,6 +400,166 @@
       "description": "Catorce detenidos deja cerco táctico de Carabineros en la región de Tarapacá&nbsp;&nbsp;tarapacaonline.cl",
       "rejection_stage": "commune_null",
       "first_seen": "2026-08-01T19:03:38.314145+00:00"
+    },
+    {
+      "id": "84b858a9069e1154",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/01/dos-muertos-tras-caida-de-arbol-sobre-un-auto-en-los-rios-en-medio-del-intenso-sistema-frontal.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-02",
+      "title": "Dos muertos tras caída de árbol sobre un auto en Los Ríos en medio del intenso sistema frontal",
+      "description": "Dos personas murieron la tarde de este sábado en la región de Los Ríos, luego que un árbol de gran tamaño cayera sobre el vehículo en el que se desplazaban, en medio del intenso sistema frontal que afecta a la zona centro-sur del país. La información fue confirmada por autoridades del Ministerio del Interior y &#8230; Continua leyendo \"Dos muertos tras caída de árbol sobre un auto en Los Ríos en medio del intenso sistema frontal\"\nThe post Dos muertos tras caída de árbol sobre un auto en Los Ríos",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "cb2ca548df7446b6",
+      "url": "https://www.biobiochile.cl/noticias/internacional/mediooriente/2026/08/01/embajador-de-israel-cuestiona-cifra-de-muertos-en-gaza-y-culpa-a-hamas-la-mayoria-son-milicianos.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-01",
+      "title": "Embajador de Israel en Chile cuestiona cifra de muertos en Gaza y dice que la mayoría \"son milicianos\"",
+      "description": "El embajador israelí en Chile, Peleg Lewi, aseveró que Israel no desea quedarse en la Franja de Gaza, cuestionando las cifras sobre fallecidos que dan a conocer las autoridades gazatíes y que son tomadas como referencia por la ONU. Según el Ministerio de Sanidad de Gaza, el total de muertos supera los 73.340 desde el &#8230; Continua leyendo \"Embajador de Israel en Chile cuestiona cifra de muertos en Gaza y dice que la mayoría \"son milicianos\"\"\nThe post Embajador de Israel en Chile cuestiona cif",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "44114f89fc43791d",
+      "url": "https://www.biobiochile.cl/noticias/espectaculos-y-tv/cine-y-series/2026/08/01/hallan-muerto-en-su-departamento-a-vincent-pastore-recordado-actor-de-los-soprano.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-01",
+      "title": "Hallan muerto en su departamento a Vincent Pastore, recordado actor de Los Soprano",
+      "description": "Vincent Pastore, recordado actor de Los Soprano, fue hallado muerto este sábado en su departamento en el Bronx, Nueva York. Según detalla TMZ, el cuerpo del intérprete de 80 años fue encontrado por un amigo esta tarde después de que no se supiera nada de él en varios días. Por el momento la familia desconoce &#8230; Continua leyendo \"Hallan muerto en su departamento a Vincent Pastore, recordado actor de Los Soprano\"\nThe post Hallan muerto en su departamento a Vincent Pastore, recordado actor de ",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "e110d5dac708ce96",
+      "url": "https://www.latercera.com/nacional/noticia/sistema-frontal-deja-sus-dos-primeras-victimas-fatales-hay-347-damnificados-y-2052-personas-aisladas/",
+      "outlet": "LaTercera",
+      "date": "2026-08-02",
+      "title": "Sistema frontal deja sus dos primeras víctimas fatales: hay 347 damnificados y 2.052 personas aisladas",
+      "description": "Autoridades advirtieron que las lluvias intensas persistirán durante la noche entre Biobío y Los Lagos, mientras se mantienen alertas rojas por desbordes, aumento de caudales y remociones en masa.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "4a698447d5cfe4b8",
+      "url": "https://www.latercera.com/mundo/noticia/eeuu-al-menos-tres-muertos-y-dos-heridos-en-un-tiroteo-en-localidad-de-idaho/",
+      "outlet": "LaTercera",
+      "date": "2026-08-02",
+      "title": "EE.UU.: Al menos tres muertos y dos heridos en un tiroteo en localidad de Idaho",
+      "description": "El incidente se registró en el frontis de un local de comida rápida de la ciudad de Twin Falls. Unas horas después, la policía informó que el presunto autor de los disparos había muerto, pero no dio a conocer su identidad ni el posible móvil de los hechos.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "f556e748e78e29fd",
+      "url": "https://www.latercera.com/mundo/noticia/policia-de-sri-lanka-impone-el-toque-de-queda-en-medio-de-graves-disturbios-en-la-carcel-de-mahara/",
+      "outlet": "LaTercera",
+      "date": "2026-08-01",
+      "title": "Policía de Sri Lanka impone el toque de queda en medio de graves disturbios en la cárcel de Mahara",
+      "description": "Los incidentes surgieron después de que los guardias de la penitenciaría mataran a tiros a un preso e hirieran a otros seis que intentaron fugarse durante una visita de familiares.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "2efde7e3b890d067",
+      "url": "https://www.latercera.com/mundo/noticia/explosion-en-local-de-moscu-deja-al-menos-dos-muertos-y-mas-de-una-decena-de-heridos/",
+      "outlet": "LaTercera",
+      "date": "2026-08-01",
+      "title": "Explosión en local de Moscú deja al menos dos muertos y más de una decena de heridos",
+      "description": "Autoridades han reportado preliminarmente que se trató de un artefacto explosivo casero que fue detonado en un restaurante de la capital rusa.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "b3f9c9842c219010",
+      "url": "https://www.lacuarta.com/espectaculos/noticia/confirman-fallecimiento-de-reconocido-actor-de-los-sopranos-estaba-desaparecido/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-01",
+      "title": "Confirman fallecimiento de reconocido actor de Los Sopranos: estaba desaparecido",
+      "description": "Luego de varios días sin saber nada de él, fue encontrado muerto en su domicilio.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "ced7beac542a2fa5",
+      "url": "https://news.google.com/rss/articles/CBMilwJBVV95cUxNWGxBSE5uWGFOU1lvNWI2UURIdDhCT2hEYUNlYmdaREIxQzVqMWpvXy0ta2dNU0RoNno5NEZlTlFxUDd1ODhhR2QwUWU2eFRxc0lFVTNaLWY5VFhVUFV6NG5MNEVSdm5MTW5DcGpfb3Vyay1ub2dub2dlOHZrWUY3dWt3bkw3Y3QwRGlnTlhIaHVlZ0J0NkRNWlgyM0Z3Q2NTQ3RrSGkyakRVWTJ0Vlp0VkdvTjNVZEdRUUNQVDVTcUtMTDl5Z1BDRkdqaVEwM2pRbnRNc25MYXg2VnlSaF9DZ1pmR1ctMGVXUDJKbXlLand2U3ROZzFvSHIyUlJ3ZW1ERHBvQmV3bHJ2emhNb1hiQTR4dWRmeDA?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-08-01",
+      "title": "Sergio Jadue libre: los detalles del portazo de tribunal a fiscalía que despeja su regreso a Chile - BioBioChile",
+      "description": "Sergio Jadue libre: los detalles del portazo de tribunal a fiscalía que despeja su regreso a Chile&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "40fe33d12f6f5974",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPMWQ4MG5RbXNhSk5xYjdJcVQwYlBjWUlEeXZfaG1ka3hnT0hWNmVNMUVDaUJxODN0S0p5TDVFblgzdnZDZXhrd1lhZklVZm5aa1FTWVQ0cENHb2JRbkJvc1RSaWI3Z1BzLTRoZ3Z4dlhpMjVDdldoQ3JUdEpPVTB5bUJ4Z3duLWlLVEpPMjhNS01pbHJoQVRwbFk2aW53YXd0U2tLZW1mSjR2Q1pQUlRxY0U3c2JjSnJZdUNjSW94OEJzYmRvZjZOWEpoRQ?oc=5",
+      "outlet": "CNN Chile",
+      "date": "2026-08-01",
+      "title": "Autores de balacera en Franklin quedan con prisión preventiva: Intentaron asaltar a camión de valores - CNN Chile",
+      "description": "Autores de balacera en Franklin quedan con prisión preventiva: Intentaron asaltar a camión de valores&nbsp;&nbsp;CNN Chile",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "121b0d9723bc42d5",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPa3dqcTZXZlBldTlMRXA0SE9vZm41OThhOG82a0l6QmdrMWpkSzNyaWo1U1pTamZzS3R1MUNNTWxYa2NMVjJSZ1RJT0twUTdRelBmaGI1SG5LcURCZGk1emt2bWQxM0VfLUxkM0Q3bU9kcmlkbEMtbnpKb1YyZG55bzBwMA?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-08-01",
+      "title": "Homicidio: asaltantes balean a camionero boliviano en ruta del Valle de Lluta - SoyChile.cl",
+      "description": "Homicidio: asaltantes balean a camionero boliviano en ruta del Valle de Lluta&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "commune_null",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "9419d9b45af024de",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE00WUoxTHBPam8xNnhQNGxWSnlxRmxMYmkyMEJwYkliSUIydXVnNGFYQU1FSU0wc0hyYUlBWmtFVEl6UXduT0xzaHRIQ0s5SnpUakdiU3FQZmt2NEN5THc?oc=5",
+      "outlet": "Gobernantes.com",
+      "date": "2026-07-31",
+      "title": "Armadas de 30 países, incluido México reforzaron sus operaciones conjuntas frente a amenazas del crimen organizado - Gobernantes.com",
+      "description": "Armadas de 30 países, incluido México reforzaron sus operaciones conjuntas frente a amenazas del crimen organizado&nbsp;&nbsp;Gobernantes.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "bcdedb0d4f5deae8",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQS0gwNXFDRmFReWdhSnJORkVQdVZUQkdwZm4yUnlWWXVYeGRNcWF3SGZaaVQyRXVQZzVLS2FtWEZCZE1qRWIzd2daMzU0MlZXT1BqNTZETE1FUlo2dGVaa1UxNjg4ZXpOOFZ3cXoxdlI4bW9ndDZIdWZBRzEzVjFrWDNVcWVFTFg5bGFzVlF4Z2s4NzZhbklDWTBPaFdvRHdBT3Q3czVfUlBwZmJNb0Q3VFlEWVItY1pZdGc?oc=5",
+      "outlet": "El Regional del Zulia",
+      "date": "2026-08-01",
+      "title": "Asesinato del estudiante venezolano abre debate sobre violencia escolar en Chile - El Regional del Zulia",
+      "description": "Asesinato del estudiante venezolano abre debate sobre violencia escolar en Chile&nbsp;&nbsp;El Regional del Zulia",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "a8e690d32e145f49",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOSzVOWlRhRjhpRktmRFRJTl84dldHenJqUGo2NG5PWU9uOHFMcmVmM1pkOXBtbVNkY3l2MlYxSW5hNzRHTVVpN3lQUEVubFphemd6RjZTNmJST1AzSW11dUxyRGJiUnNtb3RNMklrczhVQzQ4SjBZSDBrX1RRZnZmYl9DNDN2a0NtMnc1ZFQ5dnhTcmNaSTRwWlQ1YlB2SDVOU2NIZmpfaXV3U0JrNGxCOEtTV2dXcGZPd0pESFUtS0ZMR0Y4dGpFWGJhaHJYcWNp?oc=5",
+      "outlet": "UCV radio",
+      "date": "2026-08-01",
+      "title": "Diputado Videla denuncia que gobernador de Cochabamba habría utilizado vehículo con encargo por robo en Chile - UCV radio",
+      "description": "Diputado Videla denuncia que gobernador de Cochabamba habría utilizado vehículo con encargo por robo en Chile&nbsp;&nbsp;UCV radio",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "9f89c730233f879a",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPemdtS2RjQ0l6eENlcktiTVVESVJ2T0R5V3NvaTNkZmhSc2toQUZCMGNyVElJX3NVTVZDUWpmUThOcW96aWhvaUVkZDlocjllRnJXQk5RZGZsZ21qSEs2Nzg0QXhYQ0ZxSklESzd1ZDR5dVVOMm9HNmdmel9HU0xYc3RHOGRGQkFJdU5Gb3V5NU5EcFBOVmdIU2QwUUQwNlZaTGU3TUdVVWRFT1N2YnlTM1NPQQ?oc=5",
+      "outlet": "madero.cl",
+      "date": "2026-08-02",
+      "title": "¿Robo hormiga en las micros? Diputado Araya llevará cobros irregulares de tarjetas a Contraloría - madero.cl",
+      "description": "¿Robo hormiga en las micros? Diputado Araya llevará cobros irregulares de tarjetas a Contraloría&nbsp;&nbsp;madero.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "c29494de3de51caf",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNOWhZbHNod3Vvei1OVGtsb052ZUg2ZHJXX0I0eXc2TDVJcmxHcjZ0RWN4VDZycjhrTGtzdDJCeGRLektocXhiTjJvbE82RWhtS1VtTEJCYi1xWWpJTV90ZTEwYmNoajhvMmVFamdONmhOVWFyTXV1c0dpWERmX1pNVmhCQnNVc0oybkloQllYVGRQRGpZeVZtSG05S2MzT3Q3WkRINjV1Z25QSk9mZ3hzVlZjbw?oc=5",
+      "outlet": "diarioeldia.cl",
+      "date": "2026-08-01",
+      "title": "Defensa del carabinero apunta a un cuasidelito de homicidio - diarioeldia.cl",
+      "description": "Defensa del carabinero apunta a un cuasidelito de homicidio&nbsp;&nbsp;diarioeldia.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T02:25:43.149967+00:00"
     }
   ]
 }
