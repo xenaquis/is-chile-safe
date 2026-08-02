@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-02T02:25:43.149967+00:00",
+  "generated": "2026-08-02T08:16:22.182862+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -560,6 +560,36 @@
       "description": "Defensa del carabinero apunta a un cuasidelito de homicidio&nbsp;&nbsp;diarioeldia.cl",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-08-02T02:25:43.149967+00:00"
+    },
+    {
+      "id": "6cdd3786dd6a3312",
+      "url": "https://www.biobiochile.cl/noticias/internacional/eeuu/2026/08/01/al-menos-tres-personas-mueren-en-tiroteo-en-una-zona-comercial-de-idaho-eeuu.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-02",
+      "title": "Al menos tres personas mueren en tiroteo en una zona comercial de Idaho, EEUU",
+      "description": "Al menos tres personas murieron y dos resultaron heridas este sábado debido a un tiroteo reportado en una concurrida zona comercial de Twin Falls, en el estado de Idaho, Estados Unidos. Según reporta NBC News, el hecho ocurrió cerca de una hamburguesería en la zona de Blue Lakes Boulevard North. Matthew Hicks, jefe de policía &#8230; Continua leyendo \"Al menos tres personas mueren en tiroteo en una zona comercial de Idaho, EEUU\"\nThe post Al menos tres personas mueren en tiroteo en una zona comer",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T08:16:22.182862+00:00"
+    },
+    {
+      "id": "3bbb3664f2ef3779",
+      "url": "https://www.latercera.com/nacional/noticia/eran-funcionarios-municipales-y-estaban-esperando-un-hijo-identifican-a-pareja-fallecida-tras-caida-de-arbol-por-sistema-frontal/",
+      "outlet": "LaTercera",
+      "date": "2026-08-02",
+      "title": "Eran funcionarios municipales y estaban esperando un hijo: identifican a pareja fallecida tras caída de árbol por sistema frontal",
+      "description": "La tragedia ocurrió la tarde de este sábado en la ruta que une Panguipulli con Villarrica, y apenas un día después de que una de las víctimas celebrara su cumpleaños número 41.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T08:16:22.182862+00:00"
+    },
+    {
+      "id": "ace65aed837fb237",
+      "url": "https://www.latercera.com/nacional/noticia/en-que-nos-beneficia-kaiser-cuestiona-al-gobierno-por-reanudacion-de-relaciones-consulares-con-venezuela/",
+      "outlet": "LaTercera",
+      "date": "2026-08-02",
+      "title": "“¿En qué nos beneficia?”: Kaiser cuestiona al gobierno por acuerdo para reanudar relaciones consulares con Venezuela",
+      "description": "El líder del PNL sostuvo que la normalización del vínculo bilateral no contribuirá al control de la migración irregular ni al combate del crimen organizado, y emplazó al Ejecutivo a explicar los objetivos concretos de la medida.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-02T08:16:22.182862+00:00"
     }
   ]
 }
