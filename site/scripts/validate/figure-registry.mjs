@@ -177,7 +177,7 @@ const FIGURE_REGISTRY = [
   },
   {
     id: 'F15',
-    description: 'News incidents (count, date, location from RSS feeds)',
+    description: 'News incidents (count, date, location from deterministic name→CUT resolution)',
     tokens: [
       // RSS feeds entry is documented under "News" or referenced inline;
       // the news pipeline attribution is via the inline source links on news pages.

@@ -413,10 +413,19 @@ occasionally see "Google News" cited as the source for that honest reason. For
 direct-outlet feeds, the feed name itself is used as the outlet.
 
 **Classification:**
-Items are classified and geolocated by `ibm-granite/granite-4.1-8b` via OpenRouter
-(`pipeline/news/classifier.py`), the default model for this milestone (spike 008:
-100% commune accuracy, ~6x cheaper, ~2.5x faster than the prior default). DeepSeek
-v4-flash is retained as a selectable fallback provider only (`NEWS_PROVIDER=deepseek`).
+Items are classified (crime family, severity) and a commune *name* is proposed by
+`ibm-granite/granite-4.1-8b` via OpenRouter (`pipeline/news/classifier.py`), the
+default model for this milestone (spike 008: 100% commune accuracy, ~6x cheaper,
+~2.5x faster than the prior default). DeepSeek v4-flash is retained as a selectable
+fallback provider only (`NEWS_PROVIDER=deepseek`).
+
+**Geolocation:**
+The LLM never emits a CUT code. Every LLM-proposed commune name is resolved through
+`pipeline/news/resolver.py`, a deterministic name→(cut, slug) dict lookup built from
+`data/cead/meta/index.json` — no network calls, no LLM. This is the pipeline's
+anti-hallucination control: `resolve_cut()` returns `None` for any name outside the
+closed 346-commune set (or an unresolved ambiguity), and the incident is dropped
+rather than guessed.
 
 **Full-text research archive (internal, not reader-displayed):**
 A daily-cron R2-backed archive (bucket `ischilesafe`) stores full incident text, APA
