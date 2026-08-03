@@ -36,7 +36,7 @@ export function extractSection(content, heading) {
 }
 
 /**
- * checkF16(content) — hardened F16 check (DOCS-05).
+ * checkF16(content) — hardened F16 check (DOCS-05, WR-01/H1 hardening).
  *
  * Extracts the '## INE ENUSC SAE' section, strips the heading line itself
  * (everything up to and including the first newline), and evaluates the
@@ -46,10 +46,15 @@ export function extractSection(content, heading) {
  *     contains BOTH of token group 1's members, `## INE ENUSC SAE` and `VHDV`,
  *     so without stripping it a heading-only stub would pass on tokens alone —
  *     the length check is what actually proves body content exists)
+ *   - returns false unless the BODY (heading excluded) contains `VHDV`,
+ *     `sha256`, AND `136 of 346` — a padded stub that merely mentions `VHDV`
+ *     in filler (the WR-01 hole: `heading + 'VHDV' + 200 chars` used to pass)
+ *     will not carry the sha256 checksum line or the coverage-fraction claim
+ *     that only the real, fully-populated registry entry has
  *   - otherwise applies the existing two-token-group OR check against
  *     `heading + body`, so group 1's `'## INE ENUSC SAE'` token can still
- *     match the heading while the length test can only be satisfied by real
- *     body content.
+ *     match the heading while the length/substance tests can only be
+ *     satisfied by real body content.
  */
 export function checkF16(content) {
   const heading = '## INE ENUSC SAE';
@@ -60,6 +65,9 @@ export function checkF16(content) {
   const body = newlineIdx === -1 ? '' : section.slice(newlineIdx + 1);
 
   if (!body || body.length <= 200) return false;
+
+  const REQUIRED_BODY_SUBSTANCE = ['VHDV', 'sha256', '136 of 346'];
+  if (!REQUIRED_BODY_SUBSTANCE.every((token) => body.includes(token))) return false;
 
   const whole = heading + body;
   const tokenGroups = [

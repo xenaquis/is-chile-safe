@@ -91,4 +91,25 @@ describe('figure-registry.lib.mjs — checkF16 (DOCS-05 hardening)', () => {
     const fixtureB = `${REAL_HEADING}\n${shortBody}\n\n${NEXT_HEADING}\n\nUnrelated next-section body.\n`;
     expect(checkF16(fixtureB)).toBe(false);
   });
+
+  it('Test 4c (WR-01/H1): padded-stub-with-VHDV — a filler body that copies the heading\'s own "VHDV" word, long enough to clear the length floor, must still fail because it lacks the sha256 checksum line and the 136-of-346 coverage claim', () => {
+    // This is the exact hole WR-01 identified: token-free filler (4a) was never
+    // a real probe of the token check, because a stub that merely repeats "VHDV"
+    // from the heading into its filler used to pass on tokens + length alone.
+    const filler = 'x'.repeat(250);
+    const stubWithVHDV = `${REAL_HEADING}\n${filler}VHDV\n\n${NEXT_HEADING}\n\nUnrelated next-section body.\n`;
+    expect(checkF16(stubWithVHDV)).toBe(false);
+  });
+
+  it('Test 4d (H1): the real section with only the sha256 line deleted returns false', () => {
+    const gutted = REAL_SECTION_BODY.replace(
+      /\*\*sha256 of ingested file:\*\* `[a-f0-9]+`\n\n/,
+      ''
+    );
+    // Sanity: the replace actually removed the line (guards against the regex
+    // silently no-op'ing and the test passing for the wrong reason).
+    expect(gutted).not.toContain('sha256');
+    const fixture = `${gutted}\n---\n\n${NEXT_HEADING}\n\nSome unrelated body text for the next section.\n`;
+    expect(checkF16(fixture)).toBe(false);
+  });
 });
