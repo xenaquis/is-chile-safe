@@ -416,7 +416,19 @@ Plans:
   4. If Phase 26 returned GO, the clustering behavior (how same-event grouping works, its measured precision/recall, its limits) and every facet's semantics are documented for readers in plain bilingual language; if NO-GO, the documentation states that clearly instead.
   5. `site/scripts/validators/figure-registry.mjs` is hardened so substring matching can no longer report green against a stub section; the full validator suite plus pytest stay green; EN/ES parity holds and no existing inbound anchor is broken by the rewrite.
 
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+
+**Wave 1**
+
+- [ ] 31-01-PLAN.md — national_rank inversion fix (EN+ES methodology, EN safest-cities) + sexuales family explainer (EN+ES methodology)
+- [ ] 31-02-PLAN.md — data/SOURCES.md News feeds rewrite (Google News + Granite/OpenRouter + R2 archive) + ENUSC [verify edition] resolved intentionally generic
+- [ ] 31-03-PLAN.md — Facet-semantics note on /news/ + /es/noticias/ via shared i18n keys (DOCS-04, clustering N/A per Phase 26 NO-GO)
+
+**Wave 2**
+
+- [ ] 31-04-PLAN.md — Harden figure-registry.mjs F16 (mutation-tested) + new DOCS-01/03/04/06 regression guards + STATE.md backlog notes + full phase-close gate
 
 ### Phase 32: Cron Consistency
 
@@ -466,6 +478,6 @@ Plans:
 | 28. News Visualizer UI | 3/3 | Complete   | 2026-07-30 |
 | 29. Map UX Design Loop | 0/? | Not started | - |
 | 30. Map Control-Shell Rework | 0/? | Not started | - |
-| 31. Docs & Methodology Refresh | 0/? | Not started | - |
+| 31. Docs & Methodology Refresh | 0/4 | Not started | - |
 | 32. Cron Consistency | 0/? | Not started | - |
 | 33. Security Posture | 0/? | Not started | - |
