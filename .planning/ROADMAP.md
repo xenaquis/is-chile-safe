@@ -112,7 +112,7 @@ Full phase details for 18/21/22/23/24/25 remain below in this file's Phase Detai
 - [x] **Phase 28: News Visualizer UI** — filter/grouping UI on `/news/` + `/es/noticias/`, SSG-safe, clustered-event cards on GO (completed 2026-07-30)
 - [ ] **Phase 29: Map UX Design Loop** — iterative BrowserOS + Fable redesign of the map control shell, human acceptance gate
 - [ ] **Phase 30: Map Control-Shell Rework** — implement the accepted design; Leaflet layer code untouched
-- [ ] **Phase 31: Docs & Methodology Refresh** — methodology/sources/attribution brought current with everything shipped since v1.3 plus this milestone
+- [x] **Phase 31: Docs & Methodology Refresh** — methodology/sources/attribution brought current with everything shipped since v1.3 plus this milestone (completed 2026-08-03)
 - [ ] **Phase 32: Cron Consistency** — reconcile the whole schedule surface (secrets, retries, labels, freshness, race conditions)
 - [ ] **Phase 33: Security Posture** — secrets hygiene, Actions permissions, SHA-pinning, dependabot, scraping courtesy
 
@@ -433,7 +433,7 @@ Plans:
 
 **Wave 2**
 
-- [ ] 31-04-PLAN.md — Harden figure-registry.mjs F16 (mutation-tested) + new DOCS-01/03/04/06 regression guards + STATE.md backlog notes + full phase-close gate
+- [x] 31-04-PLAN.md — Harden figure-registry.mjs F16 (mutation-tested) + new DOCS-01/03/04/06 regression guards + STATE.md backlog notes + full phase-close gate
 
 ### Phase 32: Cron Consistency
 
@@ -483,6 +483,6 @@ Plans:
 | 28. News Visualizer UI | 3/3 | Complete   | 2026-07-30 |
 | 29. Map UX Design Loop | 0/? | Not started | - |
 | 30. Map Control-Shell Rework | 0/? | Not started | - |
-| 31. Docs & Methodology Refresh | 3/4 | In Progress|  |
+| 31. Docs & Methodology Refresh | 4/4 | Complete   | 2026-08-03 |
 | 32. Cron Consistency | 0/? | Not started | - |
 | 33. Security Posture | 0/? | Not started | - |

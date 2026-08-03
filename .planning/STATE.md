@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
 status: Phase 30 closed after an Opus code review (2 HIGH/7 MED/4 LOW), an independent Opus re-review (3 new MEDIUM, all from the fix cycle itself) and two fix cycles; close gate green — vitest 51, 16/16 validators, pytest 344/1/1, phase30-gate 12/12
-last_updated: "2026-08-03T02:36:10.048Z"
+last_updated: "2026-08-03T02:48:43.206Z"
 last_activity: "2026-07-30 — Phase 30 closed: the flat scrolling filter row is gone, the news toggle is discoverable at every width, zero map-owned touch-target violations"
 progress:
   total_phases: 14
-  completed_phases: 8
+  completed_phases: 9
   total_plans: 52
-  completed_plans: 43
-  percent: 57
+  completed_plans: 44
+  percent: 64
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 31 (Docs & Methodology Refresh) — next to plan. Phase 30 COMPLETE (6/6 plans, MAPSH-01..07, 29-DESIGN-SPEC.md implemented).
-Plan: —
-Status: Phase 30 closed after an Opus code review (2 HIGH/7 MED/4 LOW), an independent Opus re-review (3 new MEDIUM, all from the fix cycle itself) and two fix cycles; close gate green — vitest 51, 16/16 validators, pytest 344/1/1, phase30-gate 12/12
-Last activity: 2026-07-30 — Phase 30 closed: the flat scrolling filter row is gone, the news toggle is discoverable at every width, zero map-owned touch-target violations
+Phase: 31 (Docs & Methodology Refresh) — 4/4 plans complete, phase-close gate run.
+Plan: 31-04 COMPLETE (durable regression guards for DOCS-01/03/04/06 + F16 mutation test)
+Status: 31-04 closed — figure-registry.mjs F16 hole hardened + vitest mutation test, DOCS-01/03/04/06 build-time guards added, STATE.md backlog notes appended. Close gate: astro check 4/0, vitest 55, 15/16 validators (freshness excluded per F-19), pytest 344/1/1.
+Last activity: 2026-08-02 — Phase 31 Plan 04 (31-04) closed: figure-registry F16 hardened + mutation test, DOCS-01/03/04/06 regression guards shipped, STATE.md backlog notes appended
 
 ## Progress Bar
 
@@ -46,7 +46,7 @@ Phase 27 [████████████████████] 100% COM
 Phase 28 [████████████████████] 100% COMPLETE (3/3 — verification PASSED 5/5; facets.mjs at 22 assertions; 15/16 validators, freshness excluded per F-19)
 Phase 29 [████████████████████] 100% COMPLETE (2/2 — design loop: 2 gated iterations, 29-DESIGN-SPEC.md accepted; Phase 30 unblocked)
 Phase 30 [████████████████████] 100% COMPLETE (6/6 — control shell reworked; c1/c3/c5 baseline FAIL -> PASS; protected Leaflet files byte-identical)
-Phase 31 [███████████████░░░░░]  75% in progress (3/4 — Docs & Methodology Refresh)
+Phase 31 [████████████████████] 100% COMPLETE (4/4 — Docs & Methodology Refresh; DOCS-01/03/04/05/06 all shipped with durable build-time guards)
 Phase 32 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Cron Consistency)
 Phase 33 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Security Posture)
 ```
