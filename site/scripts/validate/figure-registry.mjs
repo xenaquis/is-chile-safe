@@ -17,7 +17,7 @@
  *   node scripts/validate/figure-registry.mjs
  */
 
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { checkF16 } from './figure-registry.lib.mjs';
@@ -270,36 +270,58 @@ console.log(
 // ---------------------------------------------------------------------------
 const norm = (s) => s.replace(/\s+/g, ' ');
 
+// Accent-strip: NFD-decompose and drop combining marks, mirrors the
+// accent-insensitive normalization used elsewhere in this repo
+// (pipeline/news/resolver.py `_norm`, communes/index.astro).
+const stripAccents = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '');
+
 let contentFailures = 0;
 
 const METHODOLOGY_EN_PATH = path.join(SITE_ROOT, 'src', 'pages', 'methodology.astro');
 const METHODOLOGY_ES_PATH = path.join(SITE_ROOT, 'src', 'pages', 'es', 'metodologia.astro');
 const SAFEST_CITIES_PATH = path.join(SITE_ROOT, 'src', 'pages', 'safest-cities-in-chile.astro');
+const COMUNAS_SEGURAS_PATH = path.join(SITE_ROOT, 'src', 'pages', 'es', 'comunas-mas-seguras-chile.astro');
 
-const DOCS01_TARGETS = [
-  { label: 'methodology.astro', filePath: METHODOLOGY_EN_PATH },
-  { label: 'metodologia.astro', filePath: METHODOLOGY_ES_PATH },
-  { label: 'safest-cities-in-chile.astro', filePath: SAFEST_CITIES_PATH },
-];
+// ---------------------------------------------------------------------------
+// (a) Repo-wide sweep — every .astro file under src/pages/ (both locales,
+// recursively), not just the files a prior plan happened to edit. A guard
+// scoped to the diff can only ever confirm the fix it was written alongside
+// (CR-02). Whitespace-normalized AND accent-stripped before matching so no
+// accented/unaccented or re-wrapped variant can slip through.
+// ---------------------------------------------------------------------------
+const PAGES_ROOT = path.join(SITE_ROOT, 'src', 'pages');
 
-// (a) inverted phrases — the three exact phrasings fixed in Plan 31-01 must
-// never reappear in any of the three pages.
-const INVERTED_PHRASES = [
+function listAstroFiles(root) {
+  const entries = readdirSync(root, { recursive: true, withFileTypes: true });
+  return entries
+    .filter((e) => e.isFile() && e.name.endsWith('.astro'))
+    .map((e) => path.join(e.parentPath ?? e.path, e.name));
+}
+
+const INVERTED_PHRASES_RAW = [
   'lowest reported rate in Chile',
   'menor tasa reportada en Chile',
   'lowest reported rate among all non-low-population',
+  'tasa más baja reportada',
+  'tasa mas baja reportada',
+  'Rango nacional 1 = tasa más baja',
+  'Rango nacional 1 = tasa mas baja',
 ];
+// Pre-normalize the phrase list once (whitespace + accent-strip) so the
+// per-file loop below does the same transform to both sides.
+const INVERTED_PHRASES = INVERTED_PHRASES_RAW.map((p) => stripAccents(norm(p)));
 
-for (const { label, filePath } of DOCS01_TARGETS) {
-  if (!existsSync(filePath)) {
-    console.error(`FAIL [DOCS-01] ${label} not found at ${filePath}`);
-    contentFailures++;
-    continue;
-  }
-  const content = norm(readFileSync(filePath, 'utf-8'));
-  for (const phrase of INVERTED_PHRASES) {
-    if (content.includes(phrase)) {
-      console.error(`FAIL [DOCS-01] ${label} contains the inverted phrase "${phrase}" (national_rank direction regression)`);
+const astroFiles = listAstroFiles(PAGES_ROOT);
+
+for (const filePath of astroFiles) {
+  const label = path.relative(SITE_ROOT, filePath).split(path.sep).join('/');
+  const raw = readFileSync(filePath, 'utf-8');
+  const content = stripAccents(norm(raw));
+  for (let i = 0; i < INVERTED_PHRASES.length; i++) {
+    if (content.includes(INVERTED_PHRASES[i])) {
+      console.error(
+        `FAIL [DOCS-01] ${label} contains the inverted phrase "${INVERTED_PHRASES_RAW[i]}" (national_rank direction regression)`
+      );
       contentFailures++;
     }
   }
@@ -311,6 +333,7 @@ const POSITIVE_CHECKS = [
   { label: 'methodology.astro', filePath: METHODOLOGY_EN_PATH, phrase: 'highest reported rate in Chile' },
   { label: 'metodologia.astro', filePath: METHODOLOGY_ES_PATH, phrase: 'mayor tasa reportada en Chile' },
   { label: 'safest-cities-in-chile.astro', filePath: SAFEST_CITIES_PATH, phrase: 'highest reported rate nationwide' },
+  { label: 'es/comunas-mas-seguras-chile.astro', filePath: COMUNAS_SEGURAS_PATH, phrase: 'mayor tasa reportada a nivel nacional' },
 ];
 
 for (const { label, filePath, phrase } of POSITIVE_CHECKS) {
