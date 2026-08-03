@@ -922,11 +922,57 @@ for (const [locale, pagePath] of SERIALIZATION_SITES) {
 }
 
 // ---------------------------------------------------------------------------
+// Assertion 23 (DOCS-04): the facet-semantics note (Plan 31-03) is present in
+// both built news pages, with non-empty text content. Matcher is pinned to
+// tolerate attribute-order variance in Astro's emitted markup (id is not
+// guaranteed to be the first attribute on the <p> element).
+//
+// Falsifiable counterexample: remove the #news-facet-semantics paragraph
+// from either page's built HTML -> RED.
+// ---------------------------------------------------------------------------
+const FACET_SEMANTICS_RE = /<p[^>]*id="news-facet-semantics"[^>]*>([\s\S]*?)<\/p>/;
+const facetSemanticsText = {};
+
+for (const [locale, distPath] of DIST_PAGES) {
+  if (!existsSync(distPath)) {
+    fail(`assertion 23 — ${locale} built news page not found at ${distPath}`);
+  }
+  const html = readFileSync(distPath, 'utf-8');
+  const m = FACET_SEMANTICS_RE.exec(html);
+  if (!m || m[1].trim().length === 0) {
+    fail(
+      `assertion 23 — ${locale} built news page is missing the facet-semantics note ` +
+        `(id="news-facet-semantics" with non-empty text content, Plan 31-03)`
+    );
+  }
+  facetSemanticsText[locale] = m[1];
+}
+
+// ---------------------------------------------------------------------------
+// Assertion 23b (DOCS-04, F-69): EN/ES facet-semantics note VALUE parity gate.
+// Assertion 13 gates that the news_* i18n KEYS exist in both locales, but
+// nothing gates their VALUES — an executor who copies the English string
+// into the ES key would ship an untranslated paragraph through a fully green
+// suite. This assertion requires the two notes' inner text to differ after
+// whitespace normalization.
+//
+// Falsifiable counterexample: copy the EN note's string into the ES i18n key
+// -> RED.
+// ---------------------------------------------------------------------------
+const normFacet = (s) => s.replace(/\s+/g, ' ').trim();
+if (normFacet(facetSemanticsText.EN) === normFacet(facetSemanticsText.ES)) {
+  fail(
+    `assertion 23b — EN and ES facet-semantics notes are byte-identical after ` +
+      `whitespace normalization (untranslated ES string, i18n VALUE-parity regression)`
+  );
+}
+
+// ---------------------------------------------------------------------------
 // All assertions passed
 // ---------------------------------------------------------------------------
 console.log(
   `PASS facets: ${incidents.length} incidents, ${familyCounts.size} families observed, ` +
     `${indexData.length} communes cross-checked, ${unionMonths.size} months in byMonth union, ` +
     `window(today=${todayCount},7d=${sevenDayCount},30d=${thirtyDayCount}), TZ-determinism verified, ` +
-    `22 assertions passed`
+    `24 assertions passed`
 );

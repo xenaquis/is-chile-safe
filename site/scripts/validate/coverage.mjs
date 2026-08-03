@@ -309,6 +309,51 @@ if (gatingHits === 0) {
 }
 
 // ---------------------------------------------------------------------------
+// ASSERTION F: anchor-presence (DOCS-06)
+// The actively-linked methodology anchors must exist in the built HTML.
+// EN (dist/methodology/index.html): #trend-formula, #comparison-criteria, #national-mean
+// ES (dist/es/metodologia/index.html): #comparison-criteria, #media-nacional, #trend-formula
+//   — #trend-formula is actively linked from MethodologyCaveat.astro:21
+//   (/es/metodologia/#trend-formula) and the id exists at es/metodologia.astro:262.
+//   SIX anchors total, not five.
+// ---------------------------------------------------------------------------
+const METHODOLOGY_EN_PAGE = path.join(DIST_DIR, 'methodology', 'index.html');
+const METHODOLOGY_ES_PAGE = path.join(DIST_DIR, 'es', 'metodologia', 'index.html');
+
+const EN_ANCHORS = ['id="trend-formula"', 'id="comparison-criteria"', 'id="national-mean"'];
+const ES_ANCHORS = ['id="comparison-criteria"', 'id="media-nacional"', 'id="trend-formula"'];
+
+if (!existsSync(METHODOLOGY_EN_PAGE)) {
+  console.error(`FAIL [F] anchor-presence: dist/methodology/index.html not found`);
+  failures++;
+} else {
+  const content = readFileSync(METHODOLOGY_EN_PAGE, 'utf-8');
+  for (const anchor of EN_ANCHORS) {
+    if (content.includes(anchor)) {
+      console.log(`PASS [F] anchor-presence: EN methodology page has ${anchor}`);
+    } else {
+      console.error(`FAIL [F] anchor-presence: EN methodology page missing ${anchor}`);
+      failures++;
+    }
+  }
+}
+
+if (!existsSync(METHODOLOGY_ES_PAGE)) {
+  console.error(`FAIL [F] anchor-presence: dist/es/metodologia/index.html not found`);
+  failures++;
+} else {
+  const content = readFileSync(METHODOLOGY_ES_PAGE, 'utf-8');
+  for (const anchor of ES_ANCHORS) {
+    if (content.includes(anchor)) {
+      console.log(`PASS [F] anchor-presence: ES metodologia page has ${anchor}`);
+    } else {
+      console.error(`FAIL [F] anchor-presence: ES metodologia page missing ${anchor}`);
+      failures++;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 if (failures > 0) {

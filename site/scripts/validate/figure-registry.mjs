@@ -255,3 +255,107 @@ if (orphans.length > 0) {
 console.log(
   `figure-registry: PASS — all ${FIGURE_REGISTRY.length} in-scope figures (F1-F16) have registered sources in data/SOURCES.md (zero orphans)`
 );
+
+// ---------------------------------------------------------------------------
+// DOCS-01 / DOCS-03 content-correctness checks
+//
+// These guard against Plan 31-01's national_rank-direction fix and Plan
+// 31-02's News section rewrite silently regressing. Failures here push into
+// the same `orphans`-style exit-1 path as the figure-registry loop above.
+//
+// F-68 (mandatory whitespace normalization): a hard re-wrap of any of these
+// sentences could split a phrase across a newline; an un-normalized check
+// would then go RED against perfectly correct prose. All phrase checks run
+// against whitespace-normalized content, never raw file bytes.
+// ---------------------------------------------------------------------------
+const norm = (s) => s.replace(/\s+/g, ' ');
+
+let contentFailures = 0;
+
+const METHODOLOGY_EN_PATH = path.join(SITE_ROOT, 'src', 'pages', 'methodology.astro');
+const METHODOLOGY_ES_PATH = path.join(SITE_ROOT, 'src', 'pages', 'es', 'metodologia.astro');
+const SAFEST_CITIES_PATH = path.join(SITE_ROOT, 'src', 'pages', 'safest-cities-in-chile.astro');
+
+const DOCS01_TARGETS = [
+  { label: 'methodology.astro', filePath: METHODOLOGY_EN_PATH },
+  { label: 'metodologia.astro', filePath: METHODOLOGY_ES_PATH },
+  { label: 'safest-cities-in-chile.astro', filePath: SAFEST_CITIES_PATH },
+];
+
+// (a) inverted phrases — the three exact phrasings fixed in Plan 31-01 must
+// never reappear in any of the three pages.
+const INVERTED_PHRASES = [
+  'lowest reported rate in Chile',
+  'menor tasa reportada en Chile',
+  'lowest reported rate among all non-low-population',
+];
+
+for (const { label, filePath } of DOCS01_TARGETS) {
+  if (!existsSync(filePath)) {
+    console.error(`FAIL [DOCS-01] ${label} not found at ${filePath}`);
+    contentFailures++;
+    continue;
+  }
+  const content = norm(readFileSync(filePath, 'utf-8'));
+  for (const phrase of INVERTED_PHRASES) {
+    if (content.includes(phrase)) {
+      console.error(`FAIL [DOCS-01] ${label} contains the inverted phrase "${phrase}" (national_rank direction regression)`);
+      contentFailures++;
+    }
+  }
+}
+
+// (b) positive checks — the corrected phrasing must actually be present in
+// each page (not just the absence of the wrong one).
+const POSITIVE_CHECKS = [
+  { label: 'methodology.astro', filePath: METHODOLOGY_EN_PATH, phrase: 'highest reported rate in Chile' },
+  { label: 'metodologia.astro', filePath: METHODOLOGY_ES_PATH, phrase: 'mayor tasa reportada en Chile' },
+  { label: 'safest-cities-in-chile.astro', filePath: SAFEST_CITIES_PATH, phrase: 'highest reported rate nationwide' },
+];
+
+for (const { label, filePath, phrase } of POSITIVE_CHECKS) {
+  if (!existsSync(filePath)) {
+    console.error(`FAIL [DOCS-01] ${label} not found at ${filePath}`);
+    contentFailures++;
+    continue;
+  }
+  const content = norm(readFileSync(filePath, 'utf-8'));
+  if (content.includes(phrase)) {
+    console.log(`PASS [DOCS-01] ${label} contains "${phrase}"`);
+  } else {
+    console.error(`FAIL [DOCS-01] ${label} is missing the corrected phrase "${phrase}"`);
+    contentFailures++;
+  }
+}
+
+// (c) DOCS-03 — data/SOURCES.md must still carry Plan 31-02's News section
+// rewrite tokens (Google News / Granite / R2).
+const sourcesNorm = norm(sourcesContent);
+const DOCS03_CHECKS = [
+  {
+    label: 'news.google.com / Google News',
+    test: () => sourcesNorm.includes('news.google.com') || sourcesNorm.includes('Google News'),
+  },
+  {
+    label: 'granite (case-insensitive)',
+    test: () => /granite/i.test(sourcesNorm),
+  },
+  {
+    label: 'R2',
+    test: () => sourcesNorm.includes('R2'),
+  },
+];
+
+for (const { label, test } of DOCS03_CHECKS) {
+  if (test()) {
+    console.log(`PASS [DOCS-03] data/SOURCES.md contains ${label}`);
+  } else {
+    console.error(`FAIL [DOCS-03] data/SOURCES.md is missing ${label}`);
+    contentFailures++;
+  }
+}
+
+if (contentFailures > 0) {
+  console.error(`\nfigure-registry: FAILED — ${contentFailures} DOCS-01/DOCS-03 content check(s) failed`);
+  process.exit(1);
+}
