@@ -2,7 +2,9 @@
 /**
  * /news/ — EN news page (NEWS-04).
  *
- * Bilingual news surface for incidents sourced from RSS feeds + DeepSeek geolocation.
+ * Bilingual news surface for incidents sourced from Google News RSS search, classified by
+ * the news pipeline's LLM classifier and geolocated by the deterministic commune
+ * name->CUT resolver.
  * Each incident links to its source article AND its comuna page.
  * Legal-safe tone: attribute outlet; no absolute safe/dangerous verdicts.
  *
@@ -193,6 +195,7 @@ const jsonLd = {
         <time datetime={generated}>Updated {formattedDate}</time>
       </p>
     )}
+    <p class="facet-semantics-note" id="news-facet-semantics">{t.news_facet_semantics_note}</p>
   </section>
 
   {incidents.length > 0 && (

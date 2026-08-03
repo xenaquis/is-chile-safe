@@ -148,6 +148,7 @@ export interface I18nStrings {
   news_empty_heading: string;
   news_empty_body: string;
   news_cluster_source_count: string;
+  news_facet_semantics_note: string;
 
   // Quick 260616-lu4 — ranking table controls
   sort_label: string;
@@ -376,6 +377,7 @@ export const EN_STRINGS: I18nStrings = {
   news_empty_heading: 'No incidents match these filters',
   news_empty_body: 'Try a different time window, region, or crime type, or clear all filters to see every reported incident.',
   news_cluster_source_count: '{n} sources',
+  news_facet_semantics_note: 'Filters show unfiltered per-option counts. "Latest" is anchored to the newest incident\'s date, not to today\'s calendar date — if the news feed pauses, "Latest" reflects the last successful update, not necessarily today. Incident counts are a qualitative, editorially-selected news sample and are not comparable to the CEAD per-100k statistical rates shown elsewhere on this site.',
 
   // Quick 260616-lu4 — ranking table controls
   sort_label: 'Sort by {column}',
@@ -609,6 +611,7 @@ export const ES_STRINGS: I18nStrings = {
   news_empty_heading: 'Ningún incidente coincide con estos filtros',
   news_empty_body: 'Prueba otro período, región o tipo de delito, o limpia los filtros para ver todos los incidentes reportados.',
   news_cluster_source_count: '{n} fuentes',
+  news_facet_semantics_note: 'Los filtros muestran conteos por opción sin filtrar. "Más reciente" está anclado a la fecha del incidente más nuevo registrado, no a la fecha calendario de hoy — si el feed de noticias se detiene, "Más reciente" refleja la última actualización exitosa, no necesariamente hoy. Los conteos de incidentes son una muestra cualitativa y de selección editorial de noticias, y no son comparables con las tasas estadísticas del CEAD por 100.000 habitantes que se muestran en el resto del sitio.',
 
   // Quick 260616-lu4 — ranking table controls
   sort_label: 'Ordenar por {column}',
