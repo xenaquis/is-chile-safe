@@ -20,7 +20,7 @@
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { checkF16 } from './figure-registry.lib.mjs';
+import { checkF16Detail } from './figure-registry.lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_ROOT = path.resolve(__dirname, '../..');
@@ -215,13 +215,23 @@ for (const figure of FIGURE_REGISTRY) {
   // All other figures (F1-F15) keep the existing whole-file substring check —
   // do not generalize section-bounding to figures whose token groups
   // legitimately span multiple `## ` sections (e.g. F1's ['## CEAD', '## INE']).
+  // F16's failure REASON must be reported by checkF16Detail, not by the generic
+  // token differ below (RR-H3): F16's substance requirements — body length and the
+  // provenance-marker threshold — are not members of `figure.tokens`, so the generic
+  // reporter printed the useless `Missing tokens: []` and never named the real cause.
+  const f16Detail = figure.id === 'F16' ? checkF16Detail(sourcesContent) : null;
   const passed =
     figure.id === 'F16'
-      ? checkF16(sourcesContent)
+      ? f16Detail.ok
       : figure.tokens.some((group) => group.every((token) => sourcesContent.includes(token)));
 
   if (passed) {
     console.log(`  PASS  ${figure.id}: ${figure.description}`);
+  } else if (figure.id === 'F16') {
+    console.error(`  FAIL  ${figure.id}: ${figure.description}`);
+    console.error(`         Reason: ${f16Detail.reason}`);
+    console.error(`         Section checked: '## INE ENUSC SAE' in data/SOURCES.md (body, heading excluded)`);
+    orphans.push(figure.id);
   } else {
     // Report which tokens are missing
     const missingGroups = figure.tokens.map((group) => {
@@ -289,43 +299,62 @@ const COMUNAS_SEGURAS_PATH = path.join(SITE_ROOT, 'src', 'pages', 'es', 'comunas
 // (CR-02). Whitespace-normalized AND accent-stripped before matching so no
 // accented/unaccented or re-wrapped variant can slip through.
 // ---------------------------------------------------------------------------
-const PAGES_ROOT = path.join(SITE_ROOT, 'src', 'pages');
+// RR-H2 (fix cycle 2): the sweep root is `src/`, not `src/pages/`, and it covers
+// `.ts`/`.tsx` as well as `.astro`. Scoped to pages-only it read 52 of the 77 .astro
+// files under src/ and zero .ts — leaving `src/lib/comparisonProse.ts` unguarded,
+// which emits "rank 1 = highest reported incidence" onto every /compare/[pair]/ page
+// in both locales. Inverting THAT string would have produced six green PASS lines:
+// the same defect this guard exists to catch, relocated one directory up.
+const SWEEP_ROOT = path.join(SITE_ROOT, 'src');
+const SWEEP_EXTENSIONS = ['.astro', '.ts', '.tsx'];
 
-function listAstroFiles(root) {
+function listSweepFiles(root) {
   const entries = readdirSync(root, { recursive: true, withFileTypes: true });
   return entries
-    .filter((e) => e.isFile() && e.name.endsWith('.astro'))
+    .filter((e) => e.isFile() && SWEEP_EXTENSIONS.some((ext) => e.name.endsWith(ext)))
     .map((e) => path.join(e.parentPath ?? e.path, e.name));
 }
 
-const INVERTED_PHRASES_RAW = [
-  'lowest reported rate in Chile',
-  'menor tasa reportada en Chile',
-  'lowest reported rate among all non-low-population',
-  'tasa más baja reportada',
-  'tasa mas baja reportada',
-  'Rango nacional 1 = tasa más baja',
-  'Rango nacional 1 = tasa mas baja',
+// RR-H1 (fix cycle 2): match the rank-direction ASSERTION, never a bare phrase.
+//
+// The first version of this guard banned the bare substring `tasa mas baja reportada`
+// across every page. That is ordinary, CORRECT Spanish for "lowest reported rate" —
+// and describing low-rate communes is the entire subject of two pages here
+// (`es/comunas-mas-seguras-chile.astro` is literally titled "Comunas con Menor Tasa
+// Reportada"). The guard was one honest edit away from failing the build on correct
+// prose, whose tempting "fix" is to weaken the guard. So: require BOTH a rank noun
+// AND a `1 =`-style definition AND an inverted direction word, within one sentence.
+//
+// Each pattern below was verified in BOTH directions before being committed: it fires
+// on the four real inverted claims this phase fixed, and does NOT fire on the
+// legitimate low-rate prose enumerated in the DO-NOT-TOUCH list (F-63).
+const INVERTED_PATTERNS = [
+  {
+    re: /(rank|ranking|rango|posicion)[^.]{0,60}\b1\s*=\s*[^.]{0,80}(lowest|menor|mas baja|mas bajo)/i,
+    label: 'a rank-direction claim defining rank 1 as the LOWEST/menor rate (national_rank is descending: rank 1 = highest)',
+  },
+  {
+    re: /lowest reported rate among all non-low-population/i,
+    label: 'the safest-cities footnote claiming rank 1 = lowest reported rate',
+  },
 ];
-// Pre-normalize the phrase list once (whitespace + accent-strip) so the
-// per-file loop below does the same transform to both sides.
-const INVERTED_PHRASES = INVERTED_PHRASES_RAW.map((p) => stripAccents(norm(p)));
 
-const astroFiles = listAstroFiles(PAGES_ROOT);
+const sweepFiles = listSweepFiles(SWEEP_ROOT);
 
-for (const filePath of astroFiles) {
+for (const filePath of sweepFiles) {
   const label = path.relative(SITE_ROOT, filePath).split(path.sep).join('/');
   const raw = readFileSync(filePath, 'utf-8');
   const content = stripAccents(norm(raw));
-  for (let i = 0; i < INVERTED_PHRASES.length; i++) {
-    if (content.includes(INVERTED_PHRASES[i])) {
-      console.error(
-        `FAIL [DOCS-01] ${label} contains the inverted phrase "${INVERTED_PHRASES_RAW[i]}" (national_rank direction regression)`
-      );
+  for (const { re, label: why } of INVERTED_PATTERNS) {
+    const m = re.exec(content);
+    if (m) {
+      console.error(`FAIL [DOCS-01] ${label} contains ${why}`);
+      console.error(`         Matched: "${m[0].slice(0, 120)}"`);
       contentFailures++;
     }
   }
 }
+console.log(`  [DOCS-01] swept ${sweepFiles.length} source files under site/src for inverted rank-direction claims`);
 
 // (b) positive checks — the corrected phrasing must actually be present in
 // each page (not just the absence of the wrong one).

@@ -9,7 +9,7 @@
 // institutional authority").
 
 import { describe, it, expect } from 'vitest';
-import { extractSection, checkF16 } from './figure-registry.lib.mjs';
+import { extractSection, checkF16, checkF16Detail } from './figure-registry.lib.mjs';
 
 const REAL_HEADING = '## INE ENUSC SAE — communal VHDV victimization (experimental)';
 const NEXT_HEADING = '## SPD — institutional authority (parent of CEAD + taxonomy)';
@@ -92,7 +92,7 @@ describe('figure-registry.lib.mjs — checkF16 (DOCS-05 hardening)', () => {
     expect(checkF16(fixtureB)).toBe(false);
   });
 
-  it('Test 4c (WR-01/H1): padded-stub-with-VHDV — a filler body that copies the heading\'s own "VHDV" word, long enough to clear the length floor, must still fail because it lacks the sha256 checksum line and the 136-of-346 coverage claim', () => {
+  it('Test 4c (WR-01/H1): padded-stub-with-VHDV — a filler body that copies the heading\'s own "VHDV" word, long enough to clear the length floor, must still fail: one provenance marker is below the threshold', () => {
     // This is the exact hole WR-01 identified: token-free filler (4a) was never
     // a real probe of the token check, because a stub that merely repeats "VHDV"
     // from the heading into its filler used to pass on tokens + length alone.
@@ -101,7 +101,15 @@ describe('figure-registry.lib.mjs — checkF16 (DOCS-05 hardening)', () => {
     expect(checkF16(stubWithVHDV)).toBe(false);
   });
 
-  it('Test 4d (H1): the real section with only the sha256 line deleted returns false', () => {
+  it('Test 4d (RR-H3): deleting ONE line from the real section is an ordinary edit and must NOT redden the build', () => {
+    // Fix cycle 2 deliberately REVERSED this test's expectation. The first
+    // hardening required the literal strings `sha256` AND `136 of 346`, so
+    // deleting the checksum line — or merely reformatting `136 of 346` to
+    // `136/346` — failed the build against a still-perfectly-valid registry
+    // entry. That is a landmine for the next person to edit SOURCES.md, and
+    // the mirror image of the stub hole it was closing. The contract is now
+    // an N-of-M provenance-marker threshold: ordinary edits survive, gutting
+    // does not. See figure-registry.lib.mjs's RR-H3 note.
     const gutted = REAL_SECTION_BODY.replace(
       /\*\*sha256 of ingested file:\*\* `[a-f0-9]+`\n\n/,
       ''
@@ -110,6 +118,30 @@ describe('figure-registry.lib.mjs — checkF16 (DOCS-05 hardening)', () => {
     // silently no-op'ing and the test passing for the wrong reason).
     expect(gutted).not.toContain('sha256');
     const fixture = `${gutted}\n---\n\n${NEXT_HEADING}\n\nSome unrelated body text for the next section.\n`;
+    expect(checkF16(fixture)).toBe(true);
+  });
+
+  it('Test 4e (RR-H3): a body reduced below the provenance-marker threshold still fails, so 4d is a tolerance and not a hole', () => {
+    // 4d on its own would be indistinguishable from "the check no longer checks
+    // anything". This pins the other side: strip the section down to prose that
+    // clears the length floor but carries fewer than three provenance markers,
+    // and it must still be rejected.
+    const thinBody =
+      'This entry used to describe a dataset. ' +
+      'It no longer records where the file came from, who published it, or what it measures. ' +
+      'It is left here only so the heading still exists in the registry file. ' +
+      'VHDV is mentioned once in passing and nothing else is documented at all here.';
+    const fixture = `${REAL_HEADING}\n\n${thinBody}\n\n${NEXT_HEADING}\n\nNext section body.\n`;
+    expect(thinBody.length).toBeGreaterThan(200);
     expect(checkF16(fixture)).toBe(false);
+  });
+
+  it('Test 4f (RR-H3): a failure reports its real cause, not an empty token list', () => {
+    // The caller used to print `Missing tokens: []` for every F16 failure, because
+    // the substance requirements were never members of figure.tokens.
+    const detail = checkF16Detail(`${REAL_HEADING}\n\n${NEXT_HEADING}\n`);
+    expect(detail.ok).toBe(false);
+    expect(detail.reason).toMatch(/stub|chars/i);
+    expect(detail.reason.length).toBeGreaterThan(10);
   });
 });

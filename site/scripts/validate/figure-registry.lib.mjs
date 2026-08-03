@@ -46,34 +46,73 @@ export function extractSection(content, heading) {
  *     contains BOTH of token group 1's members, `## INE ENUSC SAE` and `VHDV`,
  *     so without stripping it a heading-only stub would pass on tokens alone —
  *     the length check is what actually proves body content exists)
- *   - returns false unless the BODY (heading excluded) contains `VHDV`,
- *     `sha256`, AND `136 of 346` — a padded stub that merely mentions `VHDV`
- *     in filler (the WR-01 hole: `heading + 'VHDV' + 200 chars` used to pass)
- *     will not carry the sha256 checksum line or the coverage-fraction claim
- *     that only the real, fully-populated registry entry has
+ *   - returns false unless the BODY (heading excluded) carries at least
+ *     MIN_PROVENANCE_MARKERS distinct provenance markers (see below) — this is
+ *     what closes the WR-01 hole, where `heading + 'VHDV' + 200 chars of filler`
+ *     passed because tokens were matched against `heading + body`
  *   - otherwise applies the existing two-token-group OR check against
  *     `heading + body`, so group 1's `'## INE ENUSC SAE'` token can still
  *     match the heading while the length/substance tests can only be
  *     satisfied by real body content.
+ *
+ * RR-H3 (fix cycle 2) — why a MARKER THRESHOLD rather than three exact literals:
+ * the first hardening required `VHDV` AND `sha256` AND the literal `136 of 346`,
+ * which coupled the build to one section's exact present-day wording. Reformatting
+ * `136 of 346` to `136/346` or `136 de 346`, writing `SHA-256`, or re-wrapping the
+ * line would each have reddened the build against a perfectly correct registry
+ * entry — a landmine for the next person to touch this file, and the mirror image
+ * of the hole it was closing. Requiring N-of-M markers keeps a gutted stub failing
+ * (it carries at most one) while tolerating ordinary edits. The body is whitespace-
+ * normalized first so a re-wrap cannot split a marker, matching the DOCS-01 guard.
+ *
+ * checkF16Detail(content) returns the REASON as well, so a failure can name its
+ * real cause. The bare `Missing tokens: []` this used to produce told the reader
+ * nothing, because the substance requirements were never in `figure.tokens`.
  */
-export function checkF16(content) {
+
+/** Markers a genuine registry entry carries; a gutted stub carries at most one. */
+const F16_PROVENANCE_MARKERS = ['sha256', 'ine.gob.cl', 'VHDV', 'SAE', 'Publisher', 'Measure semantics'];
+const F16_MIN_BODY_LENGTH = 200;
+const MIN_PROVENANCE_MARKERS = 3;
+
+export function checkF16Detail(content) {
   const heading = '## INE ENUSC SAE';
   const section = extractSection(content, heading);
-  if (!section) return false;
+  if (!section) return { ok: false, reason: `no '${heading}' section found (searched line-anchored)` };
 
   const newlineIdx = section.indexOf('\n');
-  const body = newlineIdx === -1 ? '' : section.slice(newlineIdx + 1);
+  const rawBody = newlineIdx === -1 ? '' : section.slice(newlineIdx + 1);
+  const body = rawBody.replace(/\s+/g, ' ').trim();
 
-  if (!body || body.length <= 200) return false;
+  if (body.length <= F16_MIN_BODY_LENGTH) {
+    return {
+      ok: false,
+      reason: `section body is ${body.length} chars (<= ${F16_MIN_BODY_LENGTH}) — the section looks like a stub, not a populated registry entry`,
+    };
+  }
 
-  const REQUIRED_BODY_SUBSTANCE = ['VHDV', 'sha256', '136 of 346'];
-  if (!REQUIRED_BODY_SUBSTANCE.every((token) => body.includes(token))) return false;
+  const present = F16_PROVENANCE_MARKERS.filter((m) => body.includes(m));
+  if (present.length < MIN_PROVENANCE_MARKERS) {
+    return {
+      ok: false,
+      reason:
+        `section body carries only ${present.length} provenance marker(s) [${present.join(', ')}] ` +
+        `— at least ${MIN_PROVENANCE_MARKERS} of [${F16_PROVENANCE_MARKERS.join(', ')}] are required`,
+    };
+  }
 
-  const whole = heading + body;
+  const whole = heading + ' ' + body;
   const tokenGroups = [
     ['## INE ENUSC SAE', 'VHDV'],
     ['ENUSC', 'Victimizacion en Hogares', 'SAE'],
   ];
+  if (!tokenGroups.some((group) => group.every((token) => whole.includes(token)))) {
+    return { ok: false, reason: 'no token group fully matched within the bounded section' };
+  }
 
-  return tokenGroups.some((group) => group.every((token) => whole.includes(token)));
+  return { ok: true, reason: `${present.length} provenance markers, body ${body.length} chars` };
+}
+
+export function checkF16(content) {
+  return checkF16Detail(content).ok;
 }
