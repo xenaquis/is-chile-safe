@@ -374,8 +374,10 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
+
 - [ ] 29-01-PLAN.md — Iteration 1: always-visible news toggle + mobile dialog bottom sheet, scored against the falsifiable rubric
 - [ ] 29-02-PLAN.md — Iteration 2 (competitor-informed grouped filter entry points), design spec, Fable-proxy acceptance gate
+
 **UI hint**: yes
 
 ### Phase 30: Map Control-Shell Rework
@@ -395,12 +397,14 @@ Plans:
 
 **Plans**: 6 plans
 Plans:
+
 - [ ] 30-01-PLAN.md — Wave 0: fix F-40 cross-origin redirect + ORCHESTRATOR-INLINE pre-change score.mjs baseline capture
 - [ ] 30-02-PLAN.md — Wave 1: shared i18n keys, mapFilterDefs/FilterFields contracts, ?region= pure parser + vitest
 - [ ] 30-03-PLAN.md — Wave 2: NewsToggle + EntryPointsRail (details/radiogroup, mutual exclusion, Escape/click-outside, z-index fixes)
 - [ ] 30-04-PLAN.md — Wave 3: FilterSheet mobile FAB + dialog/showModal, FAB x result-panel collision fix
 - [ ] 30-05-PLAN.md — Wave 4: delete FiltersRow, rewrite MapTopbar, bounded MapIsland edit (mode-toggle move + ?region= wiring)
 - [ ] 30-06-PLAN.md — Wave 5: non-browser gate script + ORCHESTRATOR-INLINE regression/acceptance pass + phase close
+
 **UI hint**: yes
 
 ### Phase 31: Docs & Methodology Refresh
@@ -414,7 +418,6 @@ Plans:
   2. Editorial and legal disclaimers ("reported incidence" framing, under-reporting caveats, no absolute safe/dangerous verdict) are present and correct on every affected page.
   3. `data/SOURCES.md` is current and canonical, the outstanding ENUSC `[verify edition]` year is resolved — either to a real value or, where the repository cannot evidence one, to an explicit documented decision not to claim an edition — and every press outlet plus CEAD is correctly attributed. <!-- AMENDED 2026-08-03 per F-69. Original text: "...year is resolved to a real value...". Phase 31's research established that no code path ties a survey year to the underreporting bullets, so the criterion as originally written could only be satisfied by writing an unverifiable year (F-60 forbids that). The amendment is recorded rather than made silently. -->
 
-
   4. If Phase 26 returned GO, the clustering behavior (how same-event grouping works, its measured precision/recall, its limits) and every facet's semantics are documented for readers in plain bilingual language; if NO-GO, the documentation states that clearly instead.
   5. `site/scripts/validators/figure-registry.mjs` is hardened so substring matching can no longer report green against a stub section; the full validator suite plus pytest stay green; EN/ES parity holds and no existing inbound anchor is broken by the rewrite.
 
@@ -424,9 +427,9 @@ Plans:
 
 **Wave 1**
 
-- [ ] 31-01-PLAN.md — national_rank inversion fix (EN+ES methodology, EN safest-cities) + sexuales family explainer (EN+ES methodology)
-- [ ] 31-02-PLAN.md — data/SOURCES.md News feeds rewrite (Google News + Granite/OpenRouter + R2 archive) + ENUSC [verify edition] resolved intentionally generic
-- [ ] 31-03-PLAN.md — Facet-semantics note on /news/ + /es/noticias/ via shared i18n keys (DOCS-04, clustering N/A per Phase 26 NO-GO)
+- [x] 31-01-PLAN.md — national_rank inversion fix (EN+ES methodology, EN safest-cities) + sexuales family explainer (EN+ES methodology)
+- [x] 31-02-PLAN.md — data/SOURCES.md News feeds rewrite (Google News + Granite/OpenRouter + R2 archive) + ENUSC [verify edition] resolved intentionally generic
+- [x] 31-03-PLAN.md — Facet-semantics note on /news/ + /es/noticias/ via shared i18n keys (DOCS-04, clustering N/A per Phase 26 NO-GO)
 
 **Wave 2**
 
@@ -480,6 +483,6 @@ Plans:
 | 28. News Visualizer UI | 3/3 | Complete   | 2026-07-30 |
 | 29. Map UX Design Loop | 0/? | Not started | - |
 | 30. Map Control-Shell Rework | 0/? | Not started | - |
-| 31. Docs & Methodology Refresh | 0/4 | Not started | - |
+| 31. Docs & Methodology Refresh | 3/4 | In Progress|  |
 | 32. Cron Consistency | 0/? | Not started | - |
 | 33. Security Posture | 0/? | Not started | - |

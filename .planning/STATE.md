@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: in_progress
-last_updated: "2026-07-30T14:00:27.653Z"
-last_activity: 2026-07-30
+status: Phase 30 closed after an Opus code review (2 HIGH/7 MED/4 LOW), an independent Opus re-review (3 new MEDIUM, all from the fix cycle itself) and two fix cycles; close gate green — vitest 51, 16/16 validators, pytest 344/1/1, phase30-gate 12/12
+last_updated: "2026-08-03T02:36:10.048Z"
+last_activity: "2026-07-30 — Phase 30 closed: the flat scrolling filter row is gone, the news toggle is discoverable at every width, zero map-owned touch-target violations"
 progress:
-  total_phases: 8
-  completed_phases: 3
-  total_plans: 9
-  completed_plans: 9
-  percent: 38
+  total_phases: 14
+  completed_phases: 8
+  total_plans: 52
+  completed_plans: 43
+  percent: 57
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -46,7 +46,7 @@ Phase 27 [████████████████████] 100% COM
 Phase 28 [████████████████████] 100% COMPLETE (3/3 — verification PASSED 5/5; facets.mjs at 22 assertions; 15/16 validators, freshness excluded per F-19)
 Phase 29 [████████████████████] 100% COMPLETE (2/2 — design loop: 2 gated iterations, 29-DESIGN-SPEC.md accepted; Phase 30 unblocked)
 Phase 30 [████████████████████] 100% COMPLETE (6/6 — control shell reworked; c1/c3/c5 baseline FAIL -> PASS; protected Leaflet files byte-identical)
-Phase 31 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Docs & Methodology Refresh)
+Phase 31 [███████████████░░░░░]  75% in progress (3/4 — Docs & Methodology Refresh)
 Phase 32 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Cron Consistency)
 Phase 33 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Security Posture)
 ```
@@ -223,6 +223,7 @@ silently hiding a GO.
 **The accepted design** (iteration 2): the flat scrolling row is **deleted** and replaced by three separately-labeled always-visible `<details>` entry points (`Año` / `Tipo de delito` / `Modo`), one responsive document with the real 480/640 bands, a standalone always-visible **labeled** news toggle at z-index 800, a `<dialog>`+`showModal()` bottom sheet via FAB below 480 px, and a persistent filter-state summary. Source: CrimeMapping findings 1 and 3.
 
 **What Phase 30 must know:**
+
 1. **`score.mjs` is Phase 30's regression instrument**, not a throwaway — which is why the spec requires the `data-role` hooks (`news-toggle`, `filter-entry`, `entry-point`) to ship into the real DOM. Run unchanged against the live `/map/` it currently returns **c1/c2/c3/c5 FAIL, c4 PASS**, reproducing the whole baseline. §12 lists the bar Phase 30 must reproduce.
 2. **`FiltersRow.tsx` must be DELETED, not refactored**, and `dist/` asserted free of `.filters-row`/`.ev-chip` — `score.mjs` falls back to those classes, so survivors would silently bind Phase 30's own instrument to the old markup.
 3. **Folding `Modo` into an entry point requires editing `MapIsland.tsx`**, which MAPSH-05 does not name. Spec §9a gives two admissible resolutions; **pick one and record it** rather than discovering it mid-implementation.
@@ -248,6 +249,7 @@ silently hiding a GO.
 | coverage @375 | 27.5 % (over both the 22.7 % ceiling and the frozen ≤25 % rule) | **21.7 %** |
 
 **What Phase 31 must know:**
+
 1. **`phase30-gate.mjs` is NOT a validator** — it is a standalone phase-close script, deliberately unregistered so the "16 validators" count did not cascade (F-21). It has 12 assertions, each proven falsifiable by mutation.
 2. **Three decisions correct earlier ones on evidence**: F-55 (c4 IS measurable and passes — my own F-53(a) and the premortem were both wrong), F-56 (union coverage is the comparability metric; the raw figure counts nested hooks 2–3×, proven by rebuilding the pre-change tree: 21.2 % both sides), F-58 (roving tabindex makes c4 report FAIL at ≥481 — an instrument false positive, settled by a real Tab walk: `news-toggle → Año → Tipo de delito → Modo → zoom`).
 3. **Two measurement artifacts that will bite anyone driving this map again**: a `<dialog>` ignores synthetic key events, and **Leaflet runs neither `fitBounds` nor tile fetches in a background tab** — measured hidden, `?region=13`, `?region=99999`, `?cut=` and a plain load all look identical, which reads exactly like a silent no-op. Always measure in a visible tab.
@@ -261,11 +263,13 @@ silently hiding a GO.
 **Shipped.** A faceting UI on `/news/` and `/es/noticias/`: filter by time window, region and crime family with per-option counts, plus an accent-insensitive comuna typeahead. Query-param only (`?family=&region=&window=&q=`) over the two existing URLs — **zero new indexable routes**. Verification PASSED 5/5 criteria, NEWSUI-01..07 all complete.
 
 **Verified by execution, not by report** (the verifier transpiled the shipped module and ran it over the `data-*` attributes scraped from the built HTML):
+
 - **28 filter options compared per locale** (4 window + 8 family + 16 region), **0 mismatches** between each option's displayed count and the list it actually filters, on both locales. Server/client window-boundary equivalence is proven, not assumed.
 - **NEWSUI-02 holds:** 1,215 `<article class="news-card">` in BOTH dist pages, **0** carrying `hidden` at rest, 0 `astro-island`, 0 `client:` directives. The only JS is one deferred module script.
 - **F-27 proven in the real build:** both page chunks literally `import{…}from"./newsFilterLogic.<hash>.js"` with the SAME content hash — the shipped code IS the unit-tested module, not a copy-pasted twin.
 
 **What Phase 29/30 must know:**
+
 1. **`?region=` means different things on the two surfaces (N1 — this is a trap).** On `/news/` it is CSV multi-value (`region=13,5`); the map's `?region=` is a single-value focus and its gap is still unclosed. **Phase 30 must NOT reuse `parseFilterParams`** for the map.
 2. **The manual browser pass never ran** (N3). Genuinely unverified without a browser: numeric CLS/INP, filter-bar layout at 375px, keyboard/focus behavior, the `aria-live` announcement, and a real JS-disabled render. Phase 29 runs BrowserOS inline anyway — **fold this into its first session**, it is nearly free there.
 3. **`facets.mjs` is now 22 assertions** and still validator #16 (no sibling file, so no F-21 count cascade). Carried, non-blocking: assertion 11's 400-char tail window is theoretically escapable (WR2-05), assertion 19's label claims a route-count check it does not perform, and F-24's three original true-by-construction blocks are still there. **Do not read the assertion count as coverage.**
@@ -280,6 +284,7 @@ silently hiding a GO.
 1. ~~Review the autonomous work, `git pull --rebase origin master`, then push.~~ **DONE 2026-07-30, user-authorized.** Pull rebased 97 local commits over 12 remote data-cron commits with zero conflicts; `git push origin master` succeeded (`8ef50b8..50235bb`), HEAD == origin/master. The `Deploy on Code Push` workflow ran green in 17s and **production is LIVE with the Phase 28 UI** — verified by curl on both locales: HTTP 200, `#news-filters` and `#news-comuna-q` present, **1392 `.news-card` nodes, 0 hidden at rest** on `/news/` and `/es/noticias/`. NEWSUI-02 therefore holds in production, not just in `dist/`.
 
    **The autonomous run is no longer local-only.** Phases 29–33 now push to a live site: a regression reaches production on merge. Re-read the "NO `git push`" rule in the directive before the next phase — it was written for an unattended run and the user has now overridden it once, explicitly, for this batch. Treat future pushes as requiring the same explicit authorization.
+
 2. CRON-01 live blanked-secret dry run; observe one dependabot PR (SEC-03) — deferred per directive gate amendment 2.
 3. GitHub Settings (UI-only, directive gate amendment 3): default `GITHUB_TOKEN` read-only (SEC-01), verify secret scanning + push protection (SEC-05), check Actions billing state.
 4. v2.0 carry-over: GSC sitemap submission (22-03 / GL-04).
@@ -421,12 +426,14 @@ Decisions taken inline by the Fable orchestrator during the unattended run. Each
 - [Phase 26-03, 2026-07-29]: Measured pair-level clustering precision — TP=22, FP=11 over 86 non-excluded golden-set pairs (precision=66.67%, recall=73.33%) — confirms NO-GO against the locked 100%-precision/zero-false-merge gate. `test_golden_set_meets_go_gate` fails by design (honest signal, not weakened); Wave 4 (26-04) quarantines it with `@pytest.mark.xfail(strict=True)`. False-merge failure modes: 10/11 aggregate-vs-component (same operativo, sub-reports merged), 1/11 conflicting-sentence (Tongoy). Full suite: 317 passed, 1 failed-by-design, 1 skipped (opt-in live_llm).
 - [Phase 26-04, 2026-07-29]: **CLUS-09 closed NO-GO.** `IncidentRecord.cluster_id`/`is_primary` NOT added; `pipeline/news/schema.py` and `data/` byte-unchanged. `test_golden_set_meets_go_gate` quarantined with `@pytest.mark.xfail(strict=True)` (assertion body untouched). `26-SPIKE-REPORT.md` finalized with confirmed NO-GO verdict, schema-change status, backward-compat sweep, LLM call budget (105 calls total), and Phase 27/28 guidance. **Phase 28 note**: even a future GO would need a producer step — `store.py:merge_and_write` writes raw dicts, so a schema addition alone would never populate `cluster_id`; a clustering-run step after `dedup.deduplicate` inside `scrape_news.py` is the actual Phase 28 (or later) prerequisite, not something Phase 26 was ever going to deliver standalone. Phase 28's NEWSUI-05 degrades to faceting-only per the roadmap's own conditional.
 - [Phase ?]: Phase 26 closed NO-GO: CLUS-09 satisfied via documented NO-GO branch; gate test quarantined via xfail(strict=True); Phase 28 producer-step prerequisite recorded
+- [Phase ?]: 31-03: DOCS-04 satisfied via facet-semantics note (F-61 NO-GO on clustering), news.astro stale header comment drift-fixed
 
 ## Phase 29 readiness (checked 2026-07-30, at Phase 28 close)
 
 **BrowserOS MCP is REACHABLE** — `list_pages` returned 38 open tabs. The directive's "retry once, else mark 29 BLOCKED and skip 30" branch is therefore **NOT** triggered; Phase 29 proceeds normally in the next session.
 
 Two practical notes for whoever runs it:
+
 - The browser currently holds ~38 tabs belonging to an unrelated project (LegalAtlas). **Open a new page for the design loop; do not close or navigate the user's existing tabs.**
 - Constraints from memory + the directive: serve with `npx astro preview --port 4321 --host` (there is no `npm run preview` script); BrowserOS has no viewport-resize, so emulate mobile via a 375px iframe; screenshot paths must contain no spaces; and Phase 29 must run INLINE in the orchestrator session because `gsd-executor` has no BrowserOS tools.
 - Fold in Phase 28's deferred manual pass (N3) while the browser is open — it is nearly free there: filter-bar layout at 375px, keyboard/focus, the `aria-live` announcement, a real JS-disabled render, and CLS/INP on `/news/` + `/es/noticias/`.
