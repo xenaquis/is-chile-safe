@@ -304,8 +304,14 @@ Household victimization survey. Among other indicators, reports the proportion o
 incidents reported to police (denuncia) by crime type — the empirical basis for the
 three cifra-negra (underreporting) statements on the methodology page (F11).
 
-**Vintage:** Cite the exact ENUSC edition year used for the on-page claims.
-[verify edition]
+**Vintage:** Resolved: intentionally generic — no specific ENUSC edition year is
+claimed. The three underreporting bullets on the methodology pages cite the ENUSC
+programme generically (property-crime, intra-family-violence, and homicide
+reporting-rate patterns), not a dated statistic; no code path in this repository
+ties those bullets to a specific survey year, and naming one without human
+confirmation would replace an honest gap with an unverifiable claim. Distinct from
+the dated SAE VHDV snapshot in the section below (`## INE ENUSC SAE — communal VHDV
+victimization`), which is code-verified and carries its own explicit vintage.
 
 **Used by:** `src/pages/methodology.astro` and `src/pages/es/metodologia.astro`
 (underreporting H2 section). These pages MUST carry an inline citation link to the
@@ -383,20 +389,44 @@ so every displayed rule has a named registry entry with its rationale.
 
 ---
 
-## News feeds — qualitative incident layer (RSS)
+## News feeds — qualitative incident layer (Google News RSS)
 
-**Role:** Qualitative layer of recent incidents extracted from Chilean news media RSS feeds.
+**Role:** Qualitative layer of recent incidents extracted from Chilean news media,
+sourced via Google News RSS search plus a small set of direct-outlet RSS feeds.
 Not a statistical source — complements the quantitative CEAD layer.
 
-**Feeds ingested:**
-- Emol (`https://www.emol.com/rss/`)
-- BioBioChile (`https://www.biobiochile.cl/feed/`)
-- T13 (`https://www.t13.cl/rss.xml`)
-- Cooperativa (`https://www.cooperativa.cl/rss/`)
+**Ingestion mechanism:**
+Incidents are primarily sourced via Google News RSS search queries against
+`https://news.google.com/rss/search` (`pipeline/news/feeds.py`, `google_news_url()`),
+driven by a named query registry
+(`_GOOGLE_NEWS_QUERIES`, e.g. `GoogleNews-Nacional`, `GoogleNews-Antofagasta`), not
+fixed per-outlet feeds. `pipeline/news/gnews_decoder.py` resolves each Google News
+redirect URL back to the real publishing outlet's article URL before full-text fetch.
+A handful of direct-outlet RSS feeds (BioBioChile, Cooperativa, LaTercera, LaCuarta)
+are also ingested alongside the Google News search feeds.
 
-**Processing pipeline:**
-RSS items fetched via `feedparser`; classified and geolocated by DeepSeek v4-flash
-(`pipeline/news/`); stored in `data/news/current.json`.
+**Outlet attribution:**
+For Google News items, the true outlet name is extracted per item from the RSS
+`<source>` tag (`resolve_outlet()` in `pipeline/news/feeds.py`), falling back to the
+literal label "Google News" when that tag is empty or absent — readers may
+occasionally see "Google News" cited as the source for that honest reason. For
+direct-outlet feeds, the feed name itself is used as the outlet.
+
+**Classification:**
+Items are classified and geolocated by `ibm-granite/granite-4.1-8b` via OpenRouter
+(`pipeline/news/classifier.py`), the default model for this milestone (spike 008:
+100% commune accuracy, ~6x cheaper, ~2.5x faster than the prior default). DeepSeek
+v4-flash is retained as a selectable fallback provider only (`NEWS_PROVIDER=deepseek`).
+
+**Full-text research archive (internal, not reader-displayed):**
+A daily-cron R2-backed archive (bucket `ischilesafe`) stores full incident text, APA
+citations, and a provenance ledger for audit/research purposes
+(`pipeline/tests/test_archive_r2.py`). This corpus is internal and is never surfaced
+to site readers; it is not part of the reader-facing qualitative incident layer.
+
+**Storage:**
+`data/incidents/current.json` (rolling window) plus `data/incidents/archive/`
+(monthly archives).
 
 **Attribution requirement (displayed on news pages):**
 Every news pin cites its source outlet name and links to the original article URL.
@@ -404,7 +434,8 @@ No incident is displayed without a source link.
 
 **Measure semantics:**
 Qualitative, not statistical. Incident counts are NOT comparable to CEAD per-100k rates.
-Coverage is subject to editorial selection by each news outlet.
+Coverage is subject to Google News' indexing of Chilean press coverage and the
+direct-outlet feeds' own editorial selection.
 
 **Vintage:** Refreshed via GitHub Actions cron (daily).
 
