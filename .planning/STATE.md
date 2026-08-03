@@ -136,6 +136,10 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 - **[Phase 27/28] Facet/URL explosion causing thin content** — crossing time × 16 regions × 8 families as new indexable URLs would produce hundreds of near-empty pages against the shared 20K Cloudflare file budget. Keep facets as query-param client state over existing pages only.
 - **[Phase 30] Reintroducing the react-leaflet `<GeoJSON>` re-render-on-hover bug** during the control-shell refactor. Explicit Opus code-review acceptance criterion bans `<GeoJSON>`/`<Marker>`-as-JSX-child patterns.
 - **[Phase 32/33] Cron billing-lapse / empty-string-secret silent failures recurring** — both have already happened once (a full week of news freshness lost silently). Mitigate with explicit non-empty-secret assertion steps and a freshness/heartbeat guard covering all three data crons.
+- **[Phase 31, backlog] Map legend bands never vary by family/index mode** — `MapIsland.tsx:201,290-293`: the legend's numeric bands come from the overall commune rate regardless of the selected crime family or index mode (confirmed pre-existing, out of Phase 31's DOCS scope). No code fix and no reader-facing caveat per F-62; recorded for a future map-code phase.
+- **[Phase 31, backlog] `AVAILABLE_YEARS` offers 2026 with no payload on disk** — `mapFilterDefs.ts:45-50` (confirmed pre-existing, out of Phase 31's DOCS scope). Self-resolving once a 2026 map-payload exists; no code fix and no reader-facing caveat per F-62.
+
+**Internal note (not reader-facing): DOCS-04's clustering-documentation clause is N/A** — it is conditioned on Phase 26 returning GO, and Phase 26 returned NO-GO (F-61). The facet-semantics note (Plan 31-03) shipped in its place on `/news/` and `/es/noticias/`, guarded from Plan 31-04 onward by `facets.mjs` assertions 23/23b.
 
 ### Research Flags for Planning
 
