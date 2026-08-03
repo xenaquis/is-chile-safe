@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 Phase: 32 (Cron Consistency) — next to plan. Phase 31 COMPLETE (4/4 plans, DOCS-01..06, verification PASSED 5/5).
 Plan: —
-Status: Phase 31 closed after an Opus code review (3 CRITICAL / 2 HIGH / 1 MEDIUM), an independent Opus re-review (3 HIGH — every one planted BY fix cycle 1's own guards), two fix cycles, an Opus verification that FAILED on two gaps, inline gap fixes (F-71), and an independent Opus re-verification that PASSED 5/5. Close gate: astro check 4 errors / 0 warnings, vitest **59**, **15/16 validators** (`freshness` excluded per the pre-verified F-19/F-65 branch), pytest 344/1/1, forbidden-language 835 pages / 0 terms.
+Status: Phase 31 closed after an Opus code review (3 CRITICAL / 2 HIGH / 1 MEDIUM), an independent Opus re-review (3 HIGH — every one planted BY fix cycle 1's own guards), two fix cycles, an Opus verification that FAILED on two gaps, inline gap fixes (F-71), and an independent Opus re-verification that PASSED 5/5. Close gate on the rebased tree that shipped: astro check 4 errors / 0 warnings, vitest **59**, **16/16 validators** (`freshness` went green once the cron data arrived in the rebase — F-19 was right again), pytest 344/1/1, forbidden-language 835 pages / 0 terms.
 Last activity: 2026-08-03 — Phase 31 closed: a factually INVERTED `national_rank` claim was live on production in FIVE places (found across four separate sweeps); all five corrected in both locales and guarded by a shape-based sweep over 117 source files
 
 ## Progress Bar
