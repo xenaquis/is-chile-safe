@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-03T09:36:22.410942Z",
+  "generated": "2026-08-03T14:31:18.495281Z",
   "window_days": 30,
   "incidents": [
     {
@@ -18461,6 +18461,123 @@
       "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPTVc5bXRGNVlmbjItSE5yTWdRei03UnlCSjd3YVlLeTRaTlZuSDE4bURpMU1wMUpIODVXRllYVzN6SDVPRjZ0NFhXeTE0al9seFpfbDR2THRBdlcyMFl0REJhOUtxU2VYMEttQ0FnTVJnSlFHMmFMNnhtYmxIZXJLN29pLU9ZcnB4U3YtN1VQZFZJaUhuUVc0V2U3WF93QzVvaVRvRVlPLURUMDJ6am04eGhyYk5ZOUMyUGc?oc=5",
       "family": "vida",
       "slug": "coquimbo"
+    },
+    {
+      "id": "2c48b33d708e5942",
+      "cut": "8107",
+      "lat": -36.724747,
+      "lng": -72.940429,
+      "title_es": "Adulta mayor sufre robo en su vivienda en Penco: delincuente quedó registrado en cámaras",
+      "title_en": "Elderly woman suffers robbery at home in Penco: offender recorded on cameras",
+      "date": "2026-08-03",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/03/adulta-mayor-sufre-robo-en-su-vivienda-en-penco-delincuente-quedo-registrado-en-camaras.shtml",
+      "family": "robos_violentos",
+      "slug": "penco"
+    },
+    {
+      "id": "c78d2c50bdde3d49",
+      "cut": "13123",
+      "lat": -33.446981,
+      "lng": -70.549631,
+      "title_es": "Delincuentes dispararon contra funcionarios municipales de Providencia para huir de robo",
+      "title_en": "Criminals fired at municipal officials in Providencia to escape robbery",
+      "date": "2026-08-03",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/delincuentes-dispararon-contra-funcionarios-municipales-de-providencia/2026-08-03/074201.html",
+      "family": "vida",
+      "slug": "providencia"
+    },
+    {
+      "id": "f1c78e86d80de826",
+      "cut": "13123",
+      "lat": -33.446981,
+      "lng": -70.549631,
+      "title_es": "Delincuentes disparan contra patrullas municipales tras robo a tienda en Providencia",
+      "title_en": "Criminals shoot at municipal patrols after store robbery in Providencia",
+      "date": "2026-08-03",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/delincuentes-disparan-contra-patrullas-municipales-tras-robo-a-tienda-en-providencia/",
+      "family": "vida",
+      "slug": "providencia"
+    },
+    {
+      "id": "563d93973730aa30",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Investigan cuatro cirugías plásticas realizadas a pareja del director general de Carabineros en hospital institucional",
+      "title_en": "Investigating four plastic surgeries performed on the partner of the Carabineros general director at an institutional hospital",
+      "date": "2026-08-03",
+      "outlet": "LaCuarta",
+      "url": "https://www.lacuarta.com/chile/noticia/cirugias-plasticas-es-nuestro-lema-investigan-cuatro-operaciones-esteticas-que-se-realizo-pareja-del-general-director-de-carabineros-en-hospital-institucional/",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "9537456743354712",
+      "cut": "13123",
+      "lat": -33.446981,
+      "lng": -70.549631,
+      "title_es": "Furioso escape: delincuentes balean a dos patrullas municipales tras cometer violento robo en Providencia",
+      "title_en": "Furious escape: criminals shoot two municipal patrols after committing violent robbery in Providencia",
+      "date": "2026-08-03",
+      "outlet": "LaCuarta",
+      "url": "https://www.lacuarta.com/chile/noticia/furioso-escape-delincuentes-balean-a-dos-patrullas-municipales-tras-cometer-violento-robo-en-providencia/",
+      "family": "robos_violentos",
+      "slug": "providencia"
+    },
+    {
+      "id": "3f9c9bc4c73a1789",
+      "cut": "13301",
+      "lat": -33.157849,
+      "lng": -70.605706,
+      "title_es": "Investigan homicidio en Colina: Joven de 21 años fue baleado mientras conducía",
+      "title_en": "Investigating homicide in Colina: 21-year-old man shot while driving",
+      "date": "2026-08-02",
+      "outlet": "Chilevisión",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNcTFPYklrMm5xOVI4ZkpfM3lKYi1SU3BETWkwSHREcXUxZnBFQktqSlJxWVpOZUVjcGNQWXpZY2RPd3piR3lNWDVCTjF1MWtiWE1UNDFjSm9mNW40QVNoakhpTVRaQ1pIbExwZ0pmMmF3X0w3TFJaQlZTYTMtMHc4UUsycDRWOU9WemUxOXVndHR0cVBvb1FhX0JDTnc0a0t1Yk9MTXFfdVNVT1lOVTBkN2VhY0dZOTYyb0tZT0ZYLTdEdmg4MUNPQlBJSQ?oc=5",
+      "family": "vida",
+      "slug": "colina"
+    },
+    {
+      "id": "3f6822ed4e3b04e0",
+      "cut": "13123",
+      "lat": -33.446981,
+      "lng": -70.549631,
+      "title_es": "Asalto en Providencia termina con disparos contra patrullas municipales y fuga de delincuentes",
+      "title_en": "Robbery in Providencia ends with shots at municipal patrols and fugitives flee",
+      "date": "2026-08-03",
+      "outlet": "Epicentro Chile",
+      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOTHBWQ1RpYmdaZW5aOW9nbHhHcTlJUjBjUzRybXUyTUprZW1oMkhZRG5QMmtBUU1HY29nNmhhbFN3ZXFBX3pYSVNTVlVSVE9hbGlzUkRkaUc4YTE0SGZSSEQyUXZsNmt3bXFRZlZ4VzFmb2xEcHZyWklwV1l4aDNDaEZ5WElDRHpVRlZ5VElsbl9kTks3Yk4tTS1hNjNCb0JPZVhaVnFtaEpPblBTTEpZWFpsd2dPUzVySGpPQm1BUVhlUnpwbmstNnB5enFMN0RVaTFB?oc=5",
+      "family": "vida",
+      "slug": "providencia"
+    },
+    {
+      "id": "078e261d1cef030d",
+      "cut": "2201",
+      "lat": -22.191672,
+      "lng": -68.619517,
+      "title_es": "Lo sorprendieron desmantelando un auto robado: sujeto fue detenido por Carabineros en Calama",
+      "title_en": "Suspect caught dismantling stolen car by Carabineros in Calama",
+      "date": "2026-08-03",
+      "outlet": "diariosol.cl",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQWGl6TE16b0E3SDQ5d05hTjRwUXZ5eGlHMHBoczRwMXFtQnpvc2pHWGFMTWwwWFhIYzRrQkpVdmpkM1IxNmdKUTIyX0k5cnVQOHZFck1NTUwyYXh0TWRnbUZUWkpOaXhfX2ZxcmJDR1NISU0zNDFTUkZQbE5BRExmMTlyNVJSWEdERGtWdXhMU20wdzlZdWktcjVDTFpINUZKZHJjN3BYR3ZSTTVt?oc=5",
+      "family": "propiedad",
+      "slug": "calama"
+    },
+    {
+      "id": "9c48cca4a58c55ab",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Nuevo robo sufrió tradicional kiosco de calle Tarapacá en Iquique",
+      "title_en": "New robbery hits traditional street kiosk in Iquique",
+      "date": "2026-08-02",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxObzlCN3pYa01EVnJsXzhCSlZuVWlWcmk2Uk9reGxyNXJ3T0ZiZC1wdjRMVTdDb29CN3pBY1ZHSHpvUEx1T2JEem1ocEUteWVNbnRBWFMwNmV3LWZYNVVLNkt4cV83aWVGaEtDTmxPQWFraVgtREFnbGFZbUdFbTVWRVlBa1BOT21lU2EwenI0dnBEMEZ0UlF3NEpOUnpENFllbFBpSQ?oc=5",
+      "family": "robos_violentos",
+      "slug": "iquique"
     }
   ]
 }
