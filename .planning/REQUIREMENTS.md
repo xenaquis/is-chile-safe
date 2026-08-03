@@ -88,10 +88,10 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 ### Docs & Methodology Refresh (→ Phase 31)
 
 - [x] **DOCS-01**: The EN + ES methodology pages are brought current with what the code actually computes today — composite index, ENUSC victimization layer, the news-only `sexuales` family, and the directional meaning of `national_rank` (rank #1 = most reported crime, not safest) — closing all prose-vs-computation drift.
-- [ ] **DOCS-02**: Editorial and legal disclaimers are reaffirmed across the affected pages: "reported incidence" framing, under-reporting caveats, and no absolute safe/dangerous verdict.
+- [x] **DOCS-02**: Editorial and legal disclaimers are reaffirmed across the affected pages: "reported incidence" framing, under-reporting caveats, and no absolute safe/dangerous verdict.
 - [x] **DOCS-03**: `data/SOURCES.md` is current and canonical, the outstanding ENUSC `[verify edition]` year is resolved, and CEAD plus every press outlet is correctly attributed.
 - [x] **DOCS-04**: The clustering behavior and the facet semantics are documented for readers — how same-event grouping works, what each facet means, and the measured limits and error rate — required if Phase 26 returned GO.
-- [x] **DOCS-05**: `site/scripts/validators/figure-registry.mjs` is hardened so substring matching can no longer report green against a stub section, and the full validator suite plus pytest stay green.
+- [x] **DOCS-05**: `site/scripts/validate/figure-registry.mjs` <!-- path corrected 2026-08-03: this requirement and the ROADMAP both said `scripts/validators/`, which has never existed in this repo; the real directory is `scripts/validate/` --> is hardened so substring matching can no longer report green against a stub section, and the full validator suite plus pytest stay green.
 - [x] **DOCS-06**: EN/ES parity holds and no existing anchor that other pages link to is broken by the rewrite.
 
 ### Cron Consistency (→ Phase 32)
@@ -173,7 +173,7 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 | MAPSH-06 | Phase 30 | Pending |
 | MAPSH-07 | Phase 30 | Pending |
 | DOCS-01 | Phase 31 | Complete |
-| DOCS-02 | Phase 31 | Pending |
+| DOCS-02 | Phase 31 | Complete |
 | DOCS-03 | Phase 31 | Complete |
 | DOCS-04 | Phase 31 | Complete |
 | DOCS-05 | Phase 31 | Complete |

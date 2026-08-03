@@ -419,7 +419,7 @@ Plans:
   3. `data/SOURCES.md` is current and canonical, the outstanding ENUSC `[verify edition]` year is resolved — either to a real value or, where the repository cannot evidence one, to an explicit documented decision not to claim an edition — and every press outlet plus CEAD is correctly attributed. <!-- AMENDED 2026-08-03 per F-69. Original text: "...year is resolved to a real value...". Phase 31's research established that no code path ties a survey year to the underreporting bullets, so the criterion as originally written could only be satisfied by writing an unverifiable year (F-60 forbids that). The amendment is recorded rather than made silently. -->
 
   4. If Phase 26 returned GO, the clustering behavior (how same-event grouping works, its measured precision/recall, its limits) and every facet's semantics are documented for readers in plain bilingual language; if NO-GO, the documentation states that clearly instead.
-  5. `site/scripts/validators/figure-registry.mjs` is hardened so substring matching can no longer report green against a stub section; the full validator suite plus pytest stay green; EN/ES parity holds and no existing inbound anchor is broken by the rewrite.
+  5. `site/scripts/validate/figure-registry.mjs` <!-- path corrected 2026-08-03: `scripts/validators/` has never existed in this repo --> is hardened so substring matching can no longer report green against a stub section; the full validator suite plus pytest stay green; EN/ES parity holds and no existing inbound anchor is broken by the rewrite.
 
 **Plans**: 4 plans
 
