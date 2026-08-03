@@ -20,6 +20,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { checkF16 } from './figure-registry.lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_ROOT = path.resolve(__dirname, '../..');
@@ -210,10 +211,14 @@ console.log('');
 const orphans = [];
 
 for (const figure of FIGURE_REGISTRY) {
-  // A figure passes if at least one token group fully matches
-  const passed = figure.tokens.some((group) =>
-    group.every((token) => sourcesContent.includes(token))
-  );
+  // F16 uses the hardened, section-bounded + length-guarded check (DOCS-05).
+  // All other figures (F1-F15) keep the existing whole-file substring check —
+  // do not generalize section-bounding to figures whose token groups
+  // legitimately span multiple `## ` sections (e.g. F1's ['## CEAD', '## INE']).
+  const passed =
+    figure.id === 'F16'
+      ? checkF16(sourcesContent)
+      : figure.tokens.some((group) => group.every((token) => sourcesContent.includes(token)));
 
   if (passed) {
     console.log(`  PASS  ${figure.id}: ${figure.description}`);
