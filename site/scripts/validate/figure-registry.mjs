@@ -337,6 +337,17 @@ const INVERTED_PATTERNS = [
     re: /lowest reported rate among all non-low-population/i,
     label: 'the safest-cities footnote claiming rank 1 = lowest reported rate',
   },
+  {
+    // GAP-1 (Opus verification): a FIFTH inverted claim survived three sweeps —
+    // `is-santiago-safe.astro:53` said "A lower national rank (closer to 1)
+    // indicates a lower reported rate", rendered twice into dist (FAQ prose and
+    // FAQPage JSON-LD). Every earlier pattern required a literal `1 =`, and this
+    // sentence defines the direction in words instead. The lesson is that the
+    // inverted claim keeps reappearing in a shape the last pattern did not
+    // anticipate, so this guard matches the PROSE form as well as the `1 =` form.
+    re: /(closer to 1|cercano a 1|mas cerca de 1|lower (national )?rank)[^.]{0,80}(lower|menor|mas baja|mas bajo)[^.]{0,40}(reported|reportada|rate|tasa|incidence|incidencia)/i,
+    label: 'a prose-form rank-direction claim equating a rank closer to 1 with a LOWER reported rate (rank 1 = highest)',
+  },
 ];
 
 const sweepFiles = listSweepFiles(SWEEP_ROOT);

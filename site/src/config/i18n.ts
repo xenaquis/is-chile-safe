@@ -377,7 +377,7 @@ export const EN_STRINGS: I18nStrings = {
   news_empty_heading: 'No incidents match these filters',
   news_empty_body: 'Try a different time window, region, or crime type, or clear all filters to see every reported incident.',
   news_cluster_source_count: '{n} sources',
-  news_facet_semantics_note: 'Filters show unfiltered per-option counts. "Latest data" is anchored to the newest incident\'s date, not to today\'s calendar date — if the news feed pauses, "Latest data" reflects the last successful update, not necessarily today. Incident counts are a qualitative, editorially-selected news sample and are not comparable to the CEAD per-100k statistical rates shown elsewhere on this site.',
+  news_facet_semantics_note: 'Each filter\'s per-option counts reflect the other filters you have applied, but not that filter\'s own selection — so you can always see what widening a selection would return. "Latest data" is anchored to the newest incident\'s date, not to today\'s calendar date — if the news feed pauses, "Latest data" reflects the last successful update, not necessarily today. Incident counts are a qualitative, editorially-selected news sample and are not comparable to the CEAD per-100k statistical rates shown elsewhere on this site.',
 
   // Quick 260616-lu4 — ranking table controls
   sort_label: 'Sort by {column}',
@@ -611,7 +611,7 @@ export const ES_STRINGS: I18nStrings = {
   news_empty_heading: 'Ningún incidente coincide con estos filtros',
   news_empty_body: 'Prueba otro período, región o tipo de delito, o limpia los filtros para ver todos los incidentes reportados.',
   news_cluster_source_count: '{n} fuentes',
-  news_facet_semantics_note: 'Los filtros muestran conteos por opción sin filtrar. "Últimos datos" está anclado a la fecha del incidente más nuevo registrado, no a la fecha calendario de hoy — si el feed de noticias se detiene, "Últimos datos" refleja la última actualización exitosa, no necesariamente hoy. Los conteos de incidentes son una muestra cualitativa y de selección editorial de noticias, y no son comparables con las tasas estadísticas del CEAD por 100.000 habitantes que se muestran en el resto del sitio.',
+  news_facet_semantics_note: 'Los conteos de cada filtro reflejan los demás filtros que hayas aplicado, pero no la selección propia de ese filtro, de modo que siempre puedas ver qué aparecería al ampliar una selección. "Últimos datos" está anclado a la fecha del incidente más nuevo registrado, no a la fecha calendario de hoy — si el feed de noticias se detiene, "Últimos datos" refleja la última actualización exitosa, no necesariamente hoy. Los conteos de incidentes son una muestra cualitativa y de selección editorial de noticias, y no son comparables con las tasas estadísticas del CEAD por 100.000 habitantes que se muestran en el resto del sitio.',
 
   // Quick 260616-lu4 — ranking table controls
   sort_label: 'Ordenar por {column}',
