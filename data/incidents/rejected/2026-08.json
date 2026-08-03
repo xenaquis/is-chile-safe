@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-02T19:04:27.290740+00:00",
+  "generated": "2026-08-03T02:27:59.769494+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -770,6 +770,116 @@
       "description": "Insólito!: Gobernador boliviano aparece sobre camioneta con encargo por robo en Chile | Money Tag - La Hora&nbsp;&nbsp;pressreader.com",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-08-02T19:04:27.290740+00:00"
+    },
+    {
+      "id": "9fd41cfb92703461",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/02/balance-senapred-por-sistema-frontal-2-fallecidos-25-viviendas-destruidas-y-mas-de-6-mil-aislados.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-03",
+      "title": "Balance Senapred por sistema frontal: 2 fallecidos, 25 viviendas destruidas y más de 6 mil aislados",
+      "description": "Durante la noche de este domingo, el biministro del Interior y Segegob, Claudio Alvarado, el subsecretario del Interior, Máximo Pavez y la directora nacional del Servicio Nacional de Prevención y Respuesta ante Desastres (Senapred), Alicia Cebrián, realizaron el balance general del sistema frontal que actualmente afecta a gran parte del centro y sur del país. &#8230; Continua leyendo \"Balance Senapred por sistema frontal: 2 fallecidos, 25 viviendas destruidas y más de 6 mil aislados\"\nThe post Ba",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-03T02:27:59.769494+00:00"
+    },
+    {
+      "id": "d061c4543114e01c",
+      "url": "https://www.cooperativa.cl/noticias/pais/poblacion/inmigrantes/proyecto-busca-sancionar-con-carcel-los-matrimonios-falsos-con-fines/2026-08-02/190308.html",
+      "outlet": "Cooperativa",
+      "date": "2026-08-02",
+      "title": "Proyecto busca sancionar con cárcel los matrimonios falsos con fines migratorios",
+      "description": "Un proyecto de ley busca tipificar como delito la celebración de matrimonios o Acuerdos de Unión Civil (AUC) falsos con fines migratorios.\nLa iniciativa, ingresada por el diputado Tomás Kast (Evópoli), pretende frenar un explosivo aumento de las solicitudes de residencia temporal por AUC presentadas por extranjeros en situación irregular.\nDe acuerdo con cifras oficiales del Servicio Nacional de Migraciones, reveladas en un reportaje de Teletrece, este tipo de peticiones pasó de 1.946 durante 202",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-03T02:27:59.769494+00:00"
+    },
+    {
+      "id": "0f0a4a8cc9035931",
+      "url": "https://www.cooperativa.cl/noticias/pais/gobierno/gabinete/exsubsecretario-pide-examen-de-adn-a-mechon-analizado-en-primeros/2026-08-02/172459.html",
+      "outlet": "Cooperativa",
+      "date": "2026-08-02",
+      "title": "Exsubsecretario pide examen de ADN a mechón analizado en primeros controles: \"No sé si es mi pelo\"",
+      "description": "La controversia sobre los exámenes de droga continúa para el exsubsecretario de Hacienda Juan Pablo Rodríguez, pues ahora pidió hacer un test de ADN al pelo usado como muestra en los dos primeros controles que propiciaron su salida del cargo tras arrojar positivo al consumo de sustancias ilícitas. \n\"Yo no sé si es mi pelo, porque el laboratorio (Corthorn Health, que procesa los resultados de los exámenes aplicados a las autoridades de Gobierno) no me entrega el informe de la cadena de custodia\",",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-03T02:27:59.769494+00:00"
+    },
+    {
+      "id": "5c2d6b72f7c5d16b",
+      "url": "https://www.latercera.com/nacional/noticia/sistema-frontal-suben-a-1142-los-damnificados-6243-aislados-y-mas-de-4700-viviendas-con-danos-entre-las-regiones-del-maule-y-los-lagos/",
+      "outlet": "LaTercera",
+      "date": "2026-08-03",
+      "title": "Sistema frontal: suben a 1.142 los damnificados, 6.243 aislados y más de 4.700 viviendas con daños entre las regiones del Maule y Los Lagos",
+      "description": "Autoridades mantuvieron en dos la cifra de fallecidos, y advirtieron que el riesgo persiste debido a crecidas de ríos, desbordes y terrenos inestables que mantienen activas 10 alertas rojas en la zona centro-sur del país.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-03T02:27:59.769494+00:00"
+    },
+    {
+      "id": "459a240f5a3eb4e0",
+      "url": "https://www.latercera.com/politica/noticia/nuevo-examen-de-pelo-negativo-y-criticas-al-laboratorio-los-descargos-del-exsubsecretario-juan-pablo-rodriguez/",
+      "outlet": "LaTercera",
+      "date": "2026-08-02",
+      "title": "Tras nuevo test de drogas negativo, exsubsecretario Rodríguez pide examen de ADN a muestra que dio positiva",
+      "description": "La exautoridad del Ministerio de Hacienda afirmó que su prioridad es reivindicar su nombre y no definir su futuro político. Aunque dijo comprender la decisión adoptada por el gobierno tras el primer resultado positivo, cuestionó el procedimiento del laboratorio y planteó que es “perfectamente plausible” un caso de contaminación.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-03T02:27:59.769494+00:00"
+    },
+    {
+      "id": "89eb0bba4c51116a",
+      "url": "https://www.latercera.com/mundo/noticia/israel-intensifica-ataques-en-palestina-al-margen-del-acuerdo-de-desarme-total-de-hamas-orquestado-por-trump/",
+      "outlet": "LaTercera",
+      "date": "2026-08-02",
+      "title": "Israel intensifica ataques en Palestina al margen del acuerdo de “desarme total” de Hamas orquestado por Trump",
+      "description": "\"Los asesinatos selectivos en Gaza deben continuar, promover la migración debe suceder. Israel debe ganar\", protestó en sus redes sociales el titular de Seguridad Nacional israelí, Itamar Ben-Gvir.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-03T02:27:59.769494+00:00"
+    },
+    {
+      "id": "12f57f01e09084e8",
+      "url": "https://www.lacuarta.com/mundo/noticia/registran-choque-entre-helicopteros-en-grecia-mientras-combatian-incendio-dos-fallecidos/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-02",
+      "title": "Registran choque entre helicópteros en Grecia mientras combatían incendio: dos fallecidos",
+      "description": "El accidente además dejó dos lesionados, quienes están fuera de riesgo vital.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-03T02:27:59.769494+00:00"
+    },
+    {
+      "id": "2ca29cc551e0d238",
+      "url": "https://www.lacuarta.com/mundo/noticia/fin-del-misterio-detencion-de-coautor-aclararia-crimen-de-influencer-que-fue-asesinada-mientras-transmitia-en-vivo/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-02",
+      "title": "¿Fin del misterio? Detención de coautor aclararía crimen de influencer que fue asesinada mientras transmitía en vivo",
+      "description": "A más de un año del asesinato, la policía logró aprehender a uno de los responsables. Estarían buscando a padre e hijo.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-03T02:27:59.769494+00:00"
+    },
+    {
+      "id": "a17785d23a116cf3",
+      "url": "https://www.lacuarta.com/espectaculos/noticia/bruno-zaretti-recordo-vinculo-con-negro-pinera-durante-los-inicios-de-axe-bahia-bailabamos-por-una-pizza/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-02",
+      "title": "Bruno Zaretti recordó vínculo con Negro Piñera durante los inicios de Axé Bahía: “Bailábamos por una pizza”",
+      "description": "El bailarín junto a su compañera Flaviana Seeling hablaron sobre el apoyo que recibieron de parte del fallecido músico en sus primeros pasos por el país.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-03T02:27:59.769494+00:00"
+    },
+    {
+      "id": "ff973786a335c284",
+      "url": "https://www.lacuarta.com/chile/noticia/exsubsecretario-rodriguez-rompe-el-silencio-tras-presentar-examen-negativo-de-drogas-estoy-viviendo-una-pesadilla/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-02",
+      "title": "Exsubsecretario Rodríguez rompe el silencio tras presentar examen negativo de drogas: “Estoy viviendo una pesadilla”",
+      "description": "El exsubsecretario de Hacienda aseguró que un nuevo examen de pelo realizado en UC Christus y enviado a Estados Unidos arrojó resultado negativo. Defendió su inocencia, cuestionó el procedimiento del primer test y afirmó que su prioridad es recuperar su reputación.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-03T02:27:59.769494+00:00"
+    },
+    {
+      "id": "246234cb2be96a81",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOLU1wSmFoQjdtZmRuSlVTVDM2aXRfbUR1bHNlQUpoRk5WUVFJWHppdFduaGxWaURxUU1TZ0pvdmt4aWc5SU53YjVkWGFFWUU3bV9VYkhMWm9DV3JxUmdEZUp2S1liU083dm1aUnNYMDh2ZEJ2R0F5dEdzZVp0UEtrcXNUdGxSbElGeXVQemtMd3hldWl3dXZDQ1VtS3BfTG5hdTV5RW95WDNNaFJpSG0tVGphM1BpMjA0WFhLbmRJc0lCVEk?oc=5",
+      "outlet": "Teletrece",
+      "date": "2026-08-01",
+      "title": "\"Perdimos la esperanza de hacer justicia\": familia de mujer asesinada por joven de 15 años cuestiona condena de 3 años en libertad - Teletrece",
+      "description": "\"Perdimos la esperanza de hacer justicia\": familia de mujer asesinada por joven de 15 años cuestiona condena de 3 años en libertad&nbsp;&nbsp;Teletrece",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-03T02:27:59.769494+00:00"
     }
   ]
 }
