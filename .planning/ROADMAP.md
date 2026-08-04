@@ -448,7 +448,12 @@ Plans:
   4. The CEAD cron's expected-403-from-Actions-IPs status is documented directly in the workflow file, so a red run there cannot be misread as a real regression or "fixed" by someone unfamiliar with the history.
   5. Every workflow that writes to `data/` fetches and rebases before pushing (verified by a concurrent-write simulation with no lost update), and one documented table (schedule, trigger, secrets consumed, permissions, what it writes) covers the whole schedule surface.
 
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 32-01-PLAN.md — Shared bash guard scripts (require-env.sh, check-heartbeat.sh) + two-direction pytest proof
+- [ ] 32-02-PLAN.md — Edit the four secret-consuming workflows: hard secret guards, unified deploy-hook curl, per-pipeline labels, CEAD 403 doc, fetch-rebase-push retry
+- [ ] 32-03-PLAN.md — New heartbeat.yml + per-pipeline label creation + CRON-07 schedule-surface table in DEPLOYMENT.md
 
 ### Phase 33: Security Posture
 
@@ -484,5 +489,5 @@ Plans:
 | 29. Map UX Design Loop | 0/? | Not started | - |
 | 30. Map Control-Shell Rework | 0/? | Not started | - |
 | 31. Docs & Methodology Refresh | 4/4 | Complete   | 2026-08-03 |
-| 32. Cron Consistency | 0/? | Not started | - |
+| 32. Cron Consistency | 0/3 | Planned | - |
 | 33. Security Posture | 0/? | Not started | - |
