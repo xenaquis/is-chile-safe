@@ -211,14 +211,36 @@ build. The timestamp and trigger source (Deploy Hook vs Git push) are shown per 
 
 ## 10. Operational Notes
 
-### Workflow Cadences
+### Workflow Cadences (CRON-07, audited 2026-08-04, Phase 32)
 
-| Workflow | File | Schedule | Trigger |
-|----------|------|----------|---------|
-| News Pipeline | `.github/workflows/news-pipeline.yml` | Every 6 hours (`0 */6 * * *`) | `schedule` + `workflow_dispatch` |
-| CEAD Scraper | `.github/workflows/cead-scraper.yml` | Quarterly (`0 3 1 1,4,7,10 *`) | `schedule` + `workflow_dispatch` |
-| Deploy on Code Push | `.github/workflows/deploy-on-code.yml` | On push to `master` touching `site/**` | `push` |
-| CI | `.github/workflows/ci.yml` | PRs + `workflow_dispatch` | `pull_request` + `workflow_dispatch` |
+| Workflow | File | Schedule | Trigger | Secrets Consumed (all hard-guarded, CRON-01) | Permissions | Writes |
+|----------|------|----------|---------|-----------------------------------------------|-------------|--------|
+| News Pipeline | `.github/workflows/news-pipeline.yml` | Every 6 hours (`0 */6 * * *`) | `schedule` + `workflow_dispatch` | `OPENROUTER_API_KEY`, `DEEPSEEK_API_KEY` (scrape), `CF_DEPLOY_HOOK_URL` (deploy, guarded AFTER the data commit per F-84 -- a rotated hook fails the job loudly but no longer also blocks collection) | `contents: write`, `issues: write` | `data/` (news), pushes to `master` via `push-with-rebase.sh`, triggers CF deploy hook |
+| R2 Research Archive | `.github/workflows/r2-archive.yml` | Daily 05:30 UTC (`30 5 * * *`) | `schedule` + `workflow_dispatch` | `R2_ENDPOINT_URL`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET` | `contents: read`, `issues: write` | R2 bucket only -- no `data/` write, no push |
+| CEAD Scraper | `.github/workflows/cead-scraper.yml` | Quarterly (`0 3 1 1,4,7,10 *`) | `schedule` + `workflow_dispatch` | `CF_DEPLOY_HOOK_URL` (guarded AFTER the data commit per F-84) | `contents: write`, `issues: write` | `data/` (CEAD + composite/enrichment), pushes to `master` via `push-with-rebase.sh`, triggers CF deploy hook -- **expected to fail with HTTP 403 on Actions IPs; documented in the file's own header comment (CRON-05)** |
+| Pipeline Heartbeat | `.github/workflows/heartbeat.yml` | Daily 12:00 UTC (`0 12 * * *`) | `schedule` + `workflow_dispatch` | none (uses `github.token` only) | `actions: read`, `contents: read`, `issues: write` | nothing -- read-only checks against all three data-cron cadences (news/R2/CEAD, CRON-02). Named residuals (F-89): an R2 run that succeeds while archiving zero items still passes; dedup is per open issue, so closing an alert without fixing the cron reopens a new one the next day -- both intended, not hidden. This workflow's OWN silence is not monitored by anything else in this repo (F-79) -- news staleness has a second, independent instrument (`freshness.mjs`, validator #15); R2 staleness does not. |
+| Deploy on Code Push | `.github/workflows/deploy-on-code.yml` | On push to `master` touching `site/**` | `push` | `CF_DEPLOY_HOOK_URL` (guard stays first-step -- this job has no data collection to protect) | `contents: read` | nothing -- triggers CF deploy hook only |
+| CI | `.github/workflows/ci.yml` | PRs + `workflow_dispatch` | `pull_request` + `workflow_dispatch` | none | `contents: read` (repo default; no per-job override) | nothing |
+
+**CRON-06 claim (F-90, narrowed from an earlier unconditional statement):** every
+workflow that writes to `data/` fetches and rebases before pushing (`push-with-rebase.sh`,
+shared by News Pipeline and CEAD Scraper). This guarantees **no SILENT lost update**: a
+race on DISJOINT paths (the real news-vs-CEAD shape) survives with both commits landing
+on `origin`; a race on the SAME file aborts loudly (`::error::` + exit 1, `origin` left
+exactly as the first writer left it) rather than silently merging or silently discarding
+data -- proven in both directions via real local bare-clone git repos, encoded in
+`pipeline/tests/test_push_race.py`. This is NOT a claim that no data is ever lost under
+any race; a same-file conflict's losing side is intentionally discarded for a human to
+re-trigger, loudly, not silently.
+
+**Clustering audit note (CRON-07):** this audit was originally scoped in ROADMAP.md to run
+"after Phase 28 wires clustering into the news pipeline," on the premise that clustering
+would change the news cron's cost/latency profile. Phase 26 returned NO-GO on clustering
+(fp=11, precision 0.667 against a 100%/zero-false-merge gate) and Phase 28 shipped
+faceting-only -- **no clustering code was ever wired into `news-pipeline.yml`.** The cron's
+shape is unchanged: one `python pipeline/scrape_news.py` invocation, `timeout-minutes: 30`.
+There is no cost/latency change to account for; this note exists so a future reader does
+not infer one from the requirement's original phrasing.
 
 ### Cron Timing Drift
 
