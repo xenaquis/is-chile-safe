@@ -451,7 +451,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 32-01-PLAN.md — Shared bash guard scripts (require-env.sh, check-heartbeat.sh) + two-direction pytest proof
+- [x] 32-01-PLAN.md — Shared bash guard scripts (require-env.sh, check-heartbeat.sh) + two-direction pytest proof
 - [ ] 32-02-PLAN.md — Edit the four secret-consuming workflows: hard secret guards, unified deploy-hook curl, per-pipeline labels, CEAD 403 doc, fetch-rebase-push retry
 - [ ] 32-03-PLAN.md — New heartbeat.yml + per-pipeline label creation + CRON-07 schedule-surface table in DEPLOYMENT.md
 
@@ -489,5 +489,5 @@ Plans:
 | 29. Map UX Design Loop | 0/? | Not started | - |
 | 30. Map Control-Shell Rework | 0/? | Not started | - |
 | 31. Docs & Methodology Refresh | 4/4 | Complete   | 2026-08-03 |
-| 32. Cron Consistency | 0/3 | Planned | - |
+| 32. Cron Consistency | 1/3 | In Progress | - |
 | 33. Security Posture | 0/? | Not started | - |

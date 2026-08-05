@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: Phase 30 closed after an Opus code review (2 HIGH/7 MED/4 LOW), an independent Opus re-review (3 new MEDIUM, all from the fix cycle itself) and two fix cycles; close gate green — vitest 51, 16/16 validators, pytest 344/1/1, phase30-gate 12/12
-last_updated: "2026-08-03T02:48:43.206Z"
-last_activity: "2026-07-30 — Phase 30 closed: the flat scrolling filter row is gone, the news toggle is discoverable at every width, zero map-owned touch-target violations"
+status: verifying
+last_updated: "2026-08-05T00:36:53.511Z"
+last_activity: "2026-08-03 — Phase 31 closed: a factually INVERTED `national_rank` claim was live on production in FIVE places (found across four separate sweeps); all five corrected in both locales and guarded by a shape-based sweep over 117 source files"
 progress:
   total_phases: 14
   completed_phases: 9
-  total_plans: 52
-  completed_plans: 44
+  total_plans: 55
+  completed_plans: 45
   percent: 64
 ---
 
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 32 (Cron Consistency) — next to plan. Phase 31 COMPLETE (4/4 plans, DOCS-01..06, verification PASSED 5/5).
-Plan: —
-Status: Phase 31 closed after an Opus code review (3 CRITICAL / 2 HIGH / 1 MEDIUM), an independent Opus re-review (3 HIGH — every one planted BY fix cycle 1's own guards), two fix cycles, an Opus verification that FAILED on two gaps, inline gap fixes (F-71), and an independent Opus re-verification that PASSED 5/5. Close gate on the rebased tree that shipped: astro check 4 errors / 0 warnings, vitest **59**, **16/16 validators** (`freshness` went green once the cron data arrived in the rebase — F-19 was right again), pytest 344/1/1, forbidden-language 835 pages / 0 terms.
-Last activity: 2026-08-03 — Phase 31 closed: a factually INVERTED `national_rank` claim was live on production in FIVE places (found across four separate sweeps); all five corrected in both locales and guarded by a shape-based sweep over 117 source files
+Phase: 32 (Cron Consistency) — in progress, Wave 1 of 3 complete (32-01, shared-script foundation).
+Plan: 32-01 COMPLETE (require-env.sh, check-heartbeat.sh, push-with-rebase.sh, fetch-lint-tools.sh, lint-workflows.sh, canary fixture, two pytest files). No workflow YAML touched — Wave 2/3 wire these in.
+Status: 32-01 closed. All five scripts shellcheck-clean, byte-identical to the Fable-approved (cycle 1) plan interfaces. Three F-85 mutation proofs re-executed (missing/idempotent .tools/, zero-byte shellcheck.exe, tampered SHA-256) and both F-91 race directions re-executed against real bare-clone git repos, all reproducing documented behavior exactly. Pytest suite measured at 366 passed / 1 skipped / 1 xfailed (344 + 20 + 2), matching the plan's prediction exactly — no adjustment needed.
+Last activity: 2026-08-04 — Phase 32 Plan 01 (Wave 1) executed: shared bash guard scripts + F-85 lint infrastructure + F-91 pytest race proofs, 3 atomic commits, no deviations from plan.
 
 ## Progress Bar
 
@@ -47,7 +47,7 @@ Phase 28 [████████████████████] 100% COM
 Phase 29 [████████████████████] 100% COMPLETE (2/2 — design loop: 2 gated iterations, 29-DESIGN-SPEC.md accepted; Phase 30 unblocked)
 Phase 30 [████████████████████] 100% COMPLETE (6/6 — control shell reworked; c1/c3/c5 baseline FAIL -> PASS; protected Leaflet files byte-identical)
 Phase 31 [████████████████████] 100% COMPLETE (4/4 — Docs & Methodology Refresh; verification PASSED 5/5, DOCS-01..06 complete; 5 inverted national_rank claims corrected + shape-based guard over 117 files)
-Phase 32 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Cron Consistency)
+Phase 32 [██████░░░░░░░░░░░░░░]  33% in progress (1/3 — 32-01 shared-script foundation shipped, no YAML wired yet)
 Phase 33 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Security Posture)
 ```
 
@@ -276,6 +276,7 @@ silently hiding a GO.
 | 5 | `is-santiago-safe.astro:53` (rendered twice: FAQ prose + FAQPage JSON-LD) | Opus verification | every prior pattern required a literal `1 =`; this one defines the direction in words |
 
 **What Phase 32 must know:**
+
 1. **The DOCS-01 guard now matches the SEMANTIC SHAPE, not phrasings** (F-72) — a rank noun + a direction word + a rate word, in both symbolic (`rank 1 = lowest`) and prose (`a rank closer to 1 indicates a lower rate`) forms — and sweeps `.astro`/`.ts`/`.tsx` across **all** of `site/src` (117 files), not `src/pages` (52). It was proven in BOTH directions: fires on all five inverted claims, silent on 13+ legitimate sentences about low-rate communes, which are normal content on five pages here.
 2. **It lives in `figure-registry.mjs`, which is a design smell** (F-73, accepted as debt): sitewide prose guards have nothing to do with the figure registry. Split and rename it when the validator count is next edited for another reason — doing it standalone cascades the hardcoded "16 validators" figure through the directive, STATE.md and `all.mjs` (F-21/F-64).
 3. **Two accepted guard WARNINGs, neither with a live instance, both fail loud:** the pattern matches co-occurrence rather than assertion, so a *negated* correct sentence ("…is NOT a lower reported rate…") would redden the build. The corrected `is-santiago-safe.astro` sentence originally cleared the window by only 3 characters; it was reworded to drop the word "lower" entirely rather than ship a near-miss.
