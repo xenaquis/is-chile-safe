@@ -76,3 +76,11 @@ jobs:
 
       - name: Check SHA-pins (SEC-02, F-114/F-117/F-120)
         run: bash .github/scripts/check-sha-pins.sh
+
+      - name: Guard pipx availability (F-112/A1 fallback, FM-10)
+        run: command -v pipx || { echo "::error::pipx absent on this runner image -- see F-112/A1 fallback in DEPLOYMENT.md (33-03)"; exit 1; }
+
+      - name: Run zizmor (Actions-specific static analysis, F-109/F-112)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pipx run zizmor==1.10.0 --persona=regular .github/workflows/
