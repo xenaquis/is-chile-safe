@@ -33,6 +33,7 @@ import pathlib
 import re
 import socket
 import sys
+import time
 from datetime import datetime, timezone
 
 logging.basicConfig(
@@ -217,6 +218,7 @@ def main() -> int:
         from pipeline.news.store import build_incident, make_id, merge_and_write
         from pipeline.news.schema import VALID_CUTS
         from pipeline.news.resolver import resolve_cut
+        from pipeline.news.fulltext import REQUEST_DELAY
 
         # Load seen-URL ledger (D-03)
         seen = load_seen(path=seen_path)
@@ -227,7 +229,13 @@ def main() -> int:
         fetched_total = 0
         keyword_passed = 0
 
-        for feed_name, feed_url in FEEDS.items():
+        for i, (feed_name, feed_url) in enumerate(FEEDS.items()):
+            if i > 0:
+                # SEC-06/F-108: courtesy delay toward press/RSS hosts (5 of 9
+                # feeds hit news.google.com back-to-back) -- reuses the same
+                # 1.5s constant fulltext.py already applies (archive_r2.py
+                # precedent), never sleeping before the first feed.
+                time.sleep(REQUEST_DELAY)
             try:
                 entries = fetch_feed(feed_name, feed_url)
                 fetched_total += len(entries)

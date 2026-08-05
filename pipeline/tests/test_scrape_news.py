@@ -405,6 +405,74 @@ def test_orchestrator_drops_unresolved_name(tmp_path, monkeypatch):
     assert data["incidents"] == [], "Unresolved commune name must result in 0 incidents"
 
 
+# ---------------------------------------------------------------------------
+# Test: inter-feed courtesy delay (SEC-06, F-108/FM-12)
+# ---------------------------------------------------------------------------
+
+def test_inter_feed_courtesy_delay(tmp_path, monkeypatch):
+    """A 3-entry FEEDS dict must sleep exactly twice, each call with the exact
+    REQUEST_DELAY argument (FM-12: an ordered argument-list assertion, not a
+    bare call_count -- an unrelated future sleep on an un-mocked path, e.g. a
+    tenacity retry, would silently inflate a bare count into an off-by-N
+    flake that still nominally "passes").
+
+    FM-12: pipeline.scrape_news does `import time` (the module object), NOT
+    `from time import sleep` -- so `pipeline.scrape_news.time` IS the global
+    `time` module, the same object, not an isolated namespace. Patching
+    `sn.time.sleep` therefore patches the process-global `time.sleep` for
+    the duration of this test.
+    """
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
+    monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
+
+    three_feeds = {
+        "BioBioChile": "https://www.biobiochile.cl/static/feed-rss",
+        "Cooperativa": "https://www.cooperativa.cl/rss",
+        "LaTercera": "https://www.latercera.com/rss",
+    }
+
+    import pipeline.scrape_news as sn
+    from pipeline.news.fulltext import REQUEST_DELAY
+
+    mock_sleep = MagicMock()
+    monkeypatch.setattr(sn.time, "sleep", mock_sleep)
+
+    with patch("pipeline.news.feeds.FEEDS", three_feeds), \
+         patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
+         patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
+         patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
+         patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
+
+        result = sn.main()
+
+    assert result == 0
+    assert [c.args[0] for c in mock_sleep.call_args_list] == [REQUEST_DELAY] * (len(three_feeds) - 1)
+
+
+def test_inter_feed_courtesy_delay_never_before_first_feed(tmp_path, monkeypatch):
+    """With a single-entry FEEDS dict, time.sleep must never be called
+    (matching the archive_r2.py `if i > 0` precedent -- no delay before the
+    first feed)."""
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
+    monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
+
+    import pipeline.scrape_news as sn
+
+    mock_sleep = MagicMock()
+    monkeypatch.setattr(sn.time, "sleep", mock_sleep)
+
+    with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
+         patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
+         patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
+         patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
+         patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
+
+        result = sn.main()
+
+    assert result == 0
+    assert mock_sleep.call_args_list == []
+
+
 def test_key_check_provider_aware(tmp_path, monkeypatch):
     """With NEWS_PROVIDER=minimax and MINIMAX_API_KEY set, orchestrator does not early-exit."""
     monkeypatch.setenv("NEWS_PROVIDER", "minimax")
