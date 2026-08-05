@@ -6,11 +6,15 @@ tenacity==9.1.4
 python-dotenv==1.2.2
 openpyxl==3.1.5
 pyxlsb==1.0.10
-pandas==2.3.3
-pytest==8.*
-feedparser==6.0.11
-openai==2.34.0
-scipy>=1.13,<2
+pandas==3.0.5
+pytest==9.*
+feedparser==6.0.14
+openai==2.52.0
+scipy>=1.18.0,<2
 boto3
 trafilatura
 rapidfuzz==3.14.5
+# Required by pipeline/tests/test_workflow_order.py. Without it those 6 tests
+# SKIP silently -- the CI runner installs only this file, so the green
+# `Pipeline pytest` job was reporting 389 passed/7 skipped while local ran 395.
+PyYAML==6.0.3
