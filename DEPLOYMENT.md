@@ -305,10 +305,16 @@ phase. **The pinned zizmor version must be re-evaluated at each milestone close*
 to rot the way an un-dependaboted pin otherwise would.
 
 **Local pre-push gate:** run `uvx zizmor@1.10.0 --persona=regular .github/workflows/`
-locally before pushing any workflow change, using the exact same pinned version as CI's
+locally before pushing any workflow change, using the same pinned version as CI's
 `pipx run zizmor==1.10.0` step (Plan 33-02) -- this is in addition to, not a replacement
 for, the existing `bash .github/scripts/lint-workflows.sh` local-gate instruction in the
-Workflow Cadences table above.
+Workflow Cadences table above. **This is NOT "the exact same" gate as CI's, only the same
+version.** Without a `GH_TOKEN`, zizmor silently skips four audits that require the GitHub
+API: `impostor-commit`, `ref-confusion`, `known-vulnerable-actions`, and `stale-action-refs`
+-- three of which (`impostor-commit`, `known-vulnerable-actions`, `stale-action-refs`) are
+precisely the audits that guard the SHA pins this phase introduced. A tokenless local pass
+is a weaker signal than CI's; to run the equivalent set locally, authenticate first:
+`GH_TOKEN="$(gh auth token)" uvx zizmor@1.10.0 --persona=regular .github/workflows/`.
 
 **Zizmor CI Verification (FM-10, BLOCKING):** `ci.yml`'s `lint-workflows` job must be proven
 to actually execute the zizmor step on a real `ubuntu-latest` runner -- a green job with the
