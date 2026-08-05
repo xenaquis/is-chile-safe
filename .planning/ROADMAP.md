@@ -113,7 +113,7 @@ Full phase details for 18/21/22/23/24/25 remain below in this file's Phase Detai
 - [ ] **Phase 29: Map UX Design Loop** — iterative BrowserOS + Fable redesign of the map control shell, human acceptance gate
 - [ ] **Phase 30: Map Control-Shell Rework** — implement the accepted design; Leaflet layer code untouched
 - [x] **Phase 31: Docs & Methodology Refresh** — methodology/sources/attribution brought current with everything shipped since v1.3 plus this milestone (completed 2026-08-03)
-- [ ] **Phase 32: Cron Consistency** — reconcile the whole schedule surface (secrets, retries, labels, freshness, race conditions)
+- [x] **Phase 32: Cron Consistency** — reconcile the whole schedule surface (secrets, retries, labels, freshness, race conditions) (completed 2026-08-05)
 - [ ] **Phase 33: Security Posture** — secrets hygiene, Actions permissions, SHA-pinning, dependabot, scraping courtesy
 
 ---
@@ -451,9 +451,10 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
+
 - [x] 32-01-PLAN.md — Shared bash guard scripts (require-env.sh, check-heartbeat.sh) + two-direction pytest proof
 - [x] 32-02-PLAN.md — Edit the four secret-consuming workflows: hard secret guards, unified deploy-hook curl, per-pipeline labels, CEAD 403 doc, fetch-rebase-push retry
-- [ ] 32-03-PLAN.md — New heartbeat.yml + per-pipeline label creation + CRON-07 schedule-surface table in DEPLOYMENT.md
+- [x] 32-03-PLAN.md — New heartbeat.yml + per-pipeline label creation + CRON-07 schedule-surface table in DEPLOYMENT.md
 
 ### Phase 33: Security Posture
 
@@ -489,5 +490,5 @@ Plans:
 | 29. Map UX Design Loop | 0/? | Not started | - |
 | 30. Map Control-Shell Rework | 0/? | Not started | - |
 | 31. Docs & Methodology Refresh | 4/4 | Complete   | 2026-08-03 |
-| 32. Cron Consistency | 2/3 | In Progress | - |
+| 32. Cron Consistency | 3/3 | Complete   | 2026-08-05 |
 | 33. Security Posture | 0/? | Not started | - |

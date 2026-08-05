@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: 32-02 closed (Wave 2). All four secret-consuming workflows rewritten: CF_DEPLOY_HOOK_URL guard moved post-commit in news-pipeline.yml/cead-scraper.yml (F-84), per-pipeline alert labels created and wired (pipeline-failure-news/cead/r2), gh label create hoisted into its own continue-on-error step (F-87), CRON-03 byte-identity gate proven red-then-green by a live mutation. lint-workflows.sh exit 0, pytest 366/1/1 unchanged, all four labels live in repo.
-last_updated: "2026-08-04T00:00:00.000Z"
-last_activity: "2026-08-04 — Phase 32 Plan 02 (Wave 2) executed: rewrote news-pipeline.yml, cead-scraper.yml, r2-archive.yml, deploy-on-code.yml + created 3 per-pipeline labels, 2 atomic commits, no deviations from plan."
+status: "32-03 closed. heartbeat.yml lint-clean (actionlint+shellcheck), actions:read present, all three cadences independently checked. Directory-iteration gate proves all six workflow files present in DEPLOYMENT.md table. Full phase-close gate green: 16/16 validators, vitest 59/59, pytest 366/1/1, lint-workflows.sh zero findings across six workflows, astro check 4/0. Phase 32 (Cron Consistency) now fully closed."
+last_updated: "2026-08-05T00:52:21.025Z"
+last_activity: "2026-08-04 — Phase 32 Plan 03 (Wave 3, final) executed: heartbeat.yml + label + DEPLOYMENT.md cadence table, 2 atomic commits, no deviations from plan."
 progress:
   total_phases: 14
-  completed_phases: 9
+  completed_phases: 10
   total_plans: 55
-  completed_plans: 46
-  percent: 64
+  completed_plans: 47
+  percent: 71
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 32 (Cron Consistency) — in progress, Wave 2 of 3 complete (32-02, workflow rewrite + labels).
-Plan: 32-02 COMPLETE (news-pipeline.yml, cead-scraper.yml, r2-archive.yml, deploy-on-code.yml rewritten; pipeline-failure-news/cead/r2 labels created). heartbeat.yml + pipeline-failure-heartbeat label are Wave 3.
-Status: 32-02 closed. lint-workflows.sh exit 0 across all five real workflow files. CRON-03 byte-identity gate (1 across all three deploy-hook curls) proven capable of going red by an executed mutation (--retry 3 -> 5, restored). pytest re-measured at 366 passed / 1 skipped / 1 xfailed, unchanged (no new tests this wave). gh label list confirms all four pipeline-failure-* labels plus the generic one; issue #2 relabeled pipeline-failure-cead.
-Last activity: 2026-08-04 — Phase 32 Plan 02 (Wave 2) executed: rewrote all four secret-consuming workflows + created 3 per-pipeline labels, 2 atomic commits, no deviations from plan.
+Phase: 32 (Cron Consistency) — COMPLETE, all 3 waves done (32-01, 32-02, 32-03).
+Plan: 32-03 COMPLETE (heartbeat.yml created watching news/r2/cead cadences; pipeline-failure-heartbeat label created; DEPLOYMENT.md cadence table replaced with six-row audit).
+Status: 32-03 closed. heartbeat.yml lint-clean (actionlint+shellcheck), actions:read present, all three cadences independently checked. Directory-iteration gate proves all six workflow files present in DEPLOYMENT.md table. Full phase-close gate green: 16/16 validators, vitest 59/59, pytest 366/1/1, lint-workflows.sh zero findings across six workflows, astro check 4/0. Phase 32 (Cron Consistency) now fully closed.
+Last activity: 2026-08-04 — Phase 32 Plan 03 (Wave 3, final) executed: heartbeat.yml + label + DEPLOYMENT.md cadence table, 2 atomic commits, no deviations from plan.
 
 ## Progress Bar
 
