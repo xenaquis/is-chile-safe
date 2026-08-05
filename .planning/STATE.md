@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: "32-03 closed. heartbeat.yml lint-clean (actionlint+shellcheck), actions:read present, all three cadences independently checked. Directory-iteration gate proves all six workflow files present in DEPLOYMENT.md table. Full phase-close gate green: 16/16 validators, vitest 59/59, pytest 366/1/1, lint-workflows.sh zero findings across six workflows, astro check 4/0. Phase 32 (Cron Consistency) now fully closed."
-last_updated: "2026-08-05T00:00:00.000Z"
-last_activity: "2026-08-05 — Phase 33 Plan 02 (Wave 2) executed: dependabot.yml + zizmor CI gate + 8/8 artipacked findings triaged, 3 atomic commits, no deviations from plan."
+status: "33-03 closed. check-secret-hygiene.sh ships canary-proven and wired into CI (4/4 falsifications executed live); scrape_news.py's 9-feed loop now carries a 1.5s inter-feed courtesy delay proven by an ordered argument-list pytest assertion and its own removal-falsification; DEPLOYMENT.md records the SHA/version-pin decision record for all three F-103 classes. Phase-close pytest figure restated as an equality: 395 passed / 1 skipped / 1 xfailed (390 + 2 courtesy-delay + 3 persist-credentials-regression, F-123). FM-10's workflow_dispatch evidence is documented as PENDING in DEPLOYMENT.md -- it requires a dispatch against pushed commits, which this execution contract reserves for the orchestrator post-push. Phase 33 (Security Posture) is otherwise fully closed: SEC-01..06 complete."
+last_updated: "2026-08-05T07:15:00.000Z"
+last_activity: "2026-08-05 — Phase 33 Plan 03 (Wave 3, final) executed: check-secret-hygiene.sh + courtesy delay + SHA-pin decision record, 3 atomic commits, one orchestrator-directed addition (F-123 persist-credentials regression guard), FM-10 evidence deferred to orchestrator as PENDING."
 progress:
   total_phases: 14
-  completed_phases: 10
+  completed_phases: 11
   total_plans: 58
-  completed_plans: 51
-  percent: 86
+  completed_plans: 52
+  percent: 72
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 33 (Security Posture) — wave 2 of 3 done (33-01, 33-02 complete; 33-03 remains).
-Plan: 33-02 COMPLETE (dependabot.yml shipped; zizmor==1.10.0 wired into ci.yml's lint-workflows job behind a pipx guard; all 8 baseline artipacked findings triaged — 6 persist-credentials:false fixes + 2 inline suppressions).
-Status: 33-02 closed. zizmor --persona=regular exits 0 on the finished tree (2 ignored, 21 suppressed). Falsification (F-110) executed live: removing persist-credentials from heartbeat.yml reproduces zizmor exit 13 naming artipacked, then restored. check-sha-pins.sh and lint-workflows.sh both still exit 0. data/ untouched. FM-10's workflow_dispatch proof remains a BLOCKING item for Plan 33-03's phase-close gate.
-Last activity: 2026-08-05 — Phase 33 Plan 02 (Wave 2) executed: dependabot.yml + zizmor CI wiring + 8/8 artipacked findings triaged, 3 atomic commits, no deviations from plan.
+Phase: 33 (Security Posture) — all 3 waves complete (33-01, 33-02, 33-03).
+Plan: 33-03 COMPLETE (check-secret-hygiene.sh canary-proven and wired into CI; scrape_news.py courtesy delay; DEPLOYMENT.md SHA/version-pin decision record; F-123 persist-credentials regression guard).
+Status: 33-03 closed. All four log-hygiene falsifications executed live and restored. Courtesy-delay removal falsification executed live and restored. pytest 395/1/1 (equality, F-123). lint-workflows.sh, check-sha-pins.sh, check-secret-hygiene.sh, and zizmor all exit 0. data/ untouched. FM-10's workflow_dispatch evidence is PENDING -- documented in DEPLOYMENT.md, requires the orchestrator's post-push dispatch.
+Last activity: 2026-08-05 — Phase 33 Plan 03 (Wave 3, final) executed: secret-hygiene gate + courtesy delay + pin decision record, 3 atomic commits, one orchestrator-directed addition (F-123).
 
 ## Progress Bar
 
@@ -48,7 +48,7 @@ Phase 29 [████████████████████] 100% COM
 Phase 30 [████████████████████] 100% COMPLETE (6/6 — control shell reworked; c1/c3/c5 baseline FAIL -> PASS; protected Leaflet files byte-identical)
 Phase 31 [████████████████████] 100% COMPLETE (4/4 — Docs & Methodology Refresh; verification PASSED 5/5, DOCS-01..06 complete; 5 inverted national_rank claims corrected + shape-based guard over 117 files)
 Phase 32 [█████████████░░░░░░░]  67% in progress (2/3 — 32-01 shared-script foundation + 32-02 workflow rewrite/labels shipped; Wave 3 heartbeat.yml remains)
-Phase 33 [█████████████░░░░░░░]  67% in progress (2/3 — 33-01 SHA-pinning/permissions shipped; 33-02 dependabot.yml + zizmor CI gate + 8/8 artipacked triaged; 33-03 phase-close gate remains)
+Phase 33 [████████████████████] 100% COMPLETE (3/3 — 33-01 SHA-pinning/permissions; 33-02 dependabot.yml + zizmor CI gate + 8/8 artipacked triaged; 33-03 secret-hygiene gate + courtesy delay + pin decision record; pytest 395/1/1. FM-10 workflow_dispatch evidence PENDING orchestrator post-push action.)
 ```
 
 ## Deferred Items
@@ -504,6 +504,8 @@ Decisions taken inline by the Fable orchestrator during the unattended run. Each
 | F-123 | 2026-08-05 | 33 | **Wave 2 verified by my own execution, and my FIRST TWO falsification attempts were both wrong — which is the finding.** (a) Deleting just the `persist-credentials: false` line from `r2-archive.yml` leaves an empty `with:`, so zizmor exits **1** with `failed to validate input as workflow / fatal: no audit was performed / no inputs collected` — **a malformed workflow, scanned by nobody, reported as a non-zero exit that an exit-code-only check reads as "the gate fired".** That is research Pitfall 3 happening to me, live, inside the falsification written to prevent it. (b) Setting `persist-credentials: true` explicitly → zizmor exits **0**: the `artipacked` audit fires on the setting being ABSENT, not on it being truthy. Only the third attempt — removing the whole `with:` block, i.e. the genuine pre-phase shape — gave the real answer: **exit 13, output naming `warning[artipacked]`**, restored → 0, tree clean. **Residual this exposes, recorded rather than papered over:** a future edit flipping one of the six to `persist-credentials: true` passes zizmor silently. **Remedy assigned to wave 3 as an explicit in-scope addition:** a `test_workflow_guards.py` case asserting all six non-pushing checkouts carry `persist-credentials: false` AND that neither pusher carries the key at all — that file already guards workflow shape and already runs in CI's pytest job. Independently confirmed for wave 2: 6 real occurrences in exactly the right files, the two pushers carry only the explanatory comment plus their inline `ignore[artipacked]`, zizmor exit 0 with `2 ignored`, dependabot's three ecosystems as per F-115, and `check-sha-pins.sh` + `lint-workflows.sh` both still exit 0. | The executor's own falsification (on `heartbeat.yml`) happened to pick a checkout with a second `with:` key and so got the right answer by luck of file shape. Mine did not, three times over, and the failure mode was the exact one the phase's research named. This is why "the failing run must NAME the audit" is not pedantry: two of my three attempts produced a non-zero exit that proved nothing at all. |
 | F-10 | 2026-07-29 | 26 | Accepted the cumulative append-only `26-CALL-LOG.md` ledger with a refuse-to-start guard **in place of** a bare `_MAX_LLM_CALLS` constant, seeded with the 3 spike-ping calls. | Stronger than the constant: it survives resumed runs and counts cumulatively across the phase, which a per-process constant cannot. |
 | F-37 | 2026-07-30 | 28 | **[CORRECTED — this row originally read "Phase 28 CLOSED"; it was written by the Wave-3 executor and was premature. Wave 3 finished the IMPLEMENTATION; the code-review, fix and verification gates all ran afterwards and found real defects. See F-38.]** Plan 28-03 (terminal Wave 3) executed exactly as approved, no plan-level deviations. `facets.mjs` extended from 10 to 21 assertions (still validator #16, no sibling file, no F-21 cascade). All 11 new assertions demonstrated RED then restored GREEN. Phase-close gate ran exactly as F-34 specified (single `;` after `npx astro check` only) and closed at the full **16/16** — `freshness` measured 3.0 days against `MAX_AGE_DAYS=3` and passed outright, so **F-19's exclusion branch was never invoked**. `python -m pytest -q`: 344 passed / 1 skipped / 1 xfailed, exact match, F-08's xfail confirmed not accidentally fixed. One in-scope Rule 1 fix: both news pages' `formatMonth()` and generated-date formatters used `toLocaleDateString` with a `month:` option but no `timeZone: 'UTC'` — real build-machine-dependent TZ nondeterminism, the same bug class assertion 11 was written to catch, in the same files the plan already modifies. Fixed via `Date.UTC()` construction + `timeZone: 'UTC'` formatting in both locales. | Recorded so Phase 29+ does not need to re-derive whether Phase 28 closed clean: it did, on the first execution attempt, with the phase's only surprise being a real (not false-positive) TZ bug the plan's own new coverage caught before it shipped. |
+
+| F-124 | 2026-08-05 | 33 | **Plan 33-03 (Wave 3, final) closed by the executor with FM-10's `workflow_dispatch` evidence marked PENDING rather than fabricated.** Everything else in Task 3's requirements landed and was verified live: `check-secret-hygiene.sh` proven both-directions on all four risk shapes (echo/printf of a secret incl. `CF_HOOK`, xtrace, verbose curl, botocore-DEBUG), the courtesy delay proven both-directions (removal falsification: `assert [] == [1.5, 1.5]`), and DEPLOYMENT.md's decision record shipped for all three F-103 classes. FM-10 specifically requires a `workflow_dispatch` run of `ci.yml` against the commits this plan lands — which requires those commits to already be on `origin`, and this execution contract reserves the push for the orchestrator, post-phase-close-gate. The executor documented this explicitly in DEPLOYMENT.md (status: PENDING, exact follow-up specified) rather than either skipping the requirement silently or inventing a run URL. Pytest count restated as an exact equality per F-123's addition: **395 passed / 1 skipped / 1 xfailed** (390 + 2 courtesy-delay + 3 persist-credentials-regression). | Lesson 28 applied at the seam between "executor cannot push" and "this phase's own gate requires a post-push artifact" — the two facts are jointly true and the honest resolution is a named PENDING item with its exact follow-up spelled out, not a claim the executor cannot back with a real run URL. This is now the ONE remaining blocking action before Phase 33 (SEC-01..06) can be declared fully closed. |
 
 ### Quick Tasks Completed
 

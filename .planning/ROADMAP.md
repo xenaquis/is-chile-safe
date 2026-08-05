@@ -114,7 +114,7 @@ Full phase details for 18/21/22/23/24/25 remain below in this file's Phase Detai
 - [ ] **Phase 30: Map Control-Shell Rework** — implement the accepted design; Leaflet layer code untouched
 - [x] **Phase 31: Docs & Methodology Refresh** — methodology/sources/attribution brought current with everything shipped since v1.3 plus this milestone (completed 2026-08-03)
 - [x] **Phase 32: Cron Consistency** — reconcile the whole schedule surface (secrets, retries, labels, freshness, race conditions) (completed 2026-08-05)
-- [ ] **Phase 33: Security Posture** — secrets hygiene, Actions permissions, SHA-pinning, dependabot, scraping courtesy
+- [x] **Phase 33: Security Posture** — secrets hygiene, Actions permissions, SHA-pinning, dependabot, scraping courtesy
 
 ---
 
@@ -474,9 +474,9 @@ Plans:
 
 Plans:
 
-- [ ] 33-01-PLAN.md — Job-level permissions (5 jobs) + SHA-pin all 13 uses: refs + check-sha-pins.sh gate (SEC-01, SEC-02)
+- [x] 33-01-PLAN.md — Job-level permissions (5 jobs) + SHA-pin all 13 uses: refs + check-sha-pins.sh gate (SEC-01, SEC-02)
 - [x] 33-02-PLAN.md — dependabot.yml (3 ecosystems) + zizmor in CI + persist-credentials: false triage (SEC-03, SEC-04)
-- [ ] 33-03-PLAN.md — check-secret-hygiene.sh + scrape_news.py courtesy delay + pin decision record + DEPLOYMENT.md (SEC-02, SEC-05, SEC-06)
+- [x] 33-03-PLAN.md — check-secret-hygiene.sh + scrape_news.py courtesy delay + pin decision record + DEPLOYMENT.md (SEC-02, SEC-05, SEC-06)
 
 ---
 
@@ -497,4 +497,4 @@ Plans:
 | 30. Map Control-Shell Rework | 0/? | Not started | - |
 | 31. Docs & Methodology Refresh | 4/4 | Complete   | 2026-08-03 |
 | 32. Cron Consistency | 3/3 | Complete   | 2026-08-05 |
-| 33. Security Posture | 1/3 | In Progress|  |
+| 33. Security Posture | 3/3 | Complete   | 2026-08-05 |
