@@ -18,10 +18,9 @@ import shutil
 import subprocess
 from pathlib import Path
 
-import pytest
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS_DIR = REPO_ROOT / ".github" / "scripts"
+WORKFLOWS_DIR = REPO_ROOT / ".github" / "workflows"
 REQUIRE_ENV = SCRIPTS_DIR / "require-env.sh"
 CHECK_HEARTBEAT = SCRIPTS_DIR / "check-heartbeat.sh"
 
@@ -141,7 +140,7 @@ class TestRequireEnv:
         )
         assert result.returncode == 0
 
-    def test_never_prints_secret_value(self):
+    def test_never_prints_secret_value_on_success(self):
         secret_value = "sk-super-secret-token-xyz-123"
         result = run_script(
             REQUIRE_ENV, ["MY_SECRET"], env_overrides={"MY_SECRET": secret_value}
@@ -152,6 +151,28 @@ class TestRequireEnv:
         assert "All required secrets present: MY_SECRET" in result.stdout
         assert secret_value not in result.stdout
         assert secret_value not in result.stderr
+
+    def test_never_prints_secret_value_on_failure_path(self):
+        """L-06: the original test only covered the success path -- the ONE
+        mutation of nine that survived the phase's mutation-testing sweep was
+        `echo "${!v}"` added to require-env.sh's ERROR branch, which this
+        test would have caught. A second, non-blank secret alongside the
+        blank one under test proves the error branch (which iterates ALL
+        named vars) does not leak a present secret's value while reporting
+        the missing one."""
+        present_secret_value = "sk-still-should-never-appear-456"
+        result = run_script(
+            REQUIRE_ENV,
+            ["MY_SECRET", "OTHER_SECRET"],
+            env_overrides={"MY_SECRET": "", "OTHER_SECRET": present_secret_value},
+        )
+        # Non-vacuous per F-86: assert the failure line IS present (the
+        # script genuinely ran the error branch) AND the present secret's
+        # value is absent from output.
+        assert result.returncode == 1
+        assert "::error::MY_SECRET is not set" in result.stdout
+        assert present_secret_value not in result.stdout
+        assert present_secret_value not in result.stderr
 
     def test_cf_hook_blank_fails(self):
         """F-84: the guard must be wired to the variable the run: step
@@ -182,26 +203,92 @@ class TestCheckHeartbeatR2:
         assert result.returncode == 1
         assert "::error::r2 heartbeat" in result.stdout
 
+    def test_boundary_exactly_at_threshold_passes(self):
+        ts = _iso_days_ago(4)
+        result = run_script(CHECK_HEARTBEAT, ["r2", "4", ts])
+        assert result.returncode == 0
+        assert "r2 heartbeat OK" in result.stdout
+
+    def test_seconds_precision_fails_just_past_threshold(self):
+        """F-96: thresholds compare epoch SECONDS against max_days*86400, not
+        truncated integer days -- integer-day division previously made a
+        "4-day" threshold only fire after 4d23h59m. 4 days + 1 hour past must
+        now fail (it would incorrectly PASS under the old integer-division
+        form, since (now-ts)/86400 truncates to 4)."""
+        ts = _iso_days_ago(4 + 1 / 24)
+        result = run_script(CHECK_HEARTBEAT, ["r2", "4", ts])
+        assert result.returncode == 1
+        assert "::error::r2 heartbeat" in result.stdout
+
 
 class TestCheckHeartbeatCead:
-    def test_passes_within_threshold(self):
-        # The measured real gap: 104 days, threshold 150.
-        ts = _iso_days_ago(104)
-        result = run_script(CHECK_HEARTBEAT, ["cead", "150", ts])
+    """F-93: quarter-boundary based, not a flat day threshold. New interface:
+    `check-heartbeat.sh cead <evidence_ts> [as_of_ts]` -- no max_age_days
+    argument. The as-of date is ALWAYS injected explicitly in this test class;
+    the live-clock default path is exercised only by the real workflow, never
+    by tests, per F-93's requirement that the test path never depend on a
+    live `date` call."""
+
+    def test_one_boundary_elapsed_passes(self):
+        # F-93 case 1: evidence 2026-06-19, as-of 2026-09-30 -> 1 boundary
+        # (Jul 1) -> exit 0 (a maintainer running late is normal).
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["cead", "2026-06-19T00:00:00Z", "2026-09-30T00:00:00Z"],
+        )
         assert result.returncode == 0
         assert "cead heartbeat OK" in result.stdout
+        assert "1 quarterly due date" in result.stdout
 
-    def test_fails_beyond_threshold(self):
-        ts = _iso_days_ago(151)
-        result = run_script(CHECK_HEARTBEAT, ["cead", "150", ts])
+    def test_two_boundaries_elapsed_fails(self):
+        # F-93 case 2: evidence 2026-06-19, as-of 2026-10-02 -> 2 boundaries
+        # (Jul 1, Oct 1) -> exit 1 (a whole quarter was genuinely skipped).
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["cead", "2026-06-19T00:00:00Z", "2026-10-02T00:00:00Z"],
+        )
         assert result.returncode == 1
         assert "::error::cead heartbeat" in result.stdout
+        assert "2 quarterly due dates" in result.stdout
 
-    def test_boundary_exactly_at_threshold_passes(self):
-        ts = _iso_days_ago(150)
-        result = run_script(CHECK_HEARTBEAT, ["cead", "150", ts])
+    def test_recent_evidence_one_boundary_passes(self):
+        # F-93 case 3: evidence 2026-09-15, as-of 2026-10-02 -> 1 boundary
+        # (Oct 1) -> exit 0.
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["cead", "2026-09-15T00:00:00Z", "2026-10-02T00:00:00Z"],
+        )
         assert result.returncode == 0
         assert "cead heartbeat OK" in result.stdout
+
+    def test_old_evidence_four_boundaries_fails(self):
+        # F-93 case 4: evidence 2025-12-31, as-of 2026-10-02 -> 4 boundaries
+        # (Jan 1, Apr 1, Jul 1, Oct 1 2026) -> exit 1.
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["cead", "2025-12-31T00:00:00Z", "2026-10-02T00:00:00Z"],
+        )
+        assert result.returncode == 1
+        assert "::error::cead heartbeat" in result.stdout
+        assert "4 quarterly due dates" in result.stdout
+
+    def test_evidence_exactly_at_boundary_counts_as_elapsed(self):
+        # Evidence timestamped exactly ON a boundary must NOT count that same
+        # boundary (the comparison is `b_epoch > ts_epoch`, strictly after).
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["cead", "2026-07-01T00:00:00Z", "2026-07-01T00:00:00Z"],
+        )
+        assert result.returncode == 0
+        assert "0 quarterly due date" in result.stdout
+
+    def test_zero_boundaries_elapsed_passes(self):
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["cead", "2026-08-01T00:00:00Z", "2026-08-15T00:00:00Z"],
+        )
+        assert result.returncode == 0
+        assert "0 quarterly due date" in result.stdout
 
 
 class TestCheckHeartbeatNews:
@@ -222,6 +309,15 @@ class TestCheckHeartbeatNews:
         result = run_script(CHECK_HEARTBEAT, ["news", "3", ts])
         assert result.returncode == 0
         assert "news heartbeat OK" in result.stdout
+
+    def test_seconds_precision_fails_just_past_threshold(self):
+        """F-96: a "3-day" threshold now fires precisely past 3 days, not
+        only past 3d23h59m. 3 days + 1 hour must fail (it would incorrectly
+        PASS under the old integer-division form)."""
+        ts = _iso_days_ago(3 + 1 / 24)
+        result = run_script(CHECK_HEARTBEAT, ["news", "3", ts])
+        assert result.returncode == 1
+        assert "::error::news heartbeat" in result.stdout
 
 
 class TestCheckHeartbeatCommon:
@@ -244,3 +340,98 @@ class TestCheckHeartbeatCommon:
         result = run_script(CHECK_HEARTBEAT, ["news", "3"])
         assert result.returncode == 2
         assert "Usage:" in result.stderr
+
+
+def _iter_workflow_files():
+    return sorted(WORKFLOWS_DIR.glob("*.yml")) + sorted(WORKFLOWS_DIR.glob("*.yaml"))
+
+
+def _python_run_steps_missing_setup(text: str):
+    """H-02 class-level guard (review's own remedy): for a workflow file's raw
+    text, return the list of `run: python ...` step lines that are not
+    preceded (within the same job) by both an `actions/setup-python` step and
+    a `pip install -r` step. Deliberately NOT a full YAML parse -- this repo's
+    workflows use a consistent 6-space step indentation and 2-space job-name
+    indentation, and a lightweight line scan is enough to catch the exact
+    regression class H-02 found (a python step with no interpreter/deps
+    earlier in its job) without adding a YAML dependency to pipeline/tests
+    that pipeline/requirements.txt does not otherwise need.
+    """
+    missing = []
+    seen_setup_python = False
+    seen_pip_install = False
+    for raw_line in text.splitlines():
+        # A job-name line ("  <name>:") resets what "earlier in this job" means.
+        if (
+            raw_line.startswith("  ")
+            and not raw_line.startswith("   ")
+            and raw_line.rstrip().endswith(":")
+            and "jobs:" not in raw_line
+        ):
+            seen_setup_python = False
+            seen_pip_install = False
+            continue
+        stripped = raw_line.strip()
+        if stripped.startswith("- uses: actions/setup-python"):
+            seen_setup_python = True
+            continue
+        if stripped.startswith("run: pip install -r") or stripped == "run: pip install -r":
+            seen_pip_install = True
+            continue
+        if "pip install -r" in stripped:
+            seen_pip_install = True
+            continue
+        if stripped.startswith("run: python "):
+            if not (seen_setup_python and seen_pip_install):
+                missing.append(raw_line)
+    return missing
+
+
+class TestWorkflowPythonStepsHaveSetup:
+    """H-02: the wave-2 rewrite of cead-scraper.yml deleted its
+    actions/setup-python + pip install pair while keeping the `python ...`
+    run steps, which turned the expected CRON-05 HTTP 403 into a
+    ModuleNotFoundError. This is a class-level guard so the same regression
+    shape in ANY workflow file fails the pytest suite, not just a one-off
+    restore of the single file found by the review."""
+
+    def test_every_workflow_python_step_has_setup_python_and_pip_install(self):
+        offenders = {}
+        for wf in _iter_workflow_files():
+            missing = _python_run_steps_missing_setup(wf.read_text(encoding="utf-8"))
+            if missing:
+                offenders[wf.name] = missing
+        assert not offenders, (
+            "workflow(s) with a `run: python ...` step not preceded by both "
+            f"actions/setup-python and pip install -r in the same job: {offenders}"
+        )
+
+    def test_guard_is_non_vacuous_against_a_synthetic_regression(self):
+        """Mutate a copy of a real workflow to reproduce H-02's exact shape
+        (delete the setup-python + pip install steps, keep the python run
+        step) and confirm the guard function detects it -- proving the
+        assertion above is load-bearing, not vacuously true because no
+        workflow happens to declare a `run: python` step."""
+        real_text = (WORKFLOWS_DIR / "cead-scraper.yml").read_text(encoding="utf-8")
+        assert not _python_run_steps_missing_setup(real_text), (
+            "sanity check: the real file must currently be clean before mutating it"
+        )
+        mutated_lines = []
+        skip_next_pip_block = False
+        for line in real_text.splitlines():
+            if "uses: actions/setup-python@v7" in line:
+                skip_next_pip_block = True
+                continue
+            if skip_next_pip_block and (
+                "python-version:" in line
+                or line.strip() == ""
+                or "Install pipeline deps" in line
+                or "run: pip install -r" in line
+            ):
+                if "run: pip install -r" in line:
+                    skip_next_pip_block = False
+                continue
+            mutated_lines.append(line)
+        mutated_text = "\n".join(mutated_lines)
+        missing = _python_run_steps_missing_setup(mutated_text)
+        assert missing, "mutation removed setup-python/pip install but the guard found nothing — vacuous test"
