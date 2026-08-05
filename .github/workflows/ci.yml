@@ -73,3 +73,6 @@ jobs:
       # in DEPLOYMENT.md).
       - name: Lint workflows (armed instrument, F-85/H-03)
         run: bash .github/scripts/lint-workflows.sh
+
+      - name: Check SHA-pins (SEC-02, F-114/F-117/F-120)
+        run: bash .github/scripts/check-sha-pins.sh
