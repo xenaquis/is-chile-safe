@@ -20,19 +20,25 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # CRON-01 (F-76): all four R2 credentials are required. Unlike news-pipeline/
-      # cead-scraper, F-84 does not apply here -- this job has no separate
-      # "collect vs publish" split to protect; the archive step IS the only step.
-      # Today an empty credential reaches boto3 and raises a generic exception deep
-      # inside pipeline/archive_r2.py (RESEARCH.md) -- that already alerts, but with
-      # no named cause. Fail loudly, first, with the variable name.
+      # CRON-01 (F-76), amended F-94/M-05: only the three credentials
+      # pipeline/archive_r2.py:458 actually declares as required_vars are guarded.
+      # R2_BUCKET is NOT one of them -- archive_r2.py:475 defaults it to
+      # "ischilesafe" deliberately (an `or` fallback, because GitHub Actions injects
+      # unset secrets as empty strings, so a plain .get() default never kicks in).
+      # There is also no R2_BUCKET secret/variable in this repo (verified via
+      # `gh secret list` / `gh variable list`) -- guarding it here would make an
+      # optional, defaulted value a hard outage on a correct tree (H-01).
+      # Corrected baseline (M-05): missing/blank required vars in archive_r2.py do
+      # NOT raise -- they log a warning and `return 0` (a clean, silent no-op, see
+      # archive_r2.py:458-467). This guard's real value is converting that silent
+      # no-op into a loud, named failure -- not "adding a name to an exception that
+      # already alerted," which was the incorrect original claim.
       - name: Guard required secrets
         env:
           R2_ENDPOINT_URL: ${{ secrets.R2_ENDPOINT_URL }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          R2_BUCKET: ${{ secrets.R2_BUCKET }}
-        run: bash .github/scripts/require-env.sh R2_ENDPOINT_URL R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY R2_BUCKET
+        run: bash .github/scripts/require-env.sh R2_ENDPOINT_URL R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY
 
       - uses: actions/setup-python@v7
         with:
@@ -46,16 +52,23 @@ jobs:
           R2_ENDPOINT_URL: ${{ secrets.R2_ENDPOINT_URL }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          R2_BUCKET: ${{ secrets.R2_BUCKET }}
           ARCHIVE_MAX_FETCH: '100'
         run: python pipeline/archive_r2.py
 
+      # M-02: also (re)create the SHARED `pipeline-failure` label here, not only the
+      # per-pipeline one. `gh issue create` below passes both labels and fails
+      # outright if either does not exist -- if `pipeline-failure` is ever deleted or
+      # renamed, every pipeline's first alert issue creation would fail and the
+      # alert about the original failure would be lost (the exact unrecoverable mode
+      # this label-creation step exists to prevent).
       - name: Ensure alert label exists
         if: failure()
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh label create pipeline-failure-r2 --color e11d48 --description "R2 Archive failure alert" --force
+        run: |
+          gh label create pipeline-failure-r2 --color e11d48 --description "R2 Archive failure alert" --force
+          gh label create pipeline-failure --color e11d48 --description "Shared pipeline failure alert" --force
 
       - name: Alert via GitHub Issue on failure
         if: failure()

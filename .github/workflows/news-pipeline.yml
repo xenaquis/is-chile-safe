@@ -33,16 +33,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      # CRON-01 (F-76, amended F-84): only the secrets the SCRAPE itself needs are
-      # guarded here. CF_DEPLOY_HOOK_URL is guarded separately, AFTER the commit step
-      # below -- putting it here would mean a rotated deploy hook kills the scrape
-      # four times a day and RSS items age out of their feeds permanently, not just
-      # the publish step.
+      # CRON-01 (F-76, amended F-84, F-94/M-01): only the secrets the SCRAPE itself
+      # needs are guarded here. CF_DEPLOY_HOOK_URL is guarded separately, AFTER the
+      # commit step below -- putting it here would mean a rotated deploy hook kills
+      # the scrape four times a day and RSS items age out of their feeds
+      # permanently, not just the publish step.
+      #
+      # DEEPSEEK_API_KEY is intentionally NOT guarded (M-01): scrape_news.py selects
+      # its API key by provider, defaulting to `openrouter` -> OPENROUTER_API_KEY
+      # (see the Granite-default-classifier project memory). DEEPSEEK_API_KEY is
+      # consumed only when NEWS_PROVIDER=deepseek, which nothing sets today. A hard
+      # guard on it would make a dead secret load-bearing -- the day someone tidies
+      # up the unused key, the 6-hourly cron hard-fails for a key no code path
+      # reads. It stays in the scrape step's `env:` below so the alternative
+      # provider still works if ever selected.
       - name: Guard required secrets
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-        run: bash .github/scripts/require-env.sh OPENROUTER_API_KEY DEEPSEEK_API_KEY
+        run: bash .github/scripts/require-env.sh OPENROUTER_API_KEY
 
       - uses: actions/setup-python@v7
         with:
@@ -99,7 +107,9 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh label create pipeline-failure-news --color e11d48 --description "News Pipeline failure alert" --force
+        run: |
+          gh label create pipeline-failure-news --color e11d48 --description "News Pipeline failure alert" --force
+          gh label create pipeline-failure --color e11d48 --description "Shared pipeline failure alert" --force
 
       - name: Alert via GitHub Issue on failure
         if: failure()

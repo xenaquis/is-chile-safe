@@ -56,11 +56,11 @@ jobs:
           LAST_RUN=$(gh run list --workflow=r2-archive.yml --status success --json createdAt,conclusion --jq '.[0].createdAt // empty' --limit 1)
           bash .github/scripts/check-heartbeat.sh r2 4 "$LAST_RUN"
 
-      - name: Check CEAD reminder heartbeat (git log evidence, 150-day threshold per F-83c)
+      - name: Check CEAD reminder heartbeat (git log evidence, quarter-boundary rule per F-93)
         if: '!cancelled()'
         run: |
           LAST_COMMIT=$(git log -1 --format=%cI -- data/cead/)
-          bash .github/scripts/check-heartbeat.sh cead 150 "$LAST_COMMIT"
+          bash .github/scripts/check-heartbeat.sh cead "$LAST_COMMIT"
 
       - name: Check news pipeline heartbeat (current.json evidence, 3-day threshold, matches freshness.mjs validator 15 per F-83a/b)
         if: '!cancelled()'
@@ -75,7 +75,9 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh label create pipeline-failure-heartbeat --color e11d48 --description "Pipeline Heartbeat failure alert" --force
+        run: |
+          gh label create pipeline-failure-heartbeat --color e11d48 --description "Pipeline Heartbeat failure alert" --force
+          gh label create pipeline-failure --color e11d48 --description "Shared pipeline failure alert" --force
 
       # F-89 residuals, named rather than hidden: (1) an R2 run that succeeds while
       # archiving ZERO items still passes this check -- F-79 chose "did the workflow
