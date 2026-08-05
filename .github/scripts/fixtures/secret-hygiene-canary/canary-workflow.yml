@@ -1,0 +1,19 @@
+# canary-workflow.yml (SEC-05, FM-06)
+#
+# Deliberately DIRTY fixture — committed on purpose. Exhibits two of the four
+# risk shapes check-secret-hygiene.sh must detect. Never fix these lines; the
+# gate's own canary pass depends on them staying exactly as written. Excluded
+# from the real-tree scan by directory path, scanned first as its own pass.
+name: canary
+
+on: workflow_dispatch
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: leak a secret (shape 1)
+        run: echo "$DEEPSEEK_API_KEY"
+
+      - name: verbose curl of the CF_HOOK alias (shape 3)
+        run: curl -v "$CF_HOOK"

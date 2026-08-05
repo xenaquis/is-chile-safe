@@ -90,3 +90,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pipx run zizmor==1.10.0 --persona=regular .github/workflows/
+
+      - name: Check secret log-hygiene (SEC-05, F-116/F-117/F-120)
+        run: bash .github/scripts/check-secret-hygiene.sh
