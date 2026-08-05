@@ -1,3 +1,16 @@
+# cead-scraper.yml
+#
+# CRON-05: THIS CRON IS EXPECTED TO FAIL ON GITHUB ACTIONS.
+# ------------------------------------------------------------
+# CEAD (Centro de Estudios y Analisis del Delito) blocks GitHub Actions runner IP
+# ranges with HTTP 403. The real quarterly scrape runs LOCALLY on a maintainer's
+# machine (see the `cead-scraper-quarterly-local` project memory) and is committed
+# and pushed by hand. This scheduled workflow exists ONLY as a calendar reminder:
+# when `pipeline/scrape_cead.py` fails with a 403 here, that is the expected,
+# documented outcome -- NOT a regression, and NOT something to "fix" by retrying
+# from Actions. The failure-alert issue body below says this explicitly so a
+# maintainer unfamiliar with the history does not mistake it for a real bug.
+
 name: CEAD Scraper (Quarterly)
 
 on:
@@ -16,22 +29,27 @@ jobs:
     permissions:
       contents: write
       issues: write
-    # CR-01: CF_HOOK MUST be job-level — a step-level env var is NOT in scope for
-    # that same step's `if:` condition, so the deploy gate would never fire.
+    # CF_HOOK is job-level so both the post-commit guard step and the deploy step's
+    # run: can read it. NOTE (F-76/F-84): the old `if: ... && env.CF_HOOK != ''` gate
+    # was DELETED in Phase 32 -- an empty hook is now a hard failure at its own guard
+    # step (placed AFTER the data commit, F-84), not a silent skip.
+    # Do not reintroduce the `if: ... && env.CF_HOOK` clause.
+    # (CR-01 history: a step-level env var is not in scope for that step's own `if:`.)
     env:
       CF_HOOK: ${{ secrets.CF_DEPLOY_HOOK_URL }}
       PYTHONPATH: .
 
     steps:
+      # fetch-depth: 0 (CRON-06) -- see news-pipeline.yml for the same rationale.
       - uses: actions/checkout@v7
-
-      - uses: actions/setup-python@v7
         with:
-          python-version: '3.12'
+          fetch-depth: 0
 
-      - name: Install pipeline deps
-        run: pip install -r pipeline/requirements.txt
-
+      # CRON-05: expected to fail with HTTP 403 from GitHub Actions runner IPs -- see
+      # the file header comment. Not guarded with continue-on-error: a real failure
+      # here (network, schema change) must still alert; it is indistinguishable in
+      # the Actions UI from the expected 403, which is exactly why the failure-alert
+      # body below (not the exit code) is what disambiguates it for a reader.
       - name: Run CEAD scraper
         run: python pipeline/scrape_cead.py
 
@@ -63,26 +81,42 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "data: auto-update CEAD [skip ci]"
-            git push
+            bash .github/scripts/push-with-rebase.sh master
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      # CRON-01 (F-76, amended F-84): CF_DEPLOY_HOOK_URL is REQUIRED, not optional --
+      # placed AFTER the commit so a rotated hook cannot also block the CEAD data
+      # that WAS collected on a local run and pushed by a maintainer. This is the
+      # workflow's ONLY guarded secret -- there is no separate "guard the scrape
+      # inputs" step because scrape_cead.py itself takes no secrets.
+      - name: Guard deploy hook
+        run: bash .github/scripts/require-env.sh CF_HOOK
+
       - name: Trigger Cloudflare Pages deploy
-        if: steps.commit.outputs.changed == 'true' && env.CF_HOOK != ''
-        run: curl -X POST --fail --silent --show-error --retry 3 "$CF_HOOK"
+        if: steps.commit.outputs.changed == 'true'
+        run: curl -X POST --fail --silent --show-error --retry 3 --retry-all-errors --max-time 60 "$CF_HOOK"
+
+      - name: Ensure alert label exists
+        if: failure()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh label create pipeline-failure-cead --color e11d48 --description "CEAD Scraper failure alert" --force
 
       - name: Alert via GitHub Issue on failure
         if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          OPEN_ISSUE=$(gh issue list --label pipeline-failure --state open --json number --jq '.[0].number // empty')
+          OPEN_ISSUE=$(gh issue list --label pipeline-failure-cead --state open --json number --jq '.[0].number // empty')
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if [ -n "$OPEN_ISSUE" ]; then
-            gh issue comment "$OPEN_ISSUE" --body "CEAD Scraper failed again: $RUN_URL"
+            gh issue comment "$OPEN_ISSUE" --body "CEAD Scraper failed again (expected quarterly reminder if this is an HTTP 403 -- see workflow header -- otherwise a real regression): $RUN_URL"
           else
             gh issue create \
+              --label pipeline-failure-cead \
               --label pipeline-failure \
               --title "[pipeline] CEAD Scraper failed on $(date -u +%F)" \
-              --body "Pipeline run failed: $RUN_URL"
+              --body "This is the expected quarterly reminder if the failure is an HTTP 403 -- CEAD blocks GitHub Actions runner IPs. Run pipeline/scrape_cead.py locally and push. If the failure is NOT a 403, this is a real regression: $RUN_URL"
           fi

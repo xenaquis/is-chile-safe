@@ -16,13 +16,33 @@ jobs:
     permissions:
       contents: write
       issues: write
-    # CR-01: CF_HOOK MUST be job-level — a step-level env var is NOT in scope for
-    # that same step's `if:` condition, so the deploy gate would never fire.
+    # CF_HOOK is job-level so both the post-commit guard step and the deploy step's
+    # run: can read it. NOTE (F-76/F-84): the old `if: ... && env.CF_HOOK != ''` gate
+    # was DELETED in Phase 32 -- an empty hook is now a hard failure at its own guard
+    # step (placed AFTER the data commit, F-84), not a silent skip and not coupled to
+    # data collection. Do not reintroduce the `if: ... && env.CF_HOOK` clause.
+    # (CR-01 history: a step-level env var is not in scope for that step's own `if:`.)
     env:
       CF_HOOK: ${{ secrets.CF_DEPLOY_HOOK_URL }}
 
     steps:
+      # fetch-depth: 0 (CRON-06) -- push-with-rebase.sh's `git rebase origin/master`
+      # needs real history to compute a merge-base; a shallow (depth-1) checkout can
+      # leave the rebase without a common ancestor if origin has moved forward.
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # CRON-01 (F-76, amended F-84): only the secrets the SCRAPE itself needs are
+      # guarded here. CF_DEPLOY_HOOK_URL is guarded separately, AFTER the commit step
+      # below -- putting it here would mean a rotated deploy hook kills the scrape
+      # four times a day and RSS items age out of their feeds permanently, not just
+      # the publish step.
+      - name: Guard required secrets
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: bash .github/scripts/require-env.sh OPENROUTER_API_KEY DEEPSEEK_API_KEY
 
       - uses: actions/setup-python@v7
         with:
@@ -47,25 +67,52 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "data: auto-update news [skip ci]"
-            git push
+            bash .github/scripts/push-with-rebase.sh master
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      # CRON-01 (F-76, amended F-84): CF_DEPLOY_HOOK_URL is REQUIRED, not optional --
+      # but placed HERE, after the commit, so a rotated hook cannot also stop data
+      # collection. The job still fails hard and still alerts; the corpus survives.
+      # Guards CF_HOOK (the job-level alias the curl step actually consumes), not the
+      # CF_DEPLOY_HOOK_URL secret name -- a rename of the alias would otherwise leave
+      # the curl unguarded while a guard on the wrong name still passed.
+      - name: Guard deploy hook
+        run: bash .github/scripts/require-env.sh CF_HOOK
+
+      # CRON-03 (F-78): canonical deploy-hook invocation, byte-identical across
+      # news-pipeline.yml, cead-scraper.yml, deploy-on-code.yml (grep-provable, see
+      # Wave 2 verify block).
       - name: Trigger Cloudflare Pages deploy
-        if: steps.commit.outputs.changed == 'true' && env.CF_HOOK != ''
-        run: curl -X POST --fail --silent --show-error --retry 5 --retry-all-errors "$CF_HOOK"
+        if: steps.commit.outputs.changed == 'true'
+        run: curl -X POST --fail --silent --show-error --retry 3 --retry-all-errors --max-time 60 "$CF_HOOK"
+
+      # F-87: label creation is hoisted into its own step, separate from the alert
+      # step, with continue-on-error: true. Under GitHub's default bash -e, if
+      # `gh label create` itself failed (rate limit, transient 5xx) as the FIRST line
+      # of the old combined alert step, the alert about the ORIGINAL failure would be
+      # lost silently -- the one unrecoverable failure mode in this phase. This is a
+      # declarative, UI-visible allowance on a non-critical prep step, not the banned
+      # `|| true` (which would hide the status inside the same step's own exit code).
+      - name: Ensure alert label exists
+        if: failure()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh label create pipeline-failure-news --color e11d48 --description "News Pipeline failure alert" --force
 
       - name: Alert via GitHub Issue on failure
         if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          OPEN_ISSUE=$(gh issue list --label pipeline-failure --state open --json number --jq '.[0].number // empty')
+          OPEN_ISSUE=$(gh issue list --label pipeline-failure-news --state open --json number --jq '.[0].number // empty')
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if [ -n "$OPEN_ISSUE" ]; then
             gh issue comment "$OPEN_ISSUE" --body "News Pipeline failed again: $RUN_URL"
           else
             gh issue create \
+              --label pipeline-failure-news \
               --label pipeline-failure \
               --title "[pipeline] News Pipeline failed on $(date -u +%F)" \
               --body "Pipeline run failed: $RUN_URL"
