@@ -470,7 +470,13 @@ Plans:
   4. `zizmor` runs in CI (invoked via `pipx`/`uvx`, never added to `pipeline/requirements.txt`) alongside the existing `actionlint`, and every finding it raises is triaged (fixed or explicitly accepted with a documented reason).
   5. A manual verification confirms GitHub secret scanning and push protection are enabled on the repository, no API key is discoverable in logs or committed artifacts, courtesy delays toward CEAD and press RSS feeds are present and adequate, and clustering (Phase 26/28) is confirmed not to have increased fetch volume against any upstream.
 
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+
+- [ ] 33-01-PLAN.md — Job-level permissions (5 jobs) + SHA-pin all 13 uses: refs + check-sha-pins.sh gate (SEC-01, SEC-02)
+- [ ] 33-02-PLAN.md — dependabot.yml (3 ecosystems) + zizmor in CI + persist-credentials: false triage (SEC-03, SEC-04)
+- [ ] 33-03-PLAN.md — check-secret-hygiene.sh + scrape_news.py courtesy delay + pin decision record + DEPLOYMENT.md (SEC-02, SEC-05, SEC-06)
 
 ---
 
@@ -491,4 +497,4 @@ Plans:
 | 30. Map Control-Shell Rework | 0/? | Not started | - |
 | 31. Docs & Methodology Refresh | 4/4 | Complete   | 2026-08-03 |
 | 32. Cron Consistency | 3/3 | Complete   | 2026-08-05 |
-| 33. Security Posture | 0/? | Not started | - |
+| 33. Security Posture | 0/3 | Not started | - |
