@@ -1,0 +1,103 @@
+name: Pipeline Heartbeat
+
+# CRON-02 / F-79: this workflow's ENTIRE purpose is detecting that another scheduled
+# workflow has gone silent. It MUST NOT live inside the workflow it watches (a
+# self-referential heartbeat cannot detect its own host's total absence). Runs on its
+# own daily schedule, independent of news-pipeline.yml / r2-archive.yml /
+# cead-scraper.yml.
+#
+# F-83(a) CORRECTION: an earlier draft of this comment claimed news staleness was
+# covered because freshness.mjs "runs on every local npm run validate and in ci.yml" --
+# that second half is FALSE. ci.yml triggers on pull_request + workflow_dispatch only,
+# so it never runs on the quiet repo an outage produces. The "news" check below closes
+# that gap directly; freshness.mjs (validator #15, not #16 -- corrected per F-83b) is a
+# SEPARATE, local-only instrument that still matters for anyone running npm run
+# validate, but it is not a substitute for this workflow watching the news cron.
+#
+# Accepted residual gap (F-79, unchanged): this workflow's OWN silence is not monitored
+# by anything else in this repo. Closing that fully would require an external monitor,
+# which the ~$0 infrastructure constraint forbids.
+
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+# actions: read is REQUIRED by the R2 check's `gh run list` call (GET
+# /repos/{owner}/{repo}/actions/runs) -- declaring any permissions scope sets every
+# unlisted scope to none, so without this line the FIRST scheduled run 403s on its own
+# read-only API call and this workflow alerts about a healthy R2 archive on day one.
+permissions:
+  actions: read
+  contents: read
+  issues: write
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # fetch-depth: 0 -- the CEAD check below needs full path history
+      # ('git log -1 -- data/cead/'); a shallow clone would see only the tip commit
+      # and could falsely report "no evidence" even when data/cead/ was updated
+      # further back in history.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # F-88: every check step below runs independently even if an earlier one failed
+      # (`if: '!cancelled()'` on steps 2 and 3) -- in the rejected cycle-0 draft, the
+      # R2 step's own failure would have skipped the CEAD step entirely, so a
+      # maintainer fixing R2 would only discover an overdue CEAD reminder the next day.
+      - name: Check R2 archive heartbeat (gh run list evidence, successful runs only per F-89, 4-day threshold)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          LAST_RUN=$(gh run list --workflow=r2-archive.yml --status success --json createdAt,conclusion --jq '.[0].createdAt // empty' --limit 1)
+          bash .github/scripts/check-heartbeat.sh r2 4 "$LAST_RUN"
+
+      - name: Check CEAD reminder heartbeat (git log evidence, 150-day threshold per F-83c)
+        if: '!cancelled()'
+        run: |
+          LAST_COMMIT=$(git log -1 --format=%cI -- data/cead/)
+          bash .github/scripts/check-heartbeat.sh cead 150 "$LAST_COMMIT"
+
+      - name: Check news pipeline heartbeat (current.json evidence, 3-day threshold, matches freshness.mjs validator 15 per F-83a/b)
+        if: '!cancelled()'
+        run: |
+          LAST_NEWS=$(python3 -c "import json; print(json.load(open('data/incidents/current.json', encoding='utf-8'))['generated'])")
+          bash .github/scripts/check-heartbeat.sh news 3 "$LAST_NEWS"
+
+      # F-87: label creation is its own non-fatal step, never the first line of the
+      # alert step -- see news-pipeline.yml for the full rationale.
+      - name: Ensure alert label exists
+        if: failure()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh label create pipeline-failure-heartbeat --color e11d48 --description "Pipeline Heartbeat failure alert" --force
+
+      # F-89 residuals, named rather than hidden: (1) an R2 run that succeeds while
+      # archiving ZERO items still passes this check -- F-79 chose "did the workflow
+      # run" over a data/-visible marker specifically to avoid a pipeline write, and
+      # that tradeoff is kept, just stated. (2) dedup is --state open, so a maintainer
+      # who closes the alert issue without fixing the underlying cron gets a NEW issue
+      # the next day -- intended (the system is still broken), on a DAILY cron this can
+      # look like spam to someone unaware it is by design; both residuals are recorded
+      # here and in DEPLOYMENT.md, not silently accepted.
+      - name: Alert via GitHub Issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          OPEN_ISSUE=$(gh issue list --label pipeline-failure-heartbeat --state open --json number --jq '.[0].number // empty')
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ -n "$OPEN_ISSUE" ]; then
+            gh issue comment "$OPEN_ISSUE" --body "Pipeline Heartbeat failed again: $RUN_URL"
+          else
+            gh issue create \
+              --label pipeline-failure-heartbeat \
+              --label pipeline-failure \
+              --title "[pipeline] Heartbeat detected a stalled cron on $(date -u +%F)" \
+              --body "Heartbeat run failed: $RUN_URL -- check the run log for which check (R2 archive / CEAD reminder / News pipeline) failed; all three run independently of each other's outcome."
+          fi
