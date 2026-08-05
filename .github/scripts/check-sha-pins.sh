@@ -19,10 +19,23 @@ set -euo pipefail
 tmp="$(mktemp)"
 trap 'rm -f "$tmp"' EXIT
 
+# HI-02/F-125: GitHub accepts both .yml and .yaml for workflow files; a
+# *.yml-only glob would silently skip a .yaml workflow from this gate,
+# reintroducing the exact L-01 defect lint-workflows.sh:42-48 already fixed.
+# nullglob so a genuinely absent extension does not pass a literal
+# unexpanded glob string to grep.
+shopt -s nullglob
+workflow_files=(.github/workflows/*.yml .github/workflows/*.yaml)
+shopt -u nullglob
+if [ "${#workflow_files[@]}" -eq 0 ]; then
+  echo "::error::check-sha-pins.sh: no workflow files found -- refusing to report a clean tree"
+  exit 1
+fi
+
 # F-117: never launder a scan failure with `2>/dev/null || true` -- that turns
 # an unreadable-tree failure into a false "zero findings" pass.
 set +e
-grep -rHn "uses:" .github/workflows/*.yml >"$tmp"
+grep -rHn "uses:" "${workflow_files[@]}" >"$tmp"
 rc=$?
 set -e
 
