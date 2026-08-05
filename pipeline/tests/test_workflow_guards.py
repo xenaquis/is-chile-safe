@@ -140,6 +140,32 @@ class TestRequireEnv:
         )
         assert result.returncode == 0
 
+    def test_fails_on_whitespace_only_value(self):
+        """F-102: found by Opus VERIFICATION, fixed inline after the two fix
+        cycles were spent. A bare `[ -z ]` ACCEPTED a whitespace-only secret;
+        `pipeline/archive_r2.py` then `.strip()`s it, treats it as absent and
+        returns 0 -- a green job that archived nothing. That is a complete
+        end-to-end silent green no-op surviving INSIDE the guard written to
+        abolish silent green no-ops, so it is a defect of the phase's own
+        headline invariant, not a nit."""
+        for blank in ["   ", "\t", "\n", " \t\n "]:
+            result = run_script(
+                REQUIRE_ENV, ["MY_SECRET"], env_overrides={"MY_SECRET": blank}
+            )
+            assert result.returncode == 1, f"{blank!r} should be rejected"
+            assert "empty or whitespace-only" in result.stdout
+
+    def test_passes_with_internal_whitespace_value(self):
+        """The other direction of F-102 (Operating Lesson 26: widening a guard
+        on the axis it was attacked on routinely narrows it on another). The
+        stripping must reject values that are ONLY whitespace without rejecting
+        legitimate values that merely CONTAIN whitespace."""
+        result = run_script(
+            REQUIRE_ENV, ["MY_SECRET"], env_overrides={"MY_SECRET": "a b"}
+        )
+        assert result.returncode == 0
+        assert "All required secrets present: MY_SECRET" in result.stdout
+
     def test_never_prints_secret_value_on_success(self):
         secret_value = "sk-super-secret-token-xyz-123"
         result = run_script(

@@ -12,8 +12,13 @@
 set -euo pipefail
 missing=0
 for v in "$@"; do
-  if [ -z "${!v:-}" ]; then
-    echo "::error::$v is not set (empty string) — refusing to proceed"
+  # F-102: strip whitespace before the emptiness test. A bare `[ -z ]` accepted a
+  # whitespace-only value, and `pipeline/archive_r2.py` then `.strip()`s it, treats it
+  # as absent and returns 0 — a green job that archived nothing, which is the exact
+  # silent no-op this guard exists to abolish, surviving INSIDE the guard. The value is
+  # only ever consumed by the test below; it is never echoed.
+  if [ -z "$(printf '%s' "${!v:-}" | tr -d '[:space:]')" ]; then
+    echo "::error::$v is not set (empty or whitespace-only) — refusing to proceed"
     missing=1
   fi
 done

@@ -408,3 +408,35 @@ proof: evidence at now+48 h → exit 1; evidence at now+1 h → passes normally.
 
 Everything else in the re-review is accepted as-is or already recorded as backlog. **This is the
 final fix cycle; anything still open after it is recorded in STATE.md as carried debt, not fixed.**
+
+---
+
+# F-102 — closed INLINE after verification, because it was the phase's own headline defect
+
+The Opus verification passed Phase 32 at **5/5 success criteria and 7/7 CRON requirements** and then
+named one new WARNING that I judged could not ship: `require-env.sh` used a bare `[ -z ]`, so
+`R2_ACCESS_KEY_ID="   "` **passed the guard**. `archive_r2.py` then `.strip()`s the value, treats it
+as absent, and returns 0 — a green job that archived nothing, with the heartbeat's `--status success`
+check staying green on top of it. A complete end-to-end silent green no-op, surviving inside the
+guard written to abolish silent green no-ops.
+
+Both directive fix cycles were already spent, so this was fixed inline by me (F-71 precedent). The
+alternative — closing a phase whose entire purpose is "an empty-secret no-op must fail loudly" while
+shipping a known empty-secret no-op — is strictly worse than a recorded inline fix.
+
+The fix strips whitespace before the emptiness test and reports "empty or whitespace-only". Proven in
+both directions, which matters here because Operating Lesson 26 says widening a guard on the axis it
+was attacked on routinely narrows it on another:
+- **MUST fire:** `""`, `"   "`, `"\t"`, `"\n"`, `" \t\n "` → exit 1.
+- **MUST stay silent:** a real token, a Cloudflare hook URL with `?`/`&`/`#`, and — the case that
+  would have been broken by a careless fix — a legitimate value CONTAINING a space (`"a b"`) → exit 0.
+Both encoded as pytest cases and mutation-proven: reverting the script to `[ -z "${!v:-}" ]` turns
+`test_fails_on_whitespace_only_value` RED and restoring it turns it GREEN, while
+`test_passes_with_internal_whitespace_value` stays green under both (correct — it guards the other
+direction). Suite: **388 → 390 passed, 1 skipped / 1 xfailed unchanged.**
+
+Also closed inline: the verification's fair criticism that F-98 "reads too reassuringly". DEPLOYMENT.md
+now states the **~92-day detection latency** of the quarter-boundary rule in days rather than leaving a
+reader to infer it from the 1-vs-2 semantics, including the fact that the Jul-1 2026 release has
+already been missed, that the guard is correctly green today, and that it will fire on 2026-10-01.
+A tolerance whose cost is not written down is a tolerance the next reader will mistake for coverage.
