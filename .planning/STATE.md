@@ -289,6 +289,71 @@ silently hiding a GO.
 
 **Second lesson: a documentation-correctness phase wrote fresh drift.** The facet-semantics note it shipped claimed "unfiltered per-option counts" in both locales while the shipped behaviour is F-28 self-exclusion (`computeFacetCounts` applies every OTHER active filter). Opus verification caught it. The phase existed to remove prose-vs-computation drift and introduced some in its own new prose — new text needs the same verification-against-code as old text.
 
+### Phase 32 Outcome — PASSED (read this before Phase 33)
+
+**Shipped: the GitHub Actions schedule surface as one self-diagnosing system.** Verification PASSED
+**5/5 success criteria and 7/7 requirements (CRON-01..07)**. Five shared bash scripts under
+`.github/scripts/` (`require-env.sh`, `check-heartbeat.sh`, `push-with-rebase.sh`,
+`fetch-lint-tools.sh`, `lint-workflows.sh` + a committed canary fixture), a new independently
+scheduled `heartbeat.yml`, all five pre-existing workflows reconciled, four per-pipeline issue
+labels, and the CRON-07 schedule-surface table in `DEPLOYMENT.md`. Close gate, measured:
+**pytest 390 passed / 1 skipped / 1 xfailed** (was 344 — 46 new tests), **16/16 validators**
+(freshness green), **vitest 59**, `lint-workflows.sh` exit 0, astro check 4/0 pre-existing.
+
+**The answer to the question the phase exists for** — if a cron stops firing, what goes red and when
+(each verified by simulation, not by reading):
+
+| Cron | What goes red | Latency |
+|---|---|---|
+| News (6h) | `heartbeat.yml` step 3, `current.json.generated` vs 3d | ≤ 4 days |
+| R2 (daily) | `heartbeat.yml` step 1, `gh run list --status success` vs 4d | ≤ 5 days |
+| CEAD (quarterly) | `heartbeat.yml` step 2, quarter-boundary count on `git log -- data/cead/` | ~92 days (fires on the SECOND missed release) |
+
+**What Phase 33 must know:**
+
+1. **Two defects would have broken LIVE crons and both were introduced BY THIS PHASE'S OWN GUARDS.**
+   The R2 guard required `R2_BUCKET`, which is not a repo secret and never was (`archive_r2.py:475`
+   defaults it deliberately) — the daily archive would have died on its next run and opened an issue
+   every day after. And `cead-scraper.yml` silently lost `setup-python` + `pip install` in the wave-2
+   rewrite, so the "expected 403" reminder could no longer produce a 403. **A required-secret list
+   must be derived from what the code actually reads and what the repo actually has, not from what
+   the workflow happens to mention. A guard that fails on a healthy system is not a stricter guard —
+   it is an outage with a tidy error message.**
+2. **`lint-workflows.sh` is the lint entry point and it is armed.** It bootstraps SHA-pinned
+   actionlint v1.7.7 + shellcheck v0.11.0 into a gitignored `.tools/`, `[ -x ]`-checks both, and runs
+   a canary that must produce the SPECIFIC codes SC2034 + SC2086 — because `actionlint -shellcheck ""`
+   or with a bad path **silently disables shell linting and exits 0**, and a corrupted binary also
+   exits non-zero, which a bare exit-code check misreads as "the canary fired". It also shellchecks
+   `.github/scripts/*.sh`. `ci.yml` calls it (a pytest case asserts that wiring, which can otherwise
+   regress silently). **Phase 33 owns SHA-pinning decisions; the v1.7.7 pin is "the version actually
+   tested end to end", not "the newest" — see F-92.**
+3. **`ci.yml` is `pull_request`-only and this run pushes straight to master**, so CI lints nothing
+   this phase shipped. Deliberate (F-95): adding a `push:` trigger would run build+validate on a live
+   repo where `freshness` goes red purely from data age, manufacturing a recurring red CI. Master-push
+   linting is covered by running the gate locally before every push. Do not "fix" this by widening
+   the trigger.
+4. **`CF_DEPLOY_HOOK_URL` is now REQUIRED everywhere and the soft skip is gone** (F-76/F-84).
+   Cloudflare auto-build is DISABLED, so that hook is the SOLE production build trigger — an empty
+   hook was a permanent, silent, site-wide publication outage reported as a skipped step. The guard
+   sits AFTER the data commit in news/cead so a rotated hook fails loudly WITHOUT also stopping data
+   collection.
+5. **Carried debt, recorded not fixed:** new CEAD data pushed by a maintainer never triggers a
+   production build (`deploy-on-code.yml` filters `site/**`); `deploy-on-code.yml` has no failure
+   alert (push-triggered, human present); the four `continue-on-error` CEAD enrichment steps can
+   commit and deploy partial data with a green job; `fetch-lint-tools.sh` does not re-verify an
+   already-present binary against its pinned SHA. All in `DEPLOYMENT.md` § Known Gaps.
+
+**The lesson this phase adds — the instrument was the least-trustworthy thing in it.** The single
+worst defect was not in the workflows: it was that the phase's own lint gate reported GREEN while
+linting nothing, because a missing shellcheck path silently disables shell linting, and the gates
+resolved that path from a session-scoped temp glob that would be empty in any other session. The
+countermeasure contained the defect class it was written to catch. Corollaries found the same way: a
+bare exit-code check on the canary would have accepted a corrupted binary; `subprocess.run(["bash"])`
+on Windows hits the WSL stub and returns rc=1 with EMPTY output, so eight must-fail assertions passed
+without ever running the script and a "never prints the secret" test was vacuous against no output;
+and my own 12-run flakiness loop matched `*failed*` against `1 xfailed` and reported RED on a green
+suite. **Before trusting any instrument, make it fail on purpose.**
+
 ### Phase 28 Outcome — PASSED (read this before Phase 29/30)
 
 **Shipped.** A faceting UI on `/news/` and `/es/noticias/`: filter by time window, region and crime family with per-option counts, plus an accent-insensitive comuna typeahead. Query-param only (`?family=&region=&window=&q=`) over the two existing URLs — **zero new indexable routes**. Verification PASSED 5/5 criteria, NEWSUI-01..07 all complete.
@@ -316,7 +381,9 @@ silently hiding a GO.
 
    **The autonomous run is no longer local-only.** Phases 29–33 now push to a live site: a regression reaches production on merge. Re-read the "NO `git push`" rule in the directive before the next phase — it was written for an unattended run and the user has now overridden it once, explicitly, for this batch. Treat future pushes as requiring the same explicit authorization.
 
-2. CRON-01 live blanked-secret dry run; observe one dependabot PR (SEC-03) — deferred per directive gate amendment 2.
+2. **CRON-01 live blanked-secret dry run; observe one dependabot PR (SEC-03)** — deferred per directive gate amendment 2. Phase 32 satisfied CRON-01 by local simulation + a real armed actionlint/shellcheck run, which is what the amendment substitutes; the live half is still owed.
+2b. **NEW (Phase 32): watch `heartbeat.yml`'s FIRST scheduled run (daily 12:00 UTC).** The whole CRON-02 claim rests on a permission scope that has never executed: `gh run list` needs `actions: read`, and declaring any `permissions:` scope sets every unlisted one to `none`. The block declares it, but every local verification used a maintainer PAT, not `GITHUB_TOKEN`. If that scope is wrong the workflow 403s on run one and opens an issue about a perfectly healthy R2 archive. Check the run log once; it is a 30-second confirmation of the one thing nobody could test offline. Also never exercised in anger: the alert path itself (creating/commenting an issue) and the CEAD 403.
+2c. **NEW (Phase 32) carried debt, not blocking:** new CEAD data pushed by a maintainer never triggers a production build (`deploy-on-code.yml` filters `site/**` and Cloudflare auto-build is off) — so after a local quarterly scrape, curl the deploy hook by hand or the new data will not reach the site. Recorded in `DEPLOYMENT.md` § Known Gaps along with three smaller items.
 3. ~~GitHub Settings (UI-only, directive gate amendment 3): default `GITHUB_TOKEN` read-only (SEC-01), verify secret scanning + push protection (SEC-05), check Actions billing state.~~ **DONE 2026-08-04, user-authorized — and all three resolved without a single UI click, so the "UI-only" premise of gate amendment 3 was wrong for these items; Phase 33 can verify them by API.**
    - **SEC-01 was ALREADY correct**, not pending: `default_workflow_permissions: "read"`, `can_approve_pull_request_reviews: false`. Nothing was changed.
    - **Actions billing is healthy, established by evidence rather than by the billing API** (which needs a `user` scope this token lacks): all three crons ran green on 2026-08-04 (News Pipeline ×4, R2 Research Archive). A billing lapse stops runs outright — that is exactly how the June outage manifested — so live green runs are the direct proof.
@@ -403,6 +470,9 @@ Decisions taken inline by the Fable orchestrator during the unattended run. Each
 | F-72 | 2026-08-03 | 31 | **The inverted `national_rank` claim was found FIVE times, in five different shapes, across FOUR separate sweeps** (research → my own sweep → Opus code review → Opus re-review → Opus verification). The DOCS-01 guard therefore matches BOTH the symbolic form (`rank 1 = lowest`) and the PROSE form (`a rank closer to 1 indicates a lower rate`), over `.astro` + `.ts` + `.tsx` across all of `site/src` (117 files), not `src/pages/**.astro` (52). | Each sweep declared the site clean and each was wrong, because each pattern was written against the phrasing of the instance last found: research's grep missed `Rango nacional`; mine missed it too (F-70); cycle 1's guard was scoped to the three files the executor had edited; cycle 2's covered pages but not `src/lib`, leaving `comparisonProse.ts` — which emits a rank-direction sentence onto every `/compare/` page in both locales — unguarded; and all of them required a literal `1 =`, so the FAQ sentence on `is-santiago-safe.astro` survived everything until final verification. **A claim that recurs in novel phrasings cannot be guarded by enumerating phrasings**, which is why the final pattern matches the semantic shape (rank noun + direction word + rate word) and was proven in both directions against 5 inverted and 13 legitimate sentences. |
 | F-73 | 2026-08-03 | 31→future | **ACCEPTED AS DEBT, not fixed: `figure-registry.mjs` is now the home of sitewide prose-correctness guards that have nothing to do with the figure registry.** The Opus verification called this a design smell and I agree. Deferred: split the DOCS-01/DOCS-03 content guards into their own validator and rename it, **at a time when the validator count is already being edited** for another reason. | F-64's reasoning still holds — the "16 validators" figure is hardcoded across the directive, STATE.md and `all.mjs`'s header, so adding a 17th purely for tidiness cascades a documentation edit through every one of those surfaces (F-21). The guards work and are proven falsifiable; the cost of the smell is readability, not correctness. Recorded so the next reader knows it is a considered tradeoff rather than an accident, and so the split rides along with the next legitimate count change. |
 | F-74 | 2026-08-03 | 31 | **ACCEPTED, not fixed (RR-M1): `figure-registry.test.ts` hand-copies the real `## INE ENUSC SAE` section body instead of reading `data/SOURCES.md`,** so a reword in that file leaves vitest green while `npm run validate` goes red. | Deliberate: `data/` is read-only for this milestone and a unit test that reads live data would couple the suite to production content. The divergence is not silent — `figure-registry.mjs` reads the REAL file in the same gate run, so drift surfaces immediately at the validator, which is the gate that actually protects the registry. Recorded so a future reader does not "fix" the fixture into reading `data/`. |
+| F-75..F-92 | 2026-08-04 | 32 | **Phase 32 planning + plan-review decisions. Full text in `.planning/phases/32-cron-consistency/32-FABLE-DECISIONS.md` and `32-FABLE-AMENDMENTS.md`** — recorded there rather than inlined because several run to multiple paragraphs of measured evidence. The binding headlines: F-76/F-84 `CF_DEPLOY_HOOK_URL` is REQUIRED everywhere, guarded AFTER the data commit in news/cead; F-77 per-pipeline labels created once AND idempotently at alert time; F-78 one byte-identical deploy-hook curl; F-79 a dedicated `heartbeat.yml` with its own silence as an ACCEPTED, documented residual; F-81 no new frontend validator (close bar stays 16/16); F-85 the lint instrument must prove it is armed; F-86 explicit bash resolution in pytest; F-92 the actionlint pin is v1.7.7, "the version actually tested". | Three of these CORRECT earlier decisions of mine on measured evidence and must be read as a chain: **F-83a** corrects F-79 (I justified not watching the news cron with a compensating control that does not exist — `ci.yml` is `pull_request`-only, so `freshness.mjs` never runs during the quiet-repo outage the phase exists to catch); **F-83b** corrects F-79's "validator #16" (`freshness.mjs` is #15); **F-84** corrects F-76 (a first-step hook guard would have stopped news COLLECTION 4×/day for a publication-only outage). |
+| F-93..F-101 | 2026-08-04 | 32 | **Fix-cycle decisions after the Opus code review (5 HIGH) and the independent Opus re-review (2 BLOCKER).** F-93 replaced the CEAD flat day-threshold with a quarter-boundary rule (≥2 elapsed quarterly due dates → fail, ≤1 → pass). F-94 guard only secrets that are REQUIRED and EXIST (`R2_BUCKET` is neither; `DEEPSEEK_API_KEY` is a selectable alternative, not the default). F-95 wire `lint-workflows.sh` into `ci.yml` but do NOT widen its trigger. F-96 thresholds compare epoch seconds. F-99 fixed a real 2-of-12 test flakiness by construction (injectable as-of), not by an epsilon fudge. F-100 future-dated evidence must fail. | **F-98 REJECTED a re-review BLOCKER, verified by execution.** It claimed the quarter rule would false-alarm on 2026-10-01 because an "early" scrape consumes its own tolerance; the premise is wrong — a 2026-06-19 scrape cannot contain data CEAD publishes on 2026-07-01, so by Oct 1 two releases are genuinely unincorporated and firing is intended. Recorded because Operating Lesson 10 cuts both ways: a confidently argued finding is not thereby correct, and I checked rather than deferring. **F-93 itself is my SECOND correction to the same number** (100d cried wolf on a healthy system, 150d stayed green through a missed quarter) — the real lesson being that a flat age threshold cannot distinguish "late" from "skipped", so tuning it only slides the error between failure modes. |
+| F-102 | 2026-08-04 | 32 | **Closed INLINE after verification, both fix cycles spent: `require-env.sh` used a bare `[ -z ]`, so a whitespace-only secret PASSED the guard.** `archive_r2.py` then strips it, treats it as absent and returns 0 — a green job that archived nothing, with the heartbeat's `--status success` check green on top. Fixed to strip whitespace before the emptiness test; proven MUST-fire on `""`/spaces/tabs/newlines and MUST-stay-silent on a real token and on a legitimate value containing an internal space; mutation-proven RED without the fix. | A complete end-to-end silent green no-op surviving INSIDE the guard written to abolish silent green no-ops — i.e. a defect of the phase's own headline invariant, not a nit. Shipping it would have meant closing a phase whose stated purpose is "an empty-secret no-op must fail loudly" while knowingly shipping an empty-secret no-op. F-71 precedent: an inline fix with an independent proof beats a third fix cycle the directive does not permit. |
 | F-10 | 2026-07-29 | 26 | Accepted the cumulative append-only `26-CALL-LOG.md` ledger with a refuse-to-start guard **in place of** a bare `_MAX_LLM_CALLS` constant, seeded with the 3 spike-ping calls. | Stronger than the constant: it survives resumed runs and counts cumulatively across the phase, which a per-process constant cannot. |
 | F-37 | 2026-07-30 | 28 | **[CORRECTED — this row originally read "Phase 28 CLOSED"; it was written by the Wave-3 executor and was premature. Wave 3 finished the IMPLEMENTATION; the code-review, fix and verification gates all ran afterwards and found real defects. See F-38.]** Plan 28-03 (terminal Wave 3) executed exactly as approved, no plan-level deviations. `facets.mjs` extended from 10 to 21 assertions (still validator #16, no sibling file, no F-21 cascade). All 11 new assertions demonstrated RED then restored GREEN. Phase-close gate ran exactly as F-34 specified (single `;` after `npx astro check` only) and closed at the full **16/16** — `freshness` measured 3.0 days against `MAX_AGE_DAYS=3` and passed outright, so **F-19's exclusion branch was never invoked**. `python -m pytest -q`: 344 passed / 1 skipped / 1 xfailed, exact match, F-08's xfail confirmed not accidentally fixed. One in-scope Rule 1 fix: both news pages' `formatMonth()` and generated-date formatters used `toLocaleDateString` with a `month:` option but no `timeZone: 'UTC'` — real build-machine-dependent TZ nondeterminism, the same bug class assertion 11 was written to catch, in the same files the plan already modifies. Fixed via `Date.UTC()` construction + `timeZone: 'UTC'` formatting in both locales. | Recorded so Phase 29+ does not need to re-derive whether Phase 28 closed clean: it did, on the first execution attempt, with the phase's only surprise being a real (not false-positive) TZ bug the plan's own new coverage caught before it shipped. |
 
