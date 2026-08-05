@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-04T19:27:07.979775+00:00",
+  "generated": "2026-08-05T02:07:25.197389+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -1710,6 +1710,96 @@
       "description": "Tres adolescentes son detenidos tras robar especies desde una vivienda en La Herradura&nbsp;&nbsp;Mi Radio",
       "rejection_stage": "resolver_fail",
       "first_seen": "2026-08-04T19:27:07.979775+00:00"
+    },
+    {
+      "id": "531b028b5544f928",
+      "url": "https://www.latercera.com/nacional/noticia/orrego-triunfa-en-la-suprema-y-consigue-que-aseguradora-pague-por-fallido-convenio-con-procultura-en-programa-quedate/",
+      "outlet": "LaTercera",
+      "date": "2026-08-05",
+      "title": "Orrego triunfa en la Suprema y consigue que aseguradora pague por fallido convenio con ProCultura en programa Quédate",
+      "description": "\"Luego de dos años y medio de juicios civiles tan innecesarios como injustos, exigimos que Aspor pague, tal como lo ha señalado la Corte Suprema. Nadie, por importante que sea, está por sobre la ley”, destacó el gobernador Claudio Orrego. La autoridad regional además logró que se confirmara la multa y la condena en costas.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-05T02:07:25.197389+00:00"
+    },
+    {
+      "id": "edd090dbf3ee1118",
+      "url": "https://www.latercera.com/pulso/noticia/caso-sartor-querellante-afirma-que-los-hermanos-larrain-y-michael-clark-arriesgan-hasta-40-anos-de-carcel/",
+      "outlet": "LaTercera",
+      "date": "2026-08-05",
+      "title": "Caso Sartor: querellante afirma que los hermanos Larraín y Michael Clark arriesgan hasta 40 años de cárcel",
+      "description": "Los acusadores privados detallaron sus acusaciones contra los 11 imputados por el caso Sartor. Para justificar la petición de prisión preventiva, uno de ellos describió las penas a las que se arriesgan. Otro querellante detalló las transacciones detrás del bono Nexus. Este miércoles continuará la presentación de los querellantes y el jueves comenzaría la exposición de las defensas.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-05T02:07:25.197389+00:00"
+    },
+    {
+      "id": "75ef416946aad62b",
+      "url": "https://www.latercera.com/nacional/noticia/la-negativa-de-valencia-a-calisto-para-sacar-al-fiscal-libedinsky-de-todas-las-investigaciones-en-su-contra/",
+      "outlet": "LaTercera",
+      "date": "2026-08-04",
+      "title": "La negativa de Valencia a Calisto para sacar al fiscal Libedinsky de todas las investigaciones en su contra",
+      "description": "Tras un informe presentado por el propio fiscal regional de Aysén, eso sí, la arista relativa a supuestos sobornos que se habrían pagado desde el entorno del senador al exfiscal Carlos Palma, se derivó a la Fiscalía Regional de La Araucanía.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-05T02:07:25.197389+00:00"
+    },
+    {
+      "id": "044be7896856fe70",
+      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxPU0lXUmxERGlzYXdjbUNhRWlxRTFSQ0NMTmRwMEM0dG41MGRBNDc0ZHIwR3pFbm12aWJMZWRDVWhCcXA3ZkhBM005VlJXYkxkbWEweVNFWHBreF9KMmpmZGl6NERiSXdXSFR2SHBidDVnU2lQYmNCaWxDTElqV3dITkJBczN0bC1qVjVsYVVPVXJBR05PZlhIVGVuelJrSjA0WTF0bWozOWtkSmcyWnZnSXRrUEM3UTQ4bEozc3pWN09ROFZRb1NGRDJtLWI2em5Zb0d1dXlPMk1oOVR3RUROTg?oc=5",
+      "outlet": "canal9.cl",
+      "date": "2026-08-04",
+      "title": "Apoderada del Liceo Comercial es condenada por agredir a profesor: descartan homicidio frustrado - canal9.cl",
+      "description": "Apoderada del Liceo Comercial es condenada por agredir a profesor: descartan homicidio frustrado&nbsp;&nbsp;canal9.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-05T02:07:25.197389+00:00"
+    },
+    {
+      "id": "bd567ac63ccc384e",
+      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxOTl9tSFJoX2RsRGg3bGRmWTQzNUpvaVhYcEJncGRtMkY3NkNhMi1OTXZueklLNGY3aUxaX2JiMEx0VjBTYlRYZXlMLWhaWnM0ellGcjJ4dVlTVVg1aHA2LUp4VTVhTHNQd3dneXJaY0NINHNaeE9HUlh0SzYxYXNWaE56UkdHZkZrRkMtdEVLcWxWYkQtTUhiRm9kMFhBZ2VIenprdGtuNmJfUUFDUnh1WlJmbWtITl9KR1FCc25JVEo2Y3V0N0hrYzFlWF9VV2gwRloxT0VRWTZyMDNqV3A1YXBZZkU?oc=5",
+      "outlet": "El Mostrador",
+      "date": "2026-08-05",
+      "title": "Chile entre los 18 países que integran fuerza regional liderada por EEUU contra cárteles de droga - El Mostrador",
+      "description": "Chile entre los 18 países que integran fuerza regional liderada por EEUU contra cárteles de droga&nbsp;&nbsp;El Mostrador",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-05T02:07:25.197389+00:00"
+    },
+    {
+      "id": "f02549e6b94fe6d6",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPd1d6cXZwcGktc0p3WjdxMWlKaXFHQzZrdnF6LWdQTFFQZ1JaT0ZLdmxXWEU2Y0txQ2Y5aDFQLXBkdEs5TXd4R082RFM0NzVPbmlON2NSTURHZWI0U2NYZVFCdXVrMGZLUUFlMlliTG83dEVRRVhqYmZERXR0MDBOaVpmWXJqS2pkNXhhaUZsLXdKOGF2YmwxQ3ladWphZkZLODZNb21Ya3BpSkRjZVB0T0ZIeWlwbWM?oc=5",
+      "outlet": "Nuevo Poder",
+      "date": "2026-08-04",
+      "title": "EE.UU. crea fuerza multinacional con 18 países -incluido Chile- para combatir cárteles narco - Nuevo Poder",
+      "description": "EE.UU. crea fuerza multinacional con 18 países -incluido Chile- para combatir cárteles narco&nbsp;&nbsp;Nuevo Poder",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-05T02:07:25.197389+00:00"
+    },
+    {
+      "id": "12a665ef3d60f174",
+      "url": "https://news.google.com/rss/articles/CBMijwJBVV95cUxPRTBDWFBSemxCcF9lUjBmckd5cy0xRnhEVURHQ285NmoxdVN1dVM3d0ViMnFHenV3QThTSUJGejBJelhQd0NfSGZFV1hXb2NJX1J1dDVvQTZmVHJ1UHFqYzJPOHk3NnVnWFhXWGp3QWNESzhkcVlRbmQyYWlmeU1iMF9aaHA4WXQ2OGZXM0d3ZFFzaWs3RTM1MEstZlp5QnpNSzJMUDluWTd6aHJIY19UYnRsQ2IwcDAyeExCejhSbUxveXJvYXZ4TTV5RmFCSEFyWDV6ekJHcTlrajRUclJjbldQSmVkbGJpVWdqS2hsOEdzaXgwdWZ1ZW1BTUFsQl9OOHAxbWlvTWMxUnlYb3Zv?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-08-03",
+      "title": "Mujer sobrevivió a estrangulamiento, fue lanzada a un barranco y hoy teme por libertad de su agresor - BioBioChile",
+      "description": "Mujer sobrevivió a estrangulamiento, fue lanzada a un barranco y hoy teme por libertad de su agresor&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-05T02:07:25.197389+00:00"
+    },
+    {
+      "id": "307b0d9cd8da55dd",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNdGY0YndZdWxjczFWR3RVR3dMb2pYRVpJcEg3a0xUeUJwV2ZyU2dpcDhQNzQzMWE0X2Qxem9Cclhjd1JET3Q4d1Uyd2ttVTdSWDJuSkhJYUhXaW5KX01jc3RWbmQtalh6bFJjM2lRbUx2RTNtQVF5cGhFMVg3QUdvYTFNZ1hWOFZrblRiYUNPQmxod0dINV93TUUxNzB6emZBRnFoY3E5WXhTRkttZ0VQMTRYNWZTU0hiTmQtQTdrcVphekZwVGw0dg?oc=5",
+      "outlet": "Univision",
+      "date": "2026-08-03",
+      "title": "Captan el momento exacto de un doble homicidio a tiros en un bar de Colombia | Video | Shows Primer Impacto - Univision",
+      "description": "Captan el momento exacto de un doble homicidio a tiros en un bar de Colombia | Video | Shows Primer Impacto&nbsp;&nbsp;Univision",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-05T02:07:25.197389+00:00"
+    },
+    {
+      "id": "fc0ab552bb711f23",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNRzlfeGJWTWpiR1M1MXNkQ1hLcG5SRUk4VG9jbTNscl9KV3JqVnlmUEU1LWo2RERZRXowWEVlWEoxN3hIRGZ0azZRcDdDUUpGQ01YVE5hXzRqZ2kxVWI1TDZSd3l6aUt0LXNPeF84a090VDlMQkNlNHhXVXR6clU0M0s0a2dRbFlDNVVDZzhNRnZZOUtxMjFFRkJRelpfVGlTN2lLbEI2X0ZVZDRPZGdFb2R4VDdpTENpV2s1YVJ6aFFyQQ?oc=5",
+      "outlet": "Prensa Libre",
+      "date": "2026-08-04",
+      "title": "EE. UU. crea fuerza regional con 18 países para combatir al crimen organizado - Prensa Libre",
+      "description": "EE. UU. crea fuerza regional con 18 países para combatir al crimen organizado&nbsp;&nbsp;Prensa Libre",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-05T02:07:25.197389+00:00"
     }
   ]
 }
