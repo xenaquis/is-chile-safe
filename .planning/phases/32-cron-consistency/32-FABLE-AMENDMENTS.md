@@ -200,3 +200,34 @@ Delete the duplicate, implement everything above, then run
 `python -m pytest tests/test_workflow_guards.py -q`, and derive the suite total as
 `344 + observed`. Baseline confirmed by execution today: `344 passed, 1 skipped, 1 xfailed`. The
 skipped/xfailed counts stay exactly 1 and 1.
+
+---
+
+## F-92 — CORRECTION OF MY OWN F-82 record: the pinned actionlint is **v1.7.7**, and the "unverified assumption" framing is wrong in both directions
+
+The revised plan pins actionlint **v1.7.7** and states that my cycle-0 figure of v1.7.12 was
+"copied from an unverified assumption." Both halves of that need correcting, and I checked rather
+than picked a side:
+
+- My cycle-0 download WAS verified: the zip `actionlint_1.7.12_windows_amd64.zip` hashed to
+  `6e7241b5…`, matching upstream `actionlint_1.7.12_checksums.txt` exactly. It was not an assumption.
+- But the binary sitting at that path NOW self-reports `1.7.7 … built with go1.23.4`, not
+  `1.7.12 … go1.26.1` as it did when I first ran it. The explanation is mundane and worth recording
+  so nobody re-opens it as a supply-chain scare: the planner downloaded v1.7.7 into the **same
+  shared scratchpad filename** while testing `fetch-lint-tools.sh`, overwriting my copy. Two agents,
+  one scratchpad, same basename.
+- What actually matters is the only thing that ships: the pins in `fetch-lint-tools.sh` match
+  upstream **v1.7.7** byte for byte (`023070a2…` linux, `7f12f180…` windows, checked against
+  `actionlint_1.7.7_checksums.txt` this session), and shellcheck's `8a4e35ab…` matches an artifact
+  downloaded independently in an earlier session.
+
+**Decision: keep v1.7.7.** It is the version the revision actually tested end to end, including the
+tamper mutation, and "pin the version you tested" beats "pin the newest" — bumping to v1.7.12 would
+re-open every proof for a version-currency gain that belongs to Phase 33's SHA-pinning scope, not
+here. The plan's prose calling my figure unverified should be softened to the real story above;
+leaving an inaccurate account of a checksum in a phase about self-diagnosing infrastructure is the
+Operating-Lesson-25 trap (a correctness phase authoring its own drift).
+
+**Operational note for any future phase:** two agents sharing one scratchpad with identical
+basenames silently clobbered a verified binary. When a tool identity matters, verify it at the
+point of use, not once at download — which is exactly what F-85's armed-check and canary now do.
