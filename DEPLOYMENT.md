@@ -357,6 +357,24 @@ is not cited as evidence here.
 
 ### Known Gaps (documented, not remediated in fix-cycle 1 -- F-97)
 
+**DEP-01 (2026-08-05) -- three Astro advisories remain open, and the fix is Astro 7 (a major).**
+`astro` stays at its exact `6.4.6` pin. GitHub reports three alerts against it and all three
+were checked against this codebase rather than accepted on severity alone:
+
+| Advisory | Fixed in | Reachable here? |
+|---|---|---|
+| XSS via unescaped `transition:*` directive value (low) | 7.0.4 | **No** -- zero matches for `transition:name`/`animate`/`persist`, `ViewTransitions`, `ClientRouter` or `astro:transitions` across `src/`, `astro.config.mjs` and `package.json`. |
+| Reflected XSS via View Transition animation properties (medium) | 7.1.0 | **No** -- same evidence; this site has no view-transition surface at all. |
+| XSS via unescaped **spread attribute NAMES** in `renderHTMLElement` (medium) | 7.0.6 | **No** -- exactly two spreads exist in the whole `.astro` tree, both in `CommuneRankingTable.astro` (lines 55, 69), and every attribute NAME in them is a hardcoded string literal (`data-ranking-table`, `data-rates`, ...). The advisory is about names, not values. No spread anywhere derives an attribute name from data. |
+
+**Why it was not upgraded:** Astro 6 -> 7 is a major framework migration against a live,
+indexed, 1,271-page bilingual site with React islands and a Leaflet map. That is its own phase
+with its own verification, not a dependency bump -- and none of the three advisories is
+exploitable here, so the upgrade buys no security today. **Re-check this table before dismissing
+the alerts again**: the moment a `transition:*` directive or a data-derived spread key is
+introduced, one of these becomes live and the upgrade becomes urgent. Dependabot PRs #5, #7 and
+#12 are left OPEN deliberately as the standing reminder.
+
 **RR-L2 (Phase 33) -- the secret-hygiene comment skip has one contrived blind spot.**
 `check-secret-hygiene.sh` and `check-sha-pins.sh` both ignore any line whose first
 non-whitespace character is `#`, which is correct for YAML comments and for shell comments
