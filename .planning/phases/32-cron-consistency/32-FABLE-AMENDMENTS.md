@@ -327,3 +327,84 @@ M-05, M-09.
 - **L-06** — `test_never_prints_secret_value` covers only the success path (the one mutation of nine
   that survived). Extend it to the failure path too; cheap, and a leak on the error path is the
   likelier one.
+
+---
+
+# Fix-cycle 2 decisions (F-98..F-101) — the LAST cycle the directive permits
+
+The independent Opus re-review (`32-REVIEW-02.md`) returned 2 BLOCKERs and 9 WARNINGs. It also did
+the single most useful thing in this phase: it **downloaded both Linux artifacts and matched their
+checksums against the pins**, answering the one question about `fetch-lint-tools.sh` that neither I
+nor the fixer could settle from a Windows box — the CI job will install its linter. And it recorded
+zero collateral from the fix cycle, which breaks this run's streak (Phases 28, 30 and 31 each had a
+fix cycle introduce regressions).
+
+## F-98 — BL-01 is REJECTED. The quarter rule is correct; the reviewer's premise is not.
+
+BL-01 claims F-93's rule will "false-alarm on 2026-10-01" because a maintainer who scrapes *early*
+has their one-boundary tolerance consumed by a due date their own fresh scrape already covered.
+I ran the real evidence through the shipped script across four as-of dates:
+
+```
+2026-08-04 -> OK  (1 due date elapsed)
+2026-09-30 -> OK  (1 due date elapsed)
+2026-10-01 -> ::error:: 2 quarterly due dates have elapsed
+```
+
+**The premise is wrong: a scrape on 2026-06-19 cannot possibly contain data published on
+2026-07-01.** CEAD releases on the quarterly boundary; a scrape twelve days earlier fetches the
+PREVIOUS quarter's figures. So by 2026-10-01 there are two published releases (Jul 1, Oct 1) that
+have gone unincorporated, and firing is the intended behaviour, not a false alarm. An "early"
+scrape never covers the boundary ahead of it, so the tolerance is not consumed by anything.
+
+The re-review's second half is accepted as DESIGNED, not as a defect: the check is green today on
+a Jul-1 boundary that was in fact missed. That is F-93's deliberate one-boundary tolerance —
+"a maintainer running late" must stay silent, and distinguishing late-by-weeks from skipped is the
+whole reason the rule counts boundaries instead of days.
+
+Recorded because Operating Lesson 10 cuts both ways: a finding being confidently argued does not
+make it correct, and I verified this one by execution rather than deferring to the reviewer.
+
+## F-99 — BL-02 is CONFIRMED by my own execution and must be fixed: 2 of 12 runs RED
+
+I ran `pytest tests/test_workflow_guards.py` twelve times: runs 5 and 7 failed. The mechanism the
+re-review identified is right — F-96's switch to second-precision removed the slack that integer-day
+truncation used to absorb, so a test that builds "exactly N days ago" and then lets the script read
+a marginally later clock crosses the threshold by microseconds. `ci.yml` runs pytest on every PR, so
+this is an unrelated red on roughly a quarter of them, and a suite that cries wolf gets ignored
+exactly like a monitor that does.
+
+**Fix by construction, not by margin.** Do not add an epsilon fudge — give the `news` and `r2` modes
+the same injectable as-of parameter the `cead` mode already has, and have every threshold test pass
+an explicit as-of. That takes the wall clock out of the test path entirely, which is what F-93
+already required for `cead` ("never a live `date`"), and makes the race impossible rather than
+unlikely. The production callers keep using the real clock (default when the parameter is omitted),
+and that default path needs its own test.
+
+## F-100 — WR-04 (future-dated evidence passes silently forever) is a real hole: fix it
+
+A timestamp in the future yields zero elapsed boundaries / negative age and passes every mode,
+permanently. That is a silent-green-no-op — the precise thing this phase exists to abolish, sitting
+inside the instrument built to abolish it. Any evidence more than a small clock-skew allowance
+(use 24 h) in the future must FAIL with its own distinct message, in all three modes. Two-direction
+proof: evidence at now+48 h → exit 1; evidence at now+1 h → passes normally.
+
+## F-101 — the record must not carry a false proof claim, and the instrument must lint its own scripts
+
+- **WR-01:** the fix cycle's SUMMARY claims L-06 was proven by a mutation that, when the re-reviewer
+  re-ran it literally, **survived**. The added test does cover a real and different leak shape (two
+  other mutations went RED), so the TEST stays — but the claim does not. Correct the SUMMARY. A
+  false proof claim in the record is worse than an unproven fix, because it stops the next reader
+  from looking.
+- **WR-02:** two gaps, both cheap. (1) Nothing asserts `ci.yml` still calls `lint-workflows.sh`, so
+  H-03 can silently regress — add a test. (2) The phase's five bash scripts are linted by nothing
+  automated; `lint-workflows.sh` must shellcheck `.github/scripts/*.sh` directly in addition to the
+  workflow YAML. The instrument not covering its own source is the same blind spot in miniature.
+- **WR-06:** `DEPLOYMENT.md:117` still reads "Add **both** of the following" above the six-row table
+  H-04 built. New prose that is wrong, in the phase whose job was removing exactly that.
+- **WR-03 / WR-08:** make the `push-with-rebase.sh` loop's final attempt stop burning a rebase it can
+  never push, and give the `FETCH_HEAD` change real coverage — today mutating it back leaves
+  `test_push_race.py` 2/2 green, so that fix is ungated.
+
+Everything else in the re-review is accepted as-is or already recorded as backlog. **This is the
+final fix cycle; anything still open after it is recorded in STATE.md as carried debt, not fixed.**
