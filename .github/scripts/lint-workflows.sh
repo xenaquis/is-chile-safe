@@ -29,7 +29,14 @@ if ! grep -q "SC2034" <<<"$canary_output" || ! grep -q "SC2086" <<<"$canary_outp
 fi
 echo "canary fired correctly (SC2034 + SC2086 both present), instrument is armed"
 
+# WR-02: actionlint's `-shellcheck` only lints INLINE `run:` bodies embedded in
+# workflow YAML. Every workflow in this repo calls out to `.github/scripts/*.sh`
+# via `run: bash .github/scripts/<name>.sh`, so actionlint never sees those
+# files' contents at all — the instrument built to stop shell defects from
+# reaching CI did not cover its own source. Shellcheck the scripts directly.
 cd "$ROOT"
+"$SH" -s bash .github/scripts/*.sh
+
 targets=("$@")
 if [ "${#targets[@]}" -eq 0 ]; then
   # L-01: GitHub accepts both .yml and .yaml for workflow files; a *.yml-only
