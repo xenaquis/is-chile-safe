@@ -90,18 +90,23 @@ _count_noncomment_matches() {
   echo "$n"
 }
 
-# _report FILE MESSAGE -- prints ::error:: for every row in FILE (checks 1/4,
-# which are NOT comment-line-skipped per FM-09 -- an `echo "# $SECRET"`
-# inside a run: body is still live shell, not a YAML/shell comment).
-_report_all() {
-  local file="$1" message="$2" fail_var="$3"
-  while IFS=: read -r f l content; do
-    echo "::error file=$f,line=$l::${message}: $content"
-    eval "$fail_var=1"
-  done <"$file"
-}
-
-# _report_noncomment FILE MESSAGE -- FM-09: for checks 2/3, skip comment lines.
+# _report_noncomment FILE MESSAGE -- FM-09/F-126: skip lines whose FIRST
+# non-whitespace character is '#'. Used by ALL FOUR checks.
+#
+# F-126 corrects an earlier rationale in this file which claimed checks 1
+# and 4 must NOT skip comment lines because `echo "# $SECRET"` inside a
+# run: body is live shell. That reasoning conflates two different things:
+# `echo "# $SECRET"` does not START with '#' -- it starts with `echo` --
+# so a first-character test never silences it. What the missing skip DID
+# silence-fail on was ordinary explanatory prose: this repo's workflows
+# are comment-heavy and this very phase writes comments telling readers
+# not to echo secrets, each of which reddened the build. Measured: three
+# such comments (`# never echo "$DEEPSEEK_API_KEY" ...`, `# do not
+# printenv OPENROUTER_API_KEY`, `# never echo "${{ secrets.X }}"`) all
+# exited 1 before this change. A guard that bans documenting the rule it
+# enforces is the Phase 31 defect (a guard that fires on legitimate
+# content), and widening check 1's pattern in fix cycle 1 is what
+# enlarged its blast radius.
 _report_noncomment() {
   local file="$1" message="$2" fail_var="$3"
   while IFS=: read -r f l content; do
@@ -125,7 +130,7 @@ canary_sh="$FIXTURE_DIR/canary-script.sh"
 canary_py="$FIXTURE_DIR/canary_module.py"
 
 _scan_grep "$ECHO_PATTERN" "$canary_yml" "$canary_sh"
-canary_echo_hits=$(wc -l <"$SCAN_TMP" | tr -d ' ')
+canary_echo_hits="$(_count_noncomment_matches "$SCAN_TMP")"
 rm -f "$SCAN_TMP"
 
 # HI-01/F-125: each sibling shape of check 1 gets its own must-fire
@@ -133,15 +138,15 @@ rm -f "$SCAN_TMP"
 # sibling shapes pass silently is exactly the F-85 defect class relocated
 # into this gate's own countermeasure.
 _scan_grep "$SECRETS_EXPR_PATTERN" "$canary_yml" "$canary_sh"
-canary_secrets_expr_hits=$(wc -l <"$SCAN_TMP" | tr -d ' ')
+canary_secrets_expr_hits="$(_count_noncomment_matches "$SCAN_TMP")"
 rm -f "$SCAN_TMP"
 
 _scan_grep "$PRINTENV_PATTERN" "$canary_yml" "$canary_sh"
-canary_printenv_hits=$(wc -l <"$SCAN_TMP" | tr -d ' ')
+canary_printenv_hits="$(_count_noncomment_matches "$SCAN_TMP")"
 rm -f "$SCAN_TMP"
 
 _scan_grep "$HERESTRING_PATTERN" "$canary_yml" "$canary_sh"
-canary_herestring_hits=$(wc -l <"$SCAN_TMP" | tr -d ' ')
+canary_herestring_hits="$(_count_noncomment_matches "$SCAN_TMP")"
 rm -f "$SCAN_TMP"
 
 _scan_grep "$XTRACE_PATTERN" "$canary_yml" "$canary_sh"
@@ -153,7 +158,7 @@ canary_curl_hits="$(_count_noncomment_matches "$SCAN_TMP")"
 rm -f "$SCAN_TMP"
 
 _scan_grep "$BOTOCORE_PATTERN" "$canary_py"
-canary_botocore_hits="$(wc -l <"$SCAN_TMP" | tr -d ' ')"
+canary_botocore_hits="$(_count_noncomment_matches "$SCAN_TMP")"
 rm -f "$SCAN_TMP"
 
 if [ "$canary_echo_hits" -lt 1 ] || [ "$canary_secrets_expr_hits" -lt 1 ] || \
@@ -190,10 +195,9 @@ if [ "${#WORKFLOW_FILES[@]}" -eq 0 ]; then
 fi
 
 # Check 1: echo/printf/${{ secrets.X }}/printenv/here-string exposure of a
-# secret name or alias -- NOT comment-skipped (FM-09: an echo of
-# "# $SECRET" inside a run: body is still live shell).
+# secret name or alias -- comment-line-skipped (FM-09/F-126).
 _scan_grep "$EXPOSURE_PATTERN" "${WORKFLOW_FILES[@]}" .github/scripts/*.sh
-_report_all "$SCAN_TMP" "possible secret exposure (echo/printf/secrets-expression/printenv/here-string of a secret name)" fail
+_report_noncomment "$SCAN_TMP" "possible secret exposure (echo/printf/secrets-expression/printenv/here-string of a secret name)" fail
 rm -f "$SCAN_TMP"
 
 # Check 2: set -x / set -o xtrace -- comment-line-skipped (FM-09).
@@ -207,10 +211,11 @@ _report_noncomment "$SCAN_TMP" "verbose curl invocation (can print a secret-bear
 rm -f "$SCAN_TMP"
 
 # Check 4: botocore wire-level DEBUG logging -- F-116/A3, scoped ONLY to
-# pipeline/*.py (top-level, not a defensive blanket .py scan). NOT
-# comment-skipped -- a live logging.basicConfig call is never a comment.
+# pipeline/*.py (top-level, not a defensive blanket .py scan).
+# Comment-line-skipped (F-126) -- a Python comment naming set_stream_logger
+# is documentation, not an enabled logger.
 _scan_grep "$BOTOCORE_PATTERN" pipeline/*.py
-_report_all "$SCAN_TMP" "botocore-DEBUG log-hygiene risk (wire-level logging could expose R2 credentials in a traceback)" fail
+_report_noncomment "$SCAN_TMP" "botocore-DEBUG log-hygiene risk (wire-level logging could expose R2 credentials in a traceback)" fail
 rm -f "$SCAN_TMP"
 
 if [ "$fail" -eq 0 ]; then
