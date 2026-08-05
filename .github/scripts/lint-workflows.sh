@@ -32,6 +32,12 @@ echo "canary fired correctly (SC2034 + SC2086 both present), instrument is armed
 cd "$ROOT"
 targets=("$@")
 if [ "${#targets[@]}" -eq 0 ]; then
-  targets=(.github/workflows/*.yml)
+  # L-01: GitHub accepts both .yml and .yaml for workflow files; a *.yml-only
+  # glob would silently skip a .yaml workflow from the very gate meant to be
+  # un-skippable. nullglob so a genuinely absent extension does not pass a
+  # literal unexpanded glob string to actionlint.
+  shopt -s nullglob
+  targets=(.github/workflows/*.yml .github/workflows/*.yaml)
+  shopt -u nullglob
 fi
 "$AL" -no-color -oneline -shellcheck "$SH" "${targets[@]}"

@@ -15,13 +15,27 @@ while [ "$i" -le "$max_attempts" ]; do
     break
   fi
   echo "push rejected, attempt $i of $max_attempts — fetching and rebasing (CRON-06)"
+  # L-04: rebase against FETCH_HEAD (this fetch's actual result), not
+  # origin/<branch> (a locally cached ref that opportunistically updates on
+  # `git fetch` but is not guaranteed to under every refspec configuration).
   git fetch origin "$branch"
-  if ! git rebase "origin/$branch"; then
+  if ! git rebase FETCH_HEAD; then
     echo "::error::rebase conflict during data commit — aborting, a human must resolve"
-    git rebase --abort
+    # L-03: `git rebase --abort` itself can fail (e.g. an already-clean tree)
+    # and would exit non-zero under `set -e`, masking the intended exit 1
+    # with an unrelated exit 128. The `::error::` line above already ran and
+    # survives either way; the explicit `exit 1` below is what actually
+    # determines this script's exit code, so `|| true` here is a controlled
+    # allowance on a best-effort cleanup call, not exit-code laundering.
+    git rebase --abort || true
     exit 1
   fi
-  sleep $((i * 3))
+  # L-02: sleep only between retries, not after the final rebase (which will
+  # loop back to `git push` immediately) and not on the last attempt (which
+  # would sleep for no subsequent retry).
+  if [ "$i" -lt "$max_attempts" ]; then
+    sleep $((i * 3))
+  fi
   i=$((i + 1))
 done
 
