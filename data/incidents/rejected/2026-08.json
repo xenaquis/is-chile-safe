@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-05T02:07:25.197389+00:00",
+  "generated": "2026-08-05T08:30:27.093467+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -1800,6 +1800,46 @@
       "description": "EE. UU. crea fuerza regional con 18 países para combatir al crimen organizado&nbsp;&nbsp;Prensa Libre",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-08-05T02:07:25.197389+00:00"
+    },
+    {
+      "id": "6be4cbe20647d8ee",
+      "url": "https://www.latercera.com/nacional/noticia/senadores-presentan-bancada-para-impulsar-proyecto-de-indulto-general-a-uniformados-por-causas-del-estallido-social/",
+      "outlet": "LaTercera",
+      "date": "2026-08-05",
+      "title": "Senadores presentan bancada para impulsar proyecto de indulto general a uniformados por causas del estallido social",
+      "description": "La instancia buscará acelerar la tramitación de una moción que beneficia a integrantes de las Fuerzas Armadas, Carabineros, la PDI, Gendarmería y determinados civiles, además de promover el respaldo del Gobierno a la iniciativa.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-05T08:30:27.093467+00:00"
+    },
+    {
+      "id": "083617032d090e53",
+      "url": "https://www.latercera.com/mundo/noticia/con-chile-entre-sus-miembros-eeuu-crea-fuerza-operativa-con-18-paises-de-america-para-combatir-el-crimen-organizado/",
+      "outlet": "LaTercera",
+      "date": "2026-08-05",
+      "title": "Con Chile entre sus miembros: EE.UU. crea fuerza operativa con 18 países de América para combatir el crimen organizado",
+      "description": "La denominada Fuerza Operativa Conjunta del Hemisferio Occidental, está compuesta por los 18 estados miembros de la Coalición Contra los Cárteles de las Américas, creada en marzo pasado en Miami.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-05T08:30:27.093467+00:00"
+    },
+    {
+      "id": "ec4a883ee5ccc4c9",
+      "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNN25wdFhQd3RRVGFPeENWR3NDTVdhTzg1OE01QlJ6aFBFWndBZ0s5NW1WY1ZHVmJXNTFjeWc2cUMtOUdDRElIQXNWQVZ2QUZJRWs3a25neUtWU3dHSlZTRkx1T0xMMkQ4RmZrRHNxRjVMNzhJVDFGakxpdUY5NjlQRWR5OXJYUkI2cG1TSHFCbldOTlZJdXdhTS1MLWtTdjdLZnFvRG9URF9nbjdrb0FrMnlNeFRSVFgydVFtT0JvcGpGUmNZYm92LXpPR09qYWVhTWtoV01OZTd3TGludmFHa2JaeWVUY0QwSmRoYtIBjgJBVV95cUxQLWxPNjZqQzNNX1B2dmVmN1NGeWlTQVNubWRCTGJYdnFFVjlwNmszN2dXUGNZLW4zd3BXMzBoSHNsMkdpSnhXZFpDanFhTllpTDBBR1o0TmZzakJMVnRtalNtZ2RLN3psb001bHRxYTFRQ0dpN2FENTFqOVFoR1BBaDQyS3ZSVzZHLVJuS0hxWmNkaFFLdklJNGR5WmFWdDFoQ0phVFdlaW44ZW5ZR3NEUTFEdjl2cmtOMHo4Vm13R09Sek43blk0QkdqSmVMdXlySDc1OU5DN0NDTE4xaDlqbW00SDgycmUwaEJiZ3FFSHBRSExBajBSMWxWMzVkc0FwNkpBTHZyVWRNMUpMaFE?oc=5",
+      "outlet": "La Tercera",
+      "date": "2026-08-05",
+      "title": "Con Chile entre sus miembros: EE.UU. crea fuerza operativa con 18 países de América para combatir el crimen organizado - La Tercera",
+      "description": "Con Chile entre sus miembros: EE.UU. crea fuerza operativa con 18 países de América para combatir el crimen organizado&nbsp;&nbsp;La Tercera",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-05T08:30:27.093467+00:00"
+    },
+    {
+      "id": "35caaf5e879ffa8b",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOVlJ5RlR6ZS00S0huQU13X3hkQzR2QWpwUHhhb3E5MkJGUlhvQlZwT3luek9TblZYRDJZTVFUWUxibkhaM1NRekpDY0hSenJuWU5jT1hZZkVjSHJ4V2JTSWE0QnMyRTdZQlhsZ0F4cVQyTkFUeFFrNVZVWEZPamR3RWFYSTlLUmFCRUZrT1NCM0pRQTBMZE53Nmk3NWJBZHdKQ3dSS2VrSmpWRGdnR0pCRjJ3ME1sTEt1WUR4TGkxbFF2ZHh1RjN5dGlkSGs?oc=5",
+      "outlet": "G5noticias",
+      "date": "2026-08-05",
+      "title": "OCRIT UNAB: Porte de armas y explosivos alcanza su nivel más alto en Biobío y crece violencia letal - G5noticias",
+      "description": "OCRIT UNAB: Porte de armas y explosivos alcanza su nivel más alto en Biobío y crece violencia letal&nbsp;&nbsp;G5noticias",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-08-05T08:30:27.093467+00:00"
     }
   ]
 }
