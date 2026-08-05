@@ -339,9 +339,11 @@ confirms: repo **PUBLIC** (`"visibility":"public"`), `secret_scanning.status: "e
 and `can_approve_pull_request_reviews: false` were established and unchanged since
 F-107/F-111 (Phase 32) -- this plan did not re-query the Actions permissions endpoint
 separately since neither this plan nor Plan 33-01/33-02 touch repository-level Actions
-settings, only workflow-file content. 0 secret-scanning alerts open (visible via
-`open_issues_count` distinct from alert count -- confirmed no `secret_scanning_alert`
-notification exists in this session's `gh api` output).
+settings, only workflow-file content. 0 secret-scanning alerts open -- verified via
+`gh api repos/xenaquis/is-chile-safe/secret-scanning/alerts --jq 'length'` (2026-08-05,
+returned 0; F-111). `open_issues_count` from `gh api repos/xenaquis/is-chile-safe` counts
+open issues **and pull requests** and has no relationship to secret-scanning alerts -- it
+is not cited as evidence here.
 
 ### Known Gaps (documented, not remediated in fix-cycle 1 -- F-97)
 
