@@ -54,4 +54,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: rhysd/actionlint@v1
+      # H-03/F-95: this job previously ran `rhysd/actionlint@v1` directly, a
+      # wrapper whose shellcheck-wiring silently disables shell linting when
+      # misconfigured (the exact defect class F-85's armed-check + canary exist
+      # to close). The shipped, canary-armed, SHA-pinned instrument
+      # (.github/scripts/lint-workflows.sh) had zero callers until this line.
+      # F-95 explicitly REJECTS adding a `push: branches: [master]` trigger to
+      # this file: that would run build+validate on every push to a live repo,
+      # where `freshness` can go red purely from data age (F-19), manufacturing
+      # a recurring red CI signal. Master-push linting is NOT covered by CI; it
+      # is covered by running this gate locally before every push (documented
+      # in DEPLOYMENT.md).
+      - name: Lint workflows (armed instrument, F-85/H-03)
+        run: bash .github/scripts/lint-workflows.sh
