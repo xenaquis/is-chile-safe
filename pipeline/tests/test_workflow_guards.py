@@ -493,6 +493,89 @@ def _iter_workflow_files():
     return sorted(WORKFLOWS_DIR.glob("*.yml")) + sorted(WORKFLOWS_DIR.glob("*.yaml"))
 
 
+class TestPersistCredentialsRegression:
+    """F-123 (33-03, orchestrator addition): zizmor's `artipacked` audit fires
+    on the `persist-credentials` KEY being ABSENT, not on it being `false`.
+    Setting `persist-credentials: true` on any of the six non-pushing
+    checkouts makes zizmor exit 0 -- a silent regression of this phase's own
+    headline change that zizmor itself cannot cover. This is a pytest-only
+    guard.
+
+    Six non-pushing checkouts must carry the literal YAML key
+    `persist-credentials: false`; news-pipeline.yml and cead-scraper.yml
+    (the two pushing crons) must carry NO `persist-credentials` key at all --
+    a prose comment merely mentioning the setting (both files already have
+    one, explaining why the credential is kept) does not count. The match is
+    against the YAML key `persist-credentials:` with a value, not a
+    substring search that a comment would also satisfy.
+    """
+
+    _MUST_HAVE_FALSE = {
+        "ci.yml": 3,  # frontend, pipeline, lint-workflows jobs
+        "deploy-on-code.yml": 1,
+        "heartbeat.yml": 1,
+        "r2-archive.yml": 1,
+    }
+    _MUST_HAVE_NO_KEY = ("news-pipeline.yml", "cead-scraper.yml")
+
+    @staticmethod
+    def _persist_credentials_key_lines(text: str):
+        """Return lines that are a live YAML `persist-credentials:` key
+        (not a comment mentioning the phrase). A YAML key line's first
+        non-whitespace character is never '#'."""
+        hits = []
+        for line in text.splitlines():
+            stripped = line.strip()
+            if stripped.startswith("#"):
+                continue
+            if stripped.startswith("persist-credentials:"):
+                hits.append(stripped)
+        return hits
+
+    def test_six_non_pushing_checkouts_have_persist_credentials_false(self):
+        for filename, expected_count in self._MUST_HAVE_FALSE.items():
+            text = (WORKFLOWS_DIR / filename).read_text(encoding="utf-8")
+            hits = self._persist_credentials_key_lines(text)
+            assert len(hits) == expected_count, (
+                f"{filename}: expected {expected_count} persist-credentials key "
+                f"line(s), found {len(hits)}: {hits}"
+            )
+            for hit in hits:
+                assert hit == "persist-credentials: false", (
+                    f"{filename}: expected 'persist-credentials: false', found {hit!r}"
+                )
+
+    def test_two_pushing_crons_carry_no_persist_credentials_key(self):
+        for filename in self._MUST_HAVE_NO_KEY:
+            text = (WORKFLOWS_DIR / filename).read_text(encoding="utf-8")
+            hits = self._persist_credentials_key_lines(text)
+            assert hits == [], (
+                f"{filename}: must carry NO persist-credentials key (a comment "
+                f"explaining the omission is fine, a live key is not) -- found {hits}"
+            )
+            # Non-vacuous: confirm the comment mentioning the setting really
+            # exists, so this isn't silently passing on a stripped-down file.
+            assert "persist-credentials" in text, (
+                f"{filename}: expected the rationale comment mentioning "
+                "persist-credentials to still be present"
+            )
+
+    def test_guard_is_non_vacuous_against_a_synthetic_true_regression(self):
+        """Mutate a copy of ci.yml's first persist-credentials:false line to
+        `true` and confirm the detector above would catch it -- proving the
+        assertion is load-bearing, not vacuously true because no workflow
+        happens to declare the key."""
+        real_text = (WORKFLOWS_DIR / "ci.yml").read_text(encoding="utf-8")
+        mutated_text = real_text.replace(
+            "persist-credentials: false", "persist-credentials: true", 1
+        )
+        assert mutated_text != real_text, "sanity check: mutation must change the text"
+        hits = self._persist_credentials_key_lines(mutated_text)
+        assert any(h == "persist-credentials: true" for h in hits), (
+            "mutation to persist-credentials: true was not detected -- guard is vacuous"
+        )
+
+
 def _python_run_steps_missing_setup(text: str):
     """H-02 class-level guard (review's own remedy): for a workflow file's raw
     text, return the list of `run: python ...` step lines that are not

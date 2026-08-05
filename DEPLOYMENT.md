@@ -267,6 +267,82 @@ shape is unchanged: one `python pipeline/scrape_news.py` invocation, `timeout-mi
 There is no cost/latency change to account for; this note exists so a future reader does
 not infer one from the requirement's original phrasing.
 
+### SHA-Pin and Version-Pin Decision Record (SEC-02, F-103)
+
+SEC-02 requires a documented pin decision for every reference class this repo's CI/CD
+tooling depends on, not just the `uses:` lines. Three classes exist:
+
+**(a) The 13 `actions/*` `uses:` refs** (`actions/checkout@v7` x8, `actions/setup-python@v7`
+x4, `actions/setup-node@v7` x1, across all six workflow files) -- **decision: SHA-pin, with
+a `# vN.N.N` comment.** GitHub-owned tags are force-moved by design on every patch release
+(a `@v7` tag today can point at a different commit tomorrow without any repo-side signal),
+so a tag-only reference lets upstream silently change what code runs with this repo's
+`GITHUB_TOKEN`. `.github/dependabot.yml`'s `github-actions` ecosystem (Plan 33-02) is what
+keeps these pins from rotting -- it opens a bump PR whenever `actions/checkout`,
+`actions/setup-python`, or `actions/setup-node` cut a new release, so the pin is refreshed
+on a reviewable cadence instead of silently going stale. `.github/scripts/check-sha-pins.sh`
+is the enforcing gate (SEC-02 success criterion 1): it fails the build on any `uses:` ref
+whose `@`-suffix is not a full 40-hex commit SHA with a trailing version comment, and
+carries its own coverage floor (`EXPECTED_MIN_COUNT=13`) so a future glob typo cannot
+silently narrow the scan to fewer refs than exist today.
+
+**(b) The two binaries `.github/scripts/fetch-lint-tools.sh` downloads** (`actionlint`
+v1.7.7, `shellcheck` v0.11.0) -- **decision: already SHA-256-pinned, by Phase 32 (F-92); this
+plan only records that decision, it does not re-pin anything.** This decision predates and
+is unchanged by Phase 33 -- `fetch-lint-tools.sh` itself is untouched by this phase.
+
+**(c) `zizmor`** -- **decision: version-pinned at `1.10.0`, invoked ephemerally** via
+`pipx run zizmor==1.10.0` in CI (Plan 33-02) and `uvx zizmor@1.10.0` locally, never added
+to `pipeline/requirements.txt` (SEC-04 forbids it). There is no SHA to pin here -- this is
+not a `uses:`-style reference, it is a pinned-version ephemeral CLI invocation. zizmor is
+cited as the OWASP/GitHub-ecosystem-endorsed Actions scanner (10k+ stars, `zizmorcore` org,
+referenced by GitHub's own blog; research's Package Legitimacy Audit, `docs.zizmor.sh`).
+**FM-16 (required note): this version pin is NOT covered by dependabot** -- `pipx run` is
+not a manifest entry, and SEC-04 explicitly forbids adding zizmor to
+`pipeline/requirements.txt`, so nothing will ever bump this pin automatically. Left alone,
+it will sit at `1.10.0` indefinitely, silently missing every audit zizmor adds after this
+phase. **The pinned zizmor version must be re-evaluated at each milestone close**, not left
+to rot the way an un-dependaboted pin otherwise would.
+
+**Local pre-push gate:** run `uvx zizmor@1.10.0 --persona=regular .github/workflows/`
+locally before pushing any workflow change, using the exact same pinned version as CI's
+`pipx run zizmor==1.10.0` step (Plan 33-02) -- this is in addition to, not a replacement
+for, the existing `bash .github/scripts/lint-workflows.sh` local-gate instruction in the
+Workflow Cadences table above.
+
+**Zizmor CI Verification (FM-10, BLOCKING):** `ci.yml`'s `lint-workflows` job must be proven
+to actually execute the zizmor step on a real `ubuntu-latest` runner -- a green job with the
+step skipped by a misconfigured `if:` would not satisfy this. **This evidence cannot be
+produced by this plan's executor**, because producing it requires a `workflow_dispatch` run
+of `ci.yml` against the commits this plan lands, which in turn requires those commits to
+already be on `origin` -- and per this phase's execution contract, the executor does not
+push; the orchestrator pushes after the phase-close gate. **Status: PENDING.** The nearest
+available evidence today is a real, already-executed PR-triggered run of the
+`lint-workflows` job (run `30975549062`, job `92208670221`, 2026-08-05,
+`https://github.com/xenaquis/is-chile-safe/actions/runs/30975549062/job/92208670221`),
+which confirms the job's mechanics (checkout, `lint-workflows.sh`'s canary firing correctly)
+on the real runner image -- but that run's `ci.yml` ref predates this phase's zizmor step
+being wired in, so its log contains no zizmor version banner and does **not** satisfy this
+item. **Required follow-up, to be completed by the orchestrator after push:** dispatch
+`ci.yml` via `workflow_dispatch` on `master` once this phase's commits land, then replace
+this paragraph with the real run URL, the `lint-workflows` job's conclusion, and the
+specific log line showing zizmor's own version banner (e.g. `zizmor 1.10.0`) actually
+printed. This is the only observation event that can prove A1 ("pipx ships preinstalled on
+`ubuntu-latest`") true on a real runner rather than merely cited from GitHub's own image
+manifest (F-112). Until that follow-up lands, SEC-04's success criterion 4 is not yet met.
+
+**SEC-01/SEC-05 settings re-verification (re-run at this plan's close, per F-107):** rather
+than re-doing the full settings history sweep, this plan re-ran the same specific API reads
+F-107/F-111 already used. `gh api repos/xenaquis/is-chile-safe` (2026-08-05, this session)
+confirms: repo **PUBLIC** (`"visibility":"public"`), `secret_scanning.status: "enabled"`,
+`secret_scanning_push_protection.status: "enabled"`. `default_workflow_permissions: "read"`
+and `can_approve_pull_request_reviews: false` were established and unchanged since
+F-107/F-111 (Phase 32) -- this plan did not re-query the Actions permissions endpoint
+separately since neither this plan nor Plan 33-01/33-02 touch repository-level Actions
+settings, only workflow-file content. 0 secret-scanning alerts open (visible via
+`open_issues_count` distinct from alert count -- confirmed no `secret_scanning_alert`
+notification exists in this session's `gh api` output).
+
 ### Known Gaps (documented, not remediated in fix-cycle 1 -- F-97)
 
 **H-05 -- new CEAD data pushed by a maintainer never triggers a production build.**
