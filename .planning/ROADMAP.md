@@ -114,7 +114,7 @@ Full phase details for 18/21/22/23/24/25 remain below in this file's Phase Detai
 - [ ] **Phase 30: Map Control-Shell Rework** — implement the accepted design; Leaflet layer code untouched
 - [x] **Phase 31: Docs & Methodology Refresh** — methodology/sources/attribution brought current with everything shipped since v1.3 plus this milestone (completed 2026-08-03)
 - [x] **Phase 32: Cron Consistency** — reconcile the whole schedule surface (secrets, retries, labels, freshness, race conditions) (completed 2026-08-05)
-- [x] **Phase 33: Security Posture** — secrets hygiene, Actions permissions, SHA-pinning, dependabot, scraping courtesy
+- [x] **Phase 33: Security Posture** — secrets hygiene, Actions permissions, SHA-pinning, dependabot, scraping courtesy (completed 2026-08-05)
 
 ---
 

@@ -106,7 +106,7 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 
 ### Security Posture (→ Phase 33)
 
-- [ ] **SEC-01**: `GITHUB_TOKEN` defaults to read-only at the repository level, and every job declares a minimal explicit `permissions:` block.
+- [x] **SEC-01**: `GITHUB_TOKEN` defaults to read-only at the repository level, and every job declares a minimal explicit `permissions:` block.
 - [x] **SEC-02**: Third-party actions are pinned by full commit SHA with a version comment, with an explicit documented decision recorded for each (SHA-pin versus major-version tag).
 - [x] **SEC-03**: A `.github/dependabot.yml` is added (none exists today) covering the `github-actions`, `pip`, and `npm` ecosystems.
 - [x] **SEC-04**: `zizmor` runs in CI as an Actions-specific static analyzer (invoked via `pipx`/`uvx`, never added to `pipeline/requirements.txt`), alongside the existing `actionlint`, and its findings are triaged.
@@ -185,7 +185,7 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 | CRON-05 | Phase 32 | Complete |
 | CRON-06 | Phase 32 | Complete |
 | CRON-07 | Phase 32 | Complete |
-| SEC-01 | Phase 33 | Pending |
+| SEC-01 | Phase 33 | Complete |
 | SEC-02 | Phase 33 | Complete |
 | SEC-03 | Phase 33 | Complete |
 | SEC-04 | Phase 33 | Complete |
