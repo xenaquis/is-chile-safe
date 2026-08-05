@@ -9,7 +9,7 @@ pyxlsb==1.0.10
 pandas==2.3.3
 pytest==8.*
 feedparser==6.0.11
-openai==2.34.0
+openai==2.52.0
 scipy>=1.13,<2
 boto3
 trafilatura
