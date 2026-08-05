@@ -51,6 +51,19 @@ fail=0
 count=0
 
 while IFS=: read -r file line content; do
+  # RR-M1/F-127: a line whose FIRST non-whitespace character is '#' is a
+  # comment, not a step. Commenting a step out (`# - uses: actions/x@v4`) is
+  # the ordinary way to disable it, and without this skip it produced an
+  # unsatisfiable ::error:: demanding a SHA pin for a ref that does not run.
+  # It also left this script inconsistent with check-secret-hygiene.sh, which
+  # skips comments in all four of its checks from the SAME CI job (F-126).
+  # Note this does NOT weaken detection: a live `- uses:` line starts with
+  # '-', never '#'. Comment lines are excluded from `count` as well, so the
+  # coverage floor measures real refs (still exactly 13) rather than prose.
+  stripped="${content#"${content%%[![:space:]]*}"}"
+  case "$stripped" in
+    "#"*) continue ;;
+  esac
   count=$((count + 1))
   ref="$(printf '%s' "$content" | sed -n 's/.*uses:[[:space:]]*\([^[:space:]#]*\).*/\1/p')"
   if [[ "$ref" != *@* ]]; then

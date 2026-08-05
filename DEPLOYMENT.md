@@ -309,9 +309,13 @@ locally before pushing any workflow change, using the same pinned version as CI'
 `pipx run zizmor==1.10.0` step (Plan 33-02) -- this is in addition to, not a replacement
 for, the existing `bash .github/scripts/lint-workflows.sh` local-gate instruction in the
 Workflow Cadences table above. **This is NOT "the exact same" gate as CI's, only the same
-version.** Without a `GH_TOKEN`, zizmor silently skips four audits that require the GitHub
-API: `impostor-commit`, `ref-confusion`, `known-vulnerable-actions`, and `stale-action-refs`
--- three of which (`impostor-commit`, `known-vulnerable-actions`, `stale-action-refs`) are
+version.** Without a `GH_TOKEN`, zizmor skips four audits that require the GitHub
+API: `impostor-commit`, `ref-confusion`, `known-vulnerable-actions`, and `stale-action-refs`.
+It is not literally silent about it — it prints an ` INFO zizmor: skipping <audit>: can't run
+without a GitHub API token` line per audit and still **exits 0** — which is the trap worth
+naming: the skip is visible only to someone reading the log, while the exit code a script or
+a human reads says "clean". Check for those INFO lines, not just the exit status.
+Three of the four (`impostor-commit`, `known-vulnerable-actions`, `stale-action-refs`) are
 precisely the audits that guard the SHA pins this phase introduced. A tokenless local pass
 is a weaker signal than CI's; to run the equivalent set locally, authenticate first:
 `GH_TOKEN="$(gh auth token)" uvx zizmor@1.10.0 --persona=regular .github/workflows/`.
@@ -352,6 +356,24 @@ open issues **and pull requests** and has no relationship to secret-scanning ale
 is not cited as evidence here.
 
 ### Known Gaps (documented, not remediated in fix-cycle 1 -- F-97)
+
+**RR-L2 (Phase 33) -- the secret-hygiene comment skip has one contrived blind spot.**
+`check-secret-hygiene.sh` and `check-sha-pins.sh` both ignore any line whose first
+non-whitespace character is `#`, which is correct for YAML comments and for shell comments
+inside a `run: |` block. The exception is a `#`-leading line inside a HEREDOC BODY within a
+`run: |` block: there the `#` is literal text, not a comment, so a secret interpolated on
+such a line would not be reported. **Deliberately not closed** -- distinguishing heredoc
+bodies from comments needs a YAML/shell parser, and narrowing the skip is what produced the
+F-126 regression (a guard that reddened the build on ordinary prose telling readers not to
+echo secrets). No instance exists in this repo: no workflow currently uses a heredoc in a
+`run:` body at all. Observable symptom if one is ever added: a leak on such a line passes the
+gate; GitHub's own value-masking still applies to any exactly-registered secret.
+
+**RR-L3 (Phase 33) -- the courtesy-delay tests import `REQUEST_DELAY` from
+`pipeline/news/fulltext.py`**, marginally deepening the ME-02/FM-11 coupling that already
+puts `requests`/`trafilatura`/`tenacity` on the news cron's import path to read one float.
+Accepted: the failure mode is loud (`ModuleNotFoundError` before any feed is fetched, red job
+plus alert issue), and F-108's one-constant rule is worth more than the decoupling.
 
 **H-05 -- new CEAD data pushed by a maintainer never triggers a production build.**
 `deploy-on-code.yml` filters on `site/**` (and its own workflow file); `data/**` matches
