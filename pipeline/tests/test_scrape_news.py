@@ -450,18 +450,29 @@ def test_inter_feed_courtesy_delay(tmp_path, monkeypatch):
 
 
 def test_inter_feed_courtesy_delay_never_before_first_feed(tmp_path, monkeypatch):
-    """With a single-entry FEEDS dict, time.sleep must never be called
-    (matching the archive_r2.py `if i > 0` precedent -- no delay before the
-    first feed)."""
+    """With a 2-entry FEEDS dict, time.sleep must be called exactly ONCE, with
+    the exact REQUEST_DELAY argument (LO-01: a single-entry dict can only
+    prove the `if i > 0` guard exists once removed entirely, since an
+    always-sleep implementation and a never-sleep-before-first-feed
+    implementation are indistinguishable on one feed. A 2-feed dict with an
+    explicit [REQUEST_DELAY] expectation subsumes both properties -- 'no
+    delay before the first feed' AND 'a delay before the second' -- in one
+    non-vacuous assertion, matching the archive_r2.py `if i > 0` precedent)."""
     monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
     monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
 
+    two_feeds = {
+        "BioBioChile": "https://www.biobiochile.cl/static/feed-rss",
+        "Cooperativa": "https://www.cooperativa.cl/rss",
+    }
+
     import pipeline.scrape_news as sn
+    from pipeline.news.fulltext import REQUEST_DELAY
 
     mock_sleep = MagicMock()
     monkeypatch.setattr(sn.time, "sleep", mock_sleep)
 
-    with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
+    with patch("pipeline.news.feeds.FEEDS", two_feeds), \
          patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
          patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
          patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
@@ -470,7 +481,7 @@ def test_inter_feed_courtesy_delay_never_before_first_feed(tmp_path, monkeypatch
         result = sn.main()
 
     assert result == 0
-    assert mock_sleep.call_args_list == []
+    assert [c.args[0] for c in mock_sleep.call_args_list] == [REQUEST_DELAY]
 
 
 def test_key_check_provider_aware(tmp_path, monkeypatch):
