@@ -44,6 +44,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+          # zizmor: ignore[artipacked] this job pushes via push-with-rebase.sh and needs
+          # the persisted credential; persist-credentials:false would break the push.
 
       # H-02 (fix-cycle 1): restored -- lost in the wave-2 rewrite even though the
       # plan's YAML contained both steps. Without an interpreter and pipeline deps,

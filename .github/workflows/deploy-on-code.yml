@@ -51,6 +51,8 @@ jobs:
       # shared guard script under .github/scripts/. This is a deliberate addition,
       # not an oversight — noted here so a future reader does not "clean it up".
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       # F-84: guards CF_HOOK (the job-level alias the curl step actually consumes),
       # not the CF_DEPLOY_HOOK_URL secret name, for consistency with the other two

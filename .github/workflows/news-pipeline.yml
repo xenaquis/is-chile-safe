@@ -32,6 +32,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+          # zizmor: ignore[artipacked] this job pushes via push-with-rebase.sh and needs
+          # the persisted credential; persist-credentials:false would break the push.
 
       # CRON-01 (F-76, amended F-84, F-94/M-01): only the secrets the SCRAPE itself
       # needs are guarded here. CF_DEPLOY_HOOK_URL is guarded separately, AFTER the

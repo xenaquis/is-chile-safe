@@ -19,6 +19,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       # CRON-01 (F-76), amended F-94/M-05: only the three credentials
       # pipeline/archive_r2.py:458 actually declares as required_vars are guarded.
