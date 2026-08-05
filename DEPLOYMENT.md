@@ -15,13 +15,15 @@ handles building and serving the static site. The two are connected via a Deploy
         |
         v
 [GH Actions: news-pipeline.yml (every 6h) or cead-scraper.yml (quarterly)]
-  |-- python pipeline/scrape_news.py   (reads DEEPSEEK_API_KEY from env)
+  |-- python pipeline/scrape_news.py   (reads OPENROUTER_API_KEY from env; DEEPSEEK_API_KEY
+  |                                      only if NEWS_PROVIDER=deepseek is set, M-01)
   |-- python pipeline/scrape_cead.py
   |-- git add data/
-  |-- if data/ changed → git commit "data: auto-update [skip ci]" && git push
-  |                             AND
-  |-- if changed == true AND CF_DEPLOY_HOOK_URL is set
-  |       → curl -X POST $CF_DEPLOY_HOOK_URL
+  |-- if data/ changed → git commit "data: auto-update [skip ci]" && push-with-rebase.sh
+  |-- Guard deploy hook (always, AFTER the commit -- F-84): hard-fails the job if
+  |     CF_DEPLOY_HOOK_URL is unset, but the data commit already happened and was
+  |     pushed, so a rotated hook cannot also lose scraped data
+  |-- if changed == true → curl -X POST $CF_DEPLOY_HOOK_URL
   |
   v
 [Cloudflare Pages receives the Deploy Hook POST]
@@ -114,17 +116,35 @@ is. Do not rely on `[skip ci]` alone.
 Go to the GitHub repository → **Settings** → **Secrets and variables** → **Actions** →
 **New repository secret**. Add both of the following:
 
-| Secret Name | Value | Source |
-|-------------|-------|--------|
-| `CF_DEPLOY_HOOK_URL` | The Deploy Hook URL from step 5 | Cloudflare Pages dashboard |
-| `DEEPSEEK_API_KEY` | Your DeepSeek API key | [DeepSeek console](https://platform.deepseek.com/) |
+| Secret Name | Value | Source | Consumed by |
+|-------------|-------|--------|-------------|
+| `CF_DEPLOY_HOOK_URL` | The Deploy Hook URL from step 5 | Cloudflare Pages dashboard | `news-pipeline.yml`, `cead-scraper.yml` (guarded post-commit, F-84), `deploy-on-code.yml` (guarded first-step) |
+| `OPENROUTER_API_KEY` | Your OpenRouter API key | [OpenRouter console](https://openrouter.ai/) | `news-pipeline.yml` — the default news classifier (Granite 4.1 8B) runs through OpenRouter |
+| `DEEPSEEK_API_KEY` | Your DeepSeek API key (optional) | [DeepSeek console](https://platform.deepseek.com/) | `news-pipeline.yml` scrape step's `env:`, only if `NEWS_PROVIDER=deepseek` is set — NOT hard-guarded (M-01, see below) |
+| `R2_ENDPOINT_URL` | R2 (S3-compatible) endpoint URL | Cloudflare R2 dashboard | `r2-archive.yml` |
+| `R2_ACCESS_KEY_ID` | R2 access key ID | Cloudflare R2 dashboard | `r2-archive.yml` |
+| `R2_SECRET_ACCESS_KEY` | R2 secret access key | Cloudflare R2 dashboard | `r2-archive.yml` |
 
-**Without `CF_DEPLOY_HOOK_URL`:** The `curl` step in both cron workflows is skipped silently
-(guarded by `env.CF_HOOK != ''`). Scraping and data commits still happen; only the CF Pages
-trigger is absent. This is the dry-run mode — safe to use before the CF project exists.
+There is no `R2_BUCKET` secret and none is needed — `pipeline/archive_r2.py` defaults it to
+`"ischilesafe"` when unset. Do not add one to the guard list in `r2-archive.yml`; a prior phase
+did this by mistake (H-01) and it would have hard-failed the daily archive on a correctly
+configured repo.
 
-**Without `DEEPSEEK_API_KEY`:** `pipeline/scrape_news.py` exits with an error. CEAD scraping
-is unaffected (it does not use DeepSeek).
+**Without `CF_DEPLOY_HOOK_URL`:** As of Phase 32 (F-76, amended F-84), this is a HARD failure,
+not a silent skip. In `news-pipeline.yml` and `cead-scraper.yml` the guard runs AFTER the data
+commit/push, so scraping and the data commit still happen and are not lost — only the job goes
+red and an issue is filed. In `deploy-on-code.yml` the guard is the first step (there is no data
+collection to protect in that job), so a missing hook there fails immediately. There is no
+"dry-run mode" that skips the curl silently; the closest equivalent is running with all secrets
+set via `workflow_dispatch` against a scratch branch.
+
+**Without `OPENROUTER_API_KEY`:** `news-pipeline.yml`'s "Guard required secrets" step fails the
+job immediately, before any scraping happens — this is the required secret for the default
+classifier.
+
+**Without `DEEPSEEK_API_KEY`:** No effect on the default configuration. `scrape_news.py` only
+reads this key when `NEWS_PROVIDER=deepseek` is explicitly set, which nothing in this repo does
+today. CEAD scraping is unaffected either way (it does not use any LLM).
 
 ---
 
@@ -150,17 +170,22 @@ headers confirming Cloudflare CDN delivery.
 
 ## 8. First Deploy and Dry-Run Test
 
-### 8a. Dry-run (before setting CF_DEPLOY_HOOK_URL)
+### 8a. Structural check (before setting CF_DEPLOY_HOOK_URL)
 
-Run `news-pipeline.yml` via **Actions** → **News Pipeline** → **Run workflow** while
-`CF_DEPLOY_HOOK_URL` is **not yet set** as a repo secret. The workflow will:
+There is no silent-skip dry-run mode as of Phase 32 (F-76, amended F-84) — a missing
+`CF_DEPLOY_HOOK_URL` is a hard, red-job failure, by design (see §6). If you want to confirm the
+scrape/commit path works before the CF project exists, run `news-pipeline.yml` via
+**Actions** → **News Pipeline** → **Run workflow** with `OPENROUTER_API_KEY` set but
+`CF_DEPLOY_HOOK_URL` still unset. The workflow will:
 
-- Attempt to scrape news (exits 1 if `DEEPSEEK_API_KEY` is also missing — that is fine for
-  a structural dry-run).
-- If scraping succeeds and data changed: commit and push.
-- Skip the `curl` step because `env.CF_HOOK` is empty.
+- Guard `OPENROUTER_API_KEY` (fails first if missing).
+- Scrape news and, if data changed, commit and push it — this part completes and is preserved.
+- Then hard-fail at the "Guard deploy hook" step (placed AFTER the commit, F-84) and open a
+  `pipeline-failure-news` issue. This red job is EXPECTED and confirms the scrape/commit path
+  works; it is not a structural problem.
 
-This confirms the workflow structure is sound without triggering a CF build.
+Set `CF_DEPLOY_HOOK_URL` before relying on this cron in production — an intentionally red job
+is only acceptable as a one-off structural check, not as an ongoing state.
 
 ### 8b. Real first deploy (after setting both secrets)
 
@@ -211,16 +236,16 @@ build. The timestamp and trigger source (Deploy Hook vs Git push) are shown per 
 
 ## 10. Operational Notes
 
-### Workflow Cadences (CRON-07, audited 2026-08-04, Phase 32)
+### Workflow Cadences (CRON-07, audited 2026-08-04, Phase 32; corrected fix-cycle 1)
 
-| Workflow | File | Schedule | Trigger | Secrets Consumed (all hard-guarded, CRON-01) | Permissions | Writes |
+| Workflow | File | Schedule | Trigger | Secrets Consumed (hard-guarded only where the code actually requires them, F-94) | Permissions | Writes |
 |----------|------|----------|---------|-----------------------------------------------|-------------|--------|
-| News Pipeline | `.github/workflows/news-pipeline.yml` | Every 6 hours (`0 */6 * * *`) | `schedule` + `workflow_dispatch` | `OPENROUTER_API_KEY`, `DEEPSEEK_API_KEY` (scrape), `CF_DEPLOY_HOOK_URL` (deploy, guarded AFTER the data commit per F-84 -- a rotated hook fails the job loudly but no longer also blocks collection) | `contents: write`, `issues: write` | `data/` (news), pushes to `master` via `push-with-rebase.sh`, triggers CF deploy hook |
-| R2 Research Archive | `.github/workflows/r2-archive.yml` | Daily 05:30 UTC (`30 5 * * *`) | `schedule` + `workflow_dispatch` | `R2_ENDPOINT_URL`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET` | `contents: read`, `issues: write` | R2 bucket only -- no `data/` write, no push |
-| CEAD Scraper | `.github/workflows/cead-scraper.yml` | Quarterly (`0 3 1 1,4,7,10 *`) | `schedule` + `workflow_dispatch` | `CF_DEPLOY_HOOK_URL` (guarded AFTER the data commit per F-84) | `contents: write`, `issues: write` | `data/` (CEAD + composite/enrichment), pushes to `master` via `push-with-rebase.sh`, triggers CF deploy hook -- **expected to fail with HTTP 403 on Actions IPs; documented in the file's own header comment (CRON-05)** |
-| Pipeline Heartbeat | `.github/workflows/heartbeat.yml` | Daily 12:00 UTC (`0 12 * * *`) | `schedule` + `workflow_dispatch` | none (uses `github.token` only) | `actions: read`, `contents: read`, `issues: write` | nothing -- read-only checks against all three data-cron cadences (news/R2/CEAD, CRON-02). Named residuals (F-89): an R2 run that succeeds while archiving zero items still passes; dedup is per open issue, so closing an alert without fixing the cron reopens a new one the next day -- both intended, not hidden. This workflow's OWN silence is not monitored by anything else in this repo (F-79) -- news staleness has a second, independent instrument (`freshness.mjs`, validator #15); R2 staleness does not. |
-| Deploy on Code Push | `.github/workflows/deploy-on-code.yml` | On push to `master` touching `site/**` | `push` | `CF_DEPLOY_HOOK_URL` (guard stays first-step -- this job has no data collection to protect) | `contents: read` | nothing -- triggers CF deploy hook only |
-| CI | `.github/workflows/ci.yml` | PRs + `workflow_dispatch` | `pull_request` + `workflow_dispatch` | none | `contents: read` (repo default; no per-job override) | nothing |
+| News Pipeline | `.github/workflows/news-pipeline.yml` | Every 6 hours (`0 */6 * * *`) | `schedule` + `workflow_dispatch` | `OPENROUTER_API_KEY` (scrape, hard-guarded), `DEEPSEEK_API_KEY` (scrape `env:` only, NOT guarded -- M-01, consumed only if `NEWS_PROVIDER=deepseek`), `CF_DEPLOY_HOOK_URL` (deploy, guarded AFTER the data commit per F-84 -- a rotated hook fails the job loudly but no longer also blocks collection) | `contents: write`, `issues: write` | `data/` (news), pushes to `master` via `push-with-rebase.sh`, triggers CF deploy hook |
+| R2 Research Archive | `.github/workflows/r2-archive.yml` | Daily 05:30 UTC (`30 5 * * *`) | `schedule` + `workflow_dispatch` | `R2_ENDPOINT_URL`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` -- NOT `R2_BUCKET` (H-01/F-94: it is not a secret, `archive_r2.py` defaults it to `"ischilesafe"`) | `contents: read`, `issues: write` | R2 bucket only -- no `data/` write, no push |
+| CEAD Scraper | `.github/workflows/cead-scraper.yml` | Quarterly (`0 3 1 1,4,7,10 *`) | `schedule` + `workflow_dispatch` | `CF_DEPLOY_HOOK_URL` (guarded AFTER the data commit per F-84) | `contents: write`, `issues: write` | `data/` (CEAD + composite/enrichment), pushes to `master` via `push-with-rebase.sh`, triggers CF deploy hook -- **expected to fail with HTTP 403 on Actions IPs; documented in the file's own header comment (CRON-05)**. `actions/setup-python@v7` + `pip install -r pipeline/requirements.txt` restored after a wave-2 rewrite dropped them (H-02, fix-cycle 1) -- without them every `python …` step fails with `ModuleNotFoundError` instead of the expected 403, destroying the reminder's one useful signal. |
+| Pipeline Heartbeat | `.github/workflows/heartbeat.yml` | Daily 12:00 UTC (`0 12 * * *`) | `schedule` + `workflow_dispatch` | none (uses `github.token` only) | `actions: read`, `contents: read`, `issues: write` | nothing -- read-only checks against all three data-cron cadences (news/R2/CEAD, CRON-02). The CEAD check is quarter-boundary based, not a flat day threshold (F-93, fix-cycle 1) -- it counts how many quarterly due dates (Jan 1 / Apr 1 / Jul 1 / Oct 1 UTC) have elapsed since the last `data/cead/` commit; 1 elapsed boundary is a maintainer running late (silent), 2+ means a whole quarter was genuinely skipped (alert). This replaces a flat-day threshold that could not be tuned without either crying wolf on a healthy system (100d) or staying green through an already-missed quarter (150d) -- Operating Lesson 26. News/R2 thresholds now compare epoch seconds, not truncated integer days (F-96, fix-cycle 1) -- a "3-day" threshold used to only fire after 3d23h59m; it now fires precisely at >3 days, still passing at exactly 3 days. Named residuals (F-89): an R2 run that succeeds while archiving zero items still passes; dedup is per open issue, so closing an alert without fixing the cron reopens a new one the next day -- both intended, not hidden. This workflow's OWN silence is not monitored by anything else in this repo (F-79) -- news staleness has a second, independent instrument (`freshness.mjs`, validator #15); R2 staleness does not. |
+| Deploy on Code Push | `.github/workflows/deploy-on-code.yml` | On push to `master` touching `site/**` or `.github/workflows/deploy-on-code.yml` itself (L-07) | `push` | `CF_DEPLOY_HOOK_URL` (guard stays first-step -- this job has no data collection to protect) | `contents: read` | nothing -- triggers CF deploy hook only. **No failure alert** (M-06, accepted): this job is push-triggered, so a human is already present at the keyboard when it runs; adding `issues: write` to a deploy-only job's token for a marginal alerting gain was judged not worth the widened scope. This is a deliberate asymmetry with the other four workflows, not an oversight. |
+| CI | `.github/workflows/ci.yml` | PRs + `workflow_dispatch` | `pull_request` + `workflow_dispatch` | none | explicit workflow-level `permissions: contents: read` (`ci.yml:8-9` -- NOT the repo default; M-09 fix-cycle 1) | nothing. Three jobs: `frontend` (build + validate), `pipeline` (pytest), `lint-workflows` (runs `.github/scripts/lint-workflows.sh`, the armed/canary-proven instrument -- wired in fix-cycle 1, H-03/F-95; previously this job ran `rhysd/actionlint@v1` directly, whose shellcheck-wiring silently disables shell linting when misconfigured). **Not covered:** direct pushes to `master` (this repo's actual commit pattern) are NOT linted by CI, because `ci.yml` triggers on `pull_request` + `workflow_dispatch` only. F-95 explicitly rejected adding a `push: branches: [master]` trigger — it would run build+validate (including `freshness`, which can go red purely from data age, F-19) on every push to a live repo, manufacturing a recurring red CI signal. Master-push linting is the maintainer's responsibility: run `bash .github/scripts/lint-workflows.sh` locally before pushing workflow changes. |
 
 **CRON-06 claim (F-90, narrowed from an earlier unconditional statement):** every
 workflow that writes to `data/` fetches and rebases before pushing (`push-with-rebase.sh`,
@@ -242,6 +267,39 @@ shape is unchanged: one `python pipeline/scrape_news.py` invocation, `timeout-mi
 There is no cost/latency change to account for; this note exists so a future reader does
 not infer one from the requirement's original phrasing.
 
+### Known Gaps (documented, not remediated in fix-cycle 1 -- F-97)
+
+**H-05 -- new CEAD data pushed by a maintainer never triggers a production build.**
+`deploy-on-code.yml` filters on `site/**` (and its own workflow file); `data/**` matches
+neither. CF auto-build is disabled (§4). So the documented quarterly runbook -- run
+`pipeline/scrape_cead.py` locally, commit, `git push` -- lands new CEAD data on `master`, but
+nothing curls the Deploy Hook for it. Production keeps serving the previous quarter's numbers
+until the next unrelated `site/**` push happens to rebuild. This is a REAL, pre-existing gap.
+It is not fixed here because changing production deploy triggers is a live-risk change outside
+this phase's approved scope (Phase 32 is about cron *consistency*, not deploy topology) --
+tracked in `.planning/STATE.md` backlog for a future phase that owns deploys to pick a shape
+(either an explicit `curl` step appended to the local runbook, or a `workflow_dispatch`-only
+`deploy.yml` the maintainer runs after a manual data push).
+
+**M-07 -- four `continue-on-error: true` steps in `cead-scraper.yml` can commit and deploy
+partial data with a green job.** `fetch_enusc_vhdv.py`, `build_enusc_enrichment.py`,
+`build_composite_index.py`, `build_map_payload.py` all swallow their exit codes. If
+`build_map_payload.py` crashes halfway, "Commit data if changed" still stages and pushes
+whatever `data/` contains. In practice this is masked today by CRON-05/H-02 (the scraper never
+gets past step 1 on Actions), which is not a defence. This is a data-quality defect in the
+CEAD enrichment path, not a cron-consistency one -- fixing it here would re-open CEAD's data
+path unattended, outside this phase's scope. Tracked in `.planning/STATE.md` backlog.
+
+**M-08 -- `fetch-lint-tools.sh` does not re-verify an already-present binary against its
+pinned SHA-256 on every invocation.** The idempotency short-circuit
+(`.github/scripts/fetch-lint-tools.sh:42`) checks executability only, not the hash, once
+`.tools/` exists. Accepted: `.tools/` is gitignored and machine-local (never shipped or
+shared), and `lint-workflows.sh`'s canary (F-85) proves at every invocation that whatever
+binary is present actually still works correctly on the known-bad fixture -- a silently
+swapped-but-functional shellcheck would need to also produce the exact SC2034+SC2086 findings
+to pass undetected, which is a narrow enough bar that this residual is accepted rather than
+adding a stat/hash check on every local run.
+
 ### Cron Timing Drift
 
 GitHub Actions cron triggers are best-effort — expect 15–30 minutes of drift under load. A
@@ -257,11 +315,19 @@ Cloudflare Pages free tier allows **500 builds/month**. With the rebuild-loop gu
 - Total expected: well under 500/month. If approaching 500, check the CF deployment history
   for unexpected build triggers.
 
-### DEEPSEEK_API_KEY Absence Behavior
+### OPENROUTER_API_KEY / DEEPSEEK_API_KEY Absence Behavior (updated, M-01)
 
-If `DEEPSEEK_API_KEY` is not set as a repo secret, `pipeline/scrape_news.py` will exit with
-a non-zero code and the GH Actions job will fail. The CEAD scraper is unaffected. Set the
-key in repo secrets before enabling the news pipeline in production.
+If `OPENROUTER_API_KEY` is not set as a repo secret, `news-pipeline.yml`'s "Guard required
+secrets" step fails immediately, before any scraping happens. This is the required key for the
+default classifier (Granite 4.1 8B via OpenRouter).
+
+`DEEPSEEK_API_KEY` is NOT hard-guarded. `pipeline/scrape_news.py` only reads it when
+`NEWS_PROVIDER=deepseek` is explicitly set, which nothing in this repo does today. Its absence
+has no effect on the default configuration — this was corrected in fix-cycle 1 (M-01) after a
+prior guard made this unused-by-default secret load-bearing, which would have hard-failed the
+6-hourly news cron the day someone tidied up the unused key.
+
+The CEAD scraper is unaffected by either key (it does not use any LLM).
 
 ### CF Pages Build Failure Recovery
 
@@ -279,8 +345,9 @@ If a CF Pages build fails (bad Astro build, missing npm package, etc.):
 - [ ] Automatic production deployments **disabled** (Settings → Builds → Branch control)
 - [ ] Deploy Hook created (branch `master`), URL copied
 - [ ] `CF_DEPLOY_HOOK_URL` secret added to GitHub repo
-- [ ] `DEEPSEEK_API_KEY` secret added to GitHub repo
+- [ ] `OPENROUTER_API_KEY` secret added to GitHub repo (required for the default news classifier)
+- [ ] `DEEPSEEK_API_KEY` secret added to GitHub repo (optional, only if `NEWS_PROVIDER=deepseek`)
 - [ ] Custom domain `ischilesafe.com` bound, HTTPS confirmed (`curl -I`)
-- [ ] `news-pipeline.yml` dry-run via `workflow_dispatch` succeeded
+- [ ] `news-pipeline.yml` `workflow_dispatch` run succeeded (all secrets set — there is no silent-skip dry-run mode, §8a)
 - [ ] Docs-only push confirmed CF build count stayed flat (rebuild-loop guard verified)
 - [x] Code-push deploy trigger verified — a `site/**` push fired `deploy-on-code.yml`, which curled the Deploy Hook and produced a real CF build (GL-01, 2026-06-19)
