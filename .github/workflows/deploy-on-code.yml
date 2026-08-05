@@ -9,6 +9,16 @@
 # production; the Deploy Hook is the sole production build trigger. This workflow closes that
 # gap for code pushes.
 #
+# CRON-01 (F-76): CF_DEPLOY_HOOK_URL is REQUIRED, not optional. An empty hook here used to
+# "dry-run" (exit 0, log a message) — that is now a hard failure. A missing hook does not
+# mean "nothing to do"; it means every code push from this point silently never reaches
+# production, indefinitely, while this job reports green. That is the exact silent-no-op
+# CRON-01 exists to abolish, and the highest-severity instance of it in the repo (this
+# workflow is the SOLE production build trigger for code pushes — see above). F-84 (which
+# moved this guard AFTER the commit in news-pipeline/cead-scraper) does NOT apply here:
+# this job has no data collection to protect, so the guard stays first-step -- there is
+# genuinely nothing else for it to do.
+#
 # Note: DEPLOYMENT.md documentation update (§1 and §10 workflow-cadence table) for this new
 # trigger is a deliberate follow-up, out of scope here.
 
@@ -27,16 +37,26 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # CR-01: CF_HOOK MUST be job-level — a step-level env var is NOT in scope for
-    # that same step's `if:` condition, so the deploy gate would never fire.
+    # CF_HOOK is job-level so the deploy step's run: can read it. NOTE (F-76): the old
+    # `if: ... && env.CF_HOOK != ''` gate was DELETED in Phase 32 -- an empty hook is
+    # now a hard failure at the guard step, not a silent skip. Do not reintroduce it.
+    # (CR-01 history: a step-level env var is not in scope for that step's own `if:`.)
     env:
       CF_HOOK: ${{ secrets.CF_DEPLOY_HOOK_URL }}
 
     steps:
+      # A checkout is now needed (it was not before) so this job can reach the
+      # shared guard script under .github/scripts/. This is a deliberate addition,
+      # not an oversight — noted here so a future reader does not "clean it up".
+      - uses: actions/checkout@v7
+
+      # F-84: guards CF_HOOK (the job-level alias the curl step actually consumes),
+      # not the CF_DEPLOY_HOOK_URL secret name, for consistency with the other two
+      # deploy-hook-calling workflows.
+      - name: Guard deploy hook
+        run: bash .github/scripts/require-env.sh CF_HOOK
+
+      # CRON-03 (F-78): canonical deploy-hook invocation, byte-identical to
+      # news-pipeline.yml and cead-scraper.yml.
       - name: Trigger Cloudflare Pages deploy
-        run: |
-          if [ -z "$CF_HOOK" ]; then
-            echo "CF_DEPLOY_HOOK_URL not set — skipping Cloudflare deploy (dry-run mode)"
-            exit 0
-          fi
-          curl -fsS -X POST --retry 3 "$CF_HOOK"
+        run: curl -X POST --fail --silent --show-error --retry 3 --retry-all-errors --max-time 60 "$CF_HOOK"
