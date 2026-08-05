@@ -26,7 +26,7 @@ jobs:
       CF_HOOK: ${{ secrets.CF_DEPLOY_HOOK_URL }}
 
     steps:
-      # fetch-depth: 0 (CRON-06) -- push-with-rebase.sh's `git rebase origin/master`
+      # fetch-depth: 0 (CRON-06) -- push-with-rebase.sh's `git rebase FETCH_HEAD`
       # needs real history to compute a merge-base; a shallow (depth-1) checkout can
       # leave the rebase without a common ancestor if origin has moved forward.
       - uses: actions/checkout@v7

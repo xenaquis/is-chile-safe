@@ -144,3 +144,89 @@ def test_same_file_race_aborts_loudly_with_no_silent_loss(tmp_path):
         ["git", "show", "master:data/current.json"], cwd=origin
     ).stdout
     assert content == "A-write\n"
+
+
+def test_final_attempt_does_not_burn_an_unusable_rebase(tmp_path):
+    """WR-08: with max_attempts=1, a failed first push must not also fetch
+    and rebase -- there is no further attempt left that could use it. Before
+    the fix, the loop always fetched+rebased after ANY failed push including
+    the last one, wasting the runner's final seconds on a rebase whose
+    result is discarded when the job exits, and reporting the exhausted-
+    retries failure later than necessary."""
+    origin, clone_a, clone_b = _git_init_clone_pair(tmp_path)
+
+    data_a = clone_a / "data"
+    data_a.mkdir()
+    (data_a / "file-a.txt").write_text("a\n", encoding="utf-8")
+    _run(["git", "add", "."], cwd=clone_a)
+    _run(["git", "commit", "-q", "-m", "from A"], cwd=clone_a)
+    _run(["git", "push", "-q", "origin", "master"], cwd=clone_a)
+
+    data_b = clone_b / "data"
+    data_b.mkdir()
+    (data_b / "file-b.txt").write_text("b\n", encoding="utf-8")
+    _run(["git", "add", "."], cwd=clone_b)
+    _run(["git", "commit", "-q", "-m", "from B"], cwd=clone_b)
+
+    result = subprocess.run(
+        [BASH, str(SCRIPT), "master", "1"],
+        cwd=str(clone_b),
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    assert result.returncode == 1
+    assert "push failed after 1 attempts" in result.stdout
+    assert "fetching and rebasing" not in result.stdout
+
+
+def test_fetch_head_used_not_stale_cached_origin_ref(tmp_path):
+    """WR-03: L-04's `git rebase FETCH_HEAD` change (instead of the
+    previous `git rebase origin/<branch>`) had zero discriminating test
+    coverage -- mutating it back left this file's other two tests green.
+    Configure clone-b's remote with a fetch refspec that does NOT cover
+    `master`, so the cached `refs/remotes/origin/master` ref never updates
+    on a fetch while `FETCH_HEAD` (this fetch's actual, explicit result)
+    still does. Rebasing against the stale cached ref would never
+    incorporate writer A's commit, so the push would keep being rejected
+    until attempts are exhausted; rebasing against FETCH_HEAD succeeds."""
+    origin, clone_a, clone_b = _git_init_clone_pair(tmp_path)
+
+    _run(["git", "config", "--unset-all", "remote.origin.fetch"], cwd=clone_b)
+    _run(
+        [
+            "git",
+            "config",
+            "--add",
+            "remote.origin.fetch",
+            "+refs/heads/nothing:refs/remotes/origin/nothing",
+        ],
+        cwd=clone_b,
+    )
+
+    data_a = clone_a / "data"
+    data_a.mkdir()
+    (data_a / "file-a.txt").write_text("a\n", encoding="utf-8")
+    _run(["git", "add", "."], cwd=clone_a)
+    _run(["git", "commit", "-q", "-m", "from A"], cwd=clone_a)
+    _run(["git", "push", "-q", "origin", "master"], cwd=clone_a)
+
+    data_b = clone_b / "data"
+    data_b.mkdir()
+    (data_b / "file-b.txt").write_text("b\n", encoding="utf-8")
+    _run(["git", "add", "."], cwd=clone_b)
+    _run(["git", "commit", "-q", "-m", "from B"], cwd=clone_b)
+
+    result = subprocess.run(
+        [BASH, str(SCRIPT), "master", "5"],
+        cwd=str(clone_b),
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    assert result.returncode == 0
+    assert "push succeeded" in result.stdout
+
+    log = _run(["git", "log", "--oneline", "--all"], cwd=origin).stdout
+    assert "from A" in log
+    assert "from B" in log

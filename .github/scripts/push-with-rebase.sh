@@ -10,8 +10,20 @@ max_attempts="${2:-5}"
 pushed=0
 i=1
 while [ "$i" -le "$max_attempts" ]; do
+  # L-02: sleep only between retries, never before the first attempt.
+  if [ "$i" -gt 1 ]; then
+    sleep $(( (i - 1) * 3 ))
+  fi
   if git push origin "$branch"; then
     pushed=1
+    break
+  fi
+  # WR-08: if this was the LAST attempt, there is no subsequent push that
+  # could use a fetch+rebase — burning one here only delays reporting the
+  # exhausted-retries failure and leaves the worktree rebased for no reason.
+  # Stop immediately instead; the real retry budget is now exactly
+  # max_attempts pushes, not max_attempts-1.
+  if [ "$i" -eq "$max_attempts" ]; then
     break
   fi
   echo "push rejected, attempt $i of $max_attempts — fetching and rebasing (CRON-06)"
@@ -29,12 +41,6 @@ while [ "$i" -le "$max_attempts" ]; do
     # allowance on a best-effort cleanup call, not exit-code laundering.
     git rebase --abort || true
     exit 1
-  fi
-  # L-02: sleep only between retries, not after the final rebase (which will
-  # loop back to `git push` immediately) and not on the last attempt (which
-  # would sleep for no subsequent retry).
-  if [ "$i" -lt "$max_attempts" ]; then
-    sleep $((i * 3))
   fi
   i=$((i + 1))
 done
