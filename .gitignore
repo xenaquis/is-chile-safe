@@ -32,3 +32,6 @@ como scrap.txt
 /ischilesafe.com/
 site/__prose_selftest_tmp.mts
 .planning/phases/**/*-DISCUSS-CHECKPOINT.json
+
+# Phase 32: deterministic lint-tool binaries (SHA-256-verified at fetch time)
+.tools/

@@ -1,0 +1,10 @@
+name: canary-bad-workflow
+on: workflow_dispatch
+jobs:
+  bad:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          UNUSED_VAR=x
+          FILE="a b"
+          cat $FILE
