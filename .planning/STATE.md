@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: verifying
-last_updated: "2026-08-05T00:36:53.511Z"
-last_activity: "2026-08-03 — Phase 31 closed: a factually INVERTED `national_rank` claim was live on production in FIVE places (found across four separate sweeps); all five corrected in both locales and guarded by a shape-based sweep over 117 source files"
+status: 32-02 closed (Wave 2). All four secret-consuming workflows rewritten: CF_DEPLOY_HOOK_URL guard moved post-commit in news-pipeline.yml/cead-scraper.yml (F-84), per-pipeline alert labels created and wired (pipeline-failure-news/cead/r2), gh label create hoisted into its own continue-on-error step (F-87), CRON-03 byte-identity gate proven red-then-green by a live mutation. lint-workflows.sh exit 0, pytest 366/1/1 unchanged, all four labels live in repo.
+last_updated: "2026-08-04T00:00:00.000Z"
+last_activity: "2026-08-04 — Phase 32 Plan 02 (Wave 2) executed: rewrote news-pipeline.yml, cead-scraper.yml, r2-archive.yml, deploy-on-code.yml + created 3 per-pipeline labels, 2 atomic commits, no deviations from plan."
 progress:
   total_phases: 14
   completed_phases: 9
   total_plans: 55
-  completed_plans: 45
+  completed_plans: 46
   percent: 64
 ---
 
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 32 (Cron Consistency) — in progress, Wave 1 of 3 complete (32-01, shared-script foundation).
-Plan: 32-01 COMPLETE (require-env.sh, check-heartbeat.sh, push-with-rebase.sh, fetch-lint-tools.sh, lint-workflows.sh, canary fixture, two pytest files). No workflow YAML touched — Wave 2/3 wire these in.
-Status: 32-01 closed. All five scripts shellcheck-clean, byte-identical to the Fable-approved (cycle 1) plan interfaces. Three F-85 mutation proofs re-executed (missing/idempotent .tools/, zero-byte shellcheck.exe, tampered SHA-256) and both F-91 race directions re-executed against real bare-clone git repos, all reproducing documented behavior exactly. Pytest suite measured at 366 passed / 1 skipped / 1 xfailed (344 + 20 + 2), matching the plan's prediction exactly — no adjustment needed.
-Last activity: 2026-08-04 — Phase 32 Plan 01 (Wave 1) executed: shared bash guard scripts + F-85 lint infrastructure + F-91 pytest race proofs, 3 atomic commits, no deviations from plan.
+Phase: 32 (Cron Consistency) — in progress, Wave 2 of 3 complete (32-02, workflow rewrite + labels).
+Plan: 32-02 COMPLETE (news-pipeline.yml, cead-scraper.yml, r2-archive.yml, deploy-on-code.yml rewritten; pipeline-failure-news/cead/r2 labels created). heartbeat.yml + pipeline-failure-heartbeat label are Wave 3.
+Status: 32-02 closed. lint-workflows.sh exit 0 across all five real workflow files. CRON-03 byte-identity gate (1 across all three deploy-hook curls) proven capable of going red by an executed mutation (--retry 3 -> 5, restored). pytest re-measured at 366 passed / 1 skipped / 1 xfailed, unchanged (no new tests this wave). gh label list confirms all four pipeline-failure-* labels plus the generic one; issue #2 relabeled pipeline-failure-cead.
+Last activity: 2026-08-04 — Phase 32 Plan 02 (Wave 2) executed: rewrote all four secret-consuming workflows + created 3 per-pipeline labels, 2 atomic commits, no deviations from plan.
 
 ## Progress Bar
 
@@ -47,7 +47,7 @@ Phase 28 [████████████████████] 100% COM
 Phase 29 [████████████████████] 100% COMPLETE (2/2 — design loop: 2 gated iterations, 29-DESIGN-SPEC.md accepted; Phase 30 unblocked)
 Phase 30 [████████████████████] 100% COMPLETE (6/6 — control shell reworked; c1/c3/c5 baseline FAIL -> PASS; protected Leaflet files byte-identical)
 Phase 31 [████████████████████] 100% COMPLETE (4/4 — Docs & Methodology Refresh; verification PASSED 5/5, DOCS-01..06 complete; 5 inverted national_rank claims corrected + shape-based guard over 117 files)
-Phase 32 [██████░░░░░░░░░░░░░░]  33% in progress (1/3 — 32-01 shared-script foundation shipped, no YAML wired yet)
+Phase 32 [█████████████░░░░░░░]  67% in progress (2/3 — 32-01 shared-script foundation + 32-02 workflow rewrite/labels shipped; Wave 3 heartbeat.yml remains)
 Phase 33 [░░░░░░░░░░░░░░░░░░░░]   0% not started (Security Posture)
 ```
 

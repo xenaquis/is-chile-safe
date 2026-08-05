@@ -96,12 +96,12 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 
 ### Cron Consistency (→ Phase 32)
 
-- [ ] **CRON-01**: Every workflow asserts that each secret it consumes is non-empty before doing work, and fails loudly otherwise — closing the documented gotcha where an unset GitHub secret arrives as an empty string and produces a green run that did nothing.
+- [x] **CRON-01**: Every workflow asserts that each secret it consumes is non-empty before doing work, and fails loudly otherwise — closing the documented gotcha where an unset GitHub secret arrives as an empty string and produces a green run that did nothing.
 - [ ] **CRON-02**: A freshness/heartbeat guard covers all three data crons (news daily, R2 research archive, CEAD quarterly reminder) with cron-drift-tolerant thresholds, so a silent stall is detected rather than discovered weeks later — this project already lost a full week of news freshness to an Actions billing lapse with no alert.
-- [ ] **CRON-03**: Deploy-hook retry and backoff behavior is reconciled to one consistent policy across all workflows that call it (currently three different retry counts).
-- [ ] **CRON-04**: Issue labels are made specific per pipeline instead of shared generic labels across unrelated workflows, so an alert identifies its own source.
-- [ ] **CRON-05**: The CEAD cron's expected-to-fail status is documented in the workflow itself (Actions runner IPs are 403'd; the scraper runs locally and the cron serves only as a reminder), so it cannot be misread as a real failure or silently "fixed".
-- [ ] **CRON-06**: Every workflow that writes `data/` fetches and rebases before pushing, eliminating the race between concurrent crons touching the same files.
+- [x] **CRON-03**: Deploy-hook retry and backoff behavior is reconciled to one consistent policy across all workflows that call it (currently three different retry counts).
+- [x] **CRON-04**: Issue labels are made specific per pipeline instead of shared generic labels across unrelated workflows, so an alert identifies its own source.
+- [x] **CRON-05**: The CEAD cron's expected-to-fail status is documented in the workflow itself (Actions runner IPs are 403'd; the scraper runs locally and the cron serves only as a reminder), so it cannot be misread as a real failure or silently "fixed".
+- [x] **CRON-06**: Every workflow that writes `data/` fetches and rebases before pushing, eliminating the race between concurrent crons touching the same files.
 - [ ] **CRON-07**: The whole schedule surface is documented as one coherent table (schedule, trigger, secrets consumed, permissions, what it writes) and audited after Phase 28 wires clustering into the news pipeline, so cost and latency changes are accounted for.
 
 ### Security Posture (→ Phase 33)
@@ -178,12 +178,12 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 | DOCS-04 | Phase 31 | Complete |
 | DOCS-05 | Phase 31 | Complete |
 | DOCS-06 | Phase 31 | Complete |
-| CRON-01 | Phase 32 | Pending |
+| CRON-01 | Phase 32 | Complete |
 | CRON-02 | Phase 32 | Pending |
-| CRON-03 | Phase 32 | Pending |
-| CRON-04 | Phase 32 | Pending |
-| CRON-05 | Phase 32 | Pending |
-| CRON-06 | Phase 32 | Pending |
+| CRON-03 | Phase 32 | Complete |
+| CRON-04 | Phase 32 | Complete |
+| CRON-05 | Phase 32 | Complete |
+| CRON-06 | Phase 32 | Complete |
 | CRON-07 | Phase 32 | Pending |
 | SEC-01 | Phase 33 | Pending |
 | SEC-02 | Phase 33 | Pending |
