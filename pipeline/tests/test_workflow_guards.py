@@ -191,21 +191,34 @@ def _iso_days_ago(days: float) -> str:
 
 
 class TestCheckHeartbeatR2:
+    """F-99: the boundary/precision cases below use FIXED, injected evidence
+    and as-of timestamps -- never `_iso_days_ago()` -- so they cannot race a
+    truncated-string evidence timestamp against a marginally later live
+    `date` read in the subprocess (the exact mechanism BL-02 measured at
+    3/12 runs red). Only the default-clock coverage test below uses the real
+    wall clock, and only with a wide non-boundary margin."""
+
     def test_passes_within_threshold(self):
-        ts = _iso_days_ago(1)
-        result = run_script(CHECK_HEARTBEAT, ["r2", "4", ts])
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["r2", "4", "2026-05-31T00:00:00Z", "2026-06-01T00:00:00Z"],
+        )
         assert result.returncode == 0
         assert "r2 heartbeat OK" in result.stdout
 
     def test_fails_beyond_threshold(self):
-        ts = _iso_days_ago(5)
-        result = run_script(CHECK_HEARTBEAT, ["r2", "4", ts])
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["r2", "4", "2026-05-27T00:00:00Z", "2026-06-01T00:00:00Z"],
+        )
         assert result.returncode == 1
         assert "::error::r2 heartbeat" in result.stdout
 
     def test_boundary_exactly_at_threshold_passes(self):
-        ts = _iso_days_ago(4)
-        result = run_script(CHECK_HEARTBEAT, ["r2", "4", ts])
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["r2", "4", "2026-05-28T00:00:00Z", "2026-06-01T00:00:00Z"],
+        )
         assert result.returncode == 0
         assert "r2 heartbeat OK" in result.stdout
 
@@ -215,10 +228,44 @@ class TestCheckHeartbeatR2:
         "4-day" threshold only fire after 4d23h59m. 4 days + 1 hour past must
         now fail (it would incorrectly PASS under the old integer-division
         form, since (now-ts)/86400 truncates to 4)."""
-        ts = _iso_days_ago(4 + 1 / 24)
-        result = run_script(CHECK_HEARTBEAT, ["r2", "4", ts])
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["r2", "4", "2026-05-27T23:00:00Z", "2026-06-01T00:00:00Z"],
+        )
         assert result.returncode == 1
         assert "::error::r2 heartbeat" in result.stdout
+
+    def test_default_as_of_uses_live_clock(self):
+        """F-99: the as-of argument is optional; production callers omit it
+        and fall back to the real clock (see check-heartbeat.sh's "no as-of
+        supplied" branch). This is the only test in this class allowed to
+        touch the wall clock, and it uses a wide 1-day margin against a
+        4-day threshold, far from the boundary, so it cannot flake."""
+        ts = _iso_days_ago(1)
+        result = run_script(CHECK_HEARTBEAT, ["r2", "4", ts])
+        assert result.returncode == 0
+        assert "r2 heartbeat OK" in result.stdout
+
+    def test_future_evidence_beyond_allowance_fails(self):
+        """F-100: evidence more than 24h in the future must fail, distinctly
+        from a normal staleness failure."""
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["r2", "4", "2026-06-03T00:00:00Z", "2026-06-01T00:00:00Z"],
+        )
+        assert result.returncode == 1
+        assert "::error::r2 heartbeat" in result.stdout
+        assert "future" in result.stdout
+
+    def test_future_evidence_within_allowance_passes(self):
+        """F-100, second direction: 1h in the future is within the 24h clock-
+        skew allowance and must pass normally."""
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["r2", "4", "2026-06-01T01:00:00Z", "2026-06-01T00:00:00Z"],
+        )
+        assert result.returncode == 0
+        assert "r2 heartbeat OK" in result.stdout
 
 
 class TestCheckHeartbeatCead:
@@ -290,23 +337,55 @@ class TestCheckHeartbeatCead:
         assert result.returncode == 0
         assert "0 quarterly due date" in result.stdout
 
+    def test_future_evidence_beyond_allowance_fails(self):
+        """F-100/WR-04: evidence more than 24h in the future (e.g. a skewed
+        maintainer clock, or a rewritten/cherry-picked commit) previously
+        yielded zero boundaries and passed forever -- must now fail,
+        distinctly from the normal quarter-skipped failure."""
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["cead", "2026-08-06T00:00:00Z", "2026-08-04T00:00:00Z"],
+        )
+        assert result.returncode == 1
+        assert "::error::cead heartbeat" in result.stdout
+        assert "future" in result.stdout
+
+    def test_future_evidence_within_allowance_passes(self):
+        """F-100, second direction: 1h in the future is within the 24h
+        clock-skew allowance and must pass normally."""
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["cead", "2026-08-04T01:00:00Z", "2026-08-04T00:00:00Z"],
+        )
+        assert result.returncode == 0
+        assert "cead heartbeat OK" in result.stdout
+
 
 class TestCheckHeartbeatNews:
+    """F-99: fixed, injected evidence/as-of timestamps for the boundary and
+    precision cases -- see TestCheckHeartbeatR2's class docstring for why."""
+
     def test_passes_within_threshold(self):
-        ts = _iso_days_ago(1)
-        result = run_script(CHECK_HEARTBEAT, ["news", "3", ts])
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["news", "3", "2026-05-31T00:00:00Z", "2026-06-01T00:00:00Z"],
+        )
         assert result.returncode == 0
         assert "news heartbeat OK" in result.stdout
 
     def test_fails_beyond_threshold(self):
-        ts = _iso_days_ago(4)
-        result = run_script(CHECK_HEARTBEAT, ["news", "3", ts])
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["news", "3", "2026-05-27T00:00:00Z", "2026-06-01T00:00:00Z"],
+        )
         assert result.returncode == 1
         assert "::error::news heartbeat" in result.stdout
 
     def test_boundary_exactly_at_threshold_passes(self):
-        ts = _iso_days_ago(3)
-        result = run_script(CHECK_HEARTBEAT, ["news", "3", ts])
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["news", "3", "2026-05-29T00:00:00Z", "2026-06-01T00:00:00Z"],
+        )
         assert result.returncode == 0
         assert "news heartbeat OK" in result.stdout
 
@@ -314,10 +393,52 @@ class TestCheckHeartbeatNews:
         """F-96: a "3-day" threshold now fires precisely past 3 days, not
         only past 3d23h59m. 3 days + 1 hour must fail (it would incorrectly
         PASS under the old integer-division form)."""
-        ts = _iso_days_ago(3 + 1 / 24)
-        result = run_script(CHECK_HEARTBEAT, ["news", "3", ts])
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["news", "3", "2026-05-28T23:00:00Z", "2026-06-01T00:00:00Z"],
+        )
         assert result.returncode == 1
         assert "::error::news heartbeat" in result.stdout
+
+    def test_default_as_of_uses_live_clock(self):
+        """F-99: exercises the production default-clock path with a wide,
+        non-boundary margin (see TestCheckHeartbeatR2's equivalent test)."""
+        ts = _iso_days_ago(1)
+        result = run_script(CHECK_HEARTBEAT, ["news", "3", ts])
+        assert result.returncode == 0
+        assert "news heartbeat OK" in result.stdout
+
+    def test_future_evidence_beyond_allowance_fails(self):
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["news", "3", "2026-06-03T00:00:00Z", "2026-06-01T00:00:00Z"],
+        )
+        assert result.returncode == 1
+        assert "::error::news heartbeat" in result.stdout
+        assert "future" in result.stdout
+
+    def test_future_evidence_within_allowance_passes(self):
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["news", "3", "2026-06-01T01:00:00Z", "2026-06-01T00:00:00Z"],
+        )
+        assert result.returncode == 0
+        assert "news heartbeat OK" in result.stdout
+
+
+class TestCheckHeartbeatMessageFormat:
+    def test_failure_message_reports_hours_not_self_contradictory_days(self):
+        """WR-05: `age_days_display` used to stay integer-truncated while the
+        comparison moved to seconds (F-96), producing a self-contradictory
+        message like "3d old, exceeds 3d threshold" for evidence only
+        fractionally past the boundary. The failure line now reports hours."""
+        result = run_script(
+            CHECK_HEARTBEAT,
+            ["news", "3", "2026-05-28T23:00:00Z", "2026-06-01T00:00:00Z"],
+        )
+        assert result.returncode == 1
+        assert "73h" in result.stdout
+        assert "3d old, exceeds 3d" not in result.stdout
 
 
 class TestCheckHeartbeatCommon:
@@ -385,6 +506,29 @@ def _python_run_steps_missing_setup(text: str):
             if not (seen_setup_python and seen_pip_install):
                 missing.append(raw_line)
     return missing
+
+
+class TestLintInstrumentIsWired:
+    """WR-02: two cheap gaps the re-review found in the lint instrument
+    itself. (1) nothing asserted `ci.yml` still calls the armed
+    lint-workflows.sh script instead of the bare rhysd/actionlint action
+    whose silent-shellcheck-disable defect (F-85) motivated building it --
+    so H-03 could silently regress on the next ci.yml edit with nothing
+    reddening. (2) lint-workflows.sh's actionlint pass only covers INLINE
+    `run:` bodies in workflow YAML; the phase's own `.github/scripts/*.sh`
+    files were linted by nothing automated."""
+
+    def test_ci_yml_calls_lint_workflows_script(self):
+        ci_text = (WORKFLOWS_DIR / "ci.yml").read_text(encoding="utf-8")
+        assert "bash .github/scripts/lint-workflows.sh" in ci_text
+        # `rhysd/actionlint` may still be mentioned in prose comments
+        # explaining WHY it was replaced -- what must not exist is a live
+        # `uses:` step invoking it.
+        assert "uses: rhysd/actionlint" not in ci_text
+
+    def test_lint_workflows_shellchecks_its_own_scripts_directly(self):
+        text = (SCRIPTS_DIR / "lint-workflows.sh").read_text(encoding="utf-8")
+        assert '"$SH" -s bash .github/scripts/*.sh' in text
 
 
 class TestWorkflowPythonStepsHaveSetup:

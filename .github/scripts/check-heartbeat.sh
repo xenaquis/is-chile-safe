@@ -5,8 +5,8 @@
 # node -e regex, so this phase's logic stays in bash with no pattern matching).
 #
 # Usage:
-#   check-heartbeat.sh news <max_age_days> <iso8601_last_generated_timestamp>
-#   check-heartbeat.sh r2   <max_age_days> <iso8601_last_run_timestamp>
+#   check-heartbeat.sh news <max_age_days> <iso8601_last_generated_timestamp> [iso8601_as_of_timestamp]
+#   check-heartbeat.sh r2   <max_age_days> <iso8601_last_run_timestamp> [iso8601_as_of_timestamp]
 #   check-heartbeat.sh cead <iso8601_last_commit_timestamp> [iso8601_as_of_timestamp]
 #
 # F-83(a): "news" mode watches the 6-hourly news cron; freshness.mjs (validator
@@ -35,11 +35,29 @@
 # (alert). The as-of date defaults to the live clock (`date -u`) so the
 # workflow needs no extra argument, but is always overridable for tests — the
 # test path must NEVER depend on a live `date` call, per F-93.
+#
+# F-99: "news" and "r2" now take the SAME injectable trailing as-of argument
+# "cead" already had. F-96's move to second-precision removed the slack that
+# integer-day truncation used to absorb, which made the old wall-clock-based
+# boundary tests race a truncated evidence string against a marginally later
+# live `date` read in the subprocess (measured 3/12 runs red). Giving every
+# mode an explicit as-of takes the wall clock out of the test path entirely,
+# rather than papering over the race with an epsilon margin. Production
+# callers are unaffected: the as-of argument stays optional and defaults to
+# the real clock when omitted (see the "no as-of supplied" branches below).
+#
+# F-100: evidence timestamped more than 24h in the future (relative to as-of)
+# is refused in all three modes. A future timestamp yields a negative-or-tiny
+# age that trivially passes every threshold check forever — the exact
+# silent-green-no-op class this phase exists to abolish, previously hiding
+# inside the instrument built to abolish it.
 set -euo pipefail
 
+FUTURE_ALLOWANCE_S=86400
+
 usage() {
-  echo "Usage: $0 news <max_age_days> <iso8601_timestamp>" >&2
-  echo "       $0 r2   <max_age_days> <iso8601_timestamp>" >&2
+  echo "Usage: $0 news <max_age_days> <iso8601_timestamp> [iso8601_as_of_timestamp]" >&2
+  echo "       $0 r2   <max_age_days> <iso8601_timestamp> [iso8601_as_of_timestamp]" >&2
   echo "       $0 cead <iso8601_timestamp> [iso8601_as_of_timestamp]" >&2
   exit 2
 }
@@ -49,7 +67,7 @@ mode="$1"
 
 case "$mode" in
   news|r2)
-    [ "$#" -eq 3 ] || usage
+    [ "$#" -ge 3 ] && [ "$#" -le 4 ] || usage
     max_age_days="$2"
     ts="$3"
 
@@ -58,22 +76,44 @@ case "$mode" in
       exit 1
     fi
 
-    now_epoch=$(date -u +%s)
+    if [ "$#" -eq 4 ]; then
+      as_of="$4"
+      if [ -z "$as_of" ]; then
+        echo "::error::$mode heartbeat: as-of timestamp was provided but empty"
+        exit 1
+      fi
+      now_epoch=$(date -u -d "$as_of" +%s 2>/dev/null) || {
+        echo "::error::$mode heartbeat: as-of timestamp '$as_of' could not be parsed"
+        exit 1
+      }
+    else
+      # No as-of supplied (the live workflow path): use the real clock. Tests
+      # MUST always pass an explicit as-of and never rely on this branch
+      # (F-93/F-99).
+      now_epoch=$(date -u +%s)
+    fi
+
     ts_epoch=$(date -u -d "$ts" +%s 2>/dev/null) || {
       echo "::error::$mode heartbeat: timestamp '$ts' could not be parsed"
       exit 1
     }
 
-    age_s=$(( now_epoch - ts_epoch ))
-    max_age_s=$(( max_age_days * 86400 ))
-    age_days_display=$(( age_s / 86400 ))
-
-    if [ "$age_s" -gt "$max_age_s" ]; then
-      echo "::error::$mode heartbeat: last evidence is ${age_days_display}d old, exceeds ${max_age_days}d threshold"
+    # F-100: refuse evidence timestamped more than 24h into the future.
+    if [ "$ts_epoch" -gt "$(( now_epoch + FUTURE_ALLOWANCE_S ))" ]; then
+      echo "::error::$mode heartbeat: evidence timestamp '$ts' is more than 24h in the future relative to the as-of clock — refusing to treat as healthy"
       exit 1
     fi
 
-    echo "$mode heartbeat OK: last evidence ${age_days_display}d old (threshold ${max_age_days}d)"
+    age_s=$(( now_epoch - ts_epoch ))
+    max_age_s=$(( max_age_days * 86400 ))
+    age_h=$(( age_s / 3600 ))
+
+    if [ "$age_s" -gt "$max_age_s" ]; then
+      echo "::error::$mode heartbeat: last evidence is ${age_h}h old, exceeds ${max_age_days}d (${max_age_s}s) threshold"
+      exit 1
+    fi
+
+    echo "$mode heartbeat OK: last evidence ${age_h}h old (threshold ${max_age_days}d)"
     ;;
 
   cead)
@@ -104,6 +144,12 @@ case "$mode" in
       # No as-of supplied (the live workflow path): use the real clock. Tests
       # MUST always pass an explicit as-of and never rely on this branch (F-93).
       as_of_epoch=$(date -u +%s)
+    fi
+
+    # F-100: refuse evidence timestamped more than 24h into the future.
+    if [ "$ts_epoch" -gt "$(( as_of_epoch + FUTURE_ALLOWANCE_S ))" ]; then
+      echo "::error::cead heartbeat: evidence timestamp '$ts' is more than 24h in the future relative to '${as_of:-the current clock}' — refusing to treat as healthy"
+      exit 1
     fi
 
     ev_year=$(date -u -d "@$ts_epoch" +%Y)
