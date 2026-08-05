@@ -36,6 +36,10 @@ jobs:
   heartbeat:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      actions: read
+      contents: read
+      issues: write
     steps:
       # fetch-depth: 0 -- the CEAD check below needs full path history
       # ('git log -1 -- data/cead/'); a shallow clone would see only the tip commit

@@ -37,6 +37,8 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     # CF_HOOK is job-level so the deploy step's run: can read it. NOTE (F-76): the old
     # `if: ... && env.CF_HOOK != ''` gate was DELETED in Phase 32 -- an empty hook is
     # now a hard failure at the guard step, not a silent skip. Do not reintroduce it.

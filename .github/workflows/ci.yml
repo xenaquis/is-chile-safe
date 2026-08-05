@@ -13,6 +13,8 @@ jobs:
     name: Frontend build + validate
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v7
 
@@ -34,6 +36,8 @@ jobs:
     name: Pipeline pytest
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v7
 
@@ -51,6 +55,8 @@ jobs:
     name: Lint GitHub Actions workflows
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v7
 
