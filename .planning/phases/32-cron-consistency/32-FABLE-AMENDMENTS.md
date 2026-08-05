@@ -231,3 +231,99 @@ Operating-Lesson-25 trap (a correctness phase authoring its own drift).
 **Operational note for any future phase:** two agents sharing one scratchpad with identical
 basenames silently clobbered a verified binary. When a tool identity matters, verify it at the
 point of use, not once at download — which is exactly what F-85's armed-check and canary now do.
+
+---
+
+# Fix-cycle 1 decisions (F-93..F-97), after the Opus code review (5 HIGH / 9 MEDIUM / 8 LOW)
+
+I confirmed the two live-breaking HIGHs by execution before dispatching anything:
+`gh secret list` shows **no `R2_BUCKET`** (H-01 is real: the guard would stop the daily archive on
+its next run), and `cead-scraper.yml` contains **no `setup-python` and no `pip install` step at all**
+(H-02 is real, and worse than reported — the executor's SUMMARY claimed byte-for-byte fidelity to a
+plan whose YAML did contain both steps). My own wave-2 verification checked guard ORDER and curl
+identity and missed a deleted step; the delegated "diff against `git show HEAD`" was reported done
+and was wrong. Recorded as the lesson, not as blame: a diff you did not run yourself is a claim.
+
+## F-93 — the CEAD heartbeat becomes QUARTER-BOUNDARY based, replacing the flat day threshold
+
+M-03 is right and it invalidates my F-83c: at 150 days the check is currently GREEN on a quarter
+(2026-07-01) that has **already** been missed, and would only fire around 2026-11-16 — after Q4 is
+missed too. But the 100-day figure I originally set was worse in the other direction (a guaranteed
+false alarm on a healthy system, which is why F-83c raised it). The real problem is that **a flat
+age threshold cannot distinguish "late" from "skipped"**, so tuning the number just slides the
+error from one failure mode to the other. That is Operating Lesson 26 in its purest form, and I hit
+it twice on the same number.
+
+New rule: count how many quarterly due dates (Jan 1, Apr 1, Jul 1, Oct 1 UTC) have elapsed since
+the evidence timestamp. **≥ 2 elapsed boundaries → fail; ≤ 1 → pass.** One missed boundary is a
+maintainer running late, which is normal and must stay silent; two means a whole quarter was
+genuinely skipped, which is the actual condition worth an alert. This is what CRON-02's
+"cron-drift-tolerant threshold" means for a quarterly cadence.
+
+Two-direction proof required, with an INJECTED as-of date (never a live `date`):
+- evidence `2026-06-19`, as-of `2026-09-30` → 1 boundary (Jul 1) → **exit 0**
+- evidence `2026-06-19`, as-of `2026-10-02` → 2 boundaries (Jul 1, Oct 1) → **exit 1**
+- evidence `2026-09-15`, as-of `2026-10-02` → 1 boundary → **exit 0**
+- evidence `2025-12-31`, as-of `2026-10-02` → 4 boundaries → **exit 1**
+
+## F-94 — guard only the secrets that are actually REQUIRED and actually EXIST
+
+Both H-01 and M-01 are the same defect: the guard asserts things the system does not need, so the
+guard itself becomes the outage.
+- **Remove `R2_BUCKET`** from `r2-archive.yml`'s guard. It is not a secret and never was;
+  `archive_r2.py:475` defaults it to `"ischilesafe"` deliberately. Fix M-05 in the same pass — the
+  comment justifying the guard states something false about the code it guards.
+- **Remove `DEEPSEEK_API_KEY`** from `news-pipeline.yml`'s required list. The default classifier is
+  Granite 4.1 8B via OpenRouter; DeepSeek is a selectable alternative. Keep it in the step `env:` so
+  the alternative still works, but a rotated DeepSeek key must not stop the news cron.
+- Keep guarded: `OPENROUTER_API_KEY`; `R2_ENDPOINT_URL`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`;
+  `CF_HOOK` (post-commit, per F-84). All verified present in `gh secret list`.
+
+**Generalizable rule this phase learned the hard way: a required-secret list must be derived from
+what the code actually reads and what the repo actually has — not from what the workflow happens to
+mention.** A guard that fails on a healthy system is not a stricter guard, it is an outage with a
+tidy error message.
+
+## F-95 — wire the instrument in, but do NOT widen CI's trigger
+
+H-03 is correct: `lint-workflows.sh` has zero callers, and `ci.yml:50` still uses
+`rhysd/actionlint@v1` — the very wrapper whose silent-shellcheck-disable defect motivated F-85.
+Replace that step's body with `bash .github/scripts/lint-workflows.sh`.
+
+**Rejected: adding a `push: branches: [master]` trigger to `ci.yml`.** It would run build+validate on
+every push to a live repo, where `freshness` can go red purely from data age (F-19) — manufacturing
+a recurring red CI that this run has spent four phases teaching people to ignore. The honest
+position is recorded instead: master-push linting is NOT covered by CI; it is covered by the
+orchestrator running the gate locally before every push, and that is stated in DEPLOYMENT.md.
+
+## F-96 — thresholds compare seconds, not truncated days (M-04)
+
+Integer day division silently makes every stated threshold up to one day looser than advertised — a
+"4-day" R2 check really fires at 5.0 days. Compare epoch seconds against `max_days * 86400`.
+Keep the boundary inclusive-of-PASS semantics already proven (exactly N days → exit 0) and update
+the tests to pin the new precision at the second, both directions.
+
+## F-97 — what is FIXED, what is DOCUMENTED, and what is BACKLOG
+
+Fix now: H-01, H-02, H-03, H-04, M-01, M-02 (the generic `pipeline-failure` label is referenced by
+every alert but created by nothing — add it to each `Ensure alert label exists` step), M-03, M-04,
+M-05, M-09.
+
+**Document, do not change (each with its reason):**
+- **H-05** — new CEAD data pushed by a maintainer never triggers a production build
+  (`deploy-on-code.yml` filters `site/**`, CF auto-build is off). This is a REAL, pre-existing gap
+  and CRON-07's audit is the right place to surface it, but changing production deploy triggers is
+  a live-risk change outside this phase's approved plan and outside its goal. Document in
+  DEPLOYMENT.md, record in STATE.md backlog, hand the trigger decision to a phase that owns deploys.
+- **M-06** — `deploy-on-code.yml` has no failure alert. Accepted: it is push-triggered, so a human
+  is already present, and adding `issues: write` to a deploy-only job widens its token for a
+  marginal gain. Record the asymmetry in the DEPLOYMENT.md table so it reads as a decision.
+- **M-07** — the four `continue-on-error: true` CEAD enrichment steps can commit and deploy partial
+  data with a green job. Real and pre-existing, but it is a data-quality defect, not a cron-
+  consistency one; fixing it here would re-open CEAD's data path unattended. STATE.md backlog.
+- **M-08** — `fetch-lint-tools.sh` does not re-verify an already-present binary against its pinned
+  SHA. Accepted: `.tools/` is gitignored and local, and F-85's canary proves at every invocation
+  that the binary present actually works. Stated in the script's own comment.
+- **L-06** — `test_never_prints_secret_value` covers only the success path (the one mutation of nine
+  that survived). Extend it to the failure path too; cheap, and a leak on the error path is the
+  likelier one.
