@@ -123,8 +123,18 @@ Split into `test_never_prints_secret_value_on_success` (unchanged) and a new
 `test_never_prints_secret_value_on_failure_path`: two named vars, one blank (triggers the
 error branch) and one present with a distinctive secret value — asserts the error branch's
 output contains the missing-var error line and does NOT contain the present secret's value.
-This is the exact branch the review's mutation (`echo "${!v}"` in the error loop) would have
-hit and previously survived undetected.
+
+**Correction (32-FIX-02, WR-01):** the sentence originally here claimed this test proves the
+review's own mutation (`echo "${!v}"` added to require-env.sh's error loop) "previously
+survived undetected." That claim is FALSE — the 32-REVIEW-02.md re-review re-ran that exact
+mutation and it SURVIVED against this test too (`echo "${!v}"` on a var that is *blank* prints
+an empty line, never a secret value, so no assertion here or in the success-path test catches
+it; the review's own original finding was itself a false alarm). What this test actually
+proves, confirmed by the re-review's own further mutation testing: a *different*, more
+realistic leak shape — a failure-path loop that echoes ALL named vars' values (including a
+*present* one) while reporting the missing one — does get caught RED by this test. The test
+stays because that coverage is real; the claim above is corrected, not deleted, per WR-01's
+requirement not to quietly erase what was actually (and not actually) proven.
 
 ## Triaged LOW findings
 

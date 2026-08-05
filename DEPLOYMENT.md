@@ -1,6 +1,6 @@
 # DEPLOYMENT.md — Cloudflare Pages Go-Live Runbook
 
-**ischilesafe.com** | Last updated: 2026-06-19
+**ischilesafe.com** | Last updated: 2026-08-04
 
 This runbook documents every human Cloudflare-dashboard and GitHub-secrets step required to take
 the site live. GitHub Actions automation handles scraping and data commits; Cloudflare Pages
@@ -114,7 +114,7 @@ is. Do not rely on `[skip ci]` alone.
 ## 6. Add Repository Secrets
 
 Go to the GitHub repository → **Settings** → **Secrets and variables** → **Actions** →
-**New repository secret**. Add both of the following:
+**New repository secret**. Add all of the following:
 
 | Secret Name | Value | Source | Consumed by |
 |-------------|-------|--------|-------------|
@@ -285,8 +285,10 @@ tracked in `.planning/STATE.md` backlog for a future phase that owns deploys to 
 partial data with a green job.** `fetch_enusc_vhdv.py`, `build_enusc_enrichment.py`,
 `build_composite_index.py`, `build_map_payload.py` all swallow their exit codes. If
 `build_map_payload.py` crashes halfway, "Commit data if changed" still stages and pushes
-whatever `data/` contains. In practice this is masked today by CRON-05/H-02 (the scraper never
-gets past step 1 on Actions), which is not a defence. This is a data-quality defect in the
+whatever `data/` contains. In practice this is masked today by CRON-05 (the CEAD scraper is
+blocked with an HTTP 403 from GitHub Actions runner IPs, so it never reaches these enrichment
+steps on Actions) -- H-02 (the missing setup-python/pip install) was fixed in Phase 32's fix
+cycle 1 and no longer contributes to the masking. This is a data-quality defect in the
 CEAD enrichment path, not a cron-consistency one -- fixing it here would re-open CEAD's data
 path unattended, outside this phase's scope. Tracked in `.planning/STATE.md` backlog.
 
