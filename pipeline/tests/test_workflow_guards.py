@@ -589,7 +589,7 @@ class TestWorkflowPythonStepsHaveSetup:
         mutated_lines = []
         skip_next_pip_block = False
         for line in real_text.splitlines():
-            if "uses: actions/setup-python@v7" in line:
+            if "uses: actions/setup-python@" in line:
                 skip_next_pip_block = True
                 continue
             if skip_next_pip_block and (

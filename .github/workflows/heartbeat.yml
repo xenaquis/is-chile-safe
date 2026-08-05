@@ -45,7 +45,7 @@ jobs:
       # ('git log -1 -- data/cead/'); a shallow clone would see only the tip commit
       # and could falsely report "no evidence" even when data/cead/ was updated
       # further back in history.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
 
