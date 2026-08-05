@@ -1,6 +1,6 @@
 # canary-workflow.yml (SEC-05, FM-06)
 #
-# Deliberately DIRTY fixture — committed on purpose. Exhibits two of the four
+# Deliberately DIRTY fixture — committed on purpose. Exhibits several of the
 # risk shapes check-secret-hygiene.sh must detect. Never fix these lines; the
 # gate's own canary pass depends on them staying exactly as written. Excluded
 # from the real-tree scan by directory path, scanned first as its own pass.
@@ -14,6 +14,15 @@ jobs:
     steps:
       - name: leak a secret (shape 1)
         run: echo "$DEEPSEEK_API_KEY"
+
+      - name: leak via Actions expression (shape 1b, HI-01/F-125)
+        run: echo "${{ secrets.OPENROUTER_API_KEY }}"
+
+      - name: leak via printenv (shape 1c, HI-01/F-125)
+        run: printenv DEEPSEEK_API_KEY
+
+      - name: leak via here-string (shape 1d, HI-01/F-125)
+        run: cat <<< "$CF_HOOK"
 
       - name: verbose curl of the CF_HOOK alias (shape 3)
         run: curl -v "$CF_HOOK"

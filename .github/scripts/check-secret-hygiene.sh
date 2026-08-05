@@ -38,7 +38,17 @@ FIXTURE_DIR=".github/scripts/fixtures/secret-hygiene-canary"
 # it is the job-level env alias for CF_DEPLOY_HOOK_URL.
 SECRET_NAMES="CF_DEPLOY_HOOK_URL|CF_HOOK|DEEPSEEK_API_KEY|OPENROUTER_API_KEY|R2_ACCESS_KEY_ID|R2_SECRET_ACCESS_KEY|R2_ENDPOINT_URL|TOKEN_VALUE_R2"
 
+# HI-01/F-125: the bare $VAR/${VAR} shell form is only ONE of several
+# real-world shapes that leak a secret into a log. `${{ secrets.NAME }}` is
+# THE canonical GitHub Actions expression spelling and the most likely real
+# leak; `printenv NAME` and a here-string `<<< "$NAME"` dump the value just
+# as plainly. Each shape gets its own sub-pattern so the canary below can
+# arm each one individually rather than one pattern papering over a gap.
 ECHO_PATTERN="(echo|printf)[^|]*\\\$\\{?(${SECRET_NAMES})\\b"
+SECRETS_EXPR_PATTERN="(echo|printf)[^|]*\\\$\\{\\{[[:space:]]*secrets\\.(${SECRET_NAMES})\\b"
+PRINTENV_PATTERN="printenv[[:space:]]+(${SECRET_NAMES})\\b"
+HERESTRING_PATTERN="<<<[[:space:]]*\"?\\\$\\{?(${SECRET_NAMES})\\b"
+EXPOSURE_PATTERN="${ECHO_PATTERN}|${SECRETS_EXPR_PATTERN}|${PRINTENV_PATTERN}|${HERESTRING_PATTERN}"
 XTRACE_PATTERN="set[[:space:]]+-x\\b|set[[:space:]]+-o[[:space:]]+xtrace"
 CURL_PATTERN="curl[^|]*(-v\\b|--verbose)"
 BOTOCORE_PATTERN="set_stream_logger|level[[:space:]]*=[[:space:]]*logging\\.DEBUG|level[[:space:]]*=[[:space:]]*10\\b"
@@ -118,6 +128,22 @@ _scan_grep "$ECHO_PATTERN" "$canary_yml" "$canary_sh"
 canary_echo_hits=$(wc -l <"$SCAN_TMP" | tr -d ' ')
 rm -f "$SCAN_TMP"
 
+# HI-01/F-125: each sibling shape of check 1 gets its own must-fire
+# assertion -- a single combined pattern printing "armed" while three
+# sibling shapes pass silently is exactly the F-85 defect class relocated
+# into this gate's own countermeasure.
+_scan_grep "$SECRETS_EXPR_PATTERN" "$canary_yml" "$canary_sh"
+canary_secrets_expr_hits=$(wc -l <"$SCAN_TMP" | tr -d ' ')
+rm -f "$SCAN_TMP"
+
+_scan_grep "$PRINTENV_PATTERN" "$canary_yml" "$canary_sh"
+canary_printenv_hits=$(wc -l <"$SCAN_TMP" | tr -d ' ')
+rm -f "$SCAN_TMP"
+
+_scan_grep "$HERESTRING_PATTERN" "$canary_yml" "$canary_sh"
+canary_herestring_hits=$(wc -l <"$SCAN_TMP" | tr -d ' ')
+rm -f "$SCAN_TMP"
+
 _scan_grep "$XTRACE_PATTERN" "$canary_yml" "$canary_sh"
 canary_xtrace_hits="$(_count_noncomment_matches "$SCAN_TMP")"
 rm -f "$SCAN_TMP"
@@ -130,12 +156,14 @@ _scan_grep "$BOTOCORE_PATTERN" "$canary_py"
 canary_botocore_hits="$(wc -l <"$SCAN_TMP" | tr -d ' ')"
 rm -f "$SCAN_TMP"
 
-if [ "$canary_echo_hits" -lt 1 ] || [ "$canary_xtrace_hits" -lt 1 ] || \
-   [ "$canary_curl_hits" -lt 1 ] || [ "$canary_botocore_hits" -lt 1 ]; then
-  echo "::error::secret-hygiene canary did not produce its expected findings (echo=$canary_echo_hits xtrace=$canary_xtrace_hits curl=$canary_curl_hits botocore=$canary_botocore_hits) -- instrument is not armed"
+if [ "$canary_echo_hits" -lt 1 ] || [ "$canary_secrets_expr_hits" -lt 1 ] || \
+   [ "$canary_printenv_hits" -lt 1 ] || [ "$canary_herestring_hits" -lt 1 ] || \
+   [ "$canary_xtrace_hits" -lt 1 ] || [ "$canary_curl_hits" -lt 1 ] || \
+   [ "$canary_botocore_hits" -lt 1 ]; then
+  echo "::error::secret-hygiene canary did not produce its expected findings (echo=$canary_echo_hits secrets_expr=$canary_secrets_expr_hits printenv=$canary_printenv_hits herestring=$canary_herestring_hits xtrace=$canary_xtrace_hits curl=$canary_curl_hits botocore=$canary_botocore_hits) -- instrument is not armed"
   exit 1
 fi
-echo "check-secret-hygiene.sh: canary armed (echo=$canary_echo_hits xtrace=$canary_xtrace_hits curl=$canary_curl_hits botocore=$canary_botocore_hits)"
+echo "check-secret-hygiene.sh: canary armed (echo=$canary_echo_hits secrets_expr=$canary_secrets_expr_hits printenv=$canary_printenv_hits herestring=$canary_herestring_hits xtrace=$canary_xtrace_hits curl=$canary_curl_hits botocore=$canary_botocore_hits)"
 
 # ---------------------------------------------------------------------------
 # Pass 2: real tree. Fixture directory is excluded by construction -- the
@@ -148,19 +176,33 @@ echo "check-secret-hygiene.sh: canary armed (echo=$canary_echo_hits xtrace=$cana
 
 fail=0
 
-# Check 1: echo/printf of a secret name or alias -- NOT comment-skipped
-# (FM-09: an echo of "# $SECRET" inside a run: body is still live shell).
-_scan_grep "$ECHO_PATTERN" .github/workflows/*.yml .github/scripts/*.sh
-_report_all "$SCAN_TMP" "possible secret exposure (echo/printf of a secret name)" fail
+# HI-02/F-125: GitHub accepts both .yml and .yaml for workflow files; a
+# *.yml-only glob would silently skip a .yaml workflow from this gate,
+# reintroducing the exact L-01 defect lint-workflows.sh:42-48 already fixed.
+# nullglob so a genuinely absent extension does not pass a literal
+# unexpanded glob string to grep.
+shopt -s nullglob
+WORKFLOW_FILES=(.github/workflows/*.yml .github/workflows/*.yaml)
+shopt -u nullglob
+if [ "${#WORKFLOW_FILES[@]}" -eq 0 ]; then
+  echo "::error::check-secret-hygiene.sh: no workflow files found -- refusing to report a clean tree"
+  exit 1
+fi
+
+# Check 1: echo/printf/${{ secrets.X }}/printenv/here-string exposure of a
+# secret name or alias -- NOT comment-skipped (FM-09: an echo of
+# "# $SECRET" inside a run: body is still live shell).
+_scan_grep "$EXPOSURE_PATTERN" "${WORKFLOW_FILES[@]}" .github/scripts/*.sh
+_report_all "$SCAN_TMP" "possible secret exposure (echo/printf/secrets-expression/printenv/here-string of a secret name)" fail
 rm -f "$SCAN_TMP"
 
 # Check 2: set -x / set -o xtrace -- comment-line-skipped (FM-09).
-_scan_grep "$XTRACE_PATTERN" .github/workflows/*.yml .github/scripts/*.sh
+_scan_grep "$XTRACE_PATTERN" "${WORKFLOW_FILES[@]}" .github/scripts/*.sh
 _report_noncomment "$SCAN_TMP" "xtrace/command-echo enabled (can echo expanded secret args)" fail
 rm -f "$SCAN_TMP"
 
 # Check 3: curl -v/--verbose -- comment-line-skipped (FM-09).
-_scan_grep "$CURL_PATTERN" .github/workflows/*.yml .github/scripts/*.sh
+_scan_grep "$CURL_PATTERN" "${WORKFLOW_FILES[@]}" .github/scripts/*.sh
 _report_noncomment "$SCAN_TMP" "verbose curl invocation (can print a secret-bearing URL)" fail
 rm -f "$SCAN_TMP"
 
