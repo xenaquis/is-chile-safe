@@ -515,6 +515,7 @@ class TestPersistCredentialsRegression:
         "deploy-on-code.yml": 1,
         "heartbeat.yml": 1,
         "r2-archive.yml": 1,
+        "deploy-manual.yml": 1,  # H-05 closure: dispatch-only, never pushes
     }
     _MUST_HAVE_NO_KEY = ("news-pipeline.yml", "cead-scraper.yml")
 

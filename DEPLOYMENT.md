@@ -245,6 +245,7 @@ build. The timestamp and trigger source (Deploy Hook vs Git push) are shown per 
 | CEAD Scraper | `.github/workflows/cead-scraper.yml` | Quarterly (`0 3 1 1,4,7,10 *`) | `schedule` + `workflow_dispatch` | `CF_DEPLOY_HOOK_URL` (guarded AFTER the data commit per F-84) | `contents: write`, `issues: write` | `data/` (CEAD + composite/enrichment), pushes to `master` via `push-with-rebase.sh`, triggers CF deploy hook -- **expected to fail with HTTP 403 on Actions IPs; documented in the file's own header comment (CRON-05)**. `actions/setup-python@v7` + `pip install -r pipeline/requirements.txt` restored after a wave-2 rewrite dropped them (H-02, fix-cycle 1) -- without them every `python …` step fails with `ModuleNotFoundError` instead of the expected 403, destroying the reminder's one useful signal. |
 | Pipeline Heartbeat | `.github/workflows/heartbeat.yml` | Daily 12:00 UTC (`0 12 * * *`) | `schedule` + `workflow_dispatch` | none (uses `github.token` only) | `actions: read`, `contents: read`, `issues: write` | nothing -- read-only checks against all three data-cron cadences (news/R2/CEAD, CRON-02). The CEAD check is quarter-boundary based, not a flat day threshold (F-93, fix-cycle 1) -- it counts how many quarterly due dates (Jan 1 / Apr 1 / Jul 1 / Oct 1 UTC) have elapsed since the last `data/cead/` commit; 1 elapsed boundary is a maintainer running late (silent), 2+ means a whole quarter was genuinely skipped (alert). **The cost of that tolerance, stated in days rather than left to be inferred: detection latency is up to ~92 days, because the alert fires on the SECOND consecutive missed release, not the first.** Concretely, as of 2026-08-04 the Jul-1 release has already been missed, the guard is correctly green, and it will fire on 2026-10-01 if no local scrape lands before then. If a single missed quarter ever needs to be caught immediately, the fix is a second, softer signal — not a lower boundary count, which would just reintroduce the false alarms on a legitimate cadence that F-83c and F-93 were spent removing. This replaces a flat-day threshold that could not be tuned without either crying wolf on a healthy system (100d) or staying green through an already-missed quarter (150d) -- Operating Lesson 26. News/R2 thresholds now compare epoch seconds, not truncated integer days (F-96, fix-cycle 1) -- a "3-day" threshold used to only fire after 3d23h59m; it now fires precisely at >3 days, still passing at exactly 3 days. Named residuals (F-89): an R2 run that succeeds while archiving zero items still passes; dedup is per open issue, so closing an alert without fixing the cron reopens a new one the next day -- both intended, not hidden. This workflow's OWN silence is not monitored by anything else in this repo (F-79) -- news staleness has a second, independent instrument (`freshness.mjs`, validator #15); R2 staleness does not. |
 | Deploy on Code Push | `.github/workflows/deploy-on-code.yml` | On push to `master` touching `site/**` or `.github/workflows/deploy-on-code.yml` itself (L-07) | `push` | `CF_DEPLOY_HOOK_URL` (guard stays first-step -- this job has no data collection to protect) | `contents: read` | nothing -- triggers CF deploy hook only. **No failure alert** (M-06, accepted): this job is push-triggered, so a human is already present at the keyboard when it runs; adding `issues: write` to a deploy-only job's token for a marginal alerting gain was judged not worth the widened scope. This is a deliberate asymmetry with the other four workflows, not an oversight. |
+| Deploy (manual) | `.github/workflows/deploy-manual.yml` | Never scheduled -- human-triggered only | `workflow_dispatch` | `CF_DEPLOY_HOOK_URL` (guarded FIRST -- unlike news/cead this job collects and commits nothing, so the F-84 "guard after the commit" ordering has no data to protect) | `contents: read` | nothing -- POSTs the Deploy Hook only. **Closes H-05:** a data-only push (quarterly CEAD, or a hand-repaired dataset) matches no `paths` filter and CF auto-build is off, so nothing else rebuilds production for it. Run this after any such push. |
 | CI | `.github/workflows/ci.yml` | PRs + `workflow_dispatch` | `pull_request` + `workflow_dispatch` | none | explicit workflow-level `permissions: contents: read` (`ci.yml:8-9` -- NOT the repo default; M-09 fix-cycle 1) | nothing. Three jobs: `frontend` (build + validate), `pipeline` (pytest), `lint-workflows` (runs `.github/scripts/lint-workflows.sh`, the armed/canary-proven instrument -- wired in fix-cycle 1, H-03/F-95; previously this job ran `rhysd/actionlint@v1` directly, whose shellcheck-wiring silently disables shell linting when misconfigured). **Not covered:** direct pushes to `master` (this repo's actual commit pattern) are NOT linted by CI, because `ci.yml` triggers on `pull_request` + `workflow_dispatch` only. F-95 explicitly rejected adding a `push: branches: [master]` trigger — it would run build+validate (including `freshness`, which can go red purely from data age, F-19) on every push to a live repo, manufacturing a recurring red CI signal. Master-push linting is the maintainer's responsibility: run `bash .github/scripts/lint-workflows.sh` locally before pushing workflow changes. |
 
 **CRON-06 claim (F-90, narrowed from an earlier unconditional statement):** every
@@ -393,7 +394,7 @@ puts `requests`/`trafilatura`/`tenacity` on the news cron's import path to read 
 Accepted: the failure mode is loud (`ModuleNotFoundError` before any feed is fetched, red job
 plus alert issue), and F-108's one-constant rule is worth more than the decoupling.
 
-**H-05 -- new CEAD data pushed by a maintainer never triggers a production build.**
+**H-05 -- RESOLVED 2026-08-06 by `.github/workflows/deploy-manual.yml`** (a `workflow_dispatch`-only job that guards `CF_HOOK` and curls the Deploy Hook). The "append a curl to the runbook" alternative was rejected on a measured fact: `CF_DEPLOY_HOOK_URL` is a repository secret and is NOT in the maintainer's local `.env`, so that step was never actually performable on the machine the runbook points at. Historical description follows. **H-05 -- new CEAD data pushed by a maintainer never triggers a production build.**
 `deploy-on-code.yml` filters on `site/**` (and its own workflow file); `data/**` matches
 neither. CF auto-build is disabled (§4). So the documented quarterly runbook -- run
 `pipeline/scrape_cead.py` locally, commit, `git push` -- lands new CEAD data on `master`, but
@@ -477,3 +478,30 @@ If a CF Pages build fails (bad Astro build, missing npm package, etc.):
 - [ ] `news-pipeline.yml` `workflow_dispatch` run succeeded (all secrets set — there is no silent-skip dry-run mode, §8a)
 - [ ] Docs-only push confirmed CF build count stayed flat (rebuild-loop guard verified)
 - [x] Code-push deploy trigger verified — a `site/**` push fired `deploy-on-code.yml`, which curled the Deploy Hook and produced a real CF build (GL-01, 2026-06-19)
+
+### CEAD quarterly scrape — verified state (2026-08-06)
+
+A full local scrape was run on **2026-08-06** (`PYTHONPATH=. python pipeline/scrape_cead.py`,
+exit 0, 346/346 communes) specifically to answer whether the missed Jul-1 boundary had left
+production serving stale numbers. **It had not.** The crime series came back **byte-identical
+for all 346 communes**, including the partial-2026 figure (Santiago 13101: `2059.4`, unchanged
+from the 2026-06-19 scrape). The only diffs were a `last_updated` bump and the enrichment
+fields that `scrape_cead.py` strips and the downstream builders re-add.
+
+**The scrape was therefore reverted and NOT committed**, for a reason worth stating because it
+inverts the intuition that fresher-is-safer: the heartbeat's CEAD check counts quarterly
+boundaries elapsed **since the last `data/cead/` commit**. Committing a no-op scrape would have
+reset that clock to August, so the alert for the still-unpublished release would not fire on
+Oct 1. A cosmetic commit would have *silenced the guard that is doing its job*, while also
+churning 364 files and triggering a production rebuild for zero data change.
+
+**What this means for the runbook:** exit 0 from the scraper is not evidence of new data.
+Before committing a quarterly scrape, diff the crime core (everything except `last_updated`,
+`composite_index`, `spd_homicide_rate`, `sii_exposure_index`, `enusc_vhdv`). If it is unchanged,
+revert — CEAD has published nothing, and that is a normal outcome, not a failure.
+
+**Open question this raises, recorded rather than assumed away:** the heartbeat assumes CEAD
+publishes on Jan 1 / Apr 1 / Jul 1 / Oct 1. The evidence above is consistent with that calendar
+being wrong, or with these particular series simply not moving between releases. Nothing here
+distinguishes the two. If the Oct-1 scrape also returns identical data, the boundary assumption
+itself — not the scraper — is what needs revisiting.

@@ -83,7 +83,7 @@ done <"$tmp"
 
 # F-117/FM-08: coverage floor. An undercounted or empty scan (e.g. a future
 # glob typo that silently narrows .github/workflows/*.yml) must never exit 0.
-EXPECTED_MIN_COUNT=13
+EXPECTED_MIN_COUNT=14
 
 if [ "$count" -lt "$EXPECTED_MIN_COUNT" ]; then
   echo "::error::check-sha-pins.sh: examined only $count uses: lines, expected at least $EXPECTED_MIN_COUNT -- scan may have been silently narrowed"

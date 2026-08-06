@@ -1,0 +1,53 @@
+name: Deploy (manual)
+
+# Closes H-05 (Phase 32 backlog, F-97): a maintainer's local quarterly CEAD
+# scrape lands new data on `master`, but NOTHING rebuilds production for it.
+# `deploy-on-code.yml` filters on `site/**`, `data/**` matches neither it nor
+# any other trigger, and Cloudflare auto-build is disabled -- so production
+# keeps serving the previous quarter's numbers until an unrelated `site/**`
+# push happens to rebuild.
+#
+# The alternative shape considered was "append a curl to the runbook". It was
+# REJECTED on a concrete fact: `CF_DEPLOY_HOOK_URL` is a repository secret and
+# is NOT in the maintainer's local `.env`, so the documented manual step is not
+# actually performable on the machine the runbook tells you to run it from. A
+# runbook step nobody can execute is not a mitigation.
+#
+# Deliberately `workflow_dispatch`-only: this must never fire on a schedule or
+# a push. It is the human's "publish what is already on master" button, used
+# after a data-only push (CEAD quarterly, or a hand-repaired dataset).
+
+on:
+  workflow_dispatch:
+
+# Least privilege: this job reads nothing from the repo it does not need and
+# writes nothing at all. It only POSTs to the Cloudflare Deploy Hook.
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Trigger Cloudflare Pages deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      CF_HOOK: ${{ secrets.CF_DEPLOY_HOOK_URL }}
+
+    steps:
+      # Checkout is needed only to reach `.github/scripts/require-env.sh`.
+      # This job never pushes, so the credential must not be persisted.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # CRON-01/F-76: an empty or whitespace-only hook is a hard failure, never
+      # a silent skip. There is no data to protect here (nothing is collected or
+      # committed by this job), so unlike news/cead the guard runs FIRST -- the
+      # F-84 "guard after the commit" ordering exists to stop a rotated hook from
+      # also losing scraped data, and this job has none.
+      - name: Guard deploy hook
+        run: bash .github/scripts/require-env.sh CF_HOOK
+
+      # Byte-identical invocation to the other three deploy-hook callers (CRON-03).
+      - name: Trigger Cloudflare Pages deploy
+        run: curl -X POST --fail --silent --show-error --retry 3 --retry-all-errors --max-time 60 "$CF_HOOK"
