@@ -1,5 +1,35 @@
 # Milestones
 
+## v2.1 News Intelligence, Map UX & Ops Hardening (Shipped: 2026-08-05)
+
+**Phases completed:** 8 phases (26–33), 27 plans. Executed as an **unattended autonomous run**
+under `v2.1-AUTONOMOUS-DIRECTIVE.md`; 129 binding decisions recorded as F-01..F-129.
+
+**Key accomplishments:**
+
+- **News faceting** on `/news/` + `/es/noticias/` — filter by window, region and crime family with per-option counts and an accent-insensitive comuna typeahead, query-param only, **zero new indexable URLs** and zero hydration (the full card superset is pre-rendered).
+- **Map control shell reworked** — the news toggle had been the last chip in a scrolling row with its only affordance suppressed, sitting **507 px offscreen** at desktop and 991 px at 375 px. It is now standalone and labeled, with three `<details>` entry points and a `<dialog>` bottom sheet below 480 px. Zero map-owned touch-target violations at every width.
+- **Event clustering: NO-GO, measured and documented** — precision 0.667 (fp=11, tp=22 over 86 hand-labeled pairs) against a locked 100 %/zero-false-merge gate. No clustering shipped; the gate is quarantined as `xfail(strict=True)` so a future model that passes re-opens the decision instead of silently hiding a GO.
+- **A live factual error corrected** — the methodology page told readers `Rank 1 = lowest reported rate` while the code sorts descending. Found five times in five phrasings across four sweeps; the guard now matches the semantic shape over all of `site/src`.
+- **The cron surface made self-diagnosing** — five shared bash scripts, a heartbeat workflow, per-pipeline alert labels, and a documented answer to "if a cron stops firing, what goes red and when". Two of the phase's own new guards would have broken live crons and were caught before shipping.
+- **Security posture** — 13 action refs SHA-pinned, per-job `permissions:` on 8/8 jobs, dependabot across three ecosystems, zizmor in CI, and two new canary-armed gates. 11 of 12 security alerts closed without a major framework upgrade.
+
+---
+
+## v2.0 Composite Index, Comparators & Launch (Shipped: 2026-07, production live)
+
+**Phases completed:** 6 phases (18, 21, 22, 23, 24, 25), 30 plans.
+
+**Key accomplishments:**
+
+- **The site went live** at ischilesafe.com on Cloudflare Pages, with auto-build off and deploys driven by a data-change-gated deploy hook.
+- **Composite crime index** — a 0–100 score with 5 bands and national/regional rank, computed from 7 hardened metrics, surfaced on the map, commune pages and popup, always with its caveat block.
+- **Commune comparator + A-vs-B programmatic SEO** — side-by-side comparison plus pair pages built from a curated allowlist, each with ≥300 words of non-swappable prose, rolled out in staged batches.
+- **ENUSC communal victimization layer** for the 136 communes the survey covers, added additively without disturbing the CEAD spine.
+- **Sortable ranking tables** and a UI/UX 360 remediation pass, including the soft-404 fix that a diagnostic found serving 200s for missing pages.
+
+---
+
 ## v1.3 v1.3 (Shipped: 2026-06-19)
 
 **Phases completed:** 2 phases, 10 plans, 7 tasks
