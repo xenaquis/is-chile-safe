@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-07T02:29:00.037610Z",
+  "generated": "2026-08-07T07:09:18.465467Z",
   "window_days": 30,
   "incidents": [
     {
@@ -19358,6 +19358,136 @@
       "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNZzZydmRhQnI1VktOSmhocGFTdXh3emFISjlEbVBwanVSX1hqS3A2ZlJQdkdsdm9xU29fLTQtTGFHbENnMXNzVnE3Vjh3RFZ6eDhiaURzcmJEWEhIM00yOTBjeXFzUWxScG53SXBOMnhNSFlUeUJLcHZRajJMYi1QcHlDN1BHVlVMV1F2Z2NIdVhwTXdJWFhueUlUM2JzZGNOa2pobHJrVmhMdmhaRFkya2taZVZwdFo5d0psQXpvZ0xQeTdq?oc=5",
       "family": "robos_violentos",
       "slug": "la-serena"
+    },
+    {
+      "id": "615adfbfc940c71e",
+      "cut": "13109",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Homicidio en La Cisterna: riña en cité deja un hombre de 29 años fallecido con impactos de bala",
+      "title_en": "Homicide in La Cisterna: brawl in housing complex leaves 29-year-old man dead with gunshot wounds",
+      "date": "2026-08-07",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/07/homicidio-en-la-cisterna-rina-en-cite-deja-un-hombre-de-29-anos-fallecido-con-impactos-de-bala.shtml",
+      "family": "vida",
+      "slug": "la-cisterna"
+    },
+    {
+      "id": "f5d8512b662d9884",
+      "cut": "12101",
+      "lat": -53.368996,
+      "lng": -71.47533,
+      "title_es": "Apoyo de la Armada y 10 horas de navegación: así cayó en la Antártica imputado por delitos sexuales",
+      "title_en": "Naval support and 10 hours of navigation: how the suspect of sexual offenses was caught in Antarctica",
+      "date": "2026-08-07",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-magallanes/2026/08/06/apoyo-de-la-armada-y-10-horas-de-navegacion-asi-cayo-en-la-antartica-imputado-por-delitos-sexuales.shtml",
+      "family": "sexuales",
+      "slug": "punta-arenas"
+    },
+    {
+      "id": "f9c8bfe3636c21af",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Sin resultados nuevos concluye peritaje a celular considerado clave por homicidio de Cristóbal Miranda",
+      "title_en": "No new results conclude forensic examination of cell phone considered key in the homicide of Cristóbal Miranda",
+      "date": "2026-08-07",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/06/sin-resultados-nuevos-concluye-peritaje-a-celular-considerado-clave-por-homicidio-de-cristobal-miranda.shtml",
+      "family": "vida",
+      "slug": "temuco"
+    },
+    {
+      "id": "a1901f37f0d8a2f9",
+      "cut": "13109",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Colombiano fue asesinado a balazos en un cité de La Cisterna",
+      "title_en": "Colombian man killed by gunfire in a La Cisterna shantytown",
+      "date": "2026-08-07",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/colombiano-fue-asesinado-a-balazos-en-un-cite-de-la-cisterna/2026-08-06/231857.html",
+      "family": "vida",
+      "slug": "la-cisterna"
+    },
+    {
+      "id": "6cf5571ceca40737",
+      "cut": "10301",
+      "lat": -40.605623,
+      "lng": -73.09956,
+      "title_es": "Cayó banda que operaba secuestros, armas y drogas en Osorno",
+      "title_en": "Band operating kidnappings, weapons and drugs in Osorno is dismantled",
+      "date": "2026-08-07",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-los-lagos/cayo-banda-que-operaba-secuestros-armas-y-drogas-en-osorno/2026-08-06/224001.html",
+      "family": "drogas",
+      "slug": "osorno"
+    },
+    {
+      "id": "b7db859196accc81",
+      "cut": "12101",
+      "lat": -53.368996,
+      "lng": -71.47533,
+      "title_es": "Capturan en los canales australes a prófugo por explotación sexual de menores: quedó en prisión preventiva",
+      "title_en": "Arrested in the southern channels for sexual exploitation of minors: held in preventive prison",
+      "date": "2026-08-07",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/capturan-en-los-canales-australes-a-profugo-por-explotacion-sexual-de-menores-quedo-en-prision-preventiva/",
+      "family": "sexuales",
+      "slug": "punta-arenas"
+    },
+    {
+      "id": "55f24512dec85f52",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "José Antonio Kast anuncia plan contra crimen organizado en Santiago",
+      "title_en": "José Antonio Kast announces plan against organized crime in Santiago",
+      "date": "2026-08-06",
+      "outlet": "Pulso Diario San Luis",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxORjZZUmo5Y2IwQjFRNjlKdlpIQnpWTEFsNDdWUm4xb1ppdFNmS0FSLUNQbXBfcmJGMmRiVXRvVmE0Vms1S1ktNXE1dy1lbmp0QXo2WEtVb0xabzNKNTF1QUFTSkhQSGkyUTVlXzhQeVBiOEMyZXZsME5wdmEtSWV3M3duaVhmc1NmMkRma3ZUMlU1ZXdhQmJpaHVMWXVYQWh5dTg40gGjAUFVX3lxTE5GNllSajljYjBCMVE2OUp2WkhCelZMQWw0N1ZSbjFvWml0U2ZLQVItQ1BtcF9yYkYyZGJVdG9WYTRWazVLWS01cTV3LWVuanRBejZYS1VvTFpvM0o1MXVBQVNKSFBIaTJRNWVfOFB5UGI4QzJldmwwTnB2YS1JZXczd25pWGZzU2YyRGZrdlQyVTVld2FCYmlodUxZdVhBaHl1ODg?oc=5",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "5c6a6e2d8a686c2d",
+      "cut": "1107",
+      "lat": -20.216725,
+      "lng": -69.996704,
+      "title_es": "Carabineros recuperan camioneta robada en Alto Hospicio",
+      "title_en": "Carabineros recover stolen truck in Alto Hospicio",
+      "date": "2026-08-04",
+      "outlet": "El Diario de Antofagasta",
+      "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQUEhNOTZITlU2R0FoZ2FFbXJMeXE2OHZOb0dNb0lHbkxVQXlZUDFGQ3Y0M09CTFFRR3JkWVFwUU1mZ0NsTjIwdUF2Z3dUa1JWLTQwTlJ3bHZOb1NwYzRtdHZEajNabXpDd1FHSlNuUXktZ1ZEbFFFc0hLNjE0djE2bzQwMWtHMm1QbzZGbmQ3UDBuRWk5QzZmaC1TdFJfNlktSFBtZGRyMGJaNGVaeHN0T2RqZzdtckpmQTJEaTJjSDVua240NXM1WS03ODdFRHNpOGhPRG9HeGtOWERDZlp4U1NvWnlnNHNSQnR5eW0xUHo1SEdkWk9hdzR3?oc=5",
+      "family": "propiedad",
+      "slug": "alto-hospicio"
+    },
+    {
+      "id": "e9898a1150074a06",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Corte de Temuco rechaza recurso de amparo por trasladado de condenado en caso Naín",
+      "title_en": "Temuco Court rejects habeas corpus appeal for transfer of convicted person in Naín case",
+      "date": "2026-08-06",
+      "outlet": "notichile",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPQy1ibl84Wi01OWtYajN4YzRweFhobTVkTzlNbjZPUlJWVkZYVG1hdThEQ3VfbkJBUjFsWjVmMDhobmNKSG1PQzRUYWZwUDA2Sm9TTERrUlpIc01pNjBLalB3cVQtWnBVMjNydlphNDJXWHJNZndVY1hOcndKcnJ2R0owQWdoaU5NUTlpbjJ4YV8xUTdVTDBra1NYZnZGeENaOUJna1FqY3o3UURqNUtyREQtQ2p3NkE2R2U0aHlYZ3FYWGRRbWZLbmg0dw?oc=5",
+      "family": "vida",
+      "slug": "temuco"
+    },
+    {
+      "id": "fff74b8ab36a93e5",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Desarticulan banda dedicada al tráfico de drogas en Temuco: decomisan más de $30 millones en sustancias ilícitas",
+      "title_en": "Drug trafficking gang dismantled in Temuco: over $30 million in illicit substances seized",
+      "date": "2026-08-07",
+      "outlet": "latribuna.cl",
+      "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxNX3ljLUR4Tlo5OXRJSU5XV2xtR3JBY0NQZmxNSF9LR0s5S01mLUg2VXRXeXlTQWpmUmd2NlByaWZzeXExQ2QtRUdlZmJaM1dzM05oYVlSblBHUFl6a3ZqdG5pR0dOSjNtUWV5QW5LaGd6ckJuM1RVM0I4OWF5UnpXWVgxVEpEamI2RmNqOGt5Qm50RDRQOXBFQlhwTVBJRFdta0Q3dzNDdVNhLTNNbThKb0lHalVtcGhabFRrYnI5Y2R4S0l6enhMYkZxS0dLejR4YUJGbkNfSWhEMEhNLXZ2M1E0b21aZ3NfNWpBLWhvLU9jWldUenlHV25B0gH6AUFVX3lxTE1feWMtRHhOWjk5dElJTldXbG1HckFjQ1BmbE1IX0tHSzlLTWYtSDZVdFd5eVNBamZSZ3Y2UHJpZnN5cTFDZC1FR2VmYlozV3MzTmhhWVJuUEdQWXprdmp0bmlHR05KM21RZXlBbktoZ3pyQm4zVFUzQjg5YXlSeldZWDFUSkRqYjZGY2o4a3lCbnRENFA5cEVCWHBNUElEV21rRDd3M0N1U2EtM01tOEpvSUdqVW1waFpsVGticjljZHhLSXp6eExiRnFLR0t6NHhhQkZuQ19JaEQwSE0tdnYzUTRvbVpnc181akEtaG8tT2NaV1R6eUdXbkE?oc=5",
+      "family": "drogas",
+      "slug": "temuco"
     }
   ]
 }
