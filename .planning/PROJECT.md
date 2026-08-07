@@ -10,7 +10,7 @@ El sitio captura tráfico SEO mediante páginas programáticas bilingües (por c
 
 Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-## Current Milestone: v2.1 News Intelligence, Map UX & Ops Hardening
+## Last Milestone: v2.1 News Intelligence, Map UX & Ops Hardening (SHIPPED 2026-08-05)
 
 **Goal:** Make the news layer explorable (facet by time / geography / crime family, and group reports of the same real-world event), make the map genuinely usable (news toggle and filters discoverable on desktop and 375px mobile), and close the outstanding documentation, cron-consistency and security-posture debt.
 
@@ -155,13 +155,34 @@ This document evolves at phase transitions and milestone boundaries.
 
 ## Current State
 
-**Shipped:** v1.0 MVP (2026-06-13, 6 phases) → v1.1 Polish & QA (2026-06-15, Phases 7–9) → **v1.2 Map Fidelity, Findability & News (2026-06-18, Phases 10–17)**. v1.2 closed via `/gsd-autonomous` (Phase 17 then 16); audit tech_debt / 0 blockers. **v2.0 in progress: Phase 18 (Composite Crime Index) complete + verified 2026-06-19** (8/8 plans incl. 3 gap-closure; verification passed 5/5; CI-01..CI-10 met) and Phase 21 (comparator) complete; next: Phase 22 go-live.
+**No milestone is currently open.** Six shipped and archived: v1.0 MVP (2026-06-13) → v1.1
+Polish & QA (2026-06-15) → v1.2 Map Fidelity, Findability & News (2026-06-18) → v1.3 Data
+Quality Hardening (2026-06-19) → **v2.0 Composite Index, Comparators & Launch** (production
+live) → **v2.1 News Intelligence, Map UX & Ops Hardening** (2026-08-05, phases 26–33, executed
+as an unattended autonomous run). Each is tagged in git and archived under
+`.planning/milestones/` with its roadmap, requirements and audit.
 
-**Stack as built:** Astro 6.4 + React islands + Leaflet (frontend, `site/`); Python 3.12 pipeline (CEAD scraper + RSS/DeepSeek news + name→CUT resolver + A/B harness, `pipeline/`, Pydantic v2, pytest 158 green); JSON-in-repo data store (incl. `data/SOURCES.md`, `data/snapshots/`, `data/incidents/current.json`); GitHub Actions cron + Cloudflare Pages Deploy-Hook deploy. 792 pages build clean under the 20K Cloudflare limit; 12 frontend validators + pipeline tests green.
+**Stack as built:** Astro 6.4 + React islands + Leaflet (`site/`); Python 3.12 pipeline (CEAD
+scraper, RSS + Granite-via-OpenRouter news classification, name→CUT resolver, R2 research
+archive) in `pipeline/`; JSON-in-repo data store; GitHub Actions cron + Cloudflare Pages
+deploy-hook. **Health, measured 2026-08-07:** pytest **395 passed / 1 skipped / 1 xfailed**,
+vitest **59**, **16/16 validators**, `astro check` **0 errors / 0 warnings**, and four
+workflow-security gates (`lint-workflows`, `check-sha-pins`, `check-secret-hygiene`, `zizmor`)
+all exit 0. 1,271 built files against the 20K Cloudflare limit.
 
-**Resolved:** Tarapacá region_id collision (BUGFIX-999.1) fixed 2026-06-16 — region derived from CUT length; all 16 regions populate.
+**Live:** `ischilesafe.com` on Cloudflare Pages. Auto-build is OFF; deploys fire from the
+deploy hook — on `site/**` pushes via `deploy-on-code.yml`, and for data-only pushes via
+`deploy-manual.yml` (`workflow_dispatch`, added 2026-08-06 to close H-05). Node pinned to
+22.12.0 via `.nvmrc`, which CI now reads rather than hardcoding.
 
-**Live:** `ischilesafe.com` is deployed on Cloudflare Pages with both `DEEPSEEK_API_KEY` and `CF_DEPLOY_HOOK_URL` secrets set; auto-build is OFF and deploys fire from the data-change-gated deploy hook (verified at v2.0 go-live, GL-01/GL-02). Node pinned to 22.12.0. Remaining launch task: GSC sitemap submission (Phase 22-03, manual).
+**Open for the operator, not for an agent:**
+
+- Google Search Console sitemap submission — an operator monitoring task, not an indexing
+  blocker (F-133: `robots.txt` already advertises the sitemap and Google discovers it).
+- 12 Dependabot security alerts in `site/package-lock.json` (7 high) — pre-existing transitive
+  dependencies whose only fix is an Astro 6 → 7 major; all three Astro advisories were verified
+  unreachable in this codebase (`DEPLOYMENT.md` § Known Gaps, DEP-01).
+- An Astro 7 migration, whenever it is wanted, as its own phase.
 
 ---
-*Last updated: 2026-07-29 — Milestone v2.1 (News Intelligence, Map UX & Ops Hardening) started; phases continue from 26*
+*Last updated: 2026-08-07 — v2.0 and v2.1 archived and tagged; no milestone open. Next step is `/gsd:new-milestone` when there is one.*

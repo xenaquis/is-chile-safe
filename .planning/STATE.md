@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: News Intelligence, Map UX & Ops Hardening
-status: "MILESTONE v2.1 COMPLETE (8/8). Phase 33 (Security Posture) CLOSED and PUSHED (8f25e34..3fa8850). SEC-01..06 all Complete, 5/5 success criteria MET; the verifier's SC3/SC4 PARTIALs discharged by observation — CI run 30985240486 green on all three jobs (first ever) and 15 Dependabot PRs opened. Close gate: pytest 395/1/1, vitest 59, 16/16 validators, astro check **0/0** (baseline closed 2026-08-07), four workflow-security gates exit 0. Carried for the user: 12 open Dependabot security alerts (7 high), pre-existing."
+status: "v2.0 AND v2.1 both ARCHIVED and TAGGED (2026-08-07). No milestone is open. ROADMAP.md collapsed to 128 lines, REQUIREMENTS.md archived and removed, standing constraints carried into this file. Health: pytest 395/1/1, vitest 59, 16/16 validators, astro check 0/0, four workflow-security gates at exit 0."
 last_updated: "2026-08-05T07:15:00.000Z"
-last_activity: "2026-08-05 — Phase 33 closed, reviewed twice, verified, pushed; F-128 (ci.yml Node 20 vs Astro >=22.12.0) found by the post-push dispatch and fixed; milestone v2.1 complete."
+last_activity: "2026-08-07 — milestone closure done in order: audits for v2.0 and v2.1, I-01 record drift fixed, v2.1 archived + tagged, then v2.0 archived + tagged (skipping the requirements step it would have corrupted)."
 progress:
   total_phases: 14
   completed_phases: 12
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 33 (Security Posture) — COMPLETE, all 3 waves done. **MILESTONE v2.1 IS COMPLETE (8/8 phases: 26-33).**
+Phase: none open. **v2.1 COMPLETE (8/8, phases 26-33) and ARCHIVED; v2.0 ARCHIVED.** Both tagged. Next milestone starts with `/gsd:new-milestone`.
 Plan: 33-03 COMPLETE, plus two fix rounds (Opus review -> fix cycle 1 -> independent Opus re-review -> inline cycle 2) and Opus verification.
 Status: Phase 33 CLOSED and PUSHED (`8f25e34..3fa8850`, 30 commits). SEC-01..SEC-06 all Complete; all 5 success criteria MET. Verification returned SC3/SC4 PARTIAL pending observation and **both are now discharged**: CI run `30985240486` is green on all three jobs (proving `pipx` at /usr/local/bin/pipx, zizmor 1.10.0 executing, and the four token-gated audits actually running), and Dependabot opened **15 PRs** across npm + pip within minutes of the push. F-128 fixed en route: `ci.yml`'s frontend job had `node-version: '20'` against Astro's `>=22.12.0` and could never have passed. Close gate: pytest 395/1/1, vitest 59, 16/16 validators, astro check 4/0, all four security gates exit 0. data/ untouched. **Carried for the user: 12 open Dependabot security alerts in site/package-lock.json (7 high), pre-existing and newly visible — not a v2.1 requirement.**
 Last activity: 2026-08-05 — Phase 33 Plan 03 (Wave 3, final) executed: secret-hygiene gate + courtesy delay + pin decision record, 3 atomic commits, one orchestrator-directed addition (F-123).
