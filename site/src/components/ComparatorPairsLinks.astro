@@ -10,8 +10,22 @@
  * spine.mjs assertion M checks that every commune page contains href="/compare/"
  * (EN) or href="/es/comparar/" (ES). This component satisfies that assertion.
  */
+/**
+ * Named so the .map() callback below can be annotated. Without an explicit
+ * annotation there, `Astro.props` widens to `any`, every destructured binding
+ * in the callback becomes an implicit any, and `astro check` reports four
+ * ts(7031) errors on one line — the whole of this project's long-standing
+ * "4 errors / 0 warnings" baseline.
+ */
+export type ComparatorPair = {
+  cutA: string;
+  cutB: string;
+  nameA: string;
+  nameB: string;
+};
+
 interface Props {
-  pairs: Array<{ cutA: string; cutB: string; nameA: string; nameB: string }>;
+  pairs: ComparatorPair[];
   locale: 'en' | 'es';
 }
 
@@ -25,7 +39,7 @@ const heading =
 <section class="comparator-pairs-spoke">
   <h2 class="section-heading">{heading}</h2>
   <ul class="pairs-list">
-    {pairs.map(({ cutA, cutB, nameA, nameB }) => (
+    {pairs.map(({ cutA, cutB, nameA, nameB }: ComparatorPair) => (
       <li>
         <a href={`${prefix}${cutA}-vs-${cutB}/`}>{nameA} vs {nameB}</a>
       </li>
