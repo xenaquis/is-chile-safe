@@ -69,21 +69,21 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 
 ### Map UX Design Loop (→ Phase 29)
 
-- [ ] **MAPUX-01**: The current map is driven in BrowserOS against a real served build (`npx astro preview --port 4321 --host`), and the baseline discoverability problem is captured with screenshots at desktop and at 375px (emulated via a 375px iframe — BrowserOS has no viewport resize).
-- [ ] **MAPUX-02**: The control-shell design is **iterated in a loop** — screenshot → redesign with a Fable agent → apply → re-screenshot — repeating until the design is excellent. A single audit pass does not satisfy this requirement; the loop and its iterations are the deliverable.
-- [ ] **MAPUX-03**: Each iteration is evaluated against concrete criteria, not taste alone: can a first-time user find and activate the news layer; can they find the filters; are touch targets ≥44px at 375px; is there any keyboard or focus trap; do controls avoid occluding the map or conflicting with Leaflet panes.
-- [ ] **MAPUX-04**: A lightweight live click-through of comparable products (police.uk, CityProtect) firms up the medium-confidence UX pattern claims before the design is locked.
-- [ ] **MAPUX-05**: The loop terminates in an accepted design spec plus a human acceptance gate; Phase 30 does not start until that gate passes.
+- [x] **MAPUX-01**: The current map is driven in BrowserOS against a real served build (`npx astro preview --port 4321 --host`), and the baseline discoverability problem is captured with screenshots at desktop and at 375px (emulated via a 375px iframe — BrowserOS has no viewport resize).
+- [x] **MAPUX-02**: The control-shell design is **iterated in a loop** — screenshot → redesign with a Fable agent → apply → re-screenshot — repeating until the design is excellent. A single audit pass does not satisfy this requirement; the loop and its iterations are the deliverable.
+- [x] **MAPUX-03**: Each iteration is evaluated against concrete criteria, not taste alone: can a first-time user find and activate the news layer; can they find the filters; are touch targets ≥44px at 375px; is there any keyboard or focus trap; do controls avoid occluding the map or conflicting with Leaflet panes.
+- [x] **MAPUX-04**: A lightweight live click-through of comparable products (police.uk, CityProtect) firms up the medium-confidence UX pattern claims before the design is locked.
+- [x] **MAPUX-05**: The loop terminates in an accepted design spec plus a human acceptance gate; Phase 30 does not start until that gate passes.
 
 ### Map Control-Shell Rework (→ Phase 30)
 
-- [ ] **MAPSH-01**: The news layer has an always-visible, explicitly labeled toggle — it is no longer buried inside a generic "mode" control. This is the specific complaint that motivated the milestone.
-- [ ] **MAPSH-02**: The filter panel is redesigned per the Phase 29 spec using native `<details>`/`<dialog>` and CSS, with a bottom-sheet or FAB pattern on mobile rather than filters nested inside the hamburger nav, and zero new shipped JS dependencies.
-- [ ] **MAPSH-03**: All map controls are keyboard-operable and screen-reader-labeled, with no focus traps, touch targets ≥44px at 375px, and no z-index conflict with Leaflet panes.
-- [ ] **MAPSH-04**: The `?region=` deep link is implemented to match the existing working `?cut=` behavior, including graceful degradation on an unknown value (no 404 or console error).
-- [ ] **MAPSH-05**: Changes are confined to `MapTopbar.tsx` and sibling control components; `ChoroplethLayer.ts`, `IncidentPinLayer.ts`, and `LowZoomDotLayer.ts` are untouched, and the Opus code review explicitly verifies that no declarative react-leaflet layer component (`<GeoJSON>`, `<Marker>`-as-JSX-child) was introduced.
-- [ ] **MAPSH-06**: Existing map behavior is regression-verified after the refactor: `?cut=` deep link, choropleth year/family filters, commune panel, geolocation, and incident pins all still work.
-- [ ] **MAPSH-07**: Map filters and news facets share vocabulary through common data (`familyDefs.ts`, `data.ts`) without creating a code dependency between the map island and the news pages.
+- [x] **MAPSH-01**: The news layer has an always-visible, explicitly labeled toggle — it is no longer buried inside a generic "mode" control. This is the specific complaint that motivated the milestone.
+- [x] **MAPSH-02**: The filter panel is redesigned per the Phase 29 spec using native `<details>`/`<dialog>` and CSS, with a bottom-sheet or FAB pattern on mobile rather than filters nested inside the hamburger nav, and zero new shipped JS dependencies.
+- [x] **MAPSH-03**: All map controls are keyboard-operable and screen-reader-labeled, with no focus traps, touch targets ≥44px at 375px, and no z-index conflict with Leaflet panes.
+- [x] **MAPSH-04**: The `?region=` deep link is implemented to match the existing working `?cut=` behavior, including graceful degradation on an unknown value (no 404 or console error).
+- [x] **MAPSH-05**: Changes are confined to `MapTopbar.tsx` and sibling control components; `ChoroplethLayer.ts`, `IncidentPinLayer.ts`, and `LowZoomDotLayer.ts` are untouched, and the Opus code review explicitly verifies that no declarative react-leaflet layer component (`<GeoJSON>`, `<Marker>`-as-JSX-child) was introduced.
+- [x] **MAPSH-06**: Existing map behavior is regression-verified after the refactor: `?cut=` deep link, choropleth year/family filters, commune panel, geolocation, and incident pins all still work.
+- [x] **MAPSH-07**: Map filters and news facets share vocabulary through common data (`familyDefs.ts`, `data.ts`) without creating a code dependency between the map island and the news pages.
 
 ### Docs & Methodology Refresh (→ Phase 31)
 
@@ -160,18 +160,18 @@ Every phase in this milestone runs: **research → plan → premortem → plan r
 | NEWSUI-05 | Phase 28 | Complete |
 | NEWSUI-06 | Phase 28 | Complete |
 | NEWSUI-07 | Phase 28 | Complete |
-| MAPUX-01 | Phase 29 | Pending |
-| MAPUX-02 | Phase 29 | Pending |
-| MAPUX-03 | Phase 29 | Pending |
-| MAPUX-04 | Phase 29 | Pending |
-| MAPUX-05 | Phase 29 | Pending |
-| MAPSH-01 | Phase 30 | Pending |
-| MAPSH-02 | Phase 30 | Pending |
-| MAPSH-03 | Phase 30 | Pending |
-| MAPSH-04 | Phase 30 | Pending |
-| MAPSH-05 | Phase 30 | Pending |
-| MAPSH-06 | Phase 30 | Pending |
-| MAPSH-07 | Phase 30 | Pending |
+| MAPUX-01 | Phase 29 | Complete |
+| MAPUX-02 | Phase 29 | Complete |
+| MAPUX-03 | Phase 29 | Complete |
+| MAPUX-04 | Phase 29 | Complete |
+| MAPUX-05 | Phase 29 | Complete |
+| MAPSH-01 | Phase 30 | Complete |
+| MAPSH-02 | Phase 30 | Complete |
+| MAPSH-03 | Phase 30 | Complete |
+| MAPSH-04 | Phase 30 | Complete |
+| MAPSH-05 | Phase 30 | Complete |
+| MAPSH-06 | Phase 30 | Complete |
+| MAPSH-07 | Phase 30 | Complete |
 | DOCS-01 | Phase 31 | Complete |
 | DOCS-02 | Phase 31 | Complete |
 | DOCS-03 | Phase 31 | Complete |
