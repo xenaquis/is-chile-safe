@@ -63,6 +63,35 @@ Items acknowledged and deferred at v1.x/v2.0 milestone closes:
 | todo | adsense-consent-mode — wire AdSense Consent Mode + flip ADSENSE_ENABLED | DEFERRED out of v2.0; monetization is a future cycle |
 | todo | GL-04 / Phase 22-03 — Google Search Console sitemap submission | DEFERRED human/manual; carried into v2.1 but NOT a v2.1 requirement or phase |
 
+## Standing Constraints (carried past v2.1 — survive the REQUIREMENTS.md archive)
+
+`.planning/REQUIREMENTS.md` was archived to `milestones/v2.1-REQUIREMENTS.md` at the v2.1 close
+and the live file deleted per the GSD milestone flow. These items were live content in it and
+are **not** v2.1-scoped, so they are carried here rather than left only in an archive.
+
+**Permanently out of scope — actively reject in design review, do not merely omit:**
+
+- **Heat-map / density visualization of incidents** — functions as an implicit "dangerous zone"
+  label regardless of disclaimer; direct conflict with the project's hard editorial constraint.
+- **Severity or risk scoring per incident** — no supporting schema field, and it becomes an
+  absolute danger label.
+- **Real-time / "breaking" badges** — the pipeline is cron-driven; the badge would be false.
+- **User-submitted incident reports / social layer** — needs a backend and moderation.
+- **Client-side re-filtering library or a new React island for news** — the volume never
+  justifies the shipped JS and it would put content behind hydration.
+- **Pre-rendered facet URLs (region × family × time)** — thin content plus canonical/hreflang
+  burden against the shared 20K-file budget.
+- **Declarative react-leaflet layer components** — reintroduces the documented
+  re-render-on-hover jank.
+
+**Deferred ideas, revisit when the trigger arrives:**
+
+- Facet-count-aware SEO surfaces (e.g. a curated `/news/robos/`) — once real facet traffic exists.
+- Grouped-marker visual treatment for clustered events — moot while clustering is NO-GO (F-61).
+- AdSense Consent Mode wiring + flipping `ADSENSE_ENABLED` — a monetization cycle.
+- Embeddings-based clustering as a recall improvement — only if lexical pre-filter + LLM
+  adjudication proves insufficient, and only after re-verifying embedding pricing.
+
 ## Performance Metrics
 
 | Metric | Value |
