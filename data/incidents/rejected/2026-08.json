@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-08T06:44:11.436427+00:00",
+  "generated": "2026-08-08T12:39:17.833779+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -3690,6 +3690,56 @@
       "description": "Robo de un teléfono dentro de un colegio terminó destapando un caso que conmociona a toda una comunidad: Hay dos detenidos&nbsp;&nbsp;centralnoticia.cl",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-08-08T06:44:11.436427+00:00"
+    },
+    {
+      "id": "19695d203b97f95a",
+      "url": "https://www.latercera.com/culto/noticia/resena-de-libros-de-los-prisioneros-en-peru-a-dorian-astor/",
+      "outlet": "LaTercera",
+      "date": "2026-08-08",
+      "title": "Reseña de libros: de Los Prisioneros en Perú a Dorian Astor",
+      "description": "El periodista Alejandro Tapia, autor de la biografía Ya viene la fuerza, recrea la historia y la relación del trío de San Miguel con el público peruano; el filósofo francés explora en la apasionada búsqueda de certezas en un mundo delineado por la incertidumbre, y el artista Félix Vega publica su primera novela visual.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-08T12:39:17.833779+00:00"
+    },
+    {
+      "id": "aae89f5f9915c5db",
+      "url": "https://www.latercera.com/nacional/noticia/cifra-de-carabineros-heridos-a-bala-en-actos-de-servicio-se-duplico-entre-el-primer-semestre-de-2025-y-2026/",
+      "outlet": "LaTercera",
+      "date": "2026-08-08",
+      "title": "Cifra de carabineros heridos a bala en actos de servicio se duplicó entre el primer semestre de 2025 y 2026",
+      "description": "En los primeros seis meses de este año, nueve uniformados han sido baleados en acto de servicio. En el mismo período del año pasado el número era de cuatro.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-08T12:39:17.833779+00:00"
+    },
+    {
+      "id": "171b77d4de077269",
+      "url": "https://www.latercera.com/opinion/noticia/mas-presos-no-es-menos-delito/",
+      "outlet": "LaTercera",
+      "date": "2026-08-08",
+      "title": "Más presos no es menos delito",
+      "description": "",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-08T12:39:17.833779+00:00"
+    },
+    {
+      "id": "6f2966b08df595a8",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQeHZVYXFZMWl0bDVCdTd3TGlOeHZfbGtPSnkwQUZ5YVVDSHFFaGxEcmgtRWVmamtyX1VWOC05LWJlcFFPNzJqTUpfazYtdHlSREtldXJtcURjbnRHanFDZ1hkZFpvUEI5YTdpQk1aUktucFJweHNLUGtkaThFNVRjSkZEUkUtYWprQWN3?oc=5",
+      "outlet": "The Times Latino",
+      "date": "2026-08-08",
+      "title": "Kast y De la Espriella priorizan seguridad y crimen organizado en Cali - The Times Latino",
+      "description": "Kast y De la Espriella priorizan seguridad y crimen organizado en Cali&nbsp;&nbsp;The Times Latino",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-08T12:39:17.833779+00:00"
+    },
+    {
+      "id": "1af417d8e0176d45",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOTkptN09oUHM1amxtZ1hyZkJueGswdTRGZzFndThicjdyZW1pQWxJdHotUkJFNWtTcnlKZzlmT3lTVmpTZjA0RF9MZFdOajIzRURCZFl3ZnBDQVU0dUVtR2twU2laZHEyRXgxYy1OUzFXakxMcEJCc0RndlJrbV9QeVZUdzQtWGF6U1p3WGx0dkl0U25ySjg3MTJib1RiakZYRG1Ra3VvdmdsckZ5VC1NXzJpdkFNUHJubERPcTZadDVJajM3Q3c?oc=5",
+      "outlet": "Imagen Televisión",
+      "date": "2026-08-08",
+      "title": "Balacera y persecución en Escobedo - Imagen Televisión",
+      "description": "Balacera y persecución en Escobedo&nbsp;&nbsp;Imagen Televisión",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-08T12:39:17.833779+00:00"
     }
   ]
 }

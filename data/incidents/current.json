@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-08T06:44:11.447653Z",
+  "generated": "2026-08-08T12:39:17.850114Z",
   "window_days": 30,
   "incidents": [
     {
@@ -19657,6 +19657,58 @@
       "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOTGw5UVd1MXVGOENzUno0SnR5Rlo2elFRczJNOFJVZHZKeGVRVG9UaEVHTmZrZm1LZTFzOUR6TEdGRkQ4QUdNNVZ2VklsV2pIc3ZTeFVsT21UVXYway1PVlJxS2g2RnEzdHc4SlBsTUZ3MGZPR1ZYQ0JramY4ZnFSSDlB?oc=5",
       "family": "vida",
       "slug": "coquimbo"
+    },
+    {
+      "id": "35925c3cb5dc694c",
+      "cut": "8102",
+      "lat": -36.996187,
+      "lng": -73.045624,
+      "title_es": "Adolescente acusado por crimen de egipcio dueño de restaurante en Coronel será formalizado este sábado",
+      "title_en": "Teen accused of killing Egyptian restaurant owner in Coronel to be formally charged this Saturday",
+      "date": "2026-08-08",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/08/adolescente-acusado-por-crimen-de-egipcio-dueno-de-restaurante-en-coronel-sera-formalizado-este-sabado.shtml",
+      "family": "vida",
+      "slug": "coronel"
+    },
+    {
+      "id": "8bd9ac2cd6a35cbc",
+      "cut": "13112",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Tres detenidos por vender drogas en casas blindadas con placas y picaportes de acero en La Pintana",
+      "title_en": "Three arrested for selling drugs in armored houses with steel plates and deadbolts in La Pintana",
+      "date": "2026-08-08",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/la-pintana-tres-detenidos-por-vender-drogas-en-casas-blindadas-con/2026-08-08/075320.html",
+      "family": "drogas",
+      "slug": "la-pintana"
+    },
+    {
+      "id": "1c8663967aa77610",
+      "cut": "13112",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "PDI detiene a tres personas tras allanar viviendas blindadas usadas para venta de droga en La Pintana",
+      "title_en": "PDI arrests three people after raiding armored homes used for drug sales in La Pintana",
+      "date": "2026-08-08",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/pdi-detiene-a-tres-personas-tras-allanar-viviendas-blindadas-usadas-para-venta-de-droga-en-la-pintana/",
+      "family": "drogas",
+      "slug": "la-pintana"
+    },
+    {
+      "id": "05b3e7b6ac3a132d",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Detienen a ciudadano uruguayo tras ofrecer $60 mil a Carabineros en control vehicular en el aeropuerto",
+      "title_en": "Uruguayan citizen detained after offering $60,000 to Carabineros during vehicle check at the airport",
+      "date": "2026-08-08",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/detienen-a-ciudadano-uruguayo-tras-ofrecer-60-mil-a-carabineros-en-control-vehicular-en-el-aeropuerto/",
+      "family": "propiedad",
+      "slug": "santiago"
     }
   ]
 }
