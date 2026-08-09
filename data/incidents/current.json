@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-09T01:22:15.123455Z",
+  "generated": "2026-08-09T06:50:22.282214Z",
   "window_days": 30,
   "incidents": [
     {
@@ -19527,6 +19527,123 @@
       "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxONnhEZU5heFVaLUlianJnOVVWS2hpVnBhVUNJa25kdWp4N0EzYUtkQkZwVDJTbzJXVnRES3pKRVV1SjJmazJfdjZfNTFPUG1KRy11Vm9Ja1g0aWdHeU1pQWp0dVpOV3o1RC13WHJwRU9ub1c2SkxxVzkzazhiWXp2QzIxMXdjemlwX0dFQWhMckdpemZtdzczZEhHVkhDY2tHNm5uYjhlRnFvQXRBU2tpMUQ1TUdXLVNNbjZxMDNuSHlWN05HdUVqdFEtVmEyMWlQMnA3a2NqQzVfZE0?oc=5",
       "family": "vida",
       "slug": "temuco"
+    },
+    {
+      "id": "b9288ef81896758d",
+      "cut": "5304",
+      "lat": -32.679715,
+      "lng": -70.350597,
+      "title_es": "Municipio de San Esteban busca recuperar $171 millones vinculados a pagos irregulares a empresa",
+      "title_en": "San Esteban Municipality seeks to recover $171 million linked to irregular payments to company",
+      "date": "2026-08-09",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-valparaiso/2026/08/08/municipio-de-san-esteban-busca-recuperar-171-millones-vinculados-a-pagos-irregulares-a-empresa.shtml",
+      "family": "propiedad",
+      "slug": "san-esteban"
+    },
+    {
+      "id": "e6ca87086555a947",
+      "cut": "13132",
+      "lat": -33.416252,
+      "lng": -70.57832,
+      "title_es": "Intento de asalto afectó a escolta de exministro Luis Cordero en Vitacura: hay 5 detenidos",
+      "title_en": "Attempted assault on ex-minister Luis Cordero's bodyguard in Vitacura: 5 arrested",
+      "date": "2026-08-09",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/08/reportan-presunto-intento-de-asalto-a-escolta-de-exministro-luis-cordero-en-vitacura.shtml",
+      "family": "vida",
+      "slug": "vitacura"
+    },
+    {
+      "id": "0b7c3da8ca5d2422",
+      "cut": "8311",
+      "lat": -37.62198,
+      "lng": -71.749941,
+      "title_es": "Juzgado decreta prisión preventiva para sujeto acusado de secuestrar y violar a mujer en Santa Bárbara",
+      "title_en": "Court orders preventive detention for man accused of kidnapping and raping woman in Santa Bárbara",
+      "date": "2026-08-09",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/08/juzgado-decreta-prision-preventiva-para-sujeto-acusado-de-secuestrar-y-violar-a-mujer-en-santa-barbara.shtml",
+      "family": "sexuales",
+      "slug": "santa-barbara"
+    },
+    {
+      "id": "881f937abc1eb7e5",
+      "cut": "13132",
+      "lat": -33.416252,
+      "lng": -70.57832,
+      "title_es": "Escolta del exministro Cordero frustró a disparos un portonazo en Vitacura",
+      "title_en": "Bodyguard of former Minister Cordero foiled a smash-and-grab in Vitacura by shooting",
+      "date": "2026-08-09",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robo-de-vehiculos/escolta-del-exministro-cordero-frustro-a-disparos-un-portonazo-en-vitacura/2026-08-08/231403.html",
+      "family": "vida",
+      "slug": "vitacura"
+    },
+    {
+      "id": "ffb2900fdd347b2b",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "Incendio en domicilio provocó la muerte de dos adultos mayores en Recoleta",
+      "title_en": "Fire in home caused death of two elderly adults in Recoleta",
+      "date": "2026-08-09",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/incendios/incendio-en-domicilio-provoco-la-muerte-de-dos-adultos-mayores-en-recoleta/2026-08-08/225548.html",
+      "family": "vida",
+      "slug": "recoleta"
+    },
+    {
+      "id": "6907f4464effe28a",
+      "cut": "13116",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Robo con intimidación a exministro Luis Cordero termina con cinco detenidos tras persecución hasta Lo Espejo",
+      "title_en": "Robbery with intimidation of former Minister Luis Cordero ends with five arrests after pursuit to Lo Espejo",
+      "date": "2026-08-09",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/delincuentes-realizan-portonazo-a-exministro-de-seguridad-luis-cordero-en-vitacura/",
+      "family": "vida",
+      "slug": "lo-espejo"
+    },
+    {
+      "id": "8465388afc4bb401",
+      "cut": "13132",
+      "lat": -33.416252,
+      "lng": -70.57832,
+      "title_es": "Exministro de Seguridad Luis Cordero habría sufrido violento portonazo en Vitacura",
+      "title_en": "Former Security Minister Luis Cordero allegedly suffered a violent break-in in Vitacura",
+      "date": "2026-08-09",
+      "outlet": "24horas",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPRDJHS2ZnblAtSmFjaWhaMV9ZOXFMTG11NWxwNnZwWE02QW9TTmtvLWJ5RGRmQThlOXBNMTNoVEVyQWZTd2t2Rmp3dERFczluREhsTV9mOTdzR2RZWktWd3p5aHlKaE9SZ1RYaU5WR3gwRGFEanpCbFNvNVFwWTA1bnhYd0xITWY2MGFxUjJIb21xZFlIR1BNd0RWeENMUnFuUUxKUXB1cHpkYnFjVzZrYtIBsAFBVV95cUxPRDJHS2ZnblAtSmFjaWhaMV9ZOXFMTG11NWxwNnZwWE02QW9TTmtvLWJ5RGRmQThlOXBNMTNoVEVyQWZTd2t2Rmp3dERFczluREhsTV9mOTdzR2RZWktWd3p5aHlKaE9SZ1RYaU5WR3gwRGFEanpCbFNvNVFwWTA1bnhYd0xITWY2MGFxUjJIb21xZFlIR1BNd0RWeENMUnFuUUxKUXB1cHpkYnFjVzZrYg?oc=5",
+      "family": "vida",
+      "slug": "vitacura"
+    },
+    {
+      "id": "aaec673763e98c55",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Megaoperativo nacional deja 656 detenidos y 23 armas incautadas",
+      "title_en": "National mega-raid nets 656 arrests and 23 weapons seized",
+      "date": "2026-08-08",
+      "outlet": "El diario de la Araucanía",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPVHgzRld2eC1RU2h6eGpLNjJOd1ZpMDMwVEVrVkFtTWo5aXhaeWZBLUxCMTBkcW9wN0xWaTc1LWpwVmpQMllWSjVhdzl5ZGlvVVRnZFJxVGJ6MXRBZE1jV1hMaG1meHQzd3QwZ2NUdmowUThscy03OGNHNUhfejFBSHVvX2VlU2Q3eDY4Z0hBclNaa1hvNXFRZUNtNXJjamvSAZ8BQVVfeXFMT1R4M0ZXdngtUVNoenhqSzYyTndWaTAzMFRFa1ZBbU1qOWl4WnlmQS1MQjEwZHFvcDdMVmk3NS1qcFZqUDJZVko1YXc5eWRpb1VUZ2RScVRiejF0QWRNY1dYTGhtZnh0M3d0MGdjVHZqMFE4bHMtNzhjRzVIX3oxQUh1b19lZVNkN3g2OGdIQXJTWmtYbzVxUWVDbTVyY2pr?oc=5",
+      "family": "armas",
+      "slug": "temuco"
+    },
+    {
+      "id": "e0d718892411494e",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "Fiscalía formalizó a segundo sujeto imputado de robo con homicidio en Coquimbo.",
+      "title_en": "Prosecutor formalized the second suspect charged with robbery with homicide in Coquimbo.",
+      "date": "2026-08-06",
+      "outlet": "fiscaliadechile.cl",
+      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNWjBnTU9ZNlFrd1JLT2hSbTZaRS1oRW8walZpVWFTRHU3bUE0MW1rQy13T2JEOFRFdUduWnhRZzNMMFF3WlBaQ1dwYTktdzRvWUxUVF9vSEZpVVU4OFhKUlk3X20zWm1ocFRsem9xU1ExU2VDNEl2M0k1UlJ1THh4NHhTck5pNVBvSmhKa0pKUTdhUEsxU3lIa1RCdW43MVN3RTFaTGU3aFk4VnluTlBjZUpLOS1IVV9GcU1EMVdaUHdzTl8xTTRudjJwS1RKZjQ?oc=5",
+      "family": "vida",
+      "slug": "coquimbo"
     }
   ]
 }
