@@ -2,87 +2,73 @@
 /**
  * EN crime-type ranking page — /crime-ranking/{crime}/
  *
- * Builds 8 crime-type pages: homicide (featured_rates subgroup 101) + 7 CEAD families.
- * Homicide branch reads commune.featured_rates?.homicidios — NOT by_family (Pitfall 1).
- * URL namespace /crime-ranking/ avoids collision with existing /crime/homicide/ (Pitfall 2).
+ * Rankings v2: the table, the year selector, the search box, the region filter
+ * and the regional breakdown now live in RankingBoard.astro. The frontmatter
+ * (data loading, national ranks, JSON-LD, hreflang) is unchanged.
  *
- * getStaticPaths: explicit CRIME_RANKING_DEFS list — no catalog.family_keys dependency.
- * ItemList name: never 'safe'/'dangerous' (assertSafeName guard in jsonld.ts).
- * esPath: hardcoded ES slug — never getRelativeLocaleUrl (i18n-localized-slug-pitfall).
+ * Changes from the previous version:
+ *   - CRIME_RANKING_DEFS now comes from config/rankingStrings.ts (it used to be
+ *     duplicated verbatim in this page and in its ES twin).
+ *   - regionSlug is resolved here so the regional panel can link out.
+ *   - RankingTableEnhancer and TrendChip are no longer used on this page.
  *
  * Zero client:* directives.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import MapPlaceholderSlot from '../../components/MapPlaceholderSlot.astro';
 import MethodologyCaveat from '../../components/MethodologyCaveat.astro';
-import TrendChip from '../../components/TrendChip.astro';
-import RankingTableEnhancer from '../../components/RankingTableEnhancer.astro';
-import {
-  loadIndex,
-  loadCommune,
-  regionFileId,
-} from '../../lib/data.ts';
+import RankingBoard from '../../components/RankingBoard.astro';
+import { loadIndex, loadCommune, loadRegion, regionFileId } from '../../lib/data.ts';
 import { FAMILY_LABELS_EN, RANKING_METHODOLOGY_EN, RANKING_RATE_EXPLAINER_EN } from '../../lib/familyDefs';
-import { EN_STRINGS } from '../../config/i18n.ts';
-const t = EN_STRINGS;
+import { RANKING_DEFS } from '../../config/rankingStrings.ts';
 import { buildBreadcrumb, buildItemList } from '../../lib/jsonld.ts';
 
 export async function getStaticPaths() {
-  const CRIME_RANKING_DEFS = [
-    { param: 'homicide',          familyKey: 'homicidios',      dataSource: 'featured_rates' as const },
-    { param: 'violent-robbery',   familyKey: 'robos_violentos', dataSource: 'by_family'      as const },
-    { param: 'drug-crimes',       familyKey: 'drogas',          dataSource: 'by_family'      as const },
-    { param: 'property',          familyKey: 'propiedad',       dataSource: 'by_family'      as const },
-    { param: 'domestic-violence', familyKey: 'vif',             dataSource: 'by_family'      as const },
-    { param: 'weapons',           familyKey: 'armas',           dataSource: 'by_family'      as const },
-    { param: 'disorder',          familyKey: 'incivilidades',   dataSource: 'by_family'      as const },
-    { param: 'life-crimes',       familyKey: 'vida',            dataSource: 'by_family'      as const },
-  ] as const;
-
-  return CRIME_RANKING_DEFS.map((def) => ({
-    params: { crime: def.param },
-    props: def,
+  return RANKING_DEFS.map((def) => ({
+    params: { crime: def.en },
+    props: { familyKey: def.familyKey, dataSource: def.dataSource, esParam: def.es },
   }));
 }
 
-// ES slug map — hardcoded (never getRelativeLocaleUrl — i18n-localized-slug-pitfall)
-const ES_CRIME_SLUGS: Record<string, string> = {
-  'homicide':          'homicidios',
-  'violent-robbery':   'robos-violentos',
-  'drug-crimes':       'drogas',
-  'property':          'propiedad',
-  'domestic-violence': 'violencia-intrafamiliar',
-  'weapons':           'armas',
-  'disorder':          'incivilidades',
-  'life-crimes':       'delitos-contra-la-vida',
-};
-
-// --- Page-level data ---
 const { crime } = Astro.params;
-const { familyKey, dataSource } = Astro.props as {
+const { familyKey, dataSource, esParam } = Astro.props as {
   familyKey: string;
   dataSource: 'featured_rates' | 'by_family';
+  esParam: string;
 };
 
 const index = loadIndex();
 
-// Build national ranking: non-low-pop communes sorted by crime rate desc
-type RankRow = {
+type Row = {
   name: string;
   slug: string;
   cut: string;
   regionName: string;
-  regionFileIdStr: string;
+  regionSlug: string;
+  regionId: number;
   rate: number;
-  trend: 'up' | 'down' | 'stable';
   low_population: boolean;
   nationalRank: number | null;
   ratesByYear: Record<number, number>;
 };
 
-const allRows: Omit<RankRow, 'nationalRank'>[] = [];
-// Capture the latest complete year directly while iterating communes (CR-02).
-let latestYear = new Date().getFullYear() - 1;
+const regionCache = new Map<string, { name: string; slug: string }>();
+function region(fileId: string) {
+  if (!regionCache.has(fileId)) {
+    try {
+      const r = loadRegion(fileId);
+      regionCache.set(fileId, { name: r.name, slug: r.slug });
+    } catch {
+      regionCache.set(fileId, { name: `Region ${fileId}`, slug: fileId });
+    }
+  }
+  return regionCache.get(fileId)!;
+}
+
+const allRows: Omit<Row, 'nationalRank'>[] = [];
+// Capture the latest complete year while iterating communes (CR-02).
+// B-01 fix: derive latestYear from the data itself, never from the wall clock.
+let latestYear = 0;
 for (const meta of index) {
   const commune = loadCommune(meta.cut);
   if (!meta.low_population) {
@@ -93,12 +79,10 @@ for (const meta of index) {
     // Homicide subgroup 101 — lives in featured_rates, NOT by_family (Pitfall 1)
     rate = commune.featured_rates?.homicidios?.[commune.latestCompleteYear] ?? 0;
   } else {
-    const entry = commune.series.find(
-      (s) => s.year === commune.latestCompleteYear && !s.partial
-    );
+    const entry = commune.series.find((s) => s.year === commune.latestCompleteYear && !s.partial);
     rate = entry?.by_family?.[familyKey] ?? 0;
   }
-  // Build ratesByYear: complete years only (D-3)
+  // ratesByYear: complete years only (D-3)
   const ratesByYear: Record<number, number> = {};
   const completeYears = new Set(commune.series.filter((s) => !s.partial).map((s) => s.year));
   if (dataSource === 'featured_rates') {
@@ -112,99 +96,61 @@ for (const meta of index) {
       ratesByYear[s.year] = s.by_family?.[familyKey] ?? 0;
     });
   }
+  const rFileId = regionFileId(meta.region_id);
+  const reg = region(rFileId);
   allRows.push({
     name: meta.name,
     slug: meta.slug,
     cut: meta.cut,
     regionName: commune.regionName,
-    regionFileIdStr: regionFileId(meta.region_id),
+    regionSlug: reg.slug,
+    regionId: Number(rFileId),
     rate,
-    trend: commune.trend,
     low_population: meta.low_population,
     ratesByYear,
   });
 }
 
-// Sort descending by rate; low-pop at bottom within their rate position
 const eligibleRows = allRows.filter((r) => !r.low_population).sort((a, b) => b.rate - a.rate);
 const lowPopRows = allRows.filter((r) => r.low_population).sort((a, b) => b.rate - a.rate);
 
-// Assign stable national rank to eligible rows before any filtering (CR-01)
+// Stable national rank assigned before any filter (CR-01)
 let rankCounter = 0;
-const rankingRows: RankRow[] = [
+const rankingRows: Row[] = [
   ...eligibleRows.map((row) => ({ ...row, nationalRank: ++rankCounter })),
   ...lowPopRows.map((row) => ({ ...row, nationalRank: null })),
 ];
 
-// Compute national mean for this crime (eligible communes only)
 const familyNationalMean =
-  eligibleRows.length > 0
-    ? eligibleRows.reduce((sum, r) => sum + r.rate, 0) / eligibleRows.length
-    : 0;
+  eligibleRows.length > 0 ? eligibleRows.reduce((sum, r) => sum + r.rate, 0) / eligibleRows.length : 0;
 
-// Compute region breakdown: mean of eligible communes per region
-type RegionBreakRow = {
-  regionId: string;
-  regionName: string;
-  rate: number;
-};
-
-const regionMap = new Map<string, { name: string; rates: number[] }>();
-for (const row of allRows) {
-  if (row.low_population) continue;
-  const rid = row.regionFileIdStr;
-  if (!regionMap.has(rid)) {
-    regionMap.set(rid, { name: row.regionName, rates: [] });
-  }
-  regionMap.get(rid)!.rates.push(row.rate);
-}
-
-const regionBreakRows: RegionBreakRow[] = [];
-for (const [rid, { name, rates }] of regionMap.entries()) {
-  const mean = rates.length > 0 ? rates.reduce((s, r) => s + r, 0) / rates.length : 0;
-  regionBreakRows.push({ regionId: rid, regionName: name, rate: mean });
-}
-regionBreakRows.sort((a, b) => b.rate - a.rate);
-
-// Bar widths for region breakdown
-const maxRegionRate = Math.max(...regionBreakRows.map((r) => r.rate), 1);
-
-// URL paths — hardcoded ES slug (i18n-localized-slug-pitfall: no getRelativeLocaleUrl)
 const enPath = `/crime-ranking/${crime}/`;
-const esPath = `/es/ranking-delito/${ES_CRIME_SLUGS[crime]}/`;
+const esPath = `/es/ranking-delito/${esParam}/`;
 
 const familyLabel = FAMILY_LABELS_EN[familyKey] ?? familyKey;
 const familyDef = RANKING_METHODOLOGY_EN[familyKey] ?? '';
 
-const title = `Communes with the Highest Reported ${familyLabel} Incidence in Chile — Chile Safety Map`;
-const description = `Compare reported ${familyLabel.toLowerCase()} rates per 100,000 inhabitants across all Chilean communes. Official CEAD data, ranked nationally.`;
+const title = `Communes with the highest reported ${familyLabel.toLowerCase()} incidence in Chile — Chile Safety Map`;
+const description = `Compare reported ${familyLabel.toLowerCase()} rates per 100,000 inhabitants across every commune in Chile. Official CEAD data, with national ranking.`;
 
-// Dataset JSON-LD (crime-type pages emit Dataset, NOT Place — UI-SPEC line 288)
 const jsonLdDataset = {
   '@context': 'https://schema.org',
   '@type': 'Dataset',
-  name: `${familyLabel} — National Commune Ranking (Chile)`,
-  description: `Annual reported ${familyLabel.toLowerCase()} rates per 100,000 inhabitants for all Chilean communes, sourced from CEAD (Centro de Estudios y Análisis del Delito).`,
+  name: `${familyLabel} — National Ranking by Commune (Chile)`,
+  description: `Annual reported ${familyLabel.toLowerCase()} rates per 100,000 inhabitants for every commune in Chile, sourced from CEAD (Centro de Estudios y Análisis del Delito).`,
   url: `https://ischilesafe.com${enPath}`,
-  spatialCoverage: {
-    '@type': 'Country',
-    name: 'Chile',
-  },
+  spatialCoverage: { '@type': 'Country', name: 'Chile' },
   temporalCoverage: `2005/${latestYear}`,
-  measurementTechnique: 'Rate per 100,000 inhabitants, official CEAD police statistics',
-  creator: {
-    '@type': 'Organization',
-    name: 'CEAD — Centro de Estudios y Análisis del Delito',
-  },
+  measurementTechnique: 'Rate per 100,000 inhabitants, CEAD official police statistics',
+  creator: { '@type': 'Organization', name: 'CEAD — Centro de Estudios y Análisis del Delito' },
 };
 
-// BreadcrumbList: 2-level Home › Crime Rankings
 const breadcrumb = buildBreadcrumb([
   { name: 'Home', url: 'https://ischilesafe.com/' },
-  { name: 'Crime Rankings' },  // current page — no url
+  { name: 'Rankings', url: 'https://ischilesafe.com/rankings/' },
+  { name: familyLabel },
 ]);
 
-// ItemList: communes ranked descending — name MUST NOT contain 'safe'/'dangerous' (assertSafeName)
 const eligibleRankingRows = rankingRows.filter((r) => !r.low_population);
 const ranking = buildItemList(eligibleRankingRows, 'en', {
   name: `Communes by reported ${familyLabel.toLowerCase()} incidence (descending)`,
@@ -224,120 +170,49 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
   mountType="crime-type-map"
   pageType="crime"
 >
-  <!-- CrimeTypeHero -->
   <section class="crime-hero">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true"> › </span>
-      <span>Crime Rankings</span>
+      <a href="/rankings/">Rankings</a>
+      <span aria-hidden="true"> › </span>
+      <span>{familyLabel}</span>
     </nav>
     <h1 class="crime-h1">
-      Communes with the Highest Reported {familyLabel} Incidence in Chile
+      Communes with the highest reported {familyLabel.toLowerCase()} incidence in Chile
     </h1>
     <p class="crime-def">{familyDef}</p>
-    <div class="hero-meta">
-      <span class="hero-stat">National mean: {familyNationalMean.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} per 100k ({latestYear})</span>
-      <span class="hero-sep" aria-hidden="true">·</span>
-      <span class="hero-stat">{eligibleRows.length} communes ranked</span>
-    </div>
+    <p class="crime-def">{RANKING_RATE_EXPLAINER_EN}</p>
     <p class="hero-caveat">
-      National mean is the <strong>unweighted commune mean</strong> for this crime family (communes ≥ 10k population, latest complete year). <a href="/methodology/#comparison-criteria">Methodology</a>.
+      The national average is the <strong>simple mean across communes</strong> for this crime family
+      (communes ≥ 10,000 inhabitants, latest complete year).
+      <a href="/methodology/#comparison-criteria">Methodology</a>.
     </p>
   </section>
 
-  <!-- NationalRankingTable -->
-  <section class="ranking-section" aria-label="National commune ranking">
-    <h2 class="section-heading">
-      Communes ranked by {familyLabel.toLowerCase()} rate per 100,000 inhabitants (<span data-year-target>{latestYear}</span>)
+  <section aria-label="National ranking of communes">
+    <h2 class="sr-only">
+      Communes ranked by {familyLabel.toLowerCase()} rate per 100,000 inhabitants ({latestYear})
     </h2>
-    <p class="rate-explainer">{RANKING_RATE_EXPLAINER_EN}</p>
-    <div class="table-wrapper">
-      <table class="ranking-table" data-ranking-table data-rate-col="3" data-name-col="1" data-rate-format="1dp" data-locale="en" data-rank-col="0" data-rank-note="Rank reflects the latest complete year; it is hidden for earlier years.">
-        <thead>
-          <tr>
-            <th scope="col">{t.th_rank}</th>
-            <th scope="col">{t.th_commune}</th>
-            <th scope="col">{t.th_region}</th>
-            <th scope="col" class="col-num">{t.th_rate_per_100k} ({latestYear})</th>
-            <th scope="col">{t.th_trend}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rankingRows.map((row) => (
-            <tr class={row.low_population ? 'low-pop' : ''} data-rates={JSON.stringify(row.ratesByYear)} data-low-pop={row.low_population ? '1' : undefined}>
-              <td class="col-num col-rank">
-                {row.low_population ? '—' : `#${row.nationalRank}`}
-              </td>
-              <td>
-                <a href={`/commune/${row.slug}/`} class="commune-link">
-                  {row.name}
-                </a>
-                {row.low_population && (
-                  <sup class="low-pop-marker" title="Small population — rate may show high statistical volatility">*</sup>
-                )}
-              </td>
-              <td class="col-region">{row.regionName}</td>
-              <td class="col-num">{row.rate.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
-              <td><TrendChip trend={row.trend} locale="en" /></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    {rankingRows.some((r) => r.low_population) && (
-      <p class="low-pop-footnote">{t.low_pop_footnote}</p>
-    )}
-    <RankingTableEnhancer locale="en" />
+    <RankingBoard
+      lang="en"
+      familyKey={familyKey}
+      latestYear={latestYear}
+      mean={familyNationalMean}
+      rows={rankingRows}
+    />
   </section>
 
-  <!-- RegionBreakdownBars -->
-  <section class="region-breakdown" aria-label="Regional breakdown">
-    <h2 class="section-heading">
-      Regional breakdown — mean {familyLabel.toLowerCase()} rate per 100,000 inhabitants ({latestYear})
-    </h2>
-    <p class="region-caveat">Unweighted commune mean per region (communes ≥ 10k population).</p>
-    <div class="region-bars">
-      {regionBreakRows.map((r) => {
-        const widthPct = Math.round((r.rate / maxRegionRate) * 100) + '%';
-        return (
-          <div class="region-bar-row">
-            <span class="region-bar-label">{r.regionName}</span>
-            <span class="region-bar-track" aria-hidden="true">
-              <span class="region-bar-fill" style={`width:${widthPct}`}></span>
-            </span>
-            <span class="region-bar-val">{Math.round(r.rate).toLocaleString('en-US')}</span>
-          </div>
-        );
-      })}
-    </div>
-  </section>
-
-  <!-- MapPlaceholderSlot (D-13 crime-type-map) -->
   <MapPlaceholderSlot mountType="crime-type-map" locale="en" />
-
-  <!-- MethodologyCaveat -->
   <MethodologyCaveat locale="en" />
 </BaseLayout>
 
 <style>
-  .crime-hero {
-    padding: var(--xl) 0 var(--lg);
-  }
+  .crime-hero { padding: var(--xl) 0 var(--lg); }
 
-  .breadcrumb {
-    font-size: var(--text-label);
-    color: var(--muted);
-    margin-bottom: var(--sm);
-  }
-
-  .breadcrumb a {
-    color: var(--muted);
-    text-decoration: none;
-  }
-
-  .breadcrumb a:hover {
-    color: var(--primary);
-  }
+  .breadcrumb { font-size: var(--text-label); color: var(--muted); margin-bottom: var(--sm); }
+  .breadcrumb a { color: var(--muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--primary); }
 
   .crime-h1 {
     font-size: var(--text-display);
@@ -345,21 +220,6 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     color: var(--ink);
     margin: var(--sm) 0;
     line-height: 1.15;
-    display: flex;
-    align-items: center;
-    gap: var(--sm);
-    flex-wrap: wrap;
-  }
-
-  .featured-badge {
-    display: inline-block;
-    font-size: var(--text-label);
-    font-weight: var(--weight-strong);
-    background: var(--primary);
-    color: #fff;
-    padding: 2px 8px;
-    border-radius: 4px;
-    vertical-align: middle;
   }
 
   .crime-def {
@@ -369,189 +229,10 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
     max-width: 68ch;
   }
 
-  .hero-meta {
-    display: flex;
-    align-items: center;
-    gap: var(--md);
-    flex-wrap: wrap;
-    margin-top: var(--sm);
-  }
+  .hero-caveat { font-size: var(--text-label); color: var(--muted); margin-top: var(--xs); }
 
-  .hero-stat {
-    font-size: var(--text-label);
-    color: var(--muted);
-  }
-
-  .hero-sep {
-    color: var(--line);
-  }
-
-  .hero-caveat,
-  .region-caveat {
-    font-size: var(--text-label);
-    color: var(--muted);
-    margin-top: var(--xs);
-  }
-
-  .ranking-section {
-    margin: var(--xl) 0;
-  }
-
-  .section-heading {
-    font-size: var(--text-heading);
-    font-weight: var(--weight-strong);
-    color: var(--ink);
-    margin-bottom: var(--md);
-  }
-
-  .table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-  }
-
-  .ranking-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-label);
-  }
-
-  .ranking-table thead th {
-    background: var(--bg);
-    font-size: var(--text-label);
-    font-weight: var(--weight-strong);
-    color: var(--muted);
-    padding: var(--sm) var(--md);
-    text-align: left;
-    border-bottom: 1px solid var(--line);
-    white-space: nowrap;
-  }
-
-  .ranking-table tbody tr {
-    border-bottom: 1px solid var(--line);
-    background: var(--card);
-    transition: background 0.1s;
-  }
-
-  .ranking-table tbody tr:last-child {
-    border-bottom: none;
-  }
-
-  .ranking-table tbody tr:hover {
-    background: var(--bg);
-  }
-
-  .ranking-table td {
-    padding: var(--sm) var(--md);
-    color: var(--ink);
-    white-space: nowrap;
-  }
-
-  .col-num {
-    text-align: right;
-  }
-
-  .col-rank {
-    color: var(--muted);
-    width: 4rem;
-  }
-
-  .col-region {
-    color: var(--muted);
-    font-size: var(--text-label);
-  }
-
-  .commune-link {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: var(--weight-strong);
-  }
-
-  .commune-link:hover {
-    text-decoration: underline;
-  }
-
-  .low-pop {
-    opacity: 0.75;
-  }
-
-  .low-pop-marker {
-    color: var(--muted);
-    margin-left: 2px;
-    font-size: 0.85em;
-  }
-
-  .low-pop-footnote {
-    font-size: var(--text-label);
-    color: var(--muted);
-    margin-top: var(--sm);
-    padding: 0 var(--xs);
-  }
-
-  .rate-explainer {
-    font-size: 0.85em;
-    color: var(--muted);
-    margin-bottom: var(--sm);
-    max-width: 72ch;
-  }
-
-  .rollout-note {
-    font-size: var(--text-label);
-    color: var(--muted);
-    margin-top: var(--sm);
-    padding: 0 var(--xs);
-  }
-
-  .region-breakdown {
-    margin: var(--xl) 0;
-  }
-
-  .region-bars {
-    display: flex;
-    flex-direction: column;
-    gap: var(--sm);
-  }
-
-  .region-bar-row {
-    display: grid;
-    grid-template-columns: 14rem 1fr 5rem;
-    align-items: center;
-    gap: var(--sm);
-  }
-
-  .region-bar-label {
-    font-size: var(--text-label);
-    font-weight: var(--weight-strong);
-    color: var(--ink);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .region-bar-track {
-    height: 10px;
-    background: var(--line);
-    border-radius: 5px;
-    overflow: hidden;
-  }
-
-  .region-bar-fill {
-    display: block;
-    height: 100%;
-    border-radius: 5px;
-    background: var(--primary);
-  }
-
-  .region-bar-val {
-    font-size: var(--text-label);
-    color: var(--muted);
-    text-align: right;
-  }
-
-  @media (max-width: 600px) {
-    .region-bar-row {
-      grid-template-columns: 8rem 1fr 4rem;
-    }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
   }
 </style>

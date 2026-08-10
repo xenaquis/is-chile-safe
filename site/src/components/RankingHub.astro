@@ -1,0 +1,215 @@
+---
+/**
+ * RankingHub.astro — /rankings/ and /es/rankings/ (EN + ES).
+ *
+ * Replaces the text-only list of links with 8 cards that carry the number the
+ * link is about: national mean and the commune at the top of each ranking.
+ * Same links as before plus the ones that were missing — the hub pointed at
+ * /crime/{slug}/ (the editorial family pages) and never at the ranking pages
+ * themselves, which left /crime-ranking/* orphaned in the internal link graph.
+ *
+ * Still pure server-rendered HTML: no island, no client:* directive.
+ */
+import { loadIndex, loadCommune, loadRegion } from '../lib/data.ts';
+import { EN_STRINGS, ES_STRINGS, FAMILY_SLUGS, regionNameEs } from '../config/i18n.ts';
+import { RK_EN, RK_ES, RANKING_DEFS, rankingPath, FAMILY_ACCENT } from '../config/rankingStrings.ts';
+import { FAMILY_LABELS_EN, FAMILY_LABELS_ES, RANKING_METHODOLOGY_EN, RANKING_METHODOLOGY_ES } from '../lib/familyDefs';
+
+interface Props {
+  lang: 'en' | 'es';
+}
+const { lang } = Astro.props as Props;
+
+const t = lang === 'es' ? ES_STRINGS : EN_STRINGS;
+const r = lang === 'es' ? RK_ES : RK_EN;
+const labels = lang === 'es' ? FAMILY_LABELS_ES : FAMILY_LABELS_EN;
+const defs = lang === 'es' ? RANKING_METHODOLOGY_ES : RANKING_METHODOLOGY_EN;
+const locale = lang === 'es' ? 'es-CL' : 'en-US';
+
+const familyBase = lang === 'es' ? '/es/delito/' : '/crime/';
+const regionBase = lang === 'es' ? '/es/region/' : '/region/';
+const lowestPath = lang === 'es' ? '/es/comunas-mas-seguras-chile/' : '/safest-cities-in-chile/';
+const directoryPath = lang === 'es' ? '/es/comunas/' : '/communes/';
+const methodPath = lang === 'es' ? '/es/metodologia/' : '/methodology/';
+
+const fmt1 = (v: number) =>
+  v.toLocaleString(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+// One pass over the index — same loaders the ranking pages already use.
+const index = loadIndex();
+const communes = index.map((meta) => ({ meta, data: loadCommune(meta.cut) }));
+
+// B-01 fix (same class of bug flagged for [crime].astro): derive latestYear
+// from the data itself, never from the wall clock.
+let latestYear = 0;
+for (const c of communes) {
+  if (!c.meta.low_population) latestYear = Math.max(latestYear, c.data.latestCompleteYear);
+}
+
+function rateFor(c: (typeof communes)[number], familyKey: string, source: string) {
+  if (source === 'featured_rates') {
+    return c.data.featured_rates?.homicidios?.[c.data.latestCompleteYear] ?? 0;
+  }
+  const entry = c.data.series.find((s: any) => s.year === c.data.latestCompleteYear && !s.partial);
+  return entry?.by_family?.[familyKey] ?? 0;
+}
+
+const cards = RANKING_DEFS.map((def) => {
+  const eligible = communes
+    .filter((c) => !c.meta.low_population)
+    .map((c) => ({ name: c.meta.name, rate: rateFor(c, def.familyKey, def.dataSource) }))
+    .sort((a, b) => b.rate - a.rate);
+  const mean = eligible.length ? eligible.reduce((s, x) => s + x.rate, 0) / eligible.length : 0;
+  const familySlug = FAMILY_SLUGS[def.familyKey];
+  return {
+    href: rankingPath(def, lang),
+    label: labels[def.familyKey] ?? def.familyKey,
+    def: defs[def.familyKey] ?? '',
+    accent: FAMILY_ACCENT[def.familyKey],
+    mean,
+    top: eligible[0],
+    // Homicide has no /crime/ family page of its own (it is a subgroup of vida).
+    // B-03: also exclude the 'vida' card itself — its /crime/ family page is
+    // the same homicide-redirect target (vida/homicide slug collision, see
+    // project memory), so linking it here would duplicate/mislabel the link.
+    // No confirmed /methodology/ anchor exists for it, so this is null rather
+    // than an invented URL.
+    familyHref:
+      familySlug && def.familyKey !== 'vida'
+        ? `${familyBase}${lang === 'es' ? familySlug.es : familySlug.en}/`
+        : null,
+  };
+});
+
+const regions = Array.from({ length: 16 }, (_, i) => loadRegion(String(i + 1)));
+---
+
+<div class="hub">
+  <h1>{r.rk_hub_h1}</h1>
+  <p class="hub-lead">{r.rk_hub_lead}</p>
+
+  <h2>{r.rk_hub_types_heading}</h2>
+  <ul class="hub-cards">
+    {cards.map((c) => (
+      <li class="hub-card" style={`--accent:${c.accent}`}>
+        <a class="hub-card-main" href={c.href}>
+          <span class="hub-card-title">
+            <span class="dot" aria-hidden="true"></span>
+            {c.label}
+          </span>
+          <span class="hub-card-stat">{r.rk_hub_card_mean.replace('{v}', fmt1(c.mean))}</span>
+          {c.top && (
+            <span class="hub-card-sub">
+              {r.rk_hub_card_top.replace('{name}', c.top.name).replace('{v}', fmt1(c.top.rate))}
+            </span>
+          )}
+        </a>
+        {c.familyHref && (
+          <a class="hub-card-def" href={c.familyHref} title={c.def}>{r.rk_hub_card_def} →</a>
+        )}
+      </li>
+    ))}
+  </ul>
+  <p class="hub-year">{t.rate_label.replace('{year}', String(latestYear))}</p>
+
+  <h2>{r.rk_hub_other_heading}</h2>
+  <ul class="hub-list">
+    <li>
+      <a href={lowestPath}>{r.rk_hub_lowest}</a>
+      <span>{r.rk_hub_lowest_sub}</span>
+    </li>
+    <li>
+      <a href={directoryPath}>{r.rk_hub_directory}</a>
+      <span>{r.rk_hub_directory_sub}</span>
+    </li>
+  </ul>
+
+  <h2>{r.rk_hub_regions_heading}</h2>
+  <p>{r.rk_hub_regions_lead}</p>
+  <ul class="hub-regions">
+    {regions.map((x) => (
+      <li><a href={`${regionBase}${x.slug}/`}>{lang === 'es' ? regionNameEs(x.name) : `${x.name} Region`}</a></li>
+    ))}
+  </ul>
+
+  <p class="hub-method">
+    <small><a href={methodPath}>{r.rk_hub_method}</a></small>
+  </p>
+</div>
+
+<style>
+  .hub h1 { font-size: var(--text-display); font-weight: var(--weight-strong); margin-bottom: var(--sm); }
+  .hub-lead { color: var(--muted); max-width: 70ch; margin-bottom: var(--xl); }
+  .hub h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    margin: var(--xl) 0 var(--md);
+  }
+
+  .hub-cards {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--sm);
+  }
+  .hub-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .hub-card:hover { border-color: var(--accent); }
+  .hub-card-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px 12px;
+    text-decoration: none;
+    color: var(--ink);
+    flex: 1;
+  }
+  .hub-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--text-body);
+    font-weight: var(--weight-strong);
+  }
+  .hub-card-title .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .hub-card-stat { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .hub-card-sub { font-size: 12px; color: var(--muted); }
+  .hub-card-def {
+    border-top: 1px solid var(--line);
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: var(--weight-strong);
+    color: var(--primary);
+    text-decoration: none;
+  }
+  .hub-card-def:hover { text-decoration: underline; }
+  .hub-year { font-size: 12px; color: var(--muted); margin-top: var(--sm); }
+
+  .hub-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--sm); }
+  .hub-list li { display: flex; flex-direction: column; gap: 2px; }
+  .hub-list a { color: var(--primary); font-weight: var(--weight-strong); text-decoration: none; }
+  .hub-list a:hover { text-decoration: underline; }
+  .hub-list span { font-size: 13px; color: var(--muted); }
+
+  .hub-regions {
+    list-style: none;
+    padding: 0;
+    columns: 2;
+    column-gap: var(--xl);
+    margin: var(--md) 0 var(--lg);
+  }
+  .hub-regions li { break-inside: avoid; padding: 0.25rem 0; }
+  .hub-regions a { color: var(--primary); text-decoration: none; }
+  .hub-regions a:hover { text-decoration: underline; }
+
+  .hub-method { color: var(--muted); }
+  .hub-method a { color: var(--primary); }
+</style>

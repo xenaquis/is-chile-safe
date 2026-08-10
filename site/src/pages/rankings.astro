@@ -1,34 +1,22 @@
 ---
 /**
- * /rankings/ — EN crime incidence rankings index page (IA-03, D-12).
- * Lists and links existing ranking pages. No new ranking data.
- * Editorial tone: reported CEAD incidence — never "safest/most dangerous" in absolute terms.
+ * /rankings/ — EN rankings hub (IA-03, D-12).
+ * Rankings v2: the plain link list becomes RankingHub.astro (8 cards carrying
+ * the national average and the commune at the top of each ranking).
+ * The ItemList now points at the ranking pages, which the hub never linked to.
  */
 import EditorialLayout from '../layouts/EditorialLayout.astro';
-import { FAMILY_SLUGS } from '../config/i18n.ts';
+import RankingHub from '../components/RankingHub.astro';
+import { RANKING_DEFS, rankingPath } from '../config/rankingStrings.ts';
+import { FAMILY_LABELS_EN } from '../lib/familyDefs';
 import { buildItemList } from '../lib/jsonld.ts';
-import { loadRegion } from '../lib/data.ts';
 
-// All 16 regions — load at build time for the region-links list
-const REGIONS = Array.from({ length: 16 }, (_, i) => loadRegion(String(i + 1)));
-
-const familyLabels: Record<string, string> = {
-  vida:             'Homicide',
-  robos_violentos:  'Violent Robbery',
-  vif:              'Domestic Violence',
-  drogas:           'Drug Crimes',
-  armas:            'Weapons Offences',
-  propiedad:        'Property Crime',
-  incivilidades:    'Disorder & Incivilities',
-};
-
-// ItemList: ranking-page links — full urls, no /commune/ prefix (D-07 no breadcrumb, D-06 weaker-semantic)
 const rankingLinks = [
   { name: 'Communes with the lowest reported crime incidence in Chile', url: 'https://ischilesafe.com/safest-cities-in-chile/' },
   { name: 'Browse all 346 communes', url: 'https://ischilesafe.com/communes/' },
-  ...Object.entries(FAMILY_SLUGS).map(([key, slugs]) => ({
-    name: `${familyLabels[key] ?? key} — national incidence`,
-    url: `https://ischilesafe.com/crime/${slugs.en}/`,
+  ...RANKING_DEFS.map((def) => ({
+    name: `${FAMILY_LABELS_EN[def.familyKey] ?? def.familyKey} — national ranking by commune`,
+    url: `https://ischilesafe.com${rankingPath(def, 'en')}`,
   })),
 ];
 const rankingItemList = buildItemList(rankingLinks, 'en', { order: 'Unordered', urlMode: 'full' });
@@ -43,73 +31,5 @@ const rankingItemList = buildItemList(rankingLinks, 'en', { order: 'Unordered', 
   pageType="ranking"
   jsonLd={[rankingItemList]}
 >
-  <h1>Crime Incidence Rankings</h1>
-
-  <p>
-    The rankings below are based on <strong>reported incidence rates per 100,000 inhabitants</strong>
-    published by CEAD (Centro de Estudios y Análisis del Delito), the official Chilean police
-    statistics body. Rates allow fair comparison across communes of very different sizes.
-    Under-reporting varies by crime type; treat all figures as reported counts, not absolute measures of risk.
-  </p>
-
-  <h2>By commune</h2>
-  <ul>
-    <li>
-      <a href="/safest-cities-in-chile/">
-        Communes with the lowest reported crime incidence in Chile
-      </a>
-      — ranked by total reported rate (excludes low-population communes).
-    </li>
-    <li>
-      <a href="/communes/">
-        Browse all 346 communes
-      </a>
-      — search by name or browse by region.
-    </li>
-  </ul>
-
-  <h2>By crime type</h2>
-  <ul>
-    {Object.entries(FAMILY_SLUGS).map(([key, slugs]) => (
-      <li>
-        <a href={`/crime/${slugs.en}/`}>
-          {familyLabels[key] ?? key} — national incidence
-        </a>
-      </li>
-    ))}
-  </ul>
-
-  <h2>By region</h2>
-  <p>
-    Each region page shows reported incidence trends, annual evolution, and the communes within it.
-  </p>
-  <ul class="region-links-list">
-    {REGIONS.map((r) => (
-      <li>
-        <a href={`/region/${r.slug}/`}>{r.name} Region</a>
-      </li>
-    ))}
-  </ul>
-
-  <p class="methodology-note">
-    <small>
-      Source: CEAD — Centro de Estudios y Análisis del Delito.
-      See <a href="/methodology/">Methodology</a> for data definitions and caveats.
-    </small>
-  </p>
+  <RankingHub lang="en" />
 </EditorialLayout>
-
-<style>
-  .region-links-list {
-    list-style: none;
-    padding: 0;
-    columns: 2;
-    column-gap: var(--xl, 2rem);
-    margin: var(--md, 1rem) 0 var(--lg, 1.5rem);
-  }
-
-  .region-links-list li {
-    break-inside: avoid;
-    padding: 0.25rem 0;
-  }
-</style>

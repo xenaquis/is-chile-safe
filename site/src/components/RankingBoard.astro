@@ -1,0 +1,739 @@
+---
+/**
+ * RankingBoard.astro — national ranking table for one crime type (EN + ES).
+ *
+ * Replaces, on /crime-ranking/{crime}/ and /es/ranking-delito/{crime}/:
+ *   - the bare "Year: [select]" strip injected by RankingTableEnhancer
+ *   - the 346-row table with no search and no region filter
+ *   - the RegionBreakdownBars section that sat at the foot of the page
+ *
+ * SEO contract, unchanged from the page it replaces:
+ *   - all 346 commune links are server-rendered; present with JS disabled
+ *   - the inline script NEVER creates or appends a link: it shows, hides and
+ *     REORDERS nodes the server already emitted, and rewrites numbers
+ *   - the crime type stays a real URL per type: the chip row is 8 <a> links,
+ *     not client-side state. Crawlers keep 8 (×2 locales) ranking pages, and
+ *     the pages finally cross-link to each other.
+ *   - no React island, no client:* directive, no new dependency
+ *
+ * The query is never written into innerHTML — highlighting slices the trusted
+ * data-name around the match index (same rule as CommuneDirectory, T-11-05).
+ */
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+import { RK_EN, RK_ES, RANKING_DEFS, rankingPath, FAMILY_ACCENT } from '../config/rankingStrings.ts';
+import { FAMILY_LABELS_EN, FAMILY_LABELS_ES } from '../lib/familyDefs';
+
+export interface RankingBoardRow {
+  name: string;
+  slug: string;
+  regionName: string;
+  regionSlug: string;
+  regionId: number;
+  rate: number;
+  low_population: boolean;
+  nationalRank: number | null;
+  ratesByYear: Record<number, number>;
+}
+
+interface Props {
+  lang: 'en' | 'es';
+  familyKey: string;
+  latestYear: number;
+  mean: number;
+  rows: RankingBoardRow[];
+}
+
+const { lang, familyKey, latestYear, mean, rows } = Astro.props as Props;
+
+const t = lang === 'es' ? ES_STRINGS : EN_STRINGS;
+const r = lang === 'es' ? RK_ES : RK_EN;
+const labels = lang === 'es' ? FAMILY_LABELS_ES : FAMILY_LABELS_EN;
+const locale = lang === 'es' ? 'es-CL' : 'en-US';
+const communeBase = lang === 'es' ? '/es/comuna/' : '/commune/';
+const regionBase = lang === 'es' ? '/es/region/' : '/region/';
+
+const accent = FAMILY_ACCENT[familyKey] ?? 'var(--primary)';
+
+const norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+const fmt1 = (v: number) =>
+  v.toLocaleString(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const fmt0 = (v: number) => Math.round(v).toLocaleString(locale);
+
+// Years available across all rows (complete years only — guaranteed by the page).
+const years = Array.from(
+  new Set(rows.flatMap((row) => Object.keys(row.ratesByYear).map(Number)))
+).sort((a, b) => b - a);
+
+const maxRate = rows.reduce((m, row) => Math.max(m, row.rate), 0) || 1;
+const meanPct = Math.min(100, Math.round((mean / maxRate) * 100));
+
+// Region averages — simple mean of eligible communes, same rule as the
+// RegionBreakdownBars section this replaces.
+const regionAgg = new Map<number, { name: string; slug: string; sum: number; n: number }>();
+for (const row of rows) {
+  if (row.low_population) continue;
+  const cur =
+    regionAgg.get(row.regionId) ??
+    { name: row.regionName, slug: row.regionSlug, sum: 0, n: 0 };
+  cur.sum += row.rate;
+  cur.n += 1;
+  regionAgg.set(row.regionId, cur);
+}
+const regionRows = Array.from(regionAgg.entries())
+  .map(([id, v]) => ({ id, name: v.name, slug: v.slug, mean: v.sum / v.n }))
+  .sort((a, b) => b.mean - a.mean);
+const regionMax = regionRows.length ? regionRows[0].mean : 1;
+
+// Region <select> options follow the alphabetical/administrative order.
+const regionOptions = regionRows.slice().sort((a, b) => a.id - b.id);
+
+// B-05: region names here come straight from commune.regionName (already
+// locale-correct per the data source) and are constrained to the 250px
+// regional panel / <select> width. Deliberately NOT rewritten through
+// regionNameEs()/"{name} Region" here (unlike RankingHub's 16-region list) —
+// there is no room for the longer grammatical form without breaking the
+// panel layout. This omission is intentional, not an oversight.
+
+const eligibleCount = rows.filter((row) => !row.low_population).length;
+
+const scriptData = {
+  count: r.rk_count,
+  empty: r.rk_empty,
+  more: r.rk_more,
+  meanMarker: r.rk_mean_marker,
+  clear: t.news_clear_filters,
+  locale,
+  latestYear,
+  years,
+  total: rows.length,
+  eligible: eligibleCount,
+  regions: Object.fromEntries(regionRows.map((x) => [x.id, x.name])),
+};
+---
+
+<div class="rk" data-rk>
+  <nav class="rk-types" aria-label={r.rk_types_aria}>
+    {RANKING_DEFS.map((def) => (
+      <a
+        href={rankingPath(def, lang)}
+        class:list={['rk-chip', { on: def.familyKey === familyKey }]}
+        aria-current={def.familyKey === familyKey ? 'page' : undefined}
+      >
+        <span class="dot" style={`background:${FAMILY_ACCENT[def.familyKey]}`} aria-hidden="true"></span>
+        {labels[def.familyKey] ?? def.familyKey}
+      </a>
+    ))}
+  </nav>
+
+  <div class="rk-bar">
+    <label class="rk-search" for="rk-q">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.6"></circle>
+        <path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+      </svg>
+      <input type="search" id="rk-q" autocomplete="off" placeholder={r.rk_search_placeholder} aria-label={r.rk_search_placeholder} />
+    </label>
+
+    <select id="rk-region" aria-label={t.news_filter_region_label}>
+      <option value="0">{r.rk_all_regions}</option>
+      {regionOptions.map((x) => <option value={x.id}>{x.name}</option>)}
+    </select>
+
+    <div class="rk-seg" role="group" aria-label={t.sort_label.replace('{column}', t.th_rate_per_100k)}>
+      <button type="button" data-dir="desc" class="on" aria-pressed="true">{r.rk_sort_high}</button>
+      <button type="button" data-dir="asc" aria-pressed="false">{r.rk_sort_low}</button>
+    </div>
+
+    <button type="button" id="rk-lowpop" class="rk-toggle on" aria-pressed="true" title={r.rk_exclude_lowpop_title}>
+      <span class="box" aria-hidden="true"></span>
+      {r.rk_exclude_lowpop}
+    </button>
+
+    <label class="sr-only" for="rk-year">{t.year_select_label}</label>
+    <select id="rk-year" aria-label={t.year_select_aria}>
+      {years.map((y) => <option value={y} selected={y === latestYear}>{y}</option>)}
+    </select>
+  </div>
+
+  <div class="rk-grid">
+    <aside class="rk-regions" aria-label={r.rk_region_panel_aria}>
+      <p class="rk-regions-h">{r.rk_region_panel}</p>
+      <p class="rk-regions-hint">{r.rk_region_panel_hint}</p>
+      {regionRows.map((x) => (
+        <a href={`${regionBase}${x.slug}/`} class="rk-reg" data-region={x.id}>
+          <span class="rk-reg-top">
+            <span class="rk-reg-name">{x.name}</span>
+            <span class="rk-reg-val">{fmt0(x.mean)}</span>
+          </span>
+          <span class="rk-reg-track" aria-hidden="true">
+            <span
+              class="rk-reg-fill"
+              style={`width:${Math.max(2, Math.round((x.mean / regionMax) * 100))}%;background:${accent}`}
+            ></span>
+          </span>
+        </a>
+      ))}
+    </aside>
+
+    <div class="rk-main">
+      <div class="rk-meta">
+        <span class="rk-legend"><i aria-hidden="true"></i><span id="rk-mean">{r.rk_mean_marker.replace('{v}', fmt1(mean))}</span></span>
+        <span class="rk-meta-right">
+          <button type="button" id="rk-clear" hidden>{t.news_clear_filters}</button>
+          <span id="rk-count" aria-live="polite">{r.rk_count.replace('{n}', String(eligibleCount)).replace('{total}', String(rows.length))}</span>
+        </span>
+      </div>
+      <p class="rk-yearnote" id="rk-yearnote" hidden>{r.rk_rank_year_note.replace('{year}', String(latestYear))}</p>
+
+      <table class="rk-table">
+        <thead>
+          <tr>
+            <th class="c-rank">{t.th_rank}</th>
+            <th class="c-name">{t.th_commune}</th>
+            <th class="c-bar">{r.rk_col_bar}</th>
+            <th class="c-rate">{t.th_rate_per_100k}</th>
+          </tr>
+        </thead>
+        <tbody id="rk-tbody">
+          {rows.map((row) => (
+            <tr
+              data-name={row.name}
+              data-norm={norm(row.name)}
+              data-region={row.regionId}
+              data-lowpop={row.low_population ? '1' : '0'}
+              data-rates={JSON.stringify(row.ratesByYear)}
+            >
+              <td class="c-rank">{row.low_population ? '—' : `#${row.nationalRank}`}</td>
+              <td class="c-name">
+                <a href={`${communeBase}${row.slug}/`}><span class="nm">{row.name}</span></a>
+                <span class="rg">{row.regionName}</span>
+                {row.low_population && <span class="lowpop">*{t.dir_lowpop_tag}</span>}
+              </td>
+              <td class="c-bar">
+                <span class="track" aria-hidden="true">
+                  <span class="fill" style={`width:${Math.max(2, Math.round((row.rate / maxRate) * 100))}%;background:${accent}`}></span>
+                  <span class="mean" style={`left:${meanPct}%`}></span>
+                </span>
+              </td>
+              <td class="c-rate">{fmt1(row.rate)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <p class="rk-empty" id="rk-empty" hidden></p>
+      <div class="rk-more-wrap"><button type="button" id="rk-more" hidden></button></div>
+      <p class="rk-note">{t.low_pop_footnote}</p>
+      <p class="rk-note">{r.rk_source_note}</p>
+    </div>
+  </div>
+
+  <script type="application/json" id="rk-data" is:inline set:html={JSON.stringify(scriptData).replace(/</g, '\\u003c')}></script>
+</div>
+
+<script>
+/**
+ * Ranking controls — vanilla, no island.
+ * Shows / hides / reorders server-rendered <tr> nodes and rewrites numbers.
+ * Never builds a link.
+ */
+(function () {
+  const dataEl = document.getElementById('rk-data');
+  const tbody = document.getElementById('rk-tbody') as HTMLTableSectionElement | null;
+  if (!dataEl || !tbody) return;
+  const D = JSON.parse(dataEl.textContent || '{}');
+
+  const norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const fmt1 = (v: number) =>
+    v.toLocaleString(D.locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const fmt0 = (v: number) => Math.round(v).toLocaleString(D.locale);
+
+  const input = document.getElementById('rk-q') as HTMLInputElement;
+  const regionSel = document.getElementById('rk-region') as HTMLSelectElement;
+  const yearSel = document.getElementById('rk-year') as HTMLSelectElement;
+  const lowpopBtn = document.getElementById('rk-lowpop') as HTMLButtonElement;
+  const clearBtn = document.getElementById('rk-clear') as HTMLButtonElement;
+  const countEl = document.getElementById('rk-count') as HTMLElement;
+  const emptyEl = document.getElementById('rk-empty') as HTMLElement;
+  const meanEl = document.getElementById('rk-mean') as HTMLElement;
+  const yearNote = document.getElementById('rk-yearnote') as HTMLElement;
+  const moreBtn = document.getElementById('rk-more') as HTMLButtonElement;
+  const segBtns = Array.from(document.querySelectorAll('.rk-seg button')) as HTMLButtonElement[];
+  const regionLinks = Array.from(document.querySelectorAll('.rk-reg')) as HTMLAnchorElement[];
+
+  type Row = {
+    el: HTMLTableRowElement;
+    name: string;
+    norm: string;
+    region: number;
+    lowpop: boolean;
+    rates: Record<string, number>;
+    rank: HTMLElement;
+    fill: HTMLElement;
+    mean: HTMLElement;
+    rate: HTMLElement;
+    nm: HTMLElement;
+  };
+
+  const rows: Row[] = (Array.from(tbody.rows) as HTMLTableRowElement[]).map((el) => {
+    let rates: Record<string, number> = {};
+    try { rates = JSON.parse(el.getAttribute('data-rates') || '{}'); } catch (_) { rates = {}; }
+    return {
+      el,
+      name: el.getAttribute('data-name') || '',
+      norm: el.getAttribute('data-norm') || '',
+      region: Number(el.getAttribute('data-region')),
+      lowpop: el.getAttribute('data-lowpop') === '1',
+      rates,
+      rank: el.querySelector('.c-rank') as HTMLElement,
+      fill: el.querySelector('.fill') as HTMLElement,
+      mean: el.querySelector('.mean') as HTMLElement,
+      rate: el.querySelector('.c-rate') as HTMLElement,
+      nm: el.querySelector('.nm') as HTMLElement,
+    };
+  });
+
+  const PAGE = 60;
+  const state = { q: '', region: 0, dir: 'desc', hideLowpop: true, year: D.latestYear, shown: PAGE };
+  // B-01 defense in depth: if latestYear ever drifts outside the known years
+  // (data regression, stale cache), fall back to the max known year instead
+  // of silently rendering an empty/mismatched table.
+  if (!D.years.includes(state.year)) {
+    state.year = Math.max(...D.years);
+  }
+  yearSel.value = String(state.year);
+  const valueOf = (r: Row) => r.rates[String(state.year)] ?? 0;
+
+  function matches(r: Row) {
+    if (state.hideLowpop && r.lowpop) return false;
+    if (state.region && r.region !== state.region) return false;
+    const nq = norm(state.q.trim());
+    if (nq && r.norm.indexOf(nq) < 0) return false;
+    return true;
+  }
+
+  // Slice the TRUSTED data-name around the match index; never inject the query.
+  function paint(r: Row) {
+    const q = state.q.trim();
+    if (!r.nm) return;
+    if (!q) { r.nm.textContent = r.name; return; }
+    const nq = norm(q);
+    const i = r.norm.indexOf(nq);
+    if (i < 0) { r.nm.textContent = r.name; return; }
+    // B-08: slice by the normalized query length, not the raw (possibly
+    // accented/differently-sized) query length — keeps the highlight window
+    // aligned with the normalized index match.
+    r.nm.textContent = '';
+    r.nm.appendChild(document.createTextNode(r.name.slice(0, i)));
+    const mark = document.createElement('mark');
+    mark.textContent = r.name.slice(i, i + nq.length);
+    r.nm.appendChild(mark);
+    r.nm.appendChild(document.createTextNode(r.name.slice(i + nq.length)));
+  }
+
+  function render() {
+    const year = String(state.year);
+
+    // National position for the selected year: eligible communes, descending.
+    const eligible = rows.filter((r) => !r.lowpop);
+    const ranked = eligible.slice().sort((a, b) => valueOf(b) - valueOf(a));
+    const rankOf = new Map<Row, number>();
+    ranked.forEach((r, i) => rankOf.set(r, i + 1));
+
+    const maxRate = rows.reduce((m, r) => Math.max(m, valueOf(r)), 0) || 1;
+    const mean = eligible.length
+      ? eligible.reduce((s, r) => s + valueOf(r), 0) / eligible.length
+      : 0;
+    const meanPct = Math.min(100, (mean / maxRate) * 100);
+
+    const visible = rows
+      .filter(matches)
+      .sort((a, b) => (state.dir === 'asc' ? valueOf(a) - valueOf(b) : valueOf(b) - valueOf(a)));
+
+    const shown = visible.slice(0, state.shown);
+    const frag = document.createDocumentFragment();
+    rows.forEach((r) => { r.el.hidden = true; });
+    shown.forEach((r) => {
+      const v = valueOf(r);
+      r.el.hidden = false;
+      paint(r);
+      r.rank.textContent = r.lowpop || state.year !== D.latestYear ? '—' : '#' + rankOf.get(r);
+      r.rate.textContent = fmt1(v);
+      r.fill.style.width = Math.max(2, Math.round((v / maxRate) * 100)) + '%';
+      r.mean.style.left = meanPct + '%';
+      frag.appendChild(r.el);
+    });
+    tbody!.appendChild(frag);
+
+    meanEl.textContent = D.meanMarker.replace('{v}', fmt1(mean));
+    countEl.textContent = D.count
+      .replace('{n}', String(visible.length))
+      .replace('{total}', String(D.total));
+
+    emptyEl.textContent = visible.length === 0 ? D.empty : '';
+    emptyEl.hidden = visible.length > 0;
+
+    const rest = visible.length - shown.length;
+    moreBtn.hidden = rest <= 0;
+    moreBtn.textContent = D.more.replace('{n}', String(rest));
+
+    yearNote.hidden = state.year === D.latestYear;
+
+    // Regional averages follow the selected year.
+    const regAgg: Record<string, { sum: number; n: number }> = {};
+    eligible.forEach((r) => {
+      const a = regAgg[r.region] || (regAgg[r.region] = { sum: 0, n: 0 });
+      a.sum += valueOf(r); a.n += 1;
+    });
+    let regMax = 0;
+    Object.keys(regAgg).forEach((k) => { regMax = Math.max(regMax, regAgg[k].sum / regAgg[k].n); });
+    regionLinks.forEach((a) => {
+      const id = a.getAttribute('data-region') || '';
+      const agg = regAgg[id];
+      const v = agg ? agg.sum / agg.n : 0;
+      (a.querySelector('.rk-reg-val') as HTMLElement).textContent = fmt0(v);
+      (a.querySelector('.rk-reg-fill') as HTMLElement).style.width =
+        Math.max(2, Math.round((v / (regMax || 1)) * 100)) + '%';
+      a.classList.toggle('on', String(state.region) === id);
+    });
+
+    const dirty = !!(state.q.trim() || state.region || !state.hideLowpop || state.year !== D.latestYear);
+    clearBtn.hidden = !dirty;
+    regionSel.classList.toggle('on', !!state.region);
+  }
+
+  input.addEventListener('input', () => { state.q = input.value; state.shown = PAGE; render(); });
+  regionSel.addEventListener('change', () => { state.region = Number(regionSel.value); state.shown = PAGE; render(); });
+  yearSel.addEventListener('change', () => { state.year = Number(yearSel.value); state.shown = PAGE; render(); });
+  moreBtn.addEventListener('click', () => { state.shown += PAGE; render(); });
+
+  segBtns.forEach((b) => {
+    b.addEventListener('click', () => {
+      state.dir = b.getAttribute('data-dir') || 'desc';
+      state.shown = PAGE;
+      segBtns.forEach((x) => {
+        const on = x === b;
+        x.classList.toggle('on', on);
+        x.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      render();
+    });
+  });
+
+  lowpopBtn.addEventListener('click', () => {
+    state.hideLowpop = !state.hideLowpop;
+    lowpopBtn.classList.toggle('on', state.hideLowpop);
+    lowpopBtn.setAttribute('aria-pressed', state.hideLowpop ? 'true' : 'false');
+    state.shown = PAGE;
+    render();
+  });
+
+  // Region bars double as filters. Without JS they stay plain links to the
+  // region page, which is why they are <a> and not <button>.
+  regionLinks.forEach((a) => {
+    a.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const id = Number(a.getAttribute('data-region'));
+      state.region = state.region === id ? 0 : id;
+      regionSel.value = String(state.region);
+      state.shown = PAGE;
+      render();
+    });
+  });
+
+  clearBtn.addEventListener('click', () => {
+    state.q = ''; state.region = 0; state.hideLowpop = true; state.year = D.latestYear;
+    state.dir = 'desc'; state.shown = PAGE;
+    input.value = ''; regionSel.value = '0'; yearSel.value = String(D.latestYear);
+    lowpopBtn.classList.add('on');
+    lowpopBtn.setAttribute('aria-pressed', 'true');
+    segBtns.forEach((x) => {
+      const on = x.getAttribute('data-dir') === 'desc';
+      x.classList.toggle('on', on);
+      x.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    render();
+  });
+
+  // ?q= deep link (assign to input.value only, never innerHTML)
+  const initialQ = new URLSearchParams(window.location.search).get('q');
+  if (initialQ) { state.q = initialQ; input.value = initialQ; }
+
+  render();
+})();
+</script>
+
+<style>
+  .rk { margin: var(--lg) 0; }
+
+  /* ---------- Crime type: 8 links, one per ranking page ---------- */
+  .rk-types { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .rk-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    white-space: nowrap;
+  }
+  .rk-chip:hover { border-color: var(--primary); }
+  .rk-chip.on { background: var(--ink); border-color: var(--ink); color: var(--card); }
+  .rk-chip .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ---------- One 48px control row ---------- */
+  .rk-bar { display: flex; gap: var(--sm); align-items: center; flex-wrap: wrap; }
+
+  .rk-search {
+    display: flex;
+    align-items: center;
+    gap: var(--sm);
+    flex: 1;
+    min-width: 200px;
+    height: 48px;
+    padding: 0 14px;
+    background: var(--card);
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+  }
+  .rk-search:focus-within { border-color: var(--primary); }
+  .rk-search input {
+    border: none; outline: none; background: transparent;
+    font-family: inherit; font-size: var(--text-body); color: var(--ink); width: 100%;
+  }
+
+  #rk-region, #rk-year {
+    height: 48px;
+    padding: 0 34px 0 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    background-color: var(--card);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%235d6c6d' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+  }
+  #rk-region.on {
+    border-color: var(--primary);
+    background-color: color-mix(in srgb, var(--primary) 8%, var(--card));
+    color: var(--primary);
+  }
+
+  .rk-seg {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    padding: 4px;
+    gap: 2px;
+    background: var(--card);
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+  }
+  .rk-seg button {
+    height: 38px;
+    padding: 0 14px;
+    border: none;
+    border-radius: 999px;
+    background: none;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    cursor: pointer;
+  }
+  .rk-seg button.on { background: var(--primary); color: #fff; }
+
+  .rk-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sm);
+    height: 48px;
+    padding: 0 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    cursor: pointer;
+  }
+  .rk-toggle .box {
+    width: 18px; height: 18px; border-radius: 5px;
+    border: 1.5px solid var(--line);
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .rk-toggle.on {
+    border-color: var(--primary);
+    background: color-mix(in srgb, var(--primary) 8%, var(--card));
+    color: var(--primary);
+  }
+  .rk-toggle.on .box { border-color: var(--primary); }
+  .rk-toggle.on .box::after {
+    content: '';
+    width: 9px; height: 5px;
+    border-left: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+  /* ---------- Region panel + table ---------- */
+  .rk-grid {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: var(--md);
+    align-items: start;
+    margin-top: var(--md);
+  }
+
+  .rk-regions {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px 12px 8px;
+  }
+  .rk-regions-h {
+    font-size: 12px;
+    font-weight: var(--weight-strong);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+  .rk-regions-hint { font-size: 12px; color: var(--muted); margin: 2px 0 10px; }
+  .rk-reg {
+    display: block;
+    padding: 5px 6px;
+    margin-bottom: 2px;
+    border-radius: 7px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .rk-reg:hover { background: var(--bg); }
+  .rk-reg.on { background: color-mix(in srgb, var(--primary) 8%, var(--card)); }
+  .rk-reg.on .rk-reg-name { color: var(--primary); }
+  .rk-reg-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .rk-reg-name {
+    font-size: 13px; font-weight: var(--weight-strong);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .rk-reg-val { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; flex-shrink: 0; }
+  .rk-reg-track {
+    display: block; height: 6px; margin-top: 4px;
+    border-radius: 3px; background: var(--bg); overflow: hidden;
+  }
+  .rk-reg-fill { display: block; height: 100%; border-radius: 3px; }
+
+  .rk-meta {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap; margin-bottom: 8px;
+  }
+  .rk-legend { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .rk-legend i { display: inline-block; width: 0; height: 14px; border-left: 2px dashed var(--ink); }
+  .rk-meta-right { display: inline-flex; align-items: center; gap: 12px; }
+  #rk-count { font-size: var(--text-label); font-weight: var(--weight-strong); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  #rk-clear {
+    border: none; background: none; color: var(--muted);
+    font-family: inherit; font-size: 13px; font-weight: var(--weight-strong);
+    text-decoration: underline; cursor: pointer; padding: 0;
+  }
+  .rk-yearnote { font-size: 12px; color: var(--muted); margin: 0 0 8px; }
+
+  .rk-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .rk-table thead th {
+    text-align: left;
+    height: 38px;
+    padding: 0 8px;
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+    font-weight: var(--weight-strong);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .rk-table thead th:first-child { padding-left: 16px; }
+  .rk-table thead th.c-rate { text-align: right; padding-right: 16px; }
+
+  .rk-table tbody tr {
+    position: relative;
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 55%, var(--card));
+  }
+  .rk-table tbody tr:hover { background: var(--bg); }
+  .rk-table td { padding: 0 8px; height: 48px; vertical-align: middle; }
+
+  td.c-rank { width: 60px; padding-left: 16px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  td.c-name { min-width: 0; }
+  td.c-name a { color: var(--ink); text-decoration: none; }
+  /* Whole row is the hit area — the <a> stays the single semantic link. */
+  td.c-name a::after { content: ''; position: absolute; inset: 0; }
+  td.c-name a:hover .nm { text-decoration: underline; }
+  .nm { font-weight: var(--weight-strong); font-size: 15px; }
+  .rg { font-size: 12px; color: var(--muted); margin-left: 8px; }
+  .lowpop {
+    font-size: 10px; background: var(--line); color: var(--muted);
+    border-radius: 4px; padding: 1px 5px; margin-left: 8px;
+  }
+
+  td.c-bar { width: 320px; }
+  .track {
+    position: relative; display: block; height: 14px;
+    border-radius: 4px; background: var(--bg); overflow: hidden;
+  }
+  .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; }
+  .mean { position: absolute; top: -2px; bottom: -2px; border-left: 2px dashed var(--ink); }
+
+  td.c-rate {
+    width: 84px; padding-right: 16px; text-align: right;
+    font-size: var(--text-label); font-weight: var(--weight-strong);
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+
+  .rk-empty { color: var(--muted); padding: var(--xl); text-align: center; }
+  .rk-more-wrap { text-align: center; padding: 14px 0 0; }
+  #rk-more {
+    height: 40px; padding: 0 20px;
+    border: 1.5px solid var(--line); border-radius: 999px;
+    background: var(--card); color: var(--primary);
+    font-family: inherit; font-size: var(--text-label); font-weight: var(--weight-strong);
+    cursor: pointer;
+  }
+  .rk-note { font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+  :global(mark) { background: #ffe9a8; padding: 0 1px; }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  @media (max-width: 900px) {
+    .rk-grid { grid-template-columns: minmax(0, 1fr); }
+    .rk-regions { order: 2; }
+  }
+  @media (max-width: 700px) {
+    .rk-search { flex-basis: 100%; }
+    td.c-bar, th.c-bar { display: none; }
+    .rg { display: none; }
+  }
+</style>
