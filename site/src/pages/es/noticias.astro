@@ -339,7 +339,7 @@ const jsonLd = {
         {facets.byFamily.map((f) => (
           <label class="filter-chip filter-chip--family" data-family={f.key}>
             <input type="checkbox" name="family" value={f.key} />
-            <span class="fam-dot" aria-hidden="true"></span>
+            <span class="fam-dot" title={familyLabel(f.key)} aria-hidden="true"></span>
             <span class="filter-opt-label">{familyLabel(f.key)}</span>
             <span class="filter-count">{f.count}</span>
           </label>
@@ -397,7 +397,7 @@ const jsonLd = {
                     regla CSS cuyo selector contenga `.news-card` fije `display`. */}
                 <div class="news-row" data-family={family}>
                   <h3 class="news-title">
-                    <span class="fam-dot" aria-hidden="true"></span>
+                    <span class="fam-dot" title={family ? familyLabel(family) : ''} aria-hidden="true"></span>
                     <a href={safeUrl(incident.url)} target="_blank" rel="noopener noreferrer">
                       {incident.title_es}
                     </a>
@@ -737,7 +737,7 @@ const jsonLd = {
   [data-family='vif'] { --fam: oklch(0.58 0.13 345); }
   [data-family='sexuales'] { --fam: oklch(0.60 0.11 195); }
   [data-family='incivilidades'] { --fam: oklch(0.62 0.07 150); }
-  [data-family='homicidios'] { --fam: oklch(0.52 0.15 20); }
+  [data-family='homicidios'] { --fam: oklch(0.45 0.16 12); }
 
   .fam-dot {
     width: 9px;
@@ -745,6 +745,12 @@ const jsonLd = {
     flex-shrink: 0;
     border-radius: 50%;
     background: var(--fam, var(--muted));
+  }
+
+  /* homicidios comparte territorio de tono con vida — un anillo es el segundo
+     canal visual (WR-02) para distinguirlos sin depender solo del color. */
+  [data-family='homicidios'] .fam-dot {
+    box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px var(--fam);
   }
 
   /* --- Barra de filtros ---------------------------------------------------- */
