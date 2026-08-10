@@ -70,15 +70,16 @@ const cards = RANKING_DEFS.map((def) => {
     top: eligible[0],
     // Homicide has no /crime/ family page of its own (it is a subgroup of vida)
     // — FAMILY_SLUGS has no entry for 'homicidios', so this stays null for it.
-    // F-01 fix: the 'vida' card DOES link to its /crime/ family page
-    // (FAMILY_SLUGS.vida -> /crime/homicide/). The vida/homicide slug
-    // collision this used to guard against (project memory) was about
-    // mislabeling a link's *text* as "Homicide" when it points at the
-    // vida family page; the link text here is the generic
-    // rk_hub_card_def ("What this category covers"), so it does not
-    // reproduce that bug, and without this link /crime/homicide/ and
-    // /es/delito/homicidios/ dropped below the 2-inbound-link floor.
-    familyHref: familySlug ? `${familyBase}${lang === 'es' ? familySlug.es : familySlug.en}/` : null,
+    // 'vida' is excluded on purpose: FAMILY_SLUGS.vida -> /crime/homicide/,
+    // which has been a TD-04 redirect stub to /crime-ranking/homicide/ since
+    // v1.3 — a "What this category covers" link on the vida card would land
+    // on the HOMICIDE ranking (wrong category, and the homicidios card's main
+    // destination already). Row 1 (homicidios + vida) is footerless by design,
+    // which also keeps the card grid symmetric. The stub itself stays reachable
+    // via the glossary link (crime.mjs pins that floor).
+    familyHref: familySlug && def.familyKey !== 'vida'
+      ? `${familyBase}${lang === 'es' ? familySlug.es : familySlug.en}/`
+      : null,
   };
 });
 

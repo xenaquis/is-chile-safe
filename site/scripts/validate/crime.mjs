@@ -211,10 +211,13 @@ for (const sample of SAMPLES) {
 }
 
 // ---------------------------------------------------------------------------
-// Check 4: homicide family pages keep >=2 inbound links site-wide (V-03 floor).
-// F-01 (rankings v2 review) dropped /crime/homicide/ to a single inbound link
-// when RankingHub filtered the 'vida' key; this pins the restored floor so a
-// future filter regression fails loudly instead of silently orphaning the page.
+// Check 4: homicide redirect stubs never become orphans (V-03, recalibrated).
+// /crime/homicide/ and /es/delito/homicidios/ are TD-04 redirect stubs to the
+// homicide ranking pages. F-01 proposed a >=2 inbound floor via a hub link,
+// but that link sat on the VIDA card and landed users on the homicide ranking
+// (wrong category) — reverted. The honest invariant is: the glossary keeps at
+// least one inbound link so the legacy URLs stay discoverable and the 301
+// keeps serving old external links.
 // ---------------------------------------------------------------------------
 function countInboundLinks(href, ownDir) {
   let count = 0;
@@ -237,11 +240,11 @@ for (const [href, ownDir] of [
   ['/es/delito/homicidios/', path.join('delito', 'homicidios')],
 ]) {
   const inbound = countInboundLinks(href, ownDir);
-  if (inbound < 2) {
-    console.error(`FAIL: ${href} has ${inbound} inbound link page(s) site-wide (floor is 2 — F-01/V-03 guard)`);
+  if (inbound < 1) {
+    console.error(`FAIL: ${href} has 0 inbound links site-wide — legacy redirect stub orphaned (V-03 guard)`);
     failures++;
   } else {
-    console.log(`PASS: ${href} inbound link floor met (${inbound} pages link to it)`);
+    console.log(`PASS: ${href} inbound link floor met (${inbound} page(s) link to it)`);
   }
 }
 
