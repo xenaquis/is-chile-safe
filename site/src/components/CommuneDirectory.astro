@@ -1,0 +1,719 @@
+---
+/**
+ * CommuneDirectory.astro — shared 346-commune directory (EN + ES).
+ *
+ * Replaces the previous two-block layout (A–Z grid + by-region grid, i.e. 692
+ * rendered links) with ONE server-rendered sortable table of 346 links.
+ *
+ * SEO contract, unchanged from the pages it replaces:
+ *  - every commune link is server-rendered HTML, present without JS
+ *  - the inline script NEVER creates or appends a link; it only shows, hides
+ *    and REORDERS nodes that the server already emitted
+ *  - no React island, no client:* directive
+ *
+ * T-11-05 (unchanged): the query is never written into innerHTML. Highlighting
+ * slices the TRUSTED data-name around the match index; the filter chip and the
+ * empty-state message use textContent.
+ *
+ * Default DOM order is alphabetical — the canonical order crawlers see.
+ */
+import { loadIndex, loadCommune, latestCompleteYearRate, loadRegion } from '../lib/data.ts';
+import { levelForRate, INCIDENCE_COLORS } from '../lib/colorScale.ts';
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+import { DIR_EN, DIR_ES } from '../config/directoryStrings.ts';
+import fs from 'node:fs';
+
+interface Props {
+  lang: 'en' | 'es';
+}
+const { lang } = Astro.props;
+
+const t = lang === 'es' ? ES_STRINGS : EN_STRINGS;
+const d = lang === 'es' ? DIR_ES : DIR_EN;
+const communeBase = lang === 'es' ? '/es/comuna/' : '/commune/';
+const locale = lang === 'es' ? 'es-CL' : 'en-US';
+
+const index = loadIndex();
+
+// Quintile thresholds — identical computation to the pages this replaces.
+const allRates = index
+  .filter((c) => !c.low_population)
+  .map((c) => latestCompleteYearRate(loadCommune(c.cut)))
+  .filter((r) => r > 0)
+  .sort((a, b) => a - b);
+
+const norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+let latestYear = 0;
+const base = index.map((c) => {
+  const commune = loadCommune(c.cut);
+  const rate = latestCompleteYearRate(commune);
+  if (commune.latestCompleteYear > latestYear) latestYear = commune.latestCompleteYear;
+  return {
+    name: c.name,
+    slug: c.slug,
+    cut: c.cut,
+    low_population: c.low_population,
+    rate,
+    region: Math.floor(parseInt(c.cut, 10) / 1000),
+    level: rate > 0 ? levelForRate(rate, allRates) : 3,
+  };
+});
+
+// National position by rate. Site-wide convention (national_rank, DOCS-01):
+// rank 1 = HIGHEST reported rate. Communes with no rate get no position.
+const ranked = base.filter((r) => r.rate > 0).slice().sort((a, b) => b.rate - a.rate);
+const rankByCut = new Map<string, number>();
+ranked.forEach((r, i) => rankByCut.set(r.cut, i + 1));
+
+const maxRate = base.reduce((m, r) => Math.max(m, r.rate), 0) || 1;
+
+// Alphabetical = canonical server order.
+const rows = base
+  .slice()
+  .sort((a, b) => a.name.localeCompare(b.name, 'es'))
+  .map((r) => ({
+    ...r,
+    rank: rankByCut.get(r.cut) ?? 0,
+    bar: r.rate > 0 ? Math.max(3, Math.round((r.rate / maxRate) * 100)) : 0,
+    color: INCIDENCE_COLORS[r.level - 1],
+    rateLabel: r.rate > 0 ? Math.round(r.rate).toLocaleString(locale) : '—',
+  }));
+
+// Region select options — only regions that actually have communes.
+const regionNumbers = Array.from(new Set(base.map((r) => r.region))).sort((a, b) => a - b);
+const regionNames: Record<number, string> = {};
+for (const n of regionNumbers) {
+  try {
+    regionNames[n] = loadRegion(String(n)).name;
+  } catch {
+    regionNames[n] = `${lang === 'es' ? 'Región' : 'Region'} ${n}`;
+  }
+}
+
+const bandLabels = [t.ci_band_1, t.ci_band_2, t.ci_band_3, t.ci_band_4, t.ci_band_5];
+const bandCounts = [1, 2, 3, 4, 5].map((lv) => base.filter((r) => r.level === lv).length);
+
+/**
+ * "Near me" is optional. It needs src/data/comuna-centroids.json, produced by
+ * `node scripts/build-comuna-centroids.mjs`. When the file is absent the button
+ * is simply not rendered — no build error, no dead control.
+ */
+let centroids: Array<{ cut: string; lat: number; lng: number }> = [];
+try {
+  centroids = JSON.parse(
+    fs.readFileSync(new URL('../data/comuna-centroids.json', import.meta.url), 'utf8')
+  );
+} catch {
+  centroids = [];
+}
+const hasNearMe = centroids.length > 0;
+
+const cutToMeta: Record<string, { name: string; region: number }> = {};
+for (const r of base) cutToMeta[r.cut] = { name: r.name, region: r.region };
+
+const scriptData = {
+  count: t.dir_count,
+  empty: t.dir_empty,
+  clear: t.news_clear_filters,
+  sortLabel: t.sort_label,
+  asc: t.sort_ascending,
+  desc: t.sort_descending,
+  nearChip: d.dir_near_chip,
+  nearDenied: d.dir_near_denied,
+  bands: bandLabels,
+  regions: regionNames,
+  centroids,
+  cutMeta: cutToMeta,
+};
+---
+
+<div class="dir-wrap">
+  <h1>{t.dir_title}</h1>
+  <p class="dir-lead">{t.dir_lead}</p>
+
+  <div class="dir-toolbar">
+    <div class="dir-controls">
+      <label class="dir-search" for="dir-q">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+        </svg>
+        <input
+          type="search"
+          id="dir-q"
+          autocomplete="off"
+          placeholder={t.dir_search_placeholder}
+          aria-label={t.dir_search_placeholder}
+        />
+      </label>
+
+      <select id="dir-region" aria-label={t.news_filter_region_label}>
+        <option value="0">{d.dir_all_regions}</option>
+        {regionNumbers.map((n) => <option value={n}>{regionNames[n]}</option>)}
+      </select>
+
+      {hasNearMe && (
+        <button type="button" id="dir-near" class="dir-near">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="2.4" fill="currentColor"></circle>
+            <circle cx="8" cy="8" r="5.6" stroke="currentColor" stroke-width="1.5"></circle>
+            <path d="M8 .5v2M8 13.5v2M.5 8h2M13.5 8h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+          {d.dir_near_me}
+        </button>
+      )}
+    </div>
+
+    <div class="dir-scale-row">
+      <div class="dir-scale" role="group" aria-label={d.dir_scale_aria}>
+        {[1, 2, 3, 4, 5].map((lv) => (
+          <button
+            type="button"
+            class="band"
+            data-level={lv}
+            aria-pressed="false"
+            title={bandLabels[lv - 1]}
+            style={`flex-grow:${bandCounts[lv - 1]};background:${INCIDENCE_COLORS[lv - 1]}`}
+          >
+            <span class="band-n">{bandCounts[lv - 1]}</span>
+            <span class="sr-only">{bandLabels[lv - 1]}</span>
+          </button>
+        ))}
+      </div>
+      <span class="dir-scale-hint">{d.dir_scale_hint}</span>
+      <span class="dir-count" id="dir-count" aria-live="polite">
+        {t.dir_count.replace('{n}', String(rows.length))}
+      </span>
+    </div>
+
+    <div class="dir-chips" id="dir-chips" hidden>
+      <button type="button" class="chip" data-chip="q" hidden><span></span><i aria-hidden="true">×</i></button>
+      <button type="button" class="chip" data-chip="region" hidden><span></span><i aria-hidden="true">×</i></button>
+      <button type="button" class="chip" data-chip="level" hidden><span></span><i aria-hidden="true">×</i></button>
+      <button type="button" class="chip" data-chip="near" hidden><span></span><i aria-hidden="true">×</i></button>
+      <button type="button" class="chip-clear" id="dir-clear">{t.news_clear_filters}</button>
+    </div>
+
+    <p class="dir-error" id="dir-error" hidden></p>
+  </div>
+
+  <table class="dir-table">
+    <thead>
+      <tr>
+        <th class="c-rank" aria-sort="none" title={d.dir_rank_title}>
+          <button type="button" data-sort="rank">#<span class="arrow" aria-hidden="true"></span></button>
+        </th>
+        <th class="c-name" aria-sort="none">
+          <button type="button" data-sort="name">{t.th_commune}<span class="arrow" aria-hidden="true"></span></button>
+        </th>
+        <th class="c-region" aria-sort="none">
+          <button type="button" data-sort="region">{t.th_region}<span class="arrow" aria-hidden="true"></span></button>
+        </th>
+        <th class="c-rate" aria-sort="none">
+          <button type="button" data-sort="rate">{t.th_rate_per_100k}<span class="arrow" aria-hidden="true"></span></button>
+        </th>
+      </tr>
+    </thead>
+    <tbody id="dir-tbody">
+      {rows.map((r) => (
+        <tr
+          data-name={r.name}
+          data-norm={norm(r.name)}
+          data-region={r.region}
+          data-rate={r.rate}
+          data-level={r.level}
+          data-cut={r.cut}
+        >
+          <td class="c-rank">{r.rank > 0 ? r.rank : '—'}</td>
+          <td class="c-name">
+            <span class="lvl-dot" style={`background:${r.color}`} aria-hidden="true"></span>
+            <a href={`${communeBase}${r.slug}/`}><span class="nm">{r.name}</span></a>
+            {r.low_population && <span class="lowpop">{t.dir_lowpop_tag}</span>}
+          </td>
+          <td class="c-region">{regionNames[r.region]}</td>
+          <td class="c-rate">
+            <span class="bar" aria-hidden="true"><span class="fill" style={`width:${r.bar}%;background:${r.color}`}></span></span>
+            <span class="rate-n">{r.rateLabel}</span>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <p class="dir-empty" id="dir-empty" hidden></p>
+  <p class="dir-note">{d.dir_source_note.replace('{year}', String(latestYear))}</p>
+
+  <script type="application/json" id="dir-data" is:inline set:html={JSON.stringify(scriptData).replace(/</g, '\\u003c')}></script>
+</div>
+
+<script>
+/**
+ * Directory controls — vanilla, no island.
+ * Shows/hides and REORDERS server-rendered <tr> nodes. Never builds a link.
+ */
+(function () {
+  const dataEl = document.getElementById('dir-data');
+  if (!dataEl) return;
+  const D = JSON.parse(dataEl.textContent || '{}');
+
+  const norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+  const tbody = document.getElementById('dir-tbody') as HTMLTableSectionElement;
+  const input = document.getElementById('dir-q') as HTMLInputElement;
+  const regionSel = document.getElementById('dir-region') as HTMLSelectElement;
+  const nearBtn = document.getElementById('dir-near') as HTMLButtonElement | null;
+  const countEl = document.getElementById('dir-count') as HTMLElement;
+  const emptyEl = document.getElementById('dir-empty') as HTMLElement;
+  const errorEl = document.getElementById('dir-error') as HTMLElement;
+  const chipsEl = document.getElementById('dir-chips') as HTMLElement;
+  const clearBtn = document.getElementById('dir-clear') as HTMLButtonElement;
+  const bands = Array.from(document.querySelectorAll('.dir-scale .band')) as HTMLButtonElement[];
+  const headBtns = Array.from(document.querySelectorAll('.dir-table thead button')) as HTMLButtonElement[];
+  if (!tbody) return;
+
+  type Row = { el: HTMLTableRowElement; name: string; norm: string; region: number; rate: number; level: number; cut: string };
+  const rows: Row[] = (Array.from(tbody.rows) as HTMLTableRowElement[]).map((el) => ({
+    el,
+    name: el.getAttribute('data-name') || '',
+    norm: el.getAttribute('data-norm') || '',
+    region: Number(el.getAttribute('data-region')),
+    rate: Number(el.getAttribute('data-rate')),
+    level: Number(el.getAttribute('data-level')),
+    cut: el.getAttribute('data-cut') || '',
+  }));
+  const total = rows.length;
+
+  // `sort` is the comparison key; `col` is the header that owns the arrow
+  // (# and Tasa share the 'rate' comparison but are distinct columns).
+  const state = { q: '', region: 0, level: 0, nearCut: '', sort: 'name', col: 'name', dir: 1 };
+  // rank 1 = highest rate, so "rank ascending" is "rate descending" (dir -1).
+  const DEFAULT_DIR: Record<string, number> = { name: 1, region: 1, rate: -1, rank: -1 };
+
+  function matchesScope(r: Row) {
+    return (!state.region || r.region === state.region);
+  }
+  function matches(r: Row) {
+    const nq = norm(state.q.trim());
+    if (nq && r.norm.indexOf(nq) < 0) return false;
+    if (state.level && r.level !== state.level) return false;
+    return matchesScope(r);
+  }
+
+  function compare(a: Row, b: Row) {
+    const dir = state.dir;
+    if (state.sort === 'name') return a.name.localeCompare(b.name, 'es') * dir;
+    if (state.sort === 'region') {
+      const d = (a.region - b.region) * dir;
+      return d !== 0 ? d : a.name.localeCompare(b.name, 'es');
+    }
+    // rate / rank — communes without a rate always sort last
+    if (!a.rate && !b.rate) return a.name.localeCompare(b.name, 'es');
+    if (!a.rate) return 1;
+    if (!b.rate) return -1;
+    const d = (a.rate - b.rate) * dir;
+    return d !== 0 ? d : a.name.localeCompare(b.name, 'es');
+  }
+
+  // T-11-05: slice the TRUSTED data-name around the match index; never inject the query.
+  function paint(r: Row) {
+    const nm = r.el.querySelector('.nm') as HTMLElement | null;
+    if (!nm) return;
+    const q = state.q.trim();
+    if (!q) { nm.textContent = r.name; return; }
+    const i = r.norm.indexOf(norm(q));
+    if (i < 0) { nm.textContent = r.name; return; }
+    nm.textContent = '';
+    nm.appendChild(document.createTextNode(r.name.slice(0, i)));
+    const mark = document.createElement('mark');
+    mark.textContent = r.name.slice(i, i + q.length);
+    nm.appendChild(mark);
+    nm.appendChild(document.createTextNode(r.name.slice(i + q.length)));
+  }
+
+  function setChip(key: string, label: string | null) {
+    const btn = chipsEl.querySelector('[data-chip="' + key + '"]') as HTMLButtonElement | null;
+    if (!btn) return;
+    if (label === null) { btn.hidden = true; return; }
+    (btn.querySelector('span') as HTMLElement).textContent = label; // textContent, never innerHTML
+    btn.hidden = false;
+  }
+
+  function render() {
+    const visible = rows.filter(matches).sort(compare);
+
+    const frag = document.createDocumentFragment();
+    rows.forEach((r) => { r.el.hidden = true; });
+    visible.forEach((r) => {
+      r.el.hidden = false;
+      paint(r);
+      r.el.classList.toggle('is-you', !!state.nearCut && r.cut === state.nearCut);
+      frag.appendChild(r.el);
+    });
+    tbody.appendChild(frag);
+
+    countEl.textContent = D.count.replace('{n}', String(visible.length));
+
+    if (visible.length === 0) {
+      emptyEl.textContent = D.empty.replace('{q}', state.q.trim());
+      emptyEl.hidden = false;
+    } else {
+      emptyEl.hidden = true;
+    }
+
+    // Band counts follow the region scope, not the level filter itself.
+    const scope = rows.filter(matchesScope);
+    bands.forEach((b) => {
+      const lv = Number(b.getAttribute('data-level'));
+      const n = scope.filter((r) => r.level === lv).length;
+      b.style.flexGrow = String(Math.max(n, 0.6));
+      (b.querySelector('.band-n') as HTMLElement).textContent = String(n);
+      b.setAttribute('aria-pressed', state.level === lv ? 'true' : 'false');
+      b.classList.toggle('dim', state.level !== 0 && state.level !== lv);
+    });
+
+    setChip('q', state.q.trim() ? '“' + state.q.trim() + '”' : null);
+    setChip('region', state.region ? D.regions[state.region] : null);
+    setChip('level', state.level ? D.bands[state.level - 1] : null);
+    setChip('near', state.nearCut ? D.nearChip.replace('{name}', D.cutMeta[state.nearCut].name) : null);
+    chipsEl.hidden = !(state.q.trim() || state.region || state.level || state.nearCut);
+
+    headBtns.forEach((b) => {
+      const key = b.getAttribute('data-sort');
+      const th = b.parentElement as HTMLElement;
+      const on = key === state.col;
+      // The # column is sorted by rate; its ascending direction is rate-descending.
+      const asc = key === 'rank' ? state.dir === -1 : state.dir === 1;
+      th.setAttribute('aria-sort', on ? (asc ? 'ascending' : 'descending') : 'none');
+      b.classList.toggle('on', on);
+      (b.querySelector('.arrow') as HTMLElement).textContent = on ? (asc ? '↑' : '↓') : '';
+    });
+
+    regionSel.classList.toggle('on', !!state.region);
+  }
+
+  input.addEventListener('input', () => { state.q = input.value; render(); });
+  regionSel.addEventListener('change', () => { state.region = Number(regionSel.value); render(); });
+  clearBtn.addEventListener('click', () => {
+    state.q = ''; state.region = 0; state.level = 0; state.nearCut = '';
+    input.value = ''; regionSel.value = '0'; errorEl.hidden = true;
+    if (nearBtn) nearBtn.classList.remove('on');
+    render();
+  });
+
+  chipsEl.querySelectorAll('[data-chip]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const k = btn.getAttribute('data-chip');
+      if (k === 'q') { state.q = ''; input.value = ''; }
+      if (k === 'region') { state.region = 0; regionSel.value = '0'; }
+      if (k === 'level') state.level = 0;
+      if (k === 'near') { state.nearCut = ''; if (nearBtn) nearBtn.classList.remove('on'); }
+      render();
+    });
+  });
+
+  bands.forEach((b) => {
+    b.addEventListener('click', () => {
+      const lv = Number(b.getAttribute('data-level'));
+      state.level = state.level === lv ? 0 : lv;
+      render();
+    });
+  });
+
+  headBtns.forEach((b) => {
+    b.addEventListener('click', () => {
+      const key = b.getAttribute('data-sort') || 'name';
+      const sortKey = key === 'rank' ? 'rate' : key;
+      if (state.col === key) state.dir = -state.dir;
+      else { state.dir = DEFAULT_DIR[key]; }
+      state.sort = sortKey;
+      state.col = key;
+      render();
+    });
+  });
+
+  if (nearBtn) {
+    nearBtn.addEventListener('click', () => {
+      errorEl.hidden = true;
+      if (state.nearCut) {
+        state.nearCut = ''; state.region = 0; regionSel.value = '0';
+        nearBtn.classList.remove('on');
+        render();
+        return;
+      }
+      if (!navigator.geolocation) { errorEl.textContent = D.nearDenied; errorEl.hidden = false; return; }
+      nearBtn.classList.add('loading');
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          nearBtn.classList.remove('loading');
+          const { latitude: la, longitude: lo } = pos.coords;
+          let best = null as null | { cut: string; d: number };
+          for (const c of D.centroids) {
+            const dx = (c.lng - lo) * Math.cos((la * Math.PI) / 180);
+            const dy = c.lat - la;
+            const dist = dx * dx + dy * dy;
+            if (!best || dist < best.d) best = { cut: c.cut, d: dist };
+          }
+          if (!best || !D.cutMeta[best.cut]) { errorEl.textContent = D.nearDenied; errorEl.hidden = false; return; }
+          state.nearCut = best.cut;
+          state.region = D.cutMeta[best.cut].region;
+          regionSel.value = String(state.region);
+          state.sort = 'rate'; state.col = 'rate'; state.dir = 1;
+          nearBtn.classList.add('on');
+          render();
+        },
+        () => {
+          nearBtn.classList.remove('loading');
+          errorEl.textContent = D.nearDenied;
+          errorEl.hidden = false;
+        },
+        { timeout: 8000, maximumAge: 300000 }
+      );
+    });
+  }
+
+  // ?q= deep link (T-12-01: assign to input.value only, never innerHTML)
+  const initialQ = new URLSearchParams(window.location.search).get('q');
+  if (initialQ) { state.q = initialQ; input.value = initialQ; }
+
+  render();
+})();
+</script>
+
+<style>
+  .dir-wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: var(--lg);
+  }
+
+  h1 { font-size: var(--text-display); font-weight: var(--weight-strong); margin-bottom: var(--sm); }
+  .dir-lead { color: var(--muted); margin-bottom: var(--md); max-width: 680px; }
+
+  /* ---------- Toolbar: one 48px row of controls ---------- */
+  .dir-toolbar {
+    position: sticky;
+    top: 64px;
+    z-index: 10;
+    background: var(--bg);
+    padding: 12px 0 10px;
+  }
+
+  .dir-controls { display: flex; gap: var(--sm); align-items: center; flex-wrap: wrap; }
+
+  .dir-search {
+    display: flex;
+    align-items: center;
+    gap: var(--sm);
+    flex: 1;
+    min-width: 220px;
+    height: 48px;
+    padding: 0 14px;
+    background: var(--card);
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+  }
+  .dir-search:focus-within { border-color: var(--primary); }
+  .dir-search input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: var(--text-body);
+    color: var(--ink);
+    width: 100%;
+  }
+
+  #dir-region {
+    height: 48px;
+    padding: 0 34px 0 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    background-color: var(--card);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%235d6c6d' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+  }
+  #dir-region.on { border-color: var(--primary); background-color: color-mix(in srgb, var(--primary) 8%, var(--card)); color: var(--primary); }
+
+  .dir-near {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sm);
+    height: 48px;
+    padding: 0 18px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    cursor: pointer;
+  }
+  .dir-near.on { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .dir-near.loading { opacity: 0.6; pointer-events: none; }
+
+  /* ---------- Quintile strip: legend + level filter + distribution ---------- */
+  .dir-scale-row { display: flex; align-items: center; gap: var(--sm); margin-top: 10px; }
+
+  .dir-scale {
+    display: flex;
+    flex: 1;
+    height: 26px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .band {
+    border: none;
+    cursor: pointer;
+    flex-basis: 0;
+    min-width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    transition: opacity 0.15s;
+  }
+  .band.dim { opacity: 0.28; }
+  .band[aria-pressed='true'] { box-shadow: inset 0 0 0 2px var(--ink); }
+
+  .dir-scale-hint { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .dir-count { font-size: var(--text-label); font-weight: var(--weight-strong); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  /* ---------- Active-filter chips ---------- */
+  .dir-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 10px; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    height: 30px;
+    padding: 0 8px 0 12px;
+    border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--card));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--primary) 8%, var(--card));
+    color: var(--primary);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: var(--weight-strong);
+    cursor: pointer;
+  }
+  .chip i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    font-size: 11px;
+    font-style: normal;
+    line-height: 1;
+  }
+  .chip-clear {
+    border: none;
+    background: none;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: var(--weight-strong);
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0 6px;
+  }
+
+  .dir-error { margin-top: 8px; font-size: var(--text-label); color: var(--trend-up); }
+
+  /* ---------- Table ---------- */
+  .dir-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-top: var(--md);
+  }
+
+  .dir-table thead th {
+    text-align: left;
+    padding: 0;
+    border-bottom: 1px solid var(--line);
+    background: var(--card);
+    font-weight: var(--weight-strong);
+  }
+  .dir-table thead button {
+    width: 100%;
+    height: 42px;
+    padding: 0 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: var(--weight-strong);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+  }
+  .dir-table thead button.on { color: var(--primary); }
+  .dir-table thead .arrow { margin-left: 4px; }
+  .dir-table thead th:first-child button { padding-left: 16px; }
+  .dir-table thead th.c-rate button { text-align: right; padding-right: 16px; }
+
+  .dir-table tbody tr { position: relative; border-bottom: 1px solid color-mix(in srgb, var(--line) 55%, var(--card)); }
+  .dir-table tbody tr:hover { background: var(--bg); }
+  .dir-table tbody tr.is-you { background: color-mix(in srgb, var(--primary) 7%, var(--card)); }
+  .dir-table td { padding: 0 8px; height: 46px; vertical-align: middle; }
+
+  td.c-rank { width: 56px; padding-left: 16px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  td.c-name { display: flex; align-items: center; gap: 9px; height: 46px; min-width: 0; }
+  td.c-name a { color: var(--ink); text-decoration: none; min-width: 0; }
+  /* Whole row is the hit area — the <a> stays the single semantic link. */
+  td.c-name a::after { content: ''; position: absolute; inset: 0; }
+  td.c-name a:hover .nm { text-decoration: underline; }
+  .nm { font-weight: var(--weight-strong); font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+  .lvl-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .lowpop { font-size: 10px; background: var(--line); color: var(--muted); border-radius: 4px; padding: 1px 5px; flex-shrink: 0; }
+  td.c-region { width: 190px; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  td.c-rate { width: 300px; padding-right: 16px; }
+  td.c-rate { text-align: right; white-space: nowrap; }
+  .bar { display: inline-block; position: relative; width: 190px; height: 8px; border-radius: 999px; background: var(--bg); overflow: hidden; vertical-align: middle; }
+  .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; }
+  .rate-n { display: inline-block; width: 62px; margin-left: 12px; text-align: right; font-size: var(--text-label); font-weight: var(--weight-strong); font-variant-numeric: tabular-nums; }
+
+  .dir-empty { color: var(--muted); padding: var(--xl); text-align: center; }
+  .dir-note { margin-top: 12px; font-size: 12px; color: var(--muted); }
+
+  mark { background: #ffe9a8; padding: 0 1px; }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  /* ---------- Narrow screens: drop the region column and the bar ---------- */
+  @media (max-width: 760px) {
+    .dir-wrap { padding: var(--md); }
+    .dir-scale-hint { display: none; }
+    th.c-region, td.c-region { display: none; }
+    td.c-rate, th.c-rate { width: 96px; }
+    .bar { display: none; }
+    .rate-n { margin-left: 0; }
+    .dir-search { flex-basis: 100%; }
+  }
+</style>
