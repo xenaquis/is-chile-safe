@@ -475,6 +475,14 @@ const jsonLd = {
       const regionCountEl = document.getElementById('news-region-count');
 
       let active: FilterParams = parseFilterParams(window.location.search);
+      // `day` y `window` son predicados de fecha mutuamente excluyentes (ver los
+      // manejadores más abajo, que dan precedencia a `day` sobre `window`). Una
+      // URL editada a mano o compartida no debe llegar a un estado que la UI no
+      // puede producir ni explicar: normalizar una sola vez, justo tras el parseo.
+      if (active.day) active = { ...active, window: '' };
+      // Descartar un día fijado que no está en la ventana del histograma
+      // renderizado — filtraría a una lista vacía sin ningún bar activo visible.
+      if (active.day && !dayKeys.includes(active.day)) active = { ...active, day: '' };
 
       // Pre-poblar controles desde los params parseados (T-12-01: solo asignación de value, nunca innerHTML)
       filtersEl.querySelectorAll<HTMLInputElement>('input[name="window"]').forEach((input) => {

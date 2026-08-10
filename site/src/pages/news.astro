@@ -476,6 +476,14 @@ const jsonLd = {
       const regionCountEl = document.getElementById('news-region-count');
 
       let active: FilterParams = parseFilterParams(window.location.search);
+      // `day` and `window` are mutually exclusive date predicates (see the
+      // handlers below, which give `day` precedence over `window`). A
+      // hand-edited or shared URL must not reach a state the UI cannot
+      // produce or explain: normalise once, immediately after parsing.
+      if (active.day) active = { ...active, window: '' };
+      // Drop a pinned day that is not in the rendered histogram window —
+      // it would filter to an empty list with no bar ever shown as active.
+      if (active.day && !dayKeys.includes(active.day)) active = { ...active, day: '' };
 
       // Pre-populate controls from parsed params (T-12-01: value assignment only, never innerHTML)
       filtersEl.querySelectorAll<HTMLInputElement>('input[name="window"]').forEach((input) => {
