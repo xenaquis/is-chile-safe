@@ -22,6 +22,7 @@ import { levelForRate, INCIDENCE_COLORS } from '../lib/colorScale.ts';
 import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
 import { DIR_EN, DIR_ES } from '../config/directoryStrings.ts';
 import fs from 'node:fs';
+import path from 'node:path';
 
 interface Props {
   lang: 'en' | 'es';
@@ -101,8 +102,11 @@ const bandCounts = [1, 2, 3, 4, 5].map((lv) => base.filter((r) => r.level === lv
  */
 let centroids: Array<{ cut: string; lat: number; lng: number }> = [];
 try {
+  // Resolve from cwd (site/), NOT import.meta.url: at build time the module
+  // URL points into the bundle, so the read silently fails and the button
+  // disappears from the built page while dev looks fine.
   centroids = JSON.parse(
-    fs.readFileSync(new URL('../data/comuna-centroids.json', import.meta.url), 'utf8')
+    fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'comuna-centroids.json'), 'utf8')
   );
 } catch {
   centroids = [];
@@ -407,7 +411,12 @@ const scriptData = {
       if (k === 'q') { state.q = ''; input.value = ''; }
       if (k === 'region') { state.region = 0; regionSel.value = '0'; }
       if (k === 'level') state.level = 0;
-      if (k === 'near') { state.nearCut = ''; if (nearBtn) nearBtn.classList.remove('on'); }
+      // "Near me" also sets the region scope, so its chip clears both —
+      // same as toggling the button off.
+      if (k === 'near') {
+        state.nearCut = ''; state.region = 0; regionSel.value = '0';
+        if (nearBtn) nearBtn.classList.remove('on');
+      }
       render();
     });
   });
@@ -623,6 +632,10 @@ const scriptData = {
     font-style: normal;
     line-height: 1;
   }
+  /* `hidden` is the script's only hide mechanism; an author `display`
+     otherwise beats the UA [hidden]{display:none} rule. */
+  .dir-chips[hidden],
+  .chip[hidden] { display: none; }
   .chip-clear {
     border: none;
     background: none;
