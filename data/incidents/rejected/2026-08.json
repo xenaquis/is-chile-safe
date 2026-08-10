@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-10T12:59:27.137016+00:00",
+  "generated": "2026-08-10T18:53:07.494316+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -4620,6 +4620,306 @@
       "description": "Kast detalla régimen que busca aplicar al crimen organizado: “Aislamiento casi total”, visitas por locutorio y sin encomiendas&nbsp;&nbsp;CNN Chile",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-08-10T12:59:27.137016+00:00"
+    },
+    {
+      "id": "b0dc7cdd97ebc790",
+      "url": "https://www.latercera.com/politica/noticia/avanza-en-comision-de-constitucion-del-senado-proyecto-que-busca-establecer-tests-de-drogas-en-la-camara-alta/",
+      "outlet": "LaTercera",
+      "date": "2026-08-10",
+      "title": "Avanza en comisión de Constitución proyecto que busca establecer tests de drogas en el Senado",
+      "description": "Esta jornada el secretario general del Senado, Luis Rojas, dio a conocer frente a la comisión sus principales observaciones y recomendaciones para el proyecto.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "58383ee706698bde",
+      "url": "https://www.latercera.com/mundo/noticia/estados-unidos-revoca-el-visado-a-mas-de-175000-personas-en-mas-de-ano-y-medio-de-mandato-de-trump/",
+      "outlet": "LaTercera",
+      "date": "2026-08-10",
+      "title": "Estados Unidos revoca el visado a más de 175.000 personas en más de año y medio de mandato de Trump",
+      "description": "El Departamento de Estado ha precisado en un comunicado que ha tomado esta medida contra “ciudadanos extranjeros que infringieron las condiciones de sus visados, cometieron delitos, incitaron a la violencia contra ciudadanos estadounidenses\", entre otras causas.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "50b24a3c743cfe06",
+      "url": "https://www.latercera.com/politica/noticia/senador-longton-muestra-sus-dudas-por-nuevo-estado-de-excepcion-y-la-reforma-constitucional-de-la-agenda-de-seguridad-de-kast/",
+      "outlet": "LaTercera",
+      "date": "2026-08-10",
+      "title": "Senador Longton muestra sus dudas por nuevo estado de excepción y la reforma constitucional de la agenda de seguridad de Kast",
+      "description": "Entre los proyectos de la Agenda contra el Crimen Organizado y el Terrorismo (ACOT) del gobierno de José Antonio Kast se espera realizar una modificación constitucional que establezca la seguridad pública como deber del Estado. \"Lo veo como algo más simbólico\", señaló al respecto el parlamentario.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "794b9f214f96702a",
+      "url": "https://www.latercera.com/pulso/noticia/defensa-de-michael-clark-afirma-que-no-formaba-parte-del-circulo-de-confianza-de-sartor/",
+      "outlet": "LaTercera",
+      "date": "2026-08-10",
+      "title": "Defensa de Michael Clark afirma que no formaba parte del “círculo de confianza” de Sartor",
+      "description": "En representación del ex presidente de Azul Azul expusieron este lunes, durante la octava jornada de formalización, sus abogados Bernardo Rosenberg y Karen Clark. El primero afirmó que Clark no fera socio, ni tenía correo o teléfono corporativo del grupo financiero.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "bcea1840180b47c2",
+      "url": "https://www.latercera.com/nacional/noticia/comite-policial-ingresos-irregulares-detectados-en-la-frontera-han-disminuido-un-867/",
+      "outlet": "LaTercera",
+      "date": "2026-08-10",
+      "title": "Comité policial: Ingresos irregulares detectados en la frontera han disminuido un 86,7%",
+      "description": "Tras el comité policial, la subsecretaria de Seguridad Pública, realizó un balance en materia de seguridad. Según informó al 2 de agosto, se han registrado 513 víctimas de homicidio, mientras que los robos violentos han disminuido un 12,6%.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "a1364f9d18c96624",
+      "url": "https://www.latercera.com/mundo/noticia/de-la-espriella-activa-comite-nacional-de-emergencia-tras-sismo-de-magnitud-74-que-deja-al-menos-18-muertos/",
+      "outlet": "LaTercera",
+      "date": "2026-08-10",
+      "title": "De la Espriella activa comité nacional de emergencia tras sismo de magnitud 7,4 que deja al menos 18 muertos",
+      "description": "El Presidente de Colombia se trasladará a Pereira, una de las ciudades más afectadas por el movimiento telúrico, con el objetivo de supervisar de manera directa las labores de atención y respuesta.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "45fc9abb099a65da",
+      "url": "https://www.latercera.com/nacional/noticia/nunca-hemos-sido-contactados-ni-llamados-parisi-se-defiende-de-investigacion-donde-figura-como-sujeto-de-interes/",
+      "outlet": "LaTercera",
+      "date": "2026-08-10",
+      "title": "“Nunca hemos sido contactados ni llamados”: Parisi se defiende de investigación donde figura como sujeto de interés",
+      "description": "La Fiscalía investiga una causa por lavado de activos y fraude de subvenciones, donde el excandidato del PDG figura como sujeto de interés. Al respecto, Parisi dijo no manejar \"ningún antecedente\" del caso.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "d9f3592cef6fd6bb",
+      "url": "https://www.latercera.com/politica/noticia/kast-firma-reforma-constitucional-de-agenda-de-seguridad-y-pide-al-congreso-un-debate-rapido-y-con-altura-de-miras/",
+      "outlet": "LaTercera",
+      "date": "2026-08-10",
+      "title": "Kast firma reforma constitucional de agenda de seguridad y pide al Congreso un debate “rápido y con altura de miras”",
+      "description": "El Presidente invitó a todas las corrientes políticas a \"pensar en Chile, a pensar en las familias chilenas, a pensar en las personas que hoy día se ven afectadas por el crimen organizado y por el terrorismo”.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "9d262b848733779b",
+      "url": "https://www.latercera.com/nacional/noticia/desarticulan-organizacion-dedicada-al-trafico-ilicito-de-migrantes-y-facilitacion-de-la-prostitucion/",
+      "outlet": "LaTercera",
+      "date": "2026-08-10",
+      "title": "Desarticulan organización dedicada al tráfico ilícito de migrantes y facilitación de la prostitución: hay tres sujetos detenidos",
+      "description": "A raíz del operativo, fueron rescatadas 13 mujeres mayores de edad, de nacionalidad argentina, colombiana, venezolana y chilena.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "104333dd28032e18",
+      "url": "https://www.lacuarta.com/glamorama/noticia/yo-queria-que-el-me-hablara-porque-pense-que-podria-haber-estado-muerto-neme-se-quebro-al-recordar-accidente/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-10",
+      "title": "“Yo quería que él me hablara, porque pensé que podría haber estado muerto”: Neme se quebró al recordar accidente",
+      "description": "",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "aec60c2808e5ab79",
+      "url": "https://www.lacuarta.com/espectaculos/noticia/cata-pulido-responde-con-todo-tras-feas-burlas-de-italo-omegna-tras-retractarse-de-su-defensa-recordo-a-hijo-fallecido/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-10",
+      "title": "Cata Pulido responde con todo tras feas burlas de Ítalo Omegna tras retractarse de su defensa: recordó a hijo fallecido",
+      "description": "“La vida ya me ha quitado demasiado como para desperdiciarla en miedo”, expuso la intérprete.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "08008da347840e9c",
+      "url": "https://www.lacuarta.com/mundo/noticia/las-claves-del-juicio-contra-el-acusado-por-el-asesinato-de-tupac-shakur/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-10",
+      "title": "Las claves del juicio contra el acusado por el asesinato de Tupac Shakur",
+      "description": "Duane “Keffe D” Davis será juzgado por el crimen ocurrido en Las Vegas en septiembre de 1996. La fiscalía utilizará como parte central de su caso el libro, las entrevistas y otras declaraciones en las que relató durante años su presunta participación.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "ee168cbf1f30f1d9",
+      "url": "https://www.lacuarta.com/chile/noticia/cae-extranjero-tras-asesinato-de-mujer-en-valle-del-elqui-lo-que-pillaron-entre-sus-pertenencias-terminaria-condenandolo/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-10",
+      "title": "Cae extranjero tras asesinato de mujer en Valle del Elqui: lo que pillaron entre sus pertenencias terminaría condenándolo",
+      "description": "Sujeto huyó en bicicleta, pero fue divisado por un testigo durante la mañana de este lunes.",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "3acc3883ed54bea7",
+      "url": "https://www.lacuarta.com/chile/noticia/no-se-cuestiona-hacer-un-esfuerzo-de-empatia-gloria-naveillan-reacciona-a-pregunta-de-periodista-y-repasa-a-campillai/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-10",
+      "title": "“¿No se cuestiona hacer un esfuerzo de empatía?“: Gloria Naveillán reacciona a pregunta de periodista y repasa a Campillai",
+      "description": "“¿Cómo la ha pasado Patricio Maturana? ¿Tú crees que a él no se le ha revictimizado?“, cuestionó la diputada a su entrevistador, a propósito del carabinero que cegó a la senadora.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "323ffb9ae814577a",
+      "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxQN3VwTW10LU52NDJ4VWVxdUo0OGNzWVM0NUt2MF9KeVZZZUtZV2txeTQ3Tm9WLTBvdVVja3pRMFRMdXZVNHoxaXg1Mld1RjJMb25WVHhUTW54RUpZMkUwa0NlWS0tb2ZzN1IyV0t6QWN0UzJ1YWNUMWtqenJkdTRxbmFjVzFEVERmeEFhNDIzREJOU2w3Qm1Vc3RoN1Mwak8zRlpZSUxIcElOTFczdUpJTXdCSTRZajc3R29lQ2ZNZTFTdlZxeFdCSk5feFdLWkhQOEJYVGVaRk1DV3hSUkRBTTNrQUQ0d2R5SndfMGNCSFYzVFhON3g4RjFqOA?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-08-10",
+      "title": "Kast defiende llevar el crimen organizado a la Constitución y emplaza al Congreso a tramitar rápido - BioBioChile",
+      "description": "Kast defiende llevar el crimen organizado a la Constitución y emplaza al Congreso a tramitar rápido&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "14feaccd2ca012a6",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNN2hrdkE2U2g1TmVvc0phYnJINFlrZjNJaW1oRjJYcWRXM3NYQVZnbDdMTHpLSktyY1B2am5oR0cyUzktWmo4bVRSa21oM2RpcUhMc2U3THMtckpKT2ZlZUUyTndCTHdDTGJDOE1wWUtzNWN5QmpKMEZUSzRFTV9kZDN0eF9pSHlPN3BuN1NvOG1iYlFTVDI3N3FTR0lKMXVCRU41U3Vn?oc=5",
+      "outlet": "Sabes.cl",
+      "date": "2026-08-10",
+      "title": "Kast presenta reforma constitucional en el marco de la agenda contra el crimen organizado - Sabes.cl",
+      "description": "Kast presenta reforma constitucional en el marco de la agenda contra el crimen organizado&nbsp;&nbsp;Sabes.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "5954f3cc5c65dfde",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQaU9fOGxGekIxb2FacVBWWDByQlo4ZnBONkRVWmNwMzJ6ejVEUFNMR2txUV9NYlJtYkRyRnlOUXdNdWc2Y014ekxHZGdRbTl5TTc3OUVfVDRjQWtnZ19wd0ZWNXFVVlJqeU1mdXpZYUFtLUdkNTk0cDlmSlNMSUZhaW5fNHkzRUhXaGd5QURqUWpjdDc2WGhEZlNfdWx2aEh5RXBCOUlsZmVKZFQ0Q0xrT042ZHhBajVfLUE?oc=5",
+      "outlet": "radiosonora.com.mx",
+      "date": "2026-08-10",
+      "title": "Presenta José Antonio Kast reforma constitucional contra el crimen organizado en Chile - radiosonora.com.mx",
+      "description": "Presenta José Antonio Kast reforma constitucional contra el crimen organizado en Chile&nbsp;&nbsp;radiosonora.com.mx",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "be29e3114452db44",
+      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPX2M2NmhoRnRwaTlBb01naHhGajBOQzdyWWo3S1U4VEVaODJsMVJ1YlVfMkI1MmstR0tFTndBR2NLV0FyZUlRU2paUlczNUJPY0QzM0M4UnRuS1Y1YjJYcXZMSEtDYk5GbFIwME1UNjUzaHlRZGJyLVZNT1JfbjhCSGZVYUlHaURhcVFVYlNtWEVHekVpdHJvNWxTNm1JNGI1Vi1adHByQjBmLUplY0JiMk43OHVqZDdoT3p6Tl8yWTVxWEZ6UzNSRmZ2RW9FdmMzeUhHN1kwNjNRd9IB4gFBVV95cUxOV05vaHZZTTQzZmhpOWtXbG5aUGR2SEtOc0ZVbVpjc05OLWJod2Z4ZVZ2ckJQRmpNM1pzVWZNZFNfZ1BBQ2RPMUNtY19oOE9TQ0YtRW01SWxuVVlpOEctVzc5R0VReEx1VUN6UEpZb1JCSFQta3VNY2ZaTlY4clBQbDVBdXhmMWVBV2xQd1VDYUhJNUZhb1FCTTBvaXZtc0h3WHIyX1UtLTQzU2FaNHZFdVQ5a09rdVg1OTRPcFpVWGIzYVlXa1czajI2VGd2N1hEWHVPVDRiWGFJQzZYSEw3UTVn?oc=5",
+      "outlet": "latribuna.cl",
+      "date": "2026-08-10",
+      "title": "Kast firma reforma constitucional para reforzar la seguridad y combatir al crimen organizado - latribuna.cl",
+      "description": "Kast firma reforma constitucional para reforzar la seguridad y combatir al crimen organizado&nbsp;&nbsp;latribuna.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "2b60e3f59a612a34",
+      "url": "https://news.google.com/rss/articles/CBMihgJBVV95cUxNNmRYa003YUg0TUhtZUhKcTVKRUFtLWZQSnZ5cnpOTV9xU2lyd2Y2SVNkQ0F5VmhKdlJxUFlGblcycW55WEZCcUUyMTZMM190ZHRmWFRkV0FrN1dzbFZqQ19QNzJfSnBkYnJZTmNUUzRfV2JrdGpSbzRYbFhhckEyeXo4QjQ3Wm90Ynh1NVJRam94Rk9oNjY3YXRLaFpjMjhqQU1IRW5LNFltNWNXWHRwdHhsOTd1WWU1ODBiMmpfZnVUME1wWC1SYWJMcl93ZDlqVmFKa3lTeDlhNl9EZzJDcWVIM1V1LWFWdTJWMldMV0ZGakl0TU9IZVNZd2pIcWNUZFVrR2RR?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-08-10",
+      "title": "Detienen a extranjero presuntamente involucrado en homicidio de mujer en pleno Valle del Elqui - BioBioChile",
+      "description": "Detienen a extranjero presuntamente involucrado en homicidio de mujer en pleno Valle del Elqui&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "18dac9e5384ddeac",
+      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNQ1JFanA1ckVDUUE4TFMxWW40bTNaX0V2TmVlbUxRRkdUNjNNSGhDTlZ4emNXRFhQOXFqcnFWQjVhVEVVRWdrTmthMHZNcFRPMUZpWTJMcmZRZGpndnV6STdjQk1qTVh6MlI0TUpGN1BtLVRnM1ZSZmYzSE50bEM5eXJVT0JDVXpTbVMwZDNiLXVvUQ?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-08-10",
+      "title": "Kast detalló proyecto de seguridad contra crimen organizado: sin encomiendas y aislamiento \"casi total\" - SoyChile.cl",
+      "description": "Kast detalló proyecto de seguridad contra crimen organizado: sin encomiendas y aislamiento \"casi total\"&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "bac5ecf9d8104e7d",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPOE82dzVFYW92bkc2cW0zS1FhZktEQWpoX29mSGduLXNIcEFmdktFNDRobHpITlh2TERWOTJmS0ZsSmNoRWliQ244NjZoX1JBMTJ3a0pNSUNRcVRKSDZnR0tIb05xWmdsZUV3ZnJkX2VwNGpvZS1kby1YNjUtR1Nycnh5aXJLTDFZUHFnYjB4X0Z2d01EWDRNWWNiMFFqY3NVYkVYU1FWZEtyekNPUUJkVWsycll0Z0hhYk9V?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-08-10",
+      "title": "Suprema confirma condena de exteniente de Carabineros por homicidio de joven calerano - SoyChile.cl",
+      "description": "Suprema confirma condena de exteniente de Carabineros por homicidio de joven calerano&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "065abb24f60a9a67",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPNzMwaExHN1dYRXFFcERIRTFzWkt1M21MdF90b1V1YmFhNmdKTzI1Q3Y2OUROOXlnT1lNQUNjQ2FkTUdzOFhlRmlfNTFkZUpPTkFLMmN1VlNoOEZvVVlrNUpfc1hvTUR5anVPamFwM21hbDc2dU1hWUh4ZHVIcXNqZnJaNWJfTWotOTBFcUdSdkpVT2lNWFNlbGZONmRkWTjSAaQBQVVfeXFMTjB4LURESTUtUC1US2dGWnBqalZuLWtTZWxIVjB6UzlzN0xiNU8yZy1YZjdiZlNsUGxTYjliX0pRQndXVngxc1NVZVhWTm1uUWhtYTBZdTZKY0ZLQ0ktUUozd2pqR2tUU0RKcHZfQm1fZTBYTlR0THpzUFYyM3NVQUtCTndDTVFsTTR5d05sMGk1clVtSDlVNm9WSFlYYlZDanZEcVU?oc=5",
+      "outlet": "América TV",
+      "date": "2026-08-10",
+      "title": "Sujeto es capturado por homicidio en el Callao - América TV",
+      "description": "Sujeto es capturado por homicidio en el Callao&nbsp;&nbsp;América TV",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "6b5580eac41c9a6a",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNWU43a1RKSTdDTEtYZGVfMHdXSGllQkpZS1RWd0VBQ0U3X0wzc2hhZWVEaDVvOVJ5YXRfSGdzTG1UMTliYUhFcHJrZVV3Z0VyS3BpeThWREhESG16Ri1EZVhXQ0ItWXpsMHlhWjhqSnliRGRTdV9MNm9UQkRwNEJ0bkY1LXprMG5NVU16ek5KZGo?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-08-09",
+      "title": "Dictan prisión preventiva para tres de los detenidos por asalto frustrado a escolta de ex ministro Cordero - SoyChile.cl",
+      "description": "Dictan prisión preventiva para tres de los detenidos por asalto frustrado a escolta de ex ministro Cordero&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "bd440103d266e9ff",
+      "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxQNVAtTTNwcEp5TTNBMzBEamtGeVdrSkhsRG0zU0NNZmNRTkktY3dxanl0V3paWkJHdE9KSnBzR1NBck54QW1IZWZoT3cyS2NtSUtsTlVCZTdKU0xLQm9OMFBuamJEdDlUQ0VyazN1MUZmRmZ0bm43VGs1ZGdVNkU2Y0c2VFZHSFdhVGZTbXRLWFpNdEhsT2ZnMG5sMzNrZTVMUDNwRUl1b1I3M2ZfOGlaTGNLM2NfZm9HSHgxOVRkbGxkY3czcTZfU2ZrVDZ4M1Niclk1ZGRudDdBcjZ2aGxIVVFsWkRzc2p5YVRwbUR3?oc=5",
+      "outlet": "Chilevisión",
+      "date": "2026-08-07",
+      "title": "Hurto en colegio destapó caso de abuso sexual infantil: Dos hombres fueron detenidos simultáneamente en el norte - Chilevisión",
+      "description": "Hurto en colegio destapó caso de abuso sexual infantil: Dos hombres fueron detenidos simultáneamente en el norte&nbsp;&nbsp;Chilevisión",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "0a236135e116fc44",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOaTRpRUxKeE1NN0lkdFpTZHhVZUxfU0t2dE02YUVYaEpNa25sZ3BYRFQ2NzVhMDBxS3ZmYVdLMjJUa3NFV0ZnOHFWRFNHWC1LR2g1MFZPNVlaOC1fRDByelktX1J0cEw0MFlaZXc4emg5UENWaXVMWEZ4T0VLT2tSQ2I1aFdDYWU2ZUkyR1FVZmZHYTNadUpkUmo5cTc1RkNzV3NnMlp6NmVXSlZwWU1FNnV1SFVCY1FORXBnTW1TR0NDZmNWc2IyOTIzZHRhQzNsRGxreXdoUmNXZkow?oc=5",
+      "outlet": "El Serenense",
+      "date": "2026-08-10",
+      "title": "Carabineros despliega trabajo investigativo para esclarecer robo con violencia en Las Compañías - El Serenense",
+      "description": "Carabineros despliega trabajo investigativo para esclarecer robo con violencia en Las Compañías&nbsp;&nbsp;El Serenense",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "34c2dd5567868052",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOczZQd0NHd0JGNDR1dklmZGxFNFNZSW5GS3p5aUdhWThtNDFUckNsRXRva3RTaGh1NW9PVVpvWlNVUXJkYU5DRTdHS21jdjFSNjY3Zkh4N2tNQlJLYXYyRXpkeTNwVmtmWHdQN2x2Z1UzaVRiSlZadHBTSDlOU2ZfQ0MtVlU4SUVjeFNmbE1hX0dqODFLX3g0YTlkZjlLWVdSRm9vb1dYOEhsYnVpRUFV?oc=5",
+      "outlet": "Mi Radio",
+      "date": "2026-08-10",
+      "title": "Homicidio en Diaguitas: Mujer falleció tras ser atacada con un arma blanca - Mi Radio",
+      "description": "Homicidio en Diaguitas: Mujer falleció tras ser atacada con un arma blanca&nbsp;&nbsp;Mi Radio",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "f1f59fc0bd76be70",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQanV6aFFNU0tiLVdEYjNxUm9McXE3OE1hLUs2OG14UFlhTi04eEV2VVZNLUxzWElmcVlhUmMwbzBWRUI5X1pPcXNHdXEwRTJDQnR5ampXTVppbjJ6Y0NXMG5hTHk0bldBVzY3NHVpRUpqZ1JBZXFIQWQyRnp2ckw5anJ3cHhqZ0p2OGFpajg4bWZUZnIwdzk3TV9lRXVpX3J6N3JWV0lPOHBuNnhMdTA5N2tjWlBHQUJ4S1A3UHh2Y3Axdw?oc=5",
+      "outlet": "Radio Riquelme",
+      "date": "2026-08-10",
+      "title": "Homicidio en Diaguitas: víctima muere tras ser atacada con un arma blanca frente a posta - Radio Riquelme",
+      "description": "Homicidio en Diaguitas: víctima muere tras ser atacada con un arma blanca frente a posta&nbsp;&nbsp;Radio Riquelme",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "e0b46b4241f87cc4",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPUWtCOTJCdUk1aXBVekdrMlgtN3NBUS1ST2Y3Tml2RllhbHdiazJiUldyTlNqQzVVc2dsSW54MWNJRy1ESE50bENiRHZpWU5GV3hJREJYcjNmZHBrRUE0M1htZWExRmIwZXhEbGh6VmU0WUJuUXRybkRVTXBMMWdXcFAxbmFEQWF4X290anJicmtYT0ZHM1dFNlFyNXMxYVVMTDBXVW5FTERsbEdjZ2c?oc=5",
+      "outlet": "El Reporte Diario",
+      "date": "2026-08-10",
+      "title": "Detienen a extranjero por presunto homicidio de mujer en Valle del Elqui - El Reporte Diario",
+      "description": "Detienen a extranjero por presunto homicidio de mujer en Valle del Elqui&nbsp;&nbsp;El Reporte Diario",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "88446bac76ca1acc",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5xYXU5M1cwTXpnMF8xY1d0Nk5nUC12YktNd1FhVDdKMEh6Q0phLVJXMVZBX1QzMGxCejRPWktmY1RhYlhkNkE5bTdnLU9YZjBhZW40VEhVRDhrS1lyVGI5M3F4WnM1dzlzZElrWUdfTVlacUN2a2dOaFNxM3dhZw?oc=5",
+      "outlet": "¡Radio Angelina!",
+      "date": "2026-08-10",
+      "title": "Delegado Presidencial Julio Anativia: \"En un 6% disminuyeron los delitos de Homicidio\" durante la última semana en la Región del Biobío - ¡Radio Angelina!",
+      "description": "Delegado Presidencial Julio Anativia: \"En un 6% disminuyeron los delitos de Homicidio\" durante la última semana en la Región del Biobío&nbsp;&nbsp;¡Radio Angelina!",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
+    },
+    {
+      "id": "1ce25d09ed72366f",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPU25PTjNIdzlhUFRyNHpsN0pPMWxoR21iRGpBcUNfMjhvb0xLNDU2ZWJNVF9vUzV6RjlFU2RWMGdZTU4taXZHcE1sb201R090RVQ1Wlk2bG11LVRpaE03LXJhU1Jhb09BSlRHUk15RF9MM1FpWTlFeDhKS0NXU1VGZzZpUW1nbTU1eGJFV1pVSGQ2TkY5Uk5jWGtR?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-08-10",
+      "title": "En mega operativo nacional: PDI detuvo a 38 personas en La Araucanía - SoyChile.cl",
+      "description": "En mega operativo nacional: PDI detuvo a 38 personas en La Araucanía&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-10T18:53:07.494316+00:00"
     }
   ]
 }
