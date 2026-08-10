@@ -150,6 +150,18 @@ export interface I18nStrings {
   news_cluster_source_count: string;
   news_facet_semantics_note: string;
 
+  // News UX pass (NEWSUX) — day histogram + dense list column headers.
+  // news_histogram_peak carries {n}/{date} tokens that MUST be substituted at
+  // build time by the page: scripts/validate/facets.mjs assertion 18 strips
+  // exactly one data-result-count-template carrier and then fails on any {n} or
+  // {date} left anywhere in the rendered HTML.
+  news_histogram_label: string;
+  news_histogram_peak: string;
+  news_col_headline: string;
+  news_col_commune: string;
+  news_col_outlet: string;
+  news_col_date: string;
+
   // Quick 260616-lu4 — ranking table controls
   sort_label: string;
   sort_ascending: string;
@@ -378,6 +390,13 @@ export const EN_STRINGS: I18nStrings = {
   news_empty_body: 'Try a different time window, region, or crime type, or clear all filters to see every reported incident.',
   news_cluster_source_count: '{n} sources',
   news_facet_semantics_note: 'Each filter\'s per-option counts reflect the other filters you have applied, but not that filter\'s own selection — so you can always see what widening a selection would return. "Latest data" is anchored to the newest incident\'s date, not to today\'s calendar date — if the news feed pauses, "Latest data" reflects the last successful update, not necessarily today. Incident counts are a qualitative, editorially-selected news sample and are not comparable to the CEAD per-100k statistical rates shown elsewhere on this site.',
+
+  news_histogram_label: 'Incidents per day — click a bar to isolate a date',
+  news_histogram_peak: 'Peak {n} on {date}',
+  news_col_headline: 'Reported incident',
+  news_col_commune: 'Commune',
+  news_col_outlet: 'Outlet',
+  news_col_date: 'Date',
 
   // Quick 260616-lu4 — ranking table controls
   sort_label: 'Sort by {column}',
@@ -612,6 +631,13 @@ export const ES_STRINGS: I18nStrings = {
   news_empty_body: 'Prueba otro período, región o tipo de delito, o limpia los filtros para ver todos los incidentes reportados.',
   news_cluster_source_count: '{n} fuentes',
   news_facet_semantics_note: 'Los conteos de cada filtro reflejan los demás filtros que hayas aplicado, pero no la selección propia de ese filtro, de modo que siempre puedas ver qué aparecería al ampliar una selección. "Últimos datos" está anclado a la fecha del incidente más nuevo registrado, no a la fecha calendario de hoy — si el feed de noticias se detiene, "Últimos datos" refleja la última actualización exitosa, no necesariamente hoy. Los conteos de incidentes son una muestra cualitativa y de selección editorial de noticias, y no son comparables con las tasas estadísticas del CEAD por 100.000 habitantes que se muestran en el resto del sitio.',
+
+  news_histogram_label: 'Incidentes por día — haz clic en una barra para aislar una fecha',
+  news_histogram_peak: 'Máximo {n} el {date}',
+  news_col_headline: 'Hecho reportado',
+  news_col_commune: 'Comuna',
+  news_col_outlet: 'Medio',
+  news_col_date: 'Fecha',
 
   // Quick 260616-lu4 — ranking table controls
   sort_label: 'Ordenar por {column}',
