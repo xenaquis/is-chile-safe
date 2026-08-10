@@ -217,7 +217,6 @@ export interface I18nStrings {
   cmp_add_prompt: string;
   cmp_no_match: string;
   cmp_max_reached: string;
-  cmp_avg_column: string;
   cmp_remove_aria: string;
   cmp_data_error: string;
   cmp_homicide_row: string;
@@ -235,8 +234,6 @@ export interface I18nStrings {
 
   // Phase 30 — map control-shell entry points
   map_entry_year: string;
-  map_entry_family: string;
-  map_entry_mode: string;
   map_news_toggle_long: string;
   map_news_toggle_short: string;
   map_news_toggle_aria: string;
@@ -455,11 +452,10 @@ export const EN_STRINGS: I18nStrings = {
   cmp_add_prompt: 'Add another commune to compare',
   cmp_no_match: 'No commune found — try removing accents',
   cmp_max_reached: 'Maximum 3 communes reached',
-  cmp_avg_column: 'Chile avg.',
   cmp_remove_aria: 'Remove {name}',
   cmp_data_error: 'Could not load data for {name}. Try refreshing.',
   cmp_homicide_row: 'Homicide (per 100k, {year})',
-  cmp_homicide_no_data: 'No reported cases — CEAD {year}',
+  cmp_homicide_no_data: 'No homicide data — CEAD {year}',
   cmp_cross_links_heading: 'Compare with other communes',
   // Phase 25 — Compare island enrichments
   cmp_composite_label: 'Composite Crime Index',
@@ -473,8 +469,6 @@ export const EN_STRINGS: I18nStrings = {
 
   // Phase 30 — map control-shell entry points
   map_entry_year: 'Year',
-  map_entry_family: 'Crime type',
-  map_entry_mode: 'Map mode',
   map_news_toggle_long: 'Recent incidents',
   map_news_toggle_short: 'News',
   map_news_toggle_aria: 'Show recent press incidents on the map',
@@ -696,11 +690,10 @@ export const ES_STRINGS: I18nStrings = {
   cmp_add_prompt: 'Agrega otra comuna para comparar',
   cmp_no_match: 'No se encontró la comuna — prueba sin tildes',
   cmp_max_reached: 'Máximo 3 comunas alcanzado',
-  cmp_avg_column: 'Prom. Chile',
   cmp_remove_aria: 'Quitar {name}',
   cmp_data_error: 'No se pudieron cargar los datos de {name}. Intenta recargar.',
   cmp_homicide_row: 'Homicidios (por 100k, {year})',
-  cmp_homicide_no_data: 'Sin casos reportados — CEAD {year}',
+  cmp_homicide_no_data: 'Sin datos de homicidios — CEAD {year}',
   cmp_cross_links_heading: 'Comparar con otras comunas',
   // Phase 25 — Compare island enrichments
   cmp_composite_label: 'Índice Compuesto de Criminalidad',
@@ -714,8 +707,6 @@ export const ES_STRINGS: I18nStrings = {
 
   // Phase 30 — map control-shell entry points
   map_entry_year: 'Año',
-  map_entry_family: 'Tipo de delito',
-  map_entry_mode: 'Modo',
   map_news_toggle_long: 'Noticias recientes',
   map_news_toggle_short: 'Noticias',
   map_news_toggle_aria: 'Mostrar incidentes recientes de prensa en el mapa',

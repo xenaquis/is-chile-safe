@@ -34,16 +34,37 @@
 }
 
 /* MPX-B3/C8: with the rail free to wrap, --map-topbar-h (defined on the
-   shared .map-stage ancestor in map.css) can no longer assume a single row
-   in the 481–1023px band. Override with slack that covers the worst-case
-   2-row wrap (~700px measured) while the >=1024px band — which keeps a
-   single row at that width — retains map.css's own 117px override (it wins
-   via source order + specificity is equal, so this rule must stay scoped to
-   the narrower band only). At <=480px the rail is display:none (FAB owns
-   filtering) so the mobile value is untouched. */
-@media (min-width: 481px) and (max-width: 1023px) {
+   shared .map-stage ancestor in map.css) can no longer assume a single row.
+   Real .map-topbar heights measured live over dist/ (EN ≡ ES, BrowserOS
+   iframe pass, 260810-pz5):
+     481–559px: 343px real -> 351px (measured + 8px slack)
+     560–719px: 293px real -> 301px
+     720–1023px: 243px real -> 251px
+     >=1024px:  217px real -> 225px (supersedes map.css's stale 117px here)
+   Progressive tiers on ascending min-width so each wider band overrides the
+   previous. At <=480px the rail is display:none (FAB owns filtering) so the
+   mobile value in map.css is untouched. */
+@media (min-width: 481px) {
   .map-stage {
-    --map-topbar-h: 200px;
+    --map-topbar-h: 351px;
+  }
+}
+
+@media (min-width: 560px) {
+  .map-stage {
+    --map-topbar-h: 301px;
+  }
+}
+
+@media (min-width: 720px) {
+  .map-stage {
+    --map-topbar-h: 251px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .map-stage {
+    --map-topbar-h: 225px;
   }
 }
 

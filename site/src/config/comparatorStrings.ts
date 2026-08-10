@@ -18,7 +18,6 @@
  *   cmp_no_match · cmp_max_reached · cmp_remove_aria · cmp_data_error
  *   cmp_homicide_row · cmp_homicide_no_data · cmp_case_singular · cmp_case_plural
  *   cmp_composite_label · cmp_what_is_this · cmp_trend_unavailable · cmp_chips_label
- *   cmp_avg_column
  */
 
 export interface ComparatorStrings {

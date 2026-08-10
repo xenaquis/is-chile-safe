@@ -634,9 +634,9 @@ export default function ComparatorIsland({ lang, communes, strings, regionNames 
         <section className="cmp-chart" aria-labelledby="cmp-chart-h">
           <header className="cmp-chart-head">
             <h2 id="cmp-chart-h" className="cmp-chart-h">{t.cx_profile_heading}</h2>
-            {!mixedYears && (
+            {!mixedYears && sharedYear !== null && (
               <span className="cmp-chart-year">
-                {sharedYear !== null ? interpolate(t.cx_reference_year, { year: sharedYear }) : ''}
+                {interpolate(t.cx_reference_year, { year: sharedYear })}
               </span>
             )}
             {!natMissing && (
