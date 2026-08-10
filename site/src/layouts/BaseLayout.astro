@@ -123,7 +123,12 @@ const adsenseClient = import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID ?? '';
               var esLink = document.querySelector('link[rel="alternate"][hreflang="es"]');
               if (esLink && esLink.href) {
                 var esUrl = new URL(esLink.href);
-                window.location.replace(esUrl.pathname + esUrl.search + esUrl.hash);
+                /* The hreflang link is a bare canonical path — it never carries
+                   a query or fragment. Carry the CURRENT location's, or a deep
+                   link like /communes/?q=santiago loses its search on redirect. */
+                var search = window.location.search || esUrl.search;
+                var hash = window.location.hash || esUrl.hash;
+                window.location.replace(esUrl.pathname + search + hash);
               }
             }
           }
