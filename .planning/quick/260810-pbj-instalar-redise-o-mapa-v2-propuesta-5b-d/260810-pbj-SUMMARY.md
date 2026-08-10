@@ -39,6 +39,10 @@ Encontró 1 regresión del ejecutor + 1 gap, resueltos en `79bb23c`:
 
 `npm run check` 0 errores (solo warnings preexistentes MutableRefObject) · `npm test` 86/86 (9 files, incluye mapFilterDefsV2) · `npm run build` verde · `npm run validate` 16/16.
 
+## Regresión post-release corregida (9389a4d)
+
+Usuario reportó el panel de comuna "viéndose mal" en prod (ancho ~1300px): textos decapitados por la izquierda flotando sobre blanco. Diagnóstico BrowserOS (elementFromPoint + iframe 1320px): el drawer fijo (`top:64`, z 700 en map.css) siempre estuvo POR DEBAJO de `.map-topbar` (z 800, fondo opaco) — defecto latente de v1 que la topbar v2 (217–343px vs 143px) volvió flagrante al tragarse cabecera, badges y título del panel en la franja de intersección. Fix en map-v2.css: `.result-panel { z-index: 850 }` en ≥641px (drawer normal por encima de la topbar; bajo sugerencias de búsqueda z 900 y toasts z 1000); el bottom-sheet móvil ≤640px conserva su stacking original. Verificado: cabecera y botón cerrar clickables en 1320px, drawer con fondo íntegro.
+
 ## Excepción documentada / deuda conocida (LOW, sin acción)
 
 - Barras-día del NewsStrip con ancho <44px: 30+ barras × 44px no caben en 440px; mitigado con hit-area de alto completo, aria-label por barra y ocultación ≤960px (desktop-only). Comentado en map-v2.css.
