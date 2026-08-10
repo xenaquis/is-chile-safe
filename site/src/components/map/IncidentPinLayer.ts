@@ -1,32 +1,18 @@
 /**
  * IncidentPinLayer.ts — NEWS layer: fetch incidents/current.json + mount divIcon pins.
  *
- * Exports:
- *   fetchAndMountIncidents(map, lang, onToast) → Promise<L.LayerGroup | null>
- *     Fetches /data/incidents/current.json.
- *     - If absent / 404 / network error → "coming soon" toast, returns null, NO console error.
- *     - If present → builds L.layerGroup of .ev-dot L.divIcon markers with
- *       localized popup (title, date, outlet, source link).
+ * MAPV2: the original fetchAndMountIncidents (fetch + mount fused) is split so
+ * MapIsland can hold the incidents in state and re-mount a FILTERED subset of
+ * pins when the crime-family or day filter changes:
  *
- * incidents/current.json schema (defined here for Phase 5 to produce):
- * {
- *   generated: string;          // ISO-8601 timestamp of when file was built
- *   window_days: number;        // how many days back incidents were scraped
- *   incidents: Array<{
- *     id: string;               // unique incident ID
- *     cut: string;              // commune CUT code
- *     lat: number;              // approx. latitude (commune centroid from CEAD catalog)
- *     lng: number;              // approx. longitude
- *     title_es: string;         // incident headline in Spanish
- *     title_en: string;         // incident headline in English
- *     date: string;             // YYYY-MM-DD
- *     outlet: string;           // news outlet name (e.g. "BioBio Chile")
- *     url: string;              // source article URL
- *     family: string;           // crime family key (vida, propiedad, etc.)
- *   }>;
- * }
+ *   fetchIncidents(lang, onToast)          → Promise<IncidentsFile | null>
+ *   mountIncidentPins(map, incidents, lang) → L.LayerGroup
+ *   fetchAndMountIncidents(map, lang, onToast) — kept for compatibility.
  *
- * D-15: absent file → graceful empty state; NO console.error.
+ * Pins are cheap DOM markers; re-mounting the pin LayerGroup on filter change
+ * is fine — D-12 (never re-mount) applies to the polygon choropleth only.
+ *
+ * D-15: absent file → graceful empty state via toast; NO console error.
  * D-16: pins are DOM-based L.marker (not canvas renderer).
  * Pitfall 7: uses L.divIcon (.ev-dot) — not default marker icon.
  * Security (T-03-03-02): incident strings are HTML-escaped before popup interpolation.
@@ -88,16 +74,13 @@ function safeUrl(url: string): string {
 }
 
 // ---------------------------------------------------------------------------
-// fetchAndMountIncidents — main export
+// fetchIncidents — data only (MAPV2 split)
 // ---------------------------------------------------------------------------
 
-export async function fetchAndMountIncidents(
-  map: L.Map,
+export async function fetchIncidents(
   lang: 'en' | 'es',
   onToast: (msg: string) => void
-): Promise<L.LayerGroup | null> {
-  let data: IncidentsFile;
-
+): Promise<IncidentsFile | null> {
   try {
     const res = await fetch('/data/incidents/current.json');
     if (!res.ok) {
@@ -107,7 +90,7 @@ export async function fetchAndMountIncidents(
       );
       return null;
     }
-    data = (await res.json()) as IncidentsFile;
+    return (await res.json()) as IncidentsFile;
   } catch {
     // Network error — same graceful path, no console error
     onToast(
@@ -115,14 +98,23 @@ export async function fetchAndMountIncidents(
     );
     return null;
   }
+}
 
-  // Build layer group of .ev-dot divIcon markers
+// ---------------------------------------------------------------------------
+// mountIncidentPins — mount a (possibly filtered) incident subset
+// ---------------------------------------------------------------------------
+
+export function mountIncidentPins(
+  map: L.Map,
+  incidents: Incident[],
+  lang: 'en' | 'es'
+): L.LayerGroup {
   const layer = L.layerGroup();
 
   // Locale-aware commune URL prefix (Pitfall 5)
   const communeBase = lang === 'es' ? '/es/comuna/' : '/commune/';
 
-  for (const incident of data.incidents) {
+  for (const incident of incidents) {
     const title = escHtml(lang === 'es' ? incident.title_es : incident.title_en);
     const outlet = escHtml(incident.outlet);
     const date = escHtml(incident.date);
@@ -166,4 +158,18 @@ export async function fetchAndMountIncidents(
   }
 
   return layer.addTo(map);
+}
+
+// ---------------------------------------------------------------------------
+// fetchAndMountIncidents — original fused API, kept for compatibility
+// ---------------------------------------------------------------------------
+
+export async function fetchAndMountIncidents(
+  map: L.Map,
+  lang: 'en' | 'es',
+  onToast: (msg: string) => void
+): Promise<L.LayerGroup | null> {
+  const data = await fetchIncidents(lang, onToast);
+  if (!data) return null;
+  return mountIncidentPins(map, data.incidents, lang);
 }

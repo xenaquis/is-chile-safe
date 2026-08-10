@@ -1,6 +1,12 @@
 /**
  * LowZoomDotLayer.ts — L.layerGroup of circleMarkers shown at zoom < 8.
  *
+ * MAPV2: mountLowZoomDots now accepts an optional per-layer level index and
+ * band filter, so the low-zoom dots follow the SAME active layer (composite /
+ * family / homicide) and band isolation as the polygon choropleth. Previously
+ * the dots always used the total-rate level regardless of the family filter —
+ * an inconsistency at exactly the zoom where most users start.
+ *
  * Rules:
  * - Do NOT set a global canvas renderer on circleMarkers (Pitfall 6).
  *   The L.canvas() renderer is declared only on the L.geoJSON choropleth layer.
@@ -96,24 +102,32 @@ export function buildDotComunas(
  * Called when zoom < 8; removed when zoom >= 8.
  *
  * @param map - The L.Map instance
- * @param comunas - Dot commune list with lat/lng/level
+ * @param comunas - Dot commune list with lat/lng/level (total-rate fallback)
  * @param onClickCut - Callback when a dot is clicked (receives CUT string)
+ * @param levelIdx - MAPV2: optional CUT → level under the ACTIVE layer;
+ *                   falls back to c.level when absent or missing a CUT.
+ * @param band - MAPV2: optional isolated band (1–5); dots outside it fade.
  */
 export function mountLowZoomDots(
   map: L.Map,
   comunas: DotCommune[],
-  onClickCut: (cut: string) => void
+  onClickCut: (cut: string) => void,
+  levelIdx?: Map<string, 1 | 2 | 3 | 4 | 5>,
+  band?: number | null
 ): L.LayerGroup {
   const layer = L.layerGroup();
 
   for (const c of comunas) {
+    const level = levelIdx?.get(c.id) ?? c.level;
+    const dimmed = band !== null && band !== undefined && level !== band;
     L.circleMarker([c.lat, c.lng], {
       // Do NOT set renderer: L.canvas() here (Pitfall 6 — markers use DOM, not canvas path)
-      radius: 4.5 + c.level * 1.1,
+      radius: 4.5 + level * 1.1,
       color: '#ffffff',
       weight: 1.2,
-      fillColor: INCIDENCE_COLORS[c.level - 1]!,
-      fillOpacity: 0.92,
+      fillColor: INCIDENCE_COLORS[level - 1]!,
+      fillOpacity: dimmed ? 0.12 : 0.92,
+      opacity: dimmed ? 0.2 : 1,
     })
       .bindTooltip(c.name, { direction: 'top', offset: [0, -8] })
       .on('click', () => onClickCut(c.id))

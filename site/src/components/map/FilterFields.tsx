@@ -1,26 +1,27 @@
 /**
  * FilterFields.tsx — pure, wrapper-less field renderers for the map control
- * shell (Phase 30). None of these components render a disclosure or modal
- * wrapper element — they render only the interactive controls themselves, so
- * they can be reused unwrapped inside FilterSheet's modal body (Plan 30-04)
- * and wrapped in a disclosure panel inside EntryPointsRail (Plan 30-03).
+ * shell. MAPV2: FamilyField + ModeField are replaced by a single LayerField
+ * (the unified layer list from LAYER_DEFS — composite index and crime
+ * families as sibling options, which removes the separate Modo dimension).
+ * YearField is unchanged.
  *
- * FamilyField / ModeField use the radiogroup/radio ARIA roles plus
- * aria-checked (never the plain group role — spec section 5 explicitly calls
- * that invalid as a parent of radio-role children).
- *
- * H-02: both radiogroups implement the full roving-tabindex + arrow-key
- * contract the roles announce (WAI-ARIA APG) — the checked radio is the only
- * tab stop, and ArrowRight/Down, ArrowLeft/Up, Home and End move focus AND
- * selection within the group, with wraparound. The keydown handler is scoped
- * to the radiogroup <div> (never `document`), matching EntryPointsRail's
- * Escape handler pattern — F-49's "no document-scoped keyboard listener"
- * still holds.
+ * LayerField keeps the radiogroup/radio ARIA contract and the full
+ * roving-tabindex + arrow-key behaviour (H-02): the checked radio is the only
+ * tab stop; ArrowRight/Down, ArrowLeft/Up, Home and End move focus AND
+ * selection with wraparound. Keydown is scoped to the radiogroup <div> —
+ * never `document` (F-49).
  */
 
 import { useRef } from 'react';
-import { CHIP_DEFS, AVAILABLE_YEARS, FAMILY_DEFS_EN, FAMILY_DEFS_ES, MODE_LABELS } from '../../lib/mapFilterDefs';
-import { EN_STRINGS, ES_STRINGS } from '../../config/i18n';
+import {
+  LAYER_DEFS,
+  activeLayerId,
+  AVAILABLE_YEARS,
+  FAMILY_DEFS_EN,
+  FAMILY_DEFS_ES,
+  type LayerDef,
+} from '../../lib/mapFilterDefs';
+import { mapV2Strings } from '../../config/mapV2Strings';
 
 interface YearFieldProps {
   lang: 'en' | 'es';
@@ -43,18 +44,21 @@ export function YearField({ lang, year, onYearChange }: YearFieldProps) {
   );
 }
 
-interface FamilyFieldProps {
+export interface LayerFieldProps {
   lang: 'en' | 'es';
+  mode: 'composite' | 'family';
   crimeFamily: string | null;
-  onFamilyChange: (key: string | null, index: number | null) => void;
+  onLayerChange: (def: LayerDef) => void;
 }
 
-export function FamilyField({ lang, crimeFamily, onFamilyChange }: FamilyFieldProps) {
+export function LayerField({ lang, mode, crimeFamily, onLayerChange }: LayerFieldProps) {
+  const strings = mapV2Strings(lang);
   const btnRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const activeId = activeLayerId(mode, crimeFamily);
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
-    const count = CHIP_DEFS.length;
-    let currentIndex = CHIP_DEFS.findIndex((c) => c.key === crimeFamily);
+    const count = LAYER_DEFS.length;
+    let currentIndex = LAYER_DEFS.findIndex((l) => l.id === activeId);
     if (currentIndex === -1) currentIndex = 0;
 
     let nextIndex: number | null = null;
@@ -71,23 +75,21 @@ export function FamilyField({ lang, crimeFamily, onFamilyChange }: FamilyFieldPr
     }
 
     e.preventDefault();
-    const next = CHIP_DEFS[nextIndex];
-    onFamilyChange(next.key, next.familyIndex);
+    const next = LAYER_DEFS[nextIndex];
+    onLayerChange(next);
     btnRefs.current[nextIndex]?.focus();
   }
 
   return (
-    <div
-      role="radiogroup"
-      aria-label={lang === 'es' ? 'Tipo de delito' : 'Crime type'}
-      onKeyDown={handleKeyDown}
-    >
-      {CHIP_DEFS.map(({ key, familyIndex, labelEs, labelEn, featured }, i) => {
-        const isActive = crimeFamily === key;
-        const def = key ? (lang === 'es' ? FAMILY_DEFS_ES[key] : FAMILY_DEFS_EN[key]) : undefined;
+    <div role="radiogroup" aria-label={strings.layer_group} onKeyDown={handleKeyDown}>
+      {LAYER_DEFS.map((def, i) => {
+        const isActive = def.id === activeId;
+        const hint = def.key
+          ? (lang === 'es' ? FAMILY_DEFS_ES[def.key] : FAMILY_DEFS_EN[def.key])
+          : undefined;
         return (
           <button
-            key={key ?? '__todos__'}
+            key={def.id}
             ref={(el) => {
               btnRefs.current[i] = el;
             }}
@@ -96,79 +98,20 @@ export function FamilyField({ lang, crimeFamily, onFamilyChange }: FamilyFieldPr
             aria-checked={isActive}
             tabIndex={isActive ? 0 : -1}
             className={`chip${isActive ? ' active' : ''}`}
-            onClick={() => onFamilyChange(key, familyIndex)}
-            title={def}
+            onClick={() => onLayerChange(def)}
+            title={hint}
           >
-            {featured && !isActive && (
+            {def.featured && !isActive && (
               <span
                 className="accent-dot"
                 aria-hidden="true"
                 style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--primary)', display: 'inline-block', marginRight: 6, flexShrink: 0 }}
               />
             )}
-            {lang === 'es' ? labelEs : labelEn}
+            {lang === 'es' ? def.labelEs : def.labelEn}
           </button>
         );
       })}
-    </div>
-  );
-}
-
-interface ModeFieldProps {
-  lang: 'en' | 'es';
-  mode: 'composite' | 'family';
-  onModeChange: (mode: 'composite' | 'family') => void;
-}
-
-const MODE_OPTIONS: Array<'composite' | 'family'> = ['composite', 'family'];
-
-export function ModeField({ lang, mode, onModeChange }: ModeFieldProps) {
-  const strings = lang === 'es' ? ES_STRINGS : EN_STRINGS;
-  const labels = MODE_LABELS[lang];
-  const btnRefs = useRef<Array<HTMLButtonElement | null>>([]);
-
-  function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
-    const count = MODE_OPTIONS.length;
-    let currentIndex = MODE_OPTIONS.indexOf(mode);
-    if (currentIndex === -1) currentIndex = 0;
-
-    let nextIndex: number | null = null;
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-      nextIndex = (currentIndex + 1) % count;
-    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-      nextIndex = (currentIndex - 1 + count) % count;
-    } else if (e.key === 'Home') {
-      nextIndex = 0;
-    } else if (e.key === 'End') {
-      nextIndex = count - 1;
-    } else {
-      return;
-    }
-
-    e.preventDefault();
-    const next = MODE_OPTIONS[nextIndex];
-    onModeChange(next);
-    btnRefs.current[nextIndex]?.focus();
-  }
-
-  return (
-    <div role="radiogroup" aria-label={strings.map_entry_mode} onKeyDown={handleKeyDown}>
-      {MODE_OPTIONS.map((opt, i) => (
-        <button
-          key={opt}
-          ref={(el) => {
-            btnRefs.current[i] = el;
-          }}
-          type="button"
-          role="radio"
-          aria-checked={mode === opt}
-          tabIndex={mode === opt ? 0 : -1}
-          className={`chip${mode === opt ? ' active' : ''}`}
-          onClick={() => onModeChange(opt)}
-        >
-          {labels[opt]}
-        </button>
-      ))}
     </div>
   );
 }

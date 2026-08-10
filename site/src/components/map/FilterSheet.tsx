@@ -1,52 +1,42 @@
 /**
  * FilterSheet.tsx — mobile (<=480px) filter entry point (MAPSH-02/03).
+ * MAPV2: the sheet body now shows TWO dimensions (Capa + Año) instead of
+ * three — LayerField replaces FamilyField + ModeField. All the dialog
+ * mechanics below are ported verbatim from the original file:
+ *
  * A FAB (`data-role="filter-entry"`) opens a native `<dialog>` bottom sheet
- * via `showModal()` — never the `open` attribute, since only `showModal()`
- * gives native focus containment, Escape and a backdrop (spec section 5).
- * The three FilterFields dimensions render flat inside the dialog body — no
- * <details> wrapper, since the dialog itself already provides disclosure.
- *
- * `aria-expanded` on the FAB is set via `setAttribute` at THREE sites: the
- * FAB click handler ('true'), the close-button click handler ('false'), and
- * the dialog's native 'close' event ('false') — which also fires on Escape
- * and light-dismiss (M-03: an explicit backdrop-click handler now closes the
- * dialog; native <dialog> does not do this on its own without `closedby`).
- * Relying on the close event alone was iteration 1's defect (it never fired
- * in that build); relying on click alone would repeat the failure in the
- * opposite direction on Escape/backdrop close. Both paths are wired
- * independently.
- *
- * M-02: the FAB's `aria-expanded` is NOT also set in JSX — React does not own
- * this attribute at all (it is purely imperative, matching the three sites
- * above). A JSX `aria-expanded={false}` on the same element only "worked"
- * because React's DOM reconciler skips props whose value hasn't changed
- * between renders, which is an implementation detail, not a contract.
+ * via `showModal()` — never the `open` attribute (focus containment, Escape,
+ * backdrop). `aria-expanded` on the FAB is owned by THREE imperative
+ * setAttribute sites (FAB click / close click / native 'close' event) and is
+ * intentionally NOT set in JSX (M-02). Light dismiss on backdrop click is
+ * manual (M-03). Focus is returned to the FAB only if visible (L-02).
  */
 
 import { useEffect, useRef } from 'react';
 import { EN_STRINGS, ES_STRINGS } from '../../config/i18n';
-import { YearField, FamilyField, ModeField } from './FilterFields';
+import { YearField, LayerField } from './FilterFields';
+import { mapV2Strings } from '../../config/mapV2Strings';
+import type { LayerDef } from '../../lib/mapFilterDefs';
 
 interface Props {
   lang: 'en' | 'es';
   year: number;
   onYearChange: (year: number) => void;
-  crimeFamily: string | null;
-  onFamilyChange: (key: string | null, index: number | null) => void;
   mode: 'composite' | 'family';
-  onModeChange: (mode: 'composite' | 'family') => void;
+  crimeFamily: string | null;
+  onLayerChange: (def: LayerDef) => void;
 }
 
 export function FilterSheet({
   lang,
   year,
   onYearChange,
-  crimeFamily,
-  onFamilyChange,
   mode,
-  onModeChange,
+  crimeFamily,
+  onLayerChange,
 }: Props) {
   const strings = lang === 'es' ? ES_STRINGS : EN_STRINGS;
+  const v2 = mapV2Strings(lang);
   const fabRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
@@ -63,9 +53,8 @@ export function FilterSheet({
     }
 
     // L-02: guard against focusing a hidden FAB — .filter-fab is display:none
-    // above 480px (map.css:1108-1117), so a viewport widen/orientation change
-    // while the sheet is open must not call .focus() on a non-rendered
-    // element (that silently drops focus to <body>).
+    // above 480px, so a viewport widen while the sheet is open must not call
+    // .focus() on a non-rendered element.
     function focusFabIfVisible() {
       if (fab!.offsetParent !== null) {
         fab!.focus();
@@ -80,9 +69,6 @@ export function FilterSheet({
 
     function handleDialogClose() {
       fab!.setAttribute('aria-expanded', 'false');
-      // Spec §6: closing returns focus to the invoking control. Measured in a real
-      // browser: after a native Escape dismissal focus lands on <body>, not on the
-      // FAB — the close-button path restores it explicitly, this path did not.
       focusFabIfVisible();
     }
 
@@ -99,8 +85,8 @@ export function FilterSheet({
 
   return (
     <>
-      {/* M-02: aria-expanded intentionally NOT set here in JSX — it is owned entirely
-          by the imperative setAttribute() calls above so there is exactly one writer. */}
+      {/* M-02: aria-expanded intentionally NOT set here in JSX — owned by the
+          imperative setAttribute() calls above so there is exactly one writer. */}
       <button
         type="button"
         ref={fabRef}
@@ -117,10 +103,8 @@ export function FilterSheet({
         aria-labelledby="filter-sheet-title"
         className="filter-sheet"
         onClick={(e) => {
-          // M-03: light dismiss — a click that lands on the <dialog> element itself
-          // (i.e. the ::backdrop, since the dialog's own content stops propagation
-          // via normal DOM nesting) closes the sheet. Native <dialog> does NOT do
-          // this on its own without `closedby="any"`; this is the manual equivalent.
+          // M-03: light dismiss — a click landing on the <dialog> element
+          // itself (the ::backdrop) closes the sheet.
           if (e.target === dialogRef.current) {
             dialogRef.current?.close();
           }
@@ -140,16 +124,12 @@ export function FilterSheet({
         </div>
         <div className="filter-sheet-body">
           <div>
+            <div className="filter-sheet-field-label">{v2.layer_group}</div>
+            <LayerField lang={lang} mode={mode} crimeFamily={crimeFamily} onLayerChange={onLayerChange} />
+          </div>
+          <div>
             <div className="filter-sheet-field-label">{strings.map_entry_year}</div>
             <YearField lang={lang} year={year} onYearChange={onYearChange} />
-          </div>
-          <div>
-            <div className="filter-sheet-field-label">{strings.map_entry_family}</div>
-            <FamilyField lang={lang} crimeFamily={crimeFamily} onFamilyChange={onFamilyChange} />
-          </div>
-          <div>
-            <div className="filter-sheet-field-label">{strings.map_entry_mode}</div>
-            <ModeField lang={lang} mode={mode} onModeChange={onModeChange} />
           </div>
         </div>
         </div>

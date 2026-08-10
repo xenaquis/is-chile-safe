@@ -1,0 +1,286 @@
+/**
+ * map-v2.css — MAPV2 additions, imported by MapIsland.tsx AFTER map.css.
+ * Only new classes + a handful of overrides live here; map.css is untouched
+ * so a rollback is `git checkout -- src/components/map/` + delete this file.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Layer rail — one always-visible row: layer chips + year select.
+ * Replaces .entry-points-rail. Reuses the existing .chip styles from map.css.
+ * ------------------------------------------------------------------------- */
+.layer-rail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+}
+
+/* MPX-B3/C1: the rail must never scroll horizontally (rubric criterion 2) —
+   it wraps to a second row instead of clipping/scrolling chips off-screen. */
+.layer-rail-chips {
+  min-width: 0;
+}
+
+.layer-rail-chips > div[role='radiogroup'] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+}
+
+.layer-rail {
+  flex-wrap: wrap;
+}
+
+/* MPX-B3/C8: with the rail free to wrap, --map-topbar-h (defined on the
+   shared .map-stage ancestor in map.css) can no longer assume a single row
+   in the 481–1023px band. Override with slack that covers the worst-case
+   2-row wrap (~700px measured) while the >=1024px band — which keeps a
+   single row at that width — retains map.css's own 117px override (it wins
+   via source order + specificity is equal, so this rule must stay scoped to
+   the narrower band only). At <=480px the rail is display:none (FAB owns
+   filtering) so the mobile value is untouched. */
+@media (min-width: 481px) and (max-width: 1023px) {
+  .map-stage {
+    --map-topbar-h: 200px;
+  }
+}
+
+.layer-rail-year {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.layer-rail-year-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted, #5d6c6d);
+}
+
+/* Mobile: the FAB + FilterSheet own filtering below 480px, same breakpoint
+   the old entry-points-rail used. */
+@media (max-width: 480px) {
+  .layer-rail {
+    display: none;
+  }
+
+  /* MPX-B9: the new histogram/clear sections had no top margin inside the
+     collapsible mobile legend, running flush against the row above them. */
+  details.legend-mobile[open] .legend-hist,
+  details.legend-mobile[open] .legend-clear {
+    margin-top: 6px;
+  }
+}
+
+/* MPX-B10: respect reduced-motion for the new hover/press transitions. */
+@media (prefers-reduced-motion: reduce) {
+  .legend-hist-bin,
+  .legend-band-btn,
+  .news-strip-bar > span {
+    transition: none;
+  }
+}
+
+/* The sheet body renders LayerField's radiogroup as a wrapping chip cloud. */
+.filter-sheet-body div[role='radiogroup'] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Legend v2 — histogram strip + clickable band rows with counts.
+ * .legend positioning/width comes from map.css; only the new innards here.
+ * ------------------------------------------------------------------------- */
+/* MPX-B2: 208px broke the 160px mobile cap map.css sets for .legend at
+   <=480px — only apply the wider desktop/tablet minimum above that band. */
+@media (min-width: 481px) {
+  .legend-v2 {
+    min-width: 208px;
+  }
+}
+
+.legend-hist {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5px;
+  height: 34px;
+  margin: 4px 0 8px;
+}
+
+.legend-hist-bin {
+  flex: 1 1 0;
+  min-width: 2px;
+  border-radius: 1.5px 1.5px 0 0;
+  transition: opacity 120ms ease;
+}
+
+.legend-band-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  /* MPX-B4: 44px touch target (F-51). */
+  min-height: 44px;
+  padding: 2px 4px;
+  margin: 0 -4px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: opacity 120ms ease, background 120ms ease;
+}
+
+/* MPX-B1/C1: the swatch was an unconstrained flex child and stretched to
+   fill the row's height once the button grew to 44px. */
+.legend-band-btn .legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  flex: 0 0 auto;
+}
+
+.legend-band-btn:hover {
+  background: rgba(15, 118, 110, 0.08);
+}
+
+.legend-band-btn.active {
+  background: rgba(15, 118, 110, 0.12);
+  box-shadow: inset 0 0 0 1.5px var(--primary, #0f766e);
+}
+
+.legend-band-btn .legend-band-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.legend-count {
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted, #5d6c6d);
+}
+
+.legend-clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  padding: 3px 10px;
+  /* MPX-B4: 44px touch target (F-51). */
+  min-height: 44px;
+  border: none;
+  border-radius: 999px;
+  background: #1c2a2b;
+  color: #fff;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------------------------
+ * News strip — bottom-center context panel for the incidents layer.
+ * ------------------------------------------------------------------------- */
+.news-strip {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  /* MPX-B6: cinturón — z-index above the legend so an overlap never leaves
+     the strip visually buried under it. */
+  z-index: 760;
+  width: min(440px, calc(100% - 32px));
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(28, 42, 43, 0.18);
+  padding: 10px 12px 8px;
+}
+
+.news-strip-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+  font-size: 0.8rem;
+}
+
+.news-strip-head strong {
+  font-weight: 700;
+}
+
+.news-strip-scope {
+  color: var(--muted, #5d6c6d);
+  font-size: 0.74rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.news-strip-clear {
+  margin-left: auto;
+  padding: 2px 9px;
+  /* MPX-B4: 44px touch target (F-51). */
+  min-height: 44px;
+  border: none;
+  border-radius: 999px;
+  background: #1c2a2b;
+  color: #fff;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.news-strip-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  /* MPX-B4: container grows to give each bar button a 44px-tall hit area;
+     the visual bar (span) inside still scales to its share of this height. */
+  height: 44px;
+}
+
+.news-strip-bar {
+  flex: 1 1 0;
+  display: flex;
+  align-items: flex-end;
+  /* MPX-B4: full-height hit area (44px, F-51 target). Width stays <44px —
+     documented exception: 30+ daily bars x 44px = 1320px+ cannot fit the
+     440px strip; the control is hidden <=960px (see MPX-B6) and each bar
+     carries an aria-label (MPX-B8) so screen-reader users are unaffected. */
+  height: 100%;
+  min-height: 44px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.news-strip-bar > span {
+  display: block;
+  width: 100%;
+  border-radius: 2px 2px 0 0;
+  background: var(--primary, #0f766e);
+}
+
+.news-strip-bar.active > span {
+  background: #1c2a2b;
+}
+
+/* MPX-B6: at 641–860px the centered 440px strip intersected the 208px
+   legend; raised the hide threshold from 640px to 960px (at 961px+ the two
+   no longer overlap). The toggle + pins still work below 960px, the
+   context strip is desktop-only. */
+@media (max-width: 960px) {
+  .news-strip {
+    display: none;
+  }
+}

@@ -1,27 +1,30 @@
 /**
- * MapTopbar.tsx — Composes SearchBox + NewsToggle + EntryPointsRail + FilterSheet
- * in the map topbar overlay.
+ * MapTopbar.tsx — Composes SearchBox + NewsToggle + StateSummary + LayerRail
+ * + FilterSheet in the map topbar overlay.
+ * MAPV2: EntryPointsRail (3 closed <details>) is replaced by LayerRail (one
+ * always-visible chip row + year select). Mode is now implied by the chosen
+ * layer, so the mode props collapse into onLayerChange.
  * Position: absolute top, z-index 800, full width below the page header.
  */
 import React from 'react';
 import { SearchBox, type CommuneIndexEntry } from './SearchBox';
 import { NewsToggle } from './NewsToggle';
-import { EntryPointsRail, StateSummary } from './EntryPointsRail';
+import { LayerRail, StateSummary } from './LayerRail';
 import { FilterSheet } from './FilterSheet';
+import type { LayerDef } from '../../lib/mapFilterDefs';
 
 interface Props {
   lang: 'en' | 'es';
   index: CommuneIndexEntry[];
   year: number;
   onYearChange: (year: number) => void;
+  mode: 'composite' | 'family';
   crimeFamily: string | null;
-  onFamilyChange: (key: string | null, index: number | null) => void;
+  onLayerChange: (def: LayerDef) => void;
   showEvents: boolean;
   onEventsToggle: (v: boolean) => void;
   onSelect: (cut: string) => void;
   onLocate: () => void;
-  mode: 'composite' | 'family';
-  onModeChange: (mode: 'composite' | 'family') => void;
 }
 
 export function MapTopbar({
@@ -29,14 +32,13 @@ export function MapTopbar({
   index,
   year,
   onYearChange,
+  mode,
   crimeFamily,
-  onFamilyChange,
+  onLayerChange,
   showEvents,
   onEventsToggle,
   onSelect,
   onLocate,
-  mode,
-  onModeChange,
 }: Props) {
   return (
     <div className="map-topbar">
@@ -50,23 +52,21 @@ export function MapTopbar({
         <NewsToggle lang={lang} showEvents={showEvents} onEventsToggle={onEventsToggle} />
         <StateSummary lang={lang} year={year} crimeFamily={crimeFamily} mode={mode} />
       </div>
-      <EntryPointsRail
+      <LayerRail
         lang={lang}
         year={year}
         onYearChange={onYearChange}
-        crimeFamily={crimeFamily}
-        onFamilyChange={onFamilyChange}
         mode={mode}
-        onModeChange={onModeChange}
+        crimeFamily={crimeFamily}
+        onLayerChange={onLayerChange}
       />
       <FilterSheet
         lang={lang}
         year={year}
         onYearChange={onYearChange}
-        crimeFamily={crimeFamily}
-        onFamilyChange={onFamilyChange}
         mode={mode}
-        onModeChange={onModeChange}
+        crimeFamily={crimeFamily}
+        onLayerChange={onLayerChange}
       />
     </div>
   );

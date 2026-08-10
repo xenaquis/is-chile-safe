@@ -5,19 +5,35 @@
  * map-payload.json at runtime, and renders 346 commune polygons via the
  * native L.geoJSON + L.canvas choropleth.
  *
- * Rules:
+ * MAPV2 changes (see install-mapa/INSTALL.md):
+ * - One "layer" control (LAYER_DEFS) replaces Modo + Tipo de delito. The
+ *   internal state machine (mode / crimeFamily / crimeFamilyIndex /
+ *   crimeIsHomicide) is UNCHANGED — onLayerChange just sets all four.
+ * - The three duplicated restyle branches (year effect, chip effect, mode
+ *   handler) are centralized in ONE restyle effect keyed on payloadTick +
+ *   layer state + band. Year loads only fetch and bump payloadTick.
+ * - Legend → LegendHistogram: per-band commune counts, histogram, and band
+ *   isolation (applyBandDim mutates the fresh style map before the single
+ *   applyStyleMap pass — D-12 still holds: setStyle in place, no re-mount).
+ * - Low-zoom dots follow the active layer + band (previously always total).
+ * - News layer: incidents held in state; pins re-mounted filtered by the
+ *   active crime family and an optional day picked in NewsStrip. Pin layer
+ *   re-mounts are allowed — D-12 protects the polygon layer only.
+ *
+ * Rules (unchanged):
  * - client:only="react" (never SSR'd — Leaflet CSS safe to import here)
  * - Double-init guard: if mapRef.current exists, return early (Pitfall 5)
  * - L.canvas() renderer declared only in ChoroplethLayer (Pitfall 6)
- * - Fetch only hardcoded same-origin /data/cead/* paths (T-03-01-02, T-03-02-02)
+ * - Fetch only hardcoded same-origin /data/* paths (T-03-01-02, T-03-02-02)
  * - setStyle in place on filter change — never re-mount L.geoJSON (D-12)
  */
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { feature as topoFeature } from 'topojson-client';
 import type { Topology, GeometryCollection } from 'topojson-specification';
 import './map.css';
+import './map-v2.css';
 
 import {
   mountChoroplethLayer,
@@ -35,15 +51,18 @@ import {
   type DotCommune,
 } from './LowZoomDotLayer';
 import { locate } from './UserLocationMarker';
-import { fetchAndMountIncidents } from './IncidentPinLayer';
-import { Legend } from './Legend';
-import { computeQuantileBreaks } from './colors';
+import { fetchIncidents, mountIncidentPins, type IncidentsFile } from './IncidentPinLayer';
+import { LegendHistogram } from './LegendHistogram';
+import { NewsStrip } from './NewsStrip';
+import { computeLayerStats, applyBandDim, type LayerStats } from './bandStats';
 import { ZoomControl } from './ZoomControl';
 import { MapTopbar } from './MapTopbar';
 import { ResultPanel } from './ResultPanel';
 import { Toast } from './Toast';
 import type { CommuneIndexEntry } from './SearchBox';
 import { resolveRegionFocus, shouldApplyRegionFocus } from '../../lib/regionParam';
+import { layerLabel, type LayerDef } from '../../lib/mapFilterDefs';
+import { mapV2Strings } from '../../config/mapV2Strings';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -97,12 +116,11 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
   const [year, setYear] = useState(2025);
   const [crimeFamily, setCrimeFamily] = useState<string | null>(null);
   const [crimeFamilyIndex, setCrimeFamilyIndex] = useState<number | null>(null);
-  // crimeIsHomicide: true when the homicide chip is selected (D-04/HOM-01).
-  // Exclusive with family selection — selecting homicide passes familyIndex null,
-  // which keeps existing family chips inactive.
+  // crimeIsHomicide: true when the homicide layer is selected (D-04/HOM-01).
   const [crimeIsHomicide, setCrimeIsHomicide] = useState(false);
-  // mode: choropleth mode — 'composite' (default, D-05) or 'family' (per-family rate).
-  // MapIsland is the SOLE owner of this state; ResultPanel reads it via prop (D-06).
+  // mode: 'composite' (default, D-05) or 'family'. MapIsland is the SOLE
+  // owner of this state; ResultPanel reads it via prop (D-06). MAPV2: derived
+  // from the picked LayerDef instead of a separate Modo control.
   const [mode, setMode] = useState<'composite' | 'family'>('composite');
   const [showEvents, setShowEvents] = useState(false);
   const [lowZoom, setLowZoom] = useState(true);
@@ -111,8 +129,29 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
   const [toast, setToast] = useState<string | null>(null);
   const [communeIndex, setCommuneIndex] = useState<CommuneIndexEntry[]>([]);
   const [mapReady, setMapReady] = useState(false);
-  const [breaks, setBreaks] = useState<number[] | undefined>(undefined);
   const [partialYear, setPartialYear] = useState(false);
+
+  // MAPV2 state
+  // payloadTick: bumped whenever payloadRef.current is replaced, so the
+  // centralized restyle effect re-runs (refs alone can't trigger effects).
+  const [payloadTick, setPayloadTick] = useState(0);
+  // band: isolated legend band (1–5) or null.
+  const [band, setBand] = useState<number | null>(null);
+  // stats: level index / breaks / counts for the CURRENT layer (legend + dots).
+  const [stats, setStats] = useState<LayerStats | null>(null);
+  // incidents: fetched once when the news layer first turns on.
+  const [incidentsFile, setIncidentsFile] = useState<IncidentsFile | null>(null);
+  // newsDay: optional YYYY-MM-DD day filter picked in NewsStrip.
+  const [newsDay, setNewsDay] = useState<string | null>(null);
+  // MPX-A1: choropleth layer mount signal — the year effect must not fire
+  // before mountChoroplethLayer has run once (race with payloadRef).
+  const [layerMounted, setLayerMounted] = useState(false);
+  // MPX-A2: mirrors `selected` for use inside the restyle effect without
+  // adding `selected` to its deps (would defeat the single-restyle guarantee).
+  const selectedRef = useRef<string | null>(null);
+  // MPX-A7: in-flight/completed incidents fetch, so rapid news toggles never
+  // relaunch a second fetch or duplicate the D-15 toast.
+  const incidentsFetchRef = useRef<Promise<IncidentsFile | null> | null>(null);
 
   // ---------------------------------------------------------------------------
   // Map init effect (runs once on mount)
@@ -166,7 +205,6 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
     let cancelled = false;
 
     async function loadData() {
-      // Fetch TopoJSON, initial payload, and commune index concurrently
       const [topoRaw, payload, idx] = await Promise.all([
         safeFetch<object>('/data/cead/geo/communes.topo.json'),
         safeFetch<MapPayload>('/data/cead/map-payload.json'),
@@ -180,10 +218,8 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
         return;
       }
 
-      // Load commune search index
       if (idx) setCommuneIndex(idx);
 
-      // Decode TopoJSON → GeoJSON FeatureCollection
       const topo = topoRaw as unknown as Topology;
       const objectKey = Object.keys(topo.objects)[0];
       if (!objectKey) {
@@ -193,14 +229,8 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
       const geoCollection = topo.objects[objectKey] as GeometryCollection;
       const geoData = topoFeature(topo, geoCollection) as unknown as GeoJSON.FeatureCollection;
 
-      // Store decoded features for dot layer centroid computation
       featuresRef.current = geoData.features;
       payloadRef.current = payload.comunas;
-
-      // Compute quantile breaks for the legend numeric bands (D-03)
-      setBreaks(computeQuantileBreaks(
-        payload.comunas.map((c) => c.rate).filter((r) => r > 0), 5
-      ));
 
       // TD-06: surface partial-year caveat badge when flag is set
       setPartialYear(payload.partial_year === true);
@@ -220,21 +250,24 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
               if (layerRef.current) {
                 highlightSelected(layerRef.current, polyIdxRef, cut, prev);
               }
+              selectedRef.current = cut;
               return cut;
             });
           }
         );
-        // D-08: focus commune from ?cut= URL param (opaque string — Map lookup only, no DOM injection)
-        // T-25-04-URL: validate ?cut= is 4-5 digits before any fetch (CUTs are unpadded — Valparaíso is 5101)
+        setLayerMounted(true);
+
+        // MAPV2: sync stats + (idempotent) restyle through the central effect
+        setPayloadTick((t) => t + 1);
+
+        // D-08: focus commune from ?cut= URL param (opaque string — Map lookup only)
+        // T-25-04-URL: validate ?cut= is 4-5 digits before any fetch
         const focusCut = new URLSearchParams(window.location.search).get('cut');
         if (focusCut && /^\d{4,5}$/.test(focusCut)) {
-          // Small timeout to allow Leaflet to finish rendering polygons before getBounds is valid
           setTimeout(() => selectCommune(focusCut), 100);
         }
 
-        // MAPSH-04/F-48: ?region= single-value region focus. Only when no valid
-        // ?cut= was requested — a commune deep link is more specific and wins.
-        // M-07: precedence rule now lives in a tested, pure helper.
+        // MAPSH-04/F-48: ?region= single-value region focus, only without ?cut=
         if (shouldApplyRegionFocus(window.location.search) && idx) {
           const regionCuts = resolveRegionFocus(window.location.search, idx);
           if (regionCuts) {
@@ -247,7 +280,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
                 if (ly && 'getBounds' in ly) bounds.extend((ly as L.Polygon).getBounds());
               });
               if (bounds.isValid()) m.fitBounds(bounds, { padding: [40, 40] });
-            }, 100); // same reason as ?cut= (MapIsland.tsx:230): getBounds is not valid until Leaflet has rendered the polygons
+            }, 100); // getBounds is not valid until Leaflet has rendered the polygons
           }
         }
       }
@@ -258,15 +291,15 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
     return () => {
       cancelled = true;
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapReady]);
 
   // ---------------------------------------------------------------------------
-  // Year filter effect: fetch map-payload-{year}.json and recolor in place (D-12)
+  // Year filter effect: fetch map-payload-{year}.json, store, bump payloadTick.
+  // Restyle itself happens in the central effect below (MAPV2).
   // ---------------------------------------------------------------------------
   useEffect(() => {
-    if (!mapReady) return;
-    const layer = layerRef.current;
-    if (!layer) return;
+    if (!mapReady || !layerMounted) return;
 
     let cancelled = false;
 
@@ -280,89 +313,82 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
         return;
       }
 
-      // Re-check layer exists after async (may have unmounted)
-      const geoLayer = layerRef.current;
-      if (!geoLayer) return;
-
-      // Update stored payload for family recolor
       payloadRef.current = payload.comunas;
-
-      // Recompute legend breaks for the new year's rate distribution (D-03)
-      setBreaks(computeQuantileBreaks(
-        payload.comunas.map((c) => c.rate).filter((r) => r > 0), 5
-      ));
-
-      // TD-06: update partial-year badge for the newly loaded year
       setPartialYear(payload.partial_year === true);
-
-      // Rebuild style map based on current mode + crime filter:
-      // composite mode → precomputed ci level; family mode → homicide / by_family / level
-      if (mode === 'composite') {
-        styleMapRef.current = buildStyleMapFromCompositeIndex(payload.comunas);
-      } else if (crimeIsHomicide) {
-        styleMapRef.current = buildStyleMapFromHomicide(payload.comunas);
-      } else if (crimeFamilyIndex !== null) {
-        styleMapRef.current = buildStyleMapFromFamily(payload.comunas, crimeFamilyIndex);
-      } else {
-        styleMapRef.current = buildStyleMapFromLevel(payload.comunas);
-      }
-
-      // setStyle in place — never re-mount (D-12)
-      applyStyleMap(geoLayer, styleMapRef);
+      setPayloadTick((t) => t + 1);
     }
 
     void loadYear();
     return () => { cancelled = true; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [year, mapReady, crimeIsHomicide, mode]);
+  }, [year, mapReady, layerMounted]);
 
   // ---------------------------------------------------------------------------
-  // Crime-type chip effect: recolor from by_family[] — no extra fetch (D-10)
+  // MAPV2 central restyle effect — the ONLY place the choropleth is recolored.
+  // Replaces the original's three duplicated branches (year effect, chip
+  // effect, onModeChange handler). Recomputes layer stats, rebuilds the style
+  // map with the existing builders, applies band isolation, and does ONE
+  // setStyle pass in place (D-12).
   // ---------------------------------------------------------------------------
   useEffect(() => {
     const communas = payloadRef.current;
-    if (!layerRef.current || !communas) return;
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const geoLayer = layerRef.current!;
+    const geoLayer = layerRef.current;
+    if (!communas || !geoLayer) return;
 
-    // Mode-aware branch: composite → ci level; family mode → homicide / family / level
+    const st = computeLayerStats(communas, mode, crimeFamilyIndex, crimeIsHomicide);
+    setStats({ ...st, band });
+
+    let styleMap: Map<string, L.PathOptions>;
     if (mode === 'composite') {
-      styleMapRef.current = buildStyleMapFromCompositeIndex(communas);
+      styleMap = buildStyleMapFromCompositeIndex(communas);
     } else if (crimeIsHomicide) {
-      styleMapRef.current = buildStyleMapFromHomicide(communas);
+      styleMap = buildStyleMapFromHomicide(communas);
     } else if (crimeFamilyIndex !== null) {
-      styleMapRef.current = buildStyleMapFromFamily(communas, crimeFamilyIndex);
+      styleMap = buildStyleMapFromFamily(communas, crimeFamilyIndex);
     } else {
-      styleMapRef.current = buildStyleMapFromLevel(communas);
+      styleMap = buildStyleMapFromLevel(communas);
     }
-
+    applyBandDim(styleMap, st.levelIdx, band);
+    styleMapRef.current = styleMap;
     applyStyleMap(geoLayer, styleMapRef);
-  }, [crimeFamilyIndex, crimeIsHomicide, mode]);
+
+    // MPX-A2: band isolation / restyle just replaced the full style map —
+    // reapply the selection highlight (uses the ref, not `selected`, so this
+    // effect's deps stay untouched and the single-restyle guarantee holds).
+    if (selectedRef.current && polyIdxRef.current.has(selectedRef.current)) {
+      highlightSelected(geoLayer, polyIdxRef, selectedRef.current, null);
+    }
+  }, [payloadTick, mode, crimeFamilyIndex, crimeIsHomicide, band]);
 
   // ---------------------------------------------------------------------------
-  // Low-zoom dot layer effect
+  // Low-zoom dot layer effect — MAPV2: follows active layer + band
   // ---------------------------------------------------------------------------
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
 
-    if (lowZoom) {
-      if (featuresRef.current.length > 0 && payloadRef.current) {
-        const dotComunas: DotCommune[] = buildDotComunas(featuresRef.current, payloadRef.current);
-        dotsRef.current = mountLowZoomDots(map, dotComunas, (cut) => {
+    if (dotsRef.current) {
+      dotsRef.current.remove();
+      dotsRef.current = null;
+    }
+
+    if (lowZoom && featuresRef.current.length > 0 && payloadRef.current) {
+      const dotComunas: DotCommune[] = buildDotComunas(featuresRef.current, payloadRef.current);
+      dotsRef.current = mountLowZoomDots(
+        map,
+        dotComunas,
+        (cut) => {
           setSelected((prev) => {
             if (layerRef.current) {
               highlightSelected(layerRef.current, polyIdxRef, cut, prev);
             }
+            selectedRef.current = cut;
             return cut;
           });
-        });
-      }
-    } else {
-      if (dotsRef.current) {
-        dotsRef.current.remove();
-        dotsRef.current = null;
-      }
+        },
+        stats?.levelIdx,
+        stats?.band ?? null
+      );
     }
 
     return () => {
@@ -371,26 +397,71 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
         dotsRef.current = null;
       }
     };
-  }, [lowZoom]);
+  // MPX-A3: deps = [lowZoom, stats] only — `stats.band` is read directly so
+  // dot re-mount happens once per interaction, always with the current levelIdx.
+  }, [lowZoom, stats]);
 
   // ---------------------------------------------------------------------------
-  // Events toggle effect: fetch + mount incident-pin layer (MAP-04)
+  // News layer — MAPV2 split: fetch once on first toggle-on, then re-mount a
+  // family/day-filtered pin subset when filters change. Re-mounting the pin
+  // LayerGroup is fine — D-12 protects the polygon choropleth only (MAP-04).
   // ---------------------------------------------------------------------------
+  useEffect(() => {
+    if (!showEvents || incidentsFile !== null) return;
+    // MPX-A7: a request is already in flight (or already resolved) — a rapid
+    // toggle-off/toggle-on before it lands must not relaunch fetchIncidents
+    // or duplicate the D-15 toast.
+    if (incidentsFetchRef.current !== null) return;
+    let cancelled = false;
+    const promise = fetchIncidents(lang, setToast);
+    incidentsFetchRef.current = promise;
+    void promise.then((file) => {
+      if (!cancelled && file) setIncidentsFile(file);
+    });
+    return () => { cancelled = true; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showEvents]);
+
+  // Family key the news layer inherits from the active layer. Homicide has no
+  // press family of its own — the closest bucket is 'vida'.
+  const newsFamilyKey = mode === 'family'
+    ? (crimeIsHomicide ? 'vida' : crimeFamily)
+    : null;
+
+  // MPX-C4: anchor derived from the FULL (unfiltered) incidents file, never
+  // from the family-filtered subset — see NewsStrip.tsx for why.
+  const incidentsAnchor = useMemo(() => {
+    let a = '';
+    if (incidentsFile) for (const i of incidentsFile.incidents) if (i.date > a) a = i.date;
+    return a;
+  }, [incidentsFile]);
+
+  const familyFilteredIncidents = useMemo(() => {
+    if (!incidentsFile) return [];
+    if (!newsFamilyKey) return incidentsFile.incidents;
+    return incidentsFile.incidents.filter((i) => i.family === newsFamilyKey);
+  }, [incidentsFile, newsFamilyKey]);
+
+  // Reset the day filter when the family scope changes (the picked day may
+  // have zero incidents in the new scope — a silent empty map reads as a bug).
+  useEffect(() => {
+    setNewsDay(null);
+  }, [newsFamilyKey]);
+
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
 
-    if (showEvents) {
-      // Fetch and mount; graceful empty state handled inside fetchAndMountIncidents
-      void fetchAndMountIncidents(map, lang, setToast).then((layer) => {
-        eventsRef.current = layer;
-      });
-    } else {
-      // Remove layer when toggled off
-      if (eventsRef.current) {
-        eventsRef.current.remove();
-        eventsRef.current = null;
-      }
+    if (eventsRef.current) {
+      eventsRef.current.remove();
+      eventsRef.current = null;
+    }
+
+    if (showEvents && incidentsFile) {
+      const pins = newsDay
+        ? familyFilteredIncidents.filter((i) => i.date === newsDay)
+        : familyFilteredIncidents;
+      eventsRef.current = mountIncidentPins(map, pins, lang);
     }
 
     return () => {
@@ -400,7 +471,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
       }
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showEvents]);
+  }, [showEvents, incidentsFile, familyFilteredIncidents, newsDay]);
 
   // ---------------------------------------------------------------------------
   // selectCommune: fly to commune + highlight (D-13)
@@ -411,6 +482,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
       if (layerRef.current) {
         highlightSelected(layerRef.current, polyIdxRef, cut, prev);
       }
+      selectedRef.current = cut;
       return cut;
     });
     if (!map) return;
@@ -426,28 +498,35 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
     }
   }, []);
 
+  // MAPV2: single layer-change handler — sets the whole (mode, family) state
+  // machine from one LayerDef and clears the band isolation, whose levels no
+  // longer mean the same thing under the new layer.
+  const handleLayerChange = useCallback((def: LayerDef) => {
+    setMode(def.mode);
+    setCrimeFamily(def.key);
+    setCrimeFamilyIndex(def.familyIndex);
+    setCrimeIsHomicide(def.key === 'homicidios');
+    setBand(null);
+  }, []);
+
   // ---------------------------------------------------------------------------
   // Render
   // ---------------------------------------------------------------------------
+  const v2 = mapV2Strings(lang);
   return (
     <div className={`map-stage${selected ? ' has-panel' : ''}`}>
       {/* The Leaflet map container */}
       <div className="map-canvas" ref={divRef} />
 
-      {/* Map topbar: search + filters */}
+      {/* Map topbar: search + layer rail */}
       <MapTopbar
         lang={lang}
         index={communeIndex}
         year={year}
         onYearChange={setYear}
+        mode={mode}
         crimeFamily={crimeFamily}
-        onFamilyChange={(key, idx) => {
-          setCrimeFamily(key);
-          setCrimeFamilyIndex(idx);
-          // Signal homicide-specific branch; exclusive with family selection
-          // (homicide chip passes familyIndex null, so no family chip stays active)
-          setCrimeIsHomicide(key === 'homicidios');
-        }}
+        onLayerChange={handleLayerChange}
         showEvents={showEvents}
         onEventsToggle={setShowEvents}
         onSelect={selectCommune}
@@ -455,22 +534,6 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
           const map = mapRef.current;
           if (!map) return;
           locate(map, featuresRef.current, userRef, selectCommune, setToast, lang);
-        }}
-        mode={mode}
-        onModeChange={(next) => {
-          setMode(next);
-          const communas = payloadRef.current;
-          if (!communas || !layerRef.current) return;
-          if (next === 'composite') {
-            styleMapRef.current = buildStyleMapFromCompositeIndex(communas);
-          } else if (crimeIsHomicide) {
-            styleMapRef.current = buildStyleMapFromHomicide(communas);
-          } else if (crimeFamilyIndex !== null) {
-            styleMapRef.current = buildStyleMapFromFamily(communas, crimeFamilyIndex);
-          } else {
-            styleMapRef.current = buildStyleMapFromLevel(communas);
-          }
-          applyStyleMap(layerRef.current, styleMapRef);
         }}
       />
 
@@ -503,15 +566,31 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
         aria-hidden="true"
       />
 
-      {/* Legend (bottom-left) */}
-      <Legend
+      {/* MAPV2 Legend: distribution + counts + band isolation (bottom-left) */}
+      <LegendHistogram
         lang={lang}
-        breaks={mode === 'composite' ? undefined : breaks}
-        title={mode === 'composite'
-          ? (lang === 'es' ? 'Índice Delictivo' : 'Crime Index')
-          : undefined}
+        stats={stats}
+        mode={mode}
+        band={band}
+        onBandChange={setBand}
         showIncidents={showEvents}
       />
+
+      {/* MAPV2 News strip: count + scope + per-day bars (bottom-center) */}
+      {showEvents && incidentsFile && (
+        <NewsStrip
+          lang={lang}
+          incidents={familyFilteredIncidents}
+          windowDays={incidentsFile.window_days}
+          // MPX-C3: when the active layer is Homicide, the press pins actually
+          // shown are the 'vida' family (homicide has no own press bucket) —
+          // the strip scope must say that, not "Homicidios".
+          scopeLabel={newsFamilyKey ? layerLabel(lang, 'family', newsFamilyKey) : v2.news_strip_all}
+          anchor={incidentsAnchor}
+          day={newsDay}
+          onDayChange={setNewsDay}
+        />
+      )}
 
       {/* Zoom control (desktop only, hidden via CSS on mobile) */}
       <ZoomControl mapRef={mapRef} />
@@ -529,6 +608,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
               const prev = polyIdxRef.current.get(selected);
               if (prev) layerRef.current.resetStyle(prev as L.Path);
             }
+            selectedRef.current = null;
             setSelected(null);
           }}
         />

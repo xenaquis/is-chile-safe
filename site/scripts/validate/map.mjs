@@ -295,6 +295,45 @@ if (!existsSync(SANTIAGO_PATH)) {
 }
 
 // ---------------------------------------------------------------------------
+// Check 10 (MPX-A6): TopoJSON ids and map-payload.json comuna ids are the
+// SAME set. bandStats.ts / applyBandDim key band isolation purely off CUT —
+// a mismatch here would silently leave orphan polygons unstyled (never
+// dimmed, never isolated) or orphan payload rows with no polygon to color.
+// Runs without dist/ — committed data asset assertion.
+// ---------------------------------------------------------------------------
+if (existsSync(TOPO_PATH) && existsSync(MAP_PAYLOAD_PATH)) {
+  try {
+    const topo = JSON.parse(readFileSync(TOPO_PATH, 'utf8'));
+    const payload = JSON.parse(readFileSync(MAP_PAYLOAD_PATH, 'utf8'));
+    const objKey = Object.keys(topo.objects)[0];
+    const topoIds = new Set(
+      (topo.objects[objKey]?.geometries ?? [])
+        .map((g) => g.properties && g.properties.id)
+        .filter(Boolean)
+    );
+    const payloadIds = new Set((payload.comunas ?? []).map((c) => c.id));
+
+    const missingFromPayload = [...topoIds].filter((id) => !payloadIds.has(id));
+    const missingFromTopo = [...payloadIds].filter((id) => !topoIds.has(id));
+
+    if (topoIds.size === payloadIds.size && missingFromPayload.length === 0 && missingFromTopo.length === 0) {
+      pass(`TopoJSON <-> map-payload id sets match (${topoIds.size} ids)`);
+    } else {
+      fail(
+        'TopoJSON <-> map-payload id sets',
+        `topo=${topoIds.size} payload=${payloadIds.size}; ` +
+          `missing from payload: ${missingFromPayload.slice(0, 5).join(',') || 'none'}` +
+          (missingFromPayload.length > 5 ? `(+${missingFromPayload.length - 5} more)` : '') +
+          `; missing from topo: ${missingFromTopo.slice(0, 5).join(',') || 'none'}` +
+          (missingFromTopo.length > 5 ? `(+${missingFromTopo.length - 5} more)` : '')
+      );
+    }
+  } catch (e) {
+    fail('TopoJSON <-> map-payload id sets', `parse error: ${e.message}`);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 if (failures > 0) {
