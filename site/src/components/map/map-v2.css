@@ -320,3 +320,19 @@
   white-space: nowrap;
   border: 0;
 }
+
+/* Result panel vs the v2 topbar. The drawer is fixed at top:64 (map.css:614)
+   and sat at z 700 UNDER .map-topbar (z 800, opaque #f5f8f8) — a latent v1
+   flaw: the topbar strip clipped the left edge of the panel's first rows
+   (head, badges, composite title), leaving right-truncated text floating on
+   the page background. With the v1 topbar at 143px the band was small; the
+   v2 wrapped rail grew it to 217-343px and swallowed the whole panel head.
+   Fix: at >=641px the drawer overlays the topbar like a normal side drawer
+   (opaque bg + border-left, close button always reachable). Stays below the
+   search suggestions (z 900) and toasts (z 1000). <=640px keeps the mobile
+   bottom-sheet exactly as it was (z 700). */
+@media (min-width: 641px) {
+  .result-panel {
+    z-index: 850;
+  }
+}
