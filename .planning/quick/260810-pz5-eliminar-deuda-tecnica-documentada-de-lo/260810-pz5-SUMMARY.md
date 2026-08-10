@@ -29,6 +29,10 @@ Pipeline: pase visual del estratega (BrowserOS sobre dist/) → PLAN con 21 íte
 
 4 corridas independientes (una por ejecutor + verificador) + 1 final del estratega: astro check 0 errores · vitest 86/86 · build 834 páginas · validate 16/16 (crime.mjs ahora con la asserción de piso). mapFilterDefs.test.ts y newsFilterLogic.test.ts sin diff.
 
+## Corrección post-push (769e2d0) — RKD-01 revertido parcialmente
+
+El usuario reportó "problema de cuadros" en el hub de rankings: RKD-01 dejó la fila 1 asimétrica (8 cards, 7 pies — Homicidios con hueco). Diagnóstico en BrowserOS: el hallazgo F-01 del review era defectuoso — `/crime/homicide/` y `/es/delito/homicidios/` son **stubs de redirect TD-04 (v1.3)** hacia las páginas de ranking de homicidios, así que el link restaurado en la card "Delitos contra la Vida" aterrizaba en el ranking de *homicidios* (categoría equivocada, destino duplicado, y contra la memoria de la colisión vida/homicide). Revertida la exclusión de `vida` en `familyHref` (fila 1 sin pies por diseño, simétrica); asserción de crime.mjs recalibrada a piso ≥1 entrante (glossary) — enlazar stubs internamente no es un objetivo, no quedar huérfanos sí. Gates verdes; verificado visualmente en el preview local (puerto 4331).
+
 ## Fuera de alcance (decisión documentada, no es deuda accionable)
 
 - Barras-día <44px de ancho (tradeoff de diseño mitigado y comentado en CSS).
