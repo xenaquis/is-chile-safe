@@ -20,6 +20,20 @@
  * from newsFacets.ts:82-90,179-216 — UTC/string-only arithmetic, never
  * toLocaleDateString/getMonth()/bare new Date(y,m,d).
  *
+ * `day` dimension (news UX pass): an exact-date filter backing the day
+ * histogram. It is ADDITIVE and OPTIONAL — `day?: string` rather than a
+ * required field, so every previously-written FilterParams object literal
+ * (tests, call sites) stays valid and every previously-specified behaviour is
+ * unchanged when `day` is absent. `day` and `window` are both date
+ * predicates and are ANDed here if both are set; the PAGES enforce mutual
+ * exclusivity at the interaction layer (picking a bar clears the window
+ * preset and vice-versa) rather than this module silently dropping one, which
+ * would make the pure function lie about its inputs.
+ *
+ * FILTER_LOGIC_MARKER stays 'newsFilterLogic/v1': scripts/validate/facets.mjs
+ * assertion 17 asserts that exact literal in the shipped module script, and
+ * this change is additive, not a contract break.
+ *
  * Every function here is pure: no DOM access, no document/window reference,
  * no I/O — this module has zero filesystem dependency.
  */
@@ -36,6 +50,8 @@ export interface FilterParams {
   region: string[];
   window: WindowValue;
   q: string;
+  /** Exact YYYY-MM-DD, or '' / undefined for "no day pinned". */
+  day?: string;
 }
 
 /**
@@ -55,16 +71,25 @@ export function norm(s: string): string {
   return s
     .trim()
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase();
 }
 
 const VALID_WINDOW_VALUES: ReadonlySet<string> = new Set(['today', '7d', '30d']);
 
 /**
+ * ISO_DAY_RE — the `day` param arrives from a user-editable URL and is used
+ * in string comparisons against card data-date attributes. Anything that is
+ * not exactly YYYY-MM-DD degrades to '' (same posture as a hostile `window`
+ * value: never throw, never trust). Anchored on both ends so a long or
+ * padded value cannot slip through.
+ */
+const ISO_DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
  * parseFilterParams — parses a "?a=b&c=d" (leading '?' optional) query
- * string into a typed FilterParams. Hostile/malformed `window` values
- * degrade to '' (all dates) — never throws (RESEARCH.md Security Domain).
+ * string into a typed FilterParams. Hostile/malformed `window` and `day`
+ * values degrade to '' — never throws (RESEARCH.md Security Domain).
  */
 export function parseFilterParams(search: string): FilterParams {
   const params = new URLSearchParams(search);
@@ -80,7 +105,12 @@ export function parseFilterParams(search: string): FilterParams {
 
   const q = params.get('q') ?? '';
 
-  return { family, region, window, q };
+  const dayRaw = params.get('day') ?? '';
+  const day = ISO_DAY_RE.test(dayRaw) ? dayRaw : '';
+
+  const out: FilterParams = { family, region, window, q };
+  if (day) out.day = day;
+  return out;
 }
 
 /**
@@ -94,6 +124,7 @@ export function serializeFilterParams(params: FilterParams): string {
   if (params.region.length > 0) usp.set('region', params.region.join(','));
   if (params.window !== '') usp.set('window', params.window);
   if (params.q !== '') usp.set('q', params.q);
+  if (params.day) usp.set('day', params.day);
   return usp.toString();
 }
 
@@ -151,18 +182,21 @@ export interface CardFilterState {
   communeNorm: string;
 }
 
+export type FilterDimension = 'family' | 'region' | 'window' | 'day';
+
 /**
  * cardMatchesFilters — applies every active filter EXCEPT excludeDimension
  * (F-28 self-exclusion). The comuna query (q) is cross-cutting and is
  * ALWAYS applied regardless of excludeDimension. family/region use
  * `.includes()` against active arrays (empty active array = dimension not
- * filtering = always matches).
+ * filtering = always matches). `day` is an exact string equality against the
+ * card's date, and is inert when unset.
  */
 export function cardMatchesFilters(
   card: CardFilterState,
   active: FilterParams,
   newestDate: string | null,
-  excludeDimension?: 'family' | 'region' | 'window'
+  excludeDimension?: FilterDimension
 ): boolean {
   if (excludeDimension !== 'family' && active.family.length > 0) {
     if (!card.family || !active.family.includes(card.family)) return false;
@@ -174,6 +208,10 @@ export function cardMatchesFilters(
 
   if (excludeDimension !== 'window' && active.window !== '') {
     if (!matchesWindow(card.date, newestDate, active.window)) return false;
+  }
+
+  if (excludeDimension !== 'day' && active.day) {
+    if (card.date !== active.day) return false;
   }
 
   if (active.q !== '') {
@@ -188,13 +226,16 @@ export function cardMatchesFilters(
  * card[dimension-equivalent field] === key AND cardMatchesFilters(card,
  * active, newestDate, dimension) is true (self-exclusion). For dimension
  * 'window', keys are 'today'|'7d'|'30d' and the per-key match uses
- * matchesWindow(card.date, newestDate, key) instead of equality.
+ * matchesWindow(card.date, newestDate, key) instead of equality. For
+ * dimension 'day', keys are YYYY-MM-DD strings matched by equality against
+ * card.date — this is what keeps every histogram bar reachable: a bar's
+ * height reflects the other active filters but never the pinned day itself.
  */
 export function computeFacetCounts(
   cards: CardFilterState[],
   active: FilterParams,
   newestDate: string | null,
-  dimension: 'family' | 'region' | 'window',
+  dimension: FilterDimension,
   keys: string[]
 ): Record<string, number> {
   const counts: Record<string, number> = {};
@@ -209,6 +250,8 @@ export function computeFacetCounts(
         matchesKey = matchesWindow(card.date, newestDate, key as WindowValue);
       } else if (dimension === 'family') {
         matchesKey = card.family === key;
+      } else if (dimension === 'day') {
+        matchesKey = card.date === key;
       } else {
         matchesKey = card.regionId === key;
       }

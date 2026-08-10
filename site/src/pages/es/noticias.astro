@@ -10,6 +10,22 @@
  * Pitfall 4: existsSync fallback — build no falla si current.json está ausente.
  * Pitfall slug: esPath hardcodeado — NUNCA getRelativeLocaleUrl para este slug.
  * P1-6: estructura semántica h2/h3, secciones por mes, chips de tipo + comuna (paridad con /news/).
+ *
+ * Pasada de UX (NEWSUX): los 28 controles apilados de la barra de filtros pasan a
+ * tres gestos — histograma de días, desplegable de región, chips de tipo con color —
+ * y las tarjetas con borde pasan a filas densas en columnas fijas. Restricciones que
+ * ESTA página debe respetar (scripts/validate/facets.mjs):
+ *   - assertion 12: un <article class="news-card"> por incidente; jamás `hidden` en
+ *     servidor; y NINGUNA regla CSS cuyo selector contenga `.news-card` puede fijar
+ *     `display` (defeatearía el [hidden] del UA). Por eso el grid de la fila vive en
+ *     `.news-row`, un hijo, y `.news-card` solo lleva padding/borde.
+ *   - assertion 18: ids news-filters / news-comuna-q / news-result-count /
+ *     news-clear-filters; fieldsets data-facet="window|region|family"; region y
+ *     family DEBEN contener <input type="checkbox"> — por eso la región es un
+ *     <details> desplegable sobre los mismos checkboxes y NO un <select>. Además solo
+ *     puede existir UN data-result-count-template y ningún {n}/{date} sin sustituir,
+ *     por eso el pie del histograma se sustituye aquí, en build.
+ *   - assertion 11: todo toLocaleDateString con opción `month:` lleva timeZone:'UTC'.
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
 import { existsSync, readFileSync } from 'node:fs';
@@ -17,6 +33,7 @@ import path from 'node:path';
 import { loadIndex, loadRegion, regionFileId } from '../../lib/data';
 import { FAMILY_LABELS_ES } from '../../lib/familyDefs';
 import { computeNewsFacets, escapeForInlineScript } from '../../lib/newsFacets';
+import { computeDayBuckets, peakBucket } from '../../lib/newsDayFacets';
 import { norm, FILTER_LOGIC_MARKER } from '../../lib/newsFilterLogic';
 import { ES_STRINGS, regionNameEs } from '../../config/i18n.ts';
 
@@ -99,6 +116,29 @@ function formatMonth(yearMonth: string): string {
   return d.toLocaleDateString('es-CL', { timeZone: 'UTC', year: 'numeric', month: 'long' });
 }
 
+// Etiqueta corta de día ("5 ago") para la columna de fecha, el eje del histograma y
+// los títulos de barra. Memoizada: son ~1.500 incidentes sobre ~30 fechas distintas,
+// así que sin caché se pagarían ~1.500 formateos de Intl en cada build.
+// assertion 11: `month:` obliga a timeZone: 'UTC' (sin esto un lector chileno vería
+// la etiqueta desfasada un día).
+const dayLabelCache = new Map<string, string>();
+function dayLabel(date: string): string {
+  const hit = dayLabelCache.get(date);
+  if (hit !== undefined) return hit;
+  let label: string;
+  try {
+    label = new Date(date + 'T00:00:00Z').toLocaleDateString('es-CL', {
+      timeZone: 'UTC',
+      month: 'short',
+      day: 'numeric',
+    });
+  } catch {
+    label = date;
+  }
+  dayLabelCache.set(date, label);
+  return label;
+}
+
 // Ordenar más recientes primero (TD-03)
 incidents.sort((a, b) => b.date.localeCompare(a.date));
 
@@ -142,6 +182,20 @@ const facetsProjection = {
   anchorDate: facets.anchorDate,
 };
 
+// Histograma por día — anclado a facets.anchorDate (fecha del incidente más nuevo),
+// nunca al reloj del build. Serie densa: los días con cero se dibujan igual, porque
+// un hueco en la cobertura es información, no ruido a comprimir.
+const dayBuckets = computeDayBuckets(incidents.map((i) => i.date), facets.anchorDate);
+const peak = peakBucket(dayBuckets);
+// F-32 / assertion 18: sustitución en servidor — el HTML indexado no puede contener
+// un token {n}/{date} literal fuera del único data-result-count-template.
+const peakText = peak
+  ? t.news_histogram_peak.replace('{n}', String(peak.count)).replace('{date}', dayLabel(peak.date))
+  : '';
+const axisFirst = dayBuckets.length > 0 ? dayLabel(dayBuckets[0].date) : '';
+const axisMid = dayBuckets.length > 0 ? dayLabel(dayBuckets[Math.floor(dayBuckets.length / 2)].date) : '';
+const axisLast = dayBuckets.length > 0 ? dayLabel(dayBuckets[dayBuckets.length - 1].date) : '';
+
 // Nombres de región para la barra de filtros (máx. 16 lookups) — CommuneMeta no
 // tiene campo de nombre de región, así que loadRegion(regionFileId(...)).name es
 // la única fuente correcta.
@@ -152,13 +206,7 @@ const regionNames = new Map<string, string>(
 // F-32: sustitución server-side — el HTML indexado nunca debe contener un token
 // literal {n}/{date}. La fecha ancla se formatea con timeZone: 'UTC' obligatorio
 // (sin esto, un lector chileno vería la etiqueta desfasada un día).
-const anchorLabel = facets.anchorDate
-  ? new Date(facets.anchorDate + 'T00:00:00Z').toLocaleDateString('es-CL', {
-      timeZone: 'UTC',
-      month: 'short',
-      day: 'numeric',
-    })
-  : '—';
+const anchorLabel = facets.anchorDate ? dayLabel(facets.anchorDate) : '—';
 const resultCountText = t.news_result_count.replace('{n}', String(incidents.length));
 const windowLatestText = t.news_window_latest.replace('{date}', anchorLabel);
 
@@ -193,58 +241,21 @@ const jsonLd = {
         <time datetime={generated}>Actualizado {formattedDate}</time>
       </p>
     )}
-    <p class="facet-semantics-note" id="news-facet-semantics">{t.news_facet_semantics_note}</p>
   </section>
 
   {incidents.length > 0 && (
     <details class="news-filter-bar" id="news-filters" open>
       <summary>{t.news_filter_heading}</summary>
-      <div class="filter-groups">
-        <fieldset class="filter-group" data-facet="window">
-          <legend>{t.news_filter_window_label}</legend>
-          <label class="filter-chip">
-            <input type="radio" name="window" value="today" />
-            <span class="filter-opt-label">{windowLatestText}</span>
-            <span class="filter-count">{facets.byWindow.today.length}</span>
-          </label>
-          <label class="filter-chip">
-            <input type="radio" name="window" value="7d" />
-            <span class="filter-opt-label">{t.news_window_7d_label}</span>
-            <span class="filter-count">{facets.byWindow.sevenDay.length}</span>
-          </label>
-          <label class="filter-chip">
-            <input type="radio" name="window" value="30d" />
-            <span class="filter-opt-label">{t.news_window_30d_label}</span>
-            <span class="filter-count">{facets.byWindow.thirtyDay.length}</span>
-          </label>
-          <label class="filter-chip">
-            <input type="radio" name="window" value="" checked />
-            <span class="filter-opt-label">{t.news_window_all}</span>
-            <span class="filter-count">{incidents.length}</span>
-          </label>
-        </fieldset>
-        <fieldset class="filter-group" data-facet="region">
-          <legend>{t.news_filter_region_label}</legend>
-          {facets.byRegion.map((r) => (
-            <label class="filter-chip">
-              <input type="checkbox" name="region" value={r.regionId} />
-              <span class="filter-opt-label">{regionNames.get(r.regionId) ?? r.regionId}</span>
-              <span class="filter-count">{r.count}</span>
-            </label>
-          ))}
-        </fieldset>
-        <fieldset class="filter-group" data-facet="family">
-          <legend>{t.news_filter_family_label}</legend>
-          {facets.byFamily.map((f) => (
-            <label class="filter-chip">
-              <input type="checkbox" name="family" value={f.key} />
-              <span class="filter-opt-label">{familyLabel(f.key)}</span>
-              <span class="filter-count">{f.count}</span>
-            </label>
-          ))}
-        </fieldset>
-        <div class="filter-group" data-facet="comuna-search">
-          <label for="news-comuna-q">{t.news_search_comuna_label}</label>
+
+      <div class="filter-primary">
+        <div class="filter-group filter-group--search" data-facet="comuna-search">
+          <label for="news-comuna-q" class="news-sr">{t.news_search_comuna_label}</label>
+          <span class="search-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.6" />
+              <path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+          </span>
           <input
             type="search"
             id="news-comuna-q"
@@ -252,8 +263,91 @@ const jsonLd = {
             autocomplete="off"
           />
         </div>
+
+        <details class="filter-dropdown" id="news-region-dropdown">
+          <summary>
+            <span>{t.news_filter_region_label}</span>
+            <span class="dd-count" id="news-region-count"></span>
+          </summary>
+          <fieldset class="filter-group filter-group--panel" data-facet="region">
+            <legend class="news-sr">{t.news_filter_region_label}</legend>
+            {facets.byRegion.map((r) => (
+              <label class="filter-chip">
+                <input type="checkbox" name="region" value={r.regionId} />
+                <span class="filter-opt-label">{regionNames.get(r.regionId) ?? r.regionId}</span>
+                <span class="filter-count">{r.count}</span>
+              </label>
+            ))}
+          </fieldset>
+        </details>
+
+        <fieldset class="filter-group filter-group--presets" data-facet="window">
+          <legend class="news-sr">{t.news_filter_window_label}</legend>
+          <label class="preset-chip">
+            <input type="radio" name="window" value="today" />
+            <span class="filter-opt-label">{windowLatestText}</span>
+            <span class="filter-count">{facets.byWindow.today.length}</span>
+          </label>
+          <label class="preset-chip">
+            <input type="radio" name="window" value="7d" />
+            <span class="filter-opt-label">{t.news_window_7d_label}</span>
+            <span class="filter-count">{facets.byWindow.sevenDay.length}</span>
+          </label>
+          <label class="preset-chip">
+            <input type="radio" name="window" value="30d" />
+            <span class="filter-opt-label">{t.news_window_30d_label}</span>
+            <span class="filter-count">{facets.byWindow.thirtyDay.length}</span>
+          </label>
+          <label class="preset-chip">
+            <input type="radio" name="window" value="" checked />
+            <span class="filter-opt-label">{t.news_window_all}</span>
+            <span class="filter-count">{incidents.length}</span>
+          </label>
+        </fieldset>
       </div>
+
+      {dayBuckets.length > 0 && (
+        <div class="day-histogram">
+          <p class="day-histogram-head">
+            <span>{t.news_histogram_label}</span>
+            <span class="day-peak">{peakText}</span>
+          </p>
+          <div class="day-bars" id="news-day-bars" role="group" aria-label={t.news_histogram_label}>
+            {dayBuckets.map((b) => (
+              <button
+                type="button"
+                class="day-bar"
+                data-day={b.date}
+                aria-pressed="false"
+                style={`--h:${b.pct}%`}
+              >
+                <span class="day-bar-fill" aria-hidden="true"></span>
+                <span class="news-sr">{dayLabel(b.date)} · {b.count}</span>
+              </button>
+            ))}
+          </div>
+          <p class="day-axis" aria-hidden="true">
+            <span>{axisFirst}</span>
+            <span>{axisMid}</span>
+            <span>{axisLast}</span>
+          </p>
+        </div>
+      )}
+
+      <fieldset class="filter-group filter-group--families" data-facet="family">
+        <legend class="news-sr">{t.news_filter_family_label}</legend>
+        {facets.byFamily.map((f) => (
+          <label class="filter-chip filter-chip--family" data-family={f.key}>
+            <input type="checkbox" name="family" value={f.key} />
+            <span class="fam-dot" aria-hidden="true"></span>
+            <span class="filter-opt-label">{familyLabel(f.key)}</span>
+            <span class="filter-count">{f.count}</span>
+          </label>
+        ))}
+      </fieldset>
+
       <p class="filter-actions">
+        <button type="button" id="news-clear-filters">{t.news_clear_filters}</button>
         <span
           id="news-result-count"
           role="status"
@@ -262,8 +356,8 @@ const jsonLd = {
         >
           {resultCountText}
         </span>
-        <button type="button" id="news-clear-filters">{t.news_clear_filters}</button>
       </p>
+      <p class="facet-semantics-note" id="news-facet-semantics">{t.news_facet_semantics_note}</p>
     </details>
   )}
 
@@ -277,43 +371,52 @@ const jsonLd = {
       <p class="empty-state">Sin incidentes aún. Vuelve pronto.</p>
     </section>
   ) : (
-    Array.from(monthGroups.entries()).map(([yearMonth, groupIncidents]) => (
-      <section class="news-month-section" id={'month-' + yearMonth}>
-        <h2 class="news-date-group">{formatMonth(yearMonth)}</h2>
-        {groupIncidents.map((incident) => {
-          const communeInfo = getCommuneInfo(incident);
-          return (
-            <article
-              class="news-card"
-              data-family={incident.family ?? ''}
-              data-region-id={cutToRegion.get(String(incident.cut)) ?? ''}
-              data-year-month={yearMonth}
-              data-commune-norm={communeInfo ? norm(communeInfo.name) : ''}
-              data-date={incident.date}
-            >
-              <h3 class="news-title">
-                <a href={safeUrl(incident.url)} target="_blank" rel="noopener noreferrer">
-                  {incident.title_es}
-                </a>
-              </h3>
-              <p class="news-meta">
-                {incident.family && (
-                  <span class="news-type-chip">{familyLabel(incident.family)}</span>
-                )}
-                {communeInfo && (
-                  <span class="news-commune-chip">
-                    <a href={'/es/comuna/' + communeInfo.slug + '/'}>
-                      {communeInfo.name}
+    <div class="news-list">
+      <p class="news-list-head" aria-hidden="true">
+        <span>{t.news_col_headline}</span>
+        <span>{t.news_col_commune}</span>
+        <span>{t.news_col_outlet}</span>
+        <span>{t.news_col_date}</span>
+      </p>
+      {Array.from(monthGroups.entries()).map(([yearMonth, groupIncidents]) => (
+        <section class="news-month-section" id={'month-' + yearMonth}>
+          <h2 class="news-date-group">{formatMonth(yearMonth)}</h2>
+          {groupIncidents.map((incident) => {
+            const communeInfo = getCommuneInfo(incident);
+            const family = incident.family ?? '';
+            return (
+              <article
+                class="news-card"
+                data-family={family}
+                data-region-id={cutToRegion.get(String(incident.cut)) ?? ''}
+                data-year-month={yearMonth}
+                data-commune-norm={communeInfo ? norm(communeInfo.name) : ''}
+                data-date={incident.date}
+              >
+                {/* El grid vive aquí, en un hijo: assertion 12 prohíbe que cualquier
+                    regla CSS cuyo selector contenga `.news-card` fije `display`. */}
+                <div class="news-row" data-family={family}>
+                  <h3 class="news-title">
+                    <span class="fam-dot" aria-hidden="true"></span>
+                    <a href={safeUrl(incident.url)} target="_blank" rel="noopener noreferrer">
+                      {incident.title_es}
                     </a>
+                    {family && <span class="news-sr">{familyLabel(family)}</span>}
+                  </h3>
+                  <span class="news-commune-chip">
+                    {communeInfo && (
+                      <a href={'/es/comuna/' + communeInfo.slug + '/'}>{communeInfo.name}</a>
+                    )}
                   </span>
-                )}
-                <span class="news-date-outlet">{incident.date} · {incident.outlet}</span>
-              </p>
-            </article>
-          );
-        })}
-      </section>
-    ))
+                  <span class="news-outlet">{incident.outlet}</span>
+                  <time class="news-date" datetime={incident.date}>{dayLabel(incident.date)}</time>
+                </div>
+              </article>
+            );
+          })}
+        </section>
+      ))}
+    </div>
   )}
   {/* H-2: set:html no escapa; un `</script>` dentro de un string serializado (p.ej.
       una family envenenada del clasificador LLM) cerraría este elemento antes de
@@ -367,6 +470,9 @@ const jsonLd = {
       const emptyEl = document.getElementById('news-empty');
       const comunaInput = document.getElementById('news-comuna-q') as HTMLInputElement | null;
       const clearBtn = document.getElementById('news-clear-filters');
+      const dayBars = Array.from(filtersEl.querySelectorAll<HTMLButtonElement>('.day-bar'));
+      const dayKeys = dayBars.map((b) => b.getAttribute('data-day') || '');
+      const regionCountEl = document.getElementById('news-region-count');
 
       let active: FilterParams = parseFilterParams(window.location.search);
 
@@ -421,7 +527,7 @@ const jsonLd = {
         const allDatesCount = cards.filter((c) =>
           cardMatchesFilters(c.state, active, anchorDate, 'window')
         ).length;
-        filtersEl.querySelectorAll<HTMLElement>('[data-facet="window"] label.filter-chip').forEach((label) => {
+        filtersEl.querySelectorAll<HTMLElement>('[data-facet="window"] label').forEach((label) => {
           const input = label.querySelector('input') as HTMLInputElement | null;
           const countEl = label.querySelector('.filter-count');
           if (!input || !countEl) return;
@@ -460,11 +566,49 @@ const jsonLd = {
           countEl.textContent = String(familyCounts[input.value] ?? 0);
         });
 
+        // Histograma: alturas re-escaladas con auto-exclusión de la propia dimensión
+        // `day`, de modo que ninguna barra pueda quedar en cero solo por estar
+        // seleccionada otra fecha — cada barra siempre sigue siendo alcanzable.
+        if (dayBars.length > 0) {
+          const dayCounts = computeFacetCounts(
+            cards.map((c) => c.state),
+            active,
+            anchorDate,
+            'day',
+            dayKeys
+          );
+          let maxDay = 0;
+          for (const key of dayKeys) maxDay = Math.max(maxDay, dayCounts[key] ?? 0);
+          for (const bar of dayBars) {
+            const key = bar.getAttribute('data-day') || '';
+            const count = dayCounts[key] ?? 0;
+            const pct = maxDay === 0 || count === 0 ? 0 : Math.round((count / maxDay) * 100);
+            bar.style.setProperty('--h', pct + '%');
+            const selected = active.day === key;
+            bar.setAttribute('aria-pressed', selected ? 'true' : 'false');
+            // Atenuar lo que la ventana activa deja fuera, sin ocultarlo: el lector
+            // debe seguir viendo la forma completa del mes mientras filtra.
+            const inScope = active.day
+              ? selected
+              : cardMatchesFilters(
+                  { family: '', regionId: '', date: key, communeNorm: '' },
+                  { family: [], region: [], window: active.window, q: '' },
+                  anchorDate
+                );
+            bar.classList.toggle('is-out', !inScope);
+          }
+        }
+
+        if (regionCountEl) {
+          regionCountEl.textContent = active.region.length > 0 ? ' · ' + active.region.length : '';
+        }
+
         const nextParams = new URLSearchParams(location.search);
         nextParams.delete('family');
         nextParams.delete('region');
         nextParams.delete('window');
         nextParams.delete('q');
+        nextParams.delete('day');
         for (const [key, value] of new URLSearchParams(serializeFilterParams(active))) {
           nextParams.set(key, value);
         }
@@ -476,9 +620,13 @@ const jsonLd = {
         );
       }
 
+      // `window` y `day` son ambos predicados de fecha. Se mantienen mutuamente
+      // exclusivos AQUÍ, en la capa de interacción: elegir un preset suelta el día
+      // fijado y viceversa. newsFilterLogic los ANDea si ambos llegan puestos —
+      // deliberadamente, para que la función pura no mienta sobre sus entradas.
       filtersEl.querySelectorAll<HTMLInputElement>('input[name="window"]').forEach((input) => {
         input.addEventListener('change', () => {
-          active = { ...active, window: input.value as FilterParams['window'] };
+          active = { ...active, window: input.value as FilterParams['window'], day: '' };
           applyFilters();
         });
       });
@@ -500,6 +648,17 @@ const jsonLd = {
           applyFilters();
         });
       });
+      for (const bar of dayBars) {
+        bar.addEventListener('click', () => {
+          const key = bar.getAttribute('data-day') || '';
+          const next = active.day === key ? '' : key;
+          active = { ...active, day: next, window: '' };
+          filtersEl.querySelectorAll<HTMLInputElement>('input[name="window"]').forEach((input) => {
+            input.checked = input.value === '';
+          });
+          applyFilters();
+        });
+      }
       if (comunaInput) {
         comunaInput.addEventListener('input', () => {
           active = { ...active, q: comunaInput.value };
@@ -508,7 +667,7 @@ const jsonLd = {
       }
       if (clearBtn) {
         clearBtn.addEventListener('click', () => {
-          active = { family: [], region: [], window: '', q: '' };
+          active = { family: [], region: [], window: '', q: '', day: '' };
           filtersEl.querySelectorAll<HTMLInputElement>('input[name="window"]').forEach((input) => {
             input.checked = input.value === '';
           });
@@ -541,88 +700,46 @@ const jsonLd = {
     font-style: italic;
   }
 
-  .news-month-section {
-    margin-bottom: var(--xl);
+  /* Etiqueta accesible sin peso visual — usada por los <legend> que la barra
+     rediseñada ya no muestra como título y por el tipo de delito de cada fila,
+     que visualmente es solo un punto de color. */
+  .news-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
   }
 
-  .facet-semantics-note {
-    font-size: var(--text-label);
-    color: var(--muted);
-    max-width: 65ch;
-    margin: 0 0 var(--md);
+  /* --- Paleta de tipo de delito -------------------------------------------
+     Un color por familia CEAD, compartido por el chip del filtro y el punto de
+     cada fila: es lo que permite leer el tipo sin leer una etiqueta. Duplicada
+     literalmente en /news/ — el bloque debe editarse en las DOS páginas a la vez.
+     Tonos oklch de croma bajo para que ocho colores convivan sin competir con
+     el acento del sitio. */
+  [data-family='vida'] { --fam: oklch(0.58 0.14 25); }
+  [data-family='robos_violentos'] { --fam: oklch(0.60 0.13 60); }
+  [data-family='propiedad'] { --fam: oklch(0.62 0.12 95); }
+  [data-family='drogas'] { --fam: oklch(0.58 0.13 305); }
+  [data-family='armas'] { --fam: oklch(0.58 0.12 265); }
+  [data-family='vif'] { --fam: oklch(0.58 0.13 345); }
+  [data-family='sexuales'] { --fam: oklch(0.60 0.11 195); }
+  [data-family='incivilidades'] { --fam: oklch(0.62 0.07 150); }
+  [data-family='homicidios'] { --fam: oklch(0.52 0.15 20); }
+
+  .fam-dot {
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--fam, var(--muted));
   }
 
-  .news-date-group {
-    font-size: var(--text-heading);
-    font-weight: var(--weight-strong);
-    color: var(--ink);
-    margin-bottom: var(--md);
-    padding-bottom: var(--xs);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .news-card {
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: var(--md);
-    margin-bottom: var(--md);
-  }
-
-  .news-title {
-    font-size: var(--text-heading);
-    font-weight: var(--weight-strong);
-    margin-bottom: var(--xs);
-    line-height: 1.25;
-  }
-
-  .news-title a {
-    color: var(--ink);
-    text-decoration: none;
-  }
-
-  .news-title a:hover {
-    text-decoration: underline;
-    color: var(--primary);
-  }
-
-  .news-meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--xs);
-    margin: 0;
-  }
-
-  /* P1-6: badge compacto — excepción 12px nombrada para lista densa */
-  .news-type-chip,
-  .news-commune-chip {
-    display: inline-flex;
-    align-items: center;
-    height: 22px;
-    padding: 0 var(--sm);
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 700;
-    background: var(--line);
-    color: var(--ink);
-    margin-right: var(--xs);
-  }
-
-  .news-commune-chip a {
-    color: var(--ink);
-    text-decoration: none;
-  }
-
-  .news-commune-chip:hover {
-    background: var(--bg);
-  }
-
-  .news-date-outlet {
-    font-size: var(--text-label);
-    color: var(--muted);
-  }
-
-  /* Phase 28 — barra de filtros (UI-SPEC: subordinada a la lista, sin lavado de acento) */
+  /* --- Barra de filtros ---------------------------------------------------- */
   .news-filter-bar {
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -637,24 +754,224 @@ const jsonLd = {
     cursor: pointer;
   }
 
-  .filter-groups {
+  .filter-primary {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--lg);
+    align-items: center;
+    gap: var(--sm);
     margin-top: var(--md);
   }
 
-  .filter-group {
+  .filter-group--search {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    gap: var(--sm);
+    align-items: center;
+    gap: var(--xs);
+    flex: 1 1 260px;
+    min-width: 0;
+    height: 48px;
+    padding: 0 var(--md);
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
   }
 
-  .filter-group legend,
-  .filter-group > label[for] {
+  .filter-group--search:focus-within {
+    border-color: var(--primary);
+  }
+
+  .search-icon {
+    display: flex;
+    color: var(--muted);
+  }
+
+  #news-comuna-q {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: 0;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-size: var(--text-body);
+    color: var(--ink);
+  }
+
+  /* Región: desplegable sobre los MISMOS checkboxes. No es un <select> a
+     propósito — assertion 18 exige inputs type="checkbox" dentro del fieldset
+     data-facet="region", y un <select> multiple es peor en móvil. */
+  .filter-dropdown {
+    position: relative;
+  }
+
+  .filter-dropdown > summary {
+    display: flex;
+    align-items: center;
+    gap: var(--xs);
+    height: 48px;
+    padding: 0 var(--md);
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
     font-size: var(--text-label);
     font-weight: var(--weight-strong);
     color: var(--ink);
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .filter-dropdown[open] > summary,
+  .filter-dropdown > summary:has(~ * input:checked) {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .dd-count {
+    color: var(--primary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .filter-group--panel {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 4px);
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: max-content;
+    max-width: 320px;
+    max-height: 340px;
+    overflow-y: auto;
+    padding: var(--xs);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: 0 12px 32px rgb(0 0 0 / 12%);
+  }
+
+  .filter-group--presets {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 48px;
+    padding: 4px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+  }
+
+  .preset-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--xs);
+    height: 38px;
+    padding: 0 var(--sm);
+    border-radius: 999px;
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    color: var(--muted);
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .preset-chip:has(input:checked) {
+    background: var(--primary);
+    color: #fff;
+  }
+
+  .preset-chip:has(input:checked) .filter-count {
+    color: #fff;
+  }
+
+  .preset-chip input,
+  .filter-chip input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .preset-chip:has(input:focus-visible),
+  .filter-chip:has(input:focus-visible),
+  .day-bar:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  /* --- Histograma por día -------------------------------------------------- */
+  .day-histogram {
+    margin-top: var(--md);
+    padding: var(--sm) var(--md);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .day-histogram-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sm);
+    margin: 0 0 var(--xs);
+    font-size: var(--text-label);
+    color: var(--muted);
+  }
+
+  .day-peak {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .day-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 54px;
+  }
+
+  .day-bar {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .day-bar-fill {
+    width: 100%;
+    /* Los días con cero conservan una marca de 3px: un hueco debe leerse como
+       hueco, no desaparecer del eje. */
+    height: max(var(--h, 0%), 3px);
+    border-radius: 3px 3px 0 0;
+    background: var(--primary);
+    transition: height 120ms ease-out;
+  }
+
+  .day-bar.is-out .day-bar-fill {
+    opacity: 0.22;
+  }
+
+  .day-bar[aria-pressed='true'] .day-bar-fill {
+    background: var(--ink);
+  }
+
+  .day-axis {
+    display: flex;
+    justify-content: space-between;
+    margin: var(--xs) 0 0;
+    font-size: var(--text-label);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* --- Chips de tipo de delito --------------------------------------------- */
+  .filter-group--families {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--xs);
+    margin-top: var(--md);
+    padding: 0;
+    border: 0;
   }
 
   .filter-chip {
@@ -668,27 +985,33 @@ const jsonLd = {
     cursor: pointer;
   }
 
+  .filter-chip--family {
+    min-height: 34px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+  }
+
   .filter-chip:has(input:checked) {
     background: var(--primary);
     color: #fff;
     border-radius: 4px;
   }
 
+  .filter-chip--family:has(input:checked) {
+    border-color: var(--ink);
+    background: var(--ink);
+    border-radius: 999px;
+  }
+
   .filter-count {
     color: var(--muted);
     font-size: var(--text-label);
     font-weight: 400;
+    font-variant-numeric: tabular-nums;
   }
 
   .filter-chip:has(input:checked) .filter-count {
     color: #fff;
-  }
-
-  #news-comuna-q {
-    min-height: 44px;
-    padding: 0 var(--sm);
-    border: 1px solid var(--line);
-    border-radius: 4px;
   }
 
   .filter-actions {
@@ -696,12 +1019,14 @@ const jsonLd = {
     align-items: center;
     justify-content: space-between;
     gap: var(--md);
-    margin-top: var(--lg);
+    margin-top: var(--md);
   }
 
   #news-result-count {
     font-size: var(--text-body);
+    font-weight: var(--weight-strong);
     color: var(--primary);
+    font-variant-numeric: tabular-nums;
   }
 
   #news-clear-filters {
@@ -714,6 +1039,13 @@ const jsonLd = {
     cursor: pointer;
   }
 
+  .facet-semantics-note {
+    font-size: var(--text-label);
+    color: var(--muted);
+    max-width: 65ch;
+    margin: var(--md) 0 0;
+  }
+
   #news-empty {
     padding: var(--lg);
     margin-bottom: var(--xl);
@@ -721,9 +1053,162 @@ const jsonLd = {
     text-align: center;
   }
 
+  /* --- Lista densa ---------------------------------------------------------
+     `.news-card` NO puede llevar `display` en ninguna regla (assertion 12): el
+     grid vive en `.news-row`, su hijo, para que el [hidden] del UA siga
+     ocultando la tarjeta cuando el filtro la descarta. */
+  .news-list {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .news-list-head,
+  .news-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 170px 130px 84px;
+    align-items: center;
+    gap: var(--sm);
+  }
+
+  .news-list-head {
+    margin: 0;
+    padding: var(--xs) var(--md);
+    border-bottom: 1px solid var(--line);
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .news-list-head span:last-child,
+  .news-date {
+    text-align: right;
+  }
+
+  .news-month-section {
+    margin: 0;
+  }
+
+  .news-date-group {
+    margin: 0;
+    padding: var(--xs) var(--md);
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    font-size: var(--text-label);
+    font-weight: var(--weight-strong);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .news-card {
+    padding: 10px var(--md);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .news-card:hover {
+    background: var(--bg);
+  }
+
+  .news-title {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sm);
+    min-width: 0;
+    margin: 0;
+    font-size: var(--text-body);
+    font-weight: var(--weight-strong);
+    line-height: 1.35;
+  }
+
+  .news-title .fam-dot {
+    margin-top: 6px;
+  }
+
+  .news-title a {
+    color: var(--ink);
+    text-decoration: none;
+    /* Dos líneas como techo: el titular es la columna que decide si la fila
+       merece un clic, recortarlo a una línea deja demasiados titulares mudos. */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .news-title a:hover {
+    text-decoration: underline;
+    color: var(--primary);
+  }
+
+  .news-commune-chip,
+  .news-outlet,
+  .news-date {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: var(--text-label);
+  }
+
+  .news-commune-chip {
+    font-weight: 700;
+  }
+
+  .news-commune-chip a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .news-commune-chip a:hover {
+    text-decoration: underline;
+  }
+
+  .news-outlet,
+  .news-date {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 860px) {
+    .news-list-head {
+      display: none;
+    }
+
+    .news-row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      row-gap: 2px;
+    }
+
+    .news-title {
+      grid-column: 1 / -1;
+    }
+
+    .news-date {
+      text-align: right;
+    }
+
+    .news-outlet {
+      display: none;
+    }
+  }
+
   @media (max-width: 480px) {
-    .filter-groups {
+    .filter-primary {
       flex-direction: column;
+      align-items: stretch;
+    }
+
+    .filter-group--presets,
+    .filter-dropdown > summary {
+      justify-content: center;
+    }
+
+    .filter-group--panel {
+      position: static;
+      max-width: none;
+      box-shadow: none;
     }
   }
 </style>
