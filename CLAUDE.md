@@ -31,9 +31,9 @@ El sitio captura tráfico SEO mediante páginas programáticas bilingües (por c
 
 | Technology | Version | Purpose | Why Recommended |
 |------------|---------|---------|-----------------|
-| Astro | 6.4.x (latest stable) | Static site framework, programmatic page generation | Current major version (v6.4.6 as of June 2026). Pre-renders all pages to HTML — mandatory for SEO indexability. Native i18n routing built in since v4; islands architecture lets us isolate React/Leaflet to map components only. Do NOT use v5 — v6 is stable and current. |
-| @astrojs/react | 5.0.x | React island integration | Official Astro integration; v5.0.7 published June 2026. Allows React components (map, charts) with `client:load` / `client:visible` directives. Server-renders by default, hydrates selectively. |
-| React | 19.x | UI for interactive islands | Required peer dep of @astrojs/react v5. Only loaded in browser for map island — the rest of the site ships zero React JS. |
+| Astro | 7.1.x (latest stable) | Static site framework, programmatic page generation | Upgraded 6.4.6 -> 7.1.6 on 2026-08-10 (PR #21) to clear three astro XSS advisories that all required >= 7.0.9. Pre-renders all pages to HTML — mandatory for SEO indexability. Native i18n routing built in since v4; islands architecture lets us isolate React/Leaflet to map components only. Do NOT drop back below v7.0.9 — the advisories are unpatched there. |
+| @astrojs/react | 6.0.x | React island integration | Official Astro integration; v6.0.2 is the peer that matches Astro 7. Allows React components (map, charts) with `client:load` / `client:visible` directives. Server-renders by default, hydrates selectively. |
+| React | 19.x | UI for interactive islands | Required peer dep of @astrojs/react v6. Only loaded in browser for map island — the rest of the site ships zero React JS. |
 | Leaflet | 1.9.x | Choropleth map, pins | Mature, battle-tested. 346 comunas is ~350 polygons — well within Leaflet's performance envelope for canvas rendering. Lighter than Mapbox GL for this polygon count. |
 | react-leaflet | 4.x | React wrapper for Leaflet | Use with caution (see Pitfalls). Pin to v4 for React 19 compat. Use native Leaflet `L.geoJSON()` layer directly (not `<GeoJSON>` component) to avoid per-hover re-render issue. |
 
@@ -79,7 +79,7 @@ El sitio captura tráfico SEO mediante páginas programáticas bilingües (por c
 
 | Tool | Purpose | Notes |
 |------|---------|-------|
-| Node.js | 20 LTS or 22 LTS | Astro build runtime | v20 minimum required by Astro 6. Use `.nvmrc` to pin. |
+| Node.js | 22 LTS | Astro build runtime | Astro 7 requires >= 22.12.0. Use `.nvmrc` to pin. |
 | Python | 3.12+ | Scraper runtime | GitHub Actions ubuntu-latest ships 3.12. Use `pyproject.toml` or `requirements.txt`. |
 | @astrojs/check | current | TypeScript checking for .astro files | Run in CI before deploy. |
 
@@ -122,8 +122,8 @@ El sitio captura tráfico SEO mediante páginas programáticas bilingües (por c
 
 | Recommended | Alternative | Why Not |
 |-------------|-------------|---------|
-| Astro 6 | Next.js 15 | Next.js ISR adds complexity; App Router static export loses edge cases; Astro's island model ships less JS and is simpler for content sites |
-| Astro 6 | Nuxt 3 / SvelteKit | Vue/Svelte components can't reuse the existing React prototype directly; Astro lets us port React components as-is |
+| Astro 7 | Next.js 15 | Next.js ISR adds complexity; App Router static export loses edge cases; Astro's island model ships less JS and is simpler for content sites |
+| Astro 7 | Nuxt 3 / SvelteKit | Vue/Svelte components can't reuse the existing React prototype directly; Astro lets us port React components as-is |
 | Leaflet | Mapbox GL JS | Mapbox requires API key + paid plan for traffic; Leaflet is fully open source. At 346 polygons, Leaflet performance is adequate. |
 | Leaflet | MapLibre GL JS | Adds WebGL complexity; no benefit at this polygon count; harder to integrate existing react-leaflet prototype code |
 | openai SDK → DeepSeek | httpx + raw requests | The openai SDK handles retries, streaming, token counting, and is battle-tested. DeepSeek's API is explicitly OpenAI-compatible. |
@@ -148,16 +148,16 @@ El sitio captura tráfico SEO mediante páginas programáticas bilingües (por c
 
 | Package | Compatible With | Notes |
 |---------|-----------------|-------|
-| @astrojs/react 5.x | React 19.x, Astro 6.x | Do not mix with React 18 — peer dep requires 19 |
+| @astrojs/react 6.x | React 19.x, Astro 7.x | Do not mix with React 18 — peer dep requires 19 |
 | react-leaflet 4.x | React 18/19, Leaflet 1.9.x | v4 is the current stable branch; v5 was not released as of research date |
-| Astro 6.x | Node.js >= 20.x | Node 18 is EOL; pin to 20 LTS or 22 LTS in .nvmrc |
+| Astro 7.x | Node.js >= 22.12.0 | .nvmrc pins 22.12.0; the CI frontend job must match — a Node 20 runner cannot build this. |
 | feedparser 6.x | Python 3.6+ | No issues; install via pip |
 | openai 1.x | Python 3.8+ | Works fine with Python 3.12 |
 
 ## Sources
 
-- [Astro npm registry](https://www.npmjs.com/package/astro) — confirmed v6.4.6 latest stable June 2026
-- [@astrojs/react npm](https://www.npmjs.com/package/@astrojs/react) — confirmed v5.0.7 June 2026
+- [Astro npm registry](https://www.npmjs.com/package/astro) — v6.4.6 was latest stable June 2026; v7.1.6 as of August 2026
+- [@astrojs/react npm](https://www.npmjs.com/package/@astrojs/react) — v6.0.2 as of August 2026
 - [Astro i18n routing docs](https://docs.astro.build/en/guides/internationalization/) — prefixDefaultLocale, helper functions
 - [Cloudflare Pages limits (official)](https://developers.cloudflare.com/pages/platform/limits/index.md) — 20K free / 100K paid, 25 MiB file, 500 builds/month
 - [Cloudflare Pages file limit increase changelog](https://developers.cloudflare.com/changelog/post/2026-01-23-pages-file-limit-increase/) — 100K paid plan confirmed Jan 2026
