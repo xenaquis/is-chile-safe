@@ -71,6 +71,10 @@ export function NewsStrip({ lang, incidents, windowDays, scopeLabel, day, onDayC
     for (const i of incidents) if (i.date < minDate) minDate = i.date;
     const windowStart = shiftDays(anchor, -(windowDays - 1));
     if (windowStart < minDate) minDate = windowStart;
+    // MPX-C2-RANGE (verificador): a malformed/ancient incident date must not
+    // explode the timeline into hundreds of 1px bars — cap at 2× the window.
+    const floor = shiftDays(anchor, -(windowDays * 2 - 1));
+    if (minDate < floor) minDate = floor;
     for (let d = minDate; d <= anchor; d = shiftDays(d, 1)) {
       days.push(d);
     }

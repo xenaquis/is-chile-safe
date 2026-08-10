@@ -284,3 +284,18 @@
     display: none;
   }
 }
+
+/* MPX-B8-CSS (verificador): NewsStrip is a React island — it has no Astro
+   scoped styles and no global .sr-only exists in the project, so the
+   aria-describedby hint text rendered visible without this rule. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
