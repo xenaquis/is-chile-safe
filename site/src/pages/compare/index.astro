@@ -6,14 +6,38 @@
  * ComparatorIsland mounts client:only="react" for interactive comparison.
  *
  * CMP-02: indexable shell guaranteed before island hydrates.
+ *
+ * Changed in the comparator redesign: the island also receives
+ *   - low_population per commune (shown as a tag in the picker list)
+ *   - regionNames (region_id → name), built from the already-cached loadRegion()
+ * Nothing else about this page changes: same URL, same title/description, same
+ * shell, same noscript fallback.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ComparatorIsland from '../../islands/ComparatorIsland';
 import MethodologyCaveat from '../../components/MethodologyCaveat.astro';
-import { loadIndex } from '../../lib/data.ts';
+import { loadIndex, loadRegion, regionFileId } from '../../lib/data.ts';
 import { EN_STRINGS } from '../../config/i18n.ts';
 
-const communes = loadIndex().map(c => ({ id: c.cut, name: c.name, region_id: c.region_id }));
+const index = loadIndex();
+const communes = index.map(c => ({
+  id: c.cut,
+  name: c.name,
+  region_id: c.region_id,
+  low_population: c.low_population,
+}));
+
+// region_id → region name. loadRegion() is process-cached, so this is 16 reads
+// at build time and zero at runtime.
+const regionNames: Record<string, string> = {};
+for (const id of new Set(index.map(c => c.region_id))) {
+  try {
+    regionNames[id] = loadRegion(regionFileId(id)).name;
+  } catch {
+    // A missing region file must never fail the build — the island degrades to
+    // no region label.
+  }
+}
 
 // Pass only the cmp_* + nav keys the island needs (client:only safety — island
 // cannot import EN_STRINGS at runtime without bundling the entire i18n module).
@@ -35,6 +59,7 @@ const strings: Record<string, string> = {
   cmp_chips_label: EN_STRINGS.cmp_chips_label,
   cmp_case_singular: EN_STRINGS.cmp_case_singular,
   cmp_case_plural: EN_STRINGS.cmp_case_plural,
+  low_pop_footnote: EN_STRINGS.low_pop_footnote,
 };
 ---
 
@@ -59,7 +84,7 @@ const strings: Record<string, string> = {
       </p>
     </noscript>
     <div id="comparator-root">
-      <ComparatorIsland client:only="react" lang="en" communes={communes} strings={strings} />
+      <ComparatorIsland client:only="react" lang="en" communes={communes} strings={strings} regionNames={regionNames} />
     </div>
   </div>
 </BaseLayout>

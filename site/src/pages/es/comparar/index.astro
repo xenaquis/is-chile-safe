@@ -6,14 +6,32 @@
  * ComparatorIsland mounts client:only="react" for interactive comparison.
  *
  * CMP-02: indexable shell guaranteed before island hydrates.
+ *
+ * Changed in the comparator redesign: the island also receives low_population
+ * per commune and regionNames (region_id → name). Nothing else changes.
  */
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ComparatorIsland from '../../../islands/ComparatorIsland';
 import MethodologyCaveat from '../../../components/MethodologyCaveat.astro';
-import { loadIndex } from '../../../lib/data.ts';
+import { loadIndex, loadRegion, regionFileId } from '../../../lib/data.ts';
 import { ES_STRINGS } from '../../../config/i18n.ts';
 
-const communes = loadIndex().map(c => ({ id: c.cut, name: c.name, region_id: c.region_id }));
+const index = loadIndex();
+const communes = index.map(c => ({
+  id: c.cut,
+  name: c.name,
+  region_id: c.region_id,
+  low_population: c.low_population,
+}));
+
+const regionNames: Record<string, string> = {};
+for (const id of new Set(index.map(c => c.region_id))) {
+  try {
+    regionNames[id] = loadRegion(regionFileId(id)).name;
+  } catch {
+    // A missing region file must never fail the build.
+  }
+}
 
 // Pass only the cmp_* keys the island needs (client:only safety).
 const strings: Record<string, string> = {
@@ -34,6 +52,7 @@ const strings: Record<string, string> = {
   cmp_chips_label: ES_STRINGS.cmp_chips_label,
   cmp_case_singular: ES_STRINGS.cmp_case_singular,
   cmp_case_plural: ES_STRINGS.cmp_case_plural,
+  low_pop_footnote: ES_STRINGS.low_pop_footnote,
 };
 ---
 
@@ -58,7 +77,7 @@ const strings: Record<string, string> = {
       </p>
     </noscript>
     <div id="comparator-root">
-      <ComparatorIsland client:only="react" lang="es" communes={communes} strings={strings} />
+      <ComparatorIsland client:only="react" lang="es" communes={communes} strings={strings} regionNames={regionNames} />
     </div>
   </div>
 </BaseLayout>

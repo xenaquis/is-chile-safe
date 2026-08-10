@@ -1,15 +1,40 @@
 /**
  * ComparatorIsland.tsx — React island for commune-to-commune comparison.
  * client:only="react" — prevents SSR; mounted on /compare/ and /es/comparar/ only.
- * No Leaflet dependency — pure React table/form; no double-init guard needed.
+ * No Leaflet dependency — pure React; no double-init guard needed.
  *
- * Props passed from Astro shell at SSG time:
- *   - lang: locale ('en'|'es')
- *   - communes: 346-item index from loadIndex()
- *   - strings: i18n strings object (do NOT import EN/ES_STRINGS here — client:only safety)
+ * REDESIGN (proposal 4b): the three parallel number tables collapse into ONE
+ * chart — one row per crime family, all selected communes on a shared per-row
+ * scale, with the national rate as a fixed dashed line instead of a column at
+ * the far right. Distance between dots IS the difference. Numbers stay to the
+ * right of every row, and a screen-reader table carries the same figures.
+ *
+ * Invariants preserved from the previous implementation:
+ *   - client:only safety: i18n.ts is NEVER imported here; cmp_* strings arrive
+ *     as a prop. New cx_* strings come from config/comparatorStrings.ts, a
+ *     dependency-free module (see its header).
+ *   - ?a=&b= URL sync + preselect with 4–5 digit CUT validation (adds &c= for
+ *     the optional third commune; a/b keep their meaning).
+ *   - latestCompleteYear() = max non-partial series year, chosen by VALUE not
+ *     array position (WR-01).
+ *   - The national reference year is derived independently and always labelled.
+ *   - composite_index is indexed by its OWN latest key, not the series year.
+ *   - Homicide is gated on the RATE alone; the count is appended only if present
+ *     (WR-05, HOM-02 — 0 is a valid rate).
+ *   - Homicide never comes from by_family (Pitfall 1) — only featured_rates.
+ *   - Accent-insensitive search; combobox ARIA + keyboard nav; 44px targets.
+ *   - No commune is ever called "safe" or "dangerous".
+ *
+ * Props passed from the Astro shell at SSG time:
+ *   - lang, communes (index), strings (cmp_* subset), regionNames (id → name)
  */
-import { useState, useRef, useCallback, useEffect } from 'react';
-import { formatDecimal } from '../lib/formatNumber';
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { formatRate, formatDecimal } from '../lib/formatNumber';
+import {
+  COMPARATOR_STRINGS_EN,
+  COMPARATOR_STRINGS_ES,
+  SLOT_COLORS,
+} from '../config/comparatorStrings';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -19,12 +44,15 @@ interface ComparatorEntry {
   id: string;       // CUT code
   name: string;
   region_id: string;
+  low_population?: boolean;
 }
 
 interface Props {
   lang: 'en' | 'es';
   communes: ComparatorEntry[];
   strings: Record<string, string>;
+  /** region_id → region name. Optional: the island degrades to no region label. */
+  regionNames?: Record<string, string>;
 }
 
 interface SeriesEntry {
@@ -65,7 +93,7 @@ interface NationalData {
 }
 
 // ---------------------------------------------------------------------------
-// Graceful fetch helper (mirrors MapIsland.tsx)
+// Helpers
 // ---------------------------------------------------------------------------
 async function safeFetch<T>(url: string): Promise<T | null> {
   try {
@@ -77,25 +105,28 @@ async function safeFetch<T>(url: string): Promise<T | null> {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Accent-insensitive normalization (port of pipeline/news/resolver.py _norm)
-// ---------------------------------------------------------------------------
 const normalizeForSearch = (s: string) =>
   s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
 
-// ---------------------------------------------------------------------------
-// Helper: interpolate {key} in string template
-// ---------------------------------------------------------------------------
 function interpolate(template: string, vars: Record<string, string | number>): string {
   return template.replace(/\{(\w+)\}/g, (_, key) =>
     key in vars ? String(vars[key as keyof typeof vars]) : `{${key}}`
   );
 }
 
-// ---------------------------------------------------------------------------
-// Crime family display order and labels (matches FAMILY_SLUGS in i18n.ts)
-// ---------------------------------------------------------------------------
-const FAMILY_KEYS = ['vida', 'robos_violentos', 'vif', 'drogas', 'armas', 'propiedad', 'incivilidades'] as const;
+const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
+
+// Display order: descending typical magnitude, so the chart reads top-heavy
+// instead of alternating between long and short bars. Same 7 keys as before.
+const FAMILY_KEYS = [
+  'incivilidades',
+  'propiedad',
+  'vida',
+  'vif',
+  'robos_violentos',
+  'drogas',
+  'armas',
+] as const;
 
 const FAMILY_LABELS: Record<string, { en: string; es: string }> = {
   vida: { en: 'Crimes against life', es: 'Delitos contra la vida' },
@@ -107,15 +138,8 @@ const FAMILY_LABELS: Record<string, { en: string; es: string }> = {
   incivilidades: { en: 'Disorder', es: 'Incivilidades' },
 };
 
-const TREND_ARROW: Record<string, string> = {
-  up: '↑',
-  down: '↓',
-  stable: '→',
-};
+const TREND_ARROW: Record<string, string> = { up: '↑', down: '↓', stable: '→' };
 
-// ---------------------------------------------------------------------------
-// CI band labels
-// ---------------------------------------------------------------------------
 const CI_BANDS: Record<number, { en: string; es: string }> = {
   1: { en: 'Very Low', es: 'Muy Bajo' },
   2: { en: 'Low', es: 'Bajo' },
@@ -124,26 +148,28 @@ const CI_BANDS: Record<number, { en: string; es: string }> = {
   5: { en: 'Very High', es: 'Muy Alto' },
 };
 
+const BAND_TOKEN: Record<number, string> = {
+  1: 'var(--s1)', 2: 'var(--s2)', 3: 'var(--s3)', 4: 'var(--s4)', 5: 'var(--s5)',
+};
+
+const POPULAR_PAIRS: Array<[string, string]> = [
+  ['13101', '13114'],
+  ['13123', '13120'],
+  ['5109', '5101'],
+];
+
 // ---------------------------------------------------------------------------
 // ComparatorIsland
 // ---------------------------------------------------------------------------
-export default function ComparatorIsland({ lang, communes, strings }: Props) {
+export default function ComparatorIsland({ lang, communes, strings, regionNames }: Props) {
   const s = strings;
+  const t = lang === 'es' ? COMPARATOR_STRINGS_ES : COMPARATOR_STRINGS_EN;
+  const regionName = (id: string) => (regionNames ? regionNames[id] ?? '' : '');
 
-  // Build accent-insensitive search index once
   const searchIndex = useRef(
     communes.map(c => ({ ...c, _norm: normalizeForSearch(c.name) }))
   );
 
-  function searchCommunes(query: string): ComparatorEntry[] {
-    const q = normalizeForSearch(query);
-    if (!q) return [];
-    return searchIndex.current.filter(c => c._norm.includes(q)).slice(0, 20);
-  }
-
-  // ---------------------------------------------------------------------------
-  // State
-  // ---------------------------------------------------------------------------
   const [selected, setSelected] = useState<ComparatorEntry[]>([]);
   const [communeData, setCommuneData] = useState<Record<string, CommuneData | null>>({});
   const [loading, setLoading] = useState<Record<string, boolean>>({});
@@ -151,28 +177,40 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [nationalData, setNationalData] = useState<NationalData | null>(null);
-  const [regionalData, setRegionalData] = useState<Record<string, NationalData>>({});
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const listboxRef = useRef<HTMLUListElement>(null);
-
-  const suggestions = searchCommunes(query);
   const maxReached = selected.length >= 3;
 
+  const suggestions = useMemo(() => {
+    const q = normalizeForSearch(query);
+    if (!q) return [] as ComparatorEntry[];
+    return searchIndex.current
+      .filter(c => c._norm.includes(q) && !selected.some(x => x.id === c.id))
+      .slice(0, 8);
+  }, [query, selected]);
+
   // ---------------------------------------------------------------------------
-  // Fetch commune data on selection
+  // Data fetching
   // ---------------------------------------------------------------------------
+  // Requested ids — a ref, not state, so a re-render (or StrictMode double
+  // invoke) can never fire the same fetch twice.
+  const requested = useRef<Set<string>>(new Set());
+
   const fetchCommune = useCallback(async (entry: ComparatorEntry) => {
     const { id } = entry;
-    if (communeData[id] !== undefined) return; // already fetched or errored
-
+    if (requested.current.has(id)) return;
+    requested.current.add(id);
     setLoading(prev => ({ ...prev, [id]: true }));
     const data = await safeFetch<CommuneData>(`/data/cead/comunas/${id}.json`);
+    if (data === null) requested.current.delete(id);
     setCommuneData(prev => ({ ...prev, [id]: data }));
     setLoading(prev => ({ ...prev, [id]: false }));
-  }, [communeData]);
+  }, []);
 
-  // Fetch national data once
+  const ensureCommune = useCallback((entry: ComparatorEntry) => {
+    void fetchCommune(entry);
+  }, [fetchCommune]);
+
   useEffect(() => {
     if (nationalData) return;
     void safeFetch<NationalData>('/data/cead/national.json').then(d => {
@@ -180,96 +218,81 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
     });
   }, [nationalData]);
 
-  // Fetch regional data when a new region appears
-  useEffect(() => {
-    const regionIds = [...new Set(selected.map(c => c.region_id))];
-    for (const rid of regionIds) {
-      if (!regionalData[rid]) {
-        void safeFetch<NationalData>(`/data/cead/regions/${rid}.json`).then(d => {
-          if (d) setRegionalData(prev => ({ ...prev, [rid]: d }));
-        });
-      }
-    }
-  }, [selected, regionalData]);
-
   // ---------------------------------------------------------------------------
-  // URL sync — update ?a=&b= whenever selection changes (Task 2, P1-2)
+  // URL sync — ?a=&b=&c=
   // ---------------------------------------------------------------------------
+  const initializedRef = useRef(false);
   useEffect(() => {
+    if (!initializedRef.current) return;
     if (typeof window === 'undefined') return;
-    const a = selected[0]?.id ?? '';
-    const b = selected[1]?.id ?? '';
-    // Do not pollute the URL when nothing is selected yet
-    if (!a && !b) {
-      // Restore clean URL only if params are currently present
-      if (window.location.search) {
-        window.history.replaceState(null, '', window.location.pathname);
-      }
-      return;
-    }
-    window.history.replaceState(null, '', '?a=' + a + '&b=' + b);
+    const [a, b, c] = [selected[0]?.id ?? '', selected[1]?.id ?? '', selected[2]?.id ?? ''];
+    const u = new URL(window.location.href);
+    u.searchParams.delete('a');
+    u.searchParams.delete('b');
+    u.searchParams.delete('c');
+    if (a) u.searchParams.set('a', a);
+    if (b) u.searchParams.set('b', b);
+    if (c) u.searchParams.set('c', c);
+    window.history.replaceState(null, '', u.pathname + u.search);
   }, [selected]);
 
-  // On mount: read ?a= and ?b= params, validate (4–5 digit CUT), pre-select
   const didMountRef = useRef(false);
   useEffect(() => {
     if (didMountRef.current) return;
     didMountRef.current = true;
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') { initializedRef.current = true; return; }
     const params = new URLSearchParams(window.location.search);
-    const aParam = params.get('a') ?? '';
-    const bParam = params.get('b') ?? '';
-    // Validate: CUT codes are 4 or 5 digits (e.g. 5101 = Valparaíso, 13101 = Santiago)
     const cutRe = /^\d{4,5}$/;
-    const toPreselect: ComparatorEntry[] = [];
-    if (cutRe.test(aParam)) {
-      const found = communes.find(c => c.id === aParam);
-      if (found) toPreselect.push(found);
+    const picked: ComparatorEntry[] = [];
+    for (const key of ['a', 'b', 'c']) {
+      const raw = params.get(key) ?? '';
+      if (!cutRe.test(raw)) continue;
+      if (picked.some(p => p.id === raw)) continue;
+      const found = communes.find(x => x.id === raw);
+      if (found) picked.push(found);
     }
-    if (cutRe.test(bParam) && bParam !== aParam) {
-      const found = communes.find(c => c.id === bParam);
-      if (found) toPreselect.push(found);
+    if (picked.length > 0) {
+      setSelected(picked.slice(0, 3));
+      picked.slice(0, 3).forEach(e => { void fetchCommune(e); });
     }
-    if (toPreselect.length > 0) {
-      setSelected(toPreselect);
-      toPreselect.forEach(e => { void fetchCommune(e); });
-    }
+    initializedRef.current = true;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ---------------------------------------------------------------------------
-  // Select / remove commune
+  // Selection
   // ---------------------------------------------------------------------------
   function selectCommune(entry: ComparatorEntry) {
-    if (maxReached) return;
-    if (selected.find(c => c.id === entry.id)) return;
-    const next = [...selected, entry];
-    setSelected(next);
-    void fetchCommune(entry);
+    if (selected.length >= 3 || selected.some(c => c.id === entry.id)) return;
+    setSelected(prev => [...prev, entry]);
+    ensureCommune(entry);
     setQuery('');
     setDropdownOpen(false);
     setActiveIndex(-1);
+  }
+
+  function selectPair(a: ComparatorEntry, b: ComparatorEntry) {
+    setSelected([a, b]);
+    ensureCommune(a);
+    ensureCommune(b);
+    setQuery('');
   }
 
   function removeCommune(id: string) {
     setSelected(prev => prev.filter(c => c.id !== id));
   }
 
-  // ---------------------------------------------------------------------------
-  // Keyboard nav
-  // ---------------------------------------------------------------------------
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
+      setDropdownOpen(true);
       setActiveIndex(i => Math.min(i + 1, suggestions.length - 1));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setActiveIndex(i => Math.max(i - 1, -1));
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      if (activeIndex >= 0 && suggestions[activeIndex]) {
-        selectCommune(suggestions[activeIndex]);
-      }
+      if (activeIndex >= 0 && suggestions[activeIndex]) selectCommune(suggestions[activeIndex]);
     } else if (e.key === 'Escape') {
       setDropdownOpen(false);
       setActiveIndex(-1);
@@ -277,584 +300,609 @@ export default function ComparatorIsland({ lang, communes, strings }: Props) {
   }
 
   // ---------------------------------------------------------------------------
-  // Derive latestCompleteYear
+  // Year selection (WR-01 — always by value, never array position)
   // ---------------------------------------------------------------------------
-  function latestCompleteYear(data: CommuneData): number {
-    const years = data.series.filter(s => !s.partial).map(s => s.year);
-    if (years.length === 0) return 2024;
-    return Math.max(...years);
-  }
+  const completeYears = (series: SeriesEntry[]) =>
+    series.filter(x => !x.partial).map(x => x.year);
+
+  const latestCompleteYear = (data: CommuneData): number | null => {
+    const ys = completeYears(data.series);
+    return ys.length ? Math.max(...ys) : null;
+  };
+
+  const natYear: number | null = nationalData
+    ? (completeYears(nationalData.series).length ? Math.max(...completeYears(nationalData.series)) : null)
+    : null;
+
+  const loadedRows = selected
+    .map(e => ({ entry: e, data: communeData[e.id] }))
+    .filter((r): r is { entry: ComparatorEntry; data: CommuneData } => !!r.data);
+
+  // The chart year is the newest complete year shared by every loaded commune AND
+  // by the national series. If there is none, each commune falls back to its own
+  // latest complete year and the mismatch is stated in words (cx_mixed_years).
+  const sharedYear: number | null = (() => {
+    if (!loadedRows.length || natYear === null) return null;
+    let candidates = new Set(completeYears(loadedRows[0].data.series));
+    for (const r of loadedRows.slice(1)) {
+      const ys = new Set(completeYears(r.data.series));
+      candidates = new Set([...candidates].filter(y => ys.has(y)));
+    }
+    const natYears = new Set(completeYears(nationalData!.series));
+    const common = [...candidates].filter(y => natYears.has(y));
+    return common.length ? Math.max(...common) : null;
+  })();
+
+  const yearFor = (data: CommuneData): number | null => sharedYear ?? latestCompleteYear(data);
+
+  const seriesAt = (data: CommuneData, year: number | null): SeriesEntry | null =>
+    year === null ? null : data.series.find(x => x.year === year && !x.partial) ?? null;
+
+  const natSeries: SeriesEntry | null =
+    nationalData && (sharedYear ?? natYear) !== null
+      ? nationalData.series.find(x => x.year === (sharedYear ?? natYear) && !x.partial) ?? null
+      : null;
+
+  const colorOf = (i: number) => SLOT_COLORS[i % SLOT_COLORS.length];
+  const colorFor = (id: string) => colorOf(selected.findIndex(c => c.id === id));
 
   // ---------------------------------------------------------------------------
-  // Get per-family rate for a commune at its latestCompleteYear
+  // Chart model
   // ---------------------------------------------------------------------------
-  function getFamilyRate(data: CommuneData, family: string): number | null {
-    const year = latestCompleteYear(data);
-    const entry = data.series.find(s => s.year === year);
-    if (!entry) return null;
-    const val = entry.by_family[family];
-    return val !== undefined ? val : null;
+  const chartRows = FAMILY_KEYS.map(family => {
+    const cells = loadedRows.map(r => {
+      const entry = seriesAt(r.data, yearFor(r.data));
+      const raw = entry ? entry.by_family[family] : undefined;
+      return {
+        id: r.entry.id,
+        name: r.data.name,
+        color: colorFor(r.entry.id),
+        value: raw !== undefined ? raw : null,
+        year: yearFor(r.data),
+      };
+    });
+    const mean = natSeries ? natSeries.by_family[family] ?? null : null;
+    const nums = cells.map(c => c.value).filter((v): v is number => v !== null);
+    const top = Math.max(...nums, mean ?? 0, 1) * 1.15;
+    const pos = (v: number) => clamp((v / top) * 100, 2, 98);
+    const ps = nums.map(pos);
+    const lowest = nums.length ? Math.min(...nums) : null;
+    return {
+      family,
+      label: FAMILY_LABELS[family]?.[lang] ?? family,
+      cells: cells.map(c => ({ ...c, pos: c.value !== null ? pos(c.value) : null })),
+      mean,
+      meanPos: mean !== null ? pos(mean) : null,
+      linkLeft: ps.length ? Math.min(...ps) : 0,
+      linkWidth: ps.length ? Math.max(...ps) - Math.min(...ps) : 0,
+      lowest,
+    };
+  });
+
+  const natMissing = nationalData === null || natYear === null;
+  const mixedYears = !natMissing && sharedYear === null && loadedRows.length > 0;
+  const mixedYearLabel = loadedRows
+    .map(r => `${r.data.name} ${yearFor(r.data) ?? '—'}`)
+    .join(' · ');
+
+  // Plain-language summary — only when two or more communes have loaded.
+  let summary: string | null = null;
+  if (loadedRows.length >= 2) {
+    const [A, B] = loadedRows;
+    const va = (f: string) => {
+      const e = seriesAt(A.data, yearFor(A.data));
+      const v = e ? e.by_family[f] : undefined;
+      return v === undefined ? null : v;
+    };
+    const vb = (f: string) => {
+      const e = seriesAt(B.data, yearFor(B.data));
+      const v = e ? e.by_family[f] : undefined;
+      return v === undefined ? null : v;
+    };
+    const comparable = FAMILY_KEYS.filter(f => va(f) !== null && vb(f) !== null);
+    if (comparable.length) {
+      const lower = comparable.filter(f => (va(f) as number) < (vb(f) as number)).length;
+      const widest = comparable
+        .slice()
+        .sort((x, y) => Math.abs((vb(y) as number) - (va(y) as number)) - Math.abs((vb(x) as number) - (va(x) as number)))[0];
+      summary = interpolate(t.cx_summary, {
+        a: A.data.name,
+        b: B.data.name,
+        n: lower,
+        total: comparable.length,
+        family: (FAMILY_LABELS[widest]?.[lang] ?? widest).toLowerCase(),
+        va: formatRate(va(widest) as number, lang),
+        vb: formatRate(vb(widest) as number, lang),
+      });
+      if (loadedRows.length === 3) {
+        summary += ' ' + interpolate(t.cx_summary_third, { c: loadedRows[2].data.name });
+      }
+    }
   }
 
-  // ---------------------------------------------------------------------------
-  // National reference year — the latest COMPLETE national year, selected by
-  // value (Math.max) rather than array position so it does not depend on the
-  // series being stored in ascending order (WR-01). The avg column header is
-  // labelled with this year so the figures are never silently presented as the
-  // same reference year as the per-commune columns when they differ.
-  // ---------------------------------------------------------------------------
-  function nationalCompleteYear(): number | null {
-    if (!nationalData) return null;
-    const years = nationalData.series.filter(s => !s.partial).map(s => s.year);
-    if (years.length === 0) return null;
-    return Math.max(...years);
-  }
-
-  // ---------------------------------------------------------------------------
-  // Get national/regional avg for a family at a specific year (find by year,
-  // never positionally — WR-01)
-  // ---------------------------------------------------------------------------
-  function getNationalFamilyRate(family: string, year: number | null): number | null {
-    if (!nationalData || year === null) return null;
-    const entry = nationalData.series.find(s => s.year === year && !s.partial);
-    if (!entry) return null;
-    const val = entry.by_family[family];
-    return val !== undefined ? val : null;
-  }
-
-  // ---------------------------------------------------------------------------
-  // Trend arrow color
-  // ---------------------------------------------------------------------------
-  function trendColor(trend: string): string {
-    if (trend === 'up') return 'var(--trend-up)';
-    if (trend === 'down') return 'var(--trend-down)';
-    return 'var(--trend-stable)';
-  }
+  const listboxId = 'cmp-listbox';
+  const activeOptionId = activeIndex >= 0 ? `cmp-option-${activeIndex}` : undefined;
 
   // ---------------------------------------------------------------------------
   // Render
   // ---------------------------------------------------------------------------
-  const listboxId = 'cmp-listbox';
-  const activeOptionId = activeIndex >= 0 ? `cmp-option-${activeIndex}` : undefined;
-
-  // National reference year for the "Chile avg." column (WR-01) — labelled in
-  // the column header so its figures are not silently compared as the same
-  // year as the per-commune columns.
-  const natYear = nationalCompleteYear();
-
   return (
-    <div className="comparator-island" style={{ padding: 'var(--md)' }}>
+    <div className="comparator-island">
 
-      {/* Search + selected tags */}
-      <div className="cmp-search-area" style={{ marginBottom: 'var(--md)' }}>
-        {/* Selected commune tags */}
-        {selected.length > 0 && (
-          <div className="cmp-tags" style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--xs)', marginBottom: 'var(--sm)' }}>
-            {selected.map(c => (
-              <span
-                key={c.id}
-                className="cmp-tag"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 'var(--xs)',
-                  padding: 'var(--xs) var(--sm)',
-                  border: '1px solid var(--primary)',
-                  borderRadius: 'var(--radius)',
-                  background: 'var(--card)',
-                  fontSize: 'var(--text-label)',
-                }}
-              >
-                {c.name}
-                <button
-                  onClick={() => removeCommune(c.id)}
-                  aria-label={interpolate(s.cmp_remove_aria ?? 'Remove {name}', { name: c.name })}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    color: 'var(--primary)',
-                    padding: '0 2px',
-                    minHeight: '44px',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    fontSize: '16px',
-                  }}
-                >
-                  ×
-                </button>
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Autocomplete input */}
-        <div style={{ position: 'relative' }}>
-          <input
-            ref={inputRef}
-            type="text"
-            role="combobox"
-            aria-autocomplete="list"
-            aria-expanded={dropdownOpen && suggestions.length > 0}
-            aria-controls={listboxId}
-            aria-activedescendant={activeOptionId}
-            aria-disabled={maxReached}
-            disabled={maxReached}
-            placeholder={maxReached ? s.cmp_max_reached : s.cmp_input_placeholder}
-            value={query}
-            onChange={e => {
-              setQuery(e.target.value);
-              setDropdownOpen(true);
-              setActiveIndex(-1);
-            }}
-            onKeyDown={handleKeyDown}
-            onFocus={() => { if (query) setDropdownOpen(true); }}
-            onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
-            style={{
-              width: '100%',
-              padding: 'var(--sm) var(--md)',
-              fontSize: 'var(--text-body)',
-              border: '1px solid var(--line)',
-              borderRadius: 'var(--radius)',
-              background: maxReached ? 'var(--bg)' : 'var(--card)',
-              color: 'var(--ink)',
-              outline: 'none',
-              boxSizing: 'border-box',
-            }}
-          />
-
-          {/* Dropdown */}
-          {dropdownOpen && query && (
-            <ul
-              id={listboxId}
-              ref={listboxRef}
-              role="listbox"
-              style={{
-                position: 'absolute',
-                top: '100%',
-                left: 0,
-                right: 0,
-                background: 'var(--card)',
-                border: '1px solid var(--line)',
-                borderTop: 'none',
-                borderRadius: '0 0 var(--radius) var(--radius)',
-                maxHeight: '264px',
-                overflowY: 'auto',
-                margin: 0,
-                padding: 0,
-                listStyle: 'none',
-                zIndex: 50,
-              }}
+      {/* ---------- Selection bar: one pill per commune + one add slot ---------- */}
+      <div className="cmp-slotbar">
+        {selected.map((c, i) => (
+          <span key={c.id} className="cmp-tag" style={{ borderColor: colorOf(i) }}>
+            <span className="cmp-tag-dot" style={{ background: colorOf(i) }} aria-hidden="true" />
+            <span className="cmp-tag-name">{c.name}</span>
+            {regionName(c.region_id) && (
+              <span className="cmp-tag-region">{regionName(c.region_id)}</span>
+            )}
+            <button
+              type="button"
+              className="cmp-tag-x"
+              onClick={() => removeCommune(c.id)}
+              aria-label={interpolate(s.cmp_remove_aria ?? 'Remove {name}', { name: c.name })}
             >
-              {suggestions.length === 0 ? (
-                <li
-                  style={{
-                    padding: 'var(--sm) var(--md)',
-                    color: 'var(--muted)',
-                    fontSize: 'var(--text-label)',
-                    minHeight: '44px',
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                >
-                  {s.cmp_no_match}
-                </li>
-              ) : (
-                suggestions.map((c, i) => {
-                  const isSelected = !!selected.find(x => x.id === c.id);
-                  const isActive = i === activeIndex;
-                  return (
+              ×
+            </button>
+          </span>
+        ))}
+
+        {!maxReached && (
+          <div className="cmp-addslot">
+            <span className="cmp-addslot-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.6" />
+                <path d="M11 11l3.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              </svg>
+            </span>
+            <input
+              ref={inputRef}
+              type="text"
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded={dropdownOpen && suggestions.length > 0}
+              aria-controls={listboxId}
+              aria-activedescendant={activeOptionId}
+              aria-label={selected.length === 0 ? (s.cmp_input_placeholder ?? t.cx_add_slot) : t.cx_add_slot}
+              placeholder={selected.length === 0 ? (s.cmp_input_placeholder ?? t.cx_add_slot) : t.cx_add_slot}
+              value={query}
+              onChange={e => { setQuery(e.target.value); setDropdownOpen(true); setActiveIndex(-1); }}
+              onKeyDown={handleKeyDown}
+              onFocus={() => { if (query) setDropdownOpen(true); }}
+              onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
+            />
+            {dropdownOpen && query && (
+              <ul id={listboxId} role="listbox" className="cmp-listbox">
+                {suggestions.length === 0 ? (
+                  <li className="cmp-option cmp-option--empty">{s.cmp_no_match}</li>
+                ) : (
+                  suggestions.map((c, i) => (
                     <li
                       key={c.id}
                       id={`cmp-option-${i}`}
                       role="option"
-                      aria-selected={isSelected}
-                      aria-disabled={isSelected || maxReached}
-                      onMouseDown={e => {
-                        e.preventDefault();
-                        if (!isSelected && !maxReached) selectCommune(c);
-                      }}
-                      style={{
-                        padding: 'var(--sm) var(--md)',
-                        minHeight: '44px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        cursor: isSelected || maxReached ? 'default' : 'pointer',
-                        background: isActive ? 'var(--bg)' : 'var(--card)',
-                        color: isSelected ? 'var(--muted)' : 'var(--ink)',
-                        fontSize: 'var(--text-label)',
-                        borderBottom: '1px solid var(--line)',
-                      }}
+                      aria-selected={i === activeIndex}
+                      className={'cmp-option' + (i === activeIndex ? ' is-active' : '')}
+                      onMouseDown={e => { e.preventDefault(); selectCommune(c); }}
                     >
-                      {c.name}
-                      {isSelected && (
-                        <span style={{ marginLeft: 'var(--xs)', color: 'var(--muted)', fontSize: '12px' }}>
-                          {' '}✓
-                        </span>
+                      <span className="cmp-option-name">{c.name}</span>
+                      <span className="cmp-option-region">{regionName(c.region_id)}</span>
+                      {c.low_population && (
+                        <span className="cmp-option-lowpop" title={s.low_pop_footnote}>{t.cx_lowpop_tag}</span>
                       )}
                     </li>
-                  );
-                })
-              )}
-            </ul>
-          )}
-        </div>
-
-        {/* State prompt */}
-        {selected.length === 0 && (
-          <div style={{ marginTop: 'var(--sm)' }}>
-            <p style={{ color: 'var(--muted)', fontSize: 'var(--text-label)', marginBottom: 'var(--xs)' }}>
-              {s.cmp_empty_heading}
-            </p>
-            <p style={{ color: 'var(--muted)', fontSize: 'var(--text-label)', marginBottom: 'var(--md)' }}>
-              {s.cmp_empty_body}
-            </p>
-            {/* Popular comparison chips */}
-            <div className="compare-suggestions" style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--sm)', marginTop: 'var(--md)' }}>
-              <span style={{ fontSize: 'var(--text-label)', color: 'var(--muted)', alignSelf: 'center' }}>
-                {s.cmp_chips_label}
-              </span>
-              {[
-                { a: { id: '13101', name: 'Santiago' }, b: { id: '13114', name: 'Las Condes' } },
-                { a: { id: '13123', name: 'Providencia' }, b: { id: '13120', name: 'Ñuñoa' } },
-                { a: { id: '5109', name: 'Viña del Mar' }, b: { id: '5101', name: 'Valparaíso' } },
-              ].map(pair => {
-                const aEntry = communes.find(c => c.id === pair.a.id);
-                const bEntry = communes.find(c => c.id === pair.b.id);
-                if (!aEntry || !bEntry) return null;
-                return (
-                  <button
-                    key={pair.a.id + '-' + pair.b.id}
-                    className="compare-chip"
-                    onClick={() => {
-                      setSelected([aEntry, bEntry]);
-                      void fetchCommune(aEntry);
-                      void fetchCommune(bEntry);
-                    }}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      height: '36px',
-                      borderRadius: '999px',
-                      padding: '0 var(--md)',
-                      fontSize: 'var(--text-label)',
-                      fontWeight: 'var(--weight-strong)',
-                      background: 'var(--card)',
-                      border: '1px solid var(--line)',
-                      color: 'var(--ink)',
-                      cursor: 'pointer',
-                      whiteSpace: 'nowrap',
-                      minHeight: '44px',
-                    }}
-                  >
-                    {pair.a.name} vs {pair.b.name}
-                  </button>
-                );
-              })}
-            </div>
+                  ))
+                )}
+              </ul>
+            )}
           </div>
         )}
-        {selected.length === 1 && (
-          <p style={{ color: 'var(--muted)', fontSize: 'var(--text-label)', marginTop: 'var(--sm)' }}>
-            {s.cmp_add_prompt}
-          </p>
+
+        {maxReached && <span className="cmp-maxnote">{s.cmp_max_reached}</span>}
+
+        {loadedRows.length > 1 && (
+          <button
+            type="button"
+            className="cmp-sort"
+            onClick={() => {
+              const loadedIds = new Set(loadedRows.map(r => r.entry.id));
+              const loadedOrder = loadedRows
+                .slice()
+                .sort((x, y) => {
+                  const ex = seriesAt(x.data, yearFor(x.data));
+                  const ey = seriesAt(y.data, yearFor(y.data));
+                  return (ey?.rate_per_100k ?? 0) - (ex?.rate_per_100k ?? 0);
+                })
+                .map(r => r.entry);
+              const unloadedOrder = selected.filter(c => !loadedIds.has(c.id));
+              setSelected([...loadedOrder, ...unloadedOrder]);
+            }}
+          >
+            {t.cx_sort_button}
+          </button>
         )}
       </div>
 
-      {/* Side-by-side columns + avg column */}
-      {selected.length > 0 && (
-        <div
-          className="cmp-columns-wrapper"
-          style={{
-            overflowX: 'auto',
-          }}
-        >
-          <div
-            className="cmp-columns"
-            style={{
-              display: 'flex',
-              gap: 'var(--lg)',
-              alignItems: 'flex-start',
-              minWidth: 0,
-            }}
-          >
-            {/* Commune columns */}
-            {selected.map(entry => {
-              const data = communeData[entry.id];
-              const isLoading = loading[entry.id];
-
-              if (isLoading) {
-                return (
-                  <div
-                    key={entry.id}
-                    className="cmp-column cmp-column--loading"
-                    style={{
-                      flex: '1 1 200px',
-                      minWidth: '180px',
-                      background: 'var(--card)',
-                      borderRadius: 'var(--radius)',
-                      border: '1px solid var(--line)',
-                      padding: 'var(--md)',
-                    }}
-                  >
-                    <div style={{ background: 'var(--line)', height: '24px', borderRadius: '4px', marginBottom: 'var(--sm)', animation: 'pulse 1.5s infinite' }} />
-                    <div style={{ background: 'var(--line)', height: '40px', borderRadius: '4px', marginBottom: 'var(--sm)', animation: 'pulse 1.5s infinite' }} />
-                    <div style={{ background: 'var(--line)', height: '200px', borderRadius: '4px', animation: 'pulse 1.5s infinite' }} />
-                  </div>
-                );
-              }
-
-              if (data === null) {
-                return (
-                  <div
-                    key={entry.id}
-                    className="cmp-column cmp-column--error"
-                    style={{
-                      flex: '1 1 200px',
-                      minWidth: '180px',
-                      background: 'var(--card)',
-                      borderRadius: 'var(--radius)',
-                      border: '1px solid var(--line)',
-                      padding: 'var(--md)',
-                    }}
-                  >
-                    <h2 style={{ fontSize: 'var(--text-heading)', marginBottom: 'var(--sm)' }}>{entry.name}</h2>
-                    <p style={{ color: 'var(--muted)', fontSize: 'var(--text-label)' }}>
-                      {interpolate(s.cmp_data_error ?? 'Could not load data for {name}. Try refreshing.', { name: entry.name })}
-                    </p>
-                  </div>
-                );
-              }
-
-              if (!data) return null; // not yet fetched (shouldn't happen)
-
-              const year = latestCompleteYear(data);
-              // The composite index is computed for its own latest year (Phase 18
-              // keys it by the latest complete CEAD year, e.g. "2024"), which can
-              // lag the series' latestCompleteYear used for per-family/homicide
-              // rates. Index it by its OWN latest key, not the series year, or the
-              // headline silently falls back to "No composite index".
-              const ciYears = data.composite_index
-                ? Object.keys(data.composite_index).map(Number).filter(n => !Number.isNaN(n))
-                : [];
-              const ciYear = ciYears.length ? Math.max(...ciYears) : null;
-              const ci = ciYear !== null ? data.composite_index?.[String(ciYear)] : undefined;
-              const bandLabel = ci ? (CI_BANDS[ci.level]?.[lang] ?? '') : '';
-
-              // Homicide row (HOM-02 — !== undefined, 0 is valid).
-              // Gate on the RATE alone and append the count only if present
-              // (WR-05). A rate without a count is still a real, non-zero rate
-              // and must not be suppressed as "no reported cases" — matching the
-              // static A-vs-B pages.
-              const homRate = data.featured_rates?.homicidios?.[String(year)];
-              const homCount = data.featured_rates?.homicidios_count?.[String(year)];
-              const hasHom = homRate !== undefined;
-
+      {/* ---------- Empty state ---------- */}
+      {selected.length === 0 && (
+        <div className="cmp-empty">
+          <p className="cmp-empty-h">{s.cmp_empty_heading}</p>
+          <p className="cmp-empty-b">{s.cmp_empty_body}</p>
+          <div className="cmp-chips">
+            <span className="cmp-chips-label">{s.cmp_chips_label}</span>
+            {POPULAR_PAIRS.map(([aId, bId]) => {
+              const a = communes.find(c => c.id === aId);
+              const b = communes.find(c => c.id === bId);
+              if (!a || !b) return null;
               return (
-                <div
-                  key={entry.id}
-                  className="cmp-column"
-                  style={{
-                    flex: '1 1 200px',
-                    minWidth: '180px',
-                    background: 'var(--card)',
-                    borderRadius: 'var(--radius)',
-                    border: '1px solid var(--line)',
-                    padding: 'var(--md)',
-                  }}
-                >
-                  <h2 style={{ fontSize: 'var(--text-heading)', fontWeight: 'var(--weight-strong)', marginBottom: 'var(--sm)', color: 'var(--ink)' }}>
-                    {data.name}
-                  </h2>
-
-                  {/* Composite index headline — label always shown, band only in context of label */}
-                  <div style={{ marginBottom: 'var(--md)' }}>
-                    {/* Index name + methodology link */}
-                    <div style={{ fontSize: 'var(--text-label)', color: 'var(--muted)', marginBottom: 'var(--xs)' }}>
-                      <span style={{ fontWeight: 'var(--weight-strong)' }}>
-                        {s.cmp_composite_label ?? (lang === 'es' ? 'Índice Compuesto de Criminalidad' : 'Composite Crime Index')}
-                      </span>
-                      {' '}
-                      <a
-                        href={lang === 'es' ? '/es/metodologia/' : '/methodology/'}
-                        style={{ color: 'var(--muted)', fontSize: 'var(--text-label)' }}
-                      >
-                        {s.cmp_what_is_this ?? (lang === 'es' ? '(¿qué es esto?)' : '(what is this?)')}
-                      </a>
-                    </div>
-                    {ci ? (
-                      <>
-                        <div style={{ fontSize: 'var(--text-display)', fontWeight: 'var(--weight-strong)', color: 'var(--ink)' }}>
-                          {ci.score.toFixed(1)}
-                        </div>
-                        <div style={{ fontSize: 'var(--text-label)', fontWeight: 'var(--weight-strong)', color: 'var(--muted)' }}>
-                          {bandLabel}
-                        </div>
-                        <div style={{ fontSize: 'var(--text-label)', color: 'var(--muted)' }}>
-                          #{ci.rank} {lang === 'es' ? 'de 346 a nivel nacional' : 'of 346 nationally'}
-                        </div>
-                        {/* Single trend indicator in header — one overall trend per commune, not per family */}
-                        <div style={{ fontSize: 'var(--text-label)', marginTop: 'var(--xs)' }}>
-                          {data.trend ? (
-                            <span
-                              role="img"
-                              aria-label={lang === 'es'
-                                ? (data.trend === 'up' ? 'Al alza' : data.trend === 'down' ? 'A la baja' : 'Estable')
-                                : (data.trend === 'up' ? 'Rising' : data.trend === 'down' ? 'Declining' : 'Stable')}
-                              style={{ color: trendColor(data.trend) }}
-                            >
-                              {TREND_ARROW[data.trend]}
-                            </span>
-                          ) : (
-                            <span
-                              title={s.cmp_trend_unavailable ?? (lang === 'es' ? 'Datos de tendencia no disponibles para esta comuna.' : 'Trend data unavailable for this commune.')}
-                              style={{ color: 'var(--muted)', cursor: 'help' }}
-                            >
-                              —
-                            </span>
-                          )}
-                        </div>
-                      </>
-                    ) : (
-                      <div style={{ color: 'var(--muted)', fontSize: 'var(--text-label)' }}>
-                        {'—'}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Per-family breakdown — trend shown once in header, not repeated per row */}
-                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--text-label)' }}>
-                    <thead>
-                      <tr>
-                        <th scope="col" style={{ textAlign: 'left', padding: '2px 4px', color: 'var(--muted)', fontWeight: 'var(--weight-strong)' }}>
-                          {lang === 'es' ? 'Delito' : 'Crime type'}
-                        </th>
-                        <th scope="col" style={{ textAlign: 'right', padding: '2px 4px', color: 'var(--muted)', fontWeight: 'var(--weight-strong)' }}>
-                          {lang === 'es' ? 'Tasa/100k' : 'Rate/100k'}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {FAMILY_KEYS.map(family => {
-                        const rate = getFamilyRate(data, family);
-                        const label = FAMILY_LABELS[family]?.[lang] ?? family;
-                        return (
-                          <tr key={family} style={{ borderTop: '1px solid var(--line)' }}>
-                            <th scope="row" style={{ textAlign: 'left', padding: '4px', fontWeight: 'normal', color: 'var(--ink)' }}>
-                              {label}
-                            </th>
-                            <td style={{ textAlign: 'right', padding: '4px', color: 'var(--ink)' }}>
-                              {rate !== null ? formatDecimal(rate, lang) : '—'}
-                            </td>
-                          </tr>
-                        );
-                      })}
-
-                      {/* Homicide sub-row (HOM-02) — 1 decimal, plural fix */}
-                      <tr style={{ borderTop: '2px solid var(--line)', background: 'var(--bg)' }}>
-                        <th scope="row" style={{ textAlign: 'left', padding: '4px', fontWeight: 'var(--weight-strong)', color: 'var(--ink)', fontSize: '12px' }}>
-                          {interpolate(s.cmp_homicide_row ?? 'Homicide (per 100k, {year})', { year })}
-                        </th>
-                        <td style={{ textAlign: 'right', padding: '4px', color: 'var(--ink)' }}>
-                          {hasHom
-                            ? `${formatDecimal(homRate!, lang)}${homCount !== undefined
-                                ? ` (${homCount} ${homCount === 1
-                                    ? (s.cmp_case_singular ?? (lang === 'es' ? 'caso' : 'case'))
-                                    : (s.cmp_case_plural ?? (lang === 'es' ? 'casos' : 'cases'))})`
-                                : ''}`
-                            : <span style={{ color: 'var(--muted)', fontSize: '11px' }}>
-                                {interpolate(s.cmp_homicide_no_data ?? 'No reported cases — CEAD {year}', { year })}
-                              </span>
-                          }
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <button key={aId + '-' + bId} type="button" className="cmp-chip" onClick={() => selectPair(a, b)}>
+                  {a.name} vs {b.name}
+                </button>
               );
             })}
-
-            {/* Average column */}
-            <div
-              className="cmp-column cmp-column--avg"
-              style={{
-                flex: '1 1 160px',
-                minWidth: '140px',
-                background: 'var(--bg)',
-                borderRadius: 'var(--radius)',
-                border: '2px solid var(--primary)',
-                padding: 'var(--md)',
-              }}
-            >
-              <h2 style={{ fontSize: 'var(--text-heading)', fontWeight: 'var(--weight-strong)', marginBottom: '2px', color: 'var(--primary)' }}>
-                {s.cmp_avg_column ?? (lang === 'es' ? 'Prom. Chile' : 'Chile avg.')}
-              </h2>
-              {natYear !== null && (
-                <div style={{ fontSize: '11px', color: 'var(--muted)', marginBottom: 'var(--xs)' }}>
-                  {lang === 'es' ? `Año ${natYear}` : `Year ${natYear}`}
-                </div>
-              )}
-              {/* Composite index label and "—" placeholder — avg card always shows the label */}
-              <div style={{ fontSize: 'var(--text-label)', color: 'var(--muted)', marginBottom: 'var(--sm)' }}>
-                <span style={{ fontWeight: 'var(--weight-strong)' }}>
-                  {s.cmp_composite_label ?? (lang === 'es' ? 'Índice Compuesto de Criminalidad' : 'Composite Crime Index')}
-                </span>
-                {': '}
-                {'—'}
-              </div>
-              {nationalData ? (
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--text-label)' }}>
-                  <thead>
-                    <tr>
-                      <th scope="col" style={{ textAlign: 'left', padding: '2px 4px', color: 'var(--muted)', fontWeight: 'var(--weight-strong)' }}>
-                        {lang === 'es' ? 'Delito' : 'Crime type'}
-                      </th>
-                      <th scope="col" style={{ textAlign: 'right', padding: '2px 4px', color: 'var(--muted)', fontWeight: 'var(--weight-strong)' }}>
-                        {lang === 'es' ? 'Tasa/100k' : 'Rate/100k'}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {FAMILY_KEYS.map(family => {
-                      const rate = getNationalFamilyRate(family, natYear);
-                      const label = FAMILY_LABELS[family]?.[lang] ?? family;
-                      return (
-                        <tr key={family} style={{ borderTop: '1px solid var(--line)' }}>
-                          <th scope="row" style={{ textAlign: 'left', padding: '4px', fontWeight: 'normal', color: 'var(--ink)' }}>
-                            {label}
-                          </th>
-                          <td style={{ textAlign: 'right', padding: '4px', color: 'var(--ink)' }}>
-                            {rate !== null ? formatDecimal(rate, lang) : '—'}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                    {/* Homicide row placeholder in avg column */}
-                    <tr style={{ borderTop: '2px solid var(--line)', background: 'var(--bg)' }}>
-                      <th scope="row" colSpan={2} style={{ textAlign: 'left', padding: '4px', fontSize: '11px', color: 'var(--muted)', fontWeight: 'normal' }}>
-                        {lang === 'es' ? 'Homicidios: CEAD/SPD' : 'Homicide: CEAD/SPD'}
-                      </th>
-                    </tr>
-                  </tbody>
-                </table>
-              ) : (
-                <p style={{ color: 'var(--muted)', fontSize: 'var(--text-label)' }}>
-                  {lang === 'es' ? 'Cargando…' : 'Loading…'}
-                </p>
-              )}
-            </div>
           </div>
         </div>
       )}
 
-      {/* Skeleton pulse animation */}
+      {selected.length === 1 && <p className="cmp-hint">{s.cmp_add_prompt}</p>}
+
+      {/* ---------- Loading / error notes per commune ---------- */}
+      {selected.map(c =>
+        loading[c.id] ? (
+          <p key={'l' + c.id} className="cmp-hint" aria-live="polite">{c.name}…</p>
+        ) : communeData[c.id] === null ? (
+          <p key={'e' + c.id} className="cmp-error">
+            {interpolate(s.cmp_data_error ?? 'Could not load data for {name}.', { name: c.name })}
+          </p>
+        ) : null
+      )}
+
+      {/* ---------- Headline cards ---------- */}
+      {loadedRows.length > 0 && (
+        <div className="cmp-cards">
+          {loadedRows.map(r => {
+            const year = yearFor(r.data);
+            const entry = seriesAt(r.data, year);
+            const ciYears = r.data.composite_index
+              ? Object.keys(r.data.composite_index).map(Number).filter(n => !Number.isNaN(n))
+              : [];
+            const ciYear = ciYears.length ? Math.max(...ciYears) : null;
+            const ci = ciYear !== null ? r.data.composite_index?.[String(ciYear)] : undefined;
+            const natTotal = natSeries?.rate_per_100k ?? null;
+            const diff =
+              entry && natTotal && !mixedYears && !natMissing
+                ? Math.round(((entry.rate_per_100k - natTotal) / natTotal) * 100)
+                : null;
+            return (
+              <div key={r.entry.id} className="cmp-card" style={{ borderLeftColor: colorFor(r.entry.id) }}>
+                <div className="cmp-card-head">
+                  <span className="cmp-card-name">{r.data.name}</span>
+                  <span className="cmp-card-region">{regionName(r.data.region_id)}</span>
+                </div>
+                <div className="cmp-card-rate">
+                  <span className="cmp-card-num">
+                    {entry ? formatRate(entry.rate_per_100k, lang) : '—'}
+                  </span>
+                  <span className="cmp-card-cap">{t.cx_total_rate}</span>
+                </div>
+                <div className="cmp-card-meta">
+                  {ci && (
+                    <span className="cmp-band" style={{ background: BAND_TOKEN[ci.level] }}>
+                      {s.cmp_composite_label} {ci.score.toFixed(1)} · {CI_BANDS[ci.level]?.[lang] ?? ''} ({ciYear})
+                    </span>
+                  )}
+                  {ci && (
+                    <a className="cmp-what" href={lang === 'es' ? '/es/metodologia/' : '/methodology/'}>
+                      {s.cmp_what_is_this}
+                    </a>
+                  )}
+                  {ci && <span className="cmp-rank">{interpolate(t.cx_rank_line, { rank: ci.rank })}</span>}
+                  {r.data.trend ? (
+                    <span
+                      className="cmp-trend"
+                      style={{ color: `var(--trend-${r.data.trend})` }}
+                      role="img"
+                      aria-label={
+                        lang === 'es'
+                          ? r.data.trend === 'up' ? 'Al alza' : r.data.trend === 'down' ? 'A la baja' : 'Estable'
+                          : r.data.trend === 'up' ? 'Rising' : r.data.trend === 'down' ? 'Declining' : 'Stable'
+                      }
+                    >
+                      {TREND_ARROW[r.data.trend]}
+                    </span>
+                  ) : (
+                    <span className="cmp-rank" title={s.cmp_trend_unavailable}>—</span>
+                  )}
+                  {diff !== null && (
+                    <span className={'cmp-diff' + (diff > 0 ? ' is-up' : diff < 0 ? ' is-down' : '')}>
+                      {diff === 0
+                        ? t.cx_at_mean
+                        : interpolate(diff > 0 ? t.cx_above_mean : t.cx_below_mean, { pct: Math.abs(diff) })}
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* ---------- The chart ---------- */}
+      {loadedRows.length > 0 && (
+        <section className="cmp-chart" aria-labelledby="cmp-chart-h">
+          <header className="cmp-chart-head">
+            <h2 id="cmp-chart-h" className="cmp-chart-h">{t.cx_profile_heading}</h2>
+            {!mixedYears && (
+              <span className="cmp-chart-year">
+                {sharedYear !== null ? interpolate(t.cx_reference_year, { year: sharedYear }) : ''}
+              </span>
+            )}
+            {!natMissing && (
+              <span className="cmp-legend">
+                <span className="cmp-legend-line" aria-hidden="true" />
+                {t.cx_national_line}
+              </span>
+            )}
+          </header>
+
+          {!natMissing && mixedYears && (
+            <p className="cmp-warn">{interpolate(t.cx_mixed_years, { years: mixedYearLabel })}</p>
+          )}
+
+          {chartRows.map(row => (
+            <div key={row.family} className="cmpx-row">
+              <span className="cmpx-label">{row.label}</span>
+              <span
+                className="cmpx-track"
+                role="img"
+                aria-label={interpolate(t.cx_row_aria, {
+                  family: row.label,
+                  values: row.cells
+                    .map(c => `${c.name} ${c.value !== null ? formatRate(c.value, lang) : '—'}`)
+                    .concat(row.mean !== null ? [`${t.cx_national_line} ${formatRate(row.mean, lang)}`] : [])
+                    .join(', '),
+                })}
+              >
+                <span className="cmpx-base" aria-hidden="true" />
+                {row.linkWidth > 0 && (
+                  <span
+                    className="cmpx-link"
+                    aria-hidden="true"
+                    style={{ left: `${row.linkLeft}%`, width: `${row.linkWidth}%` }}
+                  />
+                )}
+                {row.meanPos !== null && (
+                  <span className="cmpx-mean" aria-hidden="true" style={{ left: `${row.meanPos}%` }} />
+                )}
+                {row.cells.map(c =>
+                  c.pos === null ? null : (
+                    <span
+                      key={c.id}
+                      className="cmpx-dot"
+                      aria-hidden="true"
+                      title={`${c.name} · ${formatRate(c.value as number, lang)}`}
+                      style={{ left: `${c.pos}%`, background: c.color }}
+                    />
+                  )
+                )}
+              </span>
+              <span className="cmpx-values">
+                {row.cells.map(c => (
+                  <span key={c.id} className="cmpx-val">
+                    <span className="cmpx-val-dot" style={{ background: c.color }} aria-hidden="true" />
+                    <span className={'cmpx-val-num' + (row.lowest !== null && c.value === row.lowest ? ' is-low' : '')}>
+                      {c.value !== null ? formatRate(c.value, lang) : '—'}
+                    </span>
+                  </span>
+                ))}
+              </span>
+            </div>
+          ))}
+
+          <p className="cmp-scale-note">{t.cx_scale_note}</p>
+
+          {/* Homicide — kept off the shared scale (different order of magnitude)
+              and always sourced from featured_rates, never by_family (Pitfall 1). */}
+          <div className="cmp-hom">
+            <span className="cmp-hom-h">{t.cx_homicide_heading}</span>
+            {loadedRows.map(r => {
+              const year = yearFor(r.data);
+              const homRate = year !== null ? r.data.featured_rates?.homicidios?.[String(year)] : undefined;
+              const homCount = year !== null ? r.data.featured_rates?.homicidios_count?.[String(year)] : undefined;
+              return (
+                <span key={r.entry.id} className="cmp-hom-item">
+                  <span className="cmpx-val-dot" style={{ background: colorFor(r.entry.id) }} aria-hidden="true" />
+                  <span className="cmp-hom-name">
+                    {mixedYears ? `${r.data.name} · ${year ?? '—'}` : r.data.name}
+                  </span>
+                  <span className="cmp-hom-val">
+                    {homRate !== undefined
+                      ? `${formatDecimal(homRate, lang)}${
+                          homCount !== undefined
+                            ? ` (${homCount} ${
+                                homCount === 1
+                                  ? s.cmp_case_singular ?? (lang === 'es' ? 'caso' : 'case')
+                                  : s.cmp_case_plural ?? (lang === 'es' ? 'casos' : 'cases')
+                              })`
+                            : ''
+                        }`
+                      : interpolate(s.cmp_homicide_no_data ?? 'No reported cases — CEAD {year}', { year: year ?? '—' })}
+                  </span>
+                </span>
+              );
+            })}
+            {!mixedYears && (
+              <span className="cmp-hom-note">
+                {interpolate(s.cmp_homicide_row ?? 'Homicide (per 100k, {year})', { year: sharedYear ?? natYear ?? '—' })}
+              </span>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* ---------- Plain-language summary ---------- */}
+      {summary && <p className="cmp-summary">{summary}</p>}
+
+      {/* ---------- Same figures as a table, for screen readers and copy/paste ---------- */}
+      {loadedRows.length > 0 && (
+        <table className="cmp-sr-table">
+          <caption>{t.cx_table_caption}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{t.cx_th_family}</th>
+              {loadedRows.map(r => (
+                <th key={r.entry.id} scope="col">
+                  {mixedYears ? `${r.data.name} (${yearFor(r.data) ?? '—'})` : r.data.name}
+                </th>
+              ))}
+              <th scope="col">{t.cx_national_line}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {chartRows.map(row => (
+              <tr key={row.family}>
+                <th scope="row">{row.label}</th>
+                {row.cells.map(c => (
+                  <td key={c.id}>{c.value !== null ? formatRate(c.value, lang) : '—'}</td>
+                ))}
+                <td>{row.mean !== null ? formatRate(row.mean, lang) : '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {/* ---------- Component styles ----------
+          Scoped by the .comparator-island / .cmp*-prefixed class names. Only the
+          three dynamic values (slot color, dot position, band token) are inline. */}
       <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+        .comparator-island { padding: var(--md) 0; }
+
+        .cmp-slotbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sm); margin-bottom: var(--md); }
+        .cmp-tag { display: inline-flex; align-items: center; gap: 9px; height: 44px; padding: 0 var(--sm) 0 var(--md);
+          border: 1.5px solid var(--line); border-radius: 999px; background: var(--card); }
+        .cmp-tag-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; background: #8892a0; }
+        .cmp-tag-name { font-size: var(--text-body); font-weight: var(--weight-strong); color: var(--ink); }
+        .cmp-tag-region { font-size: var(--text-label); color: var(--muted); }
+        .cmp-tag-x { width: 44px; height: 44px; margin: -7px 0; display: inline-flex; align-items: center; justify-content: center;
+          border: none; border-radius: 50%; background: var(--bg); color: var(--muted); font-size: 16px; line-height: 1;
+          cursor: pointer; font-family: var(--font); }
+        .cmp-tag-x:hover { background: var(--line); color: var(--ink); }
+
+        .cmp-addslot { position: relative; display: flex; align-items: center; gap: var(--sm); width: 300px; height: 44px;
+          padding: 0 var(--md); border: 1.5px dashed var(--line); border-radius: 999px; background: var(--card); }
+        .cmp-addslot:focus-within { border-color: var(--primary); border-style: solid; }
+        .cmp-addslot-icon { color: var(--muted); display: inline-flex; flex-shrink: 0; }
+        .cmp-addslot input { flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+          font-family: var(--font); font-size: var(--text-body); color: var(--ink); }
+
+        .cmp-listbox { position: absolute; top: calc(100% + 6px); left: 0; width: 420px; max-width: 90vw; z-index: 50;
+          margin: 0; padding: 0; list-style: none; background: var(--card); border: 1px solid var(--line);
+          border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 24px rgba(28,42,43,0.12); }
+        .cmp-option { display: flex; align-items: center; gap: var(--sm); min-height: 46px; padding: 0 var(--md);
+          border-bottom: 1px solid var(--line); cursor: pointer; font-size: var(--text-label); }
+        .cmp-option:last-child { border-bottom: none; }
+        .cmp-option.is-active, .cmp-option:hover { background: var(--bg); }
+        .cmp-option--empty { color: var(--muted); cursor: default; }
+        .cmp-option-name { font-weight: var(--weight-strong); color: var(--ink); }
+        .cmp-option-region { color: var(--muted); margin-left: auto; }
+        .cmp-option-lowpop { font-size: 12px; color: var(--muted); background: var(--bg); border-radius: 4px; padding: 1px 6px; }
+
+        .cmp-maxnote { font-size: var(--text-label); color: var(--muted); }
+        .cmp-sort { margin-left: auto; min-height: 44px; padding: 0 var(--md); border: 1.5px solid var(--line);
+          border-radius: 999px; background: var(--card); color: var(--muted); font-family: var(--font);
+          font-size: var(--text-label); font-weight: var(--weight-strong); cursor: pointer; }
+        .cmp-sort:hover { color: var(--ink); border-color: var(--muted); }
+
+        .cmp-empty { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+          padding: var(--xl) var(--lg); text-align: center; }
+        .cmp-empty-h { font-size: var(--text-heading); font-weight: var(--weight-strong); color: var(--ink); margin: 0 0 var(--xs); }
+        .cmp-empty-b { font-size: var(--text-label); color: var(--muted); margin: 0 0 var(--lg); }
+        .cmp-chips { display: flex; flex-wrap: wrap; gap: var(--sm); justify-content: center; align-items: center; }
+        .cmp-chips-label { font-size: var(--text-label); color: var(--muted); }
+        .cmp-chip { min-height: 44px; padding: 0 var(--md); border: 1.5px solid var(--line); border-radius: 999px;
+          background: var(--card); color: var(--ink); font-family: var(--font); font-size: var(--text-label);
+          font-weight: var(--weight-strong); cursor: pointer; white-space: nowrap; }
+        .cmp-chip:hover { border-color: var(--primary); color: var(--primary); }
+
+        .cmp-hint { font-size: var(--text-label); color: var(--muted); margin: 0 0 var(--sm); }
+        .cmp-error { font-size: var(--text-label); color: var(--trend-up); margin: 0 0 var(--sm); }
+
+        .cmp-cards { display: flex; flex-wrap: wrap; gap: var(--sm); margin-bottom: var(--md); }
+        .cmp-card { flex: 1 1 260px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--line);
+          border-radius: var(--radius); padding: var(--md); }
+        .cmp-card-head { display: flex; align-items: baseline; gap: var(--sm); flex-wrap: wrap; }
+        .cmp-card-name { font-size: var(--text-heading); font-weight: var(--weight-strong); color: var(--ink); }
+        .cmp-card-region { font-size: var(--text-label); color: var(--muted); }
+        .cmp-card-rate { display: flex; align-items: baseline; gap: var(--sm); margin-top: var(--xs); flex-wrap: wrap; }
+        .cmp-card-num { font-size: var(--text-display); font-weight: var(--weight-strong); color: var(--ink);
+          font-variant-numeric: tabular-nums; line-height: 1.1; }
+        .cmp-card-cap { font-size: var(--text-label); color: var(--muted); }
+        .cmp-card-meta { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sm); margin-top: var(--sm); }
+        .cmp-band { display: inline-flex; align-items: center; min-height: 26px; padding: 2px var(--sm); border-radius: 999px;
+          font-size: 12px; font-weight: var(--weight-strong); color: var(--ink); }
+        .cmp-what { font-size: var(--text-label); color: var(--muted); text-decoration: underline; }
+        .cmp-what:hover { color: var(--ink); }
+        .cmp-rank, .cmp-trend { font-size: var(--text-label); color: var(--muted); }
+        .cmp-diff { font-size: var(--text-label); font-weight: var(--weight-strong); color: var(--muted); }
+        .cmp-diff.is-up { color: var(--trend-up); }
+        .cmp-diff.is-down { color: var(--trend-down); }
+
+        .cmp-chart { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+          padding: var(--md) var(--lg) var(--lg); }
+        .cmp-chart-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--sm) var(--md);
+          padding-bottom: var(--sm); border-bottom: 1px solid var(--line); }
+        .cmp-chart-h { font-size: var(--text-heading); font-weight: var(--weight-strong); color: var(--ink); margin: 0; }
+        .cmp-chart-year { font-size: var(--text-label); color: var(--muted); }
+        .cmp-legend { margin-left: auto; display: inline-flex; align-items: center; gap: 7px;
+          font-size: var(--text-label); color: var(--muted); }
+        .cmp-legend-line { display: inline-block; width: 0; height: 14px; border-left: 2px dashed var(--ink); }
+        .cmp-warn { font-size: var(--text-label); color: var(--muted); margin: var(--sm) 0 0; }
+
+        .cmpx-row { display: grid; grid-template-columns: 190px 1fr 200px; align-items: center; gap: var(--md);
+          padding: 11px 0; border-bottom: 1px solid var(--bg); }
+        .cmpx-label { font-size: var(--text-label); font-weight: var(--weight-strong); color: var(--ink); line-height: 1.3; }
+        .cmpx-track { position: relative; display: block; height: 26px; }
+        .cmpx-base { position: absolute; left: 0; right: 0; top: 11px; height: 4px; border-radius: 2px; background: var(--bg); }
+        .cmpx-link { position: absolute; top: 11px; height: 4px; border-radius: 2px; background: var(--line); }
+        .cmpx-mean { position: absolute; top: 0; bottom: 0; border-left: 2px dashed var(--ink); }
+        .cmpx-dot { position: absolute; top: 5px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%;
+          background: #8892a0; border: 2px solid var(--card); box-shadow: 0 1px 3px rgba(28,42,43,0.25); }
+        .cmpx-values { display: flex; align-items: center; justify-content: flex-end; gap: var(--md); }
+        .cmpx-val { display: inline-flex; align-items: baseline; gap: 5px; }
+        .cmpx-val-dot { width: 8px; height: 8px; border-radius: 50%; background: #8892a0; }
+        .cmpx-val-num { font-size: var(--text-body); font-weight: var(--weight-strong); color: var(--muted);
+          font-variant-numeric: tabular-nums; }
+        .cmpx-val-num.is-low { color: var(--ink); }
+
+        .cmp-scale-note { font-size: 12px; color: var(--muted); margin: var(--sm) 0 0; }
+
+        .cmp-hom { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sm) var(--md);
+          margin-top: var(--md); padding-top: var(--md); border-top: 1px solid var(--line); }
+        .cmp-hom-h { font-size: var(--text-label); font-weight: var(--weight-strong); color: var(--ink); }
+        .cmp-hom-item { display: inline-flex; align-items: baseline; gap: 6px; font-size: var(--text-label); }
+        .cmp-hom-name { color: var(--muted); }
+        .cmp-hom-val { color: var(--ink); font-weight: var(--weight-strong); font-variant-numeric: tabular-nums; }
+        .cmp-hom-note { margin-left: auto; font-size: 12px; color: var(--muted); }
+
+        .cmp-summary { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+          padding: var(--md) var(--lg); margin: var(--md) 0 0; font-size: var(--text-body); line-height: 1.6; color: var(--ink); }
+
+        .cmp-sr-table { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+          clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+        @media (max-width: 860px) {
+          .cmpx-row { grid-template-columns: 150px 1fr 150px; gap: var(--sm); }
+          .cmp-addslot { width: 100%; }
+          .cmp-sort { margin-left: 0; }
         }
         @media (max-width: 640px) {
-          .cmp-columns { flex-direction: column !important; }
+          .cmpx-row { grid-template-columns: 1fr; gap: var(--xs); padding: var(--sm) 0; }
+          .cmpx-values { justify-content: flex-start; }
+          .cmp-chart { padding: var(--md); }
+          .cmp-hom-note { margin-left: 0; }
         }
       `}</style>
     </div>
