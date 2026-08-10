@@ -210,6 +210,41 @@ for (const sample of SAMPLES) {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Check 4: homicide family pages keep >=2 inbound links site-wide (V-03 floor).
+// F-01 (rankings v2 review) dropped /crime/homicide/ to a single inbound link
+// when RankingHub filtered the 'vida' key; this pins the restored floor so a
+// future filter regression fails loudly instead of silently orphaning the page.
+// ---------------------------------------------------------------------------
+function countInboundLinks(href, ownDir) {
+  let count = 0;
+  const walk = (dir) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(p);
+      else if (entry.name.endsWith('.html') && !p.includes(ownDir)) {
+        const html = readFileSync(p, 'utf8');
+        if (html.includes(`href="${href}"`)) count++;
+      }
+    }
+  };
+  walk(DIST_DIR);
+  return count;
+}
+
+for (const [href, ownDir] of [
+  ['/crime/homicide/', path.join('crime', 'homicide')],
+  ['/es/delito/homicidios/', path.join('delito', 'homicidios')],
+]) {
+  const inbound = countInboundLinks(href, ownDir);
+  if (inbound < 2) {
+    console.error(`FAIL: ${href} has ${inbound} inbound link page(s) site-wide (floor is 2 — F-01/V-03 guard)`);
+    failures++;
+  } else {
+    console.log(`PASS: ${href} inbound link floor met (${inbound} pages link to it)`);
+  }
+}
+
 if (failures > 0) {
   console.error(`\ncrime.mjs: FAILED (${failures} failure(s))`);
   process.exit(1);

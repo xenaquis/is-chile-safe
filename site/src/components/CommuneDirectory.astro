@@ -718,7 +718,7 @@ const scriptData = {
   /* F-09 / B-07: without :global, this compiles scoped (mark[data-astro-cid-...])
      but the <mark> created by paint() in client JS carries no such attribute,
      so the highlight never gets this color. */
-  :global(mark) { background: #ffe9a8; padding: 0 1px; }
+  :global(.dir-table mark) { background: #ffe9a8; padding: 0 1px; }
 
   .sr-only {
     position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
