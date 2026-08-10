@@ -324,15 +324,18 @@ const scriptData = {
     const nm = r.el.querySelector('.nm') as HTMLElement | null;
     if (!nm) return;
     const q = state.q.trim();
-    if (!q) { nm.textContent = r.name; return; }
-    const i = r.norm.indexOf(norm(q));
+    const nq = norm(q);
+    if (!q || !nq) { nm.textContent = r.name; return; }
+    const i = r.norm.indexOf(nq);
     if (i < 0) { nm.textContent = r.name; return; }
     nm.textContent = '';
     nm.appendChild(document.createTextNode(r.name.slice(0, i)));
     const mark = document.createElement('mark');
-    mark.textContent = r.name.slice(i, i + q.length);
+    // F-09 / B-08: slice by the normalized query length, not the raw one —
+    // keeps the highlight aligned with the normalized index match.
+    mark.textContent = r.name.slice(i, i + nq.length);
     nm.appendChild(mark);
-    nm.appendChild(document.createTextNode(r.name.slice(i + q.length)));
+    nm.appendChild(document.createTextNode(r.name.slice(i + nq.length)));
   }
 
   function setChip(key: string, label: string | null) {
@@ -712,7 +715,10 @@ const scriptData = {
   .dir-empty { color: var(--muted); padding: var(--xl); text-align: center; }
   .dir-note { margin-top: 12px; font-size: 12px; color: var(--muted); }
 
-  mark { background: #ffe9a8; padding: 0 1px; }
+  /* F-09 / B-07: without :global, this compiles scoped (mark[data-astro-cid-...])
+     but the <mark> created by paint() in client JS carries no such attribute,
+     so the highlight never gets this color. */
+  :global(mark) { background: #ffe9a8; padding: 0 1px; }
 
   .sr-only {
     position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;

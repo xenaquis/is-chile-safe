@@ -68,16 +68,17 @@ const cards = RANKING_DEFS.map((def) => {
     accent: FAMILY_ACCENT[def.familyKey],
     mean,
     top: eligible[0],
-    // Homicide has no /crime/ family page of its own (it is a subgroup of vida).
-    // B-03: also exclude the 'vida' card itself — its /crime/ family page is
-    // the same homicide-redirect target (vida/homicide slug collision, see
-    // project memory), so linking it here would duplicate/mislabel the link.
-    // No confirmed /methodology/ anchor exists for it, so this is null rather
-    // than an invented URL.
-    familyHref:
-      familySlug && def.familyKey !== 'vida'
-        ? `${familyBase}${lang === 'es' ? familySlug.es : familySlug.en}/`
-        : null,
+    // Homicide has no /crime/ family page of its own (it is a subgroup of vida)
+    // — FAMILY_SLUGS has no entry for 'homicidios', so this stays null for it.
+    // F-01 fix: the 'vida' card DOES link to its /crime/ family page
+    // (FAMILY_SLUGS.vida -> /crime/homicide/). The vida/homicide slug
+    // collision this used to guard against (project memory) was about
+    // mislabeling a link's *text* as "Homicide" when it points at the
+    // vida family page; the link text here is the generic
+    // rk_hub_card_def ("What this category covers"), so it does not
+    // reproduce that bug, and without this link /crime/homicide/ and
+    // /es/delito/homicidios/ dropped below the 2-inbound-link floor.
+    familyHref: familySlug ? `${familyBase}${lang === 'es' ? familySlug.es : familySlug.en}/` : null,
   };
 });
 
@@ -105,7 +106,7 @@ const regions = Array.from({ length: 16 }, (_, i) => loadRegion(String(i + 1)));
           )}
         </a>
         {c.familyHref && (
-          <a class="hub-card-def" href={c.familyHref} title={c.def}>{r.rk_hub_card_def} →</a>
+          <a class="hub-card-def" href={c.familyHref} title={c.def} aria-label={`${r.rk_hub_card_def} — ${c.label}`}>{r.rk_hub_card_def} →</a>
         )}
       </li>
     ))}
@@ -125,13 +126,23 @@ const regions = Array.from({ length: 16 }, (_, i) => loadRegion(String(i + 1)));
   </ul>
 
   <h2>{r.rk_hub_regions_heading}</h2>
-  <p>{r.rk_hub_regions_lead}</p>
+  <p>
+    {r.rk_hub_regions_lead}
+    {lang === 'es' && (
+      <>
+        {' '}Usa el <a href="/es/mapa/">mapa interactivo</a> para explorar las 16 regiones visualmente.
+      </>
+    )}
+  </p>
   <ul class="hub-regions">
     {regions.map((x) => (
       <li><a href={`${regionBase}${x.slug}/`}>{lang === 'es' ? regionNameEs(x.name) : `${x.name} Region`}</a></li>
     ))}
   </ul>
 
+  <p class="hub-method">
+    <small>{r.rk_hub_source}</small>
+  </p>
   <p class="hub-method">
     <small><a href={methodPath}>{r.rk_hub_method}</a></small>
   </p>

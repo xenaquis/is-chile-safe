@@ -191,8 +191,8 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
   </section>
 
   <section aria-label="National ranking of communes">
-    <h2 class="sr-only">
-      Communes ranked by {familyLabel.toLowerCase()} rate per 100,000 inhabitants ({latestYear})
+    <h2 class="rk-section-h2">
+      Communes ranked by {familyLabel.toLowerCase()} rate per 100,000 inhabitants (<span id="rk-year-label">{latestYear}</span>)
     </h2>
     <RankingBoard
       lang="en"
@@ -230,6 +230,13 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
   }
 
   .hero-caveat { font-size: var(--text-label); color: var(--muted); margin-top: var(--xs); }
+
+  .rk-section-h2 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin: 0 0 var(--md);
+  }
 
   .sr-only {
     position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;

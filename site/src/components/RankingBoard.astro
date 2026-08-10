@@ -99,6 +99,7 @@ const eligibleCount = rows.filter((row) => !row.low_population).length;
 const scriptData = {
   count: r.rk_count,
   empty: r.rk_empty,
+  emptyLowpopHint: r.rk_empty_lowpop_hint,
   more: r.rk_more,
   meanMarker: r.rk_mean_marker,
   clear: t.news_clear_filters,
@@ -157,7 +158,7 @@ const scriptData = {
 
   <div class="rk-grid">
     <aside class="rk-regions" aria-label={r.rk_region_panel_aria}>
-      <p class="rk-regions-h">{r.rk_region_panel}</p>
+      <h3 class="rk-regions-h">{r.rk_region_panel}</h3>
       <p class="rk-regions-hint">{r.rk_region_panel_hint}</p>
       {regionRows.map((x) => (
         <a href={`${regionBase}${x.slug}/`} class="rk-reg" data-region={x.id}>
@@ -180,7 +181,7 @@ const scriptData = {
         <span class="rk-legend"><i aria-hidden="true"></i><span id="rk-mean">{r.rk_mean_marker.replace('{v}', fmt1(mean))}</span></span>
         <span class="rk-meta-right">
           <button type="button" id="rk-clear" hidden>{t.news_clear_filters}</button>
-          <span id="rk-count" aria-live="polite">{r.rk_count.replace('{n}', String(eligibleCount)).replace('{total}', String(rows.length))}</span>
+          <span id="rk-count" aria-live="polite" tabindex="-1">{r.rk_count.replace('{n}', String(eligibleCount)).replace('{total}', String(rows.length))}</span>
         </span>
       </div>
       <p class="rk-yearnote" id="rk-yearnote" hidden>{r.rk_rank_year_note.replace('{year}', String(latestYear))}</p>
@@ -188,10 +189,10 @@ const scriptData = {
       <table class="rk-table">
         <thead>
           <tr>
-            <th class="c-rank">{t.th_rank}</th>
-            <th class="c-name">{t.th_commune}</th>
-            <th class="c-bar">{r.rk_col_bar}</th>
-            <th class="c-rate">{t.th_rate_per_100k}</th>
+            <th class="c-rank" scope="col">{t.th_rank}</th>
+            <th class="c-name" scope="col">{t.th_commune}</th>
+            <th class="c-bar" scope="col">{r.rk_col_bar}</th>
+            <th class="c-rate" scope="col">{t.th_rate_per_100k}</th>
           </tr>
         </thead>
         <tbody id="rk-tbody">
@@ -258,6 +259,7 @@ const scriptData = {
   const meanEl = document.getElementById('rk-mean') as HTMLElement;
   const yearNote = document.getElementById('rk-yearnote') as HTMLElement;
   const moreBtn = document.getElementById('rk-more') as HTMLButtonElement;
+  const yearLabel = document.getElementById('rk-year-label') as HTMLElement | null;
   const segBtns = Array.from(document.querySelectorAll('.rk-seg button')) as HTMLButtonElement[];
   const regionLinks = Array.from(document.querySelectorAll('.rk-reg')) as HTMLAnchorElement[];
 
@@ -316,8 +318,8 @@ const scriptData = {
   function paint(r: Row) {
     const q = state.q.trim();
     if (!r.nm) return;
-    if (!q) { r.nm.textContent = r.name; return; }
     const nq = norm(q);
+    if (!q || !nq) { r.nm.textContent = r.name; return; }
     const i = r.norm.indexOf(nq);
     if (i < 0) { r.nm.textContent = r.name; return; }
     // B-08: slice by the normalized query length, not the raw (possibly
@@ -370,14 +372,36 @@ const scriptData = {
       .replace('{n}', String(visible.length))
       .replace('{total}', String(D.total));
 
-    emptyEl.textContent = visible.length === 0 ? D.empty : '';
+    if (visible.length === 0) {
+      // RKD-13 / B-09: if the only reason nothing shows is the low-population
+      // exclusion, say so instead of a bare "no matches" message.
+      const nq = norm(state.q.trim());
+      const hiddenLowpop = state.hideLowpop
+        ? rows.filter((rr) => {
+            if (!rr.lowpop) return false;
+            if (state.region && rr.region !== state.region) return false;
+            if (nq && rr.norm.indexOf(nq) < 0) return false;
+            return true;
+          })
+        : [];
+      emptyEl.textContent = hiddenLowpop.length > 0
+        ? D.emptyLowpopHint.replace('{n}', String(hiddenLowpop.length))
+        : D.empty;
+    } else {
+      emptyEl.textContent = '';
+    }
     emptyEl.hidden = visible.length > 0;
 
     const rest = visible.length - shown.length;
+    // F-04: about to hide the button the user may have just activated —
+    // move focus to a stable, still-visible target first so it doesn't
+    // fall back to <body>.
+    if (rest <= 0 && document.activeElement === moreBtn) countEl.focus();
     moreBtn.hidden = rest <= 0;
     moreBtn.textContent = D.more.replace('{n}', String(rest));
 
     yearNote.hidden = state.year === D.latestYear;
+    if (yearLabel) yearLabel.textContent = String(state.year);
 
     // Regional averages follow the selected year.
     const regAgg: Record<string, { sum: number; n: number }> = {};
@@ -394,10 +418,16 @@ const scriptData = {
       (a.querySelector('.rk-reg-val') as HTMLElement).textContent = fmt0(v);
       (a.querySelector('.rk-reg-fill') as HTMLElement).style.width =
         Math.max(2, Math.round((v / (regMax || 1)) * 100)) + '%';
-      a.classList.toggle('on', String(state.region) === id);
+      const on = String(state.region) === id;
+      a.classList.toggle('on', on);
+      // F-03: `role=link` doesn't accept aria-pressed; aria-current
+      // communicates the "this region is the active filter" state instead.
+      if (on) { a.setAttribute('aria-current', 'true'); } else { a.removeAttribute('aria-current'); }
     });
 
-    const dirty = !!(state.q.trim() || state.region || !state.hideLowpop || state.year !== D.latestYear);
+    const dirty = !!(state.q.trim() || state.region || !state.hideLowpop || state.year !== D.latestYear || state.dir !== 'desc');
+    // F-04: same focus rescue as moreBtn above.
+    if (!dirty && document.activeElement === clearBtn) countEl.focus();
     clearBtn.hidden = !dirty;
     regionSel.classList.toggle('on', !!state.region);
   }
@@ -431,7 +461,11 @@ const scriptData = {
   // Region bars double as filters. Without JS they stay plain links to the
   // region page, which is why they are <a> and not <button>.
   regionLinks.forEach((a) => {
-    a.addEventListener('click', (ev) => {
+    a.addEventListener('click', (ev: MouseEvent) => {
+      // F-03: let ctrl/cmd/shift/alt-click and non-primary buttons behave as
+      // a normal link (open in new tab/window) instead of always hijacking
+      // the click into the client-side filter.
+      if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button !== 0) return;
       ev.preventDefault();
       const id = Number(a.getAttribute('data-region'));
       state.region = state.region === id ? 0 : id;
@@ -721,6 +755,14 @@ const scriptData = {
   .rk-note { font-size: 12px; color: var(--muted); margin-top: 10px; }
 
   :global(mark) { background: #ffe9a8; padding: 0 1px; }
+
+  /* F-08: defensive guard against the Astro scoped-style [hidden] pitfall —
+     if any future rule adds `display` to these selectors, [hidden] still wins. */
+  #rk-clear[hidden],
+  #rk-more[hidden],
+  #rk-empty[hidden],
+  #rk-yearnote[hidden],
+  .rk-table tbody tr[hidden] { display: none !important; }
 
   .sr-only {
     position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;

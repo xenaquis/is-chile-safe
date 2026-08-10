@@ -27,6 +27,7 @@ export interface RankingStrings {
   rk_rank_year_note: string;
   rk_source_note: string;
   rk_more: string;
+  rk_empty_lowpop_hint: string;
 
   rk_hub_h1: string;
   rk_hub_lead: string;
@@ -42,6 +43,7 @@ export interface RankingStrings {
   rk_hub_regions_heading: string;
   rk_hub_regions_lead: string;
   rk_hub_method: string;
+  rk_hub_source: string;
 }
 
 export const RK_EN: RankingStrings = {
@@ -65,6 +67,7 @@ export const RK_EN: RankingStrings = {
   rk_source_note:
     'Source: CEAD, reported police cases. Position 1 = highest reported incidence for the selected crime type.',
   rk_more: 'Show more — {n} left',
+  rk_empty_lowpop_hint: '{n} low-population communes are hidden — turn off "Exclude low population" to see them.',
 
   rk_hub_h1: 'Crime Incidence Rankings',
   rk_hub_lead:
@@ -82,6 +85,7 @@ export const RK_EN: RankingStrings = {
   rk_hub_regions_lead:
     'Each region page shows reported incidence trends, annual evolution, and the communes within it.',
   rk_hub_method: 'See Methodology for data definitions and caveats.',
+  rk_hub_source: 'Source: CEAD — Centro de Estudios y Análisis del Delito.',
 };
 
 export const RK_ES: RankingStrings = {
@@ -105,6 +109,7 @@ export const RK_ES: RankingStrings = {
   rk_source_note:
     'Fuente: CEAD, casos policiales reportados. Posición 1 = mayor incidencia reportada del tipo de delito seleccionado.',
   rk_more: 'Ver más — quedan {n}',
+  rk_empty_lowpop_hint: '{n} comunas de baja población están ocultas — desactiva "Excluir baja población" para verlas.',
 
   rk_hub_h1: 'Rankings de Incidencia Delictiva',
   rk_hub_lead:
@@ -122,6 +127,7 @@ export const RK_ES: RankingStrings = {
   rk_hub_regions_lead:
     'Cada página regional muestra las tendencias de incidencia, la evolución anual y las comunas que la componen.',
   rk_hub_method: 'Ver Metodología para definiciones y advertencias sobre los datos.',
+  rk_hub_source: 'Fuente: CEAD — Centro de Estudios y Análisis del Delito.',
 };
 
 /**
