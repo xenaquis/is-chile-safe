@@ -1185,12 +1185,21 @@ const jsonLd = {
       grid-column: 1 / -1;
     }
 
-    .news-date {
-      text-align: right;
+    .news-commune-chip {
+      grid-column: 1 / -1;
     }
 
+    /* El medio se queda: es la atribución de la fuente, no decoración
+       (CLAUDE.md "siempre atribuir fuentes"). Pasa a su propia línea,
+       junto a la fecha, en tipografía secundaria en vez de eliminarse. */
     .news-outlet {
-      display: none;
+      grid-column: 1;
+      text-align: left;
+    }
+
+    .news-date {
+      grid-column: 2;
+      text-align: right;
     }
   }
 
