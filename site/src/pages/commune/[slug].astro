@@ -20,6 +20,7 @@ import Sparkline from '../../components/Sparkline.astro';
 import ComparisonCallout from '../../components/ComparisonCallout.astro';
 import FamilyBreakdownBars from '../../components/FamilyBreakdownBars.astro';
 import ComparableCommune from '../../components/ComparableCommune.astro';
+import CommuneNewsSection from '../../components/CommuneNewsSection.astro';
 import CommuneRankingTable from '../../components/CommuneRankingTable.astro';
 import ComparatorPairsLinks from '../../components/ComparatorPairsLinks.astro';
 import { FAMILY_SLUGS } from '../../config/i18n.ts';
@@ -383,6 +384,9 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
       </section>
     );
   })()}
+
+  <!-- 6d. Recent news incidents (quick-260810-tqr) -->
+  <CommuneNewsSection cut={data.cut} communeName={data.name} locale="en" />
 
   <!-- 7. ComparableCommune -->
   <ComparableCommune comparable={comparable} locale="en" />

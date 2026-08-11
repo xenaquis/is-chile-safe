@@ -1,0 +1,275 @@
+---
+/**
+ * CommuneNewsSection — static list of geolocated press incidents for one commune.
+ * quick-260810-tqr.
+ *
+ * Data: site/public/data/incidents/current.json, read once at module scope
+ * (memoized Map<cut, Incident[]>) — NOT per-page, to keep the ~340×2 page
+ * build cheap (hard constraint 4).
+ *
+ * Zero client JS (D-09). Class prefix `cnews-` — must NOT reuse `news-card` /
+ * `news-month-section` (facets.mjs assertion 12 inspects those selectors).
+ */
+import path from 'node:path';
+import { existsSync, readFileSync } from 'node:fs';
+import { FAMILY_LABELS_EN, FAMILY_LABELS_ES } from '../lib/familyDefs';
+import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+
+interface Incident {
+  id: string;
+  cut: string | number;
+  lat: number;
+  lng: number;
+  title_es: string;
+  title_en: string;
+  date: string;
+  outlet: string;
+  url: string;
+  family: string;
+  slug?: string;
+}
+
+// --- Module-level memoized load (once per build, not per page) ---
+let byCut: Map<string, Incident[]> | null = null;
+
+function loadIncidentsByCut(): Map<string, Incident[]> {
+  if (byCut) return byCut;
+  byCut = new Map();
+  const filePath = path.resolve(process.cwd(), 'public/data/incidents/current.json');
+  if (!existsSync(filePath)) return byCut;
+  try {
+    const raw = readFileSync(filePath, 'utf-8');
+    const parsed = JSON.parse(raw) as { incidents?: Incident[] };
+    const incidents = parsed.incidents ?? [];
+    for (const inc of incidents) {
+      const cutKey = String(inc.cut);
+      if (!byCut.has(cutKey)) byCut.set(cutKey, []);
+      byCut.get(cutKey)!.push(inc);
+    }
+    for (const list of byCut.values()) {
+      list.sort((a, b) => b.date.localeCompare(a.date));
+    }
+  } catch {
+    // malformed JSON — degrade gracefully, no section renders
+  }
+  return byCut;
+}
+
+// Safe URL helper — mirrors news.astro safeUrl() (TD-05, T-19-03)
+function safeUrl(url: string): string {
+  try {
+    const u = new URL(url);
+    if (u.protocol === 'http:' || u.protocol === 'https:') {
+      return url;
+    }
+  } catch {
+    // malformed URL
+  }
+  return '#';
+}
+
+function familyLabel(family: string, locale: 'en' | 'es'): string {
+  const map = locale === 'es' ? FAMILY_LABELS_ES : FAMILY_LABELS_EN;
+  return map[family] ?? family.charAt(0).toUpperCase() + family.slice(1);
+}
+
+// Same term list as scripts/validate/forbidden-language.mjs (D-06). Kept in
+// sync manually — this filter is a defense-in-depth guard against a hostile
+// press headline landing verbatim on a commune page, not a replacement for
+// that validator, which still scans the full built site.
+const FORBIDDEN_TERMS = [
+  'zona peligrosa', 'area peligrosa', 'comuna peligrosa', 'barrio peligroso',
+  'ranking definitivo', 'zona segura garantizada', 'zona segura', '100% seguro',
+  'seguridad garantizada', 'la mas segura', 'mas peligrosa', 'mas peligroso',
+  'el mas seguro',
+  'dangerous zone', 'dangerous area', 'dangerous commune', 'dangerous neighborhood',
+  'definitive ranking', 'guaranteed safe', '100% safe', 'guaranteed safety',
+  'the safest', 'most dangerous',
+];
+
+function normalizeAccents(str: string): string {
+  return str.normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+function hasForbiddenTerm(title: string): boolean {
+  const normalized = normalizeAccents(title.toLowerCase());
+  return FORBIDDEN_TERMS.some((term) => normalized.includes(normalizeAccents(term)));
+}
+
+interface Props {
+  cut: string;
+  communeName: string;
+  locale: 'en' | 'es';
+}
+
+const { cut, communeName, locale } = Astro.props;
+const t = locale === 'es' ? ES_STRINGS : EN_STRINGS;
+
+const all = loadIncidentsByCut().get(String(cut)) ?? [];
+const safe = all.filter((inc) => !hasForbiddenTerm(inc.title_es) && !hasForbiddenTerm(inc.title_en));
+const items = safe.slice(0, 6);
+
+// Reference year for the "include year only if it differs" rule: the year of
+// the most recent incident selected (accepted simplification per plan).
+const latestYear = items.length > 0 ? items[0]!.date.slice(0, 4) : '';
+const dateLocale = locale === 'es' ? 'es-CL' : 'en-US';
+
+function shortDate(dateStr: string): string {
+  const incidentYear = dateStr.slice(0, 4);
+  const opts: Intl.DateTimeFormatOptions = {
+    timeZone: 'UTC',
+    month: 'short',
+    day: 'numeric',
+  };
+  if (incidentYear !== latestYear) opts.year = 'numeric';
+  return new Date(dateStr + 'T00:00:00Z').toLocaleDateString(dateLocale, opts);
+}
+
+const seeAllHref = locale === 'es'
+  ? `/es/noticias/?q=${encodeURIComponent(communeName)}`
+  : `/news/?q=${encodeURIComponent(communeName)}`;
+---
+
+{items.length > 0 && (
+  <section class="cnews-section" aria-label={t.commune_news_aria}>
+    <h2 class="section-heading">{t.commune_news_heading}</h2>
+    <p class="cnews-intro">{t.commune_news_intro.replace('{name}', communeName)}</p>
+    <ul class="cnews-list">
+      {items.map((incident) => {
+        const title = locale === 'es' ? incident.title_es : incident.title_en;
+        const label = familyLabel(incident.family, locale);
+        return (
+          <li class="cnews-item" data-family={incident.family}>
+            <span class="fam-dot" title={label} aria-hidden="true"></span>
+            <span class="cnews-sr">{label}</span>
+            <a class="cnews-link" href={safeUrl(incident.url)} target="_blank" rel="noopener noreferrer">
+              {title}
+            </a>
+            <span class="cnews-meta">
+              {incident.outlet} · <time datetime={incident.date}>{shortDate(incident.date)}</time>
+            </span>
+          </li>
+        );
+      })}
+    </ul>
+    <a class="cnews-see-all" href={seeAllHref}>
+      {t.commune_news_see_all.replace('{name}', communeName)}
+    </a>
+    <p class="cnews-caveat">{t.commune_news_caveat}</p>
+  </section>
+)}
+
+<style>
+  .cnews-section {
+    margin: var(--xl) 0;
+  }
+
+  .section-heading {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    margin-bottom: var(--md);
+  }
+
+  .cnews-intro {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--md);
+  }
+
+  .cnews-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .cnews-item {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--xs) var(--sm);
+    padding: var(--xs) 0 var(--sm);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cnews-item:last-child {
+    border-bottom: none;
+  }
+
+  .cnews-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .cnews-link {
+    font-size: var(--text-body);
+    font-weight: var(--weight-strong);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .cnews-link:hover {
+    color: var(--primary);
+    text-decoration: underline;
+  }
+
+  .cnews-meta {
+    font-size: var(--text-label);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .cnews-see-all {
+    display: inline-block;
+    margin-top: var(--sm);
+    font-size: var(--text-body);
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .cnews-see-all:hover {
+    text-decoration: underline;
+  }
+
+  .cnews-caveat {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--primary);
+    padding: 8px 16px;
+    margin-top: var(--sm);
+    font-size: 13px;
+    color: var(--muted);
+    border-radius: 3px;
+  }
+
+  /* Crime-family palette dot — duplicated from news.astro (must stay in sync,
+     see comment there); low-chroma oklch hues, one per CEAD family. */
+  [data-family='vida'] { --fam: oklch(0.58 0.14 25); }
+  [data-family='robos_violentos'] { --fam: oklch(0.60 0.13 60); }
+  [data-family='propiedad'] { --fam: oklch(0.62 0.12 95); }
+  [data-family='drogas'] { --fam: oklch(0.58 0.13 305); }
+  [data-family='armas'] { --fam: oklch(0.58 0.12 265); }
+  [data-family='vif'] { --fam: oklch(0.58 0.13 345); }
+  [data-family='sexuales'] { --fam: oklch(0.60 0.11 195); }
+  [data-family='incivilidades'] { --fam: oklch(0.62 0.07 150); }
+  [data-family='homicidios'] { --fam: oklch(0.45 0.16 12); }
+
+  .fam-dot {
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--fam, var(--muted));
+  }
+
+  [data-family='homicidios'] .fam-dot {
+    box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px var(--fam);
+  }
+</style>

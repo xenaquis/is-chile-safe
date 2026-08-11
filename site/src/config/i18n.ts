@@ -238,6 +238,13 @@ export interface I18nStrings {
   map_news_toggle_short: string;
   map_news_toggle_aria: string;
   map_filters_fab: string;
+
+  // Quick 260810-tqr — commune news incidents section
+  commune_news_heading: string;
+  commune_news_intro: string;
+  commune_news_see_all: string;
+  commune_news_caveat: string;
+  commune_news_aria: string;
 }
 
 export const EN_STRINGS: I18nStrings = {
@@ -473,6 +480,13 @@ export const EN_STRINGS: I18nStrings = {
   map_news_toggle_short: 'News',
   map_news_toggle_aria: 'Show recent press incidents on the map',
   map_filters_fab: 'Filters',
+
+  // Quick 260810-tqr — commune news incidents section
+  commune_news_heading: 'Recent Incidents in the News',
+  commune_news_intro: 'Incidents reported by Chilean news media and geolocated in {name}. Each entry links to its source article.',
+  commune_news_see_all: 'See all news incidents for {name} →',
+  commune_news_caveat: 'Automatically classified from press coverage; not official statistics. Sources are always cited.',
+  commune_news_aria: 'Recent incidents reported in the news',
 };
 
 export const ES_STRINGS: I18nStrings = {
@@ -711,6 +725,13 @@ export const ES_STRINGS: I18nStrings = {
   map_news_toggle_short: 'Noticias',
   map_news_toggle_aria: 'Mostrar incidentes recientes de prensa en el mapa',
   map_filters_fab: 'Filtros',
+
+  // Quick 260810-tqr — sección de noticias geolocalizadas de comuna
+  commune_news_heading: 'Incidentes Recientes en la Prensa',
+  commune_news_intro: 'Incidentes reportados por medios de prensa chilenos y geolocalizados en {name}. Cada entrada enlaza a su artículo original.',
+  commune_news_see_all: 'Ver todos los incidentes de prensa de {name} →',
+  commune_news_caveat: 'Clasificación automática desde cobertura de prensa; no es estadística oficial. Las fuentes siempre se citan.',
+  commune_news_aria: 'Incidentes recientes reportados en la prensa',
 };
 
 // D-17: Crime-family URL slug translations
