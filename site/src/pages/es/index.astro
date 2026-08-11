@@ -1,66 +1,41 @@
 ---
 /**
- * ES home page — /es/
+ * ES home page — /es/  (Landing v2 — proposal 6b)
  *
- * Phase 12 Plan 03: Rebuilt on Hybrid C+B framing at parity with EN home.
- * Above the fold: H1 + search hero + two lead ranking tables + map CTA + guide cards.
- * Below the fold: condensed prose (CEAD attribution + cómo leer tasas + disclaimer).
+ * One-screen entry dashboard replacing the 4-screen scroll: hero + live search,
+ * stats strip, explore pills, build-time mini-map with quintile strip,
+ * extremes bar list with Highest/Lowest toggle, and the news pulse module.
  *
- * Constraints:
- *  - Exactly one H1
- *  - Zero client:* directives
- *  - Search hero: plain form GET → /es/comunas/?q= (hardcoded ES slug)
- *  - Editorial Tone Guard: never "segura"/"peligrosa" as absolute labels
- *  - All hrefs hardcoded per-locale (never getRelativeLocaleUrl for localized slugs)
+ * Constraints preserved:
+ *  - Exactly one H1 (verbatim)
+ *  - Zero client:* directives — all interactivity is vanilla <script>
+ *    progressive enhancement (RankingTableEnhancer pattern); every module has
+ *    a server-rendered no-JS baseline
+ *  - Search baseline: plain form GET → /es/comunas/?q= (hardcoded ES slug)
+ *  - Editorial Tone Guard: never "segura"/"peligrosa" como etiquetas absolutas
+ *  - All hrefs hardcoded per-locale
+ *  - ItemList JSON-LD kept (no BreadcrumbList on home — D-07)
  */
 import HomeLayout from '../../layouts/HomeLayout.astro';
-import CommuneRankingTable from '../../components/CommuneRankingTable.astro';
-import { loadIndex, loadCommune, latestCompleteYearRate, loadNationalAverage } from '../../lib/data.ts';
+import HomeSearchLive from '../../components/home/HomeSearchLive.astro';
+import HomeMiniMap from '../../components/home/HomeMiniMap.astro';
+import HomeExtremes from '../../components/home/HomeExtremes.astro';
+import HomeNewsPulse from '../../components/home/HomeNewsPulse.astro';
+import { buildHomeData, homeBlob } from '../../components/home/homeData.ts';
 import { buildItemList } from '../../lib/jsonld.ts';
+import { homeV2Strings } from '../../config/homeV2Strings.ts';
 
-const nationalAvg = loadNationalAverage();
+const t = homeV2Strings('es');
+const { rows, ranked, bandCounts, nationalAvg, referenceYear, maxRate } = buildHomeData();
 
-// Derivar el año de referencia desde cualquier comuna no de baja población
-const index = loadIndex();
-const sampleCut = index.find((c) => !c.low_population)?.cut ?? '13101';
-const sampleCommune = loadCommune(sampleCut);
-const referenceYear = sampleCommune.latestCompleteYear;
+const lowest = ranked.slice(0, 7);
+const highest = ranked.slice(-7).reverse();
 
-// Construir tablas de ranking al momento de build (solo comunas no de baja población)
-const allRanked = index
-  .filter((c) => !c.low_population)
-  .map((c) => {
-    const commune = loadCommune(c.cut);
-    // Construir ratesByYear (solo años completos — se excluye partial) para que
-    // RankingTableEnhancer pueda ordenar + cambiar de año en las tablas del home.
-    const ratesByYear: Record<number, number> = {};
-    commune.series.filter((s: any) => !s.partial).forEach((s: any) => {
-      ratesByYear[s.year] = s.rate_per_100k;
-    });
-    return {
-      name: c.name,
-      slug: c.slug,
-      rate: latestCompleteYearRate(commune),
-      national_rank: commune.national_rank,
-      trend: commune.trend,
-      low_population: c.low_population,
-      ratesByYear,
-    };
-  })
-  .sort((a, b) => a.rate - b.rate);
-
-// Menor tasa reportada (ascendente) — top 6
-const lowestRows = allRanked.slice(0, 6);
-
-// Mayor tasa reportada (descendente) — últimas 6
-const highestRows = allRanked.slice(-6).reverse();
-
-// ItemList JSON-LD: dos tablas principales (SIN BreadcrumbList en home — D-07)
-const lowestList = buildItemList(lowestRows, 'es', {
+const lowestList = buildItemList(lowest, 'es', {
   name: 'Comunas por incidencia CEAD reportada (ascendente)',
   order: 'Ascending',
 });
-const highestList = buildItemList(highestRows, 'es', {
+const highestList = buildItemList(highest, 'es', {
   name: 'Comunas por incidencia CEAD reportada (descendente)',
   order: 'Descending',
 });
@@ -75,114 +50,143 @@ const highestList = buildItemList(highestRows, 'es', {
   pageType="home"
   jsonLd={[lowestList, highestList]}
 >
-  <!-- ========================================================
-       SOBRE LA LINEA — ABOVE THE FOLD
-       ======================================================== -->
+  <script type="application/json" id="home-communes" set:html={JSON.stringify(homeBlob(rows)).replace(/</g, '\\u003c')}></script>
 
-  <section class="home-hero">
-    <h1>¿Es seguro Chile? Datos CEAD para las 346 comunas</h1>
-    <p class="home-intro">
-      Explora datos oficiales de incidencia delictiva del CEAD para las 346 comunas y 16 regiones —
-      clasificados por tasa reportada, no por opinión editorial.
-    </p>
+  <div class="hv2 home-wide">
+    <section class="hv2-top">
+      <div class="hv2-hero">
+        <h1>¿Es seguro Chile? Datos CEAD para las 346 comunas</h1>
+        <p class="home-intro">
+          Explora datos oficiales de incidencia delictiva del CEAD para las 346 comunas y 16 regiones —
+          clasificados por tasa reportada, no por opinión editorial.
+        </p>
 
-    <!-- Hero de búsqueda: formulario GET, cero JS (D-05/D-06) -->
-    <form action="/es/comunas/" method="get" class="search-hero-form">
-      <label for="q" class="search-label">Busca tu comuna</label>
-      <div class="search-row">
-        <input
-          type="search"
-          id="q"
-          name="q"
+        <HomeSearchLive
+          locale="es"
+          label="Busca tu comuna"
           placeholder="Ej: Ñuñoa, Valparaíso…"
-          autocomplete="off"
-          class="search-input"
+          buttonLabel="Buscar"
+          noMatch="Ninguna comuna coincide"
+          lowPopTag={t.suggest_lowpop}
         />
-        <button type="submit" class="search-btn">Buscar &rarr;</button>
+
+        <div class="hv2-stats">
+          <div class="hv2-stat"><span class="hv2-stat-n">346</span><span class="hv2-stat-l">{t.stats_communes}</span></div>
+          <div class="hv2-stat"><span class="hv2-stat-n">{Math.round(nationalAvg).toLocaleString('es-CL')}</span><span class="hv2-stat-l">{t.stats_mean} — {referenceYear}</span></div>
+          <div class="hv2-stat" data-home-press-stat hidden><span class="hv2-stat-n" data-home-press-count>—</span><span class="hv2-stat-l">{t.stats_press}</span></div>
+        </div>
+
+        <nav class="hv2-explore" aria-label="Explorar por tema">
+          <h2 class="hv2-explore-title">{t.explore_title}</h2>
+          <ul class="hv2-pills">
+            <li><a href="/es/mapa/">Mapa interactivo</a></li>
+            <li><a href="/es/mapa-delito-chile/">Mapa de delitos Chile — coropletico interactivo</a></li>
+            <li><a href="/es/mapa-seguridad-santiago/">¿Es seguro Santiago? — datos CEAD</a></li>
+            <li><a href="/es/comunas-mas-seguras-chile/">Comunas con menor incidencia reportada</a></li>
+            <li><a href="/es/delitos-por-comuna/">Delitos por tipo y comuna</a></li>
+            <li><a href="/es/comparar/">Comparar comunas</a></li>
+            <li><a href="/es/metodologia/">Metodología — cómo se calculan las tasas</a></li>
+            <li><a href="/es/comunas/">Ver las 346 comunas →</a></li>
+          </ul>
+        </nav>
+
+        <p class="hv2-source">
+          Fuente: CEAD, Subsecretaría de Prevención del Delito. Tasas por 100.000 hab., {referenceYear}.
+          Las cifras reflejan incidentes reportados, no riesgo personal.
+          <a href="/es/metodologia/">Cómo leer estos datos →</a>
+        </p>
       </div>
-    </form>
-  </section>
 
-  <!-- Tablas de ranking — dos columnas lado a lado (D-03) -->
-  <section class="lead-tables-section">
-    <div class="lead-tables-grid">
-      <div class="lead-table-col">
-        <h2 class="table-heading">Menor incidencia reportada</h2>
-        <p class="table-subhead">Comunas con menor tasa CEAD por 100k hab. — {referenceYear}</p>
-        <CommuneRankingTable rows={lowestRows} locale="es" defaultSortDir="asc" />
-        <a href="/es/comunas-mas-seguras-chile/" class="see-all-link">Ver ranking completo &rarr;</a>
+      <div class="hv2-map">
+        <HomeMiniMap locale="es" rows={rows} bandCounts={bandCounts} referenceYear={referenceYear} />
       </div>
-      <div class="lead-table-col">
-        <h2 class="table-heading">Mayor incidencia reportada</h2>
-        <p class="table-subhead">Comunas con mayor tasa CEAD por 100k hab. — {referenceYear}</p>
-        <CommuneRankingTable rows={highestRows} locale="es" defaultSortDir="desc" />
-        <a href="/es/comunas/" class="see-all-link">Ver todas las comunas &rarr;</a>
+
+      <div class="hv2-modules">
+        <HomeExtremes locale="es" lowest={lowest} highest={highest} maxRate={maxRate} referenceYear={referenceYear} />
+        <HomeNewsPulse locale="es" />
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CTA del mapa -->
-  <section class="map-cta-section">
-    <h2 class="map-cta-heading">Explora el mapa interactivo</h2>
-    <p class="map-cta-body">
-      Las 346 comunas coloreadas por quintil de incidencia. Filtra por tipo de delito y año.
-    </p>
-    <a href="/es/mapa/" class="map-cta-btn">Abrir mapa de Chile &rarr;</a>
-  </section>
-
-  <!-- Tarjetas guía: sólo páginas editoriales existentes confirmadas (D-04) -->
-  <section class="guide-cards-section">
-    <h2 class="guide-cards-heading">Explorar por tema</h2>
-    <ul class="guide-cards">
-      <li><a href="/es/mapa-delito-chile/" class="guide-card">Mapa de delitos Chile — coropletico interactivo</a></li>
-      <li><a href="/es/mapa-seguridad-santiago/" class="guide-card">¿Es seguro Santiago? — datos CEAD</a></li>
-      <li><a href="/es/comunas-mas-seguras-chile/" class="guide-card">Comunas con menor incidencia reportada</a></li>
-      <li><a href="/es/metodologia/" class="guide-card">Metodología — cómo se calculan las tasas</a></li>
-      <li><a href="/es/delitos-por-comuna/" class="guide-card">Delitos por tipo y comuna</a></li>
-      <li><a href="/es/comunas/" class="guide-card">Ver las 346 comunas &rarr;</a></li>
-    </ul>
-  </section>
-
-  <!-- ========================================================
-       BAJO LA LINEA — BELOW THE FOLD — prosa condensada
-       ======================================================== -->
-
-  <section class="about-section">
-    <h2>Sobre los datos</h2>
-    <p>
-      Chile Safety Map presenta datos oficiales de incidencia delictiva del Centro de Estudios
-      y Análisis del Delito (CEAD) para las 346 comunas y 16 regiones del país. Cada cifra
-      proviene directamente de ese organismo gubernamental, sin ponderación editorial. La métrica
-      canónica es la <strong>tasa de delitos reportados por 100.000 habitantes</strong>, que
-      permite comparar comunas de tamaños muy distintos. Las tasas se calculan a partir de las
-      tablas anuales del CEAD y cubren desde 2005 hasta {referenceYear}. El promedio nacional
-      entre comunas no de baja población para {referenceYear} es{' '}
-      <strong>{Math.round(nationalAvg).toLocaleString('es-CL')} por 100.000</strong>.
-      Una tasa más alta significa más incidentes reportados por 100.000 habitantes — no
-      necesariamente que un lugar sea objetivamente más o menos habitable. La subregistración,
-      la población flotante y la composición por tipo de delito afectan la cifra; consulta la{' '}
-      <a href="/es/metodologia/">página de metodología</a> para más detalles.
-    </p>
-    <p>
-      Este sitio no califica ninguna comuna, ciudad o región como "segura" o "peligrosa" en
-      términos absolutos. Presenta datos de incidentes reportados al CEAD y te permite formarte
-      tu propia opinión informada. Las estadísticas de delito reflejan <em>incidentes registrados</em>,
-      no la delincuencia real — la cifra negra es variable según el tipo de delito y la localidad.
-      Fuente: CEAD (Centro de Estudios y Análisis del Delito), Subsecretaría de Prevención del
-      Delito, Ministerio del Interior y Seguridad Pública, Chile.
-    </p>
-  </section>
+    <!-- BAJO LA LINEA — prosa condensada (verbatim) -->
+    <section class="about-section">
+      <h2>Sobre los datos</h2>
+      <p>
+        Chile Safety Map presenta datos oficiales de incidencia delictiva del Centro de Estudios
+        y Análisis del Delito (CEAD) para las 346 comunas y 16 regiones del país. Cada cifra
+        proviene directamente de ese organismo gubernamental, sin ponderación editorial. La métrica
+        canónica es la <strong>tasa de delitos reportados por 100.000 habitantes</strong>, que
+        permite comparar comunas de tamaños muy distintos. Las tasas se calculan a partir de las
+        tablas anuales del CEAD y cubren desde 2005 hasta {referenceYear}. El promedio nacional
+        entre comunas no de baja población para {referenceYear} es{' '}
+        <strong>{Math.round(nationalAvg).toLocaleString('es-CL')} por 100.000</strong>.
+        Una tasa más alta significa más incidentes reportados por 100.000 habitantes — no
+        necesariamente que un lugar sea objetivamente más o menos habitable. La subregistración,
+        la población flotante y la composición por tipo de delito afectan la cifra; consulta la{' '}
+        <a href="/es/metodologia/">página de metodología</a> para más detalles.
+      </p>
+      <p>
+        Este sitio no califica ninguna comuna, ciudad o región como "segura" o "peligrosa" en
+        términos absolutos. Presenta datos de incidentes reportados al CEAD y te permite formarte
+        tu propia opinión informada. Las estadísticas de delito reflejan <em>incidentes registrados</em>,
+        no la delincuencia real — la cifra negra es variable según el tipo de delito y la localidad.
+        Fuente: CEAD (Centro de Estudios y Análisis del Delito), Subsecretaría de Prevención del
+        Delito, Ministerio del Interior y Seguridad Pública, Chile.
+      </p>
+    </section>
+  </div>
 </HomeLayout>
 
+<script>
+  // Mirror the news-pulse incident count into the hero stats strip.
+  // Separate tiny fetch-free observer: the pulse module updates its own count
+  // node; we copy it when it appears (module stays hidden on 404 → stat too).
+  (function () {
+    'use strict';
+    const stat = document.querySelector<HTMLElement>('[data-home-press-stat]');
+    const statN = document.querySelector<HTMLElement>('[data-home-press-count]');
+    const pulse = document.querySelector<HTMLElement>('[data-home-pulse]');
+    const src = pulse?.querySelector<HTMLElement>('[data-pulse-count]');
+    if (!stat || !statN || !pulse || !src) return;
+    const sync = () => {
+      if (!pulse.hidden && src.textContent) {
+        statN.textContent = (src.textContent.split(' ')[0] || '—');
+        stat.hidden = false;
+      }
+    };
+    new MutationObserver(sync).observe(src, { childList: true });
+    sync();
+  })();
+</script>
+
 <style>
-  /* ── Hero ── */
-  .home-hero {
-    max-width: 780px;
+  /* LPX-3(a): the home dashboard needs a wider canvas than the 860px prose cap
+     that main.page-content applies to every other page. :has() scopes the
+     override to pages carrying .home-wide only — global.css/HomeLayout untouched. */
+  :global(main.page-content:has(.home-wide)) {
+    max-width: 1240px;
+  }
+
+  /* ── Dashboard grid ── */
+  .hv2-top {
+    display: grid;
+    /* LPX-3(b): no fixed minimums — a 954px worth of column minimums doesn't
+       fit inside an 860px ancestor. minmax(0, …) can only shrink, never overflow. */
+    grid-template-columns: minmax(0, 360px) 120px minmax(0, 1fr);
+    gap: var(--lg);
+    align-items: start;
+    max-width: 1240px;
     margin: 0 auto var(--2xl);
     padding-top: var(--xl);
   }
 
-  .home-hero h1 {
+  /* LPX-20: collapse the dead 767px breakpoint — 1023px already goes to a
+     single column below, so the extra 2-col intermediate step was never reached. */
+  @media (max-width: 1023px) {
+    .hv2-top { grid-template-columns: 1fr; }
+    .hv2-map { display: none; }
+  }
+
+  .hv2-hero h1 {
     font-size: clamp(1.4rem, 3vw, 2rem);
     font-weight: var(--weight-strong);
     color: var(--ink);
@@ -190,212 +194,40 @@ const highestList = buildItemList(highestRows, 'es', {
     margin-bottom: var(--md);
   }
 
-  .home-intro {
-    font-size: var(--text-body);
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: var(--lg);
+  .home-intro { font-size: var(--text-body); color: var(--muted); line-height: 1.6; }
+
+  /* ── Stats strip ── */
+  .hv2-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sm); margin-top: var(--lg); }
+  .hv2-stat { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--sm) var(--md); }
+  /* LPX-2: [hidden] belt — a scoped `display` rule elsewhere can otherwise win */
+  .hv2-stat[hidden] { display: none; }
+  .hv2-stat-n { display: block; font-size: var(--text-heading); font-weight: var(--weight-strong); font-variant-numeric: tabular-nums; }
+  .hv2-stat-l { display: block; font-size: 11px; color: var(--muted); line-height: 1.3; }
+
+  /* ── Explore pills ── */
+  .hv2-explore { margin-top: var(--lg); }
+  .hv2-explore-title { font-size: 12px; font-weight: var(--weight-strong); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: var(--sm); }
+  .hv2-pills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px; }
+  .hv2-pills a { display: inline-block; padding: 7px 13px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--ink); font-size: var(--text-label); font-weight: var(--weight-strong); text-decoration: none; transition: border-color 0.15s, background 0.15s; }
+  .hv2-pills a:hover { border-color: var(--primary); background: var(--bg); color: var(--primary); }
+
+  /* LPX-19: reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hv2-pills a { transition: none; }
   }
 
-  /* ── Search hero form ── */
-  .search-hero-form {
-    margin-top: var(--lg);
-  }
+  .hv2-source { margin-top: var(--lg); font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .hv2-source a { color: var(--primary); text-decoration: none; font-weight: var(--weight-strong); }
+  .hv2-source a:hover { text-decoration: underline; }
 
-  .search-label {
-    display: block;
-    font-size: var(--text-label);
-    font-weight: var(--weight-strong);
-    color: var(--ink);
-    margin-bottom: var(--sm);
-  }
+  /* ── Right column modules ── */
+  .hv2-modules { display: flex; flex-direction: column; gap: var(--md); min-width: 0; }
 
-  .search-row {
-    display: flex;
-    gap: var(--sm);
-    align-items: stretch;
-  }
-
-  .search-input {
-    flex: 1;
-    padding: var(--sm) var(--md);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    font-size: var(--text-body);
-    color: var(--ink);
-    background: var(--card);
-    min-width: 0;
-  }
-
-  .search-input:focus {
-    outline: 2px solid var(--primary);
-    outline-offset: 1px;
-  }
-
-  .search-btn {
-    padding: var(--sm) var(--lg);
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    font-size: var(--text-body);
-    font-weight: var(--weight-strong);
-    cursor: pointer;
-    white-space: nowrap;
-  }
-
-  .search-btn:hover {
-    opacity: 0.9;
-  }
-
-  /* ── Lead tables ── */
-  .lead-tables-section {
-    margin-bottom: var(--2xl);
-  }
-
-  .lead-tables-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--xl);
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  @media (max-width: 767px) {
-    .lead-tables-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .table-heading {
-    font-size: var(--text-heading);
-    font-weight: var(--weight-strong);
-    color: var(--ink);
-    margin-bottom: var(--xs);
-  }
-
-  .table-subhead {
-    font-size: var(--text-label);
-    color: var(--muted);
-    margin-bottom: var(--md);
-  }
-
-  .see-all-link {
-    display: inline-block;
-    margin-top: var(--sm);
-    font-size: var(--text-label);
-    color: var(--primary);
-    text-decoration: none;
-  }
-
-  .see-all-link:hover {
-    text-decoration: underline;
-  }
-
-  /* ── Map CTA ── */
-  .map-cta-section {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: var(--xl) var(--lg);
-    text-align: center;
-    max-width: 680px;
-    margin: 0 auto var(--2xl);
-  }
-
-  .map-cta-heading {
-    font-size: var(--text-heading);
-    font-weight: var(--weight-strong);
-    margin-bottom: var(--sm);
-  }
-
-  .map-cta-body {
-    color: var(--muted);
-    margin-bottom: var(--lg);
-  }
-
-  .map-cta-btn {
-    display: inline-block;
-    padding: var(--sm) var(--xl);
-    background: var(--primary);
-    color: #fff;
-    border-radius: var(--radius);
-    font-weight: var(--weight-strong);
-    text-decoration: none;
-    font-size: var(--text-body);
-  }
-
-  .map-cta-btn:hover {
-    opacity: 0.9;
-  }
-
-  /* ── Guide cards ── */
-  .guide-cards-section {
-    max-width: 900px;
-    margin: 0 auto var(--2xl);
-  }
-
-  .guide-cards-heading {
-    font-size: var(--text-heading);
-    font-weight: var(--weight-strong);
-    margin-bottom: var(--md);
-  }
-
-  .guide-cards {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: var(--md);
-  }
-
-  .guide-cards .guide-card {
-    display: block;
-    padding: var(--md) var(--lg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--card);
-    color: var(--primary);
-    text-decoration: none;
-    font-size: var(--text-body);
-    transition: border-color 0.15s, background 0.15s;
-  }
-
-  .guide-cards .guide-card:hover {
-    border-color: var(--primary);
-    background: var(--bg);
-  }
-
-  /* ── About section ── */
-  .about-section {
-    max-width: 720px;
-    margin: 0 auto var(--2xl);
-    padding-top: var(--xl);
-    border-top: 1px solid var(--line);
-  }
-
-  .about-section h2 {
-    font-size: var(--text-heading);
-    font-weight: var(--weight-strong);
-    margin-bottom: var(--md);
-  }
-
-  .about-section p {
-    font-size: var(--text-body);
-    color: var(--ink);
-    line-height: 1.7;
-  }
-
-  .about-section p + p {
-    margin-top: var(--md);
-  }
-
-  .about-section a {
-    color: var(--primary);
-    text-decoration: none;
-  }
-
-  .about-section a:hover {
-    text-decoration: underline;
-  }
+  /* ── About (verbatim styles from the previous home) ── */
+  .about-section { max-width: 720px; margin: 0 auto var(--2xl); padding-top: var(--xl); border-top: 1px solid var(--line); }
+  .about-section h2 { font-size: var(--text-heading); font-weight: var(--weight-strong); margin-bottom: var(--md); }
+  .about-section p { font-size: var(--text-body); color: var(--ink); line-height: 1.7; }
+  .about-section p + p { margin-top: var(--md); }
+  .about-section a { color: var(--primary); text-decoration: none; }
+  .about-section a:hover { text-decoration: underline; }
 </style>

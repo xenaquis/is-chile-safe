@@ -1,0 +1,170 @@
+---
+/**
+ * HomeSearchLive.astro — hero search with progressive live suggestions.
+ *
+ * Baseline (JS off) is IDENTICAL to today's hero form: plain GET →
+ * /communes/?q= | /es/comunas/?q= (D-05/D-06). Zero client:* directives —
+ * vanilla <script> enhancement, same pattern as RankingTableEnhancer.
+ *
+ * The enhancer reads the page-level #home-communes JSON blob (emitted by the
+ * page) and shows up to 6 suggestions; clicking one navigates to the commune
+ * page. Enter without a pick submits the form exactly as before.
+ */
+interface Props {
+  locale: 'en' | 'es';
+  label: string;        // verbatim hero label ("Find your commune" / "Busca tu comuna")
+  placeholder: string;
+  buttonLabel: string;
+  noMatch: string;
+  lowPopTag: string;     // LPX-10: verbatim homeV2Strings.suggest_lowpop (mirrors i18n.ts dir_lowpop_tag)
+}
+const { locale, label, placeholder, buttonLabel, noMatch, lowPopTag } = Astro.props;
+const action = locale === 'en' ? '/communes/' : '/es/comunas/';
+const communePrefix = locale === 'en' ? '/commune/' : '/es/comuna/';
+---
+
+<!-- LPX-7: the previous role="combobox"/listbox/option + aria-autocomplete/
+     aria-controls/aria-expanded combination was an invalid ARIA 1.2 pattern
+     (combobox owning a plain <ul>, no active-descendant wiring). Simplified to
+     honest semantics: a plain list of links, focusable by nature, with arrow
+     keys/Escape preserved and an aria-live region announcing result counts. -->
+<form action={action} method="get" class="search-hero-form" data-home-search data-commune-prefix={communePrefix} data-no-match={noMatch} data-lowpop-tag={lowPopTag} data-locale={locale}>
+  <label for="q" class="search-label">{label}</label>
+  <div class="search-row">
+    <input type="search" id="q" name="q" placeholder={placeholder} autocomplete="off" class="search-input" />
+    <button type="submit" class="search-btn">{buttonLabel} &rarr;</button>
+  </div>
+  <ul id="home-search-listbox" class="search-suggestions" hidden></ul>
+  <div class="sr-only" role="status" aria-live="polite" data-search-live></div>
+</form>
+
+<script>
+  (function () {
+    'use strict';
+    const form = document.querySelector<HTMLFormElement>('form[data-home-search]');
+    const blobEl = document.getElementById('home-communes');
+    if (!form || !blobEl) return;
+
+    interface Entry { n: string; s: string; r: number; l: number; g: string; p: number }
+    let communes: Entry[];
+    try {
+      communes = JSON.parse(blobEl.textContent || '[]');
+    } catch {
+      return; // malformed blob → keep plain form
+    }
+
+    const input = form.querySelector<HTMLInputElement>('input[type="search"]')!;
+    const list = form.querySelector<HTMLUListElement>('.search-suggestions')!;
+    const liveEl = form.querySelector<HTMLElement>('[data-search-live]')!;
+    const prefix = form.dataset.communePrefix || '/commune/';
+    const noMatch = form.dataset.noMatch || '';
+    const lowPopTag = form.dataset.lowpopTag || '';
+    const rawLocale = form.dataset.locale === 'en' ? 'en' : 'es';
+    const locale = rawLocale === 'en' ? 'en-US' : 'es-CL';
+
+    const norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+    function close() {
+      list.hidden = true;
+      list.innerHTML = '';
+      liveEl.textContent = '';
+    }
+
+    function render(q: string) {
+      const nq = norm(q.trim());
+      if (!nq) { close(); return; }
+      const matches = communes.filter((c) => norm(c.n).includes(nq)).slice(0, 6);
+      list.innerHTML = '';
+      if (matches.length === 0) {
+        const li = document.createElement('li');
+        li.className = 'search-suggestion-empty';
+        li.textContent = noMatch;
+        list.appendChild(li);
+        liveEl.textContent = noMatch;
+      } else {
+        for (const c of matches) {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = prefix + encodeURIComponent(c.s) + '/';
+          a.className = 'search-suggestion';
+          const dot = document.createElement('span');
+          dot.className = 'search-dot s' + c.l;
+          const name = document.createElement('span');
+          name.className = 'search-name';
+          name.textContent = c.n;
+          const region = document.createElement('span');
+          region.className = 'search-region';
+          region.textContent = c.g;
+          const rate = document.createElement('span');
+          rate.className = 'search-rate';
+          rate.textContent = c.r.toLocaleString(locale);
+          a.append(dot, name, region, rate);
+          // LPX-10: mirror the directory's low-population tag on suggestions
+          if (c.p === 1) {
+            const tag = document.createElement('span');
+            tag.className = 'search-lowpop';
+            tag.textContent = lowPopTag;
+            a.append(tag);
+          }
+          li.appendChild(a);
+          list.appendChild(li);
+        }
+        liveEl.textContent = `${matches.length} ${rawLocale === 'en' ? 'communes' : 'comunas'}`;
+      }
+      list.hidden = false;
+    }
+
+    input.addEventListener('input', () => render(input.value));
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowDown' && !list.hidden) {
+        const first = list.querySelector<HTMLAnchorElement>('a');
+        if (first) { e.preventDefault(); first.focus(); }
+      }
+    });
+    list.addEventListener('keydown', (e) => {
+      const links = Array.from(list.querySelectorAll<HTMLAnchorElement>('a'));
+      const idx = links.indexOf(document.activeElement as HTMLAnchorElement);
+      if (e.key === 'ArrowDown' && idx < links.length - 1) { e.preventDefault(); links[idx + 1].focus(); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); (idx > 0 ? links[idx - 1] : input).focus(); }
+      if (e.key === 'Escape') { close(); input.focus(); }
+    });
+    // Close on outside click; delay blur-close so suggestion clicks land first
+    document.addEventListener('click', (e) => {
+      if (!form.contains(e.target as Node)) close();
+    });
+  })();
+</script>
+
+<style>
+  .search-hero-form { margin-top: var(--lg); position: relative; }
+  .search-label { display: block; font-size: var(--text-label); font-weight: var(--weight-strong); color: var(--ink); margin-bottom: var(--sm); }
+  .search-row { display: flex; gap: var(--sm); align-items: stretch; }
+  .search-input { flex: 1; padding: var(--sm) var(--md); border: 1px solid var(--line); border-radius: var(--radius); font-size: var(--text-body); font-family: var(--font); color: var(--ink); background: var(--card); min-width: 0; }
+  .search-input:focus { outline: 2px solid var(--primary); outline-offset: 1px; }
+  .search-btn { padding: var(--sm) var(--lg); background: var(--primary); color: #fff; border: none; border-radius: var(--radius); font-size: var(--text-body); font-family: var(--font); font-weight: var(--weight-strong); cursor: pointer; white-space: nowrap; }
+  .search-btn:hover { opacity: 0.9; }
+
+  /* LPX-2: [hidden] belt (scoped `display` elsewhere on the page can otherwise win) */
+  .search-suggestions[hidden] { display: none; }
+  /* LPX-12: hardcoded rgba(28,42,43,…) → color-mix against the --ink token */
+  .search-suggestions { list-style: none; margin: 0; padding: var(--xs) 0; position: absolute; left: 0; right: 0; top: 100%; margin-top: var(--xs); z-index: 30; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 10px 24px color-mix(in srgb, var(--ink) 16%, transparent); }
+  /* LPX-1: every suggestion node below is created by the enhancer via
+     createElement — Astro's scoped attribute never lands on client-created
+     nodes, so these must be :global() under the server-rendered form ancestor
+     (same fix as RankingTableEnhancer). The <ul> container itself stays scoped. */
+  .search-hero-form :global(.search-suggestion) { display: flex; align-items: center; gap: var(--sm); padding: var(--sm) var(--md); text-decoration: none; color: var(--ink); }
+  .search-hero-form :global(.search-suggestion:hover), .search-hero-form :global(.search-suggestion:focus) { background: var(--bg); }
+  /* LPX-12: quintile-1 dots need a ring to stay visible against --card */
+  .search-hero-form :global(.search-dot) { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 35%, transparent); }
+  .search-hero-form :global(.search-dot.s1) { background: var(--s1); } .search-hero-form :global(.search-dot.s2) { background: var(--s2); } .search-hero-form :global(.search-dot.s3) { background: var(--s3); } .search-hero-form :global(.search-dot.s4) { background: var(--s4); } .search-hero-form :global(.search-dot.s5) { background: var(--s5); }
+  .search-hero-form :global(.search-name) { font-weight: var(--weight-strong); font-size: var(--text-label); }
+  .search-hero-form :global(.search-region) { font-size: var(--text-label); color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .search-hero-form :global(.search-rate) { margin-left: auto; font-size: var(--text-label); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .search-hero-form :global(.search-suggestion-empty) { padding: var(--sm) var(--md); font-size: var(--text-label); color: var(--muted); }
+  /* LPX-10: muted low-population tag on suggestions */
+  .search-hero-form :global(.search-lowpop) { font-size: 10px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 1px 6px; flex-shrink: 0; }
+
+  /* LPX-7: not global on this site — declared locally (same pattern as RankingBoard.astro) */
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+</style>

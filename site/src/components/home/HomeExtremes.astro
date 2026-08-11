@@ -1,0 +1,217 @@
+---
+/**
+ * HomeExtremes.astro — the two lead ranking tables collapsed into one visual
+ * bar list with a Highest/Lowest toggle (proposal 6b).
+ *
+ * Baseline (JS off): BOTH lists render server-side, stacked — same information
+ * as today's two tables, in bar-list form. Toggle buttons ship disabled.
+ * Enhancement: the enhancer reads the page-level #home-communes blob, enables
+ * the toggle (shows one list at a time) and listens for `home:band` events
+ * from HomeMiniMap to re-render the visible list scoped to that quintile.
+ *
+ * JSON-LD ItemLists are unchanged — still built in the page from the same
+ * lowest6/highest6 rows (D-07 contract intact).
+ */
+import type { HomeCommune } from './homeData.ts';
+import { homeV2Strings, fmt } from '../../config/homeV2Strings.ts';
+
+interface Props {
+  locale: 'en' | 'es';
+  lowest: HomeCommune[];   // 7 rows, rate ascending
+  highest: HomeCommune[];  // 7 rows, rate descending
+  maxRate: number;
+  referenceYear: number;
+}
+const { locale, lowest, highest, maxRate, referenceYear } = Astro.props;
+const t = homeV2Strings(locale);
+const communePrefix = locale === 'en' ? '/commune/' : '/es/comuna/';
+const rankingHref = locale === 'en' ? '/safest-cities-in-chile/' : '/es/comunas-mas-seguras-chile/';
+const browseHref = locale === 'en' ? '/communes/' : '/es/comunas/';
+const numLocale = locale === 'en' ? 'en-US' : 'es-CL';
+
+const bar = (rate: number) => Math.max(2, Math.round((rate / maxRate) * 100));
+const mkRow = (c: HomeCommune) => ({
+  href: `${communePrefix}${c.slug}/`,
+  name: c.name,
+  region: c.regionName,
+  level: c.level,
+  width: bar(c.rate),
+  rate: Math.round(c.rate).toLocaleString(numLocale),
+});
+const highRows = highest.map(mkRow);
+const lowRows = lowest.map(mkRow);
+---
+
+<div class="extremes-card" data-home-extremes data-commune-prefix={communePrefix} data-locale={locale} data-max-rate={maxRate} data-band-note={t.extremes_band_note}>
+  <div class="extremes-head">
+    <h2 class="extremes-title" data-extremes-title data-title-high={`${t.extremes_high_title} · ${referenceYear}`} data-title-low={`${t.extremes_low_title} · ${referenceYear}`}>{t.extremes_high_title} · {referenceYear}</h2>
+    <div class="extremes-toggle" role="group">
+      <button type="button" data-mode="high" aria-pressed="true" disabled>{t.extremes_toggle_high}</button>
+      <button type="button" data-mode="low" aria-pressed="false" disabled>{t.extremes_toggle_low}</button>
+    </div>
+  </div>
+  <p class="extremes-note" data-extremes-note hidden></p>
+  <ol class="extremes-list" data-extremes-list data-list-mode="high">
+    {highRows.map((r) => (
+      <li>
+        <a href={r.href} class="ext-row">
+          <span class={`ext-dot s${r.level}`}></span>
+          <span class="ext-name-wrap"><span class="ext-name">{r.name}</span><span class="ext-region">{r.region}</span></span>
+          <span class="ext-bar"><span class={`ext-fill s${r.level}`} style={`width:${r.width}%`}></span></span>
+          <span class="ext-rate">{r.rate}</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+  <h2 class="extremes-title extremes-title-noscript" data-noscript-only>{t.extremes_low_title} · {referenceYear}</h2>
+  <ol class="extremes-list" data-extremes-list-low data-noscript-only>
+    {lowRows.map((r) => (
+      <li>
+        <a href={r.href} class="ext-row">
+          <span class={`ext-dot s${r.level}`}></span>
+          <span class="ext-name-wrap"><span class="ext-name">{r.name}</span><span class="ext-region">{r.region}</span></span>
+          <span class="ext-bar"><span class={`ext-fill s${r.level}`} style={`width:${r.width}%`}></span></span>
+          <span class="ext-rate">{r.rate}</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+  <p class="extremes-links">
+    <a href={rankingHref}>{t.extremes_see_ranking}</a>
+    <a href={browseHref}>{t.extremes_browse_all}</a>
+  </p>
+</div>
+
+<script>
+  (function () {
+    'use strict';
+    const card = document.querySelector<HTMLElement>('[data-home-extremes]');
+    const blobEl = document.getElementById('home-communes');
+    if (!card || !blobEl) return;
+
+    interface Entry { n: string; s: string; r: number; l: number; g: string; p: number }
+    let communes: Entry[];
+    try { communes = JSON.parse(blobEl.textContent || '[]'); } catch { return; }
+    const eligible = communes.filter((c) => !c.p);
+    const maxRate = Number(card.dataset.maxRate) || 1;
+    const prefix = card.dataset.communePrefix || '/commune/';
+    const numLocale = card.dataset.locale === 'en' ? 'en-US' : 'es-CL';
+    const bandNoteTpl = card.dataset.bandNote || '';
+
+    const list = card.querySelector<HTMLOListElement>('[data-extremes-list]')!;
+    const title = card.querySelector<HTMLElement>('[data-extremes-title]')!;
+    const note = card.querySelector<HTMLElement>('[data-extremes-note]')!;
+    const toggles = Array.from(card.querySelectorAll<HTMLButtonElement>('.extremes-toggle button'));
+
+    // JS is on: hide the duplicated no-JS list + heading, enable the toggle
+    card.querySelectorAll<HTMLElement>('[data-noscript-only]').forEach((el) => { el.hidden = true; });
+    toggles.forEach((b) => { b.disabled = false; });
+
+    let mode: 'high' | 'low' = 'high';
+    let band = 0;
+    const bandLabels = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-home-minimap] .mm-band'))
+      .map((b) => b.dataset.bandLabel || '');
+
+    function render() {
+      const scope = band ? eligible.filter((c) => c.l === band) : eligible;
+      const rows = scope
+        .slice()
+        .sort((a, b) => (mode === 'high' ? b.r - a.r : a.r - b.r))
+        .slice(0, 7);
+      list.innerHTML = '';
+      for (const c of rows) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = prefix + encodeURIComponent(c.s) + '/';
+        a.className = 'ext-row';
+        const dot = document.createElement('span');
+        dot.className = 'ext-dot s' + c.l;
+        const nameWrap = document.createElement('span');
+        nameWrap.className = 'ext-name-wrap';
+        const name = document.createElement('span');
+        name.className = 'ext-name';
+        name.textContent = c.n;
+        const region = document.createElement('span');
+        region.className = 'ext-region';
+        region.textContent = c.g;
+        nameWrap.append(name, region);
+        const barEl = document.createElement('span');
+        barEl.className = 'ext-bar';
+        const fill = document.createElement('span');
+        fill.className = 'ext-fill s' + c.l;
+        fill.style.width = Math.max(2, Math.round((c.r / maxRate) * 100)) + '%';
+        barEl.appendChild(fill);
+        const rate = document.createElement('span');
+        rate.className = 'ext-rate';
+        rate.textContent = c.r.toLocaleString(numLocale);
+        a.append(dot, nameWrap, barEl, rate);
+        li.appendChild(a);
+        list.appendChild(li);
+      }
+      title.textContent = (mode === 'high' ? title.dataset.titleHigh : title.dataset.titleLow) || '';
+      toggles.forEach((b) => b.setAttribute('aria-pressed', b.dataset.mode === mode ? 'true' : 'false'));
+      if (band) {
+        note.textContent = bandNoteTpl
+          .replace('{label}', bandLabels[band - 1] || '')
+          .replace('{n}', String(scope.length));
+        note.hidden = false;
+      } else {
+        note.hidden = true;
+      }
+    }
+
+    toggles.forEach((b) =>
+      b.addEventListener('click', () => {
+        mode = b.dataset.mode === 'low' ? 'low' : 'high';
+        render();
+      }),
+    );
+    document.addEventListener('home:band', (e) => {
+      band = (e as CustomEvent).detail?.band || 0;
+      render();
+    });
+  })();
+</script>
+
+<style>
+  .extremes-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--md); display: flex; flex-direction: column; }
+  .extremes-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sm); }
+  .extremes-title { font-size: var(--text-label); font-weight: var(--weight-strong); color: var(--ink); }
+  .extremes-title-noscript { margin-top: var(--md); }
+  .extremes-note { font-size: 12px; color: var(--muted); margin-top: var(--xs); }
+  /* LPX-2: [hidden] defeated by scoped `display` elsewhere on the page — belt */
+  .extremes-note[hidden] { display: none; }
+
+  .extremes-toggle { display: flex; border: 1px solid var(--line); border-radius: calc(var(--radius) / 2); overflow: hidden; }
+  .extremes-toggle button { border: none; background: transparent; font-family: var(--font); font-size: 12px; font-weight: var(--weight-strong); color: var(--muted); padding: 6px 12px; cursor: pointer; }
+  .extremes-toggle button:disabled { cursor: default; }
+  .extremes-toggle button[aria-pressed='true'] { background: var(--primary); color: #fff; }
+  /* LPX-6: focus-visible ring, compatible with the aria-pressed inset above */
+  .extremes-toggle button:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--primary); }
+
+  .extremes-list { list-style: none; margin: var(--sm) 0 0; padding: 0; }
+  /* LPX-1: these rows/cells are recreated by the enhancer via createElement —
+     Astro's scoped attribute never lands on client-created nodes, so every
+     class the JS applies must be :global() under the server-rendered ancestor
+     (same fix as RankingTableEnhancer). Container/list elements stay scoped. */
+  .extremes-card :global(.ext-row) { display: grid; grid-template-columns: 14px minmax(110px, 150px) 1fr 64px; align-items: center; gap: var(--sm); padding: 7px var(--xs); border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); }
+  .extremes-list li:last-child :global(.ext-row) { border-bottom: none; }
+  .extremes-card :global(.ext-row:hover) { background: var(--bg); }
+  /* LPX-12: quintile-1 dots need a ring to stay visible against --card */
+  .extremes-card :global(.ext-dot) { width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 35%, transparent); }
+  .extremes-card :global(.ext-name-wrap) { min-width: 0; }
+  .extremes-card :global(.ext-name) { display: block; font-size: var(--text-label); font-weight: var(--weight-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .extremes-card :global(.ext-region) { display: block; font-size: 11px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .extremes-card :global(.ext-bar) { position: relative; height: 8px; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); overflow: hidden; display: block; }
+  .extremes-card :global(.ext-fill) { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; display: block; }
+  .extremes-card :global(.ext-rate) { text-align: right; font-size: 13px; font-weight: var(--weight-strong); font-variant-numeric: tabular-nums; }
+
+  .extremes-card :global(.s1) { background: var(--s1); } .extremes-card :global(.s2) { background: var(--s2); } .extremes-card :global(.s3) { background: var(--s3); } .extremes-card :global(.s4) { background: var(--s4); } .extremes-card :global(.s5) { background: var(--s5); }
+
+  .extremes-links { display: flex; flex-wrap: wrap; gap: var(--md); margin-top: auto; padding-top: var(--sm); }
+  .extremes-links a { font-size: var(--text-label); font-weight: var(--weight-strong); color: var(--primary); text-decoration: none; }
+  .extremes-links a:hover { text-decoration: underline; }
+
+  /* LPX-2: [data-noscript-only] baseline list — same belt as above */
+  [data-noscript-only][hidden] { display: none; }
+</style>

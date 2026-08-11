@@ -1,66 +1,32 @@
 ---
 /**
- * EN home page — /
+ * EN home page — /  (Landing v2 — proposal 6b)
  *
- * Phase 12 Plan 03: Rebuilt on Hybrid C+B framing.
- * Above the fold: H1 + search hero + two lead ranking tables + map CTA + guide cards.
- * Below the fold: condensed prose (CEAD attribution + how-to-read + disclaimer).
- *
- * Constraints:
- *  - Exactly one H1
- *  - Zero client:* directives
- *  - Search hero: plain form GET → /communes/?q=
- *  - Editorial Tone Guard: never "safe"/"dangerous" as absolute labels
- *  - All hrefs hardcoded (never getRelativeLocaleUrl for localized slugs)
+ * Same dashboard as /es/ with EN copy verbatim from the previous home.
+ * Constraints preserved: one H1, zero client:* directives (vanilla-script
+ * progressive enhancement only), plain GET search baseline → /communes/?q=,
+ * Editorial Tone Guard, hardcoded hrefs, WebSite/Organization + ItemList JSON-LD.
  */
 import HomeLayout from '../layouts/HomeLayout.astro';
-import CommuneRankingTable from '../components/CommuneRankingTable.astro';
-import { loadIndex, loadCommune, latestCompleteYearRate, loadNationalAverage } from '../lib/data.ts';
+import HomeSearchLive from '../components/home/HomeSearchLive.astro';
+import HomeMiniMap from '../components/home/HomeMiniMap.astro';
+import HomeExtremes from '../components/home/HomeExtremes.astro';
+import HomeNewsPulse from '../components/home/HomeNewsPulse.astro';
+import { buildHomeData, homeBlob } from '../components/home/homeData.ts';
 import { buildItemList, buildWebSite, buildOrganization } from '../lib/jsonld.ts';
+import { homeV2Strings } from '../config/homeV2Strings.ts';
 
-const nationalAvg = loadNationalAverage();
+const t = homeV2Strings('en');
+const { rows, ranked, bandCounts, nationalAvg, referenceYear, maxRate } = buildHomeData();
 
-// Derive the reference year from any non-low-population commune
-const index = loadIndex();
-const sampleCut = index.find((c) => !c.low_population)?.cut ?? '13101';
-const sampleCommune = loadCommune(sampleCut);
-const referenceYear = sampleCommune.latestCompleteYear;
+const lowest = ranked.slice(0, 7);
+const highest = ranked.slice(-7).reverse();
 
-// Build lead ranking tables at build time (non-low-population communes only)
-const allRanked = index
-  .filter((c) => !c.low_population)
-  .map((c) => {
-    const commune = loadCommune(c.cut);
-    // Build ratesByYear (complete-year keys only — partial excluded) so the
-    // RankingTableEnhancer can sort + switch years on the home lead tables.
-    const ratesByYear: Record<number, number> = {};
-    commune.series.filter((s: any) => !s.partial).forEach((s: any) => {
-      ratesByYear[s.year] = s.rate_per_100k;
-    });
-    return {
-      name: c.name,
-      slug: c.slug,
-      rate: latestCompleteYearRate(commune),
-      national_rank: commune.national_rank,
-      trend: commune.trend,
-      low_population: c.low_population,
-      ratesByYear,
-    };
-  })
-  .sort((a, b) => a.rate - b.rate);
-
-// Lowest reported rate (ascending) — top 6
-const lowestRows = allRanked.slice(0, 6);
-
-// Highest reported rate (descending) — last 6
-const highestRows = allRanked.slice(-6).reverse();
-
-// ItemList JSON-LD: two lead tables (NO breadcrumb on home — D-07)
-const lowestList = buildItemList(lowestRows, 'en', {
+const lowestList = buildItemList(lowest, 'en', {
   name: 'Communes by reported CEAD incidence (ascending)',
   order: 'Ascending',
 });
-const highestList = buildItemList(highestRows, 'en', {
+const highestList = buildItemList(highest, 'en', {
   name: 'Communes by reported CEAD incidence (descending)',
   order: 'Descending',
 });
@@ -75,114 +41,140 @@ const highestList = buildItemList(highestRows, 'en', {
   pageType="home"
   jsonLd={[buildWebSite(), buildOrganization(), lowestList, highestList]}
 >
-  <!-- ========================================================
-       ABOVE THE FOLD
-       ======================================================== -->
+  <script type="application/json" id="home-communes" set:html={JSON.stringify(homeBlob(rows)).replace(/</g, '\\u003c')}></script>
 
-  <section class="home-hero">
-    <h1>Is Chile Safe? Official CEAD Crime Data for All 346 Communes</h1>
-    <p class="home-intro">
-      Explore official crime-incidence data from Chile's CEAD for all 346 communes and 16 regions —
-      ranked by reported rate, not editorial opinion.
-    </p>
+  <div class="hv2 home-wide">
+    <section class="hv2-top">
+      <div class="hv2-hero">
+        <h1>Is Chile Safe? Official CEAD Crime Data for All 346 Communes</h1>
+        <p class="home-intro">
+          Explore official crime-incidence data from Chile's CEAD for all 346 communes and 16 regions —
+          ranked by reported rate, not editorial opinion.
+        </p>
 
-    <!-- Search hero: plain GET form — zero JS (D-05/D-06) -->
-    <form action="/communes/" method="get" class="search-hero-form">
-      <label for="q" class="search-label">Find your commune</label>
-      <div class="search-row">
-        <input
-          type="search"
-          id="q"
-          name="q"
+        <HomeSearchLive
+          locale="en"
+          label="Find your commune"
           placeholder="e.g. Ñuñoa, Valparaíso…"
-          autocomplete="off"
-          class="search-input"
+          buttonLabel="Search"
+          noMatch="No commune matches"
+          lowPopTag={t.suggest_lowpop}
         />
-        <button type="submit" class="search-btn">Search &rarr;</button>
+
+        <div class="hv2-stats">
+          <div class="hv2-stat"><span class="hv2-stat-n">346</span><span class="hv2-stat-l">{t.stats_communes}</span></div>
+          <div class="hv2-stat"><span class="hv2-stat-n">{Math.round(nationalAvg).toLocaleString('en-US')}</span><span class="hv2-stat-l">{t.stats_mean} — {referenceYear}</span></div>
+          <div class="hv2-stat" data-home-press-stat hidden><span class="hv2-stat-n" data-home-press-count>—</span><span class="hv2-stat-l">{t.stats_press}</span></div>
+        </div>
+
+        <nav class="hv2-explore" aria-label="Explore by topic">
+          <h2 class="hv2-explore-title">{t.explore_title}</h2>
+          <ul class="hv2-pills">
+            <li><a href="/map/">Interactive map</a></li>
+            <li><a href="/chile-crime-map/">Chile Crime Map — interactive choropleth</a></li>
+            <li><a href="/is-chile-safe/">Is Chile Safe? — national overview</a></li>
+            <li><a href="/is-santiago-safe/">Is Santiago Safe? — capital city data</a></li>
+            <li><a href="/safest-cities-in-chile/">Communes with Lowest Reported Rates</a></li>
+            <li><a href="/compare/">Compare communes</a></li>
+            <li><a href="/methodology/">Methodology — how rates are calculated</a></li>
+            <li><a href="/communes/">Browse all 346 communes →</a></li>
+          </ul>
+        </nav>
+
+        <p class="hv2-source">
+          Source: CEAD, Subsecretaría de Prevención del Delito. Rates per 100,000 inhabitants, {referenceYear}.
+          Figures reflect reported incidents, not personal risk.
+          <a href="/methodology/">How to read this data →</a>
+        </p>
       </div>
-    </form>
-  </section>
 
-  <!-- Lead ranking tables: two side-by-side (D-03) -->
-  <section class="lead-tables-section">
-    <div class="lead-tables-grid">
-      <div class="lead-table-col">
-        <h2 class="table-heading">Lowest Reported Rate</h2>
-        <p class="table-subhead">Communes with the lowest CEAD-reported incidence per 100k — {referenceYear}</p>
-        <CommuneRankingTable rows={lowestRows} locale="en" defaultSortDir="asc" />
-        <a href="/safest-cities-in-chile/" class="see-all-link">See full ranking &rarr;</a>
+      <div class="hv2-map">
+        <HomeMiniMap locale="en" rows={rows} bandCounts={bandCounts} referenceYear={referenceYear} />
       </div>
-      <div class="lead-table-col">
-        <h2 class="table-heading">Highest Reported Rate</h2>
-        <p class="table-subhead">Communes with the highest CEAD-reported incidence per 100k — {referenceYear}</p>
-        <CommuneRankingTable rows={highestRows} locale="en" defaultSortDir="desc" />
-        <a href="/communes/" class="see-all-link">Browse all communes &rarr;</a>
+
+      <div class="hv2-modules">
+        <HomeExtremes locale="en" lowest={lowest} highest={highest} maxRate={maxRate} referenceYear={referenceYear} />
+        <HomeNewsPulse locale="en" />
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Map CTA -->
-  <section class="map-cta-section">
-    <h2 class="map-cta-heading">Explore the Interactive Map</h2>
-    <p class="map-cta-body">
-      See all 346 communes coloured by incidence rate. Filter by crime type and year.
-    </p>
-    <a href="/map/" class="map-cta-btn">Open Chile Crime Map &rarr;</a>
-  </section>
-
-  <!-- Guide cards: static links to existing editorial pages only (D-04) -->
-  <section class="guide-cards-section">
-    <h2 class="guide-cards-heading">Explore by Topic</h2>
-    <ul class="guide-cards">
-      <li><a href="/chile-crime-map/" class="guide-card">Chile Crime Map — interactive choropleth</a></li>
-      <li><a href="/is-chile-safe/" class="guide-card">Is Chile Safe? — national overview</a></li>
-      <li><a href="/is-santiago-safe/" class="guide-card">Is Santiago Safe? — capital city data</a></li>
-      <li><a href="/safest-cities-in-chile/" class="guide-card">Communes with Lowest Reported Rates</a></li>
-      <li><a href="/methodology/" class="guide-card">Methodology — how rates are calculated</a></li>
-      <li><a href="/communes/" class="guide-card">Browse all 346 communes &rarr;</a></li>
-    </ul>
-  </section>
-
-  <!-- ========================================================
-       BELOW THE FOLD — condensed prose
-       ======================================================== -->
-
-  <section class="about-section">
-    <h2>About the Data</h2>
-    <p>
-      Chile Safety Map presents official crime-incidence data from Chile's Centro de Estudios
-      y Análisis del Delito (CEAD) for all 346 communes and 16 regions. Every figure is sourced
-      directly from that government dataset. The canonical metric is the
-      <strong>rate of reported offences per 100,000 inhabitants</strong>, which allows fair
-      comparison between places of very different sizes. All rates are computed from CEAD's annual
-      frequency tables and cover 2005 through {referenceYear}. The national mean rate across
-      non-low-population communes for {referenceYear} is{' '}
-      <strong>{Math.round(nationalAvg).toLocaleString('en-US')} per 100,000</strong>.
-      A higher rate means more reported offences per 100,000 residents — not necessarily that a
-      place is objectively more or less liveable. Under-reporting, floating populations, and
-      crime-family composition all affect the figure; see the{' '}
-      <a href="/methodology/">Methodology page</a> for full details.
-    </p>
-    <p>
-      This site never assigns absolute "safe" or "dangerous" labels. It presents CEAD
-      reported-incident data and lets you form your own informed view. Crime statistics reflect
-      <em>reported incidents</em>, not actual crime — property crime is under-reported at
-      rates of 50–70 % in many countries, and location decisions involve far more than a single
-      incidence rate. Source: CEAD (Centro de Estudios y Análisis del Delito), Subsecretaría de
-      Prevención del Delito, Ministry of the Interior and Public Security, Chile.
-    </p>
-  </section>
+    <!-- BELOW THE FOLD — condensed prose (verbatim) -->
+    <section class="about-section">
+      <h2>About the Data</h2>
+      <p>
+        Chile Safety Map presents official crime-incidence data from Chile's Centro de Estudios
+        y Análisis del Delito (CEAD) for all 346 communes and 16 regions. Every figure is sourced
+        directly from that government dataset. The canonical metric is the
+        <strong>rate of reported offences per 100,000 inhabitants</strong>, which allows fair
+        comparison between places of very different sizes. All rates are computed from CEAD's annual
+        frequency tables and cover 2005 through {referenceYear}. The national mean rate across
+        non-low-population communes for {referenceYear} is{' '}
+        <strong>{Math.round(nationalAvg).toLocaleString('en-US')} per 100,000</strong>.
+        A higher rate means more reported offences per 100,000 residents — not necessarily that a
+        place is objectively more or less liveable. Under-reporting, floating populations, and
+        crime-family composition all affect the figure; see the{' '}
+        <a href="/methodology/">Methodology page</a> for full details.
+      </p>
+      <p>
+        This site never assigns absolute "safe" or "dangerous" labels. It presents CEAD
+        reported-incident data and lets you form your own informed view. Crime statistics reflect
+        <em>reported incidents</em>, not actual crime — property crime is under-reported at
+        rates of 50–70 % in many countries, and location decisions involve far more than a single
+        incidence rate. Source: CEAD (Centro de Estudios y Análisis del Delito), Subsecretaría de
+        Prevención del Delito, Ministry of the Interior and Public Security, Chile.
+      </p>
+    </section>
+  </div>
 </HomeLayout>
 
+<script>
+  // Mirror the news-pulse incident count into the hero stats strip (see /es/).
+  (function () {
+    'use strict';
+    const stat = document.querySelector<HTMLElement>('[data-home-press-stat]');
+    const statN = document.querySelector<HTMLElement>('[data-home-press-count]');
+    const pulse = document.querySelector<HTMLElement>('[data-home-pulse]');
+    const src = pulse?.querySelector<HTMLElement>('[data-pulse-count]');
+    if (!stat || !statN || !pulse || !src) return;
+    const sync = () => {
+      if (!pulse.hidden && src.textContent) {
+        statN.textContent = (src.textContent.split(' ')[0] || '—');
+        stat.hidden = false;
+      }
+    };
+    new MutationObserver(sync).observe(src, { childList: true });
+    sync();
+  })();
+</script>
+
 <style>
-  /* ── Hero ── */
-  .home-hero {
-    max-width: 780px;
+  /* LPX-3(a): the home dashboard needs a wider canvas than the 860px prose cap
+     that main.page-content applies to every other page. :has() scopes the
+     override to pages carrying .home-wide only — global.css/HomeLayout untouched. */
+  :global(main.page-content:has(.home-wide)) {
+    max-width: 1240px;
+  }
+
+  .hv2-top {
+    display: grid;
+    /* LPX-3(b): no fixed minimums — a 954px worth of column minimums doesn't
+       fit inside an 860px ancestor. minmax(0, …) can only shrink, never overflow. */
+    grid-template-columns: minmax(0, 360px) 120px minmax(0, 1fr);
+    gap: var(--lg);
+    align-items: start;
+    max-width: 1240px;
     margin: 0 auto var(--2xl);
     padding-top: var(--xl);
   }
 
-  .home-hero h1 {
+  /* LPX-20: collapse the dead 767px breakpoint — 1023px already goes to a
+     single column below, so the extra 2-col intermediate step was never reached. */
+  @media (max-width: 1023px) {
+    .hv2-top { grid-template-columns: 1fr; }
+    .hv2-map { display: none; }
+  }
+
+  .hv2-hero h1 {
     font-size: clamp(1.4rem, 3vw, 2rem);
     font-weight: var(--weight-strong);
     color: var(--ink);
@@ -190,217 +182,36 @@ const highestList = buildItemList(highestRows, 'en', {
     margin-bottom: var(--md);
   }
 
-  .home-intro {
-    font-size: var(--text-body);
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: var(--lg);
+  .home-intro { font-size: var(--text-body); color: var(--muted); line-height: 1.6; }
+
+  .hv2-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sm); margin-top: var(--lg); }
+  .hv2-stat { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--sm) var(--md); }
+  /* LPX-2: [hidden] belt — a scoped `display` rule elsewhere can otherwise win */
+  .hv2-stat[hidden] { display: none; }
+  .hv2-stat-n { display: block; font-size: var(--text-heading); font-weight: var(--weight-strong); font-variant-numeric: tabular-nums; }
+  .hv2-stat-l { display: block; font-size: 11px; color: var(--muted); line-height: 1.3; }
+
+  .hv2-explore { margin-top: var(--lg); }
+  .hv2-explore-title { font-size: 12px; font-weight: var(--weight-strong); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: var(--sm); }
+  .hv2-pills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px; }
+  .hv2-pills a { display: inline-block; padding: 7px 13px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--ink); font-size: var(--text-label); font-weight: var(--weight-strong); text-decoration: none; transition: border-color 0.15s, background 0.15s; }
+  .hv2-pills a:hover { border-color: var(--primary); background: var(--bg); color: var(--primary); }
+
+  /* LPX-19: reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hv2-pills a { transition: none; }
   }
 
-  /* ── Search hero form ── */
-  .search-hero-form {
-    margin-top: var(--lg);
-  }
+  .hv2-source { margin-top: var(--lg); font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .hv2-source a { color: var(--primary); text-decoration: none; font-weight: var(--weight-strong); }
+  .hv2-source a:hover { text-decoration: underline; }
 
-  .search-label {
-    display: block;
-    font-size: var(--text-label);
-    font-weight: var(--weight-strong);
-    color: var(--ink);
-    margin-bottom: var(--sm);
-  }
+  .hv2-modules { display: flex; flex-direction: column; gap: var(--md); min-width: 0; }
 
-  .search-row {
-    display: flex;
-    gap: var(--sm);
-    align-items: stretch;
-  }
-
-  .search-input {
-    flex: 1;
-    padding: var(--sm) var(--md);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    font-size: var(--text-body);
-    color: var(--ink);
-    background: var(--card);
-    min-width: 0;
-  }
-
-  .search-input:focus {
-    outline: 2px solid var(--primary);
-    outline-offset: 1px;
-  }
-
-  .search-btn {
-    padding: var(--sm) var(--lg);
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    font-size: var(--text-body);
-    font-weight: var(--weight-strong);
-    cursor: pointer;
-    white-space: nowrap;
-  }
-
-  .search-btn:hover {
-    opacity: 0.9;
-  }
-
-  /* ── Lead tables ── */
-  .lead-tables-section {
-    margin-bottom: var(--2xl);
-  }
-
-  .lead-tables-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--xl);
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .lead-table-col {
-    flex: 1 1 400px;
-    min-width: 0;
-  }
-
-  @media (max-width: 900px) {
-    .lead-table-col {
-      width: 100%;
-    }
-  }
-
-  .table-heading {
-    font-size: var(--text-heading);
-    font-weight: var(--weight-strong);
-    color: var(--ink);
-    margin-bottom: var(--xs);
-  }
-
-  .table-subhead {
-    font-size: var(--text-label);
-    color: var(--muted);
-    margin-bottom: var(--md);
-  }
-
-  .see-all-link {
-    display: inline-block;
-    margin-top: var(--sm);
-    font-size: var(--text-label);
-    color: var(--primary);
-    text-decoration: none;
-  }
-
-  .see-all-link:hover {
-    text-decoration: underline;
-  }
-
-  /* ── Map CTA ── */
-  .map-cta-section {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: var(--xl) var(--lg);
-    text-align: center;
-    max-width: 680px;
-    margin: 0 auto var(--2xl);
-  }
-
-  .map-cta-heading {
-    font-size: var(--text-heading);
-    font-weight: var(--weight-strong);
-    margin-bottom: var(--sm);
-  }
-
-  .map-cta-body {
-    color: var(--muted);
-    margin-bottom: var(--lg);
-  }
-
-  .map-cta-btn {
-    display: inline-block;
-    padding: var(--sm) var(--xl);
-    background: var(--primary);
-    color: #fff;
-    border-radius: var(--radius);
-    font-weight: var(--weight-strong);
-    text-decoration: none;
-    font-size: var(--text-body);
-  }
-
-  .map-cta-btn:hover {
-    opacity: 0.9;
-  }
-
-  /* ── Guide cards ── */
-  .guide-cards-section {
-    max-width: 900px;
-    margin: 0 auto var(--2xl);
-  }
-
-  .guide-cards-heading {
-    font-size: var(--text-heading);
-    font-weight: var(--weight-strong);
-    margin-bottom: var(--md);
-  }
-
-  .guide-cards {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: var(--md);
-  }
-
-  .guide-cards .guide-card {
-    display: block;
-    padding: var(--md) var(--lg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--card);
-    color: var(--primary);
-    text-decoration: none;
-    font-size: var(--text-body);
-    transition: border-color 0.15s, background 0.15s;
-  }
-
-  .guide-cards .guide-card:hover {
-    border-color: var(--primary);
-    background: var(--bg);
-  }
-
-  /* ── About section ── */
-  .about-section {
-    max-width: 720px;
-    margin: 0 auto var(--2xl);
-    padding-top: var(--xl);
-    border-top: 1px solid var(--line);
-  }
-
-  .about-section h2 {
-    font-size: var(--text-heading);
-    font-weight: var(--weight-strong);
-    margin-bottom: var(--md);
-  }
-
-  .about-section p {
-    font-size: var(--text-body);
-    color: var(--ink);
-    line-height: 1.7;
-  }
-
-  .about-section p + p {
-    margin-top: var(--md);
-  }
-
-  .about-section a {
-    color: var(--primary);
-    text-decoration: none;
-  }
-
-  .about-section a:hover {
-    text-decoration: underline;
-  }
+  .about-section { max-width: 720px; margin: 0 auto var(--2xl); padding-top: var(--xl); border-top: 1px solid var(--line); }
+  .about-section h2 { font-size: var(--text-heading); font-weight: var(--weight-strong); margin-bottom: var(--md); }
+  .about-section p { font-size: var(--text-body); color: var(--ink); line-height: 1.7; }
+  .about-section p + p { margin-top: var(--md); }
+  .about-section a { color: var(--primary); text-decoration: none; }
+  .about-section a:hover { text-decoration: underline; }
 </style>

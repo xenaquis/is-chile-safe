@@ -1,0 +1,220 @@
+---
+/**
+ * HomeNewsPulse.astro — press-incident pulse module for the home dashboard.
+ *
+ * Ships as a HIDDEN shell; the enhancer fetches /data/incidents/current.json
+ * (Phase 5 contract: { generated, window_days, incidents[] } with
+ * title_es/title_en/date/outlet/url/family) and reveals the module. A 404 or
+ * malformed file keeps the module hidden — graceful empty state, no
+ * console.error (D-15). JS off: the module never appears; the news page link
+ * lives in the nav and Explore pills, so nothing is lost.
+ *
+ * Headlines link to the source article (target=_blank rel=noopener — T-03-03-02).
+ * All incident-derived text is inserted via textContent (never innerHTML).
+ */
+import { homeV2Strings } from '../../config/homeV2Strings.ts';
+
+interface Props {
+  locale: 'en' | 'es';
+}
+const { locale } = Astro.props;
+const t = homeV2Strings(locale);
+const newsHref = locale === 'en' ? '/news/' : '/es/noticias/';
+---
+
+<div class="pulse-card" data-home-pulse data-locale={locale} data-all-types={t.news_all_types} data-incidents={t.news_incidents} data-window={t.news_days_window} hidden>
+  <div class="pulse-head">
+    <h2 class="pulse-title">{t.news_title}</h2>
+    <p class="pulse-scope"><span data-pulse-scope>{t.news_all_types}</span> · <span data-pulse-count></span></p>
+  </div>
+  <div class="pulse-bars" data-pulse-bars aria-hidden="true"></div>
+  <div class="pulse-axis"><span data-pulse-first></span><span data-pulse-last></span></div>
+  <div class="pulse-chips" data-pulse-chips role="group"></div>
+  <ul class="pulse-list" data-pulse-list></ul>
+  <a href={newsHref} class="pulse-link">{t.news_see_all}</a>
+</div>
+
+<script>
+  // LPX-4: FAMILY_LABELS_PAGE has no 'sexuales' entry (it's a top-5 real family
+  // in the press feed, 49 incidents) — use FAMILY_LABELS_EN/ES instead, which
+  // carry the shipped 'Sexual Crimes' / 'Delitos Sexuales' strings.
+  import { FAMILY_LABELS_EN, FAMILY_LABELS_ES } from '../../lib/familyDefs.ts';
+
+  (function () {
+    'use strict';
+    const cardEl = document.querySelector<HTMLElement>('[data-home-pulse]');
+    if (!cardEl) return;
+    // Non-null alias: TS's null-guard narrowing above doesn't propagate into
+    // the nested `render` function declaration below (hoisting semantics), so
+    // `card` is redeclared here with a definite HTMLElement type instead.
+    const card = cardEl;
+    const locale = (card.dataset.locale === 'en' ? 'en' : 'es') as 'en' | 'es';
+    const numLocale = locale === 'en' ? 'en-US' : 'es-CL';
+
+    interface Incident { title_es: string; title_en: string; date: string; outlet: string; url: string; family: string }
+    interface IncidentsFile { generated: string; window_days: number; incidents: Incident[] }
+
+    // LPX-14: palette duplicated from the canonical source — the family-color
+    // block in site/src/pages/es/noticias.astro (and site/src/pages/news.astro).
+    // Edit all three together if a family color ever changes. homicidios is
+    // aligned to the noticias.astro value and gets the same white+color ring
+    // there uses to distinguish it from vida (shared tone family).
+    const FAM_DOT: Record<string, string> = {
+      vida: 'oklch(0.58 0.14 25)', robos_violentos: 'oklch(0.60 0.13 60)', propiedad: 'oklch(0.62 0.12 95)',
+      drogas: 'oklch(0.58 0.13 305)', armas: 'oklch(0.58 0.12 265)', vif: 'oklch(0.58 0.13 345)',
+      sexuales: 'oklch(0.60 0.11 195)', incivilidades: 'oklch(0.62 0.07 150)', homicidios: 'oklch(0.45 0.16 12)',
+    };
+    const FAM_LABELS = locale === 'en' ? FAMILY_LABELS_EN : FAMILY_LABELS_ES;
+    const famLabel = (k: string) => FAM_LABELS[k] ?? k;
+    const dotRing = (k: string) => (k === 'homicidios' ? '0 0 0 1.5px #fff, 0 0 0 3px ' + FAM_DOT[k] : 'none');
+    const dayLabel = (iso: string) =>
+      new Date(iso + 'T00:00:00Z').toLocaleDateString(numLocale, { day: 'numeric', month: 'short', timeZone: 'UTC' });
+    const shiftDays = (iso: string, n: number) => {
+      const d = new Date(iso + 'T00:00:00Z');
+      d.setUTCDate(d.getUTCDate() + n);
+      return d.toISOString().slice(0, 10);
+    };
+
+    let all: Incident[] = [];
+    let famFilter = '';
+
+    const bars = card.querySelector<HTMLElement>('[data-pulse-bars]')!;
+    const chips = card.querySelector<HTMLElement>('[data-pulse-chips]')!;
+    const listEl = card.querySelector<HTMLUListElement>('[data-pulse-list]')!;
+    const scopeEl = card.querySelector<HTMLElement>('[data-pulse-scope]')!;
+    const countEl = card.querySelector<HTMLElement>('[data-pulse-count]')!;
+    const firstEl = card.querySelector<HTMLElement>('[data-pulse-first]')!;
+    const lastEl = card.querySelector<HTMLElement>('[data-pulse-last]')!;
+
+    function render() {
+      const pool = famFilter ? all.filter((i) => i.family === famFilter) : all;
+
+      // Day histogram over the trailing window (anchor = newest incident date)
+      const anchor = all.length ? all[0].date : '';
+      const days: string[] = [];
+      if (anchor) for (let d = shiftDays(anchor, -29); d <= anchor; d = shiftDays(d, 1)) days.push(d);
+      const counts: Record<string, number> = {};
+      pool.forEach((i) => { counts[i.date] = (counts[i.date] || 0) + 1; });
+      const max = Math.max(1, ...days.map((d) => counts[d] || 0));
+      bars.innerHTML = '';
+      for (const d of days) {
+        const b = document.createElement('span');
+        b.className = 'pulse-bar';
+        b.style.height = Math.max(4, Math.round(((counts[d] || 0) / max) * 100)) + '%';
+        b.title = `${dayLabel(d)} · ${counts[d] || 0}`;
+        bars.appendChild(b);
+      }
+      firstEl.textContent = days.length ? dayLabel(days[0]) : '';
+      lastEl.textContent = anchor ? dayLabel(anchor) : '';
+
+      // Top-5 family chips (counts over ALL incidents; active chip filters)
+      const famCounts: Record<string, number> = {};
+      all.forEach((i) => { famCounts[i.family] = (famCounts[i.family] || 0) + 1; });
+      const top = Object.keys(famCounts).sort((a, b) => famCounts[b] - famCounts[a]).slice(0, 5);
+      chips.innerHTML = '';
+      for (const k of top) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'pulse-chip';
+        btn.setAttribute('aria-pressed', famFilter === k ? 'true' : 'false');
+        const dot = document.createElement('span');
+        dot.className = 'pulse-dot';
+        dot.style.background = FAM_DOT[k] || 'var(--muted)';
+        dot.style.boxShadow = dotRing(k);
+        btn.append(dot, document.createTextNode(`${famLabel(k)} · ${famCounts[k]}`));
+        btn.addEventListener('click', () => {
+          famFilter = famFilter === k ? '' : k;
+          render();
+        });
+        chips.appendChild(btn);
+      }
+
+      // Latest 4 headlines in scope
+      listEl.innerHTML = '';
+      for (const i of pool.slice(0, 4)) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = i.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.className = 'pulse-item';
+        const dot = document.createElement('span');
+        dot.className = 'pulse-dot';
+        dot.style.background = FAM_DOT[i.family] || 'var(--muted)';
+        dot.style.boxShadow = dotRing(i.family);
+        const title = document.createElement('span');
+        title.className = 'pulse-headline';
+        title.textContent = locale === 'en' ? i.title_en || i.title_es : i.title_es;
+        title.title = title.textContent || '';
+        const meta = document.createElement('span');
+        meta.className = 'pulse-meta';
+        meta.textContent = `${i.outlet} · ${dayLabel(i.date)}`;
+        a.append(dot, title, meta);
+        li.appendChild(a);
+        listEl.appendChild(li);
+      }
+
+      scopeEl.textContent = famFilter ? famLabel(famFilter) : card.dataset.allTypes || '';
+      countEl.textContent = `${pool.length.toLocaleString(numLocale)} ${card.dataset.incidents || ''}`;
+    }
+
+    fetch('/data/incidents/current.json')
+      .then((res) => (res.ok ? (res.json() as Promise<IncidentsFile>) : null))
+      .then((file) => {
+        if (!file || !Array.isArray(file.incidents) || file.incidents.length === 0) return;
+        all = file.incidents.slice().sort((a, b) => (a.date < b.date ? 1 : -1));
+        // LPX-8: clip to the rendered 30-day window BEFORE computing
+        // pool/famCounts/countEl, so the count, chips, headlines, and
+        // histogram all describe the same period (source file can carry more
+        // than 30 distinct dates — window_days=30 but 31 calendar dates).
+        if (all.length) {
+          const anchor = all[0].date;
+          const windowStart = shiftDays(anchor, -29);
+          all = all.filter((i) => i.date >= windowStart);
+        }
+        const titleEl = card.querySelector<HTMLElement>('.pulse-title');
+        if (titleEl && card.dataset.window) {
+          titleEl.textContent = `${titleEl.textContent} — ${card.dataset.window.replace('{n}', String(Math.min(30, file.window_days)))}`;
+        }
+        render();
+        card.hidden = false;
+      })
+      .catch(() => {
+        /* network error → module stays hidden (D-15) */
+      });
+  })();
+</script>
+
+<style>
+  .pulse-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--md); display: flex; flex-direction: column; }
+  /* LPX-2: [hidden] defeated by scoped `display` elsewhere on the page — belt.
+     This module ships hidden by default (D-15 graceful-empty baseline). */
+  .pulse-card[hidden] { display: none; }
+  .pulse-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sm); flex-wrap: wrap; }
+  .pulse-title { font-size: var(--text-label); font-weight: var(--weight-strong); color: var(--ink); }
+  .pulse-scope { font-size: 12px; color: var(--muted); }
+
+  .pulse-bars { display: flex; align-items: flex-end; gap: 2px; height: 44px; margin-top: var(--sm); }
+  /* LPX-1: bars/chips/list items below are all created by the enhancer via
+     createElement — Astro's scoped attribute never lands on client-created
+     nodes, so these must be :global() under the server-rendered card ancestor
+     (same fix as RankingTableEnhancer). Container elements stay scoped. */
+  .pulse-card :global(.pulse-bar) { flex: 1; border-radius: 2px 2px 0 0; background: var(--pin); min-width: 2px; }
+  .pulse-axis { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+  .pulse-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--sm); }
+  .pulse-card :global(.pulse-chip) { display: inline-flex; align-items: center; gap: 6px; min-height: 26px; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); font-family: var(--font); font-size: 12px; font-weight: var(--weight-strong); color: var(--ink); cursor: pointer; }
+  .pulse-card :global(.pulse-chip:hover) { border-color: var(--primary); }
+  .pulse-card :global(.pulse-chip[aria-pressed='true']) { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .pulse-card :global(.pulse-dot) { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .pulse-list { list-style: none; margin: var(--sm) 0 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  .pulse-card :global(.pulse-item) { display: flex; align-items: baseline; gap: var(--sm); min-width: 0; text-decoration: none; color: var(--ink); }
+  .pulse-card :global(.pulse-item .pulse-dot) { transform: translateY(-1px); }
+  .pulse-card :global(.pulse-headline) { font-size: 13px; font-weight: var(--weight-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; flex: 1; }
+  .pulse-card :global(.pulse-item:hover .pulse-headline) { text-decoration: underline; }
+  .pulse-card :global(.pulse-meta) { font-size: 11px; color: var(--muted); flex-shrink: 0; }
+
+  .pulse-link { margin-top: auto; padding-top: var(--sm); font-size: var(--text-label); font-weight: var(--weight-strong); color: var(--primary); text-decoration: none; }
+  .pulse-link:hover { text-decoration: underline; }
+</style>
