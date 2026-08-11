@@ -37,7 +37,7 @@ export interface HomeData {
   ranked: HomeCommune[];        // non-low-population, rate ascending
   lowest6: HomeCommune[];
   highest6: HomeCommune[];
-  bandCounts: number[];         // index 0..4 = level 1..5, all 346
+  bandCounts: number[];         // index 0..4 = level 1..5, eligible only (!low_population, 256)
   nationalAvg: number;
   referenceYear: number;
   maxRate: number;
@@ -122,8 +122,11 @@ export function buildHomeData(): HomeData {
     .filter((c) => !c.low_population)
     .sort((a, b) => a.rate - b.rate);
 
+  // Quintile strip counts the same universe as the extremes-card note
+  // (!low_population, 256) — never the full 346, or the strip and the note
+  // would disagree.
   const bandCounts = [0, 0, 0, 0, 0];
-  rows.forEach((c) => {
+  rows.filter((c) => !c.low_population).forEach((c) => {
     bandCounts[c.level - 1] += 1;
   });
 

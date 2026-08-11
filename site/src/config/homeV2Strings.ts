@@ -5,13 +5,9 @@
  * config/i18n.ts is NOT touched.
  */
 export interface HomeV2Strings {
-  glance_title: string;
-  glance_note: string;          // "{n} communes · CEAD {year}"
   glance_low: string;
   glance_high: string;
-  glance_band_aria: string;     // "{label}: {n} communes — isolate on the map"
-  glance_open_map: string;
-  glance_svg_aria: string;      // LPX-11: SVG aria-label carries the continental-scope qualifier
+  glance_band_aria: string;     // "{label}: {n} communes — filter the list"
   extremes_high_title: string;
   extremes_low_title: string;
   extremes_toggle_high: string;
@@ -36,13 +32,9 @@ export interface HomeV2Strings {
 }
 
 export const HOME_V2_EN: HomeV2Strings = {
-  glance_title: 'Chile at a glance',
-  glance_note: '{n} communes · CEAD {year}',
   glance_low: 'Lowest incidence',
   glance_high: 'Highest',
-  glance_band_aria: '{label}: {n} communes — isolate on the map',
-  glance_open_map: 'Open the interactive map →',
-  glance_svg_aria: 'Chile at a glance — continental communes',
+  glance_band_aria: '{label}: {n} communes — filter the list',
   extremes_high_title: 'Highest Reported Rate',
   extremes_low_title: 'Lowest Reported Rate',
   extremes_toggle_high: 'Highest',
@@ -67,13 +59,9 @@ export const HOME_V2_EN: HomeV2Strings = {
 };
 
 export const HOME_V2_ES: HomeV2Strings = {
-  glance_title: 'Chile en un vistazo',
-  glance_note: '{n} comunas · CEAD {year}',
   glance_low: 'Menor incidencia',
   glance_high: 'Mayor',
-  glance_band_aria: '{label}: {n} comunas — aislar en el mapa',
-  glance_open_map: 'Abrir el mapa interactivo →',
-  glance_svg_aria: 'Chile en un vistazo — comunas continentales',
+  glance_band_aria: '{label}: {n} comunas — filtrar la lista',
   extremes_high_title: 'Mayor incidencia reportada',
   extremes_low_title: 'Menor incidencia reportada',
   extremes_toggle_high: 'Mayor',

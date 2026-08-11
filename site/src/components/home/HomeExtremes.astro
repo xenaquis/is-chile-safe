@@ -4,10 +4,12 @@
  * bar list with a Highest/Lowest toggle (proposal 6b).
  *
  * Baseline (JS off): BOTH lists render server-side, stacked — same information
- * as today's two tables, in bar-list form. Toggle buttons ship disabled.
+ * as today's two tables, in bar-list form. Toggle buttons AND the quintile
+ * strip ship disabled.
  * Enhancement: the enhancer reads the page-level #home-communes blob, enables
- * the toggle (shows one list at a time) and listens for `home:band` events
- * from HomeMiniMap to re-render the visible list scoped to that quintile.
+ * the toggle (shows one list at a time) and enables the quintile-strip
+ * buttons (migrated from the retired HomeMiniMap) to filter the visible list
+ * to that band — a second click on the same band clears the filter.
  *
  * JSON-LD ItemLists are unchanged — still built in the page from the same
  * lowest6/highest6 rows (D-07 contract intact).
@@ -21,8 +23,9 @@ interface Props {
   highest: HomeCommune[];  // 7 rows, rate descending
   maxRate: number;
   referenceYear: number;
+  bandCounts: number[];    // index 0..4 = level 1..5, eligible only (!low_population, 256)
 }
-const { locale, lowest, highest, maxRate, referenceYear } = Astro.props;
+const { locale, lowest, highest, maxRate, referenceYear, bandCounts } = Astro.props;
 const t = homeV2Strings(locale);
 const communePrefix = locale === 'en' ? '/commune/' : '/es/comuna/';
 const rankingHref = locale === 'en' ? '/safest-cities-in-chile/' : '/es/comunas-mas-seguras-chile/';
@@ -50,6 +53,21 @@ const lowRows = lowest.map(mkRow);
       <button type="button" data-mode="low" aria-pressed="false" disabled>{t.extremes_toggle_low}</button>
     </div>
   </div>
+  <div class="extremes-strip" role="group">
+    {bandCounts.map((n: number, i: number) => (
+      <button
+        type="button"
+        class={`mm-band mm-b${i + 1}`}
+        data-band={i + 1}
+        data-band-label={t.bands[i]}
+        aria-pressed="false"
+        aria-label={fmt(t.glance_band_aria, { label: t.bands[i], n })}
+        title={fmt(t.glance_band_aria, { label: t.bands[i], n })}
+        disabled
+      ><span class="mm-count">{n}</span></button>
+    ))}
+  </div>
+  <div class="minimap-scale"><span>{t.glance_low}</span><span>{t.glance_high}</span></div>
   <p class="extremes-note" data-extremes-note hidden></p>
   <ol class="extremes-list" data-extremes-list data-list-mode="high">
     {highRows.map((r) => (
@@ -102,15 +120,17 @@ const lowRows = lowest.map(mkRow);
     const title = card.querySelector<HTMLElement>('[data-extremes-title]')!;
     const note = card.querySelector<HTMLElement>('[data-extremes-note]')!;
     const toggles = Array.from(card.querySelectorAll<HTMLButtonElement>('.extremes-toggle button'));
+    const bandButtons = Array.from(card.querySelectorAll<HTMLButtonElement>('.mm-band'));
 
     // JS is on: hide the duplicated no-JS list + heading, enable the toggle
+    // and the quintile strip (migrated from the retired HomeMiniMap).
     card.querySelectorAll<HTMLElement>('[data-noscript-only]').forEach((el) => { el.hidden = true; });
     toggles.forEach((b) => { b.disabled = false; });
+    bandButtons.forEach((b) => { b.disabled = false; });
 
     let mode: 'high' | 'low' = 'high';
     let band = 0;
-    const bandLabels = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-home-minimap] .mm-band'))
-      .map((b) => b.dataset.bandLabel || '');
+    const bandLabels = bandButtons.map((b) => b.dataset.bandLabel || '');
 
     function render() {
       const scope = band ? eligible.filter((c) => c.l === band) : eligible;
@@ -166,10 +186,19 @@ const lowRows = lowest.map(mkRow);
         render();
       }),
     );
-    document.addEventListener('home:band', (e) => {
-      band = (e as CustomEvent).detail?.band || 0;
-      render();
-    });
+
+    // Quintile strip: click isolates a band (filters the list to that level);
+    // a second click on the same band clears the filter.
+    bandButtons.forEach((b) =>
+      b.addEventListener('click', () => {
+        const n = Number(b.dataset.band);
+        band = band === n ? 0 : n;
+        if (band) card.setAttribute('data-active-band', String(band));
+        else card.removeAttribute('data-active-band');
+        bandButtons.forEach((btn) => btn.setAttribute('aria-pressed', btn.dataset.band === String(band) ? 'true' : 'false'));
+        render();
+      }),
+    );
   })();
 </script>
 
@@ -181,6 +210,32 @@ const lowRows = lowest.map(mkRow);
   .extremes-note { font-size: 12px; color: var(--muted); margin-top: var(--xs); }
   /* LPX-2: [hidden] defeated by scoped `display` elsewhere on the page — belt */
   .extremes-note[hidden] { display: none; }
+
+  /* Quintile strip — migrated from the retired HomeMiniMap (same values).
+     Buttons are server-rendered (no createElement), so this stays scoped —
+     not :global() like the enhancer-created .ext-row rules below. */
+  .extremes-strip { display: flex; border-radius: calc(var(--radius) / 2); overflow: hidden; margin: var(--sm) 0 0; }
+  .mm-band { flex: 1; border: none; min-height: 30px; font-family: var(--font); font-size: 12px; font-weight: var(--weight-strong); color: var(--ink); cursor: pointer; padding: 0; transition: opacity 0.15s; }
+  .mm-band:disabled { cursor: default; }
+  .mm-b1 { background: var(--s1); } .mm-b2 { background: var(--s2); } .mm-b3 { background: var(--s3); } .mm-b4 { background: var(--s4); } .mm-b5 { background: var(--s5); }
+  /* LPX-13: dim inactive bands via an overlay instead of opacity on the whole
+     button, so the count pill (.mm-count) stays legible on any band color. */
+  [data-active-band] .mm-band[aria-pressed='false'] { background-image: linear-gradient(rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.72)); }
+  .mm-band[aria-pressed='true'] { box-shadow: inset 0 0 0 2px var(--ink); }
+  /* LPX-6: focus-visible ring — overflow:hidden on the strip clipped the
+     default outline, so use an inset box-shadow instead (compatible with the
+     aria-pressed inset above; source order lets focus win when both apply). */
+  .mm-band:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--primary); }
+
+  /* LPX-13: number pill — readable on any of the 5 band background colors. */
+  .mm-count { display: inline-block; background: rgba(255, 255, 255, 0.78); color: var(--ink); border-radius: 999px; padding: 0 5px; }
+
+  .minimap-scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: var(--xs); }
+
+  /* LPX-19: reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .mm-band { transition: none; }
+  }
 
   .extremes-toggle { display: flex; border: 1px solid var(--line); border-radius: calc(var(--radius) / 2); overflow: hidden; }
   .extremes-toggle button { border: none; background: transparent; font-family: var(--font); font-size: 12px; font-weight: var(--weight-strong); color: var(--muted); padding: 6px 12px; cursor: pointer; }
