@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-11T07:00:30.670947+00:00",
+  "generated": "2026-08-11T12:55:39.587368+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -5320,6 +5320,96 @@
       "description": "Mega operativo nacional deja 38 detenidos en La Araucanía y más de $34 millones en pensiones de alimentos impagas&nbsp;&nbsp;NDS - Noticias del Sur",
       "rejection_stage": "commune_null",
       "first_seen": "2026-08-11T07:00:30.670947+00:00"
+    },
+    {
+      "id": "b5bcb4f99f3bc5fb",
+      "url": "https://www.biobiochile.cl/noticias/internacional/america-latina/2026/08/11/suben-a-169-los-muertos-tras-devastador-terremoto-en-colombia-heridos-llegan-a-668.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-11",
+      "title": "Suben a 169 los muertos tras devastador terremoto en Colombia: heridos llegan a 668",
+      "description": "El número de personas muertas por el devastador terremoto de magnitud 7,4 que sacudió el lunes a Colombia aumentó a 169, mientras que los heridos ya son 668, según un balance parcial divulgado este martes por la Asociación Colombiana de Ciudades Capitales (Asocapitales). Cali, capital del departamento de Valle del Cauca, tiene 85 fallecidos, seguida &#8230; Continua leyendo \"Suben a 169 los muertos tras devastador terremoto en Colombia: heridos llegan a 668\"\nThe post Suben a 169 los muertos tras",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T12:55:39.587368+00:00"
+    },
+    {
+      "id": "c5d93e21c77764ee",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/08/11/pdg-defiende-a-parisi-ante-serie-de-investigaciones-y-apuntan-a-gestion-anterior.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-11",
+      "title": "PDG defiende a Parisi ante serie de investigaciones y apuntan a gestión anterior",
+      "description": "Las investigaciones que rodean al Partido de la Gente siguen ampliándose y obligaron a la colectividad a cerrar filas para enfrentar una de las mayores crisis internas desde su creación,. En menos de una semana, a la causa por presunta falsificación de firmas y documentos internos se sumó la denuncia presentada por el Servicio Electoral &#8230; Continua leyendo \"PDG defiende a Parisi ante serie de investigaciones y apuntan a gestión anterior\"\nThe post PDG defiende a Parisi ante serie de investig",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T12:55:39.587368+00:00"
+    },
+    {
+      "id": "8bf8059e8dc86827",
+      "url": "https://www.biobiochile.cl/noticias/internacional/mediooriente/2026/08/11/tribunal-sirio-condena-a-muerte-en-ausencia-a-bashar-al-assad-por-crimenes-de-lesa-humanidad.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-11",
+      "title": "Tribunal sirio condena a muerte en ausencia a Bashar al-Assad por crímenes de lesa humanidad",
+      "description": "Un tribunal sirio condenó este martes 11 de agosto al presidente derrocado Bashar al-Assad a la pena de muerte en ausencia por crímenes de guerra y crímenes de lesa humanidad cometidos durante la guerra civil iniciada en 2011. La sentencia contra Assad es la primera dictada en su contra bajo las autoridades de transición, que &#8230; Continua leyendo \"Tribunal sirio condena a muerte en ausencia a Bashar al-Assad por crímenes de lesa humanidad\"\nThe post Tribunal sirio condena a muerte en ausencia",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T12:55:39.587368+00:00"
+    },
+    {
+      "id": "4bc40eabe25bc6dc",
+      "url": "https://www.latercera.com/mundo/noticia/la-justicia-siria-condena-a-muerte-al-expresidente-bashar-al-assad-por-crimenes-de-guerra-y-de-lesa-humanidad/",
+      "outlet": "LaTercera",
+      "date": "2026-08-11",
+      "title": "La Justicia siria condena a muerte al expresidente Bashar al Assad por crímenes de guerra y de lesa humanidad",
+      "description": "Al Assad, huyó hacia Moscú con su familia cuando las fuerzas islamistas y rebeldes se acercaban a Damasco en diciembre de 2024.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T12:55:39.587368+00:00"
+    },
+    {
+      "id": "c93bce8700a29e62",
+      "url": "https://www.latercera.com/culto/noticia/soda-stereo-era-una-prision-para-mi-las-diez-frases-que-definieron-a-gustavo-cerati/",
+      "outlet": "LaTercera",
+      "date": "2026-08-11",
+      "title": "“Soda Stereo era una prisión para mí”: las diez frases que definieron a Gustavo Cerati",
+      "description": "El artista, nacido un 11 de agosto de 1959, hoy habría cumplido 67 años. Aquí recordamos las frases que retratan su vida, su carrera y su personalidad, desde cómo enfrentaba el posible retiro hasta su mirada de la muerte.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T12:55:39.587368+00:00"
+    },
+    {
+      "id": "b5291dde4e5f6c96",
+      "url": "https://www.latercera.com/mundo/noticia/al-menos-seis-muertos-en-nuevos-ataques-rusos-sobre-la-provincia-ucraniana-de-zaporiyia/",
+      "outlet": "LaTercera",
+      "date": "2026-08-11",
+      "title": "Al menos seis muertos en nuevos ataques rusos sobre la provincia ucraniana de Zaporiyia",
+      "description": "“Los rusos lanzaron un ataque combinado masivo con misiles y bombas guiadas contra la capital regional\", sostuvo el gobernador provincial.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T12:55:39.587368+00:00"
+    },
+    {
+      "id": "88a76072da837210",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQUmpQbTR1SE9pZnFjMkFMSWFIYldDMXZHMEN1Nk1BREV4YzM4Vjhid2RJQW5yS21mWkZiUl81VXF3TzFJei01Y3IyMjBfWjdUWi1vQmF5MDIwWVVGdnczQkFwSG9HMzdPTE5lOWhFZDQ5eDRVTDJfRmN3R0lOX1dLSktjbmVIQmt6c0pCYklTdHgtaDJrWnV1SjZSZXBPTUlYZWI1TkYtNjRQM0FTam9zV0lR?oc=5",
+      "outlet": "Agenzia Nova",
+      "date": "2026-08-11",
+      "title": "Chile: Kast presenta una reforma constitucional para combatir el crimen organizado. - Agenzia Nova",
+      "description": "Chile: Kast presenta una reforma constitucional para combatir el crimen organizado.&nbsp;&nbsp;Agenzia Nova",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T12:55:39.587368+00:00"
+    },
+    {
+      "id": "eaafc79e4ac10236",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOcTRYbjM2dnZnaUJoYzhQRWE1QUVvRWdkUGhXV1RPTUFWY0tGS2pGSTllSlNqeE9zN2tGVHV2bXZUaks1azNTbWJZd0JKZTVndW9vbkNiUm5vTHB4R0g0bUdzdWliVTQ2S3diNnV3N0IwR1pmZWRfUFNQLVRTWHZjcndfa2ltRWVNUkNobjQzanZ0aElQWmViTjczVGVvQ3I5ckFRU0dSZHpJNTZYLXNRNmo3NDZKZUlzYnVIcU5ZYmZiZXJNOUE?oc=5",
+      "outlet": "Radio Riquelme",
+      "date": "2026-08-11",
+      "title": "PDI asume investigación por homicidio de mujer estadounidense en Diaguitas: Hay un detenido - Radio Riquelme",
+      "description": "PDI asume investigación por homicidio de mujer estadounidense en Diaguitas: Hay un detenido&nbsp;&nbsp;Radio Riquelme",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T12:55:39.587368+00:00"
+    },
+    {
+      "id": "2c43604b10ea0cb3",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOdktFSTl5RHlFSkE5NE1MMWtmZms3aHNMZDBGSGwtdUk1S1NWemxZY3IwQ0hNd2hLeVJ1MmZoYzlpdlBHbGltRkhIVDNtSWVpdmtGLWtNa0NmTXZHbDNBMTQ0ME5oQTRvS0RvMDRhOEJGcFFKZjVtaTIzMVRtX0xWTkU5MzFnSkFkOExvMmprOGxFOFJQeVo4MUU4MDhwRE15OTJWNEYxWGFwNUJCT0xmNFAxM01uVlBDZ3NV?oc=5",
+      "outlet": "diarioeldia.cl",
+      "date": "2026-08-10",
+      "title": "«Capturar a cada prófugo»: detienen a Rosamel Fierro por robo armado - diarioeldia.cl",
+      "description": "«Capturar a cada prófugo»: detienen a Rosamel Fierro por robo armado&nbsp;&nbsp;diarioeldia.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T12:55:39.587368+00:00"
     }
   ]
 }
