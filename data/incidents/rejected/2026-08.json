@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-11T01:22:05.214358+00:00",
+  "generated": "2026-08-11T07:00:30.670947+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -5240,6 +5240,86 @@
       "description": "\"Faltó Elver Galarga\": Ministro Arrau confirma detención de Rosamel Fierro Huenuman, delincuente prófugo desde 2021&nbsp;&nbsp;lahora.cl",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-08-11T01:22:05.214358+00:00"
+    },
+    {
+      "id": "b02141073f73e093",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/08/10/comision-de-defensa-rechaza-proyecto-que-fija-test-aleatorio-de-drogas-en-las-ffaa-y-de-orden-publico.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-11",
+      "title": "Comisión de Defensa rechaza proyecto que fija test aleatorio de drogas en las FFAA y de orden público",
+      "description": "La Comisión de Defensa Nacional . Previamente, la instancia escuchó la exposición del ministro de Defensa, Fernando Barros; después no se alcanzó el quórum necesario en la comisión para aprobar la idea de legislar. Con el rechazo a la idea de legislar en la comisión, el expediente será remitido a la Sala de la Cámara. &#8230; Continua leyendo \"Comisión de Defensa rechaza proyecto que fija test aleatorio de drogas en las FFAA y de orden público\"\nThe post Comisión de Defensa rechaza proyecto que f",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T07:00:30.670947+00:00"
+    },
+    {
+      "id": "ad4b0938880d1d4a",
+      "url": "https://www.latercera.com/nacional/noticia/condenan-a-psicopata-de-facebook-a-presidio-perpetuo-calificado-por-66-delitos-de-caracter-sexual/",
+      "outlet": "LaTercera",
+      "date": "2026-08-11",
+      "title": "Condenan a psicópata de Facebook a presidio perpetuo calificado por 66 delitos de carácter sexual",
+      "description": "José Peréz Fuentealba se hacía pasar por una mujer, estudiante de masoterapia, con lo que solicitó fotos de distintas partes del cuerpo a 47 víctimas. Al obtenerlas, comenzaba un chantaje para evitar su difusión en la web a cambio de videos de índole sexual.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T07:00:30.670947+00:00"
+    },
+    {
+      "id": "52976abf03012d9b",
+      "url": "https://www.latercera.com/mundo/noticia/terremoto-en-colombia-se-eleva-a-132-el-numero-de-fallecidos-segun-organismo-que-agrupa-ciudades-capitales/",
+      "outlet": "LaTercera",
+      "date": "2026-08-11",
+      "title": "Terremoto en Colombia: se eleva a 132 el número de fallecidos según organismo que agrupa ciudades capitales",
+      "description": "En Cali, autoridades locales pidieron al presidente de Colombia el traslado de equipos de rescatistas para apoyar las labores de extracción de los afectados desde los escombros. En la ciudad también se registraron saqueos y problemas de seguridad, por lo que se estableció un toque de queda y despliegue militar.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T07:00:30.670947+00:00"
+    },
+    {
+      "id": "2fe742b00b125311",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPbXhTeklXUVFidjQwbnBYYk9uYndhNTBiZXpIWFJqV2RGbmNVVnRoc01hMWZScmZRWVNoZmM0N0Q5aFM3OWVkX0NJaE82c2t2RjRkNU9RcWI4b2pIYkhyblFFNEhlY3dPVTRBaUdOVzU4WGs5UVg5Y052NnVRUFhHVHZKeVlfVXBxeVlVcGxxMkNGd0k3STVSVG5aOWUtTXNOSngwY0dySEJxZU5sc3l1bzlSc3ZVRC1XOThBemx6RW9FQQ?oc=5",
+      "outlet": "Elquiglobal",
+      "date": "2026-08-11",
+      "title": "Triste despertar en Diaguitas: la historia detrás del homicidio que conmocionó al Valle del Elqui - Elquiglobal",
+      "description": "Triste despertar en Diaguitas: la historia detrás del homicidio que conmocionó al Valle del Elqui&nbsp;&nbsp;Elquiglobal",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-08-11T07:00:30.670947+00:00"
+    },
+    {
+      "id": "df2e1fe9993626bc",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNT1RqVlhCZkpUSUF6d0ZPcE1wVEloYWNGdTAzZWFhd21XX2x4RnNIc1FqTWEzakV0VlpGbU5XNnpfUks2RGJwQUt2d1lzNGVTZTNNTEppNGdDSzU2ZFlFLWd4N0U1RGVjYmMxUVI1a2pLbUJmT2Z0b0dRZGxsVzZUSXJwOWtDQU9YdGIweDhEUlowOENaRmlKNkNUMnhkN1JOU1B0b1ZUM3M1Z0htQlJRYmZhRXphd29XUE41aWtYa2ZSYVE?oc=5",
+      "outlet": "Radio Atacama",
+      "date": "2026-08-10",
+      "title": "PDI Atacama detuvo a autor material de homicidio frustrado ocurrido en Paipote en mayo del presente año - Radio Atacama",
+      "description": "PDI Atacama detuvo a autor material de homicidio frustrado ocurrido en Paipote en mayo del presente año&nbsp;&nbsp;Radio Atacama",
+      "rejection_stage": "commune_null",
+      "first_seen": "2026-08-11T07:00:30.670947+00:00"
+    },
+    {
+      "id": "fee4ef3c6d8f80c9",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPV28zSFBFN0E3MW1XR2diWkNLaWI0clU3OWJzdFFmeVVPa1o0bG92MFc4azY1cGd4ZURaeGk1b0V0ekJWYmZZRjhSTkx0MV84RkExdnV2LVdHN09sZmw1ZE5wUS1DY3REeEFtYXNmSG1wVFR4Wmg2ektxRWlNUjNFRHlZS0N2TUpiTTRoRHlIYnFscGhHU05KNHB3MUpVeHVadGtQZU84M2EwY1kzOUZFeXVVUWpsdkZhWldTazk2bmN6c294?oc=5",
+      "outlet": "elboyaldia.cl",
+      "date": "2026-08-11",
+      "title": "Rosamel Fierro existe y estaba prófugo desde 2021: PDI lo detuvo por robo con intimidación - elboyaldia.cl",
+      "description": "Rosamel Fierro existe y estaba prófugo desde 2021: PDI lo detuvo por robo con intimidación&nbsp;&nbsp;elboyaldia.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T07:00:30.670947+00:00"
+    },
+    {
+      "id": "827225a823326ff9",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOWDR5VGZOMXBWTHVrOUdKeklFZ2VFMGhWVENYXzhkUGlGSVNSMDFtU1ZhX1kzRjdmTFN4Y0U0UDJqVFJzdWx4VXdsZDFDS2lna3BCTXFDM3M3WTFyNGtrX3JMY0E2ZVZILUtiYnNLcEEtdXRKOGxHX2RFNVkyQlZoSzNBSWNCeDhPMnJobE5sSnVxNldKekIwRzZSamdHeXZaaE91ZEdsaE5TN0k0aUhmNWFhb1VsejFh?oc=5",
+      "outlet": "24horas",
+      "date": "2026-08-10",
+      "title": "Video muestra el asalto por el que fue detenido Rosamel Fierro - 24horas",
+      "description": "Video muestra el asalto por el que fue detenido Rosamel Fierro&nbsp;&nbsp;24horas",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-11T07:00:30.670947+00:00"
+    },
+    {
+      "id": "06a9125f005b34ac",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQQmxQeHpXVnlqcm04eHoxWFNQdk5tQ1JLbGFOTkZ3RXVjdll1LVJQTHA2TzNobUptTWFMa1Zldk1xdTBMTExjbzVMaGhOMEppUEgycWhjeU5ZS29FOFYxUExhYXFmQUpLZzczSW9qR0dfNVhlVzAtWWhaTjlIRTJSZ0VSdFFTeE5VcWZjRmhmVVNXczJpMjc1czF6NjNJMEJFQmZycjNkZ1htZGhISS1nVXkyZzY3ZzdyWUxockhHUDVLN29ZQlNDYjRRa2dZYWVJVTBQQ1BR0gHWAUFVX3lxTFBCbFB4eldWeWpybTh4ejFYU1B2Tm1DUktsYU5ORndFdWN2WXUtUlBMcDZPM2htSm1NYUxrVmV2TXF1MExMTGNvNUxoaE4wSmlQSDJxaGN5TllLb0U4VjFQTGFhcWZBSktnNzNJb2pHR181WGVXMC1ZaFpOOUhFMlJnRVJ0UVN4TlVxZmNGaGZVU1dzMmkyNzVzMXo2M0kwQkVCZnJyM2RnWG1kaEhJLWdVeTJnNjdnN3JZTGhySEdQNUs3b1lCU0NiNFFrZ1lhZUlVMFBDUFE?oc=5",
+      "outlet": "NDS - Noticias del Sur",
+      "date": "2026-08-10",
+      "title": "Mega operativo nacional deja 38 detenidos en La Araucanía y más de $34 millones en pensiones de alimentos impagas - NDS - Noticias del Sur",
+      "description": "Mega operativo nacional deja 38 detenidos en La Araucanía y más de $34 millones en pensiones de alimentos impagas&nbsp;&nbsp;NDS - Noticias del Sur",
+      "rejection_stage": "commune_null",
+      "first_seen": "2026-08-11T07:00:30.670947+00:00"
     }
   ]
 }
