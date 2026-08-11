@@ -18,9 +18,13 @@ interface Props {
   noMatch: string;
   lowPopTag: string;     // LPX-10: verbatim homeV2Strings.suggest_lowpop (mirrors i18n.ts dir_lowpop_tag)
 }
+import { homeV2Strings } from '../../config/homeV2Strings.ts';
+
 const { locale, label, placeholder, buttonLabel, noMatch, lowPopTag } = Astro.props;
 const action = locale === 'en' ? '/communes/' : '/es/comunas/';
 const communePrefix = locale === 'en' ? '/commune/' : '/es/comuna/';
+// V-02: aria-live copy sourced from homeV2Strings (no inline literals in the script)
+const t = homeV2Strings(locale);
 ---
 
 <!-- LPX-7: the previous role="combobox"/listbox/option + aria-autocomplete/
@@ -28,7 +32,7 @@ const communePrefix = locale === 'en' ? '/commune/' : '/es/comuna/';
      (combobox owning a plain <ul>, no active-descendant wiring). Simplified to
      honest semantics: a plain list of links, focusable by nature, with arrow
      keys/Escape preserved and an aria-live region announcing result counts. -->
-<form action={action} method="get" class="search-hero-form" data-home-search data-commune-prefix={communePrefix} data-no-match={noMatch} data-lowpop-tag={lowPopTag} data-locale={locale}>
+<form action={action} method="get" class="search-hero-form" data-home-search data-commune-prefix={communePrefix} data-no-match={noMatch} data-lowpop-tag={lowPopTag} data-count-one={t.search_count_one} data-count-many={t.search_count_many} data-locale={locale}>
   <label for="q" class="search-label">{label}</label>
   <div class="search-row">
     <input type="search" id="q" name="q" placeholder={placeholder} autocomplete="off" class="search-input" />
@@ -59,8 +63,9 @@ const communePrefix = locale === 'en' ? '/commune/' : '/es/comuna/';
     const prefix = form.dataset.communePrefix || '/commune/';
     const noMatch = form.dataset.noMatch || '';
     const lowPopTag = form.dataset.lowpopTag || '';
-    const rawLocale = form.dataset.locale === 'en' ? 'en' : 'es';
-    const locale = rawLocale === 'en' ? 'en-US' : 'es-CL';
+    const countOne = form.dataset.countOne || '';
+    const countMany = form.dataset.countMany || '';
+    const locale = form.dataset.locale === 'en' ? 'en-US' : 'es-CL';
 
     const norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
@@ -109,7 +114,7 @@ const communePrefix = locale === 'en' ? '/commune/' : '/es/comuna/';
           li.appendChild(a);
           list.appendChild(li);
         }
-        liveEl.textContent = `${matches.length} ${rawLocale === 'en' ? 'communes' : 'comunas'}`;
+        liveEl.textContent = matches.length === 1 ? countOne : countMany.replace('{n}', String(matches.length));
       }
       list.hidden = false;
     }

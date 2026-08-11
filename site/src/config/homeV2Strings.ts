@@ -26,6 +26,8 @@ export interface HomeV2Strings {
   news_see_all: string;
   news_days_window: string;     // "last {n} days"
   search_no_match: string;
+  search_count_one: string;     // V-02: aria-live announcement, singular
+  search_count_many: string;    // V-02: aria-live announcement, "{n} communes"
   suggest_lowpop: string;       // LPX-10: verbatim copy of i18n.ts dir_lowpop_tag
   stats_communes: string;
   stats_mean: string;
@@ -55,6 +57,8 @@ export const HOME_V2_EN: HomeV2Strings = {
   news_see_all: 'See all news →',
   news_days_window: 'last {n} days',
   search_no_match: 'No commune matches',
+  search_count_one: '1 commune',
+  search_count_many: '{n} communes',
   suggest_lowpop: 'low pop.',
   stats_communes: 'communes with data',
   stats_mean: 'national mean /100k',
@@ -84,6 +88,8 @@ export const HOME_V2_ES: HomeV2Strings = {
   news_see_all: 'Ver todas las noticias →',
   news_days_window: 'últimos {n} días',
   search_no_match: 'Ninguna comuna coincide',
+  search_count_one: '1 comuna',
+  search_count_many: '{n} comunas',
   suggest_lowpop: 'baja pob.',
   stats_communes: 'comunas con datos',
   stats_mean: 'media nacional /100k',

@@ -195,7 +195,9 @@ const lowRows = lowest.map(mkRow);
      class the JS applies must be :global() under the server-rendered ancestor
      (same fix as RankingTableEnhancer). Container/list elements stay scoped. */
   .extremes-card :global(.ext-row) { display: grid; grid-template-columns: 14px minmax(110px, 150px) 1fr 64px; align-items: center; gap: var(--sm); padding: 7px var(--xs); border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); }
-  .extremes-list li:last-child :global(.ext-row) { border-bottom: none; }
+  /* V-01: the <li> is also client-created — it must live inside :global() too,
+     or the rule stops matching after the first enhancer render. */
+  .extremes-card :global(li:last-child .ext-row) { border-bottom: none; }
   .extremes-card :global(.ext-row:hover) { background: var(--bg); }
   /* LPX-12: quintile-1 dots need a ring to stay visible against --card */
   .extremes-card :global(.ext-dot) { width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 35%, transparent); }
