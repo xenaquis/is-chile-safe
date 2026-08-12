@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-12T07:19:05.124052+00:00",
+  "generated": "2026-08-12T13:00:24.792750+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -5890,6 +5890,86 @@
       "description": "La Araucanía: Prisión preventiva para Rosamel Fierro por robo y daños simples&nbsp;&nbsp;Cooperativa",
       "rejection_stage": "commune_null",
       "first_seen": "2026-08-12T07:19:05.124052+00:00"
+    },
+    {
+      "id": "d268981a0a490081",
+      "url": "https://www.biobiochile.cl/noticias/internacional/america-latina/2026/08/12/colombia-decreta-tres-dias-de-duelo-por-victimas-del-terremoto-mientras-siguen-labores-de-busqueda.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-12",
+      "title": "Colombia decreta tres días de duelo por víctimas del terremoto mientras siguen labores de búsqueda",
+      "description": "El presidente de Colombia, Abelardo de la Espriella, declaró duelo nacional de tres días por las víctimas del terremoto de magnitud 7,4 que el pasado lunes golpeó varias partes del país y deja cerca de 240 muertos, según las autoridades regionales, mientras sigue la búsqueda de posibles sobrevivientes entre los escombros. &#8220;El Gobierno nacional, en &#8230; Continua leyendo \"Colombia decreta tres días de duelo por víctimas del terremoto mientras siguen labores de búsqueda\"\nThe post Colombia ",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-12T13:00:24.792750+00:00"
+    },
+    {
+      "id": "fd53ebd8dc346a5d",
+      "url": "https://www.latercera.com/mundo/noticia/terremoto-en-colombia-autoridades-locales-cifran-en-mas-de-240-los-fallecidos-por-el-sismo-74/",
+      "outlet": "LaTercera",
+      "date": "2026-08-12",
+      "title": "Terremoto en Colombia: autoridades locales cifran en más de 240 los fallecidos por el sismo 7,4",
+      "description": "El presidente de Colombia, Abelardo De La Espriella, firmó un decreto mediante el cual declaró desastre de carácter nacional en Colombia.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-12T13:00:24.792750+00:00"
+    },
+    {
+      "id": "9c7e2e333ecb8276",
+      "url": "https://www.latercera.com/el-deportivo/noticia/periodista-turco-es-detenido-por-informaciones-falsas-de-llegada-de-figura-de-alemania-y-el-bayern-munich-al-galatasaray/",
+      "outlet": "LaTercera",
+      "date": "2026-08-12",
+      "title": "Periodista turco es detenido por informaciones falsas de llegada de figura de Alemania y el Bayern Múnich al Galatasaray",
+      "description": "El profesional es investigado por la fiscalía de Bakırköy por la presunta difusión de contenido engañoso.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-12T13:00:24.792750+00:00"
+    },
+    {
+      "id": "c424751bbc647945",
+      "url": "https://www.latercera.com/mundo/noticia/colombia-agradece-los-gestos-de-solidaridad-internacional-el-mundo-esta-listo-para-apoyar-en-esta-tragedia/",
+      "outlet": "LaTercera",
+      "date": "2026-08-12",
+      "title": "Colombia agradece los gestos de solidaridad internacional: “El mundo está listo para apoyar en esta tragedia”",
+      "description": "El sismo ha dejado por el momento un saldo de 181 muertos y 2.595 heridos.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-12T13:00:24.792750+00:00"
+    },
+    {
+      "id": "e9bdf640969d5609",
+      "url": "https://www.lacuarta.com/chile/noticia/valdra-la-pena-que-viva-este-hue-roberto-duenas-furia-tras-hablar-con-amiga-de-profesora-asesinada-por-venezolano/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-12",
+      "title": "“¿Valdrá la pena que viva este hue...?“: Roberto Dueñas furia tras hablar con amiga de profesora asesinada por venezolano",
+      "description": "Conocido comunicador de la zona reaccionó a la defensa del extranjero que busca salir de prisión.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-12T13:00:24.792750+00:00"
+    },
+    {
+      "id": "90edab397c81d076",
+      "url": "https://www.lacuarta.com/chile/noticia/fue-un-llamado-de-jesucristo-venezolano-intenta-explicar-macabro-ataque-contra-profesora-estadounidense-en-vicuna/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-12",
+      "title": "“Fue un llamado de Jesucristo”: venezolano intenta explicar macabro ataque contra profesora estadounidense en Vicuña",
+      "description": "Fiscalía sostiene que hubo alevosía: contabilizaron 12 heridas cortopunzantes provocadas con un chuchillo carnicero.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-12T13:00:24.792750+00:00"
+    },
+    {
+      "id": "2cae02972650c031",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPT1UzVlVObExHSm1fOFNBbkJrLVlkZHBVeGMzdjU4bWgyaElGSDlLZlYzazBDMUkyWE5oSEpXZklER1E0dXo4a3ptSDFMRnNkLVFvdFg4QnFTYXI1NkE0dldjaDRpY3dQbEpyOFBOeVZKVEp4U3VaWlNSRWJlRTN5RmNuYmJ3SEhqV2JmcnhHTGYwVzVodVZ2YU1ORlVJMjBoa25OT21UVWk?oc=5",
+      "outlet": "Teletrece",
+      "date": "2026-08-10",
+      "title": "Los 19 proyectos de la Agenda contra el Crimen Organizado y el Terrorismo que ingresarán con urgencia legislativa - Teletrece",
+      "description": "Los 19 proyectos de la Agenda contra el Crimen Organizado y el Terrorismo que ingresarán con urgencia legislativa&nbsp;&nbsp;Teletrece",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-12T13:00:24.792750+00:00"
+    },
+    {
+      "id": "59d771b23ce7b079",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOdDFEY2c3cEVudkdKZEpHaGJiSy1ZZ3dMTThBbTFtTnFQOVBYTnVmSWlyaGVnd2ppN21WRlh5MHJvNXNhVHRyX0Z3aHRWdjFJSWcyQlRUM3lOcndBM1NMZENnUU05NTBhZ1VHUkJQT3hDQ2t0ZEx6QzlXb0NxS0owU2p1ODlhdGZHd1JaOWE3NGo3akNoU3F3UkdaQV9kRmRv?oc=5",
+      "outlet": "soy-chile.cl",
+      "date": "2026-08-12",
+      "title": "Reabren causa por el homicidio de futbolista: ahora buscan a cómplices - soy-chile.cl",
+      "description": "Reabren causa por el homicidio de futbolista: ahora buscan a cómplices&nbsp;&nbsp;soy-chile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-12T13:00:24.792750+00:00"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-12T07:19:05.144194Z",
+  "generated": "2026-08-12T13:00:24.812670Z",
   "window_days": 30,
   "incidents": [
     {
@@ -20580,6 +20580,123 @@
       "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPbVVPSmZkRk9VVDc4dTllM0wwc19IYWNjTkZrVTF0alJvVndxZ1J0OE95N1RMTWhiTjhfdjdUaDhKejAtRm54YjkyYWlKXzYwZXFMRlNZTGlOUXF2a3NEM2dDcU9Gb1daMGxPazJxbzc5MnozZ0gxXzFTOXhFYXF2SzloVVVGLXRqX2tSODFTdHdMRVp6WWtCeFNoaFNScG1WMkVubDROannSAaABQVVfeXFMTXpaTFVaRm9WX1lHRi05YWVyak1abURKa0VVdE1CTGVuZ1NWMk13a0NVblEyWHBremJ6TEpDdGRPVW9XWmhvZnE5WDZPNWZkZlR2QkZ0OExqVm1wU0ZHVEM4cFVVTEVnREpsMU1PQ1JYREVvV2pKMFFvcUlFcEhUSVBGZ2xEVzBaYUtkZkx4TDVDNVRJYkNoN01XcVlPbWl0Uw?oc=5",
       "family": "robos_violentos",
       "slug": "carahue"
+    },
+    {
+      "id": "2090dc85e4e02b66",
+      "cut": "13112",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Asesinato en La Pintana: pelea de mascotas termina con un hombre acribillado a tiros",
+      "title_en": "Murder in La Pintana: pet fight ends with man shot multiple times",
+      "date": "2026-08-12",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/12/asesinato-en-la-pintana-pelea-de-mascotas-termina-con-un-hombre-acribillado-a-tiros.shtml",
+      "family": "vida",
+      "slug": "la-pintana"
+    },
+    {
+      "id": "3e2905d98f128869",
+      "cut": "13126",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Detienen a delincuente sorprendido robando en Quinta Normal: había sido liberado hace 12 horas",
+      "title_en": "Cops arrest criminal caught stealing in Quinta Normal: had been released 12 hours earlier",
+      "date": "2026-08-12",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/12/detienen-a-delincuente-sorprendido-robando-en-quinta-normal-habia-sido-liberado-hace-12-horas.shtml",
+      "family": "robos_violentos",
+      "slug": "quinta-normal"
+    },
+    {
+      "id": "a3f3126076cfd15f",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "PDI investiga hallazgo de una mujer sin vida en un departamento de Recoleta",
+      "title_en": "PDI investigates finding of a woman found dead in a Recoleta apartment",
+      "date": "2026-08-12",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/12/pdi-investiga-hallazgo-del-cuerpo-de-una-mujer-con-diversas-lesiones-en-departamento-de-recoleta.shtml",
+      "family": "vida",
+      "slug": "recoleta"
+    },
+    {
+      "id": "1b56ed2026aea924",
+      "cut": "13112",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Discusión por mascotas terminó con un vecino asesinado a disparos",
+      "title_en": "Pet dispute ends with neighbor shot dead",
+      "date": "2026-08-12",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/discusion-por-mascotas-termino-con-un-vecino-asesinado-a-disparos/2026-08-12/073703.html",
+      "family": "vida",
+      "slug": "la-pintana"
+    },
+    {
+      "id": "7f5059caf7fcb6be",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "PDI investiga muerte de mujer en departamento de Recoleta",
+      "title_en": "PDI investigates death of woman in Recoleta apartment",
+      "date": "2026-08-12",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/pdi-indaga-muerte-de-mujer-en-departamento-de-recoleta/2026-08-12/071821.html",
+      "family": "vida",
+      "slug": "recoleta"
+    },
+    {
+      "id": "e9f3f7937f108f24",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Tour delictual en Maipú: Banda asaltó a tres conductores y propinó golpiza a uno de ellos",
+      "title_en": "Criminal tour in Maipú: Gang attacked three drivers and beat one of them",
+      "date": "2026-08-12",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robo-de-vehiculos/tour-delictual-en-maipu-banda-asalto-a-tres-conductores-y-propino/2026-08-12/010658.html",
+      "family": "robos_violentos",
+      "slug": "maipu"
+    },
+    {
+      "id": "8f2961b889f02237",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "Encuentran a mujer fallecida en su domicilio en Recoleta: presentaba heridas cortopunzantes",
+      "title_en": "Woman found dead at home in Recoleta with stab wounds",
+      "date": "2026-08-12",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/encuentran-a-mujer-fallecida-en-su-domicilio-en-recoleta-presentaba-heridas-cortopunzantes/",
+      "family": "vida",
+      "slug": "recoleta"
+    },
+    {
+      "id": "4604cdadbc9bff0c",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "TOP de La Serena condena a 10 años y un día a coautores de homicidio en Lambert",
+      "title_en": "TOP of La Serena sentences co-authors of homicide in Lambert to 10 years and one day",
+      "date": "2026-08-12",
+      "outlet": "radiomontecarlo.cl",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOWVFZeU93bFQzOFhiMzYxMDh5S2ZDM0s3UXVwSXhzUnBqNUQtT3pKNGJndUwyR1NYUVJOR1E4RjVpenpSdDFqZlBJYmJ4VlhBcVhDVWdkYTBfSWdvOEI3SElyVnBJOVlDT1kybUhwM1g3TU93eEF5LUlxSGd3ZEctMzdFWFFGWWYzV3dpR2FVRi1HQy1DWlVRcGRxUEVnM1g2ZjNyZDEza2tUWTlZTmM3Wm5waWs3aW42dVc5VzFvdlg?oc=5",
+      "family": "vida",
+      "slug": "la-serena"
+    },
+    {
+      "id": "e0e976c604e18d9c",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "PDI Arica recupera especies robadas a cadetes de Deportes La Serena",
+      "title_en": "Arica PDI recovers stolen items from La Serena Sports Cadets",
+      "date": "2026-08-12",
+      "outlet": "Epicentro Chile",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOM09zZDAwOHItSVBIbERhNnRLVGx3bE5vT1VuaVBxbTc0aHpaZGl3dXl0RE51ZnJiNGtKVUhwd0dQXzI1V3NSVXRkb3VqYzRILXhtVE13ZWdTQU9Oc0ZVOHllZ1VjR1JsQlRzNG5DbUh3NUFpLTI3Q09mcEVuckNPNnFFR2RBbDEtSHRwS2ZxOEttV1F2R1hzdVQyb05ocUVHekk4RUZVTlluNlhUbUVR?oc=5",
+      "family": "propiedad",
+      "slug": "arica"
     }
   ]
 }
