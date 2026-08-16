@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-16T06:32:53.678244Z",
+  "generated": "2026-08-16T12:31:38.385122Z",
   "window_days": 30,
   "incidents": [
     {
@@ -21360,6 +21360,84 @@
       "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNcmxXdFlITF9lTmtvQ3pOTUNlcFU0QklJZHZzUUoxZS1pVE9tSnhqWWYyUmVJRDJ0Zm9YNmFHRHYtRE5rVlpod0JGc29jdE8wNnZONHpTcUN3SnNJWVpVZzBEYzhWZTJ3OGk2STV3bkktWTlrNzB6SkhHb3JIaFJjTGc3Mm1XN0ZJbGJGdVNEYkQyRUhpMk9jZUhZZ1M2UnVxTlJNWWhPZmtMQ1ljbGMzb3ZCQThLZXZsZkxJcHlGamZnOUo4WUtrQWRxZmlvc0U?oc=5",
       "family": "robos_violentos",
       "slug": "iquique"
+    },
+    {
+      "id": "35861fce3a0247c4",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "PDI detiene a cuatro ciudadanos colombianos por tráfico de drogas en sector Pequeña Caracas de Estación Central",
+      "title_en": "PDI arrests four Colombian nationals for drug trafficking in Pequeña Caracas sector of Estación Central",
+      "date": "2026-08-16",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/pdi-detiene-a-cuatro-ciudadanos-colombianos-por-trafico-de-drogas-en-sector-pequena-caracas-de-estacion-central/",
+      "family": "drogas",
+      "slug": "estacion-central"
+    },
+    {
+      "id": "e43fd3f514460f1d",
+      "cut": "10105",
+      "lat": -41.089164,
+      "lng": -73.081798,
+      "title_es": "Cinco detenidos por presunta participación en homicidio de adolescente de 17 años en Frutillar",
+      "title_en": "Five arrested for alleged involvement in the homicide of a 17-year-old teenager in Frutillar",
+      "date": "2026-08-16",
+      "outlet": "24horas",
+      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxONjFCVTZrVzhSN0poY3FXN2w1LUJqLWhfSmpjXzVpU21uTG0tdmx5Wnh4ZTQxYXR4TU5pQjNUbDUzVDluUHhZSmFPUWpZS2V1ZndycjJCWUZDTnZvQU1QeUEtT05CdURIYTREVy1JLTZsTHA5NmZpZjAycHh6cTRXNGlJU0Y4dW1KMDM0MWxOdFJuU0FqaUlMQnJadUNoay1ISUN2RmU3VkNwdnZ5d1F3QzBnSHhzVklEQ2d4R3Y3Wkl1Z1poSmFsMkl3MFdNQ0FRN0IyTFJ6YWXSAdgBQVVfeXFMTjYxQlU2a1c4UjdKaGNxVzdsNS1Cai1oX0pqY181aVNtbkxtLXZseVp4eGU0MWF0eE1OaUIzVGw1M1Q5blB4WUphT1FqWUtldWZ3cnIyQllGQ052b0FNUHlBLU9OQnVESGE0RFctSS02bExwOTZmaWYwMnB4enE0VzRpSVNGOHVtSjAzNDFsTnRSblNBamlJTEJyWnVDaGstSElDdkZlN1ZDcHZ2eXdRd0MwZ0h4c1ZJRENneEd2N1pJdWdaaEphbDJJdzBXTUNBUTdCMkxSemFl?oc=5",
+      "family": "vida",
+      "slug": "frutillar"
+    },
+    {
+      "id": "cdfad3e3b7ccbfe6",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Fiscal preferente dirige investigación por ataque armado a funcionario de Carabineros en Antofagasta",
+      "title_en": "Senior prosecutor leads investigation into armed attack on Carabineros officer in Antofagasta",
+      "date": "2026-08-13",
+      "outlet": "La Tercera",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPWGpGWnNDbkZzMFo0QXhPNFBRbGt2T1d3VU92aGhVNzlOY0ppNlJWWXE4Nk1vckE5amVLeVY0TFBLRWhGbUF4Nklxd1VGVWF6N2hCYnZkUEdEMDNhSUMyTTJVZ0drMDBTdDZsQzZoXzJ0MldpUnFnZzhWTFM3M1lyRHljRUV2T3EteXRWc1h6di1ZZEl4eWVsYm94SnBPMzhkMjFkVTVCVVM4ZUVfdkw2TFBGczVzaFQ1TzBPQ2oxeDRnc2Ztc1NMZEVweWhub3N0MFg2RVJOR2hhWUgy0gH-AUFVX3lxTE1TN19BREYxeFZ4ZE1PTmgzS1ExYVpyMi1DZmtfNGFsTjdTc256am82TGg5THZFTWE5QllYRllxQlN3WE4wSEQ5QXQ3TUc5MDZTMi0xd1ljUjRKdFFJVXJkN3dOYkJZLXJENVVlVmMyVTZ1YjNmYmlkTFZNWWc3bC1Dc1ZMeW9sLWN4d0FsMlk2UmtYS2dQWkk3Sk40MnVxcGJQOXJKN1NIVGNfaW1BUG9Vc1VjajBTZ3lTcFRvcTF0RWxqVXhDOHpTazJqLUZ2QnhoSnVkVTdKblNjSG5aaW9BakRIWF9pVm9uUVpOaUZFUDE1S2NMMlVWa1dfQ3Bn?oc=5",
+      "family": "vida",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "7adaecacfac744fd",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Fiscalía formalizó por femicidio frustrado a imputado que atropelló a su expareja en Antofagasta",
+      "title_en": "Prosecutor's office charged with attempted femicide a suspect who ran over his ex-partner in Antofagasta",
+      "date": "2026-08-13",
+      "outlet": "Desierto FM",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxONElrZmhtN2w5SUZGdjVPbWRMa256S2VqY1ZwaDFSYU0xT0dvSGRDUUxnbWIxWnlyTnhwZUFISmpkd18xMnRieGZIX3ZkSFNlajhPZEtqU1o1SVd4V3RQMDhaUGN3Y3c4d28wWTd2UWZ2NjJUVElwaWxzN0tFbDB1V2tIVUEyRXo3T3c5djNGbEZTTFN5TWNKeUZYbkRfTTd4S3JzTF9GWVNaUWdmU3ZTS1dBZnBQMDNwSXNwbE5rS0Q?oc=5",
+      "family": "vida",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "cb8307c5a3c6ae70",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Detienen a sujeto requerido por cuatro órdenes judiciales por robos y hurtos en Temuco",
+      "title_en": "Arrest made of subject wanted on four judicial orders for robberies and thefts in Temuco",
+      "date": "2026-08-14",
+      "outlet": "latribuna.cl",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOcXhUSG5QMGZtYTdiZTdubU4xYTVRNzVMVnM0TDVMNjVzVGRGV3pFMlhtWlg3dmdpclJnR2Z0RndWUGo3bnBSYjR6MTgwYk5BaUxkU0hQTEJvVnhCa2RyYjZVN3NSQW1tWUhtWkFhNTU1TWYzdUFrTkl6TXUza3BabGh2V3NYcVpQdEhPak5adXhSRy01ZDJIU0FIUXpYUTVTaVpsQ2hhc2dyc2hneGZlTUF3TmpiVVg1V0NUVWF1U0o2WURKdEoxYnUzNGJzWFlXbnfSAdoBQVVfeXFMUGNXcE5EeGVFa3Q5YjdiTkJtN0xXbFZ3MjBiZ25XZmpiX0xLRWZ6aFEtazNUMFJFdy1wUnFzdHZIM2stcE5HTnlMNzJ5YWYzQkhZM0F0QWRoX3ZiTXJia09VVnFRanlDTEJqSWNwWlVaNnlHbVdOR2NYbGZUczRVVTZIQjJWa0xueFN0VWlvMGJDc1g0OXF0QUJEZVBwcVpYNHYxNGFQWE8wWW9oWDk2Um1rSWFyTkFOQS1JelRwcWM4V2h6aEZucUlxbmhodTlQUk52RDJ1WEhaN0E?oc=5",
+      "family": "robos_violentos",
+      "slug": "temuco"
+    },
+    {
+      "id": "7c7cdf25d02cfd9a",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Detienen a joven por vender bicicleta robada en Temuco",
+      "title_en": "Arrest made for selling stolen bicycle in Temuco",
+      "date": "2026-08-14",
+      "outlet": "NDS - Noticias del Sur",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQaGNrQ3NXVXVxSTRoMUJpUldzYk9HMURwUTNySHF2MEZzU25PNHJKaFNraVBaMXFkaUd1a0h2eTNCQzRRU0UtbHhnaU1tWkcyTlgxN2JjRVBYVUNTVTVoMjBIaHRyU0tteXhrWmhGTG1JSVR0YUpvaUc5WkFrMFB1NHI5U0prblBfTlo1VXVhUnpDTVlYbUtqQ25IWFZfQ0Zodm9kYjJWMXI0SjhEOXBnQ3R2LTc3Q1ZuVXBEa2xvdEkybUdvdUFXV1B3VHJNWTVVNmVEVzdB0gHWAUFVX3lxTFBoY2tDc1dVdXFJNGgxQmlSV3NiT0cxRHBRM3JIcXYwRnNTbk80ckpoU2tpUFoxcWRpR3VrSHZ5M0JDNFFTRS1seGdpTW1aRzJOWDE3YmNFUFhVQ1NVNWgyMEhodHJTS215eGtaaEZMbUlJVHRhSm9pRzlaQWswUHU0cjlTSmtuUF9OWjVVdWFSekNNWVhtS2pDbkhYVl9DRmh2b2RiMlYxcjRKOEQ5cGdDdHYtNzdDVm5VcERrbG90STJtR291QVdXUHdUck1ZNVU2ZURXN0E?oc=5",
+      "family": "vida",
+      "slug": "temuco"
     }
   ]
 }
