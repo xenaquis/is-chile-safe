@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-16T12:31:38.356390+00:00",
+  "generated": "2026-08-16T18:23:23.946665+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -8310,6 +8310,156 @@
       "description": "\"Era una especie de papá\": Diego Urrutia se sincera por primera vez sobre el trágico homicidio de su hermano&nbsp;&nbsp;Fotech.cl",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-08-16T12:31:38.356390+00:00"
+    },
+    {
+      "id": "8bda32dce718f936",
+      "url": "https://www.biobiochile.cl/noticias/artes-y-cultura/actualidad-cultural/2026/08/16/locura-en-el-palacio-los-ultimos-dias-de-hitler-y-neron.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-16",
+      "title": "Locura en el Palacio: Los últimos días de Hitler y Nerón",
+      "description": "“La historia siempre concede una mayor importancia a los acontecimientos terminales”, dijo Albert Speer en los juicios en Núremberg, una vez acabada la Segunda Guerra Mundial. Fue condenado a veinte años de prisión.\nThe post Locura en el Palacio: Los últimos días de Hitler y Nerón appeared first on BioBioChile.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "7310e6be2ec40941",
+      "url": "https://www.latercera.com/mundo/noticia/iran-ofrece-recompensa-de-30-mil-dolares-por-capturar-o-matar-a-soldados-estadounidenses/",
+      "outlet": "LaTercera",
+      "date": "2026-08-16",
+      "title": "Irán ofrece recompensa de 30 mil dólares por capturar o matar a soldados estadounidenses",
+      "description": "El jefe de Estado Mayor iraní sostuvo que si una mujer lleva a cabo una acción de este tipo, “recibirá el doble de esta recompensa”, dinero que provendrá de donaciones voluntarias de personas que desean contribuir financieramente a la guerra contra Israel y Washington.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "d3396c3100aabdbc",
+      "url": "https://www.latercera.com/nacional/noticia/yanez-cuestiona-transmision-en-vivo-de-operacion-cancerbero-y-advierte-riesgos-para-la-seguridad/",
+      "outlet": "LaTercera",
+      "date": "2026-08-16",
+      "title": "Yáñez cuestiona transmisión en vivo de Operación Cancerbero y advierte riesgos para la seguridad",
+      "description": "“Si hubiese estado al mando de Carabineros, yo creo que habría sido un poquito más restrictivo frente a la transmisión”, afirmó el exgeneral director de Carabineros.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "78c62b52ee2c1a3e",
+      "url": "https://www.latercera.com/politica/noticia/rn-presenta-proyecto-que-impediria-a-abogados-defensores-de-imputados-por-asociacion-criminal-ingresar-a-organismos-publicos/",
+      "outlet": "LaTercera",
+      "date": "2026-08-16",
+      "title": "RN presenta proyecto que impediría a abogados defensores de imputados por asociación criminal ingresar a organismos públicos",
+      "description": "La propuesta también incluye causas por Ley de Drogas y terrorismo, y alcanzaría a la Administración del Estado, el Ministerio Público, el Poder Judicial y el Congreso Nacional, incluyendo determinadas asesorías parlamentarias.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "f4ca7ad5b6fe97b8",
+      "url": "https://www.latercera.com/mundo/noticia/adolescente-palestino-es-asesinado-durante-ataques-israelies-en-el-sur-de-gaza/",
+      "outlet": "LaTercera",
+      "date": "2026-08-16",
+      "title": "Adolescente palestino es asesinado durante ataques israelíes en el sur de Gaza",
+      "description": "Se trata de Suhail Masoud Shalouf, de 14 años. El joven habría fallecido producto de un ataque en la calle Al-Tina.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "f280fa70d763251f",
+      "url": "https://www.latercera.com/mundo/noticia/arrestan-a-joven-de-19-anos-por-tiroteo-que-dejo-cinco-heridos-en-universidad-estatal-de-virginia/",
+      "outlet": "LaTercera",
+      "date": "2026-08-16",
+      "title": "Arrestan a joven de 19 años por tiroteo que dejó cinco heridos en Universidad Estatal de Virginia",
+      "description": "Camron Harris, de 19 años, fue encontrado escondido en el armario de una residencia estudiantil. El ataque dejó cinco personas heridas, una de ellas en estado crítico, y provocó el confinamiento temporal del campus.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "94a72cb3f1cd9034",
+      "url": "https://www.latercera.com/mundo/noticia/ataques-cruzados-entre-ucrania-y-rusia-dejan-al-menos-seis-fallecidos-en-ambos-paises/",
+      "outlet": "LaTercera",
+      "date": "2026-08-16",
+      "title": "Ataques cruzados entre Ucrania y Rusia dejan al menos seis fallecidos en ambos países",
+      "description": "En territorio ucraniano, los ataques rusos dejaron tres fallecidos. Dos de las víctimas se registraron en la región de Zaporiyia, en el sur del país, mientras que una tercera murió en la ciudad industrial de Krivói Rog, según informaron autoridades locales.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "6481de416c6b467d",
+      "url": "https://www.latercera.com/mundo/noticia/al-menos-12-muertos-y-10-heridos-graves-tras-volcamiento-de-autobus-con-peregrinos-polacos-en-hungria/",
+      "outlet": "LaTercera",
+      "date": "2026-08-16",
+      "title": "Al menos 12 muertos y 10 heridos graves tras volcamiento de autobús con peregrinos polacos en Hungría",
+      "description": "El vehículo, que transportaba a 57 pasajeros y dos conductores, había salido de Serbia con destino a Polonia. Once personas murieron en el lugar y otra falleció tras ser trasladada a un hospital.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "a3e7c9dcacd8700c",
+      "url": "https://www.lacuarta.com/espectaculos/noticia/el-consumo-me-hizo-perder-a-mi-familia-exparticipante-de-peloton-revelo-problemas-con-las-drogas/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-16",
+      "title": "“El consumo me hizo perder a mi familia”: exparticipante de Pelotón reveló problemas con las drogas",
+      "description": "Tras un año internado, Maximiliano Mellado se sinceró sobre su lucha con la adicción.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "fae0eb7506240b2b",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPRDlLRFhtRWc1VUlQNW5SWkp0cjhTNUhmOUpKMVdlbXQtNEdxVUxBNS0tTUpUcTVYLW9mUF9DQTlOcUc2YzFvMVlTQWtHYTRXOU44QlRKYXJBc3VHR3BIaEJZVzRLajVydUl2VHBiR296RVV6ZXJDcjdjNDdoZ1BZM1B3M0ZDYzd5WU9aUGJwVm1QYWtsVEUyWXVnUF9HdEdTbERFc1EtYUgxWTl2dFRZ?oc=5",
+      "outlet": "eju.tv",
+      "date": "2026-08-16",
+      "title": "Gobierno sumará la frontera con Argentina al plan de lucha contra el crimen organizado - eju.tv",
+      "description": "Gobierno sumará la frontera con Argentina al plan de lucha contra el crimen organizado&nbsp;&nbsp;eju.tv",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "2ef7cf0ff90df06a",
+      "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxORktFMWpKTm82S09oS1lvTGVMX2NIX3VNQjNaZ2dHdThyQ3pHaXRHbXRmNnR4VWVjWGtzaDB4dk1uR3hqbUdwSnd5bWlqQ1VPYXZwYklnMl8zU3cxS2VqSnNVeFpuNGxRRmdpN1daZ1dlcEQ3Ulo2aVM3d0F0UlBFUVA2TnJJb2s0SUdxLWdUMUZlNVoyTk5BOXVKWHBhY2lwb0tCdjNVRGVVdmYxS2Q5LVVIYUU1MEJYZGs2VmF6ZThFXzZOWlZjTkNpS2RKYTdjNGJFaEQzdXduMWtFQV9wX3Nadzd2c001bHdMUkZR?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-08-14",
+      "title": "Crimen organizado y puertos: El debate por las nuevas facultades de las policías - BioBioChile",
+      "description": "Crimen organizado y puertos: El debate por las nuevas facultades de las policías&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "1337064212ac48ad",
+      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxQMlVtc3p6QUxUcllIdHdCbXBmSzFqY3BwcU9QMm4wcGZyUWZ1R0N6bG9PcHdJaEE2bVhwZ1hRNVJKcmQ2dUdnbVgzWXV0cmREa3dDLTl1aFluSlR0elpVVTdnZXotUVNLbm1OR1JuMkNrUVlEckhpUTVKbkJPdndXRFZNeDBYZkRYWTF4dFV2eWUxNzlWUzBqcTkweDVrWGw5aS0wTGZTb2dHTzFKWGFORzhwVmZYcHhyRFZuSDFPU2gtX2s1X2dKRlBPSDdtM3VEQzFFa1VkUGdvZlVieENlNQ?oc=5",
+      "outlet": "2001 Online",
+      "date": "2026-08-16",
+      "title": "\"Conocíamos al joven, su familia\": detalles sobre asesinato de mujer estadounidense a manos de un venezolano - 2001 Online",
+      "description": "\"Conocíamos al joven, su familia\": detalles sobre asesinato de mujer estadounidense a manos de un venezolano&nbsp;&nbsp;2001 Online",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "702329193bda3a4d",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNQ1hvaUhqY2Y3dU04OGJ6OUVEX0tQcERpT01CMFFJNl9RLVNubndVUm1wMzZZZXlxWUVINVcxNjYxTDVucmJlTThkY2dZNWp2V1hPRUdaUVJXVGNHY0JrbHdHVVdNZU5mRGhKWXBCbkN6cm05VGZPU3lGUFo3YmlKNTlmMS1pSmt1V0ozTmZZX1JUcjRyaVV0eGNBbUJITjdBcVByUG9qb21Wb0xlWEE?oc=5",
+      "outlet": "El Regional del Zulia",
+      "date": "2026-08-16",
+      "title": "Muere un venezolano en Chile al recibir un disparo en plena vía pública - El Regional del Zulia",
+      "description": "Muere un venezolano en Chile al recibir un disparo en plena vía pública&nbsp;&nbsp;El Regional del Zulia",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "39e09eaeabb6ab6e",
+      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQbDV3ODBqZGRxUkdjTW1uOHNFb2Fadlo3STVQRDhsLWxsZXVFcWJtck5LSTNjLXlCdk5RdkRKM2pBbVA3dFFDMEVKWThhcHZqaTF6UWp0d3JfVG9uTXJmTWhhUERQNF9VdGxpTHMyQW1iU05wZ2NtMlVIYTNEZ2RJamcxN202eFdrTV92MUNiQktLdjZpaC1WUlBxYVRXMWkxblNtLWZPNll2WlcyRXdSNlBKVkoyQS02enA3eVVLR2JaeFNVWV9tZEhoVDdrTkIyUlE2bFJMLTlhOVZnRm9pRnFNVzE?oc=5",
+      "outlet": "enlalinea.cl",
+      "date": "2026-08-15",
+      "title": "Fiscalía formalizó a exdirector de Cicitem: habría realizado más de 300 transferencias a su cuenta personal entre 2022 y 2025 - enlalinea.cl",
+      "description": "Fiscalía formalizó a exdirector de Cicitem: habría realizado más de 300 transferencias a su cuenta personal entre 2022 y 2025&nbsp;&nbsp;enlalinea.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
+    },
+    {
+      "id": "9f20ab36383ea574",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQUkRyZFk3Q2h2RHM2SklEZ1g3QW5JaW50cGgxcnlwSnZRRXFkTEpEX0lrSmV0UEpKd3Y1OEZkWHNIbXhaSDVJQjg3NHNIZ180WUFrSThhSUVodE9lMzhwOWF2RVc5dlpmY0pkRXBVNXlLd2F3dFhyTjdjdG1UVHJtZ2JtTlc5Z011OVdZejFuS00yOC1feW0zTFZiSzBBTUc1VGVfaXRxNEtZMzhTUUZFZjFRNA?oc=5",
+      "outlet": "Diario del Norte",
+      "date": "2026-08-14",
+      "title": "Condenan a 21 años de prisión a implicado en magnicidio de Miguel Uribe Turbay - Diario del Norte",
+      "description": "Condenan a 21 años de prisión a implicado en magnicidio de Miguel Uribe Turbay&nbsp;&nbsp;Diario del Norte",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-16T18:23:23.946665+00:00"
     }
   ]
 }
