@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-17T01:01:48.767476Z",
+  "generated": "2026-08-17T06:44:55.233450Z",
   "window_days": 30,
   "incidents": [
     {
@@ -21152,6 +21152,97 @@
       "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNLTFfSG0ydlp0SXVyOEk5Z0JUNEppV2ZHbVBNLWNGNV9CdWxTSTFKMUpaekNidWpoTzdrMjRuLUx6b2ZUc3RsNjl1RV9xeXdmY2U0bUhqcUxGUDlRNmZlYUZLQ2o4eVJ1aXduS0hUUllPWFBfOHh4X3BQdEQ2cHY5UElIYTNWYTVRMzY3anpTLXZuMENVaW1FSlczdEhaVXMwOFRLWENyUUE0V21MdFE?oc=5",
       "family": "propiedad",
       "slug": "punta-arenas"
+    },
+    {
+      "id": "affb245dacfc8eb7",
+      "cut": "13114",
+      "lat": -33.400888,
+      "lng": -70.506596,
+      "title_es": "PDI detiene a cuatro mujeres acusadas de robar a adultos mayores lanzándoles \"yogurt\" para distraerlos",
+      "title_en": "PDI arrests four women accused of robbing elderly people by throwing \"yogurt\" to distract them",
+      "date": "2026-08-17",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/17/pdi-detiene-a-cuatro-mujeres-acusadas-de-robar-a-adultos-mayores-lanzandoles-yogurt-para-distraerlos.shtml",
+      "family": "robos_violentos",
+      "slug": "las-condes"
+    },
+    {
+      "id": "8055f14936860bcd",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Discusión por arriendo terminó con dos apuñalados y dos detenidos en Santiago Centro",
+      "title_en": "Rental dispute ends with two stabbed and two arrested in central Santiago",
+      "date": "2026-08-17",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/discusion-por-arriendo-termino-con-dos-apunalados-y-dos-detenidos-en/2026-08-16/223122.html",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "32f666dac809c4f0",
+      "cut": "13132",
+      "lat": -33.416252,
+      "lng": -70.57832,
+      "title_es": "Detienen a periodista Ivette Vergara por conducción temeraria a 160 km/h",
+      "title_en": "Journalist Ivette Vergara arrested for reckless driving at 160 km/h",
+      "date": "2026-08-17",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/iba-a-160-kmh-detienen-a-conductora-ivette-vergara-por-conduccion-temeraria/",
+      "family": "propiedad",
+      "slug": "vitacura"
+    },
+    {
+      "id": "3accc2da8c67d06e",
+      "cut": "10105",
+      "lat": -41.089164,
+      "lng": -73.081798,
+      "title_es": "Homicidio en Frutillar: Detienen a cinco personas por muerte de menor",
+      "title_en": "Murder in Frutillar: Five arrested for child's death",
+      "date": "2026-08-17",
+      "outlet": "Paislobo Prensa",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9iTUlsdWdpb1pLRmZyWFZHdVhrRF9mOTRiRnNOTmVtOWhsbFNFV0kwV2M5VUJGUUNIc2FxdEFlVTFxZHBDam1LUlZ3SVp3OUpxclhPQjBoTC1OandDX3o0aXZHLVV2QlotTnRURGNFcThoMWNYV3p1SzAzaTJURGM?oc=5",
+      "family": "vida",
+      "slug": "frutillar"
+    },
+    {
+      "id": "3f7ead3672141772",
+      "cut": "10105",
+      "lat": -41.089164,
+      "lng": -73.081798,
+      "title_es": "Detectives de la PDI investigan homicidio de adolescente de 17 años en Frutillar",
+      "title_en": "PDI detectives investigate homicide of 17-year-old teenager in Frutillar",
+      "date": "2026-08-15",
+      "outlet": "Diario Digital El Calbucano",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNYWFrZUw2dVVGMmhGVzgyQVFCSFBGU1QxYzByWVhjX1pLZTdLenJod2x4MDZILVpXMlg0aXd4RWxGaXQ3cFpxNFZCTHM0Ym9DUkVVcXpLWFFWcU9zUFd5bmk5QnRRdGRxQTdtNXNpdW5CV0ZtN1VkQWZ3MEh1NF9EM0s5bF9qRE1jZmhEcUNuek9jbmUtN3VpOUVqRnVFaC1BWVFZU3pkWnJNbk5wQ2FmZXJzeXg1RDFMcU52SjJSMlFRMmc?oc=5",
+      "family": "vida",
+      "slug": "frutillar"
+    },
+    {
+      "id": "8679b7b210516248",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Antofagasta: dictan prisión preventiva a hombre que atropelló deliberadamente a su expareja",
+      "title_en": "Antofagasta: Pretrial detention ordered for man who deliberately ran over his ex-partner",
+      "date": "2026-08-14",
+      "outlet": "urgente.cl",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPVXlaNUVFYi01bG91TjJ4YUFPTmo2em5fb016OTBMQjJuTm5vNUNjZmlaSUo2ZTVubVdIbXc1RUhtNm1PQWRhNWVkSlA5U3JnakRxOHM4MGVVTkRFZDNTdE5NYVE0dm9kTGw4RWdjNGxFRjVCQnJiWWp1SmRpSlZha1NDb3VrSHJGckw3RGhzWFF3WktRR3ZqMTVnM2FhdzFJa25aQ3Q1T0RqR25fS0pqNnNwTlRjMW43?oc=5",
+      "family": "vida",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "36bf46fe2204596a",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Dos heridos tras violenta riña con armas blancas en departamento de Santiago",
+      "title_en": "Two injured in violent brawl with bladed weapons in Santiago apartment",
+      "date": "2026-08-17",
+      "outlet": "latribuna.cl",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOLXZBQ0NxbEZES1JBVXJvRVJiR0YwTVpWeDUzWC12M3Z4STJhWWh4M1IwcEVFaW8za1JodFQzRmVWNFdrU0hFQmN0ZzNydkNweHZHWk9jTndIeUJHT3BzSGFiaWxRR0VVNkEzVUJoSlU4ZHZDanZFUDBJa3VCVkU2T3JubDJBcTU3VWIxVVM3SkRCTkhsR2tSX01hN0VJcFZka3FUOExBZEZwbVdadTk3OXI3M01HYm4zcTZEUHZZV0p0dDVE0gHMAUFVX3lxTE1Da3hzcGhLNjFGdmd4RDl6aEgtX2pETWl0cndfR3F6b1VrZU5MOU5lTDBjN3F2NGUwUzd3SmJyT1BYSU1xRDZWdk1WVXg0UVpOLXo1Zy10ZGFfUHNJTl9hS3llR04wdUl1c1RXZkZtQ1NRQnIxVWVqUXNMX3F4YUJ4OWM2QllMVW1venZHaGhfSlNuRExrRHE3ZFFVd2hLMGRrUHhnUm9RRTlzeHM5Z3QwYkc2bDJfcC1WU1V4amtYbm5EWTRiNzFjQzlwaQ?oc=5",
+      "family": "vida",
+      "slug": "santiago"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-17T01:01:48.721018+00:00",
+  "generated": "2026-08-17T06:44:55.204621+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -8550,6 +8550,36 @@
       "description": "Caso Miguel Uribe: condena a 21 años a implicado en el magnicidio | 360&nbsp;&nbsp;360 Radio",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-08-17T01:01:48.721018+00:00"
+    },
+    {
+      "id": "8ad19852acf4d4e7",
+      "url": "https://www.biobiochile.cl/noticias/internacional/america-latina/2026/08/16/lula-y-flavio-bolsonaro-inician-campana-presidencial-en-brasil-con-empate-tecnico-en-las-encuestas.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-17",
+      "title": "Lula y Flávio Bolsonaro inician campaña presidencial en Brasil con empate técnico en las encuestas",
+      "description": "El mandatario brasileño, Luiz Inácio Lula da Silva, y el senador Flávio Bolsonaro, principal candidato de la oposición, arrancaron este domingo la campaña para las elecciones presidenciales de octubre en sus respectivas cunas políticas, con la promesa de combatir el crimen organizado. Ambos candidatos eligieron lugares cargados de simbolismo para dar el pistoletazo de salida &#8230; Continua leyendo \"Lula y Flávio Bolsonaro inician campaña presidencial en Brasil con empate técnico en las encuest",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-17T06:44:55.204621+00:00"
+    },
+    {
+      "id": "7bf3a03ef172c422",
+      "url": "https://www.latercera.com/mundo/noticia/colombia-rebaja-a-casi-287-los-muertos-y-eleva-a-cerca-de-4150-los-heridos-por-el-terremoto/",
+      "outlet": "LaTercera",
+      "date": "2026-08-17",
+      "title": "Colombia rebaja a casi 287 los muertos y eleva a cerca de 4.150 los heridos por el terremoto",
+      "description": "La Unidad Nacional para la Gestión del Riesgo de Desastres (UNGRD) confirmó este balance, y también consigna un alza de 143 a 194 en el número de personas dadas por desaparecidas.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-17T06:44:55.204621+00:00"
+    },
+    {
+      "id": "f572ffd7f5fa0679",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQRms3OERIcG9SWDU3QzNOZGtFd0xKSGFwWEZEdTlWTHA2SVRwbkJ3amJHMFphVmJiZDRhVnl4R01lcUhTcXExdGI0ZEZDbDZwU2tkTFFBa0hGUXBKQmZ2YUlpbHJpc3ByejFYQ0tBWDRaOGI5Q0tpX2djZVJEUzhLS0stMEpqa21tTElQTC1VWlUyeUxNQ2NGSVIxbUNkZjlVWlFCNk5zOHhTZTNCNUxWLXNVazBLZkx2UDNyNnhJWHYtczVYZFhB?oc=5",
+      "outlet": "Mi Radio",
+      "date": "2026-08-17",
+      "title": "Bajada de quebradas, manifestaciones y robo de cables: Resumen del fin de semana en la región - Mi Radio",
+      "description": "Bajada de quebradas, manifestaciones y robo de cables: Resumen del fin de semana en la región&nbsp;&nbsp;Mi Radio",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-17T06:44:55.204621+00:00"
     }
   ]
 }
