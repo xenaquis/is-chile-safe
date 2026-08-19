@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-19T06:37:26.479265+00:00",
+  "generated": "2026-08-19T12:38:31.003964+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -9980,6 +9980,86 @@
       "description": "Menor detenido por robo de una moto 0 Km a una concesionaria&nbsp;&nbsp;Diario la Ventana",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-08-19T06:37:26.479265+00:00"
+    },
+    {
+      "id": "ce4b94d80f7de3cd",
+      "url": "https://www.biobiochile.cl/noticias/economia/actualidad-economica/2026/08/19/los-lios-que-envuelven-a-shein-que-podria-cambiar-para-los-chilenos-que-compran-en-la-plataforma.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-19",
+      "title": "Los líos que envuelven a Shein: ¿qué podría cambiar para los chilenos que compran en la plataforma?",
+      "description": "El gigante chino de la moda online, Shein, enfrenta investigaciones y sanciones en Europa que podrían superar los €3.800 millones, en momentos en que prepara su salida a bolsa. Shein, uno de los gigantes mundiales del comercio electrónico y la moda rápida, enfrenta una creciente ofensiva regulatoria en el Viejo Continente que podría terminar costándole &#8230; Continua leyendo \"Los líos que envuelven a Shein: ¿qué podría cambiar para los chilenos que compran en la plataforma?\"\nThe post Los líos ",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-19T12:38:31.003964+00:00"
+    },
+    {
+      "id": "3aca62322c7480b2",
+      "url": "https://www.biobiochile.cl/noticias/deportes/tenis/2026/08/19/nick-kyrgios-dio-positivo-a-cocaina-y-es-suspendido-temporalmente-tenista-admitio-error-en-descargo.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-19",
+      "title": "Nick Kyrgios da positivo a cocaína y es suspendido temporalmente: tenista admitió \"error\" en descargo",
+      "description": "El tenista australiano Nick Kyrgios ha sido , por la presencia de benzoilecgonina, un metabolito de la cocaína, en una muestra realizada hace un mes y por la que está sancionado desde el 4 de agosto. Kyrgios, de 31 años, proporcionó una muestra durante un evento ATP 250 en Mallorca (España) el 22 de junio &#8230; Continua leyendo \"Nick Kyrgios da positivo a cocaína y es suspendido temporalmente: tenista admitió \"error\" en descargo\"\nThe post Nick Kyrgios da positivo a cocaína y es suspendido temp",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-19T12:38:31.003964+00:00"
+    },
+    {
+      "id": "848bbead525b87cc",
+      "url": "https://www.biobiochile.cl/noticias/internacional/america-latina/2026/08/19/fernando-cerimedo-el-miliciano-digital-ligado-a-milei-y-bolsonaro-indagado-por-sicariato-a-expareja.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-19",
+      "title": "Fernando Cerimedo, el ’miliciano digital’ ligado a Milei y Bolsonaro indagado por sicariato a expareja",
+      "description": "El argentino Fernando Cerimedo, detenido el martes en Bolivia en medio de una investigación por el intento de asesinato a su expareja -quien lo acusó de ordenar el presunto sicariato-,; y fundó el medio La Derecha Diario (ahora propiedad del español Javier Negre). En el país altiplánico también . La Policía detuvo a Cerimedo en &#8230; Continua leyendo \"Fernando Cerimedo, el ’miliciano digital’ ligado a Milei y Bolsonaro indagado por sicariato a expareja\"\nThe post Fernando Cerimedo, el ’milician",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-19T12:38:31.003964+00:00"
+    },
+    {
+      "id": "c25f8dee1e9d1abf",
+      "url": "https://www.latercera.com/mundo/noticia/fiscalia-de-ucrania-destapa-otro-nuevo-caso-de-corrupcion-que-salpica-a-la-oficina-de-zelensky/",
+      "outlet": "LaTercera",
+      "date": "2026-08-19",
+      "title": "Fiscalía de Ucrania destapa otro nuevo caso de corrupción que salpica a la oficina de Zelensky",
+      "description": "Se han realizado registros en dependencias vinculadas a Irina Mudra, quien ha sido ya destituida como jefa adjunta de la Oficina Presidencial.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-19T12:38:31.003964+00:00"
+    },
+    {
+      "id": "59aeca294fde08c1",
+      "url": "https://www.latercera.com/el-deportivo/noticia/golpe-en-el-tenis-mundial-nick-kyrgios-da-positivo-por-cocaina-y-es-suspendido/",
+      "outlet": "LaTercera",
+      "date": "2026-08-19",
+      "title": "Golpe en el tenis mundial: Nick Kyrgios es suspendido tras dar positivo por cocaína",
+      "description": "El australiano reconoce lo ocurrido y anuncia que se alejará temporalmente de la vida pública.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-19T12:38:31.003964+00:00"
+    },
+    {
+      "id": "9b4cb745c4c317e4",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPdVVURTVDUTQxcDR0ZldUcjBJazlxcGlsUTI5TV9aRzAyQ2ZIazVqa3NjRnRYTlZlVWlIUThiRlRVV1h5Umh4S0JtaE1uT2tENEVKVzVFYlhwSWJuVkw3eFBnczVwU252VlV5Vi16UnJxWFBCMHhhUUxSS3QtR0NXVnFFa1YzWlVaeG9EYXBBNnlNMi1fbWxFdnllOF9RdzBaMVVDN1FTU2pKa25WVnYxU3ZkbVlQWUJ1WDVFQlAzTVhEZ3BPVnB4Qm40QmpkeVhCVTctcWNoenFJNHhMVWc?oc=5",
+      "outlet": "El Mostrador",
+      "date": "2026-08-19",
+      "title": "“Operación Amsterdam”: el caso de crimen organizado que remueve a la elite chilena - El Mostrador",
+      "description": "“Operación Amsterdam”: el caso de crimen organizado que remueve a la elite chilena&nbsp;&nbsp;El Mostrador",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-19T12:38:31.003964+00:00"
+    },
+    {
+      "id": "60432aa3149bcf96",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPX3hxX0YycThZYWFQa01sOWFheGJQLTdZenlLTGM0NGJpX0NqQWtpbUZLdW91ak55UUwwME1XS2JSQ0Q5M3lfaUVoYVZMYUVYV3I5MmRobzM1MlFZemRabzZReGkzTE5MdlYySThCRzFCRHhlT2lqckNnblV5NmZOYUFwODZHVFpWZENTeQ?oc=5",
+      "outlet": "Mi Radio",
+      "date": "2026-08-19",
+      "title": "¡25 detenidos en solo un día! Robos, armas y microtráfico marcan operativo policial en la región - Mi Radio",
+      "description": "¡25 detenidos en solo un día! Robos, armas y microtráfico marcan operativo policial en la región&nbsp;&nbsp;Mi Radio",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-19T12:38:31.003964+00:00"
+    },
+    {
+      "id": "ed02e400ef5d1b19",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNRGREeEhBQWdnb2NsVFNYMEpxbzBncm5DYXdPV3d0Q0I0Y3pjeWV4ZkFGdy1jdzFZUHJXTC1saXRwQjZsOUJCUThTU3JkQmRtNC1nMlVlZDFaT3RaZmlPU0dzSzFtbUpxUVprWmJ2WkpNaGdTM3Rqd3p3Q2NpanpFTlVZaTdiZ1k0N1N0Z0cxdzlFbjR0ZzgyMUx3MldPU2xmLVFUd0x5bmF5RXFWSWJkSWV3TjRwMTRuZVdKTUNPbDY4dk5IMk1RVzRn?oc=5",
+      "outlet": "Canal Extremadura",
+      "date": "2026-08-18",
+      "title": "Detenido en Quintana de la Serena por un robo con violencia tras seguir a su víctima desde un cajero - Canal Extremadura",
+      "description": "Detenido en Quintana de la Serena por un robo con violencia tras seguir a su víctima desde un cajero&nbsp;&nbsp;Canal Extremadura",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-19T12:38:31.003964+00:00"
     }
   ]
 }
