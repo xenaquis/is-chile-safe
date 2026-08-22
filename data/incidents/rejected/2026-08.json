@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-22T01:01:03.312702+00:00",
+  "generated": "2026-08-22T06:33:30.781685+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -11770,6 +11770,56 @@
       "description": "Detenido por robo de medidos tenía amplio prontuario&nbsp;&nbsp;Meganoticias",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-08-22T01:01:03.312702+00:00"
+    },
+    {
+      "id": "6a0dd6e9025a6e0f",
+      "url": "https://www.biobiochile.cl/noticias/internacional/america-latina/2026/08/21/gobierno-argentino-se-distancia-de-fernando-cerimedo-exasesor-de-milei-detenido-en-bolivia.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-22",
+      "title": "Gobierno argentino se distancia de Fernando Cerimedo, exasesor de Milei detenido en Bolivia",
+      "description": "El canciller argentino, Pablo Quirno, distanció al Gobierno del presidente Javier Milei del argentino Fernando Cerimedo, detenido en Bolivia y acusado de tentativa de feminicidio por el ataque perpetrado el pasado 17 de agosto en contra Nadia Beller, su expareja, quien recibió al menos tres disparos. “El Gobierno argentino no tiene opinión sobre el caso. &#8230; Continua leyendo \"Gobierno argentino se distancia de Fernando Cerimedo, exasesor de Milei detenido en Bolivia\"\nThe post Gobierno argent",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-22T06:33:30.781685+00:00"
+    },
+    {
+      "id": "0359ded97cd79d72",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/cayo-el-terrorista-satanico-neonazi-que-obligo-a-suspender-clases-en/2026-08-21/204432.html",
+      "outlet": "Cooperativa",
+      "date": "2026-08-22",
+      "title": "Cayó el \"terrorista satánico neonazi\" que obligó a suspender clases en cuatro universidades",
+      "description": "La Policía de Investigaciones (PDI) concretó este viernes la detención del presunto responsable de las amenazas emitidas en contra de diversos recintos de educación superior.\nEl procedimiento se llevó a cabo luego de que durante la jornada se detectara el envío masivo de correos electrónicos intimidatorios dirigidos a instituciones educativas, en los cuales se advertía sobre la eventual ejecución de ataques armados.\n\"Haré una masacre\", fue parte del mensaje de este sujeto, de 22 años y sin antec",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-22T06:33:30.781685+00:00"
+    },
+    {
+      "id": "9dabefa07a1b2a58",
+      "url": "https://www.latercera.com/el-deportivo/noticia/no-esta-muerto-quien-pelea-rangers-consigue-su-primera-victoria-en-el-ascenso-tras-20-fechas-sin-ganar/",
+      "outlet": "LaTercera",
+      "date": "2026-08-22",
+      "title": "No está muerto quien pelea: Rangers consigue su primera victoria en el Ascenso tras 20 fechas sin ganar",
+      "description": "Los talquinos derrotaron por 1-2 a San Marcos en Arica y sumaron sus primeros tres puntos. Unidades que le dan vida para luchar por la permanencia.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-22T06:33:30.781685+00:00"
+    },
+    {
+      "id": "867e93d5643d53e3",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQYWV6bWxua3lRVnFoamhCMFc2Um5IYWNiYjh5dVBJZE5GRDhVX3RDSWR0YW1EZi1KbUlsbzF6b3E2aW9PWGp4ZnFYU3VVbmVCUTVNWFNEbVIzcnNmbDBPQTJuLTNEM01mWkNnZ3I3WUhKZ3NoN0xLS3JTcFhsMU9HWmV4VmlDdzBqQkRzbw?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-08-20",
+      "title": "PDI detiene a integrante de la WAM prófugo de la justicia por homicidio y delitos contra la Ley de Armas - SoyChile.cl",
+      "description": "PDI detiene a integrante de la WAM prófugo de la justicia por homicidio y delitos contra la Ley de Armas&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-22T06:33:30.781685+00:00"
+    },
+    {
+      "id": "cf6f663182b5c6eb",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxONlRUZnVNRHNyTGNscWd0R1R5UFp1cU81TjV5QXVxbUtYWm41WERaQ0k3SUtObzRZQUhxTWNmYkF6Z2xNWEdqbW9UWkFMQ1pqc2FQRHpOcThOWXFNU0o1VWNEQnl0d0pqS21IYWVjdzFLa1lWSkVubS1YSW0tbjZqd0JqWVhvUUZVMXZYMENRMDFSeF9sWHBTblVBa1lHclJXZ2prcWRsTTBvSTY5S3hUMkgwcEhPZmVhM29n?oc=5",
+      "outlet": "24horas",
+      "date": "2026-08-22",
+      "title": "Golpe al crimen: desarticulan banda vinculada a robo de vehículos - 24horas",
+      "description": "Golpe al crimen: desarticulan banda vinculada a robo de vehículos&nbsp;&nbsp;24horas",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-22T06:33:30.781685+00:00"
     }
   ]
 }
