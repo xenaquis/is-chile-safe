@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-23T06:34:47.437223Z",
+  "generated": "2026-08-23T12:32:32.333625Z",
   "window_days": 30,
   "incidents": [
     {
@@ -22725,6 +22725,84 @@
       "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxPSXR4bXFHdnFWbi1DUjZ2SmZGU000amVUTnZHT0w4WHpkLS00dllQOWpYcEZUWVZNam1QMWNIS0tZSHVlc2MxclBOTVp4ak5iLVljZEloMVQ1S2RHQmNVQnRUYnJFczZhYTJYVEJud1A4ajNSTTNlZW5KdmVfMlpKcWE4T1lWQng0S1VSd1FTeDU5US1tZkRRVE9KV3NwRkRhaUFTMEpldmtCNzRxdGRqcDhNWlVac2gzYVAxQkV2ak9XcFNRZXdOY0dweVpHa3V0VlVKOFE4Y2NHd0tDUm96MA?oc=5",
       "family": "vida",
       "slug": "coquimbo"
+    },
+    {
+      "id": "d3d816fdc3761072",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Investigan asesinato a tiros de ciudadano colombiano en Estación Central",
+      "title_en": "Investigating shooting murder of Colombian citizen in Estación Central",
+      "date": "2026-08-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/23/investigan-asesinato-a-tiros-de-ciudadano-colombiano-en-estacion-central.shtml",
+      "family": "vida",
+      "slug": "estacion-central"
+    },
+    {
+      "id": "67143dbb12af8735",
+      "cut": "13120",
+      "lat": -33.446981,
+      "lng": -70.549631,
+      "title_es": "Carabineros incauta \"torta\" de fuegos artificiales en el Estadio Nacional previo al Superclásico",
+      "title_en": "Carabineros seize \"torta\" fireworks at National Stadium before the Superclásico",
+      "date": "2026-08-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/23/previo-al-superclasico-carabineros-incauta-torta-de-fuegos-artificiales-en-el-estadio-nacional.shtml",
+      "family": "propiedad",
+      "slug": "nunoa"
+    },
+    {
+      "id": "5d729ba7c8caf9b7",
+      "cut": "2301",
+      "lat": -22.028941,
+      "lng": -70.027257,
+      "title_es": "PDI participa en rescate de dos personas aisladas en sector de Tocopilla",
+      "title_en": "PDI participates in rescue of two isolated persons in Tocopilla area",
+      "date": "2026-08-23",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/pdi-participa-en-rescate-de-dos-personas-aisladas-en-sector-de-tocopilla/",
+      "family": "vida",
+      "slug": "tocopilla"
+    },
+    {
+      "id": "4acbb9b6465beab7",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Fiscalía ECOH investiga muerte de ciudadana colombiana baleada en la Alameda",
+      "title_en": "Fiscalía ECOH investigates death of Colombian woman shot in the Alameda",
+      "date": "2026-08-23",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/fiscalia-ecoh-investiga-muerte-de-ciudadana-colombiana-baleada-en-la-alameda/",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "1c82bd4ba890fa0a",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Carabineros encuentra fuegos artificiales en Estadio Nacional durante revisión preventiva",
+      "title_en": "Carabineros finds fireworks inside National Stadium during preventive inspection",
+      "date": "2026-08-23",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/carabineros-encuentra-fuegos-artificiales-al-interior-del-estadio-nacional-durante-revision-preventiva/",
+      "family": "incivilidades",
+      "slug": "santiago"
+    },
+    {
+      "id": "ec6fc7e625da9f1d",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Detective PDI repela disparos y evita el robo de un vehículo en Santiago",
+      "title_en": "PDI detective repels gunfire and prevents vehicle theft in Santiago",
+      "date": "2026-08-23",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/detective-de-la-pdi-repele-a-disparos-una-encerrona-y-evita-el-robo-de-una-camioneta-en-santiago/",
+      "family": "robos_violentos",
+      "slug": "santiago"
     }
   ]
 }
