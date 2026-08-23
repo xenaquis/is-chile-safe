@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-22T18:24:05.899989+00:00",
+  "generated": "2026-08-23T01:05:26.985286+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -12020,6 +12020,106 @@
       "description": "Dos homicidios movilizan a la PDI en distintos puntos de la Región de Coquimbo&nbsp;&nbsp;Radio Maray",
       "rejection_stage": "commune_null",
       "first_seen": "2026-08-22T18:24:05.899989+00:00"
+    },
+    {
+      "id": "2de617b3fb013452",
+      "url": "https://www.biobiochile.cl/noticias/sociedad/historia/2026/08/22/la-huerfana-de-brasil-mujer-de-38-anos-es-condenada-tras-hacerse-pasar-por-una-nina-de-12.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-22",
+      "title": "\"La Huérfana\" de Brasil: mujer de 38 años es condenada tras hacerse pasar por una niña de 12",
+      "description": "Una mujer de 38 años que engañó a una familia al hacerse pasar por una niña de 12 en Brasil fue condenada el jueves por un tribunal a un año y seis meses de cárcel además de un régimen semiabierto de cuatro meses y 18 días de prisión. Según detalla O Globo, Amanda María Souza &#8230; Continua leyendo \"\"La Huérfana\" de Brasil: mujer de 38 años es condenada tras hacerse pasar por una niña de 12\"\nThe post &quot;La Huérfana&quot; de Brasil: mujer de 38 años es condenada tras hacerse pasar por una ni",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-23T01:05:26.985286+00:00"
+    },
+    {
+      "id": "f8ab9c3c86c08e18",
+      "url": "https://www.latercera.com/politica/noticia/vodanovic-anuncia-voto-en-contra-a-reforma-de-seguridad-del-gobierno-e-insiste-en-levantar-el-secreto-bancario/",
+      "outlet": "LaTercera",
+      "date": "2026-08-22",
+      "title": "Vodanovic anuncia voto en contra a reforma de seguridad del Gobierno e insiste en levantar el secreto bancario",
+      "description": "La presidenta del PS afirmó que rechazará la iniciativa si avanza en los términos presentados por el Ejecutivo y cuestionó que la propuesta se concentre en orden público. La senadora planteó incorporar medidas sobre régimen penitenciario, persecución del crimen organizado y seguimiento de su financiamiento.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-23T01:05:26.985286+00:00"
+    },
+    {
+      "id": "dcd38e79efa539d6",
+      "url": "https://www.latercera.com/nacional/noticia/carabineros-reporta-11-detenidos-y-551-controles-de-identidad-tras-arengazo-de-colo-colo/",
+      "outlet": "LaTercera",
+      "date": "2026-08-22",
+      "title": "Carabineros reporta 11 detenidos y 551 controles de identidad tras arengazo de Colo-Colo",
+      "description": "La actividad se realizó esta tarde en el Estadio Monumental, en la antesala del Superclásico número 200 del fútbol chileno entre Colo-Colo y Universidad de Chile, que se disputará este domingo.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-23T01:05:26.985286+00:00"
+    },
+    {
+      "id": "c04dc037fb814288",
+      "url": "https://news.google.com/rss/articles/CBMizgJBVV95cUxQLURwSExfU2pjV3FCcVNjWVJBQTlIU1NkeV9wd2tCTEFaSkhpaUw4akRnSlVTeTBab3Q5d1NKa3dkZndqWGgtVnlTOXlSY3VObU1nU2ZTOFk0VThMd2ZvOVo5VlhDV041UkduckdMN29HYkw4ZnZVSjRhdXlPS0xFUUQ3R3FEVnJFY0p5V3F6SjYtakhLREItNG9fa1FVVVpib1VuVVJBUThnR0ZIWjVkaGp6VzE3Y2t5RlUyUlJuYlVuVF85Z0JDZV9MRXdGRTgzMFFxOTY5RnNWZl9xemNLaGUtUGpmTHNpeXlzU2puNGxGUmlSdDI1UUZEcXc0dGVXRmhmWXNhWkhVYlA4YkRUcEdFXzdYOVlVc0NiM1BCRmVzcU1QQUU3NjdhcmxXdEZYQ2ZzUllSa1BCLXZzdS04MVZEQ3RYeGtveEdIRnBB?oc=5",
+      "outlet": "radiomodelo.cl",
+      "date": "2026-08-22",
+      "title": "Detienen en Bolivia por homicidio a consultor de ultra derecha argentino, experto en informaciones falsas, usar bots y trolls para atacar a rivales políticos. \"Trabajó\" en Chile con cercanos a Kast, en los plebiscitos y \"tenía una granja de bots\" - radiomodelo.cl",
+      "description": "Detienen en Bolivia por homicidio a consultor de ultra derecha argentino, experto en informaciones falsas, usar bots y trolls para atacar a rivales políticos. \"Trabajó\" en Chile con cercanos a Kast, en los plebiscitos y \"tenía una granja de bots\"&nbsp;&nbsp;radiomodelo.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-23T01:05:26.985286+00:00"
+    },
+    {
+      "id": "597002f92beb4bf2",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOcjYzT2JPMHE5V3RyZFN2V25DNk9kOVhZNzdjbmp5MDZYRHlUcWRIM2txbktPd1o5dXdEWlRySXBac1pxMUxxZjBPLUdxRGVhT0lFcElWd3pWd1lEMXE2MVJUNHI1dHlNekZIRFlqSjBxaFlSeVEwY2tyY0RLVDl1NGh5UURIZmdMYWhuUHdwYUNlQW5CYkQwU0ZTckUySW5oZXJSNWlfaGdJT2dmQnJORFlhUTJPNnc?oc=5",
+      "outlet": "El Regional del Zulia",
+      "date": "2026-08-22",
+      "title": "Capturan a dos venezolanos en Perú buscados por secuestro y homicidio en Chile - El Regional del Zulia",
+      "description": "Capturan a dos venezolanos en Perú buscados por secuestro y homicidio en Chile&nbsp;&nbsp;El Regional del Zulia",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-23T01:05:26.985286+00:00"
+    },
+    {
+      "id": "7470d5a381259ad2",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQcUVHVl93WDZEOWpjb1RuXy1nTnJidUU3eThfQWFGbWdpVlk1NWoxeGcwM2h5bWxyNHB6OWZJeXpxd3BVTXpJQzkyMTdiaVRob093SmRuS1NxNjRTR3pMeXJySnNpT1FrT1V3ZHp4bEVXc192d0tyREd2bllpUFg1UlNmdUwyQjJ0NXd2dXVWZVQ5MnRmTmdDS0c3OUZjWmQ0ZjRwN1NQMERCT3hneFhnSGVMMVFiUEk?oc=5",
+      "outlet": "Meganoticias",
+      "date": "2026-08-20",
+      "title": "Prófugo intentó engañar a Carabineros con puras mentiras - Meganoticias",
+      "description": "Prófugo intentó engañar a Carabineros con puras mentiras&nbsp;&nbsp;Meganoticias",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-23T01:05:26.985286+00:00"
+    },
+    {
+      "id": "2eb4b0c41ee5a2ac",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOeHdkVXRlcmxSMEJMeVpNRTA3dExZOWRiREdfR0Vzb18tWHU5dElxaHlodmZzMlh4NUxaS19FV0lfcHowZlkzSkVnYTgxSEw5cS03LVRBUWl3TlZMa1BNTlBweG8tbDVCTVJ5S2dyaDNLX1lDSW9ET214N0FjdUJCYmUtaUcxeDk2bTFYTkZpYVJGdlp3THFhc3FnTTZCX21MX0RNaE5SSkY0eTBQOEs1c3daODdsMXFseUFta2dONzA3YWc5Mnc?oc=5",
+      "outlet": "elobservatodo.cl",
+      "date": "2026-08-22",
+      "title": "Alerta en la Región de Coquimbo: tres homicidios se registran en menos de 24 horas - elobservatodo.cl",
+      "description": "Alerta en la Región de Coquimbo: tres homicidios se registran en menos de 24 horas&nbsp;&nbsp;elobservatodo.cl",
+      "rejection_stage": "commune_null",
+      "first_seen": "2026-08-23T01:05:26.985286+00:00"
+    },
+    {
+      "id": "617feaef2f8d9740",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQaWxxQWU5Vk9DNUtmSmppU0xndTNTSG1LZURib0FyTnpLM1Q4SVJYUWF5Rm9xT0RmU09WaERrcnpfb2VtTmtZaFl0NmFjU2VlaURtNDJYZEtRNjhWN1ZzMHZjbERlMnVBWElvMjNYTmRxMGllaExsMlVkTFFsbTZHYmVPaFZ3WWNONWg2QlV0Yk52NEZzWUtfdS1SMTgzY1gzbVhVbmE5WFpHM3d3ckkwcWpfZEUtdTJrd2pDVGJkdEc4T2V4ak9n?oc=5",
+      "outlet": "diarioeldia.cl",
+      "date": "2026-08-22",
+      "title": "Tres asesinatos en menos de dos días elevan a 24 las víctimas en la región - diarioeldia.cl",
+      "description": "Tres asesinatos en menos de dos días elevan a 24 las víctimas en la región&nbsp;&nbsp;diarioeldia.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-23T01:05:26.985286+00:00"
+    },
+    {
+      "id": "405b6d113db82d68",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxORmFpOVRVZ3F4U1R6bkt1c21nWWNGaFpmblBWUEo3MlQxQzZvQjRCa2M4ZEZhQ3BuSUJzRzNLdUU1dDhBQ2JQUlVXQmo0NGxJNEJUaTRFYjJUenAxOU8xZUFjNXIzZUotOFR4TmtTUldmZGlaa3d2SFcwUnoya3AxaHZfdy0yc1M1dGNQcnU5Q3FSYzBiOThGR0ZydWtlNnY5NHBSdk1rcVBmSElZQXpJbg?oc=5",
+      "outlet": "Puranoticia.cl",
+      "date": "2026-08-22",
+      "title": "PDI indaga crimen de hombre baleado al interior de un domicilio en Coquimbo - Puranoticia.cl",
+      "description": "PDI indaga crimen de hombre baleado al interior de un domicilio en Coquimbo&nbsp;&nbsp;Puranoticia.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-23T01:05:26.985286+00:00"
+    },
+    {
+      "id": "6c2344721b02122e",
+      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNTUE0YXV3cHltdVZXX2lPVGY3d3FDMTJ1NzJMaFdMTy0xcVNBZEJaUkNKWVlYdmpYdTZmY2d6NDVJbTh6Szc0YlZSbW9DTlYwanljVDUzTjdmOExkb0hJVmUxQWtmZG0wYkhSQ1VXc0dGYWFvQnJ2N2xxRU5obWRrX0pMY19sMlVPeXFVbXlLNDFmUjNOOWdvNk8yYmtCU1J4YndGSUEwWjV1MmlqcGpOQmZXVk1NdlVGUGIxNXJqaGZQZ2x2U0Z5Zk5vRkUybG90RENiUnpCUng?oc=5",
+      "outlet": "Portal Liberación",
+      "date": "2026-08-22",
+      "title": "Tres responsables de secuestro exprés con fines de robo reciben sentencia de 70 años de prisión - Portal Liberación",
+      "description": "Tres responsables de secuestro exprés con fines de robo reciben sentencia de 70 años de prisión&nbsp;&nbsp;Portal Liberación",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-23T01:05:26.985286+00:00"
     }
   ]
 }
