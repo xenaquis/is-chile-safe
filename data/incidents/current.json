@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-23T01:05:27.042093Z",
+  "generated": "2026-08-23T06:34:47.437223Z",
   "window_days": 30,
   "incidents": [
     {
@@ -22582,6 +22582,149 @@
       "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQcnVSRDM2a2RmVmJZQWsyR3Z1VFJUQUV4SV9UNFFMRENvcmxxblBjTjVFM1RhRVZJeDhSc3hZTzU0dFl4cURobXpOLTdqanBXbkFIa3NYNEY3SmVpSzBUYUh0QjJkX0Vqa1JBVlAyZ1pqb2xQRldLekVOaDNKN0dSbENFT0xIZ1JNT21zSnZ3aTVKV1kx?oc=5",
       "family": "propiedad",
       "slug": "temuco"
+    },
+    {
+      "id": "cd4f16fe02dc9947",
+      "cut": "14101",
+      "lat": -39.888909,
+      "lng": -73.087354,
+      "title_es": "Dueño de restaurante, garzón y presunto ladrón fueron detenidos tras protagonizar forcejeo en Valdivia",
+      "title_en": "Restaurant owner, waiter, and alleged thief arrested after scuffle in Valdivia",
+      "date": "2026-08-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-rios/2026/08/23/dueno-de-restaurante-garzon-y-presunto-ladron-fueron-detenidos-tras-protagonizar-forcejeo-en-valdivia.shtml",
+      "family": "robos_violentos",
+      "slug": "valdivia"
+    },
+    {
+      "id": "fc4d35ce716d305d",
+      "cut": "10109",
+      "lat": -41.209909,
+      "lng": -72.449488,
+      "title_es": "Arresto domiciliario total y arraigo nacional para tres imputados por robo de madera en Puerto Varas",
+      "title_en": "Total house arrest and national ban for three defendants in wood theft in Puerto Varas",
+      "date": "2026-08-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-lagos/2026/08/22/arresto-domiciliario-total-y-arraigo-nacional-para-tres-imputados-por-robo-de-madera-en-puerto-varas.shtml",
+      "family": "robos_violentos",
+      "slug": "puerto-varas"
+    },
+    {
+      "id": "1d7c2da65e196bd0",
+      "cut": "5109",
+      "lat": -33.027017,
+      "lng": -71.515513,
+      "title_es": "Sujetos asaltan joyería y se dan a la fuga en vehículo en pleno centro de Viña del Mar",
+      "title_en": "Suspects rob jewelry and flee in vehicle in downtown Viña del Mar",
+      "date": "2026-08-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-valparaiso/2026/08/22/sujetos-asaltan-joyeria-y-se-dan-a-la-fuga-en-vehiculo-en-pleno-centro-de-vina-del-mar.shtml",
+      "family": "robos_violentos",
+      "slug": "vina-del-mar"
+    },
+    {
+      "id": "984e74563cf2ad5d",
+      "cut": "13111",
+      "lat": -33.53,
+      "lng": -70.63,
+      "title_es": "Mujer muere tras ser atropellada por bus RED en La Granja: conductor huyó del lugar",
+      "title_en": "Woman dies after being hit by RED bus in La Granja: driver fled the scene",
+      "date": "2026-08-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/22/mujer-muere-tras-ser-atropellada-por-bus-red-en-la-granja-conductor-huyo-del-lugar.shtml",
+      "family": "vida",
+      "slug": "la-granja"
+    },
+    {
+      "id": "974514e5e8ffbaa6",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Detienen a ciudadano extranjero en terminal de Concepción: portaba droga avaluada en $60 millones",
+      "title_en": "Foreign citizen detained at Concepción bus terminal: carrying drugs valued at $60 million",
+      "date": "2026-08-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/22/detienen-a-ciudadano-extranjero-en-terminal-de-concepcion-portaba-droga-avaluada-en-60-millones.shtml",
+      "family": "drogas",
+      "slug": "concepcion"
+    },
+    {
+      "id": "18574f283b1e2ed7",
+      "cut": "6301",
+      "lat": -34.754922,
+      "lng": -70.602315,
+      "title_es": "San Fernando: Operativo antidrogas masivo detuvo a 16 personas y allanó 34 domicilios",
+      "title_en": "San Fernando: Massive anti-narcotics operation arrests 16 people and raids 34 homes",
+      "date": "2026-08-23",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-ohiggins/san-fernando-masivo-operativo-antidrogas-dejo-16-detenidos-y-34/2026-08-22/201341.html",
+      "family": "drogas",
+      "slug": "san-fernando"
+    },
+    {
+      "id": "171a4de0be00c444",
+      "cut": "13105",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Menor y otras dos personas heridos en balacera en El Bosque",
+      "title_en": "Minor and two others injured in shooting in El Bosque",
+      "date": "2026-08-21",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQVXdscEZOb1oxSEZRMldxNTRoWHRXN3lpOVZiWVRZVEt1OGh2WEVkY3BSOUc0RGVENXZCc3dJUy1aMU1kYU5zUExSUmVvRHZLRmo1a2JHa2xwMnJxYUluemNCcjBZdUpSOG1WdnhhclA4VDgtZFhQbEJEamlhQV8yU0IyclZuZUs3UDk2c1V0YUQyUGJSRGlRZlpTcEV4WEhyTlE?oc=5",
+      "family": "vida",
+      "slug": "el-bosque"
+    },
+    {
+      "id": "1455b17df1e98a33",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Paraguay asume rol activo contra el crimen organizado en coalición liderada por Trump",
+      "title_en": "Paraguay takes active role against organized crime in coalition led by Trump",
+      "date": "2026-08-21",
+      "outlet": "Reconquista Radios",
+      "url": "https://news.google.com/rss/articles/CBMihAJBVV95cUxOUFFoMkRwT3d4LWZIMC1NVEQ2RXdRUjBkREd5a1Ryb0lNRWlIM2trVmwxeXpCckRwWmhIOXdpcEtldVV4YXpBWnl1T2doWGxBWnAyR2ZtWGJOYXE3MDBteVVXOVVOUmc1a0dJODJyd0RtZm5jMmEteVpOZjUzbG5pVUMtZS10cmNXQ09vcUlvSm1RZkEwSFNVYmNfaFRBY2ZiSk4tbjBKTjFYUjMwRjJJWlRjTjgySHFDRUdKX3FBeFNsdlFoYXhSQ1ZERmxyWDdIT243aFNGbnp6cjdSbVM3ZUJvS01IdUl5cnl6Wl9xM2VwUS1SXy0yQlBzUlFrVTI5dG9fSQ?oc=5",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "a2bf74aaf689c648",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Carabineros detuvo a dos sujetos por robo con intimidación en Iquique",
+      "title_en": "Carabineros arrest two suspects for robbery with intimidation in Iquique",
+      "date": "2026-08-22",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPU2xzSWN4M3ZRMHNXVDNNdmxHYmFCdUFWUVN4VDRKUkN2Qk9Md1pQR3NDOXdMdi1hRnlSN2ZwaTZOOWVlMHl1TEJ0UUU2VXpaNXN0NEZTbkE0cXltR21Ha2ZSUHZ4ZUJ6RDhUNk11UFBfVkJqeXl6Mlo1eU5yRmQwZXdyLTNuc0diOVRhcm55RXA2U0RrNkFsd1I0QW9CVkNaSDhOaWJFeEtaaUk?oc=5",
+      "family": "robos_violentos",
+      "slug": "iquique"
+    },
+    {
+      "id": "7cc0bdac051a0e54",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "Hombre muere tras recibir disparos en domicilio en Coquimbo",
+      "title_en": "Man dies after being shot inside a home in Coquimbo",
+      "date": "2026-08-23",
+      "outlet": "Serena y Coquimbo",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOLWpYeExDOFRLVTdfZHhDY0lMSlFVbFIyTGhwclFVcndscHlINU5VVWt5THNzb3pNRlV6Tno2cmxHY2ktUzhlN2U0V1N4QXduRUR4QnJiQUZPSFhLaHlHbEk1YVVadWxBdEJKdDNXcDJGUkROQWVUT2ZQaW1YRmNtTmZ6YWZrdzBKU1lfOGFoM3BXbFo0SGtBaHJEZUNZaWR2RUJ1NldVUzRKWWZ3ZS1z?oc=5",
+      "family": "vida",
+      "slug": "coquimbo"
+    },
+    {
+      "id": "f61d9c641e59f0a4",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "PDI detiene a mujer acusada de matar a adulto mayor en domicilio en Coquimbo",
+      "title_en": "PDI arrests woman accused of killing elderly person inside home in Coquimbo",
+      "date": "2026-08-23",
+      "outlet": "Serena y Coquimbo",
+      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxPSXR4bXFHdnFWbi1DUjZ2SmZGU000amVUTnZHT0w4WHpkLS00dllQOWpYcEZUWVZNam1QMWNIS0tZSHVlc2MxclBOTVp4ak5iLVljZEloMVQ1S2RHQmNVQnRUYnJFczZhYTJYVEJud1A4ajNSTTNlZW5KdmVfMlpKcWE4T1lWQng0S1VSd1FTeDU5US1tZkRRVE9KV3NwRkRhaUFTMEpldmtCNzRxdGRqcDhNWlVac2gzYVAxQkV2ak9XcFNRZXdOY0dweVpHa3V0VlVKOFE4Y2NHd0tDUm96MA?oc=5",
+      "family": "vida",
+      "slug": "coquimbo"
     }
   ]
 }
