@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-24T01:03:22.747821+00:00",
+  "generated": "2026-08-24T06:50:04.369722+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -12490,6 +12490,46 @@
       "description": "PDI investiga dos homicidios en la Región de Coquimbo&nbsp;&nbsp;Cooperativa",
       "rejection_stage": "commune_null",
       "first_seen": "2026-08-24T01:03:22.747821+00:00"
+    },
+    {
+      "id": "6194f2834599c912",
+      "url": "https://www.latercera.com/mundo/noticia/lula-declara-que-nadie-esta-por-encima-de-la-ley-ante-la-investigacion-policial-contra-su-hijo/",
+      "outlet": "LaTercera",
+      "date": "2026-08-24",
+      "title": "Lula declara que “nadie está por encima de la ley” ante la investigación policial contra su hijo",
+      "description": "El presidente de Brasil además indicó que “la presunción de inocencia debe respetarse siempre”, en el marco de la indagatoria policial contra Fábio Luís Lula da Silva por presunto tráfico de influencias.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-24T06:50:04.369722+00:00"
+    },
+    {
+      "id": "1a858d5cd959bf64",
+      "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxPQUZqN0lOOXJqeGsyTFBhWUlzbmJQejJyYTVjLUZEVlZZSkd5RXlOMUY5a2stQ0pJZ3lyUUw0bEZKR1drdkNvcjJzVnpvSVdSZC0zVTY5aVJlV2dkZnpoNGdiS2hUZlUySkJLUmpUOXZSQ285MlRmRWFJQS1YQWNKeERCYUNJSkhKdEp5SEZuSHFCMlBSUU1jQk1QUS1MYW5oT0ktM2RlQUE0b09wRnBUQldDMWttNk51My1NV25FU195cktoODhOaDlRcTZ1STFqcHpoTVZyZVlwTVdKajdMSUdtS3lpYkVSem94VS0yWTJ6WXJMSkl3V3Zn?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-08-22",
+      "title": "Alerta en la región de Coquimbo tras registrarse tres homicidios en menos de 24 horas - BioBioChile",
+      "description": "Alerta en la región de Coquimbo tras registrarse tres homicidios en menos de 24 horas&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "commune_null",
+      "first_seen": "2026-08-24T06:50:04.369722+00:00"
+    },
+    {
+      "id": "67d3ad5262e1ea2f",
+      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxPdzlIR3lRZ0FSZjhGamZVNUFsNEV3R0xxcU56SHJ0YW5BWUN2LV9MR3B0TXdYRTdEa1dpdkx2N1lMRmVpZHZOTkJqSnhYOFA0WTNhUXh6VGtFdXNLaUt4U0h2bl91cDJSbXFoWHVsNFRoTi1sTFhfczRiS1BieE9vSGxoeUJwWFExQVp2VmRXX25ZNnhrc1ZTa21yOVVEa01TNmpQZlZVMTR5NkdfbDZlN0dBcmFoZEVmX0ZnQTI4TEcza04tczdTSGlKQkh5dFZfRURWMGlqT1IwYndQaGh1TVo5S1BUdw?oc=5",
+      "outlet": "facebook.com",
+      "date": "2026-08-24",
+      "title": "🔴🔵 Dos hermanos, Yerson Antonio Yupanqui Soto y Renzo Jesús Yupanqui Soto, fueron intervenidos en el aeropuerto Jorge Chávez cuando intentaban viajar a Chile. Ambos son investigados por el homicidio de un ciudadano venezolano en Santa Rosa, A - facebook.com",
+      "description": "🔴🔵 Dos hermanos, Yerson Antonio Yupanqui Soto y Renzo Jesús Yupanqui Soto, fueron intervenidos en el aeropuerto Jorge Chávez cuando intentaban viajar a Chile. Ambos son investigados por el homicidio de un ciudadano venezolano en Santa Rosa, A&nbsp;&nbsp;facebook.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-24T06:50:04.369722+00:00"
+    },
+    {
+      "id": "92120b2fd3cf8996",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNQ0UxcUVieGVSSE1nazBiNlJtN21Jb28xRV95RzI1MnlON1YzRklNS0h2djNCTVNTSjc5WHZ3bFFRX3pBZzZSYWc5aEoyVkNINTdVOTZGUG9DeTRXM3dKZmhBNE9KVDJYNkYtZElYODd6UUNoM2pKU01NMnl1ZnQtbHFIaFBiZmMwWGhmS0lwMm12cjUxNFVvNGQtWENnNWZMaTVqY0o4QmNQZ3pqOUg4N1htMDlvMkx0M1lTRFVFRTdRVjhJQXFrcw?oc=5",
+      "outlet": "Mi Radio",
+      "date": "2026-08-24",
+      "title": "Un Volcamiento fatal y un homicidio entre los acontecimientos del fin de semana en la región - Mi Radio",
+      "description": "Un Volcamiento fatal y un homicidio entre los acontecimientos del fin de semana en la región&nbsp;&nbsp;Mi Radio",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-24T06:50:04.369722+00:00"
     }
   ]
 }

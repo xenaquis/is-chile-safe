@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-24T01:03:22.807316Z",
+  "generated": "2026-08-24T06:50:04.403921Z",
   "window_days": 30,
   "incidents": [
     {
@@ -22439,6 +22439,110 @@
       "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQRGVHMmg5Rmtra1RsSDJWajBrZzFuMW9RbVMyV1hrbllPTFR0UkRPYWpWZF91VHFFcUlnbmp1STJtdmcwYkt1Skh3U2VyMTFOdDdEWUJESlpSR3RaekRvR0ZDRHpwMGd2ZFBQbGlMTFJ2dzdPdHp0Rm12aFVqcGV4M2dTV1diS01iLWJrRXN2VHY5ckh2by1EZFVZNlRyQlR3Ui1KQVVkUERwdnNPbGJxTkJfY0N1blJYaWwwYVNRbmFhenfSAcMBQVVfeXFMUERlRzJoOUZra2tUbEgyVmowa2cxbjFvUW1TMldYa25ZT0xUdFJET2FqVmRfdVRxRXFJZ25qdUkybXZnMGJLdUpId1NlcjExTnQ3RFlCREpaUkd0WnpEb0dGQ0R6cDBndmRQUGxpTExSdnc3T3R6dEZtdmhVanBleDNnU1dXYktNYi1ia0VzdlR2OXJIdm8tRGRVWTZUckJUd1ItSkFVZFBEcHZzT2xicU5CX2NDdW5SWGlsMGFTUW5hYXp3?oc=5",
       "family": "vida",
       "slug": "santiago"
+    },
+    {
+      "id": "e44b8098f75c0b10",
+      "cut": "7102",
+      "lat": -35.398742,
+      "lng": -72.282307,
+      "title_es": "Sujeto encarcelado por atacar a su expareja con una piedra en Constitución",
+      "title_en": "Man jailed for attacking ex-partner with a stone in Constitución",
+      "date": "2026-08-24",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-del-maule/a-prision-sujeto-que-ataco-a-su-expareja-con-una-piedra-en-constitucion/2026-08-24/001022.html",
+      "family": "vida",
+      "slug": "constitucion"
+    },
+    {
+      "id": "e0ee639a7f313766",
+      "cut": "5109",
+      "lat": -33.027017,
+      "lng": -71.515513,
+      "title_es": "Asalto armado afectó a joyería en pleno centro de Viña del Mar: botín es de 75 millones de pesos",
+      "title_en": "Armed robbery hit jewelry store in downtown Viña del Mar: loot worth 75 million pesos",
+      "date": "2026-08-24",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-valparaiso/asalto-armado-afecto-a-joyeria-en-pleno-centro-de-vina-del-mar-botin-es/2026-08-23/205337.html",
+      "family": "robos_violentos",
+      "slug": "vina-del-mar"
+    },
+    {
+      "id": "3c83a77e40e61144",
+      "cut": "6113",
+      "lat": -34.378072,
+      "lng": -71.332856,
+      "title_es": "Violento asalto en fundo agrícola de Pichidegua: Guardia fue baleado y está en riesgo vital",
+      "title_en": "Violent robbery at Pichidegua agricultural estate: Guard shot and in critical condition",
+      "date": "2026-08-23",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/violento-asalto-en-fundo-agricola-de-pichidegua-guardia-fue-baleado-y/2026-08-23/190152.html",
+      "family": "robos_violentos",
+      "slug": "pichidegua"
+    },
+    {
+      "id": "2c99edae09240352",
+      "cut": "8102",
+      "lat": -36.996187,
+      "lng": -73.045624,
+      "title_es": "Detienen a imputado por violento homicidio frustrado en plena vía pública de Coronel",
+      "title_en": "Arrest made of suspect in attempted violent homicide on public road in Coronel",
+      "date": "2026-08-23",
+      "outlet": "latribuna.cl",
+      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPWjF2S29fQ2VjZHkxc3h3RGJtSE5IUWFFVDJRdUxSdmtwV2ZUaUx3NWxvS0F0SEMycVBSa1llRFJPMFptUGdGOV9mcHNXOHFhUmlzMkFnaGxRTzMteEtQbmdrLUVXZzNkS2FpWG5DR1dpTmpkNXJKaFNkem9lUExteC1nb3pzWkw1dmpXYnhTcEJJX1h5ZmhmZzVrb2hxOF9hSWNsR3FRTTU1M1pKdWNlS3lYY1J5Rm8tY1Azb1d0RWk4VTU2eVZMZUx2ZEJrYm_SAdcBQVVfeXFMUF9rNHljY1dBNS1mbU5LSnpJdnRvdXdfajliRE90Z0FRZE9CRi1WVW5VUm1aY256ZldhU3p2SmZNM3MxRGpKWUhBTS1rel9vUFlPUHN4WWlhRUEyMkpyaUppZmluWVktUTVOMTFPdl95U3Q4UzAxM3oyVS1lRkt4dWtNcTlEMjg5VVRnaGhSYTIwWTFtbG4tcThFaUtxTnJETkk3NzYwMVhYellJZlE1TmZ1cUFzQlBmeFJLS0ZEMlNtUTlQOHQ5dnVIUHZkRlc4aUpkQVdMWGs?oc=5",
+      "family": "vida",
+      "slug": "coronel"
+    },
+    {
+      "id": "9c2f02a64843e0c1",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Hombre muere tras quedar en medio de una balacera en cité de Estación Central",
+      "title_en": "Man dies after being caught in a shootout in Estación Central neighborhood",
+      "date": "2026-08-23",
+      "outlet": "sabes.cl",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdGwxNGs3eEduZ0RKTjNhVFBTU2swc1pQR3dMajJ3c3RsdVdxcUNkRk82V0RIalo2UUFta3QyTVNUd0RFSmltbmYyT01QUHpTOXNMWEM2c0F4cElBdFVRLWxpSzR5UWRVWTVmYkcydVBhbVYxXzdsUC10bTNCdUR6YmUyaTJJWmkxMHNVWGFKczVrUkpsNC04R1dxNUxpd0lseXZRdV9Qb3hkZw?oc=5",
+      "family": "vida",
+      "slug": "estacion-central"
+    },
+    {
+      "id": "10db59e9e1a6fb1f",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Homicidio en Santiago Centro: Un hombre de 48 años fallece tras disparos",
+      "title_en": "Man dies in shooting in Santiago Center",
+      "date": "2026-08-22",
+      "outlet": "urgente.cl",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQRmo2aUk3X0NHck1rbUdfUUg4cnZqLVQ5NWNkSXRmYkN4V0l2eVNlVF9Ib0VfbGltT243eDlaZG9rblBGVTR6dWw2dHl1c3gtc2M2ZHJoRTFIbklPQ0luclRuRzVlUTBtZkZyRG5ucHNydVlJcG1JQXhEbW8xRW5zX3hKV3RId2NpOFN0R0V5MnN2VHA2dlVfb3pTNzh5bms?oc=5",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "2ec55f5696509201",
+      "cut": "13201",
+      "lat": -33.585262,
+      "lng": -70.549631,
+      "title_es": "Hermanos enfrentan juicio por robo de fusiles desde Fuerte Aguayo",
+      "title_en": "Brothers face trial for gun theft from Fuerte Aguayo",
+      "date": "2026-08-22",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOQ3RWWXUtWDJsVmJTeGhOOURYWF84MjJWS2NLWmxGN3VZTTZoWlRGVzBLVzNWT2RsdVpPNTdYaTVYSHppejM1eUw5Q1dKX1dfZHhwWEhXZ1E4WjNiU1N3bEk3WTJGaDFLQXZuNS11bkdpOU9qWnlrZmNkSkhCWXEweXlqSDY4Wk93Z0dPTUFKUlA0R2VVZVEyQS0wYjBDWWZDQmVINmxpaTM?oc=5",
+      "family": "armas",
+      "slug": "puente-alto"
+    },
+    {
+      "id": "9fec39dc9d380b44",
+      "cut": "1107",
+      "lat": -20.216725,
+      "lng": -69.996704,
+      "title_es": "Cuatro excarabineros declarados culpables por golpear y rociar gas pimienta a detenido en Alto Hospicio",
+      "title_en": "Four former carabineros found guilty of beating and pepper-spraying detained person in Alto Hospicio",
+      "date": "2026-08-23",
+      "outlet": "ADN Radio",
+      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQNG9xNDRyU1NyTXo0akNtZnRVNW5tckFWYlRXeXRxemV2dzFyb3BMbnczQ3JFTi1lc0xtcmVFNjVVd1NYN1lNY2t4eG1qcHZmbGtNa2JVbkE1Z3lKdDh0RDAyUkY5Z0VsN3NXX1kxTTB2RXRYUXQ4aUk1WUktUDJ5RHRVb0NTcjhVejdEOGhXRV9zUDlVYUJYT0VFU3F5NmdqeWhvYkpVMF9jMGk2TXZrQTQxWHRvTmhaeEY3a1F4cnlfVmpDUG1MOE85ZDF3MUtPRDN6Wkcxa3FWdlHSAe8BQVVfeXFMTk9wb0F3T0l4QkVvcjl6TmNWWWNHd2NwcjRNemhlaWdUdkZWTzRHNE1EcHZBSEpMbHpGR0IyazQ3Q2xfTHRyeXAxTy1ySVFsbnl6a0JSSW9Ib3dTelBPRVVQX0N3OV9ocWZMU0w1aVJkU2d6UnB4M3lUZXRtTGRZSXJMeFVqRk5JSTJxSHVMcGhyMURFcUMyWERnbWkta1VCZVVReGhkbjFoVWkxYTUyMDJaTHpfSDg2dXR0LXoyY0tsRVpRQlJpM2VuN09XeHRxeEo3b0VObU1xV09NbFNtV0locXNVQUdaOFFVRjhycnM?oc=5",
+      "family": "vida",
+      "slug": "alto-hospicio"
     }
   ]
 }
