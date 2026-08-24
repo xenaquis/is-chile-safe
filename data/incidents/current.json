@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-24T06:50:04.403921Z",
+  "generated": "2026-08-24T12:41:14.932902Z",
   "window_days": 30,
   "incidents": [
     {
@@ -22543,6 +22543,136 @@
       "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQNG9xNDRyU1NyTXo0akNtZnRVNW5tckFWYlRXeXRxemV2dzFyb3BMbnczQ3JFTi1lc0xtcmVFNjVVd1NYN1lNY2t4eG1qcHZmbGtNa2JVbkE1Z3lKdDh0RDAyUkY5Z0VsN3NXX1kxTTB2RXRYUXQ4aUk1WUktUDJ5RHRVb0NTcjhVejdEOGhXRV9zUDlVYUJYT0VFU3F5NmdqeWhvYkpVMF9jMGk2TXZrQTQxWHRvTmhaeEY3a1F4cnlfVmpDUG1MOE85ZDF3MUtPRDN6Wkcxa3FWdlHSAe8BQVVfeXFMTk9wb0F3T0l4QkVvcjl6TmNWWWNHd2NwcjRNemhlaWdUdkZWTzRHNE1EcHZBSEpMbHpGR0IyazQ3Q2xfTHRyeXAxTy1ySVFsbnl6a0JSSW9Ib3dTelBPRVVQX0N3OV9ocWZMU0w1aVJkU2d6UnB4M3lUZXRtTGRZSXJMeFVqRk5JSTJxSHVMcGhyMURFcUMyWERnbWkta1VCZVVReGhkbjFoVWkxYTUyMDJaTHpfSDg2dXR0LXoyY0tsRVpRQlJpM2VuN09XeHRxeEo3b0VObU1xV09NbFNtV0locXNVQUdaOFFVRjhycnM?oc=5",
       "family": "vida",
       "slug": "alto-hospicio"
+    },
+    {
+      "id": "49a66c7cb13e11f5",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Carabinero balea a asaltante de 16 años que intentó robarle en Santiago",
+      "title_en": "Carabiner shoots 16-year-old robber who tried to attack him in Santiago",
+      "date": "2026-08-24",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/24/carabinero-balea-a-asaltante-de-16-anos-que-intento-robarle-en-santiago.shtml",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "0f7188a94f26d3bf",
+      "cut": "8102",
+      "lat": -36.996187,
+      "lng": -73.045624,
+      "title_es": "Caso Embotelladora Llacolén: Fiscalía y CDE apelan a postergación de formalización de alcalde Chamorro",
+      "title_en": "Llacolén Bottling Case: Prosecution and CDE appeal postponement of alderman Chamorro's formalization",
+      "date": "2026-08-24",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/24/caso-embotelladora-llacolen-fiscalia-y-cde-apelan-a-postergacion-de-formalizacion-de-alcalde-chamorro.shtml",
+      "family": "vida",
+      "slug": "coronel"
+    },
+    {
+      "id": "4a4826df0b07aad7",
+      "cut": "13110",
+      "lat": -33.539168,
+      "lng": -70.463562,
+      "title_es": "PDI detiene a mujer por amenazar con una bomba en dependencias de la Universidad de Chile",
+      "title_en": "PDI arrests woman for threatening to bomb University of Chile facilities",
+      "date": "2026-08-24",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/24/pdi-detiene-a-mujer-por-amenazar-con-una-bomba-en-dependencias-de-la-universidad-de-chile.shtml",
+      "family": "vida",
+      "slug": "la-florida"
+    },
+    {
+      "id": "7556f35d62a09cf7",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Sujetos armados dispararon e intentaron incendiar un cité en Santiago Centro",
+      "title_en": "Armed individuals fired shots and attempted to set fire to a cité in central Santiago",
+      "date": "2026-08-24",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/sujetos-armados-dispararon-e-intentaron-incendiar-un-cite-en-santiago/2026-08-24/074541.html",
+      "family": "robos_violentos",
+      "slug": "santiago"
+    },
+    {
+      "id": "1e76c7921801cd0c",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Atropello de peatón derivó en linchamiento a supuesto 'motochorro'",
+      "title_en": "Pedestrian struck leads to lynching of alleged 'motochop'",
+      "date": "2026-08-24",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/atropello-de-peaton-derivo-en-linchamiento-a-supuesto-motochorro/2026-08-24/072831.html",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "a2b678c3392efe09",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Dictan prisión preventiva a tíos de Makarena Tolosa por secuestro con homicidio; la joven sigue desaparecida",
+      "title_en": "Preventive prison ordered for Makarena Tolosa's uncles for kidnapping with homicide; the young woman remains missing",
+      "date": "2026-08-24",
+      "outlet": "Canal 9 Bío Bío Televisión",
+      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQeHIzdkhETmFSWkRfenlhcTh1eTN4YVVkZmtBZkhkaHlFYTdyUHRGWUNscmlyYWJ0c3hvVl9uN1FjRmdzZU5TY2I0dnRFNDhZLTVqSDNwUlVpTU9RbHozM1dmSTJIQ3I0MmlkYTM1bUJ6RnA4Qk5kZHdFSmF3UEJhLTJ4dDVEaWVnTTVXWE5wSzBsLVhtSF9NNUpEV00tX0dSWFFOY3d1UU5wQ0xZd2w5SmRVOGVwTFEwUmtUOUx5NDlyZnN3anJGYjBTb1V5RkJmYVFZYlRrLU5zYlE?oc=5",
+      "family": "vida",
+      "slug": "concepcion"
+    },
+    {
+      "id": "69ffddd0bbf869a2",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Operativo inédito en el Superclásico: SENDA y Carabineros estrenaron narcotest masivo en el Estadio Nacional",
+      "title_en": "Innovative operation during the Superclásico: Senda and Carabineros debut massive drug test at Estadio Nacional",
+      "date": "2026-08-23",
+      "outlet": "ADN Radio",
+      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQdDZDLU1FRUEtU3hvMXNMd1E4Mjh5ZDM3ZWtDNHJqTXJzeG5EQlJvcGF5U1V2cFZtclVCVEFxaEdFQWVWcUVPeTRyQ3FWeWpfRTN2WEwxalNrNU9iMi1nODRkUEZVTFlYNnZxTUR6U1pwWVZqTVlNcGFzOFRybWJpelhxeXJ0TDAydmhKVXkyRnRqR0p6cldPbUxJZ3lMZktGYjRrRmt1Xy0wb0RUNmxaZWRhckptdVFRTktHdlZ1LU0zZEMtTVlFNzM1M2dQNURBaUx0N1VIZnFKTFnSAe8BQVVfeXFMT0g1dW96NXdnYTVNVEVtSzhNVmEwOFBRTHZ2VmdsLTdxR1RaeFVlck95M2JYc25HM1pObXozNGNOaWRFeHlBUFE4TUYxYTFyNEdVQ1c5ZlI5aUZmalZWNXhyejQ3SkpfbjJzTmdZb1JtbWpLMWRjNjVSc0tKeFYxTmhEdlhBaHVaNmc5M1pCd09HNWlibDhQdXRnNUQwYWdMV3dicWQ5TUNMcUVrUm5mcXNhem1KQnMybkdSX3RLeHc5QzMyZ0JDOHFBM0JiQmFpNFlSVUktczE5MmZzVlZDM1dQYWM5Y0Z3X3lCV1VnMUU?oc=5",
+      "family": "drogas",
+      "slug": "santiago"
+    },
+    {
+      "id": "862cd60d47794451",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Investigan asesinato a tiros de ciudadano colombiano en Estación Central",
+      "title_en": "Investigating shooting murder of Colombian citizen in Estación Central",
+      "date": "2026-08-23",
+      "outlet": "BioBioChile",
+      "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxNODR6SjRRal9xY2VrcU9xcGFxZHI3UVAwWHpQVVlvNU5sT0JvUXdzZC0xMnA5M3RRV01LNk9oUHdQY21paGQzZTFfbEM3cnUwemk5MjVjVUJCZDd5ZVRyRmEtLUN2cU00ajloaGNfLVY2aEMzLWZBaU9BaUdaOHFxa0twZkplTGw3a1ZQLWFJT1o1cFRfZ3AwRGZxcTkyZm9OQVBKa1Foc3E2ZmJfUFp4UW8yWC02b29sU1VTSUE4TTBid21KTnROS1lJQ1h1ZXdsa3RVOHVMVDJnR1lDaU5oNFlpem50WHVUZHVB?oc=5",
+      "family": "vida",
+      "slug": "estacion-central"
+    },
+    {
+      "id": "cda0cf911da697a1",
+      "cut": "12101",
+      "lat": -53.368996,
+      "lng": -71.47533,
+      "title_es": "Detenido por porte ilegal de arma y usurpación de identidad en Alto Hospicio",
+      "title_en": "Armed with illegal weapon and identity theft detained in Alto Hospicio",
+      "date": "2026-08-24",
+      "outlet": "El Reportero de Iquique",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPeElyREZhMkEwQ1V4R0w4ekxmcjN1bENlVkZuYl9mazc0MHczcGpsZWo4Y3dMUGhGV1lnYnZvZWU5eGZIRmFiNm5zZkFOV1YtMlBSU1R2ekdZTEc4S055YTBwcWlKNk9ZX1BpMXhIcTZ0WUlfSHE0WThhc0V0UHVxQ2ZDUHVyMzk1T2hUSUotZDFyVGtNV25tTU11cll3OHR0SXh3dlBxU3diZFBMQzFr?oc=5",
+      "family": "armas",
+      "slug": "punta-arenas"
+    },
+    {
+      "id": "413476e5addd06a8",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "Hombre de 35 años hallado muerto a balazos en su domicilio en Coquimbo",
+      "title_en": "35-year-old man found dead from gunshot wounds at his home in Coquimbo",
+      "date": "2026-08-22",
+      "outlet": "Cooperativa",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQZGNVX2RUdmhqa1VZUDhfVU9zWDhiSDJpUmVIMENESF9qczNTV3ZRTldfbUpCbEhXR2o0dU42b3hRS1VVMFluUi1uWmtqUnAtVW5fQ3RKUmxoUEhKWGw4VS1wN05OVDZhOHhxSFhCQ2ZDNTFjV3BIbEJHakRMdjlocVB0aHp4enZEV2h6atIBjAFBVV95cUxQZGNVX2RUdmhqa1VZUDhfVU9zWDhiSDJpUmVIMENESF9qczNTV3ZRTldfbUpCbEhXR2o0dU42b3hRS1VVMFluUi1uWmtqUnAtVW5fQ3RKUmxoUEhKWGw4VS1wN05OVDZhOHhxSFhCQ2ZDNTFjV3BIbEJHakRMdjlocVB0aHp4enZEV2h6ag?oc=5",
+      "family": "vida",
+      "slug": "coquimbo"
     }
   ]
 }
