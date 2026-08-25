@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-25T06:40:08.014820+00:00",
+  "generated": "2026-08-25T12:40:21.351880+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -13160,6 +13160,56 @@
       "description": "Carabineros realizó más de 3 mil controles y detuvo a 127 personas en la región&nbsp;&nbsp;tiempodenoticias.cl",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-08-25T06:40:08.014820+00:00"
+    },
+    {
+      "id": "461ae3ddbc42f06d",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/25/motociclista-muere-tras-colision-con-un-bus-red-en-la-pintana-su-acompanante-esta-viva.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-25",
+      "title": "Motociclista muere tras colisión con un bus RED en La Pintana: su acompañante está viva",
+      "description": "Un accidente de tránsito dejó un motociclista muerto y una mujer herida en La Pintana. El hecho ocurrió cerca de las 22:00 del pasado lunes, en la intersección de avenida Gabriela con avenida Santa Rosa. Según los antecedentes preliminares, un bus RED que se encontraba fuera de recorrido y sin pasajeros avanzaba por avenida Gabriela &#8230; Continua leyendo \"Motociclista muere tras colisión con un bus RED en La Pintana: su acompañante está viva\"\nThe post Motociclista muere tras colisión con un b",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-25T12:40:21.351880+00:00"
+    },
+    {
+      "id": "0f41bfa79a5c969f",
+      "url": "https://www.lacuarta.com/chile/noticia/salio-con-su-papa-y-hallo-cadaver-al-volver-al-departamento-la-version-de-menor-que-fue-a-clases-tras-matar-a-su-madre/",
+      "outlet": "LaCuarta",
+      "date": "2026-08-25",
+      "title": "Salió con su papá y halló cadáver al volver al departamento: la versión de menor que fue a clases tras matar a su madre",
+      "description": "En vez de llamar a Carabineros o a las autoridades para reportar el deceso, la adolescente de 14 años tapó el cuerpo con una sábana.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-25T12:40:21.351880+00:00"
+    },
+    {
+      "id": "11b5b45729d570ff",
+      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPeHhqUVpFZWJLMDMzWF8wQnMyTk5yMUFzTGxZWXZxajJITWp4aElLc2Q2Z3REc2hXa2FUbXY4RFZpN3owdlJkWHFwY2xpb2ZMbjQ1MVM3dDZyV0k0RDdTdjh4cDU2Z1JOV2JXVko2dE01RFBWdVMweE55LXJJSURoVWRFUFNaeUdEbDRFNFZGTFNvNGhGTGd1dWFsdjBQX2ZyREc3XzQzS3hUY3p3N295NXlWeWJsX0UxTXdDU3BnUlNmcHM5b2owbTBucU1sNllVSjYxNGt2VFljUDg?oc=5",
+      "outlet": "Radio Contacto 90.7 FM",
+      "date": "2026-08-25",
+      "title": "Bassaletti apoya nuevo estado de excepción contra crimen organizado: General de Carabineros debería liderar - Radio Contacto 90.7 FM",
+      "description": "Bassaletti apoya nuevo estado de excepción contra crimen organizado: General de Carabineros debería liderar&nbsp;&nbsp;Radio Contacto 90.7 FM",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-25T12:40:21.351880+00:00"
+    },
+    {
+      "id": "3ce24a26b3ebc530",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOVnpqclRMVW9qR0c3ZE8xTjRmVFBrYzZNZG1DU2JvYjRBZWhkdmpLb0RCU1JPcHMwREdEQm9jVDUyRVRPbzFHY0dzM2xXWHFNclQyRWVfV0JnaWtRNTdjbnR2RzBxWGd5X0c5clR4M3ZBWG41YVNOM3NLd2xQZ2hVU1VGOHlrekZQV1Y3MlBsSzBESkkwbXhuLUZlNllCQ2k3U3Jqdy1hSHVsU2NYRlVCX3pnaEpKVkxDUTlhcU4xVXh6ZlQ4ek5LZHZjbw?oc=5",
+      "outlet": "2001 Online",
+      "date": "2026-08-25",
+      "title": "Macabro hallazgo tras asesinato de mujer venezolana: encontraron su cráneo sobre una tumba - 2001 Online",
+      "description": "Macabro hallazgo tras asesinato de mujer venezolana: encontraron su cráneo sobre una tumba&nbsp;&nbsp;2001 Online",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-25T12:40:21.351880+00:00"
+    },
+    {
+      "id": "5868812bffba8ae1",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOaXJaUkFvRDJ4Um03aUMzNzJjVUc3eHEtSXFKcC1TTmhzUGdYTWtIVTFrS2lMQUxaNUExaWJLSkxFRk4xbWFHSzlTVGo3RkJTYmpZOU04MjBPaUxuMExfSDVXSU0yZUxDM3JXNlRWYXoxMEpmLUdIWTBIZUs2bnh5SmNTMmlDSGFsZTNFN0N3UDZVZlhGSHVZRU5zckVJZHlNTDlOeHhWX2dvVVBKbE5za3l4QVp0eDhDMHljY05EV0VVT3gtSGFnc0UtSkNkZ214WTk0SS1B?oc=5",
+      "outlet": "El Líbero",
+      "date": "2026-08-25",
+      "title": "Indicador de Violencia e Impunidad: 56 detenidos y 40 condenados en 2026 mientras agosto sigue sin atentados - El Líbero",
+      "description": "Indicador de Violencia e Impunidad: 56 detenidos y 40 condenados en 2026 mientras agosto sigue sin atentados&nbsp;&nbsp;El Líbero",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-25T12:40:21.351880+00:00"
     }
   ]
 }
