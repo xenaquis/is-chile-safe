@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-26T06:41:40.091637Z",
+  "generated": "2026-08-26T12:43:38.386720Z",
   "window_days": 30,
   "incidents": [
     {
@@ -23206,6 +23206,149 @@
       "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxOZzgtdTFJeVNHdE53R0MtY2xKMFN3UmgtOWZ0bm14Vzk5RTZlNHVrcmkxU0lveVJkX3h0UThCd0tXaWlmc2QzOExVaVRseXFjdFB2OVFaUnJqUXBnMHh4WUVRanZvaXZnUl9YRHhpMUhEVFJUdEwyV0lpeHZpM245QklEUEJraTM2WHQ5Tk4xbGtpcXF3aUtlY09KZV9Lc21iNUktYllWdE43SUZkdkQyV1pHM0NwX0N2OVpQSERVVjNxZ3ZueTA4NzluNlVTNDIyMVFzcTJ0dnc5Zw?oc=5",
       "family": "vida",
       "slug": "antofagasta"
+    },
+    {
+      "id": "3204998d81dee9c4",
+      "cut": "14104",
+      "lat": -39.860779,
+      "lng": -72.571245,
+      "title_es": "Identifican a víctima de incendio que destruyó cuartel en Los Lagos: siniestro dejó 10 damnificados",
+      "title_en": "Victim identified in fire that destroyed barracks in Los Lagos: disaster left 10 affected",
+      "date": "2026-08-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-rios/2026/08/26/identifican-a-victima-de-incendio-que-destruyo-cuartel-en-los-lagos-siniestro-dejo-10-damnificados.shtml",
+      "family": "incivilidades",
+      "slug": "los-lagos"
+    },
+    {
+      "id": "68748d2ee065dbeb",
+      "cut": "13104",
+      "lat": -33.385523,
+      "lng": -70.693079,
+      "title_es": "Fiesta en vivienda de Conchalí termina en incendio con un fallecido",
+      "title_en": "Party in Conchalí residence ends in fire with one death",
+      "date": "2026-08-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/26/fiesta-en-vivienda-de-conchali-termina-en-incendio-con-un-fallecido.shtml",
+      "family": "vida",
+      "slug": "conchali"
+    },
+    {
+      "id": "95c8c9b89e1990be",
+      "cut": "8305",
+      "lat": -37.842602,
+      "lng": -72.096955,
+      "title_es": "Hombre es baleado en Mulchén y se niega a dar detalles de sus atacantes",
+      "title_en": "Man shot in Mulchén refuses to give details of attackers",
+      "date": "2026-08-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/26/hombre-es-baleado-en-mulchen-y-se-niega-a-dar-detalles-de-sus-atacantes.shtml",
+      "family": "vida",
+      "slug": "mulchen"
+    },
+    {
+      "id": "aafe5c55e4ce4730",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Caso Cristóbal Miranda: fracasa intento de una de las defensas por debilitar investigación",
+      "title_en": "Cristóbal Miranda Case: Defense Attempt to Weaken Investigation Fails",
+      "date": "2026-08-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/26/caso-cristobal-miranda-fracasa-intento-de-una-de-las-defensas-por-debilitar-investigacion.shtml",
+      "family": "vida",
+      "slug": "concepcion"
+    },
+    {
+      "id": "65fa3619b2dae6b7",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Detienen a banda extranjera que robaba millones a víctimas que asistían a casas de cambio de la RM",
+      "title_en": "Foreign gang arrested for robbing millions from victims using exchange houses in the RM",
+      "date": "2026-08-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/26/detienen-a-banda-extranjera-que-robaba-millones-a-victimas-que-asistian-a-casas-de-cambio-de-la-rm.shtml",
+      "family": "robos_violentos",
+      "slug": "santiago"
+    },
+    {
+      "id": "ee068515ae44ce5c",
+      "cut": "13104",
+      "lat": -33.385523,
+      "lng": -70.693079,
+      "title_es": "Homicidio frustrado en Conchalí: delincuentes balean a hombre para tomarse una casa y vender droga",
+      "title_en": "Attempted homicide in Conchalí: criminals shoot man to take a house and sell drugs",
+      "date": "2026-08-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/26/homicidio-frustrado-en-conchali-delincuentes-balean-a-hombre-para-tomarse-una-casa-y-vender-droga.shtml",
+      "family": "vida",
+      "slug": "conchali"
+    },
+    {
+      "id": "bb4872dd2301b180",
+      "cut": "13104",
+      "lat": -33.385523,
+      "lng": -70.693079,
+      "title_es": "Indagan balazos e intento de toma de predio en Conchalí",
+      "title_en": "Investigation of shooting and attempted takeover of property in Conchalí",
+      "date": "2026-08-26",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/indagan-baleo-e-intento-de-toma-de-predio-en-conchali/2026-08-26/073847.html",
+      "family": "vida",
+      "slug": "conchali"
+    },
+    {
+      "id": "a36c4eabe9a5ff29",
+      "cut": "13104",
+      "lat": -33.385523,
+      "lng": -70.693079,
+      "title_es": "Hombre falleció tras incendio durante una fiesta en Conchalí",
+      "title_en": "Man dies in fire during party in Conchalí",
+      "date": "2026-08-26",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/incendios/hombre-fallecio-tras-incendio-durante-una-fiesta-en-conchali/2026-08-26/071317.html",
+      "family": "vida",
+      "slug": "conchali"
+    },
+    {
+      "id": "db76700a49eb0917",
+      "cut": "13104",
+      "lat": -33.385523,
+      "lng": -70.693079,
+      "title_es": "Homicidio frustrado en Conchalí: hombre de 61 años fue baleado en las afueras de su domicilio",
+      "title_en": "Attempted homicide in Conchalí: 61-year-old man shot near his home",
+      "date": "2026-08-26",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/homicidio-frustrado-conchali-hombre-de-61-anos-fue-baleado-en-las-afueras-de-su-domicilio/",
+      "family": "vida",
+      "slug": "conchali"
+    },
+    {
+      "id": "8eef73c56e381b62",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "Víctima de homicidio en Recoleta usaba silla de ruedas; sospechoso detenido",
+      "title_en": "Victim of homicide in Recoleta was in a wheelchair; suspect arrested",
+      "date": "2026-08-26",
+      "outlet": "BioBioChile",
+      "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxOWDkyM3BzOTdHelJ4MWZFbkFzRC1jMzhibFVEaGVNRWYxUnRhQ0NxSjlscnJicFk3SHBhejk2cVFFbkZCeTd2VTIzSDdDVUxJWnBrSmdYWmlwY21TNm9CZ1lLTzh4Ymh3X2xENkhQZkdaTlM0SnpxMThhX0M2SFJPT2ZrSHZ0RVV5QVB5RUJhUi1aajVVb0ZjNDNJVzBDTHBscmxjN0ktRUpHcWsyYmpOWkpGVm9yUkxMWU9saTkyeGhBQ0J3SXhtQU9QZER2SjNLWEV0M3c0M29uZGJKeDJ1X0QtWWhiYWhEWkVMYzgzeXdqOE9tMjU4bi1jQWo4Tlk5aDMwc3ROY0Q4UQ?oc=5",
+      "family": "vida",
+      "slug": "recoleta"
+    },
+    {
+      "id": "d9320362cdd8a850",
+      "cut": "16303",
+      "lat": -36.291126,
+      "lng": -71.904416,
+      "title_es": "Acusados por robo en vivienda reciben 8 años de presidio",
+      "title_en": "Accused of house robbery receive 8 years in prison",
+      "date": "2026-08-24",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNOWF3SDZLQWZtOEY5aXg0b1V3SEhGV1lIN3hVbXotdE12RzZyS2wycE5sX0JVXzhlSHFfTDU5NzZjRHVmMVZXd0ZRTC1uSXJ4UFVrbGcyREhseGRPODJVY2hSQ0dRTGhfMWNqSTFUMkctN1pXSXhHVEJpU2o3aE5YbFV2OXFYLXQ3NndvSjVkeEg1bzJpZEN4RVlLOEo1bjg?oc=5",
+      "family": "robos_violentos",
+      "slug": "niquen"
     }
   ]
 }
