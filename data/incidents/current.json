@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T05:26:47.778186Z",
+  "generated": "2026-08-29T12:13:04.246715Z",
   "window_days": 30,
   "incidents": [
     {
@@ -23700,6 +23700,97 @@
       "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNNzVBU25oTVNYbUlRSFlrMG5aRGVJbEVPR2FCbk11WVAtSFdYdmVSV3ZrUDI2YTVCaDNKZEN1SF80Y0l2S2k0WmFMbEZhem5PVGRfWjhvdE13VE9tN0tFUXJ1RDNVWmwzdlo1VVNwcjRKQU9RR3l6Rm9IdWZBbWJtZnJPOHI4Z2hhcTg2c9IBjAFBVV95cUxNNzVBU25oTVNYbUlRSFlrMG5aRGVJbEVPR2FCbk11WVAtSFdYdmVSV3ZrUDI2YTVCaDNKZEN1SF80Y0l2S2k0WmFMbEZhem5PVGRfWjhvdE13VE9tN0tFUXJ1RDNVWmwzdlo1VVNwcjRKQU9RR3l6Rm9IdWZBbWJtZnJPOHI4Z2hhcTg2cw?oc=5",
       "family": "vida",
       "slug": "santiago"
+    },
+    {
+      "id": "36842a98a178c710",
+      "cut": "13102",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Carabineros matan a tiros a dos delincuentes tras intento de encerrona en bencinera de Cerrillos",
+      "title_en": "Carabineros shoot dead two criminals after attempted encircling at Cerrillos gas station",
+      "date": "2026-08-29",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/29/carabineros-matan-a-tiros-a-dos-delincuentes-tras-intento-de-encerrona-en-bencinera-de-cerrillos.shtml",
+      "family": "vida",
+      "slug": "cerrillos"
+    },
+    {
+      "id": "9e4b567ffdceedea",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "Drogado y asaltado en Bellavista: testimonios detrás del aumento de delitos en discotecas",
+      "title_en": "Drugged and robbed in Bellavista: testimonies behind the rise of crimes in nightclubs",
+      "date": "2026-08-29",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/especial/bbcl-investiga/noticias/articulos/2026/08/29/drogado-y-asaltado-en-bellavista-testimonios-detras-del-aumento-de-delitos-en-discoteques.shtml",
+      "family": "drogas",
+      "slug": "recoleta"
+    },
+    {
+      "id": "ef421160c2bb0d9f",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Juez Juan Carlos Silva sobre órdenes para no dar nombre de imputados: “Cuando se da en casos concretos no hay censura”",
+      "title_en": "Judge Juan Carlos Silva on orders not to name defendants: “When it is done in specific cases there is no censorship”",
+      "date": "2026-08-29",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/juez-juan-carlos-silva-sobre-orden-de-no-dar-nombre-de-imputados-cuando-se-da-en-casos-concretos-no-hay-censura/",
+      "family": "vida",
+      "slug": "santiago"
+    },
+    {
+      "id": "bad4b179b4f63b5b",
+      "cut": "13102",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Dos delincuentes muertos abatidos por carabineros tras intento de encerrona en bencinera de Cerrillos",
+      "title_en": "Two criminals killed by carabineros after attempted robbery at gas station in Cerrillos",
+      "date": "2026-08-29",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/dos-delincuentes-mueren-abatidos-por-carabineros-tras-intento-de-encerrona-en-bencinera-de-cerrillos/",
+      "family": "vida",
+      "slug": "cerrillos"
+    },
+    {
+      "id": "52f71884978c14d3",
+      "cut": "5101",
+      "lat": -33.116644,
+      "lng": -71.575283,
+      "title_es": "Detienen en Valparaíso a hombre vinculado a doble homicidio con arma de fuego en Alto Hospicio",
+      "title_en": "Arrest made in Valparaíso of man linked to double homicide with firearm in Alto Hospicio",
+      "date": "2026-08-27",
+      "outlet": "soy-chile.cl",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOeWRiaGVWRGZKUC0xZ0JGdzRFUHZWOEtVemQ2SzVOc0JjVnM4bzU3WjhXRGhsZ08ycC04WVF2TkMxM2d1UDZEbFdVQ3V6dFEzQV96dGNUMU4tQzdBc1pSRWx4R0FLNGpOd2FsR2ljbTc5c1RCV2N1Z1Y4c3I1QTE2aGR0WDRQMkhzaHJiY1dwRUZaZG1aMUo1QXQ3QQ?oc=5",
+      "family": "vida",
+      "slug": "valparaiso"
+    },
+    {
+      "id": "a4170f4c0d62394e",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Último detenido en prisión por ataque a carabinero en Antofagasta",
+      "title_en": "Last prisoner detained for attack on police officer in Antofagasta",
+      "date": "2026-08-27",
+      "outlet": "24horas",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOWHZqbjVGVkhWMmZPendwdXNsYU5wQlN0WE9DXzFWVjBMN3V2XzYyT18wU0xxeXpjRTAtZDZrTlY2N0ZjUDJNTnl1VkxvcWNEbk9pSC1yTTRNUWFIUWdtRGVUaVBkbU9ZMWRvODJGZW9kOWp0SmJpUkMtbWZPSHBQOE96WHlwZVpqWlo4dm1IUy12SmtKbzJ3bmM1Z0pTSDVzWjQxUGIzcWlkSy1JemVpenJOb04tcE1pUXRn?oc=5",
+      "family": "vida",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "794d6a412892fb9e",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Corte de Iquique aprueba apelación de Fiscalía y ordena prisión preventiva por robo violento en tienda",
+      "title_en": "Iquique Court approves prosecutor's appeal and orders preventive detention for violent robbery in store",
+      "date": "2026-08-29",
+      "outlet": "Diario El Longino",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQMWREVk1vWmhUdDQ5dXI3THVvSF9ESjc2RzhUTGJrZjV6YzdHcjBtbG1NVWVHdG5uenpxdmdmaDdCR0JTbWl2YnpkanJaYWl4bmVJWDBhLTd2NWtlWC14dTZWTktCNGZkQmdZNFBXTG1aN1R0SHhrMEZWSDdqU3M3eEtmeGcxaHEtdG5URTVsd2lVSFJ6a0lSMzA2UEdZRnVwdWIyQ0ZZcGZOZU1yTXBfazliN1hpUWFvYnkweV9fQlVnMzluVHVIVDJ5X20tSXV2OFRTSQ?oc=5",
+      "family": "robos_violentos",
+      "slug": "iquique"
     }
   ]
 }
