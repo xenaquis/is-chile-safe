@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-30T03:22:43.314258Z",
+  "generated": "2026-08-30T11:09:32.406790Z",
   "window_days": 30,
   "incidents": [
     {
@@ -23518,6 +23518,71 @@
       "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOQTJnRmtqUVFWWnFTR3N4aEM4Mm1wVHlvMTc1VkltNlFoaTlFd3QtWkNydkxyaUJJdmtmNmxUWmVab2swWUlCZGY2ZkctZTRRSVBCdmFtVnotWWFhbVMtWWVsNWpfNDEtV0ZGbkRGU3pqTVptcm1xMVR2UHZOT0pKWXQzc3lYcjFkVlM1MmdJc2NkakR3aWZhSTBLNk1MQTQ3Y2ZaYjRBdXJ5U3BDVU9SeDl5eFd3ek1aYXByWmNKVzIyNEU4enB4OXdSMkpmd1JlcTBveWV0Yw?oc=5",
       "family": "vida",
       "slug": "temuco"
+    },
+    {
+      "id": "2594da79a781c610",
+      "cut": "5101",
+      "lat": -33.116644,
+      "lng": -71.575283,
+      "title_es": "Detienen a \"El Diablo\": sujeto acusado de robo y agresión en tren EFE en Valparaíso",
+      "title_en": "Arrest made of \"El Diablo\": suspect accused of robbery and assault on EFE train in Valparaíso",
+      "date": "2026-08-30",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-valparaiso/2026/08/29/detienen-a-el-diablo-sujeto-acusado-de-robo-y-agresion-en-tren-efe-en-valparaiso.shtml",
+      "family": "robos_violentos",
+      "slug": "valparaiso"
+    },
+    {
+      "id": "bc7e7471a9a5159f",
+      "cut": "5101",
+      "lat": -33.116644,
+      "lng": -71.575283,
+      "title_es": "Robos, frenazo, destrozos y escape por las vías: peligroso \"pasajero\" del Merval terminó tras las rejas",
+      "title_en": "Robberies, derailment, destruction and escape on the tracks: dangerous \"passenger\" of the Merval ended behind bars",
+      "date": "2026-08-30",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/robos-frenazo-destrozos-y-escape-por-las-vias-peligroso-pasajero/2026-08-29/234109.html",
+      "family": "robos_violentos",
+      "slug": "valparaiso"
+    },
+    {
+      "id": "1810930f7b864143",
+      "cut": "13110",
+      "lat": -33.539168,
+      "lng": -70.463562,
+      "title_es": "Tiroteo en La Florida deja un muerto y un herido grave cerca de la feria Los Copihues",
+      "title_en": "Shooting in La Florida leaves one dead and a seriously injured person near Los Copihues fair",
+      "date": "2026-08-30",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/tiroteo-dejo-un-muerto-y-un-herido-grave-cerca-de-feria-libre-en-la/2026-08-29/231345.html",
+      "family": "vida",
+      "slug": "la-florida"
+    },
+    {
+      "id": "f0a01dcd66357881",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Capturan 25 imputados con órdenes vigentes en Antofagasta y Calama: una mujer llevaba 1.736 días prófuga",
+      "title_en": "Arrest 25 defendants with active warrants in Antofagasta and Calama: a woman had been fugitive for 1,736 days",
+      "date": "2026-08-29",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNZjJ4UUFkQTJYVE9udFhuZVlIWVcyNHZJckRWSnJfQW5OV1otVHJkWEh0eEUwUFIzaFQ1NmhVYUVTUThBWWhhRWVaMkFUOGEwcE9TNzdoRkFGeFB2SVYzMENvamhfZ21kT0ttZXhQaEVRcUJWdEVkM3hBZ3ZHRk9PZzlORzBGeVdYcHFYQWU5VkVfalNuaVpBdnZyc1lEZw?oc=5",
+      "family": "vida",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "c3c0cfb06966afa5",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "Balacera deja una persona fallecida y otra en riesgo vital en Coquimbo",
+      "title_en": "Shooting leaves one dead and another critically injured in Coquimbo",
+      "date": "2026-08-30",
+      "outlet": "Serena y Coquimbo",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQRy1rNUVMX3g1QWN6UUZRenRnaGVWYkFFUG5HdVZPSWl2U3B3ZlFMVzh5OHRWa0Y0eHZveWsycWlBdGlXNGpjajVSVVFEc3lwWjlPVmRUUkVWM3RJRHFjdFRjTU5mcXlNS2tFUlY3dUdGdUI1S2tKR1Bpa2c4aWQyQ3hXb1M2emZqNWVVQUFUcGdYNHFiamNqcTBR?oc=5",
+      "family": "vida",
+      "slug": "coquimbo"
     }
   ]
 }
