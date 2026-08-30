@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T20:21:48.453710+00:00",
+  "generated": "2026-08-30T03:22:43.256565+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -15670,6 +15670,136 @@
       "description": "Robos golpean al mundo agrícola en Limarí: autoridades y agricultores piden cambios a las leyes&nbsp;&nbsp;Mi Radio",
       "rejection_stage": "resolver_fail",
       "first_seen": "2026-08-29T20:21:48.453710+00:00"
+    },
+    {
+      "id": "d4c385b3cf3eb145",
+      "url": "https://www.biobiochile.cl/noticias/internacional/america-latina/2026/08/29/tribunal-boliviano-decreta-segunda-prision-preventiva-para-cerimedo-por-enriquecimiento-ilicito.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-30",
+      "title": "Tribunal boliviano decreta segunda prisión preventiva para Cerimedo por enriquecimiento ilícito",
+      "description": "Un tribunal boliviano dictó este sábado una segunda detención preventiva contra el consultor político argentino Fernando Cerimedo, esta vez en un caso por supuesto enriquecimiento ilícito, que se suma al proceso por presunta tentativa de femicidio contra su expareja, por el que se encuentra detenido en una prisión de la región oriental de Santa Cruz. &#8230; Continua leyendo \"Tribunal boliviano decreta segunda prisión preventiva para Cerimedo por enriquecimiento ilícito\"\nThe post Tribunal bolivi",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
+    },
+    {
+      "id": "c86ff00198029937",
+      "url": "https://www.biobiochile.cl/noticias/internacional/asia/2026/08/29/nepal-eleva-a-675-los-muertos-tras-devastadora-riada-y-mantiene-a-casi-3-000-desaparecidos.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-30",
+      "title": "Nepal eleva a 675 los muertos tras devastadora riada y mantiene a casi 3.000 desaparecidos",
+      "description": "Las autoridades de Nepal elevaron este sábado a 675 la cifra de cuerpos recuperados tras la devastadora riada del miércoles en la cuenca del Bhote Koshi, lo que eleva el total de fallecidos entre Nepal y el Tíbet a 682 personas y mantiene a casi 3.000 en paradero desconocido en ambos lados de la frontera. &#8230; Continua leyendo \"Nepal eleva a 675 los muertos tras devastadora riada y mantiene a casi 3.000 desaparecidos\"\nThe post Nepal eleva a 675 los muertos tras devastadora riada y mantiene a ",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
+    },
+    {
+      "id": "543ed26557b73730",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/08/29/detienen-en-peru-a-r15-presunto-lider-del-tren-de-aragua-en-chile.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-30",
+      "title": "Detienen en Perú a \"R15\", presunto líder del Tren de Aragua en Chile",
+      "description": "La Policía Nacional de Perú detuvo a un presunto cabecilla en Chile de la banda criminal transnacional de origen venezolano Tren de Aragua, que se encuentra requerido por la justicia chilena por presuntamente integrar una red de secuestros y extorsiones. El detenido, de nacionalidad venezolana, contaba con una orden de detención vigente y fue identificado &#8230; Continua leyendo \"Detienen en Perú a \"R15\", presunto líder del Tren de Aragua en Chile\"\nThe post Detienen en Perú a &quot;R15&quot;, p",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
+    },
+    {
+      "id": "6bf65d552953a288",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/crimen-organizado/cayo-en-lima-r15-un-presunto-lider-del-tren-de-aragua-en-chile/2026-08-29/174137.html",
+      "outlet": "Cooperativa",
+      "date": "2026-08-29",
+      "title": "Cayó en Lima \"R15\", un presunto líder del Tren de Aragua en Chile",
+      "description": "La Policía Nacional de Perú detuvo a un presunto cabecilla en Chile de la banda criminal transnacional de origen venezolano Tren de Aragua que se encuentra requerido por la Justicia chilena por presuntamente integrar una red de secuestros y extorsiones.\nEl detenido, de nacionalidad venezolana, contaba con una orden de detención vigente y fue identificado bajo el nombre de Ibelmery Adon Colina Maldonado, más conocido en el mundo criminal bajo el apodo de \"R15\".\nLa captura se realizó en el distrit",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
+    },
+    {
+      "id": "90dd4fb5115e95f9",
+      "url": "https://www.latercera.com/mundo/noticia/eeuu-tiroteo-tras-aviso-por-violencia-intrafamiliar-deja-un-policia-muerto-y-otro-herido-en-carolina-del-sur/",
+      "outlet": "LaTercera",
+      "date": "2026-08-30",
+      "title": "EE.UU.: Tiroteo tras aviso por violencia intrafamiliar deja un policía muerto y otro herido en Carolina del Sur",
+      "description": "El enfrentamiento ocurrió en un parque de la ciudad de Greenville, luego de que agentes localizaran a un hombre denunciado por una mujer que contaba con una orden de alejamiento en su contra.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
+    },
+    {
+      "id": "019cf41547811ba3",
+      "url": "https://www.latercera.com/mundo/noticia/justicia-boliviana-dicta-segunda-detencion-preventiva-contra-argentino-fernando-cerimedo/",
+      "outlet": "LaTercera",
+      "date": "2026-08-30",
+      "title": "Justicia boliviana dicta segunda detención preventiva contra argentino Fernando Cerimedo",
+      "description": "Un tribunal boliviano dispuso la medida por supuesto enriquecimiento ilícito contra el consultor, quien ya se encuentra detenido en el país altiplánico por presunto femicidio. En los últimos días, el denominado “rey de los trolls” transandino ha sido vinculado al director de la Secom de la Administración Kast, Felipe Costabal.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
+    },
+    {
+      "id": "adc1d249851f5a9a",
+      "url": "https://www.latercera.com/nacional/noticia/capturan-en-lima-a-r15-uno-de-los-lideres-de-una-faccion-del-tren-de-aragua-en-chile/",
+      "outlet": "LaTercera",
+      "date": "2026-08-29",
+      "title": "Capturan en Lima a “R15″, uno de los líderes de una facción del Tren de Aragua en Chile",
+      "description": "Ibelmery Colina Maldonado era investigado por la Fiscalía Supraterritorial y la BIPE Antisecuestros por un secuestro ocurrido en mayo en Estación Central. Será puesto a disposición de la justicia chilena tras su expulsión.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
+    },
+    {
+      "id": "d9251d9cf1a83415",
+      "url": "https://www.latercera.com/mundo/noticia/rescatan-con-vida-a-una-nina-de-seis-anos-tras-permanecer-casi-60-horas-bajo-escombros-en-nepal/",
+      "outlet": "LaTercera",
+      "date": "2026-08-29",
+      "title": "Rescatan con vida a una niña de seis años tras permanecer casi 60 horas bajo escombros en Nepal",
+      "description": "La menor fue localizada en Timure, cerca de la frontera con China, dentro de un estrecho espacio formado por barro y restos de construcciones. La catástrofe deja 675 fallecidos y 2.418 desaparecidos en territorio nepalí.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
+    },
+    {
+      "id": "a07d32bb693ff104",
+      "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxNTmRCc3VTNFh1dGNackJyREJLY3cyRnc4NVJiQURNd3htX3RxWHV6X2FpQUc4NnZGeUQ1WkJsTUR0UWZrYldKNlBfUHdzS1VyTjJ2eU9YS0hET2trZ1ZUa25LVDJwYXByNGVvMUFNUUhQek5QUlViSWdHaWR4YzI2WWE0N3QtVkJUYk5DcFI3ZHpieHB1alZ0RkFWZW5uVDlfODJiM1JHVmFzQWxUWmxQTE83OG5BUUFQNXgtdzRMSk1PQXRLREVrUTVhRldCZDdpZ2RuSnJOdWg3NmdTR1JxdGkwLTNzdW1NSDZR0gH_AUFVX3lxTFBSSVpfeHVLSUN0OXRmc1RpNGdfMkFveVVmQlBVQ2oxclJ1WGRTODNIQlpkcWJuQ3pDbE93eWlsTUpvdjZPRHBaWUt0RktTWWY1dkFDM190VWNXcDFyWW9TVlRMX2RQNHI4NTVZMm9jNVUtajhBbHVmZGZ5U3dwazZiQWxGNUp1NFFrRjdqZ1lUNmsyd2NCSEdwZmswZFZHeGJtM0JVQk4xQWRxcEdCMFA2WUhSR2JFYzE2WHFfaEtXWTNFVmIzRmZpWTBiUk1WdTNOSm40cU0tM1BfV09ZSnhCTnJ2aXZjVDdYRkxoYWN5MnpMXzByTDFUaS01Q3pISQ?oc=5",
+      "outlet": "ADN Radio",
+      "date": "2026-08-29",
+      "title": "Diputados RN presentan proyecto para permitir uso de IMSI Catcher y captar comunicaciones en casos de crimen organizado - ADN Radio",
+      "description": "Diputados RN presentan proyecto para permitir uso de IMSI Catcher y captar comunicaciones en casos de crimen organizado&nbsp;&nbsp;ADN Radio",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
+    },
+    {
+      "id": "a6aeaf66ea4ed061",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNa29VVUZjRmNkSVd6LUxRWUpreE9xRWpoaGJTWFFHNW41LVVqX002RlBNWGs4ckJTeFhNbFdxZHgxblhSckFQYXk5TlBXS0ZXUXk2MWRkOHZtU2JJMC15T3laNXFzWWl0cEVlNVZlV3hBdzJTeExKb1pkMXl2dlZzUGJibC1MMUNfSU9GbEIwRGhrbE1PSWx6NmNPcWU0QlZQY0JfMTB1N2xKMjA2WkHSAcIBQVVfeXFMT25iR0Y1WDk2X0k2WWRtQ0doa2UxcnJfeEp5Wkt3S3JyMlVlNlZlZVVrTHFLcmFoZDBsc0hKRXdSZzM1Zjc5dlA3Z0JCZjFZVm8zYllwZnJwLVBHcGNXTU96eXplOEgxTFliczhKSUVYNmJCWk82SGJRZXhSRU1acV9nYzFaa0hlZXFYQjNPVGdPR1BqSzB0NzRYSkV6SGk0b1U5S1kzUTJZYUlEYVUxQVdydHVOV0hKU2dTbHk3QVF1OEE?oc=5",
+      "outlet": "ADN Radio",
+      "date": "2026-08-30",
+      "title": "Cae en Perú “R15”, presunto líder de una facción del Tren de Aragua en Chile - ADN Radio",
+      "description": "Cae en Perú “R15”, presunto líder de una facción del Tren de Aragua en Chile&nbsp;&nbsp;ADN Radio",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
+    },
+    {
+      "id": "ded78bf1da460028",
+      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9wSUNiRnJwb0pnMURmYWluUVVGT2ZkaXEyeVJaR3BqMzFvVGQwcDhQUloxVEhlVDJwTVlXZWljZks3SGJETjc0T2h3bE5pa19xTUFkTTMtS3pRSFJlWHJ6MnkteFJxTWFLRjFNUVFMNmdNQjZONTBHYXphVdIBe0FVX3lxTE9wSUNiRnJwb0pnMURmYWluUVVGT2ZkaXEyeVJaR3BqMzFvVGQwcDhQUloxVEhlVDJwTVlXZWljZks3SGJETjc0T2h3bE5pa19xTUFkTTMtS3pRSFJlWHJ6MnkteFJxTWFLRjFNUVFMNmdNQjZONTBHYXphVQ?oc=5",
+      "outlet": "Reporte Confidencial",
+      "date": "2026-08-30",
+      "title": "Llegan a Chile dos extraditados vinculados al secuestro y homicidio de Ronald Ojeda - Reporte Confidencial",
+      "description": "Llegan a Chile dos extraditados vinculados al secuestro y homicidio de Ronald Ojeda&nbsp;&nbsp;Reporte Confidencial",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
+    },
+    {
+      "id": "acc3d11caa22fa17",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOZmR1UFBWa0dEOHRGR216bHNhMVdTRmltTmJzRVdXZkcxTmxNNWFJM3pLcGRzMHRkZXd5UGtTelo4NGpZcHhreF91aGpCSVJsM3luQ2pDbW13VXJpa1JmeE9veGVCOGN0Q1FvcndtbVl2NmNvd3cwZkJYQmI2YlAxbFhfYWk2VzF6ZnNkSnIxazdTMm5Nd0lIUmxKUG9sU1ROT0Q0cEZDOUJFaTBmWGZLZW5BaUJDeXU1Z1J1UkZGbTZfQVE?oc=5",
+      "outlet": "Artículo 14",
+      "date": "2026-08-28",
+      "title": "Desolación tras el robo del tesoro de la Edad de Bronce más valioso de Europa - Artículo 14",
+      "description": "Desolación tras el robo del tesoro de la Edad de Bronce más valioso de Europa&nbsp;&nbsp;Artículo 14",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
+    },
+    {
+      "id": "f2f0239d6676d173",
+      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNNXl3WUlBMklVLWhTZlV5LXplN0lnZGYxeFNHaXlEYl8zS2RfQXN1YU9vanhHNE41ODRHMUYtY2g1QW9rTXF0OWtkeHZndlZGbG9Ia2JkX0RCaUdoTVlOemZEOW1hUUpkS2trOGxhLXZ6TWdDY3pRcmdYVkF1bGx0QjFuRXo5UnVMdW9qdVJ1NkxudmdyZy1pbFpUTTRiczNxM3h0V19qX0dJZ2d6Nk9qYllKTmROZUZGblVOT2tvRng2WVpDRnBkUlpvWWlRTHhEdFlsSGRJVG4?oc=5",
+      "outlet": "Radio Riquelme",
+      "date": "2026-08-29",
+      "title": "Noticia en desarrollo: Captan a banda escapando tras nuevo robo a farmacia Salcobrand en Avenida Ulriksen. - Radio Riquelme",
+      "description": "Noticia en desarrollo: Captan a banda escapando tras nuevo robo a farmacia Salcobrand en Avenida Ulriksen.&nbsp;&nbsp;Radio Riquelme",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-30T03:22:43.256565+00:00"
     }
   ]
 }
