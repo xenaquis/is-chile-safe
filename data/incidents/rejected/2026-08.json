@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-31T03:18:55.383197+00:00",
+  "generated": "2026-08-31T12:34:51.140342+00:00",
   "items": [
     {
       "id": "23968bef10a0530f",
@@ -16210,6 +16210,136 @@
       "description": "Carabineros recupera en Las Compañías vehículo robado hace dos semanas: hay tres detenidos&nbsp;&nbsp;Radio Guayacan",
       "rejection_stage": "resolver_fail",
       "first_seen": "2026-08-31T03:18:55.383197+00:00"
+    },
+    {
+      "id": "ff15c0629abb736e",
+      "url": "https://www.biobiochile.cl/noticias/salud-y-bienestar/cuerpo/2026/08/31/marihuana-en-chile-entre-el-uso-habitual-potenciales-beneficios-y-senales-de-una-posible-adiccion.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-31",
+      "title": "Marihuana en Chile: Entre el uso habitual, potenciales beneficios y señales de una posible adicción",
+      "description": "Mientras para algunos usuarios forma parte de una práctica recreativa habitual o incluso de tratamientos asociados a determinadas enfermedades, para los especialistas también representa una sustancia capaz de generar dependencia, alterar el funcionamiento cotidiano y, en determinadas personas, aumentar el riesgo de problemas de salud mental. Hablamos del consumo de marihuana en Chile. La discusión &#8230; Continua leyendo \"Marihuana en Chile: Entre el uso habitual, potenciales beneficios y señal",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
+    },
+    {
+      "id": "bd9cbd3e8f392138",
+      "url": "https://www.biobiochile.cl/especial/bbcl-investiga/noticias/articulos/2026/08/31/tenian-capacidad-para-mantener-trending-topics-como-sombra-de-cerimedo-cae-sobre-el-nucleo-de-kast.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-08-31",
+      "title": "\"Tenían capacidad para mantener trending topics\": cómo sombra de Cerimedo cae sobre el núcleo de Kast",
+      "description": "La detención en Bolivia de Fernando Cerimedo y el hallazgo de una presunta “granja de bots” reactivaron en Chile las sospechas sobre campañas coordinadas en redes sociales para favorecer a José Antonio Kast. Oficios parlamentarios, una denuncia ante la Fiscalía y la desaparición de cuentas como Neuroc y DresTrumpi pusieron el foco en el entorno del mandatario. Fuentes que conocieron la campaña de 2025 aseguran que Martín Arrau, hoy ministro de Seguridad, afirmó que su equipo podía instalar y man",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
+    },
+    {
+      "id": "f4f4fa527c248dba",
+      "url": "https://www.latercera.com/mundo/noticia/la-escalada-de-violencia-narco-que-azota-a-costa-rica-el-otrora-pais-ejemplo-de-centroamerica/",
+      "outlet": "LaTercera",
+      "date": "2026-08-31",
+      "title": "La escalada de violencia narco que azota a Costa Rica, el otrora país ejemplo de Centroamérica",
+      "description": "Un país que hasta hace pocos años era apreciado por su seguridad ha visto su tasa de homicidios llegar a números como los de México.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
+    },
+    {
+      "id": "89f45d2ae81fafac",
+      "url": "https://www.latercera.com/mundo/noticia/venta-ilegal-de-combustible-envios-de-oro-a-dubai-y-presuntos-aviones-con-drogas-los-negocios-sucios-de-fernando-cerimedo-el-rey-de-los-trolls/",
+      "outlet": "LaTercera",
+      "date": "2026-08-31",
+      "title": "Venta ilegal de combustible, envíos de oro a Dubai y presuntos aviones con drogas: los negocios sucios de Fernando Cerimedo, el “rey de los trolls”",
+      "description": "A su detención en Bolivia por el intento de femicidio de su expareja, la abogada Nadia Beller, al caído en desgracia consultor argentino de líderes de derecha en América Latina se le suma ahora una nueva prisión preventiva en el marco de la causa por enriquecimiento ilícito.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
+    },
+    {
+      "id": "9797b261a99984f5",
+      "url": "https://www.latercera.com/nacional/noticia/carabineros-suma-nueva-especialidad-de-formacion-sobre-asuntos-internos-y-lidero-encuentro-internacional-de-control-institucional/",
+      "outlet": "LaTercera",
+      "date": "2026-08-31",
+      "title": "Carabineros suma nueva especialidad de formación sobre Asuntos Internos y lideró encuentro internacional de control institucional",
+      "description": "Desde marzo de 2027, la institución será la primera policía de Latinoamérica que formará a funcionarios especialistas en realizar investigaciones internas con el fin de evitar hechos de corrupción en las filas institucionales.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
+    },
+    {
+      "id": "169c09e45d23783c",
+      "url": "https://www.latercera.com/mundo/noticia/corea-del-norte-descarta-la-desnuclearizacion-ante-la-postura-hostil-de-estados-unidos-cada-dia-es-mas-peligroso/",
+      "outlet": "LaTercera",
+      "date": "2026-08-31",
+      "title": "Corea del Norte descarta la desnuclearización ante la postura “hostil” de Estados Unidos: “Cada día es más peligroso”",
+      "description": "“Nuestras armas son una garantía absoluta para defender nuestra soberanía\", sostuvo un portavoz del Ministerio de Exteriores.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
+    },
+    {
+      "id": "62919cf09ee7f4aa",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPaHNtc1UxaFRvQVZGVDQtMU5DWXEtako3Qi0tTUd2ZVFzTTlYaFlrSDRvVUNYRFQ2a0lmMUhNM0Z2UkpoZ3FaWklGUW5yZDA5R3FzeFhiUzF2YWNkWkg5Nk9nSy13TzJ0N2RqSHNuWVRGQllITzlnMDloMS0wenpDR3lERnBnLUZ6b0Q2WE1OWlAtQXpTbElaTEVUaHpYMTBkeWtZb0RVTHFJcmpQYlNMX29ZQzBIdEU?oc=5",
+      "outlet": "Teletica",
+      "date": "2026-08-30",
+      "title": "Capturan en Perú a líder del Tren de Aragua en Chile con apoyo del FBI - Teletica",
+      "description": "Capturan en Perú a líder del Tren de Aragua en Chile con apoyo del FBI&nbsp;&nbsp;Teletica",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
+    },
+    {
+      "id": "a992e075e70586eb",
+      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBKeXBtcEdVRGowSWxSYWtFRk1ra0JGaGpmRTRvaS1NcFR5VmkzYUd5NTcyNXNEQkdnMk1wd2JOR19FSXUtUWg3OFQ4SFVMb2VCXzA4aWFDbGZZUUJpdldYdDA4Qll2X0ZCMDA3WjlBN2RBV3NpdEV5VzlIczk?oc=5",
+      "outlet": "Columna Digital",
+      "date": "2026-08-30",
+      "title": "Detenido en Chile, R15, jefe de Tren de Aragua - Columna Digital",
+      "description": "Detenido en Chile, R15, jefe de Tren de Aragua&nbsp;&nbsp;Columna Digital",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
+    },
+    {
+      "id": "95357fe9cb4feb80",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPWVVhVnl4dVN4Vm14VGNKWDJTaWRhSHp0djRmSkluUWNmbnV1Q1lINF84S2VnYVU0UER3ZHhwLUhSUU42WTNEUjliRElkZTRQQ3gzTmRYUGROc0F4azl0V3pwTjlxaHFJZGNfUUJEaFZtWkVreFFyZmdmMFo2Y25Hb0J5NnVzWVVrbTRXTTVuYi1LQm5TaVoyM0xSdFZoUFFjY09xOFNGSi1UN3Vo0gGsAUFVX3lxTE9ZVWFWeXh1U3hWbXhUY0pYMlNpZGFIenR2NGZKSW5RY2ZudXVDWUg0XzhLZWdhVTRQRHdkeHAtSFJRTjZZM0RSOWJESWRlNFBDeDNOZFhQZE5zQXhrOXRXenBOOXFocUlkY19RQkRoVm1aRWt4UXJmZ2YwWjZjbkdvQnk2dXNZVWttNFdNNW5iLUtCblNpWjIzTFJ0VmhQUWNjT3E4U0ZKLVQ3dWg?oc=5",
+      "outlet": "Faro de Vigo",
+      "date": "2026-08-31",
+      "title": "La fundición del oro, la alternativa más contemplada tras los robos en museos como el de Villena - Faro de Vigo",
+      "description": "La fundición del oro, la alternativa más contemplada tras los robos en museos como el de Villena&nbsp;&nbsp;Faro de Vigo",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
+    },
+    {
+      "id": "45aa590da7874d25",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNMlFDa3c5Z3ozMmRiWFliWUFnVGdwXzE2aG5ZTWdxcVIySEtFU3hwVGZ3YkZWaE9jdmhfTGMzQ052MmdvaFlOX2ZXMlNoVGdLZ19uc3VYTDNlSUtNUVBjcWJ3NGZLOFNvTkd1cVg3QjVOTWVwNmVkNk5USjN0ZVVYN0diQmlVejhWQTFJemNSd25pX05IVUMwNTNrbzAwbXZsclJUcUoyUldJZWFDUzVqVU9taVJ6RUhiY3l6SjZjbmVIc2c?oc=5",
+      "outlet": "Radio Interior",
+      "date": "2026-08-31",
+      "title": "Badajoz blinda su Museo Arqueológico con 20 cámaras tras el robo del Tesoro de Villanueva - Radio Interior",
+      "description": "Badajoz blinda su Museo Arqueológico con 20 cámaras tras el robo del Tesoro de Villanueva&nbsp;&nbsp;Radio Interior",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
+    },
+    {
+      "id": "89957b64c05f75dd",
+      "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPaXVyRURCSlY3THNsdDlWb3VUWlh6N2s0RnR6aFZBVnk0ekR1RUNpWmR1UzRsbjdUT0FVa1NVcVJyYk8zaHI1Q3J5aW96eExYTklJNWJvOUxweXpjNExCeDhVaWs4TDR4eUItXzVQQVU2VHZ4T1NaYVhxdnM0dWhfZ3Z4MWNsRklnTm9GMDY3YWRkT0hjWV9GY3ltUGJVWXpkNDAwQUNvSGc2bjJlLXlOMU8yTjZPR3djcXdBSVNiZkIwaE1uYXVzWTlNencyaTJPUGdWREtHMHc4MzUyT19aYzh30gH2AUFVX3lxTE55UVJmOVdteFkwbXlyVWFMWG41SDdwUm5KNVdxc0xmZ0JHYWVGczc4RDZEcldNQjhXZV9la3V4NDhwcUFFTmR1Q21MQUIxY0wydUlMWFFNSzE0elhTWUpHdlBBUFpUSS1iYUwtZHBjeU5hbVR2ZzJ1OWZ6UFlTbERhVXJpREp5VHBwVlBXR2hPSjJOYVRIRVdtT1RFWk1sSTdOeHVsMUl4S19BVzJqTUlGbHFFRDl5bWJWLWdma3lHOW4tUFhiQmY0U2JWZEp6SjhWNHV4RlBmVDNKYmdTcHhHaTltSzNuSFBzUjJGUTJESlFkNzFLZw?oc=5",
+      "outlet": "ADN Radio",
+      "date": "2026-08-28",
+      "title": "Prisión preventiva para conductor que atropelló y causó la muerte a Paz Ramírez: imágenes desmintieron su versión - ADN Radio",
+      "description": "Prisión preventiva para conductor que atropelló y causó la muerte a Paz Ramírez: imágenes desmintieron su versión&nbsp;&nbsp;ADN Radio",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
+    },
+    {
+      "id": "76211a603d75e46f",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOT0pKQ3AzNVg4ZHUtZElqaVVQeDNzMUZ0aHhOZ1VsVldoODkzWHN6TGxja1JjdURCR3N0U2c2YzRHaWw2S1VzUVNvQ1dhY0tfQVVaMTh5RTYyWERvTFl3R1llYmVwZ1Y5b2dxbERRNzNXZHprMC1rS2xtaDFLTU80WTFmaXFZTFJYOGItZV9MckM0NjdOb0wwaUVqRkQzd1ZZ0gGmAUFVX3lxTE9GbmVZdVZXdFRPRXkzV01DQVVwaHBuaGJOWnVqZm5xTVF3NXJpRFdld3dSR2dJU2pBVHM4RlExX0J1SG15eGUtU0RuU2JWdFp1ZHdIQnYzNDQ4TVBfeF9uRUswZmV5Q2J1cXdsOHhaSG5tSDdsVkVFSE9GdG81aXFUQzNCeTdYcHBOM0lZSldfdEZpSjdxOEdoNm5ucFNiaURoR3pKNmc?oc=5",
+      "outlet": "RedGol",
+      "date": "2026-08-28",
+      "title": "Club del ascenso sufre robo en pleno entrenamiento: Solicitan ayuda en redes - RedGol",
+      "description": "Club del ascenso sufre robo en pleno entrenamiento: Solicitan ayuda en redes&nbsp;&nbsp;RedGol",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
+    },
+    {
+      "id": "8fa46a4b3fb33618",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOWng3b2gyR3JLcUstcWxHQTVXN1l2elRqRDdpV1M3ZXV2bXpPZ193LWlOTlRZWktuZ3BUS3VSNEhnQ2oxTWdReUtJUDJqNXFHNkpvMDJEcU1lMTVDalF4UDJCS0tOUEgyeDVyRk8yR1FGWDBKTWlaY3JoMFJRSnhQbURMZnhyMXc?oc=5",
+      "outlet": "elagora.cl",
+      "date": "2026-08-29",
+      "title": "(VIDEO) En prisión el carabinero que mató a rapero “Vejetal” - elagora.cl",
+      "description": "(VIDEO) En prisión el carabinero que mató a rapero “Vejetal”&nbsp;&nbsp;elagora.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-08-31T12:34:51.140342+00:00"
     }
   ]
 }
