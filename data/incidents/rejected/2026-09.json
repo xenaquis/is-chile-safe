@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-01T20:30:13.677918+00:00",
+  "generated": "2026-09-02T02:39:35.870375+00:00",
   "items": [
     {
       "id": "20fa2eef6eb80e51",
@@ -740,6 +740,146 @@
       "description": "La fundición del oro, la alternativa más contemplada tras los robos en museos como el de Villena&nbsp;&nbsp;Diario Córdoba",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-09-01T20:30:13.677918+00:00"
+    },
+    {
+      "id": "b0c0a30e4c9cfd4e",
+      "url": "https://www.cooperativa.cl/noticias/pais/judicial/casos-emblematicos/fiscalia-sorprende-en-cierre-del-juicio-grollmus-revela-que-un-dron/2026-09-01/163044.html",
+      "outlet": "Cooperativa",
+      "date": "2026-09-01",
+      "title": "Fiscalía sorprende en cierre del juicio Grollmus: revela que un dron grabó todo el ataque",
+      "description": "",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "f3493253a1eb79cf",
+      "url": "https://www.latercera.com/nacional/noticia/fiscalia-abre-nueva-arista-en-caso-franco-vargas-y-formaliza-a-ocho-militares-por-apremios-ilegitimos-a-otros-tres-conscriptos/",
+      "outlet": "LaTercera",
+      "date": "2026-09-02",
+      "title": "Fiscalía abre nueva arista en caso Franco Vargas y formalizará a ocho militares por apremios ilegítimos a otros tres conscriptos",
+      "description": "La investigación se desprende de la causa por la muerte del soldado en abril de 2024 y contempla a cinco nuevos imputados, mientras otros tres ya enfrentan cargos en el proceso principal por los hechos ocurridos durante la instrucción militar en la zona altiplánica.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "00e9436c096a65de",
+      "url": "https://www.latercera.com/editorial/noticia/los-tribunales-y-el-derecho-a-la-informacion/",
+      "outlet": "LaTercera",
+      "date": "2026-09-02",
+      "title": "Los tribunales y el derecho a la información",
+      "description": "Es preocupante que algunos tribunales sigan aplicando criterios discrecionales para efectos de prohibir la difusión de imágenes o la identidad de imputados, afectando la libertad de expresión o la igualdad de trato.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "e662e74451c34d11",
+      "url": "https://www.latercera.com/politica/noticia/orrego-califica-de-punto-de-inflexion-plan-para-matar-a-alcalde-white-y-pide-cumbre-en-la-moneda-contra-el-crimen-organizado/",
+      "outlet": "LaTercera",
+      "date": "2026-09-01",
+      "title": "Orrego califica de “punto de inflexión” plan para matar a alcalde White y pide cumbre en La Moneda contra el crimen organizado",
+      "description": "El gobernador metropolitano advirtió que en este caso organizaciones criminales cruzaron \"una línea roja” y planteó al Ejecutivo priorizar medidas con respaldo transversal, entre ellas cambios al régimen carcelario y una mayor capacidad para seguir los recursos de las bandas.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "0de45b96d4fad3b5",
+      "url": "https://www.latercera.com/nacional/noticia/dictan-veredicto-condenatorio-contra-el-exalcalde-de-puerto-natales-fernando-paredes-por-cohecho-en-el-caso-led/",
+      "outlet": "LaTercera",
+      "date": "2026-09-01",
+      "title": "Dictan veredicto condenatorio contra el exalcalde de Puerto Natales, Fernando Paredes, por cohecho en el caso LED",
+      "description": "La audiencia de lectura de sentencia será el próximo 11 de septiembre a las 13:15 horas. El exjefe comunal, que suspendió su militancia en la UDI, arriesga penas de hasta 10 años de reclusión e inhabilidad a perpetuidad para ejercer cargos públicos.",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "4dcb988743f5473a",
+      "url": "https://www.latercera.com/nacional/noticia/indio-juan-reingresa-a-centro-penitenciario-tras-control-de-detencion-e-inicia-investigacion-por-amenazas-a-alcalde-white/",
+      "outlet": "LaTercera",
+      "date": "2026-09-01",
+      "title": "Indio Juan reingresa a centro penitenciario tras control de detención y Fiscalía investiga amenazas contra alcalde White",
+      "description": "Al momento de su fuga desde la ex Penitenciaría, Juan Flores Valenzuela cumplía una condena a presidio perpetuo por el delito de femicidio.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "73c0ff6eada77118",
+      "url": "https://www.lacuarta.com/espectaculos/noticia/aprovecho-y-trapeo-el-piso-con-su-excolega-cuchillo-eyzaguirre-se-dio-un-festin-con-la-formalizacion-de-gonzalo-feito/",
+      "outlet": "LaCuarta",
+      "date": "2026-09-02",
+      "title": "Aprovechó y trapeó el piso con su excolega: Cuchillo Eyzaguirre se dio un festín con la formalización de Gonzalo Feito",
+      "description": "El hombre clave de “Sin Filtros” no desperdició la oportunidad y se descargó con todo.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "24cc464a942e6859",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQbzQwYXRVSG54d1JZdzJSUVctd2VweEY4V2ZLRFJFYXhDZmNMTUQ4blNKMWNXNllRNHpTb0NBSDZWQzFldnRqUXlhbDd4S29ncjc3OV95WXJHT1ZYM3o0MThWN0xjUFI3UE1tMUpqT3VpMi0xd2t6cEp1eUJjSENUWkNOR3dlQ3lmQzU1TGVvRVRGd1QyendN?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-09-01",
+      "title": "Tras amenazas: Alcalde White afirmó que \"el crimen organizado no puede ganar\" - SoyChile.cl",
+      "description": "Tras amenazas: Alcalde White afirmó que \"el crimen organizado no puede ganar\"&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "229fff56f9e5a016",
+      "url": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxQNF9CVS1mYXFCVWV5SW5pbU0ySmUyd01FZlNHa0FFemdhMThxOUQyQndFQVhMMV9HSU02X3REVjJLbVFHa29od1ZmUW9TWDlMb2FaYmxvUnR5cklUaUpiZFEzeGNma2kxemFFOFRHeGhrTEtJRkJ5S1V1SHNuQmdYVnl5RkJGbVE2Ri05VGYzS3NQcG5TMHhFWHFtZ21aelVzUHE5dXlaeXpXQWhZak5xXzNUOVBZbTJvUFJmS2Zva29rVkFhNXEyQ1JTMDd2ckMxcWZFNHljcVRWdFFRNUEtclFRYmREVDZueXVtbW5BMl9KR0JRNzJCS3p3Tl9hdw?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-09-01",
+      "title": "La primera puerta del Estado bajo amenaza: el avance del crimen organizado en contra de los municipios - BioBioChile",
+      "description": "La primera puerta del Estado bajo amenaza: el avance del crimen organizado en contra de los municipios&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "8bf8a1ec6515083a",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOcGV5S3NMbG1uakl1WEszc2NYYS1FSjVSQ2VEb2ZkcVVaeThSSnA4d044TzQ1V3h4SXZ3V29fc00telJISFdXQUxjSk1Dd0hBdWVqT0o1QWxncHV0bnJneXhoSk1HdEZtODEwMFh2VTdFUWt1RHdfUTFWN2p3Z29MZkpwSkg5M2owNU96UGFFdUdPSVJzRzBacV9OT1owWHpHNDlzQw?oc=5",
+      "outlet": "Puranoticia.cl",
+      "date": "2026-09-01",
+      "title": "Sub Director de Faro UDD por nuevo estado de excepción constitucional: “Está pensado para graves problemas de seguridad pública, específicamente en el crimen organizado” - Puranoticia.cl",
+      "description": "Sub Director de Faro UDD por nuevo estado de excepción constitucional: “Está pensado para graves problemas de seguridad pública, específicamente en el crimen organizado”&nbsp;&nbsp;Puranoticia.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "745c409f8b790866",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNZ3NKOWJ3enJKN2JGMHFES3hGbllLLThzWHlteHdIRGFDR2gzbWc2Q2J3UmVkX2hMdTQtVVZvbjFnSmRWcXZWTVZxdlNyQ2FPV21VSmFpUHZENVhKemdNNWRpbVBBYjhRbWJnX3ZCcHE1UEZfblhXZzcyd1Ezc0RadlNYc3ZNY2lHdE9vNG0zOW5FWVpjaVYxSllhSHI?oc=5",
+      "outlet": "Correo del Caroní",
+      "date": "2026-09-02",
+      "title": "Cómo el Tren de Aragua planificó el asesinato de Ronald Ojeda - Correo del Caroní",
+      "description": "Cómo el Tren de Aragua planificó el asesinato de Ronald Ojeda&nbsp;&nbsp;Correo del Caroní",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "d8b3ed8568081d65",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPckhDalp1SGxBUXI1eHl1RjlFQUNkMFRsSzdHZW5aVFJKZndCR0Vzcm54SU84OWtMVU5KeWpCYkJpUGZWanpMYjg3VVhCMHQyWlY5MjBFWl9LcGRhLWVUVlhDWHlmWDhfS2ZqYVdwcjVCTlhFOFVJaHhEMGdsdm9QSi13NEcyZm13Z3d5YnIwWU01bXBpX2otcGhMTzJ2OVo2Q1VXQ2pFYm5rTWszaXRLcG45OA?oc=5",
+      "outlet": "radioguayacan.cl",
+      "date": "2026-09-02",
+      "title": "PDI RECUPERA ESPECIES AVALUADAS EN $50 MILLONES Y DETIENE A DOS PERSONAS POR RECEPTACIÓN - radioguayacan.cl",
+      "description": "PDI RECUPERA ESPECIES AVALUADAS EN $50 MILLONES Y DETIENE A DOS PERSONAS POR RECEPTACIÓN&nbsp;&nbsp;radioguayacan.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "d7de3e10f6f64896",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPSlNYbWVrLUNhOUlXNFZlbXFybGZETzNHaVExcUYzOHhIeFlWLWpTaHEzeDI4eTluVWdXcXQybkF6VExIU3lfUTJ3MExHVU1Zd1BfTWpjQzQwT1ZaUUpVeHM4YnkxNFVKQkwxNnBZem9QdmZLMkFEczZZNHFSMmxKWkRXdE85emg4SWV6S1B2UDBZUXIxR3hQU0Vxb1FyVm5HaGwzV9IBpAFBVV95cUxPSlNYbWVrLUNhOUlXNFZlbXFybGZETzNHaVExcUYzOHhIeFlWLWpTaHEzeDI4eTluVWdXcXQybkF6VExIU3lfUTJ3MExHVU1Zd1BfTWpjQzQwT1ZaUUpVeHM4YnkxNFVKQkwxNnBZem9QdmZLMkFEczZZNHFSMmxKWkRXdE85emg4SWV6S1B2UDBZUXIxR3hQU0Vxb1FyVm5HaGwzVw?oc=5",
+      "outlet": "El Periódico",
+      "date": "2026-08-31",
+      "title": "La fundición del oro, la alternativa más contemplada tras los robos en museos como el de Villena - El Periódico",
+      "description": "La fundición del oro, la alternativa más contemplada tras los robos en museos como el de Villena&nbsp;&nbsp;El Periódico",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
+    },
+    {
+      "id": "73764245ee55837b",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNNG02c0o0ajNLNlY4d1pCMUNIY3htYUo4UTJCd2JmWlZzbVc4RjFodWJEXy1YaGMtNkJTRVhOU01jbFpTTlhQcnVxSVRGU0U3dGdRWWxEMk15ZFJXeUY3ZVJBaVNTTnhPbnpmc04yV2NjeVB5YTRieVVyZFdKZ2pZV05BOTF0Q29URkg3clFGeDZxYjZBOF9PV3F4VDBJN0E2NE1jTjRUVUpCSjcwRmVrbDgzNmdwUi1YSWFHZHZranZhVXJyNmZGQmdWSEg?oc=5",
+      "outlet": "Mi Radio",
+      "date": "2026-09-01",
+      "title": "“No saben el dolor que generan”: Robo de 30 cabras golpea a emprendimiento familiar en El Trapiche - Mi Radio",
+      "description": "“No saben el dolor que generan”: Robo de 30 cabras golpea a emprendimiento familiar en El Trapiche&nbsp;&nbsp;Mi Radio",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T02:39:35.870375+00:00"
     }
   ]
 }
