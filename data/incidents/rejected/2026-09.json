@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-02T10:32:26.036840+00:00",
+  "generated": "2026-09-02T15:54:42.455683+00:00",
   "items": [
     {
       "id": "20fa2eef6eb80e51",
@@ -1060,6 +1060,216 @@
       "description": "Recupera Fiscalía de Distrito Zona Centro 39 vehículos con reporte de robo en agosto&nbsp;&nbsp;Ráfaga Noticias",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-09-02T10:32:26.036840+00:00"
+    },
+    {
+      "id": "f469d0d006316646",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-rios/2026/09/02/los-rios-refuerzan-fiscalizaciones-para-septiembre-con-enfasis-en-casos-de-abigeato-y-delitos-rurales.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-09-02",
+      "title": "Los Ríos: refuerzan fiscalizaciones para septiembre con énfasis en casos de abigeato y delitos rurales",
+      "description": "Autoridades, en conjunto con Carabineros, anunciaron un incremento en las fiscalizaciones y controles en la región de Los Ríos durante septiembre y Fiestas Patrias, con énfasis en comunas rurales por casos de abigeatos y delitos contra agricultores. Sobre esto se refirió el delegado presidencial regional (s), Alex Valderrama, quien indicó que incrementarán la presencia de &#8230; Continua leyendo \"Los Ríos: refuerzan fiscalizaciones para septiembre con énfasis en casos de abigeato y delitos rura",
+      "rejection_stage": "commune_null",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "bc925636cb5b0e24",
+      "url": "https://www.biobiochile.cl/noticias/deportes/mas-deportes/2026/09/02/tiger-woods-se-declara-culpable-y-es-condenado-por-accidente-eeuu.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-09-02",
+      "title": "Tiger Woods se declaró culpable y fue condenado por accidente en marzo: golfista evitó la cárcel",
+      "description": "La superestrella del golf, Tiger Woods, se declaró culpable este miércoles de cargos de conducción descuidada y temeraria derivados de un accidente de auto en Florida ocurrido en marzo, lo que le permite evitar una pena mayor. Woods tendrá su licencia de conducir suspendida por cinco años, según los términos de un acuerdo de culpabilidad &#8230; Continua leyendo \"Tiger Woods se declaró culpable y fue condenado por accidente en marzo: golfista evitó la cárcel\"\nThe post Tiger Woods se declaró culp",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "e36a81c2b5d52228",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/accidentes-de-transito/choque-entre-siete-vehiculos-causa-gran-congestion-en-la-costanera-norte/2026-09-02/082350.html",
+      "outlet": "Cooperativa",
+      "date": "2026-09-02",
+      "title": "Choque entre siete vehículos causa gran congestión en la Costanera Norte",
+      "description": "Un choque que involucró a siete vehículos mantiene una importante congestión al interior de la Costanera Norte en la hora punta de esta mañana.\nSegún detalló Carabineros, el accidente ocurrió en dirección al poniente y mantiene problemas entre los sectores de Los Saldes y La Concepción.\n\n07:45 Accidente de tránsito en la autopista Costanera Norte, en dirección al poniente, entre los sectores Lo Saldes y La Concepción, con la pista izquierda inhabilitada. pic.twitter.com/T1mkP1u8An\n— Carabineros ",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "81e19141c758cb22",
+      "url": "https://www.latercera.com/nacional/noticia/desbordes-revive-el-canonazo-de-las-12-tras-siete-anos-detenido-hay-mucha-tradicion-que-no-tiene-que-ver-con-el-reloj/",
+      "outlet": "LaTercera",
+      "date": "2026-09-02",
+      "title": "Desbordes revive el cañonazo de las 12 tras siete años detenido: “Hay mucha tradición que no tiene que ver con el reloj”",
+      "description": "El armamento fue revisado y sometido a pruebas por personal de la Fábrica y Maestranzas del Ejército (Famae), que determinó que se encuentra en condiciones para ser utilizado.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "1ebcd0b5b96ab388",
+      "url": "https://www.latercera.com/finde/noticia/pateando-piedras-la-exposicion-gratuita-que-conmemora-uno-de-los-albumes-mas-emblematicos-de-los-prisioneros/",
+      "outlet": "LaTercera",
+      "date": "2026-09-02",
+      "title": "Pateando Piedras, la exposición gratuita que conmemora uno de los álbumes más emblemáticos de Los Prisioneros",
+      "description": "La muestra hará un recorrido por objetos históricos, fotografías, afiches, discos y elementos interactivos vinculados a uno de los discos fundamentales de la música chilena.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "0aca65c7b4d20367",
+      "url": "https://www.latercera.com/mundo/noticia/cuestionado-expresidente-del-banco-master-habria-pedido-a-juez-de-la-corte-suprema-de-brasil-que-frenara-investigaciones-en-su-contra/",
+      "outlet": "LaTercera",
+      "date": "2026-09-02",
+      "title": "Cuestionado expresidente del Banco Master habría pedido a juez de la Corte Suprema de Brasil que frenara investigaciones en su contra",
+      "description": "El fiscal general pide la anulación del informe policial que recoge el intercambio de mensajes entre el magistrado Alexandre de Moraes y el banquero Daniel Vorcaro, investigado por fraudes e irregularidades financieras.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "4b6fbcd4d7f8a6b0",
+      "url": "https://www.latercera.com/el-deportivo/noticia/stefanos-tsitsipas-sin-piedad-ante-la-suspension-por-dopaje-de-nick-kyrgios-sorprende-que-llegara-tan-tarde/",
+      "outlet": "LaTercera",
+      "date": "2026-09-02",
+      "title": "Stefanos Tsitsipas sin piedad ante la suspensión por dopaje de Nick Kyrgios: “Sorprende que llegara tan tarde”",
+      "description": "Tras su triunfo en la primera ronda del US Open, el griego se refirió en duros términos sobre el oceánico, sancionado por cocaína. Palabras secundadas por el ruso Karen Khachanov, quien resumió que “todo se devuelve”.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "6eeb3ef529be55ad",
+      "url": "https://www.latercera.com/mundo/noticia/aumentan-a-mas-de-1100-los-muertos-por-las-inundaciones-en-nepal-con-mas-de-3900-desaparecidos/",
+      "outlet": "LaTercera",
+      "date": "2026-09-02",
+      "title": "Aumentan a más de 1.100 los muertos por las inundaciones en Nepal, con más de 3.900 desaparecidos",
+      "description": "A estas cifras se suman al menos 16 muertos y alrededor de 550 desaparecidos en territorio chino.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "30488e7eaf9f4def",
+      "url": "https://www.lacuarta.com/espectaculos/noticia/felipe-camiroaga-a-15-anos-de-su-partida-carrera-romances-y-una-tragica-muerte-que-enluto-a-la-tv/",
+      "outlet": "LaCuarta",
+      "date": "2026-09-02",
+      "title": "Felipe Camiroaga a 15 años de su partida: carrera, romances y una trágica muerte que enlutó a la tv",
+      "description": "Este 2 de septiembre se cumplen 15 años de la tragedia de Juan Fernández, el grave accidente del avión Casa 212 de la FACh que dejó entre sus víctimas fatales al querido animador. Aquí un repaso por la historia del “Halcón de Chicureo”.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "ad387d4a435d46f0",
+      "url": "https://www.lacuarta.com/chile/noticia/ahora-se-la-devuelvo-otakin-se-cobra-dulce-revancha-con-bombero-que-le-hizo-burlesco-comentario-tras-estafa-de-colega/",
+      "outlet": "LaCuarta",
+      "date": "2026-09-02",
+      "title": "“Ahora se la devuelvo”: Otakin se cobra dulce revancha con bombero que le hizo burlesco comentario tras estafa de colega",
+      "description": "Trabajador fue uno de los fiscalizados por las autoridades tras la denuncia del influencer. Frente a la PDI se le acabó la risa.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "0281d27acad42cc2",
+      "url": "https://www.lacuarta.com/servicios/noticia/celebran-40-anos-de-pateando-piedras-de-los-prisioneros-con-expo-gratuita-en-el-gam-detalles-y-coordenadas/",
+      "outlet": "LaCuarta",
+      "date": "2026-09-02",
+      "title": "Celebran 40 años de “Pateando Piedras” de Los Prisioneros con expo gratuita en el GAM: detalles y coordenadas",
+      "description": "Durante algunos días de septiembre podrás viajar cuatro décadas al pasado para conmemorar el hito.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "5c1bc4939aed03ca",
+      "url": "https://www.lacuarta.com/chile/noticia/vuelco-total-tras-falsa-denuncia-de-pololo-se-destapa-irresponsable-juego-que-termino-con-joven-fallecida-por-disparo/",
+      "outlet": "LaCuarta",
+      "date": "2026-09-02",
+      "title": "Vuelco total tras falsa denuncia de pololo: se destapa irresponsable “juego” que terminó con joven fallecida por disparo",
+      "description": "Sujeto de 21 años intentó despistar a la policía con una versión a su conveniencia. Salió pillado y quedó en prisión preventiva.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "23b13102f9cabac2",
+      "url": "https://www.lacuarta.com/chile/noticia/no-contaban-con-permiso-denuncia-de-otakin-desato-operativo-en-servicentro-y-fiscalizadores-se-llevaron-nueva-sorpresa/",
+      "outlet": "LaCuarta",
+      "date": "2026-09-02",
+      "title": "“No contaban con permiso”: denuncia de Otakin desató operativo en servicentro y fiscalizadores se llevaron nueva sorpresa",
+      "description": "Al menos cuatro instituciones se activaron tras el delito sufrido por el influencer. La situación escaló más de lo esperado.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "0383301c3f82ea12",
+      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxOZXFCci1JaXRVQkVCd3R1OHpGYS1lbVp6RnpXcEJhZmNpS1pKVGI2d0JLMGQ1N25pYmRPc0NSYWViUTA0OE9SVEFpeWNETlVlMXVTQm5IUXB4Z2FCTTQ1WXdSS2VZNDJLc2xXa2ZUc2ZrMjNxZ25HNkRTUzVXcUxVNV9hVEdvX0tic3RwdnpLSkoxNkJNa1BOOG1lNko4dFBnVmpaTVh5bFlkT18zc25oMTBBM2pZT3ljbG9KQU01YVQ4TVF1eURVamdLTEExbFUxSDVRRnFkZ3hwS2pqYVVn?oc=5",
+      "outlet": "Atacama Noticias",
+      "date": "2026-09-02",
+      "title": "La primera puerta del Estado bajo amenaza: el avance del crimen organizado en contra de los municipios - Atacama Noticias",
+      "description": "La primera puerta del Estado bajo amenaza: el avance del crimen organizado en contra de los municipios&nbsp;&nbsp;Atacama Noticias",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "3a5319d713110796",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNVTBUMWRINFFJdG1TMTMyaXRYdVRPUmdqTVg4WGducXNIM2l3OXdicmw5Q3dwYWM5NlFrUVY2VU1BWTVDb0lHTHY2VmtvWEpUazVPdVJWSDIxdXBrQ05qVmNwSHZrZzB3ZnNVVzVXZjZnZFM5Tmtvek9TR0NUek5wS2pteElhUXJqTjZrTWc2cUcwVjg?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-09-01",
+      "title": "Tras amenazas: Alcalde White afirmó que \"el crimen organizado no puede ganar\" - SoyChile.cl",
+      "description": "Tras amenazas: Alcalde White afirmó que \"el crimen organizado no puede ganar\"&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "a0e36949b214cc93",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQV1k3Nmt5MWZSOG5BVlVkVjd2ZjlIOFhmY25BWFpGOE95MWt3eWZDeHI0c2ZrQ3ZrVEczeExPMnY4aF82RjBxQjZuSk85MkYwbzZTM2RMb2R2TmJyR0dCSVk4S2V1bG9jX0ZEWEoycm8xVGZkRmpjVDE5cHd0OVU4WGduMkEtdjdUSEgtTUxVV2UyUDFtME10dmZJUm1xWkdvLTdtZ29PU1R3VVViN0FabmdWd3ZaemcxS29DRDZLWjVsejh0azlhUGRMSjA3MWVUS2JFQg?oc=5",
+      "outlet": "Metro Ecuador",
+      "date": "2026-09-01",
+      "title": "Condenan a 40 años de prisión a hombre por el asesinato de su hija de 6 meses en Loja - Metro Ecuador",
+      "description": "Condenan a 40 años de prisión a hombre por el asesinato de su hija de 6 meses en Loja&nbsp;&nbsp;Metro Ecuador",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "829e9e35169ee919",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPcWdHN29yenpKUDFFbFdQUERCLXlQOG9oeG9tRzYzZXYwSG1sZENiTHo4Vk5vakxjNm1oUC03cG83QTVxMzNFUXdUazZxcVZUZ1BvUGdTMnpFNWVjUXowcEhWd0xVSEo5LXRPclR4UHRnMnBfR1hZS2RHSjhnTW5ITlcyZjVqdDJibG5QbXlhd3FpMnZEZi16cjVJMEpHZkgxamFjTW9zMmFUQ2x2aWE1a3NZeUJLeHFHZ19CcmhuMzNEMW1r?oc=5",
+      "outlet": "Revista Nueva Minería",
+      "date": "2026-09-02",
+      "title": "Robos de cobre en trenes mineros se disparan y desafían medidas de seguridad en el norte - Revista Nueva Minería",
+      "description": "Robos de cobre en trenes mineros se disparan y desafían medidas de seguridad en el norte&nbsp;&nbsp;Revista Nueva Minería",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "885baa5c3cd3dcc7",
+      "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxNSnlRM0R4WHRyR0ZYNWk0YjNFWXUwVjZERC1kTnBPeGlHNWdhS2RpRjB5cDF2TnIwNEE2NUgzWHJFUnRwejZfak1hX3Y3ZGk0Wmw1SFYzVVVXVzJ0ejBMVnFFeFVSU0Ric3ZrS2RFczhOR25TdEFwQ0lDckg0MUVGTW5oRTRfaGpIclpERVU1YWpoc1pERkhwVkUwWnVhb2JPVkZ1dXU1bG5ESUVENWFoVm1hdWVzS3IyZExGWWtpbVdLNjh3ZzVpQ0xJREQ2ajgxVWpzT0RoWVFJaVBWaEZEb0tDMy1lQmluNEVXNFZuang1Q1BHbFBvSWd3?oc=5",
+      "outlet": "Mi Radio",
+      "date": "2026-09-02",
+      "title": "Ocho causas y tres medidas cautelares tiene menor de 14 años detenido por robo de vehículos - Mi Radio",
+      "description": "Ocho causas y tres medidas cautelares tiene menor de 14 años detenido por robo de vehículos&nbsp;&nbsp;Mi Radio",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "272dd5087d957841",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPakxyWHFrNE9zZU1WSEd4Tm5nMEc0aTc5MW5ZYTdDaTFRN252VDBTMm5KaWl0cENTNDRxS2o5ZEcyWnhDV3Flc3EyTmJqR2dSQWVvcWhuLUZqaFpWVHhVamUtOFFDSFItNDkxdTRCMFc4NE1tMk9TTUh3ajV4OW1fZWRKcW02TVB3ekRNZ3Q5Yi1kVl9lU3Rfb0d3?oc=5",
+      "outlet": "FM Plus",
+      "date": "2026-09-01",
+      "title": "Robos afectan competitividad agrícola regional - FM Plus",
+      "description": "Robos afectan competitividad agrícola regional&nbsp;&nbsp;FM Plus",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "9903d70f6eb82d49",
+      "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxNb2VLSVloeF9YUHNhdkp0d0FHWUhERWFHZ1kzVmhlX0E1Qm5seHpFX3ZMU19FcTg0cVFSOXF1dl9qR2E3LXVkWUJUbElzRlV2U1lKbkV3dFF1bW1ocUkxSjVHUkxaQ09ueDZIanAyZkxiZ2YzZTRoTFZob2RaM3VEZWtsR0NtTHBQczhoZWJ1bG5GZDRLcE05THUteUlXbTlDVDFIS0VSdXY4VnNwNG0tckpQTWxOWGI3NC1JbDhELURDUmZWRHpCalZOTzE3WElhMG1DMHJWbWx1V01EZTlheVg3WTFkMjl1R05scFZtMEJISEhm?oc=5",
+      "outlet": "Valencia News",
+      "date": "2026-09-02",
+      "title": "El PP reclama explicaciones por el robo de Villena - Valencia News",
+      "description": "El PP reclama explicaciones por el robo de Villena&nbsp;&nbsp;Valencia News",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
+    },
+    {
+      "id": "7a023ef1b2c0e9b4",
+      "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQaUFZbnVYZ0xBcUdReWcwWklOQi14RFdhelVadUdhbWZJM1Q4aFIySGNEc1VsZUtsMmNvMkJzbGpYZTNKX0I5RU5qaUtIUWJNOWhyOGN5Tl9JNjRNMEx2dEVQaEFFakZhcTNsRTd2SnNYazZ4VVhWQ2l2RTRkZzZ0RmI4cGM5WEdWejFmM2tfNVJNVVE0NW13Uy1xVHk4LTIxbU9yQWFkOXEwWlNSaHVDUERQdGI3QUk0bWdEakh2bDM1aGloOHFtWEw4TVAwZHJsZnlhZmhWMjZ2akE0V0RRdWJUZ044VllMVU5ndGtVZ1g?oc=5",
+      "outlet": "Radio Riquelme",
+      "date": "2026-09-02",
+      "title": "Historial delictual desde los 12 años: Vecinos y Carabineros frustran nuevo robo protagonizado por menor en el sector Pampa - Radio Riquelme",
+      "description": "Historial delictual desde los 12 años: Vecinos y Carabineros frustran nuevo robo protagonizado por menor en el sector Pampa&nbsp;&nbsp;Radio Riquelme",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-02T15:54:42.455683+00:00"
     }
   ]
 }
