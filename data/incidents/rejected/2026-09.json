@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-02T20:28:46.723083+00:00",
+  "generated": "2026-09-03T02:46:02.034788+00:00",
   "items": [
     {
       "id": "20fa2eef6eb80e51",
@@ -1470,6 +1470,176 @@
       "description": "Detectives de la PDI detienen a mujer por vender herramientas robadas en Facebook: Avaluadas en $1 millón&nbsp;&nbsp;El Reporte Diario",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-09-02T20:28:46.723083+00:00"
+    },
+    {
+      "id": "46cdb82777f748aa",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/09/02/moreira-dice-que-milei-no-derogara-decreto-sobre-soberania-en-estrecho-de-magallanes-seria-un-milagro.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-09-03",
+      "title": "Moreira dice que Milei no derogará decreto sobre soberanía en Estrecho de Magallanes: Sería un milagro",
+      "description": "El senador UDI Iván Moreira encendió las alarmas ante la visita del presidente de Argentina, Javier Milei, a Chile, al asegurar que el mandatario trasandino no firmará el decreto que establece una administración conjunta con Chile sobre el Estrecho de Magallanes. En entrevista con 24 Horas, pese a que se encuentra en su poder desde &#8230; Continua leyendo \"Moreira dice que Milei no derogará decreto sobre soberanía en Estrecho de Magallanes: Sería un milagro\"\nThe post Moreira dice que Milei no d",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "778766d2b01bbe96",
+      "url": "https://www.latercera.com/nacional/noticia/cabecillas-de-dispensario-nacional-y-ma-botanics-quedan-en-prision-preventiva-tras-dos-semanas-de-formalizacion/",
+      "outlet": "LaTercera",
+      "date": "2026-09-03",
+      "title": "Cabecillas de Dispensario Nacional y MA Botanics quedan en prisión preventiva tras dos semanas de formalización",
+      "description": "Tras la audiencia, el fiscal regional de Aysén, Hernán Libedinsky, aseguró que \"se evaluará en su momento formalizar la investigación respecto de otras personas que puedan tener la calidad de imputados en la causa”.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "ba6b81f4cac5a404",
+      "url": "https://www.latercera.com/mundo/noticia/escandalo-por-supuestos-vinculos-entre-poderoso-juez-y-banquero-preso-introduce-mas-incertidumbre-a-campana-presidencial-en-brasil/",
+      "outlet": "LaTercera",
+      "date": "2026-09-03",
+      "title": "Escándalo por supuestos vínculos entre poderoso juez y banquero preso introduce más incertidumbre a campaña presidencial en Brasil",
+      "description": "El magistrado del Supremo Tribunal Federal, Alexandre de Moraes, el mismo que se hizo conocido por condenar al exmandatario Jair Bolsonaro, quedó bajo cuestionamiento por indicios de una relación cercana con Daniel Vorcaro. Analistas creen que el caso golpeará a la campaña presidencial de Lula.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "1788f8cd5967831a",
+      "url": "https://www.latercera.com/nacional/noticia/extraditan-a-ciudadano-dominicano-imputado-por-homicidio-registrado-en-2025-en-la-vega-quedo-en-prision-preventiva/",
+      "outlet": "LaTercera",
+      "date": "2026-09-02",
+      "title": "Extraditan a ciudadano dominicano imputado por homicidio registrado en 2025 en La Vega: quedó en prisión preventiva",
+      "description": "El hecho se remonta al 18 de julio de 2025, cuando la víctima, de 25 años, fue atacado a disparos en la intersección de Antonia López de Bello con Salas, en la comuna de Recoleta.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "5f9dfceccd95cfcf",
+      "url": "https://www.latercera.com/nacional/noticia/kast-emplaza-al-poder-judicial-llama-a-los-jueces-a-reflexionar-y-espera-que-ningun-poder-del-estado-ose-a-trasladar-reos-a-celdas-mas-confortables/",
+      "outlet": "LaTercera",
+      "date": "2026-09-02",
+      "title": "Kast emplaza al Poder Judicial: llama a los jueces “a reflexionar” y espera que “ningún poder del Estado ose” a trasladar reos a celdas “más confortables”",
+      "description": "El Mandatario elevó la pugna que tiene enfrentado al poder Ejecutivo con la judicatura. Esto a propósito de algunas decisiones jurisdiccionales que han revertido el traslado de Gendarmería a reos peligrosos, como ocurrió con los cuatro imputados del Clan Chen que fueron llevados a la cárcel La Laguna.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "fc7827fdff452e1d",
+      "url": "https://www.latercera.com/nacional/noticia/narcoterrorismo-migracion-y-seguridad-los-ejes-que-abordara-estados-unidos-en-el-foro-madrid/",
+      "outlet": "LaTercera",
+      "date": "2026-09-02",
+      "title": "Narcoterrorismo, migración y seguridad: los ejes que abordará Estados Unidos en el Foro Madrid",
+      "description": "La subsecretaria de Diplomacia Pública de Estados Unidos, Sarah Rogers, abordó los objetivos que tendrá su intervención en el encuentro, mientras que el embajador de Estados Unidos, Brandon Judd, destacó que será \"una excelente oportunidad\" para debatir estrategias.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "7075ebb40229e0b7",
+      "url": "https://www.lacuarta.com/mundo/noticia/asesinan-a-reconocido-musico-su-esposa-embarazada-y-su-pequena-hija-en-una-masacre-en-mexico/",
+      "outlet": "LaCuarta",
+      "date": "2026-09-02",
+      "title": "Asesinan a reconocido músico, su esposa embarazada y su pequeña hija en una masacre en México",
+      "description": "Jonathan Meléndez, conocido como Honas, fue encontrado muerto junto a su familia y una trabajadora del hogar. Dos hombres fueron detenidos y una de las principales hipótesis apunta a un robo.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "e44fab18259fdcfa",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOUm8zOVBueTRhRFBEUnBCN3FFa2gycVhzWXd1RzQ2U19CN0V4WXZzQzRQLVllSDl4RkR1SEdQOFZucmUzQ09KT0tzUGNBMTZObkNPandteWE0WVRpSUtzTlZCcU1XS1U4dXRxUVNBaFhDYmhZZnZHRVVXRkV2UjFyb3JkUzJPNGM1SFpyeTNHWm1FVm4xakxrbWJUeVJXLWtoenF3bERkVFlaaTRhYTUyOVNVMFpGUlRQV3RfUE5zNHFFRFlGR3lz?oc=5",
+      "outlet": "elrancahuaso.cl",
+      "date": "2026-09-02",
+      "title": "Crimen organizado en Chile: expertos advierten que aislar presos no basta para desarmar bandas - elrancahuaso.cl",
+      "description": "Crimen organizado en Chile: expertos advierten que aislar presos no basta para desarmar bandas&nbsp;&nbsp;elrancahuaso.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "7c9d131f06052f0a",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxONkFTVENHZ1FvR2ZzUjhTTWZFRlRBRDhKTEE3cnRvcExwXzVXZENpQWRwMUdYcnlseTd1MnhSNHQ5cmU1anFscUh2cmFxYjg0Y0dZTUJyalZtMlVUYzk3OFlKU0xhVS1XcGM3ampoWVA1ZU8teW5sZ0Z5WDVDTnJkWHNZUENVQThTeS1RTU5sOG44UnJHbVlxalVZOG54TDFzcEhzLWFST0JSak0?oc=5",
+      "outlet": "Universidad de Chile",
+      "date": "2026-09-02",
+      "title": "Alcalde White, tras ser dado de alta: \"El crimen organizado no puede ganar\" - Universidad de Chile",
+      "description": "Alcalde White, tras ser dado de alta: \"El crimen organizado no puede ganar\"&nbsp;&nbsp;Universidad de Chile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "ca4179c55afde368",
+      "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQY2FiOFlLMnczSll1WTR3MjhpUGRjZjgya2J5bGJQckdCV05Kc19uNmgzV0xqSDhlaTE4eEdBcGphNkJHS2FMSWVyeFlkYVA5S3JmeHREZnBJZHJXcHV2ZXA5NjdxOWZicHdIbWxVd2tRcGpLbXN2bENReFdDUzhOUFpyUEZqOVI2ekRBcUM4WVNjdFlkZTVjRUV6eWdla0IzNlFoaElfMFYzRF9mZkd4U3A1Vjg1U29ZSFRGMElYdmpzRFp2VVNySURsMDEwS2ZmMUpMenJ5dnVjVFRTdkcyNW5oLWpHdFZILUFTWnlyMNIBkAJBVV95cUxQTzlWTzJJU1k2SVJfbWY2aGpLdVBuTkZVZXlWUW1wZW1yaXpRVFM0ZnFNY01RRzV3WFhlTnVRZW9QZUpyS1hhZ2lQekdKRFNHR3JJQTU5a2JqUUhTQndzRFItTHZqbVpGUjBiN1ZnNTZvRWtSVXlvRE84R2JvZGlaRDlHWVdIbzI5bUdVcnFwcGpqTWhMdE5iQjlJUG9PZGstODZTcnJrM3l5b05ibkFJdUsyWFFXMmxVRTN1MnhIalFrX2kyS1owNm5XS19abUl1c1NIUlc2X1RIOVY4QjI1NWttZ3ZnS192MTFoNGJlenpLRHpMV3JkUU1wUElVNEhzdGoyc3hLWHB0cnljbF9qaA?oc=5",
+      "outlet": "La Tercera",
+      "date": "2026-09-02",
+      "title": "Extraditan a ciudadano dominicano imputado por homicidio registrado en 2025 en La Vega: quedó en prisión preventiva - La Tercera",
+      "description": "Extraditan a ciudadano dominicano imputado por homicidio registrado en 2025 en La Vega: quedó en prisión preventiva&nbsp;&nbsp;La Tercera",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "453881960dc80eee",
+      "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxNc0RzQUU2Z3BJbXNrLXdsMmFqSnJWdUU3UWd5dWVtTDY4SFdScHRkeXFfeE0zeUVzU2t4YU43NHcybkpydHJjNl92WmwtZXJySUdLSTZOb2Z2TXZ5NS00cGpDZ1g3TzZXaTRBNHdBcV9FNWhaQVhkRWZ0Z3c5N2dkNkJhQTdkemNNQlNrS2t5Zk5YZDBTelpBX1hlYTNKYzBCQ054WGZxWEJuVUdnRU0yYkRFZVZBRVJWTmdWaWduNlpqcU5OWG5sX2dvRHlyUi16TW9lSVRwMVlSZ0twVm9ubzYyVzRNTTZkMWdPcTlCTmx3anhyOHRWRm04TG5iYVJVVnZEZ2tSbzV1QQ?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-09-02",
+      "title": "Ñuble registra 4 homicidios más que en 2025, pese a que seremi de Seguridad asegura que van a la baja - BioBioChile",
+      "description": "Ñuble registra 4 homicidios más que en 2025, pese a que seremi de Seguridad asegura que van a la baja&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "commune_null",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "0254bb8bdc64b21f",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOcGhJbS1FSlJKdkdOaDVzVWxjMVlFekp6TkFkVXRkTTdSWm5fUGtpMEk5VXpPNVR4Wl9fMkFONm5lb1l5dHRjdW1qd2k5OVFzaGxWWVR5dEhyZ0dTQ1dDRW92bEFFaERZU1kwYVNvUEJsUkVjakNwcjdueVJXY2RSQV9FTkFZbHdfWUpRclR0d09qNjlZdEFPTGVWUmtfUGM4X3RfQjZKUGJBRkdISkdiQ2k4a2pMaVhVU2xYbkEyc01MU1JMaENpWg?oc=5",
+      "outlet": "OvejeroNoticias",
+      "date": "2026-09-02",
+      "title": "Gobierno informa baja de homicidios y robos violentos y destaca detención de 188 prófugos. - OvejeroNoticias",
+      "description": "Gobierno informa baja de homicidios y robos violentos y destaca detención de 188 prófugos.&nbsp;&nbsp;OvejeroNoticias",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "c038276f040086e5",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQSkMtRFBXSUVJWUM5M1hHYUpYMWN0cFZOeEx5eUkzTnlSaWREMHhTSHpLV2xYdm5NT1V4ZlFpeWYyRGVGbUFHeHdhT0VnS05MeWhkQWY4UHZTWnZZdzlaeHAyV3ozV25wcldvSkpDM1FiTEhpRmRoRHFIMENRaktySmRGTTcza3BIbHpoa1lIN3l6aklTT1E0bnBWNlZKZkZDR0FmWHpFMUQ0cXlPNDdXZkVPRm5sc054UXBHQ0dLNEc1VUtnYWhaUXZ3X05PU0xC0gHkAUFVX3lxTE1ReG43UkJjQkRjcHpzZ2JqREE4ZkZSVE9QUjdEcmUxUDM0S2RmVG9TQi1VcmJjeDAybjJrLVZHNWVOSXpWMmwwaU5vUjNxWnZrLVJkaFlJT2dkVnVjdVVobFI0TWNFclZsOXlhbnVnQzFSVUIxM2lFaDhUUFpTbDRfT0ZteW1LbkNpeHpuWG83eXQ5Ui1BLVJwOGFvWjk1dGFMc0Y0QTMtaF9qdlFuZVIzaGZjS2J2ejJOZjJwT2NZLThKamg0eDV4eHhQeHhXWXQzVTFmVC0zbFlYSkg3XzREUC1yZg?oc=5",
+      "outlet": "elpais.com",
+      "date": "2026-09-01",
+      "title": "Detenido en Bolivia ‘Jhon Pulpo’, jefe de una banda que extendió su red criminal por Sudamérica - elpais.com",
+      "description": "Detenido en Bolivia ‘Jhon Pulpo’, jefe de una banda que extendió su red criminal por Sudamérica&nbsp;&nbsp;elpais.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "09c7e5eaf549c071",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOcmEtdnJ3WUMtS2pIYTZTaUw0M285UnFyUnV0dGhvbGRFVjBvUy1FaFlrSW96NkU3OFJ6V3F3V2Z1ajZWOG1pQzBzRFZaYmNGX0o2R3V6WWtyUi14NWxwM0NvLTdHRzdiRzYyQW9SVU9HM3dpdGtlMlpjczBuZ1FsbHdiaGFWaUc5LW9zbllITDFUaUNLUWt5MEE3Q2ZTS3hKWFBnb1U3OVpaM05iaUstVk5BRXhMTXdpZFNISWZRTlQxQlXSAcMBQVVfeXFMTnJhLXZyd1lDLUtqSGE2U2lMNDNvOVJxclJ1dHRob2xkRVYwb1MtRWhZa0lvejZFNzhSeldxd1dmdWo2VjhtaUMwc0RWWmJjRl9KNkd1ellrclIteDVscDNDby03R0c3Ykc2MkFvUlVPRzN3aXRrZTJaY3MwbmdRbGx3YmhhVmlHOS1vc25ZSEwxVGlDS1FreTBBN0NmU0t4SlhQZ29VNzlaWjNOYmlLLVZOQUV4TE13aWRTSElmUU5UMUJV?oc=5",
+      "outlet": "24horas.cl",
+      "date": "2026-09-01",
+      "title": "“El crimen organizado no puede ganar”: alcalde Cristopher White reaparece tras salir de la clínica - 24horas.cl",
+      "description": "“El crimen organizado no puede ganar”: alcalde Cristopher White reaparece tras salir de la clínica&nbsp;&nbsp;24horas.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "e898bc37972e7fdb",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOMnhmTkFfbGt4T0I3TnJZcHl1WGJTeUhDNmhreXI3WnJiZzg3eHpGTW5udm93dy1yYVhkVG9jUXhja0lNX1FtTnc4Q0JRSElEcUs5VXdRa1JOSGU3OUp6Z01MTWlLSWVLenY2aTBwRk9wT3hYenZXYmM5ZGlCekEydEhVR0phSlRCOU0zWmNXVHk3QU5WUUZJQUdULThNZVdlNERZUGhtLXE5a29pQXRtbkI2dUVxQnpDVk9RYW9fQWtPZ1gzQVV4V3ctaXRYNktPdEHSAewBQVVfeXFMTUNYZmEwb0hhdXN4bkRyMzhhWUR3a3c5YjAtY29UWGRfN3JLMUp2OWJ0TER3QkJTOXBvemNCZlM2Y1Zvd05hSmtGTDF3MHVQZFpMSGwyTGs2R3M1ZlhqbTdzX2k3SGVMOTJZOExad042cG5QR0tlcjNuRUxKYjFZSElHeEJkRkFDR3NpQ1publV4aVp6eXpDQWNQS2hvNVU1VGVXLUpfS1ctNmItZ2tfTmFWNHlyNGtpQ3ZSdDlIcmpnVTdWdzZncHRDSFlkR0VBQUNheldEY1JHV2NZeVFja2tEdFpkeXFQQ0lXcUQ?oc=5",
+      "outlet": "Infobae",
+      "date": "2026-09-02",
+      "title": "Dominio criminal de ‘Jhonsson Pulpo’ en Chile: amenazas, secuestros y asesinatos bajo investigación - Infobae",
+      "description": "Dominio criminal de ‘Jhonsson Pulpo’ en Chile: amenazas, secuestros y asesinatos bajo investigación&nbsp;&nbsp;Infobae",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "d3a7425b5257b114",
+      "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxPbTFlMFBNbXVyYlpxdVpkNGd0cUpCNzhHZkZZbWFVVlFQbFdfRzA4b3phV1dQQzBWSnI1bThoYmoxY2tYam9CWC04SGhJdVplc2Zjd1pXQVNOa0RtRlJLNFZaQjNpTm5sLUoyQU9ZRHpHWDFYX2wwNndfQ29tSG8yWUk4QklYRkhZTzIwbUxfU1lManp1ZkQtRzY2VkdsUnpBT0syRW9neGJkNGJBdHNqaEhmWFZzUHgyeHU0eEk2cFpMeEpMM1B5czYyNnZUM0xkNm1xU1dQRGxINWNKcUx6VWEtUmVCckxyRXpaRVRCbGphQkIzYWI0R3NjWQ?oc=5",
+      "outlet": "El Observador",
+      "date": "2026-09-02",
+      "title": "Qué se sabe del asesinato del músico de Camilo Séptimo, su pareja embarazada y su hija de 3 años que conmociona a México - El Observador",
+      "description": "Qué se sabe del asesinato del músico de Camilo Séptimo, su pareja embarazada y su hija de 3 años que conmociona a México&nbsp;&nbsp;El Observador",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
+    },
+    {
+      "id": "c6be813c2bc8cbbf",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQVFI0ODhpQUt3VlRPOUNtY0JfODk4U1N6WVpQUXphcThxWTNWeFEybTVta2t4UlhLNHVYMndMZmV3RUpyRWdGVU9COEMzUTBuMnlUd3NuRnVlTXZEUm8zNHQzVGgzRFNjdFNLMG9YTFpDbndfNGQ0eU1PRUx5UWRaQ2VkTkY5TFVmbWJYVWZGbjktNTZyZ21mWUhtVmlXVmUxZ0ZnOFNIX2N4RHoxV2Rrc2c4NmPSAbQBQVVfeXFMUFRSNDg4aUFLd1ZUTzlDbWNCXzg5OFNTellaUFF6YXE4cVkzVnhRMm01bWtreFJYSzR1WDJ3TGZld0VKckVnRlVPQjhDM1EwbjJ5VHdzbkZ1ZU12RFJvMzR0M1RoM0RTY3RTSzBvWExaQ253XzRkNHlNT0VMeVFkWkNlZE5GOUxVZm1iWFVmRm45LTU2cmdtZllIbVZpV1ZlMWdGZzhTSF9jeER6MVdka3NnODZj?oc=5",
+      "outlet": "La Crónica de Badajoz",
+      "date": "2026-09-02",
+      "title": "El futbolista del Real Madrid Raúl Asencio fue condenado por un delito contra la seguridad vial al conducir ebrio - La Crónica de Badajoz",
+      "description": "El futbolista del Real Madrid Raúl Asencio fue condenado por un delito contra la seguridad vial al conducir ebrio&nbsp;&nbsp;La Crónica de Badajoz",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T02:46:02.034788+00:00"
     }
   ]
 }
