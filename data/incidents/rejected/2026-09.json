@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-03T10:37:35.541412+00:00",
+  "generated": "2026-09-03T15:43:25.918250+00:00",
   "items": [
     {
       "id": "20fa2eef6eb80e51",
@@ -1750,6 +1750,106 @@
       "description": "Jhonsson 'Pulpo': secuestros, sicariato y una condena a cadena perpetua&nbsp;&nbsp;Red Uno",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-09-03T10:37:35.541412+00:00"
+    },
+    {
+      "id": "fdde709e1d73b9b6",
+      "url": "https://www.latercera.com/nacional/noticia/golpe-a-los-soto-banda-dedicada-al-contrabando-de-cigarros-y-su-distribucion-en-ferias-libres/",
+      "outlet": "LaTercera",
+      "date": "2026-09-03",
+      "title": "Golpe a Los Soto: banda dedicada al contrabando de cigarros y su distribución en ferias libres",
+      "description": "Se incautaron armas de fuego, fuegos de artificio y más de mil cartones en una acción de la PDI y la Fiscalía Occidente.",
+      "rejection_stage": "resolver_fail",
+      "first_seen": "2026-09-03T15:43:25.918250+00:00"
+    },
+    {
+      "id": "06e5bc63ea1b44e6",
+      "url": "https://www.latercera.com/nacional/noticia/senadora-vodanovic-ps-critica-manejo-del-gobierno-ante-plan-para-matar-al-alcalde-white-no-se-le-ha-tomado-el-peso/",
+      "outlet": "LaTercera",
+      "date": "2026-09-03",
+      "title": "Senadora Vodanovic (PS) critica manejo del gobierno ante plan para matar al alcalde White: “No se le ha tomado el peso”",
+      "description": "La presidenta del PS calificó la reforma constitucional en seguridad como \"vergonzosa\" ante las críticas que ha recibido, señalando a su vez que el plan contra el alcalde White \"marca un antes y un después\".",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T15:43:25.918250+00:00"
+    },
+    {
+      "id": "be20872ad87c5318",
+      "url": "https://www.latercera.com/lt-board/noticia/caida-del-consumo-de-alcohol-en-chile-una-tendencia-que-llego-para-quedarse/",
+      "outlet": "LaTercera",
+      "date": "2026-09-03",
+      "title": "Caída del consumo de alcohol en Chile: ¿una tendencia que llegó para quedarse?",
+      "description": "La primera droga de consumo nacional parece estar en retirada, impulsada por un cambio cultural profundo, nuevas leyes y una generación que prioriza la salud por sobre el ritual social de la copa. Expertos de la Universidad Andrés Bello y Senda explican las razones.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T15:43:25.918250+00:00"
+    },
+    {
+      "id": "f2310b78624f6d8f",
+      "url": "https://www.latercera.com/nacional/noticia/atentado-frustrado-al-alcalde-white-orrego-hace-llamado-a-redoblar-esfuerzos-para-desbaratar-bandas-del-crimen-organizado/",
+      "outlet": "LaTercera",
+      "date": "2026-09-03",
+      "title": "Atentado frustrado al alcalde White: Orrego hace llamado a “redoblar esfuerzos” para desbaratar bandas del crimen organizado",
+      "description": "El gobernador de la RM planteó que el jefe comunal no debe dejar sus funciones tras lo ocurrido. “El día que los alcaldes se empiecen a esconder, quiere decir que le entregamos la calle a los delincuentes”, sostuvo.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T15:43:25.918250+00:00"
+    },
+    {
+      "id": "590038d6489ea7a7",
+      "url": "https://www.latercera.com/mundo/noticia/muere-gloria-steinem-una-leyenda-del-feminismo/",
+      "outlet": "LaTercera",
+      "date": "2026-09-03",
+      "title": "Muere Gloria Steinem, una leyenda del feminismo",
+      "description": "La estadounidense Gloria Steinem fue una de las figuras más influyentes del feminismo y construyó durante décadas una trayectoria marcada por el periodismo, el activismo y la defensa de los derechos de las mujeres. Realizó investigaciones encubiertas, creó espacios feministas y contribuyó a impulsar la libertad reproductiva y la justicia social. Su legado continúa a través de su fundación y del proyecto para convertir su casa en un centro para los movimientos de justicia social.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T15:43:25.918250+00:00"
+    },
+    {
+      "id": "8c556eea503918b8",
+      "url": "https://www.lacuarta.com/tendencias/noticia/until-dawn-2-ya-tiene-fecha-el-terror-regresara-a-playstation-5-en-enero-de-2027/",
+      "outlet": "LaCuarta",
+      "date": "2026-09-03",
+      "title": "Until Dawn 2 ya tiene fecha: el terror regresará a PlayStation 5 en enero de 2027",
+      "description": "La secuela llevará a un grupo de falsos cazafantasmas hasta una isla abandonada del Pacífico Sur, donde cada decisión podrá cambiar quién sobrevive y quién termina convertido en otra víctima.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T15:43:25.918250+00:00"
+    },
+    {
+      "id": "0c55689ca0eade09",
+      "url": "https://www.lacuarta.com/mundo/noticia/banda-mexicana-rompe-el-silencio-tras-crimen-de-su-tecladista-y-su-familia-viviran-por-siempre-en-nuestros-corazones/",
+      "outlet": "LaCuarta",
+      "date": "2026-09-03",
+      "title": "Banda mexicana rompe el silencio tras crimen de su tecladista y su familia: “Vivirán por siempre en nuestros corazones”",
+      "description": "El grupo Camilo Séptimo despidió a Jonathan “Honas” Meléndez, a su esposa Ana Paula y a su hija Sofía con un sentido mensaje. También expresó sus condolencias a cercanos de las víctimas y valoró la investigación de la Fiscalía.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T15:43:25.918250+00:00"
+    },
+    {
+      "id": "a36867aeda39a3d0",
+      "url": "https://www.lacuarta.com/chile/noticia/nunca-estuvo-en-el-oxxo-revelan-el-verdadero-paradero-de-camilo-huerta-y-su-abogado-apunta-a-posible-error-de-carabineros/",
+      "outlet": "LaCuarta",
+      "date": "2026-09-03",
+      "title": "Nunca estuvo en el OXXO: revelan el verdadero paradero de Camilo Huerta y su abogado apunta a posible error de Carabineros",
+      "description": "“He hablado con él y Carabineros no lo ha ido a fiscalizar. Nunca, en estas dos semanas”, aseguró el defensor del chico reality que está con arresto domiciliario total.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T15:43:25.918250+00:00"
+    },
+    {
+      "id": "c1eca00deb1d42f7",
+      "url": "https://www.lacuarta.com/chile/noticia/estai-vio-de-lo-que-me-hiciste-si-no-me-pagai-destapan-ultima-discusion-entre-makarena-tolosa-y-tio-imputado/",
+      "outlet": "LaCuarta",
+      "date": "2026-09-03",
+      "title": "“¡Estai vio’ de lo que me hiciste! Si no me pagai...“: destapan última discusión entre Makarena Tolosa y tío imputado",
+      "description": "Pese a que la hipótesis principal del caso pareciera tener múltiples pruebas, la joven de 29 años sigue desaparecida.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T15:43:25.918250+00:00"
+    },
+    {
+      "id": "e18a31d351979b97",
+      "url": "https://www.lacuarta.com/chile/noticia/fijo-su-hogar-en-conocido-local-y-nadie-se-percato-reportan-que-camilo-huerta-incumplio-el-arresto-domiciliario-total/",
+      "outlet": "LaCuarta",
+      "date": "2026-09-03",
+      "title": "Fijó su hogar en conocido local y nadie se percató: reportan que Camilo Huerta incumplió el arresto domiciliario total",
+      "description": "Carabineros le consultó a la vendedora del recinto comercial sobre el chico reality, pero ni siquiera lo conocía.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-03T15:43:25.918250+00:00"
     }
   ]
 }
