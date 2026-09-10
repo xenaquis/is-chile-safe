@@ -33,7 +33,7 @@
     "@types/topojson-client": "^3.1.5",
     "cross-env": "^10.1.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.11"
   },
   "overrides": {
     "sharp": "^0.35.0",
