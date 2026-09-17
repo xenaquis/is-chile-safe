@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-17T16:09:57.897902+00:00",
+  "generated": "2026-09-17T20:55:00.211303+00:00",
   "items": [
     {
       "id": "20fa2eef6eb80e51",
@@ -17640,6 +17640,516 @@
       "description": "Incluso hubo quienes justificaron al desconocido que concretó el ilícito.",
       "rejection_stage": "classifier_none",
       "first_seen": "2026-09-17T16:09:57.897902+00:00"
+    },
+    {
+      "id": "29cf44c3c49f34e8",
+      "url": "https://www.biobiochile.cl/noticias/bbcl-explica/bbcl-explica-notas/2026/09/17/baja-sostenida-estas-son-las-cifras-oficiales-de-victimas-de-homicidios-en-chile-en-los-ultimos-anos.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-09-17",
+      "title": "Baja sostenida: estas son las cifras oficiales de víctimas de homicidios en Chile en los últimos años",
+      "description": "Este lunes, en el marco de su balance a seis meses de gestión, el presidente José Antonio Kast concedió una extensa entrevista donde se abordó un amplio abanico de temas. No obstante, durante la conversación sobre seguridad y delincuencia, el mandatario afirmó erróneamente que las cifras de homicidios registraron un alza significativa durante todo el &#8230; Continua leyendo \"Baja sostenida: estas son las cifras oficiales de víctimas de homicidios en Chile en los últimos años\"\nThe post Baja sost",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "4498d6e0cb18918c",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/estafas/banquetera-que-dejo-60-bodas-sin-servicio-y-pago-fianza-para-salir-de/2026-09-17/172755.html",
+      "outlet": "Cooperativa",
+      "date": "2026-09-17",
+      "title": "Banquetera que dejó 60 bodas sin servicio y pagó fianza para salir de prisión hoy está prófuga",
+      "description": "La Policía de Investigaciones (PDI) y la Fiscalía de Viña del Mar se encuentran desplegadas para dar con el paradero de Natalia Álvarez Murillo, propietaria de la empresa Probarte Banquetería SpA, quien actualmente se encuentra prófuga de la justicia.\nLa imputada, junto a su pareja, José Galarce, había sido formalizada por el delito de estafa reiterada que afectó a 60 víctimas por un monto cercano a los 120 millones de pesos en matrimonios no realizados.\nEntre las decenas de víctimas se encuentr",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "04096f07d53fbf67",
+      "url": "https://www.latercera.com/nacional/noticia/investigan-fatal-accidente-de-parapente-en-iquique/",
+      "outlet": "LaTercera",
+      "date": "2026-09-17",
+      "title": "Investigan fatal accidente de parapente en Iquique",
+      "description": "La Fiscalía de Tarapacá instruyó trabajos de Labocar y del Servicio Médico Legal para esclarecer la dinámica del trágico suceso. La DGAC activó también uno de sus equipos.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "2b437c2439d061b9",
+      "url": "https://www.latercera.com/politica/noticia/la-delincuencia-la-enfrentamos-en-conjunto-kast-acompana-a-white-en-san-bernardo-y-hace-gesto-a-alcaldesa-de-la-pintana/",
+      "outlet": "LaTercera",
+      "date": "2026-09-17",
+      "title": "“La delincuencia la enfrentamos en conjunto”: Kast acompaña a White en San Bernardo y hace gesto a alcaldesa de La Pintana",
+      "description": "\"No hay política que nos divida cuando enfrentamos al narcotráfico\", defendió el Mandatario. En esa misma línea, dirigiéndose a White, sostuvo: “Más allá de nuestras diferencias, usted es socialista, yo no lo soy, pero podemos juntos trabajar por Chile, por la patria, por la seguridad y por el futuro de nuestros niños”.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "81a8f020791bc789",
+      "url": "https://www.latercera.com/politica/noticia/white-hace-llamado-a-confrontar-en-conjunto-el-narcotrafico-durante-desfile-a-las-glorias-del-ejercito-chile-no-puede-seguir-llegando-tarde/",
+      "outlet": "LaTercera",
+      "date": "2026-09-17",
+      "title": "White hace llamado a confrontar en conjunto el narcotráfico durante desfile a las Glorias del Ejército: “Chile no puede seguir llegando tarde”",
+      "description": "El jefe comunal de San Bernardo también llamó a la izquierda a “aportar, fiscalizar y criticar cuando corresponda”. En tanto, le pidió al Presidente José Antonio Kast que le solicitara a su sector \"estar a la altura, avanzar en reformas sin colores\".",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "e750bdf00731c1f3",
+      "url": "https://www.latercera.com/nacional/noticia/seguridad-en-fiestas-patrias-gobierno-llama-a-la-prevencion-y-confirma-despliegue-de-mas-de-6-mil-carabineros-en-todo-el-pais/",
+      "outlet": "LaTercera",
+      "date": "2026-09-17",
+      "title": "Seguridad en Fiestas Patrias: gobierno llama a la prevención y confirma despliegue de más de 6 mil carabineros en todo el país",
+      "description": "Considerando el alto flujo de personas en las calles y vehículos en carreteras, se han intensificado las fiscalizaciones de parte de Carabineros y equipos especializados.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "f7b9ce2c0ee157fd",
+      "url": "https://www.latercera.com/nacional/noticia/pago-fianza-para-salir-de-prision-y-nunca-mas-aparecio-banquetera-que-estafaba-novios-en-vina-del-mar-esta-profuga/",
+      "outlet": "LaTercera",
+      "date": "2026-09-17",
+      "title": "Pagó fianza para salir de prisión y nunca más apareció: banquetera que estafaba novios en Viña del Mar está prófuga",
+      "description": "La imputada Natalia Álvarez, tras la formalización en junio, quedó en prisión preventiva sujeta al pago de una caución. La mujer pagó una fianza de casi $5 millones, quedó libre y desde ahí en adelante no se supo más de su paradero.",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "ae9c08cc6dde4c39",
+      "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxOSVhfM18yUVZMNVFVSTNZVWZzdTNSLXZWNlY4SDFTa1lHT2kwSGt3Nk9WOThVZVhUbU5NYnExU09vUFppOURWY1UybGsyUFBYZ1FfTDRvQXc4S1E3VU9SRWswQmxVSkhidHFwRWZYQV9PTG5BNGpZc2o5R1NKQWZZT1hWT1Y2Z1prTkFUQ2tZVFRYRXhnb3duLUJaN3MyNk9pdUVWdnJvTGI5dUJYa2FIc2JzZzFfRlhabmtJd3lPVVdGY3BLd0syNUx2dVIxdnNRR1BoYlNFSFQ2S2ZZQ3FMX3c4V1Q2YzdoSEVEanc0cERoVXNjc09QRjVfc2c1R09wT2VFaDhydHRMQdIBngJBVV95cUxQYlJhYXRLbmxfU2UyR2l4eGN5OVkzRVQ0d3FkaXZPVkVJYTg1VW83ajVzc0xjMmJCM1dVTktsbGR0QkJyM2IzOUd0d3RMR2F0STVNMkVNR0dmX3JKY19wR0FOTlhtWTRyUkVrYS1vRXhVQzZhRjg0WDk4QTRFSG9tcW9Qb093Mk9Mdy1zUFVBWVVib19FdFVOQnduVEhxdlZfYUxmRl9MdUJVa0UxdFZWQm4xU1NaeXZsLW1jakFZS09uTS1IQkk5SWtJcGgyRGtNY3VFZThnZkltdVo5QUNWTjZ2cF9Tc0tlRkJTbUN2aThrVEYwRDktVHRWR0lsSnRfR293YVpUSHY0WUxoU0NOX0tkWXBjeVlFSW83YWV3?oc=5",
+      "outlet": "EL PAÍS",
+      "date": "2026-09-17",
+      "title": "Kast visita San Bernardo tras presunto plan para matar al alcalde White: “No hay política que nos divida cuando enfrentamos al narcotráfico” - EL PAÍS",
+      "description": "Kast visita San Bernardo tras presunto plan para matar al alcalde White: “No hay política que nos divida cuando enfrentamos al narcotráfico”&nbsp;&nbsp;EL PAÍS",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "3e8da25a83bae098",
+      "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxONTVzR05KX0NhVDlScllEVUVDZGVnV0Rha1djY1hqcXNraHNCX0hkTkVQSFl3R2lyUm94T1paTEx6M19uWUVVaXJtbW8tYWV4VnBKVG5ScWVPYi1CWDBvR0p0MzBkTGFjQ0JZOXlFNEtHU3lYZlZ6T2RUdzdUSnBiY0VkOGxrN1k2MEh2T3lJZ1pnVkRQbzNLSTlfNzQwSTJ2dU9naEpVcWRzdkRlMmplZ0NkdTQwSVhuUEN5LXBMMzF0eDg5dzJuNm9vb1JmbFVoUGQyWVloR09fMnowSHBxN1pJa29OMi1oTnczYktzUdIBkAJBVV95cUxNNmxNX1h5T25mU1VFMmpTZVZjbElhR2Y4N3JWdWlFQlpPNVRvQnYxNlUtaFQwekZqZGhZNy12MjFfZ3F4WHZZc0pqVmlBdEJCODBWaE9xanJIbmNtMUwxZ08xMEJUbE1IRklueEI2NDJwanVsdVBzeF9uTlV2cUJ0ZFQxT1Q1UkxPVF9vaTFCVmhqQmdMWE5QQVNGMWpkRkp6YzV3QlBWaGhUc1RJcWE4RXRRVlNLWUM4T2RmZERfejNaS0ZFUHZpUUN5ZDM4cGY1T1pucTZxLUtPdFlpQUNVZjJQOGg2X3RoZzFIaVM4Qk9UN1o1SU5WRl9fdkF0ZVEyakVocDhHVDhNeXA2dDlaRQ?oc=5",
+      "outlet": "La Tercera",
+      "date": "2026-09-17",
+      "title": "Alcalde Christopher White: “Que mis vecinos vean hoy que el Estado de Chile no se arrodilla ante el crimen organizado” - La Tercera",
+      "description": "Alcalde Christopher White: “Que mis vecinos vean hoy que el Estado de Chile no se arrodilla ante el crimen organizado”&nbsp;&nbsp;La Tercera",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "f9457deb7af5136d",
+      "url": "https://news.google.com/rss/articles/CBMikwJBVV95cUxOc21wQ3ktUDhfVlZoZHdVNWlUbGFoSEF2bFhXc3hXbWh5dWd3WmhaM3ZPQ0loWWZKSnA0YU1JQjdWdHBxNWp4UHFmTTlrWVdJSjZhU1NBdzhKTllGMEF3WERzUFdueFZIUDZJUTVqT0hJY2tDN282UGtCTGdwRGVKY2hrUDNhOVFuRFdmM0JaOXFPcnVmbmVlSzdQU1NBNFBFbFlaa0NIQ1hwZnJ4andJSTJUZGhXTDkyQkpoaHh1ZUgxUjlGc0NuZERSdVUyZ0c4aTQ1X1RjSldDVDk2RnY2Nnp4eHhVNUhvTVFHR3MwYTctLWI3VmNOZHBGRnN6dUhTLVl1UnhzT1R5cTdUbmR0QWFRWQ?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-09-17",
+      "title": "Baja sostenida: estas son las cifras oficiales de víctimas de homicidios en Chile en los últimos años - BioBioChile",
+      "description": "Baja sostenida: estas son las cifras oficiales de víctimas de homicidios en Chile en los últimos años&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "71ff8ea85160ec1c",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQT3JnU1hlS2ZwcnI0YVVWdlAtZXE5WXdBejQ5UTl5U0h5TjVmd1ozZ3NYZnlpUWo1UGQycnBVazBpMThuMGFsckxXdzNFNDB5TktOV2tuNVQ3OFhnYmI1Y1lfSDNpRnJ4dFFBMVJkM2NDbnJIMlROTng4NHZTLU9DYWhMZWJBNkptUFN4R1lDckpzenR1cTBkMTU1WEo2YXFFZzViYjhDWW9kWDRER0xYb2tYTS1vZnJkTHF1NHBGenN4cUU?oc=5",
+      "outlet": "notichile",
+      "date": "2026-09-17",
+      "title": "Kast responde a White y llama a unidad para enfrentar al crimen organizado - notichile",
+      "description": "Kast responde a White y llama a unidad para enfrentar al crimen organizado&nbsp;&nbsp;notichile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "dea63c428d7f40ff",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNRlRMaEc2Wno2dG9WcTItbnU0Z1k1bVEtdml6NkpHUHlIU0dyWE1pdFp2T0U3Rl9UdjVMYkFNTE5xNXdJdlJNWnJqaVd3bWhXYjZRVDFLblhGcGpvWElUdTQ2czRLRlVfSXZEQkRROTVZZllJUHhZZE5rMWZfWGZwY2U4dFJVSThnQmdwVmFpbk1JSjM2cU1CSk1XZ05faGtha0c5SWltcnpITVFfZVE?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-09-17",
+      "title": "PDI detuvo a sujeto acusado de homicidio en Peñalolén - SoyChile.cl",
+      "description": "PDI detuvo a sujeto acusado de homicidio en Peñalolén&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "cb6fb95b0ae1ab32",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNRG81bVlNNGxjMndhMGFxdDAydWJZUWF2bnYycmRYeHJtVWd1U0YxTTJ5eTYxOTFVWFl0bGdLblU4OWM0T3BXVHQzTkROVWdNa3hwOG1IYlY0MVpDN0lyc2dyZl9OM2Q3OFB0Um1KQzgzVG1QY1hKQnpMVmlLWk4tYV9PMFA5MzQyM1N6OXhmdy1WWEwwTUp4ZTRlVFl3U2lQcU5raWJFMXMwUnNUTURFUFFhN0FxcktGRllEbmw5MzJ3UWh5X1dqYmVDX3U?oc=5",
+      "outlet": "Canal 9 Bío Bío Televisión",
+      "date": "2026-09-17",
+      "title": "PDI aprehende a un joven de 17 años investigado por el homicidio de un chofer de app en Puente Alto - Canal 9 Bío Bío Televisión",
+      "description": "PDI aprehende a un joven de 17 años investigado por el homicidio de un chofer de app en Puente Alto&nbsp;&nbsp;Canal 9 Bío Bío Televisión",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "2df8f6ef20c960ae",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNNGZZVEtQSkNTX2hlenpuR01hQVl6R0w1Y2RBRWNSTy1MeE5ERUVhMzJFdnhucjZ2d2R1OEdEZ1JRSjNfYjNMajBBY3VzMGtzQTc1cW8zNGI4dzE2SE92aThYUzNKa0FFQ1oyWWQ4WFZTSmtmTDdIbjhuUGVNWU1Od3o1d3Q5MGNjQmRGeVQ4WExnNnBTbElQS0FJWFZ3d1NwR3lUMGxQYV9vRUd4THpkc1I1ZS1yWl96U3pzQlhPN2FsYTQ?oc=5",
+      "outlet": "Diario Río Bueno",
+      "date": "2026-09-17",
+      "title": "Investigan homicidio frustrado tras disparos ocurridos en Las Ánimas - Diario Río Bueno",
+      "description": "Investigan homicidio frustrado tras disparos ocurridos en Las Ánimas&nbsp;&nbsp;Diario Río Bueno",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "e5c8e999c8702a7c",
+      "url": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxNbmhFRTl6Q2tYU2Nka2lOenZpZ1NfdnJiMFFUcnRFMkR6SHpSQUwtU2lTMlFrVElXNXFYcFAzamI5SDFZYjBYa05TMG8zVncyQVFnTzBaRER5QmpzMWZuay05SDJZQWNuYXhJMUYtV1dGalZHVGxycUx0ZUdtTnMyT0IxYkx5RFp2bjRlaVptTkRVcHMzdU55S3ZyWW5fajVGNkVjaVkzYXBsZGZPOE9FbUZOWkZ6MEtFb0NNLUZEc2lDQkY3NHhoNk1oT1Z5WWkwbHJnR29hUVRMNlRSWVFkR21ETWJrRkcyaDhCbGpZWWJLcWRuVTJXZkhndDhZdEx6RXpBQmE0TTlvVWs?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-09-17",
+      "title": "Uno tenía una orden de captura por homicidio: chilenos son detenidos por robo a joyería en Bolivia - BioBioChile",
+      "description": "Uno tenía una orden de captura por homicidio: chilenos son detenidos por robo a joyería en Bolivia&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "92dcfb2d09d51b29",
+      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPd1RFTm11ZVllOTBiN3BvNlRiQVR3TV81d2RRM0Jmb1hyTXRsazU2eWlaR3VpeUU3ZWZ5bGhsM3V4dmt1aUFMeVR3NjVndUFrVDZxMlR2bEpuTjhpajR1SjdtUEFOd3pjSDNsOHo3OFRRelMyUmVqWHRzVEt3US1yQnRleUJYSWJsTUR0R2tSbVFNaXBTTWY3Q1laZnRLYWVfT0ZRYWVUcEpzNWZjTElidWsybmpFT3F2OVNrQVZUdmhZaXJXNmJmc1U2aFBlTEVIWG55LUhod2o?oc=5",
+      "outlet": "Canal 9 Bío Bío Televisión",
+      "date": "2026-09-17",
+      "title": "En la RM investigan un homicidio: en Quinta Normal, un motociclista murió baleado desde un auto - Canal 9 Bío Bío Televisión",
+      "description": "En la RM investigan un homicidio: en Quinta Normal, un motociclista murió baleado desde un auto&nbsp;&nbsp;Canal 9 Bío Bío Televisión",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "8141cb2e0fa7cda7",
+      "url": "https://news.google.com/rss/articles/CBMijgJBVV95cUxNZWlhNC1oazZwOVRUdEtpR0ZXcTdxQjNMTThOUGs4WmZWOFd1dTVqb2w2b29CVnZmamRjMmwwQ3E2TU05UzU0UjNHbVRXRUF1UVc2dm5abjNWTkoxM0k2Q2J5U2ljVkgwY0xZSWpHZ0Zsald3ZVB3NU5WeTRjcXlpeGF4UEczRS1MNVVlX3EyS2lkTE5mTDZXaEtKd21EUTlFdHB3QzUwbTN4QmNBMmJyay1hZ0o2bTlaeDlHTXpYLXgzVWhJZW5VbFBaQVBSSHFKVWhPd0NNMkVCcUVycDN0RFliNkNaLWtCVmRsc0Nid1dBTFkzaEhpX3Z5dEQ0NVp4MTQ4V1UydFVFeUtYblE?oc=5",
+      "outlet": "BioBioChile",
+      "date": "2026-09-16",
+      "title": "Asesinato en Peñalolén: matan a hombre por intervenir en pelea a golpes de pareja en la vía pública - BioBioChile",
+      "description": "Asesinato en Peñalolén: matan a hombre por intervenir en pelea a golpes de pareja en la vía pública&nbsp;&nbsp;BioBioChile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "85263cf2fd03fa58",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPOXdkRmFUSkFua2FvWTI5MlJ4NkJ2UDNrVWZYQ3ZHZXVBUV8zWHFvMmZSWXZrWC13SlNoY3I2TmJtaExsMVY1OW9FY1BjV0F4b0hVOU9GNWNveWRVbHU4Zm8xdE9EZDc2bWxMUHlFQWJycVluV04xMEQyZmJxV1BleGpvQ0p0RlVCenRXRFJ3?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-09-17",
+      "title": "Dos sujetos quedan en prisión preventiva por balacera que dejó un muerto y cuatro heridos en Calama - SoyChile.cl",
+      "description": "Dos sujetos quedan en prisión preventiva por balacera que dejó un muerto y cuatro heridos en Calama&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "c196877d2516174d",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOMjlCelF2LWh0QkRsa0g0NVN2TWw0RDVQRzZrLWlDZE5YOXhCZmFRcDAtZUtoM2JYVVZKNmRkTEJJeFR0b0xseWk2dE13d0pyZktVcW1XV18wajdIUXNob2tlWlVseVZlaDFqcVNDTlpTankyT0lIOEE1WEkxMWc5R3lOQ1NYRW40QVdqWHNOMnpBeWZNOU96SnZtb1JmcXc3NjJuYVBHWThzSDdGdFBOSEZ0S2RLTG9vR0JZREV1UnZNREVmT05mSDBFUUdJYXowU2lUTHlsdw?oc=5",
+      "outlet": "Canal 9 Bío Bío Televisión",
+      "date": "2026-09-17",
+      "title": "En Bolivia detienen a chilenos por robo a una joyería; uno tenía orden de captura por homicidio - Canal 9 Bío Bío Televisión",
+      "description": "En Bolivia detienen a chilenos por robo a una joyería; uno tenía orden de captura por homicidio&nbsp;&nbsp;Canal 9 Bío Bío Televisión",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "f17c2cf2965f9b92",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQYU5KRnM2dEMtaURYbVRsX2lxNzVvRWgtXzNET3hTVWQwRXd0QXJ5UGRPVkl3YUUwYXVmYzVmSTQ5RWctOUpmcEJJbHdObTVNMzctTXdzMU1aa2Z6aTlNUG5WNVJkLTJkMWdYMm5sdFI2R2FMZFJpcUw3U1lWOEo2SWp4MUM1MkdRZ3Z1S2NJRHQwX3EzSjF0elpmQUJKVV9uaEpUYjYwNWdVTWdubkNleTMxRmQ?oc=5",
+      "outlet": "24horas.cl",
+      "date": "2026-09-17",
+      "title": "Video muestra asalto de chilenos a joyería en Bolivia: uno era buscado por homicidio - 24horas.cl",
+      "description": "Video muestra asalto de chilenos a joyería en Bolivia: uno era buscado por homicidio&nbsp;&nbsp;24horas.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "b6ccfbbf7c712221",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQeWk3Q2M5NUxGLVFtTU5xYjk1Ml9YV3pHVmFLeGdMbmFTTmRmdVg4c0oxZzJNQWxqRlAxN21kWkJ3SVlEZkx2SGpMUVptOU5WSE9rak9iSkVsbVc3SjFiWGhVV1FjUk94Q1dWel9GUWF5b2s5Z096TzhYMjI3QTBpTVpFdUhjQnRacllCU0tSMHQtMG9JbmNSajhiQkI5OXB0b3R4elktQkFFcXNPUzNqTjNKN1RPemdRVFl0NlRrTXpVa1VHd1poeA?oc=5",
+      "outlet": "cartademexico.com",
+      "date": "2026-09-16",
+      "title": "Se cumplen 53 años del homicidio de Víctor Jara: \"asesinado de la peor manera\", recuerdan testigos - cartademexico.com",
+      "description": "Se cumplen 53 años del homicidio de Víctor Jara: \"asesinado de la peor manera\", recuerdan testigos&nbsp;&nbsp;cartademexico.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "8e0f34e1b70ca595",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPQnh3STRJODMwa2ZqaGg4bFowT0NBMWRyMThRcVB3TlNfa0gxbHNlMnFyTWhob3NudVJkT3pVc1FjX0s5SlZBcHY0eVIxdllGajZtMzhfZGMzc1JOTWZuR2hiemNvcy1xcjZNcDVpczJ4UzN2Q1pmVWpxOVh3Ylh2RGhOd1hadjU5TWppLQ?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-09-16",
+      "title": "Corte de Copiapó decreta prisión preventiva para imputada por facilitación de fuga de condenado por homicidio - SoyChile.cl",
+      "description": "Corte de Copiapó decreta prisión preventiva para imputada por facilitación de fuga de condenado por homicidio&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "a83b8c873f053c81",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxORFJ6R2p4OGFwVWVjYnhLXzZFcWZZNTh4WTRZVDFiUWFzUnRnZk83TDUyR3I0OFpfc3Q2alJkYkV4SWhmTzNzTmRFTnpodG1BNUlNWFhNdzRyeTJZZ0RrTTZiRXV3UG4zdWUtTHdDV1Q0eU50RFdIVFRaV2NhVkJIOXF1MVV6ek00OGlpM1A2UmJSQ2FwZUItZnhkUEtYazlhTWV4Wkt1Tmk2YjNQRlRZNjdQVUpKclZRaGI0ZFFZTFpNd9IBwgFBVV95cUxORFJ6R2p4OGFwVWVjYnhLXzZFcWZZNTh4WTRZVDFiUWFzUnRnZk83TDUyR3I0OFpfc3Q2alJkYkV4SWhmTzNzTmRFTnpodG1BNUlNWFhNdzRyeTJZZ0RrTTZiRXV3UG4zdWUtTHdDV1Q0eU50RFdIVFRaV2NhVkJIOXF1MVV6ek00OGlpM1A2UmJSQ2FwZUItZnhkUEtYazlhTWV4Wkt1Tmk2YjNQRlRZNjdQVUpKclZRaGI0ZFFZTFpNdw?oc=5",
+      "outlet": "Diario Mendoza",
+      "date": "2026-09-17",
+      "title": "Un argentino con pedido de captura en Mendoza fue condenado por narcotráfico en Chile - Diario Mendoza",
+      "description": "Un argentino con pedido de captura en Mendoza fue condenado por narcotráfico en Chile&nbsp;&nbsp;Diario Mendoza",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "6fba7188073c5600",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNS29wUnpKN3dyOUFDdlprQk91d2hxUHZRTGV1ZWcyRWFBYWl4ckZRRHB6Z1pzeVp2M3M2M096MjllWkZnSmlKbXFITzFLV0doZEdpNi03X2RUMUI0RkNQUVJ6U2VQck5ZYm9YMmxldzdZYzY5Q1BZS2k0Z0x1dzNQV3diMkxzYUVvVHhzUlpPdFpldkJwTzZkVWFTVXlaTF9ZWU5qLU1pb0haMFpkRG1lUTFiNEZzdzhQVGV3SUtDQmpTb2Zzbk1zcWozTWg?oc=5",
+      "outlet": "Epicentro Chile",
+      "date": "2026-09-17",
+      "title": "Detienen a adolescente de 17 años por homicidio de conductor de aplicación en Puente Alto - Epicentro Chile",
+      "description": "Detienen a adolescente de 17 años por homicidio de conductor de aplicación en Puente Alto&nbsp;&nbsp;Epicentro Chile",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "32e5b28d9fcae50f",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOWFZ1ejZkcExzdG1sczBBa2NnMzJ2WTlvNkVsU3Y4X1MwQ2ludmplNmVBS1l5TEJWSmo5UDJzbHhRSGhicTE5VGJ2Sk04aGpqRkxvNGRFQnBUYVB6Qngza1V0amVVWGNXdl92X0dVdlpPX3FQbk5sSUMwTFBKb3lhQ0k5TUpoTFJzTW9BV0J3Q2xhTHhDLW1OLWRRNS1wLTFJVXNORlJvVVJFYTJGM3lMeWp4aURKXzh3dlRScGZyMGRndUhJVDk5X1lWRzhwNjhYSlZoQ01BMA?oc=5",
+      "outlet": "2001 Online",
+      "date": "2026-09-17",
+      "title": "Un venezolano muerto y otro herido tras fatal tiroteo: criminales les dispararon desde un vehículo - 2001 Online",
+      "description": "Un venezolano muerto y otro herido tras fatal tiroteo: criminales les dispararon desde un vehículo&nbsp;&nbsp;2001 Online",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "c96cdf57ce65816e",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNVUsxWWNFdUt5N1FhZE0ycjY2Q1VhUV9odkw5bU9pSVZjMFNQemlIU3JSVmNZSnNSNzVtOUhaa21hMG9zOTRCQnhpVktNcWM4UHNuZG5lWlZyS0xfcGpnTXhtSGFlREpKSTY3T00wcUJBd0NEUG1IUGlIWVdidnNUUFZaX3ZHaS1rZkNkOVA0NG1Kelg5VlVIcEZNZzlhczh5SVE2VEppNkJjd1BUVzc2WmhEQXBqbnRBUzF5SU5NRklPNGdoTk1r?oc=5",
+      "outlet": "Timeline.cl",
+      "date": "2026-09-17",
+      "title": "Dos hombres quedan en prisión preventiva tras balacera que dejó un fallecido y cuatro heridos en Calama - Timeline.cl",
+      "description": "Dos hombres quedan en prisión preventiva tras balacera que dejó un fallecido y cuatro heridos en Calama&nbsp;&nbsp;Timeline.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "c8a8adf7084d286b",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQYkQ5YWNaTmlaU2RuOFhScWhjYVBnVDBrSXQ0MEhwdHplWHhzeEE4MUdKNzNDVHlCTGprR1VXRFkwbTRRbW1MS2JMQjRMdXI0QTE3Nm9xZmI0RUlFbWhzVTRQdW1rbW45LXhJaWdzUE5SUGxkYm41eEI4OEtqZDFUZVp0TmFFUUtJNGs4X2d4WkV0YThKdmdHZHUwY0gxY2RlLUpxUnlacUtWNk9DNzJnajhEUUkteG04ejNTelBzYnplUzJselVCNEJKVHo1anpfU3p5SktlZw?oc=5",
+      "outlet": "noticias.calamaenlinea.cl",
+      "date": "2026-09-17",
+      "title": "[VIDEO] En prisión preventiva quedaron los tres imputados por homicidio del fin de semana en Calama - noticias.calamaenlinea.cl",
+      "description": "[VIDEO] En prisión preventiva quedaron los tres imputados por homicidio del fin de semana en Calama&nbsp;&nbsp;noticias.calamaenlinea.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "fff901d7fc2cd628",
+      "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQYmhlcmZ1NEdTRTAzTmlMMGh2M1lEd2cyZjdhd21JeWFNTG9HeU5KX1JmZk96X1VSeDFJdWJMWjJSVHZoYS1uU1BDUWpMQXo1VUxBdnA5aUwzbUxsRE1hLXdxd1g3NmpwaWN6NmdNMWxHbGhic0dYcm5YZ3ZMMnZzMWNqaVFLX0VITUV3N0Y1T1V1NFB4eVBZSlNoZ0IwRzVlZkpEcS0tNUdXamRQQlduV2p0N2ZsMXAydnl4dWduTEFBVWY1LUNydEg3anNJM0o1Q0Z5LTQ1bHYzXzgwczhSajBrd2JCNXlQQWEwOVVsY3BYVU5BZ2tQX0FR?oc=5",
+      "outlet": "El Diario de Antofagasta",
+      "date": "2026-09-17",
+      "title": "VIDEO | Operativo clave: esclarecen homicidio ocurrido en Calama el pasado fin de semana y detienen a tres implicados - El Diario de Antofagasta",
+      "description": "VIDEO | Operativo clave: esclarecen homicidio ocurrido en Calama el pasado fin de semana y detienen a tres implicados&nbsp;&nbsp;El Diario de Antofagasta",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "6090fee6aeab1973",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPa0gwOG1LMWlzTEhKV2c3cnFVYWRjMmhhcURBTjllZnU5UE9KREZzM0hwYlc5R0sxUUx1X3JsS0gtXzFoRkFMcEphU0g2SlZQejg1Q2pPM2ppYmx0Vkt1NThsQkpqRm9GLVJxcUdmMzhSaVRZbzBRV201S1U4b0VyMnlBMXFHZGJmQnJBaEUxRnpYdmVRVTJ4TWZfenViLUozeFFJWjlObno1bGpleWx2elczcGVETmhRbG5tRXpHTUZTMHBqa3ZGaHpZc1g?oc=5",
+      "outlet": "enlalinea.cl",
+      "date": "2026-09-17",
+      "title": "Prisión preventiva para dos imputados por balacera que dejó un fallecido y cuatro heridos graves en Calama - enlalinea.cl",
+      "description": "Prisión preventiva para dos imputados por balacera que dejó un fallecido y cuatro heridos graves en Calama&nbsp;&nbsp;enlalinea.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "4024ecf88081284a",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNYV9Lc3AwTE9xeDNaN05nWVVCWXRTNXVBRU9DQlZQd18yNTg5MTJ3NFR1WnlHaHpuQmN0cjlibzZpMGpmOXF1U2prYThwQW05czhZcTlOV1BJdHpuN3VodHdENFNNaTh3U19PWFlWWGUyU2VhUzNaSUJic1kwWUJDc3Y5cWZIanU4eVFfaEZyYnc5NzRQTWc?oc=5",
+      "outlet": "diariosol.cl",
+      "date": "2026-09-17",
+      "title": "Tres detenidos y dos armas incautadas tras investigación por homicidio en Calama - diariosol.cl",
+      "description": "Tres detenidos y dos armas incautadas tras investigación por homicidio en Calama&nbsp;&nbsp;diariosol.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "e832c376259f114e",
+      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxNN2NybjVwZndNRU0xbTN5T21zajEwMmZIUUdQSkVKZDA1M1lBNS1TMTFieDJCSjVFemowWElaZm04RTRaeV82NW9uc3R5MkVCODNKV0ZZV0hzV2dYbVdaNlpOUjllR3lTcFl5Y1ZDQlMwU2NGbnF5bTVwWTREZlhtOFFTUkpYTkJ2aGR6NlMwOGJHeVlWbHAzVkdwVlZSSXNFQkhvVjJqV3ZlNUlYZGJUSWZfNm00eEJ4Y3JBZXE2ZWdsMXE1aGJDdVcwWklIVlRPSFJZd18wTWFOQUNhZEVoVVdxY1NwUQ?oc=5",
+      "outlet": "antofagastaaldia.cl",
+      "date": "2026-09-17",
+      "title": "Tres detenidos y dos armas incautadas dejó operativo por fatal balacera en Calama: Imputados quedaron en prisión preventiva - antofagastaaldia.cl",
+      "description": "Tres detenidos y dos armas incautadas dejó operativo por fatal balacera en Calama: Imputados quedaron en prisión preventiva&nbsp;&nbsp;antofagastaaldia.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "7f7796f9e631df22",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQX2FQU2pPWXNraTRpMWhvTEJPeXBsdkpDQVNIc1RaNFZpRW5KTGRSV1FDYktVVXV0QXd4c0ZMRXJibS1GVG1Ibm5pQW1sSmp3RlZubGFBb0w1NjJvcGdBaU5Kdk5iczY5TUxBR2NhXzlkak1pc2tqVmllWmc4dDhoV1JDRWpPdW9XRFRmYlcxZVhpT0JTMGVaUndvUGMzbGJCR2dKendVcVpNbEJYbnFmX2o1blBMWW4wZUx1N0ZwekM0UQ?oc=5",
+      "outlet": "madero.cl",
+      "date": "2026-09-17",
+      "title": "De heridos a sospechosos: dos hombres baleados terminaron imputados por el homicidio de un joven en Calama - madero.cl",
+      "description": "De heridos a sospechosos: dos hombres baleados terminaron imputados por el homicidio de un joven en Calama&nbsp;&nbsp;madero.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "727cd786a4a1d566",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOYmNIWXBROTA3MUxCcjdZV2RpdzJxbElaRmdZTFU5cWVIal9UcUF0R185SkQ2RzY2WkhiZ3lxbHRWOVBBRUVkTlVPM2VFZXBCbkU3WXlXZmlWT1I4ZEwwX2ZITzlGeVVOTEtJaTQzNVRwQkJSeE5hLWVqd1B5OVFENldrblV4Q3lxS1JJR1VlTlRmWmZwN0txUXlyTHR4NE03SmN2MGVseXBlaWZZSHVZS2RwYVRVQy1s?oc=5",
+      "outlet": "diariosol.cl",
+      "date": "2026-09-17",
+      "title": "DETECTAN CAMIONETA CLONADA CON ENCARGO POR ROBO Y PDI DETIENE A PERSONA POR RECEPTACIÓN EN ANTOFAGASTA - diariosol.cl",
+      "description": "DETECTAN CAMIONETA CLONADA CON ENCARGO POR ROBO Y PDI DETIENE A PERSONA POR RECEPTACIÓN EN ANTOFAGASTA&nbsp;&nbsp;diariosol.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "1fd59a9f0c889088",
+      "url": "https://news.google.com/rss/articles/CBMimgJBVV95cUxObTFnRFRCTGxPUENlRnd2QW5RTWRHN2ZYeERIMGhjZXZIZFBCaVN4OWFYeDd4bVV4YzhqazNHNlZ5alhGeTZxc2xtX1VaZnJ6bGU3XzJIYi1fTHduV2VFVDFkQ3dJdjR5S2dlRTktb0hkanFIX01FMlpac29vMjdVUWk0Umd2R01zZUNQQ2RyeFVIOUkyeF9peDRPNDBOUkZISUdZQWxaUHVwUFdEdkFuRnJLemFhcmRSbm1IdG43QTBJNHJHdENZd1Q3LUYyVmp5cDB6ajJrY0k1V3J6anduVEdFV1A5b2NwdE5GZS0wV09tS1pTWUhkWGpQTjRTQ0hMVWd3bUl4ZG9YakdoRGo0VGxielZaT0hfX1E?oc=5",
+      "outlet": "El Diario de Antofagasta",
+      "date": "2026-09-17",
+      "title": "Diligencia especializada: PDI detecta camioneta clonada en la vía pública y detiene a conductor por el delito de receptación en Antofagasta - El Diario de Antofagasta",
+      "description": "Diligencia especializada: PDI detecta camioneta clonada en la vía pública y detiene a conductor por el delito de receptación en Antofagasta&nbsp;&nbsp;El Diario de Antofagasta",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "48cf2aa1065974b9",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQM19MMU10ZVVlVTA3TWYyd3EyU1U4YWFtZGMtMlozTUlST2VCc2FhRVdNODBVYmJkczFkbWhsSkNrWWNwOEpKbWVfRjlwUkQyWmVUMURZTWpKZVFVdDhBWnlXOUFUeHR5djNxRWVaLXBicEtSWUZaVUNpTEhZaTJ4NC1WSXhGUWVXb0ZCQQ?oc=5",
+      "outlet": "SoyChile.cl",
+      "date": "2026-09-15",
+      "title": "Detienen en Calama a sujeto que intentó huir tras robo desde un camión: especies estaban avaluadas en $2 millones - SoyChile.cl",
+      "description": "Detienen en Calama a sujeto que intentó huir tras robo desde un camión: especies estaban avaluadas en $2 millones&nbsp;&nbsp;SoyChile.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "d14829631fecb79f",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNUnVCTDFMXzhJOW1JVUM0OUlGZDFfMkhTTUUxNFBPMFVRZUEwZGFhUUo0b0lObkxYcVduNUNXU3puYXF4aEk4YXJJTGNwQVFNTW5fNWZNVC00WXFERmkzWXctT0tCcVoyTTdpOVJfeTMzZV9DOXdHOEhwU0RHdkowX2l6MFZaS3dWLW03VmZKRHVzQXhIY0FsYXh5MVNVbGtZUDlMS05uNmVxQUJSa1ZkNklsckFnQWvSAbcBQVVfeXFMTVJ1QkwxTF84STltSVVDNDlJRmQxXzJIU01FMTRQTzBVUWVBMGRhYVFKNG9JTm5MWHFXbjVDV1N6bmFxeGhJOGFySUxjcEFRTU1uXzVmTVQtNFlxREZpM1l3LU9LQnFaMk03aTlSX3kzM2VfQzl3RzhIcFNER3ZKMF9pejBWWkt3Vi1tN1ZmSkR1c0F4SGNBbGF4eTFTVWxrWVA5TEtObjZlcUFCUmtWZDZJbHJBZ0Fr?oc=5",
+      "outlet": "Radio Paulina",
+      "date": "2026-09-17",
+      "title": "Corte de Apelaciones de Arica confirma condena por robo con violencia calificado - Radio Paulina",
+      "description": "Corte de Apelaciones de Arica confirma condena por robo con violencia calificado&nbsp;&nbsp;Radio Paulina",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "8d3a4f28c1353d5a",
+      "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQOEV0Wk9kenRzU1BiSFF3VzliYWEyYzB3TlN3ckt6N0s0QmtFSlNadFpnazRYQWRrSS1RNTdZanVVWTZjVzdnQjlPNXo2Y3d5Tl8ta0dvNkNLOHFmbFROeXVTQmtwVHFVWjY2ZmdjcWJYakZWdFFVaWw5ZGljbG9fQXI0eEFzalY2V1N2S3VnSzVfVUQ1SGJ3M0tmdlVFdWhkYkFEeUx6U2loQnFzejN2WjlaVUpaYVFvNEI0RVpQaFJVQVFVb0xNZUY4M3ZzVkRrSnQtUklHVlZPdS1qYjJiU09BVWw1UGo5WHZpQmxoVnpSRmNGUVFJSUNB?oc=5",
+      "outlet": "Diario Constitucional",
+      "date": "2026-09-17",
+      "title": "Corte de La Serena mantiene absolución por homicidio al estimar insuficiente la prueba sobre participación del acusado - Diario Constitucional",
+      "description": "Corte de La Serena mantiene absolución por homicidio al estimar insuficiente la prueba sobre participación del acusado&nbsp;&nbsp;Diario Constitucional",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "2caf7e52ec9026b9",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNSXVWaHhWQUxlMHIwY2ZKLTNPTFhiYUFpc0JZb3hBV0xqSjNfSG1GNjlIc085dWFNQU90Y3BmRGFRX1ZPSjdnUE1LbWxESER5RUJmbVFOUFZuX2NXOFFmTTlCZU11aHRCQXdqTGxxMzA1dGNYRHNLX0dqcDNBMkRsMWZNSGYzX2ZlbXcyeG94aEZmOXZSeDhpN00yOVl4QWJ4ZmJmQnk0YkxDOEtXOGRKeWhHMGxrYkRZbm9rWWYzYVppU0E?oc=5",
+      "outlet": "La Serena Online",
+      "date": "2026-09-17",
+      "title": "Dos detenidos por robo a local comercial durante la madrugada en el centro de La Serena - La Serena Online",
+      "description": "Dos detenidos por robo a local comercial durante la madrugada en el centro de La Serena&nbsp;&nbsp;La Serena Online",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "c683f9302a8d57e0",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQbmJfNnZ3dFdMa1pQQTJLUGMzR0pTZG5rTVNGako1SFpQanlweUh5OHNoVjlnTXhjMmppM0VTVlp6clVCdmFMM2Y0bmY4Rklob2VVYnFFYlBIMWtNR1VwTXBlVzd1LUU4cGJxQ2JNZFllMUxLT282ZEVOZi1YRF81NW40bHRCZzdvNzNLU1FBU2V0c21kaExHN0NVNkNGUDNoM3lUVmtZbmxvY25VMFN3M25sLXh4SHkwYWJSMjg3bVlLbEVtZ0ZkLW5sMWtQdjZJTFV3bg?oc=5",
+      "outlet": "El Serenense",
+      "date": "2026-09-17",
+      "title": "Fiscalía pide mantener condenas en caso de fraude a la Corporación Municipal de La Serena - El Serenense",
+      "description": "Fiscalía pide mantener condenas en caso de fraude a la Corporación Municipal de La Serena&nbsp;&nbsp;El Serenense",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "5656321a731df1ea",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPM2JvMjUwTFNsbUo5SDhuYWQwWjN0emx2MXkzVHpqOHIzYmx6eU9ZV2VXSC14ZmRmeVFUNTExVm1MLWdLZno3MDNweGlCUFQwTUJkQ0lrSXRiWU9vbC1ONzk4WlFzVnNhSnJ3UmtObjAxUVNVX3lYVjFKLVIzeFFzMmI3RGNfSVVpVzlYb0pTYVJlYS0tQWJZSUJpR2JRWXFiYkhCY1p4QWRFV1lBZGNRZl96Qm1UR2pXZWpyUkdodVgxMzJuS0EyVEZoTUNBZ2h0X1E?oc=5",
+      "outlet": "madero.cl",
+      "date": "2026-09-17",
+      "title": "Junta de Vigilancia del Río Choapa denuncia grave ataque vandálico y robo en compuerta automatizada del Canal Caracha - madero.cl",
+      "description": "Junta de Vigilancia del Río Choapa denuncia grave ataque vandálico y robo en compuerta automatizada del Canal Caracha&nbsp;&nbsp;madero.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "c721de198d11e6d1",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNU0dPRENhc3BYUzhBNVgzQXAtZ1czcnFxOHdIVlluVU1JYXNLVV9vN2FYWlozUk16ZFExZ1FNYlRITmp1Tl9rRXRwNE5jMUk5eVdJeDJrdEhreTFFMWFZQVplOUdMZ2RQSVc5c3BZbWtxcWdmMndWbHVZd1I3aUw1dmNTN3I0RkdKejBtRk5JcnNvQ0t4MVZBOVpFTXJxczk1YWt0ZlVVQWxtdlZXbThOdmhqREkyV1ZiYjZ5NWdTYXNGeUVnaVJj?oc=5",
+      "outlet": "La Serena Online",
+      "date": "2026-09-16",
+      "title": "Monte Patria: Fiscalía de Ovalle imputó 4 delitos a sujeto que incumplió orden del tribunal - La Serena Online",
+      "description": "Monte Patria: Fiscalía de Ovalle imputó 4 delitos a sujeto que incumplió orden del tribunal&nbsp;&nbsp;La Serena Online",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "352214d5f5d9b06a",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPUF91Zm8wSGtEbExobUYtNE9fckF3d2I1NmN3VFBIV2paR1hBMldhYmUzZHVYV0JyRHZ6aHkxMXJ3cFhuQzZrMy1sMkJPcnVWQ1pMNUVjdWlGYTdoai1lYnJkLTYzbmFqT3gxRUszTkhfcVlNckpaNVZTRkRmNl9FMVRneldlb3RsWndXc2pFZWlfUy1pMXQwdzhFejVwdlZnOE9vazRabjJ5ZEltQjRPNzQ5MGM1ZEpoUW5n?oc=5",
+      "outlet": "Diario La Libertad",
+      "date": "2026-09-17",
+      "title": "Ataque armado en Villanueva deja un joven muerto: investigan a los responsables - Diario La Libertad",
+      "description": "Ataque armado en Villanueva deja un joven muerto: investigan a los responsables&nbsp;&nbsp;Diario La Libertad",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "37da6b092e8d807a",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQWGdZaG94Nnl4U0JGZFhNNTBCZDM2TmhVWGNiTU8tNEpoSFFlb0lTcEpjblpyRzcwUTRZRVpxd1JKb2QyM043ejZ1V2c5aFFHbDczZ2tHWkRlWTd1ck9MMUs2R1ZRWVBYRExDYUgwWVN3amRBSVozdkpIS1dyNHBsa0lMV2oxcWhlMmQ5Q214SWFBanhEUTJLejNKdFRoOEl1dHFrQ1dNa0RxYXhER0tuUnVYVEc5SEtyTGVOZjlEOG1wdUUxTGZpbnpiOFR5SDdOeGdSUFZUa2g0dThYUmc?oc=5",
+      "outlet": "elpinguino.com",
+      "date": "2026-09-17",
+      "title": "Cinco detenidos por presunta sustracción de menores tras robo y retención en Temuco - elpinguino.com",
+      "description": "Cinco detenidos por presunta sustracción de menores tras robo y retención en Temuco&nbsp;&nbsp;elpinguino.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "6a032a181e7db2d6",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNYkpYVGRyVjNjUDZsUXpRYUNZdmFweW9sMGxhTnR2MVlzWllaSnpuX0YwRVNHeWNIaDZjaWtkQ0NZdERQWmlpai01ZGZScE5HM28xOGJlRzR1QlpaSnBPb2hKZXA2eV9kak5XMGVNd2VtTmpMR0NISFY0YW1Tbk1KOFlwcThGWUEzenZOT0VMR2RCbEl3TXJvV2wxcXhQZVQwYm94aC1keng4Zw?oc=5",
+      "outlet": "araucanianoticias.cl",
+      "date": "2026-09-17",
+      "title": "UN DRON DE LA PDI LOGRA RECUPERAR UN POTRILLO ROBADO EN ANGOL - araucanianoticias.cl",
+      "description": "UN DRON DE LA PDI LOGRA RECUPERAR UN POTRILLO ROBADO EN ANGOL&nbsp;&nbsp;araucanianoticias.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "c9490b63733366e4",
+      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQZlBibWFzNTA3Y0JXaERsSVVvV29EamxNTXc3MlZjaHJiNjI2dGRfcmhaYUh1N1pQckgzWk9XS3hNb19kSjRYdFdEd1VDVHpTV3EtRUhlVUhmSF9jdExKa20yQXYxcGE5TWlOc1V6UURhS0lFemJlajZ3SDFaclRVcnRIN2tOcklnVDYzX3hvVkF0YUxYdFZVV0xzb2RoSU5CWUpoU3g3cHVqQjVtYlNlY0FvRl9KQ2hTeExvWVhjNEMteU9abmliX0NsaWhKZVE?oc=5",
+      "outlet": "elpinguino.com",
+      "date": "2026-09-17",
+      "title": "Condenan a 10 años de cárcel a tres extranjeros por ingresar 13 kilos de cocaína a Punta Arenas - elpinguino.com",
+      "description": "Condenan a 10 años de cárcel a tres extranjeros por ingresar 13 kilos de cocaína a Punta Arenas&nbsp;&nbsp;elpinguino.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "23ebcf5fa9e66f4a",
+      "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOS0FNMVdnQzNRS3Z6d2VLemZOeEltZzhnWnhJX3o1YXNyZXh3N19CWElQQXR1MGFXTXZJeEI0Ul9JTVRTakxGVmp5djBvN09YWVl1MkFYTk5mM0pFSDMydTVDdWNCSWlfN2UzOUV5d2JQeUFObDNfUTlJVG9HeTNYOGlzQWRmdVc2UmUtWXNnYXg1aWl4NU9vT0hZQ241N0ZNNklKMWJtLVZiajI4dVc2bTRzTTBQcE5kYzE0bE5WLXhBem1pTUpwSVVrTGZ1LVFLdENyVm5hdDVLVmNWZk4tUkNzMkhGVWUzYl9uSUdDRG1QUjhpX1E?oc=5",
+      "outlet": "elpinguino.com",
+      "date": "2026-09-17",
+      "title": "Desarticulan red de tráfico de drogas en Punta Arenas: incautan más de $15 millones en sustancias e imponen prisión preventiva - elpinguino.com",
+      "description": "Desarticulan red de tráfico de drogas en Punta Arenas: incautan más de $15 millones en sustancias e imponen prisión preventiva&nbsp;&nbsp;elpinguino.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "2924a048d8b0c912",
+      "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxOd1BYQng5RlVlX1N4NUh5X29PeGM3NWlxWWJaVEJhS0pSdS1YeGs1bkRqZWtpYjQyOW8yMDVwZkFDZ0s1X0M5cEpPU21KVTluUjhhZFU2N2lUTXlLbi1meFRGVi1Pekh3N1dRek1namVhOWozbWhiNmlCbGZJbjBGY0ZCdWZyOGVzdlRCVDM0QjM5cFhaMUNCMWU0UW9fN2tRSWFPbzQwUjBfdUhzUTVYU3BZQXFIWTNsaFZfRmg5RUk3Njc0Y0MxWWVvZFJiTW11OU80bGJxNC1nZ3NqWVRfV0dR?oc=5",
+      "outlet": "elpinguino.com",
+      "date": "2026-09-17",
+      "title": "Formalizan a mujer por receptación de especies del Partido de la Gente halladas en entretecho de Punta Arenas - elpinguino.com",
+      "description": "Formalizan a mujer por receptación de especies del Partido de la Gente halladas en entretecho de Punta Arenas&nbsp;&nbsp;elpinguino.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "3a77842ad5631e99",
+      "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNclZsRW1Qb2RMeVh1YnNQNTlsZmhrXy15S1I1T0VzTkZBb1BZNFpsdzg0Zk5tcmY4LVBHdG9sZUd2ZmJEZHFPTExNaVVkYjFvejZDWTNwXzRoOWhHYXBoSGg3Mi1lYXYzTFNrdkdlQXBhWW9lNkhobkZJQUQ5SmZuZ0w1czR0NndjQkRmcC05dnF6LWo2Y05ndFdnbW5CeS00T29tajk3UWhETkdRLXlrOE1fdmNVZWxyNFAtM1FxYTUzckMydkdsWHdZelo4YUNMTXZNLUhzRG4wbndLSTI0NzVnSHQ3SERpU2VxaQ?oc=5",
+      "outlet": "elpinguino.com",
+      "date": "2026-09-17",
+      "title": "Amplio operativo del OS7 de Carabineros genera cortes de tránsito y allanamientos en el sector poniente de Punta Arenas - elpinguino.com",
+      "description": "Amplio operativo del OS7 de Carabineros genera cortes de tránsito y allanamientos en el sector poniente de Punta Arenas&nbsp;&nbsp;elpinguino.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "6e79c684061d3953",
+      "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxOcE9BRS0xSWZsdDF1LTJKWFZucVdVTFE3MGdkRm14Szd0M1dhalpwZndLMHgzZnIxX21Ma1luYUxjclpsY3ZBRldIbFQ4NzVjQkpyWWpuOTd1d1N0ZHV5NDBsRm45aGdUaTFPMDdza3VkX0xzMjlQRW1PbEtERGJNNktCNkJScy1NY2E3UXRpelJPdnNCYzBrZWhfbVpoWmNXNmFjc1JrRUtjVHhKTURBNEdyZHp4NXMwVFozRE1Ba2FyZDFzTE84WHRfR3ViSDZzRk9GTHdQSDE0ZTMtMzctTG9WZF9Tam8?oc=5",
+      "outlet": "elperiodico.cl",
+      "date": "2026-09-17",
+      "title": "De víctimas a victimarios: detienen a cinco personas por sustracción de menores que intentaban robar en local comercial de Temuco - elperiodico.cl",
+      "description": "De víctimas a victimarios: detienen a cinco personas por sustracción de menores que intentaban robar en local comercial de Temuco&nbsp;&nbsp;elperiodico.cl",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "c6a8487ab79f890f",
+      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNejRPRVlLMmVJdV9EdE5UZ0t3TmozRDFoVmg5by1USXdlRGFDbHNqdzludTJwbjBzTUdLbUdvdEhjMEdBUUNQVUdCVUtVT2d2VDNtaFBXa3ExbkdrUW5IQUxONjVvanJhYkpHRDRPbVZkNGlOVjU3SGI3VHBkcEhrcFMxLXRINk43c3hPdXRBZk9EczI0SjN0ZEpDOW85Nzl6Tk1Tam15Z195OGVhcHU2OG1aUER2cDZ3a1hTTFc5TGR6bU1SdVNSQWV6YWlkOVNYcS1KczJUU0x2Y05lV1Jtdw?oc=5",
+      "outlet": "elpinguino.com",
+      "date": "2026-09-17",
+      "title": "“No queremos saber de ti en estas Fiestas”: Cruz de Froward y Carabineros lanzan cruda campaña vial en Magallanes - elpinguino.com",
+      "description": "“No queremos saber de ti en estas Fiestas”: Cruz de Froward y Carabineros lanzan cruda campaña vial en Magallanes&nbsp;&nbsp;elpinguino.com",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
+    },
+    {
+      "id": "aaf15070917f96df",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNQ3BqQ2Vic2dzR3BvbXRELWJ0UGNOMFpGeXRkcEVya2sxYUtpNHFUcTNLNDhzOHBaWndta0pxUnBSeEI1Z2h6UE1rTXA0YXdXNTBTSVByVndiVmlERDlkX2dLM2h0eWtjOFkxWTVxdnJCSkJOZnkxcnktMkN0OUd2R0FDbmtKUHY0Zjk2b2NhUVRuZzYzOGR6dGhVbWZFNnl4SGdFY0QwZld0V3oyWUtrR01WWEo?oc=5",
+      "outlet": "elconquistadorfm.net",
+      "date": "2026-09-16",
+      "title": "Dan de baja a soldado tras participar en robo con intimidación a estación de servicio en Santa Bárbara - elconquistadorfm.net",
+      "description": "Dan de baja a soldado tras participar en robo con intimidación a estación de servicio en Santa Bárbara&nbsp;&nbsp;elconquistadorfm.net",
+      "rejection_stage": "classifier_none",
+      "first_seen": "2026-09-17T20:55:00.211303+00:00"
     }
   ]
 }
