@@ -10,6 +10,23 @@ El sitio captura tráfico SEO mediante páginas programáticas bilingües (por c
 
 Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
+## Current Milestone: v2.2 Data Integrity & News Recovery
+
+**Goal:** Restore the news layer, which has been silently dead since 2026-09-04T20:12Z (OpenRouter delisted `ibm-granite/granite-4.1-8b`), before `current.json`'s 30-day window empties on **2026-10-05**. Make every failure loud, make every freshness signal honest, make each published incident faithful to its source, and clear the security and hygiene backlog.
+
+**Target features:**
+- **Classification restore + fail-loud + backfill** (Phase 34, deadline 2026-10-05) — choose the replacement model by metrics (A/B on the eval harness); the model id comes from config; a preflight checks the provider's endpoints; **DeepSeek direct as backup provider**; API errors never burn `seen.json`; a circuit breaker; the run goes red and an alarm fires on classification failure; the heartbeat measures newest-incident age, not write time; reclassify the 2,073 lost items from `rejected/2026-09.json`.
+- **Honest freshness signals** (Phase 35) — "Latest incident" derived from the data, a stale notice, no false-zero histogram bars, no-op runs byte-identical (no redeploy), and the CEAD vintage disclosed.
+- **Fidelity & attribution** (Phase 36) — **verbatim source headlines** (ES verbatim; EN a labeled machine translation), family accuracy (vida is not a catch-all; non-crimes are rejected), publisher URLs instead of Google News redirects, and cross-run dedup (deterministic 0.82 rule, no LLM clustering).
+- **Dependency & security hygiene** (Phase 37) — Astro advisory PR, the Dependabot backlog, and a triage policy.
+- **Pipeline/public-data/SEO hygiene + docs drift** (Phase 38) — public ledgers, `/map/` vs `/chile-crime-map/` cannibalization, seen-ledger pruning, CEAD workflow `continue-on-error`, the Oct-1 local CEAD scrape, and stale docs and memory.
+
+**Key context:**
+- Source of truth: `.planning/research/v2.2-AUDIT-260922.md` (7 lenses + fresh Opus arbiter, 2026-09-22; 29 findings, 10 refuted). Research is done; no project researchers.
+- **Owner decisions taken 2026-09-22:** scope 34-38 confirmed; replacement model **decided by metrics**, with an alarm system and **a DeepSeek backup**; **immediate hotfix** of the live erroneous cards (kinship errors about a named real person across 7 cards; a prison suicide shown as "Delitos contra la Vida") via `/gsd:quick` before Phase 34; headlines **verbatim from source** from now on.
+- Locked decisions stand: no LLM event clustering or merging (v2.1), `sexuales` news-only / CEAD `FAMILY_KEYS`=7, national_rank #1 = most reported, CEAD scraper local-only.
+- Execution under `corrida-autonoma` roles (opus arbiter/lenses, sonnet routine, haiku mechanical).
+
 ## Last Milestone: v2.1 News Intelligence, Map UX & Ops Hardening (SHIPPED 2026-08-05)
 
 **Goal:** Make the news layer explorable (facet by time / geography / crime family, and group reports of the same real-world event), make the map genuinely usable (news toggle and filters discoverable on desktop and 375px mobile), and close the outstanding documentation, cron-consistency and security-posture debt.
@@ -82,7 +99,11 @@ Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, s
 - ✓ Data quality + source traceability + methodology: verified figures (`17-DATA-QUALITY.md`), canonical `data/SOURCES.md`, corrected CEAD host, reproducible source snapshots, rewritten bilingual methodology with clickable sources — v1.2 (Phase 17, DQ-01..04)
 - ✓ **BUGFIX-999.1 resolved** Tarapacá region_id collision fixed (region derived from CUT length; all 16 regions populate) — 2026-06-16 (quick-260616-ldi)
 
-### Active (next milestone + launch)
+### Active (v2.2 — see .planning/REQUIREMENTS.md)
+
+- [ ] v2.2 Data Integrity & News Recovery — requirements NEWS-R/FRESH/FID/SEC/HYG in REQUIREMENTS.md
+
+### Active (legacy, pre-v2.0 list)
 
 - [ ] **Phase 18 (proposed)** Composite Crime Index & Metric Redesign — exposure-adjusted composite index, SPD homicide-metric switch, `featured_rates`→7-metric schema migration, index-driven choropleth. High-risk/large — plan interactively. Sources + snapshots ready from Phase 17.
 - [ ] **Go-live `ischilesafe.com`** (human): `DEPLOYMENT.md` — CF Pages + DNS + secrets; live pipeline + incident audit; GSC submission; flip `ADSENSE_ENABLED` + Consent Mode.
@@ -155,7 +176,7 @@ This document evolves at phase transitions and milestone boundaries.
 
 ## Current State
 
-**No milestone is currently open.** Six shipped and archived: v1.0 MVP (2026-06-13) → v1.1
+**Milestone v2.2 Data Integrity & News Recovery is OPEN (2026-09-22).** Six shipped and archived: v1.0 MVP (2026-06-13) → v1.1
 Polish & QA (2026-06-15) → v1.2 Map Fidelity, Findability & News (2026-06-18) → v1.3 Data
 Quality Hardening (2026-06-19) → **v2.0 Composite Index, Comparators & Launch** (production
 live) → **v2.1 News Intelligence, Map UX & Ops Hardening** (2026-08-05, phases 26–33, executed
@@ -185,4 +206,4 @@ deploy hook — on `site/**` pushes via `deploy-on-code.yml`, and for data-only 
 - An Astro 7 migration, whenever it is wanted, as its own phase.
 
 ---
-*Last updated: 2026-08-07 — v2.0 and v2.1 archived and tagged; no milestone open. Next step is `/gsd:new-milestone` when there is one.*
+*Last updated: 2026-09-22 — v2.2 Data Integrity & News Recovery started (phases 34-38) after the news-classifier outage audit.*

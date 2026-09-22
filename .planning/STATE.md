@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.1
-milestone_name: News Intelligence, Map UX & Ops Hardening
-status: "v2.0 AND v2.1 both ARCHIVED and TAGGED (2026-08-07). No milestone is open. ROADMAP.md collapsed to 128 lines, REQUIREMENTS.md archived and removed, standing constraints carried into this file. Health: pytest 395/1/1, vitest 59, 16/16 validators, astro check 0/0, four workflow-security gates at exit 0."
-last_updated: "2026-08-05T07:15:00.000Z"
-last_activity: "2026-08-07 — milestone closure done in order: audits for v2.0 and v2.1, I-01 record drift fixed, v2.1 archived + tagged, then v2.0 archived + tagged (skipping the requirements step it would have corrupted)."
+milestone: v2.2
+milestone_name: Data Integrity & News Recovery
+status: planning
+last_updated: "2026-09-22T23:55:42.341Z"
+last_activity: 2026-09-22
 progress:
-  total_phases: 14
-  completed_phases: 12
-  total_plans: 58
-  completed_plans: 52
-  percent: 72
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # STATE — Chile Safety Map (ischilesafe.com)
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: none open. **v2.1 COMPLETE (8/8, phases 26-33) and ARCHIVED; v2.0 ARCHIVED.** Both tagged. Next milestone starts with `/gsd:new-milestone`.
-Plan: 33-03 COMPLETE, plus two fix rounds (Opus review -> fix cycle 1 -> independent Opus re-review -> inline cycle 2) and Opus verification.
-Status: Phase 33 CLOSED and PUSHED (`8f25e34..3fa8850`, 30 commits). SEC-01..SEC-06 all Complete; all 5 success criteria MET. Verification returned SC3/SC4 PARTIAL pending observation and **both are now discharged**: CI run `30985240486` is green on all three jobs (proving `pipx` at /usr/local/bin/pipx, zizmor 1.10.0 executing, and the four token-gated audits actually running), and Dependabot opened **15 PRs** across npm + pip within minutes of the push. F-128 fixed en route: `ci.yml`'s frontend job had `node-version: '20'` against Astro's `>=22.12.0` and could never have passed. Close gate: pytest 395/1/1, vitest 59, 16/16 validators, astro check 4/0, all four security gates exit 0. data/ untouched. **Carried for the user: 12 open Dependabot security alerts in site/package-lock.json (7 high), pre-existing and newly visible — not a v2.1 requirement.**
-Last activity: 2026-08-10 — Completed quick task 260810-t1k: home mini-map removed after user report (Chile's 39:1 silhouette unreadable at 110px; region-zoom alternative rejected by strategist), quintile strip migrated into the extremes card with eligible-only counts (closes the 346-vs-256 LPX-5 contradiction at the root); dynamic workflow sonnet exec + opus verify PASS, deployed. Earlier same day: 260810-rdf Landing v2 (proposal 6b) installed via dynamic workflow (premortem 32 findings → 20 locked fixes → Sonnet exec → Opus verify PASS → 2 LOW verifier fixes closed by Fable). Earlier same day: 260810-pz5 tech-debt sweep over the day's four v2 installs (21 items, 4 commits, PASS_WITH_NOTES closed; crime.mjs gained homicide inbound-link floor). Earlier same day: 260810-pbj Mapa v2 (5b) installed via dynamic workflow (premortem 25 findings, 21 fixes + 2 verifier fixes; PASS_WITH_NOTES). Earlier same day: 260810-ocs Comparador v2 (4b) installed via dynamic workflow (premortem 27 findings, 15 fixed; PASS_WITH_NOTES). Earlier same day: 260810-l3e Rankings v2 installed (hub cards + filter row + rate bars + regional panel) via dynamic workflow; earlier same day 260810-kcj (news UX redesign). Previously: Phase 33 Plan 03 (Wave 3, final) executed: secret-hygiene gate + courtesy delay + pin decision record, 3 atomic commits, one orchestrator-directed addition (F-123).
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-09-22 — Milestone v2.2 started
 
 ## Progress Bar
 
@@ -73,14 +73,18 @@ are **not** v2.1-scoped, so they are carried here rather than left only in an ar
 
 - **Heat-map / density visualization of incidents** — functions as an implicit "dangerous zone"
   label regardless of disclaimer; direct conflict with the project's hard editorial constraint.
+
 - **Severity or risk scoring per incident** — no supporting schema field, and it becomes an
   absolute danger label.
+
 - **Real-time / "breaking" badges** — the pipeline is cron-driven; the badge would be false.
 - **User-submitted incident reports / social layer** — needs a backend and moderation.
 - **Client-side re-filtering library or a new React island for news** — the volume never
   justifies the shipped JS and it would put content behind hydration.
+
 - **Pre-rendered facet URLs (region × family × time)** — thin content plus canonical/hreflang
   burden against the shared 20K-file budget.
+
 - **Declarative react-leaflet layer components** — reintroduces the documented
   re-render-on-hover jank.
 
@@ -413,6 +417,7 @@ validators** (freshness green), astro check **0 errors / 0 warnings** (the long-
 1. **`zizmor` does NOT enforce SHA pins on `actions/*` at any persona (F-119).** Its
    `unpinned-uses` policy accepts GitHub-owned tags. `check-sha-pins.sh` is therefore the ONLY
    thing guarding this phase's pins — do not delete it as "covered by zizmor".
+
 2. **`ci.yml` is `pull_request` + `workflow_dispatch` only (F-95) and that is deliberate**, but
    it means CI observes nothing on a master push. That is exactly how F-128 hid: `node-version:
    '20'` made the frontend job unable to pass **from the day the file was written**, invisible
