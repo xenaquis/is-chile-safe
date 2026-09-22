@@ -81,3 +81,36 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
+| NREC-01 | Phase 34 | Pending |
+| NREC-02 | Phase 34 | Pending |
+| NREC-03 | Phase 34 | Pending |
+| NREC-04 | Phase 34 | Pending |
+| NREC-05 | Phase 34 | Pending |
+| NREC-06 | Phase 34 | Pending |
+| NREC-07 | Phase 34 | Pending |
+| NREC-08 | Phase 34 | Pending |
+| NREC-09 | Phase 34 | Pending |
+| NREC-10 | Phase 34 | Pending |
+| FRESH-01 | Phase 35 | Pending |
+| FRESH-02 | Phase 35 | Pending |
+| FRESH-03 | Phase 35 | Pending |
+| FRESH-04 | Phase 35 | Pending |
+| FRESH-05 | Phase 35 | Pending |
+| FID-01 | Phase 36 | Pending |
+| FID-02 | Phase 36 | Pending |
+| FID-03 | Phase 36 | Pending |
+| FID-04 | Phase 36 | Pending |
+| FID-05 | Phase 36 | Pending |
+| FID-06 | Phase 36 | Pending |
+| FID-07 | Phase 36 | Pending |
+| DEPS-01 | Phase 37 | Pending |
+| DEPS-02 | Phase 37 | Pending |
+| DEPS-03 | Phase 37 | Pending |
+| DEPS-04 | Phase 37 | Pending |
+| HYG-01 | Phase 38 | Pending |
+| HYG-02 | Phase 38 | Pending |
+| HYG-03 | Phase 38 | Pending |
+| HYG-04 | Phase 38 | Pending |
+| HYG-05 | Phase 38 | Pending |
+| HYG-06 | Phase 38 | Pending |
+| HYG-07 | Phase 38 | Pending |

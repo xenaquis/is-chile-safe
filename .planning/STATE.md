@@ -23,14 +23,14 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 **Core value**: Un mapa nacional interactivo con datos delictivos oficiales reales por comuna, servido en páginas estáticas bilingües que Google indexa — si el mapa con datos CEAD reales y las páginas SEO funcionan, el resto puede esperar.
 
-**Current focus**: v2.1 News Intelligence, Map UX & Ops Hardening — unattended autonomous run per `.planning/v2.1-AUTONOMOUS-DIRECTIVE.md` (Sonnet codes, Opus validates, Fable decides; NO `git push`, `data/` read-only). Phases 26 (NO-GO, documented), 27 (News Facet Data Model, PASSED 5/5) and 28 (News Visualizer UI, PASSED 5/5) are CLOSED. **Phase 29 (Map UX Design Loop) is next** — it MUST run inline in the orchestrator session, because `gsd-executor` has no BrowserOS tools.
+**Current focus**: v2.2 Data Integrity & News Recovery — restore the news classification layer (dead since 2026-09-04T20:12Z) before current.json's 30-day window empties on 2026-10-05. A /gsd:quick hotfix of the live erroneous cards runs BEFORE Phase 34. Roadmap created 2026-09-22: Phases 34 (News Classification Restore, Fail-Loud Alarm & Outage Backfill — deadline before 2026-10-05), 35 (Honest Freshness Signals, depends on 34), 36 (Classification Fidelity & Attribution, depends on 34), 37 (Dependency & Security Hygiene, depends on 34), 38 (Pipeline, Public-Data, SEO & Docs Hygiene, depends on 34+35). Executed under corrida-autonoma roles: research (Sonnet) -> plan (Opus) -> premortem + adversarial gate (fresh Opus arbiter) -> execution (Sonnet) -> validation against served routes (Opus). **Phase 34 is next.**
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-09-22 — Milestone v2.2 started
+Phase: 34 - News Classification Restore, Fail-Loud Alarm & Outage Backfill (deadline before 2026-10-05)
+Plan: TBD (not yet planned)
+Status: Roadmap created; ready for /gsd:plan-phase 34
+Last activity: 2026-09-22 — v2.2 ROADMAP.md created (Phases 34-38), REQUIREMENTS.md traceability updated (33/33 mapped)
 
 ## Progress Bar
 
