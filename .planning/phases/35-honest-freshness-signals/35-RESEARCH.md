@@ -245,20 +245,20 @@ one manual hotfix `45c2650`):**
 |---|---|---|---|
 | f5761ea | 09-23 03:37 | 0 | no-op, generated-only rewrite |
 | 3a0d94e | 09-23 03:36 | 0 | no-op |
-| e4774b0 | 09-23 03:05 | 57 | real (backfill classify write) |
+| e4774b0 | 09-23 03:05 | 57 | aging-only rewrite (0 added; 57 removed — premortem R-11 correction) |
 | 7c32fd7 | 09-22 20:49 | 0 | no-op |
 | e52a6b0 | 09-22 16:11 | 0 | no-op |
 | 041afe4 | 09-22 10:53 | 0 | no-op |
-| 6576275 | 09-22 03:05 | 78 | real |
+| 6576275 | 09-22 03:05 | 78 | aging-only rewrite (0 added; 78 removed — premortem R-11 correction) |
 | cff4e48 | 09-21 21:39 | 0 | no-op |
 | 9d29494 | 09-21 17:47 | 0 | no-op |
 | cb5620d | 09-21 11:52 | 0 | no-op |
-| c754a15 | 09-21 03:05 | 68 | real |
+| c754a15 | 09-21 03:05 | 68 | aging-only rewrite (0 added; 68 removed — premortem R-11 correction) |
 | c09d88c | 09-20 20:15 | 0 | no-op |
 | 2a9606f | 09-20 15:21 | 0 | no-op |
 | 64d265c | 09-20 10:32 | 0 | no-op |
 
-**11 of these 14 commits (79%) added zero incident lines** — i.e., every field in `incidents`
+**11 of these 14 commits (79%) changed nothing but `generated`** (R1 correction, premortem R-11: the other 3 are aging-only rewrites that REMOVED 57/78/68 lines and added 0 — none of the 14 added an incident) — i.e., every field in `incidents`
 was unchanged, only `generated` differed — yet each one passed `git diff --staged --quiet` (false,
 i.e. "changed") in `.github/workflows/news-pipeline.yml`'s "Commit data if changed" step
 (`news-pipeline.yml:79-90`) purely because of the `generated` timestamp diff, triggering
