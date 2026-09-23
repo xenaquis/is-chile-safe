@@ -139,6 +139,12 @@ def test_parse_content_none_and_empty_are_parse_error():
     assert _parse_content("", "t") == ("parse_error", None)
 
 
+def test_parse_content_non_object_json_is_parse_error():
+    # 34-PREPUSH-REVIEW CR-01: valid JSON that is not an object must not raise.
+    for raw in ('[{"commune_name": null}]', "null", '"x"', "42"):
+        assert _parse_content(raw, "t") == ("parse_error", None)
+
+
 def test_parse_content_fenced_valid_json_is_ok():
     data = dict(_VALID_RESPONSE, confidence=0.9)
     raw = "```json\n" + json.dumps(data) + "\n```"

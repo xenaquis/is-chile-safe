@@ -267,6 +267,12 @@ def _parse_content(raw: str | None, title: str) -> tuple[str, ClassifierOutput |
             logger.warning("JSONDecodeError from %s for %r: %s", _PROVIDER, title[:60], exc)
             return "parse_error", None
 
+    # Valid JSON that is not an object (array, null, bare string) is a parse error,
+    # not a crash: without response_format the model may answer with a list.
+    if not isinstance(data, dict):
+        logger.warning("Non-object JSON from %s for %r", _PROVIDER, title[:60])
+        return "parse_error", None
+
     # Normalize family whitespace before Pydantic validation.
     # Granite 4.1 8B tokenizer artifact: "robos_ violentos" → "robos_violentos".
     # Guard is defensive — only applied when family is a non-empty str.
