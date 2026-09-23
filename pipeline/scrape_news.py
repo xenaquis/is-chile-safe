@@ -5,18 +5,23 @@ pipeline/scrape_news.py
 RSS news pipeline entrypoint. Runs the full pipeline:
   1. Load VALID_CUTS set and per-feed FEEDS registry
   2. For each feed: fetch entries, filter by keyword (D-02), skip seen URLs (D-03)
-  3. Cap candidates at MAX_CLASSIFICATIONS_PER_RUN to bound DeepSeek cost (D-17)
-  4. For each candidate: classify via DeepSeek v4-flash; reject if None (commune invalid /
-     low confidence / parse error)
+  3. Retry queue (data/incidents/pending.json, G-03) items first, then fresh candidates;
+     cap at MAX_CLASSIFICATIONS_PER_RUN to bound LLM cost (D-17)
+  4. For each candidate: ProviderRouter.classify (Phase 34-02 — preflight, DeepSeek-direct
+     failover, breaker, run budget) returns a typed outcome:
+       OK → resolve/centroid/build; NOT_CRIME → rejected "low_confidence";
+       PARSE_ERROR → rejected "parse_error" (all three mark the URL seen, CR-02);
+       API_ERROR → queued in pending.json, NEVER seen, never rejected
   5. Resolve centroid (lat, lng) from centroids.json (D-08); skip if unknown CUT
   6. Build IncidentRecord dicts with full attribution (outlet, url, date — NEWS-05)
   7. Deduplicate across sources (NEWS-03)
   8. merge_and_write into data/incidents/current.json (NEWS-04, D-15 atomic gate)
-  9. Update + save seen-URL ledger (D-03)
+  9. Update + save seen-URL ledger (D-03) and the retry queue
+ 10. Emit the run summary (schema 1) to the log, NEWS_RUN_SUMMARY_PATH and GITHUB_OUTPUT
 
 Exit codes:
-  0 = success
-  1 = key absent, validation failure, or unrecoverable error (D-14)
+  0 = success (including the graceful no-key skip)
+  1 = validation failure or unrecoverable error (D-14), including a failed summary write
 
 Usage:
   python pipeline/scrape_news.py
@@ -146,6 +151,73 @@ MAX_CLASSIFICATIONS_PER_RUN: int = _int_env("NEWS_MAX_CLASSIFY", 200)
 
 
 # ---------------------------------------------------------------------------
+# Run summary (schema 1 — the 34-03 health-gate contract, G-04 / G-09)
+# ---------------------------------------------------------------------------
+
+RUN_SUMMARY_SCHEMA = 1
+
+
+def _base_summary(router) -> dict:
+    return {
+        "schema": RUN_SUMMARY_SCHEMA,
+        "attempted": 0,
+        "responded": 0,
+        "accepted": 0,
+        "genuine_rejects": 0,
+        "parse_errors": 0,
+        "api_errors": 0,
+        "failovers": getattr(router, "failovers", 0),
+        "failover_reason": getattr(router, "failover_reason", None),
+        "backup_exhausted": bool(getattr(router, "backup_exhausted", False)),
+        "queued": 0,
+        "expired": 0,
+        "not_attempted": 0,
+        "downstream_rejects": 0,
+        "preflight": getattr(router, "preflight_status", "skipped"),
+        "primary": getattr(router, "primary_label", None),
+        "backup": getattr(router, "backup_label", None),
+        "skipped_reason": None,
+        "empty_content": 0,
+        "finish_length": 0,
+        "redispatched": 0,
+        "recovered_by_redispatch": 0,
+        "budget_exhausted": bool(getattr(router, "budget_exhausted", False)),
+        "served_by_counts": {},
+    }
+
+
+def _gh_output_value(value) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    return str(value)
+
+
+def _emit_summary(summary: dict) -> None:
+    """Log the summary and write it to NEWS_RUN_SUMMARY_PATH / GITHUB_OUTPUT when set.
+
+    Write failures are NOT swallowed: missing evidence must never look healthy — the
+    caller's except turns them into exit 1."""
+    logger.info("Run summary: %s", json.dumps(summary, sort_keys=True))
+
+    summary_path = os.environ.get("NEWS_RUN_SUMMARY_PATH", "").strip()
+    if summary_path:
+        path = pathlib.Path(summary_path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    gh_output = os.environ.get("GITHUB_OUTPUT", "").strip()
+    if gh_output:
+        with open(gh_output, "a", encoding="utf-8") as fh:
+            for key in sorted(summary):
+                value = summary[key]
+                if isinstance(value, (dict, list)):
+                    continue  # scalars only
+                fh.write(f"{key}={_gh_output_value(value)}\n")
+
+
+# ---------------------------------------------------------------------------
 # main() — orchestrator entry point
 # ---------------------------------------------------------------------------
 
@@ -167,38 +239,39 @@ def main() -> int:
     except ImportError:
         pass  # python-dotenv not installed — env vars must be set by caller
 
-    # T-05-04-02 / T-16-09: Provider-aware key check — log clear message, never print key value.
-    # Degrade gracefully (CLAUDE.md: "pipeline debe fallar con gracia y alertar"):
-    # without a key the pipeline cannot classify, so skip this run cleanly (exit 0)
-    # instead of failing the scheduled CI job every 6h. No key -> no data change ->
-    # no commit/deploy.
-    # Pitfall 6 (Plan 03): key check must be provider-aware. Must mirror the
-    # provider→key mapping in pipeline/news/classifier.py (default: openrouter
-    # → OPENROUTER_API_KEY since quick-260726-dqf / spike 008).
-    _provider = os.environ.get("NEWS_PROVIDER", "openrouter").strip().lower()
-    _key_env = {
-        "minimax": "MINIMAX_API_KEY",
-        "deepseek": "DEEPSEEK_API_KEY",
-    }.get(_provider, "OPENROUTER_API_KEY")
-    api_key = os.environ.get(_key_env, "").strip()
-    if not api_key:
-        logger.warning(
-            "%s is not set — skipping news classification this run. "
-            "Set it in pipeline/.env (dev) or as a repo secret (CI) to enable the pipeline. "
-            "Exiting cleanly with no data change.",
-            _key_env,
-        )
-        return 0
-
     data_dir = _get_data_dir()
     current_path = data_dir / "current.json"
     archive_dir = data_dir / "archive"
     seen_path = data_dir / "seen.json"
-
-    logger.info("News pipeline starting. Output dir: %s", data_dir)
-    logger.info("MAX_CLASSIFICATIONS_PER_RUN = %d (D-17)", MAX_CLASSIFICATIONS_PER_RUN)
+    pending_path = data_dir / "pending.json"
 
     try:
+        from pipeline.news.classifier import Outcome, build_router_from_env
+
+        # Provider router (NREC-02/04): primary from model_config / NEWS_PROVIDER /
+        # NEWS_MODEL, DeepSeek-direct backup. Clients built from os.environ NOW (R-12).
+        router = build_router_from_env()
+
+        # T-05-04-02 / T-16-09: key check — log env var NAMES only, never a key value.
+        # Degrade gracefully (CLAUDE.md: "pipeline debe fallar con gracia y alertar"):
+        # with neither the primary nor the backup key the pipeline cannot classify, so
+        # skip this run cleanly (exit 0) — no key -> no data change -> no commit/deploy.
+        if not router.any_key_present:
+            logger.warning(
+                "%s is not set — skipping news classification this run. "
+                "Set it in pipeline/.env (dev) or as a repo secret (CI) to enable the pipeline. "
+                "Exiting cleanly with no data change.",
+                " / ".join(router.key_env_names) or "API key",
+            )
+            summary = _base_summary(router)
+            summary["skipped_reason"] = "no_api_key"
+            _emit_summary(summary)
+            return 0
+
+        logger.info("News pipeline starting. Output dir: %s", data_dir)
+        logger.info("MAX_CLASSIFICATIONS_PER_RUN = %d (D-17)", MAX_CLASSIFICATIONS_PER_RUN)
+        logger.info("Classifier primary=%s backup=%s", router.primary_label, router.backup_label)
+
         # Local imports mirror scrape_cead.py pattern (injected after env setup)
         from pipeline.news.feeds import (
             FEEDS,
@@ -212,20 +285,51 @@ def main() -> int:
             save_seen,
             strip_html,
         )
-        from pipeline.news.classifier import classify
         from pipeline.news.centroids import get_centroid
         from pipeline.news.dedup import deduplicate
         from pipeline.news.store import build_incident, make_id, merge_and_write
         from pipeline.news.schema import VALID_CUTS
         from pipeline.news.resolver import resolve_cut
         from pipeline.news.fulltext import REQUEST_DELAY
+        from pipeline.news import pending as pq
+
+        # NREC-03: OpenRouter preflight once, before any completion call.
+        router.preflight()
+
+        now = datetime.now(timezone.utc)
 
         # Load seen-URL ledger (D-03)
         seen = load_seen(path=seen_path)
+
+        rejected_items: list[dict] = []
+        expired_count = 0
+
+        def _expire(entry: dict) -> None:
+            """G-03: expired queue item → rejected/ api_error_expired + seen, so the
+            feed cannot re-queue it forever."""
+            nonlocal expired_count
+            expired_count += 1
+            rejected_items.append({
+                "url": entry["url"],
+                "title": entry.get("title") or "",
+                "description": entry.get("description") or "",
+                "date": entry.get("date") or "",
+                "outlet": entry.get("outlet") or "",
+                "rejection_stage": "api_error_expired",
+            })
+            seen[entry["url"]] = entry.get("date") or now.date().isoformat()
+
+        # Retry queue (G-03): expire stale items BEFORE classification (not attempted).
+        pending = pq.load_pending(pending_path)
+        pending, expired_before = pq.split_expired(pending, now)
+        for entry in expired_before:
+            _expire(entry)
+
         seen_set: set[str] = set(seen.keys())
+        pending_urls: set[str] = {p["url"] for p in pending}
 
         # Collect all unseen crime candidates across feeds
-        candidates: list[dict] = []
+        fresh: list[dict] = []
         fetched_total = 0
         keyword_passed = 0
 
@@ -259,13 +363,14 @@ def main() -> int:
                         continue
                     keyword_passed += 1
 
-                    # Skip seen URLs (D-03) — also tracks within-run duplicates
-                    if url in seen_set:
+                    # Skip seen URLs (D-03) — also tracks within-run duplicates.
+                    # Items already in the retry queue are classified once, from the queue.
+                    if url in seen_set or url in pending_urls:
                         continue
                     # Mark as seen within this run to deduplicate across feeds/entries
                     seen_set.add(url)
 
-                    candidates.append({
+                    fresh.append({
                         "url": url,
                         "title": title,
                         "description": description,
@@ -279,10 +384,19 @@ def main() -> int:
 
         logger.info(
             "Fetch summary: fetched=%d, keyword_passed=%d, unseen_candidates=%d",
-            fetched_total, keyword_passed, len(candidates),
+            fetched_total, keyword_passed, len(fresh),
         )
 
-        # D-17: cap candidates to bound DeepSeek API cost
+        # Queued items first (first_queued order), then fresh candidates.
+        queued_candidates = [
+            {k: p.get(k) or "" for k in ("url", "title", "description", "date", "outlet")}
+            for p in sorted(pending, key=lambda p: (p.get("first_queued") or "", p.get("id") or ""))
+        ]
+        if queued_candidates:
+            logger.info("Retry queue: %d pending item(s) re-attempted first", len(queued_candidates))
+        candidates = queued_candidates + fresh
+
+        # D-17: cap candidates to bound LLM API cost
         if len(candidates) > MAX_CLASSIFICATIONS_PER_RUN:
             logger.warning(
                 "Capping candidates from %d to %d (NEWS_MAX_CLASSIFY / D-17)",
@@ -294,26 +408,41 @@ def main() -> int:
         new_incidents: list[dict] = []
         classified = 0
         rejected = 0
-        rejected_items: list[dict] = []
+        downstream_rejects = 0
+        not_attempted = 0
+        redispatched = 0
+        recovered_by_redispatch = 0
+        served_by_counts: dict[str, int] = {}
+        final: dict[str, object] = {}       # key -> final ClassifyResult (after re-dispatch)
+        by_key: dict[str, dict] = {}
 
-        for item in candidates:
-            # CR-02: mark the URL seen as soon as we attempt classification — BEFORE any
-            # reject path. Otherwise rejected URLs (low confidence / bad CUT / no centroid)
-            # are never recorded and get re-classified on every run, defeating the D-17 cost
-            # guardrail and burning DeepSeek quota indefinitely.
+        def _count_served(res) -> None:
+            if getattr(res, "served_by", None):
+                served_by_counts[res.served_by] = served_by_counts.get(res.served_by, 0) + 1
+
+        def _answered(item: dict, key: str, res) -> None:
+            """A provider answered (OK / NOT_CRIME / PARSE_ERROR)."""
+            nonlocal pending, classified, rejected, downstream_rejects
+            # Leaves the retry queue (this also reverses any attempt increment made
+            # earlier in this run when the backup recovers it — R-04).
+            pending = pq.remove(pending, key)
+            # CR-02: mark the URL seen as soon as a provider ANSWERED — before any reject
+            # path — so genuine rejects are never re-classified (D-17 cost guardrail).
+            # API_ERROR outcomes never reach here: they go to pending.json, never seen.
             seen[item["url"]] = item["date"]
 
-            # RESEARCH Open Q1: log rejection reason where available
-            result = classify(item["title"], item["description"])
-            if result is None:
-                logger.debug(
-                    "Rejected (classifier): url=%s title=%r",
-                    item["url"], item["title"][:60],
-                )
+            if res.outcome is Outcome.NOT_CRIME:
+                logger.debug("Rejected (low confidence): url=%s title=%r", item["url"], item["title"][:60])
                 rejected += 1
-                rejected_items.append({**item, "rejection_stage": "classifier_none"})
-                continue
+                rejected_items.append({**item, "rejection_stage": "low_confidence"})
+                return
+            if res.outcome is Outcome.PARSE_ERROR:
+                logger.debug("Rejected (parse error): url=%s title=%r", item["url"], item["title"][:60])
+                rejected += 1
+                rejected_items.append({**item, "rejection_stage": "parse_error"})
+                return
 
+            result = res.output
             # T-16-07: Resolve LLM commune_name → (cut, slug) via deterministic closed-set lookup.
             # Returns None for unknown/hallucinated names → drop incident (anti-hallucination guard).
             # Never let an unresolved name reach the store.
@@ -325,8 +454,9 @@ def main() -> int:
                     result.commune_name, item["title"][:60],
                 )
                 rejected += 1
+                downstream_rejects += 1
                 rejected_items.append({**item, "rejection_stage": stage})
-                continue
+                return
             cut, slug = resolved
 
             centroid = get_centroid(cut)
@@ -336,8 +466,9 @@ def main() -> int:
                     cut, item["title"][:60],
                 )
                 rejected += 1
+                downstream_rejects += 1
                 rejected_items.append({**item, "rejection_stage": "centroid_fail"})
-                continue
+                return
 
             lat, lng = centroid
             incident = build_incident(
@@ -354,12 +485,73 @@ def main() -> int:
             )
             new_incidents.append(incident)
             classified += 1
-            # (URL already marked seen at loop top — CR-02)
+
+        for item in candidates:
+            key = pq.item_id(item["url"])
+            by_key[key] = item
+
+            res = router.classify(item["title"], item["description"], key=key)
+            if res is None:
+                # Router exhausted or run budget spent (G-09): queue WITHOUT an attempt
+                # increment; never seen, never rejected.
+                pending = pq.upsert_failure(pending, item, now, None, attempted=False)
+                not_attempted += 1
+            else:
+                final[key] = res
+                _count_served(res)
+                if res.outcome is Outcome.API_ERROR:
+                    # Provider/transport failure (incl. G-09 empty_content / finish_length):
+                    # NOT an answer → never seen, never rejected/, queued for retry.
+                    pending = pq.upsert_failure(
+                        pending, item, now, f"{res.error}:{res.status_code}", attempted=True,
+                    )
+                else:
+                    _answered(item, key, res)
+
+            # R-04 / G-09: the breaker trip re-dispatches the tripping streak to the
+            # backup in the same run; apply the backup's answers to those items.
+            for rkey, rres in router.pop_redispatched():
+                redispatched += 1
+                ritem = by_key.get(rkey)
+                if ritem is None:
+                    continue
+                _count_served(rres)
+                if rres.outcome is Outcome.API_ERROR:
+                    continue  # backup failed too — the single attempt increment stays
+                recovered_by_redispatch += 1
+                final[rkey] = rres
+                _answered(ritem, rkey, rres)
+
+        # Deferred expiry (G-03): items that reached the attempt cap in this run.
+        pending, expired_after = pq.split_expired(pending, now)
+        for entry in expired_after:
+            _expire(entry)
 
         logger.info(
             "Classification summary: classified=%d, rejected=%d",
             classified, rejected,
         )
+
+        outcomes = list(final.values())
+        api_error_results = [r for r in outcomes if r.outcome is Outcome.API_ERROR]
+        summary = _base_summary(router)
+        summary.update({
+            "attempted": len(outcomes),
+            "responded": sum(1 for r in outcomes if r.outcome in (Outcome.OK, Outcome.NOT_CRIME)),
+            "accepted": classified,
+            "genuine_rejects": sum(1 for r in outcomes if r.outcome is Outcome.NOT_CRIME),
+            "parse_errors": sum(1 for r in outcomes if r.outcome is Outcome.PARSE_ERROR),
+            "api_errors": len(api_error_results),
+            "queued": len(pending),
+            "expired": expired_count,
+            "not_attempted": not_attempted,
+            "downstream_rejects": downstream_rejects,
+            "empty_content": sum(1 for r in api_error_results if r.error == "empty_content"),
+            "finish_length": sum(1 for r in api_error_results if r.error == "finish_length"),
+            "redispatched": redispatched,
+            "recovered_by_redispatch": recovered_by_redispatch,
+            "served_by_counts": dict(sorted(served_by_counts.items())),
+        })
 
         # Persist rejected candidates for selection-bias research corpus
         try:
@@ -382,6 +574,12 @@ def main() -> int:
         # Save updated seen-ledger (D-03)
         save_seen(seen, path=seen_path)
         logger.info("Seen-ledger saved (%d entries)", len(seen))
+
+        # Retry queue (written only when its content changed)
+        if pq.save_pending(pending_path, pending):
+            logger.info("Retry queue saved (%d pending)", len(pending))
+
+        _emit_summary(summary)
 
         logger.info("News pipeline completed successfully.")
         return 0

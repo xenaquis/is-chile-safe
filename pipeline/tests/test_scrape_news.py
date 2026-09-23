@@ -6,7 +6,8 @@ Integration test for pipeline/scrape_news.py orchestrator.
 Strategy:
 - monkeypatch FEEDS to a single synthetic feed with 3 entries (2 crime, 1 non-crime)
 - monkeypatch fetch_feed to return feedparser-compatible objects from fixture XML
-- mock classify() to return deterministic ClassifierOutput (NEVER live DeepSeek)
+- patch build_router_from_env with a FakeRouter returning typed ClassifyResults
+  (NEVER a live LLM call - an autouse fixture makes any real completion/preflight raise)
 - mock get_centroid() to return a known (lat, lng) for the test CUT
 - assert main() returns 0 and current.json validates via IncidentsFile.model_validate
 - assert attribution fields (outlet, url, date) are present (NEWS-05)
@@ -104,6 +105,131 @@ def _make_classifier_output(commune_name: str = "Santiago"):
 
 
 # ---------------------------------------------------------------------------
+# Fake router (Phase 34-02): scrape_news classifies through
+# pipeline.news.classifier.build_router_from_env() -> router.classify()
+# ---------------------------------------------------------------------------
+
+_EXHAUSTED = object()  # sentinel: router.classify returns None (exhausted / budget)
+
+
+def _to_result(val):
+    from pipeline.news.classifier import ClassifyResult, Outcome
+    from pipeline.news.schema import ClassifierOutput
+
+    if val is _EXHAUSTED:
+        return None
+    if isinstance(val, ClassifyResult):
+        return val
+    if isinstance(val, ClassifierOutput):
+        return ClassifyResult(Outcome.OK, val, "openrouter", "fake/model", served_by="FakeProv")
+    if val is None:
+        return ClassifyResult(Outcome.NOT_CRIME, None, "openrouter", "fake/model", served_by="FakeProv")
+    raise TypeError(f"unsupported fake result {val!r}")
+
+
+def _api(error: str = "NotFoundError", code: int | None = 404):
+    from pipeline.news.classifier import ClassifyResult, Outcome
+    return ClassifyResult(Outcome.API_ERROR, None, "openrouter", "fake/model",
+                          status_code=code, error=error)
+
+
+def _parse_err():
+    from pipeline.news.classifier import ClassifyResult, Outcome
+    return ClassifyResult(Outcome.PARSE_ERROR, None, "openrouter", "fake/model", served_by="FakeProv")
+
+
+class FakeRouter:
+    """Duck-typed ProviderRouter. Never sleeps, never touches the network."""
+
+    def __init__(self, results=None, *, default=None, redispatch=None):
+        self.results = list(results) if results is not None else None
+        self.default = default
+        # {call_number: [results for the last len(list) keys]} — emulates R-04 re-dispatch
+        self.redispatch = redispatch or {}
+        self.calls: list[tuple[str, str | None]] = []
+        self._pending_rd: list = []
+        self.failovers = 0
+        self.failover_reason = None
+        self.backup_exhausted = False
+        self.budget_exhausted = False
+        self.active = "primary"
+        self.preflight_status = "skipped"
+        self.any_key_present = True
+        self.key_env_names = ["OPENROUTER_API_KEY", "DEEPSEEK_API_KEY"]
+        self.primary_label = "openrouter:fake/model"
+        self.backup_label = "deepseek:fake-backup"
+
+    def preflight(self):
+        from pipeline.news.classifier import PreflightResult
+        return PreflightResult("skipped", None)
+
+    def classify(self, title, description, key=None):
+        self.calls.append((title, key))
+        n = len(self.calls)
+        if self.results is not None:
+            val = self.results.pop(0) if self.results else self.default
+        else:
+            val = self.default
+        if n in self.redispatch:
+            rd = self.redispatch[n]
+            keys = [k for _, k in self.calls[-len(rd):]]
+            self._pending_rd = [(k, _to_result(v)) for k, v in zip(keys, rd)]
+            self.failovers = 1
+            self.failover_reason = "breaker"
+            self.active = "backup"
+        return _to_result(val)
+
+    def pop_redispatched(self):
+        out, self._pending_rd = self._pending_rd, []
+        return out
+
+
+def _patch_router(results=None, **kw):
+    """Patch build_router_from_env to return a FakeRouter.
+
+    results: a list (consumed per call) or a single value used for every call.
+    ClassifierOutput -> OK, None -> NOT_CRIME, ClassifyResult passthrough,
+    _EXHAUSTED -> classify() returns None.
+    """
+    if isinstance(results, list):
+        fake = FakeRouter(results, **kw)
+    else:
+        fake = FakeRouter(None, default=results, **kw)
+    return patch("pipeline.news.classifier.build_router_from_env", return_value=fake)
+
+
+def _read_seen(data_dir) -> dict:
+    p = pathlib.Path(data_dir) / "seen.json"
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+
+
+def _rejected_stages(data_dir) -> dict:
+    out = {}
+    for f in (pathlib.Path(data_dir) / "rejected").glob("*.json"):
+        for it in json.loads(f.read_text(encoding="utf-8"))["items"]:
+            out[it["url"]] = it["rejection_stage"]
+    return out
+
+
+def _read_pending(data_dir) -> list:
+    p = pathlib.Path(data_dir) / "pending.json"
+    return json.loads(p.read_text(encoding="utf-8"))["items"] if p.exists() else []
+
+
+@pytest.fixture(autouse=True)
+def _no_live_llm(monkeypatch):
+    """A missed retarget must fail loudly instead of calling the network."""
+    def _boom(*a, **k):
+        raise AssertionError("network call in test")
+
+    monkeypatch.setattr("pipeline.news.classifier.preflight_openrouter", _boom)
+    monkeypatch.setattr("pipeline.news.classifier._request_completion", _boom)
+    for var in ("NEWS_RUN_SUMMARY_PATH", "GITHUB_OUTPUT", "NEWS_FORCE_BACKUP",
+                "NEWS_RUN_BUDGET_S", "NEWS_PROVIDER", "NEWS_MODEL"):
+        monkeypatch.delenv(var, raising=False)
+
+
+# ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
 
@@ -140,7 +266,7 @@ def test_main_happy_path(tmp_path, monkeypatch):
     # Patch FEEDS registry to our synthetic single feed
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
          patch("pipeline.news.feeds.fetch_feed") as mock_fetch, \
-         patch("pipeline.news.classifier.classify") as mock_classify, \
+         _patch_router([]) as mock_build, \
          patch("pipeline.news.resolver.resolve_cut") as mock_resolve, \
          patch("pipeline.news.centroids.get_centroid") as mock_centroid:
 
@@ -170,7 +296,7 @@ def test_main_happy_path(tmp_path, monkeypatch):
                 confidence=0.85,
             ),
         ]
-        mock_classify.side_effect = side_effects
+        mock_build.return_value.results = list(side_effects)
 
         # resolve_cut returns (cut, slug) for any valid commune name
         mock_resolve.return_value = (_VALID_CUT, "santiago")
@@ -257,7 +383,7 @@ def test_per_feed_failure_isolated(tmp_path, monkeypatch):
 
     with patch("pipeline.news.feeds.FEEDS", two_feeds), \
          patch("pipeline.news.feeds.fetch_feed", side_effect=_mock_fetch), \
-         patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
+         _patch_router(_make_classifier_output()), \
          patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
          patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
 
@@ -274,17 +400,18 @@ def test_per_feed_failure_isolated(tmp_path, monkeypatch):
 
 
 # ---------------------------------------------------------------------------
-# Test: classifier returning None skips the item
+# Test: genuine rejections (NOT_CRIME) are skipped AND marked seen (CR-02)
 # ---------------------------------------------------------------------------
 
-def test_classifier_none_items_skipped(tmp_path, monkeypatch):
-    """Items rejected by classify() (returns None) must not appear in output."""
+def test_genuine_rejections_skipped_and_marked_seen(tmp_path, monkeypatch):
+    """NOT_CRIME answers must not appear in output, but ARE marked seen (CR-02) and
+    recorded in rejected/ with stage low_confidence - and never queued."""
     monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
     monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
 
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
          patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1, _CRIME_ENTRY_2]), \
-         patch("pipeline.news.classifier.classify", return_value=None), \
+         _patch_router(None), \
          patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
          patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
 
@@ -294,6 +421,11 @@ def test_classifier_none_items_skipped(tmp_path, monkeypatch):
     assert result == 0
     data = json.loads((tmp_path / "current.json").read_text(encoding="utf-8"))
     assert data["incidents"] == [], "All rejected items must produce an empty incidents list"
+    seen = _read_seen(tmp_path)
+    assert _CRIME_ENTRY_1.link in seen and _CRIME_ENTRY_2.link in seen
+    stages = _rejected_stages(tmp_path)
+    assert stages == {_CRIME_ENTRY_1.link: "low_confidence", _CRIME_ENTRY_2.link: "low_confidence"}
+    assert not (tmp_path / "pending.json").exists()
 
 
 # ---------------------------------------------------------------------------
@@ -307,7 +439,7 @@ def test_centroid_none_items_skipped(tmp_path, monkeypatch):
 
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
          patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
-         patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
+         _patch_router(_make_classifier_output()), \
          patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
          patch("pipeline.news.centroids.get_centroid", return_value=None):
 
@@ -333,7 +465,7 @@ def test_incident_field_names_match_ts_interface(tmp_path, monkeypatch):
 
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
          patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
-         patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
+         _patch_router(_make_classifier_output()), \
          patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
          patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
 
@@ -370,7 +502,7 @@ def test_orchestrator_resolves_name(tmp_path, monkeypatch):
 
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
          patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
-         patch("pipeline.news.classifier.classify", return_value=classifier_output), \
+         _patch_router(classifier_output), \
          patch("pipeline.news.resolver.resolve_cut", return_value=(_LAS_CONDES_CUT, "las-condes")) as mock_resolve, \
          patch("pipeline.news.centroids.get_centroid", return_value=(-33.41, -70.58)):
 
@@ -393,7 +525,7 @@ def test_orchestrator_drops_unresolved_name(tmp_path, monkeypatch):
 
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
          patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
-         patch("pipeline.news.classifier.classify", return_value=_make_classifier_output("Gotham")), \
+         _patch_router(_make_classifier_output("Gotham")), \
          patch("pipeline.news.resolver.resolve_cut", return_value=None), \
          patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
 
@@ -439,7 +571,7 @@ def test_inter_feed_courtesy_delay(tmp_path, monkeypatch):
 
     with patch("pipeline.news.feeds.FEEDS", three_feeds), \
          patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
-         patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
+         _patch_router(_make_classifier_output()), \
          patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
          patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
 
@@ -474,7 +606,7 @@ def test_inter_feed_courtesy_delay_never_before_first_feed(tmp_path, monkeypatch
 
     with patch("pipeline.news.feeds.FEEDS", two_feeds), \
          patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
-         patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
+         _patch_router(_make_classifier_output()), \
          patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
          patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
 
@@ -493,7 +625,7 @@ def test_key_check_provider_aware(tmp_path, monkeypatch):
 
     with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
          patch("pipeline.news.feeds.fetch_feed", return_value=[_CRIME_ENTRY_1]), \
-         patch("pipeline.news.classifier.classify", return_value=_make_classifier_output()), \
+         _patch_router(_make_classifier_output()), \
          patch("pipeline.news.resolver.resolve_cut", return_value=(_VALID_CUT, "santiago")), \
          patch("pipeline.news.centroids.get_centroid", return_value=(-33.45, -70.67)):
 
@@ -504,3 +636,357 @@ def test_key_check_provider_aware(tmp_path, monkeypatch):
     assert result == 0
     current_path = tmp_path / "current.json"
     assert current_path.exists(), "current.json must be written when minimax key is present"
+
+
+def test_key_check_real_router_minimax_key_counts(monkeypatch):
+    """The real build_router_from_env sees the minimax key (provider-aware check)."""
+    monkeypatch.setenv("NEWS_PROVIDER", "minimax")
+    monkeypatch.setenv("MINIMAX_API_KEY", "mm-fake-key")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "")
+    from pipeline.news.classifier import build_router_from_env
+    r = build_router_from_env()
+    assert r.primary.provider == "minimax" and r.any_key_present is True
+
+
+# ---------------------------------------------------------------------------
+# Phase 34-02: typed-outcome loop, retry queue, run summary (NREC-04/05, G-03/G-09)
+# ---------------------------------------------------------------------------
+
+def _entries(n: int, prefix: str = "robo") -> list:
+    return [
+        _make_entry(
+            title=f"Robo con violencia número {i} en Santiago ({prefix})",
+            link=f"https://www.biobiochile.cl/noticias/{prefix}-{i}.shtml",
+            guid=f"https://www.biobiochile.cl/?p={prefix}{i}",
+            description="Un hombre resultó herido durante un asalto en plena vía pública.",
+            pub_date=_recent_iso(8),
+        )
+        for i in range(n)
+    ]
+
+
+def _run(tmp_path, monkeypatch, entries, router_cm, resolve=(_VALID_CUT, "santiago"),
+         centroid=(-33.45, -70.67)):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
+    monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
+    resolve_kw = {"side_effect": resolve} if callable(resolve) else {"return_value": resolve}
+    with patch("pipeline.news.feeds.FEEDS", _TEST_FEEDS), \
+         patch("pipeline.news.feeds.fetch_feed", return_value=list(entries)), \
+         router_cm as build, \
+         patch("pipeline.news.resolver.resolve_cut", **resolve_kw), \
+         patch("pipeline.news.centroids.get_centroid", return_value=centroid):
+        import pipeline.scrape_news as sn
+        rc = sn.main()
+    return rc, build.return_value
+
+
+def _summary(tmp_path) -> dict:
+    return json.loads((tmp_path / "run-summary.json").read_text(encoding="utf-8"))
+
+
+def test_api_error_404_not_seen_not_rejected_queued(tmp_path, monkeypatch):
+    monkeypatch.setenv("NEWS_RUN_SUMMARY_PATH", str(tmp_path / "run-summary.json"))
+    rc, _ = _run(tmp_path, monkeypatch, [_CRIME_ENTRY_1, _CRIME_ENTRY_2], _patch_router(_api()))
+    assert rc == 0
+    seen = _read_seen(tmp_path)
+    assert _CRIME_ENTRY_1.link not in seen and _CRIME_ENTRY_2.link not in seen
+    assert _rejected_stages(tmp_path) == {}  # in particular no classifier_none
+    pend = _read_pending(tmp_path)
+    assert {p["url"] for p in pend} == {_CRIME_ENTRY_1.link, _CRIME_ENTRY_2.link}
+    assert all(p["attempts"] == 1 and p["last_error"] == "NotFoundError:404" for p in pend)
+    s = _summary(tmp_path)
+    assert s["api_errors"] == 2 and s["responded"] == 0 and s["attempted"] == 2
+    assert s["queued"] == 2
+
+
+def test_parse_error_marked_seen_and_rejected(tmp_path, monkeypatch):
+    rc, _ = _run(tmp_path, monkeypatch, [_CRIME_ENTRY_1], _patch_router(_parse_err()))
+    assert rc == 0
+    assert _CRIME_ENTRY_1.link in _read_seen(tmp_path)
+    assert _rejected_stages(tmp_path) == {_CRIME_ENTRY_1.link: "parse_error"}
+    assert _read_pending(tmp_path) == []
+
+
+@pytest.mark.parametrize(
+    "commune,resolve,centroid,stage",
+    [
+        (None, (_VALID_CUT, "santiago"), (-33.45, -70.67), "commune_null"),
+        ("Gotham", None, (-33.45, -70.67), "resolver_fail"),
+        ("Santiago", (_VALID_CUT, "santiago"), None, "centroid_fail"),
+    ],
+)
+def test_ok_downstream_reject_stages(tmp_path, monkeypatch, commune, resolve, centroid, stage):
+    out = _make_classifier_output("Santiago").model_copy(update={"commune_name": commune})
+    rc, _ = _run(tmp_path, monkeypatch, [_CRIME_ENTRY_1], _patch_router(out),
+                 resolve=resolve, centroid=centroid)
+    assert rc == 0
+    assert _CRIME_ENTRY_1.link in _read_seen(tmp_path)
+    assert _rejected_stages(tmp_path) == {_CRIME_ENTRY_1.link: stage}
+
+
+def test_queued_item_recovers_on_next_run(tmp_path, monkeypatch):
+    rc1, _ = _run(tmp_path, monkeypatch, [_CRIME_ENTRY_1], _patch_router(_api()))
+    assert rc1 == 0 and len(_read_pending(tmp_path)) == 1
+    # Run 2: the item is no longer in the feed; the router answers OK.
+    rc2, fake = _run(tmp_path, monkeypatch, [], _patch_router(_make_classifier_output()))
+    assert rc2 == 0
+    assert len(fake.calls) == 1
+    cur = json.loads((tmp_path / "current.json").read_text(encoding="utf-8"))
+    assert [i["url"] for i in cur["incidents"]] == [_CRIME_ENTRY_1.link]
+    assert _read_pending(tmp_path) == []
+    assert _CRIME_ENTRY_1.link in _read_seen(tmp_path)
+
+
+def test_pending_item_also_in_feed_classified_once(tmp_path, monkeypatch):
+    _run(tmp_path, monkeypatch, [_CRIME_ENTRY_1], _patch_router(_api()))
+    rc, fake = _run(tmp_path, monkeypatch, [_CRIME_ENTRY_1, _CRIME_ENTRY_2],
+                    _patch_router(_make_classifier_output()))
+    assert rc == 0
+    titles = [t for t, _ in fake.calls]
+    assert len(titles) == 2
+    assert titles.count(_CRIME_ENTRY_1.title) == 1
+
+
+def test_empty_content_and_finish_length_are_queued_not_seen(tmp_path, monkeypatch):
+    monkeypatch.setenv("NEWS_RUN_SUMMARY_PATH", str(tmp_path / "run-summary.json"))
+    rc, _ = _run(tmp_path, monkeypatch, [_CRIME_ENTRY_1, _CRIME_ENTRY_2],
+                 _patch_router([_api("empty_content", None), _api("finish_length", None)]))
+    assert rc == 0
+    seen = _read_seen(tmp_path)
+    assert _CRIME_ENTRY_1.link not in seen and _CRIME_ENTRY_2.link not in seen
+    assert _rejected_stages(tmp_path) == {}
+    assert {p["last_error"] for p in _read_pending(tmp_path)} == {
+        "empty_content:None", "finish_length:None"}
+    s = _summary(tmp_path)
+    assert s["empty_content"] == 1 and s["finish_length"] == 1 and s["api_errors"] == 2
+
+
+def test_redispatch_recovers_tripping_streak(tmp_path, monkeypatch):
+    monkeypatch.setenv("NEWS_RUN_SUMMARY_PATH", str(tmp_path / "run-summary.json"))
+    entries = _entries(5)
+    outs = [
+        _make_classifier_output().model_copy(update={"title_es": f"Robo distinto {i}"})
+        for i in range(5)
+    ]
+    rc, fake = _run(tmp_path, monkeypatch, entries,
+                    _patch_router([_api()] * 5, redispatch={5: outs}))
+    assert rc == 0
+    assert len(fake.calls) == 5
+    assert _read_pending(tmp_path) == []
+    assert not (tmp_path / "pending.json").exists()
+    seen = _read_seen(tmp_path)
+    assert all(e.link in seen for e in entries)
+    s = _summary(tmp_path)
+    assert s["redispatched"] == 5 and s["recovered_by_redispatch"] == 5
+    assert s["api_errors"] == 0 and s["failovers"] == 1 and s["failover_reason"] == "breaker"
+    assert s["accepted"] == 5 and s["attempted"] == 5 and s["responded"] == 5
+
+
+def test_redispatch_backup_also_failing_keeps_single_increment(tmp_path, monkeypatch):
+    entries = _entries(5)
+    rc, _ = _run(tmp_path, monkeypatch, entries,
+                 _patch_router([_api()] * 5, redispatch={5: [_api()] * 5}))
+    assert rc == 0
+    pend = _read_pending(tmp_path)
+    assert len(pend) == 5 and all(p["attempts"] == 1 for p in pend)
+
+
+def test_run_budget_real_router_queues_rest(tmp_path, monkeypatch):
+    """R-11: a REAL ProviderRouter with a fake clock and intermittent 30 s timeouts
+    stops at budget_s=1200; the rest is queued without an attempt increment."""
+    import httpx
+    from openai import APITimeoutError
+    from pipeline.news import classifier as C
+
+    monkeypatch.setenv("NEWS_RUN_SUMMARY_PATH", str(tmp_path / "run-summary.json"))
+    now = [0.0]
+    ncalls = [0]
+    ok_body = json.dumps({
+        "commune_name": "Santiago", "region_hint": "Metropolitana", "family": "propiedad",
+        "title_es": "Robo en Santiago", "title_en": "Robbery in Santiago",
+        "summary": "A robbery.", "confidence": 0.9,
+    })
+
+    def fake_request(client_, model, provider, user_content, extra_body=None):
+        ncalls[0] += 1
+        now[0] += 30.0
+        if ncalls[0] % 3 == 0:
+            raise APITimeoutError(request=httpx.Request("POST", "https://x"))
+        return SimpleNamespace(
+            choices=[SimpleNamespace(message=SimpleNamespace(content=ok_body), finish_reason="stop")],
+            model="m", provider="FakeProv", usage=None,
+        )
+
+    monkeypatch.setattr(C, "_request_completion", fake_request)
+    monkeypatch.setattr(C, "_sleep", lambda s: now.__setitem__(0, now[0] + s))
+    spec = C.ProviderSpec("deepseek", "m", lambda: MagicMock(), None, True)
+    router = C.ProviderRouter(spec, None, clock=lambda: now[0], budget_s=1200)
+
+    entries = _entries(30)
+    rc, _ = _run(tmp_path, monkeypatch, entries,
+                 patch("pipeline.news.classifier.build_router_from_env", return_value=router))
+    assert rc == 0
+    for name in ("current.json", "seen.json", "pending.json"):
+        assert (tmp_path / name).exists(), name
+    s = _summary(tmp_path)
+    assert s["budget_exhausted"] is True
+    assert 0 < s["not_attempted"] < 30
+    assert s["attempted"] + s["not_attempted"] == 30
+    pend = _read_pending(tmp_path)
+    assert len(pend) == s["not_attempted"]
+    assert all(p["attempts"] == 0 for p in pend)
+    assert s["served_by_counts"] == {"FakeProv": s["attempted"]}
+
+
+def _write_pending(tmp_path, items):
+    (tmp_path / "pending.json").write_text(
+        json.dumps({"items": items}, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _pending_entry(entry, *, attempts, first_queued):
+    from pipeline.news.pending import item_id
+    return {
+        "id": item_id(entry.link), "url": entry.link, "title": entry.title,
+        "description": entry.summary, "date": _recent_iso(8)[:10], "outlet": "BioBioChile",
+        "first_queued": first_queued, "attempts": attempts, "last_error": "NotFoundError:404",
+    }
+
+
+def _iso_days_ago(days: float) -> str:
+    return (_dt.datetime.now(_dt.timezone.utc) - _dt.timedelta(days=days)).isoformat(timespec="seconds")
+
+
+def test_attempt_cap_expires_to_rejected_and_seen(tmp_path, monkeypatch):
+    monkeypatch.setenv("NEWS_RUN_SUMMARY_PATH", str(tmp_path / "run-summary.json"))
+    _write_pending(tmp_path, [_pending_entry(_CRIME_ENTRY_1, attempts=4, first_queued=_iso_days_ago(1))])
+    rc, fake = _run(tmp_path, monkeypatch, [], _patch_router(_api()))
+    assert rc == 0
+    assert len(fake.calls) == 1
+    assert _read_pending(tmp_path) == []
+    assert _rejected_stages(tmp_path) == {_CRIME_ENTRY_1.link: "api_error_expired"}
+    assert _CRIME_ENTRY_1.link in _read_seen(tmp_path)
+    assert _summary(tmp_path)["expired"] == 1
+
+
+def test_age_expiry_before_classification(tmp_path, monkeypatch):
+    _write_pending(tmp_path, [_pending_entry(_CRIME_ENTRY_1, attempts=1, first_queued=_iso_days_ago(15))])
+    rc, fake = _run(tmp_path, monkeypatch, [_CRIME_ENTRY_1], _patch_router(_make_classifier_output()))
+    assert rc == 0
+    assert fake.calls == []  # not attempted; the feed copy is now seen
+    assert _rejected_stages(tmp_path) == {_CRIME_ENTRY_1.link: "api_error_expired"}
+    assert _CRIME_ENTRY_1.link in _read_seen(tmp_path)
+    assert _read_pending(tmp_path) == []
+
+
+def test_router_exhausted_queues_unattempted(tmp_path, monkeypatch):
+    monkeypatch.setenv("NEWS_RUN_SUMMARY_PATH", str(tmp_path / "run-summary.json"))
+    _write_pending(tmp_path, [_pending_entry(_CRIME_ENTRY_2, attempts=2, first_queued=_iso_days_ago(1))])
+    cm = _patch_router(_EXHAUSTED)
+    cm_fake = cm.kwargs["return_value"]
+    cm_fake.backup_exhausted = True
+    rc, _ = _run(tmp_path, monkeypatch, [_CRIME_ENTRY_1], cm)
+    assert rc == 0
+    pend = {p["url"]: p for p in _read_pending(tmp_path)}
+    assert pend[_CRIME_ENTRY_2.link]["attempts"] == 2
+    assert pend[_CRIME_ENTRY_1.link]["attempts"] == 0
+    assert _CRIME_ENTRY_1.link not in _read_seen(tmp_path)
+    s = _summary(tmp_path)
+    assert s["not_attempted"] == 2 and s["backup_exhausted"] is True and s["attempted"] == 0
+
+
+def test_pending_first_and_combined_cap(tmp_path, monkeypatch):
+    import pipeline.scrape_news as sn
+    monkeypatch.setattr(sn, "MAX_CLASSIFICATIONS_PER_RUN", 3)
+    queued = _entries(2, prefix="queued")
+    _write_pending(tmp_path, [
+        _pending_entry(queued[1], attempts=1, first_queued=_iso_days_ago(1)),
+        _pending_entry(queued[0], attempts=1, first_queued=_iso_days_ago(2)),
+    ])
+    fresh = _entries(3, prefix="fresh")
+    rc, fake = _run(tmp_path, monkeypatch, fresh, _patch_router(_make_classifier_output()))
+    assert rc == 0
+    titles = [t for t, _ in fake.calls]
+    assert titles == [queued[0].title, queued[1].title, fresh[0].title]
+
+
+def test_mixed_run_summary_schema_and_github_output(tmp_path, monkeypatch, caplog):
+    monkeypatch.setenv("NEWS_RUN_SUMMARY_PATH", str(tmp_path / "out" / "run-summary.json"))
+    gh = tmp_path / "gh_output.txt"
+    gh.write_text("existing=1\n", encoding="utf-8")
+    monkeypatch.setenv("GITHUB_OUTPUT", str(gh))
+    entries = _entries(5)
+    results = [
+        _make_classifier_output("Santiago"),   # OK → accepted
+        None,                                    # NOT_CRIME
+        _parse_err(),                            # PARSE_ERROR
+        _api(),                                  # API_ERROR
+        _make_classifier_output("Gotham"),     # OK → resolver_fail
+    ]
+
+    def resolve(name, hint):
+        return None if name == "Gotham" else (_VALID_CUT, "santiago")
+
+    with caplog.at_level("INFO"):
+        rc, _ = _run(tmp_path, monkeypatch, entries, _patch_router(results), resolve=resolve)
+    assert rc == 0
+    s = json.loads((tmp_path / "out" / "run-summary.json").read_text(encoding="utf-8"))
+    assert set(s) == {
+        "schema", "attempted", "responded", "accepted", "genuine_rejects", "parse_errors",
+        "api_errors", "failovers", "failover_reason", "backup_exhausted", "queued", "expired",
+        "not_attempted", "downstream_rejects", "preflight", "primary", "backup",
+        "skipped_reason", "empty_content", "finish_length", "redispatched",
+        "recovered_by_redispatch", "budget_exhausted", "served_by_counts",
+    }
+    assert s["schema"] == 1
+    assert (s["attempted"], s["responded"], s["accepted"], s["genuine_rejects"],
+            s["parse_errors"], s["api_errors"], s["downstream_rejects"], s["queued"],
+            s["expired"], s["not_attempted"]) == (5, 3, 1, 1, 1, 1, 1, 1, 0, 0)
+    assert s["failovers"] == 0 and s["failover_reason"] is None
+    assert s["backup_exhausted"] is False and s["budget_exhausted"] is False
+    assert s["preflight"] == "skipped" and s["skipped_reason"] is None
+    assert s["primary"] == "openrouter:fake/model" and s["backup"] == "deepseek:fake-backup"
+    assert s["served_by_counts"] == {"FakeProv": 4}
+
+    lines = gh.read_text(encoding="utf-8").splitlines()
+    assert lines[0] == "existing=1"
+    for expected in ("attempted=5", "responded=3", "api_errors=1", "backup_exhausted=false",
+                     "failover_reason=", "schema=1", "preflight=skipped"):
+        assert expected in lines, expected
+    assert not any(l.startswith("served_by_counts") for l in lines)
+
+    assert "Classification summary: classified=1, rejected=3" in caplog.text
+    assert '"preflight": "skipped"' in caplog.text  # Run summary log line (sort_keys JSON)
+
+
+def test_pending_not_rewritten_when_unchanged(tmp_path, monkeypatch):
+    _run(tmp_path, monkeypatch, [_CRIME_ENTRY_1], _patch_router(_api()))
+    p = tmp_path / "pending.json"
+    before_bytes, before_mtime = p.read_bytes(), p.stat().st_mtime_ns
+    import time as _time
+    _time.sleep(0.05)
+    rc, _ = _run(tmp_path, monkeypatch, [], _patch_router(_EXHAUSTED))
+    assert rc == 0
+    assert p.read_bytes() == before_bytes
+    assert p.stat().st_mtime_ns == before_mtime
+
+
+def test_summary_write_failure_is_loud(tmp_path, monkeypatch):
+    blocker = tmp_path / "blocker"
+    blocker.write_text("x", encoding="utf-8")
+    monkeypatch.setenv("NEWS_RUN_SUMMARY_PATH", str(blocker / "sub" / "run-summary.json"))
+    rc, _ = _run(tmp_path, monkeypatch, [_CRIME_ENTRY_1], _patch_router(_make_classifier_output()))
+    assert rc == 1
+
+
+def test_no_api_key_summary_only_when_path_set(tmp_path, monkeypatch):
+    for k in ("OPENROUTER_API_KEY", "DEEPSEEK_API_KEY", "MINIMAX_API_KEY"):
+        monkeypatch.delenv(k, raising=False)
+    data_dir = tmp_path / "data"
+    monkeypatch.setenv("NEWS_DATA_DIR", str(data_dir))
+    monkeypatch.setenv("NEWS_RUN_SUMMARY_PATH", str(tmp_path / "run-summary.json"))
+    import pipeline.scrape_news as sn
+    assert sn.main() == 0
+    s = _summary(tmp_path)
+    assert s["skipped_reason"] == "no_api_key" and s["attempted"] == 0
+    assert not data_dir.exists() or list(data_dir.rglob("*.json")) == []
