@@ -1,0 +1,23 @@
+{
+  "provider": "deepseek",
+  "model": "deepseek-v4-flash",
+  "chosen_variant": "thinking_disabled",
+  "chosen_extra_body": {
+    "thinking": {
+      "type": "disabled"
+    }
+  },
+  "reasoning_unfixable": false,
+  "per_variant": {
+    "thinking_disabled": {
+      "reasoning_tokens_total": 0,
+      "empty": 0,
+      "api_errors": 0
+    },
+    "none": {
+      "reasoning_tokens_total": 572,
+      "empty": 0,
+      "api_errors": 0
+    }
+  }
+}

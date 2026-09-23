@@ -1,0 +1,28 @@
+{
+  "provider": "openrouter",
+  "model": "ibm-granite/granite-4.2-8b",
+  "chosen_variant": "enabled_false",
+  "chosen_extra_body": {
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "reasoning_unfixable": false,
+  "per_variant": {
+    "enabled_false": {
+      "reasoning_tokens_total": 0,
+      "empty": 0,
+      "api_errors": 0
+    },
+    "effort_none": {
+      "reasoning_tokens_total": 0,
+      "empty": 0,
+      "api_errors": 0
+    },
+    "none": {
+      "reasoning_tokens_total": 1420,
+      "empty": 3,
+      "api_errors": 0
+    }
+  }
+}
