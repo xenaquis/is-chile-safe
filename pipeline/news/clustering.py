@@ -46,6 +46,8 @@ from openai import AuthenticationError, OpenAI, RateLimitError
 from openai import APIStatusError as _APIStatusError
 from pydantic import BaseModel, ValidationError
 
+from pipeline.news import model_config
+
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
@@ -56,8 +58,13 @@ logger = logging.getLogger(__name__)
 client = OpenAI(
     api_key=os.environ.get("OPENROUTER_API_KEY", "placeholder"),
     base_url="https://openrouter.ai/api/v1",
+    max_retries=0,
+    timeout=30.0,
 )
-MODEL = "ibm-granite/granite-4.1-8b"
+# NREC-02 (Phase 34-02): model id from the side-effect-free model_config (NOT from
+# classifier.py, preserving the no-coupling note above). The previous Granite 4.1
+# default was delisted 2026-09-04. Clustering stays NO-GO (v2.1 lock).
+MODEL = model_config.resolve("NEWS_CLUSTERING_MODEL", model_config.DEFAULT_OPENROUTER_MODEL)
 
 # ---------------------------------------------------------------------------
 # Constants

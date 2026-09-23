@@ -988,6 +988,15 @@ def test_golden_set_meets_go_gate():
     assert metrics["fp"] == 0 and metrics["tp"] > 0 and metrics["n_failsafe"] == 0
 
 
+
+@pytest.mark.xfail(
+    strict=True,
+    reason=(
+        "NREC-02: clustering MODEL moved off delisted ibm-granite granite 4.1 8B; "
+        "cached golden-set verdicts (fixture meta.model) are stale by design; "
+        "clustering is NO-GO (v2.1 lock) — rebuild verdicts only if clustering is ever reopened"
+    ),
+)
 def test_cached_verdicts_match_current_model_config():
     """Model/prompt-staleness guard (T-26-16): recomputes the live
     SYSTEM_PROMPT hash and compares against the fixture's recorded meta so a
