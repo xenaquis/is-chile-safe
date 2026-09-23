@@ -129,6 +129,7 @@ class IncidentsFile(BaseModel):
     generated: str        # ISO-8601 timestamp
     window_days: int      # = 30
     incidents: list[IncidentRecord]
+    last_new_incident_at: str | None = None  # G-05 freshness evidence (NEWS-08)
 
 
 # ---------------------------------------------------------------------------

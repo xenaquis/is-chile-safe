@@ -99,6 +99,23 @@ def _load_incidents_list(path: pathlib.Path) -> list[dict]:
         return []
 
 
+def _load_payload(path: pathlib.Path) -> dict:
+    """Load the raw JSON dict from current_path (G-05), or {} if absent/unreadable.
+
+    Kept separate from _load_incidents_list so that helper's return type
+    (list[dict]) stays unchanged; this one preserves top-level keys like
+    last_new_incident_at that _load_incidents_list discards.
+    """
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else {}
+    except Exception as exc:
+        logger.warning("Could not read %s: %s — treating as empty", path, exc)
+        return {}
+
+
 def _merge_by_id(existing: list[dict], new_items: list[dict]) -> list[dict]:
     """Merge new_items into existing, deduplicating by id (existing wins on conflict)."""
     seen: set[str] = {inc["id"] for inc in existing}
@@ -121,7 +138,9 @@ def merge_and_write(
     archive_dir: pathlib.Path,
     window_days: int = 30,
     today: datetime.date | None = None,
-) -> None:
+    now: datetime.datetime | None = None,
+    bump_last_new: bool = True,
+) -> int:
     """
     Idempotent merge + 30-day rolling window + monthly archive + validated atomic write.
 
@@ -134,12 +153,28 @@ def merge_and_write(
     6. Validate payload via validate_incidents_file — on ValidationError, log and skip write
        (last-good file preserved, D-15).
     7. atomic_write_json(current_path, payload).
+
+    G-05 (NEWS-08 freshness instrument): `now` is used for both `generated` and, when
+    applicable, `last_new_incident_at`. When the count of ids landing in the current
+    window that were not previously present (`existing`) is > 0 AND `bump_last_new`
+    is True, `last_new_incident_at` is set to `now` (ISO Z). Otherwise the previous
+    value is carried forward verbatim (or omitted if it was never set) — this holds
+    even when `new_incidents` added ids that all aged straight into the archive.
+    `bump_last_new=False` (G-07(a), R-02) is for the NREC-09 backfill: it must NEVER
+    make a backfill look like live freshness evidence.
+
+    Returns the count of ids landing in `current_incidents` that were not present in
+    `existing` before the merge (callers may ignore it; pre-34-03 callers do).
     """
     ref_date = today or datetime.date.today()
     cutoff = ref_date - datetime.timedelta(days=window_days)
+    ref_now = now or datetime.datetime.now(datetime.timezone.utc)
 
     # 1. Load existing
     existing = _load_incidents_list(current_path)
+    existing_ids = {inc["id"] for inc in existing}
+    previous_payload = _load_payload(current_path)
+    previous_last_new = previous_payload.get("last_new_incident_at")
 
     # Filter out None results and non-http(s) incidents before merge (TD-05)
     new_incidents = [i for i in new_incidents if i is not None and is_safe_url(i.get("url", ""))]
@@ -190,12 +225,21 @@ def merge_and_write(
             continue
         atomic_write_json(archive_path, archive_payload)
 
+    # G-05: count of ids in the current window that were not present before this merge.
+    new_in_window_count = sum(1 for inc in current_incidents if inc["id"] not in existing_ids)
+
     # 6. Validate current payload
     payload = {
-        "generated": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
+        "generated": ref_now.isoformat().replace("+00:00", "Z"),
         "window_days": window_days,
         "incidents": current_incidents,
     }
+    if new_in_window_count > 0 and bump_last_new:
+        payload["last_new_incident_at"] = ref_now.isoformat().replace("+00:00", "Z")
+    elif isinstance(previous_last_new, str):
+        payload["last_new_incident_at"] = previous_last_new
+    # else: omit the key (never set before, and not bumped this run)
+
     try:
         validate_incidents_file(payload)
     except ValidationError as exc:
@@ -203,7 +247,8 @@ def merge_and_write(
             "current.json failed validation — skipping write to preserve last-good: %s",
             exc,
         )
-        return
+        return new_in_window_count
 
     # 7. Atomic write
     atomic_write_json(current_path, payload)
+    return new_in_window_count

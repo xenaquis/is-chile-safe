@@ -259,6 +259,154 @@ def test_merge_and_write_excludes_invalid_url_incidents(tmp_path):
     assert "https://biobiochile.cl/article/valid" in urls, "Valid http(s) URL must be persisted"
 
 
+def _make_utc(iso: str) -> datetime.datetime:
+    return datetime.datetime.fromisoformat(iso.replace("Z", "+00:00"))
+
+
+# ---------------------------------------------------------------------------
+# G-05: last_new_incident_at (34-03)
+# ---------------------------------------------------------------------------
+
+
+def test_last_new_incident_at_set_on_new_in_window(tmp_path):
+    """A new id landing in the current window, on a file without the field,
+    sets last_new_incident_at == now (ISO Z); returns 1."""
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+
+    now = _make_utc("2026-06-10T12:00:00Z")
+    incident = _make_incident("new001", _fresh_date())
+    count = merge_and_write([incident], current_path, archive_dir=archive_dir, now=now)
+
+    assert count == 1
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    assert result["last_new_incident_at"] == "2026-06-10T12:00:00Z"
+
+
+def test_no_op_merge_carries_forward_last_new_incident_at(tmp_path):
+    """A no-op merge (only existing ids) carries the previous field forward
+    verbatim; returns 0."""
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+
+    incident = _make_incident("carry001", _fresh_date())
+    data = {
+        "generated": "2026-06-01T00:00:00Z",
+        "window_days": 30,
+        "incidents": [incident],
+        "last_new_incident_at": "2026-06-01T00:00:00Z",
+    }
+    current_path.write_text(json.dumps(data), encoding="utf-8")
+
+    duplicate = copy.deepcopy(incident)
+    count = merge_and_write(
+        [duplicate], current_path, archive_dir=archive_dir,
+        now=_make_utc("2026-06-10T12:00:00Z"),
+    )
+
+    assert count == 0
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    assert result["last_new_incident_at"] == "2026-06-01T00:00:00Z"
+
+
+def test_no_op_merge_stays_absent_when_field_was_absent(tmp_path):
+    """If the field was absent before a no-op merge, it stays absent (no key)."""
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+
+    incident = _make_incident("absent001", _fresh_date())
+    _write_current(current_path, [incident])
+
+    duplicate = copy.deepcopy(incident)
+    count = merge_and_write(
+        [duplicate], current_path, archive_dir=archive_dir,
+        now=_make_utc("2026-06-10T12:00:00Z"),
+    )
+
+    assert count == 0
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    assert "last_new_incident_at" not in result
+
+
+def test_new_id_older_than_cutoff_does_not_set_field(tmp_path):
+    """A new id whose date is older than the cutoff (goes straight to archive)
+    does NOT set last_new_incident_at; returns 0."""
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+
+    old_incident = _make_incident("old_new001", _old_date())
+    count = merge_and_write(
+        [old_incident], current_path, archive_dir=archive_dir,
+        now=_make_utc("2026-06-10T12:00:00Z"),
+    )
+
+    assert count == 0
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    assert "last_new_incident_at" not in result
+
+
+def test_bump_last_new_false_keeps_field_byte_identical(tmp_path):
+    """G-07(a)/R-02: bump_last_new=False returns 1 (still counts new ids) but
+    leaves last_new_incident_at byte-identical to before."""
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+
+    incident = _make_incident("bf001", _fresh_date())
+    count = merge_and_write(
+        [incident], current_path, archive_dir=archive_dir,
+        now=_make_utc("2026-06-10T12:00:00Z"), bump_last_new=False,
+    )
+
+    assert count == 1
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    assert "last_new_incident_at" not in result
+
+
+def test_bump_last_new_false_carries_previous_value(tmp_path):
+    """bump_last_new=False with a previously-set field carries it forward
+    byte-identical."""
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+
+    existing_incident = _make_incident("existing001", _fresh_date())
+    data = {
+        "generated": "2026-06-01T00:00:00Z",
+        "window_days": 30,
+        "incidents": [existing_incident],
+        "last_new_incident_at": "2026-05-15T00:00:00Z",
+    }
+    current_path.write_text(json.dumps(data), encoding="utf-8")
+
+    new_incident = _make_incident("bf002", _fresh_date())
+    count = merge_and_write(
+        [new_incident], current_path, archive_dir=archive_dir,
+        now=_make_utc("2026-06-10T12:00:00Z"), bump_last_new=False,
+    )
+
+    assert count == 1
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    assert result["last_new_incident_at"] == "2026-05-15T00:00:00Z"
+
+
+def test_validate_incidents_file_accepts_with_and_without_field():
+    """schema field last_new_incident_at: str | None = None accepts both."""
+    from pipeline.news.schema import validate_incidents_file
+
+    with_field = {
+        "generated": "2026-06-01T00:00:00Z",
+        "window_days": 30,
+        "incidents": [],
+        "last_new_incident_at": "2026-06-01T00:00:00Z",
+    }
+    without_field = {
+        "generated": "2026-06-01T00:00:00Z",
+        "window_days": 30,
+        "incidents": [],
+    }
+    validate_incidents_file(with_field)
+    validate_incidents_file(without_field)
+
+
 def test_archive_write(tmp_path):
     """Aged-out incidents must be written to archive/YYYY-MM.json."""
     current_path = tmp_path / "current.json"
