@@ -121,3 +121,4 @@ Los 11 hallazgos no bloqueantes quedan como recomendaciones. Lo que no medí (du
 
 ## Condition closure log (append)
 
+- 2026-09-23 — C1..C7 VERIFIED by orchestrator diff (grep counts): old-phrase guard present in 35-04 (3); `cygpath -m "$TEMP"` + injected `(partial data)</p>` in 35-05 (3/3); yearMismatchTip rewrite in 35-03 (1); `data-gap-from` span captions in 35-04/35-06 (2/3); "Earlier Incidents in the News" in 35-04/35-06 (2/3); `newsStripDays` task in 35-04 (7); K = 4 no-op rule in 35-07 (7); no remaining active "none in the last 7 days" copy. Gate closed GO for execution (execution still blocked by G-19 until Phase 34 closes).
