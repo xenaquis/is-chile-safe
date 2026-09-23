@@ -605,6 +605,7 @@ Decisions taken inline by the Fable orchestrator during the unattended run. Each
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
+| 260922-t59 | Hotfix live erroneous news cards (pre-Phase 34): 6 duplicate Fierro kinship-error cards dropped + 1 retitled neutral; 2 prison-suicide items dropped (807→799); pushed + deploy-manual dispatched | 2026-09-22 | 45c2650 | [260922-t59-hotfix-live-erroneous-news-cards](./quick/260922-t59-hotfix-live-erroneous-news-cards/) |
 | 260616-huj | Clarify crime-ranking rate labels (denuncias per 100k residents, 1 decimal, bilingual explainer) | 2026-06-16 | 4be9045 | [260616-huj-clarify-rate-labels](./quick/260616-huj-clarify-rate-labels/) |
 | 260616-klv | Audit drug rates; fix national/region aggregation to population-weighted mean | 2026-06-16 | 5b997e4 | [260616-klv-auditar-tasas-drogas-100k-anomalas-modo-](./quick/260616-klv-auditar-tasas-drogas-100k-anomalas-modo-/) |
 | 260616-ldi | Fix region_id grouping (BUGFIX-999.1): derive region from CUT length; all 16 regions now populate | 2026-06-16 | cad6a20 | [260616-ldi-fix-region-id-grouping-backlog-999-1-der](./quick/260616-ldi-fix-region-id-grouping-backlog-999-1-der/) |
