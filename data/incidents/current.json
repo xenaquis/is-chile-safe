@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-23T08:04:49.624548Z",
+  "generated": "2026-09-23T10:42:01.557306Z",
   "window_days": 30,
   "incidents": [
     {
@@ -9699,7 +9699,59 @@
       "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPVXRnQnQ2MkpEcVBtS09jbnV5S0VUeVlFUjgxRVlsTGN3SHpMbEQzZUktOUZMZlBEMU91Qm9QeWZITmdVdmN4b3g3b0RXVUE0NVNNRTJfMG03OXo0UGJjLWVpMWVXSVBVdVBQQm4yM0t0SndSYnZWZjFoRDhMMl9tZ1ZIT1pxV0hFSTlNN2JiTDFUdw?oc=5",
       "family": "vida",
       "slug": "villarrica"
+    },
+    {
+      "id": "a9c12e755f809121",
+      "cut": "13108",
+      "lat": -33.416252,
+      "lng": -70.664389,
+      "title_es": "Investigan secuestro de dueña de botillería en Independencia",
+      "title_en": "Investigation into kidnapping of liquor store owner in Independencia",
+      "date": "2026-09-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/09/23/investigan-secuestro-de-la-duena-de-una-botilleria-en-independencia.shtml",
+      "family": "vida",
+      "slug": "independencia"
+    },
+    {
+      "id": "5ed1daf0c7bd107c",
+      "cut": "13116",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Acribillado cuando llegaba a su casa: así fue el asesinato de \"El Poroto\", líder narco en Lo Espejo",
+      "title_en": "Shot dead as he arrived home: this was the murder of \"El Poroto\", drug leader in Lo Espejo",
+      "date": "2026-09-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/09/23/acribillado-cuando-llegaba-a-su-casa-asi-fue-el-asesinato-de-el-poroto-lider-narco-en-lo-espejo.shtml",
+      "family": "vida",
+      "slug": "lo-espejo"
+    },
+    {
+      "id": "5e04ee21acee24a2",
+      "cut": "13126",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Niño de 12 años muere tras caer desde un décimo piso en Quinta Normal",
+      "title_en": "12-year-old boy dies after falling from a tenth floor in Quinta Normal",
+      "date": "2026-09-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/09/23/nino-de-12-anos-muere-tras-caer-desde-un-decimo-piso-en-quinta-normal.shtml",
+      "family": "vida",
+      "slug": "quinta-normal"
+    },
+    {
+      "id": "7281b8b2ae773b81",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Encuentran a hombre asesinado en domicilio en San Bernardo",
+      "title_en": "Man found murdered in home in San Bernardo",
+      "date": "2026-09-23",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/encuentran-a-hombre-asesinado-en-domicilio-en-san-bernardo/",
+      "family": "vida",
+      "slug": "san-bernardo"
     }
   ],
-  "last_new_incident_at": "2026-09-23T06:25:01.758955Z"
+  "last_new_incident_at": "2026-09-23T10:42:01.557306Z"
 }
