@@ -67,11 +67,12 @@ jobs:
           LAST_COMMIT=$(git log -1 --format=%cI -- data/cead/)
           bash .github/scripts/check-heartbeat.sh cead "$LAST_COMMIT"
 
-      - name: Check news pipeline heartbeat (current.json evidence, 3-day threshold, matches freshness.mjs validator 15 per F-83a/b)
+      - name: Check news pipeline heartbeat (newest-incident evidence per G-05, 48h threshold, matches freshness.mjs)
+        id: news_hb
         if: '!cancelled()'
         run: |
-          LAST_NEWS=$(python3 -c "import json; print(json.load(open('data/incidents/current.json', encoding='utf-8'))['generated'])")
-          bash .github/scripts/check-heartbeat.sh news 3 "$LAST_NEWS"
+          LAST_NEWS=$(python3 pipeline/news_evidence.py data/incidents/current.json)
+          bash .github/scripts/check-heartbeat.sh news 2 "$LAST_NEWS"
 
       # F-87: label creation is its own non-fatal step, never the first line of the
       # alert step -- see news-pipeline.yml for the full rationale.
@@ -83,6 +84,43 @@ jobs:
         run: |
           gh label create pipeline-failure-heartbeat --color e11d48 --description "Pipeline Heartbeat failure alert" --force
           gh label create pipeline-failure --color e11d48 --description "Shared pipeline failure alert" --force
+
+      # R-08: the news-heartbeat signal gets its OWN issue/label, separate from the
+      # shared pipeline-failure-heartbeat alert above. Reason (measured by the
+      # premortem): from 2026-10-01, check-heartbeat.sh cead is expected to go red
+      # (HYG-06 pending, last data/cead commit 2026-06-19). If the news-heartbeat
+      # signal only shared the single pipeline-failure-heartbeat label/issue, every
+      # news outage in that window would be reduced to a comment on an
+      # already-open CEAD issue -- exactly when the deadline-window news signal
+      # matters most. The existing alert step above is UNCHANGED and keeps
+      # covering R2 + CEAD (and may still comment on a news failure too, which is
+      # acceptable); what matters is that the news signal ALSO always gets its own
+      # issue.
+      - name: Ensure news-heartbeat alert label exists
+        if: failure()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create pipeline-failure-news-heartbeat --color e11d48 --description "News heartbeat (G-05 newest-incident evidence) failure alert" --force
+          gh label create pipeline-failure --color e11d48 --description "Shared pipeline failure alert" --force
+
+      - name: Alert news heartbeat via GitHub Issue
+        if: failure() && steps.news_hb.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          OPEN_ISSUE=$(gh issue list --label pipeline-failure-news-heartbeat --state open --json number --jq '.[0].number // empty')
+          if [ -n "$OPEN_ISSUE" ]; then
+            gh issue comment "$OPEN_ISSUE" --body "News heartbeat failed again: $RUN_URL"
+          else
+            gh issue create \
+              --label pipeline-failure-news-heartbeat \
+              --label pipeline-failure \
+              --title "[pipeline] News heartbeat: no new incident for >48h on $(date -u +%F)" \
+              --body "News heartbeat run failed: $RUN_URL -- newest-incident evidence (G-05) is stale. This is a SEPARATE signal from the CEAD quarterly reminder above; check the run log for the 'Check news pipeline heartbeat' step."
+          fi
 
       # F-89 residuals, named rather than hidden: (1) an R2 run that succeeds while
       # archiving ZERO items still passes this check -- F-79 chose "did the workflow

@@ -12,9 +12,11 @@
 # F-83(a): "news" mode watches the 6-hourly news cron; freshness.mjs (validator
 # #15, not #16 — F-83b corrects the earlier miscount) only runs via `npm run
 # validate` or in ci.yml, and ci.yml is pull_request-triggered only, so it
-# never runs on the quiet repo an outage produces. This mode reads the same
-# field freshness.mjs uses (data/incidents/current.json's `generated` field)
-# so the two instruments cannot disagree.
+# never runs on the quiet repo an outage produces. This mode reads the SAME
+# G-05 evidence freshness.mjs uses (last_new_incident_at, else
+# max(incident.date)+1d, via pipeline/news_evidence.py) so the two
+# instruments cannot disagree (34-03, NEWS-08). The news call site uses a
+# 48h threshold (`news 2`).
 #
 # F-96: news/r2 thresholds compare epoch SECONDS against max_age_days*86400,
 # not truncated integer days — integer-day division previously made every

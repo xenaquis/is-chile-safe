@@ -16,7 +16,7 @@
  *  12.  seo.mjs               — OG/Twitter meta + JSON-LD shape validator (Phase 13 SEO hardening)
  *  13.  figure-registry.mjs   — SRC-05 figure-registry zero-orphan completeness check over data/SOURCES.md
  *  14.  avs-b-budget.mjs      — file budget < 18,000 + EN/ES compare-page count symmetry (Phase 21 CMP-05)
- *  15.  freshness.mjs         — data/incidents/current.json <= 3 days old
+ *  15.  freshness.mjs         — newest-incident evidence <= 48h (G-05)
  *  16.  facets.mjs            — news facet count integrity (family/region containment via live Python-source parsing, CUT-length cross-check, byMonth completeness, TZ-determinism, stray-artifact absence)
  *
  * Any non-zero exit from a child script fails the suite.

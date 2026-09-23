@@ -18,6 +18,13 @@ import shutil
 import subprocess
 from pathlib import Path
 
+import pytest
+
+try:
+    import yaml
+except ImportError:
+    yaml = None  # type: ignore[assignment]
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS_DIR = REPO_ROOT / ".github" / "scripts"
 WORKFLOWS_DIR = REPO_ROOT / ".github" / "workflows"
@@ -689,3 +696,118 @@ class TestWorkflowPythonStepsHaveSetup:
         mutated_text = "\n".join(mutated_lines)
         missing = _python_run_steps_missing_setup(mutated_text)
         assert missing, "mutation removed setup-python/pip install but the guard found nothing — vacuous test"
+
+
+# ---------------------------------------------------------------------------
+# TestNewsHeartbeatG05 (34-03, R-08, NEWS-08)
+# ---------------------------------------------------------------------------
+
+import json
+import sys
+import tempfile
+
+NEWS_EVIDENCE = REPO_ROOT / "pipeline" / "news_evidence.py"
+HEARTBEAT_YML = WORKFLOWS_DIR / "heartbeat.yml"
+
+
+class TestNewsHeartbeatG05:
+    """G-05 fixtures A-G run through the real news_evidence.py (sys.executable)
+    then the real check-heartbeat.sh (news 2), proving both instruments agree
+    with the same fixture set used by site/scripts/validate/freshness.test.ts.
+    """
+
+    AS_OF = "2026-06-01T12:00:00Z"
+
+    @staticmethod
+    def _evidence_for(payload: dict) -> str:
+        with tempfile.TemporaryDirectory() as td:
+            current = Path(td) / "current.json"
+            current.write_text(json.dumps(payload), encoding="utf-8")
+            result = subprocess.run(
+                [sys.executable, str(NEWS_EVIDENCE), str(current)],
+                capture_output=True, text=True, timeout=10,
+            )
+            assert result.returncode == 0
+            return result.stdout.strip()
+
+    def _check(self, payload: dict):
+        ev = self._evidence_for(payload)
+        return run_script(CHECK_HEARTBEAT, ["news", "2", ev, self.AS_OF])
+
+    def test_fixture_a_g05_fixture_fails(self):
+        """A: last_new_incident_at = as_of - 3d -> exit 1."""
+        result = self._check({
+            "incidents": [],
+            "last_new_incident_at": "2026-05-29T12:00:00Z",
+        })
+        assert result.returncode == 1
+
+    def test_fixture_b_fallback_fixture_fails(self):
+        """B: no field, max(date)=2026-05-29 -> evidence 2026-05-30T00:00:00Z
+        (60h) -> exit 1."""
+        result = self._check({"incidents": [{"date": "2026-05-29"}]})
+        assert result.returncode == 1
+
+    def test_fixture_c_47h_passes(self):
+        result = self._check({
+            "incidents": [],
+            "last_new_incident_at": "2026-05-30T13:00:00Z",
+        })
+        assert result.returncode == 0
+
+    def test_fixture_d_exactly_48h_passes(self):
+        result = self._check({
+            "incidents": [],
+            "last_new_incident_at": "2026-05-30T12:00:00Z",
+        })
+        assert result.returncode == 0
+
+    def test_fixture_e_48h_plus_1s_fails(self):
+        result = self._check({
+            "incidents": [],
+            "last_new_incident_at": "2026-05-30T11:59:59Z",
+        })
+        assert result.returncode == 1
+
+    def test_fixture_f_25h_future_fails(self):
+        result = self._check({
+            "incidents": [],
+            "last_new_incident_at": "2026-06-02T13:00:00Z",
+        })
+        assert result.returncode == 1
+
+    def test_fixture_g_no_field_no_incidents_fails(self):
+        result = self._check({"incidents": []})
+        assert result.returncode == 1
+
+    def test_heartbeat_yml_uses_news_evidence_py(self):
+        text = HEARTBEAT_YML.read_text(encoding="utf-8")
+        assert "news_evidence.py" in text
+        assert "check-heartbeat.sh news 2" in text
+        assert "['generated']" not in text
+
+    def test_heartbeat_yml_r08_structure(self):
+        """R-08: the news step has its own id, and a dedicated
+        label/alert-issue pair (pipeline-failure-news-heartbeat) fires
+        independently of the shared pipeline-failure-heartbeat alert."""
+        text = HEARTBEAT_YML.read_text(encoding="utf-8")
+        assert "id: news_hb" in text
+        assert 'if: failure() && steps.news_hb.outcome == \'failure\'' in text
+        assert "pipeline-failure-news-heartbeat" in text
+        # The existing shared alert step keeps its own label.
+        assert "pipeline-failure-heartbeat" in text
+
+    def test_no_expr_in_new_step_run_bodies(self):
+        """zizmor: values come through env:, never interpolated into run:."""
+        if yaml is None:
+            pytest.skip("PyYAML not installed")
+        data = yaml.safe_load(HEARTBEAT_YML.read_text(encoding="utf-8"))
+        steps = data["jobs"]["heartbeat"]["steps"]
+        target_names = {
+            "Ensure news-heartbeat alert label exists",
+            "Alert news heartbeat via GitHub Issue",
+        }
+        for step in steps:
+            if step.get("name") in target_names:
+                run_body = step.get("run", "")
+                assert "${{" not in run_body, f"{step['name']}: run body must not interpolate expressions"
