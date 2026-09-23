@@ -10,10 +10,13 @@ import json
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import httpx
 import pytest
+from openai import NotFoundError
 
 from pipeline.news import classifier as classifier_mod  # type: ignore
-from pipeline.news.classifier import classify  # type: ignore
+from pipeline.news.classifier import SYSTEM_PROMPT, classify  # type: ignore
+from pipeline.news.classifier import _parse_content, _request_completion  # type: ignore
 
 def _make_mock_response(data: dict) -> MagicMock:
     mock_resp = MagicMock()
@@ -120,3 +123,122 @@ def test_default_provider_is_openrouter():
     assert classifier_mod._MODEL == "ibm-granite/granite-4.1-8b", (
         f"Expected _MODEL='ibm-granite/granite-4.1-8b', got {classifier_mod._MODEL!r}"
     )
+
+
+# ---------------------------------------------------------------------------
+# Seam tests (34-01 Task 1): _parse_content, _request_completion
+# ---------------------------------------------------------------------------
+
+
+def test_parse_content_none_and_empty_are_parse_error():
+    assert _parse_content(None, "t") == ("parse_error", None)
+    assert _parse_content("", "t") == ("parse_error", None)
+
+
+def test_parse_content_fenced_valid_json_is_ok():
+    data = dict(_VALID_RESPONSE, confidence=0.9)
+    raw = "```json\n" + json.dumps(data) + "\n```"
+    kind, out = _parse_content(raw, "t")
+    assert kind == "ok"
+    assert out is not None
+    assert out.confidence == 0.9
+
+
+def test_parse_content_low_confidence():
+    data = dict(_VALID_RESPONSE, confidence=0.3)
+    raw = json.dumps(data)
+    kind, out = _parse_content(raw, "t")
+    assert kind == "low_conf"
+    assert out is not None
+    assert out.confidence == 0.3
+
+
+def test_parse_content_invalid_family_is_parse_error():
+    data = dict(_VALID_RESPONSE, family="banana")
+    kind, out = _parse_content(json.dumps(data), "t")
+    assert kind == "parse_error"
+    assert out is None
+
+
+def test_parse_content_not_json_is_parse_error():
+    kind, out = _parse_content("not json", "t")
+    assert kind == "parse_error"
+    assert out is None
+
+
+def test_parse_content_r03_prose_wrapped_json_recovers():
+    """R-03: json.loads fails on the whole text; a second attempt parses the first
+    balanced top-level {...} object (string-aware brace counting)."""
+    data = dict(_VALID_RESPONSE, confidence=0.9)
+    raw = "Here is the JSON: " + json.dumps(data) + " hope it helps"
+    kind, out = _parse_content(raw, "t")
+    assert kind == "ok"
+    assert out is not None
+
+
+def test_parse_content_r03_unbalanced_object_is_parse_error():
+    kind, out = _parse_content('{"a": 1', "t")
+    assert kind == "parse_error"
+    assert out is None
+
+
+def test_parse_content_family_internal_whitespace_normalized():
+    data = dict(_VALID_RESPONSE, family="robos_ violentos", confidence=0.9)
+    kind, out = _parse_content(json.dumps(data), "t")
+    assert kind == "ok"
+    assert out is not None
+    assert out.family == "robos_violentos"
+
+
+def test_request_completion_openrouter_kwargs():
+    mock_client = MagicMock()
+    mock_client.chat.completions.create.return_value = "resp"
+
+    result = _request_completion(
+        mock_client, "m/x", "openrouter", "u", {"reasoning": {"enabled": False}}
+    )
+
+    assert result == "resp"
+    mock_client.chat.completions.create.assert_called_once_with(
+        model="m/x",
+        temperature=0.0,
+        max_tokens=512,
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": "u"},
+        ],
+        extra_body={"reasoning": {"enabled": False}},
+    )
+
+
+def test_request_completion_deepseek_adds_response_format():
+    mock_client = MagicMock()
+    mock_client.chat.completions.create.return_value = "resp"
+
+    _request_completion(mock_client, "deepseek-v4-flash", "deepseek", "u", None)
+
+    _, kwargs = mock_client.chat.completions.create.call_args
+    assert kwargs["response_format"] == {"type": "json_object"}
+    assert "extra_body" not in kwargs
+
+
+def test_request_completion_extra_body_none_omits_kwarg():
+    mock_client = MagicMock()
+    mock_client.chat.completions.create.return_value = "resp"
+
+    _request_completion(mock_client, "m/x", "openrouter", "u", None)
+
+    _, kwargs = mock_client.chat.completions.create.call_args
+    assert "extra_body" not in kwargs
+
+
+def test_request_completion_propagates_not_found_error():
+    mock_client = MagicMock()
+    request = httpx.Request("POST", "https://x")
+    response = httpx.Response(404, request=request)
+    mock_client.chat.completions.create.side_effect = NotFoundError(
+        "not found", response=response, body=None
+    )
+
+    with pytest.raises(NotFoundError):
+        _request_completion(mock_client, "m/x", "openrouter", "u", None)

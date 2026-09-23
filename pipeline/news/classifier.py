@@ -167,13 +167,88 @@ def classify(title: str, description: str) -> ClassifierOutput | None:
     if raw is None:
         return None
 
-    # Parse JSON (strip markdown fences for MiniMax)
+    kind, result = _parse_content(raw, title)
+    if kind == "ok":
+        return result
+    if kind == "low_conf":
+        logger.warning(
+            "Rejected: confidence below %.2f for %r",
+            CONFIDENCE_THRESHOLD,
+            title[:60],
+        )
+        return None
+    return None
+
+
+def _strip_json_fence(raw: str) -> str:
+    """Remove optional ```json ... ``` fences from LLM output (MiniMax may emit these)."""
+    m = _JSON_FENCE_RE.match(raw)
+    return m.group(1) if m else raw
+
+
+def _extract_balanced_object(text: str) -> str | None:
+    """Extract the first balanced top-level {...} object from text (R-03).
+
+    String- and escape-aware brace counting: braces inside JSON string literals
+    (including escaped quotes) are not counted. Returns None if no balanced
+    top-level object is found.
+    """
+    start = text.find("{")
+    if start == -1:
+        return None
+
+    depth = 0
+    in_string = False
+    escape = False
+    for i in range(start, len(text)):
+        ch = text[i]
+        if in_string:
+            if escape:
+                escape = False
+            elif ch == "\\":
+                escape = True
+            elif ch == '"':
+                in_string = False
+            continue
+        if ch == '"':
+            in_string = True
+        elif ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start : i + 1]
+    return None
+
+
+def _parse_content(raw: str | None, title: str) -> tuple[str, ClassifierOutput | None]:
+    """Production parse path, shared by classify() and the eval runner (34-01).
+
+    Returns:
+    - ("parse_error", None): raw is None/empty, JSON cannot be decoded (even after
+      the R-03 balanced-object recovery attempt), or Pydantic validation fails.
+    - ("low_conf", out): validated but confidence < CONFIDENCE_THRESHOLD.
+    - ("ok", out): validated and confidence >= CONFIDENCE_THRESHOLD.
+    """
+    if not raw:
+        return "parse_error", None
+
     raw_stripped = _strip_json_fence(raw)
     try:
         data = json.loads(raw_stripped)
-    except json.JSONDecodeError as exc:
-        logger.warning("JSONDecodeError from %s for %r: %s", _PROVIDER, title[:60], exc)
-        return None
+    except json.JSONDecodeError:
+        # R-03: try recovering the first balanced top-level {...} object before
+        # giving up. Shared by the eval runner (34-01) and production so both
+        # parse identically.
+        recovered = _extract_balanced_object(raw_stripped)
+        if recovered is None:
+            logger.warning("JSONDecodeError from %s for %r", _PROVIDER, title[:60])
+            return "parse_error", None
+        try:
+            data = json.loads(recovered)
+        except json.JSONDecodeError as exc:
+            logger.warning("JSONDecodeError from %s for %r: %s", _PROVIDER, title[:60], exc)
+            return "parse_error", None
 
     # Normalize family whitespace before Pydantic validation.
     # Granite 4.1 8B tokenizer artifact: "robos_ violentos" → "robos_violentos".
@@ -186,46 +261,50 @@ def classify(title: str, description: str) -> ClassifierOutput | None:
         result = ClassifierOutput.model_validate(data)
     except ValidationError as exc:
         logger.warning("ClassifierOutput validation failed for %r: %s", title[:60], exc)
-        return None
+        return "parse_error", None
 
-    # Reject if confidence below threshold (D-07)
-    # NOTE: commune_name→CUT resolution (anti-hallucination) happens downstream in resolver.py
     if result.confidence < CONFIDENCE_THRESHOLD:
-        logger.warning(
-            "Rejected: confidence=%.2f < %.2f for %r",
-            result.confidence,
-            CONFIDENCE_THRESHOLD,
-            title[:60],
-        )
-        return None
+        return "low_conf", result
 
-    return result
+    return "ok", result
 
 
-def _strip_json_fence(raw: str) -> str:
-    """Remove optional ```json ... ``` fences from LLM output (MiniMax may emit these)."""
-    m = _JSON_FENCE_RE.match(raw)
-    return m.group(1) if m else raw
+def _request_completion(
+    client_: "OpenAI",
+    model: str,
+    provider: str,
+    user_content: str,
+    extra_body: dict | None = None,
+):
+    """One chat.completions.create call with the production kwargs.
+
+    Returns the raw response object. RAISES openai exceptions (no swallowing) —
+    the caller (production `_call_api` or the eval runner) is responsible for
+    exception handling.
+    """
+    kwargs: dict = dict(
+        model=model,
+        temperature=0.0,
+        max_tokens=512,
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": user_content},
+        ],
+    )
+    # DeepSeek supports response_format=json_object; OpenRouter and MiniMax omit it
+    # (OpenRouter uses fence-stripping path; MiniMax returns HTTP 400 on json_object)
+    if provider == "deepseek":
+        kwargs["response_format"] = {"type": "json_object"}
+    if extra_body is not None:
+        kwargs["extra_body"] = extra_body
+
+    return client_.chat.completions.create(**kwargs)
 
 
 def _call_api(user_content: str) -> str | None:
     """Make one API call to the configured provider. Returns the content string or None."""
     try:
-        kwargs: dict = dict(
-            model=_MODEL,
-            temperature=0.0,
-            max_tokens=512,
-            messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": user_content},
-            ],
-        )
-        # DeepSeek supports response_format=json_object; OpenRouter and MiniMax omit it
-        # (OpenRouter uses fence-stripping path; MiniMax returns HTTP 400 on json_object)
-        if _PROVIDER == "deepseek":
-            kwargs["response_format"] = {"type": "json_object"}
-
-        resp = client.chat.completions.create(**kwargs)
+        resp = _request_completion(client, _MODEL, _PROVIDER, user_content, None)
         content = resp.choices[0].message.content
         return content if content else None
     except AuthenticationError:
