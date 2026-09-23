@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-23T03:37:54.191098Z",
+  "generated": "2026-09-23T06:25:01.758955Z",
   "window_days": 30,
   "incidents": [
     {
@@ -9647,6 +9647,59 @@
       "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOVnJzbnhnNzZVdDUwLUpSUjJ2Ql80Z0ZQNXBvOVF5Tk9HbUxqQ0daYlltcXh5Zzc0ZmlWVW5kSlBUa1VMb0VVdzRmTG0ta2tLUGRoeUR0aEFMY2hhaFVmWU9GaE1aN0F1RFY5M29MQU5IZGk3YVljbGstZFNkQW1KLUVxbjhNRTFYRkxQdGJOMkwtbTJFVjhZRjM0cnZqYXJSV2w1bU14b3psamtKeDFUcFZMOVJEUDhhU0c2SzJQT3JnUXNWNEVheThEME4yMjVPTHl1OFFn?oc=5",
       "family": "robos_violentos",
       "slug": "coquimbo"
+    },
+    {
+      "id": "afc048342bb79352",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Hallan hombre apuñalado en San Bernardo tras faltar a turnos de construcción",
+      "title_en": "Man found stabbed to death in San Bernardo after missing construction shifts",
+      "date": "2026-09-23",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/09/23/hombre-falto-a-turnos-en-la-construccion-fueron-por-el-y-lo-hallaron-muerto-apunalado-en-san-bernardo.shtml",
+      "family": "vida",
+      "slug": "san-bernardo"
+    },
+    {
+      "id": "f49b6e4d3523648d",
+      "cut": "9120",
+      "lat": -39.311575,
+      "lng": -72.20841,
+      "title_es": "Prisión preventiva para presunto autor de crimen de su pareja y una hija de 15 años",
+      "title_en": "Preventive detention for alleged perpetrator of the murder of his partner and her 15-year-old daughter",
+      "date": "2026-09-23",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-la-araucania/prision-preventiva-para-presunto-autor-de-crimen-de-su-pareja-y-una-hija/2026-09-23/011229.html",
+      "family": "vida",
+      "slug": "villarrica"
+    },
+    {
+      "id": "08993ee0d1d31a52",
+      "cut": "2201",
+      "lat": -22.191672,
+      "lng": -68.619517,
+      "title_es": "Municipio de Calama desvincula a funcionaria por presunto robo a comerciantes del centro",
+      "title_en": "Calama Municipality dismisses employee for alleged theft from downtown merchants",
+      "date": "2026-09-22",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPT3g3ZEVDN0l3RDdLWVFZTlFuTXdrNEpYaTRGV3Y5S1lxWHY3MHpOY3pJMkJPUVRfMUotZTRWWUFUN0dnOTdEc2ItV2ZTZjRwRDBTQ1FiTEU4SmdrQ3dmY0NhT1FrdDdFaXZ3R2xCcnlHX2dnZnhOREZmV1BfakMzM3drYlBETE5YbmdpeGhLd0U?oc=5",
+      "family": "propiedad",
+      "slug": "calama"
+    },
+    {
+      "id": "8acf37250d333b37",
+      "cut": "9120",
+      "lat": -39.311575,
+      "lng": -72.20841,
+      "title_es": "Ministra de la Mujer anuncia querella de oficio por doble femicidio de madre e hija en Villarrica",
+      "title_en": "Minister of Women announces ex officio lawsuit for double femicide of mother and daughter in Villarrica",
+      "date": "2026-09-20",
+      "outlet": "Alerta Noticias Temuco.cl",
+      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPVXRnQnQ2MkpEcVBtS09jbnV5S0VUeVlFUjgxRVlsTGN3SHpMbEQzZUktOUZMZlBEMU91Qm9QeWZITmdVdmN4b3g3b0RXVUE0NVNNRTJfMG03OXo0UGJjLWVpMWVXSVBVdVBQQm4yM0t0SndSYnZWZjFoRDhMMl9tZ1ZIT1pxV0hFSTlNN2JiTDFUdw?oc=5",
+      "family": "vida",
+      "slug": "villarrica"
     }
-  ]
+  ],
+  "last_new_incident_at": "2026-09-23T06:25:01.758955Z"
 }
