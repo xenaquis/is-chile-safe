@@ -98,3 +98,7 @@ No escribí en el repo ni en data/, no hice commits ni deploys, y no llamé a ni
 
 ## Condition closure log (append)
 
+- 2026-09-22 — C1 VERIFIED (orchestrator diff): no `grep -cE` on news-date counts in 34-04/34-05 (only 34-04:95 counts 404 log lines, correct use); 34-04:78/:105 and 34-05:286 each contain `git fetch origin` + `grep -oE … | wc -l` inside the poll.
+- 2026-09-22 — C2 VERIFIED: 34-05:25 and :227-233 restate G-14 (i)-(iii); the old "random fails → withhold everything" rule is absent.
+- 2026-09-22 — C3 VERIFIED: 34-05:232/238-239/246/298-299 (no-publication branch skips Task 3); 34-06:19/:87 (G-07(a) check conditional on a data(34-05) commit), :21/:93/:131/:141 (k uncovered days, NREC-10 Partial).
+- 2026-09-22 — C4: conditions applied in commit below with "Revision R3 (gate R2)" sections; gate closed GO for execution. No third round.
