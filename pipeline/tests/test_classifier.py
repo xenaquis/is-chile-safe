@@ -115,14 +115,18 @@ def test_sexuales_family_classify_returns_valid_output():
     assert result.family == "sexuales"
 
 
-def test_default_provider_is_openrouter():
-    """With NEWS_PROVIDER unset, the module must default to openrouter/ibm-granite/granite-4.1-8b."""
-    assert classifier_mod._PROVIDER == "openrouter", (
-        f"Expected _PROVIDER='openrouter', got {classifier_mod._PROVIDER!r}"
-    )
-    assert classifier_mod._MODEL == "ibm-granite/granite-4.1-8b", (
-        f"Expected _MODEL='ibm-granite/granite-4.1-8b', got {classifier_mod._MODEL!r}"
-    )
+def test_default_provider_matches_model_config():
+    """NREC-02 (BF-01): with NEWS_PROVIDER / NEWS_MODEL unset, the module defaults come
+    from pipeline/news/model_config.py (34-01 A/B decision), never the delisted id."""
+    from pipeline.news import model_config
+
+    assert classifier_mod._PROVIDER == model_config.DEFAULT_PROVIDER
+    if model_config.DEFAULT_PROVIDER == "openrouter":
+        assert classifier_mod._MODEL == model_config.DEFAULT_OPENROUTER_MODEL
+    else:  # G-08 DEEPSEEK_DIRECT
+        assert model_config.DEFAULT_PROVIDER == "deepseek"
+        assert classifier_mod._MODEL == "deepseek-v4-flash"
+    assert "granite-4.1" not in classifier_mod._MODEL
 
 
 # ---------------------------------------------------------------------------

@@ -1,25 +1,44 @@
 """
 pipeline/news/classifier.py
 
-Provider-configurable closed-list classifier for Chilean crime news (NEWS-02).
+Provider-configurable closed-list classifier for Chilean crime news (NEWS-02),
+hardened in Phase 34-02 (NREC-02..06) so that a provider/model failure is loud and
+non-destructive.
 
-Provider selection (NEWS_PROVIDER env var):
-  - OpenRouter (DEFAULT, unset or "openrouter"): OpenAI client → openrouter.ai/api/v1;
-    model ibm-granite/granite-4.1-8b; NO response_format (JSON from fence-stripping path).
-    Validated in spike 008: 100% commune accuracy, parity on family, 0% parse failures,
-    ~6x cheaper, ~2.5x faster than DeepSeek. OPENROUTER_API_KEY required.
-  - DeepSeek ("deepseek"): OpenAI client → api.deepseek.com; model deepseek-v4-flash;
-    response_format json_object. DEEPSEEK_API_KEY required.
-  - MiniMax ("minimax"): OpenAI client → api.minimaxi.chat/v1; model MiniMax-Text-01;
-    NO response_format (json_object returns HTTP 400 on MiniMax); JSON is parsed from
-    content string after stripping optional markdown fences. MINIMAX_API_KEY required.
+Model selection (NREC-02) — ids live in pipeline/news/model_config.py (34-01 A/B
+decision G-16); env overrides need no code edit (an empty string, i.e. an unset repo
+variable, falls back to the default — R-09):
+  - NEWS_PROVIDER (default model_config.DEFAULT_PROVIDER = "openrouter"):
+      * "openrouter": OpenAI client → openrouter.ai/api/v1; model NEWS_MODEL or
+        model_config.DEFAULT_OPENROUTER_MODEL; NO response_format (JSON from the
+        fence-stripping / balanced-object path); reasoning disabled per request with
+        model_config.REASONING_EXTRA_BODY_OPENROUTER. OPENROUTER_API_KEY required.
+        (The previous Granite 4.1 default was delisted 2026-09-04 — V-01.)
+      * "deepseek": OpenAI client → api.deepseek.com; model NEWS_MODEL or
+        deepseek-v4-flash; response_format json_object; thinking disabled with
+        model_config.REASONING_EXTRA_BODY_DEEPSEEK. DEEPSEEK_API_KEY required.
+      * "minimax": OpenAI client → api.minimaxi.chat/v1; model MiniMax-Text-01;
+        NO response_format (json_object returns HTTP 400 on MiniMax). MINIMAX_API_KEY.
+  - Backup (NREC-04): DeepSeek direct, model NEWS_BACKUP_MODEL or
+    model_config.DEFAULT_BACKUP_MODEL (OpenRouter DEFAULT_OPENROUTER_MODEL when the
+    primary itself is DeepSeek direct — G-08).
+
+Failure handling (G-03 / G-09):
+  - classify_outcome() returns a typed ClassifyResult (OK / NOT_CRIME / PARSE_ERROR /
+    API_ERROR). API_ERROR is never "not a crime": the caller queues it (pending.json)
+    instead of burning the URL into seen.json.
+  - tenacity is the ONLY retry layer (SDK max_retries=0, timeout 30 s): 429 / 5xx /
+    connection / timeout → 3 attempts, 2 s then 4 s waits. 400/401/403/404 → no retry.
+  - ProviderRouter (per run): OpenRouter preflight, circuit breaker at 5 consecutive
+    API_ERRORs per provider, same-run re-dispatch of the tripping streak to the backup,
+    run time budget NEWS_RUN_BUDGET_S (default 1200 s).
+  - classify() is kept as a compat wrapper: ClassifierOutput iff OK, else None.
 
 Family whitespace normalization:
-  Granite 4.1 8B may emit a tokenizer artifact like "robos_ violentos" (internal space
-  after underscore). classify() collapses internal whitespace in the family value after
-  json.loads and before Pydantic validation, so "robos_ violentos" → "robos_violentos".
-  Guard is defensive: only applied when family is a str; None/missing untouched.
-  (Spike 008 artifact — see .planning/spikes/008-granite-openrouter-classifier/README.md)
+  Some models emit a tokenizer artifact like "robos_ violentos" (internal space after
+  underscore). _parse_content collapses internal whitespace in the family value after
+  json.loads and before Pydantic validation. Guard is defensive: only applied when
+  family is a str; None/missing untouched. (Spike 008 artifact.)
 
 Anti-hallucination guards (NEWS-01 redesign):
 - temperature = 0.0 for all providers
@@ -35,11 +54,23 @@ import logging
 import os
 import pathlib
 import re
+import time
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Callable, Literal
 
-from openai import AuthenticationError, OpenAI, RateLimitError
-from openai import APIStatusError as _APIStatusError
+import requests
+from openai import (
+    APIConnectionError,
+    APIStatusError,
+    InternalServerError,
+    OpenAI,
+    RateLimitError,
+)
 from pydantic import ValidationError
+from tenacity import Retrying, retry_if_exception, stop_after_attempt, wait_exponential
 
+from pipeline.news import model_config
 from pipeline.news.schema import VALID_FAMILIES, ClassifierOutput
 from pipeline.shared.schema import FAMILY_KEYS
 
@@ -51,32 +82,61 @@ logger = logging.getLogger(__name__)
 
 CONFIDENCE_THRESHOLD: float = 0.6  # D-07 / RESEARCH A3
 
+# G-03 failure knobs
+BREAKER_THRESHOLD: int = 5
+RETRY_MAX_ATTEMPTS: int = 3
+RETRY_WAIT_FIRST_S: int = 2
+RETRY_WAIT_MAX_S: int = 20
+REQUEST_TIMEOUT_S: float = 30.0
+# G-09 run time budget (env NEWS_RUN_BUDGET_S overrides)
+RUN_BUDGET_DEFAULT_S: int = 1200
+
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+DEEPSEEK_BASE_URL = "https://api.deepseek.com"
+MINIMAX_BASE_URL = "https://api.minimaxi.chat/v1"
+
+# Patchable sleep used by the tenacity retry layer (tests replace it with a recorder).
+_sleep: Callable[[float], None] = time.sleep
+
+
+def _make_client(api_key: str, base_url: str) -> OpenAI:
+    """OpenAI-compatible client with SDK retries disabled (G-03: tenacity is the only
+    retry layer — the SDK default max_retries=2 would turn 3 attempts into 9)."""
+    return OpenAI(
+        api_key=api_key or "placeholder",
+        base_url=base_url,
+        max_retries=0,
+        timeout=REQUEST_TIMEOUT_S,
+    )
+
+
 # ---------------------------------------------------------------------------
-# Provider selection (NEWS_PROVIDER env var)
+# Provider selection (NEWS_PROVIDER env var) — import-time compat globals.
+# build_router_from_env() builds FRESH clients at call time (R-12); these module
+# globals only serve classify()/classify_outcome(spec=None) and the unit tests that
+# patch `pipeline.news.classifier.client`.
 # ---------------------------------------------------------------------------
 
-_PROVIDER: str = os.environ.get("NEWS_PROVIDER", "openrouter").lower()
+_PROVIDER: str = model_config.resolve("NEWS_PROVIDER", model_config.DEFAULT_PROVIDER).lower()
 
 if _PROVIDER == "deepseek":
-    client = OpenAI(
-        api_key=os.environ.get("DEEPSEEK_API_KEY", "placeholder"),
-        base_url="https://api.deepseek.com",
-    )
-    _MODEL: str = "deepseek-v4-flash"
+    client = _make_client(os.environ.get("DEEPSEEK_API_KEY", "placeholder"), DEEPSEEK_BASE_URL)
+    _MODEL: str = model_config.resolve("NEWS_MODEL", "deepseek-v4-flash")
+    _EXTRA_BODY: dict | None = model_config.REASONING_EXTRA_BODY_DEEPSEEK
 elif _PROVIDER == "minimax":
-    client = OpenAI(
-        api_key=os.environ.get("MINIMAX_API_KEY", "placeholder"),
-        base_url="https://api.minimaxi.chat/v1",
-    )
+    client = _make_client(os.environ.get("MINIMAX_API_KEY", "placeholder"), MINIMAX_BASE_URL)
     _MODEL = "MiniMax-Text-01"
+    _EXTRA_BODY = None
 else:
-    # Default: openrouter (ibm-granite/granite-4.1-8b — spike 008 validated)
+    # Default: openrouter — model from model_config (34-01 A/B decision, G-16)
     _PROVIDER = "openrouter"
-    client = OpenAI(
-        api_key=os.environ.get("OPENROUTER_API_KEY", "placeholder"),
-        base_url="https://openrouter.ai/api/v1",
-    )
-    _MODEL = "ibm-granite/granite-4.1-8b"
+    client = _make_client(os.environ.get("OPENROUTER_API_KEY", "placeholder"), OPENROUTER_BASE_URL)
+    _MODEL = model_config.resolve("NEWS_MODEL", model_config.DEFAULT_OPENROUTER_MODEL)
+    _EXTRA_BODY = model_config.REASONING_EXTRA_BODY_OPENROUTER
+
+# Backup: DeepSeek direct (NREC-04).
+backup_client = _make_client(os.environ.get("DEEPSEEK_API_KEY", "placeholder"), DEEPSEEK_BASE_URL)
+_BACKUP_MODEL: str = model_config.resolve("NEWS_BACKUP_MODEL", model_config.DEFAULT_BACKUP_MODEL)
 
 # ---------------------------------------------------------------------------
 # Build commune list once at module load — one entry per line:
@@ -135,49 +195,6 @@ Rules:
 
 # Regex to strip markdown JSON fences (used for MiniMax which omits response_format)
 _JSON_FENCE_RE = re.compile(r"^\s*```(?:json)?\s*(.*?)\s*```\s*$", re.DOTALL)
-
-
-# ---------------------------------------------------------------------------
-# Classifier function
-# ---------------------------------------------------------------------------
-
-def classify(title: str, description: str) -> ClassifierOutput | None:
-    """Classify a news item using the configured LLM provider (NEWS_PROVIDER).
-
-    Returns a validated ClassifierOutput on success.
-    Returns None if:
-    - API call fails
-    - Response JSON is malformed or empty
-    - confidence < CONFIDENCE_THRESHOLD
-    - family is not a valid FAMILY_KEY (Pydantic rejects)
-
-    commune_name→CUT resolution is handled downstream by pipeline/news/resolver.py.
-    This function no longer rejects on CUT membership — the LLM emits a name, not a CUT.
-
-    The LLM client is NEVER called in unit tests — mock `pipeline.news.classifier.client`.
-    """
-    user_content = f"HEADLINE: {title}\nSUMMARY: {description[:500]}"
-
-    # First attempt
-    raw = _call_api(user_content)
-    if raw is None:
-        # Empty-content retry (Pitfall 4)
-        logger.warning("Empty %s response for %r — retrying once", _PROVIDER, title[:60])
-        raw = _call_api(user_content)
-    if raw is None:
-        return None
-
-    kind, result = _parse_content(raw, title)
-    if kind == "ok":
-        return result
-    if kind == "low_conf":
-        logger.warning(
-            "Rejected: confidence below %.2f for %r",
-            CONFIDENCE_THRESHOLD,
-            title[:60],
-        )
-        return None
-    return None
 
 
 def _strip_json_fence(raw: str) -> str:
@@ -301,26 +318,507 @@ def _request_completion(
     return client_.chat.completions.create(**kwargs)
 
 
-def _call_api(user_content: str) -> str | None:
-    """Make one API call to the configured provider. Returns the content string or None."""
+
+# ---------------------------------------------------------------------------
+# Typed outcomes (NREC-05)
+# ---------------------------------------------------------------------------
+
+class Outcome(str, Enum):
+    OK = "ok"
+    NOT_CRIME = "not_crime"
+    PARSE_ERROR = "parse_error"
+    API_ERROR = "api_error"
+
+
+@dataclass(frozen=True)
+class ClassifyResult:
+    outcome: Outcome
+    output: ClassifierOutput | None
+    provider: str
+    model: str
+    status_code: int | None = None
+    # exception type name | "empty_content" | "finish_length" (G-09)
+    error: str | None = None
+    # OpenRouter response `provider` attr if present, else resp.model (R-10)
+    served_by: str | None = None
+    finish_reason: str | None = None
+    # {prompt_tokens, completion_tokens, reasoning_tokens, cost?} (R-12)
+    usage: dict | None = None
+
+
+@dataclass(frozen=True)
+class PreflightResult:
+    status: Literal["ok", "zero_endpoints", "model_unknown", "no_credit", "unknown", "skipped"]
+    endpoints: int | None
+
+
+@dataclass
+class ProviderSpec:
+    provider: str
+    model: str
+    client_getter: Callable[[], OpenAI]
+    extra_body: dict | None
+    key_present: bool
+    # Env var NAME holding the key (for log messages — never the value).
+    key_env: str = ""
+    # Key value, only used for the authenticated OpenRouter credit preflight (R-04).
+    api_key: str | None = field(default=None, repr=False)
+
+    @property
+    def label(self) -> str:
+        return f"{self.provider}:{self.model}"
+
+
+# ---------------------------------------------------------------------------
+# Retry layer (G-03)
+# ---------------------------------------------------------------------------
+
+def _is_retryable(exc: BaseException) -> bool:
+    """429 / 5xx / connection / timeout → retry; every other status (400/401/403/404/
+    409/422) and every non-openai exception → no retry."""
+    if isinstance(exc, (RateLimitError, InternalServerError, APIConnectionError)):
+        return True  # APITimeoutError subclasses APIConnectionError
+    if isinstance(exc, APIStatusError):
+        code = getattr(exc, "status_code", None)
+        return code == 429 or (isinstance(code, int) and code >= 500)
+    return False
+
+
+def _retrying_create(spec: ProviderSpec, user_content: str):
+    """_request_completion wrapped in tenacity: 3 attempts, waits 2 s then 4 s (cap 20 s)."""
+    retryer = Retrying(
+        retry=retry_if_exception(_is_retryable),
+        stop=stop_after_attempt(RETRY_MAX_ATTEMPTS),
+        wait=wait_exponential(multiplier=RETRY_WAIT_FIRST_S, exp_base=2, max=RETRY_WAIT_MAX_S),
+        sleep=lambda s: _sleep(s),
+        reraise=True,
+    )
+    return retryer(
+        _request_completion,
+        spec.client_getter(),
+        spec.model,
+        spec.provider,
+        user_content,
+        spec.extra_body,
+    )
+
+
+def _num(value) -> int | float | None:
+    if isinstance(value, bool):
+        return None
+    return value if isinstance(value, (int, float)) else None
+
+
+def _str_or_none(value) -> str | None:
+    return value if isinstance(value, str) and value else None
+
+
+def _response_meta(resp) -> tuple[str | None, str | None, dict | None]:
+    """(served_by, finish_reason, usage) from a chat completion response (R-10, R-12)."""
+    served_by = _str_or_none(getattr(resp, "provider", None)) or _str_or_none(
+        getattr(resp, "model", None)
+    )
+    finish_reason = None
     try:
-        resp = _request_completion(client, _MODEL, _PROVIDER, user_content, None)
-        content = resp.choices[0].message.content
-        return content if content else None
-    except AuthenticationError:
-        logger.error(
-            "%s API call: authentication failed — check %s_API_KEY",
-            _PROVIDER, _PROVIDER.upper(),
-        )
-        return None
-    except RateLimitError:
-        logger.warning("%s API call: rate limited — will retry next run", _PROVIDER)
-        return None
-    except _APIStatusError as exc:
+        finish_reason = _str_or_none(resp.choices[0].finish_reason)
+    except Exception:
+        pass
+    usage = None
+    u = getattr(resp, "usage", None)
+    if u is not None:
+        details = getattr(u, "completion_tokens_details", None)
+        reasoning = _num(getattr(details, "reasoning_tokens", None)) if details is not None else None
+        usage = {
+            "prompt_tokens": _num(getattr(u, "prompt_tokens", None)),
+            "completion_tokens": _num(getattr(u, "completion_tokens", None)),
+            "reasoning_tokens": reasoning or 0,
+        }
+        cost = _num(getattr(u, "cost", None))
+        if cost is not None:
+            usage["cost"] = cost
+    return served_by, finish_reason, usage
+
+
+def _primary_compat_spec() -> ProviderSpec:
+    """Primary spec over the import-time module `client`, read at CALL time so the
+    unit tests that patch `pipeline.news.classifier.client` keep working."""
+    return ProviderSpec(
+        provider=_PROVIDER,
+        model=_MODEL,
+        client_getter=lambda: client,
+        extra_body=_EXTRA_BODY,
+        key_present=True,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Classifier functions
+# ---------------------------------------------------------------------------
+
+def classify_outcome(
+    title: str, description: str, spec: ProviderSpec | None = None
+) -> ClassifyResult:
+    """Classify one news item on one provider and return a typed outcome.
+
+    - API_ERROR: any exception (after tenacity retries for 429/5xx/connection), empty
+      content after one immediate re-call ("empty_content"), or finish_reason ==
+      "length" ("finish_length"). Transient — the caller must NOT mark the URL seen.
+    - PARSE_ERROR: non-empty, non-truncated content that fails _parse_content.
+    - NOT_CRIME: validated answer with confidence < CONFIDENCE_THRESHOLD (output attached).
+    - OK: validated answer at or above the threshold.
+
+    Never runs the preflight and never does network I/O besides the completion call.
+    """
+    spec = spec or _primary_compat_spec()
+    user_content = f"HEADLINE: {title}\nSUMMARY: {description[:500]}"
+
+    def _api_error(exc: BaseException) -> ClassifyResult:
+        status = getattr(exc, "status_code", None)
+        status = status if isinstance(status, int) else None
+        # Log exception type + status only (T-34-05: never keys or bodies).
         logger.warning(
-            "%s API call failed HTTP %s: %s", _PROVIDER, exc.status_code, exc.message
+            "%s API error: %s status=%s for %r",
+            spec.label, type(exc).__name__, status, title[:60],
         )
+        return ClassifyResult(
+            Outcome.API_ERROR, None, spec.provider, spec.model,
+            status_code=status, error=type(exc).__name__,
+        )
+
+    try:
+        resp = _retrying_create(spec, user_content)
+    except Exception as exc:  # noqa: BLE001 — every failure is a typed API_ERROR
+        return _api_error(exc)
+
+    served_by, finish_reason, usage = _response_meta(resp)
+    meta = dict(served_by=served_by, finish_reason=finish_reason, usage=usage)
+
+    if finish_reason == "length":
+        logger.warning("%s finish_reason=length for %r", spec.label, title[:60])
+        return ClassifyResult(
+            Outcome.API_ERROR, None, spec.provider, spec.model, error="finish_length", **meta
+        )
+
+    raw = _content_of(resp)
+    if not raw:
+        # Empty-content re-call (Pitfall 4) — exactly one, not a tenacity attempt.
+        logger.warning("Empty %s response for %r — retrying once", spec.label, title[:60])
+        try:
+            resp = _retrying_create(spec, user_content)
+        except Exception as exc:  # noqa: BLE001
+            return _api_error(exc)
+        served_by, finish_reason, usage = _response_meta(resp)
+        meta = dict(served_by=served_by, finish_reason=finish_reason, usage=usage)
+        if finish_reason == "length":
+            return ClassifyResult(
+                Outcome.API_ERROR, None, spec.provider, spec.model, error="finish_length", **meta
+            )
+        raw = _content_of(resp)
+        if not raw:
+            return ClassifyResult(
+                Outcome.API_ERROR, None, spec.provider, spec.model, error="empty_content", **meta
+            )
+
+    kind, out = _parse_content(raw, title)
+    if kind == "ok":
+        return ClassifyResult(Outcome.OK, out, spec.provider, spec.model, **meta)
+    if kind == "low_conf":
+        logger.warning(
+            "Rejected: confidence below %.2f for %r", CONFIDENCE_THRESHOLD, title[:60]
+        )
+        return ClassifyResult(Outcome.NOT_CRIME, out, spec.provider, spec.model, **meta)
+    return ClassifyResult(Outcome.PARSE_ERROR, None, spec.provider, spec.model, **meta)
+
+
+def _content_of(resp) -> str | None:
+    try:
+        content = resp.choices[0].message.content
+    except Exception:
         return None
-    except Exception as exc:
-        logger.warning("%s API call failed (unexpected): %s: %s", _PROVIDER, type(exc).__name__, exc)
-        return None
+    return content if isinstance(content, str) and content else None
+
+
+def classify(title: str, description: str) -> ClassifierOutput | None:
+    """Compat wrapper: ClassifierOutput iff the outcome is OK, else None.
+
+    The LLM client is NEVER called in unit tests — mock `pipeline.news.classifier.client`.
+    """
+    res = classify_outcome(title, description)
+    return res.output if res.outcome is Outcome.OK else None
+
+
+# ---------------------------------------------------------------------------
+# OpenRouter preflight (NREC-03) — metadata GETs only, never a completion call
+# ---------------------------------------------------------------------------
+
+def preflight_openrouter(
+    model: str,
+    *,
+    api_key: str | None = None,
+    http_get: Callable | None = None,
+    timeout: float = 15.0,
+) -> PreflightResult:
+    """Check the model has live OpenRouter endpoints (and, with api_key, credit).
+
+    - 200 + endpoints == [] → "zero_endpoints"; 200 + ≥1 → "ok"; 404 → "model_unknown";
+      anything else / exception / bad JSON → "unknown".
+    - R-04: with api_key, GET /api/v1/key; data.limit_remaining a number ≤ 0 →
+      "no_credit"; null / > 0 / failure → no change.
+    `http_get` defaults to requests.get resolved at CALL time (patchable in tests).
+    """
+    get = http_get or requests.get
+    status: str = "unknown"
+    endpoints: int | None = None
+    try:
+        resp = get(f"{OPENROUTER_BASE_URL}/models/{model}/endpoints", timeout=timeout)
+        code = getattr(resp, "status_code", None)
+        if code == 200:
+            eps = resp.json()["data"]["endpoints"]
+            endpoints = len(eps)
+            status = "ok" if endpoints > 0 else "zero_endpoints"
+        elif code == 404:
+            status = "model_unknown"
+        else:
+            logger.warning("OpenRouter preflight: endpoints HTTP %s", code)
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("OpenRouter preflight: endpoints check failed (%s)", type(exc).__name__)
+        status = "unknown"
+
+    if api_key and status in ("ok", "unknown"):
+        try:
+            kresp = get(
+                f"{OPENROUTER_BASE_URL}/key",
+                headers={"Authorization": f"Bearer {api_key}"},
+                timeout=timeout,
+            )
+            kcode = getattr(kresp, "status_code", None)
+            if kcode == 200:
+                remaining = (kresp.json().get("data") or {}).get("limit_remaining")
+                if _num(remaining) is not None and remaining <= 0:
+                    status = "no_credit"
+            else:
+                logger.warning("OpenRouter preflight: key check HTTP %s", kcode)
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("OpenRouter preflight: key check failed (%s)", type(exc).__name__)
+
+    logger.info("OpenRouter preflight for %s: %s (endpoints=%s)", model, status, endpoints)
+    return PreflightResult(status, endpoints)  # type: ignore[arg-type]
+
+
+# ---------------------------------------------------------------------------
+# ProviderRouter — per-run failover / breaker / re-dispatch / budget (G-03, G-09)
+# ---------------------------------------------------------------------------
+
+def _budget_from_env() -> float:
+    raw = os.environ.get("NEWS_RUN_BUDGET_S", "").strip()
+    if not raw:
+        return float(RUN_BUDGET_DEFAULT_S)
+    try:
+        val = float(raw)
+        return val if val > 0 else float(RUN_BUDGET_DEFAULT_S)
+    except ValueError:
+        logger.warning("NEWS_RUN_BUDGET_S invalid — falling back to %d", RUN_BUDGET_DEFAULT_S)
+        return float(RUN_BUDGET_DEFAULT_S)
+
+
+class ProviderRouter:
+    """Per-run routing state. One instance per scrape_news run."""
+
+    def __init__(
+        self,
+        primary: ProviderSpec,
+        backup: ProviderSpec | None,
+        *,
+        clock: Callable[[], float] = time.monotonic,
+        budget_s: float | None = None,
+        force_backup: bool = False,
+    ):
+        self.primary = primary
+        self.backup = backup
+        self._clock = clock
+        self.budget_s: float = _budget_from_env() if budget_s is None else float(budget_s)
+        self._start = clock()
+
+        self.active: Literal["primary", "backup", "none"] = "primary"
+        self.failovers: int = 0
+        self.failover_reason: str | None = None
+        self.backup_exhausted: bool = False
+        self.budget_exhausted: bool = False
+        self.preflight_status: str = "skipped"
+
+        self._consec = {"primary": 0, "backup": 0}
+        # Current primary API_ERROR streak: (key, title, description, result)
+        self._streak: list[tuple[str | None, str, str, ClassifyResult]] = []
+        self._redispatched: list[tuple[str | None, ClassifyResult]] = []
+
+        if force_backup:
+            self._failover("forced")
+        elif not primary.key_present:
+            self._failover("primary_key_absent")
+
+    # -- labels / key presence (consumed by scrape_news) --------------------
+    @property
+    def primary_label(self) -> str:
+        return self.primary.label
+
+    @property
+    def backup_label(self) -> str | None:
+        return self.backup.label if self.backup is not None else None
+
+    @property
+    def any_key_present(self) -> bool:
+        return self.primary.key_present or bool(self.backup and self.backup.key_present)
+
+    @property
+    def key_env_names(self) -> list[str]:
+        names = [self.primary.key_env]
+        if self.backup is not None:
+            names.append(self.backup.key_env)
+        return [n for n in names if n]
+
+    # -- state transitions ---------------------------------------------------
+    def _failover(self, reason: str) -> None:
+        if self.backup is None or not self.backup.key_present:
+            logger.error(
+                "Failover (%s) requested but backup is unavailable (%s not set) — "
+                "remaining items will be queued",
+                reason, self.backup.key_env if self.backup else "no backup configured",
+            )
+            self.active = "none"
+            self.backup_exhausted = True
+            self.failover_reason = "backup_unavailable"
+            return
+        self.failovers += 1
+        self.failover_reason = reason
+        self.active = "backup"
+        logger.warning(
+            "Failover %s → %s (reason: %s)", self.primary.label, self.backup.label, reason
+        )
+
+    def _budget_spent(self) -> bool:
+        if self._clock() - self._start >= self.budget_s:
+            if not self.budget_exhausted:
+                logger.warning(
+                    "Run time budget %.0f s exhausted — remaining items will be queued",
+                    self.budget_s,
+                )
+            self.budget_exhausted = True
+            return True
+        return False
+
+    def preflight(self) -> PreflightResult:
+        if self.active != "primary" or self.primary.provider != "openrouter":
+            self.preflight_status = "skipped"
+            return PreflightResult("skipped", None)
+        res = preflight_openrouter(self.primary.model, api_key=self.primary.api_key)
+        self.preflight_status = res.status
+        if res.status in ("zero_endpoints", "model_unknown", "no_credit"):
+            self._failover(f"preflight_{res.status}")
+        elif res.status == "unknown":
+            logger.warning("OpenRouter preflight inconclusive — staying on primary %s", self.primary.label)
+        return res
+
+    def _classify_backup(self, title: str, description: str) -> ClassifyResult:
+        assert self.backup is not None
+        res = classify_outcome(title, description, self.backup)
+        if res.outcome is Outcome.API_ERROR:
+            self._consec["backup"] += 1
+            if self._consec["backup"] >= BREAKER_THRESHOLD:
+                logger.error(
+                    "Backup %s breaker tripped (%d consecutive API errors) — backup exhausted",
+                    self.backup.label, BREAKER_THRESHOLD,
+                )
+                self.backup_exhausted = True
+                self.active = "none"
+        else:
+            self._consec["backup"] = 0
+        return res
+
+    def _redispatch(self, streak) -> None:
+        """R-04 / G-09: re-classify the tripping streak on the backup, same run."""
+        for key, title, description, original in streak:
+            if self.active != "backup" or self._budget_spent():
+                self._redispatched.append((key, original))
+                continue
+            self._redispatched.append((key, self._classify_backup(title, description)))
+
+    def classify(self, title: str, description: str, key: str | None = None) -> ClassifyResult | None:
+        """Classify on the active provider. None = not attempted (exhausted or budget)."""
+        if self._budget_spent():
+            return None
+        if self.active == "none":
+            return None
+        if self.active == "backup":
+            return self._classify_backup(title, description)
+
+        res = classify_outcome(title, description, self.primary)
+        if res.outcome is Outcome.API_ERROR:
+            self._consec["primary"] += 1
+            self._streak.append((key, title, description, res))
+            if self._consec["primary"] >= BREAKER_THRESHOLD:
+                streak, self._streak = self._streak, []
+                logger.error(
+                    "Primary %s breaker tripped (%d consecutive API errors)",
+                    self.primary.label, BREAKER_THRESHOLD,
+                )
+                self._failover("breaker")
+                if self.active == "backup":
+                    self._redispatch(streak)
+        else:
+            self._consec["primary"] = 0
+            self._streak = []
+        return res
+
+    def pop_redispatched(self) -> list[tuple[str | None, ClassifyResult]]:
+        out, self._redispatched = self._redispatched, []
+        return out
+
+
+def _spec(provider: str, model: str, key_env: str, base_url: str, extra_body: dict | None) -> ProviderSpec:
+    key = os.environ.get(key_env, "").strip()
+    new_client = _make_client(key, base_url)
+    return ProviderSpec(
+        provider=provider,
+        model=model,
+        client_getter=lambda: new_client,
+        extra_body=extra_body,
+        key_present=bool(key),
+        key_env=key_env,
+        api_key=key or None,
+    )
+
+
+def build_router_from_env() -> ProviderRouter:
+    """Build a ProviderRouter from os.environ read at CALL time (R-12): fresh clients,
+    never the import-time module globals. GH Actions injects unset secrets/vars as "",
+    which count as absent (key) / default (model, provider)."""
+    provider = model_config.resolve("NEWS_PROVIDER", model_config.DEFAULT_PROVIDER).lower()
+    deepseek_backup = lambda: _spec(  # noqa: E731
+        "deepseek",
+        model_config.resolve("NEWS_BACKUP_MODEL", model_config.DEFAULT_BACKUP_MODEL),
+        "DEEPSEEK_API_KEY", DEEPSEEK_BASE_URL, model_config.REASONING_EXTRA_BODY_DEEPSEEK,
+    )
+    if provider == "deepseek":
+        # G-08 DEEPSEEK_DIRECT shape: DeepSeek direct primary, OpenRouter backup.
+        primary = _spec(
+            "deepseek", model_config.resolve("NEWS_MODEL", "deepseek-v4-flash"),
+            "DEEPSEEK_API_KEY", DEEPSEEK_BASE_URL, model_config.REASONING_EXTRA_BODY_DEEPSEEK,
+        )
+        backup = _spec(
+            "openrouter",
+            model_config.resolve("NEWS_BACKUP_MODEL", model_config.DEFAULT_OPENROUTER_MODEL),
+            "OPENROUTER_API_KEY", OPENROUTER_BASE_URL, model_config.REASONING_EXTRA_BODY_OPENROUTER,
+        )
+    elif provider == "minimax":
+        primary = _spec("minimax", "MiniMax-Text-01", "MINIMAX_API_KEY", MINIMAX_BASE_URL, None)
+        backup = deepseek_backup()
+    else:
+        primary = _spec(
+            "openrouter",
+            model_config.resolve("NEWS_MODEL", model_config.DEFAULT_OPENROUTER_MODEL),
+            "OPENROUTER_API_KEY", OPENROUTER_BASE_URL, model_config.REASONING_EXTRA_BODY_OPENROUTER,
+        )
+        backup = deepseek_backup()
+
+    force = os.environ.get("NEWS_FORCE_BACKUP", "").strip().lower() == "true"
+    return ProviderRouter(primary, backup, force_backup=force)
