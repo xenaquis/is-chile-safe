@@ -1,0 +1,617 @@
+[
+ {
+  "id": "e44b8098f75c0b10",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "1e76c7921801cd0c",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "a2b678c3392efe09",
+  "verdict": "OK",
+  "evidence": "UNVERIFIABLE (Google News URL) but web search confirms: tios of Makarena Tolosa in prision preventiva for secuestro con homicidio (BioBio/CHV/La Tercera)."
+ },
+ {
+  "id": "8f50215b4a662581",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "9219a30b66de52c8",
+  "verdict": "OK",
+  "evidence": "VERIFIED: source says Paz Ramirez was younger sister of Angela and Maria Jose Prieto (maternal half-sister). Hit-and-run, later driver imputed."
+ },
+ {
+  "id": "97ca618c404bd1fc",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "921eee16edca623c",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "20b1337f0d1a8bac",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "df5a205ccebf8e61",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "4a1c3afb6119bdf4",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Source URL is region-de-valparaiso but cut 8101 (Concepcion). Geolocation defect suspected."
+ },
+ {
+  "id": "4902e5aa59165f2f",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "5c3e8efeea204b06",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "94e59b7dab7df708",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "2b7477c2c7b34643",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Title says Estacion Central but cut 13110 (La Florida); twin a1c18760 uses 13106. Geolocation defect."
+ },
+ {
+  "id": "a1c187604a3c7b6a",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "63fb0c3ef0adca19",
+  "verdict": "V06_KINSHIP",
+  "evidence": "VERIFIED: title says victim was her ABUELA; LaCuarta source (fetched) says the 14yo killed her MADRE (48) with a hammer; all 5 sibling cards (4902e5aa,d79d809e,16373e92,81731f4c,df5a205c) say madre."
+ },
+ {
+  "id": "ab2ff73ff70fb9a3",
+  "verdict": "OK",
+  "evidence": "UNVERIFIABLE (Google News URL) but web search confirms: father of 4-month infant formalized for cuasidelito de homicidio in Puchuncavi, released with arraigo."
+ },
+ {
+  "id": "acef3017e07c0c82",
+  "verdict": "OK",
+  "evidence": "VERIFIED: Cooperativa headline: Maria Jose Prieto despide a su hermana Paz Ramirez; driver fled."
+ },
+ {
+  "id": "2054d55dce34e4fb",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Kinship matches source headline verbatim (LaCuarta: suegra/ex, hijastra) so NOT V06; but it is a viral VIF/abuse allegation story under PDI review, not a discrete homicide (family vida wrong)."
+ },
+ {
+  "id": "cb142e805214242a",
+  "verdict": "OK",
+  "evidence": "VERIFIED: LaCuarta headline matches; madre victim."
+ },
+ {
+  "id": "c6ef9099e4f8cb87",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "d79d809eae9344b9",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "16373e92126c9220",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "81731f4c3c1a8ad8",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "53b17240e3048c45",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "76834eef9c312b73",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "b072a02913bc2a96",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Protest announcement (caso Grollmus), not an incident."
+ },
+ {
+  "id": "7cf49c27e2aeadc1",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "d9320362cdd8a850",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "b6b7d3625f8ffb3a",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Court orders prison transfer of Clan Chen; judicial procedure, family vida questionable."
+ },
+ {
+  "id": "4619f66fee81dc41",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Rafting accident in Pucon, no crime alleged."
+ },
+ {
+  "id": "92bd29425e28403c",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "27dde483517ec77a",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "c89e02bf3df51c06",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Prisoner transfer, not an incident."
+ },
+ {
+  "id": "d7fbba8eb42a1821",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "48baa2b738cab239",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "b78b5161507bcd1e",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "e5d1750f2b16fd6d",
+  "verdict": "OK",
+  "evidence": "VERIFIED: La Tercera headline states yerno is main suspect."
+ },
+ {
+  "id": "66bd3cd3938ef5ce",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "300e6960bd357ba6",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Prisoner transfer, not an incident."
+ },
+ {
+  "id": "a4f4e9856d54ff80",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "10896cd47c431226",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "a53215b9f053d08b",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "9d2f1620d84e4630",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "56fe6bb419aca8a0",
+  "verdict": "OK",
+  "evidence": "VERIFIED: LaCuarta headline: prenderle fuego a su ex y a su sobrina."
+ },
+ {
+  "id": "dd3af38cbb35f0b4",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "f2f7e3907869c115",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "bc52313f6428dbc5",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "551c74c3bb5193f9",
+  "verdict": "OK",
+  "evidence": "VERIFIED: Cooperativa: expareja, her daughter and a sobrina burned."
+ },
+ {
+  "id": "419715b671de1532",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "9f055767be7eb9e8",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "dc88a329ac24ee5d",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "199b2cf07c67058d",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Helicopter landing accident, no crime."
+ },
+ {
+  "id": "30b0494956f722f9",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "a314abc60c433ac9",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "940f8dea5795b3e5",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "866d967a665e1f08",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "203e3a575cd7715b",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "98745e1b848c6925",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "b37bb6a2948eab78",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "6e0b28cea97fd4bf",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "a4170f4c0d62394e",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "0b4ead591f4135eb",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "ab569859ad7052b9",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "7111d9f01995804f",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Gendarmeria policy announcement, not an incident."
+ },
+ {
+  "id": "a3deef55d01801c0",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "72fc3dfc69538900",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "a5a027896e207c3d",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "69faee8858736d1f",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "54622cf61f455402",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "11d8a9df900c523a",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "a73be1acc552e7fa",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "416fefaa06b1cf6a",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "1be5bbfa547592c1",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Foiled prison escape; family vida is wrong."
+ },
+ {
+  "id": "05f619b70ecdd494",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "ecb3545d7e5211cc",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "2d85035b4bfde15b",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "870ce7dc5331b415",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "9ba36ccd01fc687e",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "22ddffa8b9673120",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "af6019d396efa769",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "9e50821670bb33ce",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "1bbb3ba0db174e8f",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "e8968b498d8272d0",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "caf41e0fd2cb0263",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "e57e8872910e31f1",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Pedestrian traffic accident, no crime stated."
+ },
+ {
+  "id": "b77ad83fcc6a59c3",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "097e7fff5e5f783c",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "d68e062d341b54f1",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "85e76f6bc7b35db6",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "12fe46e86920a73b",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "4568c460100f5421",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "cfce4a0184ee2975",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "10bac0f3b5d1e416",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Court revokes custody of ex-adviser (white-collar case); family vida is wrong."
+ },
+ {
+  "id": "aa245c6b38133a8f",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Traffic collision injuring police motorcyclist; no crime stated (family incivilidades)."
+ },
+ {
+  "id": "07acabc670906ff6",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "657c5d7dee320e79",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "6240e2048aec2cc3",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "172dc37bd9b22e41",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "2a7c37ae7d2463ff",
+  "verdict": "OK",
+  "evidence": "VERIFIED: Cooperativa: madre y su hijo formalized."
+ },
+ {
+  "id": "0e23b15eb3b9c830",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "514872e1d06db7f2",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "998a7d360b1c452d",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "c29b8f948c40353f",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "e4d49e6d9ad67eba",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "81949f0b71dbb4b1",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Chile-Argentina prosecutors meeting, not an incident."
+ },
+ {
+  "id": "7cf0be145f35228d",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "f4baadff5929ffc9",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "c2adbbe241af6ed0",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "c95d34922b82ba45",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "87ed1e959a358e4d",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Diaguitas is in Vicuna (Coquimbo region) but cut 2201 (Calama). Geolocation defect."
+ },
+ {
+  "id": "cb7c7ffbfe5787c7",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Taxibus/Biotren near-miss after breakdown, no crime."
+ },
+ {
+  "id": "e83b7a9eaa143352",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Chile-Argentina prosecutors meeting, not an incident."
+ },
+ {
+  "id": "1acd9c8a2f0e8fea",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "cd6f3080080e4ecd",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "094afc2257fe81b6",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "f49b6e4d3523648d",
+  "verdict": "OK",
+  "evidence": "VERIFIED: title identical to Cooperativa headline."
+ },
+ {
+  "id": "8acf37250d333b37",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards (Google News URL, unverifiable)."
+ },
+ {
+  "id": "9e462648863dd1e8",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "170fb1e7173e42cb",
+  "verdict": "OK",
+  "evidence": "VERIFIED: LaCuarta: attacked his partner and her 15yo daughter; double femicide with sexual attack."
+ },
+ {
+  "id": "c111a60d4d7342a5",
+  "verdict": "OK",
+  "evidence": "VERIFIED: title matches BioBio headline (expareja)."
+ },
+ {
+  "id": "d34d808357d06850",
+  "verdict": "OK",
+  "evidence": "Title-based: plausible Chilean crime incident; any kinship term is supported by slug/sibling cards."
+ },
+ {
+  "id": "aef6f3680c904f4c",
+  "verdict": "OTHER_DEFECT",
+  "evidence": "Workplace accident at Minera Escondida, no crime."
+ }
+]
