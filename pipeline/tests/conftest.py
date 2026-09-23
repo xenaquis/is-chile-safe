@@ -3,10 +3,23 @@ pipeline/tests/conftest.py
 
 Shared pytest fixtures for the pipeline test suite.
 """
+import os
+
 import pytest
 from pathlib import Path
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
+
+
+@pytest.fixture(autouse=True)
+def _default_news_data_dir(tmp_path, monkeypatch):
+    """R-13: no pytest run may write to the real data/incidents.
+
+    Pins NEWS_DATA_DIR to this test's tmp_path unless a test has already set
+    it itself (os.environ checked directly so a test-level monkeypatch.setenv
+    earlier in the same test wins over this autouse fixture's own default)."""
+    if not os.environ.get("NEWS_DATA_DIR"):
+        monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
 
 
 def pytest_configure(config):

@@ -54,7 +54,10 @@ def test_incidents_file_valid_round_trip():
     data = _valid_incidents_file()
     obj = IncidentsFile.model_validate(data)
     dumped = obj.model_dump()
-    assert set(dumped.keys()) == {"generated", "window_days", "incidents"}
+    assert set(dumped.keys()) == {
+        "generated", "window_days", "incidents",
+        "last_new_incident_at",  # optional G-05 field (34-03), always serialized (None when absent)
+    }
     incident = dumped["incidents"][0]
     assert set(incident.keys()) == {
         "id", "cut", "lat", "lng",

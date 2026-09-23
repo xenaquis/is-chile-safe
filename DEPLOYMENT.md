@@ -119,8 +119,8 @@ Go to the GitHub repository → **Settings** → **Secrets and variables** → *
 | Secret Name | Value | Source | Consumed by |
 |-------------|-------|--------|-------------|
 | `CF_DEPLOY_HOOK_URL` | The Deploy Hook URL from step 5 | Cloudflare Pages dashboard | `news-pipeline.yml`, `cead-scraper.yml` (guarded post-commit, F-84), `deploy-on-code.yml` (guarded first-step) |
-| `OPENROUTER_API_KEY` | Your OpenRouter API key | [OpenRouter console](https://openrouter.ai/) | `news-pipeline.yml` — the default news classifier (Granite 4.1 8B) runs through OpenRouter |
-| `DEEPSEEK_API_KEY` | Your DeepSeek API key (optional) | [DeepSeek console](https://platform.deepseek.com/) | `news-pipeline.yml` scrape step's `env:`, only if `NEWS_PROVIDER=deepseek` is set — NOT hard-guarded (M-01, see below) |
+| `OPENROUTER_API_KEY` | Your OpenRouter API key | [OpenRouter console](https://openrouter.ai/) | `news-pipeline.yml` — the default news classifier (`deepseek/deepseek-v4.1-flash`, NREC-01 winner; see "News classification health" below) runs through OpenRouter |
+| `DEEPSEEK_API_KEY` | Your DeepSeek API key | [DeepSeek console](https://platform.deepseek.com/) | `news-pipeline.yml` scrape step's `env:` — the NREC-04 DeepSeek-direct backup, used on primary failover, `force_backup`, or `NEWS_PROVIDER=deepseek` — NOT hard-guarded (M-01, see below) |
 | `R2_ENDPOINT_URL` | R2 (S3-compatible) endpoint URL | Cloudflare R2 dashboard | `r2-archive.yml` |
 | `R2_ACCESS_KEY_ID` | R2 access key ID | Cloudflare R2 dashboard | `r2-archive.yml` |
 | `R2_SECRET_ACCESS_KEY` | R2 secret access key | Cloudflare R2 dashboard | `r2-archive.yml` |
@@ -442,19 +442,104 @@ Cloudflare Pages free tier allows **500 builds/month**. With the rebuild-loop gu
 - Total expected: well under 500/month. If approaching 500, check the CF deployment history
   for unexpected build triggers.
 
-### OPENROUTER_API_KEY / DEEPSEEK_API_KEY Absence Behavior (updated, M-01)
+### OPENROUTER_API_KEY / DEEPSEEK_API_KEY Absence Behavior (updated, M-01, amended 34-03)
 
 If `OPENROUTER_API_KEY` is not set as a repo secret, `news-pipeline.yml`'s "Guard required
 secrets" step fails immediately, before any scraping happens. This is the required key for the
-default classifier (Granite 4.1 8B via OpenRouter).
+default classifier (see "News classification health" below).
 
-`DEEPSEEK_API_KEY` is NOT hard-guarded. `pipeline/scrape_news.py` only reads it when
-`NEWS_PROVIDER=deepseek` is explicitly set, which nothing in this repo does today. Its absence
-has no effect on the default configuration — this was corrected in fix-cycle 1 (M-01) after a
-prior guard made this unused-by-default secret load-bearing, which would have hard-failed the
-6-hourly news cron the day someone tidied up the unused key.
+`DEEPSEEK_API_KEY` is NOT hard-guarded. It now matters whenever the primary provider fails over
+to the NREC-04 DeepSeek-direct backup (breaker trip, `force_backup`, or `NEWS_PROVIDER=deepseek`).
+Its absence has no effect on a healthy run — this was corrected in fix-cycle 1 (M-01) after a
+prior guard made this secret load-bearing on every run. Since 34-03, a missing backup key when
+the primary DOES fail is caught loudly by the post-commit Health gate's predicate (c)
+(`backup_exhausted`), not by a silent guard — see below.
 
 The CEAD scraper is unaffected by either key (it does not use any LLM).
+
+### News classification health (34-03, NREC-07/NREC-08)
+
+**Models — NEWS_MODEL / NEWS_BACKUP_MODEL / NEWS_PROVIDER / NEWS_CLUSTERING_MODEL:**
+These are repo *variables* (Settings → Secrets and variables → Actions → **Variables**, not
+Secrets), read-only in every workflow (`vars.NEWS_MODEL` etc. in the scrape step's `env:`). No
+workflow step in this repo ever sets them — changing the classifier model is an owner action:
+open **Settings → Variables**, set/update the value, and the next scheduled run (up to 6h later)
+or a manual `workflow_dispatch` picks it up — no push required. When unset, GitHub injects `""`
+and `pipeline/news/model_config.py`'s `resolve()` falls back to the NREC-01 defaults
+(`NEWS_MODEL` → `deepseek/deepseek-v4.1-flash`, `NEWS_BACKUP_MODEL` → the DeepSeek-direct
+backup model, `NEWS_PROVIDER` → `openrouter`). `NEWS_CLUSTERING_MODEL` is read by the
+clustering path (Phase 36, deterministic-only per the v2.1 locked decision) the same way.
+
+**`force_backup` dispatch input:** `news-pipeline.yml`'s `workflow_dispatch` carries a
+`force_backup` boolean (default `false`). Trigger it from the Actions tab → "News Pipeline" →
+"Run workflow" → check the box, to start that run directly on the DeepSeek-direct backup (a live
+reachability check, NREC-04) without waiting for the primary to fail. When a run started this
+way, the run summary's `failover_reason` reads `"forced"` (as opposed to `"breaker"` for an
+organic primary failure or `"primary_key_absent"` when `OPENROUTER_API_KEY` is unset).
+
+**NEWS_RUN_BUDGET_S (default 1200s, G-09):** a wall-clock budget for the whole classification
+loop within one scrape run. When exhausted, remaining candidates are queued to
+`pending.json` WITHOUT incrementing `attempted` (so the Health gate's `attempted`-based
+predicates never fire because of a slow run) — the summary's `budget_exhausted: true` is a
+`::warning::`, not a failure. Override via the `NEWS_RUN_BUDGET_S` env var on the scrape step if
+ever needed.
+
+**The separate `pipeline-failure-news-heartbeat` issue label (R-08):** `heartbeat.yml`'s daily
+run checks the news, R2, and CEAD signals independently. From 2026-10-01, the CEAD check
+(`check-heartbeat.sh cead`) is *expected* to go red until HYG-06 (local CEAD scrape) runs — so
+the news-heartbeat check was given its OWN label/issue (`pipeline-failure-news-heartbeat`,
+separate from the shared `pipeline-failure-heartbeat`) specifically so a news outage in that
+window cannot be silently reduced to a comment on an already-open CEAD issue.
+
+**DeepSeek backup:** see `DEEPSEEK_API_KEY` above — it is the NREC-04 failover target, reachable
+whenever the primary breaker trips (5 consecutive API errors), `force_backup=true`, or
+`NEWS_PROVIDER=deepseek`.
+
+**`data/incidents/pending.json` semantics (G-03):** items whose classification attempt fails
+with a transient error (API_ERROR: exception, empty content after one re-call, or
+`finish_reason=="length"`) are queued here for retry on a future run, NEVER marked `seen` and
+NEVER written to `rejected/`. Items are re-attempted first (oldest `first_queued` first) on the
+next run, up to `NEWS_MAX_CLASSIFY` per run, and expire (moved to `rejected/` with stage
+`api_error_expired`, marked `seen`) after a bounded number of failed attempts so a permanently
+broken URL cannot re-queue forever.
+
+**Health gate predicates (G-04 a-c amended by G-09 d-f)**, evaluated post-commit by
+`pipeline/news_health_gate.py` against the run summary (`NEWS_RUN_SUMMARY_PATH`, schema 1):
+  - (a) `attempted > 0` and `responded == 0` — no provider answered at all.
+  - (b) `attempted >= 10` and `api_errors / attempted >= 0.5` — half or more of a
+    meaningfully-sized batch errored.
+  - (c) `backup_exhausted` — both the primary and the NREC-04 backup are unavailable.
+  - (d) `attempted >= 10` and `accepted == 0` (G-09, the NREC-07 literal) — a meaningfully-sized
+    batch where every response was a genuine reject (or worse), never a real incident.
+  - (e) `attempted >= 10` and `parse_errors / attempted >= 0.20` (G-09) — the classifier's output
+    format is breaking on a fifth or more of responses.
+  - (f) `expired > 0` (G-09) — one or more retry-queue items were permanently lost.
+  `budget_exhausted` and `failovers > 0` are `::warning::` only (R-03/R-04/R-11) — they do not
+  fail the gate on their own. A missing, unparseable, or wrong-`schema` summary fails closed
+  (`::error::`, exit 1) — a run that never produced evidence is never treated as healthy (G-06).
+  The gate runs AFTER "Commit data if changed" (see the workflow comment at that step): a
+  non-zero exit here fails the job and triggers the existing `if: failure()` issue-alert steps,
+  but the corpus already collected this run is never lost.
+
+**Heartbeat / freshness evidence (G-05, 48h):** both `heartbeat.yml`'s news check and
+`site/scripts/validate/freshness.mjs` (validator #15) now measure `last_new_incident_at` (set by
+`merge_and_write` only when a LIVE run adds ≥1 new incident id to the current window; carried
+forward on a no-op run), falling back to `max(incident.date) + 1 day` when the field is absent —
+NOT the `generated` rewrite timestamp, which a no-op cron run also touches. Both instruments read
+via `pipeline/news_evidence.py` (stdlib, no deps — the heartbeat job has no
+`actions/setup-python` step) and fail when the evidence is older than 48h. This is the NREC-08
+fix for the 18-day classifier outage that 20/20 green heartbeats missed (WR-03): the old
+`generated`-only check could not distinguish "classifying real news" from "rewriting the same
+file with nothing new."
+
+**How to read `Run summary:` in a run log:** `pipeline/scrape_news.py` logs
+`Run summary: {...}` (JSON) once per run, right before it returns. Fields: `attempted`,
+`responded`, `accepted`, `genuine_rejects`, `parse_errors`, `api_errors`, `failovers`,
+`failover_reason`, `backup_exhausted`, `queued`, `expired`, `not_attempted`,
+`downstream_rejects`, `preflight`, `primary`, `backup`, `empty_content`, `finish_length`,
+`redispatched`, `recovered_by_redispatch`, `budget_exhausted`, `served_by_counts`. The same dict
+is written to `NEWS_RUN_SUMMARY_PATH` (consumed by the Health gate) and, as scalars only, to
+`GITHUB_OUTPUT`.
 
 ### CF Pages Build Failure Recovery
 
