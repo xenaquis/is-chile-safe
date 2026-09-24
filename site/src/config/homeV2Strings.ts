@@ -29,6 +29,9 @@ export interface HomeV2Strings {
   stats_mean: string;
   stats_press: string;
   explore_title: string;
+  // Phase 35 (R-03) — declared-outage gap-bar label, same copy as i18n
+  // news_gap_bar_label.
+  news_gap_label: string;
 }
 
 export const HOME_V2_EN: HomeV2Strings = {
@@ -56,6 +59,7 @@ export const HOME_V2_EN: HomeV2Strings = {
   stats_mean: 'national mean /100k',
   stats_press: 'press incidents · 30 days',
   explore_title: 'Explore by Topic',
+  news_gap_label: 'no data collected',
 };
 
 export const HOME_V2_ES: HomeV2Strings = {
@@ -83,6 +87,7 @@ export const HOME_V2_ES: HomeV2Strings = {
   stats_mean: 'media nacional /100k',
   stats_press: 'incidentes en prensa · 30 días',
   explore_title: 'Explorar por tema',
+  news_gap_label: 'sin datos recolectados',
 };
 
 export function homeV2Strings(locale: 'en' | 'es'): HomeV2Strings {

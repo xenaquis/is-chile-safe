@@ -12,21 +12,77 @@
  * Headlines link to the source article (target=_blank rel=noopener — T-03-03-02).
  * All incident-derived text is inserted via textContent (never innerHTML).
  */
+import path from 'node:path';
+import { existsSync, readFileSync } from 'node:fs';
 import { homeV2Strings } from '../../config/homeV2Strings.ts';
+import { EN_STRINGS, ES_STRINGS } from '../../config/i18n.ts';
+import { latestIncidentDate, computeEvidence, evidenceVerdict, MAX_AGE_HOURS } from '../../lib/newsEvidence.mjs';
+import { COVERAGE_GAPS } from '../../lib/newsCoverageGaps';
 
 interface Props {
   locale: 'en' | 'es';
 }
 const { locale } = Astro.props;
 const t = homeV2Strings(locale);
+const i18n = locale === 'es' ? ES_STRINGS : EN_STRINGS;
 const newsHref = locale === 'en' ? '/news/' : '/es/noticias/';
+
+// R-03: same G-05 evidence rule and 48h threshold as /news/ (memory "News
+// page build path drift" — resolve via process.cwd(), never import.meta.url).
+const dataPath = path.resolve(process.cwd(), 'public/data/incidents/current.json');
+let payload: { last_new_incident_at?: string; incidents?: unknown } = {};
+if (existsSync(dataPath)) {
+  try {
+    payload = JSON.parse(readFileSync(dataPath, 'utf-8')) ?? {};
+  } catch {
+    // Malformed JSON — empty fallback
+  }
+}
+const buildNowMs = Date.now();
+const latest = latestIncidentDate(payload);
+const freshnessVerdict = evidenceVerdict(computeEvidence(payload), buildNowMs, MAX_AGE_HOURS);
+const showStale = freshnessVerdict === 'stale' || freshnessVerdict === 'none';
+
+function longDate(dateStr: string): string {
+  try {
+    return new Date(dateStr + 'T00:00:00Z').toLocaleDateString(locale === 'es' ? 'es-CL' : 'en-US', {
+      timeZone: 'UTC',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return dateStr;
+  }
+}
+const pulseStaleText = latest
+  ? i18n.news_stale_notice.replace('{date}', longDate(latest))
+  : i18n.news_stale_notice_nodate;
 ---
 
-<div class="pulse-card" data-home-pulse data-locale={locale} data-all-types={t.news_all_types} data-incidents={t.news_incidents} data-window={t.news_days_window} hidden>
+<div
+  class="pulse-card"
+  data-home-pulse
+  data-locale={locale}
+  data-all-types={t.news_all_types}
+  data-incidents={t.news_incidents}
+  data-window={t.news_days_window}
+  data-coverage-gaps={JSON.stringify(COVERAGE_GAPS)}
+  data-gap-label={t.news_gap_label}
+  data-build-now={new Date(buildNowMs).toISOString()}
+  hidden
+>
   <div class="pulse-head">
     <h2 class="pulse-title">{t.news_title}</h2>
     <p class="pulse-scope"><span data-pulse-scope>{t.news_all_types}</span> · <span data-pulse-count></span></p>
   </div>
+  {/* A-R1-09 (accepted, non-blocker): this card stays [hidden] when there are
+      no incidents, so the 'none' notice is never visible in practice — the
+      'stale' case is the one that renders on the home page; 'none' is
+      covered by /news/'s own notice. */}
+  {showStale && (
+    <p class="pulse-stale" role="status">{pulseStaleText}</p>
+  )}
   <div class="pulse-bars" data-pulse-bars aria-hidden="true"></div>
   <div class="pulse-axis"><span data-pulse-first></span><span data-pulse-last></span></div>
   <div class="pulse-chips" data-pulse-chips role="group"></div>
@@ -75,6 +131,29 @@ const newsHref = locale === 'en' ? '/news/' : '/es/noticias/';
       return d.toISOString().slice(0, 10);
     };
 
+    // R-03: declared classifier-outage ranges, passed down via data-* (never
+    // {expr} inside this <script> — memory "Astro <script> no expr
+    // interpolation"). Parsed once, with a defensive fallback to [].
+    interface CoverageGap { from: string; to: string; source: string }
+    let coverageGaps: CoverageGap[] = [];
+    try {
+      coverageGaps = JSON.parse(card.dataset.coverageGaps || '[]');
+    } catch {
+      coverageGaps = [];
+    }
+    const gapLabel = card.dataset.gapLabel || '';
+
+    const CANONICAL_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+    function minValidDate(dates: string[]): string | null {
+      let min: string | null = null;
+      for (const d of dates) {
+        if (!CANONICAL_DATE_RE.test(d)) continue;
+        if (Number.isNaN(Date.parse(d + 'T00:00:00Z'))) continue;
+        if (min === null || d < min) min = d;
+      }
+      return min;
+    }
+
     let all: Incident[] = [];
     let famFilter = '';
 
@@ -89,19 +168,38 @@ const newsHref = locale === 'en' ? '/news/' : '/es/noticias/';
     function render() {
       const pool = famFilter ? all.filter((i) => i.family === famFilter) : all;
 
-      // Day histogram over the trailing window (anchor = newest incident date)
+      // Day histogram over the trailing window (anchor = newest incident date).
+      // R-03(a): the window starts at max(anchor-29, the earliest valid date
+      // in `all`) — the same coverage clip as computeDayBuckets, so the
+      // histogram never pads days before the data's own coverage.
       const anchor = all.length ? all[0].date : '';
       const days: string[] = [];
-      if (anchor) for (let d = shiftDays(anchor, -29); d <= anchor; d = shiftDays(d, 1)) days.push(d);
+      if (anchor) {
+        const earliest = minValidDate(all.map((i) => i.date));
+        let start = shiftDays(anchor, -29);
+        if (earliest !== null && earliest > start) start = earliest;
+        for (let d = start; d <= anchor; d = shiftDays(d, 1)) days.push(d);
+      }
       const counts: Record<string, number> = {};
       pool.forEach((i) => { counts[i.date] = (counts[i.date] || 0) + 1; });
       const max = Math.max(1, ...days.map((d) => counts[d] || 0));
+      // R-03(b): a day is a declared gap iff it lies inside a declared range
+      // AND no incident in `all` (the UNFILTERED set, not `pool`) has that
+      // date — a family filter must never turn a covered day into a gap.
+      const allDates = new Set(all.map((i) => i.date));
+      const isGapDay = (d: string) => !allDates.has(d) && coverageGaps.some((g) => g.from <= d && d <= g.to);
       bars.innerHTML = '';
       for (const d of days) {
         const b = document.createElement('span');
-        b.className = 'pulse-bar';
-        b.style.height = Math.max(4, Math.round(((counts[d] || 0) / max) * 100)) + '%';
-        b.title = `${dayLabel(d)} · ${counts[d] || 0}`;
+        if (isGapDay(d)) {
+          b.className = 'pulse-bar pulse-bar--gap';
+          b.style.height = '10px';
+          b.title = `${dayLabel(d)} · ${gapLabel}`;
+        } else {
+          b.className = 'pulse-bar';
+          b.style.height = Math.max(4, Math.round(((counts[d] || 0) / max) * 100)) + '%';
+          b.title = `${dayLabel(d)} · ${counts[d] || 0}`;
+        }
         bars.appendChild(b);
       }
       firstEl.textContent = days.length ? dayLabel(days[0]) : '';
@@ -194,12 +292,31 @@ const newsHref = locale === 'en' ? '/news/' : '/es/noticias/';
   .pulse-title { font-size: var(--text-label); font-weight: var(--weight-strong); color: var(--ink); }
   .pulse-scope { font-size: 12px; color: var(--muted); }
 
+  .pulse-stale {
+    font-size: 12px;
+    color: var(--muted);
+    border-left: 3px solid var(--primary);
+    padding: 6px 10px;
+    margin-top: var(--sm);
+    background: var(--bg);
+  }
+
   .pulse-bars { display: flex; align-items: flex-end; gap: 2px; height: 44px; margin-top: var(--sm); }
   /* LPX-1: bars/chips/list items below are all created by the enhancer via
      createElement — Astro's scoped attribute never lands on client-created
      nodes, so these must be :global() under the server-rendered card ancestor
      (same fix as RankingTableEnhancer). Container elements stay scoped. */
   .pulse-card :global(.pulse-bar) { flex: 1; border-radius: 2px 2px 0 0; background: var(--pin); min-width: 2px; }
+  /* R-03: declared outage days read as "no data collected", not a zero bar. */
+  .pulse-card :global(.pulse-bar--gap) {
+    background: repeating-linear-gradient(
+      45deg,
+      var(--line),
+      var(--line) 3px,
+      transparent 3px,
+      transparent 6px
+    );
+  }
   .pulse-axis { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-top: 3px; }
 
   .pulse-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--sm); }
