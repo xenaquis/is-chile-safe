@@ -27,15 +27,13 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { computeEvidence, evidenceVerdict, MAX_AGE_HOURS, FUTURE_ALLOWANCE_HOURS } from '../../src/lib/newsEvidence.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_ROOT = path.resolve(__dirname, '../..');
 const REPO_ROOT = path.resolve(SITE_ROOT, '..');
 const DEFAULT_CURRENT_JSON_PATH = path.join(REPO_ROOT, 'data', 'incidents', 'current.json');
 const CURRENT_JSON_PATH = process.env.FRESHNESS_CURRENT_JSON || DEFAULT_CURRENT_JSON_PATH;
-
-const MAX_AGE_HOURS = 48;
-const FUTURE_ALLOWANCE_HOURS = 24;
 
 // ---------------------------------------------------------------------------
 // Resolve "now" (G-05: fixed, injectable as-of for tests; never the wall
@@ -83,31 +81,8 @@ try {
 
 // ---------------------------------------------------------------------------
 // G-05 evidence: last_new_incident_at (preferred), else max(date)+1 day
+// (single JS definition lives in src/lib/newsEvidence.mjs)
 // ---------------------------------------------------------------------------
-function computeEvidence(payload) {
-  const lastNew = payload.last_new_incident_at;
-  if (typeof lastNew === 'string' && lastNew.trim() !== '') {
-    const ms = Date.parse(lastNew);
-    if (!isNaN(ms)) {
-      return { ms, source: 'last_new_incident_at', label: lastNew };
-    }
-  }
-
-  const incidents = Array.isArray(payload.incidents) ? payload.incidents : [];
-  let maxMs = null;
-  for (const inc of incidents) {
-    if (!inc || typeof inc.date !== 'string') continue;
-    const ms = Date.parse(`${inc.date}T00:00:00Z`);
-    if (isNaN(ms)) continue;
-    if (maxMs === null || ms > maxMs) maxMs = ms;
-  }
-  if (maxMs === null) return null;
-
-  const fallbackMs = maxMs + 24 * 60 * 60 * 1000;
-  const label = new Date(fallbackMs).toISOString().replace(/\.\d{3}Z$/, 'Z');
-  return { ms: fallbackMs, source: 'max(date)+1d', label };
-}
-
 const evidence = computeEvidence(data);
 
 if (evidence === null) {
@@ -121,10 +96,15 @@ if (evidence === null) {
 }
 
 // ---------------------------------------------------------------------------
+// Verdict (none/future/stale/fresh)
+// ---------------------------------------------------------------------------
+const verdict = evidenceVerdict(evidence, nowMs, MAX_AGE_HOURS);
+const ageHours = (nowMs - evidence.ms) / (1000 * 60 * 60);
+
+// ---------------------------------------------------------------------------
 // Future-evidence refusal (F-100 parity with check-heartbeat.sh)
 // ---------------------------------------------------------------------------
-const futureAllowanceMs = FUTURE_ALLOWANCE_HOURS * 60 * 60 * 1000;
-if (evidence.ms > nowMs + futureAllowanceMs) {
+if (verdict === 'future') {
   console.error(
     `FAIL freshness: evidence (${evidence.source}: ${evidence.label}) is more than ${FUTURE_ALLOWANCE_HOURS}h in the future relative to the as-of clock — refusing to treat as healthy`
   );
@@ -134,10 +114,7 @@ if (evidence.ms > nowMs + futureAllowanceMs) {
 // ---------------------------------------------------------------------------
 // Age check
 // ---------------------------------------------------------------------------
-const ageMs = nowMs - evidence.ms;
-const ageHours = ageMs / (1000 * 60 * 60);
-
-if (ageHours > MAX_AGE_HOURS) {
+if (verdict === 'stale') {
   console.error(
     `FAIL freshness: newest-incident evidence (${evidence.source}: ${evidence.label}) is ${ageHours.toFixed(1)}h old`
   );
