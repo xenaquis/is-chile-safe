@@ -236,6 +236,8 @@ build. The timestamp and trigger source (Deploy Hook vs Git push) are shown per 
 
 ## 10. Operational Notes
 
+`data/` pushes by a human (`data/incidents/current.json`, `data/incidents/archive/**`, `data/cead/**`) deploy via `deploy-on-code.yml`; news-cron commits deploy only when the incident set changes (FRESH-04).
+
 ### Workflow Cadences (CRON-07, audited 2026-08-04, Phase 32; corrected fix-cycle 1)
 
 | Workflow | File | Schedule | Trigger | Secrets Consumed (hard-guarded only where the code actually requires them, F-94) | Permissions | Writes |

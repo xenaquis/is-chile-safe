@@ -88,10 +88,12 @@ jobs:
           git add data/
           if git diff --staged --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "data: auto-update news [skip ci]"
             bash .github/scripts/push-with-rebase.sh master
             echo "changed=true" >> "$GITHUB_OUTPUT"
+            bash .github/scripts/news-deploy-needed.sh HEAD~1 HEAD >> "$GITHUB_OUTPUT" || { echo "deploy=true" >> "$GITHUB_OUTPUT"; echo "::warning::news-deploy-needed failed; deploying (fail-open)"; }
           fi
 
       # CRON-01 (F-76, amended F-84): CF_DEPLOY_HOOK_URL is REQUIRED, not optional --
@@ -106,8 +108,14 @@ jobs:
       # CRON-03 (F-78): canonical deploy-hook invocation, byte-identical across
       # news-pipeline.yml, cead-scraper.yml, deploy-on-code.yml (grep-provable, see
       # Wave 2 verify block).
+      # FRESH-04/V-12 (35-02): deploy only when the committed diff (HEAD~1..HEAD after
+      # the push) touches the served incident set -- data/incidents/current.json or
+      # data/incidents/archive/. seen.json / rejected/ / pending.json still commit but
+      # no longer redeploy. R-09: that decision (news-deploy-needed.sh) runs AFTER the
+      # commit + push and fails OPEN (deploy=true + ::warning::), so it can never block
+      # data collection (F-84).
       - name: Trigger Cloudflare Pages deploy
-        if: steps.commit.outputs.changed == 'true'
+        if: steps.commit.outputs.deploy == 'true'
         run: curl -X POST --fail --silent --show-error --retry 3 --retry-all-errors --max-time 60 "$CF_HOOK"
 
       # V-03 design constraint (34-03, NREC-07/G-04, amended G-09): this MUST run

@@ -30,6 +30,13 @@ on:
     paths:
       - 'site/**'
       - '.github/workflows/deploy-on-code.yml'
+      # FRESH-04/R-04: human data-only pushes (hotfixes like 45c2650, the HYG-06 local
+      # CEAD scrape, Phase-36 migrations) deploy here. Bot pushes (news-pipeline,
+      # cead-scraper) use GITHUB_TOKEN and carry [skip ci], so they never trigger this
+      # workflow: no loop.
+      - 'data/incidents/current.json'
+      - 'data/incidents/archive/**'
+      - 'data/cead/**'
 
 permissions:
   contents: read
