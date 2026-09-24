@@ -19,6 +19,7 @@ export interface MapV2Strings {
   news_strip_day_hint: string;
   news_strip_clear_day: string;
   legend_zero_homicides: string; // MPX-A4: "Sin homicidios reportados: N" row
+  news_strip_gap: string; // R2/F35-R1-06 (G-22(b)): declared-outage day label
 }
 
 export const MAPV2_EN: MapV2Strings = {
@@ -35,6 +36,7 @@ export const MAPV2_EN: MapV2Strings = {
   news_strip_day_hint: 'Click a day to filter the pins',
   news_strip_clear_day: 'Clear day filter',
   legend_zero_homicides: 'No homicides reported',
+  news_strip_gap: 'no data collected',
 };
 
 export const MAPV2_ES: MapV2Strings = {
@@ -51,6 +53,7 @@ export const MAPV2_ES: MapV2Strings = {
   news_strip_day_hint: 'Clic en un día para filtrar los pines',
   news_strip_clear_day: 'Quitar filtro de día',
   legend_zero_homicides: 'Sin homicidios reportados',
+  news_strip_gap: 'sin datos recolectados',
 };
 
 export function mapV2Strings(lang: 'en' | 'es'): MapV2Strings {

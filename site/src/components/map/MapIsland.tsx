@@ -63,6 +63,7 @@ import type { CommuneIndexEntry } from './SearchBox';
 import { resolveRegionFocus, shouldApplyRegionFocus } from '../../lib/regionParam';
 import { layerLabel, type LayerDef } from '../../lib/mapFilterDefs';
 import { mapV2Strings } from '../../config/mapV2Strings';
+import { computeStripDays } from '../../lib/newsStripDays';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -442,6 +443,18 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
     return incidentsFile.incidents.filter((i) => i.family === newsFamilyKey);
   }, [incidentsFile, newsFamilyKey]);
 
+  // R2/F35-R1-06 (G-22(b)): the NewsStrip day range, coverage-clipped and
+  // gap-flagged against the UNFILTERED incidents file — never the
+  // family-filtered subset, so a filter with no hits on a covered day can
+  // never turn that day into a false gap.
+  const stripDays = useMemo(
+    () =>
+      incidentsFile
+        ? computeStripDays(incidentsAnchor, incidentsFile.window_days, incidentsFile.incidents.map((i) => i.date))
+        : [],
+    [incidentsFile, incidentsAnchor]
+  );
+
   // Reset the day filter when the family scope changes (the picked day may
   // have zero incidents in the new scope — a silent empty map reads as a bug).
   useEffect(() => {
@@ -586,7 +599,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
           // shown are the 'vida' family (homicide has no own press bucket) —
           // the strip scope must say that, not "Homicidios".
           scopeLabel={newsFamilyKey ? layerLabel(lang, 'family', newsFamilyKey) : v2.news_strip_all}
-          anchor={incidentsAnchor}
+          days={stripDays}
           day={newsDay}
           onDayChange={setNewsDay}
         />

@@ -296,6 +296,18 @@
   background: #1c2a2b;
 }
 
+/* R2/F35-R1-06 (G-22(b)): declared outage days read as "no data collected",
+   not a zero-incident bar. */
+.news-strip-bar.gap > span {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--line, #ccc),
+    var(--line, #ccc) 3px,
+    transparent 3px,
+    transparent 6px
+  );
+}
+
 /* MPX-B6: at 641–860px the centered 440px strip intersected the 208px
    legend; raised the hide threshold from 640px to 960px (at 961px+ the two
    no longer overlap). The toggle + pins still work below 960px, the

@@ -15,6 +15,7 @@
  */
 import { mapV2Strings } from '../../config/mapV2Strings';
 import type { Incident } from './IncidentPinLayer';
+import type { StripDay } from '../../lib/newsStripDays';
 
 interface Props {
   lang: 'en' | 'es';
@@ -25,10 +26,11 @@ interface Props {
   scopeLabel: string;
   day: string | null;
   onDayChange: (day: string | null) => void;
-  /** MPX-C4: max date across the UNFILTERED incidents file, passed down from
-   *  MapIsland. The timeline anchor must not shrink to the filtered
-   *  subset's own most-recent date — that silently truncates the window. */
-  anchor: string;
+  /** R2/F35-R1-06 (G-22(b)): the coverage-clipped day range, computed by
+   *  MapIsland via computeStripDays over the UNFILTERED incidents file. Gap
+   *  days come from here, never re-derived from the family-filtered
+   *  `incidents` this component receives. */
+  days: StripDay[];
 }
 
 /** YYYY-MM-DD → short local label like "11 jul" / "Jul 11". */
@@ -37,13 +39,7 @@ function dayLabel(d: string, lang: 'en' | 'es'): string {
   return date.toLocaleDateString(lang === 'es' ? 'es-CL' : 'en-US', { day: 'numeric', month: 'short' });
 }
 
-function shiftDays(d: string, n: number): string {
-  const t = new Date(d + 'T00:00:00Z');
-  t.setUTCDate(t.getUTCDate() + n);
-  return t.toISOString().slice(0, 10);
-}
-
-export function NewsStrip({ lang, incidents, windowDays, scopeLabel, day, onDayChange, anchor }: Props) {
+export function NewsStrip({ lang, incidents, windowDays, scopeLabel, day, onDayChange, days }: Props) {
   const v2 = mapV2Strings(lang);
   if (incidents.length === 0 && day === null) {
     return (
@@ -57,31 +53,14 @@ export function NewsStrip({ lang, incidents, windowDays, scopeLabel, day, onDayC
     );
   }
 
-  // MPX-C4: anchor comes from the UNFILTERED incidents file (prop), not the
-  // family-filtered `incidents` this strip receives — otherwise a filter
-  // with no recent hits silently shifts the whole window backward.
-  //
-  // MPX-C2: the day range spans min→max of the actual incident dates
-  // (window_days is display text only) — a 30-day window can legitimately
-  // contain 31 distinct calendar dates, and truncating by count drops the
-  // oldest day while the header count still includes it.
-  const days: string[] = [];
-  if (anchor) {
-    let minDate = anchor;
-    for (const i of incidents) if (i.date < minDate) minDate = i.date;
-    const windowStart = shiftDays(anchor, -(windowDays - 1));
-    if (windowStart < minDate) minDate = windowStart;
-    // MPX-C2-RANGE (verificador): a malformed/ancient incident date must not
-    // explode the timeline into hundreds of 1px bars — cap at 2× the window.
-    const floor = shiftDays(anchor, -(windowDays * 2 - 1));
-    if (minDate < floor) minDate = floor;
-    for (let d = minDate; d <= anchor; d = shiftDays(d, 1)) {
-      days.push(d);
-    }
-  }
+  // R2/F35-R1-06 (G-22(b)): `days` is the coverage-clipped range from
+  // computeStripDays (MapIsland), computed over the UNFILTERED incidents
+  // file. Bar counts still come from the family-filtered `incidents` this
+  // component receives — the range and the counts are deliberately two
+  // different sources (range = coverage, counts = active scope).
   const counts: Record<string, number> = {};
   for (const i of incidents) counts[i.date] = (counts[i.date] ?? 0) + 1;
-  const max = Math.max(1, ...days.map((d) => counts[d] ?? 0));
+  const max = Math.max(1, ...days.map((d) => counts[d.date] ?? 0));
 
   return (
     <div className="news-strip" role="region" aria-label={v2.news_strip_incidents}>
@@ -106,20 +85,20 @@ export function NewsStrip({ lang, incidents, windowDays, scopeLabel, day, onDayC
       </div>
       <span id="news-strip-day-hint" className="sr-only">{v2.news_strip_day_hint}</span>
       <div className="news-strip-bars" aria-describedby="news-strip-day-hint">
-        {days.map((d) => {
+        {days.map(({ date: d, gap }) => {
           const n = counts[d] ?? 0;
           const active = day === d;
           return (
             <button
               key={d}
               type="button"
-              className={`news-strip-bar${active ? ' active' : ''}`}
+              className={`news-strip-bar${active ? ' active' : ''}${gap ? ' gap' : ''}`}
               aria-pressed={active}
-              aria-label={`${dayLabel(d, lang)}: ${n} ${v2.news_strip_incidents}`}
+              aria-label={gap ? `${dayLabel(d, lang)} : ${v2.news_strip_gap}` : `${dayLabel(d, lang)}: ${n} ${v2.news_strip_incidents}`}
               onClick={() => onDayChange(active ? null : d)}
               style={{ opacity: day === null || active ? 1 : 0.3 }}
             >
-              <span aria-hidden="true" style={{ height: `${Math.max(6, Math.round((n / max) * 100))}%` }} />
+              <span aria-hidden="true" style={{ height: gap ? '10%' : `${Math.max(6, Math.round((n / max) * 100))}%` }} />
             </button>
           );
         })}
