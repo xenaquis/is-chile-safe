@@ -14,6 +14,7 @@ import path from 'node:path';
 import { existsSync, readFileSync } from 'node:fs';
 import { FAMILY_LABELS_EN, FAMILY_LABELS_ES } from '../lib/familyDefs';
 import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
+import { computeEvidence, evidenceVerdict, COMMUNE_NEWS_STALE_HOURS } from '../lib/newsEvidence.mjs';
 
 interface Incident {
   id: string;
@@ -109,6 +110,13 @@ const all = loadIncidentsByCut().get(String(cut)) ?? [];
 const safe = all.filter((inc) => !hasForbiddenTerm(inc.title_es) && !hasForbiddenTerm(inc.title_en));
 const items = safe.slice(0, 6);
 
+// FRESH-03: 168h (7 days) on the G-05 fallback evidence max(date)+1d of the
+// newest DISPLAYED item, against the build clock (G-20(3)). Per R1/R-07, a
+// newest item mis-dated into tomorrow UTC ('future') is NOT stale.
+const buildNowMs = Date.now();
+const stale = items.length > 0
+  && evidenceVerdict(computeEvidence({ incidents: items }), buildNowMs, COMMUNE_NEWS_STALE_HOURS) === 'stale';
+
 // Reference year for the "include year only if it differs" rule: the year of
 // the most recent incident selected (accepted simplification per plan).
 const latestYear = items.length > 0 ? items[0]!.date.slice(0, 4) : '';
@@ -128,11 +136,34 @@ function shortDate(dateStr: string): string {
 const seeAllHref = locale === 'es'
   ? `/es/noticias/?q=${encodeURIComponent(communeName)}`
   : `/news/?q=${encodeURIComponent(communeName)}`;
+
+// Long date for the stale note ({date} = the newest DISPLAYED item's date).
+function longDate(dateStr: string): string {
+  try {
+    return new Date(dateStr + 'T00:00:00Z').toLocaleDateString(dateLocale, {
+      timeZone: 'UTC',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return dateStr;
+  }
+}
+const staleNoteText = stale
+  ? t.commune_news_stale_note.replace('{name}', communeName).replace('{date}', longDate(items[0]!.date))
+  : '';
 ---
 
 {items.length > 0 && (
-  <section class="cnews-section" aria-label={t.commune_news_aria}>
-    <h2 class="section-heading">{t.commune_news_heading}</h2>
+  <section
+    class="cnews-section"
+    aria-label={stale ? t.commune_news_aria_stale : t.commune_news_aria}
+    data-news-stale={stale ? 'true' : 'false'}
+    data-build-now={new Date(buildNowMs).toISOString()}
+  >
+    <h2 class="section-heading">{stale ? t.commune_news_heading_stale : t.commune_news_heading}</h2>
+    {stale && <p class="cnews-stale-note">{staleNoteText}</p>}
     <p class="cnews-intro">{t.commune_news_intro.replace('{name}', communeName)}</p>
     <ul class="cnews-list">
       {items.map((incident) => {
@@ -172,6 +203,12 @@ const seeAllHref = locale === 'es'
   }
 
   .cnews-intro {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-bottom: var(--md);
+  }
+
+  .cnews-stale-note {
     font-size: var(--text-label);
     color: var(--muted);
     margin-bottom: var(--md);
