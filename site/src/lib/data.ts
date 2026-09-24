@@ -85,11 +85,13 @@ export interface RegionData {
   slug: string;
   series: SeriesEntry[];
   comuna_ranking?: Array<{ cut: string; name: string; rank: number }>;
+  last_updated?: string;
 }
 
 export interface NationalData {
   name: string;
   series: SeriesEntry[];
+  last_updated?: string;
 }
 
 export interface CatalogFamily {

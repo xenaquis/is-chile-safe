@@ -245,6 +245,11 @@ export interface I18nStrings {
   commune_news_see_all: string;
   commune_news_caveat: string;
   commune_news_aria: string;
+
+  // Phase 35 (FRESH-05) — CEAD vintage + partial-year disclosure
+  cead_as_of: string;
+  cead_as_of_note: string;
+  cead_partial_cutoff: string;
 }
 
 export const EN_STRINGS: I18nStrings = {
@@ -487,6 +492,11 @@ export const EN_STRINGS: I18nStrings = {
   commune_news_see_all: 'See all news incidents for {name} →',
   commune_news_caveat: 'Automatically classified from press coverage; not official statistics. Sources are always cited.',
   commune_news_aria: 'Recent incidents reported in the news',
+
+  // Phase 35 (FRESH-05) — CEAD vintage + partial-year disclosure
+  cead_as_of: 'CEAD data as of {date}',
+  cead_as_of_note: '(date of our last download from CEAD)',
+  cead_partial_cutoff: '{year} is a partial year: its figures include only what CEAD had published by {date}. It is not used for the headline rate or rankings, and appears as a faded point in the trend charts. The latest complete year is {complete}.',
 };
 
 export const ES_STRINGS: I18nStrings = {
@@ -732,6 +742,11 @@ export const ES_STRINGS: I18nStrings = {
   commune_news_see_all: 'Ver todos los incidentes de prensa de {name} →',
   commune_news_caveat: 'Clasificación automática desde cobertura de prensa; no es estadística oficial. Las fuentes siempre se citan.',
   commune_news_aria: 'Incidentes recientes reportados en la prensa',
+
+  // Fase 35 (FRESH-05) — divulgación de vintage CEAD + corte de año parcial
+  cead_as_of: 'Datos CEAD al {date}',
+  cead_as_of_note: '(fecha de nuestra última descarga desde el CEAD)',
+  cead_partial_cutoff: '{year} es un año parcial: sus cifras incluyen solo lo que el CEAD había publicado al {date}. No se usa para la tasa principal ni los rankings, y aparece como un punto atenuado en los gráficos de evolución. El último año completo es {complete}.',
 };
 
 // D-17: Crime-family URL slug translations
