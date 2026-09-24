@@ -150,6 +150,14 @@ export interface I18nStrings {
   news_cluster_source_count: string;
   news_facet_semantics_note: string;
 
+  // Phase 35 (FRESH-01/R-01) — data-derived latest-incident stamp, stale
+  // notice and outage gap-bar copy. {date} substituted server-side.
+  news_latest_incident: string;
+  news_stale_notice: string;
+  news_stale_notice_nodate: string;
+  news_gap_bar_label: string;
+  news_gap_caption: string;
+
   // News UX pass (NEWSUX) — day histogram + dense list column headers.
   // news_histogram_peak carries {n}/{date} tokens that MUST be substituted at
   // build time by the page: scripts/validate/facets.mjs assertion 18 strips
@@ -245,6 +253,12 @@ export interface I18nStrings {
   commune_news_see_all: string;
   commune_news_caveat: string;
   commune_news_aria: string;
+
+  // Phase 35 (FRESH-03) — caveated heading + note when the newest listed
+  // item is more than 7 days old (R-06: no geolocation/pipeline claim).
+  commune_news_heading_stale: string;
+  commune_news_stale_note: string;
+  commune_news_aria_stale: string;
 
   // Phase 35 (FRESH-05) — CEAD vintage + partial-year disclosure
   cead_as_of: string;
@@ -399,6 +413,11 @@ export const EN_STRINGS: I18nStrings = {
   news_empty_body: 'Try a different time window, region, or crime type, or clear all filters to see every reported incident.',
   news_cluster_source_count: '{n} sources',
   news_facet_semantics_note: 'Each filter\'s per-option counts reflect the other filters you have applied, but not that filter\'s own selection — so you can always see what widening a selection would return. "Latest data" is anchored to the newest incident\'s date, not to today\'s calendar date — if the news feed pauses, "Latest data" reflects the last successful update, not necessarily today. Incident counts are a qualitative, editorially-selected news sample and are not comparable to the CEAD per-100k statistical rates shown elsewhere on this site.',
+  news_latest_incident: 'Latest incident: {date}',
+  news_stale_notice: 'No new incidents have been added for more than 48 hours (newest incident dated {date}). The news feed may be delayed, so the list below is not current.',
+  news_stale_notice_nodate: 'No incident data is available in the current build; the news feed may be delayed.',
+  news_gap_bar_label: 'no data collected',
+  news_gap_caption: 'No incidents were collected from {from} to {to} because of a classification outage in our pipeline; those days are not zero-incident days.',
 
   news_histogram_label: 'Incidents per day — click a bar to isolate a date',
   news_histogram_peak: 'Peak {n} on {date}',
@@ -492,6 +511,9 @@ export const EN_STRINGS: I18nStrings = {
   commune_news_see_all: 'See all news incidents for {name} →',
   commune_news_caveat: 'Automatically classified from press coverage; not official statistics. Sources are always cited.',
   commune_news_aria: 'Recent incidents reported in the news',
+  commune_news_heading_stale: 'Earlier Incidents in the News',
+  commune_news_stale_note: 'The newest report listed for {name} was published on {date}; none of the listed reports was published in the last 7 days.',
+  commune_news_aria_stale: 'Incidents reported in the news',
 
   // Phase 35 (FRESH-05) — CEAD vintage + partial-year disclosure
   cead_as_of: 'CEAD data as of {date}',
@@ -649,6 +671,11 @@ export const ES_STRINGS: I18nStrings = {
   news_empty_body: 'Prueba otro período, región o tipo de delito, o limpia los filtros para ver todos los incidentes reportados.',
   news_cluster_source_count: '{n} fuentes',
   news_facet_semantics_note: 'Los conteos de cada filtro reflejan los demás filtros que hayas aplicado, pero no la selección propia de ese filtro, de modo que siempre puedas ver qué aparecería al ampliar una selección. "Últimos datos" está anclado a la fecha del incidente más nuevo registrado, no a la fecha calendario de hoy — si el feed de noticias se detiene, "Últimos datos" refleja la última actualización exitosa, no necesariamente hoy. Los conteos de incidentes son una muestra cualitativa y de selección editorial de noticias, y no son comparables con las tasas estadísticas del CEAD por 100.000 habitantes que se muestran en el resto del sitio.',
+  news_latest_incident: 'Último incidente: {date}',
+  news_stale_notice: 'No se han agregado incidentes nuevos en más de 48 horas (el más reciente es del {date}). El flujo de noticias puede estar retrasado, por lo que la lista de abajo no está al día.',
+  news_stale_notice_nodate: 'No hay datos de incidentes disponibles en esta versión del sitio; el flujo de noticias puede estar retrasado.',
+  news_gap_bar_label: 'sin datos recolectados',
+  news_gap_caption: 'No se recolectaron incidentes entre el {from} y el {to} por una falla de clasificación en nuestro pipeline; esos días no son días sin incidentes.',
 
   news_histogram_label: 'Incidentes por día — haz clic en una barra para aislar una fecha',
   news_histogram_peak: 'Máximo {n} el {date}',
@@ -742,6 +769,9 @@ export const ES_STRINGS: I18nStrings = {
   commune_news_see_all: 'Ver todos los incidentes de prensa de {name} →',
   commune_news_caveat: 'Clasificación automática desde cobertura de prensa; no es estadística oficial. Las fuentes siempre se citan.',
   commune_news_aria: 'Incidentes recientes reportados en la prensa',
+  commune_news_heading_stale: 'Incidentes Anteriores en la Prensa',
+  commune_news_stale_note: 'La nota más reciente de la lista para {name} se publicó el {date}; ninguna de las notas listadas se publicó en los últimos 7 días.',
+  commune_news_aria_stale: 'Incidentes reportados en la prensa',
 
   // Fase 35 (FRESH-05) — divulgación de vintage CEAD + corte de año parcial
   cead_as_of: 'Datos CEAD al {date}',

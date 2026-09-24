@@ -35,6 +35,7 @@ import { FAMILY_LABELS_ES } from '../../lib/familyDefs';
 import { computeNewsFacets, escapeForInlineScript } from '../../lib/newsFacets';
 import { computeDayBuckets, peakBucket } from '../../lib/newsDayFacets';
 import { norm, FILTER_LOGIC_MARKER } from '../../lib/newsFilterLogic';
+import { latestIncidentDate, computeEvidence, evidenceVerdict, MAX_AGE_HOURS } from '../../lib/newsEvidence.mjs';
 import { ES_STRINGS, regionNameEs } from '../../config/i18n.ts';
 
 const t = ES_STRINGS;
@@ -44,7 +45,11 @@ const t = ES_STRINGS;
 // which previously made EN resolve to a missing path and render empty (bilingual drift).
 const dataPath = path.resolve(process.cwd(), 'public/data/incidents/current.json');
 
-let generated: string | null = null;
+// FRESH-01 (G-20(1)): `payload` es el archivo parseado, conservado para el
+// helper compartido G-05 (computeEvidence/latestIncidentDate). Ya no hay un
+// sello `generated`/`formattedDate` de build separado — mentía sobre la
+// recencia cada vez que el feed de noticias se detenía (V-05).
+let payload: { last_new_incident_at?: string; incidents?: unknown } = {};
 let incidents: Array<{
   id: string;
   title_es: string;
@@ -60,27 +65,38 @@ let incidents: Array<{
 if (existsSync(dataPath)) {
   try {
     const raw = JSON.parse(readFileSync(dataPath, 'utf-8'));
-    generated = raw.generated ?? null;
+    payload = raw ?? {};
     incidents = raw.incidents ?? [];
   } catch {
     // JSON malformado — fallback vacío
   }
 }
 
-// Formato de fecha para mostrar
-let formattedDate = '';
-if (generated) {
+// FRESH-01: "ahora" es el reloj de build de Astro (G-20(2)). Por R1/R-07,
+// el veredicto 'future' NO dispara el aviso visible al lector — freshness.mjs
+// y el heartbeat ya lo marcan en rojo.
+const buildNowMs = Date.now();
+const latest = latestIncidentDate(payload);
+const freshnessVerdict = evidenceVerdict(computeEvidence(payload), buildNowMs, MAX_AGE_HOURS);
+const showStale = freshnessVerdict === 'stale' || freshnessVerdict === 'none';
+
+function longDateEs(dateStr: string): string {
   try {
-    formattedDate = new Date(generated).toLocaleDateString('es-CL', {
+    return new Date(dateStr + 'T00:00:00Z').toLocaleDateString('es-CL', {
       timeZone: 'UTC',
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     });
   } catch {
-    formattedDate = generated.slice(0, 10);
+    return dateStr;
   }
 }
+
+const latestIncidentText = latest ? t.news_latest_incident.replace('{date}', longDateEs(latest)) : '';
+const staleNoticeText = latest
+  ? t.news_stale_notice.replace('{date}', longDateEs(latest))
+  : t.news_stale_notice_nodate;
 
 // Lookup CUT → comuna {name, slug} desde loadIndex() en build time (paridad con /news/)
 const _index = loadIndex();
@@ -187,6 +203,34 @@ const facetsProjection = {
 // un hueco en la cobertura es información, no ruido a comprimir.
 const dayBuckets = computeDayBuckets(incidents.map((i) => i.date), facets.anchorDate);
 const peak = peakBucket(dayBuckets);
+
+// R1/R-01 + R2/F35-R1-04 (G-22(a)): un caption por tramo CONTIGUO de buckets
+// con gap=true. {from}/{to} son la primera/última fecha del propio tramo,
+// nunca el rango declarado en COVERAGE_GAPS — un incidente real dentro del
+// rango auto-desactiva el flag de ese día (por bucket, newsDayFacets.ts) y
+// debe acortar el caption en consecuencia.
+function computeGapSpans(buckets: typeof dayBuckets): Array<{ from: string; to: string }> {
+  const spans: Array<{ from: string; to: string }> = [];
+  let start: string | null = null;
+  let prev: string | null = null;
+  for (const b of buckets) {
+    if (b.gap) {
+      if (start === null) start = b.date;
+      prev = b.date;
+    } else if (start !== null) {
+      spans.push({ from: start, to: prev as string });
+      start = null;
+      prev = null;
+    }
+  }
+  if (start !== null) spans.push({ from: start, to: prev as string });
+  return spans;
+}
+const gapCaptions = computeGapSpans(dayBuckets).map((span) => ({
+  from: span.from,
+  to: span.to,
+  text: t.news_gap_caption.replace('{from}', longDateEs(span.from)).replace('{to}', longDateEs(span.to)),
+}));
 // F-32 / assertion 18: sustitución en servidor — el HTML indexado no puede contener
 // un token {n}/{date} literal fuera del único data-result-count-template.
 const peakText = peak
@@ -236,10 +280,11 @@ const jsonLd = {
       incidentes se extraen de feeds RSS y se clasifican mediante pipeline automatizado.
       Se atribuye siempre la fuente; no se emiten veredictos absolutos sobre seguridad.
     </p>
-    {generated && (
-      <p class="freshness">
-        <time datetime={generated}>Actualizado {formattedDate}</time>
-      </p>
+    <p class="freshness" data-latest-incident={latest ?? ''} data-build-now={new Date(buildNowMs).toISOString()}>
+      {latest && <time datetime={latest}>{latestIncidentText}</time>}
+    </p>
+    {showStale && (
+      <p class="news-stale-notice" role="status" data-stale-hours="48">{staleNoticeText}</p>
     )}
   </section>
 
@@ -318,11 +363,12 @@ const jsonLd = {
                 type="button"
                 class="day-bar"
                 data-day={b.date}
+                data-gap={b.gap ? 'true' : undefined}
                 aria-pressed="false"
                 style={`--h:${b.pct}%`}
               >
                 <span class="day-bar-fill" aria-hidden="true"></span>
-                <span class="news-sr">{dayLabel(b.date)} · {b.count}</span>
+                <span class="news-sr">{dayLabel(b.date)} · {b.gap ? t.news_gap_bar_label : b.count}</span>
               </button>
             ))}
           </div>
@@ -331,6 +377,9 @@ const jsonLd = {
             <span>{axisMid}</span>
             <span>{axisLast}</span>
           </p>
+          {gapCaptions.map((g) => (
+            <p class="day-gap-caption" data-gap-from={g.from} data-gap-to={g.to}>{g.text}</p>
+          ))}
         </div>
       )}
 
@@ -703,6 +752,15 @@ const jsonLd = {
     margin-top: var(--sm);
   }
 
+  .news-stale-notice {
+    border-left: 3px solid var(--primary);
+    padding: 8px 16px;
+    margin-top: var(--sm);
+    font-size: var(--text-label);
+    color: var(--muted);
+    background: var(--bg);
+  }
+
   .empty-state {
     color: var(--muted);
     font-style: italic;
@@ -969,6 +1027,20 @@ const jsonLd = {
     background: var(--ink);
   }
 
+  /* R-01: los días de outage se leen como "sin datos recolectados", no como
+     una marca de cero incidentes — un relleno rayado distingue un hueco
+     conocido de un día genuinamente tranquilo. */
+  .day-bar[data-gap='true'] .day-bar-fill {
+    height: 10px;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--line),
+      var(--line) 3px,
+      transparent 3px,
+      transparent 6px
+    );
+  }
+
   .day-axis {
     display: flex;
     justify-content: space-between;
@@ -976,6 +1048,12 @@ const jsonLd = {
     font-size: var(--text-label);
     color: var(--muted);
     font-variant-numeric: tabular-nums;
+  }
+
+  .day-gap-caption {
+    margin: var(--xs) 0 0;
+    font-size: var(--text-label);
+    color: var(--muted);
   }
 
   /* --- Chips de tipo de delito --------------------------------------------- */
