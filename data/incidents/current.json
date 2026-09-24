@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-24T02:58:03.180781Z",
+  "generated": "2026-09-24T11:03:02.057240Z",
   "window_days": 30,
   "incidents": [
     {
@@ -9764,7 +9764,163 @@
       "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZ0c4bUw4ZEhaVjQ4RUxsbExpVC1tSUU5UzA3UWNXTnk2cUpkUjRLWl95QTIxOGREanNGbkdiNE1rWktaS0RhN3ZZYlZUcDBleDh1bUpwQnRsLTFnY0NYakh4VzdmQnVjVE1KQVAtVm5QX1NsQ0NZSktyYnJHWklIcE94SUZWWHZJSmwxQzVjdkFvNzRzWjlRMzdEZ2YtRnp6anBKSmx5S1AyQTZHdHVrUXVXNUZkUk5kVzVJbFM2dnl0VTQ50gHEAUFVX3lxTE5nRzhtTDhkSFpWNDhFTGxsTGlULW1JRTlTMDdRY1dOeTZxSmRSNEtaX3lBMjE4ZERqc0ZuR2I0TWtaS1pLRGE3dlliVlRwMGV4OHVtSnBCdGwtMWdjQ1hqSHhXN2ZCdWNUTUpBUC1WblBfU2xDQ1lKS3JickdaSUhwT3hJRlZYdklKbDFDNWN2QW83NHNaOVEzN0RnZi1GenpqcEpKbHlLUDJBNkd0dWtRdVc1RmRSTmRXNUlsUzZ2eXRVNDk?oc=5",
       "family": "propiedad",
       "slug": "concepcion"
+    },
+    {
+      "id": "5dfc1270432355ca",
+      "cut": "13116",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Con amplio operativo policial entierran a \"El Poroto\", narco que puso precio a vida de alcaldesa Reyes",
+      "title_en": "With a large police operation, \"El Poroto\" is buried, the drug trafficker who put a price on Mayor Reyes' life",
+      "date": "2026-09-24",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/09/24/con-amplio-operativo-policial-entierran-a-el-poroto-narco-que-puso-precio-a-vida-de-alcaldesa-reyes.shtml",
+      "family": "drogas",
+      "slug": "lo-espejo"
+    },
+    {
+      "id": "4179da20d773bff2",
+      "cut": "13123",
+      "lat": -33.446981,
+      "lng": -70.549631,
+      "title_es": "Ladrón asalta y abusa sexualmente de mujer en Providencia",
+      "title_en": "Thief robs and sexually assaults woman in Providencia",
+      "date": "2026-09-24",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/09/24/ladron-asalta-y-abusa-sexualmente-de-mujer-en-providencia-el-intento-escapar-lanzandose-al-mapocho.shtml",
+      "family": "sexuales",
+      "slug": "providencia"
+    },
+    {
+      "id": "fe01e62d38b320a2",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "Fuga de gas obliga a suspender clases en nueve colegios de Arica",
+      "title_en": "Gas leak forces suspension of classes at nine schools in Arica",
+      "date": "2026-09-24",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-arica-y-parinacota/2026/09/24/fuga-de-gas-obliga-a-suspender-las-clases-en-nueve-colegios-en-arica.shtml",
+      "family": "incivilidades",
+      "slug": "arica"
+    },
+    {
+      "id": "3919a26ef205ccac",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Turba persigue y balea a mujer en Maipú: comerciante la ayudó y también terminó herido",
+      "title_en": "Mob chases and shoots woman in Maipú: shopkeeper helped her and was also injured",
+      "date": "2026-09-24",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/09/24/turba-persigue-y-balea-a-mujer-en-maipu-comerciante-la-ayudo-y-tambien-termino-herido.shtml",
+      "family": "armas",
+      "slug": "maipu"
+    },
+    {
+      "id": "e234c72b2e87c5f8",
+      "cut": "9120",
+      "lat": -39.311575,
+      "lng": -72.20841,
+      "title_es": "SernamEG se querella por femicidio y violación de madre e hija en Villarrica",
+      "title_en": "SernamEG files suit for femicide and rape of mother and daughter in Villarrica",
+      "date": "2026-09-24",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/09/24/sernameg-se-querella-por-femicidio-y-violacion-de-madre-e-hija-en-villarrica-acusado-quedo-en-prision.shtml",
+      "family": "vida",
+      "slug": "villarrica"
+    },
+    {
+      "id": "42d93223a481320b",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Violento turbazo en Maipú: desconocidos armados irrumpen en domicilio y roban a familia",
+      "title_en": "Violent home invasion in Maipú: armed strangers break into home and rob family",
+      "date": "2026-09-24",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/09/24/violento-turbazo-en-maipu-desconocidos-armados-irrumpen-en-domicilio-intimidan-y-roban-a-familia.shtml",
+      "family": "robos_violentos",
+      "slug": "maipu"
+    },
+    {
+      "id": "c66fc84e0c6e8ae3",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "Fuga de gas en servicentro de Arica obligó a suspender clases en nueve colegios",
+      "title_en": "Gas leak at Arica service station forced suspension of classes at nine schools",
+      "date": "2026-09-24",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-arica/fuga-de-gas-en-servicentro-de-arica-obligo-a-suspender-clases-en-nueve/2026-09-24/003415.html",
+      "family": "incivilidades",
+      "slug": "arica"
+    },
+    {
+      "id": "ada0511fddab0610",
+      "cut": "13119",
+      "lat": -33.493075,
+      "lng": -70.807837,
+      "title_es": "Dos personas baleadas tras agresión en Maipú",
+      "title_en": "Two people shot after assault in Maipú",
+      "date": "2026-09-24",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/dos-personas-baleadas-deja-agresion-en-la-comuna-de-maipu-sujetos-habrian-seguido-a-una-de-las-victimas/",
+      "family": "armas",
+      "slug": "maipu"
+    },
+    {
+      "id": "309eff019eda8755",
+      "cut": "13116",
+      "lat": -33.539168,
+      "lng": -70.721768,
+      "title_es": "Máxima alerta en Lo Espejo por la muerte de 'El Poroto', narco que amenazó a la alcaldesa Javiera Reyes",
+      "title_en": "Maximum alert in Lo Espejo over the death of 'El Poroto', the drug trafficker who threatened Mayor Javiera Reyes",
+      "date": "2026-09-23",
+      "outlet": "EL PAÍS",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPbWN4dzZDQUtHbmtsdmhHS3EwQ25hdXd0QU8tUkp2bzM3QldhdzF5ZkpqQjJEajdXX0Rla3NFb3p1amt5XzhYNUtPb3pLeDhxaDcwbFBXR3NRS0xRTmZfYWU0NkZRYW9HTjlLMnVoMl9YQk5POXU5cWZXTy1JbF9LeWFIREp4ZUVpUEUwd3YwUjFXZlAwTjhUM0pvaGJpQ1dOUjZQemhhOUQ5ek9TV0JTY1dsWVFIVE5TaW5CaWh6eG1PUTFLY0Jwcm5MUThGMVdid0Y5dk9WMmVQc2xI0gHwAUFVX3lxTE5VV3o1NVhBc2FmcmN0em5lS05TMW81OTF1OG5RWkw0b1l6WGs0T3dBYnNlNURlODlvdVc4bU5jSjlQdXZzNHNMYm0wN2Rza3Vid3FBMzl2aUFoa1YtY2VfMjl5ZWdfbFVyWkw1cTJxdDY1ZjJVTFo4bnZiZWZfcWJVa3MzYWpNTFAzWk5tR1JtZjNGS2VkQjNpamMzTHg4UVpOTGY4dGZqX01QNjRJanYtUHFQUU1lLUhIbFltdDFTLVVnRWMteXZlbVFfMVZGa3h2bTVGalVZRFJjcTluRmszUnFLdjBlb3hkdnRHTmNXOA?oc=5",
+      "family": "vida",
+      "slug": "lo-espejo"
+    },
+    {
+      "id": "d728638ef3118f23",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Carabineros incauta cigarrillos de contrabando avaluados en más de $800 millones en La Negra",
+      "title_en": "Carabineros seizes contraband cigarettes valued at over $800 million in La Negra",
+      "date": "2026-09-23",
+      "outlet": "antofagastaaldia.cl",
+      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxONWN2S2JoTWcwTGx1UmNHVHZxZ3dvcHo3WFpIZlJmVElocm5EbDZxbF9KLVdqV3VfS0dZZDZtcmg3VmFCRmhDc2YxMWhIZ0JscTdxcHRuQ2trOHM4YXZQbjRESmdqSlotdkZhV25iUXJqZUg0OVJXNFlKVzhoOC1hVWlxdXRLTTBFZFRZY0YyUWNsU283VTcxbUdQdW9KeDBNNjlGMG1neFhmLUdzdlY5Uy1Rd3Fzb2dtZC1PRWxCUHJmbzhURjNCMTFDQXczdw?oc=5",
+      "family": "propiedad",
+      "slug": "antofagasta"
+    },
+    {
+      "id": "ad36280fdd091cd0",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Masivo robo de semáforos en Estación Central",
+      "title_en": "Massive theft of traffic lights in Estación Central",
+      "date": "2026-09-22",
+      "outlet": "Meganoticias",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNU0s4ZEprRm5vTUlSbmJxWFlQREp5RWlaTVYzZi0tb1hCRVlGUWhJdGl0RjQ0dmYyeWVqQnFXc2dxVXBjdHU3Mkg4S1RuVnl2YVV3VVZjV21vWGk2NWtYSVF0SUZhTVlmUEF4X2hLQVFpUUpBUjFGR2p5Y2tLV0dpaDlXQkEyenphcVNpSnp2SVNpLVpDX0prUG9UWHJiUFlvb0MzZlliUTE?oc=5",
+      "family": "propiedad",
+      "slug": "estacion-central"
+    },
+    {
+      "id": "e6b84733361f9c78",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Detienen en fondas de Concepción a exarquero de La Roja Sub 20: quedó en prisión preventiva",
+      "title_en": "Former U-20 Chile national team goalkeeper arrested at Concepción fondas: remanded in custody",
+      "date": "2026-09-23",
+      "outlet": "Radio Agricultura",
+      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQalJ0M2ZCanVBVXZneUJmMDc3aTQweFdXc0hsb2FrS3ZjbXdtVmdBblN6OE1ENEdTcnZwV3BnU0dQOXQzV0w4ZXdWN25qWUVZcjBRODdVQjdBNzYxdzZFMXhiQ01wZXlNZi1TNi04M3F4QzhVRlhuZTNtQnpWNC01QjBpVWdXTl85QWVwZ2IxZGJva3N5X3J2VWE0VTlFTXpOUFRCTTBiMTdQcm95UHhSNE9rUmVEQmJFRmhpaTJNcTdSQW04UkhPOUlJLVdfNXNOU3RUZUVNTnBqOE1udnZRUjhuUjU?oc=5",
+      "family": "vida",
+      "slug": "concepcion"
     }
   ],
-  "last_new_incident_at": "2026-09-24T02:58:03.180781Z"
+  "last_new_incident_at": "2026-09-24T11:03:02.057240Z"
 }
