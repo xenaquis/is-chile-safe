@@ -150,9 +150,17 @@ def merge_and_write(
     3. Compute cutoff = today - window_days days.
     4. Partition combined list: current (date >= cutoff) and aged_out (date < cutoff).
     5. For each YYYY-MM group of aged_out, merge into archive/YYYY-MM.json (dedup by id).
+       FRESH-04: a month file that already exists and gains no new id is NOT rewritten.
     6. Validate payload via validate_incidents_file — on ValidationError, log and skip write
        (last-good file preserved, D-15).
-    7. atomic_write_json(current_path, payload).
+    7. FRESH-04 no-op guard: if the previous file had only known keys and its incidents,
+       window_days and last_new_incident_at all equal the new payload's, skip the write
+       (current.json stays byte-identical; `generated` is not bumped).
+    8. Otherwise atomic_write_json(current_path, payload).
+
+    FRESH-04 (35-02): `generated` means "the time current.json's content last changed",
+    NOT "the time the pipeline last ran". The G-05 liveness signal remains
+    `last_new_incident_at`. Archive month files use the same `now` clock (`ref_now`).
 
     G-05 (NEWS-08 freshness instrument): `now` is used for both `generated` and, when
     applicable, `last_new_incident_at`. When the count of ids landing in the current
@@ -208,8 +216,11 @@ def merge_and_write(
         archive_path = archive_dir / f"{month_key}.json"
         existing_archive = _load_incidents_list(archive_path)
         merged_archive = _merge_by_id(existing_archive, aged_incidents)
+        # FRESH-04: existing wins in _merge_by_id, so equal length == no new id.
+        if archive_path.exists() and len(merged_archive) == len(existing_archive):
+            continue
         archive_payload = {
-            "generated": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
+            "generated": ref_now.isoformat().replace("+00:00", "Z"),
             "window_days": window_days,
             "incidents": merged_archive,
         }
@@ -249,6 +260,17 @@ def merge_and_write(
         )
         return new_in_window_count
 
-    # 7. Atomic write
+    # 7. FRESH-04 no-op guard: nothing added, nothing aged, same window, same G-05 field.
+    if (
+        previous_payload
+        and set(previous_payload) <= {"generated", "window_days", "incidents", "last_new_incident_at"}
+        and previous_payload.get("incidents") == current_incidents
+        and previous_payload.get("window_days") == window_days
+        and previous_payload.get("last_new_incident_at") == payload.get("last_new_incident_at")
+    ):
+        logger.info("current.json unchanged (no new or aged ids) — write skipped (FRESH-04)")
+        return new_in_window_count
+
+    # 8. Atomic write
     atomic_write_json(current_path, payload)
     return new_in_window_count
