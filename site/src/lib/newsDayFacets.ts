@@ -15,6 +15,8 @@
  * - `anchorDate` is the newest incident's date (newsFacets.ts `anchorDate`),
  *   NOT build wall-clock. Passing wall-clock here would drift the histogram
  *   off the data whenever the news feed pauses.
+ * - The window starts at max(anchor−(width−1), earliest incident date) — days
+ *   before the data's own start are not coverage (V-05, FRESH-02).
  *
  * This module deliberately does NOT touch newsFacets.ts: that module's
  * published contract (F-20) and its assertions in scripts/validate/facets.mjs
@@ -22,15 +24,21 @@
  * indexed facet projection.
  */
 
+import { COVERAGE_GAPS, type CoverageGap } from './newsCoverageGaps';
+
 export interface DayBucket {
   /** YYYY-MM-DD */
   date: string;
   count: number;
   /** 0-100, share of the busiest day in the window; 0 stays 0 (never floored up). */
   pct: number;
+  /** true iff count === 0 and the date falls inside a declared COVERAGE_GAPS range (R-01). */
+  gap: boolean;
 }
 
 export const DAY_WINDOW_WIDTH = 30;
+
+const CANONICAL_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 /**
  * lowerBoundDate — UTC-anchored lower-bound date string, ported verbatim from
@@ -39,6 +47,21 @@ export const DAY_WINDOW_WIDTH = 30;
 function lowerBoundDate(anchorMs: number, days: number): string {
   const ms = anchorMs - days * 86400000;
   return new Date(ms).toISOString().slice(0, 10);
+}
+
+/**
+ * earliestValidDate — the min of canonical, parseable YYYY-MM-DD strings in
+ * `dates`. Malformed entries ('bad', '', etc.) are never considered, so they
+ * can never become the coverage start (T-35-01 twin for this module).
+ */
+function earliestValidDate(dates: string[]): string | null {
+  let earliest: string | null = null;
+  for (const d of dates) {
+    if (!CANONICAL_DATE_RE.test(d)) continue;
+    if (Number.isNaN(Date.parse(d + 'T00:00:00Z'))) continue;
+    if (earliest === null || d < earliest) earliest = d;
+  }
+  return earliest;
 }
 
 /**
@@ -63,14 +86,18 @@ function addDays(dateStr: string, days: number): string {
 export function computeDayBuckets(
   dates: string[],
   anchorDate: string | null,
-  width: number = DAY_WINDOW_WIDTH
+  width: number = DAY_WINDOW_WIDTH,
+  gaps: CoverageGap[] = COVERAGE_GAPS
 ): DayBucket[] {
   if (!anchorDate) return [];
 
   const anchorMs = Date.parse(anchorDate + 'T00:00:00Z');
   if (Number.isNaN(anchorMs)) return [];
 
-  const lower = lowerBoundDate(anchorMs, width - 1);
+  let lower = lowerBoundDate(anchorMs, width - 1);
+
+  const earliest = earliestValidDate(dates);
+  if (earliest !== null && earliest > lower) lower = earliest;
 
   const counts = new Map<string, number>();
   for (const d of dates) {
@@ -86,10 +113,12 @@ export function computeDayBuckets(
 
   return days.map((date) => {
     const count = counts.get(date) ?? 0;
+    const gap = count === 0 && gaps.some((g) => g.from <= date && date <= g.to);
     return {
       date,
       count,
       pct: max === 0 || count === 0 ? 0 : Math.round((count / max) * 100),
+      gap,
     };
   });
 }
