@@ -1,5 +1,5 @@
 /**
- * all.mjs — Aggregate validator: run all 17 validation scripts in sequence.
+ * all.mjs — Aggregate validator: run all 18 validation scripts in sequence.
  *
  * Validators:
  *   1.  structure.mjs         — required source files + sample page meta
@@ -19,6 +19,7 @@
  *  15.  freshness.mjs         — newest-incident evidence <= 48h (G-05)
  *  16.  facets.mjs            — news facet count integrity (family/region containment via live Python-source parsing, CUT-length cross-check, byMonth completeness, TZ-determinism, stray-artifact absence)
  *  17.  cead-vintage.mjs      — FRESH-05 CEAD as-of + partial-year label on methodology + commune pages (EN/ES)
+ *  18.  news-freshness.mjs    — FRESH-01/02/03 news page + commune-section freshness signal consistency (G-05)
  *
  * Any non-zero exit from a child script fails the suite.
  * Prints a per-check PASS/FAIL summary at the end.
@@ -55,6 +56,7 @@ const VALIDATORS = [
   'freshness.mjs',
   'facets.mjs',
   'cead-vintage.mjs',
+  'news-freshness.mjs',
 ];
 
 const results = [];
