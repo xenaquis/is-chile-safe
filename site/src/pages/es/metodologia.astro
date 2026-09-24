@@ -9,6 +9,21 @@
  * recuento bajo, alcance drogas, denominador población flotante; atribución SPD/SII/Fiscalía.
  */
 import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import { loadNational } from '../../lib/data.ts';
+import { ceadVintage, formatCeadDate } from '../../lib/ceadVintage.ts';
+import { ES_STRINGS } from '../../config/i18n.ts';
+
+const t = ES_STRINGS;
+const nat = loadNational();
+const v = ceadVintage(nat.series, nat.last_updated);
+const asOfDate = v.lastUpdated ? formatCeadDate(v.lastUpdated, 'es') : '';
+const partialCutoffText =
+  v.partialYear !== null && v.lastUpdated !== null
+    ? t.cead_partial_cutoff
+        .replace('{year}', String(v.partialYear))
+        .replace('{date}', asOfDate)
+        .replace('{complete}', String(v.latestCompleteYear))
+    : '';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -86,11 +101,17 @@ const jsonLd = {
       <strong>Datos de año parcial:</strong> El año calendario en curso queda excluido de todas
       las tasas y rankings porque el CEAD aún no ha cerrado su serie anual para ese período —
       las cifras de un año parcial no serían comparables con un recuento anual completo. El año
-      pasado más reciente que se muestra (actualmente 2025) se trata como una serie anual
+      pasado más reciente que se muestra (actualmente {v.latestCompleteYear}) se trata como una serie anual
       completa, pero conviene tener en cuenta que el CEAD puede publicar revisiones menores de
       años recientes tras su publicación inicial; las cifras mostradas reflejan los datos
       disponibles en el momento de la última ejecución de nuestro pipeline.
     </p>
+    {v.lastUpdated && (
+      <p class="cead-vintage" data-cead-last-updated={v.lastUpdated} data-partial-year={v.partialYear ?? ''} data-latest-complete-year={v.latestCompleteYear ?? ''}>
+        <time datetime={v.lastUpdated}>{t.cead_as_of.replace('{date}', asOfDate)}</time> {t.cead_as_of_note}
+        {partialCutoffText && <> {partialCutoffText}</>}
+      </p>
+    )}
     <p>
       <strong>Alcance de los delitos de drogas:</strong> La categoría <em>Drogas</em> del CEAD
       abarca los delitos tipificados en la <strong>Ley 20.000</strong> (grupo 401 del catálogo

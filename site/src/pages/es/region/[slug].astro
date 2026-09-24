@@ -19,8 +19,9 @@ import {
   loadNational,
   latestCompleteYearRate,
 } from '../../../lib/data.ts';
-import { regionNameEs } from '../../../config/i18n.ts';
+import { regionNameEs, ES_STRINGS } from '../../../config/i18n.ts';
 import { buildBreadcrumb, buildItemList } from '../../../lib/jsonld.ts';
+import { ceadVintage, formatCeadDate } from '../../../lib/ceadVintage.ts';
 
 export async function getStaticPaths() {
   const paths = [];
@@ -53,6 +54,17 @@ const _nationalFallbackYear = _regionSeriesYear === 0
   : 0;
 
 const latestCompleteYear = _regionSeriesYear > 0 ? _regionSeriesYear : _nationalFallbackYear;
+
+// FRESH-05 / R-02: divulgación de vintage CEAD + corte de año parcial
+const ceadV = ceadVintage(region.series, region.last_updated ?? loadNational().last_updated);
+const ceadAsOfDate = ceadV.lastUpdated ? formatCeadDate(ceadV.lastUpdated, 'es') : '';
+const ceadPartialCutoffText =
+  ceadV.partialYear !== null && ceadV.lastUpdated !== null
+    ? ES_STRINGS.cead_partial_cutoff
+        .replace('{year}', String(ceadV.partialYear))
+        .replace('{date}', ceadAsOfDate)
+        .replace('{complete}', String(ceadV.latestCompleteYear))
+    : '';
 
 // Aggregate population + commune count from index
 const index = loadIndex();
@@ -198,9 +210,14 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
 
   <!-- 4. RegionSparkline -->
   <section class="sparkline-section" aria-label="Evolución anual">
-    <h2 class="section-heading">Evolución anual (2005–{latestCompleteYear}*)</h2>
+    <h2 class="section-heading">Evolución anual (2005–{latestCompleteYear})</h2>
     <Sparkline series={region.series} activeYear={latestCompleteYear} />
-    <p class="chart-footnote">* {latestCompleteYear}: año parcial (ene–jun)</p>
+    {ceadV.lastUpdated && (
+      <p class="cead-vintage" data-cead-last-updated={ceadV.lastUpdated} data-partial-year={ceadV.partialYear ?? ''} data-latest-complete-year={ceadV.latestCompleteYear ?? ''}>
+        <time datetime={ceadV.lastUpdated}>{ES_STRINGS.cead_as_of.replace('{date}', ceadAsOfDate)}</time> {ES_STRINGS.cead_as_of_note}
+        {ceadPartialCutoffText && <> {ceadPartialCutoffText}</>}
+      </p>
+    )}
   </section>
 
   <!-- 5. CommuneRankingTable -->
@@ -308,6 +325,12 @@ const jsonLd = [jsonLdDataset, breadcrumb, ranking];
   }
 
   .chart-footnote {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-top: var(--xs);
+  }
+
+  .cead-vintage {
     font-size: var(--text-label);
     color: var(--muted);
     margin-top: var(--xs);

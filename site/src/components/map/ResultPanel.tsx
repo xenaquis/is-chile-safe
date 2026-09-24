@@ -286,8 +286,8 @@ export function ResultPanel({ cut, lang, year, nationalAvg, onClose, mode = 'fam
         const caveatText = lang === 'es' ? ES_STRINGS.ci_caveat_text : EN_STRINGS.ci_caveat_text;
         const sectionHeading = lang === 'es' ? ES_STRINGS.ci_section_heading : EN_STRINGS.ci_section_heading;
         const yearMismatchTip = lang === 'es'
-          ? '¿Por qué difieren los años? El Índice Compuesto usa 2024 como el año completo más reciente de CEAD. La tasa de incidentes usa 2025 (datos parciales). Los rankings pueden diferir al provenir de dos métodos de cálculo.'
-          : 'Why do years differ? The Composite Index uses 2024 as the latest complete CEAD year. The incident rate uses 2025 (partial data). Rankings may differ because they come from two calculation methods.';
+          ? '¿Por qué difieren los años? El Índice Compuesto usa 2024, el último año en que todas sus fuentes (CEAD, SPD, SII) son definitivas. La tasa de incidentes usa el último año completo de CEAD (2025). Los rankings pueden diferir al provenir de dos métodos de cálculo.'
+          : 'Why do years differ? The Composite Index uses 2024, the latest year in which all of its sources (CEAD, SPD, SII) are final. The incident rate uses the latest complete CEAD year (2025). Rankings may differ because they come from two calculation methods.';
         const yearMismatchLabel = lang === 'es' ? 'Por qué difieren los años' : 'Why years differ';
         return (
           <div className="panel-section composite-index-section">

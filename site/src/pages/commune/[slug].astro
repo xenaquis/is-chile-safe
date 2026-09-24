@@ -39,11 +39,13 @@ import {
   latestCompleteYearRate,
   loadIndex,
   loadEnabledPairSlugs,
+  loadNational,
 } from '../../lib/data.ts';
 import { buildCommuneProse } from '../../lib/proseEngine.ts';
 import { buildBreadcrumb, buildItemList } from '../../lib/jsonld.ts';
 import { levelForRate } from '../../lib/colorScale.ts';
 import { EN_STRINGS } from '../../config/i18n.ts';
+import { ceadVintage, formatCeadDate } from '../../lib/ceadVintage.ts';
 
 export async function getStaticPaths() {
   const cuts = loadRolloutCuts();
@@ -61,6 +63,17 @@ const { cut } = Astro.props as { cut: string };
 const data = loadCommune(cut);
 const year = data.latestCompleteYear;
 const rate = latestCompleteYearRate(data);
+
+// FRESH-05: CEAD vintage + partial-year disclosure
+const ceadV = ceadVintage(data.series, data.last_updated ?? loadNational().last_updated);
+const ceadAsOfDate = ceadV.lastUpdated ? formatCeadDate(ceadV.lastUpdated, 'en') : '';
+const ceadPartialCutoffText =
+  ceadV.partialYear !== null && ceadV.lastUpdated !== null
+    ? EN_STRINGS.cead_partial_cutoff
+        .replace('{year}', String(ceadV.partialYear))
+        .replace('{date}', ceadAsOfDate)
+        .replace('{complete}', String(ceadV.latestCompleteYear))
+    : '';
 
 // Dimension 1: vs-national (MEAN, not SUM)
 const nationalAvg = loadNationalAverage();
@@ -335,6 +348,12 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     heading={t.charts_heading}
   />
   <p class="chart-partial-note">{t.chart_partial_note}</p>
+  {ceadV.lastUpdated && (
+    <p class="cead-vintage" data-cead-last-updated={ceadV.lastUpdated} data-partial-year={ceadV.partialYear ?? ''} data-latest-complete-year={ceadV.latestCompleteYear ?? ''}>
+      <time datetime={ceadV.lastUpdated}>{EN_STRINGS.cead_as_of.replace('{date}', ceadAsOfDate)}</time> {EN_STRINGS.cead_as_of_note}
+      {ceadPartialCutoffText && <> {ceadPartialCutoffText}</>}
+    </p>
+  )}
 
   <!-- 6b. Composite Crime Index section (CI-05/CI-06) — static index-mode surface, no map toggle -->
   {(() => {
@@ -877,6 +896,12 @@ const jsonLd = [jsonLdDataset, breadcrumb, similarList];
     font-size: var(--text-label);
     color: var(--muted);
     margin-top: calc(-1 * var(--md));
+    margin-bottom: var(--xl);
+  }
+
+  .cead-vintage {
+    font-size: var(--text-label);
+    color: var(--muted);
     margin-bottom: var(--xl);
   }
 </style>

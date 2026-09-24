@@ -20,6 +20,21 @@
  * low-count, drug-scope, floating-population caveats; SPD/SII/Fiscalía attribution.
  */
 import EditorialLayout from '../layouts/EditorialLayout.astro';
+import { loadNational } from '../lib/data.ts';
+import { ceadVintage, formatCeadDate } from '../lib/ceadVintage.ts';
+import { EN_STRINGS } from '../config/i18n.ts';
+
+const t = EN_STRINGS;
+const nat = loadNational();
+const v = ceadVintage(nat.series, nat.last_updated);
+const asOfDate = v.lastUpdated ? formatCeadDate(v.lastUpdated, 'en') : '';
+const partialCutoffText =
+  v.partialYear !== null && v.lastUpdated !== null
+    ? t.cead_partial_cutoff
+        .replace('{year}', String(v.partialYear))
+        .replace('{date}', asOfDate)
+        .replace('{complete}', String(v.latestCompleteYear))
+    : '';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -93,10 +108,16 @@ const jsonLd = {
       <strong>Partial-year data:</strong> The current calendar year is excluded from all rates
       and rankings because CEAD has not yet closed its annual series for it — figures for a
       partial year would be incomparable to a full annual count. The most recent past year
-      displayed (currently 2025) is treated as a complete annual series, but note that CEAD
+      displayed (currently {v.latestCompleteYear}) is treated as a complete annual series, but note that CEAD
       may publish minor revisions to recent years after their initial release; the figures
       shown reflect the data available at the time of our last pipeline run.
     </p>
+    {v.lastUpdated && (
+      <p class="cead-vintage" data-cead-last-updated={v.lastUpdated} data-partial-year={v.partialYear ?? ''} data-latest-complete-year={v.latestCompleteYear ?? ''}>
+        <time datetime={v.lastUpdated}>{t.cead_as_of.replace('{date}', asOfDate)}</time> {t.cead_as_of_note}
+        {partialCutoffText && <> {partialCutoffText}</>}
+      </p>
+    )}
     <p>
       <strong>Drug offences scope:</strong> The CEAD category <em>Drogas</em> covers criminal
       offences under <strong>Ley 20.000</strong> (grupo 401 in the CEAD catalog — trafficking,
