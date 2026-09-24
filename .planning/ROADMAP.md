@@ -116,7 +116,7 @@ Audit: **[milestones/v2.1-MILESTONE-AUDIT.md](milestones/v2.1-MILESTONE-AUDIT.md
 
 **Protocol for every phase in this milestone (corrida-autonoma roles):** research (fresh Sonnet) → plan (Opus) → premortem + adversarial gate (fresh Opus arbiter) → implementation (Sonnet) → validation against served routes (Opus).
 
-- [ ] **Phase 34: News Classification Restore, Fail-Loud Alarm & Outage Backfill** — replacement model chosen by metrics (A/B eval, DeepSeek direct as backup provider), preflight + circuit breaker + typed error outcomes, alarm on classification failure, honest heartbeat, backfill of the 2,073 lost outage items. **DEADLINE: before 2026-10-05.**
+- [x] **Phase 34: News Classification Restore, Fail-Loud Alarm & Outage Backfill** — replacement model chosen by metrics (A/B eval, DeepSeek direct as backup provider), preflight + circuit breaker + typed error outcomes, alarm on classification failure, honest heartbeat, backfill of the 2,073 lost outage items. **DEADLINE: before 2026-10-05.**
 - [ ] **Phase 35: Honest Freshness Signals** — depends on Phase 34. Data-derived "Latest incident" stamps, stale notices, no false-zero histogram bars, byte-identical no-op runs, disclosed CEAD vintage.
 - [ ] **Phase 36: Classification Fidelity & Attribution** — depends on Phase 34. Verbatim source headlines, family accuracy (vida stops being a catch-all), publisher URLs over Google News redirects, deterministic cross-run dedup.
 - [ ] **Phase 37: Dependency & Security Hygiene** — depends on Phase 34 (DEPS-03 additionally needs the NREC-01 eval result). Astro advisory merge, Dependabot backlog triage, standing policy.
@@ -139,7 +139,7 @@ _Every shipped phase's detail lives in its milestone archive under `milestones/`
   4. With 100% injected API errors, the news workflow still commits data and then fails at a post-commit health gate, opening the `pipeline-failure-news` issue automatically; the heartbeat and `freshness.mjs` assert newest-incident age (or `last_new_incident_at`) ≤48h instead of `generated` (a fixture with `generated=now`/`max(date)=now-3d` fails both).
   5. The backfill reclassifies exactly the 2,073 outage items (stage `classifier_none`, `first_seen` ≥2026-09-04T20:13:49Z) without refetching; accepted items merge with dedup, rejected rows carry their real stage, `seen.json` is untouched, R2 `rejected.jsonl`/corpus-state are regenerated, and the accepted/rejected split is reported as measured numbers.
   6. 3 consecutive scheduled runs show classified > 0 and 0 HTTP 404 lines; before 2026-10-05, prod `/news/` and `/es/noticias/` show incidents dated 2026-09-05..2026-09-22 with the newest card ≤1 day old at check time.
-**Plans**: TBD
+**Plans**: 6 plans (34-01..34-06) — complete 2026-09-24; backfill withheld (G-18), live classification on deepseek/deepseek-v4.1-flash (G-16)
 
 ### Phase 35: Honest Freshness Signals
 
@@ -213,7 +213,7 @@ _Every shipped phase's detail lives in its milestone archive under `milestones/`
 | 31. Docs & Methodology Refresh | 4/4 | Complete   | 2026-08-03 |
 | 32. Cron Consistency | 3/3 | Complete   | 2026-08-05 |
 | 33. Security Posture | 3/3 | Complete   | 2026-08-05 |
-| 34. News Classification Restore, Fail-Loud Alarm & Outage Backfill | 0/TBD | Not started (deadline before 2026-10-05) | - |
+| 34. News Classification Restore, Fail-Loud Alarm & Outage Backfill | 6/6 | Complete (NREC-09/10 Partial: backfill withheld, G-18) | 2026-09-24 |
 | 35. Honest Freshness Signals | 0/TBD | Not started | - |
 | 36. Classification Fidelity & Attribution | 0/TBD | Not started | - |
 | 37. Dependency & Security Hygiene | 0/TBD | Not started | - |

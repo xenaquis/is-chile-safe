@@ -14,16 +14,16 @@
 
 ### News classification recovery (NREC)
 
-- [ ] **NREC-01**: The replacement classifier model is chosen by an A/B run of ≥3 candidates on the golden set, using a model-parameterized eval runner. Candidates are deepseek-v4-flash, granite-4.2-8b, qwen3.5-9b and deepseek-v4.1-flash. The chosen model must meet commune accuracy ≥95.45%, parse-fail ≤2%, family accuracy ≥ the Phase 16 baseline, and have ≥2 live endpoints at switch time. Results are committed. (V-01, V-08)
-- [ ] **NREC-02**: The classifier and clustering model ids come from config/env. No literal `granite-4.1-8b` remains in `pipeline/`. (V-01, V-26)
-- [ ] **NREC-03**: A startup preflight checks the primary model's provider endpoints and treats 0 endpoints as a provider failure. A unit test uses the measured granite-4.1 0-endpoint response as its fixture. (V-01)
-- [ ] **NREC-04**: A **DeepSeek backup** (direct API with `DEEPSEEK_API_KEY`) automatically takes over when the preflight fails or the circuit breaker trips on the primary. Failover is logged and counted in the run summary, and a live smoke test confirms the DeepSeek account is funded and reachable. (owner decision)
-- [ ] **NREC-05**: `classify()` returns a typed outcome: OK, NOT_CRIME/LOW_CONF, PARSE_ERROR or API_ERROR. API errors never add the URL to `seen.json` and never record it as `classifier_none`; they go to a persisted retry queue. Genuine model rejections are still marked seen (CR-02 kept). (V-02)
-- [ ] **NREC-06**: 429 and 5xx responses are retried with exponential backoff; 401 and 404 are not retried. A circuit breaker stops primary calls after N consecutive API errors and hands over to the backup (NREC-04). (V-09)
-- [ ] **NREC-07**: **Alarm.** When classification health fails, the news workflow commits whatever data it has and then concludes as failure at a post-commit health gate. Classification health fails when classified==0 with candidates>0, the API-error rate goes above threshold, or the backup is exhausted. The `pipeline-failure-news` issue opens automatically. This is verified by a 100%-injected-error harness test or a branch dispatch. (V-03)
-- [ ] **NREC-08**: The heartbeat and `freshness.mjs` assert newest-incident age (or `last_new_incident_at`) ≤48h instead of `current.json.generated`. A fixture with generated=now and max(date)=now-3d fails both. (V-03)
-- [ ] **NREC-09**: A backfill re-classifies exactly the 2,073 outage items, meaning those with stage `classifier_none` and first_seen ≥2026-09-04T20:13:49Z, taken from `rejected/2026-09.json` without refetching. Accepted items merge with dedup; rejected rows get their real stage; R2 `rejected.jsonl` and corpus-state are regenerated; the accepted/rejected split is reported as measured numbers. (V-04)
-- [ ] **NREC-10**: Live recovery: 3 consecutive scheduled runs show classified > 0 and 0 HTTP 404 lines. Before 2026-10-05, prod `/news/` and `/es/noticias/` show incidents dated 2026-09-05..2026-09-22, and the newest card is ≤1 day old at check time.
+- [x] **NREC-01**: The replacement classifier model is chosen by an A/B run of ≥3 candidates on the golden set, using a model-parameterized eval runner. Candidates are deepseek-v4-flash, granite-4.2-8b, qwen3.5-9b and deepseek-v4.1-flash. The chosen model must meet commune accuracy ≥95.45%, parse-fail ≤2%, family accuracy ≥ the Phase 16 baseline, and have ≥2 live endpoints at switch time. Results are committed. (V-01, V-08)
+- [x] **NREC-02**: The classifier and clustering model ids come from config/env. No literal `granite-4.1-8b` remains in `pipeline/`. (V-01, V-26)
+- [x] **NREC-03**: A startup preflight checks the primary model's provider endpoints and treats 0 endpoints as a provider failure. A unit test uses the measured granite-4.1 0-endpoint response as its fixture. (V-01)
+- [x] **NREC-04**: A **DeepSeek backup** (direct API with `DEEPSEEK_API_KEY`) automatically takes over when the preflight fails or the circuit breaker trips on the primary. Failover is logged and counted in the run summary, and a live smoke test confirms the DeepSeek account is funded and reachable. (owner decision)
+- [x] **NREC-05**: `classify()` returns a typed outcome: OK, NOT_CRIME/LOW_CONF, PARSE_ERROR or API_ERROR. API errors never add the URL to `seen.json` and never record it as `classifier_none`; they go to a persisted retry queue. Genuine model rejections are still marked seen (CR-02 kept). (V-02)
+- [x] **NREC-06**: 429 and 5xx responses are retried with exponential backoff; 401 and 404 are not retried. A circuit breaker stops primary calls after N consecutive API errors and hands over to the backup (NREC-04). (V-09)
+- [x] **NREC-07**: **Alarm.** When classification health fails, the news workflow commits whatever data it has and then concludes as failure at a post-commit health gate. Classification health fails when classified==0 with candidates>0, the API-error rate goes above threshold, or the backup is exhausted. The `pipeline-failure-news` issue opens automatically. This is verified by a 100%-injected-error harness test or a branch dispatch. (V-03)
+- [x] **NREC-08**: The heartbeat and `freshness.mjs` assert newest-incident age (or `last_new_incident_at`) ≤48h instead of `current.json.generated`. A fixture with generated=now and max(date)=now-3d fails both. (V-03)
+- [~] **NREC-09**: A backfill re-classifies exactly the 2,073 outage items, meaning those with stage `classifier_none` and first_seen ≥2026-09-04T20:13:49Z, taken from `rejected/2026-09.json` without refetching. Accepted items merge with dedup; rejected rows get their real stage; R2 `rejected.jsonl` and corpus-state are regenerated; the accepted/rejected split is reported as measured numbers. (V-04)
+- [~] **NREC-10**: Live recovery: 3 consecutive scheduled runs show classified > 0 and 0 HTTP 404 lines. Before 2026-10-05, prod `/news/` and `/es/noticias/` show incidents dated 2026-09-05..2026-09-22, and the newest card is ≤1 day old at check time.
 
 ### Honest freshness signals (FRESH)
 
@@ -81,16 +81,16 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| NREC-01 | Phase 34 | Pending |
-| NREC-02 | Phase 34 | Pending |
-| NREC-03 | Phase 34 | Pending |
-| NREC-04 | Phase 34 | Pending |
-| NREC-05 | Phase 34 | Pending |
-| NREC-06 | Phase 34 | Pending |
-| NREC-07 | Phase 34 | Pending |
-| NREC-08 | Phase 34 | Pending |
-| NREC-09 | Phase 34 | Pending |
-| NREC-10 | Phase 34 | Pending |
+| NREC-01 | Phase 34 | Complete |
+| NREC-02 | Phase 34 | Complete |
+| NREC-03 | Phase 34 | Complete |
+| NREC-04 | Phase 34 | Complete |
+| NREC-05 | Phase 34 | Complete |
+| NREC-06 | Phase 34 | Complete |
+| NREC-07 | Phase 34 | Complete |
+| NREC-08 | Phase 34 | Complete |
+| NREC-09 | Phase 34 | Partial (0 not_attempted / 2,122 withheld / 2 api_error; G-18) |
+| NREC-10 | Phase 34 | Partial (15 days uncovered: withheld; G-18) |
 | FRESH-01 | Phase 35 | Pending |
 | FRESH-02 | Phase 35 | Pending |
 | FRESH-03 | Phase 35 | Pending |

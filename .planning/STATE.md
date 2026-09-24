@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 34 - News Classification Restore, Fail-Loud Alarm & Outage Backfill (deadline before 2026-10-05)
-Plan: TBD (not yet planned)
-Status: Roadmap created; ready for /gsd:plan-phase 34
-Last activity: 2026-09-22 — v2.2 ROADMAP.md created (Phases 34-38), REQUIREMENTS.md traceability updated (33/33 mapped)
+Phase: 35 - Honest Freshness Signals (plans 35-01..35-07, gate GO; execution next)
+Plan: 35-01
+Status: Phase 34 COMPLETE 2026-09-24 (NREC-01..08 Complete; NREC-09/10 Partial — backfill withheld, G-18). Live classifier deepseek/deepseek-v4.1-flash with DeepSeek-direct backup.
+Last activity: 2026-09-24 — G-27 hotfix dropped kinship-error card 63fb0c3ef0adca19 (f3a84af), Phase 34 closed at full gate (pytest 611/1/2, validators 16/16, vitest 97, astro 0 err)
 
 ## Progress Bar
 
