@@ -425,3 +425,161 @@ def test_archive_write(tmp_path):
     archive_data = json.loads(archive_files[0].read_text(encoding="utf-8"))
     archive_ids = [i["id"] for i in archive_data.get("incidents", [])]
     assert "arch001" in archive_ids
+
+# ---------------------------------------------------------------------------
+# FRESH-04 (35-02): no-op guard — byte-identical current.json / archive
+# ---------------------------------------------------------------------------
+
+
+def _write_raw(path, payload: dict) -> None:
+    """Compact json.dumps — deliberately NOT atomic_write_json's format, so any
+    rewrite by merge_and_write changes the bytes."""
+    path.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
+
+
+def test_fresh04_noop_leaves_current_byte_identical(tmp_path):
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+    incident = _make_incident("noop001", _fresh_date())
+    _write_raw(current_path, {
+        "generated": "2026-06-01T00:00:00Z",
+        "window_days": 30,
+        "incidents": [incident],
+        "last_new_incident_at": "2026-06-01T00:00:00Z",
+    })
+    before = current_path.read_bytes()
+
+    count = merge_and_write(
+        [copy.deepcopy(incident)], current_path, archive_dir=archive_dir,
+        now=_make_utc("2026-06-10T12:00:00Z"),
+    )
+
+    assert count == 0
+    assert current_path.read_bytes() == before
+
+
+def test_fresh04_noop_across_cutoff_move_is_byte_identical(tmp_path):
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+    day = datetime.date(2026, 6, 20)
+    incident = _make_incident("noop002", (day - datetime.timedelta(days=5)).isoformat())
+    _write_raw(current_path, {
+        "generated": "2026-06-01T00:00:00Z",
+        "window_days": 30,
+        "incidents": [incident],
+        "last_new_incident_at": "2026-06-01T00:00:00Z",
+    })
+    before = current_path.read_bytes()
+
+    merge_and_write([], current_path, archive_dir=archive_dir, today=day,
+                    now=_make_utc("2026-06-20T06:00:00Z"))
+    assert current_path.read_bytes() == before
+    merge_and_write([], current_path, archive_dir=archive_dir,
+                    today=day + datetime.timedelta(days=1),
+                    now=_make_utc("2026-06-21T06:00:00Z"))
+    assert current_path.read_bytes() == before
+
+
+def test_fresh04_aging_only_rewrites_and_carries_last_new(tmp_path):
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+    old = _make_incident("age001", _old_date())
+    fresh = _make_incident("age002", _fresh_date())
+    _write_raw(current_path, {
+        "generated": "2026-06-01T00:00:00Z",
+        "window_days": 30,
+        "incidents": [old, fresh],
+        "last_new_incident_at": "2026-06-01T00:00:00Z",
+    })
+    now = _make_utc("2026-06-10T12:00:00Z")
+
+    count = merge_and_write([], current_path, archive_dir=archive_dir, now=now)
+
+    assert count == 0
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    assert result["generated"] == "2026-06-10T12:00:00Z"
+    assert [i["id"] for i in result["incidents"]] == ["age002"]
+    assert result["last_new_incident_at"] == "2026-06-01T00:00:00Z"
+    archive_path = archive_dir / f"{_old_date()[:7]}.json"
+    archive = json.loads(archive_path.read_text(encoding="utf-8"))
+    assert "age001" in [i["id"] for i in archive["incidents"]]
+    assert archive["generated"] == "2026-06-10T12:00:00Z"
+
+
+def test_fresh04_new_incident_rewrites_and_bumps(tmp_path):
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+    existing = _make_incident("bump001", _fresh_date())
+    _write_raw(current_path, {
+        "generated": "2026-06-01T00:00:00Z",
+        "window_days": 30,
+        "incidents": [existing],
+        "last_new_incident_at": "2026-06-01T00:00:00Z",
+    })
+    now = _make_utc("2026-06-10T12:00:00Z")
+
+    count = merge_and_write([_make_incident("bump002", _fresh_date())],
+                            current_path, archive_dir=archive_dir, now=now)
+
+    assert count == 1
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    assert result["generated"] == "2026-06-10T12:00:00Z"
+    assert result["last_new_incident_at"] == "2026-06-10T12:00:00Z"
+
+
+def test_fresh04_absent_current_is_written(tmp_path):
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+    merge_and_write([], current_path, archive_dir=archive_dir,
+                    now=_make_utc("2026-06-10T12:00:00Z"))
+    assert current_path.exists()
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    assert result["incidents"] == []
+    assert result["generated"] == "2026-06-10T12:00:00Z"
+
+
+def test_fresh04_unreadable_current_is_written(tmp_path):
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+    current_path.write_text("{not json", encoding="utf-8")
+    merge_and_write([], current_path, archive_dir=archive_dir,
+                    now=_make_utc("2026-06-10T12:00:00Z"))
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    assert result["incidents"] == []
+    assert result["generated"] == "2026-06-10T12:00:00Z"
+
+
+def test_fresh04_unknown_key_forces_write(tmp_path):
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+    incident = _make_incident("unk001", _fresh_date())
+    _write_raw(current_path, {
+        "generated": "2026-06-01T00:00:00Z",
+        "window_days": 30,
+        "incidents": [incident],
+        "extra": 1,
+    })
+    before = current_path.read_bytes()
+    merge_and_write([], current_path, archive_dir=archive_dir,
+                    now=_make_utc("2026-06-10T12:00:00Z"))
+    assert current_path.read_bytes() != before
+    assert "extra" not in json.loads(current_path.read_text(encoding="utf-8"))
+
+
+def test_fresh04_archive_month_without_new_id_is_not_rewritten(tmp_path):
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+    archive_dir.mkdir()
+    old = _make_incident("arc001", _old_date())
+    archive_path = archive_dir / f"{_old_date()[:7]}.json"
+    _write_raw(archive_path, {
+        "generated": "2026-06-01T00:00:00Z",
+        "window_days": 30,
+        "incidents": [old],
+    })
+    before = archive_path.read_bytes()
+
+    merge_and_write([copy.deepcopy(old)], current_path, archive_dir=archive_dir,
+                    now=_make_utc("2026-06-10T12:00:00Z"))
+
+    assert archive_path.read_bytes() == before
