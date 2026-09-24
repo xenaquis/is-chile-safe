@@ -1,5 +1,5 @@
 /**
- * all.mjs — Aggregate validator: run all 16 validation scripts in sequence.
+ * all.mjs — Aggregate validator: run all 17 validation scripts in sequence.
  *
  * Validators:
  *   1.  structure.mjs         — required source files + sample page meta
@@ -18,6 +18,7 @@
  *  14.  avs-b-budget.mjs      — file budget < 18,000 + EN/ES compare-page count symmetry (Phase 21 CMP-05)
  *  15.  freshness.mjs         — newest-incident evidence <= 48h (G-05)
  *  16.  facets.mjs            — news facet count integrity (family/region containment via live Python-source parsing, CUT-length cross-check, byMonth completeness, TZ-determinism, stray-artifact absence)
+ *  17.  cead-vintage.mjs      — FRESH-05 CEAD as-of + partial-year label on methodology + commune pages (EN/ES)
  *
  * Any non-zero exit from a child script fails the suite.
  * Prints a per-check PASS/FAIL summary at the end.
@@ -53,6 +54,7 @@ const VALIDATORS = [
   'avs-b-budget.mjs',
   'freshness.mjs',
   'facets.mjs',
+  'cead-vintage.mjs',
 ];
 
 const results = [];
