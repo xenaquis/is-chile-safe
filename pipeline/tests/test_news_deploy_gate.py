@@ -270,3 +270,38 @@ def test_deploy_on_code_triggers_on_human_data_pushes():
         "data/cead/**",
     ):
         assert path in push["paths"], path
+
+
+# ---------------------------------------------------------------------------
+# heartbeat.yml stale-news rebuild (FRESH-01/03 on prod after FRESH-04)
+# ---------------------------------------------------------------------------
+
+REBUILD_STEP = "Rebuild site so stale-news notices render (FRESH-01/03)"
+
+
+class TestHeartbeatStaleRebuild:
+    def _steps(self):
+        return _load(HEARTBEAT_YML)["jobs"]["heartbeat"]["steps"]
+
+    def test_step_exists_after_news_hb_and_news_alert(self):
+        steps = self._steps()
+        rebuild_i, _ = _step(steps, REBUILD_STEP)
+        news_hb_i = next(i for i, s in enumerate(steps) if s.get("id") == "news_hb")
+        alert_i, _ = _step(steps, "Alert news heartbeat via GitHub Issue")
+        assert rebuild_i > news_hb_i
+        assert rebuild_i > alert_i
+
+    def test_step_if_only_on_news_heartbeat_failure(self):
+        _, step = _step(self._steps(), REBUILD_STEP)
+        assert step.get("if") == "failure() && steps.news_hb.outcome == 'failure'"
+
+    def test_step_env_uses_deploy_hook_secret(self):
+        _, step = _step(self._steps(), REBUILD_STEP)
+        assert step["env"]["CF_HOOK"] == "${{ secrets.CF_DEPLOY_HOOK_URL }}"
+
+    def test_step_run_guards_and_uses_canonical_curl(self):
+        _, step = _step(self._steps(), REBUILD_STEP)
+        run = step["run"]
+        assert "require-env.sh CF_HOOK" in run
+        assert CANONICAL_CURL in [ln.strip() for ln in run.splitlines()]
+        assert "${{" not in run

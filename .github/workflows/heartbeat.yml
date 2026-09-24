@@ -146,3 +146,20 @@ jobs:
               --title "[pipeline] Heartbeat detected a stalled cron on $(date -u +%F)" \
               --body "Heartbeat run failed: $RUN_URL -- check the run log for which check (R2 archive / CEAD reminder / News pipeline) failed; all three run independently of each other's outcome."
           fi
+
+      # FRESH-01/03 (35-02, G-20(7)): FRESH-04 removed the every-6h no-op redeploys, so
+      # during a news outage (no incident-set change -> no news deploy) the static site
+      # would keep its last fresh build and never render the build-time stale notice
+      # (FRESH-01) or the commune caveat (FRESH-03) -- the 18-day silent outage of
+      # G-18/V-05. While the news heartbeat is failing (evidence > 48h) this triggers
+      # ONE Cloudflare rebuild per heartbeat run: <= 1/day, <= 31/month of the 500
+      # free builds, reported separately (H) from FRESH-04's news-pipeline count.
+      # Placed after both alert steps so the issues are filed first. Notice lag bound
+      # (A-R1-07): heartbeat measured at 14:56-17:17Z, so ~24h + 5h after crossing 48h.
+      - name: "Rebuild site so stale-news notices render (FRESH-01/03)"
+        if: failure() && steps.news_hb.outcome == 'failure'
+        env:
+          CF_HOOK: ${{ secrets.CF_DEPLOY_HOOK_URL }}
+        run: |
+          bash .github/scripts/require-env.sh CF_HOOK
+          curl -X POST --fail --silent --show-error --retry 3 --retry-all-errors --max-time 60 "$CF_HOOK"
