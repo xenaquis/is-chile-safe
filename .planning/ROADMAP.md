@@ -189,7 +189,16 @@ _Every shipped phase's detail lives in its milestone archive under `milestones/`
   2. ≤3 open Dependabot PRs remain, none older than 14 days; each is merged with CI green or closed with a written reason.
   3. openai 3.x (PR #37) is merged only after the NREC-01 eval reproduces identical metrics, or is closed with a reason.
   4. The Dependabot triage policy and the CodeQL decision are recorded in `DEPLOYMENT.md`.
-**Plans**: TBD
+**Plans**: 7 plans in 7 waves (strictly sequential: shared lockfiles, per-merge gate, master pushes)
+
+Plans:
+- [ ] 37-01-PLAN.md — preconditions, merge/close/gate/served-route scripts, merge astro #39 alone (DEPS-01), retire #33 (W1, sonnet + orchestrator)
+- [ ] 37-02-PLAN.md — site security PRs #42 #43 #41 #38, serialized with per-merge gate (W2, sonnet + orchestrator)
+- [ ] 37-03-PLAN.md — site patch PRs #27 #40 #28 #30 #34 + residual semver-compatible npm audit fix (W3, sonnet + orchestrator)
+- [ ] 37-04-PLAN.md — pipeline patch PRs #26 #31 #35 #36 + live scheduled run; close #18 TS7 with reason (W4, sonnet + orchestrator)
+- [ ] 37-05-PLAN.md — DEPS-03 openai 3.x #37: pytest in 3.x venv, eval vs 36-DEPS03-BASELINE.json, merge or close (W5, opus + orchestrator)
+- [ ] 37-06-PLAN.md — CodeQL advanced-setup workflow + triage policy and CodeQL decision in DEPLOYMENT.md (W6, opus)
+- [ ] 37-07-PLAN.md — close gate, live DEPS re-measure, fresh opus validation, records + push (W7, orchestrator)
 
 ### Phase 38: Pipeline, Public-Data, SEO & Docs Hygiene
 
