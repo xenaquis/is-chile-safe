@@ -54,28 +54,45 @@ def build_incident(
     cut: str,
     lat: float,
     lng: float,
-    title_es: str,
     title_en: str,
     date: str,
     outlet: str,
     family: str,
     slug: str | None = None,
+    title_src: str | None = None,
+    title_es: str | None = None,
+    via_url: str | None = None,
 ) -> dict | None:
     """Build a validated incident dict ready for merge_and_write.
 
     All attribution fields are required (NEWS-05).
     Returns a plain dict matching the IncidentRecord schema,
-    or None if the url scheme is not http/https (TD-05, T-19-04).
+    or None if the url (or via_url, when given) scheme is not http/https
+    (TD-05, T-19-04, FID-04).
+
+    Headline (FID-01, G-28):
+    - title_src given: the outlet's verbatim headline; title_es := title_src and
+      the dict gains "title_src" (and "via_url" when not None) after "slug".
+      title_src wins if title_es is also passed.
+    - only title_es given (legacy callers until 36-04): exactly the pre-36 dict —
+      same keys, same order, no title_src/via_url (FRESH-04 no-op guard compares
+      dicts by equality).
+    - neither: ValueError.
     """
+    if title_src is None and title_es is None:
+        raise ValueError("build_incident needs title_src (FID-01)")
     if not is_safe_url(url):
         logger.warning("build_incident: rejected non-http(s) url %r", url)
         return None
-    return {
+    if via_url is not None and not is_safe_url(via_url):
+        logger.warning("build_incident: rejected non-http(s) via_url %r", via_url)
+        return None
+    incident = {
         "id": make_id(url),
         "cut": cut,
         "lat": lat,
         "lng": lng,
-        "title_es": title_es,
+        "title_es": title_src if title_src is not None else title_es,
         "title_en": title_en,
         "date": date,
         "outlet": outlet,
@@ -83,6 +100,11 @@ def build_incident(
         "family": family,
         "slug": slug,
     }
+    if title_src is not None:
+        incident["title_src"] = title_src
+    if via_url is not None:
+        incident["via_url"] = via_url
+    return incident
 
 
 def _load_incidents_list(path: pathlib.Path) -> list[dict]:

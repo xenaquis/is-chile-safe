@@ -52,13 +52,21 @@ class IncidentRecord(BaseModel):
     cut: str         # validated against VALID_CUTS
     lat: float
     lng: float
-    title_es: str    # plain text only — IncidentPinLayer escapes on render (V5)
+    # plain text only — IncidentPinLayer escapes on render (V5).
+    # Rows with title_src: title_es mirrors title_src verbatim (G-28, FID-01).
+    # Legacy rows (no title_src): the Granite/DeepSeek-era LLM headline.
+    title_es: str
     title_en: str    # plain text only
     date: str        # YYYY-MM-DD
     outlet: str      # non-empty (NEWS-05 attribution)
     url: str         # non-empty (NEWS-05 attribution)
     family: str      # validated against VALID_FAMILIES
     slug: str | None = None  # resolved commune slug (NEWS-03); optional for back-compat
+    # FID-01 (G-28): the outlet's verbatim headline (entity-decoded, one trailing
+    # " - <outlet>" removed). Optional so legacy rows keep validating (Pitfall 1).
+    title_src: str | None = None
+    # FID-04: the Google News link when `url` is the decoded publisher URL. Optional.
+    via_url: str | None = None
 
     @field_validator("cut")
     @classmethod
@@ -88,6 +96,26 @@ class IncidentRecord(BaseModel):
             raise ValueError("url must not be empty (NEWS-05)")
         if not (v.startswith("http://") or v.startswith("https://")):
             raise ValueError(f"url must be http/https scheme, got: {v!r} (NEWS-05)")
+        return v
+
+    @field_validator("title_src")
+    @classmethod
+    def title_src_must_be_nonblank(cls, v: str | None) -> str | None:
+        if v is None:
+            return v
+        if not v.strip():
+            raise ValueError("title_src must not be blank when present (FID-01)")
+        if len(v) > 400:
+            raise ValueError(f"title_src too long ({len(v)} > 400 chars) (FID-01)")
+        return v
+
+    @field_validator("via_url")
+    @classmethod
+    def via_url_must_be_http(cls, v: str | None) -> str | None:
+        if v is None:
+            return v
+        if not (v.startswith("http://") or v.startswith("https://")):
+            raise ValueError(f"via_url must be http/https scheme, got: {v!r} (FID-04)")
         return v
 
 
