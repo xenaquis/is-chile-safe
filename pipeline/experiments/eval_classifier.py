@@ -65,6 +65,19 @@ from pipeline.news import classifier as classifier_mod  # noqa: E402
 FAMILY_MIN_V2 = 40  # G-15 (re-scored Phase-16 DeepSeek baseline on golden_set_v2, /44)
 
 # ---------------------------------------------------------------------------
+# FID-02 (36-02 Task 1): non-crime rejection + subset scoring, offline.
+# CONTESTED_V2/FID02_*_MIN_UNCONTESTED amend G-32 per G-38 (premortem R-05):
+# the FID-02 v2 gate runs on the 41 uncontested labelled v2 ids, same allowed
+# misses as 42/44 (G-06) and 40/44 (G-15). FAMILY_MIN_V2 above is untouched —
+# decide()/select_winner() (Phase-34, DEPS-03) keep using it.
+# ---------------------------------------------------------------------------
+FID02_NOT_CRIME_MIN_RATE = 0.80  # REQUIREMENTS FID-02
+CONTESTED_V2 = frozenset({"gs-030", "gs-032", "gs-038"})  # G-38, premortem R-05
+FID02_COMMUNE_MIN_UNCONTESTED = 39  # /41, G-38
+FID02_FAMILY_MIN_UNCONTESTED = 37  # /41, G-38
+PARSE_MAX = 0  # G-06 strict
+
+# ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
 
@@ -564,6 +577,16 @@ def run_full(
             row["status"] = "null_item"
             row["null_correct"] = is_null_correct
             row["predicted_commune_name"] = out.commune_name if out else None
+            row["predicted_family"] = out.family if out else None
+            # FID-02 (36-02 Task 1): production semantics for "rejected as
+            # non-crime" — low_conf, or accepted with a null/unresolvable
+            # commune. resolve_cut(None, ...) already returns None, so this
+            # single check covers both the null-commune and the
+            # unresolvable-commune cases.
+            row["rejected_in_prod"] = res["kind"] == "low_conf" or (
+                res["kind"] == "ok"
+                and (out.commune_name is None or resolve_cut(out.commune_name, out.region_hint) is None)
+            )
 
         per_item.append(row)
 
@@ -618,6 +641,234 @@ def run_full(
         "pricing": pricing,
     }
     return candidate
+
+
+# ---------------------------------------------------------------------------
+# FID-02 scorer (36-02 Task 1): offline, from an already-written run-*.json —
+# never calls decide()/select_winner() and never touches the Phase-34 RESULTS
+# files (T-36-06). NB-04: v2 commune/family subsets count only status=="ok"
+# rows — run_full sets commune_match/family_match on low_conf rows too
+# (informational), so a naive sum over all rows would over-count recall.
+# ---------------------------------------------------------------------------
+
+_REJECTED_STATUSES = {"low_conf"}
+_TRANSIENT_STATUSES = {"transient_empty", "transient_finish_length"}
+
+
+def load_v2_ids(golden_v2_path: pathlib.Path | str = DEFAULT_GOLDEN) -> dict[str, frozenset[str]]:
+    """labelled ids = ground_truth.commune_name is not None; null ids = the rest."""
+    items = json.loads(pathlib.Path(golden_v2_path).read_text(encoding="utf-8"))
+    labelled = frozenset(it["id"] for it in items if it["ground_truth"].get("commune_name") is not None)
+    null_ids = frozenset(it["id"] for it in items if it["ground_truth"].get("commune_name") is None)
+    return {"labelled": labelled, "null": null_ids}
+
+
+def _confusion_col(row: dict) -> str:
+    status = row.get("status")
+    if status == "parse_error":
+        return "parse_error"
+    if status == "api_error":
+        return "api_error"
+    if status in _TRANSIENT_STATUSES:
+        return "transient"
+    if status == "low_conf":
+        return "rejected"
+    if status == "ok":
+        if row.get("rejected_in_prod"):
+            return "rejected"
+        return str(row.get("predicted_family"))
+    return str(status)
+
+
+def score_fidelity(candidate: dict, golden_items: list[dict], v2_ids: dict[str, frozenset[str]]) -> dict:
+    """Offline FID-02 scoring of an already-run candidate against `golden_items`
+    (golden_set_v3.json shape). `v2_ids` is `load_v2_ids()` over golden_set_v2.json
+    — always v2, independent of which golden file produced `candidate` (v3's
+    first 47 items are byte-identical to v2, same ids)."""
+    per_item_map: dict[str, dict] = {row["id"]: row for row in candidate.get("per_item", [])}
+    item_map: dict[str, dict] = {it["id"]: it for it in golden_items}
+
+    # --- not_crime rejection (overall + per category, G-39: printed only n>=3) ---
+    not_crime_items = [it for it in golden_items if it["ground_truth"].get("not_crime")]
+    not_crime_total = len(not_crime_items)
+    not_crime_rejected = sum(
+        1 for it in not_crime_items if per_item_map.get(it["id"], {}).get("rejected_in_prod")
+    )
+    not_crime_rate = (not_crime_rejected / not_crime_total) if not_crime_total else None
+
+    by_category: dict[str, dict] = {}
+    for it in not_crime_items:
+        cat = it["ground_truth"].get("category") or "unknown"
+        row = per_item_map.get(it["id"], {})
+        d = by_category.setdefault(cat, {"n": 0, "rejected": 0})
+        d["n"] += 1
+        if row.get("rejected_in_prod"):
+            d["rejected"] += 1
+    for cat, d in by_category.items():
+        d["rate"] = (d["rejected"] / d["n"]) if d["n"] else None
+        d["rate_reported"] = d["n"] >= 3  # G-39: per-category rates only n >= 3
+
+    # --- v2 commune/family subsets (NB-04: status == "ok" only) ---
+    labelled_ids = v2_ids["labelled"]
+    uncontested_ids = labelled_ids - CONTESTED_V2
+
+    def _subset_scores(ids: frozenset[str]) -> dict[str, int]:
+        commune_correct = 0
+        family_correct = 0
+        for gid in ids:
+            row = per_item_map.get(gid, {})
+            if row.get("status") != "ok":
+                continue
+            if row.get("commune_match"):
+                commune_correct += 1
+            if row.get("family_match"):
+                family_correct += 1
+        return {"commune_correct": commune_correct, "family_correct": family_correct, "total": len(ids)}
+
+    v2_uncontested = _subset_scores(uncontested_ids)
+    v2_all44 = _subset_scores(labelled_ids)
+
+    # --- contested v2 ids: reported per id, never gated (G-38) ---
+    contested_report: dict[str, dict] = {}
+    for cid in sorted(CONTESTED_V2):
+        row = per_item_map.get(cid, {})
+        contested_report[cid] = {
+            "status": row.get("status"),
+            "rejected_in_prod": row.get("status") == "low_conf",
+            "predicted_family": row.get("predicted_family"),
+            "commune_match": row.get("commune_match"),
+            "family_match": row.get("family_match"),
+        }
+
+    # --- boundary family ---
+    boundary_ids = [it["id"] for it in golden_items if it["ground_truth"].get("boundary")]
+    boundary_correct = sum(
+        1 for gid in boundary_ids
+        if per_item_map.get(gid, {}).get("status") == "ok" and per_item_map[gid].get("family_match")
+    )
+    boundary = {"correct": boundary_correct, "total": len(boundary_ids)}
+
+    # --- null v2 (3 ids) ---
+    null_v2_ids = v2_ids["null"]
+    null_v2_correct = sum(1 for gid in null_v2_ids if per_item_map.get(gid, {}).get("null_correct"))
+
+    # --- confusion matrix: rows = ground-truth family or "not_crime" ---
+    confusion: dict[str, dict[str, int]] = {}
+    for it in golden_items:
+        row = per_item_map.get(it["id"])
+        if row is None:
+            continue
+        gt = it["ground_truth"]
+        row_key = "not_crime" if gt.get("not_crime") else gt.get("family")
+        col_key = _confusion_col(row)
+        confusion.setdefault(row_key, {})
+        confusion[row_key][col_key] = confusion[row_key].get(col_key, 0) + 1
+
+    parse_errors = candidate.get("parse_errors", 0)
+    empty_content_count = candidate.get("empty_content_count", 0)
+    finish_length_count = candidate.get("finish_length_count", 0)
+
+    gate = {
+        "not_crime_rate_ge_080": not_crime_rate is not None and not_crime_rate >= FID02_NOT_CRIME_MIN_RATE,
+        "v2_commune_uncontested_ge_39": v2_uncontested["commune_correct"] >= FID02_COMMUNE_MIN_UNCONTESTED,
+        "v2_family_uncontested_ge_37": v2_uncontested["family_correct"] >= FID02_FAMILY_MIN_UNCONTESTED,
+        "parse_errors_eq_0": parse_errors == PARSE_MAX,
+        "empty_eq_0": empty_content_count == 0,
+        "finish_length_eq_0": finish_length_count == 0,
+        "null_v2_correct_eq_3": null_v2_correct == len(null_v2_ids),
+    }
+    gate["pass"] = all(gate.values())
+
+    return {
+        "not_crime": {
+            "total": not_crime_total,
+            "rejected": not_crime_rejected,
+            "rate": not_crime_rate,
+        },
+        "not_crime_by_category": by_category,
+        "v2_uncontested": v2_uncontested,
+        "v2_all44": v2_all44,
+        "contested_v2": contested_report,
+        "boundary": boundary,
+        "parse_errors": parse_errors,
+        "empty_content_count": empty_content_count,
+        "finish_length_count": finish_length_count,
+        "null_v2_correct": null_v2_correct,
+        "null_v2_total": len(null_v2_ids),
+        "confusion_matrix": confusion,
+        "gate": gate,
+        "spend_usd": candidate.get("spend_usd"),
+        "model": candidate.get("model"),
+        "provider": candidate.get("provider"),
+    }
+
+
+def _write_fidelity_md(result: dict, path: pathlib.Path) -> None:
+    gate = result["gate"]
+    lines = [
+        "# FID-02 fidelity score",
+        "",
+        f"Model: {result.get('model')} ({result.get('provider')})",
+        f"spend_usd: {result.get('spend_usd')}",
+        "",
+        "## Gate",
+        "",
+        "| member | value |",
+        "|---|---|",
+    ]
+    for k, v in gate.items():
+        lines.append(f"| {k} | {v} |")
+
+    nc = result["not_crime"]
+    lines += [
+        "",
+        "## Non-crime rejection",
+        "",
+        f"total={nc['total']} rejected={nc['rejected']} rate={nc['rate']}",
+        "",
+        "| category | n | rejected | rate |",
+        "|---|---|---|---|",
+    ]
+    for cat, d in sorted(result["not_crime_by_category"].items()):
+        rate_str = f"{d['rate']:.3f}" if d.get("rate_reported") else "(n<3)"
+        lines.append(f"| {cat} | {d['n']} | {d['rejected']} | {rate_str} |")
+
+    v2u, v2a = result["v2_uncontested"], result["v2_all44"]
+    lines += [
+        "",
+        "## v2 subset (G-38)",
+        "",
+        f"uncontested (41): commune {v2u['commune_correct']}/{v2u['total']}, "
+        f"family {v2u['family_correct']}/{v2u['total']}",
+        f"all (44): commune {v2a['commune_correct']}/{v2a['total']}, "
+        f"family {v2a['family_correct']}/{v2a['total']}",
+        "",
+        "### Contested (reported, never gated)",
+        "",
+    ]
+    for cid, row in sorted(result["contested_v2"].items()):
+        lines.append(f"- {cid}: {json.dumps(row, ensure_ascii=False)}")
+
+    b = result["boundary"]
+    lines += ["", "## Boundary family", "", f"{b['correct']}/{b['total']}"]
+
+    lines += [
+        "",
+        "## Parse / empty / truncation",
+        "",
+        f"parse_errors={result['parse_errors']} empty={result['empty_content_count']} "
+        f"finish_length={result['finish_length_count']}",
+        "",
+        f"null_v2_correct: {result['null_v2_correct']}/{result['null_v2_total']}",
+    ]
+
+    lines += ["", "## Family confusion matrix", ""]
+    for row_key, cols in sorted(result["confusion_matrix"].items(), key=lambda kv: str(kv[0])):
+        row_str = ", ".join(f"{c}={n}" for c, n in sorted(cols.items()))
+        lines.append(f"- {row_key}: {row_str}")
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 # ---------------------------------------------------------------------------
@@ -987,12 +1238,29 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--spend-ledger", default=None)
     parser.add_argument("--spend-cap", type=float, default=0.50)
     parser.add_argument("--decide", action="store_true")
+    parser.add_argument("--score", default=None, help="path to a run-*.json to score with score_fidelity (FID-02, offline, no network)")
+    parser.add_argument("--out-json", default=None, help="--score: path to write the fidelity result JSON")
+    parser.add_argument("--out-md", default=None, help="--score: path to write the fidelity result markdown")
     args = parser.parse_args(argv)
 
     _load_env()
 
     out_dir = pathlib.Path(args.out_dir)
     ledger_path = pathlib.Path(args.spend_ledger) if args.spend_ledger else out_dir / "spend-ledger.json"
+
+    if args.score:
+        candidate = json.loads(pathlib.Path(args.score).read_text(encoding="utf-8"))
+        golden_items = json.loads(pathlib.Path(args.golden).read_text(encoding="utf-8"))
+        v2_ids = load_v2_ids(DEFAULT_GOLDEN)
+        result = score_fidelity(candidate, golden_items, v2_ids)
+        if args.out_json:
+            out_json_path = pathlib.Path(args.out_json)
+            out_json_path.parent.mkdir(parents=True, exist_ok=True)
+            out_json_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+        if args.out_md:
+            _write_fidelity_md(result, pathlib.Path(args.out_md))
+        print("PASS" if result["gate"]["pass"] else "FAIL")
+        return 0 if result["gate"]["pass"] else 1
 
     if args.decide:
         result = decide(out_dir, family_min_v2=FAMILY_MIN_V2)

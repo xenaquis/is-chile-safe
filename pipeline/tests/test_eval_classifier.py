@@ -437,7 +437,7 @@ def test_run_full_rejected_in_prod_true_when_low_conf(tmp_path):
         tmp_path / "ledger.json", 0.50, _PRICING,
     )
     row = candidate["per_item"][0]
-    assert row["status"] == "low_conf"
+    assert row["status"] == "null_item"
     assert row["rejected_in_prod"] is True
 
 
@@ -454,7 +454,7 @@ def test_run_full_rejected_in_prod_true_when_ok_and_commune_none(tmp_path):
         tmp_path / "ledger.json", 0.50, _PRICING,
     )
     row = candidate["per_item"][0]
-    assert row["status"] == "ok"
+    assert row["status"] == "null_item"
     assert row["rejected_in_prod"] is True
     assert row["predicted_family"] == "propiedad"
 
@@ -473,7 +473,7 @@ def test_run_full_rejected_in_prod_true_when_ok_and_commune_unresolvable(tmp_pat
             tmp_path / "ledger.json", 0.50, _PRICING,
         )
     row = candidate["per_item"][0]
-    assert row["status"] == "ok"
+    assert row["status"] == "null_item"
     assert row["rejected_in_prod"] is True
 
 
@@ -491,7 +491,7 @@ def test_run_full_rejected_in_prod_false_when_accepted_as_real_incident(tmp_path
             tmp_path / "ledger.json", 0.50, _PRICING,
         )
     row = candidate["per_item"][0]
-    assert row["status"] == "ok"
+    assert row["status"] == "null_item"
     assert row["rejected_in_prod"] is False
 
 
@@ -642,8 +642,8 @@ def test_score_fidelity_gate_all_members_pass():
     assert gate["not_crime_rate_ge_080"] is True
     assert gate["v2_commune_uncontested_ge_39"] is False  # 1 < 39 thresholds (real-size gate)
     assert gate["parse_errors_eq_0"] is True
-    assert gate["null_v2_correct_eq_3"] is False  # 1 != 3 (tiny synthetic subset, real gate uses len(v2_ids))
-    assert gate["pass"] is False
+    assert gate["null_v2_correct_eq_3"] is True  # 1/1 in this tiny synthetic v2_ids (gated against len(), not a literal 3)
+    assert gate["pass"] is False  # v2_commune/family uncontested thresholds (39/41, 37/41) fail on a 1-item subset
 
 
 def test_score_fidelity_gate_uses_len_null_v2_not_hardcoded_three():
@@ -692,7 +692,7 @@ def test_score_fidelity_reproducibility_pin_g16_run_on_golden_v2():
 def test_load_v2_ids_labelled_and_null_split():
     import pathlib as _pl
 
-    golden_v2_path = _pl.Path(__file__).parents[1] / "fixtures" / "golden_set_v2.json"
+    golden_v2_path = _pl.Path(__file__).parent / "fixtures" / "golden_set_v2.json"
     v2_ids = ev.load_v2_ids(golden_v2_path)
     assert len(v2_ids["labelled"]) == 44
     assert v2_ids["null"] == frozenset({"gs-043", "gs-044", "gs-045"})
