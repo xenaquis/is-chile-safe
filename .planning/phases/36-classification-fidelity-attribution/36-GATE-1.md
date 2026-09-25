@@ -149,3 +149,5 @@ Arbitraje de la ronda 1 de los planes 36-01..36-11 en 59007f0. Las tres lentes d
 
 ## Condition closure log (append)
 
+
+- 2026-09-25 — C1..C7 (BF-01..BF-07) VERIFIED by haiku diff-check on 5343e29 (body hits: 36-09:22/141/146/154/157; 36-10:118; 36-08:80/105/127/129/133/183, 36-10:22/101; 36-03:27/148; 36-01:92/102; 36-05:27/95/114); G-43..G-45 recorded once each (bddf499). Gate closed GO for execution; execution blocked until Phase 35 closes (plans' precondition).
