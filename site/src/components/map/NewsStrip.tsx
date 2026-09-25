@@ -94,7 +94,7 @@ export function NewsStrip({ lang, incidents, windowDays, scopeLabel, day, onDayC
               type="button"
               className={`news-strip-bar${active ? ' active' : ''}${gap ? ' gap' : ''}`}
               aria-pressed={active}
-              aria-label={gap ? `${dayLabel(d, lang)} : ${v2.news_strip_gap}` : `${dayLabel(d, lang)}: ${n} ${v2.news_strip_incidents}`}
+              aria-label={gap ? `${dayLabel(d, lang)}: ${v2.news_strip_gap}` : `${dayLabel(d, lang)}: ${n} ${v2.news_strip_incidents}`}
               onClick={() => onDayChange(active ? null : d)}
               style={{ opacity: day === null || active ? 1 : 0.3 }}
             >

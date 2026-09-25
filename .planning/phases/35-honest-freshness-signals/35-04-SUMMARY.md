@@ -135,3 +135,9 @@ None — no external service configuration required.
 - FOUND commit: 78cd01c
 - FOUND commit: 5fd652b
 - FOUND commit: c3fd8ce
+
+## Post-execution fix (pre-push opus review, 2026-09-24)
+
+- F1: `computeStripDays` lower bound changed from anchor-(windowDays-1) to anchor-windowDays. store.py keeps `date >= today - window_days` (31 dates), so the old bound hid a day holding real incidents while the header count included them. Test "08-27" expectation corrected to "08-26"; new parity test added. (Plan text 35-04:229 carried the off-by-one.)
+- F2: stray space before the colon in the gap-bar aria-label removed.
+- Gate after fix: build OK, validators 18/18, vitest 184, astro check 0 errors.

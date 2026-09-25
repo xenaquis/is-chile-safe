@@ -29,10 +29,10 @@ describe('computeStripDays', () => {
     expect(days.every((d) => d.gap === false)).toBe(true);
   });
 
-  it('gives days 08-27..09-25 with anchor 2026-09-25 and the same dates plus 09-23..09-25; 09-05..09-22 are gap=true', () => {
+  it('gives days 08-26..09-25 (store window = windowDays+1 dates) with anchor 2026-09-25 and the same dates plus 09-23..09-25; 09-05..09-22 are gap=true', () => {
     const dates = [...range('2026-08-24', '2026-09-04'), ...range('2026-09-23', '2026-09-25')];
     const days = computeStripDays('2026-09-25', 30, dates, GAPS);
-    expect(days[0]!.date).toBe('2026-08-27');
+    expect(days[0]!.date).toBe('2026-08-26');
     expect(days[days.length - 1]!.date).toBe('2026-09-25');
     const gapDates = days.filter((d) => d.gap).map((d) => d.date);
     expect(gapDates).toEqual(range('2026-09-05', '2026-09-22'));
@@ -65,5 +65,13 @@ describe('computeStripDays', () => {
     const days = computeStripDays('2026-09-25', 30, dates, GAPS);
     const day0910 = days.find((d) => d.date === '2026-09-10');
     expect(day0910?.gap).toBe(false);
+  });
+});
+
+describe('computeStripDays — store window parity (review F1)', () => {
+  it('keeps the oldest store-window day (anchor - windowDays) when it holds an incident', () => {
+    const days = computeStripDays('2026-09-30', 30, ['2026-08-31', '2026-09-30'], []);
+    expect(days[0]!.date).toBe('2026-08-31');
+    expect(days.length).toBe(31);
   });
 });

@@ -6,8 +6,10 @@
  * newsDayFacets.ts (never local-time `new Date(y, m, d)`, bucket keys are
  * always YYYY-MM-DD).
  *
- * The window starts at max(anchor-(windowDays-1), the earliest valid
- * UNFILTERED incident date) — the same coverage clip as computeDayBuckets —
+ * The window starts at max(anchor-windowDays, the earliest valid
+ * UNFILTERED incident date) — store.py keeps date >= today-window_days, i.e.
+ * windowDays+1 calendar dates, so the strip must reach anchor-windowDays or
+ * it hides a day that holds real incidents — the same coverage clip as computeDayBuckets —
  * replacing NewsStrip.tsx's old pre-coverage extension. Gap is decided on
  * the caller-supplied `unfilteredDates`, never on a family-filtered subset:
  * a family filter with no incident on a given day must not turn a covered
@@ -51,7 +53,7 @@ function lowerBoundDate(anchorMs: number, days: number): string {
 
 /**
  * computeStripDays — one entry per day in the inclusive window
- * [max(anchor-(windowDays-1), earliest valid unfilteredDates), anchor].
+ * [max(anchor-windowDays, earliest valid unfilteredDates), anchor].
  *
  * Returns [] when `anchor` is missing or malformed (no incidents / no valid
  * anchor to render a strip against).
@@ -66,7 +68,7 @@ export function computeStripDays(
 
   const anchorMs = Date.parse(anchor + 'T00:00:00Z');
 
-  let lower = lowerBoundDate(anchorMs, windowDays - 1);
+  let lower = lowerBoundDate(anchorMs, windowDays);
   const earliest = earliestValidDate(unfilteredDates);
   if (earliest !== null && earliest > lower) lower = earliest;
 
