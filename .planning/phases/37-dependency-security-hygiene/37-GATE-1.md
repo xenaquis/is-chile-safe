@@ -128,3 +128,5 @@ En todos los casos D es el head del push. Lo verifiqué leyendo esos pasos. Qued
 
 ## Condition closure log (append)
 
+
+- 2026-09-25 — C1..C6 (BF-01..BF-06) VERIFIED by haiku diff-check on c6f323c (body hits 37-01:26/169, 37-02:18/75, 37-03:71/79/95, 37-04:97, 37-07:113); G-60..G-61 recorded (a8dc0e1), Step-0 count 15 satisfied. Gate closed GO for execution; execution waits for Phase 36 close (plans' precondition).
