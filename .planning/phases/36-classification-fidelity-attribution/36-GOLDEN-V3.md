@@ -2,9 +2,8 @@
 phase: 36-classification-fidelity-attribution
 plan: 02
 artifact: golden_set_v3.json fixture policy
-status: DRAFT — steps 0-1 and step-4 helper done; step 2 (blind labelling) is
-  running out-of-process; steps 3 and 5 (assembly + this file's remaining
-  sections) are written by the resumed executor after labelling completes.
+status: FROZEN — golden_set_v3.json assembled (79 items = 47 v2 + 24 not_crime
+  + 8 boundary crime), test_golden_v3.py passes.
 ---
 
 # 36-GOLDEN-V3.md — golden_set_v3 fixture policy
@@ -136,11 +135,204 @@ the premortem measurement) after normalization. The guard against the v3
 pool/candidate items runs in `test_golden_v3.py` in step 4 of the assembly
 task, once v3 is frozen.
 
-## Steps 2, 3, 5 — pending
+## G-77 — boundary shortfall extension (second pool)
 
-Step 2 (blind labelling) is delegated to a fresh-opus subagent operating on
-`v3-pool-blind.json` only (no model output, no stage, no thresholds shown).
-Steps 3 (assembly of `golden_set_v3.json` + `test_golden_v3.py`) and 5 (the
-rest of this file: EFFECTIVE_QUOTAS, exclusions, shingle-driven replacements,
-per-item table, source_id leakage list) are written by the executor once
-labelling results are available.
+The first blind-labelled pool (70 rows) gave not_crime 39 (>= 20 OK; suicide 0
+=> G-39 shortfall) but only **4** boundary crimes (< 8, the plan's own STOP
+threshold). Per G-77 (2026-09-26, orchestrator, under the owner's 2026-09-24
+delegation), because the shortfall came from the pool definition (no boundary
+cue was searched in step 1), not from the underlying data, the pool was
+**extended** instead of pausing:
+
+- Boundary cue regex: `femicid|parricid|violencia intrafamiliar|VIF|apuñal|baleado|homicidio|asalt|portonazo|encerrona|turbazo|robo con violencia|abuso sexual|violación|agredi|golpiz`
+- Population: stored `rejected/*.json` rows matching the cue, excluding
+  Google-News rows whose description equals the title, excluding v2/v3 ids and
+  the first-pool's 70 ids, passing `feeds.is_crime_item` — **926 matches**.
+- Draw: `random.Random(3602).sample(sorted(matches), 40)` — **40 rows**
+  (`v3_selection_seed: 3602`, same seed as pool 1, gate R1 NB-06).
+- Labelled by a **second, independent, fresh-opus blind labeller**, same
+  instructions and blind-input shape as pool 1 (title + html-unescaped
+  description only; no model output, no stage, no thresholds).
+- Boundary items are taken from **both** pools; the plan's STOP applies only
+  to the combined count. Combined boundary crimes = 4 (pool 1) + 6 (pool 2) =
+  **10**, of which 8 resolve to a valid CUT (see below) — clears the >= 8 bar,
+  no STOP needed.
+
+Blind input: `scratchpad/v3-pool2-blind.json`. Private map:
+`scratchpad/v3-pool2-meta.json` (cue = `boundary_ext` for every row). Labels:
+`scratchpad/v3-labels2.json`.
+
+## Step 2 — blind labels (record)
+
+| pool | rows | excluded | not_crime | crimes | boundary |
+|---|---|---|---|---|---|
+| pool 1 (70, step 1) | 70 | 23 | 39 (institutional_preventive 26, accident 6, death_no_crime 3, fire_emergency 2, other_non_crime 2, suicide 0) | 8 | 4 |
+| pool 2 (40, G-77 boundary extension) | 40 | 2 | 9 (other_non_crime 6, institutional_preventive 3) | 29 | 6 |
+| **combined** | **110** | **25** | **48** | **37** | **10** |
+
+Pool 1's 39 not_crime + 8 crimes + 23 excluded = 70. Pool 2's 9 + 29 + 2 = 40.
+Both check out against the labeller's raw output counts.
+
+## Step 3 — assembly
+
+Reproducible by a read-only scratchpad script
+(`assemble_v3.py` + `build_golden_v3.py`, seed `random.Random(3602)` for every
+draw below — the same seed as steps 1/1-ext per gate R1 NB-06).
+
+### not_crime selection and EFFECTIVE_QUOTAS (G-39)
+
+Nominal quotas: accident >= 6, suicide >= 3, death_no_crime >= 3,
+fire_emergency >= 2, institutional_preventive >= 6. Total >= 20, target 24.
+
+Available (combined, non-excluded, both pools): accident 6, suicide **0**,
+death_no_crime 3, fire_emergency 2, institutional_preventive 29,
+other_non_crime 8 (not part of any nominal quota — held in reserve, unused).
+
+Shortfall: **suicide -3** (0 available against a nominal 3). Per the shortfall
+rule, the deficit is filled from `death_no_crime` first — but death_no_crime's
+own 3 available items are already fully consumed by its own nominal quota (no
+surplus) — so the fill moved to `institutional_preventive`, which has the
+largest surplus (29 available vs. 6 nominal). +3 institutional_preventive
+items closed the suicide shortfall, bringing the total to the 20-item floor.
+A further +4 institutional_preventive items (still well within its 29-item
+supply) closed the gap to the 24-item target.
+
+| category | nominal | available | EFFECTIVE quota (selected) |
+|---|---|---|---|
+| accident | 6 | 6 | **6** |
+| suicide | 3 | 0 | **0** (shortfall, filled below) |
+| death_no_crime | 3 | 3 | **3** |
+| fire_emergency | 2 | 2 | **2** |
+| institutional_preventive | 6 | 29 | **13** (6 nominal + 3 shortfall-fill + 4 target-fill) |
+| **total not_crime** | >= 20 | 48 | **24** (== target) |
+
+institutional_preventive's 13 kept ids (of 29 available) were drawn with
+`random.Random(3602).sample(sorted(ids), 13)` (over-supply draw, gate R1
+NB-06). All 6 accident, all 3 death_no_crime, and all 2 fire_emergency
+available items were kept (no draw needed — available == or below nominal).
+`other_non_crime`'s 8 available items were not needed to hit the 24-item
+target and are not in v3 (available for a future v4 if quotas change).
+
+### Boundary crime items (>= 8 required)
+
+All `boundary=true` crime items from both pools (10 total) were resolved via
+`pipeline.news.resolver.resolve_cut(ground_truth.commune_name)`:
+
+| id | pool | commune_name | resolves? |
+|---|---|---|---|
+| 4c8b86eb7d7f374e | pool1 | Coquimbo | yes -> 4102 |
+| 6e01560428d326a1 | pool1 | Arica | yes -> 15101 |
+| b2f330935b07d752 | pool1 | San Bernardo | yes -> 13401 |
+| cc8cccea479378a5 | pool1 | Huechuraba | yes -> 13107 |
+| 60320bb51f70fd79 | pool1 | null | **no — dropped** |
+| 769afef09d9c8755 | pool1 | null | **no — dropped** |
+| fd746c0e79fb6f71 | pool2 | Colina | yes -> 13301 |
+| 6e6454aa99cb2cb2 | pool2 | Renca | yes -> 13128 |
+| e858c780ffd1a114 | pool2 | Algarrobo | yes -> 5602 |
+| 2621b25109f44fc9 | pool2 | Maipú | yes -> 13119 |
+
+**8 of 10 resolve** (2 dropped for a null commune_name — the labeller did not
+identify a commune for those two headlines). 8 >= 8: the plan's STOP condition
+does not fire. Both `4c8b86eb7d7f374e` and `b2f330935b07d752` (explicitly
+named in the plan) are among the 8 kept.
+
+### Exclusions (never enter v3)
+
+25 items were labelled `exclude: true` and are NOT in v3 (17 for being
+non-Chile datelines — Indonesia, Nepal, Argentina, Mexico, Spain, Peru,
+Ecuador, USA earthquakes/crime — 1 historical (1967 Germany), 4 for the
+premortem-R-08 traffic-liability rule (driver detained/formalised/drunk:
+`55a4ffa1afc805b3`, `5cf2a3a5d46c25a7`, `b1257359c32a8956`, `c92089ceee13bb8a`,
+`e89d73a9a375d4a2`, `dfa687821128d4e5` — note: `5a94f9f836618ec3`, one of the
+25 originally-listed institutional_preventive candidates, was also excluded
+for describing drunk/drugged-driver detentions rather than a preventive
+notice), and 3 miscellaneous (a fraud/money-laundering court case with no
+commune, a denial statement with no concrete incident, a querella-announcement
+with no location). Full list with per-item reasons:
+
+pool1 exclusions (23): `2899498ea6b50be0`, `44b97cb55db860b2`,
+`4959321dc428e074`, `50db4a0f35b80801`, `55a4ffa1afc805b3`,
+`5a94f9f836618ec3`, `5cf2a3a5d46c25a7`, `6c1deb5b4dd2aebb`,
+`7bf3a03ef172c422`, `8186cf6ecaabf321`, `819b1ac39dc712b8`,
+`a888d4b3df6067cd`, `b1257359c32a8956`, `bcacb259d20d6d43`,
+`bee8f67576c8a6c8`, `c92089ceee13bb8a`, `ca4e704161816098`,
+`cf8ff9897875d977`, `d210d665943a7396`, `dc95068008c33c30`,
+`dfa687821128d4e5`, `e89d73a9a375d4a2`, `ed74a3ba93b4dd79`.
+
+pool2 exclusions (2): `99dcedc830b18a08` (Mendoza, Argentina),
+`3749a80a0c57c849` (Mexico homicide case).
+
+Per-item reasons are preserved verbatim in `scratchpad/v3-labels.json` and
+`scratchpad/v3-labels2.json` (not committed — session scratchpad only); the
+exclusion rationale category (non-Chile / historical / traffic-liability /
+no-location) is summarized above for the record.
+
+### Shingle pre-check (premortem R-07)
+
+Ran `shared_shingles(headline/description, prompt_rules_text(...), n=5)` for
+every one of the 32 new items (24 not_crime + 8 boundary) against the current
+`classifier.SYSTEM_PROMPT` rules text. **Zero collisions** — no replacement
+was necessary.
+
+## Per-item table (id, source_id, category/family, commune/reason)
+
+| gs3 id | source_id | pool | type | category/commune | label reason (truncated) |
+|---|---|---|---|---|---|
+| gs3-001 | 09fb832af5811fae | pool1 | not_crime | accident | "tras volcamiento en humedal": vehicle fell into wetland; no crime alleged |
+| gs3-002 | 1c49c011fc62c312 | pool1 | not_crime | accident | "Camioneta explota... mina antitanque" at border highway |
+| gs3-003 | 3d3ea292cab52e9a | pool1 | not_crime | accident | "cayó con su vehículo a humedal en Valdivia": vehicle accident |
+| gs3-004 | 92cd35fd1138995c | pool1 | not_crime | accident | "explosión de camioneta" in "campo minado en el hito 16": landmine |
+| gs3-005 | be407ac7f70b35ba | pool1 | not_crime | accident | "investigan el hecho como un accidente... no hay antecedentes de intervención" |
+| gs3-006 | cd93b9eed2592cce | pool1 | not_crime | accident | "falleció tras sufrir un accidente en los faldeos del volcán Llaima" |
+| gs3-007 | 0be6b9e7f7ee99a9 | pool1 | not_crime | death_no_crime | "encontrado muerto en río San José": body found, cause under investigation |
+| gs3-008 | 635bdfeebf2f1033 | pool1 | not_crime | death_no_crime | "muerte de adulto mayor" with dogs eating arm: no crime stated |
+| gs3-009 | de1e92f61b62df4f | pool1 | not_crime | death_no_crime | "PDI descarta homicidio... murió de un paro cardíaco": natural death |
+| gs3-010 | 6d95b6be9d66266d | pool1 | not_crime | fire_emergency | "incendio en hogar de ancianos" Pitrufquén: fire, no arson mentioned |
+| gs3-011 | af9b5c6730c423f2 | pool1 | not_crime | fire_emergency | "incendio que destruyó el Hogar El Edén de Pitrufquén": fire, no arson |
+| gs3-012 | 18334610c7e20273 | pool1 | not_crime | institutional_preventive | "Presidente Kast anuncia agenda contra el crimen organizado": policy |
+| gs3-013 | 183889a4fe9aef1c | pool1 | not_crime | institutional_preventive | "250 funcionarios reforzarán la seguridad de fonda": preventive deployment |
+| gs3-014 | 3c9e4255fea946b1 | pool1 | not_crime | institutional_preventive | "Gobierno evalúa implementar estado de excepción": policy news |
+| gs3-015 | 3ea1ccc99ef31ff9 | pool1 | not_crime | institutional_preventive | "Gobierno plantea aplicar Estado de Excepción": policy news |
+| gs3-016 | 476837ef11c7893d | pool1 | not_crime | institutional_preventive | Opposition critique of Kast security plan; political news |
+| gs3-017 | 6088823df8bfa6f6 | pool1 | not_crime | institutional_preventive | "Protestas del 11 de septiembre dejaron 284 detenidos en el país": aggregate |
+| gs3-018 | 84da3e065a148f23 | pool1 | not_crime | institutional_preventive | "Gobierno anuncia baja en homicidios": statistics |
+| gs3-019 | 89e3a73217471d94 | pool2 | not_crime | institutional_preventive | 'Subsecretario de DD.HH. cuestiona visita del INDH' - political comment |
+| gs3-020 | 93a5b1357f23c9ad | pool1 | not_crime | institutional_preventive | "Balance final de Fiestas Patrias": aggregate statistics |
+| gs3-021 | 9de88e1e6aca774b | pool2 | not_crime | institutional_preventive | 'presentó un proyecto que propone castigar' - legislative bill |
+| gs3-022 | b4731bb11786d29f | pool1 | not_crime | institutional_preventive | "Gobierno anuncia baja en homicidios": statistics |
+| gs3-023 | b4fb5b8831aa1fb7 | pool1 | not_crime | institutional_preventive | "Balance de seguridad Ministro Arrau": statistics |
+| gs3-024 | bcc1507bf29d092d | pool1 | not_crime | institutional_preventive | "subsecretario Guerrero con los alcaldes... Ley de Seguridad": institutional |
+| gs3-025 | 2621b25109f44fc9 | pool2 | boundary/propiedad | Maipú | 'banda dedicada al robo de vehículos en Maipú' ligada a robo con homicidio |
+| gs3-026 | 4c8b86eb7d7f374e | pool1 | boundary/robos_violentos | Coquimbo | "robo con violación... tres detenidos tras persecución" |
+| gs3-027 | 6e01560428d326a1 | pool1 | boundary/vida | Arica | "Fiscalía investiga como femicidio... San Miguel de Azapa" |
+| gs3-028 | 6e6454aa99cb2cb2 | pool2 | boundary/vida | Renca | 'robo con homicidio del carabinero ... en la comuna de Renca' |
+| gs3-029 | b2f330935b07d752 | pool1 | boundary/propiedad | San Bernardo | "Robo de camión con celulares en San Bernardo: capturan a tres" |
+| gs3-030 | cc8cccea479378a5 | pool1 | boundary/armas | Huechuraba | "ataques con bombas molotov a Carabineros y Bomberos en Huechuraba" |
+| gs3-031 | e858c780ffd1a114 | pool2 | boundary/sexuales | Algarrobo | 'secuestró a ex, la golpeó y agredió sexualmente' in Algarrobo |
+| gs3-032 | fd746c0e79fb6f71 | pool2 | boundary/vida | Colina | 'robo y homicidio de un hombre ... en Colina' |
+
+## v3 source_ids (leakage guard for 36-08 / 36-10 audit samples)
+
+36-08 and 36-10 must exclude these 32 `source_id` values from their audit
+samples:
+
+```
+09fb832af5811fae, 1c49c011fc62c312, 183889a4fe9aef1c, 18334610c7e20273,
+2621b25109f44fc9, 3c9e4255fea946b1, 3d3ea292cab52e9a, 3ea1ccc99ef31ff9,
+476837ef11c7893d, 4c8b86eb7d7f374e, 6088823df8bfa6f6, 635bdfeebf2f1033,
+6d95b6be9d66266d, 6e01560428d326a1, 6e6454aa99cb2cb2, 84da3e065a148f23,
+89e3a73217471d94, 92cd35fd1138995c, 93a5b1357f23c9ad, 9de88e1e6aca774b,
+af9b5c6730c423f2, b2f330935b07d752, b4731bb11786d29f, b4fb5b8831aa1fb7,
+bcc1507bf29d092d, be407ac7f70b35ba, cc8cccea479378a5, cd93b9eed2592cce,
+de1e92f61b62df4f, e858c780ffd1a114, fd746c0e79fb6f71, 0be6b9e7f7ee99a9
+```
+
+## Final composition
+
+- **Total: 79** (47 v2 + 32 new)
+- **not_crime: 24** (accident 6, death_no_crime 3, fire_emergency 2,
+  institutional_preventive 13, suicide 0)
+- **boundary: 8** (robos_violentos 1, vida 3, propiedad 2, armas 1, sexuales 1)
+- `pipeline/tests/test_golden_v3.py`: 8 passed (structure, quotas, boundary,
+  html-entity, shingle-guard).
+- `golden_set_v2.json`: byte-identical, no diff.

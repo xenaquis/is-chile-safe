@@ -1,0 +1,1110 @@
+[
+  {
+    "id": "gs-001",
+    "headline": "Portonazo en Las Condes: delincuentes roban camioneta a punta de pistola",
+    "description": "Un hombre fue víctima de un portonazo en la comuna de Las Condes la tarde del martes. Los delincuentes, armados con pistolas, lo obligaron a salir de su vehículo y huyeron con la camioneta en dirección oriente.",
+    "ground_truth": {
+      "commune_name": "Las Condes",
+      "cut": "13114",
+      "family": "robos_violentos"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2024/03/15/portonazo-las-condes.shtml"
+  },
+  {
+    "id": "gs-002",
+    "headline": "Asalto a sucursal bancaria en Providencia deja dos empleados heridos",
+    "description": "Dos delincuentes armados asaltaron una sucursal bancaria en Providencia, hiriendo a dos empleados durante el forcejeo. Los autores huyeron a pie por calle Los Leones. Carabineros detuvo a uno de los sospechosos a tres cuadras del lugar.",
+    "ground_truth": {
+      "commune_name": "Providencia",
+      "cut": "13123",
+      "family": "robos_violentos"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/04/02/asalto-banco-providencia.html"
+  },
+  {
+    "id": "gs-003",
+    "headline": "Robo con violencia en el centro de Santiago: víctima hospitalizada",
+    "description": "Una persona fue atacada y despojada de su teléfono celular y billetera en plena Plaza de Armas de Santiago. La víctima debió ser trasladada al Hospital San Borja Arriarán con lesiones en la cabeza.",
+    "ground_truth": {
+      "commune_name": "Santiago",
+      "cut": "13101",
+      "family": "robos_violentos"
+    },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/robo-violencia-plaza-armas-santiago/2024/"
+  },
+  {
+    "id": "gs-004",
+    "headline": "Incendio intencional destruye empresa en Antofagasta; investigan ataque",
+    "description": "Un incendio de carácter intencional consumió una empresa de transporte en la zona industrial de Antofagasta durante la madrugada. Bomberos tardó dos horas en controlar las llamas. La PDI investiga si el hecho corresponde a un ataque con fines extorsivos.",
+    "ground_truth": {
+      "commune_name": "Antofagasta",
+      "cut": "2101",
+      "family": "propiedad"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-antofagasta/2024/05/10/incendio-intencional-antofagasta.shtml"
+  },
+  {
+    "id": "gs-005",
+    "headline": "Decomisan 80 kilos de cocaína en Iquique en operación policial",
+    "description": "PDI de Iquique incautó 80 kilogramos de clorhidrato de cocaína camuflados en cajas de frutas procedentes del norte. La droga tenía un valor estimado en el mercado de 500 millones de pesos. Dos personas fueron detenidas.",
+    "ground_truth": {
+      "commune_name": "Iquique",
+      "cut": "1101",
+      "family": "drogas"
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/decomisan-80-kilos-cocaina-iquique/2024-06-01/120000.html"
+  },
+  {
+    "id": "gs-006",
+    "headline": "VIF: hombre golpeó a su pareja frente a sus hijos en Maipú",
+    "description": "Una mujer fue víctima de violencia intrafamiliar en Maipú; su pareja la agredió físicamente en el interior del domicilio mientras sus hijos presenciaban la escena. Carabineros llegó al lugar tras llamado de vecinos y detuvo al agresor.",
+    "ground_truth": {
+      "commune_name": "Maipú",
+      "cut": "13119",
+      "family": "vif"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/04/15/vif-maipu.html"
+  },
+  {
+    "id": "gs-007",
+    "headline": "Encuentran cocaína y armas en allanamiento en La Florida",
+    "description": "Personal de la PDI allanó una vivienda en La Florida y encontró 3 kilos de cocaína base, un revólver calibre 38 y 200 municiones. El morador fue detenido y quedó a disposición del Ministerio Público.",
+    "ground_truth": {
+      "commune_name": "La Florida",
+      "cut": "13110",
+      "family": "drogas"
+    },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/allanamiento-la-florida-drogas/2024/"
+  },
+  {
+    "id": "gs-008",
+    "headline": "Banda portaba rifles de asalto en Quilicura: cuatro detenidos",
+    "description": "Cuatro personas fueron detenidas en Quilicura tras ser sorprendidas con dos fusiles de asalto y una pistola sin número de serie. El hallazgo se realizó en el marco de un control de identidad rutinario en la autopista.",
+    "ground_truth": {
+      "commune_name": "Quilicura",
+      "cut": "13125",
+      "family": "armas"
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/armas/banda-rifles-asalto-quilicura/2024/"
+  },
+  {
+    "id": "gs-009",
+    "headline": "Robo de cobre deja sin luz a vecinos de Puente Alto",
+    "description": "Desconocidos robaron cables de cobre de la red eléctrica en la población El Pinar de Puente Alto, dejando sin suministro eléctrico a más de 200 familias por varias horas. La empresa distribuidora repuso el servicio pasada la medianoche.",
+    "ground_truth": {
+      "commune_name": "Puente Alto",
+      "cut": "13201",
+      "family": "propiedad"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2024/03/20/robo-cobre-puente-alto.shtml"
+  },
+  {
+    "id": "gs-010",
+    "headline": "Riña en discoteca de Valparaíso deja un muerto y tres heridos",
+    "description": "Un enfrentamiento entre dos grupos rivales en el interior de una discoteca en el sector El Almendral de Valparaíso dejó un fallecido y tres lesionados, uno de gravedad. Carabineros detuvo a cuatro personas.",
+    "ground_truth": {
+      "commune_name": "Valparaíso",
+      "cut": "5101",
+      "family": "vida"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/05/05/rina-discoteca-valparaiso.html"
+  },
+  {
+    "id": "gs-011",
+    "headline": "Violencia en escuela de Concepción: alumno apuñaló a compañero",
+    "description": "Un estudiante secundario apuñaló a otro al interior de un colegio en Concepción durante el recreo. La víctima fue trasladada al Hospital Guillermo Grant Benavente con una herida en el abdomen. El agresor fue detenido.",
+    "ground_truth": {
+      "commune_name": "Concepción",
+      "cut": "8101",
+      "family": "vida"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2024/05/21/alumno-apunalo-concepcion.shtml"
+  },
+  {
+    "id": "gs-012",
+    "headline": "Roban camión con mercadería valuada en 50 millones en Temuco",
+    "description": "Delincuentes robaron un camión cargado con electrodomésticos en el sector de la Feria Pinto de Temuco. La mercadería robada fue valuada en más de 50 millones de pesos. El conductor fue reducido a golpes y abandonado en el lugar.",
+    "ground_truth": {
+      "commune_name": "Temuco",
+      "cut": "9101",
+      "family": "robos_violentos"
+    },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/roban-camion-mercaderia-temuco/2024/"
+  },
+  {
+    "id": "gs-013",
+    "headline": "Asalto a turistas en el puerto de Valparaíso durante el carnaval",
+    "description": "Tres turistas argentinos fueron asaltados en las inmediaciones del puerto de Valparaíso durante las celebraciones del carnaval. Les robaron efectivo, teléfonos y documentos de identidad. Carabineros tomó las respectivas denuncias.",
+    "ground_truth": {
+      "commune_name": "Valparaíso",
+      "cut": "5101",
+      "family": "robos_violentos"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/02/15/asalto-turistas-valparaiso.html"
+  },
+  {
+    "id": "gs-014",
+    "headline": "Tráfico de drogas en balneario de Viña del Mar: cuatro detenidos en operativo",
+    "description": "PDI desarticuló una banda de microtráfico que operaba en el balneario de Reñaca en Viña del Mar. Cuatro personas fueron detenidas y se incautó cocaína, pasta base y marihuana, además de efectivo en pesos y dólares.",
+    "ground_truth": {
+      "commune_name": "Viña del Mar",
+      "cut": "5109",
+      "family": "drogas"
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/trafico-drogas-vina-del-mar/2024/"
+  },
+  {
+    "id": "gs-015",
+    "headline": "Incivilidad: vecinos de Rancagua reportan ranchadas y tomas de sitios eriazos",
+    "description": "Moradores del sector sur de Rancagua denunciaron el establecimiento de campamentos informales y ranchadas en terrenos eriazos, con consumo de drogas y enfrentamientos nocturnos que perturban la tranquilidad. El municipio informó que se realizarán desalojos.",
+    "ground_truth": {
+      "commune_name": "Rancagua",
+      "cut": "6101",
+      "family": "incivilidades"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-ohiggins/2024/06/01/incivilidades-rancagua.shtml"
+  },
+  {
+    "id": "gs-016",
+    "headline": "Balacera en Quintero deja un herido en estado crítico",
+    "description": "Un hombre de 28 años quedó herido de gravedad tras ser baleado en plena vía pública en Quintero. El ataque ocurrió a metros de una escuela básica, sembrando el pánico entre los vecinos del sector. La PDI investiga el móvil del ataque.",
+    "ground_truth": {
+      "commune_name": "Quintero",
+      "cut": "5107",
+      "family": "vida"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/07/03/balacera-quintero.html"
+  },
+  {
+    "id": "gs-017",
+    "headline": "Roban lanchas y equipos de buceo en caleta de Tomé durante la noche",
+    "description": "Pescadores de Tomé denunciaron el robo de dos lanchas y equipos de buceo valuados en más de 15 millones de pesos desde la caleta local. Los hechos ocurrieron en la madrugada y no hay testigos directos. Carabineros toma la denuncia.",
+    "ground_truth": {
+      "commune_name": "Tomé",
+      "cut": "8111",
+      "family": "propiedad"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2024/08/01/robo-lanchas-tome.shtml"
+  },
+  {
+    "id": "gs-018",
+    "headline": "Hallazgo en Cochamó: decomisan marihuana en fundo rural",
+    "description": "Personal de Carabineros decomisó 15 kilos de marihuana en un fundo rural de Cochamó durante un procedimiento de control en la ruta que conecta con Argentina. El conductor del vehículo, un hombre de 35 años, fue detenido.",
+    "ground_truth": {
+      "commune_name": "Cochamó",
+      "cut": "10103",
+      "family": "drogas"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-lagos/2024/09/10/decomisan-marihuana-cochamo.shtml"
+  },
+  {
+    "id": "gs-019",
+    "headline": "VIF: mujer denuncia meses de maltrato en San Miguel; marido detenido",
+    "description": "Una mujer de 34 años denunció ante Carabineros haber sufrido meses de violencia física y psicológica por parte de su cónyuge en San Miguel. El agresor fue detenido y formalizado por el delito de violencia intrafamiliar grave.",
+    "ground_truth": {
+      "commune_name": "San Miguel",
+      "cut": "13130",
+      "family": "vif"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/09/15/vif-san-miguel.html"
+  },
+  {
+    "id": "gs-020",
+    "headline": "Decomisan armas de guerra en allanamiento en La Serena",
+    "description": "Una operación de la PDI en La Serena resultó en la incautación de dos pistolas modificadas para automático, granadas de mano y cargadores de alta capacidad. Tres personas vinculadas al crimen organizado fueron detenidas.",
+    "ground_truth": {
+      "commune_name": "La Serena",
+      "cut": "4101",
+      "family": "armas"
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/armas/decomisan-armas-guerra-la-serena/2024/"
+  },
+  {
+    "id": "gs-021",
+    "headline": "Asaltan farmacia en Coquimbo y huyen en motocicleta",
+    "description": "Dos individuos con el rostro cubierto asaltaron una farmacia de cadena en Coquimbo y se dieron a la fuga en motocicleta con el dinero de la caja registradora. Los funcionarios no resultaron heridos. Carabineros busca a los responsables.",
+    "ground_truth": {
+      "commune_name": "Coquimbo",
+      "cut": "4102",
+      "family": "robos_violentos"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-coquimbo/2024/10/05/asaltan-farmacia-coquimbo.shtml"
+  },
+  {
+    "id": "gs-022",
+    "headline": "Megaoperativo antidroga en Puente Alto: 12 detenidos y 10 kilos de droga incautados",
+    "description": "Un megaoperativo policial en el sector La Pintana de Puente Alto terminó con 12 personas detenidas y la incautación de 10 kilos de cocaína base y pasta base, además de más de 500 dosis de marihuana. El operativo duró toda la madrugada.",
+    "ground_truth": {
+      "commune_name": "Puente Alto",
+      "cut": "13201",
+      "family": "drogas"
+    },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/megaoperativo-antidroga-puente-alto/2024/"
+  },
+  {
+    "id": "gs-023",
+    "headline": "Anciana fue estafada por falso funcionario del Banco Estado en Santiago",
+    "description": "Una mujer de 78 años fue víctima de una estafa en el barrio República de Santiago: un hombre que se hizo pasar por funcionario bancario la convenció de entregar su clave y tarjeta, retirando 4 millones de pesos de sus ahorros.",
+    "ground_truth": {
+      "commune_name": "Santiago",
+      "cut": "13101",
+      "family": "propiedad"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/10/20/estafa-anciana-santiago.html"
+  },
+  {
+    "id": "gs-024",
+    "headline": "Baleo en Concepción: dos pandilleros muertos en sector de Lorenzo Arenas",
+    "description": "Un enfrentamiento a balazos entre pandillas rivales en el sector Lorenzo Arenas de Concepción dejó dos muertos y un herido grave. Los cuerpos presentaban múltiples impactos de bala. La PDI indaga el vínculo con el tráfico de drogas.",
+    "ground_truth": {
+      "commune_name": "Concepción",
+      "cut": "8101",
+      "family": "vida"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2024/11/01/baleo-lorenzo-arenas-concepcion.shtml"
+  },
+  {
+    "id": "gs-025",
+    "headline": "Incivilidades: rayados de pandillas invaden edificios del casco histórico de Valparaíso",
+    "description": "Organizaciones vecinales del barrio Puerto de Valparaíso reportaron un aumento en la cantidad de rayados y grafitis asociados a pandillas en fachadas de inmuebles patrimoniales. Las autoridades municipales prometieron retirarlos.",
+    "ground_truth": {
+      "commune_name": "Valparaíso",
+      "cut": "5101",
+      "family": "incivilidades"
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/incivilidades/rayados-pandillas-valparaiso/2024/"
+  },
+  {
+    "id": "gs-026",
+    "headline": "Portonazo en Providencia: matrimonio perdió camioneta frente a su casa",
+    "description": "Un matrimonio fue víctima de un portonazo en la calle El Bosque de Providencia cuando intentaba ingresar al estacionamiento de su edificio. Los delincuentes, que llegaron en un vehículo robado, los amenazaron con armas de fuego.",
+    "ground_truth": {
+      "commune_name": "Providencia",
+      "cut": "13123",
+      "family": "robos_violentos"
+    },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/portonazo-providencia-matrimonio/2024/"
+  },
+  {
+    "id": "gs-027",
+    "headline": "Carabineros incauta armas y municiones en domicilio en Antofagasta tras denuncia vecinal",
+    "description": "En un allanamiento en la población Croacia de Antofagasta, Carabineros encontró tres pistolas, un rifle y más de mil municiones en poder de un hombre de 45 años, quien quedó detenido por tenencia ilegal de armas.",
+    "ground_truth": {
+      "commune_name": "Antofagasta",
+      "cut": "2101",
+      "family": "armas"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-antofagasta/2024/11/20/armas-allanamiento-antofagasta.shtml"
+  },
+  {
+    "id": "gs-028",
+    "headline": "VIF: hombre amenazó a su ex pareja con cuchillo en Temuco; hay orden de alejamiento",
+    "description": "Una mujer que tenía una medida cautelar vigente en su favor denunció que su ex conviviente la amenazó con un cuchillo en el ingreso de su trabajo en Temuco. El hombre, que había quebrantado la orden de alejamiento, fue detenido.",
+    "ground_truth": {
+      "commune_name": "Temuco",
+      "cut": "9101",
+      "family": "vif"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/12/05/vif-amenaza-cuchillo-temuco.html"
+  },
+  {
+    "id": "gs-029",
+    "headline": "Robo a mano armada en local comercial de La Florida durante horario nocturno",
+    "description": "Un local de computación fue asaltado a mano armada en La Florida a las 22 horas. Los delincuentes redujeron a dos empleados con pistolas, robaron equipos y dinero, y se dieron a la fuga en automóvil. Las cámaras captaron las matrículas del vehículo.",
+    "ground_truth": {
+      "commune_name": "La Florida",
+      "cut": "13110",
+      "family": "robos_violentos"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2024/12/10/robo-armado-la-florida.shtml"
+  },
+  {
+    "id": "gs-030",
+    "headline": "Incivilidades en Iquique: vecinos de Zofri denuncian presencia de personas en situación de calle",
+    "description": "Locatarios y vecinos del sector de Zofri en Iquique alertaron sobre el aumento de personas en situación de calle en las inmediaciones de los galpones, con incidentes de consumo de drogas y pequeños robos. Las autoridades anunciaron un plan de intervención social.",
+    "ground_truth": {
+      "commune_name": "Iquique",
+      "cut": "1101",
+      "family": "incivilidades"
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/incivilidades/personas-calle-zofri-iquique/2024/"
+  },
+  {
+    "id": "gs-031",
+    "headline": "Tráfico de armas en Quintero: detienen a sujeto con fusil de asalto y granadas",
+    "description": "Un hombre fue detenido en el borde costero de Quintero al intentar trasladar un fusil de asalto AK-47 y dos granadas de fragmentación en el maletero de su automóvil. La Armada y PDI realizaron el procedimiento conjunto.",
+    "ground_truth": {
+      "commune_name": "Quintero",
+      "cut": "5107",
+      "family": "armas"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/12/18/armas-quintero-armada.html"
+  },
+  {
+    "id": "gs-032",
+    "headline": "Vendaval patrimonial en Valparaíso: UNESCO preocupada por alza de incendios",
+    "description": "La UNESCO expresó su preocupación por el aumento de incendios en el casco histórico de Valparaíso, que han destruido decenas de inmuebles declarados Patrimonio de la Humanidad. Las autoridades analizan medidas de prevención de incendios intencionales.",
+    "ground_truth": {
+      "commune_name": "Valparaíso",
+      "cut": "5101",
+      "family": "propiedad"
+    },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/incendios-patrimonio-valparaiso-unesco/2024/"
+  },
+  {
+    "id": "gs-033",
+    "headline": "Portonazo en Las Condes termina en persecución y volcamiento del vehículo robado",
+    "description": "Un portonazo en Las Condes terminó en persecución policial por la Costanera Norte y volcamiento del vehículo robado en el sector de Vitacura. Dos de los cuatro delincuentes resultaron heridos. El dueño de la camioneta ileso.",
+    "ground_truth": {
+      "commune_name": "Las Condes",
+      "cut": "13114",
+      "family": "robos_violentos"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2024/12/20/portonazo-las-condes-volcamiento.shtml"
+  },
+  {
+    "id": "gs-034",
+    "headline": "Hallazgo de laboratorio de droga en Maipú: procesan a cinco personas",
+    "description": "PDI desmanteló un laboratorio clandestino de producción de pasta base en una vivienda de Maipú. Cinco personas fueron detenidas y se incautaron insumos químicos, prensas y más de 20 kilos de droga procesada.",
+    "ground_truth": {
+      "commune_name": "Maipú",
+      "cut": "13119",
+      "family": "drogas"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/01/10/laboratorio-droga-maipu.html"
+  },
+  {
+    "id": "gs-035",
+    "headline": "Microtráfico en Tomé: banda controlaba tres sectores del puerto, 6 detenidos",
+    "description": "Un operativo conjunto de Carabineros y PDI desarticuló una banda de microtráfico que controlaba el abastecimiento de cocaína y marihuana en tres barrios portuarios de Tomé. Seis personas fueron detenidas y se incautó droga y dinero en efectivo.",
+    "ground_truth": {
+      "commune_name": "Tomé",
+      "cut": "8111",
+      "family": "drogas"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2024/01/25/microtrafico-tome-detenidos.shtml"
+  },
+  {
+    "id": "gs-036",
+    "headline": "San Miguel: mujer robada a plena luz del día en mercado municipal",
+    "description": "Una mujer fue víctima de robo con violencia en el mercado municipal de San Miguel mientras realizaba sus compras. Los delincuentes le arrebataron la cartera con dinero, tarjetas bancarias y documentos de identidad. Las cámaras municipales captaron el hecho.",
+    "ground_truth": {
+      "commune_name": "San Miguel",
+      "cut": "13130",
+      "family": "robos_violentos"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/02/05/robo-violencia-mercado-san-miguel.html"
+  },
+  {
+    "id": "gs-037",
+    "headline": "Quilicura: pelea masiva entre barras bravas deja 8 heridos",
+    "description": "Ocho personas resultaron heridas tras una pelea masiva entre barras bravas rivales en las afueras del estadio de fútbol de Quilicura. Se usaron cadenas, piedras y palos. Carabineros detuvo a 15 personas y decomisó elementos contundentes.",
+    "ground_truth": {
+      "commune_name": "Quilicura",
+      "cut": "13125",
+      "family": "vida"
+    },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/pelea-barras-bravas-quilicura/2024/"
+  },
+  {
+    "id": "gs-038",
+    "headline": "Viña del Mar registra aumento de robos durante Festival de la Canción",
+    "description": "La PDI reportó un aumento significativo de robos de celulares y carteras en el sector del casino y la costanera de Viña del Mar durante el Festival de la Canción. Se desplegaron más de 200 policías adicionales para contener la situación.",
+    "ground_truth": {
+      "commune_name": "Viña del Mar",
+      "cut": "5109",
+      "family": "propiedad"
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/robos/robos-festival-vina-del-mar/2024/"
+  },
+  {
+    "id": "gs-039",
+    "headline": "Coquimbo: hombre apuñala a vecino en riña por estacionamiento",
+    "description": "Un hombre resultó con heridas de arma blanca en Coquimbo tras ser atacado por su vecino en una discusión por el uso de un estacionamiento común del edificio. El agresor huyó pero fue identificado por cámaras; se emitió una orden de detención.",
+    "ground_truth": {
+      "commune_name": "Coquimbo",
+      "cut": "4102",
+      "family": "vida"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-coquimbo/2024/02/20/apunalamiento-vecino-coquimbo.shtml"
+  },
+  {
+    "id": "gs-040",
+    "headline": "Rancagua: VIF masiva en convivencia de fin de año terminó con cinco detenidos",
+    "description": "Una convivencia familiar en Rancagua terminó en violencia intrafamiliar múltiple cuando varios parientes se agredieron físicamente. Las llamadas de emergencia al 133 se multiplicaron. Carabineros detuvo a cinco personas, entre ellas dos mujeres.",
+    "ground_truth": {
+      "commune_name": "Rancagua",
+      "cut": "6101",
+      "family": "vif"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/01/01/vif-masiva-rancagua.html"
+  },
+  {
+    "id": "gs-041",
+    "headline": "La Serena: grafitis y quema de basura perturban vecindario del sector La Pampa",
+    "description": "Vecinos del sector La Pampa en La Serena denuncian actos de incivilidad como quema de basura en espacios públicos, rayados obscenos en muros y consumo de drogas en la vía pública. El municipio prometió mayor fiscalización.",
+    "ground_truth": {
+      "commune_name": "La Serena",
+      "cut": "4101",
+      "family": "incivilidades"
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-coquimbo/2024/03/10/incivilidades-la-serena.shtml"
+  },
+  {
+    "id": "gs-042",
+    "headline": "Punta Arenas: hallazgo fortuito revela red de tráfico en extremo sur",
+    "description": "En el marco de un control vehicular rutinario en Punta Arenas, Carabineros halló más de 5 kilos de cocaína ocultos bajo el asiento trasero de un automóvil. La detención derivó en el desmantelamiento de una red de distribución regional.",
+    "ground_truth": {
+      "commune_name": "Punta Arenas",
+      "cut": "12101",
+      "family": "drogas"
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/trafico-punta-arenas/2024/"
+  },
+  {
+    "id": "gs-043",
+    "headline": "Nuevo récord de temperaturas en Chile central: ola de calor sin precedentes",
+    "description": "El servicio meteorológico confirmó que varias comunas de Chile central alcanzaron temperaturas récord esta semana, superando los 40 grados Celsius. Los expertos advierten sobre los riesgos para la salud pública y el aumento de la demanda eléctrica.",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null
+    },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/record-temperaturas-chile-ola-calor/2024/"
+  },
+  {
+    "id": "gs-044",
+    "headline": "Campaña de reciclaje en Santiago convoca a miles de familias",
+    "description": "La Municipalidad de Santiago junto a organizaciones ambientales realizó una masiva campaña de reciclaje en el Parque O'Higgins, convocando a más de 5.000 familias. Se recogieron toneladas de plástico, papel y vidrio para su reciclaje.",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/04/20/campana-reciclaje-santiago.html"
+  },
+  {
+    "id": "gs-045",
+    "headline": "Inauguran nuevo hospital en Calama con modernas unidades de emergencia",
+    "description": "El Presidente de la República inauguró el nuevo Hospital Dr. Carlos Cisternas de Calama, con capacidad para 300 camas y equipado con modernas unidades de urgencia y cirugía. La inversión superó los 80 mil millones de pesos.",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null
+    },
+    "source_outlet": "BioBio Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-antofagasta/2024/05/15/nuevo-hospital-calama-inauguracion.shtml"
+  },
+  {
+    "id": "gs-046",
+    "headline": "Atacan con explosivo la sede de empresa de transporte en Maipú",
+    "description": "Desconocidos lanzaron un artefacto explosivo improvisado contra la fachada de una empresa de transportes en Maipú durante la madrugada. No hubo heridos, pero la fachada quedó destruida. La PDI investiga si corresponde a un acto extorsivo de crimen organizado.",
+    "ground_truth": {
+      "commune_name": "Maipú",
+      "cut": "13119",
+      "family": "armas"
+    },
+    "source_outlet": "La Tercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/explosivo-empresa-transportes-maipu/2024/"
+  },
+  {
+    "id": "gs-047",
+    "headline": "Quilicura: balacera entre bandas rivales deja una persona muerta",
+    "description": "Una persona perdió la vida en una balacera entre bandas que se disputaban el control de una calle de comercio informal en Quilicura. El tiroteo ocurrió en plena tarde y varios transeúntes resultaron rozados por los proyectiles. PDI investiga.",
+    "ground_truth": {
+      "commune_name": "Quilicura",
+      "cut": "13125",
+      "family": "vida"
+    },
+    "source_outlet": "Emol",
+    "source_url": "https://www.emol.com/noticias/Nacional/2024/06/15/balacera-quilicura-muerto.html"
+  },
+  {
+    "id": "gs3-001",
+    "headline": "Hallan sin vida a hija de concejala de Máfil tras volcamiento en humedal de Valdivia",
+    "description": "Las circunstancias del fallecimiento se están investigando, y la Fiscalía de Los Ríos ya dispuso la organización de diligencias por parte de la Brigada de Homicidios y el Laboratorio de Criminalística.",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "accident",
+      "boundary": false
+    },
+    "source_outlet": "LaTercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/hallan-sin-vida-a-hija-de-concejala-de-mafil-tras-volcamiento-en-humedal-de-valdivia/",
+    "source_id": "09fb832af5811fae",
+    "label_reason": "\"tras volcamiento en humedal\": vehicle fell into wetland; no crime alleged, only routine investigation."
+  },
+  {
+    "id": "gs3-002",
+    "headline": "Camioneta explota en la frontera con Perú: se habría activado mina antitanque a la altura del hito 16",
+    "description": "Desde Fiscalía entregaron una primera información sobre lo ocurrido.",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "accident",
+      "boundary": false
+    },
+    "source_outlet": "LaCuarta",
+    "source_url": "https://www.lacuarta.com/chile/noticia/camioneta-explota-en-la-frontera-con-peru-se-habria-activado-mina-antitanque-a-la-altura-del-hito-16/",
+    "source_id": "1c49c011fc62c312",
+    "label_reason": "\"Camioneta explota... se habría activado mina antitanque\" at border hito 16: landmine explosion, no offender alleged."
+  },
+  {
+    "id": "gs3-003",
+    "headline": "Encuentran muerta a hija de concejala que cayó con su vehículo a humedal en Valdivia",
+    "description": "Evelyn Risco Huechupán, de 38 años, fue encontrada muerta este sábado luego de que el vehículo que conducía cayera a un humedal ubicado en el acceso norte de Valdivia, región de Los Ríos. Equipos de la Armada, buzos de bomberos y del GOPE de Carabineros iniciaron los rastreos. Estos últimos hallaron el cuerpo de la … Continua leyendo \"Encuentran muerta a hija de concejala que cayó con su vehículo a humedal en Valdivia\"\nThe post Encuentran muerta a hija de concejala que cayó con su vehículo",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "accident",
+      "boundary": false
+    },
+    "source_outlet": "BioBioChile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-rios/2026/09/12/encuentran-muerta-a-hija-de-concejala-que-cayo-con-su-vehiculo-a-humedal-en-valdivia.shtml",
+    "source_id": "3d3ea292cab52e9a",
+    "label_reason": "\"cayó con su vehículo a humedal en Valdivia\": vehicle accident, no crime alleged."
+  },
+  {
+    "id": "gs3-004",
+    "headline": "PDI recuperó evidencia biológica tras explosión de camioneta en Arica",
+    "description": "La Policía de Investigaciones recuperó evidencia biológica al interior del campo minado en el hito No16 en la frontera de Chile con Perú, luego de la explosión de una camioneta que dejó a su conductor fallecido.\nPersonal del Laboratorio de Criminalística (Lacrim) de la policía civil ingresó esta jornada a la zona, con todas las medidas de seguridad correspondientes, donde recuperó evidencia que será analizada y permitirá identificar al conductor del vehículo.\nEl fiscal regional Mario Carrera det",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "accident",
+      "boundary": false
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/region-de-arica/pdi-recupero-evidencia-biologica-tras-explosion-de-camioneta-en-arica/2026-09-15/154844.html",
+    "source_id": "92cd35fd1138995c",
+    "label_reason": "\"explosión de camioneta\" in \"campo minado en el hito 16\": landmine explosion, no offender alleged."
+  },
+  {
+    "id": "gs3-005",
+    "headline": "Ventana tenía malla: qué se sabe del niño dominicano que murió tras caer de un edificio en Santiago",
+    "description": "Un niño dominicano de nueve años murió tras caer desde un edificio en Santiago. La Fiscalía Centro Norte y la PDI investigan el hecho como un accidente y, hasta ahora, no hay antecedentes de intervención de terceros. El hecho ocurrió la tarde del pasado domingo, cuando el infante se precipitó a la superficie desde el … Continua leyendo \"Ventana tenía malla: qué se sabe del niño dominicano que murió tras caer de un edificio en Santiago\"\nThe post Ventana tenía malla: qué se sabe del niño dom",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "accident",
+      "boundary": false
+    },
+    "source_outlet": "BioBioChile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/09/21/dominicano-de-9-anos-que-se-sabe-del-nino-que-murio-tras-caer-de-un-edificio-en-santiago.shtml",
+    "source_id": "be407ac7f70b35ba",
+    "label_reason": "\"investigan el hecho como un accidente... no hay antecedentes de intervención de terceros\": child fell from building."
+  },
+  {
+    "id": "gs3-006",
+    "headline": "Turista alemán falleció en el volcán Llaima tras ingresar sin permiso",
+    "description": "Carabineros rescató este lunes el cuerpo de un turista alemán de 65 años que falleció tras sufrir un accidente en los faldeos del volcán Llaima en el Parque Nacional Conguillío, en la Región de La Araucanía.\nDe acuerdo a la Corporación Nacional Forestal (Conaf), el adulto mayor ingresó el domingo junto a una guía de nacionalidad austriaca al parque nacional durante la mañana y posteriormente realizaron el descenso durante la tarde-noche, desplazándose en esquíes.\nAsimismo, su intención inicial e",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "accident",
+      "boundary": false
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/region-de-la-araucania/turista-aleman-fallecio-en-el-volcan-llaima-tras-ingresar-sin-permiso/2026-09-14/155322.html",
+    "source_id": "cd93b9eed2592cce",
+    "label_reason": "\"falleció tras sufrir un accidente en los faldeos del volcán Llaima\": mountaineering accident."
+  },
+  {
+    "id": "gs3-007",
+    "headline": "Boliviano de 23 años es encontrado muerto en río San José de Arica",
+    "description": "El equipo OS9 de Carabineros, la Fiscalía de Arica y detectives de la Brigada de Homicidios de la Policía de Investigaciones, se mantienen investigando el hallazgo del cuerpo sin vida de un hombre en el lecho del río San José, en las cercanías del puente Santa María, en la comuna de Arica. Según confirmó personal … Continua leyendo \"Boliviano de 23 años es encontrado muerto en río San José de Arica\"\nThe post Boliviano de 23 años es encontrado muerto en río San José de Arica appeared first ",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "death_no_crime",
+      "boundary": false
+    },
+    "source_outlet": "BioBioChile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-arica-y-parinacota/2026/09/06/boliviano-de-23-anos-es-encontrado-muerto-en-rio-san-jose-de-arica.shtml",
+    "source_id": "0be6b9e7f7ee99a9",
+    "label_reason": "\"encontrado muerto en río San José\": body found, cause under investigation, no crime stated."
+  },
+  {
+    "id": "gs3-008",
+    "headline": "Perros le comieron el brazo derecho: horrorosa escena tras muerte de adulto mayor vuelve a remecer a Pitrufquén",
+    "description": "Deceso del hombre de 72 años se suma al homicidio de una abuelita de 91 y al reciente incendio en un hogar de ancianos donde murieron 16 personas.",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "death_no_crime",
+      "boundary": false
+    },
+    "source_outlet": "LaCuarta",
+    "source_url": "https://www.lacuarta.com/chile/noticia/perros-le-comieron-el-brazo-derecho-horrorosa-escena-tras-muerte-de-adulto-mayor-vuelve-a-remecer-a-pitrufquen/",
+    "source_id": "635bdfeebf2f1033",
+    "label_reason": "\"muerte de adulto mayor\" with dogs eating arm: no crime stated for this death (the homicide mentioned is a different case)."
+  },
+  {
+    "id": "gs3-009",
+    "headline": "PDI descarta homicidio tras hallar cadáver de adulto mayor en Pitrufquén: murió de un paro cardíaco - El diario de la Araucanía",
+    "description": "PDI descarta homicidio tras hallar cadáver de adulto mayor en Pitrufquén: murió de un paro cardíaco  El diario de la Araucanía",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "death_no_crime",
+      "boundary": false
+    },
+    "source_outlet": "El diario de la Araucanía",
+    "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPYWVjT0ZfOV8wWE94SHlPMWJwNnpXMTVFRVNLVklidDhGSkstME1NODV1bFB5LWFpVjJCQWVPZ3BSME5aTnphM1dvbldyNHF0T21Ca2VTVWQ2bXRNaHNuSlhWTWgzSWYydU5fV1p6NnNWU29RV1Y5cEFpY2J5UW9tcXpmV3cwQkkwX0FjQmo0YXNyQ0hmQ04xWjgtcGF0YmFSSDk2MjNCT0jSAagBQVVfeXFMT2FlY09GXzlfMFhPeEh5TzFicDZ6VzE1RUVTS1ZJYnQ4RkpLLTBNTTg1dWxQeS1haVYyQkFlT2dwUjBOWk56YTNXb25XcjRxdE9tQmtlU1VkNm10TWhzbkpYVk1oM0lmMnVOX1daejZzVlNvUVdWOXBBaWNieVFvbXF6Zld3MEJJMF9BY0JqNGFzckNIZkNOMVo4LXBhdGJhUkg5NjIzQk9I?oc=5",
+    "source_id": "de1e92f61b62df4f",
+    "label_reason": "\"PDI descarta homicidio... murió de un paro cardíaco\": natural death."
+  },
+  {
+    "id": "gs3-010",
+    "headline": "Una TENS de turno para 26 residentes: lo que se sabe del incendio en hogar de ancianos en La Araucanía",
+    "description": "Nuevos detalles surgen sobre el incendio que dejó 16 adultos mayores fallecidos en el hogar de ancianos “Edén” en Pitrufquén, región de La Araucanía. Según información de Radio Bío Bío, en el recinto privado había sólo una TENS de turno a cargo de los 26 residentes, siendo la profesional quien por sus propios medios logró … Continua leyendo \"Una TENS de turno para 26 residentes: lo que se sabe del incendio en hogar de ancianos en La Araucanía\"\nThe post Una TENS de turno para 26",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "fire_emergency",
+      "boundary": false
+    },
+    "source_outlet": "BioBioChile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/09/12/una-tens-de-turno-para-26-residentes-lo-que-se-sabe-del-incendio-en-hogar-de-ancianos-en-la-araucania.shtml",
+    "source_id": "6d95b6be9d66266d",
+    "label_reason": "\"incendio en hogar de ancianos\" Pitrufquén: fire, no arson mentioned."
+  },
+  {
+    "id": "gs3-011",
+    "headline": "\"Había abuelitos que pasaban hambre\": El relato de hijo de víctima de incendio en hogar de Pitrufquén",
+    "description": "El hijo de una de las víctimas fatales del incendio que destruyó el Hogar El Edén de Pitrufquén, en la región de La Araucanía, relató algunas irregularidades en el recinto destinado para el cuidado de adultos mayores. , aseguró. Hasta el Servicio Médico Legal de Temuco llegaron los familiares de los adultos mayores que murieron … Continua leyendo \"\"Había abuelitos que pasaban hambre\": El relato de hijo de víctima de incendio en hogar de Pitrufquén\"\nThe post \"Había abuelitos que pasaba",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "fire_emergency",
+      "boundary": false
+    },
+    "source_outlet": "BioBioChile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/09/14/habia-abuelitos-que-pasaban-hambre-el-relato-de-hijo-de-victima-de-incendio-en-hogar-de-pitrufquen.shtml",
+    "source_id": "af9b5c6730c423f2",
+    "label_reason": "\"incendio que destruyó el Hogar El Edén de Pitrufquén\": fire, no arson alleged."
+  },
+  {
+    "id": "gs3-012",
+    "headline": "Presidente Kast anuncia agenda contra el crimen organizado y destaca nueva Ley de Reconstrucción - radioagricultura.cl",
+    "description": "Presidente Kast anuncia agenda contra el crimen organizado y destaca nueva Ley de Reconstrucción  radioagricultura.cl",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "radioagricultura.cl",
+    "source_url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQbTZhT2tBb0kyenRXOWl6aFB0RTVIWkxzMmw4TzE1VEdCWl9ScW5VTUlFUWExb3hTUnNySU90RjhBS2ozTV9NME9La2VFOF90VzgtdVEwb3pIUEpJVU4zWG5ET2hyR0tHRTZzNzEzdHU3UUhyTU5BZWtJQ2dieWpOQ1Y4MzFxRFJPa2NOMmxDdEJ6eWhfcUFhcFR5c3d1Zm8xR1RZb01wWVNhek9YaXZOUnJnOHJSUEY1dkRtTWZGUFhUZHVSSjdxOWlqeVZ3TmhxcVQ3MUVEVm94VGN1NXFwVnl4Zzl5Z2V1R3dMcg?oc=5",
+    "source_id": "18334610c7e20273",
+    "label_reason": "\"Presidente Kast anuncia agenda contra el crimen organizado\": policy announcement."
+  },
+  {
+    "id": "gs3-013",
+    "headline": "Más de 250 funcionarios reforzarán la seguridad de fonda en el Estadio Nacional durante Fiestas Patrias",
+    "description": "El operativo contempla cerca de 130 carabineros, alrededor de 60 inspectores municipales y 80 guardias privados, además de la coordinación con Senda y otros organismos.",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "LaTercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/mas-de-250-funcionarios-reforzaran-la-seguridad-de-fonda-en-el-estadio-nacional-durante-fiestas-patrias/",
+    "source_id": "183889a4fe9aef1c",
+    "label_reason": "\"250 funcionarios reforzarán la seguridad de fonda\": preventive deployment."
+  },
+  {
+    "id": "gs3-014",
+    "headline": "Gobierno evalúa implementar estado de excepción en barrios por delincuencia: estarían a cargo de Carabineros con apoyo de las FF.AA.",
+    "description": "Los ministros de Interior, Claudio Alvarado, y de Seguridad Pública, Martín Arrau, explicaron los alcances de la reforma constitucional sobre seguridad anunciada en cadena nacional por el Presidente José Antonio Kast.",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "LaTercera",
+    "source_url": "https://www.latercera.com/politica/noticia/gobierno-evalua-implementar-estado-de-excepcion-en-barrios-por-delincuencia-estarian-a-cargo-de-carabineros-con-apoyo-de-las-ffaa/",
+    "source_id": "3c9e4255fea946b1",
+    "label_reason": "\"Gobierno evalúa implementar estado de excepción\": policy news."
+  },
+  {
+    "id": "gs3-015",
+    "headline": "Gobierno plantea aplicar Estado de Excepción en barrios críticos donde FF.AA. apoyen a Carabineros",
+    "description": "El Gobierno afirmó que evalúa un proyecto para implementar un nuevo tipo de Estado de Excepción Constitucional, el cual estaría . Se trata de una iniciativa que surge en el marco del plan de seguridad anunciado la noche del miércoles por el presidente José Antonio Kast en cadena nacional, pero que abordó el biministro del … Continua leyendo \"Gobierno plantea aplicar Estado de Excepción en barrios críticos donde FF.AA. apoyen a Carabineros\"\nThe post Gobierno plantea aplicar Estado de Excepc",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "BioBioChile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/08/06/gobierno-plantea-aplicar-estado-de-excepcion-en-barrios-criticos-donde-ff-aa-apoyen-a-carabineros.shtml",
+    "source_id": "3ea1ccc99ef31ff9",
+    "label_reason": "\"Gobierno plantea aplicar Estado de Excepción\": policy news."
+  },
+  {
+    "id": "gs3-016",
+    "headline": "Oposición dijo que plan de seguridad de Kast \"no ataca\" el dinero del crimen organizado - SoyChile.cl",
+    "description": "Oposición dijo que plan de seguridad de Kast \"no ataca\" el dinero del crimen organizado  SoyChile.cl",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "SoyChile.cl",
+    "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOa3Jsb0w0RGMwSXBPSnc3M3pCZTdNZHlfTTdDcWlKNFRJWXdMLVhheDF6VEV1MWxEajdtMTVEaFRySk5rcktkdXItS1BPQXMwLVdOdk1WODBRbGU3eGozV3NsMVNXbVY3N2xaNElRWmdRT1FZbkhZY0VjVUZWYlpWNzBjN09GTU80VzhDb3hWQUExY1FHdmRSa3NFTjg?oc=5",
+    "source_id": "476837ef11c7893d",
+    "label_reason": "Opposition critique of Kast security plan; political news."
+  },
+  {
+    "id": "gs3-017",
+    "headline": "Protestas del 11 de septiembre dejaron 284 detenidos en el país",
+    "description": "Las protestas e incidentes registrados durante la noche del 11 de septiembre dejaron 284 personas detenidas a nivel nacional, según el balance entregado este sábado por el ministro de Seguridad, Martín Arrau.\nLas manifestaciones se desarrollaron en el marco del aniversario del golpe de Estado de 1973 y se concentraron principalmente en distintos puntos de la Región Metropolitana.\nA través de X, el secretario de Estado informó que hubo un 34% menos de hechos violentos y un 80% más de detenidos en",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/policial/protestas-del-11-de-septiembre-dejaron-284-detenidos-en-el-pais/2026-09-12/110455.html",
+    "source_id": "6088823df8bfa6f6",
+    "label_reason": "\"Protestas del 11 de septiembre dejaron 284 detenidos en el país\": national ministerial balance, no single located incident."
+  },
+  {
+    "id": "gs3-018",
+    "headline": "Gobierno anuncia baja en homicidios durante el primer semestre de 2026 en Chile: tasa es similar a la de 2018 - ADN Radio",
+    "description": "Gobierno anuncia baja en homicidios durante el primer semestre de 2026 en Chile: tasa es similar a la de 2018  ADN Radio",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "ADN Radio",
+    "source_url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPV24zdXl1bmV5a0gwTjlpNHN4bTZEdFlzLUtzRFZJYjZCUXAyU055T01fd0xmMG1aZEF5N05VZkZ6amxBTVhCdHZmdWpIYVZXWmFtMHFlQnloYTdZczdXeUYyRmlVSFQtWFJkaDNZa25oUkdFYmlneGl6cktlUWRLdHNCUUFhOG1kc3RFMTVmdWhTM3ZtTDNPYmFuVlY1Um10N2g3NFFZa3hQdFo2aDQtdmtOWVA5MlY5ZERpS2RJZlJhdkFJU3FvMGtLRUVkTm5Wd2M0Mk1ycjFkbDlx0gHwAUFVX3lxTE9DdHZ2YkxfWExWOGpSczVtb2ZzamNuYVcyME9nT29wSWJ6ajItRV9wcHE3Nkg2LVIxV041TnJWanBudHdqa0dHZFNKMkY0MURBSGtLZ2NzaGxKcFBNcy1zMVZKVVg2aHNxSjJScXJzbkdUSXAwX01BLWUxN1lMVWU3ZWo1U0N4X3NEdVI0bkN2VFhFZmc4VDlDcFQ1UW1UaGszdzl1a3pLN3loZDJBdmpUWEJLQk5mZ21JMjF0OEJwbm1iZWVJOVctQWhldjM3QUF4Z3BLRHZkTTZwa1lBdnVzMHBHOHEyNFNlZks1YVlkMA?oc=5",
+    "source_id": "84da3e065a148f23",
+    "label_reason": "\"Gobierno anuncia baja en homicidios\": statistics."
+  },
+  {
+    "id": "gs3-019",
+    "headline": "Subsecretario de DD.HH. cuestiona visita del INDH a imputado por homicidio de carabineros - Nuevo Poder",
+    "description": "Subsecretario de DD.HH. cuestiona visita del INDH a imputado por homicidio de carabineros  Nuevo Poder",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "Nuevo Poder",
+    "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQQkU5RnhVUnJuVkc1Q05Qd19oNUVhdXVzYU0wdkRoeW9QUHhDdDdNcmlqWWJPWnVpUndQNU9USVdWLXM3azV6ZmdFaW12SnRocFFDQ1FNQWplWmRMc2FVal9kVTBEQjF2NGlmZzhXMzhnY2dUUjFIOVlDRlA5NGJOc0pRdzExUzFiZzFhOGRoUGxib2dSZUFhTWFyVHlWaXBWWmFXVU5LM0pjcE1aQjQ4Yncyc2Nwdw?oc=5",
+    "source_id": "89e3a73217471d94",
+    "label_reason": "'Subsecretario de DD.HH. cuestiona visita del INDH' - political commentary, no new incident."
+  },
+  {
+    "id": "gs3-020",
+    "headline": "Balance final de Fiestas Patrias: 20 fallecidos en accidentes de tránsito y 16 homicidios",
+    "description": "Las autoridades entregaron este lunes el balance final de las Fiestas Patrias, confirmando una disminución general en la siniestralidad vial en comparación con el año anterior, con un total de 20 personas fallecidas en accidentes de tránsito —un 16,7% menos que en 2025— y 334 accidentes registrados, lo que representa una baja del 59%.\nCarabineros realizó más de 74.000 controles vehiculares y 22.000 exámenes de alcohol, dejando un saldo de 205 conductores detenidos por estado de ebriedad, 106 baj",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/festivos/fiestas-patrias/balance-final-de-fiestas-patrias-20-fallecidos-en-accidentes-de/2026-09-21/110332.html",
+    "source_id": "93a5b1357f23c9ad",
+    "label_reason": "\"Balance final de Fiestas Patrias\": aggregate statistics."
+  },
+  {
+    "id": "gs3-021",
+    "headline": "Libertarios reviven proyecto y proponen hasta 15 años de cárcel por muerte de hijo en gestación",
+    "description": "Una iniciativa que quedó estancada en el Congreso hace 18 años volvió a la discusión. La bancada del Partido Nacional Libertario (PNL) presentó un proyecto que propone castigar con la pena del homicidio la muerte del que está por nacer, cuando esta sea consecuencia del homicidio, parricidio o femicidio de una mujer embarazada. La propuesta … Continua leyendo \"Libertarios reviven proyecto y proponen hasta 15 años de cárcel por muerte de hijo en gestación\"\nThe post Libertarios reviven proyec",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "BioBioChile",
+    "source_url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/09/23/libertarios-reviven-proyecto-y-proponen-hasta-15-anos-de-carcel-por-muerte-de-hijo-en-gestacion.shtml",
+    "source_id": "9de88e1e6aca774b",
+    "label_reason": "'presentó un proyecto que propone castigar' - legislative bill, no incident."
+  },
+  {
+    "id": "gs3-022",
+    "headline": "Gobierno anuncia baja en homicidios durante el primer semestre de 2026 en Chile: tasa es similar a la de 2018 - tarapacaonline.cl",
+    "description": "Gobierno anuncia baja en homicidios durante el primer semestre de 2026 en Chile: tasa es similar a la de 2018  tarapacaonline.cl",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "tarapacaonline.cl",
+    "source_url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxNV3JlY2hVNzdlZHlZaVZURGE2STgtOHAzR3dpeS16bnlHdGtxQWtaQXNPOFZlOXVaUkZBZ21CeUpPY3N3WHUwYjlycXpLN2d2Y0FhNFdMT0VIRk1kenVhR0dGQklXZW1mQUZtaXpEVE1vZ1ZxbTFmMmpMQlNHb0kwZTlscThldHVpcG1wSW5yT056SlFfTXhYZjdEcllSX3lTemU1ejBaUm12bmR6VlZrTF9UNUhQc1dwMnRzejFwMUpPOXM2YnRaeV9XWS1jYVFDaVE3eEhHRTJlQk9MOWVF?oc=5",
+    "source_id": "b4731bb11786d29f",
+    "label_reason": "\"Gobierno anuncia baja en homicidios\": statistics."
+  },
+  {
+    "id": "gs3-023",
+    "headline": "Balance de seguridad Ministro Arrau: homicidios a la baja - t.co",
+    "description": "Balance de seguridad Ministro Arrau: homicidios a la baja  t.co",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "t.co",
+    "source_url": "https://news.google.com/rss/articles/CBMiO0FVX3lxTE1QY0hjX0N2UnJYVktSbElrdWFiNVBsclMxWEc0TWZNcUUtRzN5S294cF9DTV9aV0ZPUC1B?oc=5",
+    "source_id": "b4fb5b8831aa1fb7",
+    "label_reason": "\"Balance de seguridad Ministro Arrau\": statistics."
+  },
+  {
+    "id": "gs3-024",
+    "headline": "Los acercamientos del subsecretario Guerrero con los alcaldes tras tensiones por reglamento de Ley de Seguridad",
+    "description": "El subsecretario de Prevención del Delito tiene diversas reuniones programadas con los jefes comunales, luego del cruce que provocó una causal de destitución a alcaldes vía decreto.",
+    "ground_truth": {
+      "commune_name": null,
+      "cut": null,
+      "family": null,
+      "not_crime": true,
+      "category": "institutional_preventive",
+      "boundary": false
+    },
+    "source_outlet": "LaTercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/los-acercamientos-del-subsecretario-guerrero-con-los-alcaldes-tras-tensiones-por-reglamento-de-ley-de-seguridad/",
+    "source_id": "bcc1507bf29d092d",
+    "label_reason": "\"subsecretario Guerrero con los alcaldes... Ley de Seguridad\": institutional/political."
+  },
+  {
+    "id": "gs3-025",
+    "headline": "Nueve detenidos tras operativo para desbaratar banda dedicada al robo de vehículos en Maipú",
+    "description": "Durante el operativo se allanaron nueve domicilios de la comuna. La banda se encuentra ligada a un robo con violencia, donde resultó atropellada una mujer en julio pasado.",
+    "ground_truth": {
+      "commune_name": "Maipú",
+      "cut": "13119",
+      "family": "propiedad",
+      "not_crime": false,
+      "category": null,
+      "boundary": true
+    },
+    "source_outlet": "LaTercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/nueve-detenidos-tras-operativo-para-desbaratar-banda-dedicada-al-robo-de-vehiculos-en-maipu/",
+    "source_id": "2621b25109f44fc9",
+    "label_reason": "'banda dedicada al robo de vehículos en Maipú' but 'ligada a un robo con violencia'; propiedad vs robos_violentos."
+  },
+  {
+    "id": "gs3-026",
+    "headline": "Incluido robo con violación: Más de 25 reiteraciones acumulan los tres detenidos tras persecución terminada en Coquimbo - Mi Radio",
+    "description": "Incluido robo con violación: Más de 25 reiteraciones acumulan los tres detenidos tras persecución terminada en Coquimbo  Mi Radio",
+    "ground_truth": {
+      "commune_name": "Coquimbo",
+      "cut": "4102",
+      "family": "robos_violentos",
+      "not_crime": false,
+      "category": null,
+      "boundary": true
+    },
+    "source_outlet": "Mi Radio",
+    "source_url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxNanRNelFKVTdFSXRmbEE3NS1kRkxMazBGMlpyS09PVGxocTlhV1pkTWNrWmhPczFsVkY3YllCYTRiZGV1VVlteURzZWwzdzhVX003WEZZRVZUYno5Q29UVnR6cEV4NGxhSktQVjJZblVVZk9kM1k1QXBCNGp4YnJ4MklLZjRDZkoxSnVxbzdKOGhWb3U5S2ktRGxmYkxVN1ZRV041cVlkOWpibzBuQVNtcy0wTFBpYjRrdWt5ZUVJWG90NlpxN0JSOFRDZnVRSVdCbFp5NXRZM2kwVHQ5UDlJUjh3T0xTam8xcUk0?oc=5",
+    "source_id": "4c8b86eb7d7f374e",
+    "label_reason": "\"robo con violación... tres detenidos tras persecución terminada en Coquimbo\": violent robbery series; sexual component makes sexuales a plausible alternative."
+  },
+  {
+    "id": "gs3-027",
+    "headline": "Fiscalía investiga como femicidio muerte de mujer cuyos restos fueron hallados en cementerio de San Miguel de Azapa",
+    "description": "El sujeto sospechoso se suicidó el jueves 13 de agosto al interior de su domicilio, autoinfiriéndose una herida cortopunzante.",
+    "ground_truth": {
+      "commune_name": "Arica",
+      "cut": "15101",
+      "family": "vida",
+      "not_crime": false,
+      "category": null,
+      "boundary": true
+    },
+    "source_outlet": "LaTercera",
+    "source_url": "https://www.latercera.com/nacional/noticia/fiscalia-investiga-como-femicidio-muerte-de-mujer-cuyos-restos-fueron-hallados-en-cementerio-de-san-miguel-de-azapa/",
+    "source_id": "6e01560428d326a1",
+    "label_reason": "\"Fiscalía investiga como femicidio... San Miguel de Azapa\" (Arica commune): killing -> vida; femicide could also read as vif."
+  },
+  {
+    "id": "gs3-028",
+    "headline": "Crimen de carabinero en Renca: prisión preventiva para dos colaboradores de los prófugos",
+    "description": "Dos nuevos imputados en el caso del robo con homicidio del carabinero Alejandro Ortiz -ultimado a finales de agosto en la comuna de Renca mientras se encontraba de civil- quedaron en prisión preventiva tras ser formalizados.\nLos individuos -un hombre y una mujer- figuran como colaboradores de los tres autores materiales del crimen que todavía se encuentran prófugos. De acuerdo con el Ministerio Público, facilitaron el escape y la ayuda de ellos. \n\"Siguen intensas diligencias para dar con el para",
+    "ground_truth": {
+      "commune_name": "Renca",
+      "cut": "13128",
+      "family": "vida",
+      "not_crime": false,
+      "category": null,
+      "boundary": true
+    },
+    "source_outlet": "Cooperativa",
+    "source_url": "https://www.cooperativa.cl/noticias/pais/judicial/crimen-de-carabinero-en-renca-prision-preventiva-para-dos-colaboradores/2026-09-12/140802.html",
+    "source_id": "6e6454aa99cb2cb2",
+    "label_reason": "'robo con homicidio del carabinero ... en la comuna de Renca'; vida vs robos_violentos."
+  },
+  {
+    "id": "gs3-029",
+    "headline": "Robo de camión con celulares en San Bernardo: capturan a tres sujetos y detectan posibles señuelos - La Tercera",
+    "description": "Robo de camión con celulares en San Bernardo: capturan a tres sujetos y detectan posibles señuelos  La Tercera",
+    "ground_truth": {
+      "commune_name": "San Bernardo",
+      "cut": "13401",
+      "family": "propiedad",
+      "not_crime": false,
+      "category": null,
+      "boundary": true
+    },
+    "source_outlet": "La Tercera",
+    "source_url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNSWl4LXo1Ui0xejhWdUNOUVBvaEwtWWVPdmlRdTFqU1pYMFk0OHByaUNxNm53dnVPSFJZU0F1ay10d0lFUGlROXY4eHJ5eWE1TGJmb2FaVndrSmpPUzBxMzdlZEFtemZyZ2s1bXprRC04RzlPa2Z0ZmJjX2hhYTdWWVMtUmtHdV9FY0x0Sy1tRnZyVzBNRmJadnJJd3g4YS1ZTmVoY3AtcEpjWHhWOGF3V21DTU9Mem9wV2xWUHdlZUpCUDdtQkhyTWR1aDFtSS1aS1NLQVV3NlTSAfoBQVVfeXFMUEpRbi1kb0VnaENkTk90cUZfVHBXWnFlQlRCS2s5UHp1b0RmZU9UWU9uMFo1b3lNYTRvZjZXdHBJaEZBeEEtYmNNaGtLQWF1dXhmLVpvcGF4c0FXMEFMVzlFYkJTX0RHN0V1RW1KLTh0WFB3d1FFSEswczFmQU9uOFBfSDNNci1XYWtkSnVyNm51UXBCclQ1QUZkYzNlWWdXdmV4WmJ2N1Z3UXVWeWpDc2NLaGhpb0tScDN5ZWNMaUxldEo5OWpuRldBTmtZRHRoLTI2TmNZM3RNdDZHTDE1ZG9ia2tMb2RQQXp1dGJQWHRZX3pJanV4U0dfUQ?oc=5",
+    "source_id": "b2f330935b07d752",
+    "label_reason": "\"Robo de camión con celulares en San Bernardo: capturan a tres sujetos\": truck/cargo theft; violence not stated so robos_violentos is plausible alternative."
+  },
+  {
+    "id": "gs3-030",
+    "headline": "Alcalde Luksic anuncia querella tras ataques con bombas molotov a Carabineros y Bomberos en Huechuraba",
+    "description": "Los hechos ocurrieron durante la madrugada del domingo 6 de septiembre y afectaron a un cuartel de Bomberos y a la 54ª Comisaría.",
+    "ground_truth": {
+      "commune_name": "Huechuraba",
+      "cut": "13107",
+      "family": "armas",
+      "not_crime": false,
+      "category": null,
+      "boundary": true
+    },
+    "source_outlet": "LaCuarta",
+    "source_url": "https://www.lacuarta.com/chile/noticia/alcalde-luksic-anuncia-querella-tras-ataques-con-bombas-molotov-a-carabineros-y-bomberos-en-huechuraba/",
+    "source_id": "cc8cccea479378a5",
+    "label_reason": "\"ataques con bombas molotov a Carabineros y Bomberos en Huechuraba\": incendiary devices -> armas/explosives; daños (incivilidades) is the alternative."
+  },
+  {
+    "id": "gs3-031",
+    "headline": "Llamada furtiva reveló horror en Algarrobo: sujeto secuestró a ex, la golpeó y agredió sexualmente durante horas",
+    "description": "En su declaración, la víctima de 35 años expuso que el acusado le propinó golpes de pies y puño, y le quitó el celular.",
+    "ground_truth": {
+      "commune_name": "Algarrobo",
+      "cut": "5602",
+      "family": "sexuales",
+      "not_crime": false,
+      "category": null,
+      "boundary": true
+    },
+    "source_outlet": "LaCuarta",
+    "source_url": "https://www.lacuarta.com/chile/noticia/llamada-furtiva-revelo-horror-en-algarrobo-sujeto-secuestro-a-ex-la-golpeo-y-agredio-sexualmente-durante-horas/",
+    "source_id": "e858c780ffd1a114",
+    "label_reason": "'secuestró a ex, la golpeó y agredió sexualmente' in Algarrobo; sexuales vs vif."
+  },
+  {
+    "id": "gs3-032",
+    "headline": "Arrestan a dos menores de 16 por robo y homicidio de un hombre que elevaba volantines en Colina - Canal 9 Bío Bío Televisión",
+    "description": "Arrestan a dos menores de 16 por robo y homicidio de un hombre que elevaba volantines en Colina  Canal 9 Bío Bío Televisión",
+    "ground_truth": {
+      "commune_name": "Colina",
+      "cut": "13301",
+      "family": "vida",
+      "not_crime": false,
+      "category": null,
+      "boundary": true
+    },
+    "source_outlet": "Canal 9 Bío Bío Televisión",
+    "source_url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxNcTlqWmZMXzE1RmlZVlVWWGtsS0hnQ3BLcm5KdUlaQkd6b0d0cGRPWmh5N3hZcGYwMUFjMjhGSWxDbW54TUFhMEwzMFpqRkdZMTR3S2dHdWFBTk1OUXNzb2hhcG9SNm1mU2JJVFJMa0JYQ2N1YzFHVVktekpTT29qUVZ3bzJQeXpfZ1RsN2pRLTBCeDlYSVd5eXhXdmRnYWlkRlkxM04xRU54OXFOUkQ3b1Y1QzdUOGZkRkNGXzgyODhna0lORURlNl9jREdzdUY1UThkT2pGcXNfQQ?oc=5",
+    "source_id": "fd746c0e79fb6f71",
+    "label_reason": "'robo y homicidio de un hombre ... en Colina'; vida vs robos_violentos (robo con homicidio)."
+  }
+]
