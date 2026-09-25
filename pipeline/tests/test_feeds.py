@@ -16,6 +16,8 @@ from pipeline.news.feeds import (  # type: ignore
     canonical_url,
     resolve_outlet,
     google_news_url,
+    source_headline,
+    strip_html,
 )
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
@@ -154,3 +156,94 @@ def test_feeds_contains_lacuarta_and_googlenews():
     assert len(gn_keys) == 5
     for url in FEEDS.values():
         assert isinstance(url, str) and url.startswith("https://"), f"Bad URL: {url}"
+
+
+# ---------------------------------------------------------------------------
+# FID-06 (36-01) — strip_html decodes entities after removing tags
+# ---------------------------------------------------------------------------
+
+def test_strip_html_decodes_entities_and_nbsp():
+    out = strip_html("<p>Duane &#8220;Keffe D&#8221; Davis&nbsp;fue</p>")
+    assert out == "Duane “Keffe D” Davis fue"
+    assert "&#" not in out
+    assert " " not in out
+
+
+def test_strip_html_empty_and_none():
+    assert strip_html("") == ""
+    assert strip_html(None) == ""  # type: ignore[arg-type]
+
+
+def test_strip_html_unescape_runs_after_tag_removal():
+    # decoded "<" is literal text, never re-parsed as a tag (T-36-01)
+    assert strip_html("&lt;b&gt;x") == "<b>x"
+
+
+def test_is_crime_item_with_nbsp_description():
+    assert is_crime_item({"title": "x", "description": "homicidio&nbsp;en"}) is True
+
+
+# ---------------------------------------------------------------------------
+# FID-01 (36-01) — source_headline
+# ---------------------------------------------------------------------------
+
+@pytest.mark.parametrize(
+    "title,outlet,expected",
+    [
+        ("Detienen a sujeto en Calama - soychile.cl", "soychile.cl", "Detienen a sujeto en Calama"),
+        ("A - B - La Tercera", "La Tercera", "A - B"),
+        ("Robo en Temuco", "BioBioChile", "Robo en Temuco"),
+        (" - La Tercera", "La Tercera", "- La Tercera"),
+        ("x  &amp;  y", "", "x & y"),
+        ("Balacera en   Iquique
+ - El Mercurio ", "El Mercurio", "Balacera en Iquique"),
+    ],
+)
+def test_source_headline(title, outlet, expected):
+    assert source_headline(title, outlet) == expected
+
+
+def test_source_headline_never_empty_for_suffix_only():
+    assert source_headline(" - La Tercera", "La Tercera") != ""
+
+
+# ---------------------------------------------------------------------------
+# FID-06 (36-01) — NonXMLContentType bozo quiet when entries parsed
+# ---------------------------------------------------------------------------
+
+def _patched_parse(monkeypatch, exc, n_entries):
+    d = feedparser.FeedParserDict()
+    d["bozo"] = 1
+    d["bozo_exception"] = exc
+    d["entries"] = [feedparser.FeedParserDict(title=f"t{i}") for i in range(n_entries)]
+    monkeypatch.setattr("pipeline.news.feeds.feedparser.parse", lambda *a, **k: d)
+
+
+def test_fetch_feed_nonxml_content_type_with_entries_is_debug(monkeypatch, caplog):
+    import logging
+    exc = feedparser.NonXMLContentType("application/octet-stream is not an XML media type")
+    _patched_parse(monkeypatch, exc, 2)
+    with caplog.at_level(logging.DEBUG, logger="pipeline.news.feeds"):
+        entries = fetch_feed("BioBioChile", "https://example.invalid/feed")
+    assert len(entries) == 2
+    assert not [r for r in caplog.records if r.levelno >= logging.WARNING]
+    assert len([r for r in caplog.records if r.levelno == logging.DEBUG]) == 1
+
+
+def test_fetch_feed_generic_bozo_still_warns(monkeypatch, caplog):
+    import logging
+    _patched_parse(monkeypatch, Exception("mismatched tag"), 2)
+    with caplog.at_level(logging.DEBUG, logger="pipeline.news.feeds"):
+        entries = fetch_feed("X", "https://example.invalid/feed")
+    assert len(entries) == 2
+    assert [r for r in caplog.records if r.levelno == logging.WARNING]
+
+
+def test_fetch_feed_nonxml_content_type_without_entries_warns(monkeypatch, caplog):
+    import logging
+    exc = feedparser.NonXMLContentType("application/octet-stream is not an XML media type")
+    _patched_parse(monkeypatch, exc, 0)
+    with caplog.at_level(logging.DEBUG, logger="pipeline.news.feeds"):
+        entries = fetch_feed("BioBioChile", "https://example.invalid/feed")
+    assert entries == []
+    assert [r for r in caplog.records if r.levelno == logging.WARNING]
