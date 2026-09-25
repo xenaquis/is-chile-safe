@@ -119,3 +119,5 @@ Descarté C-R1-06, B-R1-09 y las 3 escaladas, con su razón. Las observaciones o
 
 ## Condition closure log (append)
 
+
+- 2026-09-25 — C1..C3 VERIFIED by orchestrator grep on 2be22e2 (38-08 pipefail + 38-07 runbook "Pipeline completed successfully"; 38-03 AST pin _seen_mutation_lines, regex tested by planner: HEAD writes [320,432], 36-07 literals caught, negative control fails; 38-07 M-07 RESOLVED). ROADMAP wave text aligned with G-73(1) by orchestrator; NB-12 → deferred-live; NB-15 → G-76. Gate closed GO for execution (after Phase 37).
