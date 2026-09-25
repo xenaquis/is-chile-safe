@@ -27,11 +27,11 @@
 
 ### Honest freshness signals (FRESH)
 
-- [ ] **FRESH-01**: `/news/` and `/es/noticias/` show "Latest incident: <max date>" / "Último incidente: <fecha>" taken from the data, not the build time. A bilingual stale notice renders when the newest incident is >48h old, and a validator asserts it with the Sep-4-frozen fixture. (V-05)
-- [ ] **FRESH-02**: The news day histogram draws no bars for days outside `current.json`'s coverage window. (V-05)
-- [ ] **FRESH-03**: When a commune "Recent incidents in the news" section's newest item is >7 days old, it switches to a caveated heading, in both locales. (V-05)
+- [x] **FRESH-01**: `/news/` and `/es/noticias/` show "Latest incident: <max date>" / "Último incidente: <fecha>" taken from the data, not the build time. A bilingual stale notice renders when the newest incident is >48h old, and a validator asserts it with the Sep-4-frozen fixture. (V-05)
+- [x] **FRESH-02**: The news day histogram draws no bars for days outside `current.json`'s coverage window. (V-05)
+- [x] **FRESH-03**: When a commune "Recent incidents in the news" section's newest item is >7 days old, it switches to a caveated heading, in both locales. (V-05)
 - [ ] **FRESH-04**: A no-op pipeline run (0 new incidents) leaves `current.json` byte-identical and fires no deploy. Over 7 days, deploys ≤ runs that changed the incident set. (V-12)
-- [ ] **FRESH-05**: The methodology and commune pages show "CEAD data as of <last_updated>" and label the partial-year cutoff, in both locales, with a validator. (V-13)
+- [x] **FRESH-05**: The methodology and commune pages show "CEAD data as of <last_updated>" and label the partial-year cutoff, in both locales, with a validator. (V-13)
 
 ### Fidelity & attribution (FID)
 
@@ -91,11 +91,11 @@
 | NREC-08 | Phase 34 | Complete |
 | NREC-09 | Phase 34 | Partial (0 not_attempted / 2,122 withheld / 2 api_error; G-18) |
 | NREC-10 | Phase 34 | Partial (15 days uncovered: withheld; G-18) |
-| FRESH-01 | Phase 35 | Pending |
-| FRESH-02 | Phase 35 | Pending |
-| FRESH-03 | Phase 35 | Pending |
-| FRESH-04 | Phase 35 | Pending |
-| FRESH-05 | Phase 35 | Pending |
+| FRESH-01 | Phase 35 | Complete (35-01/35-04; prod verified 35-07 T2) |
+| FRESH-02 | Phase 35 | Complete (35-01/35-04; prod verified 35-07 T2) |
+| FRESH-03 | Phase 35 | Complete (35-04; prod verified 35-07 T2) |
+| FRESH-04 | Phase 35 | Interim PASS (N=4 scheduled runs: D=4, C=4, G=0; live no-op 36198632047); 7-day check due 2026-10-02 (issue #45) |
+| FRESH-05 | Phase 35 | Complete (35-03/35-05; prod verified 35-07 T2) |
 | FID-01 | Phase 36 | Pending |
 | FID-02 | Phase 36 | Pending |
 | FID-03 | Phase 36 | Pending |

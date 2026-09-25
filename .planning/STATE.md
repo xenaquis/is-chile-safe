@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-07-29)
 
 ## Current Position
 
-Phase: 35 - Honest Freshness Signals (plans 35-01..35-07, gate GO; execution next)
-Plan: 35-01
-Status: Phase 34 COMPLETE 2026-09-24 (NREC-01..08 Complete; NREC-09/10 Partial — backfill withheld, G-18). Live classifier deepseek/deepseek-v4.1-flash with DeepSeek-direct backup.
-Last activity: 2026-09-24 — G-27 hotfix dropped kinship-error card 63fb0c3ef0adca19 (f3a84af), Phase 34 closed at full gate (pytest 611/1/2, validators 16/16, vitest 97, astro 0 err)
+Phase: 36 - Classification Fidelity & Attribution (11 plans, premortem + gate GO; execution next)
+Plan: 36-01
+Status: Phase 35 COMPLETE 2026-09-25 (FRESH-01/02/03/05 Complete; FRESH-04 interim PASS, 7-day check due 2026-10-02, issue #45). Phases 37 and 38 planned and gated GO.
+Last activity: 2026-09-25 — 35-07 closed: live no-op run 36198632047 (current.json byte-identical, deploy skipped)
 
 ## Progress Bar
 
@@ -460,6 +460,8 @@ instruments sat inside.
 **Zero data mutation:** `data/` untouched, zero Python changed, `FAMILY_KEYS` still exactly 7.
 
 ### Deferred-live list (user actions on return — v2.1 autonomous run)
+
+- FRESH-04 7-day check due 2026-10-02T00:14:08Z — rerun 35-07 Task 3 instrument incl. the K=4 induction procedure (G-59: dispatch only after a run has completed); PASS iff D ≤ C, G = 0, and (N_noop ≥ 1 or pytest-only residual re-recorded). Issue #45.
 
 1. ~~Review the autonomous work, `git pull --rebase origin master`, then push.~~ **DONE 2026-07-30, user-authorized.** Pull rebased 97 local commits over 12 remote data-cron commits with zero conflicts; `git push origin master` succeeded (`8ef50b8..50235bb`), HEAD == origin/master. The `Deploy on Code Push` workflow ran green in 17s and **production is LIVE with the Phase 28 UI** — verified by curl on both locales: HTTP 200, `#news-filters` and `#news-comuna-q` present, **1392 `.news-card` nodes, 0 hidden at rest** on `/news/` and `/es/noticias/`. NEWSUI-02 therefore holds in production, not just in `dist/`.
 

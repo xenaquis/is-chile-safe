@@ -117,7 +117,7 @@ Audit: **[milestones/v2.1-MILESTONE-AUDIT.md](milestones/v2.1-MILESTONE-AUDIT.md
 **Protocol for every phase in this milestone (corrida-autonoma roles):** research (fresh Sonnet) → plan (Opus) → premortem + adversarial gate (fresh Opus arbiter) → implementation (Sonnet) → validation against served routes (Opus).
 
 - [x] **Phase 34: News Classification Restore, Fail-Loud Alarm & Outage Backfill** — replacement model chosen by metrics (A/B eval, DeepSeek direct as backup provider), preflight + circuit breaker + typed error outcomes, alarm on classification failure, honest heartbeat, backfill of the 2,073 lost outage items. **DEADLINE: before 2026-10-05.**
-- [ ] **Phase 35: Honest Freshness Signals** — depends on Phase 34. Data-derived "Latest incident" stamps, stale notices, no false-zero histogram bars, byte-identical no-op runs, disclosed CEAD vintage.
+- [x] **Phase 35: Honest Freshness Signals** — depends on Phase 34. Data-derived "Latest incident" stamps, stale notices, no false-zero histogram bars, byte-identical no-op runs, disclosed CEAD vintage.
 - [ ] **Phase 36: Classification Fidelity & Attribution** — depends on Phase 34. Verbatim source headlines, family accuracy (vida stops being a catch-all), publisher URLs over Google News redirects, deterministic cross-run dedup.
 - [ ] **Phase 37: Dependency & Security Hygiene** — depends on Phase 34 (DEPS-03 additionally needs the NREC-01 eval result). Astro advisory merge, Dependabot backlog triage, standing policy.
 - [ ] **Phase 38: Pipeline, Public-Data, SEO & Docs Hygiene** — depends on Phase 34 and Phase 35. Public ledger exposure, `/map/` vs `/chile-crime-map/` cannibalization, seen-ledger pruning by `first_seen`, CEAD workflow `continue-on-error` removal, the Oct-1 local CEAD scrape (must run on/after 2026-10-01, operator step on the local machine), and docs/memory drift cleanup.
@@ -152,7 +152,7 @@ _Every shipped phase's detail lives in its milestone archive under `milestones/`
   3. A commune's "Recent incidents in the news" section switches to a caveated heading (both locales) when its newest item is >7 days old.
   4. A no-op pipeline run (0 new incidents) leaves `current.json` byte-identical and fires no deploy; over 7 days, deploys stay ≤ the number of runs that changed the incident set.
   5. The methodology and commune pages show "CEAD data as of <last_updated>" and label the partial-year cutoff, in both locales, with a validator asserting it.
-**Plans**: TBD
+**Plans**: 7 plans (35-01..35-07) — complete 2026-09-25; FRESH-04 interim PASS, 7-day check due 2026-10-02 (issue #45)
 
 ### Phase 36: Classification Fidelity & Attribution
 
@@ -245,7 +245,7 @@ Plans:
 | 32. Cron Consistency | 3/3 | Complete   | 2026-08-05 |
 | 33. Security Posture | 3/3 | Complete   | 2026-08-05 |
 | 34. News Classification Restore, Fail-Loud Alarm & Outage Backfill | 6/6 | Complete (NREC-09/10 Partial: backfill withheld, G-18) | 2026-09-24 |
-| 35. Honest Freshness Signals | 0/TBD | Not started | - |
+| 35. Honest Freshness Signals | 7/7 | Complete (FRESH-04 interim; 7-day check 2026-10-02) | 2026-09-25 |
 | 36. Classification Fidelity & Attribution | 0/TBD | Not started | - |
 | 37. Dependency & Security Hygiene | 0/TBD | Not started | - |
 | 38. Pipeline, Public-Data, SEO & Docs Hygiene | 0/TBD | Not started | - |
