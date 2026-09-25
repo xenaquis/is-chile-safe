@@ -6,6 +6,7 @@ RSS feed fetch + per-feed graceful fallback + keyword pre-filter + seen-ledger (
 from __future__ import annotations
 
 import datetime
+import html
 import json
 import logging
 import pathlib
@@ -14,6 +15,7 @@ import urllib.parse
 from typing import Any
 
 import feedparser  # type: ignore
+from feedparser import NonXMLContentType  # type: ignore
 
 logger = logging.getLogger(__name__)
 
@@ -115,8 +117,37 @@ CRIME_KEYWORDS: frozenset[str] = frozenset(
 # ---------------------------------------------------------------------------
 
 def strip_html(text: str) -> str:
-    """Remove HTML tags from a string."""
-    return re.sub(r"<[^>]+>", "", text or "")
+    """Remove HTML tags, then decode HTML entities (FID-06, V-19).
+
+    Measured 2026-09-24: 2,782 of 4,427 rejected-ledger descriptions carried
+    entities (&nbsp; 4,424x, &#8230; 564x, &#8220; 118x). Tags are removed
+    BEFORE unescaping, so a decoded "<" stays literal text and is never
+    re-parsed as a tag. Non-breaking spaces become plain spaces. This is the
+    single choke point for is_crime_item and the classifier input.
+    """
+    return html.unescape(re.sub(r"<[^>]+>", "", text or "")).replace("\xa0", " ")
+
+
+def source_headline(title: str, outlet: str) -> str:
+    """Return the outlet's verbatim headline for title_src (FID-01, G-28).
+
+    Decodes HTML entities, collapses whitespace and removes exactly one
+    trailing " - <outlet>" suffix (present on 2,212 of 2,212 Google-News rows
+    in data/incidents/rejected/, measured 2026-09-24). Feed-agnostic on purpose:
+    queued (pending.json) and backfill rows carry title + outlet but no feed
+    name, and must derive the same title_src. Never returns an empty string
+    for a non-blank title: if stripping the suffix would leave nothing, the
+    whitespace-collapsed title is returned unchanged.
+    """
+    t = " ".join(html.unescape(title or "").split())
+    o = (outlet or "").strip()
+    if o:
+        suffix = " - " + o
+        if t.endswith(suffix):
+            rest = t[: -len(suffix)].rstrip()
+            if rest:
+                return rest
+    return t
 
 
 # ---------------------------------------------------------------------------
@@ -176,7 +207,14 @@ def fetch_feed(name: str, url: str) -> list[Any]:
             request_headers={"Accept": "application/rss+xml, application/xml, text/xml"},
         )
         if d.bozo:
-            logger.warning("[%s] Feed parse warning: %s", name, d.bozo_exception)
+            if isinstance(d.bozo_exception, NonXMLContentType) and d.entries:
+                # BioBio serves application/octet-stream but the XML parses fine (FID-06)
+                logger.debug(
+                    "[%s] non-XML content-type ignored (entries parsed): %s",
+                    name, d.bozo_exception,
+                )
+            else:
+                logger.warning("[%s] Feed parse warning: %s", name, d.bozo_exception)
         return list(d.entries)
     except Exception as exc:
         logger.warning("[%s] Feed fetch failed: %s", name, exc)
