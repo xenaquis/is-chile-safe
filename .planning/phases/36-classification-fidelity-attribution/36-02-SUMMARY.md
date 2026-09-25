@@ -124,3 +124,25 @@ None - no external service configuration required.
 ---
 *Phase: 36-classification-fidelity-attribution*
 *Completed: 2026-09-26*
+
+## Task 3 — baseline eval (orchestrator, 2026-09-26)
+
+Command: the plan's eval command, openrouter deepseek/deepseek-v4.1-flash, reasoning disabled, on golden_set_v3.json (79 items). Run COMPLETE. The file was renamed to eval/run-baseline.json and scored into 36-EVAL-BASELINE.{json,md}.
+
+| Metric | Result |
+|---|---|
+| Non-crime rejection | **12/24 = 0.50** (gate needs ≥ 0.80) |
+| accident | 0/6 |
+| death_no_crime | 0/3 |
+| fire_emergency | 0/2 |
+| institutional_preventive | 12/13 |
+| v2 uncontested | commune 41/41, family 39/41 |
+| v2 all 44 | commune 44/44, family 42/44 |
+| Parse / empty / truncation | 0 / 0 / 0 |
+| Null v2 items | 3/3 correct |
+| **Boundary family (no-regression floor for 36-06)** | **5/8** |
+| Spend | USD 0.0212 (cap 0.10) |
+
+Contested v2 items (reported only): gs-030 accepted as incivilidades, gs-032 as propiedad, gs-038 as propiedad.
+
+The baseline is not gated. The 0.50 rate confirms V-07 on live-like inputs: accidents and natural deaths are accepted as crimes. 36-06 must reach ≥ 0.80 without dropping below 5/8 on boundary items.
