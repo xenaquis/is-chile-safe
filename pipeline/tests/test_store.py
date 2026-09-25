@@ -583,3 +583,95 @@ def test_fresh04_archive_month_without_new_id_is_not_rewritten(tmp_path):
                     now=_make_utc("2026-06-10T12:00:00Z"))
 
     assert archive_path.read_bytes() == before
+
+
+# ---------------------------------------------------------------------------
+# FID-01 / FID-04 (36-01) — build_incident title_src / via_url
+# ---------------------------------------------------------------------------
+
+_BI_COMMON = dict(
+    url="https://www.soychile.cl/calama/2026/09/24/x.html",
+    cut="13101",
+    lat=-33.456,
+    lng=-70.654,
+    title_en="Son-in-law of X arrested",
+    date="2026-09-24",
+    outlet="soychile.cl",
+    family="propiedad",
+)
+
+
+def test_build_incident_title_src_mirrors_title_es():
+    from pipeline.news.store import build_incident
+    inc = build_incident(title_src="Detienen a yerno de X", **_BI_COMMON)
+    assert inc["title_src"] == "Detienen a yerno de X"
+    assert inc["title_es"] == "Detienen a yerno de X"
+    assert "via_url" not in inc
+    # new keys are appended after slug; legacy key order preserved before them
+    assert list(inc.keys()) == [
+        "id", "cut", "lat", "lng", "title_es", "title_en", "date",
+        "outlet", "url", "family", "slug", "title_src",
+    ]
+
+
+def test_build_incident_via_url_emitted():
+    from pipeline.news.store import build_incident
+    g = "https://news.google.com/rss/articles/CBMi123"
+    inc = build_incident(title_src="T", via_url=g, **_BI_COMMON)
+    assert inc["via_url"] == g
+    assert list(inc.keys())[-2:] == ["title_src", "via_url"]
+
+
+def test_build_incident_legacy_title_es_shape_unchanged():
+    from pipeline.news.store import build_incident, make_id
+    inc = build_incident(title_es="Y", **_BI_COMMON)
+    assert inc == {
+        "id": make_id(_BI_COMMON["url"]),
+        "cut": "13101",
+        "lat": -33.456,
+        "lng": -70.654,
+        "title_es": "Y",
+        "title_en": "Son-in-law of X arrested",
+        "date": "2026-09-24",
+        "outlet": "soychile.cl",
+        "url": _BI_COMMON["url"],
+        "family": "propiedad",
+        "slug": None,
+    }
+    assert list(inc.keys()) == [
+        "id", "cut", "lat", "lng", "title_es", "title_en", "date",
+        "outlet", "url", "family", "slug",
+    ]
+
+
+def test_build_incident_title_src_wins_over_title_es():
+    from pipeline.news.store import build_incident
+    inc = build_incident(title_src="Fuente", title_es="LLM", **_BI_COMMON)
+    assert inc["title_src"] == "Fuente"
+    assert inc["title_es"] == "Fuente"
+
+
+def test_build_incident_requires_a_title():
+    from pipeline.news.store import build_incident
+    with pytest.raises(ValueError):
+        build_incident(**_BI_COMMON)
+
+
+def test_build_incident_rejects_non_http_via_url(caplog):
+    import logging
+    from pipeline.news.store import build_incident
+    with caplog.at_level(logging.WARNING, logger="pipeline.news.store"):
+        inc = build_incident(title_src="T", via_url="javascript:x", **_BI_COMMON)
+    assert inc is None
+    assert any(r.levelno == logging.WARNING for r in caplog.records)
+
+
+def test_build_incident_new_shape_validates():
+    from pipeline.news.schema import validate_incidents_file
+    from pipeline.news.store import build_incident
+    inc = build_incident(
+        title_src="T", via_url="https://news.google.com/rss/articles/a", **_BI_COMMON
+    )
+    validate_incidents_file(
+        {"generated": "2026-09-24T00:00:00Z", "window_days": 30, "incidents": [inc]}
+    )

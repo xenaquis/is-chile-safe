@@ -64,6 +64,7 @@ def test_incidents_file_valid_round_trip():
         "title_es", "title_en",
         "date", "outlet", "url", "family",
         "slug",  # optional field, always serialized (None when absent)
+        "title_src", "via_url",  # FID-01/FID-04 36-01 — optional, always serialized (None when absent)
     }
 
 
@@ -261,3 +262,54 @@ def test_incident_record_has_no_cluster_fields_no_go_branch():
     dumped = record.model_dump()
     assert "cluster_id" not in dumped
     assert "is_primary" not in dumped
+
+
+# ---------------------------------------------------------------------------
+# FID-01 / FID-04 (36-01) — optional title_src / via_url
+# ---------------------------------------------------------------------------
+
+def test_legacy_incident_without_title_src_or_via_url_validates():
+    rec = IncidentRecord.model_validate(_valid_incident())
+    assert rec.title_src is None
+    assert rec.via_url is None
+
+
+def test_title_src_and_via_url_accepted():
+    rec = IncidentRecord.model_validate(_valid_incident(
+        title_src="Detienen a yerno de X",
+        via_url="https://news.google.com/rss/articles/CBMi123",
+    ))
+    assert rec.title_src == "Detienen a yerno de X"
+    assert rec.via_url == "https://news.google.com/rss/articles/CBMi123"
+
+
+@pytest.mark.parametrize("bad", ["", "   ", "x" * 401])
+def test_title_src_rejects_blank_or_too_long(bad):
+    with pytest.raises(ValidationError):
+        IncidentRecord.model_validate(_valid_incident(title_src=bad))
+
+
+def test_title_src_400_chars_ok():
+    rec = IncidentRecord.model_validate(_valid_incident(title_src="x" * 400))
+    assert len(rec.title_src) == 400
+
+
+@pytest.mark.parametrize("bad", ["javascript:x", "ftp://a/b", "", "news.google.com/x"])
+def test_via_url_rejects_non_http(bad):
+    with pytest.raises(ValidationError):
+        IncidentRecord.model_validate(_valid_incident(via_url=bad))
+
+
+def test_via_url_none_ok():
+    rec = IncidentRecord.model_validate(_valid_incident(via_url=None))
+    assert rec.via_url is None
+
+
+def test_real_current_json_still_validates():
+    """T-36-03: the committed current.json (legacy rows) validates with the new schema."""
+    import json
+    import pathlib
+    p = pathlib.Path(__file__).parents[2] / "data" / "incidents" / "current.json"
+    if not p.exists():
+        pytest.skip("data/incidents/current.json not present")
+    validate_incidents_file(json.loads(p.read_text(encoding="utf-8")))
