@@ -166,7 +166,7 @@ def test_strip_html_decodes_entities_and_nbsp():
     out = strip_html("<p>Duane &#8220;Keffe D&#8221; Davis&nbsp;fue</p>")
     assert out == "Duane “Keffe D” Davis fue"
     assert "&#" not in out
-    assert " " not in out
+    assert "\xa0" not in out
 
 
 def test_strip_html_empty_and_none():
@@ -195,8 +195,7 @@ def test_is_crime_item_with_nbsp_description():
         ("Robo en Temuco", "BioBioChile", "Robo en Temuco"),
         (" - La Tercera", "La Tercera", "- La Tercera"),
         ("x  &amp;  y", "", "x & y"),
-        ("Balacera en   Iquique
- - El Mercurio ", "El Mercurio", "Balacera en Iquique"),
+        ("Balacera en   Iquique\n - El Mercurio ", "El Mercurio", "Balacera en Iquique"),
     ],
 )
 def test_source_headline(title, outlet, expected):
