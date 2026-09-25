@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-25T03:15:35.165926Z",
+  "generated": "2026-09-25T11:02:35.605378Z",
   "window_days": 30,
   "incidents": [
     {
@@ -9712,7 +9712,85 @@
       "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9UbXh3bGlBS1VnX1liUVJWM3VZTUtkTE9KbnUyYUlqUTcxRU9YeGNtaE1QbVJfN3BJZHVBczNkQlFzeXk3c1dEOENNSlFPOS1MQ1JLc3VYcW5NeWIwV1dTN2ZpaEliWGVnVUJ2REZPWUhvZw?oc=5",
       "family": "propiedad",
       "slug": "coihueco"
+    },
+    {
+      "id": "4d6bdd577727bdbf",
+      "cut": "13130",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Vehículo volcado tras colisión en San Miguel trasladaba a un individuo baleado",
+      "title_en": "Vehicle overturned after collision in San Miguel was carrying a gunshot victim",
+      "date": "2026-09-25",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/09/25/vehiculo-termina-volcado-y-destruido-tras-colision-en-san-miguel-trasladaba-a-un-individuo-baleado.shtml",
+      "family": "armas",
+      "slug": "san-miguel"
+    },
+    {
+      "id": "1b7f588401c9b566",
+      "cut": "13130",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Delincuentes encapuchados y armados asaltan a empresario en San Miguel y huyen con $35 millones",
+      "title_en": "Hooded and armed criminals assault businessman in San Miguel and flee with $35 million",
+      "date": "2026-09-25",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/delincuentes-encapuchados-y-premunidos-de-armas-de-fuego-asaltan-a-empresario-en-san-miguel-huyen-con-35-millones/",
+      "family": "robos_violentos",
+      "slug": "san-miguel"
+    },
+    {
+      "id": "621ecfcf88f66e09",
+      "cut": "5801",
+      "lat": -33.145452,
+      "lng": -71.250732,
+      "title_es": "Anuncian querella tras robo de piezas del equipo criogénico del Hospital Marga Marga",
+      "title_en": "Lawsuit announced after theft of parts from Marga Marga Hospital cryogenic equipment",
+      "date": "2026-09-24",
+      "outlet": "SoyChile.cl",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQVlFvdzNqamFNcnV3YkZJYldvVGo1Y1NuSXlsNjFnZEVadS1XaDlxRzdZb1Q3V2NuOE1hWTgxSnV4WnhlVjlQa0E1WjBCVDFVY3RlcE9WWm1jcUhKZlk2MU5BZVROb2JfSXVORXBCRHZ3ZUhKLTI3XzRPa1BNMFh4WlQ4R1oxdjdSU0RXeWVpb2VUdGl2OHlnSGZHMURaR3pEWG5aZHFGdEF3c2c?oc=5",
+      "family": "propiedad",
+      "slug": "quilpue"
+    },
+    {
+      "id": "d1636592d9944927",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Detienen en Iquique a extranjero buscado por violento asalto a pareja en Valparaíso",
+      "title_en": "Foreigner wanted for violent assault on couple in Valparaiso arrested in Iquique",
+      "date": "2026-09-25",
+      "outlet": "Vilas Radio",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNUEJlYzBkVURveEpMTEF4Q2UwM3YtTTlUQmZlLWRZZm16bzBIZGl6akd1N3NBR0lxOVd3b0tYMEFYMGRpUkxucUlCOWFwUW5ySV8yM2F2M1Q5dmpGZEExTFMtNVNFX00yTndlTlNkcFlucjF4U1pITUpkYzRKcEFxMjRBSGFGb1BPdS1GT054enFwR0NhVVJydGViX1FRZlJWbkRNcExYaFJtOGloZ1E5Q3dGa2RneTZSX2R5ZUFuenFvVjhqTGo2NHljcS1KLXVjX2ZfLWsyQkpIZUdKQkE?oc=5",
+      "family": "robos_violentos",
+      "slug": "iquique"
+    },
+    {
+      "id": "64640f69a7ba9816",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "En Temuco detienen a joven por receptación y recuperan vehículo de alta gama avaluado en más de $29 millones",
+      "title_en": "In Temuco, young man arrested for receiving stolen goods and high-end vehicle valued at over $29 million recovered",
+      "date": "2026-09-24",
+      "outlet": "NDS - Noticias del Sur",
+      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQZXR3VlNyWGtGVzRRUlhWRFU2bjVYcjhMbG9vTEFGLTIzRFhla1dDeGh6Y2tJZmsyQjB1TVMxYVNEWEFoTWdyQ3VYYjY2d3ZtR1lyZGFGTm5BRHlBSmpqeGsxUWpkc2VRaDJwNUxVbS1ZcEJMZUltMEhXSTcwMS1oa2xLYXh0bUxZRU1PMkhUQl9EcGhrdVVQcHk0VE5hYUJBTFpoY3RYbmtXS181LWRLejk2LUhjUWdBNFV0R1VVankxR2Y1c19ySVdLb25EQdIBzgFBVV95cUxQZXR3VlNyWGtGVzRRUlhWRFU2bjVYcjhMbG9vTEFGLTIzRFhla1dDeGh6Y2tJZmsyQjB1TVMxYVNEWEFoTWdyQ3VYYjY2d3ZtR1lyZGFGTm5BRHlBSmpqeGsxUWpkc2VRaDJwNUxVbS1ZcEJMZUltMEhXSTcwMS1oa2xLYXh0bUxZRU1PMkhUQl9EcGhrdVVQcHk0VE5hYUJBTFpoY3RYbmtXS181LWRLejk2LUhjUWdBNFV0R1VVankxR2Y1c19ySVdLb25EQQ?oc=5",
+      "family": "propiedad",
+      "slug": "temuco"
+    },
+    {
+      "id": "f56c89f1942c0330",
+      "cut": "9208",
+      "lat": -38.016392,
+      "lng": -73.011197,
+      "title_es": "Tres detenidos en operativo antidrogas de la PDI en Purén: incautan cocaína, cannabis y armas",
+      "title_en": "Three detained in PDI anti-drug operation in Purén: cocaine, cannabis and weapons seized",
+      "date": "2026-09-25",
+      "outlet": "latribuna.cl",
+      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQOXluOGY1aGx1U3NTZ3pNWnd6RGFIWVBqc3BuR2wxT3Y3WjNGc3YwZGhlTWREUE55Mm1DS0pKdWM3U2VPT1VkbUp0Q3psc2dRX290elRqN1pjRnNlLU1RTlkySjg1R2V2cV9COGM3VU1qWlhieEdQc1dIbTFhQUVNN0NWTTFGTnhJSWJ6Q0VPTlpnMzNGSFluamZzVWpfM3ZNek53dTd0cDlYNGdBRGpBaHF3bE1qTE1HSWtYMFFqVVpVT0puUFNEVFc1VXc0czNXZzVNc3BUd0trbHfSAeMBQVVfeXFMTy12dG9mR3Rjb3hmdjR1cDhqMXVkSjJxdGZ0djNBcXpIMGVhVGl0YUVEcmtUdjM4dXd5RGRlaHFjTVZKd0poV3NDZEJVRVZ5ZWo3N2FXMHR6TG5GVWk1Z0kxaTdIRnRNWGlTRHBpNUJyM1ZBT0JKZFM0ODNEQ1phc1hHVzhLY0plS3FEUndMb0JkRjd4VEJGcVhmVDAtOGdLbjVSOHdqTENHOE1FTFlIbEU4dXU0aXVBTWZySlVtOUtGY244clJuT0duMnl3Yi16emVxRkxFbC1kR1hCVkloQjcyOVE?oc=5",
+      "family": "drogas",
+      "slug": "puren"
     }
   ],
-  "last_new_incident_at": "2026-09-25T03:15:35.165926Z"
+  "last_new_incident_at": "2026-09-25T11:02:35.605378Z"
 }
