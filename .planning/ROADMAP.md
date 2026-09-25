@@ -166,7 +166,18 @@ _Every shipped phase's detail lives in its milestone archive under `milestones/`
   4. The deterministic 0.82 (cut, date) cross-run dedup rule runs against existing incidents; applying it over `current.json` yields 0 drops (baseline 73/807), validator-enforced; no LLM clustering is introduced.
   5. Descriptions are HTML-unescaped before classification and the BioBio `application/octet-stream` warning is handled or suppressed.
   6. A prod regression check confirms the hotfixed cards (kinship cluster, prison-suicide item) stay correct after the pipeline and backfill changes.
-**Plans**: TBD
+**Plans**: 11 plans in 7 waves
+- [ ] 36-01-PLAN.md — title_src/via_url contract, source_headline, entity-decoding strip_html, quiet BioBio bozo (W1, opus)
+- [ ] 36-02-PLAN.md — golden_set_v3 (blind labels) + FID-02 scorer + baseline eval (W1, sonnet)
+- [ ] 36-03-PLAN.md — verbatim ES / labelled EN headlines on 6 surfaces + policy disclosure (W1, sonnet)
+- [ ] 36-04-PLAN.md — title_src wiring live+backfill, title_en kinship guard, editorial filter (W2, opus)
+- [ ] 36-05-PLAN.md — cross-run deterministic dedup in merge_and_write + validator #19 + drop-list review (W3, opus)
+- [ ] 36-06-PLAN.md — prompt: no LLM headline, category-level non-crime rules, FID-02 eval gate (W3, opus)
+- [ ] 36-07-PLAN.md — Google News decode at ingest, via_url, both-key seen/pending, decode rate (W4, opus)
+- [ ] 36-08-PLAN.md — FID-03 fresh 2-week replay audit, 50 items (W4, sonnet/orchestrator)
+- [ ] 36-09-PLAN.md — FID-07 regression script, ship gate, push, live evidence, register #19 (W5, orchestrator)
+- [ ] 36-10-PLAN.md — re-run withheld G-18 backfill under unchanged G-11/G-14 gate (W6, orchestrator)
+- [ ] 36-11-PLAN.md — phase close gate + served-route verification + docs (W7, orchestrator)
 
 ### Phase 37: Dependency & Security Hygiene
 
