@@ -36,6 +36,7 @@ import { computeNewsFacets, escapeForInlineScript } from '../../lib/newsFacets';
 import { computeDayBuckets, peakBucket } from '../../lib/newsDayFacets';
 import { norm, FILTER_LOGIC_MARKER } from '../../lib/newsFilterLogic';
 import { latestIncidentDate, computeEvidence, evidenceVerdict, MAX_AGE_HOURS } from '../../lib/newsEvidence.mjs';
+import { headlineFor, headlineLabel } from '../../lib/incidentHeadline';
 import { ES_STRINGS, regionNameEs } from '../../config/i18n.ts';
 
 const t = ES_STRINGS;
@@ -54,6 +55,8 @@ let incidents: Array<{
   id: string;
   title_es: string;
   title_en: string;
+  title_src?: string;
+  via_url?: string;
   date: string;
   outlet: string;
   url: string;
@@ -433,6 +436,8 @@ const jsonLd = {
           {groupIncidents.map((incident) => {
             const communeInfo = getCommuneInfo(incident);
             const family = incident.family ?? '';
+            const h = headlineFor(incident, 'es');
+            const hLabel = headlineLabel(h.kind, 'es');
             return (
               <article
                 class="news-card"
@@ -448,8 +453,9 @@ const jsonLd = {
                   <h3 class="news-title">
                     <span class="fam-dot" title={family ? familyLabel(family) : ''} aria-hidden="true"></span>
                     <a href={safeUrl(incident.url)} target="_blank" rel="noopener noreferrer">
-                      {incident.title_es}
+                      {h.text}
                     </a>
+                    {hLabel && <span class="news-headline-note">{hLabel}</span>}
                     {family && <span class="news-sr">{familyLabel(family)}</span>}
                   </h3>
                   <span class="news-commune-chip">
@@ -1233,6 +1239,13 @@ const jsonLd = {
   .news-title a:hover {
     text-decoration: underline;
     color: var(--primary);
+  }
+
+  .news-headline-note {
+    font-size: var(--text-label);
+    color: var(--muted);
+    margin-left: var(--xs);
+    white-space: nowrap;
   }
 
   .news-commune-chip,

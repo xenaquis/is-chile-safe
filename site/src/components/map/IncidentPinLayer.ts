@@ -20,6 +20,7 @@
  */
 
 import L from 'leaflet';
+import { headlineFor, headlineLabel } from '../../lib/incidentHeadline';
 
 // ---------------------------------------------------------------------------
 // Types (incidents/current.json schema — Phase 5 contract)
@@ -32,6 +33,8 @@ export interface Incident {
   lng: number;
   title_es: string;
   title_en: string;
+  title_src?: string;
+  via_url?: string;
   date: string;
   outlet: string;
   url: string;
@@ -115,7 +118,9 @@ export function mountIncidentPins(
   const communeBase = lang === 'es' ? '/es/comuna/' : '/commune/';
 
   for (const incident of incidents) {
-    const title = escHtml(lang === 'es' ? incident.title_es : incident.title_en);
+    const h = headlineFor(incident, lang);
+    const hLabel = headlineLabel(h.kind, lang);
+    const title = escHtml(h.text);
     const outlet = escHtml(incident.outlet);
     const date = escHtml(incident.date);
     const url = safeUrl(incident.url);
@@ -135,7 +140,7 @@ export function mountIncidentPins(
     <span class="ev-badge">CEAD</span>
     <span class="ev-badge">${approxLabel}</span>
   </div>
-  <strong>${title}</strong>
+  <strong>${title}</strong>${hLabel ? `<span class="pin-headline-note">${escHtml(hLabel)}</span>` : ''}
   <div class="ev-meta">${date} · ${outlet}</div>
   <div class="ev-meta">
     <a href="${url}" target="_blank" rel="noopener noreferrer">${sourceLabel}: ${outlet}</a>

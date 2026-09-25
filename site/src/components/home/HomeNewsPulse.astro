@@ -95,6 +95,7 @@ const pulseStaleText = latest
   // in the press feed, 49 incidents) — use FAMILY_LABELS_EN/ES instead, which
   // carry the shipped 'Sexual Crimes' / 'Delitos Sexuales' strings.
   import { FAMILY_LABELS_EN, FAMILY_LABELS_ES } from '../../lib/familyDefs.ts';
+  import { headlineFor, headlineLabel } from '../../lib/incidentHeadline';
 
   (function () {
     'use strict';
@@ -107,7 +108,7 @@ const pulseStaleText = latest
     const locale = (card.dataset.locale === 'en' ? 'en' : 'es') as 'en' | 'es';
     const numLocale = locale === 'en' ? 'en-US' : 'es-CL';
 
-    interface Incident { title_es: string; title_en: string; date: string; outlet: string; url: string; family: string }
+    interface Incident { title_es: string; title_en: string; title_src?: string; date: string; outlet: string; url: string; family: string }
     interface IncidentsFile { generated: string; window_days: number; incidents: Incident[] }
 
     // LPX-14: palette duplicated from the canonical source — the family-color
@@ -240,13 +241,21 @@ const pulseStaleText = latest
         dot.className = 'pulse-dot';
         dot.style.background = FAM_DOT[i.family] || 'var(--muted)';
         dot.style.boxShadow = dotRing(i.family);
+        const h = headlineFor(i, locale);
+        const hLabel = headlineLabel(h.kind, locale);
         const title = document.createElement('span');
         title.className = 'pulse-headline';
-        title.textContent = locale === 'en' ? i.title_en || i.title_es : i.title_es;
-        title.title = title.textContent || '';
+        title.textContent = h.text;
+        title.title = h.text;
         const meta = document.createElement('span');
         meta.className = 'pulse-meta';
         meta.textContent = `${i.outlet} · ${dayLabel(i.date)}`;
+        if (hLabel) {
+          const note = document.createElement('span');
+          note.className = 'pulse-note';
+          note.textContent = hLabel;
+          meta.append(note);
+        }
         a.append(dot, title, meta);
         li.appendChild(a);
         listEl.appendChild(li);
@@ -331,6 +340,7 @@ const pulseStaleText = latest
   .pulse-card :global(.pulse-headline) { font-size: 13px; font-weight: var(--weight-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; flex: 1; }
   .pulse-card :global(.pulse-item:hover .pulse-headline) { text-decoration: underline; }
   .pulse-card :global(.pulse-meta) { font-size: 11px; color: var(--muted); flex-shrink: 0; }
+  .pulse-card :global(.pulse-note) { font-size: 11px; color: var(--muted); margin-left: 4px; }
 
   .pulse-link { margin-top: auto; padding-top: var(--sm); font-size: var(--text-label); font-weight: var(--weight-strong); color: var(--primary); text-decoration: none; }
   .pulse-link:hover { text-decoration: underline; }

@@ -5,10 +5,14 @@
  * Empty state: em-dash (section heading is always shown by parent).
  */
 
+import { headlineFor, headlineLabel } from '../../lib/incidentHeadline';
+
 export interface Incident {
   id: string;
   title_es: string;
   title_en: string;
+  title_src?: string;
+  via_url?: string;
   date: string;
   outlet: string;
   url: string;
@@ -32,10 +36,14 @@ export function IncidentsList({ incidents, lang }: Props) {
 
   return (
     <div className="incidents-list">
-      {incidents.map((e) => (
+      {incidents.map((e) => {
+        const h = headlineFor(e, lang);
+        const hLabel = headlineLabel(h.kind, lang);
+        return (
         <div className="event-row" key={e.id}>
           <div className="event-title">
-            {lang === 'es' ? e.title_es : e.title_en}
+            {h.text}
+            {hLabel && <span className="event-note">{hLabel}</span>}
           </div>
           <div className="event-meta">
             {e.date} · {e.outlet}
@@ -59,7 +67,8 @@ export function IncidentsList({ incidents, lang }: Props) {
             </a>
           )}
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

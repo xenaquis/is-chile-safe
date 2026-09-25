@@ -15,6 +15,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { FAMILY_LABELS_EN, FAMILY_LABELS_ES } from '../lib/familyDefs';
 import { EN_STRINGS, ES_STRINGS } from '../config/i18n.ts';
 import { computeEvidence, evidenceVerdict, COMMUNE_NEWS_STALE_HOURS } from '../lib/newsEvidence.mjs';
+import { headlineFor, headlineLabel } from '../lib/incidentHeadline';
 
 interface Incident {
   id: string;
@@ -23,6 +24,8 @@ interface Incident {
   lng: number;
   title_es: string;
   title_en: string;
+  title_src?: string;
+  via_url?: string;
   date: string;
   outlet: string;
   url: string;
@@ -107,7 +110,7 @@ const { cut, communeName, locale } = Astro.props;
 const t = locale === 'es' ? ES_STRINGS : EN_STRINGS;
 
 const all = loadIncidentsByCut().get(String(cut)) ?? [];
-const safe = all.filter((inc) => !hasForbiddenTerm(inc.title_es) && !hasForbiddenTerm(inc.title_en));
+const safe = all.filter((inc) => !hasForbiddenTerm(inc.title_es) && !hasForbiddenTerm(inc.title_en) && !hasForbiddenTerm(inc.title_src ?? ''));
 const items = safe.slice(0, 6);
 
 // FRESH-03: 168h (7 days) on the G-05 fallback evidence max(date)+1d of the
@@ -167,17 +170,18 @@ const staleNoteText = stale
     <p class="cnews-intro">{t.commune_news_intro.replace('{name}', communeName)}</p>
     <ul class="cnews-list">
       {items.map((incident) => {
-        const title = locale === 'es' ? incident.title_es : incident.title_en;
+        const h = headlineFor(incident, locale);
+        const hLabel = headlineLabel(h.kind, locale);
         const label = familyLabel(incident.family, locale);
         return (
           <li class="cnews-item" data-family={incident.family}>
             <span class="fam-dot" title={label} aria-hidden="true"></span>
             <span class="cnews-sr">{label}</span>
             <a class="cnews-link" href={safeUrl(incident.url)} target="_blank" rel="noopener noreferrer">
-              {title}
+              {h.text}
             </a>
             <span class="cnews-meta">
-              {incident.outlet} · <time datetime={incident.date}>{shortDate(incident.date)}</time>
+              {incident.outlet} · <time datetime={incident.date}>{shortDate(incident.date)}</time>{hLabel && <> · {hLabel}</>}
             </span>
           </li>
         );
