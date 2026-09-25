@@ -213,7 +213,18 @@ Plans:
   5. `CLAUDE.md`, `STATE.md`, `DEPLOYMENT.md` and `data/SOURCES.md` match the repo (classifier model, openai/astro versions, resolved blockers), with stale memory carry-overs cleared.
   6. The Oct-1 local CEAD scrape is executed on/after 2026-10-01 (operator step, local machine) and its outcome recorded — either new data committed with `deploy-manual` dispatched, or byte-identical output documented and the quarterly-cadence assumption re-evaluated.
   7. The GSC sitemap submission (carried over from 22-03) is done or formally retired.
-**Plans**: TBD
+**Plans**: 9 plans in 6 waves (site-building plans serialized, G-21(1)/G-62; 38-08 HYG-06 independent and date-gated ≥ 2026-10-01)
+
+Plans:
+- [ ] 38-01-PLAN.md — HYG-01 allowlist copy of data/incidents (ledgers not served) + validator public-data.mjs (W1, opus)
+- [ ] 38-02-PLAN.md — HYG-02 /map/ + /es/mapa/ retitled as the tool page with static H1; seo.mjs [MI] intent assertion; no noindex/redirect (W2, sonnet)
+- [ ] 38-03-PLAN.md — HYG-03 seen-ledger first_seen semantics + cutover-protected 60-day prune; scrape_news writes via mark_seen (W1, opus)
+- [ ] 38-04-PLAN.md — HYG-04 no continue-on-error on CEAD builders (supersedes D-11) + G-59 news checkout ref: master (W1, opus)
+- [ ] 38-05-PLAN.md — ResultPanel year tooltip derived from series + region evolution heading matches drawn years (W3, sonnet)
+- [ ] 38-06-PLAN.md — /news/ histogram covers every stored day (window_days+1) + news-freshness validator on page clock (W4, sonnet)
+- [ ] 38-07-PLAN.md — HYG-05 docs drift (SOURCES.md, CLAUDE.md stack, DEPLOYMENT.md incl. CEAD cache-first caveat + GSC operator block, STATE.md) + memory (W5, sonnet + orchestrator)
+- [ ] 38-08-PLAN.md — HYG-06 local CEAD scrape ≥ 2026-10-01 in an isolated worktree with an empty CEAD cache; commit/deploy or record (W1 independent, orchestrator)
+- [ ] 38-09-PLAN.md — close gate, push, G-51 served routes + HYG prod curls, live seen-ledger run, fresh opus validation, records + final report (W6, orchestrator)
 
 ## Progress Table
 
