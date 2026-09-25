@@ -281,7 +281,11 @@ const jsonLd = {
       chilenos y geolocalizados por comuna. Cada entrada enlaza al artículo fuente original y
       a la página de la comuna donde se dispone de mayor contexto estadístico CEAD. Los
       incidentes se extraen de feeds RSS y se clasifican mediante pipeline automatizado.
-      Se atribuye siempre la fuente; no se emiten veredictos absolutos sobre seguridad.
+      Se atribuye siempre la fuente; no se emiten veredictos absolutos sobre seguridad. Los
+      titulares en español se reproducen textualmente desde cada medio; los titulares en
+      inglés son traducciones automáticas y se indican como tales. Los ítems sin titular del
+      medio almacenado muestran un titular redactado por nuestro clasificador y se señalan
+      como tales.
     </p>
     <p class="freshness" data-latest-incident={latest ?? ''} data-build-now={new Date(buildNowMs).toISOString()}>
       {latest && <time datetime={latest}>{latestIncidentText}</time>}

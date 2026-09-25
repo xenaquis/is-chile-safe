@@ -282,7 +282,10 @@ const jsonLd = {
       by commune. Each entry links to its original source article and to the commune page where
       more CEAD statistical context is available. Incidents are extracted from RSS feeds and
       classified by our automated pipeline. Attribution is always provided; no absolute
-      risk verdicts are made.
+      risk verdicts are made. Spanish headlines are reproduced verbatim from each outlet;
+      English headlines are machine translations and are labelled as such. Items without a
+      stored outlet headline show a headline written by our classifier and are marked
+      accordingly.
     </p>
     <p class="freshness" data-latest-incident={latest ?? ''} data-build-now={new Date(buildNowMs).toISOString()}>
       {latest && <time datetime={latest}>{latestIncidentText}</time>}
