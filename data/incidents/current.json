@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-26T15:42:29.398766Z",
+  "generated": "2026-09-26T20:37:11.762307Z",
   "window_days": 30,
   "incidents": [
     {
@@ -9184,7 +9184,91 @@
       "slug": "antofagasta",
       "title_src": "PDI y Fiscalía desarrollan operativos por investigación de homicidio y tráfico de drogas en Antofagasta",
       "via_url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNSUdTR002T2psbEV2bzB5RUM5OWFXZ1hZd29STDZGRFFKa1JlZVBKWjgtRlpMck54b1haOUZCZHh1cTNKTVpVYUw0Yk9oY1JDVTZZbmVTUFJ2ZGhQTmZvanJ5VFJ0RlRySm1fVk5GaEhWT0dFc2xCSVd1ZzB0LUdWb0FRdGRMUlR6eXlMSGxrbjIwNWt2ZmJ4ek1LQjZEeVhkcGN5WVBobXVuZzYteGI5aWV0SU9iVkx1dV85Skt1VGhjQnlfenNxV2NtS0FaMHQ2MFFz?oc=5"
+    },
+    {
+      "id": "9b1fefca61c2f81a",
+      "cut": "8301",
+      "lat": -37.433606,
+      "lng": -72.323701,
+      "title_es": "Entraron a escuela de Los Ángeles para robar pero huyeron con las manos vacías tras ser descubiertos",
+      "title_en": "They entered a school in Los Ángeles to steal but fled empty-handed after being discovered",
+      "date": "2026-09-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/09/26/entraron-a-escuela-de-los-angeles-para-robar-pero-huyeron-con-las-manos-vacias-tras-ser-descubiertos.shtml",
+      "family": "propiedad",
+      "slug": "los-angeles",
+      "title_src": "Entraron a escuela de Los Ángeles para robar pero huyeron con las manos vacías tras ser descubiertos"
+    },
+    {
+      "id": "fe76a8573c7d8d19",
+      "cut": "15201",
+      "lat": -18.418566,
+      "lng": -69.333326,
+      "title_es": "Tras robo de vehículos municipales la diputada Jéldrez busca medidas para terminar con \"autos chutos\"",
+      "title_en": "After theft of municipal vehicles, deputy Jéldrez seeks measures to end \"chutos cars\"",
+      "date": "2026-09-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-arica-y-parinacota/2026/09/26/tras-robo-de-vehiculos-municipales-la-diputada-jeldrez-busca-medidas-para-terminar-con-autos-chutos.shtml",
+      "family": "propiedad",
+      "slug": "putre",
+      "title_src": "Tras robo de vehículos municipales la diputada Jéldrez busca medidas para terminar con \"autos chutos\""
+    },
+    {
+      "id": "5169fe428b5d678c",
+      "cut": "5601",
+      "lat": -33.662085,
+      "lng": -71.493518,
+      "title_es": "5 detenidos, drogas y 2 rifles incautados deja allanamiento en San Antonio: menor de edad implicado",
+      "title_en": "5 detained, drugs and 2 rifles seized in raid in San Antonio: minor involved",
+      "date": "2026-09-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-valparaiso/2026/09/26/5-detenidos-drogas-y-2-rifles-incautados-deja-allanamiento-en-san-antonio-menor-de-edad-implicado.shtml",
+      "family": "drogas",
+      "slug": "san-antonio",
+      "title_src": "5 detenidos, drogas y 2 rifles incautados deja allanamiento en San Antonio: menor de edad implicado"
+    },
+    {
+      "id": "658fce9a34216b39",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "Asesinan a balazos a conductor para robarle su automóvil durante encerrona en Recoleta",
+      "title_en": "Driver shot dead to steal his car during an encerrona in Recoleta",
+      "date": "2026-09-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/09/26/asesinan-a-balazos-a-conductor-para-robarle-su-automovil-durante-encerrona-en-recoleta.shtml",
+      "family": "vida",
+      "slug": "recoleta",
+      "title_src": "Asesinan a balazos a conductor para robarle su automóvil durante encerrona en Recoleta"
+    },
+    {
+      "id": "b854727ad70b7c99",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Narcos de San Bernardo tenían un fusil y munición de guerra",
+      "title_en": "San Bernardo drug traffickers had a rifle and war ammunition",
+      "date": "2026-09-26",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/narcos-de-san-bernardo-tenian-un-fusil-y-municion-de-guerra/2026-09-26/140536.html",
+      "family": "armas",
+      "slug": "san-bernardo",
+      "title_src": "Narcos de San Bernardo tenían un fusil y munición de guerra"
+    },
+    {
+      "id": "6962e178d1b4e779",
+      "cut": "10101",
+      "lat": -41.509945,
+      "lng": -72.83364,
+      "title_es": "Chomali destaca plan de Puerto Montt que traslada alcoholemias y constatación de lesiones fuera de las urgencias",
+      "title_en": "Chomali highlights Puerto Montt plan that moves alcohol tests and injury assessments out of emergency rooms",
+      "date": "2026-09-26",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/chomali-destaca-plan-de-puerto-montt-que-traslada-alcoholemias-y-constatacion-de-lesiones-fuera-de-las-urgencias/",
+      "family": "incivilidades",
+      "slug": "puerto-montt",
+      "title_src": "Chomali destaca plan de Puerto Montt que traslada alcoholemias y constatación de lesiones fuera de las urgencias"
     }
   ],
-  "last_new_incident_at": "2026-09-26T15:42:29.398766Z"
+  "last_new_incident_at": "2026-09-26T20:37:11.762307Z"
 }
