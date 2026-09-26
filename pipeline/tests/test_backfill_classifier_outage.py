@@ -460,7 +460,8 @@ def _apply(d, cache, **kw):
 @pytest.fixture
 def apply_case(tmp_path):
     rows = [
-        _row("n_ok_in_window01", date="2026-09-12"),
+        # FID-01 36-04: the stored headline is the row title minus " - <outlet>".
+        _row("n_ok_in_window01", date="2026-09-12", title="Asalto en Las Condes - BioBioChile"),
         _row("n_ok_archived001", date="2026-08-01"),
         _row("n_not_crime00001"),
         _row("n_parse_error001"),
@@ -468,7 +469,9 @@ def apply_case(tmp_path):
         _row("n_resolver_fail1"),
         _row("n_centroid_fail1"),
         _row("n_url_rejected01", url="ftp://bad.example/x"),
-        _row("n_dedup_dup00001", date="2026-09-10"),
+        _row("n_dedup_dup00001", date="2026-09-10",
+             title="Robo con violencia en Las Condes deja a un herido"),
+        _row("n_editorial00001", title="La comuna más peligrosa de Chile"),
         _row("n_api_error00001"),
         _row("n_uncached000001"),
         _row("n_excluded000001"),
@@ -493,6 +496,7 @@ def apply_case(tmp_path):
         cache_line("n_api_error00001", "api_error", error="APIConnectionError"),
         cache_line("n_excluded000001", "ok", output=_output()),
         cache_line("n_withheld000001", "ok", output=_output()),
+        cache_line("n_editorial00001", "ok", output=_output()),
     ])
     withhold = tmp_path / "scr" / "withhold.txt"
     withhold.write_text("# G-11\nn_withheld000001\n", encoding="utf-8")
@@ -526,7 +530,9 @@ def test_apply_full_split(apply_case, monkeypatch):
                if i["url"] == apply_case.rows["n_ok_in_window01"]["url"])
     row = apply_case.rows["n_ok_in_window01"]
     assert inc["date"] == row["date"] and inc["outlet"] == row["outlet"]
+    # FID-01 36-04: title_es == title_src (outlet headline), not the classifier's title_es
     assert inc["title_es"] == "Asalto en Las Condes" and inc["family"] == "robos_violentos"
+    assert inc["title_src"] == "Asalto en Las Condes"
     assert inc["title_en"] == "Vehicle theft in Las Condes"
     # G-07(a) / R-02
     assert cur["last_new_incident_at"] == lni_before
@@ -545,6 +551,7 @@ def test_apply_full_split(apply_case, monkeypatch):
         "n_commune_null01": "commune_null", "n_resolver_fail1": "resolver_fail",
         "n_centroid_fail1": "centroid_fail", "n_url_rejected01": "url_rejected",
         "n_dedup_dup00001": "dedup_duplicate", "n_excluded000001": "manual_exclusion",
+        "n_editorial00001": "editorial_filter",
     }
     for rid, stage in expect.items():
         assert items[rid]["rejection_stage"] == stage, rid
@@ -558,7 +565,8 @@ def test_apply_full_split(apply_case, monkeypatch):
     assert rep["by_stage"] == {s: 1 for s in expect.values()}
     assert rep["api_error_remaining"] == 1 and rep["not_attempted"] == 1
     assert rep["withheld"] == 1 and rep["excluded"] == 1
-    assert rep["selected"] == 13
+    assert rep["fidelity"] == {"title_en_fallbacks": 0, "editorial_filtered": 1}
+    assert rep["selected"] == 14  # +n_editorial00001 (36-04)
     assert (d / "seen.json").read_bytes() == seen_before
     # line endings preserved (LF fixtures stay LF even on Windows)
     for p in d.rglob("*.json"):
@@ -623,6 +631,43 @@ def test_apply_cli_writes_report(apply_case, monkeypatch, tmp_path, capsys):
     assert rep["window_cutoff"] == "2026-08-24"
 
 
+def test_apply_kinship_guard_falls_back_to_title_src(tmp_path):
+    # FID-07 / V-06: a wrong-kinship title_en is replaced by the verbatim headline.
+    row = _row("k000000000000001", date="2026-09-12",
+               title="Detienen a yerno de Rosamel Fierro - BioBioChile")
+    d = make_data_dir(tmp_path, [row])
+    cache = write_cache(tmp_path / "scr" / "c.jsonl", [cache_line(row["id"], "ok", output=_output(
+        title_es="Detienen a suegro", title_en="Grandfather of Rosamel Fierro arrested"))])
+    code, rep = _apply(d, cache)
+    assert code == 0 and rep["accepted_in_window"] == 1
+    inc = next(i for i in json.loads((d / "current.json").read_text("utf-8"))["incidents"]
+               if i["url"] == row["url"])
+    assert inc["title_src"] == inc["title_es"] == "Detienen a yerno de Rosamel Fierro"
+    assert inc["title_en"] == "Detienen a yerno de Rosamel Fierro"
+    assert rep["fidelity"] == {"title_en_fallbacks": 1, "editorial_filtered": 0}
+
+
+def test_classify_sends_entity_free_description(tmp_path):
+    # FID-06 parity: the stored raw description carries entities; the classifier
+    # must receive the same decoded text as the live path.
+    rid = "e000000000000001"
+    d = make_data_dir(tmp_path, [_row(rid, description=(
+        "Duane &#8220;Keffe D&#8221; Davis&nbsp;fue detenido por homicidio"))])
+    seen: list[str] = []
+
+    class Capturing(FakeRouter):
+        def classify(self, title, description, key=None):
+            seen.append(description)
+            return super().classify(title, description, key=key)
+
+    router = Capturing(default=result(Outcome.OK, output=_output()))
+    assert B.run_classify(B.select_outage_rows(d, SINCE), tmp_path / "scr" / "c.jsonl",
+                          router, meter(tmp_path)) == 0
+    assert len(seen) == 1
+    assert "“Keffe D”" in seen[0]
+    assert "&#" not in seen[0] and "&nbsp;" not in seen[0]
+
+
 # ---------------------------------------------------------------------------
 # Review / audit sample
 # ---------------------------------------------------------------------------
@@ -630,7 +675,7 @@ def test_apply_cli_writes_report(apply_case, monkeypatch, tmp_path, capsys):
 def test_review_prints_regex_hits(tmp_path, capsys):
     rows = [_row("q000000000000001", title="Detienen a hijo por robo"),
             _row("q000000000000002", title="Robo en local comercial"),
-            _row("q000000000000003", title="Asalto"),]
+            _row("q000000000000003", title="Asalto en México - BioBioChile"),]
     d = make_data_dir(tmp_path, rows)
     cache = write_cache(tmp_path / "scr" / "c.jsonl", [
         cache_line("q000000000000001", "ok", output=_output()),
@@ -642,6 +687,22 @@ def test_review_prints_regex_hits(tmp_path, capsys):
     assert "q000000000000001" in out and "q000000000000003" in out
     assert "q000000000000002" not in out
     assert "review_hits=2" in out
+    # premortem R-16: the review shows what gets published (title_src + guarded title_en)
+    hit = next(json.loads(x) for x in out.splitlines() if "q000000000000003" in x)
+    assert hit["title_src"] == "Asalto en México"
+    assert hit["title_en"] == "Vehicle theft in Las Condes" and hit["title_en_fallback"] is False
+    assert "title_es" not in hit
+
+
+def test_review_ignores_classifier_title_es(tmp_path, capsys):
+    # The classifier's own title_es is never published (FID-01) → never a review hit.
+    rows = [_row("q000000000000004", title="Asalto")]
+    d = make_data_dir(tmp_path, rows)
+    cache = write_cache(tmp_path / "scr" / "c.jsonl", [
+        cache_line("q000000000000004", "ok", output=_output(title_es="Asalto en México")),
+    ])
+    assert B.main(["--review", "--data-dir", str(d), "--cache", str(cache)]) == 0
+    assert "review_hits=0" in capsys.readouterr().out
 
 
 BIOBIO_GNEWS = dict(
@@ -695,7 +756,9 @@ def test_audit_sample_quotas_and_determinism(tmp_path, capsys):
     first = lines[0]
     for key in ("id", "stratum", "title", "description", "url", "outlet", "date", "output"):
         assert key in first
-    assert first["output"]["cut"] and first["output"]["slug"] and first["output"]["title_es"]
+    assert first["output"]["cut"] and first["output"]["slug"] and first["output"]["title_src"]
+    assert first["output"]["title_en"] and first["output"]["title_en_fallback"] is False
+    assert "title_es" not in first["output"]  # premortem R-16
 
 
 def test_audit_sample_exit_5_when_stratum_empty(tmp_path, capsys):

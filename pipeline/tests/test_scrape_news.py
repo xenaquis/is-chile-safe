@@ -477,6 +477,8 @@ def test_incident_field_names_match_ts_interface(tmp_path, monkeypatch):
     incident = data["incidents"][0]
     missing = required_fields - set(incident.keys())
     assert not missing, f"Incident missing TS interface fields: {missing}"
+    # FID-01 36-04: the stored Spanish headline is the outlet's verbatim headline
+    assert incident["title_src"] == incident["title_es"] == _CRIME_ENTRY_1.title
 
 
 # ---------------------------------------------------------------------------
@@ -937,6 +939,7 @@ def test_mixed_run_summary_schema_and_github_output(tmp_path, monkeypatch, caplo
         "not_attempted", "downstream_rejects", "preflight", "primary", "backup",
         "skipped_reason", "empty_content", "finish_length", "redispatched",
         "recovered_by_redispatch", "budget_exhausted", "served_by_counts",
+        "fidelity",  # FID-01 36-04 (dict -> never a GITHUB_OUTPUT line)
     }
     assert s["schema"] == 1
     assert (s["attempted"], s["responded"], s["accepted"], s["genuine_rejects"],
@@ -954,6 +957,7 @@ def test_mixed_run_summary_schema_and_github_output(tmp_path, monkeypatch, caplo
                      "failover_reason=", "schema=1", "preflight=skipped"):
         assert expected in lines, expected
     assert not any(l.startswith("served_by_counts") for l in lines)
+    assert not any(l.startswith("fidelity") for l in lines)  # FID-01 36-04
 
     assert "Classification summary: classified=1, rejected=3" in caplog.text
     assert '"preflight": "skipped"' in caplog.text  # Run summary log line (sort_keys JSON)
@@ -990,3 +994,158 @@ def test_no_api_key_summary_only_when_path_set(tmp_path, monkeypatch):
     s = _summary(tmp_path)
     assert s["skipped_reason"] == "no_api_key" and s["attempted"] == 0
     assert not data_dir.exists() or list(data_dir.rglob("*.json")) == []
+
+
+# ---------------------------------------------------------------------------
+# 36-04 (FID-01 / FID-06 / FID-07, G-28, G-29, premortem R-14): verbatim
+# headline, guarded title_en, editorial filter, per-row safety in the OK path
+# ---------------------------------------------------------------------------
+
+_GNEWS_FEEDS = {"GoogleNewsCalama": "https://news.google.com/rss/search?q=calama"}
+
+
+def _gnews_entry(title, link, description="Robo con violencia en Calama.", outlet="soychile.cl"):
+    e = _make_entry(title=title, link=link, guid=link, description=description,
+                    pub_date=_recent_iso(8))
+    e.source = {"title": outlet}
+    return e
+
+
+def _run_feeds(tmp_path, monkeypatch, feeds, entries, router_cm, *, patches=()):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-fake")
+    monkeypatch.setenv("NEWS_DATA_DIR", str(tmp_path))
+    monkeypatch.setenv("NEWS_RUN_SUMMARY_PATH", str(tmp_path / "run-summary.json"))
+    from contextlib import ExitStack
+    with ExitStack() as stack:
+        stack.enter_context(patch("pipeline.news.feeds.FEEDS", feeds))
+        stack.enter_context(patch("pipeline.news.feeds.fetch_feed", return_value=list(entries)))
+        build = stack.enter_context(router_cm)
+        stack.enter_context(patch("pipeline.news.resolver.resolve_cut",
+                                  return_value=(_VALID_CUT, "santiago")))
+        stack.enter_context(patch("pipeline.news.centroids.get_centroid",
+                                  return_value=(-33.45, -70.67)))
+        for p in patches:
+            stack.enter_context(p)
+        import pipeline.scrape_news as sn
+        rc = sn.main()
+    return rc, build.return_value
+
+
+def _current(tmp_path) -> list:
+    p = tmp_path / "current.json"
+    return json.loads(p.read_text(encoding="utf-8"))["incidents"] if p.exists() else []
+
+
+def _out(title_en: str):
+    return _make_classifier_output().model_copy(update={"title_en": title_en})
+
+
+def test_fid01_gnews_title_src_stored_verbatim(tmp_path, monkeypatch):
+    e = _gnews_entry("Detienen a sujeto en Calama - soychile.cl",
+                     "https://news.google.com/rss/articles/CBMi-calama-1")
+    rc, fake = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e],
+                          _patch_router(_out("Man arrested in Calama")))
+    assert rc == 0
+    [inc] = _current(tmp_path)
+    assert inc["title_src"] == inc["title_es"] == "Detienen a sujeto en Calama"
+    assert inc["title_en"] == "Man arrested in Calama"
+    assert inc["outlet"] == "soychile.cl"
+    # classify input stays the raw feed title (G-16 / 36-02 format)
+    assert fake.calls[0][0] == "Detienen a sujeto en Calama - soychile.cl"
+    assert _summary(tmp_path)["fidelity"] == {"title_en_fallbacks": 0, "editorial_filtered": 0}
+
+
+def test_fid07_kinship_mismatch_falls_back_to_title_src(tmp_path, monkeypatch):
+    e = _gnews_entry("Detienen a yerno de Rosamel Fierro por robo - soychile.cl",
+                     "https://news.google.com/rss/articles/CBMi-yerno-1")
+    rc, _ = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e],
+                       _patch_router(_out("Grandfather of Rosamel Fierro arrested for robbery")))
+    assert rc == 0
+    [inc] = _current(tmp_path)
+    assert inc["title_src"] == "Detienen a yerno de Rosamel Fierro por robo"
+    assert inc["title_en"] == inc["title_src"]
+    assert _summary(tmp_path)["fidelity"]["title_en_fallbacks"] == 1
+
+
+def test_g29_editorial_filter_rejects_forbidden_headline(tmp_path, monkeypatch):
+    e = _gnews_entry("Balacera en la comuna más peligrosa de Santiago - soychile.cl",
+                     "https://news.google.com/rss/articles/CBMi-forbidden-1")
+    rc, _ = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e],
+                       _patch_router(_out("Shooting in Santiago")))
+    assert rc == 0
+    assert _current(tmp_path) == []
+    assert _rejected_stages(tmp_path) == {e.link: "editorial_filter"}
+    assert e.link in _read_seen(tmp_path)
+    s = _summary(tmp_path)
+    assert s["downstream_rejects"] == 1 and s["accepted"] == 0
+    assert s["fidelity"] == {"title_en_fallbacks": 0, "editorial_filtered": 1}
+
+
+def test_g29_editorial_filter_on_title_en(tmp_path, monkeypatch):
+    e = _gnews_entry("Balacera en Santiago - soychile.cl",
+                     "https://news.google.com/rss/articles/CBMi-forbidden-2")
+    rc, _ = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e],
+                       _patch_router(_out("Shooting in the most dangerous commune")))
+    assert rc == 0 and _current(tmp_path) == []
+    assert _rejected_stages(tmp_path) == {e.link: "editorial_filter"}
+
+
+def test_fid06_classify_receives_entity_free_description(tmp_path, monkeypatch):
+    e = _gnews_entry("Detienen a sujeto por homicidio - soychile.cl",
+                     "https://news.google.com/rss/articles/CBMi-keffe-1",
+                     description="Duane &#8220;Keffe D&#8221; Davis&nbsp;fue detenido por homicidio")
+    cm = _patch_router(_out("Man arrested for homicide"))
+    fake = cm.kwargs["return_value"]
+    seen_desc: list[str] = []
+    real_classify = fake.classify
+
+    def capture(title, description, key=None):
+        seen_desc.append(description)
+        return real_classify(title, description, key=key)
+
+    fake.classify = capture
+    rc, _ = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e], cm)
+    assert rc == 0
+    assert len(seen_desc) == 1
+    assert "“Keffe D”" in seen_desc[0]
+    assert "&#" not in seen_desc[0] and "&nbsp;" not in seen_desc[0]
+
+
+def test_queued_item_derives_title_src_and_pending_never_stores_it(tmp_path, monkeypatch):
+    e = _gnews_entry("Detienen a sujeto en Calama - soychile.cl",
+                     "https://news.google.com/rss/articles/CBMi-queued-1")
+    rc1, _ = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e], _patch_router(_api()))
+    assert rc1 == 0
+    [pend] = _read_pending(tmp_path)
+    assert "title_src" not in pend
+    assert pend["title"] == "Detienen a sujeto en Calama - soychile.cl"
+    rc2, _ = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [],
+                        _patch_router(_out("Man arrested in Calama")))
+    assert rc2 == 0
+    [inc] = _current(tmp_path)
+    assert inc["title_src"] == inc["title_es"] == "Detienen a sujeto en Calama"
+
+
+def test_r14_invalid_record_rejected_per_row(tmp_path, monkeypatch):
+    long_title = ("Robo con violencia en Santiago " * 20)[:401]
+    assert len(long_title) == 401
+    bad = _make_entry(title=long_title, link="https://www.biobiochile.cl/noticias/long.shtml",
+                      guid="https://www.biobiochile.cl/?p=long",
+                      description="Asalto en la vía pública.", pub_date=_recent_iso(8))
+    rc, _ = _run_feeds(tmp_path, monkeypatch, _TEST_FEEDS, [bad, _CRIME_ENTRY_2],
+                       _patch_router(_make_classifier_output()))
+    assert rc == 0
+    assert [i["url"] for i in _current(tmp_path)] == [_CRIME_ENTRY_2.link]
+    assert _rejected_stages(tmp_path) == {bad.link: "invalid_record"}
+    assert bad.link in _read_seen(tmp_path)
+    assert _summary(tmp_path)["downstream_rejects"] == 1
+
+
+def test_r14_build_incident_none_rejected_per_row(tmp_path, monkeypatch):
+    rc, _ = _run_feeds(tmp_path, monkeypatch, _TEST_FEEDS, [_CRIME_ENTRY_1],
+                       _patch_router(_make_classifier_output()),
+                       patches=[patch("pipeline.news.store.build_incident", return_value=None)])
+    assert rc == 0
+    assert _current(tmp_path) == []
+    assert _rejected_stages(tmp_path) == {_CRIME_ENTRY_1.link: "url_rejected"}
+    assert _summary(tmp_path)["downstream_rejects"] == 1

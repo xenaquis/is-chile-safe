@@ -517,6 +517,8 @@ def run_classify(
     Actions job; this local tool has no such limit (3,695 ms/item measured for
     DeepSeek at gate R1 → 1200 s would cover only ~325 items).
     """
+    from pipeline.news.feeds import strip_html
+
     router.budget_s = float("inf")
 
     cache = load_cache(cache_path)
@@ -541,7 +543,10 @@ def run_classify(
                     meter.cap, meter.total,
                 )
                 return EXIT_CAP
-            res = router.classify(row["title"] or "", row["description"] or "", key=row["id"])
+            # FID-06: the stored raw description carries HTML entities (2,782/4,427
+            # rows) — hand the classifier the same entity-free text as the live path.
+            res = router.classify(row["title"] or "", strip_html(row["description"] or ""),
+                                  key=row["id"])
             if res is None:
                 logger.error("classify: router exhausted after %d attempts — exit 4", n - 1)
                 return EXIT_EXHAUSTED
@@ -595,6 +600,8 @@ def run_apply(
     spend_ledger: pathlib.Path | None = None,
 ) -> tuple[int, dict]:
     from pipeline.news import centroids, dedup, resolver, store
+    from pipeline.news.feeds import source_headline
+    from pipeline.news.fidelity import forbidden_term, guard_title_en
     from pipeline.news.schema import ClassifierOutput, IncidentRecord
     from pydantic import ValidationError
 
@@ -656,10 +663,21 @@ def run_apply(
             stage_of[rid] = ("centroid_fail", model_label)
             continue
         lat, lng = centroid
+        # FID-01 (G-28): the outlet's verbatim headline is the stored Spanish
+        # headline; the classifier's title_en passes the kinship guard (FID-07).
+        outlet = row.get("outlet") or ""
+        title_src = source_headline(row.get("title") or "", outlet)
+        title_en, fell_back = guard_title_en(title_src, out.title_en, outlet)
+        if forbidden_term(title_src) or forbidden_term(title_en):
+            stage_of[rid] = ("editorial_filter", model_label)  # G-29
+            counts["editorial_filtered"] += 1
+            continue
+        if fell_back:
+            counts["title_en_fallbacks"] += 1
         incident = store.build_incident(
             url=row["url"], cut=cut, lat=lat, lng=lng,
-            title_es=out.title_es, title_en=out.title_en,
-            date=row.get("date") or "", outlet=row.get("outlet") or "",
+            title_src=title_src, title_en=title_en,
+            date=row.get("date") or "", outlet=outlet,
             family=out.family, slug=slug,
         )
         if incident is None:
@@ -756,6 +774,8 @@ def run_apply(
         "not_attempted": counts["not_attempted"],
         "withheld": counts["withheld"],
         "excluded": counts["excluded"],
+        "fidelity": {"title_en_fallbacks": counts["title_en_fallbacks"],
+                     "editorial_filtered": counts["editorial_filtered"]},
         "spend_usd": spend,
         "window_cutoff": cutoff.isoformat(),
         "last_new_incident_at_before": None if lni_before == "<absent>" else lni_before,
@@ -810,18 +830,31 @@ def _ok_items(rows: list[dict], cache: dict[str, dict]) -> list[tuple[dict, dict
             if cache.get(r["id"], {}).get("outcome") == "ok" and cache[r["id"]].get("output")]
 
 
+def _published_headlines(row: dict, output: dict) -> dict:
+    """What run_apply would publish (premortem R-16): the outlet's verbatim headline
+    (title_src) and the guarded title_en — never the classifier's title_es."""
+    from pipeline.news.feeds import source_headline
+    from pipeline.news.fidelity import guard_title_en
+
+    outlet = row.get("outlet") or ""
+    title_src = source_headline(row.get("title") or "", outlet)
+    title_en, fell_back = guard_title_en(title_src, output.get("title_en"), outlet)
+    return {"title_src": title_src, "title_en": title_en, "title_en_fallback": fell_back}
+
+
 def run_review(rows: list[dict], cache: dict[str, dict], out=None) -> int:
     out = out or sys.stdout
     hits = 0
     for row, rec in _ok_items(rows, cache):
         output = rec["output"]
+        shown = _published_headlines(row, output)
         text = " ".join([row.get("title") or "", row.get("description") or "",
-                         output.get("title_es") or ""])
+                         shown["title_src"]])
         if REVIEW_RE.search(text):
             hits += 1
             print(json.dumps({
                 "id": row["id"], "date": row.get("date"), "family": output.get("family"),
-                "title_es": output.get("title_es"), "source_title": row.get("title"),
+                **shown, "source_title": row.get("title"),
             }, ensure_ascii=False), file=out)
     print(f"review_hits={hits}", file=out)
     return EXIT_OK
@@ -903,8 +936,8 @@ def run_audit_sample(
                 "commune_name": o.get("commune_name"), "region_hint": o.get("region_hint"),
                 "cut": resolved[0] if resolved else None,
                 "slug": resolved[1] if resolved else None,
-                "family": o.get("family"), "title_es": o.get("title_es"),
-                "title_en": o.get("title_en"), "confidence": o.get("confidence"),
+                "family": o.get("family"), **_published_headlines(r, o),
+                "confidence": o.get("confidence"),
             },
             "model": f"{c.get('provider')}:{c.get('model')}",
         }, ensure_ascii=False))

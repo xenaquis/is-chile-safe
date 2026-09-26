@@ -283,12 +283,15 @@ def main() -> int:
             parse_pub_date,
             resolve_outlet,
             save_seen,
+            source_headline,
             strip_html,
         )
         from pipeline.news.centroids import get_centroid
+        from pipeline.news.fidelity import forbidden_term, guard_title_en
         from pipeline.news.dedup import deduplicate
         from pipeline.news.store import build_incident, make_id, merge_and_write
-        from pipeline.news.schema import VALID_CUTS
+        from pipeline.news.schema import VALID_CUTS, IncidentRecord
+        from pydantic import ValidationError
         from pipeline.news.resolver import resolve_cut
         from pipeline.news.fulltext import REQUEST_DELAY
         from pipeline.news import pending as pq
@@ -370,12 +373,16 @@ def main() -> int:
                     # Mark as seen within this run to deduplicate across feeds/entries
                     seen_set.add(url)
 
+                    outlet = resolve_outlet(entry, feed_name)
                     fresh.append({
                         "url": url,
                         "title": title,
                         "description": description,
                         "date": pub_date.isoformat(),
-                        "outlet": resolve_outlet(entry, feed_name),
+                        "outlet": outlet,
+                        # FID-01 (G-28): the outlet's verbatim headline; derived, so
+                        # never persisted to pending.json (upsert_failure picks keys).
+                        "title_src": source_headline(title, outlet),
                     })
 
             except Exception as exc:
@@ -392,6 +399,8 @@ def main() -> int:
             {k: p.get(k) or "" for k in ("url", "title", "description", "date", "outlet")}
             for p in sorted(pending, key=lambda p: (p.get("first_queued") or "", p.get("id") or ""))
         ]
+        for q in queued_candidates:
+            q["title_src"] = source_headline(q["title"], q["outlet"])  # FID-01
         if queued_candidates:
             logger.info("Retry queue: %d pending item(s) re-attempted first", len(queued_candidates))
         candidates = queued_candidates + fresh
@@ -409,6 +418,8 @@ def main() -> int:
         classified = 0
         rejected = 0
         downstream_rejects = 0
+        title_en_fallbacks = 0
+        editorial_filtered = 0
         not_attempted = 0
         redispatched = 0
         recovered_by_redispatch = 0
@@ -423,6 +434,7 @@ def main() -> int:
         def _answered(item: dict, key: str, res) -> None:
             """A provider answered (OK / NOT_CRIME / PARSE_ERROR)."""
             nonlocal pending, classified, rejected, downstream_rejects
+            nonlocal title_en_fallbacks, editorial_filtered
             # Leaves the retry queue (this also reverses any attempt increment made
             # earlier in this run when the backup recovers it — R-04).
             pending = pq.remove(pending, key)
@@ -471,18 +483,50 @@ def main() -> int:
                 return
 
             lat, lng = centroid
+
+            def _downstream_reject(stage: str) -> None:
+                nonlocal rejected, downstream_rejects
+                rejected += 1
+                downstream_rejects += 1
+                rejected_items.append({**item, "rejection_stage": stage})
+
+            # FID-01 / FID-07 (G-28): store the outlet's verbatim headline; the
+            # classifier's title_en passes the deterministic kinship guard.
+            title_en, fell_back = guard_title_en(item["title_src"], result.title_en, item["outlet"])
+            # G-29 editorial filter: absolute safety wording is never published.
+            term = forbidden_term(item["title_src"]) or forbidden_term(title_en)
+            if term:
+                logger.info("Rejected (editorial filter %r): title=%r", term, item["title"][:60])
+                editorial_filtered += 1
+                _downstream_reject("editorial_filter")
+                return
+            if fell_back:
+                title_en_fallbacks += 1
+
             incident = build_incident(
                 url=item["url"],
                 cut=cut,
                 lat=lat,
                 lng=lng,
-                title_es=result.title_es,
-                title_en=result.title_en,
+                title_src=item["title_src"],
+                title_en=title_en,
                 date=item["date"],
                 outlet=item["outlet"],
                 family=result.family,
                 slug=slug,
             )
+            # Per-row guard (premortem R-14; mirrors the backfill twin): a None or a
+            # schema-invalid incident is rejected on its own — never a crash in
+            # deduplicate() and never an all-or-nothing skip in merge_and_write().
+            if incident is None:
+                _downstream_reject("url_rejected")
+                return
+            try:
+                IncidentRecord.model_validate(incident)
+            except ValidationError as exc:
+                logger.warning("Rejected (invalid record): url=%s: %s", item["url"], exc)
+                _downstream_reject("invalid_record")
+                return
             new_incidents.append(incident)
             classified += 1
 
@@ -551,6 +595,11 @@ def main() -> int:
             "redispatched": redispatched,
             "recovered_by_redispatch": recovered_by_redispatch,
             "served_by_counts": dict(sorted(served_by_counts.items())),
+            # FID-01 36-04: dict → skipped by _emit_summary's GITHUB_OUTPUT scalars.
+            "fidelity": {
+                "title_en_fallbacks": title_en_fallbacks,
+                "editorial_filtered": editorial_filtered,
+            },
         })
 
         # Persist rejected candidates for selection-bias research corpus

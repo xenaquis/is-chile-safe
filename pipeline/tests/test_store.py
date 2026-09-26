@@ -101,7 +101,7 @@ def test_build_incident_passes_slug():
         cut="13101",
         lat=-33.456,
         lng=-70.654,
-        title_es="Incidente con slug",
+        title_src="Incidente con slug",
         title_en="Incident with slug",
         date="2026-06-13",
         outlet="BioBio Chile",
@@ -119,7 +119,7 @@ def test_build_incident_accepts_http_url():
         cut="13101",
         lat=-33.456,
         lng=-70.654,
-        title_es="Incidente http",
+        title_src="Incidente http",
         title_en="Incident http",
         date="2026-06-15",
         outlet="BioBio Chile",
@@ -137,7 +137,7 @@ def test_build_incident_accepts_https_url():
         cut="13101",
         lat=-33.456,
         lng=-70.654,
-        title_es="Incidente https",
+        title_src="Incidente https",
         title_en="Incident https",
         date="2026-06-15",
         outlet="BioBio Chile",
@@ -155,7 +155,7 @@ def test_build_incident_rejects_javascript_url():
         cut="13101",
         lat=-33.456,
         lng=-70.654,
-        title_es="Incidente malicioso",
+        title_src="Incidente malicioso",
         title_en="Malicious incident",
         date="2026-06-15",
         outlet="BioBio Chile",
@@ -172,7 +172,7 @@ def test_build_incident_rejects_data_url():
         cut="13101",
         lat=-33.456,
         lng=-70.654,
-        title_es="Incidente data",
+        title_src="Incidente data",
         title_en="Data incident",
         date="2026-06-15",
         outlet="BioBio Chile",
@@ -189,7 +189,7 @@ def test_build_incident_rejects_ftp_url():
         cut="13101",
         lat=-33.456,
         lng=-70.654,
-        title_es="Incidente ftp",
+        title_src="Incidente ftp",
         title_en="FTP incident",
         date="2026-06-15",
         outlet="BioBio Chile",
@@ -206,7 +206,7 @@ def test_build_incident_rejects_malformed_url():
         cut="13101",
         lat=-33.456,
         lng=-70.654,
-        title_es="Incidente malformado",
+        title_src="Incidente malformado",
         title_en="Malformed incident",
         date="2026-06-15",
         outlet="BioBio Chile",
@@ -227,7 +227,7 @@ def test_merge_and_write_excludes_invalid_url_incidents(tmp_path):
         cut="13101",
         lat=-33.456,
         lng=-70.654,
-        title_es="Válido",
+        title_src="Válido",
         title_en="Valid",
         date=_fresh_date(),
         outlet="BioBio Chile",
@@ -622,39 +622,23 @@ def test_build_incident_via_url_emitted():
     assert list(inc.keys())[-2:] == ["title_src", "via_url"]
 
 
-def test_build_incident_legacy_title_es_shape_unchanged():
-    from pipeline.news.store import build_incident, make_id
-    inc = build_incident(title_es="Y", **_BI_COMMON)
-    assert inc == {
-        "id": make_id(_BI_COMMON["url"]),
-        "cut": "13101",
-        "lat": -33.456,
-        "lng": -70.654,
-        "title_es": "Y",
-        "title_en": "Son-in-law of X arrested",
-        "date": "2026-09-24",
-        "outlet": "soychile.cl",
-        "url": _BI_COMMON["url"],
-        "family": "propiedad",
-        "slug": None,
-    }
-    assert list(inc.keys()) == [
-        "id", "cut", "lat", "lng", "title_es", "title_en", "date",
-        "outlet", "url", "family", "slug",
-    ]
-
-
-def test_build_incident_title_src_wins_over_title_es():
+def test_build_incident_legacy_title_es_removed():
+    # FID-01 36-04: the legacy title_es argument is gone — the classifier no longer
+    # authors the stored Spanish headline.
     from pipeline.news.store import build_incident
-    inc = build_incident(title_src="Fuente", title_es="LLM", **_BI_COMMON)
-    assert inc["title_src"] == "Fuente"
-    assert inc["title_es"] == "Fuente"
+    with pytest.raises(TypeError):
+        build_incident(title_es="Y", **_BI_COMMON)
+    with pytest.raises(TypeError):
+        build_incident(title_src="Fuente", title_es="LLM", **_BI_COMMON)
 
 
 def test_build_incident_requires_a_title():
     from pipeline.news.store import build_incident
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         build_incident(**_BI_COMMON)
+    for bad in ("", "   ", None):
+        with pytest.raises(ValueError):
+            build_incident(title_src=bad, **_BI_COMMON)
 
 
 def test_build_incident_rejects_non_http_via_url(caplog):

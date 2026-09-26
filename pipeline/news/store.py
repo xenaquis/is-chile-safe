@@ -58,9 +58,8 @@ def build_incident(
     date: str,
     outlet: str,
     family: str,
+    title_src: str,
     slug: str | None = None,
-    title_src: str | None = None,
-    title_es: str | None = None,
     via_url: str | None = None,
 ) -> dict | None:
     """Build a validated incident dict ready for merge_and_write.
@@ -70,17 +69,14 @@ def build_incident(
     or None if the url (or via_url, when given) scheme is not http/https
     (TD-05, T-19-04, FID-04).
 
-    Headline (FID-01, G-28):
-    - title_src given: the outlet's verbatim headline; title_es := title_src and
-      the dict gains "title_src" (and "via_url" when not None) after "slug".
-      title_src wins if title_es is also passed.
-    - only title_es given (legacy callers until 36-04): exactly the pre-36 dict —
-      same keys, same order, no title_src/via_url (FRESH-04 no-op guard compares
-      dicts by equality).
-    - neither: ValueError.
+    Headline (FID-01, G-28): title_src is the outlet's verbatim headline and is
+    required (keyword-only, non-empty; ValueError otherwise). title_es := title_src
+    and the dict gains "title_src" (and "via_url" when not None) after "slug".
+    The legacy title_es argument was removed in 36-04: the classifier no longer
+    authors the stored Spanish headline.
     """
-    if title_src is None and title_es is None:
-        raise ValueError("build_incident needs title_src (FID-01)")
+    if not isinstance(title_src, str) or not title_src.strip():
+        raise ValueError("build_incident needs a non-empty title_src (FID-01)")
     if not is_safe_url(url):
         logger.warning("build_incident: rejected non-http(s) url %r", url)
         return None
@@ -92,7 +88,7 @@ def build_incident(
         "cut": cut,
         "lat": lat,
         "lng": lng,
-        "title_es": title_src if title_src is not None else title_es,
+        "title_es": title_src,
         "title_en": title_en,
         "date": date,
         "outlet": outlet,
@@ -100,8 +96,7 @@ def build_incident(
         "family": family,
         "slug": slug,
     }
-    if title_src is not None:
-        incident["title_src"] = title_src
+    incident["title_src"] = title_src
     if via_url is not None:
         incident["via_url"] = via_url
     return incident
