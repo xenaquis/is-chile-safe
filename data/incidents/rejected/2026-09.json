@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-26T03:17:51.395928+00:00",
+  "generated": "2026-09-26T10:44:58.503779+00:00",
   "items": [
     {
       "id": "20fa2eef6eb80e51",
@@ -25360,6 +25360,36 @@
       "description": "Nacional. AHORA, una persona muere tras recibir disparos desde automóvil en movimiento  Serena y Coquimbo",
       "rejection_stage": "low_confidence",
       "first_seen": "2026-09-26T03:17:51.395928+00:00"
+    },
+    {
+      "id": "6c469ffa819fa3a5",
+      "url": "https://www.latercera.com/mundo/noticia/gary-rivlin-pulitzer-lo-que-mas-me-aterra-son-los-humanos-que-utilizan-la-ia/",
+      "outlet": "LaTercera",
+      "date": "2026-09-26",
+      "title": "Gary Rivlin (Pulitzer): “Lo que más me aterra son los humanos que utilizan la IA”",
+      "description": "Luego de dos semanas de pánico alrededor de las advertencias de un posible “apocalipsis IA”, el experto analiza qué tomarse en serio y qué no frente a las alarmas.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-09-26T10:44:58.503779+00:00"
+    },
+    {
+      "id": "4427b84be42a719c",
+      "url": "https://www.latercera.com/nacional/noticia/acusados-de-fraude-por-5350-millones-mediante-licencias-falsas-este-lunes-inicia-juicio-a-clan-los-quilodran/",
+      "outlet": "LaTercera",
+      "date": "2026-09-26",
+      "title": "Acusados de fraude por $5.350 millones mediante licencias falsas: este lunes inicia juicio a clan “Los Quilodrán”",
+      "description": "El Ministerio Público acusa a la organización familiar de crear empresas de fachada y contratar a falsos trabajadores para obtener subsidios por incapacidad laboral. Entre los delitos imputados figuran asociación ilícita, lavado de activos y fraude de subvenciones.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-09-26T10:44:58.503779+00:00"
+    },
+    {
+      "id": "5d3d50601c75b5bc",
+      "url": "https://reporteconfidencial.info/2026/09/25/prision-preventiva-venezolano/",
+      "outlet": "Reporte Confidencial",
+      "date": "2026-09-25",
+      "title": "Dictan prisión preventiva contra venezolano investigado por homicidio de un haitiano en Chile - Reporte Confidencial",
+      "description": "Dictan prisión preventiva contra venezolano investigado por homicidio de un haitiano en Chile  Reporte Confidencial",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-09-26T10:44:58.503779+00:00"
     }
   ]
 }
