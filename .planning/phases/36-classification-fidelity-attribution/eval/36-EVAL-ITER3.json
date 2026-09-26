@@ -1,0 +1,123 @@
+{
+  "not_crime": {
+    "total": 24,
+    "rejected": 18,
+    "rate": 0.75
+  },
+  "not_crime_by_category": {
+    "accident": {
+      "n": 6,
+      "rejected": 3,
+      "rate": 0.5,
+      "rate_reported": true
+    },
+    "death_no_crime": {
+      "n": 3,
+      "rejected": 1,
+      "rate": 0.3333333333333333,
+      "rate_reported": true
+    },
+    "fire_emergency": {
+      "n": 2,
+      "rejected": 1,
+      "rate": 0.5,
+      "rate_reported": false
+    },
+    "institutional_preventive": {
+      "n": 13,
+      "rejected": 13,
+      "rate": 1.0,
+      "rate_reported": true
+    }
+  },
+  "v2_uncontested": {
+    "commune_correct": 41,
+    "family_correct": 40,
+    "total": 41
+  },
+  "v2_all44": {
+    "commune_correct": 43,
+    "family_correct": 42,
+    "total": 44
+  },
+  "contested_v2": {
+    "gs-030": {
+      "status": "ok",
+      "rejected_in_prod": false,
+      "predicted_family": "incivilidades",
+      "commune_match": true,
+      "family_match": true
+    },
+    "gs-032": {
+      "status": "low_conf",
+      "rejected_in_prod": true,
+      "predicted_family": "incivilidades",
+      "commune_match": false,
+      "family_match": false
+    },
+    "gs-038": {
+      "status": "ok",
+      "rejected_in_prod": false,
+      "predicted_family": "propiedad",
+      "commune_match": true,
+      "family_match": true
+    }
+  },
+  "boundary": {
+    "correct": 7,
+    "total": 8
+  },
+  "parse_errors": 0,
+  "empty_content_count": 0,
+  "finish_length_count": 0,
+  "null_v2_correct": 3,
+  "null_v2_total": 3,
+  "confusion_matrix": {
+    "robos_violentos": {
+      "robos_violentos": 11
+    },
+    "propiedad": {
+      "propiedad": 6,
+      "rejected": 1,
+      "robos_violentos": 1
+    },
+    "drogas": {
+      "drogas": 8
+    },
+    "vif": {
+      "vif": 4
+    },
+    "armas": {
+      "armas": 5,
+      "incivilidades": 1
+    },
+    "vida": {
+      "vida": 10
+    },
+    "incivilidades": {
+      "incivilidades": 4
+    },
+    "null": {
+      "null_item": 3
+    },
+    "not_crime": {
+      "null_item": 24
+    },
+    "sexuales": {
+      "sexuales": 1
+    }
+  },
+  "gate": {
+    "not_crime_rate_ge_080": false,
+    "v2_commune_uncontested_ge_39": true,
+    "v2_family_uncontested_ge_37": true,
+    "parse_errors_eq_0": true,
+    "empty_eq_0": true,
+    "finish_length_eq_0": true,
+    "null_v2_correct_eq_3": true,
+    "pass": false
+  },
+  "spend_usd": 0.020575,
+  "model": "deepseek/deepseek-v4.1-flash",
+  "provider": "openrouter"
+}

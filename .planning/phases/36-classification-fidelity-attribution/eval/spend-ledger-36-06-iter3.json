@@ -1,0 +1,479 @@
+{
+  "total_usd": 0.020575,
+  "calls": [
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0001572704,
+      "ts": 1790388733.9748058
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000351972,
+      "ts": 1790388734.8755634
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.13008e-05,
+      "ts": 1790388736.4637208
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0014487,
+      "ts": 1790388737.833255
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000196344,
+      "ts": 1790388738.6605685
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000207144,
+      "ts": 1790388739.7771914
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000205944,
+      "ts": 1790388740.689893
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0001139705532,
+      "ts": 1790388742.9643943
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.18608e-05,
+      "ts": 1790388744.0971706
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.45208e-05,
+      "ts": 1790388745.4063046
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000200244,
+      "ts": 1790388746.2789998
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000206244,
+      "ts": 1790388753.9483645
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000197844,
+      "ts": 1790388755.0706177
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.00072645,
+      "ts": 1790388757.8975008
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000206544,
+      "ts": 1790388758.7943466
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0014436,
+      "ts": 1790388759.7611516
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.92808e-05,
+      "ts": 1790388761.3809204
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000202344,
+      "ts": 1790388762.6197677
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.63408e-05,
+      "ts": 1790388763.9627638
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 7.85008e-05,
+      "ts": 1790388765.3907268
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.66208e-05,
+      "ts": 1790388767.351698
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 7.61796414e-05,
+      "ts": 1790388770.0871646
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.57808e-05,
+      "ts": 1790388771.8508728
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000207744,
+      "ts": 1790388772.7572024
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000201144,
+      "ts": 1790388773.6815257
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.91408e-05,
+      "ts": 1790388775.7605915
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0014664,
+      "ts": 1790388777.1878335
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 9.05408e-05,
+      "ts": 1790388780.8025386
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.91408e-05,
+      "ts": 1790388782.2747338
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.76008e-05,
+      "ts": 1790388784.174311
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.00010052,
+      "ts": 1790388792.2440991
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000239338,
+      "ts": 1790388794.5214393
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000221244,
+      "ts": 1790388795.3364966
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.45208e-05,
+      "ts": 1790388796.6527038
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000217344,
+      "ts": 1790388797.5712888
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000198744,
+      "ts": 1790388800.6303515
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.78808e-05,
+      "ts": 1790388802.0905666
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000353772,
+      "ts": 1790388803.2525487
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000211944,
+      "ts": 1790388804.7489104
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.74608e-05,
+      "ts": 1790388806.0926352
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.59208e-05,
+      "ts": 1790388807.6728854
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.85808e-05,
+      "ts": 1790388808.836621
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000180144,
+      "ts": 1790388809.664109
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000194844,
+      "ts": 1790388810.55231
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.08808e-05,
+      "ts": 1790388811.9424322
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 9.01208e-05,
+      "ts": 1790388813.2048721
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.84408e-05,
+      "ts": 1790388815.1163607
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000193944,
+      "ts": 1790388816.0198812
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.22808e-05,
+      "ts": 1790388817.4947991
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0001095808,
+      "ts": 1790388819.0132475
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 9.53008e-05,
+      "ts": 1790388821.6292644
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 7.79851314e-05,
+      "ts": 1790388829.942726
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0001014608,
+      "ts": 1790388831.3752441
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000241644,
+      "ts": 1790388832.3220887
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000203244,
+      "ts": 1790388833.215678
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0014502,
+      "ts": 1790388843.229015
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0001062208,
+      "ts": 1790388844.9668438
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.00046935,
+      "ts": 1790388849.2747886
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 6.80008e-05,
+      "ts": 1790388850.620679
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.36808e-05,
+      "ts": 1790388852.1765342
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000215844,
+      "ts": 1790388854.1420329
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 9.08208e-05,
+      "ts": 1790388855.8420136
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 5.62189464e-05,
+      "ts": 1790388862.8044958
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0014694,
+      "ts": 1790388864.970384
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.15808e-05,
+      "ts": 1790388866.0074606
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000187344,
+      "ts": 1790388867.3262813
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000257544,
+      "ts": 1790388868.2985513
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0001028608,
+      "ts": 1790388870.0586252
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.17208e-05,
+      "ts": 1790388871.238838
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000153144,
+      "ts": 1790388872.0432386
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000336972,
+      "ts": 1790388873.2992163
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.00043875,
+      "ts": 1790388876.5914242
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 8.71808e-05,
+      "ts": 1790388878.2912169
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 9.19408e-05,
+      "ts": 1790388880.3968868
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0001003408,
+      "ts": 1790388882.1507306
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000263568,
+      "ts": 1790388884.20265
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.0014418,
+      "ts": 1790388885.9307845
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000191844,
+      "ts": 1790388887.7749717
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "variant": "enabled_false",
+      "usd": 0.000184944,
+      "ts": 1790388888.5687377
+    }
+  ]
+}
