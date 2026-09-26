@@ -1,527 +1,7 @@
 {
-  "generated": "2026-09-25T22:50:50.667141Z",
+  "generated": "2026-09-26T03:17:51.440099Z",
   "window_days": 30,
   "incidents": [
-    {
-      "id": "d7c9d69452801923",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Operativo en Antofagasta: Caen todos los involucrados en ataque armado que dejó grave a un carabinero",
-      "title_en": "Operation in Antofagasta: All involved in armed attack that seriously injured a police officer are arrested",
-      "date": "2026-08-26",
-      "outlet": "Epicentro Chile",
-      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQNkd3QmxQTXF6TlNyb2tsd3V5UGhFdTNVcEdrVnpEdjJ2OUhJRnAzdlJHTk42NDViYjlOeWJXaWNtbEhaOHZUSnJGMG9LeTRITkZCbDZhMDJhQ3hoVFg4cDkzTHFaV2pOcU85RWE1dHBJUmF6a2ZOQjdpQXVCcmFydElYaWZJYmZvcmlCSHZEQlRjbTZPT1hXTlhVdldBZF9uVTVacWtURmdIT2xwUmpWOEJvc280MnBDVHo2LTNKUEhNN1RLdFpNWjlBZkhtSXNVV2hLdWtPNWNjVlk?oc=5",
-      "family": "vida",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "814ed645480778f7",
-      "cut": "13127",
-      "lat": -33.354794,
-      "lng": -70.635699,
-      "title_es": "Revelan que víctima de homicidio en Recoleta se desplazaba en silla de ruedas: un sospechoso detenido",
-      "title_en": "Victim of homicide in Recoleta was in a wheelchair: suspect arrested",
-      "date": "2026-08-26",
-      "outlet": "BioBioChile",
-      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/25/detienen-a-presunto-homicida-de-recoleta-victima-en-silla-de-ruedas-recibio-mas-de-30-punaladas.shtml",
-      "family": "vida",
-      "slug": "recoleta"
-    },
-    {
-      "id": "b072a02913bc2a96",
-      "cut": "8101",
-      "lat": -36.827178,
-      "lng": -72.969119,
-      "title_es": "Comunidades mapuche se manifestarán frente a tribunal y cárcel de Concepción por caso Grollmus",
-      "title_en": "Mapuche communities to protest outside Concepción court and prison over Grollmus case",
-      "date": "2026-08-26",
-      "outlet": "BioBioChile",
-      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/25/comunidades-mapuche-se-manifestaran-frente-a-tribunal-y-carcel-de-concepcion-por-caso-grollmus.shtml",
-      "family": "vida",
-      "slug": "concepcion"
-    },
-    {
-      "id": "23f2de31aa21f0e4",
-      "cut": "8102",
-      "lat": -36.996187,
-      "lng": -73.045624,
-      "title_es": "5° postergación de preparación de juicio y rechazan elevar cautelar a Polizzi",
-      "title_en": "5th adjournment of trial preparation and reject raising injunction to Polizzi",
-      "date": "2026-08-26",
-      "outlet": "BioBioChile",
-      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/25/arista-fundacion-en-ti-5-postergacion-de-preparacion-de-juicio-y-rechazan-elevar-cautelar-a-polizzi.shtml",
-      "family": "vida",
-      "slug": "coronel"
-    },
-    {
-      "id": "c4b5fe46f4e52975",
-      "cut": "13501",
-      "lat": -33.744306,
-      "lng": -71.202512,
-      "title_es": "Sujeto detenido por portar cocaína en la vía pública en Melipilla",
-      "title_en": "Man arrested for carrying cocaine on public road in Melipilla",
-      "date": "2026-08-26",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/sujeto-fue-detenido-por-portar-cocaina-en-la-via-publica-en-melipilla/2026-08-25/232921.html",
-      "family": "drogas",
-      "slug": "melipilla"
-    },
-    {
-      "id": "7cf49c27e2aeadc1",
-      "cut": "13124",
-      "lat": -33.393205,
-      "lng": -70.850871,
-      "title_es": "Ataque a joven en Pudahuel: Tres detenidos a prisión por homicidio frustrado",
-      "title_en": "Attack on youth in Pudahuel: Three arrested and held in prison for foiled homicide",
-      "date": "2026-08-26",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/policial/ataque-a-joven-en-pudahuel-tres-detenidos-a-prision-por-homicidio/2026-08-25/225358.html",
-      "family": "vida",
-      "slug": "pudahuel"
-    },
-    {
-      "id": "d1609b06c37c0de5",
-      "cut": "5504",
-      "lat": -32.8324,
-      "lng": -71.180801,
-      "title_es": "Detienen a sujeto vinculado a violento robo en vivienda de La Cruz: niño de siete años resultó herido a bala",
-      "title_en": "Arrest made in connection with violent home robbery in La Cruz: seven-year-old boy injured by gunshot",
-      "date": "2026-08-26",
-      "outlet": "LaTercera",
-      "url": "https://www.latercera.com/nacional/noticia/detienen-a-sujeto-vinculado-a-violento-robo-en-vivienda-de-la-cruz-nino-de-siete-anos-resulto-herido-a-bala/",
-      "family": "robos_violentos",
-      "slug": "la-cruz"
-    },
-    {
-      "id": "80c7aec2b163edaf",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Detienen a último prófugo por homicidio frustrado contra Carabinero en Antofagasta",
-      "title_en": "Arrest made of final fugitive for attempted homicide of police officer in Antofagasta",
-      "date": "2026-08-26",
-      "outlet": "24horas",
-      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPMEYtYkVFSUVDa0FQSUlTSnRVQnlkc0tCYnpPVFY3X2FQbW1USEoycXdsOU5xbnBBdjZxbmVkQTBFYXQ3QWRkZkFUdGxpdVJEUFFzVkRBSk5uV192aUdyUUl6REkzdnlxSUgxS1phd05YOWRQTEVRenZyazRMRzIza3V3Z05xTElMWkwtd1Q2NGpFWF9rTXdDY3JoVmxkOF9Zdl9sUmQzQmYzU1pxdUlCOWYzcG9GZzZpZl9aVVlEYmZ0SExz?oc=5",
-      "family": "vida",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "3204998d81dee9c4",
-      "cut": "14104",
-      "lat": -39.860779,
-      "lng": -72.571245,
-      "title_es": "Identifican a víctima de incendio que destruyó cuartel en Los Lagos: siniestro dejó 10 damnificados",
-      "title_en": "Victim identified in fire that destroyed barracks in Los Lagos: disaster left 10 affected",
-      "date": "2026-08-26",
-      "outlet": "BioBioChile",
-      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-rios/2026/08/26/identifican-a-victima-de-incendio-que-destruyo-cuartel-en-los-lagos-siniestro-dejo-10-damnificados.shtml",
-      "family": "incivilidades",
-      "slug": "los-lagos"
-    },
-    {
-      "id": "68748d2ee065dbeb",
-      "cut": "13104",
-      "lat": -33.385523,
-      "lng": -70.693079,
-      "title_es": "Fiesta en vivienda de Conchalí termina en incendio con un fallecido",
-      "title_en": "Party in Conchalí residence ends in fire with one death",
-      "date": "2026-08-26",
-      "outlet": "BioBioChile",
-      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/26/fiesta-en-vivienda-de-conchali-termina-en-incendio-con-un-fallecido.shtml",
-      "family": "vida",
-      "slug": "conchali"
-    },
-    {
-      "id": "95c8c9b89e1990be",
-      "cut": "8305",
-      "lat": -37.842602,
-      "lng": -72.096955,
-      "title_es": "Hombre es baleado en Mulchén y se niega a dar detalles de sus atacantes",
-      "title_en": "Man shot in Mulchén refuses to give details of attackers",
-      "date": "2026-08-26",
-      "outlet": "BioBioChile",
-      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/26/hombre-es-baleado-en-mulchen-y-se-niega-a-dar-detalles-de-sus-atacantes.shtml",
-      "family": "vida",
-      "slug": "mulchen"
-    },
-    {
-      "id": "aafe5c55e4ce4730",
-      "cut": "8101",
-      "lat": -36.827178,
-      "lng": -72.969119,
-      "title_es": "Caso Cristóbal Miranda: fracasa intento de una de las defensas por debilitar investigación",
-      "title_en": "Cristóbal Miranda Case: Defense Attempt to Weaken Investigation Fails",
-      "date": "2026-08-26",
-      "outlet": "BioBioChile",
-      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/26/caso-cristobal-miranda-fracasa-intento-de-una-de-las-defensas-por-debilitar-investigacion.shtml",
-      "family": "vida",
-      "slug": "concepcion"
-    },
-    {
-      "id": "65fa3619b2dae6b7",
-      "cut": "13101",
-      "lat": -33.446981,
-      "lng": -70.721768,
-      "title_es": "Detienen a banda extranjera que robaba millones a víctimas que asistían a casas de cambio de la RM",
-      "title_en": "Foreign gang arrested for robbing millions from victims using exchange houses in the RM",
-      "date": "2026-08-26",
-      "outlet": "BioBioChile",
-      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/26/detienen-a-banda-extranjera-que-robaba-millones-a-victimas-que-asistian-a-casas-de-cambio-de-la-rm.shtml",
-      "family": "robos_violentos",
-      "slug": "santiago"
-    },
-    {
-      "id": "ee068515ae44ce5c",
-      "cut": "13104",
-      "lat": -33.385523,
-      "lng": -70.693079,
-      "title_es": "Homicidio frustrado en Conchalí: delincuentes balean a hombre para tomarse una casa y vender droga",
-      "title_en": "Attempted homicide in Conchalí: criminals shoot man to take a house and sell drugs",
-      "date": "2026-08-26",
-      "outlet": "BioBioChile",
-      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/08/26/homicidio-frustrado-en-conchali-delincuentes-balean-a-hombre-para-tomarse-una-casa-y-vender-droga.shtml",
-      "family": "vida",
-      "slug": "conchali"
-    },
-    {
-      "id": "bb4872dd2301b180",
-      "cut": "13104",
-      "lat": -33.385523,
-      "lng": -70.693079,
-      "title_es": "Indagan balazos e intento de toma de predio en Conchalí",
-      "title_en": "Investigation of shooting and attempted takeover of property in Conchalí",
-      "date": "2026-08-26",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/policial/indagan-baleo-e-intento-de-toma-de-predio-en-conchali/2026-08-26/073847.html",
-      "family": "vida",
-      "slug": "conchali"
-    },
-    {
-      "id": "a36c4eabe9a5ff29",
-      "cut": "13104",
-      "lat": -33.385523,
-      "lng": -70.693079,
-      "title_es": "Hombre falleció tras incendio durante una fiesta en Conchalí",
-      "title_en": "Man dies in fire during party in Conchalí",
-      "date": "2026-08-26",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/policial/incendios/hombre-fallecio-tras-incendio-durante-una-fiesta-en-conchali/2026-08-26/071317.html",
-      "family": "vida",
-      "slug": "conchali"
-    },
-    {
-      "id": "db76700a49eb0917",
-      "cut": "13104",
-      "lat": -33.385523,
-      "lng": -70.693079,
-      "title_es": "Homicidio frustrado en Conchalí: hombre de 61 años fue baleado en las afueras de su domicilio",
-      "title_en": "Attempted homicide in Conchalí: 61-year-old man shot near his home",
-      "date": "2026-08-26",
-      "outlet": "LaTercera",
-      "url": "https://www.latercera.com/nacional/noticia/homicidio-frustrado-conchali-hombre-de-61-anos-fue-baleado-en-las-afueras-de-su-domicilio/",
-      "family": "vida",
-      "slug": "conchali"
-    },
-    {
-      "id": "8eef73c56e381b62",
-      "cut": "13127",
-      "lat": -33.354794,
-      "lng": -70.635699,
-      "title_es": "Víctima de homicidio en Recoleta usaba silla de ruedas; sospechoso detenido",
-      "title_en": "Victim of homicide in Recoleta was in a wheelchair; suspect arrested",
-      "date": "2026-08-26",
-      "outlet": "BioBioChile",
-      "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxOWDkyM3BzOTdHelJ4MWZFbkFzRC1jMzhibFVEaGVNRWYxUnRhQ0NxSjlscnJicFk3SHBhejk2cVFFbkZCeTd2VTIzSDdDVUxJWnBrSmdYWmlwY21TNm9CZ1lLTzh4Ymh3X2xENkhQZkdaTlM0SnpxMThhX0M2SFJPT2ZrSHZ0RVV5QVB5RUJhUi1aajVVb0ZjNDNJVzBDTHBscmxjN0ktRUpHcWsyYmpOWkpGVm9yUkxMWU9saTkyeGhBQ0J3SXhtQU9QZER2SjNLWEV0M3c0M29uZGJKeDJ1X0QtWWhiYWhEWkVMYzgzeXdqOE9tMjU4bi1jQWo4Tlk5aDMwc3ROY0Q4UQ?oc=5",
-      "family": "vida",
-      "slug": "recoleta"
-    },
-    {
-      "id": "00a638020477f665",
-      "cut": "8301",
-      "lat": -37.433606,
-      "lng": -72.323701,
-      "title_es": "Red de corrupción: Suprema decidirá si Fiscalía puede o no formalizar a jueza por prevaricación",
-      "title_en": "Corruption ring: Supreme Court to decide if Prosecutor's Office can or cannot charge judge for prevarication",
-      "date": "2026-08-26",
-      "outlet": "BioBioChile",
-      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/08/26/red-de-corrupcion-suprema-decidira-si-fiscalia-puede-o-no-formalizar-a-jueza-por-prevaricacion.shtml",
-      "family": "vida",
-      "slug": "los-angeles"
-    },
-    {
-      "id": "b6b7d3625f8ffb3a",
-      "cut": "7101",
-      "lat": -35.459734,
-      "lng": -71.607559,
-      "title_es": "Tribunal ordenó devolver a Clan Chen a cárcel nortina tras golpear 'Plan Cancerbero'",
-      "title_en": "Court orders Clan Chen to be returned to northern prison, hitting 'Plan Cancerbero'",
-      "date": "2026-08-26",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/judicial/golpe-al-plan-cancerbero-tribunal-ordeno-que-clan-chen-sea-devuelto-a/2026-08-26/143839.html",
-      "family": "vida",
-      "slug": "talca"
-    },
-    {
-      "id": "e31731b4020c9737",
-      "cut": "9115",
-      "lat": -39.271383,
-      "lng": -71.796464,
-      "title_es": "Embarcación con estudiantes y académicos de la UFRO volcó en Pucón",
-      "title_en": "UFRO students and faculty boat capsizes in Pucón",
-      "date": "2026-08-26",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/region-de-la-araucania/embarcacion-con-estudiantes-y-academicos-de-la-ufro-volco-en-pucon/2026-08-26/142230.html",
-      "family": "vida",
-      "slug": "pucon"
-    },
-    {
-      "id": "1dac4506c591046e",
-      "cut": "5101",
-      "lat": -33.116644,
-      "lng": -71.575283,
-      "title_es": "Intruso fue detenido dentro de la Defensoría Penal Pública de Valparaíso",
-      "title_en": "Intruder arrested inside the Public Defender's Office in Valparaíso",
-      "date": "2026-08-26",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/policial/intruso-fue-detenido-dentro-de-la-defensoria-penal-publica-de-valparaiso/2026-08-26/111541.html",
-      "family": "vida",
-      "slug": "valparaiso"
-    },
-    {
-      "id": "3064bf22eaa53277",
-      "cut": "5504",
-      "lat": -32.8324,
-      "lng": -71.180801,
-      "title_es": "Detienen sospechoso que baleó a niño durante asalto a parcela en La Cruz",
-      "title_en": "Suspect who shot child during farm assault arrested in La Cruz",
-      "date": "2026-08-26",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/region-de-valparaiso/detienen-a-sospecho-de-balear-a-un-nino-en-medio-de-asalto-a-parcela-en/2026-08-26/105840.html",
-      "family": "vida",
-      "slug": "la-cruz"
-    },
-    {
-      "id": "215def63ebc543d0",
-      "cut": "5802",
-      "lat": -33.032139,
-      "lng": -71.259698,
-      "title_es": "Presidente inhabilitado de la Federación de Tenis de Chile con orden de arresto por VIF",
-      "title_en": "Disqualified Chilean Tennis Federation President Issued Arrest Warrant for VIF",
-      "date": "2026-08-26",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/deportes/tenis/federacion-de-tenis-de-chile/inhabilitado-presidente-del-tenis-chileno-quedo-con-orden-de-arresto-por/2026-08-26/094725.html",
-      "family": "vida",
-      "slug": "limache"
-    },
-    {
-      "id": "4619f66fee81dc41",
-      "cut": "9115",
-      "lat": -39.271383,
-      "lng": -71.796464,
-      "title_es": "Estudiante muerto en accidente de rafting en Pucón",
-      "title_en": "Student dies in rafting accident in Pucón",
-      "date": "2026-08-26",
-      "outlet": "LaCuarta",
-      "url": "https://www.lacuarta.com/chile/noticia/hay-un-estudiante-fallecido-reportan-tragico-accidente-en-rafting-de-universitarios-en-pucon/",
-      "family": "vida",
-      "slug": "pucon"
-    },
-    {
-      "id": "62e84cb82fa01ae5",
-      "cut": "13129",
-      "lat": -33.539168,
-      "lng": -70.635699,
-      "title_es": "Inspector Vallejo revela detalle desconocido que podría dar vuelco a parricidio",
-      "title_en": "Inspector Vallejo reveals unknown detail that could turn around the child murder",
-      "date": "2026-08-26",
-      "outlet": "LaCuarta",
-      "url": "https://www.lacuarta.com/chile/noticia/lo-curioso-esta-en-las-lesiones-inspector-vallejo-revela-desconocido-detalle-que-podria-dar-vuelco-a-parricidio/",
-      "family": "vida",
-      "slug": "san-joaquin"
-    },
-    {
-      "id": "7d993c50335bb03a",
-      "cut": "13124",
-      "lat": -33.393205,
-      "lng": -70.850871,
-      "title_es": "Tres detenidos por atacar con un hacha a un adolescente de 17 años en Pudahuel",
-      "title_en": "Three arrested for attacking a 17-year-old teen with an axe in Pudahuel",
-      "date": "2026-08-26",
-      "outlet": "EL PAÍS",
-      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNSUpVcmNCSjRGX2tYZ0JDbmY1UHlQYTdqZDhyRjdhdVJWc2wwdnZjSXVkX3lnVG5hNWRsSEpscUwtS2Q0SkNHRGhfMkZqUmNUR011OUlZM0c0YTFDWkt3ZnE2ek5LMUdJMmgweVJxb29BUXV0VU5rUm1rZU1mNTZSTmZvRktUX2pZRmRmdXdSVmtZN3lEbDZYY2NGWGJlMWtKenFyeE5QYThSVnk4UHpkci0wNHE0TXlFR0ZYUlZtWFkzdmxzaGMzNFY2c1B0a03SAc8BQVVfeXFMTUlKVXJjQko0Rl9rWGdCQ25mNVB5UGE3amQ4ckY3YXVSVnNsMHZ2Y0l1ZF95Z1RuYTVkbEhKbHFMLUtkNEpDR0RoXzJGalJjVEdNdTlJWTNHNGExQ1pLd2ZxNnpOSzFHSTJoMHlScW9vQVF1dFVOa1Jta2VNZjU2Uk5mb0ZLVF9qWUZkZnV3UlZrWTd5RGw2WGNjRlhiZTFrSnpxcnhOUGE4UlZ5OFB6ZHItMDRxNE15RUdGWFJWbVhZM3Zsc2hjMzRWNnNQdGtN?oc=5",
-      "family": "vida",
-      "slug": "pudahuel"
-    },
-    {
-      "id": "fa2df9959a10d76d",
-      "cut": "13124",
-      "lat": -33.393205,
-      "lng": -70.850871,
-      "title_es": "Tres detenidos por ataque a adolescente en Pudahuel: lo apuñalaron y también lo agredieron con hacha",
-      "title_en": "Three arrested for attack on teenager in Pudahuel: stabbed and also assaulted with an axe",
-      "date": "2026-08-26",
-      "outlet": "BioBioChile",
-      "url": "https://news.google.com/rss/articles/CBMijwJBVV95cUxNNW4xakxJQXRSR21XTWdJMlRFNWoweXQ2ZGpONXZ2MVotRVd5bk4xNnVEcURMYXFjby1qN2s0R3diVnRqN2ltZDdhQkFHcUtZSTNDZi1BTmhZb1k4RUlqVUhQTXRydWphVDl2eHVBQUR3NFVQcjNCZ2trcmZ1ZnBqY3U3bGN0WHNYQjBpM1gxLVgzMXdNX1dEaUtRaU95Yk9HRVdHVlU4VVVjcnpzbWZhNDgySGZTbnplZ09VdllZcjJFQmxyN2VOOHJSbmVNQUI5cGh2UUo2WG5XZU9XWFd2WHpSS1ZIOUU5bmhsblZGQWs1RmdhRm02VWxudFZBMlVpRUxvWW8zYUlGdTJiVmFB?oc=5",
-      "family": "vida",
-      "slug": "pudahuel"
-    },
-    {
-      "id": "15aedcd65bd3fb75",
-      "cut": "10201",
-      "lat": -42.444449,
-      "lng": -73.871884,
-      "title_es": "Tres sujetos quedaron en prisión preventiva tras balacera que dejó dos lesionados en Castro",
-      "title_en": "Three suspects remanded in custody after shootout that left two injured in Castro",
-      "date": "2026-08-26",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQeWlxTWJ4bnhqY04ycDNPQWExQXJpMWs1RFNSLW9UMWxDR1plZnhGUTZCbE52TVJ2RnBad1BVVkpncXhNbnc0R21wbnVLLXVFdDJTNVVoSDh1SGpOeHhDQ01RdDdRSUVFX1RtNkI2eXJLUnV0b2lkaW9oelRGN1p2UW5MTURvNTVYNnNhaWx3V3RyTDBFOXFodUdtS09UbXNfVC1PelBWVDFTQQ?oc=5",
-      "family": "vida",
-      "slug": "castro"
-    },
-    {
-      "id": "265973f562711328",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Formalizan a imputado por homicidio frustrado de carabinero y porte ilegal de arma en Antofagasta",
-      "title_en": "Charges filed against suspect for attempted homicide of police officer and illegal weapon possession in Antofagasta",
-      "date": "2026-08-26",
-      "outlet": "Timeline.cl",
-      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOZVhfN29ZYzhMZGZEaXc2a3IyYmp3OEhnTG1zRXE2bDFpcnhBNktPQkwxdEtOWHVPdHhuNjREWHZJb3BpSXVRajhIUm9ha2RVLTIwdXBBVmdLblU5MlZkRkUzQVlydUV1QlJEZjRka0tORVk5Q3B0UEE3VlZBZXNicmtjeXFkaTBMZE9FOV9IRml3RDNfekc0QmZiNVRoUmdHb2p5a0prcE90d0t3SEdKVGVDeUt2amQwV0RacUF0cw?oc=5",
-      "family": "vida",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "7abbcef169cf06df",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "En prisión preventiva quedó segundo involucrado en baleo a carabinero en Antofagasta: estaba prófugo por otros dos delitos",
-      "title_en": "Second suspect in carabinero shooting in Antofagasta placed under preventive detention: was fugitive for two other crimes",
-      "date": "2026-08-26",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxObkI2eVJSLW9TQTdweEdaS3JqejN2c0hvN1pyLWtGX3BoT1AtM1lkWk54bU5MVnhGNnBQOHFyQ3FmU1RNVS1jYlFFZGM0X21ZZHlQWWw1TTFUaHFYcmxyTWg3eXowZHc4aHQzQjN1cUJ1di1nNU1MY3JFbzdFMllPTVk5aTRURFdOOWpYcTVOamdXSVA1Ykk1OC1VQlRfOWs?oc=5",
-      "family": "vida",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "6d9dd5d60337e52d",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Fiscalía formalizó a segundo imputado por ataque a carabinero y dispuso su ingreso a cumplir condenas anteriores",
-      "title_en": "Prosecutor formalized second defendant for attack on police officer and ordered his admission to serve previous sentences",
-      "date": "2026-08-26",
-      "outlet": "G5noticias",
-      "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxOSlBjWVhDQUpDSFRrSEhFaGpIeTh6c1ByMW5VM3VfeXFiRmg2dkRmTF9aZjRDOHJrc1VyM2J4NHhDWTBaR2tJZXRFazNPZUpIbENJaUFlS3VGZ1dreDJ2RUt0dzQwakV6SXlJODRTb1JIeDVoWkU3dW5SZ0tjS0V6NUNLTW5UOExMRjhKXzN4MjFZQ2d3WElmbXNkU1FZVmlTR2FCSzBHcXhBUXc2a1g2dXQ1bFliZ1pZa25ZSi0yb0I5RjhscmdUdEItWmNUSHdZdWlmSWJ3dUYyQmN0M1laOGc5WHlxaTRIajloZ2wtVUQ3bUU?oc=5",
-      "family": "vida",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "f73a68f9c62c1eb0",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Carabineros capturó al segundo presunto implicado en ataque a funcionario de la SIP en Antofagasta",
-      "title_en": "Carabineros apprehends second suspect in attack on SIP official in Antofagasta",
-      "date": "2026-08-26",
-      "outlet": "diarioangamos.com",
-      "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxQLThKZkZsYTVnaV93OHA2c3JvM1FOYTZTMkctdWVmSVJtX2FiQWYtczhWeWFQMkplbFBvRG5Hd1JYR0lrN08yc3dxekRoWDYyMEtvZFZDU0YxZFZHVTZoTUJkRWo1Y0FDY2Zma1VrUjF4SHhOZmxmQ3dBdFBtS282QWoxZnd5LW1mSFUwSzdPc1FEb1NLbld4Zk1TMnhRN0RlUjN4ZFAwYmtyVkprWHBmaEhQTWlLR0RCamxxbm5nRFBzTnNpQmM5akx4c3YyVTc4bnF2ekg0TG9vdjF5dlAwd05jeE14Z1hFVU15MVdB?oc=5",
-      "family": "vida",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "f729382be79196e5",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Corte Suprema rechaza recurso de Karen Rojo para libertad vigilada",
-      "title_en": "Supreme Court rejects Karen Rojo's appeal for supervised release",
-      "date": "2026-08-26",
-      "outlet": "Antofagasta TV",
-      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQRUlqcGluaElDalVkQ3ZWaFl5cHpNbXgxbXlFY0lGQlItQXlYVkVxSEVsR2tfSmp3NXZfNU9Ya3NpVmJGRldZUGh4S0thUGxHTV9MQUhJeEwwR1N3RVlRQXpvLWkycVY2V1pEM0dOb3ZsbzI5d3B4Z1dQMFFHaUxIa051SXVHaFNzOXJkcHFtU05KQ1JrTkpTN1JBVVpLUnFhaGJjaDlmVjF0a3gtb0I1NUdVb2hIT0RmSDBPYg?oc=5",
-      "family": "vida",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "622fdfa61b38876c",
-      "cut": "8101",
-      "lat": -36.827178,
-      "lng": -72.969119,
-      "title_es": "Ratifican baja de carabinero acusado de hurtar productos en Pronto Copec de Concepción",
-      "title_en": "Dismissal of police officer accused of stealing products at Pronto Copec in Concepción confirmed",
-      "date": "2026-08-26",
-      "outlet": "24horas",
-      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQbjItLTUzUVJtLThlVkl4TW1XSFhiUWJERFBpQWlnYXhUdW9Td2wxT2Qzc0o4MTB2ZEE1U2FPeV9zVmo2MS0teG9nYXduVkZsdVFjcW1wR2doLTFWZFRSaVNTR0JDXzhPVWh6TnU0UkhFbUxSOW5YNFZsRXFZbjlTTEdWNU5rVHZIOTYxdVRnMVpvNDdWRlZMamg0Ynk2emh1SV93YXl1QXltd1k5cHExcVNIYkVZd3p1S0U2UmZxV2JCU25ZLXfSAcYBQVVfeXFMUG4yLS01M1FSbS04ZVZJeE1tV0hYYlFiRERQaUFpZ2F4VHVvU3dsMU9kM3NKODEwdmRBNVNhT3lfc1ZqNjEtLXhvZ2F3blZGbHVRY3FtcEdnaC0xVmRUUmlTU0dCQ184T1Voek51NFJIRW1MUjluWDRWbEVxWW45U0xHVjVOa1R2SDk2MXVUZzFabzQ3VkZWTGpoNGJ5NnpodUlfd2F5dUF5bXdZOXBxMXFTSGJFWXd6dUtFNlJmcVdiQlNuWS13?oc=5",
-      "family": "propiedad",
-      "slug": "concepcion"
-    },
-    {
-      "id": "f475d06b3cf9356b",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Segundo involucrado en baleo a carabinero queda en prisión preventiva; era prófugo por otros dos delitos",
-      "title_en": "Second suspect in shooting of carabinero placed under preventive detention; was fugitive for two other crimes",
-      "date": "2026-08-26",
-      "outlet": "t.co",
-      "url": "https://news.google.com/rss/articles/CBMiO0FVX3lxTE1QRFgzeXV4b2FLMElZVVNuVUNxak5JZ2Zta2tneDBJdkpBaWV6eTJ3Ykg4TGJhX01WMDRV?oc=5",
-      "family": "vida",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "27dde483517ec77a",
-      "cut": "4102",
-      "lat": -30.222856,
-      "lng": -71.382383,
-      "title_es": "Condenan a tres hombres a penas de hasta 12 años de cárcel por homicidio en Coquimbo",
-      "title_en": "Three men sentenced to up to 12 years in prison for homicide in Coquimbo",
-      "date": "2026-08-26",
-      "outlet": "Diario Constitucional",
-      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQZ3NuaEF2bUhTT0Rjbk96UC1zdlN6czV6b1diQjZ0c1N4c2xuMUJ2Z0llX3RZdHU3SEdLeXRIUDBNV291UjQ1V1hCelZJbmRVeUh1VHFoMlg5azg3d3hVX2FfRzRidUcyUkJtbHlmeHo3MEdBX0pmX1Z4ZllfbGlJSWVQVU5jLVZobWs3TjF2eVhnUUx3cWdhQWp4WE9TQkVsMkhZbVVIbzZFdVBmb0dtMVpnNVU3cGxiX29vQWRNVnJHZU41MWZ5ZS0xWjY?oc=5",
-      "family": "vida",
-      "slug": "coquimbo"
-    },
-    {
-      "id": "2b493f4e94f86c9f",
-      "cut": "4204",
-      "lat": -31.938235,
-      "lng": -70.65075,
-      "title_es": "Fiscalía formaliza investigación por robo con homicidio; imputada mujer internada provisionalmente",
-      "title_en": "Prosecutor's office initiates investigation for robbery with homicide; female suspect placed under provisional detention",
-      "date": "2026-08-26",
-      "outlet": "La Serena Online",
-      "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxObFFJR3BqU2dKeUJCbnF4amRsZVdwcDBHbjl6bzVWc2hWV0I0UnhmSnF6aDFEb1ppOHQ4TkdwNm8wQ2JBNHVlY29lcXp5VEV5UDVEVVowd0lGTzhJRXI5VXpPdlJqYzhuaGNHVDctYW4tZk9PNjBXbjc0UnpKSkxfNnM1YW1ETGxQSnIxV193MVdZRzRBSG9hOVk3X0s4LVRDT3pYQTB0VVZScDVqN3cyYVNGMnNtUC1LMmd1aWN4LVpLX0FrcWZ1R3JWMkNXVzNJSWlNSUNLRkxvSlhRMTFaVkx4bW5KWTND?oc=5",
-      "family": "vida",
-      "slug": "salamanca"
-    },
-    {
-      "id": "8cfac8ec363ec092",
-      "cut": "4101",
-      "lat": -29.807222,
-      "lng": -71.081914,
-      "title_es": "Municipio continúa recuperación de espacios: se habían convertido en foco de delitos e incivilidades",
-      "title_en": "Municipality continues recovery of spaces: they had become a focus of crimes and incivilities",
-      "date": "2026-08-26",
-      "outlet": "La Serena Online",
-      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQSVk2TzdZSE9PN0ctUDJWeFRtNjIteGpTekcyV0lQZFN4VmYyQkw5WmxQbUZRam1MNzh1emEwdW9IVUhubnFJbGhsMjExdzYxWFFROHlpVS1qVDhwM3V3VHZaZjJUaU5KTnJKbDlJOW1mMjIxYmJUVHI0LThFXzE5WHI0RFV6XzN6enJFaEFma2VpNUhhWUw4eHFOLVV6dzhxd09CaXNsWnFOdEE2NWU3bUt5V2pobUp2TEFfcm1fb1NQWE1URU11TXRzNVhqYXNncmpR?oc=5",
-      "family": "incivilidades",
-      "slug": "la-serena"
-    },
-    {
-      "id": "c89e02bf3df51c06",
-      "cut": "9101",
-      "lat": -38.666824,
-      "lng": -72.659271,
-      "title_es": "Gendarmería traslada a Emilio Berkhoff y otro condenado desde módulo de cárcel de Temuco",
-      "title_en": "Gendarmería transfers Emilio Berkhoff and another convict from Temuco prison module",
-      "date": "2026-08-26",
-      "outlet": "Nuevo Poder",
-      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNcDQ3aHoyalB4WHJHZ2VRT29fejh6UTBlTVFmZ1BCZ1ROSDhhRUZwT1B0UFhGUmNQRnRSazlzN25BdUVLM2tEajZqckp1NVJJU216YXBTeEwyampiSHpLS0ZZaFVHVmQ3a2lqaXMtNjR0RExMeHFJaG1RT2NteUNkNzhBRTVpTExUaUZteVFxUzVvMERZdXFnMzhxRWNFb0VSTkdSSWJSQ3JFZWNSVVctSjcyd3RBQQ?oc=5",
-      "family": "vida",
-      "slug": "temuco"
-    },
     {
       "id": "83f4fb9c5d7cec89",
       "cut": "8101",
@@ -601,45 +81,6 @@
       "slug": "la-reina"
     },
     {
-      "id": "78038484c4585fa6",
-      "cut": "13124",
-      "lat": -33.393205,
-      "lng": -70.850871,
-      "title_es": "Sernameg se querelló contra imputados por secuestro y homicidio de Makarena Tolosa",
-      "title_en": "Sernameg files official complaint against defendants in Makarena Tolosa kidnapping and murder case",
-      "date": "2026-08-26",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/sernameg-se-querello-contra-imputados-por-secuestro-y-homicidio-de/2026-08-26/192354.html",
-      "family": "vida",
-      "slug": "pudahuel"
-    },
-    {
-      "id": "48baa2b738cab239",
-      "cut": "13120",
-      "lat": -33.446981,
-      "lng": -70.549631,
-      "title_es": "Sospechoso del fatal atropello de cineasta Paz Ramírez fue detenido en Santiago",
-      "title_en": "Suspect in fatal hit-and-run of filmmaker Paz Ramírez arrested in Santiago",
-      "date": "2026-08-26",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/policial/accidentes-de-transito/sospechoso-del-fatal-atropello-de-cineasta-paz-ramirez-fue-detenido-en/2026-08-26/191326.html",
-      "family": "vida",
-      "slug": "nunoa"
-    },
-    {
-      "id": "a0a4f256901a9094",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Formalizaron a segundo detenido por baleo a carabinero en Antofagasta",
-      "title_en": "Second suspect formalized for shooting a police officer in Antofagasta",
-      "date": "2026-08-26",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/region-de-antofagasta/formalizaron-a-segundo-detenido-por-baleo-a-carabinero-en-antofagasta/2026-08-26/181142.html",
-      "family": "vida",
-      "slug": "antofagasta"
-    },
-    {
       "id": "b78b5161507bcd1e",
       "cut": "13101",
       "lat": -33.446981,
@@ -666,32 +107,6 @@
       "slug": "antofagasta"
     },
     {
-      "id": "e5d1750f2b16fd6d",
-      "cut": "6113",
-      "lat": -34.378072,
-      "lng": -71.332856,
-      "title_es": "PDI indaga violento homicidio de mujer en Pichidegua: principal sospechoso es el yerno de la víctima",
-      "title_en": "PDI investigates violent murder of woman in Pichidegua: main suspect is the victim's son-in-law",
-      "date": "2026-08-26",
-      "outlet": "LaTercera",
-      "url": "https://www.latercera.com/nacional/noticia/pdi-indaga-violento-homicidio-de-mujer-en-pichidegua-principal-sospechoso-es-el-yerno-de-la-victima/",
-      "family": "vida",
-      "slug": "pichidegua"
-    },
-    {
-      "id": "17b0461407ddf94e",
-      "cut": "9115",
-      "lat": -39.271383,
-      "lng": -71.796464,
-      "title_es": "Tragedia en Pucón: estudiante muerto y tres heridos en volcamiento de balsa durante rafting en el río Liucura",
-      "title_en": "Tragedy in Pucón: student killed and three injured in raft capsizing while rafting on Río Liucura",
-      "date": "2026-08-26",
-      "outlet": "LaTercera",
-      "url": "https://www.latercera.com/nacional/noticia/tragedia-en-pucon-estudiante-muere-tras-volcamiento-de-balsa-mientras-practicaba-rafting-en-el-rio-liucura/",
-      "family": "vida",
-      "slug": "pucon"
-    },
-    {
       "id": "0e31a05b52b7b33f",
       "cut": "9115",
       "lat": -39.271383,
@@ -705,71 +120,6 @@
       "slug": "pucon"
     },
     {
-      "id": "3ae7eed73baa4b4c",
-      "cut": "13124",
-      "lat": -33.393205,
-      "lng": -70.850871,
-      "title_es": "Tres detenidos por atacar con un hacha a un adolescente de 17 años en Pudahuel",
-      "title_en": "Three arrested for attacking a 17-year-old teen with an axe in Pudahuel",
-      "date": "2026-08-26",
-      "outlet": "EL PAÍS",
-      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOazVlcVQxVTNyS0dEOFFoMzJuUDdLOHM0VmRkTHFmc3ViVnpyMTZYZFc5UzYweFVfR2Y0aDVveGRzMWhFYXZtLWFTYTNZTmlhaTlsX0lBWDkxRGdqSm02bFF4bGh2NHFzanJhY3AyWWdhZGJvTFJuSXpldVJGelVhNTBXbm9wQmxUZGNlcGI5alVaWE9FMVZDc2lvcEhpbmwxM2thU3pIcUdWLXhqYmRBZXBsakVXTnBsYXk40gHPAUFVX3lxTE1JSlVyY0JKNEZfa1hnQkNuZjVQeVBhN2pkOHJGN2F1UlZzbDB2dmNJdWRfeWdUbmE1ZGxISmxxTC1LZDRKQ0dEaF8yRmpSY1RHTXU5SVkzRzRhMUNaS3dmcTZ6TksxR0kyaDB5UnFvb0FRdXRVTmtSbWtlTWY1NlJOZm9GS1RfallGZGZ1d1JWa1k3eURsNlhjY0ZYYmUxa0p6cXJ4TlBhOFJWeThQemRyLTA0cTRNeUVHRlhSVm1YWTN2bHNoYzM0VjZzUHRrTQ?oc=5",
-      "family": "vida",
-      "slug": "pudahuel"
-    },
-    {
-      "id": "3d7249c146c5c7cd",
-      "cut": "5101",
-      "lat": -33.116644,
-      "lng": -71.575283,
-      "title_es": "PDI captura a 8 personas por delitos violentos en Valparaíso: no descartan vínculo con balacera en Rodelillo",
-      "title_en": "PDI arrests 8 people for violent crimes in Valparaíso: link to Rodelillo shooting not ruled out",
-      "date": "2026-08-26",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPV0JUX2ZLWUFNQnRXaWpMc3pXUXFDVjJPZ29qTDU0dG9jcmUxaTJQNDNjcW5mc0VLcDhaU1hjNjVmTFRzWXM3dkgwYUZVWWlRY2VFRWZVSkozOW5YWUU1MTNseVYxeXduOENkN3pqQXVlRnRhMGhqcDlqVVZfVDBUQ2NTbFJYQXZDbVNSSlY5czhaME45QjY0QUpNSU9XMjhZS0xCdm8yUmxWWTZ1RUg4eFZ4NA?oc=5",
-      "family": "robos_violentos",
-      "slug": "valparaiso"
-    },
-    {
-      "id": "0437c6fa2cfbbe63",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Detenido por ataque armado a carabinero en Antofagasta ingresa a cumplir dos condenas pendientes",
-      "title_en": "Detained for armed attack on police officer in Antofagasta enters to serve two pending sentences",
-      "date": "2026-08-26",
-      "outlet": "La Tercera",
-      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQY3VoQ1dVXzJjNkpnM2syczFJcjRoaS1IX1NfOFNRR2Y3VEp3bGdmeTduQXEyQ0gyNDJBT1hvVjJ6aGxhMFJYSDgzcnZncWFkZ1JNbnlsMjlDcGVFWjRTV05nNnMzYTlfZ2xPc0hrV2ZKeEQtSVpiVmVXcDU5a2lRTkV2NGQ0dmRxZzBrRm9kQUFkTUpxZXpzS0JQZG5kRmUzc2RkRlJCSGYyd2Rxd3l2RUYydzM2OV9ONUo1a2JGWHRrTmZpaEIwTjZSdDJuRzc4aGNDbnE3Y9IB-AFBVV95cUxNZml4bC1LVjhSSk5sSzZvakVaTi1oYnhGXzUycERpOXBaQ2h6Q2d2X0J6ZXR6S0VOSk41VjYtRE5aU2xsTzdSUXJodlRMZE5sbk1RNXJkZUZjV01QWjlQWVdLVVRvQlMxZVlmeWV5U3ZvLUJfeXIxVUZuRjB6cU51SU9DX1lOT1BqZzRfc1NycWFaczl4WnVZUWhNOGZ6RjA2dmFubW4yMVRyMXFfV3ZFd20tUXdXbDVoR1kxTDBuVU5XenpMaUxJNzNNa3pYc05IM2lGbktFY0xES2E5MzYyc3NPSjlsa3p1RjVCYXhEaS0wWUd6QmFaYw?oc=5",
-      "family": "vida",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "c8b01fdb04c0ae00",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Formalizan a segundo imputado por homicidio frustrado de carabinero en Antofagasta",
-      "title_en": "Second suspect formalized for attempted homicide of police officer in Antofagasta",
-      "date": "2026-08-26",
-      "outlet": "Puranoticia.cl",
-      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQN0V0RGNFSVhOc2loZlU4bTBhRnRSbHBtajNwSzk4VVBsb2xoYm1WbmhKZ1JmVVRIZVh2V01NWGRNREN2VTJmRTRYWk1nM3VReWVwalVINUVjbW56UU9mRlhWMHctbklTeGpDb0lqWkJJZWMxYVh1WDhmSGxwR3BkOTBIa2FCQlNZeXVKUlROeUNuemtuSTB2cTIyTTY5RTBZWUEzazA1QlFpcmhGRGc?oc=5",
-      "family": "vida",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "323e007a0d8b1784",
-      "cut": "2201",
-      "lat": -22.191672,
-      "lng": -68.619517,
-      "title_es": "Segundo imputado por ataque a carabinero formalizado por homicidio frustrado y porte ilegal de arma de fuego",
-      "title_en": "Second suspect in attack on police officer formalized for attempted homicide and illegal firearm possession",
-      "date": "2026-08-26",
-      "outlet": "Calama en Línea – Noticias",
-      "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxObmhObFVZbTNLc0o2YTJ6V1U1NWRPejRLV0xXci1fZklrQzFiTEgwM3UwdG1JSW16UWdjZGdUY0xPaHFkNnRRUzduLVFsWk1wOUwzOHY5dVpBQ0RDcl82WWJZSlc5OTZud25MWDc4by16YjV4Vy1ZV05Wb0Q1eUM2c1hRXzUwejN6RmlCUzZteDNhTHY1WFNRVm1rV3JxZjBzaGoyc1dVRmVhbFhhVW00c1lQLVJXbzRqZVA5aFhEWWlhVUx5RlV1Vzc1NS15ejJMWGxfUmRGYzlBOFZ6QjFGWWFxU2tfNjVscVg0?oc=5",
-      "family": "vida",
-      "slug": "calama"
-    },
-    {
       "id": "66bd3cd3938ef5ce",
       "cut": "2101",
       "lat": -24.258584,
@@ -781,45 +131,6 @@
       "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQZmcxY0ZGTk5BZ05oaGFXZnowdTVLbHJTZndudWJDbWpVSHVGRlFwRjdoZ0hEczNodVU0WEE2MEpPenJpNzhXWW9LTWI2aVpVWnZQak5XOFhfd1RvMDZjY3NWWjUzMThCX1hHZkdiTW1Oc1FfTWV1TTFxeXd0U1VDZ2dMVTd5R3BwT2E5RjNUbWlCektWeU5ySTBPaTl3YURxeDVrdVRkZWhUaU1mbFBmNkJBX2gzUkxxNzljLXlQRmU?oc=5",
       "family": "vida",
       "slug": "antofagasta"
-    },
-    {
-      "id": "4aab1eeafed0e349",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Carabineros detiene a dos sujetos con órdenes vigentes tras riña en playa de Antofagasta",
-      "title_en": "Carabineros apprehends two individuals with active warrants after a brawl on Antofagasta beach",
-      "date": "2026-08-26",
-      "outlet": "El Diario de Antofagasta",
-      "url": "https://news.google.com/rss/articles/CBMimgJBVV95cUxQV3k1ZC11bFdQSzlMZ2hZSW9jVVNyOUhaVTVpcTdoQ1ZHRWp5dW9lS0pMeWFZREVmM1FGSWJicjBHMEpkc1ZQbkU3MEJuOERrajlEbUM1T1VoVVp2eVdia3hNSmNheWxtQXFLX3ZqY01TX0l3R3pHRHBRUlNROGdTelBibU5Uc1hfekxYUzh6eFV5UzYxaW54TWI1aXdfUmhTZXNIM2NLNXoxc3dyRWR2Yk4xbU8xSEFFY201bGNKWjdVb1ZNS1F0UG0tX1VLSVRscmFwMGtfUUgwVEMwUTZ5YnhLd0FERjhyQV9WeVhFUlZhcmEtYklhc0ZCN3BJXzYwQU8zYkVQeF9UaFN0WVZjVVcwTmtBd2RONGc?oc=5",
-      "family": "vida",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "7007ce43a25bd6f2",
-      "cut": "9101",
-      "lat": -38.666824,
-      "lng": -72.659271,
-      "title_es": "Fiscalía indaga legítima defensa u homicidio tras muerte de baleado por carabinero en La Araucanía",
-      "title_en": "Prosecutor's office investigates self-defense or homicide after shooting death by police officer in La Araucanía",
-      "date": "2026-08-26",
-      "outlet": "Alerta Noticias Temuco.cl",
-      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOSTBwdUp1OWNpbG5RZ3R4eTJNbWNLSlR1QkpIZ3VVMEZmWXhEa0Q0bE9XNHNZRDJ3Skh0T2pYcnRDMjMtUk9qWlpiVnduTDltUDV5dXlYQ0pwX3FXYXZETzhyUzJRaE5NbFNidXpfaUdSYklmdFAtdnNWRHIzOHdQb0prUkJDWkRrcVBVWUI4TVh4TUt4d2dld05Dcw?oc=5",
-      "family": "vida",
-      "slug": "temuco"
-    },
-    {
-      "id": "300e6960bd357ba6",
-      "cut": "10101",
-      "lat": -41.509945,
-      "lng": -72.83364,
-      "title_es": "Ex CAM Emilio Berkhoff y comunero José Arzola trasladados a cárceles de Puerto Montt y Concepción",
-      "title_en": "Former CAM Emilio Berkhoff and community member José Arzola moved to prisons in Puerto Montt and Concepción",
-      "date": "2026-08-26",
-      "outlet": "Canal 9 Bío Bío Televisión",
-      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPdGxwd1lSSXo2U1hkZVdFZzB1aTFKOFdCZ3V3U0RBcWkwS3FKX0ZmVndCeDNvd3F3UjllVnhYVjBub1FTVkh2VnlmR2pGQ0kyUzRfcVRVM1hUU0NzWWpsdUxuT2NFZWNydUdFRnZwZFBGNlVfOTVDNjhVWTlJNVFDajVjLWtYNW5XNnBlMkZpcnRjdzlxUkdVSndYcUxodGJYWVZ4N1FKTjg4T0o3dVZ4Q1BuLS1haDdFc2ktWUQ0dklRVnpxQS1JV2JQLW53QVkzWmdoV01B?oc=5",
-      "family": "vida",
-      "slug": "puerto-montt"
     },
     {
       "id": "a2d0abdd458bedfe",
@@ -1053,19 +364,6 @@
       "outlet": "diariosol.cl",
       "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxQSzFoSXE2Tmd2U2s3Uk1nYnBvY1FSaGdQcUZ0bWdJbzFYVHV4ZmNqaXFEbDZUTTRpU2V2OXVtQ1FRTWZzSkg2YS14eFZ0WWNicEpmOXpUSDdpNUxCLUQ0VExzNFhMdlFDTjZDNkdKZ3NpRzh1TmgtelIzSFVOeUhvSHRUQnNRNm1zQ0l4bzRIMEpSeFZ2aF9MQnZISTVESDhnRDBiUUpDdHNTWVNQbnlCQnpRWGNzNTV4c242dkFaMHNicEQwMEdvdGtjd1I5Y0xNQ0FuT2ZOMGhiUQ?oc=5",
       "family": "propiedad",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "f2f7e3907869c115",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "De la fuga a la cárcel: segundo detenido por ataque a carabinero en Antofagasta debía cumplir 6 años por delitos anteriores",
-      "title_en": "From escape to jail: second suspect arrested for attack on carabinero in Antofagasta was supposed to serve 6 years for previous crimes",
-      "date": "2026-08-26",
-      "outlet": "madero.cl",
-      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNdkx1VVBPc0dwY1g3OUhfZHdPcnNVek9HY01sek1tZzhLdldiNEJwU1o0dDQ3QWRrNWNCeGI3VlJpUU1wX09EN1BzNWZTT0JKRHBOYlU5LXRtQkVKNTU5YkdTaEt1NGVFVEQ0MVBmMUZ3WUh0YllTdVltcEJ1TTlUM1FPTHlQTldaeHB6Zl9Ub2VTOTI2U2ZBWmF3eWxHYnBCdWFyRTNoNjRpMVhZbkdYbHRleEhtQUQ1Szk0V0NtcU16NVlVTTJPRVQ5MXFhc21XeEE0b1gwZzc?oc=5",
-      "family": "vida",
       "slug": "antofagasta"
     },
     {
@@ -1483,19 +781,6 @@
       "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxNT0ktMzRnTm5IUnppTzVoeHk2STIxc1lFbFZjcFY2QlNja1NRRzlZWlN3TzVobC0td3NfNXh4emFDRzNjeXQ4T2JpMld3cjdHZFBLTUdnaUtvRk05dWhkQVgyRndRa1JSbGJpVGEya0J1d2lwdlU1NHFyTmV1OFJ5X29rOVYxUzhqRkhEOFVRX015YUlMYXVuVUUtTEx6QlJNVDNURWdlQW10ZXFoSmxsM043ZXdEamdNZllpYzEtTE5HTDhLVnNvNGN4aEwzUWc4c0N4eHU4by1ERndLQ19HUDBGdzNhdFpWU2gxSDhUMVdwcW1PMFlERjk0dVJkYlJmWVdkUTZWSkR5QQ?oc=5",
       "family": "vida",
       "slug": "recoleta"
-    },
-    {
-      "id": "d82567a58c390010",
-      "cut": "10201",
-      "lat": -42.444449,
-      "lng": -73.871884,
-      "title_es": "Tres sujetos quedaron en prisión preventiva tras balacera que dejó dos lesionados en Castro",
-      "title_en": "Three suspects remanded in custody after shootout that left two injured in Castro",
-      "date": "2026-08-26",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNZ19xTGdERm9UeVVBRjd5WUJxMzA3Sk5acHJiSWJvZ3U0UmRjbEpRbE1fazB5NXJqS1VET294dklrcWVzMHZSSEVzNEprS09EV3N4dkI5T1lQRkpMMDFGM0N6aWNOZXZWRmNmZGI5OEF3OF9qb3F0bExtcllCYm5FbzhYcTAwNG5KcDdycXg0WE4wMUpXMVVLWEdTTWF5elJ3cjRFeVVR?oc=5",
-      "family": "vida",
-      "slug": "castro"
     },
     {
       "id": "f50ab4ea9df7d685",
@@ -2499,19 +1784,6 @@
       "slug": "iquique"
     },
     {
-      "id": "54e1bfa1236265c9",
-      "cut": "12101",
-      "lat": -53.368996,
-      "lng": -71.47533,
-      "title_es": "Investigación esclarece «mexicana» que culminó con dos muertos en Alto Hospicio",
-      "title_en": "Investigation clarifies 'Mexican' incident that ended with two deaths in Alto Hospicio",
-      "date": "2026-08-28",
-      "outlet": "tarapacaonline.cl",
-      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNZEhqWGhZNlpOSWxMYXY1Y0NLSlFjVllfV3FtMDIzdTJsSEljYVE1MExZWGY3STJLYVk1cXhZUXQ2WEZBUXZqdTFvdU9JbUV3dUZVRGRLZmFlOUYwZ0Z4WWp0cEFHTHVlcnNTMW5zYXVJa2VjaTZET2dDMXVhcndCbGRodmtUQ3d1OExLZ0xjNWVxbkhDTnpoT2tpNkk0OXFVQURISGRvWTBSWE9teHNOZmdqcUJxQQ?oc=5",
-      "family": "vida",
-      "slug": "punta-arenas"
-    },
-    {
       "id": "2748c9a35e8d3841",
       "cut": "1101",
       "lat": -20.213,
@@ -2564,19 +1836,6 @@
       "slug": "la-serena"
     },
     {
-      "id": "b37bb6a2948eab78",
-      "cut": "9112",
-      "lat": -38.778473,
-      "lng": -72.507694,
-      "title_es": "Fiscalía confirma detención de segundo carabinero por muerte de hombre baleado en Padre Las Casas",
-      "title_en": "Prosecutor's office confirms arrest of second police officer for death of man shot in Padre Las Casas",
-      "date": "2026-08-28",
-      "outlet": "Alerta Noticias Temuco.cl",
-      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQSDNzdnc5dDk5bnN0T2NMbnNkY0dVTDdOMzNIMEd6X3lpcnYxY085a3BwMGVpVjZaWlVYZ0hlOXlJQkZlTlNnQWRGMTY0ZXVhZ2t1aVNLUnRFTUktNnV2WF80QkdSVlh2MWxLbnVQWEhtbmdTVWMxeWRmZ2cyVVFCRmY3S04tTk9nSjdPWTZTR2pVTlFSNjJqM3F3?oc=5",
-      "family": "vida",
-      "slug": "padre-las-casas"
-    },
-    {
       "id": "7b52253ca70ad1c7",
       "cut": "9101",
       "lat": -38.666824,
@@ -2586,32 +1845,6 @@
       "date": "2026-08-28",
       "outlet": "sabes.cl",
       "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQRFJCNEhKZmNpM21aOWdjTmRuLVR4S3RRMllnVHlzV2xWeW1TSThFYWx6SkJ4UVFITzk2TUI5WUpuSHl5UVNCV2I5bGRGNUk2R0R5b3FtUWNta1Atak5yXzEtd1lqWnpBWjlBMHdnbEtsYlFzelBBU3JiTjNKVk9BQ1R1NlhEY1JWUGx6N3VKS0lqQTVoNWdwQS1Id3hFdDd6ZHJLamM3Zkx3dkdB?oc=5",
-      "family": "vida",
-      "slug": "temuco"
-    },
-    {
-      "id": "1f292023fca40e8f",
-      "cut": "9101",
-      "lat": -38.666824,
-      "lng": -72.659271,
-      "title_es": "Segundo carabinero detenido por el homicidio del rapero Vejetal",
-      "title_en": "Second police officer arrested for the murder of rapper Vejetal",
-      "date": "2026-08-28",
-      "outlet": "Araucanía Diario",
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPQ0hUOGk0eVd3VnB3R3hkYUtMd2s0cm84VnJEZDZDekY4QjN3Z18xd1FkQklaS1VreUU4eTVPRlZHSExpelpNckUwRDlJVktaWE9ubENYcGpWMXFNdUxaemZzbVpQUkNSaW5Ba29wdjZQRFgtdEkzd1FkTjgyTzhKckZReWtQY1FjWS1KZkR2bzExY2t6Qi0yTzU3dDB1Nkh0dF9YR0JMQ3d6bG9uVlJUNXNR0gGqAUFVX3lxTE5Vb1dUZi1nYUcxZmFUVHBwaldIRXY1SzFoV3l5Rzc0RlFJMmxkMlFZX0wyaml0TkowaGxHN3B1UjhOMEE1Z25SN0hpUXczV183Q1BIWkVNREZydmliSHRVRGdxR1dORjdpQjZyYmtpZkFuMjNhcU9ZZXlpaGpyQjBkM0RDcmplNTFSTG5SNXN2YVJWdXlKT3VRbWxvLWhPbHRFZUFTSXVIYXlB?oc=5",
-      "family": "vida",
-      "slug": "temuco"
-    },
-    {
-      "id": "2eef59947f979458",
-      "cut": "9101",
-      "lat": -38.666824,
-      "lng": -72.659271,
-      "title_es": "Revelan video clave por muerte de músico en Temuco: carabineros proporcionaron datos falsos",
-      "title_en": "Key video revealed in musician's death in Temuco: carabineros provided false data",
-      "date": "2026-08-28",
-      "outlet": "ADN Radio",
-      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNTjdlZmE2ZUZhSHRsUVdfWHBCYnM2TGlSYWNyWjhXaV82Sk9wdjNmS2VIZU51VDRaOTBuenNJTFNhN0N0YmloMldhdXJ3Q0tsaXBGTDBZaDRvM3hpMnZLcFZUM1pqZnFJZ1RTMlV0Z205QjMwSkpZcGZQLVpyUHhCQk9GZVBBdndpWmRidEtoSUdBNmlHX0hFUENxOS1PLWVCN0Mtc2xIX3RQWF9VTDdIbHZYbGNhZzlJamxlRjBjbVQ4S0pI0gHYAUFVX3lxTE1NS2pLYnZ0c3ZfMjJPM090bGtLNXNsTWdxQS1oWFdGTk5odmg1emdoY0xpcFYyUWp6MnpBV1dZTjJEY3U0UGF3UHUyRDNPTmdLWjZjTERmNlFVdERZTnFCRkxqbFYyUVFPTGJIN1ZlRUJkcFNncndjWW1jTGVaM1VndE9RZVZndlVYaGtXbTZRU2NSSUEyNHlfenNEV2JYTXd5clFwUWdRMkh1MlpwZXF5Z0hDRUtyOTBaOUZkRGVIZ3pscmdtTVczQVd4eTdneWVRX3g3QmI1Nw?oc=5",
       "family": "vida",
       "slug": "temuco"
     },
@@ -2640,19 +1873,6 @@
       "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNMDl6dDg3b1dFNDBKYjJ3aV9Ec3A5Mkg0eVg0TG9lWm5wMXo5VWo4V0R3SHVIQ1pnWEpfSmVvVzBtLU5PYVc3cVFWYmQ4aFBQdWVyWFFsbTBzWEg1ak5NdzlHeVhxazE0V1VPNWg3QUhaNGtqWUpBX3NQVDFpeXExTERZVTRMWGs4WGRab3hQTGhrTjBvWk01V0dqU0FDeU5lTmNXZGhn?oc=5",
       "family": "vida",
       "slug": "temuco"
-    },
-    {
-      "id": "a95248642e038c61",
-      "cut": "13101",
-      "lat": -33.446981,
-      "lng": -70.721768,
-      "title_es": "Dos carabineros detenidos y serán imputados por matar a rapero en control vehicular",
-      "title_en": "Two carabineros arrested and to be charged for killing rapper during traffic stop",
-      "date": "2026-08-28",
-      "outlet": "Cooperativa",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNNzVBU25oTVNYbUlRSFlrMG5aRGVJbEVPR2FCbk11WVAtSFdYdmVSV3ZrUDI2YTVCaDNKZEN1SF80Y0l2S2k0WmFMbEZhem5PVGRfWjhvdE13VE9tN0tFUXJ1RDNVWmwzdlo1VVNwcjRKQU9RR3l6Rm9IdWZBbWJtZnJPOHI4Z2hhcTg2c9IBjAFBVV95cUxNNzVBU25oTVNYbUlRSFlrMG5aRGVJbEVPR2FCbk11WVAtSFdYdmVSV3ZrUDI2YTVCaDNKZEN1SF80Y0l2S2k0WmFMbEZhem5PVGRfWjhvdE13VE9tN0tFUXJ1RDNVWmwzdlo1VVNwcjRKQU9RR3l6Rm9IdWZBbWJtZnJPOHI4Z2hhcTg2cw?oc=5",
-      "family": "vida",
-      "slug": "santiago"
     },
     {
       "id": "36842a98a178c710",
@@ -2718,19 +1938,6 @@
       "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOeWRiaGVWRGZKUC0xZ0JGdzRFUHZWOEtVemQ2SzVOc0JjVnM4bzU3WjhXRGhsZ08ycC04WVF2TkMxM2d1UDZEbFdVQ3V6dFEzQV96dGNUMU4tQzdBc1pSRWx4R0FLNGpOd2FsR2ljbTc5c1RCV2N1Z1Y4c3I1QTE2aGR0WDRQMkhzaHJiY1dwRUZaZG1aMUo1QXQ3QQ?oc=5",
       "family": "vida",
       "slug": "valparaiso"
-    },
-    {
-      "id": "a4170f4c0d62394e",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "Último detenido en prisión por ataque a carabinero en Antofagasta",
-      "title_en": "Last prisoner detained for attack on police officer in Antofagasta",
-      "date": "2026-08-27",
-      "outlet": "24horas",
-      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOWHZqbjVGVkhWMmZPendwdXNsYU5wQlN0WE9DXzFWVjBMN3V2XzYyT18wU0xxeXpjRTAtZDZrTlY2N0ZjUDJNTnl1VkxvcWNEbk9pSC1yTTRNUWFIUWdtRGVUaVBkbU9ZMWRvODJGZW9kOWp0SmJpUkMtbWZPSHBQOE96WHlwZVpqWlo4dm1IUy12SmtKbzJ3bmM1Z0pTSDVzWjQxUGIzcWlkSy1JemVpenJOb04tcE1pUXRn?oc=5",
-      "family": "vida",
-      "slug": "antofagasta"
     },
     {
       "id": "794d6a412892fb9e",
@@ -3056,19 +2263,6 @@
       "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNYktYWVlrZW5FbFJabGZIbnZwOE9aX1k2VkpCaUo4a2hBeklBWkNMZnJXT2MzZ21BOVlpang0OUx0RElvNTZTekhUY0RJUXJ1ZlJCWkR3MEIwMU1KWmJfWXVnajJTUlNmWXBOdW1xY1BRZnZiYW9qYTBLMzh6cHFrVnFIaW10LU1nN3R2N1VFaGJnQzJFMnM5Tm9odDBoTFhydmpmU2pmUjk4RjNj0gGsAUFVX3lxTE1iS1hZWWtlbkVsUlpsZkhudnA4T1pfWTZWSkJpSjhraEF6SUFaQ0xmcldPYzNnbUE5WWlqeDQ5THRESW81NlN6SFRjRElRcnVmUkJaRHcwQjAxTUpaYl9ZdWdqMlNSU2ZZcE51bXFjUFFmdmJhb2phMEszOHpwcWtWcUhpbXQtTWc3dHY3VUVoYmdDMkUyczlOb2h0MGhMWHJ2amZTamZSOThGM2M?oc=5",
       "family": "vida",
       "slug": "temuco"
-    },
-    {
-      "id": "191597d9e9f99bc5",
-      "cut": "13101",
-      "lat": -33.446981,
-      "lng": -70.721768,
-      "title_es": "Formalizan a dos carabineros por homicidio de rapero 'Vejetal' tras control vehicular: entregaron datos falsos",
-      "title_en": "Two carabineros formalized for homicide of rapper 'Vejetal' after traffic stop: provided false information",
-      "date": "2026-08-28",
-      "outlet": "Teletrece",
-      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOYkFxSTNWZW1zSlBBaWlLYWlRelpPYW02RUpvUzloQjNUcUtJamw0ejhSNVpjVlZQcERZVnk3Z2ZPZk5TR1c0dUlMOU5zRDJrMGNyT3B0M3hkSFNucmE2T0oybTlMZktHU0VxdWhGQnZFZ0dHLXk1Y3o2M3ktN0Z4Zk9Td1NJZmFRcTBhZlUxSFM4ZGRBTU1nakUyU1g3NFhqcEJidGdaTnZuWTNub1dOcmpqQ0FyeE90blhpQ1FVdmt6Zw?oc=5",
-      "family": "vida",
-      "slug": "santiago"
     },
     {
       "id": "50d99ea2d1aff48c",
@@ -3513,19 +2707,6 @@
       "slug": "la-florida"
     },
     {
-      "id": "fdb3439ad4d7fdbf",
-      "cut": "13110",
-      "lat": -33.539168,
-      "lng": -70.463562,
-      "title_es": "Balacera en feria libre de La Florida deja un muerto y otra víctima en riesgo vital",
-      "title_en": "Shooting at La Florida free fair leaves one dead and another critically injured",
-      "date": "2026-08-30",
-      "outlet": "BioBioChile",
-      "url": "https://news.google.com/rss/articles/CBMihwJBVV95cUxQNTdhNng1dUt0eU1iek43X210Vmt2YlJqWFl3Z3U1TnJ0S2RXTDJHai1KZzZqNlljNEo0Q1QtSVdUYlBhRHc3al9TcHl2Z0ZYX1JXX0U0RU5MbWE1SWlDNHZWQnpQaC1CdW1fN2FCaHpLQTl3amh3bVRtTHNHX0FFVmpSX2xiVFdaajJrSC0wYkUxTXVieEJCQ2V3QVpOdUE2QmpuaG1JV0Q0T3ZMeFdIS1hFTkFjTU92VmRwSXlkYnliVUFiUWJtN1BiWE5sVDZENXo0ZHByYzRJVXg2X3Z1Xzl3T2xJbDVKamJNMzdYNzhqUkV3QkJXd2pxR3Y4ZGFaUWV3YzNnTQ?oc=5",
-      "family": "vida",
-      "slug": "la-florida"
-    },
-    {
       "id": "85a758cf9b2b3518",
       "cut": "13128",
       "lat": -33.416252,
@@ -3537,19 +2718,6 @@
       "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNTmtRZTltM0VyVjkzYXU1S0tpY2N4bFJaenFndzA3UkJ1RmhKN0Z3YmdkU0FCeE5wM2JQaVlVdFlWWXpNLWk5OGlmUWJLUm81TVhZRFY2eEs1TVZ4YlJTRzdBTDc1QlVIQ3ZkVE83X1NxQ3Z3MW9tUUNRY19NYjFZbjhITHpOYS1ZaE5MZ3c2X084NHo5MnJEYUNUOXQ5MDh3VF9KdnhFY2ZUaFhLM0pxS0hyWXFYSXE2VU5jOUhOOTBmQ2U4S1JQOU5R?oc=5",
       "family": "vida",
       "slug": "renca"
-    },
-    {
-      "id": "712281ebc7c47db6",
-      "cut": "5101",
-      "lat": -33.116644,
-      "lng": -71.575283,
-      "title_es": "Detienen en Valparaíso a hombre vinculado a doble homicidio con arma de fuego en Alto Hospicio",
-      "title_en": "Arrest made in Valparaíso of man linked to double homicide with firearm in Alto Hospicio",
-      "date": "2026-08-27",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQSV9ra3dyZFYxbFFrQlNxanVwSDZFQzlPUzd0eUp6aUx6MDFjVkFLM3lBZlBYQnd2RFhUTVIwYVNjUDlfNkxocTZ6ZTdRLXVFeE9zZmFENmpCUXJkcWdLUndXR2R3UjA5VzBVY25UZ3V3SVpzdXc0Vm1BSTRuaWJRenMyVDFZckpaMUZUZWV2R3pKbHI4aktXNHdoNnhaM2M?oc=5",
-      "family": "vida",
-      "slug": "valparaiso"
     },
     {
       "id": "2456aef92aabc47c",
@@ -3799,32 +2967,6 @@
       "slug": "quinta-normal"
     },
     {
-      "id": "02352d0c64af861b",
-      "cut": "13101",
-      "lat": -33.446981,
-      "lng": -70.721768,
-      "title_es": "Carabineros pide ayuda ciudadana para localizar prófugos por el asesinato del cabo Alejandro Ortiz",
-      "title_en": "Carabineros asks for public help to locate fugitives for the murder of Sergeant Alejandro Ortiz",
-      "date": "2026-08-30",
-      "outlet": "Cooperativa",
-      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNdDVNUElrVEhQakdYQnN5S0VQQi1icTNCQTJlWGdCSTZYZGctcnB2TkNDVFBtMUdtOEk5UFJva0NwXzM0YXlXOTVhRlkyd0pGa2xzYkpDekVSY1pmVkk1MVNUSUtQekZjY2xyOG8xMlpXMDE4SmhBUXBObll4ME5OR3NJTWx4cDA4OWNKd2tmSTdWN1Y5OWx0NWNKUHNEZ2VtQ1FFN1lieFZvRGVsN25XTzBNSGVOS0tBOEZoa0FpRzV4VWd5TnVtYjFLb0VKd0ZYYmhYbnJLbUl1QklLOURtetIBjAFBVV95cUxOaDNrd1YtMld6ZFBodWJjbi1hYWdaTTdhTmFrNUZMQm55azdtRnJKQUVDWExuSzU5SFhCNGlPZXlXdXJrM0tNSFNQU28ycUh1bEwwUTdmS25Ca1NucmZrYUdIMWZ6MXRMZzZKS3pvaHhJZW1wSkxwenhueDNncXFyUk1oU1JUVUZ2b0M2WQ?oc=5",
-      "family": "vida",
-      "slug": "santiago"
-    },
-    {
-      "id": "c0c8612367b25ac1",
-      "cut": "13127",
-      "lat": -33.354794,
-      "lng": -70.635699,
-      "title_es": "Tres detenidos por homicidio de carabinero en Renca; otros tres prófugos con alerta de Interpol",
-      "title_en": "Three arrested for carabinero homicide in Renca; three others fugitives with Interpol alert",
-      "date": "2026-08-29",
-      "outlet": "La Tercera",
-      "url": "https://news.google.com/rss/articles/CBMikAJBVV95cUxQV0d6bTlrR1Y4ZWhVZzItR01YUFVCNDZvV0xUckIxQmNPcDMwcFZDZVFRckVxMkN5aU9xUGszT1l6bl95aFNWZVppdklsR0RnLUN1ZWRGRFpUVndCMFlUMGpBZzFhX2FoS2ZxZnpTWFVJNDBOLU1nVE1WLVAxMC16WDh4RGVFNVlac0hyQlItVElzai1mU18tUTVaQkxwMmFrZkw0UVpBWXQ4dTg0Smt1TFM5UjlqVHNIeHc3VUloS2EwbVhjd2Q1bmZtS2VFUjdNVjVPSFdfUTA1aDhNUVhqTldyeXVrd3QwcWNJS3ZDTExkbE8wbkxZZ2ZvRU5OVFpBOC1sNy00Q3dtclR6MVRLSNIBkAJBVV95cUxQV0d6bTlrR1Y4ZWhVZzItR01YUFVCNDZvV0xUckIxQmNPcDMwcFZDZVFRckVxMkN5aU9xUGszT1l6bl95aFNWZVppdklsR0RnLUN1ZWRGRFpUVndCMFlUMGpBZzFhX2FoS2ZxZnpTWFVJNDBOLU1nVE1WLVAxMC16WDh4RGVFNVlac0hyQlItVElzai1mU18tUTVaQkxwMmFrZkw0UVpBWXQ4dTg0Smt1TFM5UjlqVHNIeHc3VUloS2EwbVhjd2Q1bmZtS2VFUjdNVjVPSFdfUTA1aDhNUVhqTldyeXVrd3QwcWNJS3ZDTExkbE8wbkxZZ2ZvRU5OVFpBOC1sNy00Q3dtclR6MVRLSA?oc=5",
-      "family": "vida",
-      "slug": "recoleta"
-    },
-    {
       "id": "a5a027896e207c3d",
       "cut": "6113",
       "lat": -34.378072,
@@ -3875,19 +3017,6 @@
       "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNa2J0YTFPUE1EMHZ3V3BkZkNLU0RpTlhnOFg2STRucDZLMVZfMDZULU1YYU9jLURQSUNxRDU5dUI2bzUzbmRSbk1QRE5ReDlSbVZvRl9GRFBvUFM1eHliZWNfQjVneDU0MmUwWjJERzBBdEZNN2tXSUlEckpScHZOdjdKVmhzM191YVd1eDlzRGJ4VW42NHpQT3dVd2E2cFBOeVBUX3pNVDU1XzN1cnRHamdjbHBPeWtUajhldVFfcw?oc=5",
       "family": "armas",
       "slug": "coquimbo"
-    },
-    {
-      "id": "46c2daee498ea270",
-      "cut": "9101",
-      "lat": -38.666824,
-      "lng": -72.659271,
-      "title_es": "Detienen a dos carabineros por muerte de músico durante persecución policial en Temuco",
-      "title_en": "Two carabineros arrested for musician's death during police chase in Temuco",
-      "date": "2026-08-28",
-      "outlet": "ADN Radio",
-      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPUTdOcUNxUF9kX200U3UxalRmUEg2c1c5OENyZVJDelA2dzdmWk81Q2Z0RlBxV2VGRHRNM1FSMzRROXJGWTZ6X3hvYVo2Zkt1d0QtNmxzaW5pLXRubEhIc3QxOVJ4VWdmVDJnV1FsUzlLRU1oV1JVUHFtbGRfVTJIU0N6MmlXUFZMV0xfb1haU3U4MEM5ZVV2UU95bnYybjRmMldjZXJxNldnYXVfaTZaRFgwRWI5QlpueWZ5enpXa9IB0wFBVV95cUxNVEw3c0Z0akZtQ21zTUpGM3N2VjZUVUJqOWhqSWw5OG9Ybi1UVVBvQjZjLUZmRHpoZVdiU01MNFdNVmxKRWhIaHlZNENrb1dYdW96Z01iRzNUZDk1YkYwNWVtVkxFNEx4X3VUZzJod3Q4S0lwTmRFcF8yUlc5ZEZnRlFUVjRkM3hhSVlvUC1iWlNQMHVEMnFYcHM1aXNJY1ZHelJVTkpIR2VLRm5lZmFjakZ6UHlVYVZjWnEyZVp2RWdNQUR4QnBSd2x1WGUxQkxwWmhz?oc=5",
-      "family": "vida",
-      "slug": "temuco"
     },
     {
       "id": "69faee8858736d1f",
@@ -3994,19 +3123,6 @@
       "slug": "la-florida"
     },
     {
-      "id": "c33860eae1f034a1",
-      "cut": "13127",
-      "lat": -33.354794,
-      "lng": -70.635699,
-      "title_es": "Tres detenidos por homicidio de carabinero en Renca; otros tres prófugos con alerta de Interpol",
-      "title_en": "Three arrested for carabinero homicide in Renca; three others fugitives with Interpol alert",
-      "date": "2026-08-29",
-      "outlet": "La Tercera",
-      "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQMEZrVG0wc0dUWkdHZlR6OWxrV25YbjlLZjRqSEduMWQ1TmZxcEdVQ3BfZjRZTGNpU3BYWUNtYWg2MU8wY1gzNjVIMTZQRHJTTVBtdE5NVWNoMnpadjZrQzVNdFRqZ3B2cTczSEgyalB3TENNVEpsVHU4dmQ5OURGdFhQalBIZThRbXdpMHU0VlgzNGRJLU94T2pva1pmak9OcDNha1p4SFUwOWplM2I2aFN1QlB1aDFyWTZhSzBhRzR1eUg4S0o0YnFKaEg3ejNwNXNWcTliV3hLUHY5VEh0NndkWUtvXzNmdHIyVlJub9IBkAJBVV95cUxQV0d6bTlrR1Y4ZWhVZzItR01YUFVCNDZvV0xUckIxQmNPcDMwcFZDZVFRckVxMkN5aU9xUGszT1l6bl95aFNWZVppdklsR0RnLUN1ZWRGRFpUVndCMFlUMGpBZzFhX2FoS2ZxZnpTWFVJNDBOLU1nVE1WLVAxMC16WDh4RGVFNVlac0hyQlItVElzai1mU18tUTVaQkxwMmFrZkw0UVpBWXQ4dTg0Smt1TFM5UjlqVHNIeHc3VUloS2EwbVhjd2Q1bmZtS2VFUjdNVjVPSFdfUTA1aDhNUVhqTldyeXVrd3QwcWNJS3ZDTExkbE8wbkxZZ2ZvRU5OVFpBOC1sNy00Q3dtclR6MVRLSA?oc=5",
-      "family": "vida",
-      "slug": "recoleta"
-    },
-    {
       "id": "222f8344e53dfed3",
       "cut": "13127",
       "lat": -33.354794,
@@ -4029,19 +3145,6 @@
       "date": "2026-08-30",
       "outlet": "CNN Chile",
       "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNekdJa3hfQTZwSkVtcjN2QjFCRC1CVGMwdTVWeEIwSEpza2h6bFlyeW5JS1Z3LTRyQjFwaV9RTjl4VHBjTUhHUFhKR3VjMnU5bTM4OGdzbHFUYkxLZXJ1cXZaYnB1VjZUNzRpUmRnQWhnb1pMV0I2X0xBdFpVYVdUZ3JtclhrdUZiS2k5ai0zdGdVbE5RMzVvWEkxbTU?oc=5",
-      "family": "vida",
-      "slug": "la-florida"
-    },
-    {
-      "id": "8dcce932a450afe8",
-      "cut": "13110",
-      "lat": -33.539168,
-      "lng": -70.463562,
-      "title_es": "PDI capturó a presunto autor de mortal tiroteo en feria libre de La Florida",
-      "title_en": "PDI apprehends alleged shooter in fatal shooting at La Florida free fair",
-      "date": "2026-08-30",
-      "outlet": "Cooperativa",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOODdFa1E3X0N4UG02RmlFN3JiZVV2RlRfV043YXJuZ3NTbXFmTnRQRTh4cm1ESVowRVpVT0lyOGtQcTNySXZXN0tLOUhZRDJ4OE9ySjRLRm5UMHVOcU5YY1IwcGZtV1c3RjE5TVlwQXAxYUJnZ3dvbjNVQmFJbG1jTUlRN0N6YUEtS1NLNdIBjAFBVV95cUxOODdFa1E3X0N4UG02RmlFN3JiZVV2RlRfV043YXJuZ3NTbXFmTnRQRTh4cm1ESVowRVpVT0lyOGtQcTNySXZXN0tLOUhZRDJ4OE9ySjRLRm5UMHVOcU5YY1IwcGZtV1c3RjE5TVlwQXAxYUJnZ3dvbjNVQmFJbG1jTUlRN0N6YUEtS1NLNQ?oc=5",
       "family": "vida",
       "slug": "la-florida"
     },
@@ -4163,19 +3266,6 @@
       "slug": "san-miguel"
     },
     {
-      "id": "05f619b70ecdd494",
-      "cut": "9101",
-      "lat": -38.666824,
-      "lng": -72.659271,
-      "title_es": "Prisión preventiva para carabinero formalizado por homicidio del músico Gabriel Utreras en Temuco",
-      "title_en": "Preventive prison for carabinero formalized for the murder of musician Gabriel Utreras in Temuco",
-      "date": "2026-08-28",
-      "outlet": "ADN Radio",
-      "url": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxQSFdrblBIa0NTV25MQmZJcm8tNHB5WFlxQkZ2SVBHQ1JjVjE3eGFaeGFvazFLTHJyNGhjUHRZMGcxVmVKVnhzN01qZ190V1dfdlVfSkNvMmttU0poTzFLaEpTMmZ4dm9heUtUdkxqbGVLaWxlY1Yzd0FCSlRLVTlCU3laVUFXbWdUell4d1V0aFlxbno4VDk5VzJwRzdhOElPdWRJQUN6SGRiR0J6QVEwYkgyYjNuU2RrNUVUSFBQZlZGNTVicDlQLWl0Z2dTdjRFSWd5dTlDV21CcWRqZi1RR1lxZjVfTkVSbmhZRGhaT3ptTkg4Rk9v0gH3AUFVX3lxTFBIV2tuUEhrQ1NXbkxCZklyby00cHlYWXFCRnZJUEdDUmNWMTd4YVp4YW9rMUtMcnI0aGNQdFkwZzFWZUpWeHM3TWpnX3RXV192VV9KQ28ya21TSmhPMUtoSlMyZnh2b2F5S1R2TGpsZUtpbGVjVjN3QUJKVEtVOUJTeVpVQVdtZ1R6WXh3VXRoWXFuejhUOTlXMnBHN2E4SU91ZElBQ3pIZGJHQnpBUTBiSDJiM25TZGs1RVRIUFBmVkY1NWJwOVAtaXRnZ1N2NEVJZ3l1OUNXbUJxZGpmLVFHWXFmNV9ORVJuaFlEaFpPem1OSDhGT28?oc=5",
-      "family": "vida",
-      "slug": "temuco"
-    },
-    {
       "id": "4c4e0668363adbdc",
       "cut": "13301",
       "lat": -33.157849,
@@ -4254,19 +3344,6 @@
       "slug": "cerro-navia"
     },
     {
-      "id": "2d85035b4bfde15b",
-      "cut": "5109",
-      "lat": -33.027017,
-      "lng": -71.515513,
-      "title_es": "Padre detenido tras intoxicación de hijo de cinco años con cocaína en Viña del Mar",
-      "title_en": "Father arrested after five-year-old son overdoses on cocaine in Viña del Mar",
-      "date": "2026-08-31",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/policial/padre-fue-detenido-luego-que-su-hijo-de-cinco-anos-se-intoxicara-con/2026-08-30/202138.html",
-      "family": "vida",
-      "slug": "vina-del-mar"
-    },
-    {
       "id": "870ce7dc5331b415",
       "cut": "4101",
       "lat": -29.807222,
@@ -4291,19 +3368,6 @@
       "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNa3EyZUZYbG9obU5DRFZPX29iLWg5ajRpNWR0VnlKNFBVZFNyNEt6dWYyVXlCZ1BCdHo2c2JmSTBud1EweFdtcHhFQ2E5S1FpOHJWMWx6V0c3ZnRrV2hVQjVZQWZlcEE5UUMwZDl1MTYzMlc4eHZzR2xfYWFpV05wdG9MXzB6dms2RWxjODNpWlpYUnEwbXVLdVItQmQ0Nl92WW53Y1FSSTdGU1VROTM2VUhR?oc=5",
       "family": "vida",
       "slug": "la-florida"
-    },
-    {
-      "id": "cc5ff734256f5763",
-      "cut": "13128",
-      "lat": -33.416252,
-      "lng": -70.721768,
-      "title_es": "Fotos: Los tres prófugos por homicidio de carabinero en Renca: Autoridades hacen llamado a denunciar",
-      "title_en": "Photos: Three fugitives for homicide of carabinero in Renca: Authorities call for denunciations",
-      "date": "2026-08-30",
-      "outlet": "Teletrece",
-      "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE56TWQ3akJJUHJ5Si1sTUc5RFNaOEEwUkRvZE10U2cwbE1fUmVMSktCNzlrenlyQkc2UEt3a1BRSWhjdw?oc=5",
-      "family": "vida",
-      "slug": "renca"
     },
     {
       "id": "5f107526c3ef3101",
@@ -4345,19 +3409,6 @@
       "slug": "arica"
     },
     {
-      "id": "987d29fdb9b727bf",
-      "cut": "13127",
-      "lat": -33.354794,
-      "lng": -70.635699,
-      "title_es": "Fiscalía entrega nuevos antecedentes de crimen de carabinero en Renca",
-      "title_en": "Prosecutor's office releases new details of carabiner murder case in Renca",
-      "date": "2026-08-28",
-      "outlet": "Radio Paulina",
-      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNOG56LThZbDJaNmZYc2ZnMW1Idnhzcm1HbkpaSUNCbDBSTWJHX3Zwa2M1WHhobzIyTXFWMHk0emdqUkZ0aTl6ell6U280QXBEUzdISGM4czFqTGJoU21obk9MeHdxYV9pYmh3dGhfMW5lV2FoSlJvVS1TeGVGVHRPWF9DNmZuZEMwSnpEOS1wQi1qVlNEN3ZXbXUxaDhESmNJb3F1Ti1UeELSAagBQVVfeXFMTThuei04WWwyWjZmWHNmZzFtSHZ4c3JtR25KWklDQmwwUk1iR192cGtjNVh4aG8yMk1xVjB5NHpnalJGdGk5enpZelNvNEFwRFM3SEhjOHMxakxiaFNtaG5PTHh3cWFfaWJod3RoXzFuZVdhaEpSb1UtU3hlRlR0T1hfQzZmbmRDMEp6RDktcEItalZTRDd2V211MWg4REpjSW9xdU4tVHhC?oc=5",
-      "family": "vida",
-      "slug": "recoleta"
-    },
-    {
       "id": "0cea81434aa20a5d",
       "cut": "13123",
       "lat": -33.446981,
@@ -4369,32 +3420,6 @@
       "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxNQjFNclpVRGl0MTZLS1F1bm1zU0loekdBSVZOdzB1OFF3NEpGazhBMlp4TDBfMmoxQzJoUkE4MTVDY0x1RE5wWXFrMy11YjN1UmVVT2J0NEVwZTAyQW8yWTJ6c0E0YmNrdFVvSXFtTFdOa1BOQU5RTDhXbnpCck1faEdSTFVBZkVmTlVaYW82OWktTldVTXp3eFZZMWdxcFRZeUMteHJTeTFrTVdtYmNydkJLdHVreDY0TTBVbnJENk1CeC0zX0hQRWdZN1VndzlRY2JHUmQ0aUwzVnhqZXNtOGRsaTZrQdIB5gFBVV95cUxNQjFNclpVRGl0MTZLS1F1bm1zU0loekdBSVZOdzB1OFF3NEpGazhBMlp4TDBfMmoxQzJoUkE4MTVDY0x1RE5wWXFrMy11YjN1UmVVT2J0NEVwZTAyQW8yWTJ6c0E0YmNrdFVvSXFtTFdOa1BOQU5RTDhXbnpCck1faEdSTFVBZkVmTlVaYW82OWktTldVTXp3eFZZMWdxcFRZeUMteHJTeTFrTVdtYmNydkJLdHVreDY0TTBVbnJENk1CeC0zX0hQRWdZN1VndzlRY2JHUmQ0aUwzVnhqZXNtOGRsaTZrQQ?oc=5",
       "family": "robos_violentos",
       "slug": "providencia"
-    },
-    {
-      "id": "22ddffa8b9673120",
-      "cut": "9112",
-      "lat": -38.778473,
-      "lng": -72.507694,
-      "title_es": "Fiscalía confirma detención de segundo carabinero por muerte de hombre baleado en Padre Las Casas",
-      "title_en": "Prosecutor's office confirms arrest of second carabinero for death of man shot in Padre Las Casas",
-      "date": "2026-08-28",
-      "outlet": "El diario de la Araucanía",
-      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOZTN4X2ZRVUd5OW55aGxuX0FBMmFPcVJSVXB4UGt4SC1FVGpTRDNxWDl4OFBXelVQenZ0ZjdRWkRva1FmX0RtUVdZWllYRnFFZG15V3NEbEdIUTEyMzhiV0VrakFSWU14VVhqd0R4djJNM2g0X29mUVRDcUM3T3EtTDIyRjlWWi02RWZsTWxnbWJ2aWtKYzZfMXBLWTBIbURm0gGmAUFVX3lxTE12dF9xdHNGX0lzNzRyZ1ZqX3Y5emJzdXN0SnFpVmVfSDl0SHVnMWFSek1YQ19GbWVocE42YUpSMkQ5ZFctcWZOYlJIN0xmNUYyZkppUEhWSGpxYVBSbGVzVjBHRU5hRC1YWk0zQnVZX1JBcEFWNXpJZE9BUE9JME05bjFTLXJFRlFVbFZmUUxURjlHeFJZVVRWVGF6aUZuVloycmtZc1E?oc=5",
-      "family": "vida",
-      "slug": "padre-las-casas"
-    },
-    {
-      "id": "1b62120987e80b1f",
-      "cut": "9206",
-      "lat": -38.032196,
-      "lng": -72.805861,
-      "title_es": "Atentado incendiario en Los Sauces: brigada especializada de la PDI realiza las primeras diligencias",
-      "title_en": "Arson attack in Los Sauces: PDI specialized unit conducts initial investigations",
-      "date": "2026-08-29",
-      "outlet": "La Tercera",
-      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNZ2wyU0c4Umk2b0dvN3djWEZNbXJnUjA3RERIdnlxSU5oTl9xVnVtUFp1NjFUOXhuOGE5Uk1UV2I4T2lrendJZnQ1M0FkV3NHdnpuWG5rVGhJUENHZm51OXNEWXhtWkR4dU9FeVZiRHpNcXdhdGdjNFg4YkU0QTA0YWJGZkNscWp1blRDUmVuMlhHVFlXYi10U1JzTUxHemdrQzg1QXlxR2tFOERtTk1VU01TSUFlT3RJNjBwMnZ6QVE4c05SSVI0TGFzcHFmSURIdklTVGxOXzdiTlnSAfwBQVVfeXFMTzBlOUVhRU1weUJzVm5iaUNuS3A0LTEtVlBBelk3d3ZFc1NoMl9CY2tvOXQ2LS04a2hWNkNLSWpyUmRqMVdMN3FNNFlvVHhqV0hNb052eE5XVVFoS3BTeGl6THlvS3llYlBoZU84Zm1Yekx3SHlqc1ZqTi04Y1lXaHEtazcxWm5uV2VNUzZYaVRxNWM2dFBCRGtaRTBxcVVmVXJCTDVVdDZvQk5kUkNyalNpcUNSb2ZrbGtqU0p5SkpSUVFOZGNqQzVyNVZjcGNGa3luZzkwdUJTeWNFR0d5bzF2S1ZKSEgxSXEtVFBYMnp5Zl9MaXhUNzdzUWc2?oc=5",
-      "family": "propiedad",
-      "slug": "los-sauces"
     },
     {
       "id": "af6019d396efa769",
@@ -4433,19 +3458,6 @@
       "outlet": "Puranoticia.cl",
       "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQSnBBUEpvSHpEUXY0ei1DaVpJenBINm04YTZlUmZyb19sZThVRVlxR2dTTEk3TDAxaEF3QVNKRDBSUVNpaktTWmloN1dPdzRqSDhtQ3BDYk5qRTZLdU5MdVFqYWFsOVNpajVoMzdDVzRDWUFMLVhxTXVHQ3pObmRUZW8zbDlfQzMxbHItVVF3ZGRtUjNwVFR3eEtWQTlRMmF1b2lzOWozQ3k1SE0?oc=5",
       "family": "vida",
-      "slug": "temuco"
-    },
-    {
-      "id": "2a3cbbc1b02bf1bc",
-      "cut": "9101",
-      "lat": -38.666824,
-      "lng": -72.659271,
-      "title_es": "Seis condenados por tráfico de drogas en Temuco tras incautación de marihuana, cocaína y armas",
-      "title_en": "Six convicted for drug trafficking in Temuco after seizure of marijuana, cocaine, and weapons",
-      "date": "2026-08-29",
-      "outlet": "El diario de la Araucanía",
-      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOSTZEZ0QtNzVkdkRYUmZaa1FIaWg0OXJYOFBYMm1QeXkzd09pRm5yXy1EclBfX25oMG1zeThMMHhhZlJVMjc4U19Vdmh4RExGa2pXLXRRM1hEVmZqM1NrTm5waGxnR3FDbGIzVm5JS3ZIT2MtTkxTZHJtTUw3UFB3clVlVUpzNGZvbFY5NlcyUXRJS2lMa25HOWhTM1FKTjRMdnF3a0xBbXdKOGZ60gGsAUFVX3lxTE5JNkRnRC03NWR2RFhSZlprUUhpaDQ5clg4UFgybVB5eTN3T2lGbnJfLURyUF9fbmgwbXN5OEwweGFmUlUyNzhTX1V2aHhETEZralctdFEzWERWZmozU2tObnBobGdHcUNsYjNWbklLdkhPYy1OTFNkcm1NTDdQUHdyVWVVSnM0Zm9sVjk2VzJRdElLaUxrbkc5aFMzUUpONEx2cXdrTEFtd0o4Zno?oc=5",
-      "family": "drogas",
       "slug": "temuco"
     },
     {
@@ -4551,19 +3563,6 @@
       "url": "https://www.lacuarta.com/chile/noticia/desnudo-y-con-la-cabeza-en-el-agua-amplio-operativo-de-carabineros-tras-horroroso-hallazgo-en-rio-mapocho/",
       "family": "vida",
       "slug": "santiago"
-    },
-    {
-      "id": "921092c370041956",
-      "cut": "13201",
-      "lat": -33.585262,
-      "lng": -70.549631,
-      "title_es": "Detienen a sujeto de 17 años por asesinato en Puente Alto: víctima quedó en medio de una balacera",
-      "title_en": "Arrest made of 17-year-old for murder in Puente Alto: victim was caught in the crossfire",
-      "date": "2026-08-31",
-      "outlet": "BioBioChile",
-      "url": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxOZFNZZTV6NURPTXRRTDZkRV9QZ0RaZFB2dExCTkdxZFp4cExYSy12R3VwRnlfcVAwOFY5NFZHWnVyaEsxTVdqaGNXT1B5c1FmNmpMZnZMQ2N4ZEtsQXJwU0Z4MThJa25YaUV3emxfOTY2OTROMi1jcHpaZHlNdTRfcGptMDVxa1RibzVNSVhYcTllT2FiOXZfUkstMnhmcDU5REo0RmRZcWhyN0dUWHZCekZuelAtekFLMHUzMzNicHdDRGI1V0VDUy1VYnVLNHlwQWZvVFZhY1pqVXlQVGdCSUVldmcxWDEwVEJCdnZjWVAzWFJwODRNcTdmc19VSWZDYWhpYjNpYVl2QWs?oc=5",
-      "family": "vida",
-      "slug": "puente-alto"
     },
     {
       "id": "9815fac7c309bceb",
@@ -4943,19 +3942,6 @@
       "slug": "quilpue"
     },
     {
-      "id": "6cdbdb578a70b42e",
-      "cut": "4301",
-      "lat": -30.674669,
-      "lng": -71.402962,
-      "title_es": "Carabineros de Ovalle recuperan vehículo robado y detienen al conductor en 12 minutos",
-      "title_en": "Carabineros of Ovalle recover stolen vehicle and arrest driver in 12 minutes",
-      "date": "2026-08-31",
-      "outlet": "t.co",
-      "url": "https://news.google.com/rss/articles/CBMiO0FVX3lxTE5LTjRkbUNKdTY3VHJ5c2VsazFrSUZCOUFYRm85T3VQVWcxWmYtcWdHVUk3cXpRU2xxQXFr?oc=5",
-      "family": "robos_violentos",
-      "slug": "ovalle"
-    },
-    {
       "id": "ae047ba5d8985793",
       "cut": "9101",
       "lat": -38.666824,
@@ -4965,19 +3951,6 @@
       "date": "2026-09-01",
       "outlet": "BioBioChile",
       "url": "https://news.google.com/rss/articles/CBMilgJBVV95cUxQckQ3eGxFTU4wX0s2QjIwenJTQXNnZFotYVg2SXkxMG1nMVhZRExJTFVpREI2Nm93WmRfeVJOV1ZCaUxsVmo3M0R3NVd6TGtsQzM3U01XVk9FRnJMS3ZORjlpTFpNc0EzZ2FmUm5SQTBBRnFQU3VRamU2eG44MUhVLTdHOGZ6R1gybDZJa3ZxMV8wTk1kdG5wR1pNeUwweTU4bnh2Z0J2QWdGdk9IeDVUNlpsV0pRQ3l3eHRBdjZjOFQtZmVEOXEtNGZBbHM3X1dPcFhDYlRpQmZFY1FIMmFpVzVPdjJWclkteXNHLURhZnNKRW8wTXh6N2JBcjBJZjVlaG4yT3Ywd1BBY05IWVJvR0ZSN0kxdw?oc=5",
-      "family": "vida",
-      "slug": "temuco"
-    },
-    {
-      "id": "094eedd4551622f9",
-      "cut": "9101",
-      "lat": -38.666824,
-      "lng": -72.659271,
-      "title_es": "Carabinero que dio muerte a Gabriel Utreras queda en prisión preventiva",
-      "title_en": "Carabiner who killed Gabriel Utreras is placed under preventive detention",
-      "date": "2026-08-29",
-      "outlet": "Araucanía Diario",
-      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNOW5aSGc1ckhuc3hSNzdCLWpJbHdnTFNhYUNOUC1fdlFlOV9xOU9wZUNLRWwwUXZlRjdYVUlITjczbnl6RFFrTEFmc1lMaTVxVzJDa3FIQ0VLZVBIOUd5c3RkeTA4cmZRV01FY0h4V1lzWW5yZUtTNnNaRGhrRlRBWnNGVlBYcWhfRXAxQ2kzbkdpWDlVSHllaXJScE9hSVhGY2JGeWNBaUMzTW1JSFYzUmlaNzPSAawBQVVfeXFMTWJLWFlZa2VuRWxSWmxmSG52cDhPWl9ZNlZKQmlKOGtoQXpJQVpDTGZyV09jM2dtQTlZaWp4NDlMdERJbzU2U3pIVGNESVFydWZSQlpEdzBCMDFNSlpiX1l1Z2oyU1JTZllwTnVtcWNQUWZ2YmFvamEwSzM4enBxa1ZxSGltdC1NZzd0djdVRWhiZ0MyRTJzOU5vaHQwaExYcnZqZlNqZlI5OEYzYw?oc=5",
       "family": "vida",
       "slug": "temuco"
     },
@@ -5058,19 +4031,6 @@
       "url": "https://www.latercera.com/nacional/noticia/republica-de-lemuria-detienen-a-conductor-que-presento-documentacion-de-pais-ficticio-durante-fiscalizacion-en-lampa/",
       "family": "propiedad",
       "slug": "lampa"
-    },
-    {
-      "id": "23f5dd85c240b947",
-      "cut": "10201",
-      "lat": -42.444449,
-      "lng": -73.871884,
-      "title_es": "Millonario robo afectó a tienda deportiva en Castro",
-      "title_en": "Million-dollar robbery hits sports store in Castro",
-      "date": "2026-08-31",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPemRxaFJvdTlQR04wdUtRclBwZHVIaVpGQ19lU2p4cjBXQTVUa0xTelYxbi1yX1RHVWxxRHVpWldRVG5BTWl0WkNJZmtPbGkyMUUzd1FTNHdLU1ZJTzVMbEt6UFNaalN2WnBaZkRYNU5vY1RMdllSaXhkclN0QUVPamJpSGFadzRKRENGU18xSm9aYVctd0VpQ2E0d3RlaWFKV2ZQeA?oc=5",
-      "family": "robos_violentos",
-      "slug": "castro"
     },
     {
       "id": "7b8cb2474b40e65e",
@@ -5255,32 +4215,6 @@
       "slug": "calama"
     },
     {
-      "id": "9ad728d49bcf43b9",
-      "cut": "1101",
-      "lat": -20.213,
-      "lng": -70.152,
-      "title_es": "Balacera en sector norte de Iquique deja dos heridos",
-      "title_en": "Gunfight in northern Iquique leaves two injured",
-      "date": "2026-08-31",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOaVZPaXBjcXNJdDZXa1E5T0xOcVlvVWtleVNucDVjYmRKOG1NZm9iU090US15cmdXb0p2LVlOQ184Wl9xaWpIYWl1aHZTcmloTm50cXdoREJSTlh2cENRM0tTWHhkTnRSVWZ1em1QT3dUZklyRF9oRGE5ZkJtblBsdHhrWjBia1lZaTRYNGJkOHgyUQ?oc=5",
-      "family": "vida",
-      "slug": "iquique"
-    },
-    {
-      "id": "d68e062d341b54f1",
-      "cut": "1101",
-      "lat": -20.213,
-      "lng": -70.152,
-      "title_es": "Investigan doble homicidio frustrado contra venezolanos en centro de Iquique",
-      "title_en": "Investigate foiled double homicide against Venezuelans in downtown Iquique",
-      "date": "2026-08-31",
-      "outlet": "Radio Paulina",
-      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNOXlNajhXRnVrYUNnTG9VZ2VvMF9xZlZMTEhoWndLbmRlWXdHOE1mUkNRNF9PMFJBUmxLSlFUMTFMeE9JbjBkSFg5MWwtMW9MWTNWZDVtNXMtVUNkSnJDUFVON3dqLWJvUGlLQzdPZEE0a0trakVyRzd1TmRJdFhRTFk5Q3U1N3ZROThSRHFDdWc5enc1UDhjTXg2RUw1RGpvamgzVk5jNUt6c1MzWTVlejlOcExLOU94YnfSAboBQVVfeXFMTTl5TWo4V0Z1a2FDZ0xvVWdlbzBfcWZWTExIaFp3S25kZVl3RzhNZlJDUTRfTzBSQVJsS0pRVDExTHhPSW4wZEhYOTFsLTFvTFkzVmQ1bTVzLVVDZEpyQ1BVTjd3ai1ib1BpS0M3T2RBNGtLa2pFckc3dU5kSXRYUUxZOUN1NTd2UTk4UkRxQ3VnOXp3NVA4Y014NkVMNURqb2poM1ZOYzVLenNTM1k1ZXo5TnBMSzlPeGJ3?oc=5",
-      "family": "vida",
-      "slug": "iquique"
-    },
-    {
       "id": "f0551afb92d1045c",
       "cut": "4101",
       "lat": -29.807222,
@@ -5344,19 +4278,6 @@
       "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPVHpNaFdhaWFxWTcwMnMtcThiSVF1dG92b3otYUM4b2l1a2Z2Vno0R2dEOXRxQ25Dak1MRUxiZGdBTWlNNGRPTjFCVXJveUJuS2tMN3ozNUZ1WlNHem9fb2xzaGw1RVdtZDdGNFRGT0VLZ1Nsb3pFOXpxS2RFOHhzaDA5T3A2dncwUzVKcEd5ZkpiektrTWpEXzRQVm8wZUxfOWR3RmYxSFhxUFdESkxlM0V4dUdxNWNhWUNpUjJLZTlpSE8wT3c?oc=5",
       "family": "robos_violentos",
       "slug": "angol"
-    },
-    {
-      "id": "6c351300a684ee3b",
-      "cut": "9101",
-      "lat": -38.666824,
-      "lng": -72.659271,
-      "title_es": "Dos carabineros formalizados por la muerte de un músico de hip hop en Temuco",
-      "title_en": "Two carabiniers formalized for the death of a hip hop musician in Temuco",
-      "date": "2026-08-31",
-      "outlet": "pagina19.cl",
-      "url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxNWXNmNmFReFNaWkFDQk0tLXNpTGt5XzRMVlF6ZExNeGJla1l5TjJVQ2ZXU0FsQnRvUDFiSmVmRlJ0Q2tXZS1kaVV2WGZtaHhIU1cwWjlBMVBGV09uVmhBWF9fTFpyN1RoZGtvbU1ha0UyZ0hlR1FQWDY4UHZWWXFaeGFEUDVNRXMtRHgzM0FseGJVcHk3Sk90SjZmOENBXzBoYXBwSE8yal93bFMyZm03WjJGUFJFU3JwX3BheEJPeEMyWXNSVkpBdDRtOGF3STRKVzRMYUhwMzlIcWtObkh0T0IxT3B0N0h4SkhzMG4wX2hoSnJVZGtsNmJDSjQ2U2RVb3fSAYICQVVfeXFMTVlzZjZhUXhTWlpBQ0JNLS1zaUxreV80TFZRemRMTXhiZWtZeU4yVUNmV1NBbEJ0b1AxYkplZkZSdENrV2UtZGlVdlhmbWh4SFNXMFo5QTFQRldPblZoQVhfX0xacjdUaGRrb21NYWtFMmdIZUdRUFg2OFB2VllxWnhhRFA1TUVzLUR4MzNBbHhiVXB5N0pPdEo2ZjhDQV8waGFwcEhPMmpfd2xTMmZtN1oyRlBSRVNycF9wYXhCT3hDMllzUlZKQXQ0bThhd0k0Slc0TGFIcDM5SHFrTm5IdE9CMU9wdDdIeEpIczBuMF9oaEpyVWRrbDZiQ0o0NlNkVW93?oc=5",
-      "family": "vida",
-      "slug": "temuco"
     },
     {
       "id": "85e76f6bc7b35db6",
@@ -5528,19 +4449,6 @@
       "slug": "independencia"
     },
     {
-      "id": "4820b4d071acfba8",
-      "cut": "13131",
-      "lat": -33.54,
-      "lng": -70.638,
-      "title_es": "Hombre murió de un disparo en medio de balacera en San Ramón",
-      "title_en": "Man died from gunfire during shootout in San Ramón",
-      "date": "2026-09-01",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQejNBMHBkeEZlYmljQTA1a1lHU0N1b1lIUkVkVmotc3FmX0htRWNzMjNQQmZEYnpmQWQyS2twM0NiQUthVjJCdUg0Ri1LWFpGbTZTWTVOeUJUSERVTjhEY1VUQ0E5YUNhWnpHTHZNR0JKUG1GcFFWZ1BaTXhYQUFQTGZocEJqUE9jSGpqZDFvWjU2Y24wUWQ5djVxYjQ?oc=5",
-      "family": "vida",
-      "slug": "san-ramon"
-    },
-    {
       "id": "3fa5ae8883a00ef2",
       "cut": "13401",
       "lat": -33.600626,
@@ -5552,32 +4460,6 @@
       "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNaXY1T2ZUa3lhamgtb1JFU0pCVEVOTmQ4QVVFVDBEVnNVXzVNczZFNS11Zk4zN0JEaW9qdWZUOUx6bGhlTjVTS0xFelBTY3I0U3NydTg0YnFYSVBQMFVtdEczQTB0bnc0Rk1hYS1tT1dhLU9MY0lfREJQVFZ1WGV3VkJISFgtYmVDWDNKQ2lUVEdjbFlUNHRjaHdIc294Rk1lRXpnaXdzOTd5TklNV1pSbER5cmR5N1dmTWpmSnlxMXNnM0FmdXJ4T09DdVNUWVdWZHdsSHBmcHpYbHQ2NXBZV0530gH2AUFVX3lxTFB2Q2E1cDBVSE1rX2NOV0dscV9tZFo0ak5sRXpZSlVJb2dEblVIYmE2UlQyRXhRUWRSTXJrUjZmT1U1NllkdVlGTlp6LXBCMWRfczU5Nks4djRtSFZyU1o2N2tsSnlxRERVYVNLUHRpTTMwZUhRVEV6cE5ydHZldlpsYXk4ZVlBaEp6dU9HOHNlMEp3X1Q2cGRkLUZzaTZpRlRPT1d6LXVkN2sxS2ZVSnNUMVpUQ0h6X0ZhSTFLdHp4Nm9EWHQxcFZYUXFiQWZXcUR3cWhMQmhKak1EcnZRLXI2S0cyYm9uVDV1UFpNM3FhZjd1MnlwQQ?oc=5",
       "family": "vida",
       "slug": "san-bernardo"
-    },
-    {
-      "id": "df61f8e09bcd7cf4",
-      "cut": "2101",
-      "lat": -24.258584,
-      "lng": -69.418217,
-      "title_es": "PDI en Antofagasta recupera minicargador avaluado en $38 millones y detiene a una persona por receptación",
-      "title_en": "PDI in Antofagasta recovers $38 million minicargador and arrests one person for receiving",
-      "date": "2026-08-29",
-      "outlet": "Desierto FM",
-      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQYVJLMTNzcUpzdXdpcllGOHhEQmtVenhnRjBGMDczLVMtLUNqZmpTV3BTQzNrVEh5T0Zfem03bndDNDg3WXZzZnZBNnhUX0pzdmVDbEZfZWQ3dVlPZE9UdHZmZGNkU2tCTHFYYTFnNGt1RmNSTDdYZTZEY1ppSWtGOHNNd0Vta1JjNHlkeHBMaWNWVU9rUl8yMTR5UnQ3UHdZLXllbVVaTGRxS1lwcUd5VUlxRTRUQ3dycVU2Tm9fb1Yzd0xiaTVWQ19hdw?oc=5",
-      "family": "drogas",
-      "slug": "antofagasta"
-    },
-    {
-      "id": "19ec4c388b6789b6",
-      "cut": "1101",
-      "lat": -20.213,
-      "lng": -70.152,
-      "title_es": "Balacera en sector norte de Iquique deja dos heridos",
-      "title_en": "Gunfight in northern Iquique leaves two injured",
-      "date": "2026-08-31",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOWmI3a0J4cDFnUWNnVGhEQlF3a0Q3bHpwWUZPNHRNb1cyR2pnblpHd3N0WDJWUkhjTzF6YWQtb1dVc2QxMVNfaldrOTh2alk5M1B6Vm1NaDEtUk9rVUlBTk9vY0FOZHA0UXFEcnAyTmtnbnpNNjh5b3ExdU5ELWp6UGlpT21OZi1tR3NyRw?oc=5",
-      "family": "vida",
-      "slug": "iquique"
     },
     {
       "id": "aef2d773d44906b0",
@@ -5723,19 +4605,6 @@
       "slug": "san-bernardo"
     },
     {
-      "id": "e38b153ac9cf2c0f",
-      "cut": "16301",
-      "lat": -36.370083,
-      "lng": -72.041489,
-      "title_es": "Investigan asesinato de hombre en San Carlos: fue baleado por dos sujetos y todo quedó grabado",
-      "title_en": "Investigating murder of man in San Carlos: he was shot by two suspects and everything was recorded",
-      "date": "2026-09-01",
-      "outlet": "BioBioChile",
-      "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxOQW1Va2o5NFpicGxZVThxQVVKZTFaaWVScENOcUtOLVUtV1NJOUFHOHBfZzhQUnBVdWgyWDFGTTVmTFZwTWM0OHotazFiWjFsMV9uZ2tYblUzczFEOGoxeXJwc2pRZXZQNmFyR2RtUlhqWnNBR3FlUDFLNkVER3NLUFlVZWhnUU9lWDFHOV8zek5fZDRyc3VFb2gzSE5QMmphNmd2N2FrZzBTVTZJRVAtTHlCa00xdEdhaGEtUEt2YmlLX1VGYjlVN2FlaFlLd0k5QW93Tk1XT3U5NXBuVklpcmhRRG1jMFhmcmQ5emwtNXM2Qk5ENTJSSE44bUh5MXEx?oc=5",
-      "family": "vida",
-      "slug": "san-carlos"
-    },
-    {
       "id": "4e2fbbd4461d13e3",
       "cut": "13401",
       "lat": -33.600626,
@@ -5745,19 +4614,6 @@
       "date": "2026-09-02",
       "outlet": "Puranoticia.cl",
       "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNUkRKSDBHSW9PRV80SDBhdVNaUTF1ZUxBU2owVTZWbFFhclM2WWVaalNNRVNiZ2lCYjdyNzQydXR0aVBVbDZHRDY3NG5WY3ktTEdnZ2dXUGIzOU93UGlUckdBNEVHYlVncXRSQ3JfazhPX1hjNzI2VnZwZDZCQjVHRFc0aHJqb1ZRTWZYSjRVNDZPSVNsbUw2cTFaaldQZkFCRHlEb2k3ZHdSaWNu?oc=5",
-      "family": "vida",
-      "slug": "san-bernardo"
-    },
-    {
-      "id": "5757db7620a4a1e2",
-      "cut": "13401",
-      "lat": -33.600626,
-      "lng": -70.721768,
-      "title_es": "La Fiscalía descubre que el ‘Indio Juan’ planeaba asesinar al alcalde de San Bernardo",
-      "title_en": "Prosecutor's Office discovers that 'Indio Juan' planned to assassinate the mayor of San Bernardo",
-      "date": "2026-09-01",
-      "outlet": "EL PAÍS",
-      "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQdkNhNXAwVUhNa19jTldHbHFfbWRaNGpObEV6WUpVSW9nRG5VSGJhNlJUMkV4UVFkUk1ya1I2Zk9VNTZZZHVZRk5aei1wQjFkX3M1OTZLOHY0bUhWclNaNjdrbEp5cUREVWFTS1B0aU0zMGVIUVRFenBOcnR2ZXZabGF5OGVZQWhKenVPRzhzZTBKd19UNnBkZC1Gc2k2aUZUT09Xei11ZDdrMUtmVUpzVDFaVENIel9GYUkxS3R6eDZvRFh0MXBWWFFxYkFmV3FEd3FoTEJoSmpNRHJ2US1yNktHMmJvblQ1dVBaTTNxYWY3dTJ5cEHSAfYBQVVfeXFMUHZDYTVwMFVITWtfY05XR2xxX21kWjRqTmxFellKVUlvZ0RuVUhiYTZSVDJFeFFRZFJNcmtSNmZPVTU2WWR1WUZOWnotcEIxZF9zNTk2Szh2NG1IVnJTWjY3a2xKeXFERFVhU0tQdGlNMzBlSFFURXpwTnJ0dmV2WmxheThlWUFoSnp1T0c4c2UwSndfVDZwZGQtRnNpNmlGVE9PV3otdWQ3azFLZlVKc1QxWlRDSHpfRmFJMUt0eng2b0RYdDFwVlhRcWJBZldxRHdxaExCaEpqTURydlEtcjZLRzJib25UNXVQWk0zcWFmN3UyeXBB?oc=5",
       "family": "vida",
       "slug": "san-bernardo"
     },
@@ -5812,19 +4668,6 @@
       "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQaXdMcDdodlpJTHh4ZmNlSDZhMW5UaGNlbjdBdUJheU5oMV9FOXE4RTB2c0ZobG82bnV2cXNqSnF1dXBxcFB4bGdqWXlsUFRHVDBSRElhanNuVF9lN2RLTGJNQThTMFlOTmU1dWhIdVh3cXpMU1lHSDBPcmw4N01tZ09MUHB2QV9PQU1FbEFMbHpocS14OWcwUkdjUDE3MFdLVGhQcmZoYnBWV0RqaVFfN2NlQ2tBUdIBtgFBVV95cUxQaXdMcDdodlpJTHh4ZmNlSDZhMW5UaGNlbjdBdUJheU5oMV9FOXE4RTB2c0ZobG82bnV2cXNqSnF1dXBxcFB4bGdqWXlsUFRHVDBSRElhanNuVF9lN2RLTGJNQThTMFlOTmU1dWhIdVh3cXpMU1lHSDBPcmw4N01tZ09MUHB2QV9PQU1FbEFMbHpocS14OWcwUkdjUDE3MFdLVGhQcmZoYnBWV0RqaVFfN2NlQ2tBUQ?oc=5",
       "family": "vida",
       "slug": "temuco"
-    },
-    {
-      "id": "cfce4a0184ee2975",
-      "cut": "9112",
-      "lat": -38.778473,
-      "lng": -72.507694,
-      "title_es": "Carabineros recuperan productos de belleza valorados en cerca de $11 millones tras investigación en Padre Las Casas",
-      "title_en": "Carabineros recover beauty products worth nearly $11 million after investigation in Padre Las Casas",
-      "date": "2026-09-01",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQMGl2V1lYdXRBYm53QmI2VmY1WUFyNkM4NEVXcko3TTZJWEswNEJGM1Rab0ZxN2hfX2J1U1hMeVpjdmwydVFOYnZ3LUZwT0R5eFRUTUgzUEROR05RYzBhYnBCR050UllNNWJKSmVyeXBwTFRvM1Z5NDhPTFExOEJWeGhYSy1FNWwzRndISUxhOUF0Y3RTZ0FfRFlKWF9wN3VYc3QySlAwaWVGUzRy?oc=5",
-      "family": "propiedad",
-      "slug": "padre-las-casas"
     },
     {
       "id": "4fb0a7b716f0e8f1",
@@ -5903,19 +4746,6 @@
       "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOakxaRUtGaVFhWmZ1ZFhMeVVTeVZkSVJxVU90NlFGZkMxczMxVU1acU9HZkxXR1ZKZm5zTmlHOGpYZk52S0JJb0FTU2x4WkV0RFp1anpnR3h6NEJZMUhhcGpOZy1pUXItQkdqbUdsSWY5X2tIUXhxUmVkdE02bTdQR3JESmNtQTB1TkFraGxtaTF0YWtYNUsyaGRCQjdXVG54LXc?oc=5",
       "family": "robos_violentos",
       "slug": "la-ligua"
-    },
-    {
-      "id": "2b48b1d518e1f33b",
-      "cut": "15101",
-      "lat": -18.468543,
-      "lng": -70.007085,
-      "title_es": "Condenan a 15 años y un día a autor de robo con homicidio en Arica",
-      "title_en": "Convicted to 15 years and one day for robbery with homicide in Arica",
-      "date": "2026-08-31",
-      "outlet": "Radio Paulina",
-      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxORE5fSkZpNkt1VnEyYmRzT2lxR19qSm1GQVVxTEJJWmpzWjdzUG01aWNFM3BBbWRXZDg0TDNKOEJmaHVrMlhTdVFjYm1mQ0U2Zkk1Tm1CRmhub2tCTkdEdnN2SnpzaFBfbWFvNGxaQjVkcV9kNVZTVmJ5RFZZRU1fdTgtV2RxdEtTY3VETDEtUFlQQm1scHlhcl9zVFBhdzlqNlBYRmY4SEx2UGlMZ1R2aW5yazktRXNXOEHSAboBQVVfeXFMTkROX0pGaTZLdVZxMmJkc09pcUdfakptRkFVcUxCSVpqc1o3c1BtNWljRTNwQW1kV2Q4NEwzSjhCZmh1azJYU3VRY2JtZkNFNmZJNU5tQkZobm9rQk5HRHZzdkp6c2hQX21hbzRsWkI1ZHFfZDVWU1ZieURWWUVNX3U4LVdkcXRLU2N1REwxLVBZUEJtbHB5YXJfc1RQYXc5ajZQWEZmOEhMdlBpTGdUdmlucms5LUVzVzhB?oc=5",
-      "family": "vida",
-      "slug": "arica"
     },
     {
       "id": "8cd7393d89fe7d76",
@@ -6529,32 +5359,6 @@
       "slug": "san-bernardo"
     },
     {
-      "id": "10151c919c161815",
-      "cut": "3101",
-      "lat": -27.364912,
-      "lng": -69.888394,
-      "title_es": "Homicidio en el sector Colonias Extranjeras de Copiapó: Sujeto recibió múltiples disparos",
-      "title_en": "Murder in Copiapó's Colonias Extranjeras: Subject Received Multiple Shootings",
-      "date": "2026-09-02",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPVnFNNUZiWW5TNV9UTTVLSEJiR2ZqTkl0d1QtRVV1Z2ZsYlh2YnlrQk9DOEYxeUtLeWZRRTlULWd3SlNYdWhRWUZPeUF5RTlSalptS0toVXgzRk94c2dfUmJndEM0OGdDS2gzTFpaRzlFVU1va29NOUkzUl9JMG5tOU9nWXg4VXp6N1VPMnNlZGg0T2g0VW5B?oc=5",
-      "family": "vida",
-      "slug": "copiapo"
-    },
-    {
-      "id": "5012a686a8dcc0bc",
-      "cut": "13101",
-      "lat": -33.446981,
-      "lng": -70.721768,
-      "title_es": "Orrego califica de “punto de inflexión” plan para matar a alcalde White y pide cumbre en La Moneda contra el crimen organizado",
-      "title_en": "Orrego calls the plan to assassinate Mayor White a “turning point” and urges a La Moneda summit against organized crime",
-      "date": "2026-09-01",
-      "outlet": "La Tercera",
-      "url": "https://news.google.com/rss/articles/CBMingJBVV95cUxNekJrYmhydTlrZXdJYTlUN1BsSld6ZDZZR1d1MXF6VkdjZ0RKaUU1NUpOdlJrbFZmYlJYMzlPQXN3akdxbzZnS3lOUC1FSUdiQnBxVWIwel9kSHc3bDBWemJzYWdxdVZORE9reW5xUWNPeXQ2MkpldEJnTUNGNmhXbng0YWFCc0ZFY0U2bGhTNWtVd1dJSTFpYmF1VlJlX19zTkl3c29Rakc2QU40U0t0aTNiMmxZaXlwTGVkZTQ2aTJMZjBJbFJUWFNMTVZiTGRoUkdFaDZ3MzUzMUNRVmJUS0tQM3JqLXlBd25GYVhBdHhYWENzdmRia0lxY2pMT21BVDNORHhBbFViblNyeE9yTHZFSHZVaDVRcVkxOG5n0gGeAkFVX3lxTE16QmtiaHJ1OWtld0lhOVQ3UGxKV3pkNllHV3UxcXpWR2NnREppRTU1Sk52UmtsVmZiUlgzOU9Bc3dqR3FvNmdLeU5QLUVJR2JCcHFVYjB6X2RIdzdsMFZ6YnNhZ3F1Vk5ET2t5bnFRY095dDYySmV0QmdNQ0Y2aFdueDRhYUJzRkVjRTZsaFM1a1V3V0lJMWliYXVWUmVfX3NOSXdzb1FqRzZBTjRTS3RpM2IybFlpeXBMZWRlNDZpMkxmMElsUlRYU0xNVmJMZGhSR0VoNnczNTMxQ1FWYlRLS1AzcmoteUF3bkZhWEF0eFhYQ3N2ZGJrSXFjakxPbUFUM05EeEFsVWJuU3J4T3JMdkVIdlVoNVFxWTE4bmc?oc=5",
-      "family": "vida",
-      "slug": "santiago"
-    },
-    {
       "id": "b5d1c92fc416ebfa",
       "cut": "13201",
       "lat": -33.585262,
@@ -6724,19 +5528,6 @@
       "slug": "puerto-montt"
     },
     {
-      "id": "553e2906677617fa",
-      "cut": "13604",
-      "lat": -33.58014,
-      "lng": -70.874779,
-      "title_es": "Delincuentes asaltaron botillería y robaron auto a familia en huida",
-      "title_en": "Criminals robbed liquor store and stole family's car during getaway",
-      "date": "2026-09-03",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/delincuentes-asaltaron-botilleria-y-en-su-huida-robaron-el-auto-a-una/2026-09-02/220307.html",
-      "family": "robos_violentos",
-      "slug": "padre-hurtado"
-    },
-    {
       "id": "2d340b1005e97b6a",
       "cut": "13118",
       "lat": -33.493075,
@@ -6776,19 +5567,6 @@
       "slug": "copiapo"
     },
     {
-      "id": "cfd414fa6c77d8ad",
-      "cut": "13401",
-      "lat": -33.600626,
-      "lng": -70.721768,
-      "title_es": "Una red narco con control territorial estaría tras el plan para asesinar al alcalde de San Bernardo",
-      "title_en": "A narco network with territorial control allegedly behind plan to assassinate San Bernardo mayor",
-      "date": "2026-09-02",
-      "outlet": "Canal 9 Bío Bío Televisión",
-      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPWW1YYWNJS0dhSVRJMVF2ci1fUS1nSzRpQkdfWDJYbExyOFZMbjB5QWtGMktSUGF1S0J5ZGV4TVpzUXhrUXFPMmhLYzB5X0Z0S05Pc01DZkVPbXFJSXZHOHpycDhtQnJRdW9xdUtKVWF5RFFoU2d5ZWpPbEJfQXRKdGozOUxBTWk2QnpaRUIzZUhrd01iT3pCal83OWxoNklMcmtGQmZKV1o5VjhvM3hsNGJmUVUybldkQ2V4Z19NMlRQaEhHR0Zob0NYR0JER1dJRUww?oc=5",
-      "family": "vida",
-      "slug": "san-bernardo"
-    },
-    {
       "id": "48ea6aef51fb9769",
       "cut": "2201",
       "lat": -22.191672,
@@ -6825,32 +5603,6 @@
       "outlet": "Serena y Coquimbo",
       "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxOZWVmQ0Jland2b3R5dEViZmhSbE02ZDRWaHpaU3QweEF1MXlWek8wMUlWOC1WanM5cmVQYzYwWnU3akwxZ0VIVDJlMTdUNFJEN21qaGk4c0R0bE9LclVKM2szLXp0S0RVdEFTWmpMWWVCT3BMQ1FOd2VCaUNVdmNwYjlqVHZrUWZlaUpLMHdJSG1mTFduSHdhTS0tazNQeVVHTmdqX0laMlZiaVJHT2U1UGZIZmhTR18xREdmamplOXh3NUtGOE53ZTlfSW5ja2gwel9SQWxBSFJILWtPUUdFWEVUbmU?oc=5",
       "family": "robos_violentos",
-      "slug": "la-serena"
-    },
-    {
-      "id": "465d160497d565a1",
-      "cut": "4101",
-      "lat": -29.807222,
-      "lng": -71.081914,
-      "title_es": "Carabineros detuvo a mujer por homicidio frustrado en pleno centro de La Serena",
-      "title_en": "Carabineros arrest woman for attempted murder in downtown La Serena",
-      "date": "2026-09-01",
-      "outlet": "Radio Guayacan",
-      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPS1JyQk1BVlBTRlMtbjdjXzlmR2w2eklfemhsZXFGY0xRNlBTWmhYX01rM0ZhOUcwUTNJb2g2dmY1NGREemdNb2JhRnI2RElsREdPMjFVa3B5WDA5NzU0Q2twVHJTbE9PbHZlWVRHd0Fxa2lFUkhFZWFjekx0YUNncmhSNVIzNlotX1EwdURlVk41NGI1bnNYZGotTUotT3FCQzNsZ3hlOWM?oc=5",
-      "family": "vida",
-      "slug": "la-serena"
-    },
-    {
-      "id": "0e23b15eb3b9c830",
-      "cut": "4101",
-      "lat": -29.807222,
-      "lng": -71.081914,
-      "title_es": "Conductor atropella a delincuentes que asaltaban a un transeúnte en La Serena",
-      "title_en": "Driver runs over criminals assaulting a passerby in La Serena",
-      "date": "2026-08-31",
-      "outlet": "ADN Radio",
-      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQRU1JNjl0MGx0MTVLRXFnb1BReXVmajFFWXU3NGw1LW1rN25saVF6MWptcE9RX21jWTUwMS1FcDdDNVF6Uk5VZV8wYXA1YmV4UWJJdy0yQ211YVlQUG1JS2poQXdsUGp1NWZpSUdRdzd2WDB1ZEFLd29LY3dnN0xFQ1lIS0s0ejlmOVBpYlpnSlNnZ1ZQc0h3d2tLOVRmOEgzUTlBYU1MdE9pWGNpYUN2SG85a9IBxwFBVV95cUxQZm9VSHpIbVBUVnNOR1VlOVYyQWl3ZDQxdHNhZkQwaUYwbzJLblJkX2NIanRDSHJ6Ykx0bUh4QkdoMEs2cThZMUxQNHZiRnVteFhQRWk2cTVia0RyY1dXT1dOYkJsSkZ2MmJMTVNyOFJYNnhVSEEydGktbnhiUHhsdlBfVlZlM2NUYnZWc0V5T2djbUt0aUNjRHNRQk80T2NPTmYzSW5PV085ZTVUVWV3ZE1ZdzBzeFVwQ0RmVWVNVzBPX3B3ZXlF?oc=5",
-      "family": "vida",
       "slug": "la-serena"
     },
     {
@@ -7491,19 +6243,6 @@
       "slug": "calama"
     },
     {
-      "id": "c5a4ee16e46f70e5",
-      "cut": "1401",
-      "lat": -20.783476,
-      "lng": -69.508973,
-      "title_es": "Minera denuncia robos de cobre desde trenes en movimiento en Atacama usando cuerdas y saltos desde camiones",
-      "title_en": "Miner reports copper thefts from moving trains in Atacama using ropes and jumps from trucks",
-      "date": "2026-09-02",
-      "outlet": "ADN Radio",
-      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPN2hDSC1FT2x5SHdqVmJoSkpKQ0htaEYtY0UtNFY1U3o5OHRCRFFUSHhYaExHZExWb3pPcGphV09Ma2twSnFLRTllYWNYS1llUE92NFc1RFlqcVlhUzA2TmZMdVN4MTFDd21oRFd0SS1GeEZmLXQ1bUd2MkZJSVEtekRIdHF6aG9oNjZyb2VQTjdlN3phU0E2b0d1T0pSMnEyUk9ZNGk3T0VtelF2aWxtNV9Lald5REduU3ZzSUVIcHQ3aVZRdjJ6RVdQYzdpZG9xc015X2tqbmxNOEpU0gHwAUFVX3lxTFBva0NRSmRYRW5tNFBsYUtycUFlLTZ6Qjh3RFNVbWNhdklVNlFnWHhJcFFkbklEdHUycGNnbjlxbnJ2UmgzQVFkejB5X21sV1RISWRPNFNwT2VEd0NHRE52cWVEVlJkT1FsOWU1cFhOWEVPdlRvRWZRdHlyZnRIM0ZUNHpZTzdWVTNBalNtZkpqVnk5T1RRR3JSN3llUVZIVmNLODJfYU1VS0s3cE1TTlZYVnRIVkVuRWNQeklBWXMydmYtMWpCWlNhcEtTcVFoY0RSUExjX1FwWUEtUzRmdXU4YWZ3ODNXcndUT1l6NGRCVg?oc=5",
-      "family": "propiedad",
-      "slug": "pozo-almonte"
-    },
-    {
       "id": "84e716788de6e139",
       "cut": "4101",
       "lat": -29.807222,
@@ -7528,19 +6267,6 @@
       "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOOUhiOFdKaWl2LTZXbUoybkhsZm1XYVNZU1lXVVBJZWt6c0gxRUxOdF9KMkpBVzVCWjRlaXRSWVMwWW95WHFEaHRfbGkyeUJDOTZ1YmZDRVlfbzBmSHRXODNlbUF2YVBnVm9hLXg2MU01cUxxZVFPLVBRWXRBUlhEZXhxR180aHVSX2wxNWhuNGpVZi1teUVuS25YbWhsR0RaRGZHVFIwaEZ6M3ZZdVFZWk1kRFoxVHpYRmJqUktsT21oOXBlRFUzU1FMTlJXN3lEd2hyTUl5bHZaQ3ZPU2tOQWZzNA?oc=5",
       "family": "vida",
       "slug": "calama"
-    },
-    {
-      "id": "f1cb51d8d1e5fe4e",
-      "cut": "9101",
-      "lat": -38.666824,
-      "lng": -72.659271,
-      "title_es": "Carabinero que dio muerte a Gabriel Utreras fue dado de baja de la institución",
-      "title_en": "Carabiner who killed Gabriel Utreras was dismissed from the institution",
-      "date": "2026-09-01",
-      "outlet": "Araucanía Diario",
-      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQaDB2VDRzN294R3FjNUhnMm5BMW1tSjlZYlNUcUo2NnlWUTJZUk5yY3laNDhHZDhVd3U0bFh0ajVDa1NGRHF6dDJCS1Y2b0ZWc2l1eEVCT0Q3NmpIOGZHaHJtdjVuNVhVcXlXZFNmR2xqV1pQNjVkZG9iM2hscklXVnRLLVdrNlZVMnZCSHY5T2dkWVR3WEtkTVdUQmtscHVsYzNMLS1zQnhtREU5TWFtTXFXamYtVmJIMTZucWVB0gG2AUFVX3lxTFBpd0xwN2h2WklMeHhmY2VINmExblRoY2VuN0F1QmF5TmgxX0U5cThFMHZzRmhsbzZudXZxc2pKcXV1cHFwUHhsZ2pZeWxQVEdUMFJESWFqc25UX2U3ZEtMYk1BOFMwWU5OZTV1aEh1WHdxekxTWUdIME9ybDg3TW1nT0xQcHZBX09BTUVsQUxsemhxLXg5ZzBSR2NQMTcwV0tUaFByZmhicFZXRGppUV83Y2VDa0FR?oc=5",
-      "family": "vida",
-      "slug": "temuco"
     },
     {
       "id": "2972cd17c4c991c6",
@@ -7621,19 +6347,6 @@
       "slug": "iquique"
     },
     {
-      "id": "f9d59a3e33c20535",
-      "cut": "3101",
-      "lat": -27.364912,
-      "lng": -69.888394,
-      "title_es": "Homicidio en el sector Colonias Extranjeras de Copiapó: Sujeto recibió múltiples disparos",
-      "title_en": "Murder in Copiapó's Colonias Extranjeras: Subject Received Multiple Gunshots",
-      "date": "2026-09-02",
-      "outlet": "soychile.cl",
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOSmlXYTFQXzhwMnQ4UUFhcVYtWVgzN1hOZ2czcmoyY3VXYlhRTVlOeWxQWG1uWXF3QTYtUkxqSlo2N0NONC01cm5JeERpQlpJT2JkNXNSb0dWQkZYQ3R0WXdMbEJIck1acDU2c1JxQ1VhZS1hS1V0VURiOTNrQldWWlVCX0ROOW9VbTNLeWpzZGxhN25mYzNR?oc=5",
-      "family": "vida",
-      "slug": "copiapo"
-    },
-    {
       "id": "6b4d25dc0ef2f9e1",
       "cut": "13110",
       "lat": -33.539168,
@@ -7697,19 +6410,6 @@
       "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQVzBuckVheU55Sm5ESnVnajk3M2w1NUxqSV9zazY2T1RLQmFTWURtQUVnNU5lcE5jbUJ6X2w4R04xdmZKMnpod3dYV3g2VU1RN3B5dkI3dzJGSEVXZVpfRFdPdExRUlN1dnlQWHFEOFNMbkliTXJ3VGxENGFyLUVETHhUR2otSjFtUTBmeVFVem5JZDFmdlFkSjY3UENlMFE0ZEdyTEZOZ0swWmRpLVZpdjlvbTJ3TmhwOW50ZURVZ2NCWjdDYU9HXw?oc=5",
       "family": "vida",
       "slug": "angol"
-    },
-    {
-      "id": "3977edc4f5f60d93",
-      "cut": "9101",
-      "lat": -38.666824,
-      "lng": -72.659271,
-      "title_es": "18 imputados en el Caso Grollmus son hallados culpables",
-      "title_en": "18 defendants in the Grollmus case found guilty",
-      "date": "2026-09-02",
-      "outlet": "Araucanía Diario",
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNOGhTM1ZPN2o5VTBpUHBVV19qcllKMzdweGR5d1JjNC05TlVGcHhySnhWd1R3aThYbGlxNDNkS2RreHFlUFdiRUF6WS0zUExXMFpfZjBJWm00aVA5cVczVWpwbUtiRVFTWDVrRlRRTmZtTWp4QXl1T2otaFpqV3ljQm1UR3E5QVVpNmc1aDAtX3BSY1Y5bzFj0gGXAUFVX3lxTE04aFMzVk83ajlVMGlQcFVXX2pyWUozN3B4ZHl3UmM0LTlOVUZweHJKeFZ3VHdpOFhsaXE0M2RLZGt4cWVQV2JFQXpZLTNQTFcwWl9mMElabTRpUDlxVzNVanBtS2JFUVNYNWtGVFFOZm1NanhBeXVPai1oWmpXeWNCbVRHcTlBVWk2ZzVoMC1fcFJjVjlvMWM?oc=5",
-      "family": "vida",
-      "slug": "temuco"
     },
     {
       "id": "75239592decf37ed",
@@ -8193,19 +6893,6 @@
       "slug": "san-bernardo"
     },
     {
-      "id": "6dbc2df4065cac14",
-      "cut": "13126",
-      "lat": -33.446981,
-      "lng": -70.721768,
-      "title_es": "Niño de 12 años falleció tras caer desde un décimo piso en Quinta Normal",
-      "title_en": "12-year-old boy died after falling from a tenth floor in Quinta Normal",
-      "date": "2026-09-23",
-      "outlet": "Cooperativa",
-      "url": "https://www.cooperativa.cl/noticias/pais/policial/nino-de-12-anos-fallecio-tras-caer-desde-un-decimo-piso-en-quinta/2026-09-23/075723.html",
-      "family": "vida",
-      "slug": "quinta-normal"
-    },
-    {
       "id": "87f3787e8b46d581",
       "cut": "13116",
       "lat": -33.539168,
@@ -8269,19 +6956,6 @@
       "url": "https://www.lacuarta.com/chile/noticia/ataque-sexual-contra-ambas-monstruo-de-villarrica-va-a-prision-y-surgen-horrorosos-detalles-tras-crimen-de-madre-e-hija/",
       "family": "vida",
       "slug": "villarrica"
-    },
-    {
-      "id": "16da779b0934110e",
-      "cut": "13116",
-      "lat": -33.539168,
-      "lng": -70.721768,
-      "title_es": "Acribillado cuando llegaba a su casa: así fue el asesinato de \"El Poroto\", líder narco en Lo Espejo",
-      "title_en": "Gunned down as he arrived home: this was the murder of \"El Poroto\", drug leader in Lo Espejo",
-      "date": "2026-09-23",
-      "outlet": "BioBioChile",
-      "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxPZG1tR3RabXlFTl83LUdLUEh3QmVyZFh3VnZlR2F5Q0lPdHVEZzMzVGhhRXJtRHZfWk9IYXJQdThqNVpUTWNwYjZvQVZqdXUteWhqYndDdWI5Q2l2SlFGT21lekpoYkd4N2lUeTVGWmJKbjBRWmlaMG1oZmRraFBRN2RqWmgyYVRGQTZsNzF2MFJ3M3h5M2NrTXpmemZpXzM5aWhKVTgxeEdINVlhSjNBeUhfbHRVaEhhMW1FanJNMlBHQXVfX1V5d19wazdWXzZFeHVhMlNyUklza0VwTVVYZUtfUnpwLUxRMGkzMVp4NWJjX0RHRTY2Ymd2WE9TNG1JcE1ScGtKQXAzUQ?oc=5",
-      "family": "vida",
-      "slug": "lo-espejo"
     },
     {
       "id": "35bf3b78bcb9b4b0",
@@ -8516,19 +7190,6 @@
       "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNU2Y2MWl6NkxwNmlob0hNblh1WkFLZ0dQX3AxRGNNZVpnbFM2QkItQXFOWURlNkNFcGZJMlI0YnR4UjNpVGdRUUFRMXhLZWh6Ym9OOF94R05RTmVvRk16S29JWk10VHNXeG0teFJmbXhURmFhZ3lzT1lrdGdmQ3NJVGJZQnlMRVl4WlRVaHpHX2tPUEdZRmFwdmo0NWpCTmZMeW51VG1oYm12RHp6S3c?oc=5",
       "family": "vida",
       "slug": "antofagasta"
-    },
-    {
-      "id": "083f9f139e393f59",
-      "cut": "1101",
-      "lat": -20.213,
-      "lng": -70.152,
-      "title_es": "Balacera en Laguna Verde deja dos hombres heridos de gravedad en Iquique",
-      "title_en": "Shooting in Laguna Verde leaves two men seriously injured in Iquique",
-      "date": "2026-09-23",
-      "outlet": "Radio Paulina",
-      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQeUR6STdDZnNsYWNTVndIc1JWVzNkRGNNT0kycFZFMTNuUVozOEpqekFSeUYyd2NWOW8tZDNzeE9jcWRuX2FYN2N4dF9mVU40THFpVGhNYk5yN3J1Q2t6cks4dGkzYkxnRUFvZnRIc2tMMUFScmhvWDZsN2dpUW1fYU9SUnFRNmU5UThxUGpHa2FsQ0VrTlpjWjhaWlc3bHRtcUQwMXZ5aDVYTkNi0gGsAUFVX3lxTFB5RHpJN0Nmc2xhY1NWd0hzUlZXM2REY01PSTJwVkUxM25RWjM4Smp6QVJ5RjJ3Y1Y5by1kM3N4T2NxZG5fYVg3Y3h0X2ZVTjRMcWlUaE1iTnI3cnVDa3pySzh0aTNiTGdFQW9mdEhza0wxQVJyaG9YNmw3Z2lRbV9hT1JScVE2ZTlROHFQakdrYWxDRWtOWmNaOFpaVzdsdG1xRDAxdnloNVhOQ2I?oc=5",
-      "family": "armas",
-      "slug": "iquique"
     },
     {
       "id": "5f1b982cf945cfdc",
@@ -8778,19 +7439,6 @@
       "slug": "antofagasta"
     },
     {
-      "id": "584771274a232eef",
-      "cut": "1107",
-      "lat": -20.216725,
-      "lng": -69.996704,
-      "title_es": "Dos buscados por homicidio detenidos en operativo antidrogas en Alto Hospicio",
-      "title_en": "Two homicide suspects arrested in anti-drug operation in Alto Hospicio",
-      "date": "2026-09-23",
-      "outlet": "Radio Paulina",
-      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOQnE3QV9TY181RUdVZHQ5ajBfZjRpaElCYnNEVkRWZm9JUTZMdVNmamhIVC1OZktvUVRtdm1IME1obmwyQlBLRHJWZktvanZndFc0R01KRURuUVUwNmpXeGF1VVZEUUdrR1k0ei1kdDIxZXl3Nm9HMk4tbklELTh6U0pFMUFIbVZOM1EzX1lNOTBmS3pSejk5U05McmJhRXktaFdxWUl6d0xuLThXWHNxT0lnX2pCOFAwbl81NjJmUU9IQ1ZtN212VtIByAFBVV95cUxOQnE3QV9TY181RUdVZHQ5ajBfZjRpaElCYnNEVkRWZm9JUTZMdVNmamhIVC1OZktvUVRtdm1IME1obmwyQlBLRHJWZktvanZndFc0R01KRURuUVUwNmpXeGF1VVZEUUdrR1k0ei1kdDIxZXl3Nm9HMk4tbklELTh6U0pFMUFIbVZOM1EzX1lNOTBmS3pSejk5U05McmJhRXktaFdxWUl6d0xuLThXWHNxT0lnX2pCOFAwbl81NjJmUU9IQ1ZtN212Vg?oc=5",
-      "family": "vida",
-      "slug": "alto-hospicio"
-    },
-    {
       "id": "02550364723f5813",
       "cut": "8101",
       "lat": -36.827178,
@@ -8932,19 +7580,6 @@
       "url": "https://www.latercera.com/nacional/noticia/dos-personas-baleadas-deja-agresion-en-la-comuna-de-maipu-sujetos-habrian-seguido-a-una-de-las-victimas/",
       "family": "armas",
       "slug": "maipu"
-    },
-    {
-      "id": "309eff019eda8755",
-      "cut": "13116",
-      "lat": -33.539168,
-      "lng": -70.721768,
-      "title_es": "Máxima alerta en Lo Espejo por la muerte de 'El Poroto', narco que amenazó a la alcaldesa Javiera Reyes",
-      "title_en": "Maximum alert in Lo Espejo over the death of 'El Poroto', the drug trafficker who threatened Mayor Javiera Reyes",
-      "date": "2026-09-23",
-      "outlet": "EL PAÍS",
-      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPbWN4dzZDQUtHbmtsdmhHS3EwQ25hdXd0QU8tUkp2bzM3QldhdzF5ZkpqQjJEajdXX0Rla3NFb3p1amt5XzhYNUtPb3pLeDhxaDcwbFBXR3NRS0xRTmZfYWU0NkZRYW9HTjlLMnVoMl9YQk5POXU5cWZXTy1JbF9LeWFIREp4ZUVpUEUwd3YwUjFXZlAwTjhUM0pvaGJpQ1dOUjZQemhhOUQ5ek9TV0JTY1dsWVFIVE5TaW5CaWh6eG1PUTFLY0Jwcm5MUThGMVdid0Y5dk9WMmVQc2xI0gHwAUFVX3lxTE5VV3o1NVhBc2FmcmN0em5lS05TMW81OTF1OG5RWkw0b1l6WGs0T3dBYnNlNURlODlvdVc4bU5jSjlQdXZzNHNMYm0wN2Rza3Vid3FBMzl2aUFoa1YtY2VfMjl5ZWdfbFVyWkw1cTJxdDY1ZjJVTFo4bnZiZWZfcWJVa3MzYWpNTFAzWk5tR1JtZjNGS2VkQjNpamMzTHg4UVpOTGY4dGZqX01QNjRJanYtUHFQUU1lLUhIbFltdDFTLVVnRWMteXZlbVFfMVZGa3h2bTVGalVZRFJjcTluRmszUnFLdjBlb3hkdnRHTmNXOA?oc=5",
-      "family": "vida",
-      "slug": "lo-espejo"
     },
     {
       "id": "d728638ef3118f23",
@@ -9350,19 +7985,6 @@
       "slug": "antofagasta"
     },
     {
-      "id": "31b37f802852e541",
-      "cut": "1101",
-      "lat": -20.213,
-      "lng": -70.152,
-      "title_es": "Condenan a dos sujetos a más de cinco años de cárcel por asalto a adolescentes en Playa Cavancha",
-      "title_en": "Two men sentenced to more than five years in prison for assaulting teenagers at Playa Cavancha",
-      "date": "2026-09-24",
-      "outlet": "radiopaulina.cl",
-      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOZmJmWFRkc1hySXRpbURuYU5OeWlyUzdNSHBSUS0yZ1JQTUs4dElVRlhXNVZrU0E4TXdtRENkRWkxMTRVUW9zR3h5SjBtLWdFcmRnWjZDa09JdmQ5VzBzS0xBWm05c1dQV2Y0R2ZiaURYNEozTzg5SF9lenpvelBpOEJGVjJ5NG9qN3lmUXlCVEREVzUtelp1YzAzRElqLWhBSlBZSjRlRUVtb2ZPQW1nc2xraVozNFFVbEl2aGMxUkROOVpmdTJBTzlsN0jSAcwBQVVfeXFMTmZiZlhUZHNYckl0aW1EbmFOTnlpclM3TUhwUlEtMmdSUE1LOHRJVUZYVzVWa1NBOE13bURDZEVpMTE0VVFvc0d4eUowbS1nRXJkZ1o2Q2tPSXZkOVcwc0tMQVptOXNXUFdmNEdmYmlEWDRKM084OUhfZXp6b3pQaThCRlYyeTRvajd5ZlF5QlRERFc1LXpadWMwM0RJai1oQUpQWUo0ZUVFbW9mT0FtZ3Nsa2laMzRRVWxJdmhjMVJETjlaZnUyQU85bDdI?oc=5",
-      "family": "robos_violentos",
-      "slug": "iquique"
-    },
-    {
       "id": "47ff3a52f647fefd",
       "cut": "4102",
       "lat": -30.222856,
@@ -9662,19 +8284,6 @@
       "slug": "coquimbo"
     },
     {
-      "id": "018338723b5c1a7e",
-      "cut": "4101",
-      "lat": -29.807222,
-      "lng": -71.081914,
-      "title_es": "Detienen a seis prófugos en La Serena: uno fue condenado por abuso sexual de menor de 14 años",
-      "title_en": "Six fugitives arrested in La Serena: one was convicted of sexual abuse of a minor under 14",
-      "date": "2026-09-23",
-      "outlet": "diarioeldia.cl",
-      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxPcGg2SEt5N09PQmVGWFg1XzY0WnZHSWkzaHBzTmFyQVdsYm84RUg1ekFfOENHMHNDX3FKRXN5dnd2cTJBSkZBTzFVTkFZUzVoX1dCSFZ1UmswbjRMQjZJZkFwbk1XZHRUWV9tLV9IWktmNHBIMFVWNThidlMxOWt6b3J0SjJqem9fLXE5bEZsM2RjUTQ0SnQwczV4ZFd0NlJjc2NLamt0LTlVai1pVWh5WS1xc2lPdHh1UFF3R01UUkh6aXFYTlJQbU9uQk1rNGkyMloyZ0Y3ZEducHZPOVJz?oc=5",
-      "family": "sexuales",
-      "slug": "la-serena"
-    },
-    {
       "id": "18f287b9c4a4f74c",
       "cut": "13103",
       "lat": -33.446981,
@@ -9764,19 +8373,6 @@
       "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNUEJlYzBkVURveEpMTEF4Q2UwM3YtTTlUQmZlLWRZZm16bzBIZGl6akd1N3NBR0lxOVd3b0tYMEFYMGRpUkxucUlCOWFwUW5ySV8yM2F2M1Q5dmpGZEExTFMtNVNFX00yTndlTlNkcFlucjF4U1pITUpkYzRKcEFxMjRBSGFGb1BPdS1GT054enFwR0NhVVJydGViX1FRZlJWbkRNcExYaFJtOGloZ1E5Q3dGa2RneTZSX2R5ZUFuenFvVjhqTGo2NHljcS1KLXVjX2ZfLWsyQkpIZUdKQkE?oc=5",
       "family": "robos_violentos",
       "slug": "iquique"
-    },
-    {
-      "id": "64640f69a7ba9816",
-      "cut": "9101",
-      "lat": -38.666824,
-      "lng": -72.659271,
-      "title_es": "En Temuco detienen a joven por receptación y recuperan vehículo de alta gama avaluado en más de $29 millones",
-      "title_en": "In Temuco, young man arrested for receiving stolen goods and high-end vehicle valued at over $29 million recovered",
-      "date": "2026-09-24",
-      "outlet": "NDS - Noticias del Sur",
-      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQZXR3VlNyWGtGVzRRUlhWRFU2bjVYcjhMbG9vTEFGLTIzRFhla1dDeGh6Y2tJZmsyQjB1TVMxYVNEWEFoTWdyQ3VYYjY2d3ZtR1lyZGFGTm5BRHlBSmpqeGsxUWpkc2VRaDJwNUxVbS1ZcEJMZUltMEhXSTcwMS1oa2xLYXh0bUxZRU1PMkhUQl9EcGhrdVVQcHk0VE5hYUJBTFpoY3RYbmtXS181LWRLejk2LUhjUWdBNFV0R1VVankxR2Y1c19ySVdLb25EQdIBzgFBVV95cUxQZXR3VlNyWGtGVzRRUlhWRFU2bjVYcjhMbG9vTEFGLTIzRFhla1dDeGh6Y2tJZmsyQjB1TVMxYVNEWEFoTWdyQ3VYYjY2d3ZtR1lyZGFGTm5BRHlBSmpqeGsxUWpkc2VRaDJwNUxVbS1ZcEJMZUltMEhXSTcwMS1oa2xLYXh0bUxZRU1PMkhUQl9EcGhrdVVQcHk0VE5hYUJBTFpoY3RYbmtXS181LWRLejk2LUhjUWdBNFV0R1VVankxR2Y1c19ySVdLb25EQQ?oc=5",
-      "family": "propiedad",
-      "slug": "temuco"
     },
     {
       "id": "f56c89f1942c0330",
@@ -10130,19 +8726,6 @@
       "slug": "huara"
     },
     {
-      "id": "712560bef24905c5",
-      "cut": "1107",
-      "lat": -20.216725,
-      "lng": -69.996704,
-      "title_es": "Detectan clan familiar que comercializaba drogas en Alto Hospicio",
-      "title_en": "Family clan selling drugs detected in Alto Hospicio",
-      "date": "2026-09-23",
-      "outlet": "SoyChile.cl",
-      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxONnZldE40RmZPRGo1aGw1MmU3TUVqZEY5dFJMTTUzT2pTbkdxMV9KQVA2LV9GTGRYeXZvSmYtVkpUTnZkUXBueFZ6QVBla19vTXp3TkRRblRUYXdNQ1ZSZE01bUp4c2E2NjhVazlLTWtiYWtQQ1hUMllfVnRYSmQ1d3dnOU95QU1LNGtkdjhURDVFdw?oc=5",
-      "family": "drogas",
-      "slug": "alto-hospicio"
-    },
-    {
       "id": "50790aff67affc2f",
       "cut": "4102",
       "lat": -30.222856,
@@ -10232,7 +8815,92 @@
       "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxOSzBsT1lvTE85Wm0yN29LVjU1cG9jSjltdlBFZHVDc21YVnpBckNxOU03b0QzSGJHM1ZlR2pvYmZ5M0JoWGlqNmdWNXRBNVV0XzNzY21OaGRZNmFJXzFaMHpuY3hETmx2TG90QksxSHNxZ2J0UFRscVFaYkJmbXdva1UzS1pfbUM3cWt6ekg1M3RxUVdZRzdQYzFsMGxfTnExaVpkWThTaHRDVzJjRzMtNk0tbEx1Y09jTVhXODUtWmQzeEVpbk9wdGlSc191T1dZa2prakViaFR4ZlJ4X09HdUxYOWxMZw?oc=5",
       "family": "drogas",
       "slug": "antofagasta"
+    },
+    {
+      "id": "d0d981e22d31557d",
+      "cut": "13104",
+      "lat": -33.385523,
+      "lng": -70.693079,
+      "title_es": "Incautan cerca de 40 mil cajetillas de cigarros de contrabando valuadas en $100 millones en Conchalí",
+      "title_en": "Nearly 40,000 cartons of contraband cigarettes valued at $100 million seized in Conchalí",
+      "date": "2026-09-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/09/26/incautan-cerca-de-40-mil-cajetillas-de-cigarros-de-contrabando-valuadas-en100-millones-en-conchali.shtml",
+      "family": "propiedad",
+      "slug": "conchali",
+      "title_src": "Incautan cerca de 40 mil cajetillas de cigarros de contrabando valuadas en $100 millones en Conchalí"
+    },
+    {
+      "id": "50f4725ee1ff1d3b",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Violenta discusión entre pareja termina con hombre sustrayendo a bebé y huyendo en La Araucanía",
+      "title_en": "Violent argument between couple ends with man taking a baby and fleeing in La Araucanía",
+      "date": "2026-09-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/09/25/violenta-discusion-entre-pareja-termina-con-hombre-sustrayendo-a-bebe-y-huyendo-en-la-araucania.shtml",
+      "family": "vif",
+      "slug": "temuco",
+      "title_src": "Violenta discusión entre pareja termina con hombre sustrayendo a bebé y huyendo en La Araucanía"
+    },
+    {
+      "id": "f1e3516471408c5c",
+      "cut": "12401",
+      "lat": -50.363054,
+      "lng": -73.72402,
+      "title_es": "Exalcalde de Puerto Natales recibe 5 años y un día de cárcel por cohecho en caso LED",
+      "title_en": "Former mayor of Puerto Natales receives 5 years and one day in prison for bribery in LED case",
+      "date": "2026-09-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-magallanes/2026/09/25/exalcalde-de-puerto-natales-recibe-5-anos-y-un-dia-de-carcel-por-cohecho-en-caso-led.shtml",
+      "family": "incivilidades",
+      "slug": "natales",
+      "title_src": "Exalcalde de Puerto Natales recibe 5 años y un día de cárcel por cohecho en caso LED"
+    },
+    {
+      "id": "9d0982d1ccc88063",
+      "cut": "14105",
+      "lat": -39.72409,
+      "lng": -72.842189,
+      "title_es": "Fracasa intento de hijos de Julia Chuñil de volver a casa de su madre: inmueble continúa incautado",
+      "title_en": "Attempt by Julia Chuñil's children to return to their mother's house fails: property remains seized",
+      "date": "2026-09-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-los-rios/2026/09/25/fracasa-intento-de-hijos-de-julia-chunil-de-volver-a-casa-de-su-madre-inmueble-continua-incautado.shtml",
+      "family": "vida",
+      "slug": "mafil",
+      "title_src": "Fracasa intento de hijos de Julia Chuñil de volver a casa de su madre: inmueble continúa incautado"
+    },
+    {
+      "id": "9574627dee2acfd9",
+      "cut": "12401",
+      "lat": -50.363054,
+      "lng": -73.72402,
+      "title_es": "Caso LED: exalcalde de Puerto Natales es condenado a 5 años de prisión y queda inhabilitado a perpetuidad para ejercer cargos públicos",
+      "title_en": "LED Case: former mayor of Puerto Natales is sentenced to 5 years in prison and is permanently disqualified from holding public office",
+      "date": "2026-09-26",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/caso-led-exalcalde-de-puerto-natales-es-condenado-a-5-anos-de-prision-y-queda-inhabilitado-a-perpetuidad-para-ejercer-cargos-publicos/",
+      "family": "propiedad",
+      "slug": "natales",
+      "title_src": "Caso LED: exalcalde de Puerto Natales es condenado a 5 años de prisión y queda inhabilitado a perpetuidad para ejercer cargos públicos"
+    },
+    {
+      "id": "ca652a369b3a1cfe",
+      "cut": "13128",
+      "lat": -33.416252,
+      "lng": -70.721768,
+      "title_es": "Detienen a “Chureja”, acusado de participar en asesinato de carabinero en Renca",
+      "title_en": "\"Chureja\" arrested, accused of participating in the murder of a carabinero in Renca",
+      "date": "2026-09-24",
+      "outlet": "La Nación",
+      "url": "https://www.lanacion.cl/detienen-a-chureja-acusado-de-participar-en-asesinato-de-carabinero-en-renca/",
+      "family": "vida",
+      "slug": "renca",
+      "title_src": "Detienen a “Chureja”, acusado de participar en asesinato de carabinero en Renca",
+      "via_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPdHZVajIzcTcxYTl5c3RjUVV2MmlFY1pfQkJfSUdkZ2JSUE9XeGwwSk1MVkxacGl0WUh2bUd0cGFhTG9jWVNNVUtHeDRiSHNtOFptd3k1aThMNUdiN3ZzVXc5Sng5ZzE3SmJqdFh3c3p4ZFI4c3hkMlY5RUpzaWJkRXZfaFFmRlhENUpxMS0zQVN5YzVBQnptaUVnTzBuWUZyUlIw?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-09-25T22:50:50.667141Z"
+  "last_new_incident_at": "2026-09-26T03:17:51.440099Z"
 }
