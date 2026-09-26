@@ -39,6 +39,7 @@ decisions:
   - "FID-02 PASS at iteration 2 of 3: not_crime 20/24 = 0.833 [Wilson 0.641, 0.933]; v2 uncontested 41/41 commune, 41/41 family; boundary 7/8 (baseline 5); parse/empty/length 0; null 3/3."
   - "The iter2 gain came from institutional 12→13, not from the targeted accident (4/6) and death_no_crime (1/3) categories. The margin is one item; out-of-sample evidence comes from 36-08 (FID-03) and 36-10 (G-11)."
   - "Backup DeepSeek direct deepseek-v4-flash on the final prompt: nc 19/24 = 0.79 → deferred-live note 'backup weaker on non-crime' (failover only)."
+  - "Iteration 3 (FID-03-triggered, 18/24) failed FID-02 and was reverted; the 3-iteration cap is exhausted; shipped prompt = iteration 2 (blob dcc33ead)."
   - "DEPS-03 baseline = run-iter2 v2 subset; classifier_blob dcc33ead6c517787f9fde2858b06571702421f3c (classifier.py at c3f1be2). If 36-08 forces an extra iteration that passes, re-extract."
 metrics:
   duration: "~1 h executor + orchestrator eval runs"
@@ -58,6 +59,7 @@ The classifier no longer writes its own headline: it only translates the outlet'
 | 1 | Part A: title_en = faithful HEADLINE translation, ClassifierOutput without title_es, shingle guard + guard-scope tests | b1a1730 |
 | 2 | Part B: category-level non-crime rules + CEAD family boundaries | 64e0217 |
 | 3 | Eval loop (orchestrator): iter1 FAIL 19/24 → iter2 edit (c3f1be2) PASS 20/24; backup run; results + DEPS-03 baseline | c3f1be2, 61f3157 |
+| 3b | Iteration 3 (triggered by the 36-08 FID-03 FAIL): FAIL 18/24, reverted; shipped prompt = iteration 2 | e5f866e, c0c58b9 (revert), dbcfce4 |
 
 ## Prompt rule categories (all category-level, no item text)
 
@@ -67,6 +69,17 @@ The classifier no longer writes its own headline: it only translates the outlet'
 4. Fires, explosions, emergencies and disasters, unless arson or another crime is alleged.
 5. Institutional, policy and administrative news: meetings, plans, preventive deployments, enforcement balances, prisoner transfers, protests without incidents.
 6. Specific crime cases stay in scope with the underlying crime's family. Family boundaries follow the CEAD catalog, and vida is never a default for a death.
+
+## Iteration 3 (FID-03-triggered, reverted)
+
+- **Trigger:** the 36-08 out-of-sample FID-03 audit FAILED at 37/50 agreement, with vida precision 19/25. That allowed one extra category-level iteration, the last one under the 3-iteration cap.
+- **Edit** (`e5f866e`):
+  - Non-crime: a routine inquiry into a death or a body found is not a criminal investigation; court or administrative proceedings not tied to a concrete crime (prison transfer or condition rulings, pension or benefit disputes), officials' statements, protests or commemorations of past cases, and requests for more police are also non-crime.
+  - The "escape" clause was dropped from the crime-case rule.
+  - CEAD family boundaries: a shooting with a person targeted = vida; armas = no person targeted; kidnapping for gain = robos_violentos; threats, harassment, damage or theft against a partner or family member = vif; evasion = incivilidades.
+- **Result:** FID-02 FAIL on golden v3. not_crime 18/24 = 0.75 (accident 3/6, death_no_crime 1/3, fire 1/2, institutional 13/13); v2u 41/41 and 40/41; boundary 7/8; errors 0. Spend USD 0.020575.
+- **Action:** `git revert` (`c0c58b9`, no force or reset). classifier.py blob is back to `dcc33ead6c517787f9fde2858b06571702421f3c`, and 36-DEPS03-BASELINE.json `classifier_blob` still matches, so it was not re-extracted. Full pytest is green after the revert (843 passed, 1 skipped, 2 xfailed).
+- **Honesty:** iteration 2's 20/24 passes by one item, and ±2-item swings between iterations are within provider noise (the Wilson intervals overlap). The 36-08 FID-03 out-of-sample failure is not resolved by this plan.
 
 ## Deviations from Plan
 
@@ -81,9 +94,9 @@ None in code. Task 3 was run by the orchestrator as planned. The executor wrote 
 
 - Full pytest before each code commit, pass by exit code 0: 796 passed, 1 skipped, 2 xfailed. The shingle guard is green.
 - Task 3 verify: VERIFY_OK. The in-sample line and the Decision line are present, spend is 0.1497 ≤ 0.25, and the DEPS-03 keys are present.
-- Spend: 36-06 USD 0.1497. Phase 36 so far is USD 0.171.
+- Spend: 36-06 USD 0.1703 (0.1497 + iter3 0.0206). Phase 36 so far is USD 0.192 (36-02 + 36-06 ledgers).
 
 ## Self-Check: PASSED
 
 - FOUND: 36-EVAL-RESULTS.md, 36-DEPS03-BASELINE.json, eval/run-iter2.json
-- FOUND commits: b1a1730, 64e0217, c3f1be2, 61f3157
+- FOUND commits: b1a1730, 64e0217, c3f1be2, 61f3157, e5f866e, c0c58b9, dbcfce4
