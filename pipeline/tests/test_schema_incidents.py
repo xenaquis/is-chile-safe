@@ -313,3 +313,31 @@ def test_real_current_json_still_validates():
     if not p.exists():
         pytest.skip("data/incidents/current.json not present")
     validate_incidents_file(json.loads(p.read_text(encoding="utf-8")))
+
+
+# ---------------------------------------------------------------------------
+# ClassifierOutput without title_es (36-06 Part A, FID-01 / G-28)
+# ---------------------------------------------------------------------------
+
+_CLASSIFIER_PAYLOAD = {
+    "commune_name": "Santiago",
+    "region_hint": "13",
+    "family": "propiedad",
+    "title_en": "Robbery in Santiago",
+    "summary": "A robbery was reported.",
+    "confidence": 0.8,
+}
+
+
+def test_classifier_output_validates_without_title_es():
+    obj = ClassifierOutput.model_validate(dict(_CLASSIFIER_PAYLOAD))
+    assert obj.title_en == "Robbery in Santiago"
+    assert not hasattr(obj, "title_es")
+    assert "title_es" not in ClassifierOutput.model_fields
+
+
+def test_classifier_output_ignores_stray_title_es():
+    """G-18 cache lines still carry title_es; the extra key is ignored."""
+    obj = ClassifierOutput.model_validate(dict(_CLASSIFIER_PAYLOAD, title_es="Robo en Santiago"))
+    assert not hasattr(obj, "title_es")
+    assert "title_es" not in obj.model_dump()

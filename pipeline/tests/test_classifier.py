@@ -252,3 +252,59 @@ def test_request_completion_propagates_not_found_error():
 
     with pytest.raises(NotFoundError):
         _request_completion(mock_client, "m/x", "openrouter", "u", None)
+
+
+# ---------------------------------------------------------------------------
+# 36-06 Part A (FID-01): headline fidelity — the LLM no longer authors title_es
+# ---------------------------------------------------------------------------
+
+_V3_GOLDEN = Path(__file__).parent / "fixtures" / "golden_set_v3.json"
+
+
+def test_system_prompt_has_no_title_es_and_faithful_title_en():
+    assert "title_es" not in SYSTEM_PROMPT
+    assert SYSTEM_PROMPT.count('"title_en"') == 1
+    assert "faithful English translation of the HEADLINE" in SYSTEM_PROMPT
+    assert "family-relationship term" in SYSTEM_PROMPT
+    assert "name" in SYSTEM_PROMPT
+    assert "omit a trailing ' - <outlet name>'" in SYSTEM_PROMPT
+    # DeepSeek JSON mode requires the word "json" in the prompt.
+    assert "json" in SYSTEM_PROMPT.lower()
+
+
+def test_parse_content_without_title_es_is_ok():
+    data = {k: v for k, v in _VALID_RESPONSE.items() if k != "title_es"}
+    kind, out = _parse_content(json.dumps(data), "t")
+    assert kind == "ok"
+    assert out is not None
+    assert not hasattr(out, "title_es")
+    assert out.title_en == "Robbery in Las Condes"
+
+
+def test_shingle_guard_v3_items_vs_prompt_rules_text():
+    """Premortem R-07 / T-36-16: no normalized 5-word shingle of any v3
+    headline or description occurs in the prompt RULES text."""
+    from pipeline.tests.shingle_guard import prompt_rules_text, shared_shingles
+
+    rules_text = prompt_rules_text(SYSTEM_PROMPT, classifier_mod._COMMUNE_LIST_STR)
+    items = json.loads(_V3_GOLDEN.read_text(encoding="utf-8"))
+    assert len(items) > 0
+    collisions = {}
+    for it in items:
+        for field in ("headline", "description"):
+            shared = shared_shingles(it.get(field) or "", rules_text, n=5)
+            if shared:
+                collisions[(it["id"], field)] = sorted(shared)
+    assert collisions == {}
+
+
+def test_shingle_guard_scope_excludes_commune_block_and_schema_block():
+    from pipeline.tests.shingle_guard import normalize, prompt_rules_text
+
+    rules_text = prompt_rules_text(SYSTEM_PROMPT, classifier_mod._COMMUNE_LIST_STR)
+    assert normalize("san pedro de la paz") in normalize(SYSTEM_PROMPT)
+    assert normalize("san pedro de la paz") not in normalize(rules_text)
+    assert '"commune_name": "<' in SYSTEM_PROMPT
+    assert '"commune_name": "<' not in rules_text
+    assert '"title_en": "<' not in rules_text
+    assert "Rules:" in rules_text

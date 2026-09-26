@@ -125,6 +125,11 @@ class ClassifierOutput(BaseModel):
     commune_cut has been replaced by commune_name + region_hint (NEWS-01 redesign).
     The LLM emits a Spanish commune name; deterministic resolution to CUT happens in
     pipeline/news/resolver.py. This prevents hallucinated CUT codes from reaching the store.
+
+    FID-01 (36-06, G-28): there is no title_es field. The LLM no longer authors a
+    Spanish headline; the stored title_es mirrors the outlet headline (title_src).
+    title_en is a faithful translation of the given HEADLINE. Extra keys (e.g. a
+    stray "title_es" in G-18 cache lines) are ignored by Pydantic's default config.
     """
 
     commune_name: str | None
@@ -138,8 +143,7 @@ class ClassifierOutput(BaseModel):
             return None
         return str(v)
     family: str
-    title_es: str    # plain text
-    title_en: str    # plain text
+    title_en: str    # plain text: faithful translation of the source HEADLINE (FID-01)
     summary: str     # plain text
     confidence: float
 

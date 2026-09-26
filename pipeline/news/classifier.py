@@ -173,8 +173,7 @@ Given a news headline and summary, output exactly this JSON structure:
   "commune_name": "<exact Spanish commune name from CHILEAN COMMUNES below, or null if location unknown>",
   "region_hint": "<region name or number hint to disambiguate, or null>",
   "family": "<one of: {_NEWS_FAMILY_ENUM_STR}>",
-  "title_es": "<concise Spanish headline, max 120 chars, plain text>",
-  "title_en": "<English translation of title_es, max 120 chars, plain text>",
+  "title_en": "<faithful English translation of the HEADLINE exactly as given (omit a trailing ' - <outlet name>'); keep every fact, name, number, place and family-relationship term; do not summarise, add or drop anything; max 200 chars, plain text>",
   "summary": "<1-2 sentence neutral summary in English, plain text>",
   "confidence": <float 0.0-1.0 indicating location identification confidence>
 }}
@@ -190,7 +189,7 @@ Rules:
 - Traffic accidents, road collisions, and vehicle crashes are NOT crime incidents even if they result in fatalities. If an article is primarily about a traffic accident (colisión, accidente de tránsito, choque, atropello sin culpa criminal), you MUST set confidence to 0.0.
 - Sexual crimes (violacion, abuso sexual, estupro, grooming, pornografia infantil, acoso sexual, agresion sexual, delitos de connotacion sexual) MUST use family "sexuales", NOT "vida". Exception: if the incident is a killing (homicidio, femicidio) the family stays "vida" even when a sexual assault accompanied the death — death dominates classification.
 - family MUST be exactly one of: {_NEWS_FAMILY_ENUM_STR}
-- Output plain text only for title_es, title_en, and summary — no HTML, no markdown.
+- Output plain text only for title_en and summary — no HTML, no markdown.
 """
 
 # Regex to strip markdown JSON fences (used for MiniMax which omits response_format)
