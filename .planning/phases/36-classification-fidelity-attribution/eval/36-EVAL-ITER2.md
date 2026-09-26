@@ -1,0 +1,62 @@
+# FID-02 fidelity score
+
+Model: deepseek/deepseek-v4.1-flash (openrouter)
+spend_usd: 0.013584
+
+## Gate
+
+| member | value |
+|---|---|
+| not_crime_rate_ge_080 | True |
+| v2_commune_uncontested_ge_39 | True |
+| v2_family_uncontested_ge_37 | True |
+| parse_errors_eq_0 | True |
+| empty_eq_0 | True |
+| finish_length_eq_0 | True |
+| null_v2_correct_eq_3 | True |
+| pass | True |
+
+## Non-crime rejection
+
+total=24 rejected=20 rate=0.8333333333333334
+
+| category | n | rejected | rate |
+|---|---|---|---|
+| accident | 6 | 4 | 0.667 |
+| death_no_crime | 3 | 1 | 0.333 |
+| fire_emergency | 2 | 2 | (n<3) |
+| institutional_preventive | 13 | 13 | 1.000 |
+
+## v2 subset (G-38)
+
+uncontested (41): commune 41/41, family 41/41
+all (44): commune 44/44, family 43/44
+
+### Contested (reported, never gated)
+
+- gs-030: {"status": "ok", "rejected_in_prod": false, "predicted_family": "incivilidades", "commune_match": true, "family_match": true}
+- gs-032: {"status": "ok", "rejected_in_prod": false, "predicted_family": "incivilidades", "commune_match": true, "family_match": false}
+- gs-038: {"status": "ok", "rejected_in_prod": false, "predicted_family": "propiedad", "commune_match": true, "family_match": true}
+
+## Boundary family
+
+7/8
+
+## Parse / empty / truncation
+
+parse_errors=0 empty=0 finish_length=0
+
+null_v2_correct: 3/3
+
+## Family confusion matrix
+
+- None: null_item=3
+- armas: armas=6
+- drogas: drogas=8
+- incivilidades: incivilidades=4
+- not_crime: null_item=24
+- propiedad: incivilidades=1, propiedad=6, robos_violentos=1
+- robos_violentos: robos_violentos=11
+- sexuales: sexuales=1
+- vida: vida=10
+- vif: vif=4

@@ -1,0 +1,25 @@
+{
+  "source": "36-06 winning iteration 2 (G-41, premortem R-18)",
+  "run_file": ".planning/phases/36-classification-fidelity-attribution/eval/run-iter2.json",
+  "golden": "pipeline/tests/fixtures/golden_set_v2.json (v2 subset of golden_set_v3: 44 labelled + 3 null)",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-v4.1-flash",
+  "variant": "enabled_false",
+  "n_labelled": 44,
+  "n_null": 3,
+  "commune_correct": 44,
+  "family_correct": 43,
+  "parse_errors": 0,
+  "null_correct": 3,
+  "served_by_counts": {
+    "DeepInfra": 24,
+    "Together": 16,
+    "InferenceNet": 2,
+    "Phala": 1,
+    "Krea": 2,
+    "Wafer": 1,
+    "Relace": 1
+  },
+  "classifier_blob": "dcc33ead6c517787f9fde2858b06571702421f3c",
+  "classifier_commit": "c3f1be2"
+}
