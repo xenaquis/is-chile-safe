@@ -20,10 +20,16 @@ from urllib.parse import urlparse
 
 from pydantic import ValidationError
 
+from pipeline.news import dedup
 from pipeline.news.schema import validate_incidents_file
 from pipeline.shared.atomic_write import atomic_write_json
 
 logger = logging.getLogger(__name__)
+
+# FID-05 (36-05, G-30 as proposed): True = the cross-run dedup rule also prunes
+# near-duplicate pairs already present in current.json (first-seen wins).
+# False = forward-only: existing rows are never dropped; only new items are filtered.
+PRUNE_EXISTING: bool = True
 
 
 # ---------------------------------------------------------------------------
@@ -163,7 +169,9 @@ def merge_and_write(
 
     Steps:
     1. Load existing incidents from current_path (or [] if absent).
-    2. Merge new_incidents by id (dedup — existing wins).
+    2. Merge new_incidents by id (dedup — existing wins), then FID-05 cross-run
+       near-duplicate dedup (dedup.prune_near_duplicates; PRUNE_EXISTING=False →
+       forward-only dedup.filter_new_against).
     3. Compute cutoff = today - window_days days.
     4. Partition combined list: current (date >= cutoff) and aged_out (date < cutoff).
     5. For each YYYY-MM group of aged_out, merge into archive/YYYY-MM.json (dedup by id).
@@ -207,6 +215,23 @@ def merge_and_write(
     # 2. Merge by id
     combined = _merge_by_id(existing, new_incidents)
 
+    # 2b. FID-05 (36-05): cross-run deterministic dedup (dedup.py rule, first-seen wins).
+    if PRUNE_EXISTING:
+        combined, dropped = dedup.prune_near_duplicates(combined)
+    else:
+        kept_new, dropped = dedup.filter_new_against(
+            existing, [i for i in combined if i["id"] not in existing_ids]
+        )
+        combined = list(existing) + kept_new
+    if dropped:
+        n_existing = sum(1 for d in dropped if d[0]["id"] in existing_ids)
+        logger.info(
+            "dedup cross-run: dropped %d (existing %d, new %d)",
+            len(dropped), n_existing, len(dropped) - n_existing,
+        )
+        for item, kept_id, reason in dropped:
+            logger.debug("dedup cross-run: DROP %s ~ KEEP %s (%s)", item["id"], kept_id, reason)
+
     # 3 & 4. Partition
     current_incidents: list[dict] = []
     aged_out: list[dict] = []
@@ -232,8 +257,14 @@ def merge_and_write(
     for month_key, aged_incidents in by_month.items():
         archive_path = archive_dir / f"{month_key}.json"
         existing_archive = _load_incidents_list(archive_path)
-        merged_archive = _merge_by_id(existing_archive, aged_incidents)
-        # FRESH-04: existing wins in _merge_by_id, so equal length == no new id.
+        # FID-05: existing archive rows are never pruned; new aged items that are
+        # near-duplicates of an archive row are not added.
+        existing_archive_ids = {e["id"] for e in existing_archive}
+        merged_archive = existing_archive + dedup.filter_new_against(
+            existing_archive,
+            [a for a in aged_incidents if a["id"] not in existing_archive_ids],
+        )[0]
+        # FRESH-04: existing archive rows kept verbatim, so equal length == no new id.
         if archive_path.exists() and len(merged_archive) == len(existing_archive):
             continue
         archive_payload = {
