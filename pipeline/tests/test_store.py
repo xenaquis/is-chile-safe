@@ -518,7 +518,9 @@ def test_fresh04_new_incident_rewrites_and_bumps(tmp_path):
     })
     now = _make_utc("2026-06-10T12:00:00Z")
 
-    count = merge_and_write([_make_incident("bump002", _fresh_date())],
+    bump002 = _make_incident("bump002", _fresh_date())
+    bump002["title_es"] = "Colisión vehicular en Avenida Matta deja dos lesionados"  # FID-05 36-05: cross-run dedup
+    count = merge_and_write([bump002],
                             current_path, archive_dir=archive_dir, now=now)
 
     assert count == 1
@@ -659,3 +661,89 @@ def test_build_incident_new_shape_validates():
     validate_incidents_file(
         {"generated": "2026-09-24T00:00:00Z", "window_days": 30, "incidents": [inc]}
     )
+
+
+# ---------------------------------------------------------------------------
+# FID-05 (36-05): cross-run deterministic dedup inside merge_and_write
+# ---------------------------------------------------------------------------
+
+
+def _distinct(uid: str, date_str: str, title: str) -> dict:
+    inc = _make_incident(uid, date_str)
+    inc["title_es"] = title
+    return inc
+
+
+def test_fid05_existing_pair_pruned(tmp_path):
+    """current.json [A, B_dup_of_A] + new [] -> [A]; last_new carried; returns 0."""
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+    a = _make_incident("dupa001", _fresh_date())
+    b = _make_incident("dupa002", _fresh_date())  # 'Incidente dupa002' ~ 'Incidente dupa001'
+    _write_raw(current_path, {
+        "generated": "2026-06-01T00:00:00Z",
+        "window_days": 30,
+        "incidents": [a, b],
+        "last_new_incident_at": "2026-06-01T00:00:00Z",
+    })
+    count = merge_and_write([], current_path, archive_dir=archive_dir,
+                            now=_make_utc("2026-06-10T12:00:00Z"))
+    assert count == 0
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    assert [i["id"] for i in result["incidents"]] == ["dupa001"]
+    assert result["last_new_incident_at"] == "2026-06-01T00:00:00Z"
+
+
+def test_fid05_cross_run_near_duplicate_is_noop(tmp_path):
+    """Gate R1 BF-06: a new near-duplicate of an existing row -> 0, no bump, byte-identical."""
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+    a = _make_incident("xrun001", _fresh_date())
+    _write_raw(current_path, {
+        "generated": "2026-06-01T00:00:00Z",
+        "window_days": 30,
+        "incidents": [a],
+        "last_new_incident_at": "2026-06-01T00:00:00Z",
+    })
+    before = current_path.read_bytes()
+    count = merge_and_write([_make_incident("xrun002", _fresh_date())],
+                            current_path, archive_dir=archive_dir,
+                            now=_make_utc("2026-06-10T12:00:00Z"))
+    assert count == 0
+    assert current_path.read_bytes() == before
+
+
+def test_fid05_aged_duplicate_not_added_to_archive(tmp_path):
+    """An aged new item near-dup of an archive row is not added; archive dups untouched."""
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+    archive_dir.mkdir()
+    old = _old_date()
+    x = _make_incident("arcx001", old)
+    y = _make_incident("arcx002", old)  # pre-existing archive duplicate of x
+    archive_path = archive_dir / f"{old[:7]}.json"
+    _write_raw(archive_path, {"generated": "2026-06-01T00:00:00Z", "window_days": 30,
+                              "incidents": [x, y]})
+    before = archive_path.read_bytes()
+    merge_and_write([_make_incident("arcx003", old)], current_path, archive_dir=archive_dir,
+                    now=_make_utc("2026-06-10T12:00:00Z"))
+    assert archive_path.read_bytes() == before
+
+
+def test_fid05_prune_existing_false_is_forward_only(tmp_path, monkeypatch):
+    import pipeline.news.store as store_mod
+
+    monkeypatch.setattr(store_mod, "PRUNE_EXISTING", False)
+    current_path = tmp_path / "current.json"
+    archive_dir = tmp_path / "archive"
+    a = _make_incident("fwd0001", _fresh_date())
+    b = _make_incident("fwd0002", _fresh_date())
+    _write_raw(current_path, {"generated": "2026-06-01T00:00:00Z", "window_days": 30,
+                              "incidents": [a, b]})
+    n = _make_incident("fwd0003", _fresh_date())
+    m = _distinct("fwd0004", _fresh_date(), "Colisión vehicular en Avenida Matta deja dos lesionados")
+    count = store_mod.merge_and_write([n, m], current_path, archive_dir=archive_dir,
+                                      now=_make_utc("2026-06-10T12:00:00Z"))
+    assert count == 1
+    result = json.loads(current_path.read_text(encoding="utf-8"))
+    assert [i["id"] for i in result["incidents"]] == ["fwd0001", "fwd0002", "fwd0004"]

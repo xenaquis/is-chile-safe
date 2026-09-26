@@ -114,3 +114,83 @@ def test_cross_outlet_google_news_dedup():
     assert len(result) == 2, (
         f"Expected 2 incidents (1 merged homicide + 1 distinct), got {len(result)}"
     )
+
+
+# ---------------------------------------------------------------------------
+# FID-05 / FID-04 (36-05): prune_near_duplicates, filter_new_against, via_url alias
+# ---------------------------------------------------------------------------
+
+
+def test_prune_near_duplicates_reports_pairs(incident_a, incident_b_near_duplicate, incident_c_distinct):
+    from pipeline.news.dedup import prune_near_duplicates
+
+    kept, dropped = prune_near_duplicates([incident_a, incident_b_near_duplicate, incident_c_distinct])
+    assert [i["id"] for i in kept] == [incident_a["id"], incident_c_distinct["id"]]
+    assert len(dropped) == 1
+    item, kept_id, reason = dropped[0]
+    assert item["id"] == incident_b_near_duplicate["id"]
+    assert kept_id == incident_a["id"]
+    assert reason.startswith("title:")
+    assert float(reason.split(":", 1)[1]) >= 0.82
+
+
+def test_prune_matches_deduplicate(incident_a, incident_b_near_duplicate, incident_c_distinct):
+    from pipeline.news.dedup import prune_near_duplicates
+
+    dup_url = copy.deepcopy(incident_a)
+    dup_url["id"] = "dup9999999999999"
+    inputs = [
+        [incident_a, dup_url],
+        [incident_a, incident_b_near_duplicate],
+        [incident_a, incident_c_distinct],
+        [incident_c_distinct, incident_b_near_duplicate, incident_a, dup_url],
+        [],
+    ]
+    for x in inputs:
+        assert deduplicate(x) == prune_near_duplicates(x)[0]
+
+
+def test_via_url_alias_matches_kept_url(incident_a, incident_c_distinct):
+    from pipeline.news.dedup import prune_near_duplicates
+
+    a = {**incident_a, "url": "https://publisher.cl/nota/1"}
+    b = {**incident_c_distinct, "url": "https://news.google.com/rss/articles/X?oc=5",
+         "via_url": "https://publisher.cl/nota/1?utm_source=rss"}
+    kept, dropped = prune_near_duplicates([a, b])
+    assert [i["id"] for i in kept] == [a["id"]]
+    assert dropped[0][1] == a["id"] and dropped[0][2] == "url"
+
+
+def test_url_alias_matches_kept_via_url(incident_a, incident_c_distinct):
+    from pipeline.news.dedup import prune_near_duplicates
+
+    a = {**incident_a, "url": "https://news.google.com/rss/articles/X?oc=5"}
+    b = {**incident_c_distinct, "url": "https://publisher.cl/nota/1",
+         "via_url": "https://news.google.com/rss/articles/X?oc=5"}
+    kept, dropped = prune_near_duplicates([a, b])
+    assert [i["id"] for i in kept] == [a["id"]]
+    assert dropped[0][2] == "url"
+
+
+def test_filter_new_against_never_drops_existing(incident_a, incident_b_near_duplicate, incident_c_distinct):
+    from pipeline.news.dedup import filter_new_against
+
+    a2 = {**incident_b_near_duplicate, "id": "a2a2a2a2a2a2a2a2", "url": "https://x.cl/a2"}
+    n = {**incident_b_near_duplicate, "id": "nnnnnnnnnnnnnnnn", "url": "https://x.cl/n"}
+    m = {**incident_c_distinct, "id": "mmmmmmmmmmmmmmmm", "url": "https://x.cl/m"}
+    existing = [incident_a, a2]
+    snapshot = copy.deepcopy(existing)
+    kept_new, dropped = filter_new_against(existing, [n, m])
+    assert [i["id"] for i in kept_new] == ["mmmmmmmmmmmmmmmm"]
+    assert existing == snapshot
+    assert [d[0]["id"] for d in dropped] == ["nnnnnnnnnnnnnnnn"]
+    assert dropped[0][1] in {incident_a["id"], "a2a2a2a2a2a2a2a2"}
+
+
+def test_filter_new_against_url_identity(incident_a, incident_c_distinct):
+    from pipeline.news.dedup import filter_new_against
+
+    new = {**incident_c_distinct, "url": "https://y.cl/other", "via_url": incident_a["url"]}
+    kept_new, dropped = filter_new_against([incident_a], [new])
+    assert kept_new == []
+    assert dropped[0][2] == "url"
