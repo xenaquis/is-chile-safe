@@ -101,6 +101,10 @@ def test_kinship_forms_are_recognized(word):
     ("Asaltan a pareja en Maipú", "Couple robbed in Maipú"),
     ("Detienen a hijos de empresario", "Children of businessman arrested"),
     ("Mamá de víctima declara", "Victim's mother testifies"),
+    # measured on the legacy pairs (36-04 Task 2 offline rate)
+    ("Asaltantes golpean a matrimonio de comerciantes", "Assailants beat merchant couple"),
+    ("A prisión dos imputados por explotación sexual infantil",
+     "Two suspects jailed for child sexual exploitation"),
 ])
 def test_false_positive_guards(src, en):
     assert kinship_mismatch(src, en) is False
