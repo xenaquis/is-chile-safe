@@ -1158,6 +1158,25 @@ def test_r14_build_incident_none_rejected_per_row(tmp_path, monkeypatch):
     assert _summary(tmp_path)["downstream_rejects"] == 1
 
 
+def test_f1_blank_title_rejected_empty_title_run_completes(tmp_path, monkeypatch):
+    # Pre-push F-1: a whitespace-only headline passes is_crime_item on the
+    # description alone; build_incident would raise and abort the whole run.
+    blank = _make_entry(title="   ", link="https://www.biobiochile.cl/noticias/blank.shtml",
+                        guid="https://www.biobiochile.cl/?p=blank",
+                        description="Robo con violencia en plena vía pública.",
+                        pub_date=_recent_iso(8))
+    rc, _ = _run_feeds(tmp_path, monkeypatch, _TEST_FEEDS, [blank, _CRIME_ENTRY_2],
+                       _patch_router(_make_classifier_output()))
+    assert rc == 0
+    assert [i["url"] for i in _current(tmp_path)] == [_CRIME_ENTRY_2.link]
+    assert _rejected_stages(tmp_path) == {blank.link: "empty_title"}
+    seen = _read_seen(tmp_path)
+    assert blank.link in seen and _CRIME_ENTRY_2.link in seen
+    assert _read_pending(tmp_path) == []
+    s = _summary(tmp_path)
+    assert s["downstream_rejects"] == 1 and s["accepted"] == 1
+
+
 # ---------------------------------------------------------------------------
 # 36-07 (FID-04, G-31, premortem R-14): Google-News items store the publisher
 # URL, keep the Google link as via_url, seen/pending keyed on both, budgeted

@@ -546,6 +546,14 @@ def main() -> int:
                 downstream_rejects += 1
                 rejected_items.append({**item, "rejection_stage": stage})
 
+            # Pre-push F-1: a blank/whitespace-only headline can pass is_crime_item
+            # on the description alone; build_incident raises ValueError on an empty
+            # title_src, which would abort the whole run. Reject this row only.
+            if not (item.get("title_src") or "").strip():
+                logger.info("Rejected (empty title): url=%s", item["url"])
+                _downstream_reject("empty_title")
+                return
+
             # FID-01 / FID-07 (G-28): store the outlet's verbatim headline; the
             # classifier's title_en passes the deterministic kinship guard.
             title_en, fell_back = guard_title_en(item["title_src"], result.title_en, item["outlet"])

@@ -667,6 +667,11 @@ def run_apply(
         # headline; the classifier's title_en passes the kinship guard (FID-07).
         outlet = row.get("outlet") or ""
         title_src = source_headline(row.get("title") or "", outlet)
+        if not title_src.strip():
+            # Pre-push F-1: build_incident raises on an empty title_src — reject
+            # this row only instead of aborting the whole apply.
+            stage_of[rid] = ("empty_title", model_label)
+            continue
         title_en, fell_back = guard_title_en(title_src, out.title_en, outlet)
         if forbidden_term(title_src) or forbidden_term(title_en):
             stage_of[rid] = ("editorial_filter", model_label)  # G-29

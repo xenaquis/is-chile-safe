@@ -647,6 +647,25 @@ def test_apply_kinship_guard_falls_back_to_title_src(tmp_path):
     assert rep["fidelity"] == {"title_en_fallbacks": 1, "editorial_filtered": 0}
 
 
+def test_apply_blank_title_rejected_empty_title(tmp_path):
+    # Pre-push F-1: a whitespace-only title would make build_incident raise and
+    # abort the whole apply; the row is rejected on its own, the rest proceed.
+    blank = _row("e000000000000001", date="2026-09-12", title="   ")
+    ok = _row("e000000000000002", date="2026-09-12", title="Asalto en Las Condes - BioBioChile")
+    d = make_data_dir(tmp_path, [blank, ok])
+    cache = write_cache(tmp_path / "scr" / "c.jsonl",
+                        [cache_line(blank["id"], "ok", output=_output()),
+                         cache_line(ok["id"], "ok", output=_output())])
+    code, rep = _apply(d, cache)
+    assert code == 0, rep
+    assert rep["accepted_in_window"] == 1
+    urls = {i["url"] for i in json.loads((d / "current.json").read_text("utf-8"))["incidents"]}
+    assert ok["url"] in urls and blank["url"] not in urls
+    items = {r["id"]: r for r in json.loads((d / "rejected" / "2026-09.json").read_text("utf-8"))["items"]}
+    assert items[blank["id"]]["rejection_stage"] == "empty_title"
+    assert ok["id"] not in items
+
+
 def test_classify_sends_entity_free_description(tmp_path):
     # FID-06 parity: the stored raw description carries entities; the classifier
     # must receive the same decoded text as the live path.
