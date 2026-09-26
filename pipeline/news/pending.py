@@ -8,7 +8,10 @@ Envelope (deterministic, no volatile "generated" field so a no-op run leaves the
 file byte-identical — Phase-35 FRESH-04):
     {"items": [{"id", "url", "title", "description", "date", "outlet",
                 "first_queued", "attempts", "last_error"}, ...]}
-sorted by (first_queued, id).
+sorted by (first_queued, id). FID-04 (36-07): an entry whose Google-News link
+was decoded at ingest also carries "via_url" (the Google link; "url" is the
+publisher URL and "id" = sha256(url)[:16]). The key is omitted otherwise, so
+queues written before 36-07 stay byte-identical.
 
 G-03 knobs: an item expires after PENDING_MAX_ATTEMPTS attempts or
 PENDING_MAX_AGE_DAYS days in the queue; the caller then records it in rejected/
@@ -93,7 +96,7 @@ def upsert_failure(items: list[dict], cand: dict, now: datetime, error: str | No
                 it["last_error"] = error
         out.append(it)
     if not found:
-        out.append({
+        entry = {
             "id": key,
             "url": cand["url"],
             "title": cand.get("title") or "",
@@ -103,7 +106,12 @@ def upsert_failure(items: list[dict], cand: dict, now: datetime, error: str | No
             "first_queued": now.astimezone(timezone.utc).isoformat(timespec="seconds"),
             "attempts": 1 if attempted else 0,
             "last_error": error if attempted else None,
-        })
+        }
+        # FID-04 36-07: keep the Google link so the queued item is never re-decoded
+        # and its Google link stays in the pending url set.
+        if cand.get("via_url"):
+            entry["via_url"] = cand["via_url"]
+        out.append(entry)
     return out
 
 

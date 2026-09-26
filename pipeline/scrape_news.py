@@ -282,6 +282,7 @@ def main() -> int:
             load_seen,
             parse_pub_date,
             resolve_outlet,
+            USER_AGENT as FEEDS_USER_AGENT,
             save_seen,
             source_headline,
             strip_html,
@@ -295,6 +296,8 @@ def main() -> int:
         from pipeline.news.resolver import resolve_cut
         from pipeline.news.fulltext import REQUEST_DELAY
         from pipeline.news import pending as pq
+        from pipeline.news import ingest_url
+        import requests
 
         # NREC-03: OpenRouter preflight once, before any completion call.
         router.preflight()
@@ -321,6 +324,8 @@ def main() -> int:
                 "rejection_stage": "api_error_expired",
             })
             seen[entry["url"]] = entry.get("date") or now.date().isoformat()
+            if entry.get("via_url"):  # FID-04 36-07: seen keys on both
+                seen[entry["via_url"]] = entry.get("date") or now.date().isoformat()
 
         # Retry queue (G-03): expire stale items BEFORE classification (not attempted).
         pending = pq.load_pending(pending_path)
@@ -330,6 +335,19 @@ def main() -> int:
 
         seen_set: set[str] = set(seen.keys())
         pending_urls: set[str] = {p["url"] for p in pending}
+        # FID-04 36-07: a queued decoded item is also known by its Google link.
+        pending_urls |= {p["via_url"] for p in pending if p.get("via_url")}
+
+        # FID-04 36-07 (G-31): courtesy decode of fresh Google-News links to the
+        # publisher URL. 1.5 s between decodes, 10 s timeout, <= 60 decodes and
+        # <= 180 s of decode time per run (spent from the G-09 run budget).
+        decode_session = requests.Session()
+        decode_session.headers.update({"User-Agent": FEEDS_USER_AGENT})
+        decode_budget = ingest_url.DecodeBudget(
+            max_items=_int_env("NEWS_MAX_DECODE", ingest_url.MAX_DECODES_PER_RUN),
+            max_seconds=float(_int_env("NEWS_DECODE_BUDGET_S", int(ingest_url.DECODE_BUDGET_S))),
+        )
+        gnews_decode = {"candidates": 0, "decoded": 0, "failed": 0, "skipped_budget": 0}
 
         # Collect all unseen crime candidates across feeds
         fresh: list[dict] = []
@@ -373,8 +391,34 @@ def main() -> int:
                     # Mark as seen within this run to deduplicate across feeds/entries
                     seen_set.add(url)
 
+                    # FID-04 36-07 (G-31): decode a fresh Google-News link to the
+                    # publisher URL, only after the prefilter and the seen/pending
+                    # check above, at most once per link, within the run budget.
+                    via_url = None
+                    if ingest_url.is_gnews_url(url):
+                        gnews_decode["candidates"] += 1
+                        if decode_budget.allow():
+                            decode_budget.wait()
+                            publisher = ingest_url.resolve_publisher_url(
+                                url, decode_session, timeout=ingest_url.DECODE_TIMEOUT_S,
+                            )
+                            decode_budget.charge()
+                            if publisher:
+                                gnews_decode["decoded"] += 1
+                                if publisher in seen_set or publisher in pending_urls:
+                                    # Already known under its publisher URL: never
+                                    # classify it again, never decode G again.
+                                    seen[url] = pub_date.isoformat()
+                                    continue
+                                via_url, url = url, publisher
+                                seen_set.add(url)
+                            else:
+                                gnews_decode["failed"] += 1
+                        else:
+                            gnews_decode["skipped_budget"] += 1
+
                     outlet = resolve_outlet(entry, feed_name)
-                    fresh.append({
+                    cand = {
                         "url": url,
                         "title": title,
                         "description": description,
@@ -383,7 +427,10 @@ def main() -> int:
                         # FID-01 (G-28): the outlet's verbatim headline; derived, so
                         # never persisted to pending.json (upsert_failure picks keys).
                         "title_src": source_headline(title, outlet),
-                    })
+                    }
+                    if via_url is not None:
+                        cand["via_url"] = via_url
+                    fresh.append(cand)
 
             except Exception as exc:
                 logger.warning("[%s] Per-feed error (skipping): %s", feed_name, exc)
@@ -393,14 +440,21 @@ def main() -> int:
             "Fetch summary: fetched=%d, keyword_passed=%d, unseen_candidates=%d",
             fetched_total, keyword_passed, len(fresh),
         )
+        logger.info("Google-News decode (FID-04): %s (%.1f s)",
+                    json.dumps(gnews_decode, sort_keys=True), decode_budget.spent)
 
         # Queued items first (first_queued order), then fresh candidates.
-        queued_candidates = [
-            {k: p.get(k) or "" for k in ("url", "title", "description", "date", "outlet")}
-            for p in sorted(pending, key=lambda p: (p.get("first_queued") or "", p.get("id") or ""))
-        ]
-        for q in queued_candidates:
+        queued_candidates = []
+        for p in sorted(pending, key=lambda p: (p.get("first_queued") or "", p.get("id") or "")):
+            q = {k: p.get(k) or "" for k in ("url", "title", "description", "date", "outlet")}
             q["title_src"] = source_headline(q["title"], q["outlet"])  # FID-01
+            # FID-04 36-07 / premortem R-14: never "" (build_incident would return
+            # None); the key exists only when the queued entry carries a via_url.
+            # Queued items never pass through the decode path.
+            via_url = p.get("via_url") or None
+            if via_url is not None:
+                q["via_url"] = via_url
+            queued_candidates.append(q)
         if queued_candidates:
             logger.info("Retry queue: %d pending item(s) re-attempted first", len(queued_candidates))
         candidates = queued_candidates + fresh
@@ -442,6 +496,8 @@ def main() -> int:
             # path — so genuine rejects are never re-classified (D-17 cost guardrail).
             # API_ERROR outcomes never reach here: they go to pending.json, never seen.
             seen[item["url"]] = item["date"]
+            if item.get("via_url"):
+                seen[item["via_url"]] = item["date"]  # FID-04 36-07: seen keys on both
 
             if res.outcome is Outcome.NOT_CRIME:
                 logger.debug("Rejected (low confidence): url=%s title=%r", item["url"], item["title"][:60])
@@ -514,6 +570,7 @@ def main() -> int:
                 outlet=item["outlet"],
                 family=result.family,
                 slug=slug,
+                via_url=item.get("via_url"),  # FID-04 36-07
             )
             # Per-row guard (premortem R-14; mirrors the backfill twin): a None or a
             # schema-invalid incident is rejected on its own — never a crash in
@@ -600,6 +657,8 @@ def main() -> int:
                 "title_en_fallbacks": title_en_fallbacks,
                 "editorial_filtered": editorial_filtered,
             },
+            # FID-04 36-07 (G-31/G-37): dict, so skipped by the GITHUB_OUTPUT scalars.
+            "gnews_decode": dict(gnews_decode),
         })
 
         # Persist rejected candidates for selection-bias research corpus
