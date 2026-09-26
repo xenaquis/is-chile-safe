@@ -187,6 +187,12 @@ Rules:
 - region_hint helps disambiguate; set to the region number or name from the list entry if known.
 - If the article is not about a crime incident, set commune_name to null and confidence to 0.0.
 - Traffic accidents, road collisions, and vehicle crashes are NOT crime incidents even if they result in fatalities. If an article is primarily about a traffic accident (colisión, accidente de tránsito, choque, atropello sin culpa criminal), you MUST set confidence to 0.0.
+- Deaths or injuries where the article alleges no crime are NOT crime incidents: natural death, suicide (suicidio), drowning (inmersión), a body found with no crime established, or authorities ruling out third-party involvement. The same applies to every kind of accident: workplace or mining (accidente laboral), aviation, sport or recreation, domestic, explosive remnants or landmines, and traffic (rule above).
+- Fires (incendio), explosions, emergencies and natural disasters are NOT crime incidents unless the article alleges arson (incendio intencional) or another crime.
+- Institutional, policy, budget or administrative news is NOT a crime incident: meetings, statements, plans, preventive security deployments, enforcement or operation balances and statistics (balance), prisoner transfers (traslado de reos) or prison policy, and protests announced without incidents.
+- For the three non-crime categories above, set commune_name to null and confidence to 0.0.
+- News about a specific, identifiable crime case (arrest, charge, formalization, trial, sentence, or escape of a person convicted for it) IS in scope; family = the family of the underlying crime.
+- Family boundaries follow the CEAD catalog: vida = homicide, femicide, attempted homicide or injuries (lesiones); robbery with violence or intimidation, including when it causes injuries but no death = robos_violentos; robbery or theft without confrontation = propiedad; intra-family violence without death = vif; sexual crimes = sexuales (rule below). Never use vida as a default just because someone died.
 - Sexual crimes (violacion, abuso sexual, estupro, grooming, pornografia infantil, acoso sexual, agresion sexual, delitos de connotacion sexual) MUST use family "sexuales", NOT "vida". Exception: if the incident is a killing (homicidio, femicidio) the family stays "vida" even when a sexual assault accompanied the death — death dominates classification.
 - family MUST be exactly one of: {_NEWS_FAMILY_ENUM_STR}
 - Output plain text only for title_en and summary — no HTML, no markdown.

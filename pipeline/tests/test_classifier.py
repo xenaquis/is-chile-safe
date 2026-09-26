@@ -308,3 +308,26 @@ def test_shingle_guard_scope_excludes_commune_block_and_schema_block():
     assert '"commune_name": "<' not in rules_text
     assert '"title_en": "<' not in rules_text
     assert "Rules:" in rules_text
+
+
+# ---------------------------------------------------------------------------
+# 36-06 Part B (FID-02): category-level non-crime + family-boundary rules
+# ---------------------------------------------------------------------------
+
+
+def test_system_prompt_has_category_level_non_crime_rules():
+    prompt = SYSTEM_PROMPT.lower()
+    for keyword in ("suicid", "incendio", "accidente laboral", "balance", "traslado"):
+        assert keyword in prompt, f"missing non-crime category keyword {keyword!r}"
+    # Rules 1-3 reuse the existing rejection mechanism.
+    assert "set commune_name to null and confidence to 0.0" in SYSTEM_PROMPT
+    # Rule 4: specific crime cases stay in scope with the underlying family.
+    assert "family = the family of the underlying crime" in SYSTEM_PROMPT
+
+
+def test_system_prompt_has_cead_family_boundaries():
+    assert "Family boundaries follow the CEAD catalog" in SYSTEM_PROMPT
+    assert "= robos_violentos" in SYSTEM_PROMPT
+    assert "= propiedad" in SYSTEM_PROMPT
+    assert "= vif" in SYSTEM_PROMPT
+    assert "Never use vida as a default" in SYSTEM_PROMPT
