@@ -224,6 +224,10 @@ def _no_live_llm(monkeypatch):
 
     monkeypatch.setattr("pipeline.news.classifier.preflight_openrouter", _boom)
     monkeypatch.setattr("pipeline.news.classifier._request_completion", _boom)
+    # FID-04 36-07: the ingest decode must never reach news.google.com in tests;
+    # default = decode failure (url stays the Google link). Tests that need a
+    # decode patch pipeline.news.gnews_decoder.decode_gnews_url themselves.
+    monkeypatch.setattr("pipeline.news.gnews_decoder.decode_gnews_url", lambda *a, **k: None)
     for var in ("NEWS_RUN_SUMMARY_PATH", "GITHUB_OUTPUT", "NEWS_FORCE_BACKUP",
                 "NEWS_RUN_BUDGET_S", "NEWS_PROVIDER", "NEWS_MODEL"):
         monkeypatch.delenv(var, raising=False)
@@ -940,6 +944,7 @@ def test_mixed_run_summary_schema_and_github_output(tmp_path, monkeypatch, caplo
         "skipped_reason", "empty_content", "finish_length", "redispatched",
         "recovered_by_redispatch", "budget_exhausted", "served_by_counts",
         "fidelity",  # FID-01 36-04 (dict -> never a GITHUB_OUTPUT line)
+        "gnews_decode",  # FID-04 36-07 (dict -> never a GITHUB_OUTPUT line)
     }
     assert s["schema"] == 1
     assert (s["attempted"], s["responded"], s["accepted"], s["genuine_rejects"],
@@ -958,6 +963,8 @@ def test_mixed_run_summary_schema_and_github_output(tmp_path, monkeypatch, caplo
         assert expected in lines, expected
     assert not any(l.startswith("served_by_counts") for l in lines)
     assert not any(l.startswith("fidelity") for l in lines)  # FID-01 36-04
+    assert not any(l.startswith("gnews_decode") for l in lines)  # FID-04 36-07
+    assert s["gnews_decode"] == {"candidates": 0, "decoded": 0, "failed": 0, "skipped_budget": 0}
 
     assert "Classification summary: classified=1, rejected=3" in caplog.text
     assert '"preflight": "skipped"' in caplog.text  # Run summary log line (sort_keys JSON)
@@ -1149,3 +1156,208 @@ def test_r14_build_incident_none_rejected_per_row(tmp_path, monkeypatch):
     assert _current(tmp_path) == []
     assert _rejected_stages(tmp_path) == {_CRIME_ENTRY_1.link: "url_rejected"}
     assert _summary(tmp_path)["downstream_rejects"] == 1
+
+
+# ---------------------------------------------------------------------------
+# 36-07 (FID-04, G-31, premortem R-14): Google-News items store the publisher
+# URL, keep the Google link as via_url, seen/pending keyed on both, budgeted
+# courtesy decode after the prefilter and the seen/pending check.
+# ---------------------------------------------------------------------------
+
+_G1 = "https://news.google.com/rss/articles/CBMi-fid04-1?oc=5"
+_P1 = "https://www.soychile.cl/calama/policial/2026/09/24/robo.html"
+
+
+def _decoder(mapping=None, default=None):
+    """MagicMock stand-in for gnews_decoder.decode_gnews_url (no network)."""
+    mapping = mapping or {}
+    return MagicMock(side_effect=lambda url, session=None, timeout=15.0: mapping.get(url, default))
+
+
+def _patch_decoder(mock):
+    return patch("pipeline.news.gnews_decoder.decode_gnews_url", mock)
+
+
+def _write_seen(tmp_path, seen: dict):
+    (tmp_path / "seen.json").write_text(json.dumps(seen), encoding="utf-8")
+
+
+def test_fid04_decoded_item_stores_publisher_url_and_via_url(tmp_path, monkeypatch):
+    from pipeline.news.store import make_id
+    e = _gnews_entry("Detienen a sujeto en Calama - soychile.cl", _G1)
+    dec = _decoder({_G1: _P1 + "?utm_source=googlenews&utm_medium=rss"})
+    rc, fake = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e],
+                          _patch_router(_out("Man arrested in Calama")),
+                          patches=[_patch_decoder(dec)])
+    assert rc == 0
+    assert dec.call_count == 1
+    # decode ran WITH a session (new-format needs the network) and the 10 s timeout
+    assert dec.call_args.kwargs["session"] is not None
+    assert dec.call_args.kwargs["timeout"] == 10.0
+    [inc] = _current(tmp_path)
+    assert inc["url"] == _P1
+    assert inc["via_url"] == _G1
+    assert inc["id"] == make_id(_P1)
+    seen = _read_seen(tmp_path)
+    assert _P1 in seen and _G1 in seen  # FID-04: seen keys on both
+    assert fake.calls[0][1] == make_id(_P1)
+    assert _summary(tmp_path)["gnews_decode"] == {
+        "candidates": 1, "decoded": 1, "failed": 0, "skipped_budget": 0}
+
+
+def test_fid04_decode_failure_keeps_google_url(tmp_path, monkeypatch):
+    e = _gnews_entry("Detienen a sujeto en Calama - soychile.cl", _G1)
+    dec = _decoder(default=None)
+    rc, _ = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e],
+                       _patch_router(_out("Man arrested in Calama")),
+                       patches=[_patch_decoder(dec)])
+    assert rc == 0 and dec.call_count == 1
+    [inc] = _current(tmp_path)
+    assert inc["url"] == _G1
+    assert "via_url" not in inc
+    assert _G1 in _read_seen(tmp_path)
+    assert _summary(tmp_path)["gnews_decode"] == {
+        "candidates": 1, "decoded": 0, "failed": 1, "skipped_budget": 0}
+
+
+def test_fid04_publisher_already_seen_skips_and_marks_google_seen(tmp_path, monkeypatch):
+    _write_seen(tmp_path, {_P1: _recent_iso(8)[:10]})
+    e = _gnews_entry("Detienen a sujeto en Calama - soychile.cl", _G1)
+    dec = _decoder({_G1: _P1})
+    rc, fake = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e],
+                          _patch_router(_out("Man arrested in Calama")),
+                          patches=[_patch_decoder(dec)])
+    assert rc == 0
+    assert fake.calls == []  # no classification
+    assert _current(tmp_path) == []
+    seen = _read_seen(tmp_path)
+    assert _G1 in seen and _P1 in seen
+    assert _summary(tmp_path)["gnews_decode"]["decoded"] == 1
+
+    # next run: G is seen -> never decoded again
+    dec2 = _decoder({_G1: _P1})
+    rc2, fake2 = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e],
+                            _patch_router(_out("Man arrested in Calama")),
+                            patches=[_patch_decoder(dec2)])
+    assert rc2 == 0 and dec2.call_count == 0 and fake2.calls == []
+
+
+def test_fid04_publisher_already_pending_skips(tmp_path, monkeypatch):
+    direct = _make_entry(title="Robo en Calama", link=_P1, guid=_P1,
+                         description="Asalto.", pub_date=_recent_iso(8))
+    _write_pending(tmp_path, [_pending_entry(direct, attempts=1, first_queued=_iso_days_ago(1))])
+    e = _gnews_entry("Detienen a sujeto en Calama - soychile.cl", _G1)
+    dec = _decoder({_G1: _P1})
+    rc, fake = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e],
+                          _patch_router(_out("Man arrested in Calama")),
+                          patches=[_patch_decoder(dec)])
+    assert rc == 0
+    assert [t for t, _ in fake.calls] == ["Robo en Calama"]  # only the queued copy
+    assert _G1 in _read_seen(tmp_path)
+
+
+def test_fid04_no_decode_for_keyword_failing_or_seen_google_entries(tmp_path, monkeypatch):
+    non_crime = _gnews_entry("La Roja golea 3-0 a Paraguay - soychile.cl",
+                             "https://news.google.com/rss/articles/CBMi-futbol",
+                             description="Partido amistoso en el estadio Nacional.")
+    _write_seen(tmp_path, {_G1: _recent_iso(8)[:10]})
+    seen_g = _gnews_entry("Detienen a sujeto en Calama - soychile.cl", _G1)
+    resolver = MagicMock(return_value=_P1)
+    rc, fake = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [non_crime, seen_g],
+                          _patch_router(_out("Man arrested in Calama")),
+                          patches=[patch("pipeline.news.ingest_url.resolve_publisher_url", resolver)])
+    assert rc == 0
+    assert resolver.call_count == 0
+    assert fake.calls == []
+    assert _summary(tmp_path)["gnews_decode"]["candidates"] == 0
+
+
+def test_fid04_non_google_entry_never_decoded(tmp_path, monkeypatch):
+    resolver = MagicMock(return_value=_P1)
+    rc, _ = _run_feeds(tmp_path, monkeypatch, _TEST_FEEDS, [_CRIME_ENTRY_1],
+                       _patch_router(_make_classifier_output()),
+                       patches=[patch("pipeline.news.ingest_url.resolve_publisher_url", resolver)])
+    assert rc == 0 and resolver.call_count == 0
+    [inc] = _current(tmp_path)
+    assert inc["url"] == _CRIME_ENTRY_1.link and "via_url" not in inc
+
+
+def test_fid04_decode_budget_61_candidates(tmp_path, monkeypatch):
+    import pipeline.scrape_news as sn
+    from pipeline.news.fulltext import REQUEST_DELAY
+    from pipeline.news.pending import item_id
+
+    sleeps: list[float] = []
+    monkeypatch.setattr(sn.time, "sleep", lambda s: sleeps.append(s))
+    gs = [f"https://news.google.com/rss/articles/CBMi-budget-{i}" for i in range(61)]
+    entries = [_gnews_entry(f"Robo con violencia número {i} en Calama - soychile.cl", g)
+               for i, g in enumerate(gs)]
+    dec = _decoder({g: f"https://www.soychile.cl/calama/{i}.html" for i, g in enumerate(gs)})
+    rc, fake = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, entries,
+                          _patch_router(_out("Robbery in Calama")),
+                          patches=[_patch_decoder(dec)])
+    assert rc == 0
+    assert dec.call_count == 60
+    assert _summary(tmp_path)["gnews_decode"] == {
+        "candidates": 61, "decoded": 60, "failed": 0, "skipped_budget": 1}
+    keys = [k for _, k in fake.calls]
+    assert keys[-1] == item_id(gs[60])  # the 61st keeps the Google link
+    assert keys[0] == item_id("https://www.soychile.cl/calama/0.html")
+    # courtesy: 1.5 s between decodes, never before the first (single feed -> no feed sleeps)
+    assert sleeps == [REQUEST_DELAY] * 59
+
+
+def test_fid04_decode_budget_env_override(tmp_path, monkeypatch):
+    monkeypatch.setenv("NEWS_MAX_DECODE", "1")
+    gs = [f"https://news.google.com/rss/articles/CBMi-env-{i}" for i in range(2)]
+    entries = [_gnews_entry(f"Asalto número {i} en Calama deja heridos - soychile.cl", g)
+               for i, g in enumerate(gs)]
+    dec = _decoder({g: f"https://www.soychile.cl/calama/env-{i}.html" for i, g in enumerate(gs)})
+    rc, _ = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, entries,
+                       _patch_router(_out("Robbery in Calama")),
+                       patches=[_patch_decoder(dec)])
+    assert rc == 0 and dec.call_count == 1
+    assert _summary(tmp_path)["gnews_decode"]["skipped_budget"] == 1
+
+
+def test_fid04_api_error_queues_publisher_url_and_never_redecodes(tmp_path, monkeypatch):
+    from pipeline.news.store import make_id
+    e = _gnews_entry("Detienen a sujeto en Calama - soychile.cl", _G1)
+    dec1 = _decoder({_G1: _P1})
+    rc1, _ = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e], _patch_router(_api()),
+                        patches=[_patch_decoder(dec1)])
+    assert rc1 == 0
+    [pend] = _read_pending(tmp_path)
+    assert pend["url"] == _P1 and pend["via_url"] == _G1 and pend["id"] == make_id(_P1)
+    seen = _read_seen(tmp_path)
+    assert _P1 not in seen and _G1 not in seen  # API_ERROR is never seen
+
+    # Run 2: the feed yields G again; G is in the pending url set -> no duplicate,
+    # the queued item is classified from the queue WITHOUT a decode call.
+    dec2 = _decoder({_G1: _P1})
+    rc2, fake = _run_feeds(tmp_path, monkeypatch, _GNEWS_FEEDS, [e],
+                           _patch_router(_out("Man arrested in Calama")),
+                           patches=[_patch_decoder(dec2)])
+    assert rc2 == 0
+    assert dec2.call_count == 0
+    assert len(fake.calls) == 1 and fake.calls[0][1] == make_id(_P1)
+    [inc] = _current(tmp_path)
+    assert inc["url"] == _P1 and inc["via_url"] == _G1 and inc["id"] == make_id(_P1)
+    assert _read_pending(tmp_path) == []
+    seen = _read_seen(tmp_path)
+    assert _P1 in seen and _G1 in seen
+    assert _summary(tmp_path)["gnews_decode"]["candidates"] == 0
+
+
+def test_r14_pending_entry_without_via_url_ok_writes_one_incident(tmp_path, monkeypatch):
+    entry = _pending_entry(_CRIME_ENTRY_1, attempts=1, first_queued=_iso_days_ago(1))
+    assert "via_url" not in entry
+    _write_pending(tmp_path, [entry])
+    rc, fake = _run_feeds(tmp_path, monkeypatch, _TEST_FEEDS, [],
+                          _patch_router(_make_classifier_output()))
+    assert rc == 0
+    assert len(fake.calls) == 1
+    [inc] = _current(tmp_path)
+    assert inc["url"] == _CRIME_ENTRY_1.link
+    assert "via_url" not in inc
+    assert _read_pending(tmp_path) == []

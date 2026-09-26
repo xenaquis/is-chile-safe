@@ -149,3 +149,35 @@ def test_save_empty_with_existing_file_clears_queue(tmp_path):
     pq.save_pending(p, pq.upsert_failure([], _cand(1), NOW, "e", attempted=True))
     assert pq.save_pending(p, []) is True
     assert json.loads(p.read_text(encoding="utf-8")) == {"items": []}
+
+
+# FID-04 36-07: pending entries carry via_url (the Google link) when the item
+# was decoded to a publisher URL; old entries without via_url keep loading and
+# a new entry without via_url never gains the key (byte identity of old queues).
+
+def test_upsert_copies_via_url_when_present(tmp_path):
+    g = "https://news.google.com/rss/articles/CBMi1"
+    cand = {**_cand(7), "via_url": g}
+    [it] = pq.upsert_failure([], cand, NOW, "NotFoundError:404", attempted=True)
+    assert it["url"] == "https://example.cl/n/7" and it["via_url"] == g
+    assert it["id"] == pq.item_id("https://example.cl/n/7")
+    path = tmp_path / "pending.json"
+    pq.save_pending(path, [it])
+    [loaded] = pq.load_pending(path)
+    assert loaded["via_url"] == g
+
+
+@pytest.mark.parametrize("via", [None, ""])
+def test_upsert_omits_via_url_when_absent(via):
+    cand = _cand(8) if via is None else {**_cand(8), "via_url": via}
+    [it] = pq.upsert_failure([], cand, NOW, None, attempted=False)
+    assert "via_url" not in it
+
+
+def test_old_entry_without_via_url_still_loads(tmp_path):
+    path = tmp_path / "pending.json"
+    old = pq.upsert_failure([], _cand(9), NOW, None, attempted=False)
+    path.write_text(json.dumps({"items": old}, ensure_ascii=False, indent=2), encoding="utf-8")
+    [loaded] = pq.load_pending(path)
+    assert "via_url" not in loaded and loaded["url"] == "https://example.cl/n/9"
+    assert pq.save_pending(path, [loaded]) is False  # byte-identical, not rewritten
