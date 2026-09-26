@@ -34,3 +34,18 @@ prod_checks (curled 2026-09-26 ~02:48Z):
 S0: 36-S0-IDS.txt = 787 ids from `git show 91b1e80:data/incidents/current.json`.
 
 ## Task 3 — live runs (pending)
+
+first_post_ship_run: 36214289804 drops=0 mode=full
+- scheduled 2026-09-26T03:16Z, headSha 91b1e80 (= ship_sha); conclusion success.
+- Health gate success; deploy success.
+- classified=7, attempted 14, accepted 7, api_errors 0, failovers 0, expired 0, budget_exhausted false.
+- fidelity: editorial_filtered 0, title_en_fallbacks 0.
+- gnews_decode: candidates 6, decoded 6, failed 0, skipped_budget 0.
+- BioBio warning lines: 0.
+
+pruned_existing_reconciled: 58/58 in reviewed pairs. 109 S0 ids are missing from current.json after the run: 51 moved to archive (window aging) and 58 pruned, all 58 DROP ids from 36-DEDUP-REVIEW.md; 0 unreviewed pruned ids. 514872e1d06db7f2 is still present.
+
+- After the run: current.json has 684 incidents; 6 live-added, 6/6 with title_src, 0 news.google.com url, 1 via_url.
+- validate_news_dedup: PASS, 0 drops over 684.
+
+validators: 19/19 (#19 news-dedup.mjs registered after first_post_ship_run drops=0; `npm run build && npm run validate` → 19/19).
