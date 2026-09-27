@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-27T03:26:45.681011Z",
+  "generated": "2026-09-27T11:18:43.730393Z",
   "window_days": 30,
   "incidents": [
     {
@@ -8879,7 +8879,66 @@
       "slug": "concepcion",
       "title_src": "Exjugador de La Roja Sub-20, Ronald Valladares, detenido en Concepción por robos con método \"salida de bancos\"",
       "via_url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOX1Q4dm8xZGxPN0s2UzY0ZXpRQTQ0SVREMDRXMWpCSksxNFItZkVkUDY3ZTlaQjd3WEhTd293eGg1dGJqV1B0aEowUXhmTEM3d0ZfdnJONE0xS244UHNkRHFaaVgzMnREQ0dKVTBjVVVtTXRTaTM2LUV3LWNubnFEN0pOclhESEtvZ05qN3hoS2hTY24zYVRXNElGTldVTW1tVV9fdFhnRnRBY0E3YUdOZnBOVFRyR1NNU2Y2U29wMFZhbEZ6US1PcEVwSmF3clBvdS13U05OYjRod0E?oc=5"
+    },
+    {
+      "id": "ee29b34f6c7c8483",
+      "cut": "13402",
+      "lat": -33.711251,
+      "lng": -70.733244,
+      "title_es": "Adolescente de 16 años muere baleado en Buin tras ser secuestrado desde fiesta en Puente Alto",
+      "title_en": "16-year-old teenager dies shot in Buin after being kidnapped from a party in Puente Alto",
+      "date": "2026-09-27",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/adolescente-de-16-anos-muere-baleado-en-buin-tras-ser-secuestrado-desde-fiesta-en-puente-alto/",
+      "family": "vida",
+      "slug": "buin",
+      "title_src": "Adolescente de 16 años muere baleado en Buin tras ser secuestrado desde fiesta en Puente Alto"
+    },
+    {
+      "id": "f40e3dc36e0d542a",
+      "cut": "5601",
+      "lat": -33.662085,
+      "lng": -71.493518,
+      "title_es": "Tiroteo en San Antonio deja cinco hinchas de Colo Colo heridos; uno fue baleado en la cabeza",
+      "title_en": "Shooting in San Antonio leaves five Colo Colo fans injured; one was shot in the head",
+      "date": "2026-09-26",
+      "outlet": "Canal 9 Bío Bío Televisión",
+      "url": "https://www.canal9.cl/episodios/2026/09/26/balacera-en-san-antonio-deja-5-hinchas-de-colo-colo-heridos-uno-recibio-disparo-en-la-cabeza",
+      "family": "armas",
+      "slug": "san-antonio",
+      "title_src": "Tiroteo en San Antonio deja cinco hinchas de Colo Colo heridos; uno fue baleado en la cabeza",
+      "via_url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOeFY3MFBSS0UwRVU3V1Y0QWFtZkdkQlZMRnNhTUhUdURWdjF1QXNGZGtYdERsQmJRRnRXeGpuTWxhcmUxQ2d3cDJBTVZ6VENhZVkzTjRxeHJVdFE5SjZUdHNyUjA2Q2NxRmRIaS14VUhwa0VjNHB4NzFwbGdKTDhIcHFnUXFrd2ZDS2oydXZsYzcybzYtcVJmcDJ4bjBwdHVaY2pJQU5Uc3BvYmtNRjdrVGRkcmZOUGszMVE1THZ1YU9DczhtWEFBLURaSXZ3cFdv?oc=5"
+    },
+    {
+      "id": "deb1c3bf957f0400",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "PDI y Fiscalía investigan homicidio en baleo de las bandas ‘Los Caleños’ y ‘Los Shottas’, además incautan sobre 80 kilos de droga en Antofagasta",
+      "title_en": "PDI and Prosecutor's Office investigate homicide in shootout between the 'Los Caleños' and 'Los Shottas' gangs, also seize over 80 kilos of drugs in Antofagasta",
+      "date": "2026-09-25",
+      "outlet": "SoyChile.cl",
+      "url": "https://www.soychile.cl/Antofagasta/Policial/2026/09/25/966456/bandas-homicidio-drogas.html",
+      "family": "vida",
+      "slug": "antofagasta",
+      "title_src": "PDI y Fiscalía investigan homicidio en baleo de las bandas ‘Los Caleños’ y ‘Los Shottas’, además incautan sobre 80 kilos de droga en Antofagasta",
+      "via_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxONUQ1WWpLWUtBeEhXQlp2MTRiYkVEM3BwbkJlc091cnlnQXRkWTJFeTBjbU9QWHp1eDJnMHRvZm40WDlNazhoME9OQTY5VFM1eDNuby1YMHZXNDBueUhSSFJ4WE1NLWhUU0I3ZnM5SXdQUzF5cnZlU1Z2MGJxSVJXMm5iWXhsRVlPNGFYa3g2dFM0cEN2UFE?oc=5"
+    },
+    {
+      "id": "a910698934c75e29",
+      "cut": "5601",
+      "lat": -33.662085,
+      "lng": -71.493518,
+      "title_es": "Balacera deja a cinco hinchas de Colo Colo heridos en San Antonio: uno en riesgo vital",
+      "title_en": "Shooting leaves five Colo Colo fans injured in San Antonio: one in critical condition",
+      "date": "2026-09-26",
+      "outlet": "SoyChile.cl",
+      "url": "https://www.soychile.cl/san-antonio/policial/2026/09/26/966489/balancra-colocolo-sanantonio-heridos-riesgo.html",
+      "family": "armas",
+      "slug": "san-antonio",
+      "title_src": "Balacera deja a cinco hinchas de Colo Colo heridos en San Antonio: uno en riesgo vital",
+      "via_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNQUxpWkJWOVlkMHhGZjZwRC0wQ2FxcG9zQkd0NUNnQTBJYnZjUncwZ2hQSFplTGk1bzktSEVpTU9JQXJZcmhBX1hHM0YtdTA5d1RmMjRGekZfUTJWa0ZtSWd4S21qZ21QTWluczhsTGo2cXcwZXdXLUZjNjdORkxOQ29tNFViUlhMMU9YTjcyWFFIZW5aU1J1U3FyZ1l3RFl6bDNwNVEyQ0thQTA2NU5JaQ?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-09-27T03:26:45.681011Z"
+  "last_new_incident_at": "2026-09-27T11:18:43.730393Z"
 }
