@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-09T04:22:29.668998Z",
+  "generated": "2026-10-09T12:31:00.150366Z",
   "window_days": 30,
   "incidents": [
     {
@@ -11748,7 +11748,95 @@
       "slug": "renaico",
       "title_src": "SernamEG se querelló por femicidio ocurrido en Renaico",
       "via_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQLTFPdXZrSWdmdFV4anE4WEZIM1l1S2dlaXJQU251ZndnUHJrVTZ3UWJIbldnWUQ1cERuOGdZS2h2UlV4TlFXemhfME5xSnNqXzh5cFhFVHZJU1RGeTJ6WnZGQmtuQ1pwQi1Lc2NNSnNZbDVvODczcEFtQVktbndsVG5sMzFSMjhjTC12aDhSbGJFTGhPX2kta3pDcGU?oc=5"
+    },
+    {
+      "id": "1842c9e146f61120",
+      "cut": "8107",
+      "lat": -36.724747,
+      "lng": -72.940429,
+      "title_es": "Fiscalía reformaliza a imputado por megaincendio en Penco y Tomé: sumó nueva víctima fatal",
+      "title_en": "Prosecutor's Office re-charges suspect for megafire in Penco and Tomé: added new fatal victim",
+      "date": "2026-10-09",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/10/09/fiscalia-reformaliza-a-imputado-por-megaincendio-en-penco-y-tome-sumo-nueva-victima-fatal.shtml",
+      "family": "vida",
+      "slug": "penco",
+      "title_src": "Fiscalía reformaliza a imputado por megaincendio en Penco y Tomé: sumó nueva víctima fatal"
+    },
+    {
+      "id": "45132a6e29f982ba",
+      "cut": "13114",
+      "lat": -33.400888,
+      "lng": -70.506596,
+      "title_es": "Codina confirma un detenido por robos en el sector del aluvión: hay más de 2 mil casas con daños",
+      "title_en": "Codina confirms one detainee for robberies in the flood-hit sector: there are more than 2,000 homes with damage",
+      "date": "2026-10-09",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/10/09/pdi-detiene-a-un-delincuente-por-robos-en-sector-afectado-por-aluvion-en-las-condes.shtml",
+      "family": "propiedad",
+      "slug": "las-condes",
+      "title_src": "Codina confirma un detenido por robos en el sector del aluvión: hay más de 2 mil casas con daños"
+    },
+    {
+      "id": "6e3cd0a87e338a8b",
+      "cut": "2203",
+      "lat": -23.442741,
+      "lng": -67.943059,
+      "title_es": "Incautan más de 234 kilos de cannabis en ruta entre San Pedro de Atacama y Calama: hay un detenido",
+      "title_en": "More than 234 kilos of cannabis seized on route between San Pedro de Atacama and Calama: one person detained",
+      "date": "2026-10-09",
+      "outlet": "Diario Sol",
+      "url": "https://www.diariosol.cl/policial/incautan-234-kilos-cannabis-ruta-san-pedro-atacama-calama-detenido",
+      "family": "drogas",
+      "slug": "san-pedro-de-atacama",
+      "title_src": "Incautan más de 234 kilos de cannabis en ruta entre San Pedro de Atacama y Calama: hay un detenido",
+      "via_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQZGFTTnpkNFRvUHpjUU4zRVo4VkNvckl2RDM5NVlLVDcwbk9maU5GdU9BdC1uemdHakZKOHN6Q3U5b0hFWWR3OGxvb3hPTmV1V2RFdm0tY09uRkZFLWJEcVZ1M2xKNWxrdkVXc29lOENMVnlTUFFZWUhpR05MaDlwN1Joanl2RHdMZTVoTnB3ZWNmb2ltVHZpVTltQVRqZ1JTeWc?oc=5"
+    },
+    {
+      "id": "2f53b3258700cd67",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "En prisión preventiva quedó sujeto que intimidó con falsa pistola a trabajador para robarle su vehículo en Iquique",
+      "title_en": "Man who intimidated a worker with a fake pistol to steal his vehicle in Iquique was remanded in custody",
+      "date": "2026-10-09",
+      "outlet": "Diario El Longino",
+      "url": "https://diariolongino.cl/en-prision-preventiva-quedo-sujeto-que-intimido-con-falsa-pistola-a-trabajador-para-robarle-su-vehiculo-en-iquique/",
+      "family": "robos_violentos",
+      "slug": "iquique",
+      "title_src": "En prisión preventiva quedó sujeto que intimidó con falsa pistola a trabajador para robarle su vehículo en Iquique",
+      "via_url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQNnJleDFaSUkydG1Bd05nelltdWduNFJVdVBkdklQZ3d4ejJGa09oVlJaTkJGN0ZqMENjaWhJUG1ra1ZrbUFyUHZvQlJUWE4yU2VlRU1EQWlTemVkaFBNenpXZHk2d1pYcjNKWWhWSnljYlBlRG5ZRWFBQUpmdkk4YTd6NDJXZlVYa2RvTmZ1dElwLWhwWVdzNVgwZ0VXM25UQ0xEaWlvVDItcm1HY2dTbUliZVdXT2NBa210RVhQWGVZcGZZd2NWRUVfTkZCdU5ZNXBhb2ZSRQ?oc=5"
+    },
+    {
+      "id": "b3db20395d5c683f",
+      "cut": "4301",
+      "lat": -30.674669,
+      "lng": -71.402962,
+      "title_es": "Violento asalto en Ovalle: Cinco individuos intimidaron a una mujer y un adolescente fue detenido",
+      "title_en": "Violent assault in Ovalle: Five individuals intimidated a woman and a teenager was detained",
+      "date": "2026-10-09",
+      "outlet": "Mi Radio",
+      "url": "https://www.miradiols.cl/2026/10/09/adolescente-detenido-robo-intimidacion-ovalle/",
+      "family": "robos_violentos",
+      "slug": "ovalle",
+      "title_src": "Violento asalto en Ovalle: Cinco individuos intimidaron a una mujer y un adolescente fue detenido",
+      "via_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNV1B2Tnhma2xzWGZRZjhUaS1XdEVmU0lWcEZ6bG9VVkctN0JfZW1fVk9xdG15VUJ0djBoa2tBSGlIZG1BTnZUcWtocENtLVVBcGVZOGpEY2JjVll5cFlwMzR6eDJzNFdwVU5CbDhrcjlKY25tMDV3RjVzeTU4Z3dBYldFaWZxMUZ6YlE?oc=5"
+    },
+    {
+      "id": "353e58e5dd19d33d",
+      "cut": "4106",
+      "lat": -29.886625,
+      "lng": -70.389297,
+      "title_es": "PDI recupera herramientas robadas y detiene a mujer por receptación en Vicuña",
+      "title_en": "PDI recovers stolen tools and detains a woman for receiving stolen goods in Vicuña",
+      "date": "2026-10-09",
+      "outlet": "La Serena Online",
+      "url": "https://laserenaonline.cl/2026/10/09/pdi-recupera-herramientas-robadas-y-detiene-a-mujer-por-receptacion-en-vicuna/",
+      "family": "propiedad",
+      "slug": "vicuna",
+      "title_src": "PDI recupera herramientas robadas y detiene a mujer por receptación en Vicuña",
+      "via_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQSGxVUlRjUHRiRkg4NjVNOVl0Q2lzbHZ3X2RNU1E5TVNMSjRYdjEyZERDZ2tsVXE2UThBa3FTdUZRakt0SkdfVk1tV0NlNEFKeWpNVzNKSl92djJoTzZuQTNZUzN3cUp2RVFSRlJmdm5WM1NiMkFNQmhkQnd6SWZyRnE3bHhEcFlvSGJXcUxld0NOQlZ3ZklISTVYa29mNGoySHV4dW9xaGNWWkdXdDlVTmpGdWJJZw?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-10-09T04:22:29.668998Z"
+  "last_new_incident_at": "2026-10-09T12:31:00.150366Z"
 }
