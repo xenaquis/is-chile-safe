@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-10T04:07:17.984846Z",
+  "generated": "2026-10-10T11:50:25.042370Z",
   "window_days": 30,
   "incidents": [
     {
@@ -12180,7 +12180,92 @@
       "slug": "la-higuera",
       "title_src": "Segundo robo en menos de dos días: más de 1.300 familias afectadas por robo de cables en La Higuera",
       "via_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNMjluLWpESHFWblpUZlUzU1p6Y2ljdEtZLVpleGNYYVNVVVo1TjNtZkh3c1JiM3RocTBsM215bThFTHRhUHd4NWRGQS12VnNCNlo2bTQ5R2ZuN2k4UmNab1BESlNQa2c1NG5uX3NtV091MTZiNy1ncTVDVW5JSWlnWG41RDg3NU5LTGY0QThzRVJrMWZGcGpGdkVqc282M241Q3ZQX2E5Zkp6ZXVYSDRKdWxIQmFlWS1HbVhYcDY3QlppWTE5S25XX2F3?oc=5"
+    },
+    {
+      "id": "02e4800b45e6e947",
+      "cut": "5201",
+      "lat": -27.116795,
+      "lng": -109.366631,
+      "title_es": "Armada desvincula a otros dos servidores navales acusados de violación grupal a joven en Rapa Nui",
+      "title_en": "Navy dismisses two more naval servicemen accused of gang rape of a young woman in Rapa Nui",
+      "date": "2026-10-10",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-valparaiso/2026/10/10/armada-desvincula-a-otros-dos-servidores-navales-acusados-de-violacion-grupal-a-joven-en-rapa-nui.shtml",
+      "family": "sexuales",
+      "slug": "isla-de-pascua",
+      "title_src": "Armada desvincula a otros dos servidores navales acusados de violación grupal a joven en Rapa Nui"
+    },
+    {
+      "id": "5279d8a7db0a72f5",
+      "cut": "13103",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Balacera en Cerro Navia deja dos fallecidos y un adolescente herido: Fiscalía no descarta enfrentamiento",
+      "title_en": "Shooting in Cerro Navia leaves two dead and a teenager injured: Prosecutor's Office does not rule out a confrontation",
+      "date": "2026-10-10",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/balacera-en-cerro-navia-deja-dos-fallecidos-y-un-adolescente-herido/2026-10-09/223647.html",
+      "family": "vida",
+      "slug": "cerro-navia",
+      "title_src": "Balacera en Cerro Navia deja dos fallecidos y un adolescente herido: Fiscalía no descarta enfrentamiento"
+    },
+    {
+      "id": "30139b1c9c174cea",
+      "cut": "13120",
+      "lat": -33.446981,
+      "lng": -70.549631,
+      "title_es": "Carabineros detiene a seis sujetos por robo de vehículo en Ñuñoa",
+      "title_en": "Carabineros arrests six individuals for vehicle theft in Ñuñoa",
+      "date": "2026-10-10",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/carabineros-detiene-a-seis-sujetos-por-robo-de-vehiculo-en-nunoa/",
+      "family": "propiedad",
+      "slug": "nunoa",
+      "title_src": "Carabineros detiene a seis sujetos por robo de vehículo en Ñuñoa"
+    },
+    {
+      "id": "6f6947efa83a9e61",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "El incontrolable Álex Vega, el exdirigente que usó un gremio de Gendarmería para corromper el sistema carcelario",
+      "title_en": "The uncontrollable Álex Vega, the former leader who used a Gendarmería union to corrupt the prison system",
+      "date": "2026-10-10",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/el-incontrolable-alex-vega-el-exdirigente-que-uso-un-gremio-de-gendarmeria-para-corromper-el-sistema-carcelario/",
+      "family": "incivilidades",
+      "slug": "santiago",
+      "title_src": "El incontrolable Álex Vega, el exdirigente que usó un gremio de Gendarmería para corromper el sistema carcelario"
+    },
+    {
+      "id": "815a2e6bbe9d77ed",
+      "cut": "13103",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Dos personas mueren acribilladas y una tercera resulta herida tras balacera en la vía pública de Cerro Navia",
+      "title_en": "Two people die shot dead and a third is injured after a shootout on a public street in Cerro Navia",
+      "date": "2026-10-10",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/dos-personas-mueren-acribilladas-y-una-tercera-resulta-herida-tras-balacera-en-la-via-publica-de-cerro-navia/",
+      "family": "vida",
+      "slug": "cerro-navia",
+      "title_src": "Dos personas mueren acribilladas y una tercera resulta herida tras balacera en la vía pública de Cerro Navia"
+    },
+    {
+      "id": "8b3fc0db0dc9ac53",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "PDI desarticula traslado de contrabando por más de $384 millones: Incautan 128 mil cartones de cigarrillos en Antofagasta",
+      "title_en": "PDI dismantles contraband transfer worth more than $384 million: 128 thousand cartons of cigarettes seized in Antofagasta",
+      "date": "2026-10-10",
+      "outlet": "www.soy-chile.cl",
+      "url": "http://www.soy-chile.cl/Antofagasta/Policial/2026/10/09/968233/contrabando-cigarros-afta.html",
+      "family": "propiedad",
+      "slug": "antofagasta",
+      "title_src": "PDI desarticula traslado de contrabando por más de $384 millones: Incautan 128 mil cartones de cigarrillos en Antofagasta",
+      "via_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPcm5WVEpRa1dkLWdHWFEwZUtpWFZIdmxKX2wwLUZHbzdvY3NtaWw4YTZLTnZ0ZTl4b0l3amp0LVI0TE9aSEJvSWQweFQzLV9sTTIwN3NNYjkwOFNORDlZOHV2TXlScENNS1JFaFF3SlloenFxclA1Smc3UmVKeUlSdEpTejJxNmdQRl9oQU51TjNXZFJLT0FWaQ?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-10-10T04:07:17.984846Z"
+  "last_new_incident_at": "2026-10-10T11:50:25.042370Z"
 }
