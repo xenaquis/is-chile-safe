@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-13T13:29:59.458092+00:00",
+  "generated": "2026-10-13T22:17:27.408017+00:00",
   "items": [
     {
       "id": "51855e2f2005c393",
@@ -5880,6 +5880,106 @@
       "description": "IA de Anthropic envió falso aviso de homicidio a la policía  veredictum.cl",
       "rejection_stage": "low_confidence",
       "first_seen": "2026-10-13T13:29:59.458092+00:00"
+    },
+    {
+      "id": "35941e5b4e028f35",
+      "url": "https://www.latercera.com/nacional/noticia/fiscalia-formalizara-a-jose-antonio-neme-por-cuasidelito-de-lesiones-graves-tras-accidente-vehicular-contra-motorista/",
+      "outlet": "LaTercera",
+      "date": "2026-10-13",
+      "title": "Fiscalía formalizará a José Antonio Neme tras accidente vehícular contra motorista y el caso podría cerrarse con un acuerdo",
+      "description": "El Cuarto Juzgado de Garantía fijó el 23 de diciembre a las 10.00 para la formulación de cargos por cuasidelito de lesiones graves. La defensa del periodista y la víctima, siguiendo el proceso legal correspondiente, han acercado posiciones para llegar a un acuerdo orientado a reparar los daños.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-10-13T22:17:27.408017+00:00"
+    },
+    {
+      "id": "70507b4e98363e26",
+      "url": "https://www.latercera.com/culto/noticia/rj-mitte-como-fueron-los-ultimos-meses-del-fallecido-actor-de-breaking-bad/",
+      "outlet": "LaTercera",
+      "date": "2026-10-13",
+      "title": "RJ Mitte: cómo fueron los últimos meses del fallecido actor de Breaking Bad",
+      "description": "El intérprete que personificó al hijo de Walter White murió a los 34 años, en medio de una agenda que lo tuvo estrenando una película en julio pasado y con otra -vinculada al terror- que llegará a salas este viernes 16 de octubre. Además, se había comprometido con su pareja de hace una década.",
+      "rejection_stage": "parse_error",
+      "first_seen": "2026-10-13T22:17:27.408017+00:00"
+    },
+    {
+      "id": "3ad09be21b37f922",
+      "url": "https://www.latercera.com/politica/noticia/siete-meses-sin-cabeza-consejo-de-asignaciones-parlamentarias-huele-a-peligro-ante-falta-de-apoyo-en-la-camara/",
+      "outlet": "LaTercera",
+      "date": "2026-10-13",
+      "title": "Siete meses sin cabeza: Consejo de Asignaciones Parlamentarias huele a peligro ante falta de apoyo en la Cámara",
+      "description": "Pendiente está la votación de quienes encabezarán esta entidad en el actual período parlamentario. El problema es que, además del ruido que existe entre diputados de la UDI, el PS y RN, el jefe de la bancada republicana, Benjamín Moreno, adelantó que van a rechazar la propuesta. La investigación de la Fiscalía que salpica al exsenador Prohens también acrecentó las dudas entre parlamentarios.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-10-13T22:17:27.408017+00:00"
+    },
+    {
+      "id": "9017a38944e892a4",
+      "url": "https://www.latercera.com/nacional/noticia/fiscalia-explica-el-origen-del-cuestionado-pinchazo-telefonico-al-abogado-del-dispensario-y-defiende-solidez-del-caso/",
+      "outlet": "LaTercera",
+      "date": "2026-10-13",
+      "title": "Fiscalía explica el origen del cuestionado pinchazo telefónico al abogado del Dispensario y defiende solidez del caso",
+      "description": "El fiscal regional de Aysén, Hernán Libedinsky, aseguró que la interceptación se fundó en que había antecedentes que vinculaban a Hernán Bocaz con los delitos indagados. El persecutor afirma que la indagatoria se sustenta en varias otras fuentes investigativas, por lo que la causa a su juicio no corre riesgo.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-10-13T22:17:27.408017+00:00"
+    },
+    {
+      "id": "6d94cb2746a4ebc2",
+      "url": "https://www.latercera.com/politica/noticia/otra-arremetida-oficialista-el-proyecto-que-impulsa-bassaletti-con-apoyos-desde-libertarios-a-evopoli-para-establecer-indultos-humanitarios/",
+      "outlet": "LaTercera",
+      "date": "2026-10-13",
+      "title": "Otra arremetida oficialista: el proyecto que impulsa Bassaletti (con apoyos desde libertarios a Evópoli) para establecer indultos humanitarios",
+      "description": "La iniciativa fue ingresada en junio pasado y plantea que en casos de enfermedad terminal, dependencia severa o mayores de 75 años, los condenados terminen sus penas con \"reclusión domiciliaria total\". En el sector buscan activar la moción tras la muerte del exlautarista Juan Aliste Vega.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-10-13T22:17:27.408017+00:00"
+    },
+    {
+      "id": "dca49a6be2549466",
+      "url": "https://www.lacuarta.com/chile/noticia/se-confirma-la-formalizacion-de-jose-antonio-neme-animador-sera-presentado-ante-tribunales-pero-habria-vuelco/",
+      "outlet": "LaCuarta",
+      "date": "2026-10-13",
+      "title": "Se confirma la formalización de José Antonio Neme: será presentado ante tribunales por atropello pero habría un vuelco",
+      "description": "Ya se fijó audiencia en el Centro de Justicia. Sin embargo, el caso podría llegar hasta ahí.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-10-13T22:17:27.408017+00:00"
+    },
+    {
+      "id": "6d296c34d69f27e0",
+      "url": "https://chocale.cl/2026/10/gobierno-advierte-que-el-gota-a-gota-financia-al-crimen-organizado/",
+      "outlet": "Chócale",
+      "date": "2026-10-13",
+      "title": "Gobierno advierte que el \"gota a gota\" financia al crimen organizado - Chócale",
+      "description": "Gobierno advierte que el \"gota a gota\" financia al crimen organizado  Chócale",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-10-13T22:17:27.408017+00:00"
+    },
+    {
+      "id": "00b61f450e9deb94",
+      "url": "https://portalinnova.cl/autoridades-y-sector-privado-llaman-a-superar-el-trabajo-en-silos-para-mejorar-el-combate-al-delito/",
+      "outlet": "Portal Innova",
+      "date": "2026-10-13",
+      "title": "Autoridades y sector privado llaman a superar el trabajo en silos para mejorar el combate al delito - Portal Innova",
+      "description": "Autoridades y sector privado llaman a superar el trabajo en silos para mejorar el combate al delito  Portal Innova",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-10-13T22:17:27.408017+00:00"
+    },
+    {
+      "id": "feb069ed67b8cb28",
+      "url": "https://www.elnacional.com/2026/10/fiscalia-de-chile-pide-cadena-perpetua-para-homicida-de-madre-venezolana/",
+      "outlet": "El Nacional",
+      "date": "2026-10-13",
+      "title": "Fiscalía de Chile pide cadena perpetua para homicida de madre venezolana - El Nacional",
+      "description": "Fiscalía de Chile pide cadena perpetua para homicida de madre venezolana  El Nacional",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-10-13T22:17:27.408017+00:00"
+    },
+    {
+      "id": "45551f872d6733c8",
+      "url": "https://www.soychile.cl/antofagasta/sociedad/2026/10/13/968499/acciones-legales-accidente.html",
+      "outlet": "SoyChile.cl",
+      "date": "2026-10-13",
+      "title": "Diputado Videla sostienen encuentro con familia de trabajador fallecido en Escondida: anuncian acciones legales - SoyChile.cl",
+      "description": "Diputado Videla sostienen encuentro con familia de trabajador fallecido en Escondida: anuncian acciones legales  SoyChile.cl",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-10-13T22:17:27.408017+00:00"
     }
   ]
 }
