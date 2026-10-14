@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-13T22:17:27.438104Z",
+  "generated": "2026-10-14T03:21:32.782412Z",
   "window_days": 30,
   "incidents": [
     {
@@ -14427,7 +14427,94 @@
       "slug": "pitrufquen",
       "title_src": "PDI de Pitrufquén recupera vehículo robado con números identificatorios adulterados",
       "via_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNeFR2QWMxcFZreFY3LUxYcVN3UF9kekt3UWFlVGZoWlVobFJQazY4aTJ1dHlOZHVvY1dISk5aRlUxaGRiRGZEbmxZNXplaVFWYU1qRkpxcFVGTkRORjN4X0pkRTNHT2F4VnJiWWpYQ3p6Qk9wRnNPRVp2d3RMdG1lelpjNGMtQUVWenUzcDdodXhNNE1RVWVqemJYajFscXM?oc=5"
+    },
+    {
+      "id": "9ffd12ff89b5b1ea",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Operación Apocalipsis II: Tribunal ordena sacar de Máxima Seguridad a exdirigente de Gendarmería",
+      "title_en": "Operation Apocalypse II: Court orders former Gendarmería leader removed from Maximum Security",
+      "date": "2026-10-14",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/chile/2026/10/13/operacion-apocalipsis-ii-tribunal-ordena-sacar-de-maxima-seguridad-a-exdirigente-de-gendarmeria.shtml",
+      "family": "vida",
+      "slug": "santiago",
+      "title_src": "Operación Apocalipsis II: Tribunal ordena sacar de Máxima Seguridad a exdirigente de Gendarmería"
+    },
+    {
+      "id": "42dbb17e4860e2c1",
+      "cut": "5109",
+      "lat": -33.027017,
+      "lng": -71.515513,
+      "title_es": "Hombre maniatado y ejecutado con más de 20 disparos fue hallado en Viña del Mar",
+      "title_en": "Man bound and executed with more than 20 shots was found in Viña del Mar",
+      "date": "2026-10-14",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/region-de-valparaiso/hombre-maniatado-y-ejecutado-con-mas-de-20-disparos-fue-hallado-en-vina/2026-10-13/231955.html",
+      "family": "vida",
+      "slug": "vina-del-mar",
+      "title_src": "Hombre maniatado y ejecutado con más de 20 disparos fue hallado en Viña del Mar"
+    },
+    {
+      "id": "2846c0ed44c7171c",
+      "cut": "9111",
+      "lat": -38.744085,
+      "lng": -72.99371,
+      "title_es": "Nueva Imperial: Carabinero repelió a tiros robo en su casa y abatió a asaltante",
+      "title_en": "Nueva Imperial: Carabinero repelled a robbery at his home with gunfire and killed an assailant",
+      "date": "2026-10-13",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/nueva-imperial-carabinero-repelio-a-tiros-robo-en-su-casa-y-abatio-a/2026-10-13/103411.html",
+      "family": "robos_violentos",
+      "slug": "nueva-imperial",
+      "title_src": "Nueva Imperial: Carabinero repelió a tiros robo en su casa y abatió a asaltante"
+    },
+    {
+      "id": "97c59c45568b8b54",
+      "cut": "15101",
+      "lat": -18.468543,
+      "lng": -70.007085,
+      "title_es": "Juzgado decreta prisión preventiva para imputada por robo con violencia en servicentro de Arica",
+      "title_en": "Court orders pretrial detention for defendant accused of robbery with violence at a gas station in Arica",
+      "date": "2026-10-13",
+      "outlet": "SoyChile.cl",
+      "url": "https://www.soychile.cl/arica/policial/2026/10/13/968568/robo-imputada-arica.html",
+      "family": "robos_violentos",
+      "slug": "arica",
+      "title_src": "Juzgado decreta prisión preventiva para imputada por robo con violencia en servicentro de Arica",
+      "via_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNU3d3dlByMHY3RkpkOG5NTzZYSVE1UW43NWJLVXlUdTJWTTJKTk1lRzB5NkpPYm1DQV9qSDA4aGoyNFM2T2VfWExpRk5iVXp1TXp5OXBEZ3BrSkxYNXZybXFaMUY2blNIa1dhUExiTEw0QTQ2aW1SS2xBc1lPczR6SnM1ektlS1Ji?oc=5"
+    },
+    {
+      "id": "4b40c121377c2e64",
+      "cut": "4301",
+      "lat": -30.674669,
+      "lng": -71.402962,
+      "title_es": "Detienen a hombre por robo de $10 millones en fundo de Ovalle",
+      "title_en": "Man arrested for theft of $10 million at a farm in Ovalle",
+      "date": "2026-10-14",
+      "outlet": "El Observatodo",
+      "url": "https://www.elobservatodo.cl/noticia/sociedad/detienen-hombre-por-robo-de-10-millones-en-fundo-de-ovalle",
+      "family": "propiedad",
+      "slug": "ovalle",
+      "title_src": "Detienen a hombre por robo de $10 millones en fundo de Ovalle",
+      "via_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQX0NNNHYxMEtGYXpoc1RxZDdUbVp4Z0ZPWW92bFQ4NXZCRkZUOWJTcWJTN3FRWGU4cUoxcjRVMmN0Um5SdUhvalo0RTZHOE9aRmR2T0Zjam1QYUJtb01XcHRGVjRXZjJhbEE5TDl0aTlyU3c2M1JKeFVvVUJlWW5fV19reXRTeWxGNmF1cjJTVENqZzQ0OUdYUzRQV0dwTS1rRmd4STVDVQ?oc=5"
+    },
+    {
+      "id": "bf8dd264132a96e6",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Fiscalía investiga disparos por presunto robo en La Serena",
+      "title_en": "Prosecutor's Office investigates shots fired in alleged robbery in La Serena",
+      "date": "2026-10-13",
+      "outlet": "veredictum.cl",
+      "url": "https://veredictum.cl/fiscalia-investiga-disparos-por-presunto-robo-en-la-serena/",
+      "family": "robos_violentos",
+      "slug": "la-serena",
+      "title_src": "Fiscalía investiga disparos por presunto robo en La Serena",
+      "via_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPMXlyRGZHZlFvZDdFWFpieENsRmxGN2t0SnZIMWpxQzI2Y3ZDVUlCeW5qRmFlSU1XRmlSb0d1NE1nNnVJbUZmLTlFLUw3X29IaHpWb25DVWh5Vk9fX3VJRVRJR04zZXJob1dSUFplN29uQldkMllwS244Z1pFZm9EcHpScnlRWUVf?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-10-13T22:17:27.438104Z"
+  "last_new_incident_at": "2026-10-14T03:21:32.782412Z"
 }
