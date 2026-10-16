@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-16T10:36:47.956088Z",
+  "generated": "2026-10-16T16:00:52.409478Z",
   "window_days": 30,
   "incidents": [
     {
@@ -16290,7 +16290,108 @@
       "slug": "ercilla",
       "title_src": "Dos detenidos por robo de madera en predio de sector rural de Ercilla: incautan vehículos por $35 millones",
       "via_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOaUJCSENqN3pOQ2Q2Rnh4TTF0N2kxNlM0OWRBV2thaHNzM3lJZXh4Wi1SclcyS2JCLXdPWlkzcVJIT1hLVjV4bEdhM25HYVA2WEYwZEJXMGNpMEdnc3JPdzlNZXZiUGV5bHRqV0RWOFNTM1NsMnNOU2lvM1BjZWpRMFZ6ajdJc3NBQnM4NEVwV21CNFBMNjZ1c3NFTWtCc0ViRGIxbnYxWDRlaGNMNWU1MnhNa3EySzB5UXFEc2xXS1Z3eG1KXzRLM29ORdIBywFBVV95cUxOaUJCSENqN3pOQ2Q2Rnh4TTF0N2kxNlM0OWRBV2thaHNzM3lJZXh4Wi1SclcyS2JCLXdPWlkzcVJIT1hLVjV4bEdhM25HYVA2WEYwZEJXMGNpMEdnc3JPdzlNZXZiUGV5bHRqV0RWOFNTM1NsMnNOU2lvM1BjZWpRMFZ6ajdJc3NBQnM4NEVwV21CNFBMNjZ1c3NFTWtCc0ViRGIxbnYxWDRlaGNMNWU1MnhNa3EySzB5UXFEc2xXS1Z3eG1KXzRLM29ORQ?oc=5"
+    },
+    {
+      "id": "181c7edb23c3516b",
+      "cut": "5201",
+      "lat": -27.116795,
+      "lng": -109.366631,
+      "title_es": "Detienen a guardia municipal de Rapa Nui tras presunta agresión y amenazas a un niño de 11 años",
+      "title_en": "Municipal guard of Rapa Nui detained after alleged assault and threats against an 11-year-old boy",
+      "date": "2026-10-16",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-valparaiso/2026/10/16/detienen-a-guardia-municipal-de-rapa-nui-tras-presunta-agresion-y-amenazas-a-un-nino-de-11-anos.shtml",
+      "family": "vif",
+      "slug": "isla-de-pascua",
+      "title_src": "Detienen a guardia municipal de Rapa Nui tras presunta agresión y amenazas a un niño de 11 años"
+    },
+    {
+      "id": "9b7898811ab14ea8",
+      "cut": "13302",
+      "lat": -33.268753,
+      "lng": -70.870954,
+      "title_es": "Caen los \"crime house\": desarticulan banda que arrendó casa para planificar al menos 25 robos en la RM",
+      "title_en": "\"Crime house\" fall: gang that rented a house to plan at least 25 robberies in the RM is dismantled",
+      "date": "2026-10-16",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/10/16/caen-los-crime-house-desarticulan-banda-que-arrendo-casa-para-planificar-al-menos-25-robos-en-la-rm.shtml",
+      "family": "robos_violentos",
+      "slug": "lampa",
+      "title_src": "Caen los \"crime house\": desarticulan banda que arrendó casa para planificar al menos 25 robos en la RM"
+    },
+    {
+      "id": "5bc58b01516f4f5d",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Operativo en Gran Concepción deja 4 detenidos y más de 17 kilos de droga y 500 municiones incautadas",
+      "title_en": "Operation in Gran Concepción leaves 4 detained and more than 17 kilos of drugs and 500 rounds of ammunition seized",
+      "date": "2026-10-16",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/10/16/operativo-en-gran-concepcion-deja-4-detenidos-y-mas-de-17-kilos-de-droga-y-500-municiones-incautados.shtml",
+      "family": "drogas",
+      "slug": "concepcion",
+      "title_src": "Operativo en Gran Concepción deja 4 detenidos y más de 17 kilos de droga y 500 municiones incautadas"
+    },
+    {
+      "id": "0a7ed7607e72d23d",
+      "cut": "10301",
+      "lat": -40.605623,
+      "lng": -73.09956,
+      "title_es": "Ministra Marín anuncia querella por femicidio en Osorno: “Condenamos toda forma de violencia contra las mujeres”",
+      "title_en": "Minister Marín announces lawsuit for femicide in Osorno: \"We condemn all forms of violence against women\"",
+      "date": "2026-10-16",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/ministra-marin-anuncia-querella-por-femicidio-en-osorno-condenamos-todas-formas-de-violencia-contra-las-mujeres/",
+      "family": "vida",
+      "slug": "osorno",
+      "title_src": "Ministra Marín anuncia querella por femicidio en Osorno: “Condenamos toda forma de violencia contra las mujeres”"
+    },
+    {
+      "id": "0d85eb097232f721",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "En prisión preventiva quedó imputado por encerrona frustrada por carabinero de civil en Iquique",
+      "title_en": "Suspect in failed encerrona thwarted by an off-duty carabinero in Iquique was remanded in preventive detention",
+      "date": "2026-10-13",
+      "outlet": "CEI Noticias",
+      "url": "https://ceinoticias.cl/en-prision-preventiva-quedo-imputado-por-encerrona-frustrada-por-carabinero-de-civil-en-iquique/",
+      "family": "robos_violentos",
+      "slug": "iquique",
+      "title_src": "En prisión preventiva quedó imputado por encerrona frustrada por carabinero de civil en Iquique",
+      "via_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOWkdMdGFhZkd2RzBLWHBfUkpfQTlsbEllVS1mbGpXX2xBM3VnVFBJR1h3QmotWnljQndDaGhoMnR5V3N1a0ZPWUJ5SzZKNzRRZGloU3dmbHZldnM4RW8yWF81NV9LUnBVQTZkQzMxWkh5TmxGYkE4TThkckVrTGNiX0JTUDRmQWtqRzZRR3E2UGVGZkZfN2t4V2lLNUdMbnpTYjVpWVNFbnhxWjFZYnVvWnFnSmVSTFFyalFJ?oc=5"
+    },
+    {
+      "id": "057241030c32e55b",
+      "cut": "4204",
+      "lat": -31.938235,
+      "lng": -70.65075,
+      "title_es": "Asalto armado a servicentro Shell de Salamanca deja a trabajador lesionado",
+      "title_en": "Armed robbery at Shell service station in Salamanca leaves a worker injured",
+      "date": "2026-10-16",
+      "outlet": "Mi Radio",
+      "url": "https://www.miradiols.cl/2026/10/15/asalto-armado-shell-salamanca-trabajador-herido/",
+      "family": "robos_violentos",
+      "slug": "salamanca",
+      "title_src": "Asalto armado a servicentro Shell de Salamanca deja a trabajador lesionado",
+      "via_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPbzI5cXEwYjR2RUFkNnFBU1lwNVhPU3p1UUxMRFVsWHktYjFiUTFXWkF3bVpwY211cVJpQTF6eFlMMVZSZ2hsSkkycEtyT3VhX3lqRHQ2Mmg3RzF3UkxlRmR0LV9TeHBkaTdZbWhERGlBVlBYbjQzUXFvWTczQnZkcVNWbkxPYzdYYzVkaw?oc=5"
+    },
+    {
+      "id": "440141b89874ae54",
+      "cut": "7101",
+      "lat": -35.459734,
+      "lng": -71.607559,
+      "title_es": "Corte de Talca mantiene prisión en caso de corrupción",
+      "title_en": "Talca Court maintains prison in corruption case",
+      "date": "2026-10-14",
+      "outlet": "veredictum.cl",
+      "url": "https://veredictum.cl/corte-de-talca-mantiene-prision-en-caso-de-corrupcion/",
+      "family": "incivilidades",
+      "slug": "talca",
+      "title_src": "Corte de Talca mantiene prisión en caso de corrupción",
+      "via_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNekxXd1J1SF91QUpQa1JtTU12VFNtYzFzTkNBRHFaRlZ3dU9oRnhfSzUwblU5NkJkeUxLcDI3clJQbmhGd3ZVNVZYV0haTC1CTkJzSmVMd0xWSFo5UXJsYlBSZEIwOFZuS1FuUVpjeDg2ZUsyVDhiV01vbEpTYW9CR1Fn?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-10-16T10:36:47.956088Z"
+  "last_new_incident_at": "2026-10-16T16:00:52.409478Z"
 }
