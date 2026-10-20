@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-19T18:38:04.397343Z",
+  "generated": "2026-10-20T03:14:03.387807Z",
   "window_days": 30,
   "incidents": [
     {
@@ -18605,7 +18605,123 @@
       "slug": "villarrica",
       "title_src": "Muere en la cárcel El Manzano el imputado por el doble crimen de madre e hija en Villarrica",
       "via_url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNS3VVRzRIbDk3NG5tcXZObEJjalNEZGxjSF9JeVdSQ08wVkZFVThYQ3gwdXdsTkVNVnZ6U0ZNNV9qY2Z5dk9TdDJXWWxGNzUzUUdteGVnLUlZU183a2JHY1NxaWZ3QWFpWFp2OWNnU1RTbUdKQ21ad2lVYm5OYzdjWFNXZFRvajBBbVFtZWR6SVBRbXNYNldpTE9OWGJ4azlUY05OdFlQeVdDbkZPaE14SjgzVmdkWjVlNFg1R3RtUWROd0FVSngyZndhdlVIbHZ3UXpmZ0FBbw?oc=5"
+    },
+    {
+      "id": "a119ff63e032d5d2",
+      "cut": "9201",
+      "lat": -37.797936,
+      "lng": -72.79785,
+      "title_es": "Investigan atentado incendiario contra Parque Eólico Cancura en Angol: una de sus torres sufrió daños",
+      "title_en": "Investigation into arson attack on Cancura Wind Farm in Angol: one of its towers was damaged",
+      "date": "2026-10-20",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/10/19/investigan-atentado-incendiario-contra-parque-eolico-cancura-en-angol-una-de-sus-torres-sufrio-danos.shtml",
+      "family": "propiedad",
+      "slug": "angol",
+      "title_src": "Investigan atentado incendiario contra Parque Eólico Cancura en Angol: una de sus torres sufrió daños"
+    },
+    {
+      "id": "bfb27b3221e7a375",
+      "cut": "9101",
+      "lat": -38.666824,
+      "lng": -72.659271,
+      "title_es": "Manifestación de alrededor de 400 personas por 18-O deriva en incidentes con Carabineros en Temuco",
+      "title_en": "Demonstration of around 400 people for 18-O leads to incidents with Carabineros in Temuco",
+      "date": "2026-10-19",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2026/10/19/manifestacion-de-alrededor-de-400-personas-por-18-o-deriva-en-incidente-con-carabineros-en-temuco.shtml",
+      "family": "incivilidades",
+      "slug": "temuco",
+      "title_src": "Manifestación de alrededor de 400 personas por 18-O deriva en incidentes con Carabineros en Temuco"
+    },
+    {
+      "id": "afc9a0f112c8d797",
+      "cut": "13125",
+      "lat": -33.354794,
+      "lng": -70.721768,
+      "title_es": "Carabineros desbarató desarmaduría clandestina de vehículos robados",
+      "title_en": "Carabineros dismantled clandestine chop shop for stolen vehicles",
+      "date": "2026-10-19",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robo-de-vehiculos/carabineros-desbarato-desarmaduria-clandestina-de-vehiculos-robados/2026-10-19/201409.html",
+      "family": "propiedad",
+      "slug": "quilicura",
+      "title_src": "Carabineros desbarató desarmaduría clandestina de vehículos robados"
+    },
+    {
+      "id": "396b1a605a9081a9",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "Cuando el Estado no investiga bien la muerte de niños y adolescentes: los errores detrás del caso Alyson Ibáñez",
+      "title_en": "When the State fails to properly investigate the deaths of children and adolescents: the errors behind the Alyson Ibáñez case",
+      "date": "2026-10-19",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/cuando-el-estado-no-investiga-bien-la-muerte-de-ninos-y-adolescentes-los-errores-detras-del-caso-alyson-ibanez/",
+      "family": "sexuales",
+      "slug": "recoleta",
+      "title_src": "Cuando el Estado no investiga bien la muerte de niños y adolescentes: los errores detrás del caso Alyson Ibáñez"
+    },
+    {
+      "id": "84fb7304e5605e6d",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Carabineros detuvo en Iquique a hombre con órdenes vigentes por homicidio y lesiones menos graves",
+      "title_en": "Carabineros arrested in Iquique a man with outstanding warrants for homicide and less serious injuries",
+      "date": "2026-10-19",
+      "outlet": "Infocomunicaciones chile",
+      "url": "https://infocomunicacioneschile.cl/2026/10/19/carabineros-detuvo-en-iquique-a-hombre-con-ordenes-vigentes-por-homicidio-y-lesiones-menos-graves/",
+      "family": "vida",
+      "slug": "iquique",
+      "title_src": "Carabineros detuvo en Iquique a hombre con órdenes vigentes por homicidio y lesiones menos graves",
+      "via_url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQMm5ZTGhoNWhsM2ZkZE1zUTZESmdoYmJSazNqTGg1aGZWaThNbEdJYUdrQ2stc0czMmViNjFwRVExcUFJRDhGSl85LXVoWmZkSE93aG5Ma3l1OFRna0pnNzdQVlZtQkpwUnpNV0ZmeGRSVVRTN05vRWJOeEdwS2hQRWk0VV9feHhqYVZ5WmtVWUVtY05OYnlxalE2Vk9ibGdCODMzR2xKYXo5Q0o2YU92a0oxVkduWUp5cC1yR2IwMEcxeG45SnAtNlVhOExycFhQTTlKTjRZVlJ0bV9Z?oc=5"
+    },
+    {
+      "id": "32b0b31533e9c2b7",
+      "cut": "3101",
+      "lat": -27.364912,
+      "lng": -69.888394,
+      "title_es": "10 años de cárcel para imputada por homicidio que disfrazada de \"Harley Quinn\" apuñaló a su víctima en Copiapó",
+      "title_en": "10 years in prison for defendant in homicide who, disguised as \"Harley Quinn\", stabbed her victim in Copiapó",
+      "date": "2026-10-19",
+      "outlet": "SoyChile.cl",
+      "url": "https://www.soychile.cl/copiapo/policial/2026/10/19/969308/harley-disfrazada-homicidio.html",
+      "family": "vida",
+      "slug": "copiapo",
+      "title_src": "10 años de cárcel para imputada por homicidio que disfrazada de \"Harley Quinn\" apuñaló a su víctima en Copiapó",
+      "via_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQUTdmOFBiYVc4cmtUb0JDWlRhZVB1RkRianZZZzFUVXVaeUthbjZNdW1NdzFZalFkY0I1QlcyYlZieWJnRTlqNi1meXhzMkNqX2Uyd1BuLVdydm5BVmp3eHVMUm1yMXBFRjNYRVNNbHJ3RjJpdEd3aDMzSDlYRVFaZUhHcVNSYUZ6VHJWaVhhWUw4ZHZrcnc?oc=5"
+    },
+    {
+      "id": "10fa926f91e96bbd",
+      "cut": "1107",
+      "lat": -20.216725,
+      "lng": -69.996704,
+      "title_es": "PROCEDIMIENTO POLICIAL TERMINA CON DOS ADOLESCENTES DETENIDOS TRAS PERSECUCIÓN Y RECUPERACIÓN DE VEHÍCULO ROBADO EN ALTO HOSPICIO",
+      "title_en": "Police procedure ends with two adolescents detained after pursuit and recovery of stolen vehicle in Alto Hospicio",
+      "date": "2026-10-19",
+      "outlet": "Vilas Radio",
+      "url": "https://vilasradio.cl/procedimiento-policial-termina-con-dos-adolescentes-detenidos-tras-persecucion-y-recuperacion-de-vehiculo-robado-en-alto-hospicio/",
+      "family": "propiedad",
+      "slug": "alto-hospicio",
+      "title_src": "PROCEDIMIENTO POLICIAL TERMINA CON DOS ADOLESCENTES DETENIDOS TRAS PERSECUCIÓN Y RECUPERACIÓN DE VEHÍCULO ROBADO EN ALTO HOSPICIO",
+      "via_url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxNZVcwbVBaZnFuVy1QZXhJM0pTSmZ0WlRiQ0N4ZElBOWVaMTBtYXh5REUzbVNCYXVIMHgwdWxJa3RKaTdRN1FuQm1tZWJNMEtJbVVBT1ZBT2c1OS02c3BHZ29IRWlmRE0wRVFyeWowTW03cHVQaDFlRENtblFhQWJUSlAzVzlvbVh6RVd1QTVfZ1Q2aHpGQjN1VWlkWmxkcDRnVEZBWjdoRS1ydG1FVTFia3ZBTGw2SXcwUmZyckstYzNESThEREZRXzlULTJHdjJDOFBXNUt3aFlFSWIxa3FyN2w5Y3hUbnM?oc=5"
+    },
+    {
+      "id": "390bb3530bb7687f",
+      "cut": "4301",
+      "lat": -30.674669,
+      "lng": -71.402962,
+      "title_es": "Corte de La Serena confirma condena por abuso sexual en Ovalle",
+      "title_en": "Court of La Serena confirms conviction for sexual abuse in Ovalle",
+      "date": "2026-10-19",
+      "outlet": "veredictum.cl",
+      "url": "https://veredictum.cl/corte-de-la-serena-confirma-condena-por-abuso-sexual-en-ovalle/",
+      "family": "sexuales",
+      "slug": "ovalle",
+      "title_src": "Corte de La Serena confirma condena por abuso sexual en Ovalle",
+      "via_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPd29SLXJKaHVoQWFCajIzRkZpaXh0czVMSUVkUnlzcVpVV2s2N25QN3JfemxBMVlzTmdKUWtjRTcxSFlpMENoLUtycGxPSlBhQi13MFlKTXgzTWZWMWpQQ3dTWmtkTkpueDl1cGtRSnlBZkhNRXF3cUNpTDVQdjRVYlBiQlJRYXJlbkJMWWNR?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-10-19T18:38:04.397343Z"
+  "last_new_incident_at": "2026-10-20T03:14:03.387807Z"
 }
