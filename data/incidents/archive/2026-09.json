@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-05T03:50:39.683880Z",
+  "generated": "2026-10-21T03:08:51.880576Z",
   "window_days": 30,
   "incidents": [
     {
@@ -2822,6 +2822,58 @@
       "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOVnJzbnhnNzZVdDUwLUpSUjJ2Ql80Z0ZQNXBvOVF5Tk9HbUxqQ0daYlltcXh5Zzc0ZmlWVW5kSlBUa1VMb0VVdzRmTG0ta2tLUGRoeUR0aEFMY2hhaFVmWU9GaE1aN0F1RFY5M29MQU5IZGk3YVljbGstZFNkQW1KLUVxbjhNRTFYRkxQdGJOMkwtbTJFVjhZRjM0cnZqYXJSV2w1bU14b3psamtKeDFUcFZMOVJEUDhhU0c2SzJQT3JnUXNWNEVheThEME4yMjVPTHl1OFFn?oc=5",
       "family": "robos_violentos",
       "slug": "coquimbo"
+    },
+    {
+      "id": "8acf37250d333b37",
+      "cut": "9120",
+      "lat": -39.311575,
+      "lng": -72.20841,
+      "title_es": "Ministra de la Mujer anuncia querella de oficio por doble femicidio de madre e hija en Villarrica",
+      "title_en": "Minister of Women announces ex officio lawsuit for double femicide of mother and daughter in Villarrica",
+      "date": "2026-09-20",
+      "outlet": "Alerta Noticias Temuco.cl",
+      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPVXRnQnQ2MkpEcVBtS09jbnV5S0VUeVlFUjgxRVlsTGN3SHpMbEQzZUktOUZMZlBEMU91Qm9QeWZITmdVdmN4b3g3b0RXVUE0NVNNRTJfMG03OXo0UGJjLWVpMWVXSVBVdVBQQm4yM0t0SndSYnZWZjFoRDhMMl9tZ1ZIT1pxV0hFSTlNN2JiTDFUdw?oc=5",
+      "family": "vida",
+      "slug": "villarrica"
+    },
+    {
+      "id": "63eb8b99d0fc5ac0",
+      "cut": "9114",
+      "lat": -39.084666,
+      "lng": -72.65729,
+      "title_es": "Investigan homicidio de adulto mayor hallado muerto en las afueras de su casa en Pitrufquén",
+      "title_en": "Investigation into homicide of elderly man found dead outside his home in Pitrufquén",
+      "date": "2026-09-20",
+      "outlet": "El diario de la Araucanía",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPUGp4OHVYd1pyUUV5TDFRR01yNW1WQjRoTTd5ZTJpeEJkSXVPa01FS0pxMF9CX1hFVjRITGtqWWZjVUtvOTNhcV84R1VWNW96eW43QTlzMlpQVmx3cG5wbXFiZUZBQkFzUTJYSHJOcm9fby1sZV9iRkc0Q3NTcFpscHRnZVlFRkF0WWI2U21fM01FUTJJV0xn0gGcAUFVX3lxTFAwY0tsOWNDdVF3M0FaMDZoWU9QMVBOVVk2XzJPcUd6SllLanV2NEE0eWh3N0RnRWVXYnN3ZkE0dVNONWxOV2Rud1Z0d0x0VUR1RlpjUVE4dV9NT1pGQWdYZlZSM0NiaUExaWhIeTl2aVYtSVotX3I1bE1zdFZDUm5iQWZ6ajVtaW9QMk9WVEpWUURjb1dvREo0MW1QWA?oc=5",
+      "family": "vida",
+      "slug": "pitrufquen"
+    },
+    {
+      "id": "1bd0aab91089b756",
+      "cut": "9114",
+      "lat": -39.084666,
+      "lng": -72.65729,
+      "title_es": "Mujer de 91 años fue encontrada muerta en su casa en Pitrufquén: investigan posible robo",
+      "title_en": "91-year-old woman found dead in her home in Pitrufquén: possible robbery under investigation",
+      "date": "2026-09-20",
+      "outlet": "Página 7",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPYTBIdnhoSlh2V2diSExsUFlhb0UzM05ZcDB2UWtiaEtqaFFKTk9LNmVqYlRhTExjcjN2RlJLOVJfOGZfLTJSQWotbXlfQ2p0dWZkdjFjZUJNSS1tWUNRb1NYSWZnZDRYM0ZqeU9iX3ZMVUFrdDl4Zlg1a2V4S3JhUVZVanR3REtzbVkyenRPamNzbEF5THV1M1JjOFhtT19NSnBaZlZCM053NVpaQ3A1Y2wtV3hNMjVzZ2RsS0Vac9IBxAFBVV95cUxQYng2V3UzLWV4eFBuUnIxYTlXb1VyOHZSZUVBeGhZRTNjUEEydU94RUx5T2ItMmVmOHV6TktlSVFlWjlZRmtVRTg0dkJ3RV9ueDNBcUlWTzJMT1QwREUyM1FsWG05ZGFPUUQ0bFJLYlc3YlNVVmlsVnVPcUFSbmQ0VFlLLWd4OTZycTgyWENURjE5ZTFlTC1TendJYTYteGdibExsUl9kVGt6aHpGNWIycVVjeS1HQllKSzBFQ2VCNEZpWkFa?oc=5",
+      "family": "vida",
+      "slug": "pitrufquen"
+    },
+    {
+      "id": "85f37baed65b816f",
+      "cut": "9114",
+      "lat": -39.084666,
+      "lng": -72.65729,
+      "title_es": "PDI descarta homicidio tras hallar cadáver de adulto mayor en Pitrufquén: murió de un paro cardíaco",
+      "title_en": "PDI rules out homicide after finding elderly man's body in Pitrufquén: he died of cardiac arrest",
+      "date": "2026-09-20",
+      "outlet": "El diario de la Araucanía",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPY1lXQ0NmZ2lLa3FnY19ySHBVSjM4YzE0emZYWXkxY0RGVFkyUW9FTFFrVll4c2Z0OWN3SHl3M2JKaEl0cnZmaVdhX1p4RXhwaGZiR2xDRGpBTVZGZkdxV29UUDNFclpjWmZFWGxYWndjeUNxbzVUMFJma2VEOWQ1RkNDdExEYnJzb3lLQW5ZTHlBMFpZR3BtOHdEUTJNNUF2UnV30gGoAUFVX3lxTE9hZWNPRl85XzBYT3hIeU8xYnA2elcxNUVFU0tWSWJ0OEZKSy0wTU04NXVsUHktYWlWMkJBZU9ncFIwTlpOemEzV29uV3I0cXRPbUJrZVNVZDZtdE1oc25KWFZNaDNJZjJ1Tl9XWno2c1ZTb1FXVjlwQWljYnlRb21xemZXdzBCSTBfQWNCajRhc3JDSGZDTjFaOC1wYXRiYVJIOTYyM0JPSA?oc=5",
+      "family": "vida",
+      "slug": "pitrufquen"
     }
   ]
 }
