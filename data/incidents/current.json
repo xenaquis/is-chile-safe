@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-22T03:07:13.974431Z",
+  "generated": "2026-10-22T11:05:37.149710Z",
   "window_days": 30,
   "incidents": [
     {
@@ -20237,7 +20237,135 @@
       "slug": "temuco",
       "title_src": "PDI detiene a tres personas por encerrona y robo de vehículo en Temuco",
       "via_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNcmw1UG9LLUJKOVZ3QnA5UF8xcEJES3lTMjNzZktBXzdwdHAxX3lNU2h0V1NaXzJURXFWZVZhT1ZFZ2pMLXBwdGVrd3BLYVpONVZwN3d0eXJuQkVGZldGWjJjakxDeU9UcTRwTHQ3dm1ZZjNFb3pKWUtlLVRFSUp0MnZLbGdKdGtNVk9JVDN1R2g?oc=5"
+    },
+    {
+      "id": "2ae0331a47288a38",
+      "cut": "13401",
+      "lat": -33.600626,
+      "lng": -70.721768,
+      "title_es": "Tenían lanzabengalas y pistola con encargo: detienen a tres personas por porte ilegal de arma y drogas en San Bernardo",
+      "title_en": "They had a flare launcher and a pistol reported stolen: three people arrested for illegal possession of weapons and drugs in San Bernardo",
+      "date": "2026-10-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/tenian-lanzabengalas-y-pistola-con-encargo-detienen-a-tres-personas-por-porte-ilegal-de-arma-y-drogas-en-san-bernardo/",
+      "family": "armas",
+      "slug": "san-bernardo",
+      "title_src": "Tenían lanzabengalas y pistola con encargo: detienen a tres personas por porte ilegal de arma y drogas en San Bernardo"
+    },
+    {
+      "id": "cf0dfca5295cbce3",
+      "cut": "13115",
+      "lat": -33.284732,
+      "lng": -70.367165,
+      "title_es": "Adolescente buscado por homicidio es asesinado a tiros tras partido de fútbol en Lo Barnechea",
+      "title_en": "Teenager wanted for homicide is shot dead after soccer match in Lo Barnechea",
+      "date": "2026-10-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/10/22/adolescente-buscado-por-homicidio-es-asesinado-a-tiros-tras-partido-de-futbol-en-lo-barnechea.shtml",
+      "family": "vida",
+      "slug": "lo-barnechea",
+      "title_src": "Adolescente buscado por homicidio es asesinado a tiros tras partido de fútbol en Lo Barnechea"
+    },
+    {
+      "id": "936e6cc4b9f80f01",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Investigan muerte de adolescente que sufrió herida cortante tras una riña en Santiago",
+      "title_en": "Investigation into death of teenager who suffered a cut wound after a brawl in Santiago",
+      "date": "2026-10-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/10/22/investigan-muerte-de-adolescente-que-sufrio-herida-cortante-tras-una-rina-en-santiago.shtml",
+      "family": "vida",
+      "slug": "santiago",
+      "title_src": "Investigan muerte de adolescente que sufrió herida cortante tras una riña en Santiago"
+    },
+    {
+      "id": "b8de889f7f86c193",
+      "cut": "13130",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "81 muertos en cárcel de San Miguel siguen sin justicia: los $13 mil millones que zanjará la Suprema",
+      "title_en": "81 dead in San Miguel prison still without justice: the $13 billion that the Supreme Court will settle",
+      "date": "2026-10-22",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/especial/bbcl-investiga/noticias/articulos/2026/10/22/81-muertos-en-carcel-de-san-miguel-siguen-sin-justicia-los-13-mil-millones-que-zanjara-la-suprema.shtml",
+      "family": "incivilidades",
+      "slug": "san-miguel",
+      "title_src": "81 muertos en cárcel de San Miguel siguen sin justicia: los $13 mil millones que zanjará la Suprema"
+    },
+    {
+      "id": "118e6e9f6ac4dd9f",
+      "cut": "13301",
+      "lat": -33.157849,
+      "lng": -70.605706,
+      "title_es": "Carabineros recuperó camión paraguayo robado con 200 millones en carne",
+      "title_en": "Carabineros recovered a stolen Paraguayan truck with 200 million in meat",
+      "date": "2026-10-22",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robos/carabineros-recupero-camion-paraguayo-robado-con-200-millones-en-carne/2026-10-22/074026.html",
+      "family": "robos_violentos",
+      "slug": "colina",
+      "title_src": "Carabineros recuperó camión paraguayo robado con 200 millones en carne"
+    },
+    {
+      "id": "d71334b72ea3cd1a",
+      "cut": "13115",
+      "lat": -33.284732,
+      "lng": -70.367165,
+      "title_es": "Lo Barnechea: investigan homicidio de adolescente de 17 años tras partido de fútbol",
+      "title_en": "Lo Barnechea: homicide of 17-year-old adolescent investigated after soccer match",
+      "date": "2026-10-22",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/lo-barnechea-investigan-homicidio-de-adolescente-de-17-anos-tras/2026-10-22/072554.html",
+      "family": "vida",
+      "slug": "lo-barnechea",
+      "title_src": "Lo Barnechea: investigan homicidio de adolescente de 17 años tras partido de fútbol"
+    },
+    {
+      "id": "65dfb8cf16b57154",
+      "cut": "13115",
+      "lat": -33.284732,
+      "lng": -70.367165,
+      "title_es": "Adolescente de 17 años muere tras ser baleado en la comuna de Lo Barnechea",
+      "title_en": "17-year-old teenager dies after being shot in the commune of Lo Barnechea",
+      "date": "2026-10-22",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/adolescente-de-17-anos-muere-tras-ser-baleado-en-la-comuna-de-lo-barnechea/",
+      "family": "vida",
+      "slug": "lo-barnechea",
+      "title_src": "Adolescente de 17 años muere tras ser baleado en la comuna de Lo Barnechea"
+    },
+    {
+      "id": "277004403a7e8217",
+      "cut": "3101",
+      "lat": -27.364912,
+      "lng": -69.888394,
+      "title_es": "Copiapó: Dos imputados por crimen de joven estudiante quedaron privados de libertad",
+      "title_en": "Copiapó: Two defendants in the murder of a young student were remanded in custody - Public Prosecutor's Office of Chile",
+      "date": "2026-10-20",
+      "outlet": "Fiscalía de Chile",
+      "url": "https://www.fiscaliadechile.cl/actualidad/noticias/regionales/copiapo-dos-imputados-por-crimen-de-joven-estudiante-quedaron",
+      "family": "vida",
+      "slug": "copiapo",
+      "title_src": "Copiapó: Dos imputados por crimen de joven estudiante quedaron privados de libertad",
+      "via_url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPN0xKdXJySWJwZmlkU1lFVXNIOGVnQ1pHMUtoRlVrRDdpRVFRNDRJcDlVVlhoNkR0UTYxaTJId2ptRDFNLWdLNEozWVhUQTdWbEZ1RENuLWRWY2U1ZDdQTmRxRTFXazZhN2lKUHRNMEVwWWs5b2xRNjJIbGNmcnF4MzhVNHpCaks2cUdPNllVVUVrejhld1BEdHZhQkVXZjZYT2RpVjBGWHNxODRtVVp3bHpGNDBTRTkybW5QVTg2X2E?oc=5"
+    },
+    {
+      "id": "5638fbc576c39175",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Detenido brazo operativo de organización dedicada al robo de cobre desde faenas mineras y trenes en Antofagasta",
+      "title_en": "Operational arm of organization dedicated to copper theft from mining sites and trains in Antofagasta arrested",
+      "date": "2026-10-22",
+      "outlet": "informaalminuto.cl",
+      "url": "https://informaalminuto.cl/detenido-brazo-operativo-de-organizacion-dedicada-al-robo-de-cobre-desde-faenas-mineras-y-trenes-en-antofagasta/",
+      "family": "propiedad",
+      "slug": "antofagasta",
+      "title_src": "Detenido brazo operativo de organización dedicada al robo de cobre desde faenas mineras y trenes en Antofagasta",
+      "via_url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOdnJxNUtoOURWcGdUbzhWZTF1Vms1N0tUWmdocE9IemlLX2V5VmdaY2l3VC1yb1hGTDBQZ09ObTV4cjlaNWRxNjlFY1pCZDdWTnNJeHlBdXc4T1RYR3M1SzFuWkVtc2c5eDVsVC1RLWU2Tmw3dmQ3OW9TVkU3c0hScU5tWE5QenJMMEt1NkhweDdMSDU0VERHRk5mS3RUWk5sVXhJaUl1WEN0R09XSVZWclItS3JqTjl4VGI1YllyM092MkM1NWlZemlWdGdSRnJHTG1xY2F3?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-10-22T03:07:13.974431Z"
+  "last_new_incident_at": "2026-10-22T11:05:37.149710Z"
 }
