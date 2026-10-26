@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-26T02:59:44.526277Z",
+  "generated": "2026-10-26T12:11:13.529098Z",
   "window_days": 30,
   "incidents": [
     {
@@ -20154,7 +20154,108 @@
       "slug": "villarrica",
       "title_src": "Gendarmería frustra intento de fuga de un imputado en la cárcel de Villarrica",
       "via_url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1mUFlCNFFGRFRhRVJaSVU0bVR0amgxWE5MTjJ6ZlUyaDczMXpGQTFqdkZ6Wlk4SVFjSlEtbVRnNnExX2xNRURXOVN6WDM2OU5kQkdXbVdsT2hhZHNhdjRCVTNia05CS0x6NjJKMnVaTmlRQUxSMUZGUUIyaVdOc0E?oc=5"
+    },
+    {
+      "id": "7a0ca9c8be37f495",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Conductor de aplicación fue retenido y amenazado de muerte por 6 sujetos en Antofagasta: 2 detenidos",
+      "title_en": "App driver was held and threatened with death by 6 individuals in Antofagasta: 2 arrested",
+      "date": "2026-10-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-antofagasta/2026/10/26/conductor-de-aplicacion-fue-retenido-y-amenazado-de-muerte-por-6-sujetos-en-antofagasta-2-detenidos.shtml",
+      "family": "robos_violentos",
+      "slug": "antofagasta",
+      "title_src": "Conductor de aplicación fue retenido y amenazado de muerte por 6 sujetos en Antofagasta: 2 detenidos"
+    },
+    {
+      "id": "664170658fab4c58",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "Homicidio en Recoleta: joven recibió más de 20 disparos",
+      "title_en": "Homicide in Recoleta: young man received more than 20 gunshots",
+      "date": "2026-10-26",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/homicidio-en-recoleta-joven-recibio-mas-de-20-disparos/2026-10-26/074917.html",
+      "family": "vida",
+      "slug": "recoleta",
+      "title_src": "Homicidio en Recoleta: joven recibió más de 20 disparos"
+    },
+    {
+      "id": "d2f707942ddb5c07",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Tribunal declara inadmisible querella de china Joyvio contra Isidoro Quiroga por delitos ambientales",
+      "title_en": "Court declares inadmissible Joyvio of China's complaint against Isidoro Quiroga for environmental crimes",
+      "date": "2026-10-26",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/pulso/noticia/tribunal-declara-inadmisible-querella-de-china-joyvio-contra-isidoro-quiroga-por-delitos-ambientales/",
+      "family": "propiedad",
+      "slug": "santiago",
+      "title_src": "Tribunal declara inadmisible querella de china Joyvio contra Isidoro Quiroga por delitos ambientales"
+    },
+    {
+      "id": "bab97639e7e18b9e",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "Hombre muere tras ser baleado en plena vía pública en Recoleta: desconocidos lo habrían atacado desde un vehículo",
+      "title_en": "Man dies after being shot in public street in Recoleta: unknown assailants allegedly attacked him from a vehicle",
+      "date": "2026-10-26",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/hombre-muere-tras-ser-baleado-en-plena-via-publica-en-recoleta-desconocidos-lo-habrian-atacado-desde-un-vehiculo/",
+      "family": "vida",
+      "slug": "recoleta",
+      "title_src": "Hombre muere tras ser baleado en plena vía pública en Recoleta: desconocidos lo habrían atacado desde un vehículo"
+    },
+    {
+      "id": "8ad18839f0b0b0b1",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "Nuevo homicidio en Recoleta: hombre es asesinado en tiroteo que incluyó más de 20 disparos",
+      "title_en": "New homicide in Recoleta: man is killed in shooting that included more than 20 gunshots",
+      "date": "2026-10-26",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/10/26/nuevo-homicidio-en-recoleta-hombre-es-asesinado-en-tiroteo-que-incluyo-mas-de-20-disparos.shtml",
+      "family": "vida",
+      "slug": "recoleta",
+      "title_src": "Nuevo homicidio en Recoleta: hombre es asesinado en tiroteo que incluyó más de 20 disparos",
+      "via_url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxNaUMySFlUa0plRkh0UGtJS0hEeFhvVzU5SmpRTUJyT1dfaGNHT1JNS3liZTdBZkVBeENPY1dJdjBFRmZRUEstOS1nRUkyR09LaWJDT0ROM081QXpwTHhWWWtGanlfR0N0SEFBelRPb3o3eFhtY280b2E0TlBMQ0RkMGpyQ25fRVhlOVRLdVQxRl9Ycl9zdUhNazZ4OFc4a2pXMTFKRzRWWnd5ZXVKenpnNWY0emZ4Q1BFOEI5VnBGR29hR1hJb2JzUUR3UEtsQ0FaX05mU1piaGJ2cnNOcU5ZWjBnTjhQRDFtWkZJTEQ5MmFidmR3bkRSSDBwVWF1eFJPN1E?oc=5"
+    },
+    {
+      "id": "e3084ac6eb71898a",
+      "cut": "13127",
+      "lat": -33.354794,
+      "lng": -70.635699,
+      "title_es": "Hombre muere en Recoleta durante tiroteo con más de 20 disparos",
+      "title_en": "Man dies in Recoleta during shootout with more than 20 shots",
+      "date": "2026-10-26",
+      "outlet": "Canal 9 Bío Bío Televisión",
+      "url": "https://www.canal9.cl/episodios/2026/10/26/nuevo-homicidio-en-recoleta-hombre-es-asesinado-en-tiroteo-que-incluyo-mas-de-20-disparos",
+      "family": "vida",
+      "slug": "recoleta",
+      "title_src": "Hombre muere en Recoleta durante tiroteo con más de 20 disparos",
+      "via_url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNR2RNQWpCMV9vM3pVUEdUVldJOUZXTkQ0VUY5TE5GTU1wblJXalhIb25xZ0hBX3JLaW9uaDM4LUpEbzRmNGVKRHYwME9nY0ZtZ01URWpILUdxVW5jbDFvNnZ0N2hRcXZRdVlkY2JWUC1zbWhNVXFHMFJmTU9qREg2ZWhsRFBvY2psM2JPTTlpUFpFaHh2UXlVdXlUMEFOTko3RlNBOTB0SU1HSkxJWUtUSjBWTXJQR0xjeE1hZ0xDX210RFJUR2ZMNWhEZTA?oc=5"
+    },
+    {
+      "id": "61de44df29dc1bf9",
+      "cut": "9115",
+      "lat": -39.271383,
+      "lng": -71.796464,
+      "title_es": "PDI detiene en Pucón al cuarto imputado por violenta encerrona en Temuco",
+      "title_en": "PDI arrests in Pucón the fourth suspect for violent carjacking in Temuco",
+      "date": "2026-10-25",
+      "outlet": "El diario de la Araucanía",
+      "url": "https://www.eldiariodelaaraucania.cl/2026/10/24/pdi-detiene-integrante-banda-encerronas-pucon/amp/",
+      "family": "robos_violentos",
+      "slug": "pucon",
+      "title_src": "PDI detiene en Pucón al cuarto imputado por violenta encerrona en Temuco",
+      "via_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQWE5oTjM3b1lMMmxvRmFpazNmaTZjaUlnN1JHdHBUc2xsbWFmdms4U01Jejh4Q0djc1BFWGNfM1Zid3VOd0NCN3NMQk5OOEQySTh4eXRIVXJRajdHYjNudWRWMFR5S25UMXVmZHN4Q0FFbnJmaEJlRGRNRXlqbUhFSUpyTEJXR0tBRTZxZm1FQTZKTENjVjdRVXlrNEgxdFnSAZ8BQVVfeXFMUFhOaE4zN29ZTDJsb0ZhaWszZmk2Y2lJZzdSR3RwVHNsbG1hZnZrOFNNSXo4eENHY3NQRVhjXzNWYnd1TndDQjdzTEJOTjhEMkk4eHl0SFVyUWo3R2IzbnVkVjBUeUtuVDF1ZmRzeENBRW5yZmhCZURkTUV5am1IRUlKckxCV0dLQUU2cWZtRUE2SkxDY1Y3UVV5azRIMXRZ?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-10-26T02:59:44.526277Z"
+  "last_new_incident_at": "2026-10-26T12:11:13.529098Z"
 }
