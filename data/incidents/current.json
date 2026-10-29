@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-29T04:10:48.093213Z",
+  "generated": "2026-10-29T12:13:44.498481Z",
   "window_days": 30,
   "incidents": [
     {
@@ -19662,7 +19662,121 @@
       "slug": "iquique",
       "title_src": "Operativo de Carabineros de Tarapacá desarticula organización criminal dedicada al robo de vehículos / 28 detenidos, entre ellos 3 menores de edad",
       "via_url": "https://news.google.com/rss/articles/CBMiiAJBVV95cUxOMVBzMVlnWkQzWGJ6OVQwTk8xTlNnSkF4LXRMMnViN0xTQ2o2WmoyV3I1dVA2TnNJTFJ6XzFUVFp0Y3NDT0FEM1o2OWNreVJJQm85NGFzanVtX3l5T2hWazBIN20tTTloNWdjNVJEdExMdWlOZ0FEZ2U2Mm4xc1BodWJXN2hvWmRGcXJMYUVMVnhraFB6OEZJNV9tNkk2bW1haVRvTzR4Mkh6YmlpMmFEa0ZGeElBWVo1dWxvRHVuYUZMcWNfZElobVpHMzBkaUgyNDRsMTJDMTdBZHdEYjRTRElRcEdTUjJkZGNfZlZSVDg4d0pNMFFuZTNkTzlnOWFwdm13cHc1LVo?oc=5"
+    },
+    {
+      "id": "e9f239f567d53b3f",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Homicidio de Cristóbal Miranda: revocan prisión preventiva a último imputado que estaba en la cárcel",
+      "title_en": "Homicide of Cristóbal Miranda: preventive detention revoked for the last defendant who was in jail",
+      "date": "2026-10-29",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/10/29/homicidio-de-cristobal-miranda-revocan-prision-preventiva-a-ultimo-imputado-que-estaba-en-la-carcel.shtml",
+      "family": "vida",
+      "slug": "concepcion",
+      "title_src": "Homicidio de Cristóbal Miranda: revocan prisión preventiva a último imputado que estaba en la cárcel"
+    },
+    {
+      "id": "8d9cecb41bc5b614",
+      "cut": "13124",
+      "lat": -33.393205,
+      "lng": -70.850871,
+      "title_es": "Más de 100 kilos de hojas incautados: seis bolivianos fueron detenidos por tráfico de coca",
+      "title_en": "More than 100 kilos of leaves seized: six Bolivians were arrested for coca trafficking",
+      "date": "2026-10-29",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/drogas/mas-de-100-kilos-de-hojas-incautados-seis-bolivianos-fueron-detenidos/2026-10-29/073059.html",
+      "family": "drogas",
+      "slug": "pudahuel",
+      "title_src": "Más de 100 kilos de hojas incautados: seis bolivianos fueron detenidos por tráfico de coca"
+    },
+    {
+      "id": "0a2dd0e2fec95ad2",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Joven murió tras ataque a balazos desde un vehículo en Estación Central",
+      "title_en": "Young man died after being shot at from a vehicle in Estación Central",
+      "date": "2026-10-29",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/homicidios/joven-murio-tras-ataque-a-balazos-desde-un-vehiculo-en-estacion-central/2026-10-29/071109.html",
+      "family": "vida",
+      "slug": "estacion-central",
+      "title_src": "Joven murió tras ataque a balazos desde un vehículo en Estación Central"
+    },
+    {
+      "id": "9bd40fcbb75f5518",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Carabineros recupera más de 130 celulares robados de un local comercial en barrio Franklin",
+      "title_en": "Carabineros recovers more than 130 stolen cell phones from a commercial premises in the Franklin neighborhood",
+      "date": "2026-10-29",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/carabineros-recupera-mas-de-130-celulares-robados-de-un-local-comercial-en-barrio-franklin/",
+      "family": "propiedad",
+      "slug": "santiago",
+      "title_src": "Carabineros recupera más de 130 celulares robados de un local comercial en barrio Franklin"
+    },
+    {
+      "id": "7158ca3f9a7ad3f7",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Hombre muere tras ser baleado en la comuna de Estación Central",
+      "title_en": "Man dies after being shot in the commune of Estación Central",
+      "date": "2026-10-29",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/hombre-muere-tras-ser-baleado-en-la-comuna-de-estacion-central/",
+      "family": "vida",
+      "slug": "estacion-central",
+      "title_src": "Hombre muere tras ser baleado en la comuna de Estación Central"
+    },
+    {
+      "id": "9a93f5374bd681cb",
+      "cut": "5201",
+      "lat": -27.116795,
+      "lng": -109.366631,
+      "title_es": "“A mi hija la mataron en vida y ella va a tener que...”: habla madre de joven que denunció violación grupal en Rapa Nui",
+      "title_en": "\"They killed my daughter in life and she is going to have to...\": mother of young woman who reported gang rape in Rapa Nui speaks",
+      "date": "2026-10-29",
+      "outlet": "LaCuarta",
+      "url": "https://www.lacuarta.com/chile/noticia/a-mi-hija-la-mataron-en-vida-y-ella-va-a-tener-que-habla-madre-de-joven-que-denuncio-violacion-grupal-en-rapa-nui/",
+      "family": "sexuales",
+      "slug": "isla-de-pascua",
+      "title_src": "“A mi hija la mataron en vida y ella va a tener que...”: habla madre de joven que denunció violación grupal en Rapa Nui"
+    },
+    {
+      "id": "a535f8b62e7ff6fe",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "​CARABINEROS FRUSTRA ROBO EN EL SECTOR NORTE DE ANTOFAGASTA GRACIAS A CÁMARAS MUNICIPALES",
+      "title_en": "CARABINEROS THWARTS ROBBERY IN NORTHERN ANTOFAGASTA THANKS TO MUNICIPAL CAMERAS",
+      "date": "2026-10-29",
+      "outlet": "www.diariosol.cl",
+      "url": "https://www.diariosol.cl/policial/carabineros-frustra-robo-sector-norte-antofagasta-gracias-camaras-municipales",
+      "family": "propiedad",
+      "slug": "antofagasta",
+      "title_src": "​CARABINEROS FRUSTRA ROBO EN EL SECTOR NORTE DE ANTOFAGASTA GRACIAS A CÁMARAS MUNICIPALES",
+      "via_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNUldzQm9MVGFLR09sSlNac3RYNU84bWlEUDNTeGUzNUdrb3BXeE51ZkRVNjJ5Mjl4TGtTbWM3TnFRM0V1c0dJb2J3TzdnTkNpOEt0MTdDTXpQY2RRVGJOcmhUeFhPV2RjemhKX2FfRGQzZzhzWmU0dmdBRHE2Vm1aWTdydUJrSGhQMHJLWWNkOUx4TzhZZFJtQS1XMXVyZjN1S3VwN0hKckM3QXhCeTBoZw?oc=5"
+    },
+    {
+      "id": "cb2d4db7282fde6b",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "Entraron por un ventanal y lo amenazaron con cuchillos: violento robo termina con persecución en La Serena",
+      "title_en": "They entered through a large window and threatened him with knives: violent robbery ends with a chase in La Serena",
+      "date": "2026-10-29",
+      "outlet": "Mi Radio",
+      "url": "https://www.miradiols.cl/2026/10/29/violento-robo-san-joaquin-persecucion-policial/",
+      "family": "robos_violentos",
+      "slug": "la-serena",
+      "title_src": "Entraron por un ventanal y lo amenazaron con cuchillos: violento robo termina con persecución en La Serena",
+      "via_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPWEpBbGtkNWhCM001SkdqQTZfclNNU3duY0ZwdmNobklMMkFSY3ZDQjRZQ25hUVE1T0s1TzhjZ0dULWo0UV9xRTFYaS0zbXR0aWhNdjllT2ZMMENiNTR2NGpzelJ6cW91cjNyY09JNDloMzkxSVdxeDQwdEk4bjVGb2NYMnc5RDJETklr?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-10-29T04:10:48.093213Z"
+  "last_new_incident_at": "2026-10-29T12:13:44.498481Z"
 }
