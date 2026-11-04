@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-04T04:40:29.222143+00:00",
+  "generated": "2026-11-04T13:43:35.062958+00:00",
   "items": [
     {
       "id": "b14e49e8fd847a8e",
@@ -1840,6 +1840,86 @@
       "description": "Confirman quinto detenido por secuestro y homicidio de Martín Pérez  Meganoticias",
       "rejection_stage": "low_confidence",
       "first_seen": "2026-11-04T04:40:29.222143+00:00"
+    },
+    {
+      "id": "341217ebfcc5674b",
+      "url": "https://www.latercera.com/nacional/noticia/condenan-a-541-dias-de-presidio-a-sujeto-que-ataco-a-carabinera-en-acceso-a-estadio/",
+      "outlet": "LaTercera",
+      "date": "2026-11-04",
+      "title": "Condenan a 541 días de presidio a sujeto que atacó a carabinera en acceso a estadio",
+      "description": "El hombre tiró un puñetazo a la uniformada provocándole una rotura del tendón flexor profundo en la base de la tercera falange de su dedo anular derecho.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-04T13:43:35.062958+00:00"
+    },
+    {
+      "id": "a2b384303aadc923",
+      "url": "https://www.latercera.com/el-deportivo/noticia/brian-fernandez-revela-el-distanciamiento-que-tuvo-con-leandro-por-sus-problemas-de-adiccion-mucho-no-me-hablaba/",
+      "outlet": "LaTercera",
+      "date": "2026-11-04",
+      "title": "Brian Fernández revela el distanciamiento que tuvo con Leandro por sus problemas de adicción: “Mucho no me hablaba”",
+      "description": "El exdelantero de Unión La Calera reconoce que estuvo distanciado de sus hermanos debido a sus problemas con las drogas.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-04T13:43:35.062958+00:00"
+    },
+    {
+      "id": "e5629d1a5bcd6867",
+      "url": "https://www.lacuarta.com/chile/noticia/usan-licencia-de-dios-sorpresa-en-matinal-tras-revelarse-insolito-argumento-de-choferes-extranjeros-en-fiscalizaciones/",
+      "outlet": "LaCuarta",
+      "date": "2026-11-04",
+      "title": "Usan “licencia de Dios”: sorpresa en matinal tras revelarse insólito argumento de choferes extranjeros en fiscalizaciones",
+      "description": "“Es una tónica que yo no conocía, me lo acaban de corroborar”, explicó el periodista de CHV desde la “Pequeña Caracas”.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-04T13:43:35.062958+00:00"
+    },
+    {
+      "id": "b93e45819c8ce279",
+      "url": "https://www.lacuarta.com/espectaculos/noticia/vesta-lugg-reflexiono-sobre-episodio-de-agresion-sexual-del-que-fue-victima-siendo-adolescente-no-quiero-que-me-defina/",
+      "outlet": "LaCuarta",
+      "date": "2026-11-04",
+      "title": "Vesta Lugg reflexionó sobre episodio de agresión sexual del que fue víctima siendo adolescente: “No quiero que me defina”",
+      "description": "",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-04T13:43:35.062958+00:00"
+    },
+    {
+      "id": "13f947a7053cd711",
+      "url": "https://www.lacuarta.com/chile/noticia/surgen-fuertes-imagenes-habla-abogada-que-sufrio-intento-de-asesinato-en-audiencia-y-que-zafo-por-un-acto-instintivo/",
+      "outlet": "LaCuarta",
+      "date": "2026-11-04",
+      "title": "Surgen fuertes imágenes: habla abogada que sufrió intento de asesinato en audiencia y que zafó por un “acto instintivo”",
+      "description": "“Se ofuscó, algo pasó”, señaló la joven profesional atacada por el delincuente que defendía.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-04T13:43:35.062958+00:00"
+    },
+    {
+      "id": "41d6f66794b96bc0",
+      "url": "https://www.lacuarta.com/chile/noticia/alerta-en-el-sector-de-carga-del-aeropuerto-trabajadores-intoxicados-consumieron-dulces-con-droga-que-les-regalo-colega/",
+      "outlet": "LaCuarta",
+      "date": "2026-11-04",
+      "title": "Alerta en el sector de carga del aeropuerto: trabajadores intoxicados consumieron dulces con droga que les regaló colega",
+      "description": "Las siete víctimas se encuentran en el Hospital del Trabajador con diagnóstico reservado. Carabineros detuvo al sujeto que portaba gomitas y un chocolate.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-04T13:43:35.062958+00:00"
+    },
+    {
+      "id": "ae0b9ee80664f422",
+      "url": "https://publimicro.cl/chile-e-italia-refuerzan-dialogo-sobre-crimen-organizado-y-migracion-tras-reunion-de-kast-y-meloni/",
+      "outlet": "Publimicro",
+      "date": "2026-11-04",
+      "title": "Chile e Italia refuerzan diálogo sobre crimen organizado y migración tras reunión de Kast y Meloni - Publimicro",
+      "description": "Chile e Italia refuerzan diálogo sobre crimen organizado y migración tras reunión de Kast y Meloni  Publimicro",
+      "rejection_stage": "parse_error",
+      "first_seen": "2026-11-04T13:43:35.062958+00:00"
+    },
+    {
+      "id": "724da33edd0a5e4b",
+      "url": "https://www.miradiols.cl/2026/11/04/coquimbo-lidera-arrestos-28-detenidos-elqui/",
+      "outlet": "Mi Radio",
+      "date": "2026-11-04",
+      "title": "Coquimbo lidera los arrestos: operativo policial deja 28 detenidos en solo 24 horas en Elqui - Mi Radio",
+      "description": "Coquimbo lidera los arrestos: operativo policial deja 28 detenidos en solo 24 horas en Elqui  Mi Radio",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-04T13:43:35.062958+00:00"
     }
   ]
 }
