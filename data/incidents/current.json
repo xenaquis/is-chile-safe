@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-08T04:11:03.401111Z",
+  "generated": "2026-11-08T12:41:23.081486Z",
   "window_days": 30,
   "incidents": [
     {
@@ -18971,7 +18971,107 @@
       "slug": "coquimbo",
       "title_src": "Fiscalía de Coquimbo formalizó a imputados por robo a conductor de aplicación",
       "via_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOUXBjc3FSWHRTVUZ4THJmQ0JGZUFJOHhuQTM3ZVdEVTZSSHFDTWYxUGRrMGV0ZURDcUZLTDdBS19YWkQyR2wwV2lfZHRoWjRwa2V2dU1RRGpmMjUxMWwwRTJXSVR1Z2liMlpaTlNsVUp2WkVOZmpXWXVmdm5Qd1pQcEUwOWVPUVVOeW56enJuNEpwTVVleHFZMlBIUldMV01SWWl2Vnl4RzN3eGpFdXZfVTJTVU9ndw?oc=5"
+    },
+    {
+      "id": "1bedcaa27cfc263c",
+      "cut": "8101",
+      "lat": -36.827178,
+      "lng": -72.969119,
+      "title_es": "Delincuentes entran por forado y roban al menos $2 mil millones desde banco en centro de Concepción",
+      "title_en": "Criminals enter through a hole and steal at least $2 billion from a bank in downtown Concepción",
+      "date": "2026-11-08",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/11/08/delincuentes-ingresan-por-forado-a-banco-y-protagonizan-millonario-robo-en-centro-de-concepcion.shtml",
+      "family": "propiedad",
+      "slug": "concepcion",
+      "title_src": "Delincuentes entran por forado y roban al menos $2 mil millones desde banco en centro de Concepción"
+    },
+    {
+      "id": "d75f0c45cd52639c",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Cayó banda acusada de violentos robos de vehículos de aplicaciones en Antofagasta",
+      "title_en": "Gang accused of violent robberies of app vehicles fell in Antofagasta",
+      "date": "2026-11-08",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/robo-de-vehiculos/cayo-banda-acusada-de-violentos-robos-de-vehiculos-de-aplicaciones-en/2026-11-08/092803.html",
+      "family": "robos_violentos",
+      "slug": "antofagasta",
+      "title_src": "Cayó banda acusada de violentos robos de vehículos de aplicaciones en Antofagasta"
+    },
+    {
+      "id": "f33b2b79cb24b9c1",
+      "cut": "13129",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "PDI detiene a cuatro sujetos por tráfico de drogas en San Joaquín: incautan $6 millones en sustancias ilícitas y armas",
+      "title_en": "PDI arrests four individuals for drug trafficking in San Joaquín: $6 million in illicit substances and weapons seized",
+      "date": "2026-11-08",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/pdi-detiene-a-cuatro-sujetos-por-trafico-de-drogas-en-san-joaquin-incautan-6-millones-en-sustancias-ilicitas-y-armas/",
+      "family": "drogas",
+      "slug": "san-joaquin",
+      "title_src": "PDI detiene a cuatro sujetos por tráfico de drogas en San Joaquín: incautan $6 millones en sustancias ilícitas y armas"
+    },
+    {
+      "id": "8557c50f68b7f647",
+      "cut": "13501",
+      "lat": -33.744306,
+      "lng": -71.202512,
+      "title_es": "Investigan muerte de hombre de 40 años en Melipilla: fue hallado en la vía pública",
+      "title_en": "Investigation into death of 40-year-old man in Melipilla: he was found on public road",
+      "date": "2026-11-08",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/investigan-muerte-de-hombre-de-40-anos-en-melipilla-fue-hallado-en-la-via-publica/",
+      "family": "vida",
+      "slug": "melipilla",
+      "title_src": "Investigan muerte de hombre de 40 años en Melipilla: fue hallado en la vía pública"
+    },
+    {
+      "id": "37df4c06f6fa363f",
+      "cut": "13106",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Desarticulan a banda dedicada al tráfico de drogas en Estación Central y Maipú: dos sujetos fueron detenidos",
+      "title_en": "Drug trafficking gang dismantled in Estación Central and Maipú: two individuals were arrested",
+      "date": "2026-11-08",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/desarticulan-a-banda-dedicada-al-trafico-de-drogas-en-estacion-central-y-maipu-dos-sujetos-fueron-detenidos/",
+      "family": "drogas",
+      "slug": "estacion-central",
+      "title_src": "Desarticulan a banda dedicada al tráfico de drogas en Estación Central y Maipú: dos sujetos fueron detenidos"
+    },
+    {
+      "id": "0791d9e596754ac0",
+      "cut": "1101",
+      "lat": -20.213,
+      "lng": -70.152,
+      "title_es": "Prisión preventiva para imputado en homicidio frustrado ocurrido en Ruta A-16",
+      "title_en": "Preventive detention for defendant in attempted homicide that occurred on Route A-16",
+      "date": "2026-11-08",
+      "outlet": "El Reportero de Iquique",
+      "url": "https://elreporterodeiquique.com/prision-preventiva-para-imputado-en-homicidio-frustrado-ocurrido-en-ruta-a-16/",
+      "family": "vida",
+      "slug": "iquique",
+      "title_src": "Prisión preventiva para imputado en homicidio frustrado ocurrido en Ruta A-16",
+      "via_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNZm42dmcteG44NFl2XzlSSV8xb1lQVlcteWcwZllXa3AwQTBSR1BzOWFVazFnQmJySnBvcnVNeVh6c25heDF3OE9COWNTRk9DWWdhenc2VEk4WXhyMlRydzhWNk9PMGQ1bDZFUHRmV3dpdC0yeUxJNEJrS0NRdkE5bVZDblJyaG01b1RtVzhmaElIMU1uamhlbVVwZFEzSGNBMVVQZTlRY3VRdEdJUlA1SQ?oc=5"
+    },
+    {
+      "id": "2bf823e1fd9f194f",
+      "cut": "9201",
+      "lat": -37.797936,
+      "lng": -72.79785,
+      "title_es": "Angol: tres detenidos durante servicios preventivos por la Teletón",
+      "title_en": "Angol: three arrested during preventive services for Teletón",
+      "date": "2026-11-08",
+      "outlet": "Malleco 7",
+      "url": "https://www.malleco7.cl/angol-tres-detenidos-durante-servicios-preventivos-por-la-teleton/",
+      "family": "incivilidades",
+      "slug": "angol",
+      "title_src": "Angol: tres detenidos durante servicios preventivos por la Teletón",
+      "via_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOY2x4Rm9zZUllbDY3TU5MVkxYX0dWa1BJOHNvVXZWWWRmV1JMQnc2TGN5MFJuSmI0ZUFWN0FjVm5LWk1weXpVVDlrSkhadjF6bUlNZ1RMRl9XRlFDRGc2RXNiVnhJd2tKWEstalE5LTN3WFV0dEF0NDBJenJDOVNCQW9YUFItMF9NTXRVbWRoYl9pODk1?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-11-08T04:11:03.401111Z"
+  "last_new_incident_at": "2026-11-08T12:41:23.081486Z"
 }
