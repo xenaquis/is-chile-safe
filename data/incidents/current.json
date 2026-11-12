@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-12T00:01:01.587700Z",
+  "generated": "2026-11-12T06:46:34.620228Z",
   "window_days": 30,
   "incidents": [
     {
@@ -19452,7 +19452,93 @@
       "slug": "temuco",
       "title_src": "PDI detiene a imputado por violación y amenazas a menor en Temuco",
       "via_url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9RUnMxa3dpOTBVZG9BYm83VGs4Y1ZrRkowT1Y3ZTVyYXk2TE1BLTRHNmNMbGRSM0ZkNEkwRUwyM3hyaElJajhSSkQ2XzZDUzBtcUlfeklHdS1sZUdWeHQ1SGxfWE4wYWNnMENCOGp2dF9LRVFKeERKMENnTFVsdw?oc=5"
+    },
+    {
+      "id": "125d8905e1e0b048",
+      "cut": "8102",
+      "lat": -36.996187,
+      "lng": -73.045624,
+      "title_es": "Hombre es asesinado a tiros en Coronel: es el homicidio 72 en el Bío Bío en lo que va del año",
+      "title_en": "Man is shot dead in Coronel: it is homicide 72 in Bío Bío so far this year",
+      "date": "2026-11-12",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-del-bio-bio/2026/11/11/hombre-es-asesinado-a-tiros-en-coronel-es-el-homicidio-72-en-el-bio-bio-en-lo-que-va-del-ano.shtml",
+      "family": "vida",
+      "slug": "coronel",
+      "title_src": "Hombre es asesinado a tiros en Coronel: es el homicidio 72 en el Bío Bío en lo que va del año"
+    },
+    {
+      "id": "5282148bb3b338ba",
+      "cut": "13105",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Conflicto familiar y acelerante: Los antecedentes por incendio donde murió mujer y niña (8) en la RM",
+      "title_en": "Family conflict and accelerant: The background on fire where a woman and an 8-year-old girl died in the RM",
+      "date": "2026-11-12",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-metropolitana/2026/11/11/conflicto-familiar-y-acelerante-los-antecedentes-por-incendio-donde-murio-mujer-y-nina-8-en-la-rm.shtml",
+      "family": "vida",
+      "slug": "el-bosque",
+      "title_src": "Conflicto familiar y acelerante: Los antecedentes por incendio donde murió mujer y niña (8) en la RM"
+    },
+    {
+      "id": "0e86e1ea897ab1a7",
+      "cut": "13101",
+      "lat": -33.446981,
+      "lng": -70.721768,
+      "title_es": "Detienen a influencer Tío Tito cuando participaba en manifestación por alza de los combustibles",
+      "title_en": "Detienen a influencer Tío Tito cuando participaba en manifestación por alza de los combustibles",
+      "date": "2026-11-12",
+      "outlet": "BioBioChile",
+      "url": "https://www.biobiochile.cl/noticias/espectaculos-y-tv/notas-espectaculos-tv/2026/11/11/detienen-a-influencer-tio-tito-cuando-participaba-en-manifestacion-por-alza-de-los-combustibles.shtml",
+      "family": "incivilidades",
+      "slug": "santiago",
+      "title_src": "Detienen a influencer Tío Tito cuando participaba en manifestación por alza de los combustibles"
+    },
+    {
+      "id": "c7aeff284c096e20",
+      "cut": "13105",
+      "lat": -33.539168,
+      "lng": -70.635699,
+      "title_es": "Detienen a mujer imputada de causar incendio que dejó dos víctimas fatales en El Bosque",
+      "title_en": "Woman accused of causing fire that left two fatal victims in El Bosque is arrested",
+      "date": "2026-11-12",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/detienen-a-mujer-imputada-de-causar-incendio-que-dejo-dos-victimas-fatales-en-el-bosque/",
+      "family": "vida",
+      "slug": "el-bosque",
+      "title_src": "Detienen a mujer imputada de causar incendio que dejó dos víctimas fatales en El Bosque"
+    },
+    {
+      "id": "c6c7e99cd2b2f7dd",
+      "cut": "2201",
+      "lat": -22.191672,
+      "lng": -68.619517,
+      "title_es": "Carabineros del SEBV detiene en Calama a mujer prófuga por homicidio frustrado",
+      "title_en": "Carabineros SEBV arrests in Calama a woman fugitive for attempted homicide",
+      "date": "2026-11-12",
+      "outlet": "https://tiempodenoticias.cl/",
+      "url": "https://tiempodenoticias.cl/contenido/5784/carabineros-del-sebv-detiene-en-calama-a-mujer-profuga-por-homicidio-frustrado",
+      "family": "vida",
+      "slug": "calama",
+      "title_src": "Carabineros del SEBV detiene en Calama a mujer prófuga por homicidio frustrado",
+      "via_url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQT2NnczZLRFE2N09ZbV91ZHNTTEltYXlKdEcwaEhNd1lCbk9xNk5ONjd1SXdqUkEyMVJ5cUhyQlhWTHZ6TElHYW4zY3NNSVZRdDNEaHVmVmVpbHFyemJMSjRoWEFycDlYMlVhVnhYRnJ0ZXczc2JmMnR4X2h3SlA2Y2ItZ2poNzRqZHJlcFpMOVNsTFc4emQtNTdWR3FuUlhTekVmcmRWSkYwVWNLdldzLWZUd1FocFloemF5LU1R?oc=5"
+    },
+    {
+      "id": "6dd7f738ffe65166",
+      "cut": "2201",
+      "lat": -22.191672,
+      "lng": -68.619517,
+      "title_es": "EN TRABAJO DE CAPTURA DE PRÓFUGOS, CARABINEROS DEL SEBV CALAMA DETIENE A MUJER BUSCADA POR HOMICIDIO FRUSTRADO",
+      "title_en": "In an operation to capture fugitives, Carabineros of the SEBV Calama arrest a woman wanted for attempted homicide",
+      "date": "2026-11-12",
+      "outlet": "Diario El America",
+      "url": "https://elamerica.cl/2026/11/12/en-trabajo-de-captura-de-profugos-carabineros-del-sebv-calama-detiene-a-mujer-buscada-por-homicidio-frustrado/",
+      "family": "vida",
+      "slug": "calama",
+      "title_src": "EN TRABAJO DE CAPTURA DE PRÓFUGOS, CARABINEROS DEL SEBV CALAMA DETIENE A MUJER BUSCADA POR HOMICIDIO FRUSTRADO",
+      "via_url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxNNjlXMDliWmhHNDZtN3REZ3J1UTg2M1FHOXozZmkzOFJUTkszWXZVbG9IZVc4NEZKNVd3RkZJSzUtOVBuNzBiN2YzQi0wclJaWXN1dUpLMWdJTzdYQTZraExVaGVuVjNRcW9Lb2YxY0daTjctaVR6YnkwUUdOWUltemw3azJhWUlwYVEtS3A4bHd3SkNYblFOMW5uemRVMy13S2xPWWN5RzhSNFYwMDZ5cUdGaEc0VjA0V1I2bVo2OTBQUTRWcmJkeXI3T0dESFZtOGhNdFk2VW5Pdw?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-11-12T00:01:01.587700Z"
+  "last_new_incident_at": "2026-11-12T06:46:34.620228Z"
 }
