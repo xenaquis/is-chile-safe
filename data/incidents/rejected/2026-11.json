@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-13T04:52:48.170718+00:00",
+  "generated": "2026-11-13T13:52:25.551583+00:00",
   "items": [
     {
       "id": "b14e49e8fd847a8e",
@@ -6000,6 +6000,96 @@
       "description": "Giorgio Jackson tras condena a hombre que fingió ser él para robar computadores: \"Quienes me difamaron podrían dar explicaciones\"  Teletrece",
       "rejection_stage": "low_confidence",
       "first_seen": "2026-11-13T04:52:48.170718+00:00"
+    },
+    {
+      "id": "e9935740cf5f3b78",
+      "url": "https://www.biobiochile.cl/noticias/nacional/region-de-tarapaca/2026/11/13/volcamiento-de-camioneta-minera-deja-un-muerto-y-cuatro-heridos-en-huara.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-11-13",
+      "title": "Volcamiento de camioneta minera deja un muerto y cuatro heridos en Huara",
+      "description": "Una persona fallecida y otras cuatro lesionadas dejó el volcamiento de una camioneta de trabajadores ocurrido durante la mañana de este viernes en el kilómetro 1.849 de la Ruta 5 Norte, en la comuna de Huara, región de Tarapacá. Por causas que se investigan, el vehículo, de tipo minero, volcó y terminó a un costado … Continua leyendo \"Volcamiento de camioneta minera deja un muerto y cuatro heridos en Huara\"\nThe post Volcamiento de camioneta minera deja un muerto y cuatro heridos en Huara appeare",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-13T13:52:25.551583+00:00"
+    },
+    {
+      "id": "26f4879e6c586a8c",
+      "url": "https://www.latercera.com/nacional/noticia/arrau-tras-acuerdo-con-camioneros-el-derecho-a-manifestarse-no-puede-transformarse-en-el-derecho-a-obstaculizar-carreteras/",
+      "outlet": "LaTercera",
+      "date": "2026-11-13",
+      "title": "Arrau tras acuerdo con camioneros: “El derecho a manifestarse no puede transformarse en el derecho a obstaculizar carreteras”",
+      "description": "El ministro destacó que \"la ley se va a cumplir y Carabineros actuará para resguardar la ley de tránsito y el orden público”.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-13T13:52:25.551583+00:00"
+    },
+    {
+      "id": "9fb406c5d2cb531b",
+      "url": "https://www.latercera.com/mundo/noticia/zelenski-confirma-el-desbloqueo-de-las-negociaciones-con-rusia-y-el-mayor-intercambio-de-prisioneros/",
+      "outlet": "LaTercera",
+      "date": "2026-11-13",
+      "title": "Zelenski confirma el desbloqueo de las negociaciones con Rusia y el “mayor intercambio de prisioneros”",
+      "description": "\"Se desbloqueó nuestra reunión trilateral y es muy importante porque da esperanza de que pondremos fin a esta guerra”, ha afirmado el mandatario ucraniano.",
+      "rejection_stage": "parse_error",
+      "first_seen": "2026-11-13T13:52:25.551583+00:00"
+    },
+    {
+      "id": "22b56371061d9994",
+      "url": "https://www.lacuarta.com/chile/noticia/su-madre-gritaba-desesperada-y-los-autos-pasaban-de-largo-carabineros-salvan-la-vida-de-una-nina-de-3-anos-con-asfixia/",
+      "outlet": "LaCuarta",
+      "date": "2026-11-13",
+      "title": "Su madre gritaba desesperada y los autos pasaban de largo: Carabineros salvan la vida de una niña de 3 años con asfixia",
+      "description": "“Al tomar a la menor esta no reaccionaba”, relató la carabinera que tomó una decisión clave.",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-13T13:52:25.551583+00:00"
+    },
+    {
+      "id": "2fb025be03c545b0",
+      "url": "https://soychile.cl/san-antonio/sociedad/2026/11/13/972602/formalizan-acusado-tiroteo-contra-micro.html",
+      "outlet": "SoyChile.cl",
+      "date": "2026-11-13",
+      "title": "Formalizan a acusado de tiroteo contra micro con hinchas por otra balacera - SoyChile.cl",
+      "description": "Formalizan a acusado de tiroteo contra micro con hinchas por otra balacera  SoyChile.cl",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-13T13:52:25.551583+00:00"
+    },
+    {
+      "id": "22d268527f4c0e4b",
+      "url": "https://www.noticiascol.com/2026/11/13/chile-inicia-proceso-de-extradicion-de-carlitos-nike-por-asesinato-de-policia/",
+      "outlet": "Noticiascol.com",
+      "date": "2026-11-13",
+      "title": "Chile inicia proceso de extradición de “Carlitos Nike” por asesinato de policía - Noticiascol.com",
+      "description": "Chile inicia proceso de extradición de “Carlitos Nike” por asesinato de policía  Noticiascol.com",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-13T13:52:25.551583+00:00"
+    },
+    {
+      "id": "d44cef46ce9cfd16",
+      "url": "https://www.biobiochile.cl/noticias/sociedad/historia/2026/11/12/caso-mango-secretaria-del-fundador-entrega-revelador-testimonio-sobre-hijo-investigado-por-homicidio.shtml",
+      "outlet": "BioBioChile",
+      "date": "2026-11-12",
+      "title": "Caso Mango: secretaria del fundador entrega revelador testimonio sobre hijo investigado por homicidio - BioBioChile",
+      "description": "Caso Mango: secretaria del fundador entrega revelador testimonio sobre hijo investigado por homicidio  BioBioChile",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-13T13:52:25.551583+00:00"
+    },
+    {
+      "id": "fbaceaf44e196e02",
+      "url": "https://elcooperante.com/chile-inicia-proceso-de-extradicion-desde-peru-de-venezolano-vinculado-al-homicidio-de-un-carabinero/",
+      "outlet": "El Cooperante",
+      "date": "2026-11-13",
+      "title": "Chile inicia proceso de extradición desde Perú de venezolano vinculado al homicidio de un carabinero - El Cooperante",
+      "description": "Chile inicia proceso de extradición desde Perú de venezolano vinculado al homicidio de un carabinero  El Cooperante",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-13T13:52:25.551583+00:00"
+    },
+    {
+      "id": "e39f71493930f837",
+      "url": "https://2001online.com/sucesos/inicia-proceso-de-extradicion-de-venezolano-acusado-por-asesinato-de-un-policia-se-escondia-en-peru-con-una-identidad-falsa-202611137400",
+      "outlet": "2001 Online",
+      "date": "2026-11-13",
+      "title": "Inicia proceso de extradición de venezolano acusado por asesinato de un policía: se escondía en Perú con una identidad falsa - 2001 Online",
+      "description": "Inicia proceso de extradición de venezolano acusado por asesinato de un policía: se escondía en Perú con una identidad falsa  2001 Online",
+      "rejection_stage": "low_confidence",
+      "first_seen": "2026-11-13T13:52:25.551583+00:00"
     }
   ]
 }
