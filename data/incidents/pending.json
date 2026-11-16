@@ -1,3 +1,38 @@
 {
-  "items": []
+  "items": [
+    {
+      "id": "17be66ddde706f3d",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/ataques-de-perros/antofagasta-adulto-mayor-quedo-grave-tras-ser-atacado-en-la-calle-por/2026-11-16/103735.html",
+      "title": "Antofagasta: Adulto mayor quedó grave tras ser atacado en la calle por tres perros",
+      "description": "Un hombre de 65 años se encuentra internado grave en el Hospital Regional de Antofagasta luego de haber sido atacado en la vía pública por tres perros de raza dogo argentino.\nEl hecho ocurrió el domingo en la intersección de las calles Vicente Caballero y Baltazar Leighton, en el sector El Huáscar, al sur de la capital regional, mientras la víctima se trasladaba en bicicleta.\nLos canes escaparon desde un domicilio cercano y su dueño fue detenido y quedó a disposición de la Justicia, donde enfrentará cargos por Ley de Tenencia Responsable de Mascotas y Animales de Compañía (Ley Cholito).",
+      "date": "2026-11-16",
+      "outlet": "Cooperativa",
+      "first_queued": "2026-11-16T14:37:14+00:00",
+      "attempts": 1,
+      "last_error": "finish_length:None"
+    },
+    {
+      "id": "2f97113051d1ddba",
+      "url": "https://www.miradiols.cl/2026/11/16/carabineros-detiene-14-personas-provincia-elqui/",
+      "title": "Armas blancas, amenazas y robos: Carabineros detiene a 14 personas en la provincia de Elqui - Mi Radio",
+      "description": "Armas blancas, amenazas y robos: Carabineros detiene a 14 personas en la provincia de Elqui  Mi Radio",
+      "date": "2026-11-16",
+      "outlet": "Mi Radio",
+      "first_queued": "2026-11-16T14:37:14+00:00",
+      "attempts": 1,
+      "last_error": "finish_length:None",
+      "via_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPYzh1OVY1YWVPUzFLXzRyRmZUVG1HTzlHVDg1cFdNLWRvcUJMenF2YTBtYm5DckdQR2VzektTVXQzcHViX2dDZGdZNG1BTTFGNUt0b0hjZ3FoMTVuYmJBSWRkUkVDUWw3WWtyT3FFSlFCRG1iQUVvV2dJVlRYMU1tdW5fWG1VMGk2SFNPbQ?oc=5"
+    },
+    {
+      "id": "30bf2c4c844cabe7",
+      "url": "https://www.lacuarta.com/chile/noticia/se-esta-riendo-de-nosotros-el-nuevo-drama-del-conserje-que-sufrio-brutal-agresion-de-exresidente-que-entro-a-la-fuerza/",
+      "title": "“Se está riendo de nosotros”: el nuevo drama del conserje que sufrió brutal agresión de exresidente que entró a la fuerza",
+      "description": "Sujeto lo golpeó en la cabeza y le hizo perder la memoria durante algunos minutos. Víctima explicó el motivo del cobarde ataque.",
+      "date": "2026-11-16",
+      "outlet": "LaCuarta",
+      "first_queued": "2026-11-16T14:37:14+00:00",
+      "attempts": 1,
+      "last_error": "finish_length:None"
+    }
+  ]
 }
