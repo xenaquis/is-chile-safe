@@ -1,9 +1,16 @@
 /**
  * MapIsland.tsx — Root client:only React island for the interactive map.
  *
- * Mounts L.map(), adds CARTO Positron tiles, fetches Wave-0 TopoJSON +
- * map-payload.json at runtime, and renders 346 commune polygons via the
- * native L.geoJSON + L.canvas choropleth.
+ * Mounts L.map(), draws the site's OWN basemap (BasemapLayer.ts — no
+ * third-party map service, no API key: quick-261124-bmp), fetches Wave-0
+ * TopoJSON + map-payload.json at runtime, and renders 346 commune polygons via
+ * the native L.geoJSON + L.canvas choropleth.
+ *
+ * Basemap rules: it is decoration and strictly progressive. Its fetch lives in
+ * its own effect (never in the Promise.all that gates the choropleth), it
+ * holds no React state, and it never touches layerRef / polyIdxRef (D-12).
+ * The zoom cap lives on L.map itself (MAP_MAX_ZOOM) because without a grid
+ * layer Leaflet's max zoom would be Infinity.
  *
  * MAPV2 changes (see install-mapa/INSTALL.md):
  * - One "layer" control (LAYER_DEFS) replaces Modo + Tipo de delito. The
@@ -64,6 +71,15 @@ import { resolveRegionFocus, shouldApplyRegionFocus } from '../../lib/regionPara
 import { layerLabel, type LayerDef } from '../../lib/mapFilterDefs';
 import { mapV2Strings } from '../../config/mapV2Strings';
 import { computeStripDays } from '../../lib/newsStripDays';
+import { initBasemap, BASEMAP_URL, type Basemap } from './BasemapLayer';
+import { computeCentroid } from './LowZoomDotLayer';
+import {
+  MAP_MIN_ZOOM,
+  MAP_MAX_ZOOM,
+  MAP_MAX_BOUNDS,
+  labelAnchor,
+  type CommuneLabelSource,
+} from '../../lib/basemapLabels';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -101,7 +117,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
   // --- Refs ---
   const divRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
-  const tileRef = useRef<L.TileLayer | null>(null);
+  const basemapRef = useRef<Basemap | null>(null);
   const layerRef = useRef<L.GeoJSON | null>(null);
   const dotsRef = useRef<L.LayerGroup | null>(null);
   const eventsRef = useRef<L.LayerGroup | null>(null);
@@ -160,28 +176,35 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
   useEffect(() => {
     if (!divRef.current || mapRef.current) return; // Pitfall 5: double-init guard
 
-    const map = L.map(divRef.current, { zoomControl: false, attributionControl: true });
+    // The zoom cap is a MAP option: there is no grid layer to supply one.
+    const map = L.map(divRef.current, {
+      zoomControl: false,
+      attributionControl: true,
+      minZoom: MAP_MIN_ZOOM,
+      maxZoom: MAP_MAX_ZOOM,
+    });
     map.attributionControl.setPosition('bottomleft');
     map.attributionControl.setPrefix('');
+    // Commune-boundary credit is added here (not as a layer option) so it is
+    // on screen even when the optional neighbour-land file fails to load.
+    map.attributionControl.addAttribution(mapV2Strings(lang).attr_boundaries);
     map.fitBounds([[-55.9, -75.7], [-17.5, -66.4]], { padding: [20, 20] });
-    map.setMaxBounds([[-60, -80], [-14, -60]]);
-    map.setMinZoom(4);
+    map.setMaxBounds(MAP_MAX_BOUNDS);
     map.on('zoomend', () => setLowZoom(map.getZoom() < 8));
     mapRef.current = map;
 
-    // CARTO Positron tile layer (D-08)
-    tileRef.current = L.tileLayer(
-      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-      {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
-        maxZoom: 19,
-        crossOrigin: true,
-      } as L.TileLayerOptions
-    ).addTo(map);
+    // Own basemap: panes + label controller (created synchronously so the
+    // layer order never depends on which fetch lands first).
+    try {
+      basemapRef.current = initBasemap(map, lang);
+    } catch {
+      basemapRef.current = null; // decoration only — the choropleth still works
+    }
 
     return () => {
       map.remove();
       mapRef.current = null;
+      basemapRef.current = null;
     };
   }, []);
 
@@ -193,6 +216,27 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
       }, 50);
       return () => clearTimeout(timer);
     }
+  }, [mapReady]);
+
+  // ---------------------------------------------------------------------------
+  // Basemap neighbour land — OPTIONAL and independent of the choropleth load.
+  // On any failure: just return (no loadError, no toast). No state is set here,
+  // so this effect can never feed the central restyle effect.
+  // ---------------------------------------------------------------------------
+  useEffect(() => {
+    if (!mapReady) return;
+    let cancelled = false;
+    void safeFetch<object>(BASEMAP_URL).then((raw) => {
+      const map = mapRef.current;
+      if (cancelled || !raw || !map || !basemapRef.current) return;
+      if (basemapRef.current.setLand(raw)) {
+        map.attributionControl.addAttribution(mapV2Strings(lang).attr_basemap);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapReady]);
 
   // ---------------------------------------------------------------------------
@@ -257,6 +301,42 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
           }
         );
         setLayerMounted(true);
+
+        // Basemap decoration (Chile silhouette + place names) — strictly AFTER
+        // the choropleth is mounted and in its own task, so neither the merge
+        // of 346 polygons nor any throw in here can delay or block the data
+        // layer. Separate layers in their own panes; D-12 is not involved.
+        setTimeout(() => {
+          try {
+            const bm = basemapRef.current;
+            if (cancelled || !mapRef.current || !bm) return;
+            bm.setChile(topo, geoCollection);
+            const popByCut = new Map((idx ?? []).map((e) => [e.cut, e.population ?? 0]));
+            const labelSources: CommuneLabelSource[] = [];
+            for (const f of geoData.features) {
+              const cut = f.properties?.id as string | undefined;
+              const name = f.properties?.name as string | undefined;
+              if (!cut || !name) continue;
+              // dot = where LowZoomDotLayer draws this commune (vertex average);
+              // anchor = the city (capitals) or an interior point of the polygon.
+              const dot = computeCentroid(f);
+              const anchor = labelAnchor(cut) ?? dot;
+              if (!anchor) continue;
+              labelSources.push({
+                cut,
+                name,
+                lat: anchor.lat,
+                lng: anchor.lng,
+                dotLat: dot?.lat,
+                dotLng: dot?.lng,
+                population: popByCut.get(cut) ?? 0,
+              });
+            }
+            bm.setCommunes(labelSources);
+          } catch {
+            /* decoration only — the choropleth is already on screen */
+          }
+        }, 0);
 
         // MAPV2: sync stats + (idempotent) restyle through the central effect
         setPayloadTick((t) => t + 1);
@@ -606,7 +686,7 @@ export default function MapIsland({ lang, nationalAvg = 0 }: Props) {
       )}
 
       {/* Zoom control (desktop only, hidden via CSS on mobile) */}
-      <ZoomControl mapRef={mapRef} />
+      <ZoomControl mapRef={mapRef} lang={lang} />
 
       {/* ResultPanel: commune detail (opened on click/search) */}
       {selected && (

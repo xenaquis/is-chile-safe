@@ -20,6 +20,10 @@ export interface MapV2Strings {
   news_strip_clear_day: string;
   legend_zero_homicides: string; // MPX-A4: "Sin homicidios reportados: N" row
   news_strip_gap: string; // R2/F35-R1-06 (G-22(b)): declared-outage day label
+  // quick-261124-bmp: attribution control (HTML). The map draws its own
+  // basemap — no third-party map service is credited because none is used.
+  attr_boundaries: string; // always shown: commune boundaries (chilemapas, GPL-3)
+  attr_basemap: string;    // appended once the neighbour-land file has loaded
 }
 
 export const MAPV2_EN: MapV2Strings = {
@@ -37,6 +41,8 @@ export const MAPV2_EN: MapV2Strings = {
   news_strip_clear_day: 'Clear day filter',
   legend_zero_homicides: 'No homicides reported',
   news_strip_gap: 'no data collected',
+  attr_boundaries: 'Boundaries: <a href="https://github.com/pachadotdev/chilemapas" target="_blank" rel="noopener noreferrer">chilemapas</a> (INE/SUBDERE/BCN)',
+  attr_basemap: '<a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer">Natural Earth</a>',
 };
 
 export const MAPV2_ES: MapV2Strings = {
@@ -54,6 +60,8 @@ export const MAPV2_ES: MapV2Strings = {
   news_strip_clear_day: 'Quitar filtro de día',
   legend_zero_homicides: 'Sin homicidios reportados',
   news_strip_gap: 'sin datos recolectados',
+  attr_boundaries: 'Límites: <a href="https://github.com/pachadotdev/chilemapas" target="_blank" rel="noopener noreferrer">chilemapas</a> (INE/SUBDERE/BCN)',
+  attr_basemap: '<a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer">Natural Earth</a>',
 };
 
 export function mapV2Strings(lang: 'en' | 'es'): MapV2Strings {

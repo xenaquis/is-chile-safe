@@ -238,7 +238,8 @@ polygons derived from INE/SUBDERE/BCN cartography).
 derivative works under GPL-3 terms.
 
 **What is used:** Commune-level boundary polygons (346 comunas). Pre-processed to
-TopoJSON at 87 KB for the interactive choropleth map.
+TopoJSON (`data/cead/geo/communes.topo.json`, 353,696 B raw / 87,672 B gzip) for the
+interactive choropleth map.
 
 **Coverage:** 346 comunas, nationwide. Geometry only — no statistical data.
 
@@ -251,6 +252,61 @@ TopoJSON at 87 KB for the interactive choropleth map.
 
 **Important distinction:** chilemapas provides boundary geometry only. All crime
 statistics overlaid on the map are sourced from CEAD (see above), not from chilemapas.
+
+---
+
+## Natural Earth — neighbouring land (map background)
+
+**Full name:** Natural Earth — Admin 0 Countries, 1:10m cultural vectors.
+
+**Site:** `https://www.naturalearthdata.com/`
+
+**Pinned download:** tag `v5.1.2` of `github.com/nvkelso/natural-earth-vector`,
+file `geojson/ne_10m_admin_0_countries.geojson`
+(sha256 `239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255`, verified by the
+build script). The 13 MB download is kept in the OS temp directory and is never committed.
+
+**Licence:** Public domain. No permission needed; credited anyway on the map and on the
+methodology pages.
+
+**What is used:** One dissolved "land that is not Chile" shape
+(`data/cead/geo/basemap.topo.json`, 117,126 B raw / 45,338 B gzip) covering the Americas south
+of 14°N, Antarctica and west Africa. Chile is erased from it using the commune polygons
+above, so the two datasets never overlap. What is left between them along the border are
+946 hairlines totalling 1.169 km² (largest 0.045 km²), all narrower than a pixel at the
+deepest zoom and covered by the outline of the commune union. The build script refuses to
+write the file above 0.5 km² per piece or 5 km² in total.
+
+**Why:** Since 2026-11-24 the interactive map draws its own background. It uses **no
+third-party map, tile or sprite service and no API key**; the map's data requests are all
+same-origin `/data/*` files. The site-wide web font (Google Fonts) is the only external
+request on the page; it is optional and the place names fall back to a system font without
+it. Sea = map background colour, Chile = the chilemapas communes, everything else = this
+shape.
+
+**Edge of Chile:** The outer edge of Chile on the map is the edge of the simplified commune
+polygons, not the Natural Earth border. Where the two disagree, land that Natural Earth
+assigns to Chile is drawn as neighbouring land along the border (about 2,800 km², mostly on
+the Southern Patagonian Ice Field) or as sea along the coast and the southern archipelago
+(about 17,800 km²). No commune is lost: all 346 polygons are drawn.
+
+**Place names:** Drawn by the map itself. A regional capital's name sits on the city
+(hand-checked coordinates in `site/src/lib/basemapLabels.ts`); every other commune name sits
+on an interior point of its polygon (`site/src/data/commune-label-points.json`, built by the
+same script and checked to lie inside its own commune).
+
+**Limits:** Visual context only — no statistics. No country borders are drawn. Outlines are
+simplified and illustrative, not authoritative boundaries; disputed areas are plain land
+with no label.
+
+**Attribution (displayed on the map and in methodology pages):**
+> Natural Earth (public domain).
+
+**Pipeline entry:** `scripts/build-basemap.mjs` (offline, needs mapshaper; not part of CI).
+Must be re-run whenever `scripts/build-topojson.mjs` regenerates `communes.topo.json` — both
+outputs store that file's sha256 and `site/scripts/validate/map.mjs` fails the build when
+either is stale. That validator also runs as the site's `postbuild` step, so the production
+build fails too.
 
 ---
 

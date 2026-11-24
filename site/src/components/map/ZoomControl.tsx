@@ -7,20 +7,21 @@ import type L from 'leaflet';
 
 interface Props {
   mapRef: RefObject<L.Map | null>;
+  lang?: 'en' | 'es';
 }
 
-export function ZoomControl({ mapRef }: Props) {
+export function ZoomControl({ mapRef, lang = 'en' }: Props) {
   return (
     <div className="zoom-ctl">
       <button
         onClick={() => mapRef.current?.zoomIn()}
-        aria-label="Zoom in"
+        aria-label={lang === 'es' ? 'Acercar' : 'Zoom in'}
       >
         +
       </button>
       <button
         onClick={() => mapRef.current?.zoomOut()}
-        aria-label="Zoom out"
+        aria-label={lang === 'es' ? 'Alejar' : 'Zoom out'}
       >
         −
       </button>

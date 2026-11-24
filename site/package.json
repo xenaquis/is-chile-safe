@@ -9,6 +9,7 @@
     "generate-pairs": "node ../scripts/generate-pairs.mjs",
     "prebuild": "node ../scripts/generate-pairs.mjs && node scripts/sync-data.mjs",
     "build": "cross-env ROLLOUT_ALL=true astro build",
+    "postbuild": "node scripts/validate/map.mjs",
     "check": "astro check",
     "validate": "node scripts/validate/all.mjs",
     "test": "vitest run",

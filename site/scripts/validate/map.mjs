@@ -13,7 +13,29 @@
  *      does NOT contain "astro-island" and does NOT reference "leaflet" in its HTML —
  *      proving content pages stay React/Leaflet-free after adding react() to astro.config.mjs.
  *
- * If dist/ does not exist, exits 0 (TopoJSON check still runs).
+ *  11. Own basemap (quick-261124-bmp) — data/cead/geo/basemap.topo.json exists, is a
+ *      Topology with a "land" object, within budget (raw <= 150 KB, gzip <= 60 KB), was
+ *      built against the CURRENT communes.topo.json (meta.communesSha256), does NOT
+ *      contain Chile (geometric probes) and DOES contain the neighbours, covers the
+ *      min-zoom viewport, and records border gaps (meta.gaps) within 0.5 km2 per piece /
+ *      5 km2 total. Label anchors (site/src/data/commune-label-points.json) are current
+ *      and every one lies inside its own commune. (Runs without dist/.)
+ *  12. Map source has no third-party tile host: no tileLayer / gridLayer / imageOverlay
+ *      API at all (any casing, incl. .wms), no tile URL template, no https:// or quoted
+ *      protocol-relative host outside a short allow-list; zoom cap is on L.map and is
+ *      numerically <= 13; the basemap fetch is not inside the Promise.all that gates the
+ *      choropleth. (Runs without dist/.)
+ *  13. [dist/ required] Built bundle guard: no dist/_astro/*.js|css references a tile /
+ *      basemap host or URL template; every https?:// host in those files is allow-listed;
+ *      the island chunk named by both map pages exists (anti-vacuous) and the bundle
+ *      credits chilemapas + Natural Earth. The two map pages' own HTML may load
+ *      resources (script/link/img/iframe/source) only from allow-listed hosts.
+ *
+ * This file also runs as the site's `postbuild` step (package.json), so the production
+ * build itself fails on a regression. It depends only on dist/ and committed data, never
+ * on data age.
+ *
+ * If dist/ does not exist, exits 0 (pre-build checks still run).
  * Modelled on structure.mjs pattern.
  *
  * Usage:
@@ -23,6 +45,8 @@
 
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
+import { createHash } from 'node:crypto';
+import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -93,12 +117,254 @@ if (!existsSync(TOPO_PATH)) {
 }
 
 // ---------------------------------------------------------------------------
+// Check 11: own basemap asset (runs without dist/)
+// The map draws its own basemap; a third-party tile service broke it once
+// (API-key watermark on every tile, 2026-11-24) and must never come back.
+// ---------------------------------------------------------------------------
+const BASEMAP_PATH = path.join(REPO_ROOT, 'data', 'cead', 'geo', 'basemap.topo.json');
+const BASEMAP_MAX_BYTES = 153600; // 150 KB raw ceiling
+const BASEMAP_GZIP_MAX = 61440;   // 60 KB gzip ceiling
+const GAP_MAX_PIECE_KM2 = 0.5;    // same limits as scripts/build-basemap.mjs
+const GAP_MAX_TOTAL_KM2 = 5;
+
+function ringHas(ring, x, y) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [xi, yi] = ring[i];
+    const [xj, yj] = ring[j];
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+if (!existsSync(BASEMAP_PATH)) {
+  fail('basemap exists', 'File not found: data/cead/geo/basemap.topo.json — run node scripts/build-basemap.mjs');
+} else {
+  try {
+    const bytes = readFileSync(BASEMAP_PATH);
+    const gz = gzipSync(bytes).length;
+    if (bytes.length > BASEMAP_MAX_BYTES) fail('basemap raw budget', `${bytes.length} B > 150 KB (max ${BASEMAP_MAX_BYTES})`);
+    else pass(`basemap raw budget (${bytes.length} bytes <= 150 KB)`);
+    if (gz > BASEMAP_GZIP_MAX) fail('basemap gzip budget', `${gz} B > 60 KB gzip (max ${BASEMAP_GZIP_MAX})`);
+    else pass(`basemap gzip budget (${gz} B <= 60 KB)`);
+
+    const bm = JSON.parse(bytes.toString('utf8'));
+    if (bm.type !== 'Topology' || !bm.objects || !bm.objects.land) {
+      fail('basemap type', 'Not a TopoJSON Topology with a "land" object');
+    } else {
+      pass('basemap type (Topology, object "land")');
+
+      // Staleness: the land was erased against a specific communes.topo.json.
+      if (existsSync(TOPO_PATH)) {
+        const cur = createHash('sha256').update(readFileSync(TOPO_PATH)).digest('hex');
+        if (!bm.meta || bm.meta.communesSha256 !== cur) {
+          fail(
+            'basemap matches communes.topo.json',
+            'meta.communesSha256 differs from the current communes.topo.json — re-run node scripts/build-basemap.mjs'
+          );
+        } else {
+          pass('basemap matches communes.topo.json (sha256)');
+        }
+      }
+
+      // No property may identify a country (single dissolved mass, no borders).
+      const geoms = bm.objects.land.geometries ?? [bm.objects.land];
+      const tagged = geoms.filter((g) => g.properties && Object.keys(g.properties).length > 0);
+      if (tagged.length) fail('basemap has no country properties', `${tagged.length} geometry(ies) carry properties`);
+      else pass('basemap has no country properties');
+
+      // Geometric probes (a property check would pass vacuously on a dissolved mass).
+      const require = createRequire(path.join(SITE_ROOT, 'package.json'));
+      const { feature } = require('topojson-client');
+      const fc = feature(bm, bm.objects.land);
+      const polys = [];
+      for (const f of fc.type === 'FeatureCollection' ? fc.features : [fc]) {
+        if (!f.geometry) continue;
+        if (f.geometry.type === 'Polygon') polys.push(f.geometry.coordinates);
+        else if (f.geometry.type === 'MultiPolygon') polys.push(...f.geometry.coordinates);
+      }
+      const inLand = (lng, lat) =>
+        polys.some((p) => ringHas(p[0], lng, lat) && !p.slice(1).some((h) => ringHas(h, lng, lat)));
+
+      const chilePoints = { Santiago: [-70.65, -33.45], Calama: [-68.93, -22.46], Temuco: [-72.6, -38.74] };
+      // + every commune centroid shipped with the site (345 points)
+      const CENTROIDS = path.join(SITE_ROOT, 'src', 'data', 'comuna-centroids.json');
+      if (existsSync(CENTROIDS)) {
+        for (const c of JSON.parse(readFileSync(CENTROIDS, 'utf8'))) chilePoints[`cut ${c.cut}`] = [c.lng, c.lat];
+      }
+      const chileInside = Object.entries(chilePoints).filter(([, [x, y]]) => inLand(x, y)).map(([n]) => n);
+      // Centroids are ring averages and can fall just outside a concave commune;
+      // a real "Chile was not erased" regression puts hundreds inside, not a handful.
+      if (chileInside.includes('Santiago') || chileInside.includes('Calama') || chileInside.includes('Temuco') || chileInside.length > 5) {
+        fail('basemap excludes Chile', `${chileInside.length} Chilean point(s) inside neighbour land: ${chileInside.slice(0, 6).join(', ')}`);
+      } else {
+        pass(`basemap excludes Chile (${Object.keys(chilePoints).length} probes, ${chileInside.length} edge case(s))`);
+      }
+
+      const neighbours = { Mendoza: [-68.84, -32.89], 'La Paz': [-68.13, -16.5], Lima: [-76.9, -12.0], Tacna: [-70.25, -18.01], 'Buenos Aires (W)': [-59.0, -34.8] };
+      const missing = Object.entries(neighbours).filter(([, [x, y]]) => !inLand(x, y)).map(([n]) => n);
+      if (missing.length) fail('basemap contains neighbours', `not inside land: ${missing.join(', ')}`);
+      else pass('basemap contains neighbours (Mendoza, La Paz, Lima, Tacna, Buenos Aires)');
+
+      // Coverage: maxBounds only limits the map CENTRE. At min zoom 4 a 1440 px
+      // viewport shows lng -134..-8 — land clipped tighter ends in a straight cut.
+      let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+      for (const p of polys) for (const [x, y] of p[0]) {
+        if (x < minX) minX = x; if (x > maxX) maxX = x; if (y < minY) minY = y; if (y > maxY) maxY = y;
+      }
+      if (minX > -134 || maxX < -8 || minY > -70 || maxY < 5) {
+        fail('basemap covers min-zoom viewport', `bbox [${minX}, ${minY}, ${maxX}, ${maxY}] must cover lng -134..-8, lat -70..5`);
+      } else {
+        pass('basemap covers min-zoom viewport');
+      }
+
+      // Border gaps measured by build-basemap.mjs (enclosed sea-coloured pockets
+      // between the neighbour land and the communes). Recomputing them needs
+      // mapshaper, so the build script records them and this gate re-checks.
+      const gaps = bm.meta && bm.meta.gaps;
+      if (!gaps || !Number.isFinite(gaps.maxKm2) || !Number.isFinite(gaps.totalKm2)) {
+        fail('basemap border gaps', 'meta.gaps missing — re-run node scripts/build-basemap.mjs');
+      } else if (gaps.maxKm2 > GAP_MAX_PIECE_KM2 || gaps.totalKm2 > GAP_MAX_TOTAL_KM2) {
+        fail('basemap border gaps', `largest ${gaps.maxKm2} km2 (max ${GAP_MAX_PIECE_KM2}), total ${gaps.totalKm2} km2 (max ${GAP_MAX_TOTAL_KM2})`);
+      } else {
+        pass(`basemap border gaps (${gaps.pieces} hairline(s), ${gaps.totalKm2} km2 total, largest ${gaps.maxKm2} km2)`);
+      }
+    }
+  } catch (e) {
+    fail('basemap parse', `error: ${e.message}`);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Check 11b: label anchors. Place names are drawn at these points; a vertex
+// average put 16 of 346 names on a neighbouring commune or in the sea.
+// ---------------------------------------------------------------------------
+const LABEL_POINTS_PATH = path.join(SITE_ROOT, 'src', 'data', 'commune-label-points.json');
+if (!existsSync(LABEL_POINTS_PATH)) {
+  fail('label anchors exist', 'site/src/data/commune-label-points.json not found — run node scripts/build-basemap.mjs');
+} else if (existsSync(TOPO_PATH)) {
+  try {
+    const lp = JSON.parse(readFileSync(LABEL_POINTS_PATH, 'utf8'));
+    const topoBuf = readFileSync(TOPO_PATH);
+    if (lp.communesSha256 !== createHash('sha256').update(topoBuf).digest('hex')) {
+      fail('label anchors match communes.topo.json', 'communesSha256 is stale — re-run node scripts/build-basemap.mjs');
+    } else {
+      pass('label anchors match communes.topo.json (sha256)');
+    }
+    const require = createRequire(path.join(SITE_ROOT, 'package.json'));
+    const { feature } = require('topojson-client');
+    const topo = JSON.parse(topoBuf.toString('utf8'));
+    const fc = feature(topo, topo.objects[Object.keys(topo.objects)[0]]);
+    const outside = [];
+    let checked = 0;
+    for (const f of fc.features) {
+      const cut = f.properties && f.properties.id;
+      const g = f.geometry;
+      if (!cut || !g) continue;
+      const pt = lp.points && lp.points[cut];
+      if (!Array.isArray(pt)) { outside.push(`${cut} (missing)`); continue; }
+      const [lat, lng] = pt;
+      const polysOf = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;
+      const inside = polysOf.some((p) => ringHas(p[0], lng, lat) && !p.slice(1).some((h) => ringHas(h, lng, lat)));
+      checked++;
+      if (!inside) outside.push(String(cut));
+    }
+    if (outside.length || checked !== 346) {
+      fail('label anchors inside own commune', `${outside.length} outside/missing of ${checked}: ${outside.slice(0, 8).join(', ')}`);
+    } else {
+      pass(`label anchors inside own commune (${checked}/346)`);
+    }
+  } catch (e) {
+    fail('label anchors parse', `error: ${e.message}`);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Check 12: map SOURCE has no third-party tile host (runs without dist/)
+// ---------------------------------------------------------------------------
+// Never ban bare {x} / {s} (minified template literals) or the word tileLayer
+// in the BUILT bundle (Leaflet is bundled whole); the source may be stricter.
+const TILE_HOST_RE =
+  /cartocdn|basemaps\.|openstreetmap|carto\.com|\{z\}|\/\{x\}\/\{y\}|mapbox|maptiler|stadiamaps|arcgisonline|thunderforest|stamen|tiles?\.[a-z0-9-]+\.(?:com|org|net|io)\b/i;
+const SOURCE_HOST_ALLOW = new Set(['github.com', 'www.naturalearthdata.com', 'www.w3.org']);
+// Absolute hosts, plus protocol-relative ones when they open a string literal
+// ("//host.tld/..."): Leaflet accepts those as layer URLs too.
+const HOST_RE = /(?:https?:\/\/|["'`]\/\/)([a-z0-9.-]+\.[a-z]{2,})/gi;
+// Any Leaflet API that fetches imagery from a URL — every casing, call or member
+// access (L.tileLayer.wms, new L.TileLayer, L.GridLayer.extend, L.imageOverlay).
+const TILE_API_RE = /\b(?:tileLayer|TileLayer|gridLayer|GridLayer|imageOverlay|ImageOverlay|videoOverlay|VideoOverlay)\b/;
+const MAX_ZOOM_CEILING = 13;
+
+const MAP_SRC_DIR = path.join(SITE_ROOT, 'src', 'components', 'map');
+if (!existsSync(MAP_SRC_DIR)) {
+  fail('map source dir', 'site/src/components/map not found');
+} else {
+  const srcFiles = readdirSync(MAP_SRC_DIR)
+    .filter((f) => /\.(tsx?|css)$/.test(f))
+    .map((f) => path.join(MAP_SRC_DIR, f))
+    .concat([path.join(SITE_ROOT, 'src', 'lib', 'basemapLabels.ts'), path.join(SITE_ROOT, 'src', 'config', 'mapV2Strings.ts')])
+    .filter((f) => existsSync(f));
+  // The site-wide `svg { max-width: 100% }` reset collapses the basemap's SVG
+  // renderer (custom pane) to zero width unless map.css exempts it — the land
+  // is then in the DOM but invisible, and nothing else would notice.
+  const mapCss = readFileSync(path.join(MAP_SRC_DIR, 'map.css'), 'utf8');
+  if (!/\.leaflet-basemap-pane svg\s*\{[^}]*max-width:\s*none\s*!important/.test(mapCss)) {
+    fail('basemap SVG visible', 'map.css must keep `.leaflet-container .leaflet-basemap-pane svg { max-width: none !important }`');
+  } else {
+    pass('basemap SVG visible (max-width reset exempted)');
+  }
+
+  const offenders = [];
+  for (const f of srcFiles) {
+    const text = readFileSync(f, 'utf8');
+    const rel = path.relative(SITE_ROOT, f);
+    const api = text.match(TILE_API_RE);
+    if (api) offenders.push(`${rel}: ${api[0]} (imagery-from-URL Leaflet API)`);
+    const m = text.match(TILE_HOST_RE);
+    if (m) offenders.push(`${rel}: "${m[0]}"`);
+    for (const h of text.matchAll(HOST_RE)) {
+      if (!SOURCE_HOST_ALLOW.has(h[1].toLowerCase())) offenders.push(`${rel}: host ${h[1]}`);
+    }
+  }
+  if (offenders.length) fail('map source: no third-party tile host', offenders.slice(0, 8).join(' | '));
+  else pass(`map source: no third-party tile host (${srcFiles.length} files)`);
+
+  const islandSrc = readFileSync(path.join(MAP_SRC_DIR, 'MapIsland.tsx'), 'utf8');
+  if (!/maxZoom:\s*MAP_MAX_ZOOM/.test(islandSrc)) {
+    fail('zoom cap on L.map', 'MapIsland.tsx must pass maxZoom: MAP_MAX_ZOOM to L.map() (no tile layer => Infinity otherwise)');
+  } else {
+    pass('zoom cap on L.map (MAP_MAX_ZOOM)');
+  }
+  // The numeric value too: vitest pins it, but vitest is not part of the build.
+  const labelsSrc = readFileSync(path.join(SITE_ROOT, 'src', 'lib', 'basemapLabels.ts'), 'utf8');
+  const capM = labelsSrc.match(/export const MAP_MAX_ZOOM\s*=\s*(\d+)\s*;/);
+  if (!capM) fail('zoom cap value', 'could not read MAP_MAX_ZOOM from src/lib/basemapLabels.ts');
+  else if (Number(capM[1]) > MAX_ZOOM_CEILING) fail('zoom cap value', `MAP_MAX_ZOOM is ${capM[1]} (> ${MAX_ZOOM_CEILING}): there is no street layer to show at deeper zoom`);
+  else pass(`zoom cap value (MAP_MAX_ZOOM = ${capM[1]} <= ${MAX_ZOOM_CEILING})`);
+  const literalZooms = [];
+  for (const f of srcFiles) {
+    const text = readFileSync(f, 'utf8');
+    for (const m of text.matchAll(/(?:maxZoom|minZoom)\s*:\s*(\d+)|\.(?:flyTo|setView)\(\s*\[[^\]]*\]\s*,\s*(\d+)|\.setZoom\(\s*(\d+)/g)) {
+      const z = Number(m[1] ?? m[2] ?? m[3]);
+      if (z > MAX_ZOOM_CEILING) literalZooms.push(`${path.relative(SITE_ROOT, f)}: ${m[0]}`);
+    }
+  }
+  if (literalZooms.length) fail('no zoom request above the cap', literalZooms.slice(0, 6).join(' | '));
+  else pass('no zoom request above the cap');
+  const pa = islandSrc.indexOf('Promise.all([');
+  const paBlock = pa >= 0 ? islandSrc.slice(pa, islandSrc.indexOf(']);', pa)) : '';
+  if (!paBlock) fail('basemap is progressive', 'could not locate the Promise.all block in MapIsland.tsx');
+  else if (/basemap/i.test(paBlock)) fail('basemap is progressive', 'the basemap fetch is inside the Promise.all that gates the choropleth');
+  else pass('basemap is progressive (not in the choropleth Promise.all)');
+}
+
+// ---------------------------------------------------------------------------
 // If dist/ does not exist, exit 0 — HTML checks require a build
 // ---------------------------------------------------------------------------
 if (!existsSync(DIST_DIR)) {
   console.log('\nmap: dist/ not found — skipping HTML checks (run npm run build first)');
   if (failures > 0) {
-    console.error(`\nmap.mjs: FAILED (${failures} failure(s) — TopoJSON checks)`);
+    console.error(`\nmap.mjs: FAILED (${failures} failure(s) — pre-build checks)`);
     process.exit(1);
   }
   console.log('\nmap.mjs: PASSED (pre-build checks only)');
@@ -233,6 +499,7 @@ if (!sample) {
 // ---------------------------------------------------------------------------
 const RUNTIME_DATA_ASSETS = [
   'data/cead/geo/communes.topo.json',
+  'data/cead/geo/basemap.topo.json',
   'data/cead/map-payload.json',
   'data/cead/meta/index.json',
   'data/cead/comunas/13101.json',
@@ -247,6 +514,96 @@ for (const rel of RUNTIME_DATA_ASSETS) {
       `Map island fetches /${rel} at runtime but it is missing from dist/. ` +
         `Ensure scripts/sync-data.mjs runs (predev/prebuild) so public/data is published.`
     );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Check 13: built bundle guard — no third-party tile / basemap host.
+// Scans dist/_astro/*.js|css ONLY (dist/data holds press URLs that legitimately
+// mention such hosts).
+// ---------------------------------------------------------------------------
+const ASTRO_DIR = path.join(DIST_DIR, '_astro');
+const BUNDLE_HOST_ALLOW = new Set([
+  'www.w3.org',               // SVG/XHTML namespaces
+  'leafletjs.com',            // Leaflet's own attribution prefix constant
+  'react.dev',                // React error-decoder links
+  'fonts.googleapis.com',     // site font CSS (pre-existing, not the map)
+  'fonts.gstatic.com',
+  'ischilesafe.com',
+  'www.ischilesafe.com',
+  'github.com',               // chilemapas credit link
+  'www.naturalearthdata.com', // Natural Earth credit link
+]);
+if (!existsSync(ASTRO_DIR)) {
+  fail('bundle guard', 'dist/_astro not found');
+} else {
+  const assets = readdirSync(ASTRO_DIR).filter((f) => /\.(js|css)$/.test(f));
+  const texts = new Map(assets.map((f) => [f, readFileSync(path.join(ASTRO_DIR, f), 'utf8')]));
+
+  // Anti-vacuous: the island chunk both map pages point at must be among the scanned files.
+  for (const [page, label] of [[MAP_EN, 'EN'], [MAP_ES, 'ES']]) {
+    if (!existsSync(page)) continue;
+    const m = readFileSync(page, 'utf-8').match(/component-url="\/_astro\/(MapIsland\.[^"]+\.js)"/);
+    if (!m) fail(`bundle guard: ${label} island chunk`, 'no component-url="/_astro/MapIsland.*.js" in the map page');
+    else if (!texts.has(m[1])) fail(`bundle guard: ${label} island chunk`, `${m[1]} not found in dist/_astro`);
+    else pass(`bundle guard: ${label} island chunk scanned (${m[1]})`);
+  }
+  const all = [...texts.values()].join('\n');
+  if (!all.includes('leaflet-container')) fail('bundle guard: Leaflet scanned', 'no scanned chunk contains "leaflet-container"');
+  else pass('bundle guard: Leaflet scanned');
+
+  const hits = [];
+  const badHosts = new Set();
+  for (const [f, text] of texts) {
+    const m = text.match(TILE_HOST_RE);
+    if (m) hits.push(`${f}: "${m[0]}"`);
+    for (const h of text.matchAll(HOST_RE)) {
+      if (!BUNDLE_HOST_ALLOW.has(h[1].toLowerCase())) badHosts.add(`${f}: ${h[1]}`);
+    }
+  }
+  if (hits.length) fail('bundle guard: no tile host / URL template', hits.slice(0, 8).join(' | '));
+  else pass(`bundle guard: no tile host / URL template (${assets.length} files)`);
+  if (badHosts.size) {
+    fail(
+      'bundle guard: host allow-list',
+      `${[...badHosts].slice(0, 8).join(' | ')} — the map must not depend on an external runtime host; ` +
+        'if this is a plain credit link, add it to BUNDLE_HOST_ALLOW in validate/map.mjs'
+    );
+  } else {
+    pass('bundle guard: host allow-list');
+  }
+
+  // The map pages' own HTML: resource-loading tags may only point at allow-listed
+  // hosts (a <script src> / preconnect to a map CDN would bypass the chunk scan).
+  // Anchors, canonical and hreflang links are navigation, not runtime dependencies.
+  const HTML_HOST_ALLOW = new Set([
+    'ischilesafe.com',
+    'www.ischilesafe.com',
+    'fonts.googleapis.com',
+    'fonts.gstatic.com',
+    'pagead2.googlesyndication.com', // AdSense loader, only when the publisher id is configured
+  ]);
+  for (const [page, label] of [[MAP_EN, 'EN'], [MAP_ES, 'ES']]) {
+    if (!existsSync(page)) continue;
+    const html = readFileSync(page, 'utf-8');
+    const bad = [];
+    for (const tag of html.matchAll(/<(script|link|img|iframe|source|embed|object)\b[^>]*>/gi)) {
+      const t = tag[0];
+      if (/^<link\b/i.test(t) && /\brel\s*=\s*["']?(?:canonical|alternate)\b/i.test(t)) continue;
+      for (const u of t.matchAll(/\b(?:src|href|data|srcset)\s*=\s*["']?\s*(?:https?:)?\/\/([a-z0-9.-]+\.[a-z]{2,})/gi)) {
+        if (!HTML_HOST_ALLOW.has(u[1].toLowerCase())) bad.push(`<${tag[1]}> ${u[1]}`);
+      }
+      const th = t.match(TILE_HOST_RE);
+      if (th) bad.push(`<${tag[1]}> "${th[0]}"`);
+    }
+    if (bad.length) fail(`bundle guard: ${label} map page HTML hosts`, [...new Set(bad)].slice(0, 8).join(' | '));
+    else pass(`bundle guard: ${label} map page HTML loads no third-party map host`);
+  }
+
+  if (!all.includes('chilemapas') || !all.includes('Natural Earth')) {
+    fail('bundle guard: attribution', 'built bundle must credit both "chilemapas" and "Natural Earth"');
+  } else {
+    pass('bundle guard: attribution (chilemapas + Natural Earth)');
   }
 }
 

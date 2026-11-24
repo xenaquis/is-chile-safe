@@ -66,6 +66,13 @@ In the **Build configuration** section, set:
 The Astro project lives in `site/` — the root directory setting tells Cloudflare Pages to `cd`
 into `site/` before running `npm run build`. The build output `dist` is therefore `site/dist/`.
 
+`npm run build` ends with a `postbuild` step, `node scripts/validate/map.mjs`. It fails the
+build (and therefore the deploy) if the interactive map references a third-party map-tile host
+again, or if the self-drawn basemap asset (`data/cead/geo/basemap.topo.json`) or the place-name
+anchors are missing, over budget or stale. It reads only `dist/` and committed data, so it
+cannot go red from data age the way `freshness` can. The map uses no tile service and no API
+key; see `data/SOURCES.md` § Natural Earth.
+
 Click **Save and Deploy** to create the project (this triggers a one-time initial build — that
 is fine). Wait for it to complete before proceeding to step 4.
 

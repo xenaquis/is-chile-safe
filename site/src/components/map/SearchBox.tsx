@@ -22,6 +22,8 @@ export interface CommuneIndexEntry {
   name: string;
   slug: string;
   region_id: string;
+  /** INE population (present in meta/index.json); used to rank map place names. */
+  population?: number;
 }
 
 interface Props {

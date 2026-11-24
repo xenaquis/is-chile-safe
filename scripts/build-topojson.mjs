@@ -26,6 +26,10 @@
  *   9. Copy to data/cead/geo/communes.topo.json
  *
  * Re-runnable: `node scripts/build-topojson.mjs`
+ * AFTER re-running this script you MUST also run `node scripts/build-basemap.mjs`:
+ *   data/cead/geo/basemap.topo.json (neighbouring land) is erased against THIS output, and
+ *   site/src/data/commune-label-points.json (place-name anchors) is derived from it. Both
+ *   store its sha256 — site/scripts/validate/map.mjs fails the build while either is stale.
  * Requires: mapshaper installed globally (`npm install -g mapshaper`)
  *
  * Note: Antártica (12202) uses a small placeholder polygon near Drake Passage;

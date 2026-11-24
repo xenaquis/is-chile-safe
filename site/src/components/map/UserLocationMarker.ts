@@ -161,8 +161,14 @@ export function locate(
           : 'Approx. location: Santiago'
       );
     } else {
-      // Use commune CUT as name placeholder; ResultPanel will show the real name
-      const nameHint = cut ?? 'tu zona';
+      // Commune NAME from the matched feature (the basemap has no streets, so
+      // this toast is the user's location context); per-language fallback.
+      const matched = cut
+        ? geoFeatures.find((f) => (f.properties as { id?: string } | null)?.id === cut)
+        : undefined;
+      const nameHint =
+        (matched?.properties as { name?: string } | null | undefined)?.name ??
+        (lang === 'es' ? 'tu zona' : 'your area');
       onToast(
         lang === 'es'
           ? `Tu comuna: ${nameHint}`

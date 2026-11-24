@@ -151,6 +151,119 @@
 }
 
 /* ==========================================================================
+   Own basemap (quick-261124-bmp) — no third-party map service.
+   Calm, low-contrast neutrals so the 5-level choropleth palette stays the only
+   saturated thing on screen. No dark theme exists on the site.
+   ========================================================================== */
+
+/* Neighbour land is a WARM grey and the sea a deeper blue-grey on purpose: the
+   lowest choropleth class (#dbeef0 at 0.55 over the silhouette = #eaf5f6, 70
+   communes, most of Patagonia and the Andes border) was deltaE 4 from both in
+   the first palette and only the white commune stroke separated Chile from
+   Argentina. Now: lowest class vs land deltaE 8.4, vs sea 7.0; no-data fill vs
+   land 5.2; and a thin cool outline traces the whole Chilean edge. */
+.map-stage {
+  --bm-ocean: #c9d7dd;       /* sea = container background */
+  --bm-land: #dcdad2;        /* neighbouring land (Natural Earth) */
+  --bm-land-line: #c4c2b9;   /* coastline of that land; NO country borders are drawn */
+  --bm-chile: #fcfdfd;       /* silhouette under the translucent commune fills */
+  --bm-chile-line: #b3bfc3;  /* outline of the commune union (coast + land edge) */
+}
+
+/* Two classes: beats Leaflet's `.leaflet-container { background: #ddd }`
+   whatever order the two stylesheets end up in the bundle. */
+.map-canvas.leaflet-container {
+  background: var(--bm-ocean);
+}
+
+/* The site-wide `svg { max-width: 100% }` reset (global.css) collapses an SVG
+   renderer living in a CUSTOM pane to zero width — Leaflet only exempts its own
+   overlay pane. Without this rule the land and the Chile silhouette are in the
+   DOM but invisible. */
+.leaflet-container .leaflet-basemap-pane svg {
+  max-width: none !important;
+  max-height: none !important;
+}
+
+/* SVG paths: CSS wins over Leaflet's presentation attributes. */
+.map-canvas path.bm-land {
+  fill: var(--bm-land);
+  stroke: var(--bm-land-line);
+}
+
+/* Stroke painted UNDER the fill: only its outer half shows, as a thin outline
+   around the commune union, and it still covers the sub-pixel hairlines between
+   the two datasets along the border. The inner half is hidden by the fill, so
+   the translucent commune colours keep matching the legend swatches. */
+.map-canvas path.bm-chile {
+  fill: var(--bm-chile);
+  stroke: var(--bm-chile-line);
+  paint-order: stroke fill;
+}
+
+/* Place names: zero-size anchor at the point, text positioned around it.
+   Never interactive, never focusable (pane is aria-hidden; names are reachable
+   through search and tooltips). */
+.bm-label-anchor {
+  pointer-events: none;
+}
+
+.bm-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  font-family: var(--font);
+  font-size: 11.5px;
+  line-height: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  text-shadow:
+    0 0 2px #fff, 0 0 2px #fff, 0 0 3px #fff,
+    1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff;
+}
+
+.bm-label--beside {
+  left: 12px;
+  transform: translate(0, -50%);
+}
+
+.bm-label--country,
+.bm-label--ocean {
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-align: center;
+  color: #4d5a5b; /* 5.1:1 on --bm-land */
+  text-shadow: none;
+}
+
+.bm-label--ocean {
+  font-style: italic;
+  color: #40596a; /* 5.0:1 on --bm-ocean */
+}
+
+/* Attribution: one short line bottom-left, under the legend. */
+.map-canvas .leaflet-control-attribution {
+  font-family: var(--font);
+  font-size: 10px;
+  line-height: 1.4;
+  max-width: calc(100vw - 16px);
+  white-space: normal;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.map-canvas .leaflet-control-attribution a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
    Map topbar (search + filters)
    ========================================================================== */
 

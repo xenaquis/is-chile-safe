@@ -152,8 +152,9 @@ const FIGURE_REGISTRY = [
     description: 'Map geometry (commune boundary polygons)',
     tokens: [
       ['## chilemapas'],
+      ['## Natural Earth'],
     ],
-    note: 'chilemapas entry required for boundary polygon attribution.',
+    note: 'chilemapas entry required for boundary polygon attribution; Natural Earth entry required for the self-drawn map background (neighbouring land).',
   },
   {
     id: 'F13',
