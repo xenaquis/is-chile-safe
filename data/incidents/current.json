@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-24T03:47:56.030112Z",
+  "generated": "2026-11-24T16:56:31.236810Z",
   "window_days": 30,
   "incidents": [
     {
@@ -17724,7 +17724,124 @@
       "slug": "coquimbo",
       "title_src": "Fiscalía formaliza a imputado por perro muerto en Coquimbo",
       "via_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQZTdKLVVOX1B4SGFJNG5TZndHdVlud1lCZFlXOWo1OGVKU09KYkU1em9GOVcyTWpkNHpOeGhMMzU1UW9VOFN3QVFYcWZzeG5ISU5PbUktRmxzMUhvYTV3WlhEWU9LMmU4RHQ3OWpxeUo5SE1GRm1lRXVzZGg2cEJSTy13bWx3WVdj?oc=5"
+    },
+    {
+      "id": "fe5222b4cb3a5d19",
+      "cut": "13108",
+      "lat": -33.416252,
+      "lng": -70.664389,
+      "title_es": "PDI investiga secuestro de mujer desde la vía pública en Independencia",
+      "title_en": "PDI investigates kidnapping of woman from public street in Independencia",
+      "date": "2026-11-24",
+      "outlet": "Cooperativa",
+      "url": "https://www.cooperativa.cl/noticias/pais/policial/secuestros/pdi-investiga-secuestro-de-mujer-desde-la-via-publica-en-independencia/2026-11-24/090725.html",
+      "family": "robos_violentos",
+      "slug": "independencia",
+      "title_src": "PDI investiga secuestro de mujer desde la vía pública en Independencia"
+    },
+    {
+      "id": "1ee7ebf002f4d5a2",
+      "cut": "5101",
+      "lat": -33.116644,
+      "lng": -71.575283,
+      "title_es": "Siete condenados y dos absueltos: tribunal entrega veredicto por megaincendio de 2024 en Valparaíso",
+      "title_en": "Seven convicted and two acquitted: court delivers verdict for 2024 megafire in Valparaíso",
+      "date": "2026-11-24",
+      "outlet": "LaTercera",
+      "url": "https://www.latercera.com/nacional/noticia/siete-condenados-y-dos-absueltos-tribunal-entrega-veredicto-por-megaincendio-de-2024-en-valparaiso/",
+      "family": "vida",
+      "slug": "valparaiso",
+      "title_src": "Siete condenados y dos absueltos: tribunal entrega veredicto por megaincendio de 2024 en Valparaíso"
+    },
+    {
+      "id": "efe96343011780c5",
+      "cut": "13128",
+      "lat": -33.416252,
+      "lng": -70.721768,
+      "title_es": "Le dieron el alta, peso solo sobrevivió unos días: los deseos que pudo cumplir la última víctima de explosión en Renca",
+      "title_en": "He was discharged, but only survived a few days: the wishes the last victim of the explosion in Renca was able to fulfill",
+      "date": "2026-11-24",
+      "outlet": "LaCuarta",
+      "url": "https://www.lacuarta.com/chile/noticia/le-dieron-el-alta-peso-solo-sobrevivio-unos-dias-los-deseos-que-pudo-cumplir-la-ultima-victima-de-explosion-en-renca/",
+      "family": "vida",
+      "slug": "renca",
+      "title_src": "Le dieron el alta, peso solo sobrevivió unos días: los deseos que pudo cumplir la última víctima de explosión en Renca"
+    },
+    {
+      "id": "746a97948d46db98",
+      "cut": "13111",
+      "lat": -33.53,
+      "lng": -70.63,
+      "title_es": "Carabineros detiene en La Granja a hombre apodado “El Limón” por su presunta autoría en homicidio ocurrido a principio de mes",
+      "title_en": "Carabineros arrests in La Granja a man nicknamed \"El Limón\" for his alleged responsibility in a homicide that occurred at the beginning of the month",
+      "date": "2026-11-24",
+      "outlet": "Epicentro Chile",
+      "url": "https://www.epicentrochile.com/2026/11/24/carabineros-detiene-en-la-granja-a-hombre-apodado-el-limon-por-su-presunta-autoria-en-homicidio-ocurrido-a-principio-de-mes/",
+      "family": "vida",
+      "slug": "la-granja",
+      "title_src": "Carabineros detiene en La Granja a hombre apodado “El Limón” por su presunta autoría en homicidio ocurrido a principio de mes",
+      "via_url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxPUzU3Sldrb2dfdE9yUHVkNkY1SjVnNDJxYmlPeDF0cWIyTTlyNmhwbDY3RzM5bThMTkM4dGQ4Mjg1QmxWMURET0NYdmdsYS1HN2JDUTBzT1pMMGRHbDc4NU9jX3ZHLUNCdTBmcFB2UnQySlVseHpRYzg2LTd6a1NYMW5oUExYUTA5OGpJRWZaODFrck4xOTFwWUpzUko0NkNJVnVUOW9mQzhxWmdZaDBSTThQYjA0ZTVCN05xMkhXbW01YktaVXJqaFMxVkZuYmRxbHZhdVhPMkZLa0Z1UGFmVk1odUNSXzVhcHB3Z1Z1cVM1UGhSTjFiSXZR?oc=5"
+    },
+    {
+      "id": "ebffced98fc4880b",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Marihuana, cocaína y ketamina: incautan casi 1,6 toneladas de droga en Antofagasta",
+      "title_en": "Marijuana, cocaine and ketamine: nearly 1.6 tons of drugs seized in Antofagasta",
+      "date": "2026-11-24",
+      "outlet": "Atacama Noticias",
+      "url": "https://www.atacamanoticias.cl/2026/11/24/marihuana-cocaina-y-ketamina-incautan-casi-16-toneladas-de-droga-en-antofagasta/",
+      "family": "drogas",
+      "slug": "antofagasta",
+      "title_src": "Marihuana, cocaína y ketamina: incautan casi 1,6 toneladas de droga en Antofagasta",
+      "via_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOcmRuZ0ZBQ2hlbTJrSjdWYVB0M2xCek9MUU5jaVowNmhKcVd1SmhGUVM5dmVhRzVoVjQtOHJMVlBzZW5yVzJUMm9wUjl1YVRHNkstN3NfalBmUGEzS3dzVjF2Y3dtN0xRZFpaaWlVU195QUZqWTc2MlM0YzhzUzY4SjlxbjhhR2xUWWF4M0g1ai1ZTE1rdE9vTkRtNjNUbk5PckVaNWFlSjF3MEFoYzViT0Z0b3J6RHpLTzN5cVBGMA?oc=5"
+    },
+    {
+      "id": "a00aea8d02def1f6",
+      "cut": "2101",
+      "lat": -24.258584,
+      "lng": -69.418217,
+      "title_es": "Incautan casi 1,6 toneladas de droga en tres operativos en Antofagasta: cinco detenidos quedaron en prisión preventiva",
+      "title_en": "Nearly 1.6 tons of drugs seized in three operations in Antofagasta: five detainees were placed in preventive detention",
+      "date": "2026-11-24",
+      "outlet": "Puranoticia",
+      "url": "https://puranoticia.pnt.cl/regiones/incautan-casi-1-6-toneladas-de-droga-en-tres-operativos-en-antofagasta",
+      "family": "drogas",
+      "slug": "antofagasta",
+      "title_src": "Incautan casi 1,6 toneladas de droga en tres operativos en Antofagasta: cinco detenidos quedaron en prisión preventiva",
+      "via_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPeC0tZVpiX2VGbzFMbmdyejlsa1dtMDVncnpjM1E3MjI0LUZPMTVfbHdJMzBrUVp2WGZrdlhyelZlN0Y3T1A2eDdYNmdRenBHYWIySnFBSk42a2NXTG5sV3BvYUp6RlRGYnBYWExxcFkwb0pRS3Nwcy1CVklBNVJ3WHBLMC1haFB0dDVvaEhMS2Z3M2p4blkxREc3ejdVc01GN0diZ1E5a1o1Zw?oc=5"
+    },
+    {
+      "id": "ed5cf863b922019e",
+      "cut": "4101",
+      "lat": -29.807222,
+      "lng": -71.081914,
+      "title_es": "En La Serena fue detenido autor homicidio frustrado en subida a Alto Hospicio",
+      "title_en": "In La Serena, perpetrator of frustrated homicide on the climb to Alto Hospicio was arrested",
+      "date": "2026-11-24",
+      "outlet": "G5noticias",
+      "url": "https://g5noticias.cl/2026/11/24/en-la-serena-fue-detenido-autor-homicidio-frustrado-en-subida-a-alto-hospicio/",
+      "family": "vida",
+      "slug": "la-serena",
+      "title_src": "En La Serena fue detenido autor homicidio frustrado en subida a Alto Hospicio",
+      "via_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOdThXN3FDZ2RjNHRENl9aVGE2YkFmZGZ3N2daUlJmV1A4aUlRanliZ0paRmJRaE5vMGdqMmR5R2NTWmpBZ2p1d1BMRWRPNHQwbEk0TGJzU21tZFE1YV84NDRoajRHUURaSG5fSkNnMThRTFFmTm01NEdBZU5iaW9aUV9rNC05T1l3VW5YRDdsV080NzRaUFJIZzFGWmFCWXdwU0Q4ZVpYSS1HY1laZEZrbQ?oc=5"
+    },
+    {
+      "id": "ae64a0cc0bf17dbf",
+      "cut": "4102",
+      "lat": -30.222856,
+      "lng": -71.382383,
+      "title_es": "TOP de La Serena condena a 15 años de presidio a autor de homicidio en Coquimbo",
+      "title_en": "TOP of La Serena sentences perpetrator of homicide in Coquimbo to 15 years in prison",
+      "date": "2026-11-24",
+      "outlet": "El Coquimbano",
+      "url": "https://www.elcoquimbano.cl/2026/11/24/top-de-la-serena-condena-a-15-anos-de-presidio-a-autor-de-homicidio-en-coquimbo/",
+      "family": "vida",
+      "slug": "coquimbo",
+      "title_src": "TOP de La Serena condena a 15 años de presidio a autor de homicidio en Coquimbo",
+      "via_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPTzdWMnRNZzB5LUlZZHhXYzl3WkliQ2lkbTVSM253WGZsUkJfRVBzdU1NYmJNZGxYQkVxLVNxNlo1MDNlWUZnSDBjejdMb2kwejBYTmxFbzRtLVJkTWR5WEV3Zi1LVDVVejBXdGtZRU1QbWVOT0RjUllZVlA4SV9kYmF2TVNxMEZTNmZUT09rWnhha0g5VEViNzE0SFEtbE5Qd1pvS1JlTUI0M1B5SVVWWlRmOG5lZVhyQmtv?oc=5"
     }
   ],
-  "last_new_incident_at": "2026-11-24T03:47:56.030112Z"
+  "last_new_incident_at": "2026-11-24T16:56:31.236810Z"
 }
